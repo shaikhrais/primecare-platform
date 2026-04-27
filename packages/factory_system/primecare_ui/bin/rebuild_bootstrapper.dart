@@ -5,7 +5,7 @@ void main() {
   final manifestPath =
       '$projectRoot/packages/factory_system/primecare_ui/lib/src/features/features_manifest.dart';
   final bootstrapperPath =
-      '$projectRoot/packages/factory_system/primecare_ui/lib/src/registry/02_I_governance_bootstrapper.dart';
+      '$projectRoot/packages/factory_system/primecare_ui/lib/src/registry/governance_bootstrapper.dart';
 
   if (!File(manifestPath).existsSync()) {
     print('Manifest not found');
@@ -41,7 +41,7 @@ void main() {
   final buffer = StringBuffer();
   buffer.writeln('// Layer: 02_I_GOVERNANCE_BOOTSTRAPPER');
   buffer.writeln('// AUTO-GENERATED - DO NOT EDIT');
-  buffer.writeln('import \'package:flutter_core/00_B_flutter_core.dart\';');
+  buffer.writeln('import \'package:flutter_core/flutter_core.dart\';');
   buffer.writeln('import \'../features/features_manifest.dart\';');
   buffer.writeln('');
   buffer.writeln('class GovernanceBootstrapper {');

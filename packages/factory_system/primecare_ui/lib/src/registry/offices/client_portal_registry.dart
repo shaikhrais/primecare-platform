@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/00_B_flutter_core.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'base_office_registry.dart';
 
 class ClientPortalRegistry extends OfficeScreenRegistry {

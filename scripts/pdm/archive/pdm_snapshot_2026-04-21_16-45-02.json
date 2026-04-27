@@ -1546,7 +1546,7 @@
       "intent_id": null
     },
     {
-      "path": "packages\\primecare_adapters\\lib\\src\\models\\core\\02_M_dashboard_models.dart",
+      "path": "packages\\primecare_adapters\\lib\\src\\models\\core\\dashboard_models.dart",
       "age_days": 0,
       "size": 10669,
       "intent_id": null

@@ -118,8 +118,8 @@ void main() {
 // Layer: 04_REGISTRY_INTENT
 import 'package:flutter/material.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
-import '../../../registry/01_I_platform_role.dart';
-import '../../../registry/intents/01_I_app_screen_intent.dart';
+import '../../../registry/platform_role.dart';
+import '../../../registry/intents/app_screen_intent.dart';
 import '../presentation/widgets/05_U_${role}_dashboard_screen.dart';
 
 class ${rolePascal}DashboardIntent extends AppScreenIntent {

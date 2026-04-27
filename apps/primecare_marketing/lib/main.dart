@@ -1,5 +1,5 @@
 import 'package:flutter_core/primecare_core.dart';
-import 'app_router.dart';
+import 'core/routing/app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {

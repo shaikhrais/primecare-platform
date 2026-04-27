@@ -80,7 +80,7 @@ This ensures the platform remains "Aura-Consistent" and accessible to our global
 ## 5. Leveraged Scaling (The 251-Screen Rule)
 To manage 250+ screens efficiently, we do **not** edit every .dart screen file. Instead, we localize the **Registries** and **Adapters**.
 
-*   **Registries (01_I_screen_registry.dart)**: Define the title and componentLabels for all routes. Changing one line in a Registry localizes the screen header for every user in that role.
+*   **Registries (screen_registry.dart)**: Define the title and componentLabels for all routes. Changing one line in a Registry localizes the screen header for every user in that role.
 *   **Adapters (ViewModel)**: Hydrate the dynamic data. Localizing the Adapter ensures that KPI titles, AI insights, and table headers are translated across all screens that share that data logic.
 *   **Aura Engine**: The central UniversalScreenEngine automatically calls .tr() on all registry labels, ensuring global compliance.
 

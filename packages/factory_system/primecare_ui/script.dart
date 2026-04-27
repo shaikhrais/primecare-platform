@@ -2,14 +2,14 @@ import 'dart:io';
 
 void main() {
   final files = [
-    'lib/src/components/aura/01_I_aura_financial_hud.dart',
-    'lib/src/components/cards/01_I_primecare_aura_card.dart',
-    'lib/src/features/clinical_director/presentation/widgets/05_U_clinical_director_screen.dart',
-    'lib/src/features/cto_dashboard/presentation/widgets/01_I_cto_briefing_panel.dart',
-    'lib/src/features/customer_support/presentation/widgets/05_U_customer_support_screen.dart',
-    'lib/src/features/finance_director_dashboard/presentation/widgets/05_U_finance_director_dashboard_screen.dart',
-    'lib/src/features/intake_coordinator/presentation/widgets/05_U_intake_coordinator_screen.dart',
-    'lib/src/features/marketing_manager/presentation/widgets/05_U_marketing_manager_screen.dart',
+    'lib/src/components/aura/aura_financial_hud.dart',
+    'lib/src/components/cards/primecare_aura_card.dart',
+    'lib/src/features/clinical_director/presentation/widgets/clinical_director_screen.dart',
+    'lib/src/features/cto_dashboard/presentation/widgets/cto_briefing_panel.dart',
+    'lib/src/features/customer_support/presentation/widgets/customer_support_screen.dart',
+    'lib/src/features/finance_director_dashboard/presentation/widgets/finance_director_dashboard_screen.dart',
+    'lib/src/features/intake_coordinator/presentation/widgets/intake_coordinator_screen.dart',
+    'lib/src/features/marketing_manager/presentation/widgets/marketing_manager_screen.dart',
   ];
 
   for (var file in files) {
@@ -51,7 +51,7 @@ void main() {
     );
 
     // For CTO Briefing Panel:
-    if (file.contains('01_I_cto_briefing_panel.dart')) {
+    if (file.contains('cto_briefing_panel.dart')) {
       content = content.replaceAll(
         '_buildInsightItem(theme, insight)',
         '_buildInsightItem(context, theme, insight)',
@@ -63,7 +63,7 @@ void main() {
     }
 
     // For Clinical Director Screen
-    if (file.contains('05_U_clinical_director_screen.dart')) {
+    if (file.contains('clinical_director_screen.dart')) {
       content = content.replaceAll(
         '_buildClinicalInsights(vm)',
         '_buildClinicalInsights(context, vm)',
@@ -75,9 +75,9 @@ void main() {
     }
 
     // Customer Support, Intake Coordinator, Marketing Manager
-    if (file.contains('05_U_customer_support_screen.dart') ||
-        file.contains('05_U_intake_coordinator_screen.dart') ||
-        file.contains('05_U_marketing_manager_screen.dart')) {
+    if (file.contains('customer_support_screen.dart') ||
+        file.contains('intake_coordinator_screen.dart') ||
+        file.contains('marketing_manager_screen.dart')) {
       content = content.replaceAll(
         '_buildClinicalInsights(vm)',
         '_buildClinicalInsights(context, vm)',

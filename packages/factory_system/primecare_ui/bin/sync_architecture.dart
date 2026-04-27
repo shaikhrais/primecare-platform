@@ -9,7 +9,7 @@ void main() {
   final featuresDir = Directory('$baseDir/lib/src/features');
   final manifestFile = File('$baseDir/lib/src/features/features_manifest.dart');
   final bootstrapperFile = File(
-    '$baseDir/lib/src/registry/02_I_governance_bootstrapper.dart',
+    '$baseDir/lib/src/registry/governance_bootstrapper.dart',
   );
 
   if (!featuresDir.existsSync()) {
@@ -93,7 +93,7 @@ void main() {
   final bootBuffer = StringBuffer();
   bootBuffer.writeln('// Layer: 02_I_GOVERNANCE_BOOTSTRAPPER');
   bootBuffer.writeln('// AUTO-GENERATED - DO NOT EDIT');
-  bootBuffer.writeln("import 'package:flutter_core/00_B_flutter_core.dart';");
+  bootBuffer.writeln("import 'package:flutter_core/flutter_core.dart';");
   bootBuffer.writeln("import '../features/features_manifest.dart';");
   bootBuffer.writeln('');
   bootBuffer.writeln('class GovernanceBootstrapper {');
@@ -109,7 +109,7 @@ void main() {
 
   bootstrapperFile.writeAsStringSync(bootBuffer.toString());
   print(
-    'Updated 02_I_governance_bootstrapper.dart with ${intents.length} intents.',
+    'Updated governance_bootstrapper.dart with ${intents.length} intents.',
   );
 }
 

@@ -1,6 +1,6 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app_router.dart';
+import 'core/routing/app_router.dart';
 
 void main() {
   AppErrorBoundary.runGuarded(() async {

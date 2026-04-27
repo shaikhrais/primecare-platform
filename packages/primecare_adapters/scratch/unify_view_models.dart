@@ -24,10 +24,10 @@ void main() {
 
     final newContent =
         """
-import '../02_M_dashboard_view_model.dart';
-import '../core/02_M_dashboard_models.dart';
-import '../core/02_M_intelligence_insight.dart';
-import '../core/02_M_ui_blueprint.dart';
+import '../dashboard_view_model.dart';
+import '../core/dashboard_models.dart';
+import '../core/intelligence_insight.dart';
+import '../core/ui_blueprint.dart';
 
 class $className extends PrimeCareDashboardViewModel {
   $className({

@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/src/warehouse/01_I_component_warehouse.dart';
+import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 
 /// A contract for office-specific component warehouses.
 /// This ensures a standardized registration process across different domains.

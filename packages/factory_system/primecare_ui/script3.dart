@@ -2,12 +2,12 @@ import 'dart:io';
 
 void main() {
   final files = [
-    'lib/src/components/aura/01_I_aura_financial_hud.dart',
-    'lib/src/components/cards/01_I_primecare_aura_card.dart',
-    'lib/src/features/clinical_director/presentation/widgets/05_U_clinical_director_screen.dart',
-    'lib/src/features/customer_support/presentation/widgets/05_U_customer_support_screen.dart',
-    'lib/src/features/intake_coordinator/presentation/widgets/05_U_intake_coordinator_screen.dart',
-    'lib/src/features/marketing_manager/presentation/widgets/05_U_marketing_manager_screen.dart',
+    'lib/src/components/aura/aura_financial_hud.dart',
+    'lib/src/components/cards/primecare_aura_card.dart',
+    'lib/src/features/clinical_director/presentation/widgets/clinical_director_screen.dart',
+    'lib/src/features/customer_support/presentation/widgets/customer_support_screen.dart',
+    'lib/src/features/intake_coordinator/presentation/widgets/intake_coordinator_screen.dart',
+    'lib/src/features/marketing_manager/presentation/widgets/marketing_manager_screen.dart',
   ];
 
   for (var file in files) {

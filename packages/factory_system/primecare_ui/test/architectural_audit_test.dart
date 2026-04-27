@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/registry/02_I_governance_bootstrapper.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/registry/governance_bootstrapper.dart';
 
 void main() {
   test('Architectural Integrity Audit - Platform Role Coverage', () {

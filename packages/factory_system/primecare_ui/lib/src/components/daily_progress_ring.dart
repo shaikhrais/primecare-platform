@@ -1,0 +1,37 @@
+// Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui/src/theme/colors.dart';
+import 'package:flutter/material.dart';
+
+class DailyProgressRing extends StatelessWidget {
+  final double progress;
+  const DailyProgressRing({super.key, required this.progress});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          CircularProgressIndicator(
+            value: progress,
+            strokeWidth: 10,
+            backgroundColor: PrimeCareColors.slate400,
+            valueColor: AlwaysStoppedAnimation(
+              Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          Center(
+            child: Text(
+              '${(progress * 100).toInt()}%',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

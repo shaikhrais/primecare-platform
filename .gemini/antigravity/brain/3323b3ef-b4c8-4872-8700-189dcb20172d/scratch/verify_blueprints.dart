@@ -1,6 +1,6 @@
-import 'package:flutter_core/00_B_flutter_core.dart';
-import 'package:primecare_ui/src/registry/02_I_governance_bootstrapper.dart';
-import 'package:primecare_ui/src/registry/04_I_platform_governance_audit.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/registry/governance_bootstrapper.dart';
+import 'package:primecare_ui/src/registry/platform_governance_audit.dart';
 
 void main() {
   print('--- AUDITOR BLUEPRINT VERIFICATION ---');

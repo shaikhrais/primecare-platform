@@ -99,7 +99,7 @@ class $viewModelName extends ViewModel {
           '''
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_domain/primecare_domain.dart';
-import '../models/03_V_${role}_dashboard_view_model.dart';
+import '03_V_${role}_dashboard_view_model.dart';
 
 final $providerName = StateProvider<AsyncValue<Either<String, $viewModelName>>>((ref) {
   return AsyncValue.data(Right($viewModelName(
@@ -212,8 +212,8 @@ final $providerName = StateProvider<AsyncValue<Either<String, $viewModelName>>>(
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_adapters/primecare_adapters.dart';
-import '../../../registry/01_I_platform_role.dart';
-import '../../../registry/intents/01_I_app_screen_intent.dart';
+import '../../../registry/platform_role.dart';
+import '../../../registry/intents/app_screen_intent.dart';
 import '../presentation/widgets/05_U_${role}_dashboard_screen.dart';
 
 class ${rolePascal}DashboardIntent extends AppScreenIntent {

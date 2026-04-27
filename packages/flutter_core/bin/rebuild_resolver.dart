@@ -4,7 +4,7 @@ void main() {
   final packageRoot = Directory.current.path;
   final projectRoot = Directory(packageRoot).parent.parent.path;
   final adaptersSrc = '$projectRoot/packages/primecare_adapters/lib/src';
-  final resolverFile = '$packageRoot/lib/01_I_dynamic_adapter_resolver.dart';
+  final resolverFile = '$packageRoot/lib/dynamic_adapter_resolver.dart';
 
   // 1. Find all adapters and extract provider names
   final adapterFiles = Directory(adaptersSrc)

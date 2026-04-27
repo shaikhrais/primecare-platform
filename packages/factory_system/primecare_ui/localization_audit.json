@@ -1,1525 +1,1525 @@
 {
   "Enter structured clinical notes...": [
-    "components\\01_I_clinical_intervention_form_group.dart:28"
+    "components\\clinical_intervention_form_group.dart:28"
   ],
   "Search institutional workspace...": [
-    "components\\01_I_global_top_bar.dart:233"
+    "components\\global_top_bar.dart:233"
   ],
   "User Profile": [
-    "components\\01_I_global_top_bar.dart:488"
+    "components\\global_top_bar.dart:488"
   ],
   "Cancel": [
-    "components\\01_I_global_top_bar.dart:526",
-    "components\\forms\\01_I_base_form.dart:92",
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:333",
-    "screens\\common\\05_U_user_management.dart:44",
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:156"
+    "components\\global_top_bar.dart:526",
+    "components\\forms\\base_form.dart:92",
+    "components\\scheduler\\institutional_booking_dialog.dart:333",
+    "screens\\common\\user_management.dart:44",
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:156"
   ],
   "PRN": [
-    "components\\01_I_medication_frequency_picker.dart:13"
+    "components\\medication_frequency_picker.dart:13"
   ],
   "Daily": [
-    "components\\01_I_medication_frequency_picker.dart:17"
+    "components\\medication_frequency_picker.dart:17"
   ],
   "BID": [
-    "components\\01_I_medication_frequency_picker.dart:18"
+    "components\\medication_frequency_picker.dart:18"
   ],
   "TID": [
-    "components\\01_I_medication_frequency_picker.dart:19"
+    "components\\medication_frequency_picker.dart:19"
   ],
   "Search patients, acuity, location...": [
-    "components\\01_I_search_filter_tab_bar.dart:15"
+    "components\\search_filter_tab_bar.dart:15"
   ],
   "+4": [
-    "components\\01_I_team_member_avatar_pile.dart:24"
+    "components\\team_member_avatar_pile.dart:24"
   ],
   "Staff": [
-    "components\\01_I_timesheet_discrepancy_table.dart:13"
+    "components\\timesheet_discrepancy_table.dart:13"
   ],
   "Variance": [
-    "components\\01_I_timesheet_discrepancy_table.dart:14"
+    "components\\timesheet_discrepancy_table.dart:14"
   ],
   "J. Doe": [
-    "components\\01_I_timesheet_discrepancy_table.dart:19"
+    "components\\timesheet_discrepancy_table.dart:19"
   ],
   "A. Smith": [
-    "components\\01_I_timesheet_discrepancy_table.dart:32"
+    "components\\timesheet_discrepancy_table.dart:32"
   ],
   "Investigate Potential Risks": [
-    "components\\cards\\01_I_primecare_aura_card.dart:149"
+    "components\\cards\\primecare_aura_card.dart:149"
   ],
   "View detailed report": [
-    "components\\cards\\01_I_primecare_chart_card.dart:123"
+    "components\\cards\\primecare_chart_card.dart:123"
   ],
   "No recent activity": [
-    "components\\dashboards\\01_I_dashboard_activity_feed.dart:26"
+    "components\\dashboards\\dashboard_activity_feed.dart:26"
   ],
   "DEVELOPER DIAGNOSTICS": [
-    "components\\dashboards\\01_I_dashboard_state_widgets.dart:128"
+    "components\\dashboards\\dashboard_state_widgets.dart:128"
   ],
   "Retry Synchronization": [
-    "components\\dashboards\\01_I_dashboard_state_widgets.dart:217"
+    "components\\dashboards\\dashboard_state_widgets.dart:217"
   ],
   "Session Audit Report copied to clipboard": [
-    "components\\diagnostic\\01_I_execution_gate_overlay.dart:30"
+    "components\\diagnostic\\execution_gate_overlay.dart:30"
   ],
   "Report submitted successfully": [
-    "components\\diagnostic\\01_I_execution_gate_overlay.dart:42"
+    "components\\diagnostic\\execution_gate_overlay.dart:42"
   ],
   "Submit Report Manually": [
-    "components\\diagnostic\\01_I_execution_gate_overlay.dart:152"
+    "components\\diagnostic\\execution_gate_overlay.dart:152"
   ],
   "Copy to Clipboard": [
-    "components\\diagnostic\\01_I_execution_gate_overlay.dart:157"
+    "components\\diagnostic\\execution_gate_overlay.dart:157"
   ],
   "Clear Audit Traces": [
-    "components\\diagnostic\\01_I_execution_gate_overlay.dart:162"
+    "components\\diagnostic\\execution_gate_overlay.dart:162"
   ],
   "Successfully submitted": [
-    "components\\forms\\01_I_billing_payment_form.dart:53",
-    "components\\forms\\01_I_clinical_incident_form.dart:54",
-    "components\\forms\\01_I_employee_timesheet_form.dart:54",
-    "components\\forms\\01_I_medication_administration_form.dart:55",
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:53"
+    "components\\forms\\billing_payment_form.dart:53",
+    "components\\forms\\clinical_incident_form.dart:54",
+    "components\\forms\\employee_timesheet_form.dart:54",
+    "components\\forms\\medication_administration_form.dart:55",
+    "components\\forms\\domain_forms\\create_user_form.dart:53"
   ],
   "Status": [
-    "components\\forms\\01_I_billing_payment_form.dart:94",
-    "components\\forms\\01_I_clinical_incident_form.dart:95",
-    "components\\forms\\01_I_employee_timesheet_form.dart:95",
-    "components\\forms\\01_I_medication_administration_form.dart:97",
-    "screens\\common\\05_U_user_management.dart:121"
+    "components\\forms\\billing_payment_form.dart:94",
+    "components\\forms\\clinical_incident_form.dart:95",
+    "components\\forms\\employee_timesheet_form.dart:95",
+    "components\\forms\\medication_administration_form.dart:97",
+    "screens\\common\\user_management.dart:121"
   ],
   "Draft": [
-    "components\\forms\\01_I_billing_payment_form.dart:96",
-    "components\\forms\\01_I_clinical_incident_form.dart:97",
-    "components\\forms\\01_I_employee_timesheet_form.dart:97",
-    "components\\forms\\01_I_medication_administration_form.dart:99"
+    "components\\forms\\billing_payment_form.dart:96",
+    "components\\forms\\clinical_incident_form.dart:97",
+    "components\\forms\\employee_timesheet_form.dart:97",
+    "components\\forms\\medication_administration_form.dart:99"
   ],
   "Publish": [
-    "components\\forms\\01_I_billing_payment_form.dart:97",
-    "components\\forms\\01_I_clinical_incident_form.dart:98",
-    "components\\forms\\01_I_employee_timesheet_form.dart:98",
-    "components\\forms\\01_I_medication_administration_form.dart:100"
+    "components\\forms\\billing_payment_form.dart:97",
+    "components\\forms\\clinical_incident_form.dart:98",
+    "components\\forms\\employee_timesheet_form.dart:98",
+    "components\\forms\\medication_administration_form.dart:100"
   ],
   "Successfully tracked and submitted.": [
-    "components\\forms\\admin\\01_I_approve_expense_reimbursement_form.dart:27",
-    "components\\forms\\admin\\01_I_approve_payroll_run_form.dart:25",
-    "components\\forms\\admin\\01_I_approve_real_estate_form.dart:25",
-    "components\\forms\\admin\\01_I_approve_system_access_form.dart:26",
-    "components\\forms\\admin\\01_I_audit_global_education_form.dart:26",
-    "components\\forms\\admin\\01_I_audit_royalty_payment_form.dart:26",
-    "components\\forms\\admin\\01_I_audit_security_compliance_form.dart:27",
-    "components\\forms\\admin\\01_I_create_canned_response_form.dart:26",
-    "components\\forms\\admin\\01_I_create_custom_invoice_form.dart:26",
-    "components\\forms\\admin\\01_I_create_revenue_report_form.dart:26",
-    "components\\forms\\admin\\01_I_create_supply_order_form.dart:25",
-    "components\\forms\\admin\\01_I_log_inventory_spoilage_form.dart:26",
-    "components\\forms\\admin\\01_I_override_global_schedule_form.dart:27",
-    "components\\forms\\admin\\01_I_register_corporate_risk_form.dart:26",
-    "components\\forms\\admin\\01_I_review_care_plan_form.dart:25",
-    "components\\forms\\admin\\01_I_review_fleet_maintenance_form.dart:27",
-    "components\\forms\\admin\\01_I_review_legal_contract_form.dart:26",
-    "components\\forms\\admin\\01_I_review_monthly_expenses_form.dart:26",
-    "components\\forms\\admin\\01_I_review_vendor_contracts_form.dart:26",
-    "components\\forms\\admin\\01_I_schedule_facility_maintenance_form.dart:27",
-    "components\\forms\\admin\\01_I_submit_daily_census_form.dart:25",
-    "components\\forms\\admin\\01_I_submit_healthcare_claim_form.dart:26",
-    "components\\forms\\clinical\\01_I_approve_medication_refill_form.dart:27",
-    "components\\forms\\clinical\\01_I_assign_care_pod_form.dart:25",
-    "components\\forms\\clinical\\01_I_audit_compliance_form.dart:25",
-    "components\\forms\\clinical\\01_I_care_plan_evaluation_form.dart:25",
-    "components\\forms\\clinical\\01_I_daily_vitals_card_form.dart:25",
-    "components\\forms\\clinical\\01_I_log_clinical_incident_form.dart:26",
-    "components\\forms\\clinical\\01_I_log_infection_control_form.dart:26",
-    "components\\forms\\clinical\\01_I_review_clinical_incident_form.dart:27",
-    "components\\forms\\clinical\\01_I_review_medication_inventory_form.dart:27",
-    "components\\forms\\clinical\\01_I_schedule_clinical_audit_form.dart:26",
-    "components\\forms\\clinical\\01_I_submit_adl_checklist_form.dart:25",
-    "components\\forms\\crm\\01_I_add_franchise_lead_form.dart:25",
-    "components\\forms\\crm\\01_I_approve_franchise_disclosure_form.dart:27",
-    "components\\forms\\crm\\01_I_assign_lead_form.dart:25",
-    "components\\forms\\crm\\01_I_create_ad_placement_form.dart:25",
-    "components\\forms\\crm\\01_I_franchise_onboarding_checklist_form.dart:27",
-    "components\\forms\\crm\\01_I_log_franchisee_vetting_call_form.dart:27",
-    "components\\forms\\crm\\01_I_nurture_localized_lead_form.dart:26",
-    "components\\forms\\crm\\01_I_review_lead_conversion_form.dart:26",
-    "components\\forms\\crm\\01_I_review_market_share_form.dart:25",
-    "components\\forms\\crm\\01_I_schedule_open_house_form.dart:25",
-    "components\\forms\\crm\\01_I_submit_marketing_budget_form.dart:26",
-    "components\\forms\\hr\\01_I_approve_leave_request_form.dart:26",
-    "components\\forms\\hr\\01_I_assign_training_module_form.dart:26",
-    "components\\forms\\hr\\01_I_audit_payroll_discrepancy_form.dart:27",
-    "components\\forms\\hr\\01_I_discipline_log_form.dart:25",
-    "components\\forms\\hr\\01_I_leave_request_form.dart:25",
-    "components\\forms\\hr\\01_I_log_employee_grievance_form.dart:26",
-    "components\\forms\\hr\\01_I_request_shift_adjustment_form.dart:27",
-    "components\\forms\\hr\\01_I_review_onboarding_status_form.dart:27",
-    "components\\forms\\hr\\01_I_review_peer_performance_form.dart:26",
-    "components\\forms\\hr\\01_I_schedule_interview_form.dart:25",
-    "components\\forms\\hr\\01_I_submit_exit_interview_form.dart:26"
+    "components\\forms\\admin\\approve_expense_reimbursement_form.dart:27",
+    "components\\forms\\admin\\approve_payroll_run_form.dart:25",
+    "components\\forms\\admin\\approve_real_estate_form.dart:25",
+    "components\\forms\\admin\\approve_system_access_form.dart:26",
+    "components\\forms\\admin\\audit_global_education_form.dart:26",
+    "components\\forms\\admin\\audit_royalty_payment_form.dart:26",
+    "components\\forms\\admin\\audit_security_compliance_form.dart:27",
+    "components\\forms\\admin\\create_canned_response_form.dart:26",
+    "components\\forms\\admin\\create_custom_invoice_form.dart:26",
+    "components\\forms\\admin\\create_revenue_report_form.dart:26",
+    "components\\forms\\admin\\create_supply_order_form.dart:25",
+    "components\\forms\\admin\\log_inventory_spoilage_form.dart:26",
+    "components\\forms\\admin\\override_global_schedule_form.dart:27",
+    "components\\forms\\admin\\register_corporate_risk_form.dart:26",
+    "components\\forms\\admin\\review_care_plan_form.dart:25",
+    "components\\forms\\admin\\review_fleet_maintenance_form.dart:27",
+    "components\\forms\\admin\\review_legal_contract_form.dart:26",
+    "components\\forms\\admin\\review_monthly_expenses_form.dart:26",
+    "components\\forms\\admin\\review_vendor_contracts_form.dart:26",
+    "components\\forms\\admin\\schedule_facility_maintenance_form.dart:27",
+    "components\\forms\\admin\\submit_daily_census_form.dart:25",
+    "components\\forms\\admin\\submit_healthcare_claim_form.dart:26",
+    "components\\forms\\clinical\\approve_medication_refill_form.dart:27",
+    "components\\forms\\clinical\\assign_care_pod_form.dart:25",
+    "components\\forms\\clinical\\audit_compliance_form.dart:25",
+    "components\\forms\\clinical\\care_plan_evaluation_form.dart:25",
+    "components\\forms\\clinical\\daily_vitals_card_form.dart:25",
+    "components\\forms\\clinical\\log_clinical_incident_form.dart:26",
+    "components\\forms\\clinical\\log_infection_control_form.dart:26",
+    "components\\forms\\clinical\\review_clinical_incident_form.dart:27",
+    "components\\forms\\clinical\\review_medication_inventory_form.dart:27",
+    "components\\forms\\clinical\\schedule_clinical_audit_form.dart:26",
+    "components\\forms\\clinical\\submit_adl_checklist_form.dart:25",
+    "components\\forms\\crm\\add_franchise_lead_form.dart:25",
+    "components\\forms\\crm\\approve_franchise_disclosure_form.dart:27",
+    "components\\forms\\crm\\assign_lead_form.dart:25",
+    "components\\forms\\crm\\create_ad_placement_form.dart:25",
+    "components\\forms\\crm\\franchise_onboarding_checklist_form.dart:27",
+    "components\\forms\\crm\\log_franchisee_vetting_call_form.dart:27",
+    "components\\forms\\crm\\nurture_localized_lead_form.dart:26",
+    "components\\forms\\crm\\review_lead_conversion_form.dart:26",
+    "components\\forms\\crm\\review_market_share_form.dart:25",
+    "components\\forms\\crm\\schedule_open_house_form.dart:25",
+    "components\\forms\\crm\\submit_marketing_budget_form.dart:26",
+    "components\\forms\\hr\\approve_leave_request_form.dart:26",
+    "components\\forms\\hr\\assign_training_module_form.dart:26",
+    "components\\forms\\hr\\audit_payroll_discrepancy_form.dart:27",
+    "components\\forms\\hr\\discipline_log_form.dart:25",
+    "components\\forms\\hr\\leave_request_form.dart:25",
+    "components\\forms\\hr\\log_employee_grievance_form.dart:26",
+    "components\\forms\\hr\\request_shift_adjustment_form.dart:27",
+    "components\\forms\\hr\\review_onboarding_status_form.dart:27",
+    "components\\forms\\hr\\review_peer_performance_form.dart:26",
+    "components\\forms\\hr\\schedule_interview_form.dart:25",
+    "components\\forms\\hr\\submit_exit_interview_form.dart:26"
   ],
   "Name": [
-    "components\\forms\\admin\\01_I_approve_expense_reimbursement_form.dart:47",
-    "components\\forms\\admin\\01_I_approve_payroll_run_form.dart:45",
-    "components\\forms\\admin\\01_I_approve_real_estate_form.dart:45",
-    "components\\forms\\admin\\01_I_approve_system_access_form.dart:46",
-    "components\\forms\\admin\\01_I_audit_global_education_form.dart:46",
-    "components\\forms\\admin\\01_I_audit_royalty_payment_form.dart:46",
-    "components\\forms\\admin\\01_I_audit_security_compliance_form.dart:47",
-    "components\\forms\\admin\\01_I_create_canned_response_form.dart:46",
-    "components\\forms\\admin\\01_I_create_custom_invoice_form.dart:46",
-    "components\\forms\\admin\\01_I_create_revenue_report_form.dart:46",
-    "components\\forms\\admin\\01_I_create_supply_order_form.dart:45",
-    "components\\forms\\admin\\01_I_log_inventory_spoilage_form.dart:46",
-    "components\\forms\\admin\\01_I_override_global_schedule_form.dart:47",
-    "components\\forms\\admin\\01_I_register_corporate_risk_form.dart:46",
-    "components\\forms\\admin\\01_I_review_care_plan_form.dart:45",
-    "components\\forms\\admin\\01_I_review_fleet_maintenance_form.dart:47",
-    "components\\forms\\admin\\01_I_review_legal_contract_form.dart:46",
-    "components\\forms\\admin\\01_I_review_monthly_expenses_form.dart:46",
-    "components\\forms\\admin\\01_I_review_vendor_contracts_form.dart:46",
-    "components\\forms\\admin\\01_I_schedule_facility_maintenance_form.dart:47",
-    "components\\forms\\admin\\01_I_submit_daily_census_form.dart:45",
-    "components\\forms\\admin\\01_I_submit_healthcare_claim_form.dart:46",
-    "components\\forms\\clinical\\01_I_approve_medication_refill_form.dart:47",
-    "components\\forms\\clinical\\01_I_assign_care_pod_form.dart:45",
-    "components\\forms\\clinical\\01_I_audit_compliance_form.dart:45",
-    "components\\forms\\clinical\\01_I_care_plan_evaluation_form.dart:45",
-    "components\\forms\\clinical\\01_I_daily_vitals_card_form.dart:45",
-    "components\\forms\\clinical\\01_I_log_clinical_incident_form.dart:46",
-    "components\\forms\\clinical\\01_I_log_infection_control_form.dart:46",
-    "components\\forms\\clinical\\01_I_review_clinical_incident_form.dart:47",
-    "components\\forms\\clinical\\01_I_review_medication_inventory_form.dart:47",
-    "components\\forms\\clinical\\01_I_schedule_clinical_audit_form.dart:46",
-    "components\\forms\\clinical\\01_I_submit_adl_checklist_form.dart:45",
-    "components\\forms\\crm\\01_I_add_franchise_lead_form.dart:45",
-    "components\\forms\\crm\\01_I_approve_franchise_disclosure_form.dart:47",
-    "components\\forms\\crm\\01_I_assign_lead_form.dart:45",
-    "components\\forms\\crm\\01_I_create_ad_placement_form.dart:45",
-    "components\\forms\\crm\\01_I_franchise_onboarding_checklist_form.dart:47",
-    "components\\forms\\crm\\01_I_log_franchisee_vetting_call_form.dart:47",
-    "components\\forms\\crm\\01_I_nurture_localized_lead_form.dart:46",
-    "components\\forms\\crm\\01_I_review_lead_conversion_form.dart:46",
-    "components\\forms\\crm\\01_I_review_market_share_form.dart:45",
-    "components\\forms\\crm\\01_I_schedule_open_house_form.dart:45",
-    "components\\forms\\crm\\01_I_submit_marketing_budget_form.dart:46",
-    "components\\forms\\hr\\01_I_approve_leave_request_form.dart:46",
-    "components\\forms\\hr\\01_I_assign_training_module_form.dart:46",
-    "components\\forms\\hr\\01_I_audit_payroll_discrepancy_form.dart:47",
-    "components\\forms\\hr\\01_I_discipline_log_form.dart:45",
-    "components\\forms\\hr\\01_I_leave_request_form.dart:45",
-    "components\\forms\\hr\\01_I_log_employee_grievance_form.dart:46",
-    "components\\forms\\hr\\01_I_request_shift_adjustment_form.dart:47",
-    "components\\forms\\hr\\01_I_review_onboarding_status_form.dart:47",
-    "components\\forms\\hr\\01_I_review_peer_performance_form.dart:46",
-    "components\\forms\\hr\\01_I_schedule_interview_form.dart:45",
-    "components\\forms\\hr\\01_I_submit_exit_interview_form.dart:46"
+    "components\\forms\\admin\\approve_expense_reimbursement_form.dart:47",
+    "components\\forms\\admin\\approve_payroll_run_form.dart:45",
+    "components\\forms\\admin\\approve_real_estate_form.dart:45",
+    "components\\forms\\admin\\approve_system_access_form.dart:46",
+    "components\\forms\\admin\\audit_global_education_form.dart:46",
+    "components\\forms\\admin\\audit_royalty_payment_form.dart:46",
+    "components\\forms\\admin\\audit_security_compliance_form.dart:47",
+    "components\\forms\\admin\\create_canned_response_form.dart:46",
+    "components\\forms\\admin\\create_custom_invoice_form.dart:46",
+    "components\\forms\\admin\\create_revenue_report_form.dart:46",
+    "components\\forms\\admin\\create_supply_order_form.dart:45",
+    "components\\forms\\admin\\log_inventory_spoilage_form.dart:46",
+    "components\\forms\\admin\\override_global_schedule_form.dart:47",
+    "components\\forms\\admin\\register_corporate_risk_form.dart:46",
+    "components\\forms\\admin\\review_care_plan_form.dart:45",
+    "components\\forms\\admin\\review_fleet_maintenance_form.dart:47",
+    "components\\forms\\admin\\review_legal_contract_form.dart:46",
+    "components\\forms\\admin\\review_monthly_expenses_form.dart:46",
+    "components\\forms\\admin\\review_vendor_contracts_form.dart:46",
+    "components\\forms\\admin\\schedule_facility_maintenance_form.dart:47",
+    "components\\forms\\admin\\submit_daily_census_form.dart:45",
+    "components\\forms\\admin\\submit_healthcare_claim_form.dart:46",
+    "components\\forms\\clinical\\approve_medication_refill_form.dart:47",
+    "components\\forms\\clinical\\assign_care_pod_form.dart:45",
+    "components\\forms\\clinical\\audit_compliance_form.dart:45",
+    "components\\forms\\clinical\\care_plan_evaluation_form.dart:45",
+    "components\\forms\\clinical\\daily_vitals_card_form.dart:45",
+    "components\\forms\\clinical\\log_clinical_incident_form.dart:46",
+    "components\\forms\\clinical\\log_infection_control_form.dart:46",
+    "components\\forms\\clinical\\review_clinical_incident_form.dart:47",
+    "components\\forms\\clinical\\review_medication_inventory_form.dart:47",
+    "components\\forms\\clinical\\schedule_clinical_audit_form.dart:46",
+    "components\\forms\\clinical\\submit_adl_checklist_form.dart:45",
+    "components\\forms\\crm\\add_franchise_lead_form.dart:45",
+    "components\\forms\\crm\\approve_franchise_disclosure_form.dart:47",
+    "components\\forms\\crm\\assign_lead_form.dart:45",
+    "components\\forms\\crm\\create_ad_placement_form.dart:45",
+    "components\\forms\\crm\\franchise_onboarding_checklist_form.dart:47",
+    "components\\forms\\crm\\log_franchisee_vetting_call_form.dart:47",
+    "components\\forms\\crm\\nurture_localized_lead_form.dart:46",
+    "components\\forms\\crm\\review_lead_conversion_form.dart:46",
+    "components\\forms\\crm\\review_market_share_form.dart:45",
+    "components\\forms\\crm\\schedule_open_house_form.dart:45",
+    "components\\forms\\crm\\submit_marketing_budget_form.dart:46",
+    "components\\forms\\hr\\approve_leave_request_form.dart:46",
+    "components\\forms\\hr\\assign_training_module_form.dart:46",
+    "components\\forms\\hr\\audit_payroll_discrepancy_form.dart:47",
+    "components\\forms\\hr\\discipline_log_form.dart:45",
+    "components\\forms\\hr\\leave_request_form.dart:45",
+    "components\\forms\\hr\\log_employee_grievance_form.dart:46",
+    "components\\forms\\hr\\request_shift_adjustment_form.dart:47",
+    "components\\forms\\hr\\review_onboarding_status_form.dart:47",
+    "components\\forms\\hr\\review_peer_performance_form.dart:46",
+    "components\\forms\\hr\\schedule_interview_form.dart:45",
+    "components\\forms\\hr\\submit_exit_interview_form.dart:46"
   ],
   "Details": [
-    "components\\forms\\admin\\01_I_approve_expense_reimbursement_form.dart:57",
-    "components\\forms\\admin\\01_I_approve_payroll_run_form.dart:55",
-    "components\\forms\\admin\\01_I_approve_real_estate_form.dart:55",
-    "components\\forms\\admin\\01_I_approve_system_access_form.dart:56",
-    "components\\forms\\admin\\01_I_audit_global_education_form.dart:56",
-    "components\\forms\\admin\\01_I_audit_royalty_payment_form.dart:56",
-    "components\\forms\\admin\\01_I_audit_security_compliance_form.dart:57",
-    "components\\forms\\admin\\01_I_create_canned_response_form.dart:56",
-    "components\\forms\\admin\\01_I_create_custom_invoice_form.dart:56",
-    "components\\forms\\admin\\01_I_create_revenue_report_form.dart:56",
-    "components\\forms\\admin\\01_I_create_supply_order_form.dart:55",
-    "components\\forms\\admin\\01_I_log_inventory_spoilage_form.dart:56",
-    "components\\forms\\admin\\01_I_override_global_schedule_form.dart:57",
-    "components\\forms\\admin\\01_I_register_corporate_risk_form.dart:56",
-    "components\\forms\\admin\\01_I_review_care_plan_form.dart:55",
-    "components\\forms\\admin\\01_I_review_fleet_maintenance_form.dart:57",
-    "components\\forms\\admin\\01_I_review_legal_contract_form.dart:56",
-    "components\\forms\\admin\\01_I_review_monthly_expenses_form.dart:56",
-    "components\\forms\\admin\\01_I_review_vendor_contracts_form.dart:56",
-    "components\\forms\\admin\\01_I_schedule_facility_maintenance_form.dart:57",
-    "components\\forms\\admin\\01_I_submit_daily_census_form.dart:55",
-    "components\\forms\\admin\\01_I_submit_healthcare_claim_form.dart:56",
-    "components\\forms\\clinical\\01_I_approve_medication_refill_form.dart:57",
-    "components\\forms\\clinical\\01_I_assign_care_pod_form.dart:55",
-    "components\\forms\\clinical\\01_I_audit_compliance_form.dart:55",
-    "components\\forms\\clinical\\01_I_care_plan_evaluation_form.dart:55",
-    "components\\forms\\clinical\\01_I_daily_vitals_card_form.dart:55",
-    "components\\forms\\clinical\\01_I_log_clinical_incident_form.dart:56",
-    "components\\forms\\clinical\\01_I_log_infection_control_form.dart:56",
-    "components\\forms\\clinical\\01_I_review_clinical_incident_form.dart:57",
-    "components\\forms\\clinical\\01_I_review_medication_inventory_form.dart:57",
-    "components\\forms\\clinical\\01_I_schedule_clinical_audit_form.dart:56",
-    "components\\forms\\clinical\\01_I_submit_adl_checklist_form.dart:55",
-    "components\\forms\\crm\\01_I_add_franchise_lead_form.dart:55",
-    "components\\forms\\crm\\01_I_approve_franchise_disclosure_form.dart:57",
-    "components\\forms\\crm\\01_I_assign_lead_form.dart:55",
-    "components\\forms\\crm\\01_I_create_ad_placement_form.dart:55",
-    "components\\forms\\crm\\01_I_franchise_onboarding_checklist_form.dart:57",
-    "components\\forms\\crm\\01_I_log_franchisee_vetting_call_form.dart:57",
-    "components\\forms\\crm\\01_I_nurture_localized_lead_form.dart:56",
-    "components\\forms\\crm\\01_I_review_lead_conversion_form.dart:56",
-    "components\\forms\\crm\\01_I_review_market_share_form.dart:55",
-    "components\\forms\\crm\\01_I_schedule_open_house_form.dart:55",
-    "components\\forms\\crm\\01_I_submit_marketing_budget_form.dart:56",
-    "components\\forms\\hr\\01_I_approve_leave_request_form.dart:56",
-    "components\\forms\\hr\\01_I_assign_training_module_form.dart:56",
-    "components\\forms\\hr\\01_I_audit_payroll_discrepancy_form.dart:57",
-    "components\\forms\\hr\\01_I_discipline_log_form.dart:55",
-    "components\\forms\\hr\\01_I_leave_request_form.dart:55",
-    "components\\forms\\hr\\01_I_log_employee_grievance_form.dart:56",
-    "components\\forms\\hr\\01_I_request_shift_adjustment_form.dart:57",
-    "components\\forms\\hr\\01_I_review_onboarding_status_form.dart:57",
-    "components\\forms\\hr\\01_I_review_peer_performance_form.dart:56",
-    "components\\forms\\hr\\01_I_schedule_interview_form.dart:55",
-    "components\\forms\\hr\\01_I_submit_exit_interview_form.dart:56"
+    "components\\forms\\admin\\approve_expense_reimbursement_form.dart:57",
+    "components\\forms\\admin\\approve_payroll_run_form.dart:55",
+    "components\\forms\\admin\\approve_real_estate_form.dart:55",
+    "components\\forms\\admin\\approve_system_access_form.dart:56",
+    "components\\forms\\admin\\audit_global_education_form.dart:56",
+    "components\\forms\\admin\\audit_royalty_payment_form.dart:56",
+    "components\\forms\\admin\\audit_security_compliance_form.dart:57",
+    "components\\forms\\admin\\create_canned_response_form.dart:56",
+    "components\\forms\\admin\\create_custom_invoice_form.dart:56",
+    "components\\forms\\admin\\create_revenue_report_form.dart:56",
+    "components\\forms\\admin\\create_supply_order_form.dart:55",
+    "components\\forms\\admin\\log_inventory_spoilage_form.dart:56",
+    "components\\forms\\admin\\override_global_schedule_form.dart:57",
+    "components\\forms\\admin\\register_corporate_risk_form.dart:56",
+    "components\\forms\\admin\\review_care_plan_form.dart:55",
+    "components\\forms\\admin\\review_fleet_maintenance_form.dart:57",
+    "components\\forms\\admin\\review_legal_contract_form.dart:56",
+    "components\\forms\\admin\\review_monthly_expenses_form.dart:56",
+    "components\\forms\\admin\\review_vendor_contracts_form.dart:56",
+    "components\\forms\\admin\\schedule_facility_maintenance_form.dart:57",
+    "components\\forms\\admin\\submit_daily_census_form.dart:55",
+    "components\\forms\\admin\\submit_healthcare_claim_form.dart:56",
+    "components\\forms\\clinical\\approve_medication_refill_form.dart:57",
+    "components\\forms\\clinical\\assign_care_pod_form.dart:55",
+    "components\\forms\\clinical\\audit_compliance_form.dart:55",
+    "components\\forms\\clinical\\care_plan_evaluation_form.dart:55",
+    "components\\forms\\clinical\\daily_vitals_card_form.dart:55",
+    "components\\forms\\clinical\\log_clinical_incident_form.dart:56",
+    "components\\forms\\clinical\\log_infection_control_form.dart:56",
+    "components\\forms\\clinical\\review_clinical_incident_form.dart:57",
+    "components\\forms\\clinical\\review_medication_inventory_form.dart:57",
+    "components\\forms\\clinical\\schedule_clinical_audit_form.dart:56",
+    "components\\forms\\clinical\\submit_adl_checklist_form.dart:55",
+    "components\\forms\\crm\\add_franchise_lead_form.dart:55",
+    "components\\forms\\crm\\approve_franchise_disclosure_form.dart:57",
+    "components\\forms\\crm\\assign_lead_form.dart:55",
+    "components\\forms\\crm\\create_ad_placement_form.dart:55",
+    "components\\forms\\crm\\franchise_onboarding_checklist_form.dart:57",
+    "components\\forms\\crm\\log_franchisee_vetting_call_form.dart:57",
+    "components\\forms\\crm\\nurture_localized_lead_form.dart:56",
+    "components\\forms\\crm\\review_lead_conversion_form.dart:56",
+    "components\\forms\\crm\\review_market_share_form.dart:55",
+    "components\\forms\\crm\\schedule_open_house_form.dart:55",
+    "components\\forms\\crm\\submit_marketing_budget_form.dart:56",
+    "components\\forms\\hr\\approve_leave_request_form.dart:56",
+    "components\\forms\\hr\\assign_training_module_form.dart:56",
+    "components\\forms\\hr\\audit_payroll_discrepancy_form.dart:57",
+    "components\\forms\\hr\\discipline_log_form.dart:55",
+    "components\\forms\\hr\\leave_request_form.dart:55",
+    "components\\forms\\hr\\log_employee_grievance_form.dart:56",
+    "components\\forms\\hr\\request_shift_adjustment_form.dart:57",
+    "components\\forms\\hr\\review_onboarding_status_form.dart:57",
+    "components\\forms\\hr\\review_peer_performance_form.dart:56",
+    "components\\forms\\hr\\schedule_interview_form.dart:55",
+    "components\\forms\\hr\\submit_exit_interview_form.dart:56"
   ],
   "Audit override request submitted successfully.": [
-    "components\\forms\\admin\\01_I_audit_override_form.dart:25"
+    "components\\forms\\admin\\audit_override_form.dart:25"
   ],
   "Override Name": [
-    "components\\forms\\admin\\01_I_audit_override_form.dart:65"
+    "components\\forms\\admin\\audit_override_form.dart:65"
   ],
   "e.g., Data Retention Extension": [
-    "components\\forms\\admin\\01_I_audit_override_form.dart:66"
+    "components\\forms\\admin\\audit_override_form.dart:66"
   ],
   "Override Details": [
-    "components\\forms\\admin\\01_I_audit_override_form.dart:85"
+    "components\\forms\\admin\\audit_override_form.dart:85"
   ],
   "Describe why this override is necessary...": [
-    "components\\forms\\admin\\01_I_audit_override_form.dart:86"
+    "components\\forms\\admin\\audit_override_form.dart:86"
   ],
   "Search resource type...": [
-    "components\\forms\\admin\\01_I_audit_system_logs_form.dart:66"
+    "components\\forms\\admin\\audit_system_logs_form.dart:66"
   ],
   "All Actions": [
-    "components\\forms\\admin\\01_I_audit_system_logs_form.dart:76"
+    "components\\forms\\admin\\audit_system_logs_form.dart:76"
   ],
   "Error: ${state.error}": [
-    "components\\forms\\admin\\01_I_audit_system_logs_form.dart:94"
+    "components\\forms\\admin\\audit_system_logs_form.dart:94"
   ],
   "No audit logs found.": [
-    "components\\forms\\admin\\01_I_audit_system_logs_form.dart:96"
+    "components\\forms\\admin\\audit_system_logs_form.dart:96"
   ],
   "Petty cash expenditure successfully logged.": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:52"
+    "components\\forms\\admin\\log_petty_cash_form.dart:52"
   ],
   "Amount": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:91"
+    "components\\forms\\admin\\log_petty_cash_form.dart:91"
   ],
   "0.00": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:93"
+    "components\\forms\\admin\\log_petty_cash_form.dart:93"
   ],
   "Date": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:112"
+    "components\\forms\\admin\\log_petty_cash_form.dart:112"
   ],
   "Category": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:127"
+    "components\\forms\\admin\\log_petty_cash_form.dart:127"
   ],
   "Merchant / Vendor": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:144"
+    "components\\forms\\admin\\log_petty_cash_form.dart:144"
   ],
   "Expenditure Details": [
-    "components\\forms\\admin\\01_I_log_petty_cash_form.dart:156"
+    "components\\forms\\admin\\log_petty_cash_form.dart:156"
   ],
   "First Name": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:90",
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:56",
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:232",
-    "components\\forms\\hr\\01_I_new_employee_onboarding_form.dart:56"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:90",
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:56",
+    "components\\forms\\clinical\\patient_intake_form.dart:232",
+    "components\\forms\\hr\\new_employee_onboarding_form.dart:56"
   ],
   "Last Name": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:109",
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:62",
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:249",
-    "components\\forms\\hr\\01_I_new_employee_onboarding_form.dart:62"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:109",
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:62",
+    "components\\forms\\clinical\\patient_intake_form.dart:249",
+    "components\\forms\\hr\\new_employee_onboarding_form.dart:62"
   ],
   "Corporate Email": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:128"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:128"
   ],
   "Role": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:152",
-    "screens\\common\\05_U_user_management.dart:119"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:152",
+    "screens\\common\\user_management.dart:119"
   ],
   "Department": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:175"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:175"
   ],
   "Additional Notes / Clearances": [
-    "components\\forms\\admin\\01_I_new_staff_provisioning_form.dart:198"
+    "components\\forms\\admin\\new_staff_provisioning_form.dart:198"
   ],
   "Permissions updated successfully.": [
-    "components\\forms\\admin\\01_I_role_permissions_form.dart:31"
+    "components\\forms\\admin\\role_permissions_form.dart:31"
   ],
   "Selected Role": [
-    "components\\forms\\admin\\01_I_role_permissions_form.dart:42"
+    "components\\forms\\admin\\role_permissions_form.dart:42"
   ],
   "Read": [
-    "components\\forms\\admin\\01_I_role_permissions_form.dart:100"
+    "components\\forms\\admin\\role_permissions_form.dart:100"
   ],
   "Write": [
-    "components\\forms\\admin\\01_I_role_permissions_form.dart:108"
+    "components\\forms\\admin\\role_permissions_form.dart:108"
   ],
   "Select a role to modify permissions": [
-    "components\\forms\\admin\\01_I_role_permissions_form.dart:123"
+    "components\\forms\\admin\\role_permissions_form.dart:123"
   ],
   "Patient Intake Completed!": [
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:26"
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:26"
   ],
   "Patient Intake": [
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:34",
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:34"
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:34",
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:34"
   ],
   "Chief Complaint": [
-    "components\\forms\\clinical\\01_I_mock_patient_intake_stepper.dart:80"
+    "components\\forms\\clinical\\mock_patient_intake_stepper.dart:80"
   ],
   "Date of Birth": [
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:283"
+    "components\\forms\\clinical\\patient_intake_form.dart:283"
   ],
   "Gender": [
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:306"
+    "components\\forms\\clinical\\patient_intake_form.dart:306"
   ],
   "Primary Email": [
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:329"
+    "components\\forms\\clinical\\patient_intake_form.dart:329"
   ],
   "Medical History": [
-    "components\\forms\\clinical\\01_I_patient_intake_form.dart:362"
+    "components\\forms\\clinical\\patient_intake_form.dart:362"
   ],
   "Please select a patient first": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:163"
+    "components\\forms\\clinical\\vitals_capture_form.dart:163"
   ],
   "Heart Rate (bpm)": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:256"
+    "components\\forms\\clinical\\vitals_capture_form.dart:256"
   ],
   "Blood Pressure": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:281"
+    "components\\forms\\clinical\\vitals_capture_form.dart:281"
   ],
   "120/80": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:282"
+    "components\\forms\\clinical\\vitals_capture_form.dart:282"
   ],
   "Temperature (\u00b0C)": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:311"
+    "components\\forms\\clinical\\vitals_capture_form.dart:311"
   ],
   "Clear Form": [
-    "components\\forms\\clinical\\01_I_vitals_capture_form.dart:342"
+    "components\\forms\\clinical\\vitals_capture_form.dart:342"
   ],
   "Platform Role": [
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:121"
+    "components\\forms\\domain_forms\\create_user_form.dart:121"
   ],
   "System Administrator": [
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:126"
+    "components\\forms\\domain_forms\\create_user_form.dart:126"
   ],
   "Finance Director": [
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:130"
+    "components\\forms\\domain_forms\\create_user_form.dart:130"
   ],
   "Logistics Manager": [
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:134"
+    "components\\forms\\domain_forms\\create_user_form.dart:134"
   ],
   "PSW Hub Manager": [
-    "components\\forms\\domain_forms\\01_I_create_user_form.dart:138"
+    "components\\forms\\domain_forms\\create_user_form.dart:138"
   ],
   "Password successfully reset": [
-    "components\\forms\\domain_forms\\01_I_password_reset_form.dart:46"
+    "components\\forms\\domain_forms\\password_reset_form.dart:46"
   ],
   "New Password": [
-    "components\\forms\\domain_forms\\01_I_password_reset_form.dart:80"
+    "components\\forms\\domain_forms\\password_reset_form.dart:80"
   ],
   "Confirm Password": [
-    "components\\forms\\domain_forms\\01_I_password_reset_form.dart:96"
+    "components\\forms\\domain_forms\\password_reset_form.dart:96"
   ],
   "Shift created successfully": [
-    "components\\forms\\generated\\01_I_create_shift_form.dart:62"
+    "components\\forms\\generated\\create_shift_form.dart:62"
   ],
   "Assign Provider": [
-    "components\\forms\\generated\\01_I_create_shift_form.dart:123"
+    "components\\forms\\generated\\create_shift_form.dart:123"
   ],
   "John Smith (RN)": [
-    "components\\forms\\generated\\01_I_create_shift_form.dart:130"
+    "components\\forms\\generated\\create_shift_form.dart:130"
   ],
   "Jane Doe (PSW)": [
-    "components\\forms\\generated\\01_I_create_shift_form.dart:132"
+    "components\\forms\\generated\\create_shift_form.dart:132"
   ],
   "Alex Johnson (RPN)": [
-    "components\\forms\\generated\\01_I_create_shift_form.dart:135"
+    "components\\forms\\generated\\create_shift_form.dart:135"
   ],
   "Email Address": [
-    "components\\forms\\hr\\01_I_new_employee_onboarding_form.dart:68",
-    "screens\\auth\\05_U_forgot_password.dart:35"
+    "components\\forms\\hr\\new_employee_onboarding_form.dart:68",
+    "screens\\auth\\forgot_password.dart:35"
   ],
   "Assigned Role": [
-    "components\\forms\\hr\\01_I_new_employee_onboarding_form.dart:78"
+    "components\\forms\\hr\\new_employee_onboarding_form.dart:78"
   ],
   "Delete Appointment": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:127"
+    "components\\scheduler\\institutional_booking_dialog.dart:127"
   ],
   "Patient Name": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:140"
+    "components\\scheduler\\institutional_booking_dialog.dart:140"
   ],
   "No Resource": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:205"
+    "components\\scheduler\\institutional_booking_dialog.dart:205"
   ],
   "Time Slot (Minutes)": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:230"
+    "components\\scheduler\\institutional_booking_dialog.dart:230"
   ],
   "Delete Appointment?": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:328",
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:328"
+    "components\\scheduler\\institutional_booking_dialog.dart:328",
+    "components\\scheduler\\institutional_booking_dialog.dart:328"
   ],
   "This action cannot be undone.": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:329"
+    "components\\scheduler\\institutional_booking_dialog.dart:329"
   ],
   "Delete": [
-    "components\\scheduler\\01_I_institutional_booking_dialog.dart:338"
+    "components\\scheduler\\institutional_booking_dialog.dart:338"
   ],
   "Primary Input": [
-    "components\\stitch_engine\\01_I_stitch_engine_renderer.dart:238"
+    "components\\stitch_engine\\stitch_engine_renderer.dart:238"
   ],
   "Secondary Details": [
-    "components\\stitch_engine\\01_I_stitch_engine_renderer.dart:250"
+    "components\\stitch_engine\\stitch_engine_renderer.dart:250"
   ],
   "Clear Logs": [
-    "components\\telemetry\\01_I_telemetry_hud.dart:266"
+    "components\\telemetry\\telemetry_hud.dart:266"
   ],
   "High-Fidelity Component not found: ${hf.viewId}": [
-    "engine\\02_I_screen_engine.dart:302"
+    "engine\\screen_engine.dart:302"
   ],
   "Line Chart Component not found": [
-    "engine\\02_I_screen_engine.dart:307"
+    "engine\\screen_engine.dart:307"
   ],
   "AI Forecasting Component not found": [
-    "engine\\02_I_screen_engine.dart:311"
+    "engine\\screen_engine.dart:311"
   ],
   "Unknown Component: ${blueprint.componentType}": [
-    "engine\\02_I_screen_engine.dart:319"
+    "engine\\screen_engine.dart:319"
   ],
   "Architecture Planning": [
-    "features\\architecture_planning_dashboard\\presentation\\widgets\\05_U_architecture_planning_dashboard_screen.dart:32",
-    "features\\architecture_planning_dashboard\\presentation\\widgets\\05_U_architecture_planning_dashboard_screen.dart:44"
+    "features\\architecture_planning_dashboard\\presentation\\widgets\\architecture_planning_dashboard_screen.dart:32",
+    "features\\architecture_planning_dashboard\\presentation\\widgets\\architecture_planning_dashboard_screen.dart:44"
   ],
   "Restore All Healthy": [
-    "features\\auditor_hud\\presentation\\widgets\\05_U_auditor_hud_overlay.dart:127"
+    "features\\auditor_hud\\presentation\\widgets\\auditor_hud_overlay.dart:127"
   ],
   "Operational Sector: authPagesMessageSection": [
-    "features\\auths_message_section\\presentation\\widgets\\05_U_auth_pages_message_section.dart:13"
+    "features\\auths_message_section\\presentation\\widgets\\auth_pages_message_section.dart:13"
   ],
   "Upload 837 Claims": [
-    "features\\billing_admin\\presentation\\widgets\\05_U_billing_admin_screen.dart:82"
+    "features\\billing_admin\\presentation\\widgets\\billing_admin_screen.dart:82"
   ],
   "Download 835 ERAs": [
-    "features\\billing_admin\\presentation\\widgets\\05_U_billing_admin_screen.dart:87"
+    "features\\billing_admin\\presentation\\widgets\\billing_admin_screen.dart:87"
   ],
   "Billing Command Center": [
-    "features\\billing_admin_dashboard\\presentation\\widgets\\05_U_billing_admin_dashboard_screen.dart:35"
+    "features\\billing_admin_dashboard\\presentation\\widgets\\billing_admin_dashboard_screen.dart:35"
   ],
   "Revenue Aging Matrix": [
-    "features\\billing_admin_dashboard\\presentation\\widgets\\05_U_billing_admin_dashboard_screen.dart:81"
+    "features\\billing_admin_dashboard\\presentation\\widgets\\billing_admin_dashboard_screen.dart:81"
   ],
   "Aura Intelligence": [
-    "features\\billing_admin_dashboard\\presentation\\widgets\\05_U_billing_admin_dashboard_screen.dart:120",
-    "features\\clinical_director_dashboard\\presentation\\widgets\\05_U_clinical_director_dashboard_screen.dart:119",
-    "features\\compliance_manager_dashboard\\presentation\\widgets\\05_U_compliance_manager_dashboard_screen.dart:123",
-    "features\\coo_dashboard\\presentation\\widgets\\05_U_coo_dashboard_screen.dart:120",
-    "features\\customer_support_dashboard\\presentation\\widgets\\05_U_customer_support_dashboard_screen.dart:125",
-    "features\\cx_director_dashboard\\presentation\\widgets\\05_U_cx_director_dashboard_screen.dart:123",
-    "features\\franchise_owner_dashboard\\presentation\\widgets\\05_U_franchise_owner_dashboard_screen.dart:120",
-    "features\\general_manager_dashboard\\presentation\\widgets\\05_U_general_manager_dashboard_screen.dart:123",
-    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\05_U_head_of_bus_dev_dashboard_screen.dart:123",
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_head_of_marketing_dashboard_screen.dart:338",
-    "features\\hr_director_dashboard\\presentation\\widgets\\05_U_hr_director_dashboard_screen.dart:123",
-    "features\\hr_hiring_dashboard\\presentation\\widgets\\05_U_hr_hiring_dashboard_screen.dart:318",
-    "features\\infection_control_dashboard\\presentation\\widgets\\05_U_infection_control_dashboard_screen.dart:89",
-    "features\\intake_dashboard\\presentation\\widgets\\05_U_intake_dashboard_screen.dart:120",
-    "features\\it_security_dashboard\\presentation\\widgets\\05_U_it_security_dashboard_screen.dart:160",
-    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\05_U_local_marketing_manager_dashboard_screen.dart:208",
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_manager_dashboard_screen.dart:327",
-    "features\\owner_dashboard\\presentation\\widgets\\05_U_owner_dashboard_screen.dart:112",
-    "features\\partnership_manager_dashboard\\presentation\\widgets\\05_U_partnership_manager_dashboard_screen.dart:123",
-    "features\\qa_dashboard\\presentation\\widgets\\05_U_qa_dashboard_screen.dart:123",
-    "features\\regional_manager_ontario_dashboard\\presentation\\widgets\\05_U_regional_manager_ontario_dashboard_screen.dart:116",
-    "features\\scheduler_dashboard\\presentation\\widgets\\05_U_scheduler_dashboard_screen.dart:120",
-    "features\\scrum_master_dashboard\\presentation\\widgets\\05_U_scrum_master_dashboard_screen.dart:120",
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_dashboard_screen.dart:76",
-    "features\\training_director_dashboard\\presentation\\widgets\\05_U_training_director_dashboard_screen.dart:120",
-    "features\\volunteer_coordinator_dashboard\\presentation\\widgets\\05_U_volunteer_coordinator_dashboard_screen.dart:110"
+    "features\\billing_admin_dashboard\\presentation\\widgets\\billing_admin_dashboard_screen.dart:120",
+    "features\\clinical_director_dashboard\\presentation\\widgets\\clinical_director_dashboard_screen.dart:119",
+    "features\\compliance_manager_dashboard\\presentation\\widgets\\compliance_manager_dashboard_screen.dart:123",
+    "features\\coo_dashboard\\presentation\\widgets\\coo_dashboard_screen.dart:120",
+    "features\\customer_support_dashboard\\presentation\\widgets\\customer_support_dashboard_screen.dart:125",
+    "features\\cx_director_dashboard\\presentation\\widgets\\cx_director_dashboard_screen.dart:123",
+    "features\\franchise_owner_dashboard\\presentation\\widgets\\franchise_owner_dashboard_screen.dart:120",
+    "features\\general_manager_dashboard\\presentation\\widgets\\general_manager_dashboard_screen.dart:123",
+    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\head_of_bus_dev_dashboard_screen.dart:123",
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\head_of_marketing_dashboard_screen.dart:338",
+    "features\\hr_director_dashboard\\presentation\\widgets\\hr_director_dashboard_screen.dart:123",
+    "features\\hr_hiring_dashboard\\presentation\\widgets\\hr_hiring_dashboard_screen.dart:318",
+    "features\\infection_control_dashboard\\presentation\\widgets\\infection_control_dashboard_screen.dart:89",
+    "features\\intake_dashboard\\presentation\\widgets\\intake_dashboard_screen.dart:120",
+    "features\\it_security_dashboard\\presentation\\widgets\\it_security_dashboard_screen.dart:160",
+    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\local_marketing_manager_dashboard_screen.dart:208",
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_manager_dashboard_screen.dart:327",
+    "features\\owner_dashboard\\presentation\\widgets\\owner_dashboard_screen.dart:112",
+    "features\\partnership_manager_dashboard\\presentation\\widgets\\partnership_manager_dashboard_screen.dart:123",
+    "features\\qa_dashboard\\presentation\\widgets\\qa_dashboard_screen.dart:123",
+    "features\\regional_manager_ontario_dashboard\\presentation\\widgets\\regional_manager_ontario_dashboard_screen.dart:116",
+    "features\\scheduler_dashboard\\presentation\\widgets\\scheduler_dashboard_screen.dart:120",
+    "features\\scrum_master_dashboard\\presentation\\widgets\\scrum_master_dashboard_screen.dart:120",
+    "features\\support_dashboard\\presentation\\widgets\\support_dashboard_screen.dart:76",
+    "features\\training_director_dashboard\\presentation\\widgets\\training_director_dashboard_screen.dart:120",
+    "features\\volunteer_coordinator_dashboard\\presentation\\widgets\\volunteer_coordinator_dashboard_screen.dart:110"
   ],
   "Ceo Command Center": [
-    "features\\ceo_dashboard\\presentation\\widgets\\05_U_ceo_dashboard_screen.dart:33"
+    "features\\ceo_dashboard\\presentation\\widgets\\ceo_dashboard_screen.dart:33"
   ],
   "Operational Insights Unified": [
-    "features\\ceo_dashboard\\presentation\\widgets\\05_U_ceo_dashboard_screen.dart:39",
-    "features\\cfo_dashboard\\presentation\\widgets\\05_U_cfo_dashboard_screen.dart:40",
-    "features\\client_dashboard\\presentation\\widgets\\05_U_client_dashboard_screen.dart:40",
-    "features\\clinic_dashboard\\presentation\\widgets\\05_U_clinic_dashboard_screen.dart:40",
-    "features\\community_outreach_dashboard\\presentation\\widgets\\05_U_community_outreach_dashboard_screen.dart:40",
-    "features\\course_architect_dashboard\\presentation\\widgets\\05_U_course_architect_dashboard_screen.dart:40",
-    "features\\dynamic_screen_dashboard\\presentation\\widgets\\05_U_dynamic_screen_dashboard_screen.dart:42",
-    "features\\family_dashboard\\presentation\\widgets\\05_U_family_dashboard_screen.dart:40",
-    "features\\family_member_dashboard\\presentation\\widgets\\05_U_family_member_dashboard_screen.dart:40",
-    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\05_U_franchise_sales_manager_dashboard_screen.dart:44",
-    "features\\guest_dashboard\\presentation\\widgets\\05_U_guest_dashboard_screen.dart:40",
-    "features\\intake_coordinator_dashboard\\presentation\\widgets\\05_U_intake_coordinator_dashboard_screen.dart:40",
-    "features\\patient_dashboard\\presentation\\widgets\\05_U_patient_dashboard_screen.dart:40",
-    "features\\psw_dashboard\\presentation\\widgets\\05_U_psw_dashboard_screen.dart:40",
-    "features\\quality_assurance_dashboard\\presentation\\widgets\\05_U_quality_assurance_dashboard_screen.dart:40",
-    "features\\receptionist_dashboard\\presentation\\widgets\\05_U_receptionist_dashboard_screen.dart:40",
-    "features\\regional_bdm_dashboard\\presentation\\widgets\\05_U_regional_bdm_dashboard_screen.dart:40",
-    "features\\regional_manager_usa_dashboard\\presentation\\widgets\\05_U_regional_manager_usa_dashboard_screen.dart:44",
-    "features\\rmt_dashboard\\presentation\\widgets\\05_U_rmt_dashboard_screen.dart:40",
-    "features\\rn_dashboard\\presentation\\widgets\\05_U_rn_dashboard_screen.dart:40",
-    "features\\system_verification_dashboard\\presentation\\widgets\\05_U_system_verification_dashboard_screen.dart:44",
-    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\05_U_territory_expansion_manager_dashboard_screen.dart:44",
-    "features\\territory_sales_manager_dashboard\\presentation\\widgets\\05_U_territory_sales_manager_dashboard_screen.dart:44",
-    "features\\training_coordinator_dashboard\\presentation\\widgets\\05_U_training_coordinator_dashboard_screen.dart:44",
-    "features\\training_director_certificate_dashboard\\presentation\\widgets\\05_U_training_director_certificate_dashboard_screen.dart:44",
-    "features\\training_hub_dashboard\\presentation\\widgets\\05_U_training_hub_dashboard_screen.dart:40"
+    "features\\ceo_dashboard\\presentation\\widgets\\ceo_dashboard_screen.dart:39",
+    "features\\cfo_dashboard\\presentation\\widgets\\cfo_dashboard_screen.dart:40",
+    "features\\client_dashboard\\presentation\\widgets\\client_dashboard_screen.dart:40",
+    "features\\clinic_dashboard\\presentation\\widgets\\clinic_dashboard_screen.dart:40",
+    "features\\community_outreach_dashboard\\presentation\\widgets\\community_outreach_dashboard_screen.dart:40",
+    "features\\course_architect_dashboard\\presentation\\widgets\\course_architect_dashboard_screen.dart:40",
+    "features\\dynamic_screen_dashboard\\presentation\\widgets\\dynamic_screen_dashboard_screen.dart:42",
+    "features\\family_dashboard\\presentation\\widgets\\family_dashboard_screen.dart:40",
+    "features\\family_member_dashboard\\presentation\\widgets\\family_member_dashboard_screen.dart:40",
+    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\franchise_sales_manager_dashboard_screen.dart:44",
+    "features\\guest_dashboard\\presentation\\widgets\\guest_dashboard_screen.dart:40",
+    "features\\intake_coordinator_dashboard\\presentation\\widgets\\intake_coordinator_dashboard_screen.dart:40",
+    "features\\patient_dashboard\\presentation\\widgets\\patient_dashboard_screen.dart:40",
+    "features\\psw_dashboard\\presentation\\widgets\\psw_dashboard_screen.dart:40",
+    "features\\quality_assurance_dashboard\\presentation\\widgets\\quality_assurance_dashboard_screen.dart:40",
+    "features\\receptionist_dashboard\\presentation\\widgets\\receptionist_dashboard_screen.dart:40",
+    "features\\regional_bdm_dashboard\\presentation\\widgets\\regional_bdm_dashboard_screen.dart:40",
+    "features\\regional_manager_usa_dashboard\\presentation\\widgets\\regional_manager_usa_dashboard_screen.dart:44",
+    "features\\rmt_dashboard\\presentation\\widgets\\rmt_dashboard_screen.dart:40",
+    "features\\rn_dashboard\\presentation\\widgets\\rn_dashboard_screen.dart:40",
+    "features\\system_verification_dashboard\\presentation\\widgets\\system_verification_dashboard_screen.dart:44",
+    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\territory_expansion_manager_dashboard_screen.dart:44",
+    "features\\territory_sales_manager_dashboard\\presentation\\widgets\\territory_sales_manager_dashboard_screen.dart:44",
+    "features\\training_coordinator_dashboard\\presentation\\widgets\\training_coordinator_dashboard_screen.dart:44",
+    "features\\training_director_certificate_dashboard\\presentation\\widgets\\training_director_certificate_dashboard_screen.dart:44",
+    "features\\training_hub_dashboard\\presentation\\widgets\\training_hub_dashboard_screen.dart:40"
   ],
   "Institutional Synergy Grid": [
-    "features\\ceo_dashboard\\presentation\\widgets\\05_U_ceo_widgets.dart:62"
+    "features\\ceo_dashboard\\presentation\\widgets\\ceo_widgets.dart:62"
   ],
   "Cfo Command Center": [
-    "features\\cfo_dashboard\\presentation\\widgets\\05_U_cfo_dashboard_screen.dart:34"
+    "features\\cfo_dashboard\\presentation\\widgets\\cfo_dashboard_screen.dart:34"
   ],
   "Fiscal Velocity Forecast": [
-    "features\\cfo_dashboard\\presentation\\widgets\\05_U_cfo_widgets.dart:23"
+    "features\\cfo_dashboard\\presentation\\widgets\\cfo_widgets.dart:23"
   ],
   "Ledger Integrity Monitor": [
-    "features\\cfo_dashboard\\presentation\\widgets\\05_U_cfo_widgets.dart:57"
+    "features\\cfo_dashboard\\presentation\\widgets\\cfo_widgets.dart:57"
   ],
   "Tax Governance Hub": [
-    "features\\cfo_dashboard\\presentation\\widgets\\05_U_cfo_widgets.dart:123"
+    "features\\cfo_dashboard\\presentation\\widgets\\cfo_widgets.dart:123"
   ],
   "Client Command Center": [
-    "features\\client_dashboard\\presentation\\widgets\\05_U_client_dashboard_screen.dart:34"
+    "features\\client_dashboard\\presentation\\widgets\\client_dashboard_screen.dart:34"
   ],
   "REPORTS": [
-    "features\\clinical_director\\presentation\\widgets\\05_U_clinical_director_screen.dart:78"
+    "features\\clinical_director\\presentation\\widgets\\clinical_director_screen.dart:78"
   ],
   "QUICK REVIEW": [
-    "features\\clinical_director\\presentation\\widgets\\05_U_clinical_director_screen.dart:84"
+    "features\\clinical_director\\presentation\\widgets\\clinical_director_screen.dart:84"
   ],
   "Clinical Quality Performance": [
-    "features\\clinical_director_dashboard\\presentation\\widgets\\05_U_clinical_director_dashboard_screen.dart:84"
+    "features\\clinical_director_dashboard\\presentation\\widgets\\clinical_director_dashboard_screen.dart:84"
   ],
   "Staffing Coverage Matrix": [
-    "features\\clinical_director_dashboard\\presentation\\widgets\\05_U_clinical_director_widgets.dart:23"
+    "features\\clinical_director_dashboard\\presentation\\widgets\\clinical_director_widgets.dart:23"
   ],
   "Protocol Compliance Log": [
-    "features\\clinical_director_dashboard\\presentation\\widgets\\05_U_clinical_director_widgets.dart:57"
+    "features\\clinical_director_dashboard\\presentation\\widgets\\clinical_director_widgets.dart:57"
   ],
   "Incident Trends (30D)": [
-    "features\\clinical_director_dashboard\\presentation\\widgets\\05_U_clinical_director_widgets.dart:113"
+    "features\\clinical_director_dashboard\\presentation\\widgets\\clinical_director_widgets.dart:113"
   ],
   "This component is part of the clinical_forms module.": [
-    "features\\clinical_forms\\presentation\\widgets\\05_U_approve_medication_refill_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_daily_vitals_card_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_log_clinical_incident_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_log_infection_control_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_review_care_plan_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_review_clinical_incident_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_review_medication_inventory_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_schedule_clinical_audit_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_submit_adl_checklist_form_screen.dart:24",
-    "features\\clinical_forms\\presentation\\widgets\\05_U_submit_daily_census_form_screen.dart:24"
+    "features\\clinical_forms\\presentation\\widgets\\approve_medication_refill_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\daily_vitals_card_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\log_clinical_incident_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\log_infection_control_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\review_care_plan_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\review_clinical_incident_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\review_medication_inventory_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\schedule_clinical_audit_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\submit_adl_checklist_form_screen.dart:24",
+    "features\\clinical_forms\\presentation\\widgets\\submit_daily_census_form_screen.dart:24"
   ],
   "Clinic Command Center": [
-    "features\\clinic_dashboard\\presentation\\widgets\\05_U_clinic_dashboard_screen.dart:34"
+    "features\\clinic_dashboard\\presentation\\widgets\\clinic_dashboard_screen.dart:34"
   ],
   "Clinical Safety Index": [
-    "features\\clinic_dashboard\\presentation\\widgets\\05_U_clinic_widgets.dart:23"
+    "features\\clinic_dashboard\\presentation\\widgets\\clinic_widgets.dart:23"
   ],
   "Clinical Compliance Matrix": [
-    "features\\clinic_dashboard\\presentation\\widgets\\05_U_clinic_widgets.dart:57"
+    "features\\clinic_dashboard\\presentation\\widgets\\clinic_widgets.dart:57"
   ],
   "This component is part of the common_forms module.": [
-    "features\\common_forms\\presentation\\widgets\\05_U_approve_real_estate_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_approve_system_access_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_assign_care_pod_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_assign_training_module_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_compliance_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_global_education_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_override_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_royalty_payment_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_security_compliance_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_audit_system_logs_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_base_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_care_plan_evaluation_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_create_canned_response_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_create_supply_order_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_discipline_log_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_firebase_sign_in_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_firebase_sign_up_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_franchise_onboarding_checklist_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_index_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_jwt_sign_in_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_jwt_sign_up_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_leave_request_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_log_inventory_spoilage_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_number_form_controller_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_override_global_schedule_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_patient_intake_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_radio_form_controller_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_register_corporate_risk_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_request_shift_adjustment_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_review_fleet_maintenance_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_review_legal_contract_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_review_onboarding_status_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_review_peer_performance_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_review_vendor_contracts_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_role_permissions_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_schedule_facility_maintenance_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_schedule_open_house_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_sign_in_page_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_single_input_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_submit_healthcare_claim_form_screen.dart:24",
-    "features\\common_forms\\presentation\\widgets\\05_U_switch_form_controller_screen.dart:24"
+    "features\\common_forms\\presentation\\widgets\\approve_real_estate_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\approve_system_access_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\assign_care_pod_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\assign_training_module_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_compliance_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_global_education_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_override_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_royalty_payment_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_security_compliance_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\audit_system_logs_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\base_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\care_plan_evaluation_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\create_canned_response_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\create_supply_order_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\discipline_log_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\firebase_sign_in_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\firebase_sign_up_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\franchise_onboarding_checklist_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\index_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\jwt_sign_in_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\jwt_sign_up_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\leave_request_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\log_inventory_spoilage_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\number_form_controller_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\override_global_schedule_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\patient_intake_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\radio_form_controller_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\register_corporate_risk_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\request_shift_adjustment_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\review_fleet_maintenance_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\review_legal_contract_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\review_onboarding_status_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\review_peer_performance_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\review_vendor_contracts_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\role_permissions_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\schedule_facility_maintenance_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\schedule_open_house_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\sign_in_page_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\single_input_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\submit_healthcare_claim_form_screen.dart:24",
+    "features\\common_forms\\presentation\\widgets\\switch_form_controller_screen.dart:24"
   ],
   "This component is part of the common_ui module.": [
-    "features\\common_ui\\presentation\\widgets\\05_U_adjust_font_size_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_app_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_authentication_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_auth_pages_message_section_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_aws_sign_in_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_aws_sign_up_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_a_w_s_authenticator_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_a_w_s_auth_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_configurator_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_data_table_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_data_table_top_toolbar_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_demo_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_demo_frame_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_demo_sidebar_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_documentation_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_drag_assign_widget_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_dropdown_menu_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_error401_page_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_error404_page_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_error_boundary_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_eta_tracker_widget_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_example_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_firebase_auth_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_firebase_sign_in_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_firebase_sign_up_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_footer_theme_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_framed_demo_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_full_screen_toggle_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_authorization_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_auth_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_await_render_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_countdown_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_dialog_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_example_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_highlight_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_loading_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_navigation_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_badge_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_horizontal_collapse_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_horizontal_group_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_horizontal_item_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_horizontal_link_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_item_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_collapse_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_group_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_item_base_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_item_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_link_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_nav_vertical_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_carded_header_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_carded_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_carded_sidebar_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_carded_sidebar_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_simple_header_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_simple_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_simple_sidebar_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_page_simple_sidebar_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_scrollbars_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_search_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_settings_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_settings_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_settings_viewer_dialog_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_shortcuts_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_side_panel_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_suspense_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_theme_hooks_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_theme_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_fuse_theme_selector_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_go_to_doc_box_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_greeting_header_widget_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_heading_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_heading_dropdown_menu_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_highlight_popover_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_image_upload_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_image_upload_node_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_initialize_firebase_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_jwt_auth_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_jwt_sign_in_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_jw_sign_up_tab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_language_switcher_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_layout1_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_layout2_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_layout3_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_light_dark_mode_toggle_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_link_popover_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_link_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_list_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_list_dropdown_menu_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_logo_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_main_project_selection_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_mark_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_master_app_shell_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_mock_api_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_mood_slider_widget_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_pin_toggle_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_style1_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_style1_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_style2_content_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_style2_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_theme_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_toggle_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navbar_toggle_fab_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navigation_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navigation_search_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_navigation_shortcuts_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_node_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_page_breadcrumb_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_page_title_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_palette_preview_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_palette_selector_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_popover_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_powered_by_links_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_primecare_responsive_shell_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_purchase_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_quick_panel_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_quick_panel_toggle_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_routes_config_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_route_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_scheme_preview_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_section_preview_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_separator_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_settings_panel_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_in_page_title_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_in_page_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_out_page_title_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_out_page_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_up_page_title_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_sign_up_page_view_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_simple_editor_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_slide_to_clock_in_widget_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_spacer_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_text_align_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_themes_panel_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_theme_preview_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_theme_toggle_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_title_reference_link_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_toolbar_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_toolbar_theme_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_tooltip_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_undo_redo_button_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_user_menu_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_auth_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_aws_auth_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_firebase_auth_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_fuse_dialog_context_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_fuse_route_parameter_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_fuse_settings_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_jwt_auth_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_local_storage_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_navigate_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_navigation_items_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_pathname_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_use_user_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_with_router_screen.dart:24",
-    "features\\common_ui\\presentation\\widgets\\05_U_with_user_screen.dart:24"
+    "features\\common_ui\\presentation\\widgets\\adjust_font_size_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\app_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\authentication_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\auth_pages_message_section_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\aws_sign_in_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\aws_sign_up_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\a_w_s_authenticator_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\a_w_s_auth_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\configurator_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\data_table_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\data_table_top_toolbar_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\demo_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\demo_frame_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\demo_sidebar_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\documentation_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\drag_assign_widget_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\dropdown_menu_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\error401_page_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\error404_page_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\error_boundary_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\eta_tracker_widget_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\example_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\firebase_auth_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\firebase_sign_in_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\firebase_sign_up_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\footer_theme_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\framed_demo_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\full_screen_toggle_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_authorization_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_auth_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_await_render_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_countdown_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_dialog_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_example_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_highlight_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_loading_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_navigation_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_badge_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_horizontal_collapse_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_horizontal_group_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_horizontal_item_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_horizontal_link_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_item_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_collapse_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_group_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_item_base_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_item_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_link_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_nav_vertical_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_carded_header_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_carded_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_carded_sidebar_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_carded_sidebar_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_simple_header_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_simple_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_simple_sidebar_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_page_simple_sidebar_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_scrollbars_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_search_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_settings_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_settings_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_settings_viewer_dialog_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_shortcuts_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_side_panel_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_suspense_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_theme_hooks_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_theme_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\fuse_theme_selector_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\go_to_doc_box_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\greeting_header_widget_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\heading_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\heading_dropdown_menu_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\highlight_popover_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\image_upload_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\image_upload_node_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\initialize_firebase_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\jwt_auth_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\jwt_sign_in_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\jw_sign_up_tab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\language_switcher_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\layout1_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\layout2_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\layout3_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\light_dark_mode_toggle_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\link_popover_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\link_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\list_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\list_dropdown_menu_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\logo_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\main_project_selection_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\mark_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\master_app_shell_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\mock_api_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\mood_slider_widget_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_pin_toggle_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_style1_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_style1_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_style2_content_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_style2_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_theme_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_toggle_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navbar_toggle_fab_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navigation_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navigation_search_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\navigation_shortcuts_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\node_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\page_breadcrumb_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\page_title_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\palette_preview_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\palette_selector_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\popover_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\powered_by_links_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\primecare_responsive_shell_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\purchase_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\quick_panel_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\quick_panel_toggle_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\routes_config_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\route_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\scheme_preview_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\section_preview_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\separator_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\settings_panel_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_in_page_title_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_in_page_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_out_page_title_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_out_page_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_up_page_title_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\sign_up_page_view_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\simple_editor_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\slide_to_clock_in_widget_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\spacer_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\text_align_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\themes_panel_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\theme_preview_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\theme_toggle_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\title_reference_link_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\toolbar_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\toolbar_theme_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\tooltip_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\undo_redo_button_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\user_menu_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_auth_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_aws_auth_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_firebase_auth_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_fuse_dialog_context_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_fuse_route_parameter_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_fuse_settings_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_jwt_auth_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_local_storage_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_navigate_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_navigation_items_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_pathname_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\use_user_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\with_router_screen.dart:24",
+    "features\\common_ui\\presentation\\widgets\\with_user_screen.dart:24"
   ],
   "Return to Safety": [
-    "features\\common_ui\\presentation\\widgets\\05_U_error500_page_view_screen.dart:75"
+    "features\\common_ui\\presentation\\widgets\\error500_page_view_screen.dart:75"
   ],
   "Retry Hydration": [
-    "features\\common_ui\\presentation\\widgets\\05_U_error500_page_view_screen.dart:88"
+    "features\\common_ui\\presentation\\widgets\\error500_page_view_screen.dart:88"
   ],
   "Community Outreach Command Center": [
-    "features\\community_outreach_dashboard\\presentation\\widgets\\05_U_community_outreach_dashboard_screen.dart:34"
+    "features\\community_outreach_dashboard\\presentation\\widgets\\community_outreach_dashboard_screen.dart:34"
   ],
   "Community Engagement": [
-    "features\\community_outreach_dashboard\\presentation\\widgets\\05_U_community_outreach_widgets.dart:23"
+    "features\\community_outreach_dashboard\\presentation\\widgets\\community_outreach_widgets.dart:23"
   ],
   "Local Impact Analytics": [
-    "features\\community_outreach_dashboard\\presentation\\widgets\\05_U_community_outreach_widgets.dart:59"
+    "features\\community_outreach_dashboard\\presentation\\widgets\\community_outreach_widgets.dart:59"
   ],
   "NEW AUDIT": [
-    "features\\compliance_manager\\presentation\\widgets\\05_U_compliance_manager_screen.dart:85"
+    "features\\compliance_manager\\presentation\\widgets\\compliance_manager_screen.dart:85"
   ],
   "Audit Completion Velocity": [
-    "features\\compliance_manager_dashboard\\presentation\\widgets\\05_U_compliance_manager_dashboard_screen.dart:84"
+    "features\\compliance_manager_dashboard\\presentation\\widgets\\compliance_manager_dashboard_screen.dart:84"
   ],
   "Regulatory Risk Matrix": [
-    "features\\compliance_manager_dashboard\\presentation\\widgets\\05_U_compliance_manager_dashboard_screen.dart:103"
+    "features\\compliance_manager_dashboard\\presentation\\widgets\\compliance_manager_dashboard_screen.dart:103"
   ],
   "Compliance Enforcement Matrix": [
-    "features\\compliance_manager_dashboard\\presentation\\widgets\\05_U_compliance_widgets.dart:59"
+    "features\\compliance_manager_dashboard\\presentation\\widgets\\compliance_widgets.dart:59"
   ],
   "Operations Command Center": [
-    "features\\coo_dashboard\\presentation\\widgets\\05_U_coo_dashboard_screen.dart:35",
-    "features\\general_manager_dashboard\\presentation\\widgets\\05_U_general_manager_dashboard_screen.dart:35"
+    "features\\coo_dashboard\\presentation\\widgets\\coo_dashboard_screen.dart:35",
+    "features\\general_manager_dashboard\\presentation\\widgets\\general_manager_dashboard_screen.dart:35"
   ],
   "Operational Efficiency Matrix": [
-    "features\\coo_dashboard\\presentation\\widgets\\05_U_coo_dashboard_screen.dart:81"
+    "features\\coo_dashboard\\presentation\\widgets\\coo_dashboard_screen.dart:81"
   ],
   "Operational Continuity": [
-    "features\\coo_dashboard\\presentation\\widgets\\05_U_coo_widgets.dart:23"
+    "features\\coo_dashboard\\presentation\\widgets\\coo_widgets.dart:23"
   ],
   "Human Capital Capacity": [
-    "features\\coo_dashboard\\presentation\\widgets\\05_U_coo_widgets.dart:59"
+    "features\\coo_dashboard\\presentation\\widgets\\coo_widgets.dart:59"
   ],
   "V4 Compliant": [
-    "features\\corporate_governance_dashboard\\presentation\\widgets\\05_U_corporate_governance_dashboard_screen.dart:94"
+    "features\\corporate_governance_dashboard\\presentation\\widgets\\corporate_governance_dashboard_screen.dart:94"
   ],
   "Governance Intelligence": [
-    "features\\corporate_governance_dashboard\\presentation\\widgets\\05_U_corporate_governance_dashboard_screen.dart:135"
+    "features\\corporate_governance_dashboard\\presentation\\widgets\\corporate_governance_dashboard_screen.dart:135"
   ],
   "Integrity Analytics": [
-    "features\\corporate_governance_dashboard\\presentation\\widgets\\05_U_corporate_governance_dashboard_screen.dart:147"
+    "features\\corporate_governance_dashboard\\presentation\\widgets\\corporate_governance_dashboard_screen.dart:147"
   ],
   "Structural Integrity Audit Log": [
-    "features\\corporate_governance_dashboard\\presentation\\widgets\\05_U_corporate_governance_dashboard_screen.dart:161"
+    "features\\corporate_governance_dashboard\\presentation\\widgets\\corporate_governance_dashboard_screen.dart:161"
   ],
   "Course Architect Command Center": [
-    "features\\course_architect_dashboard\\presentation\\widgets\\05_U_course_architect_dashboard_screen.dart:34"
+    "features\\course_architect_dashboard\\presentation\\widgets\\course_architect_dashboard_screen.dart:34"
   ],
   "This component is part of the crm_forms module.": [
-    "features\\crm_forms\\presentation\\widgets\\05_U_add_franchise_lead_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_approve_franchise_disclosure_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_assign_lead_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_create_ad_placement_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_log_franchisee_vetting_call_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_nurture_localized_lead_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_review_lead_conversion_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_review_market_share_form_screen.dart:24",
-    "features\\crm_forms\\presentation\\widgets\\05_U_submit_marketing_budget_form_screen.dart:24"
+    "features\\crm_forms\\presentation\\widgets\\add_franchise_lead_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\approve_franchise_disclosure_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\assign_lead_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\create_ad_placement_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\log_franchisee_vetting_call_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\nurture_localized_lead_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\review_lead_conversion_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\review_market_share_form_screen.dart:24",
+    "features\\crm_forms\\presentation\\widgets\\submit_marketing_budget_form_screen.dart:24"
   ],
   "ARCHITECTURAL LOAD": [
-    "features\\cto_dashboard\\presentation\\widgets\\05_U_cto_dashboard_screen.dart:167"
+    "features\\cto_dashboard\\presentation\\widgets\\cto_dashboard_screen.dart:167"
   ],
   "Load Distribution Graph Placeholder": [
-    "features\\cto_dashboard\\presentation\\widgets\\05_U_cto_dashboard_screen.dart:170"
+    "features\\cto_dashboard\\presentation\\widgets\\cto_dashboard_screen.dart:170"
   ],
   "CREATE TICKET": [
-    "features\\customer_support\\presentation\\widgets\\05_U_customer_support_screen.dart:97"
+    "features\\customer_support\\presentation\\widgets\\customer_support_screen.dart:97"
   ],
   "Incident Resolution Velocity": [
-    "features\\customer_support_dashboard\\presentation\\widgets\\05_U_customer_support_dashboard_screen.dart:86"
+    "features\\customer_support_dashboard\\presentation\\widgets\\customer_support_dashboard_screen.dart:86"
   ],
   "Regional Ticket Load": [
-    "features\\customer_support_dashboard\\presentation\\widgets\\05_U_customer_support_widgets.dart:15"
+    "features\\customer_support_dashboard\\presentation\\widgets\\customer_support_widgets.dart:15"
   ],
   "SLA Status (Last 24h)": [
-    "features\\customer_support_dashboard\\presentation\\widgets\\05_U_customer_support_widgets.dart:87"
+    "features\\customer_support_dashboard\\presentation\\widgets\\customer_support_widgets.dart:87"
   ],
   "Sentiment Velocity Heatmap": [
-    "features\\cx_director_dashboard\\presentation\\widgets\\05_U_cx_director_dashboard_screen.dart:84"
+    "features\\cx_director_dashboard\\presentation\\widgets\\cx_director_dashboard_screen.dart:84"
   ],
   "Dynamic Screen Command Center": [
-    "features\\dynamic_screen_dashboard\\presentation\\widgets\\05_U_dynamic_screen_dashboard_screen.dart:36"
+    "features\\dynamic_screen_dashboard\\presentation\\widgets\\dynamic_screen_dashboard_screen.dart:36"
   ],
   "Operational Sector: error401PageView": [
-    "features\\error401_view\\presentation\\widgets\\05_U_error401_page_view.dart:13"
+    "features\\error401_view\\presentation\\widgets\\error401_page_view.dart:13"
   ],
   "Operational Sector: error404PageView": [
-    "features\\error404_view\\presentation\\widgets\\05_U_error404_page_view.dart:13"
+    "features\\error404_view\\presentation\\widgets\\error404_page_view.dart:13"
   ],
   "Family Command Center": [
-    "features\\family_dashboard\\presentation\\widgets\\05_U_family_dashboard_screen.dart:34"
+    "features\\family_dashboard\\presentation\\widgets\\family_dashboard_screen.dart:34"
   ],
   "Family Member Command Center": [
-    "features\\family_member_dashboard\\presentation\\widgets\\05_U_family_member_dashboard_screen.dart:34"
+    "features\\family_member_dashboard\\presentation\\widgets\\family_member_dashboard_screen.dart:34"
   ],
   "Financial Intelligence": [
-    "features\\finance_director_dashboard\\presentation\\widgets\\05_U_finance_director_dashboard_screen.dart:88"
+    "features\\finance_director_dashboard\\presentation\\widgets\\finance_director_dashboard_screen.dart:88"
   ],
   "Executive Actions": [
-    "features\\finance_director_dashboard\\presentation\\widgets\\05_U_finance_director_dashboard_screen.dart:132"
+    "features\\finance_director_dashboard\\presentation\\widgets\\finance_director_dashboard_screen.dart:132"
   ],
   "This component is part of the financial_forms module.": [
-    "features\\financial_forms\\presentation\\widgets\\05_U_approve_expense_reimbursement_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_approve_payroll_run_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_audit_payroll_discrepancy_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_create_custom_invoice_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_create_revenue_report_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_log_petty_cash_form_screen.dart:24",
-    "features\\financial_forms\\presentation\\widgets\\05_U_review_monthly_expenses_form_screen.dart:24"
+    "features\\financial_forms\\presentation\\widgets\\approve_expense_reimbursement_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\approve_payroll_run_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\audit_payroll_discrepancy_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\create_custom_invoice_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\create_revenue_report_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\log_petty_cash_form_screen.dart:24",
+    "features\\financial_forms\\presentation\\widgets\\review_monthly_expenses_form_screen.dart:24"
   ],
   "Franchise Command Center": [
-    "features\\franchise_owner_dashboard\\presentation\\widgets\\05_U_franchise_owner_dashboard_screen.dart:35"
+    "features\\franchise_owner_dashboard\\presentation\\widgets\\franchise_owner_dashboard_screen.dart:35"
   ],
   "Regional Growth Matrix": [
-    "features\\franchise_owner_dashboard\\presentation\\widgets\\05_U_franchise_owner_dashboard_screen.dart:81"
+    "features\\franchise_owner_dashboard\\presentation\\widgets\\franchise_owner_dashboard_screen.dart:81"
   ],
   "Franchise Sales Funnel": [
-    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\05_U_franchise_sales_widgets.dart:23"
+    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\franchise_sales_widgets.dart:23"
   ],
   "Franchise Lead Matrix": [
-    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\05_U_franchise_sales_widgets.dart:59"
+    "features\\franchise_sales_manager_dashboard\\presentation\\widgets\\franchise_sales_widgets.dart:59"
   ],
   "Operational Sector: full_screen_toggle": [
-    "features\\full_toggle\\presentation\\widgets\\05_U_full_screen_toggle.dart:12"
+    "features\\full_toggle\\presentation\\widgets\\full_screen_toggle.dart:12"
   ],
   "Operational Sector: fuse_page_carded": [
-    "features\\fuse_carded\\presentation\\widgets\\05_U_fuse_page_carded.dart:12"
+    "features\\fuse_carded\\presentation\\widgets\\fuse_page_carded.dart:12"
   ],
   "Operational Sector: fuse_page_carded_header": [
-    "features\\fuse_carded_header\\presentation\\widgets\\05_U_fuse_page_carded_header.dart:12"
+    "features\\fuse_carded_header\\presentation\\widgets\\fuse_page_carded_header.dart:12"
   ],
   "Operational Sector: fuse_page_carded_sidebar": [
-    "features\\fuse_carded_sidebar\\presentation\\widgets\\05_U_fuse_page_carded_sidebar.dart:12"
+    "features\\fuse_carded_sidebar\\presentation\\widgets\\fuse_page_carded_sidebar.dart:12"
   ],
   "Operational Sector: fuse_page_carded_sidebar_content": [
-    "features\\fuse_carded_sidebar_content\\presentation\\widgets\\05_U_fuse_page_carded_sidebar_content.dart:12"
+    "features\\fuse_carded_sidebar_content\\presentation\\widgets\\fuse_page_carded_sidebar_content.dart:12"
   ],
   "Operational Sector: fuse_page_simple": [
-    "features\\fuse_simple\\presentation\\widgets\\05_U_fuse_page_simple.dart:12"
+    "features\\fuse_simple\\presentation\\widgets\\fuse_page_simple.dart:12"
   ],
   "Operational Sector: fuse_page_simple_header": [
-    "features\\fuse_simple_header\\presentation\\widgets\\05_U_fuse_page_simple_header.dart:12"
+    "features\\fuse_simple_header\\presentation\\widgets\\fuse_page_simple_header.dart:12"
   ],
   "Operational Sector: fuse_page_simple_sidebar": [
-    "features\\fuse_simple_sidebar\\presentation\\widgets\\05_U_fuse_page_simple_sidebar.dart:12"
+    "features\\fuse_simple_sidebar\\presentation\\widgets\\fuse_page_simple_sidebar.dart:12"
   ],
   "Operational Sector: fuse_page_simple_sidebar_content": [
-    "features\\fuse_simple_sidebar_content\\presentation\\widgets\\05_U_fuse_page_simple_sidebar_content.dart:12"
+    "features\\fuse_simple_sidebar_content\\presentation\\widgets\\fuse_page_simple_sidebar_content.dart:12"
   ],
   "Operational Sector: fuse_splash_screen": [
-    "features\\fuse_splash\\presentation\\widgets\\05_U_fuse_splash_screen.dart:12"
+    "features\\fuse_splash\\presentation\\widgets\\fuse_splash_screen.dart:12"
   ],
   "Departmental Velocity": [
-    "features\\general_manager_dashboard\\presentation\\widgets\\05_U_general_manager_widgets.dart:23"
+    "features\\general_manager_dashboard\\presentation\\widgets\\general_manager_widgets.dart:23"
   ],
   "Site Logistics Matrix": [
-    "features\\general_manager_dashboard\\presentation\\widgets\\05_U_general_manager_widgets.dart:59"
+    "features\\general_manager_dashboard\\presentation\\widgets\\general_manager_widgets.dart:59"
   ],
   "Guest Command Center": [
-    "features\\guest_dashboard\\presentation\\widgets\\05_U_guest_dashboard_screen.dart:34"
+    "features\\guest_dashboard\\presentation\\widgets\\guest_dashboard_screen.dart:34"
   ],
   "Business Development Hub": [
-    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\05_U_head_of_bus_dev_dashboard_screen.dart:35"
+    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\head_of_bus_dev_dashboard_screen.dart:35"
   ],
   "Regional Growth Heatmap": [
-    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\05_U_head_of_bus_dev_widgets.dart:23"
+    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\head_of_bus_dev_widgets.dart:23"
   ],
   "Franchise Pipeline Funnel": [
-    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\05_U_head_of_bus_dev_widgets.dart:59"
+    "features\\head_of_bus_dev_dashboard\\presentation\\widgets\\head_of_bus_dev_widgets.dart:59"
   ],
   "Growth Status: Rapid": [
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_head_of_marketing_dashboard_screen.dart:129"
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\head_of_marketing_dashboard_screen.dart:129"
   ],
   "Active Campaign ROI": [
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_head_of_marketing_dashboard_screen.dart:185",
-    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\05_U_local_marketing_manager_dashboard_screen.dart:87"
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\head_of_marketing_dashboard_screen.dart:185",
+    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\local_marketing_manager_dashboard_screen.dart:87"
   ],
   "Lead Funnel (Last 30d)": [
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_head_of_marketing_dashboard_screen.dart:261"
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\head_of_marketing_dashboard_screen.dart:261"
   ],
   "Campaign ROI Matrix": [
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_marketing_widgets.dart:23"
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\marketing_widgets.dart:23"
   ],
   "Lead Conversion Funnel": [
-    "features\\head_of_marketing_dashboard\\presentation\\widgets\\05_U_marketing_widgets.dart:54"
+    "features\\head_of_marketing_dashboard\\presentation\\widgets\\marketing_widgets.dart:54"
   ],
   "Workforce Stability Matrix": [
-    "features\\hr_director_dashboard\\presentation\\widgets\\05_U_hr_director_dashboard_screen.dart:84"
+    "features\\hr_director_dashboard\\presentation\\widgets\\hr_director_dashboard_screen.dart:84"
   ],
   "This component is part of the hr_forms module.": [
-    "features\\hr_forms\\presentation\\widgets\\05_U_approve_leave_request_form_screen.dart:24",
-    "features\\hr_forms\\presentation\\widgets\\05_U_log_employee_grievance_form_screen.dart:24",
-    "features\\hr_forms\\presentation\\widgets\\05_U_new_employee_onboarding_form_screen.dart:24",
-    "features\\hr_forms\\presentation\\widgets\\05_U_schedule_interview_form_screen.dart:24",
-    "features\\hr_forms\\presentation\\widgets\\05_U_submit_exit_interview_form_screen.dart:24"
+    "features\\hr_forms\\presentation\\widgets\\approve_leave_request_form_screen.dart:24",
+    "features\\hr_forms\\presentation\\widgets\\log_employee_grievance_form_screen.dart:24",
+    "features\\hr_forms\\presentation\\widgets\\new_employee_onboarding_form_screen.dart:24",
+    "features\\hr_forms\\presentation\\widgets\\schedule_interview_form_screen.dart:24",
+    "features\\hr_forms\\presentation\\widgets\\submit_exit_interview_form_screen.dart:24"
   ],
   "Status: Optimized": [
-    "features\\hr_hiring_dashboard\\presentation\\widgets\\05_U_hr_hiring_dashboard_screen.dart:106"
+    "features\\hr_hiring_dashboard\\presentation\\widgets\\hr_hiring_dashboard_screen.dart:106"
   ],
   "Recruitment Pipeline": [
-    "features\\hr_hiring_dashboard\\presentation\\widgets\\05_U_hr_hiring_dashboard_screen.dart:162"
+    "features\\hr_hiring_dashboard\\presentation\\widgets\\hr_hiring_dashboard_screen.dart:162"
   ],
   "Pending Actions": [
-    "features\\hr_hiring_dashboard\\presentation\\widgets\\05_U_hr_hiring_dashboard_screen.dart:241"
+    "features\\hr_hiring_dashboard\\presentation\\widgets\\hr_hiring_dashboard_screen.dart:241"
   ],
   "Human Capital Command": [
-    "features\\hr_manager_dashboard\\presentation\\widgets\\05_U_hr_manager_dashboard_screen.dart:35"
+    "features\\hr_manager_dashboard\\presentation\\widgets\\hr_manager_dashboard_screen.dart:35"
   ],
   "Capital Intelligence": [
-    "features\\hr_manager_dashboard\\presentation\\widgets\\05_U_hr_manager_dashboard_screen.dart:105"
+    "features\\hr_manager_dashboard\\presentation\\widgets\\hr_manager_dashboard_screen.dart:105"
   ],
   "Active Hiring Funnel": [
-    "features\\hr_manager_dashboard\\presentation\\widgets\\05_U_hr_manager_dashboard_screen.dart:126"
+    "features\\hr_manager_dashboard\\presentation\\widgets\\hr_manager_dashboard_screen.dart:126"
   ],
   "Institutional Compliance": [
-    "features\\hr_manager_dashboard\\presentation\\widgets\\05_U_hr_widgets.dart:39"
+    "features\\hr_manager_dashboard\\presentation\\widgets\\hr_widgets.dart:39"
   ],
   "Public Health Hub": [
-    "features\\infection_control_dashboard\\presentation\\widgets\\05_U_infection_control_dashboard_screen.dart:35"
+    "features\\infection_control_dashboard\\presentation\\widgets\\infection_control_dashboard_screen.dart:35"
   ],
   "Infection Telemetry": [
-    "features\\infection_control_dashboard\\presentation\\widgets\\05_U_infection_widgets.dart:20"
+    "features\\infection_control_dashboard\\presentation\\widgets\\infection_widgets.dart:20"
   ],
   "Active Outbreak Monitoring": [
-    "features\\infection_control_dashboard\\presentation\\widgets\\05_U_infection_widgets.dart:44"
+    "features\\infection_control_dashboard\\presentation\\widgets\\infection_widgets.dart:44"
   ],
   "FILTER": [
-    "features\\intake_coordinator\\presentation\\widgets\\05_U_intake_coordinator_screen.dart:78"
+    "features\\intake_coordinator\\presentation\\widgets\\intake_coordinator_screen.dart:78"
   ],
   "NEW CANDIDATE": [
-    "features\\intake_coordinator\\presentation\\widgets\\05_U_intake_coordinator_screen.dart:88"
+    "features\\intake_coordinator\\presentation\\widgets\\intake_coordinator_screen.dart:88"
   ],
   "Intake Coordinator Command Center": [
-    "features\\intake_coordinator_dashboard\\presentation\\widgets\\05_U_intake_coordinator_dashboard_screen.dart:34"
+    "features\\intake_coordinator_dashboard\\presentation\\widgets\\intake_coordinator_dashboard_screen.dart:34"
   ],
   "Active Intake Waitlist": [
-    "features\\intake_coordinator_dashboard\\presentation\\widgets\\05_U_intake_coordinator_widgets.dart:16"
+    "features\\intake_coordinator_dashboard\\presentation\\widgets\\intake_coordinator_widgets.dart:16"
   ],
   "Referral Volume Trends": [
-    "features\\intake_coordinator_dashboard\\presentation\\widgets\\05_U_intake_coordinator_widgets.dart:86"
+    "features\\intake_coordinator_dashboard\\presentation\\widgets\\intake_coordinator_widgets.dart:86"
   ],
   "Admission Command Center": [
-    "features\\intake_dashboard\\presentation\\widgets\\05_U_intake_dashboard_screen.dart:35"
+    "features\\intake_dashboard\\presentation\\widgets\\intake_dashboard_screen.dart:35"
   ],
   "Admission Pipeline & Triage": [
-    "features\\intake_dashboard\\presentation\\widgets\\05_U_intake_dashboard_screen.dart:81"
+    "features\\intake_dashboard\\presentation\\widgets\\intake_dashboard_screen.dart:81"
   ],
   "Intake Velocity Index": [
-    "features\\intake_dashboard\\presentation\\widgets\\05_U_intake_widgets.dart:23"
+    "features\\intake_dashboard\\presentation\\widgets\\intake_widgets.dart:23"
   ],
   "Referral Source Matrix": [
-    "features\\intake_dashboard\\presentation\\widgets\\05_U_intake_widgets.dart:54"
+    "features\\intake_dashboard\\presentation\\widgets\\intake_widgets.dart:54"
   ],
   "Cyber Shield Command": [
-    "features\\it_security_dashboard\\presentation\\widgets\\05_U_it_security_dashboard_screen.dart:37"
+    "features\\it_security_dashboard\\presentation\\widgets\\it_security_dashboard_screen.dart:37"
   ],
   "Marketing Command Center": [
-    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\05_U_local_marketing_manager_dashboard_screen.dart:36"
+    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\local_marketing_manager_dashboard_screen.dart:36"
   ],
   "Conversion Velocity": [
-    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\05_U_local_marketing_manager_dashboard_screen.dart:160"
+    "features\\local_marketing_manager_dashboard\\presentation\\widgets\\local_marketing_manager_dashboard_screen.dart:160"
   ],
   "NEW CAMPAIGN": [
-    "features\\marketing_manager\\presentation\\widgets\\05_U_marketing_manager_screen.dart:82"
+    "features\\marketing_manager\\presentation\\widgets\\marketing_manager_screen.dart:82"
   ],
   "Status: Highly Stable": [
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_manager_dashboard_screen.dart:105"
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_manager_dashboard_screen.dart:105"
   ],
   "Key Inventory Categories": [
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_manager_dashboard_screen.dart:161"
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_manager_dashboard_screen.dart:161"
   ],
   "Facility Maintenance": [
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_manager_dashboard_screen.dart:242"
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_manager_dashboard_screen.dart:242"
   ],
   "Supply Chain Velocity": [
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_widgets.dart:23"
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_widgets.dart:23"
   ],
   "Infrastructure Utilization": [
-    "features\\operations_manager_dashboard\\presentation\\widgets\\05_U_operations_widgets.dart:59"
+    "features\\operations_manager_dashboard\\presentation\\widgets\\operations_widgets.dart:59"
   ],
   "Owner Command Center": [
-    "features\\owner_dashboard\\presentation\\widgets\\05_U_owner_dashboard_screen.dart:35"
+    "features\\owner_dashboard\\presentation\\widgets\\owner_dashboard_screen.dart:35"
   ],
   "Equity Growth Trajectory": [
-    "features\\owner_dashboard\\presentation\\widgets\\05_U_owner_widgets.dart:23"
+    "features\\owner_dashboard\\presentation\\widgets\\owner_widgets.dart:23"
   ],
   "Equity Distribution Matrix": [
-    "features\\owner_dashboard\\presentation\\widgets\\05_U_owner_widgets.dart:54"
+    "features\\owner_dashboard\\presentation\\widgets\\owner_widgets.dart:54"
   ],
   "Partner Synergy Network": [
-    "features\\partnership_manager_dashboard\\presentation\\widgets\\05_U_partnership_manager_dashboard_screen.dart:84"
+    "features\\partnership_manager_dashboard\\presentation\\widgets\\partnership_manager_dashboard_screen.dart:84"
   ],
   "Partner Synergy Matrix": [
-    "features\\partnership_manager_dashboard\\presentation\\widgets\\05_U_partnership_manager_widgets.dart:23"
+    "features\\partnership_manager_dashboard\\presentation\\widgets\\partnership_manager_widgets.dart:23"
   ],
   "Lead Conversion Pipeline": [
-    "features\\partnership_manager_dashboard\\presentation\\widgets\\05_U_partnership_manager_widgets.dart:59"
+    "features\\partnership_manager_dashboard\\presentation\\widgets\\partnership_manager_widgets.dart:59"
   ],
   "Patient Command Center": [
-    "features\\patient_dashboard\\presentation\\widgets\\05_U_patient_dashboard_screen.dart:34"
+    "features\\patient_dashboard\\presentation\\widgets\\patient_dashboard_screen.dart:34"
   ],
   "Personal Wellness Index": [
-    "features\\patient_dashboard\\presentation\\widgets\\05_U_patient_widgets.dart:23"
+    "features\\patient_dashboard\\presentation\\widgets\\patient_widgets.dart:23"
   ],
   "Care Plan Progress": [
-    "features\\patient_dashboard\\presentation\\widgets\\05_U_patient_widgets.dart:54"
+    "features\\patient_dashboard\\presentation\\widgets\\patient_widgets.dart:54"
   ],
   "Psw Command Center": [
-    "features\\psw_dashboard\\presentation\\widgets\\05_U_psw_dashboard_screen.dart:34"
+    "features\\psw_dashboard\\presentation\\widgets\\psw_dashboard_screen.dart:34"
   ],
   "Quality Assurance Hub": [
-    "features\\qa_dashboard\\presentation\\widgets\\05_U_qa_dashboard_screen.dart:35"
+    "features\\qa_dashboard\\presentation\\widgets\\qa_dashboard_screen.dart:35"
   ],
   "Quality Velocity Index": [
-    "features\\qa_dashboard\\presentation\\widgets\\05_U_qa_widgets.dart:23"
+    "features\\qa_dashboard\\presentation\\widgets\\qa_widgets.dart:23"
   ],
   "Audit Resolution Matrix": [
-    "features\\qa_dashboard\\presentation\\widgets\\05_U_qa_widgets.dart:57"
+    "features\\qa_dashboard\\presentation\\widgets\\qa_widgets.dart:57"
   ],
   "Quality Assurance Command Center": [
-    "features\\quality_assurance_dashboard\\presentation\\widgets\\05_U_quality_assurance_dashboard_screen.dart:34"
+    "features\\quality_assurance_dashboard\\presentation\\widgets\\quality_assurance_dashboard_screen.dart:34"
   ],
   "Receptionist Command Center": [
-    "features\\receptionist_dashboard\\presentation\\widgets\\05_U_receptionist_dashboard_screen.dart:34"
+    "features\\receptionist_dashboard\\presentation\\widgets\\receptionist_dashboard_screen.dart:34"
   ],
   "Regional Bdm Command Center": [
-    "features\\regional_bdm_dashboard\\presentation\\widgets\\05_U_regional_bdm_dashboard_screen.dart:34"
+    "features\\regional_bdm_dashboard\\presentation\\widgets\\regional_bdm_dashboard_screen.dart:34"
   ],
   "Territory Lead Velocity": [
-    "features\\regional_bdm_dashboard\\presentation\\widgets\\05_U_regional_bdm_widgets.dart:23"
+    "features\\regional_bdm_dashboard\\presentation\\widgets\\regional_bdm_widgets.dart:23"
   ],
   "Regional Synergy Scorecard": [
-    "features\\regional_bdm_dashboard\\presentation\\widgets\\05_U_regional_bdm_widgets.dart:75"
+    "features\\regional_bdm_dashboard\\presentation\\widgets\\regional_bdm_widgets.dart:75"
   ],
   "EXPANSION PLAN": [
-    "features\\regional_manager\\presentation\\widgets\\05_U_regional_manager_screen.dart:94"
+    "features\\regional_manager\\presentation\\widgets\\regional_manager_screen.dart:94"
   ],
   "Territory Health Scorecard": [
-    "features\\regional_manager\\presentation\\widgets\\05_U_regional_manager_widgets.dart:62"
+    "features\\regional_manager\\presentation\\widgets\\regional_manager_widgets.dart:62"
   ],
   "Rmt Command Center": [
-    "features\\rmt_dashboard\\presentation\\widgets\\05_U_rmt_dashboard_screen.dart:34"
+    "features\\rmt_dashboard\\presentation\\widgets\\rmt_dashboard_screen.dart:34"
   ],
   "Rn Command Center": [
-    "features\\rn_dashboard\\presentation\\widgets\\05_U_rn_dashboard_screen.dart:34"
+    "features\\rn_dashboard\\presentation\\widgets\\rn_dashboard_screen.dart:34"
   ],
   "Mass Assign Staff": [
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:79"
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:79"
   ],
   "Coverage Alerts": [
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:84"
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:84"
   ],
   "RN Shift - Region ${index + 1}": [
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:129"
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:129"
   ],
   "Priority: High \u2022 Gap: 2 Hours": [
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:130",
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:130",
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:130"
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:130",
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:130",
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:130"
   ],
   "ASSIGN": [
-    "features\\scheduler\\presentation\\widgets\\05_U_scheduler_screen.dart:133"
+    "features\\scheduler\\presentation\\widgets\\scheduler_screen.dart:133"
   ],
   "Logistics Command Center": [
-    "features\\scheduler_dashboard\\presentation\\widgets\\05_U_scheduler_dashboard_screen.dart:35"
+    "features\\scheduler_dashboard\\presentation\\widgets\\scheduler_dashboard_screen.dart:35"
   ],
   "Staffing Grid - Active Clusters": [
-    "features\\scheduler_dashboard\\presentation\\widgets\\05_U_scheduler_dashboard_screen.dart:81"
+    "features\\scheduler_dashboard\\presentation\\widgets\\scheduler_dashboard_screen.dart:81"
   ],
   "Agile Command Center": [
-    "features\\scrum_master_dashboard\\presentation\\widgets\\05_U_scrum_master_dashboard_screen.dart:35"
+    "features\\scrum_master_dashboard\\presentation\\widgets\\scrum_master_dashboard_screen.dart:35"
   ],
   "Sprint Burndown - Active Cycle": [
-    "features\\scrum_master_dashboard\\presentation\\widgets\\05_U_scrum_master_dashboard_screen.dart:81"
+    "features\\scrum_master_dashboard\\presentation\\widgets\\scrum_master_dashboard_screen.dart:81"
   ],
   "This component is part of the shared/icons module.": [
-    "features\\shared\\icons\\presentation\\widgets\\05_U_align_center_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_align_justify_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_align_left_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_align_right_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_arrow_left_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_ban_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_block_quote_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_bold_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_chevron_down_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_close_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_code2_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_code_block_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_corner_down_left_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_external_link_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_fuse_svg_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_five_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_four_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_one_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_six_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_three_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_heading_two_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_highlighter_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_image_plus_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_italic_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_link_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_list_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_list_ordered_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_list_todo_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_moon_star_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_redo2_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_strike_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_subscript_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_sun_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_superscript_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_trash_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_underline_icon_screen.dart:24",
-    "features\\shared\\icons\\presentation\\widgets\\05_U_undo2_icon_screen.dart:24"
+    "features\\shared\\icons\\presentation\\widgets\\align_center_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\align_justify_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\align_left_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\align_right_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\arrow_left_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\ban_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\block_quote_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\bold_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\chevron_down_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\close_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\code2_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\code_block_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\corner_down_left_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\external_link_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\fuse_svg_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_five_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_four_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_one_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_six_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_three_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\heading_two_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\highlighter_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\image_plus_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\italic_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\link_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\list_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\list_ordered_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\list_todo_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\moon_star_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\redo2_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\strike_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\subscript_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\sun_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\superscript_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\trash_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\underline_icon_screen.dart:24",
+    "features\\shared\\icons\\presentation\\widgets\\undo2_icon_screen.dart:24"
   ],
   "This component is part of the shared/layouts module.": [
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_admin_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_auth_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_auth_split_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_client_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_demo_layout_footer_content_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_footer_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_footer_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_footer_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_layout_configs_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_layout_config_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_layout_settings_context_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_nav_horizontal_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_nav_vertical_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_fuse_nav_vertical_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_left_side_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_left_side_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_left_side_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_master_detail_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_master_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_mobile_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_mobile_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_toggle_fab_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_toggle_fab_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_wrapper_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_wrapper_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_navbar_wrapper_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_provider_layout_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_right_side_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_right_side_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_right_side_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_toolbar_layout1_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_toolbar_layout2_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_toolbar_layout3_screen.dart:24",
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_use_fuse_layout_settings_screen.dart:24"
+    "features\\shared\\layouts\\presentation\\widgets\\admin_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\auth_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\auth_split_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\client_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\demo_layout_footer_content_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\footer_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\footer_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\footer_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_layout_configs_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_layout_config_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_layout_settings_context_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_nav_horizontal_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_nav_vertical_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\fuse_nav_vertical_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\left_side_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\left_side_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\left_side_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\master_detail_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\master_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_mobile_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_mobile_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_toggle_fab_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_toggle_fab_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_wrapper_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_wrapper_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\navbar_wrapper_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\provider_layout_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\right_side_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\right_side_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\right_side_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\toolbar_layout1_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\toolbar_layout2_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\toolbar_layout3_screen.dart:24",
+    "features\\shared\\layouts\\presentation\\widgets\\use_fuse_layout_settings_screen.dart:24"
   ],
   "PrimeCare Master Dashboard": [
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_master_dashboard_page.dart:22"
+    "features\\shared\\layouts\\presentation\\widgets\\master_dashboard_page.dart:22"
   ],
   "Select a role-based workspace from the sidebar.": [
-    "features\\shared\\layouts\\presentation\\widgets\\05_U_master_dashboard_page.dart:23"
+    "features\\shared\\layouts\\presentation\\widgets\\master_dashboard_page.dart:23"
   ],
   "Shareholder Intelligence & Feature Tracker": [
-    "features\\shareholder_intelligence\\presentation\\widgets\\05_U_shareholder_intelligence_screen.dart:34"
+    "features\\shareholder_intelligence\\presentation\\widgets\\shareholder_intelligence_screen.dart:34"
   ],
   "Feature Pipeline Board": [
-    "features\\shareholder_intelligence\\presentation\\widgets\\05_U_shareholder_intelligence_screen.dart:88"
+    "features\\shareholder_intelligence\\presentation\\widgets\\shareholder_intelligence_screen.dart:88"
   ],
   "Real-Time Intent Telemetry": [
-    "features\\shareholder_intelligence\\presentation\\widgets\\05_U_shareholder_intelligence_screen.dart:151"
+    "features\\shareholder_intelligence\\presentation\\widgets\\shareholder_intelligence_screen.dart:151"
   ],
   "Operational Sector: sign_in_page_title": [
-    "features\\sign_in_title\\presentation\\widgets\\05_U_sign_in_page_title.dart:12"
+    "features\\sign_in_title\\presentation\\widgets\\sign_in_page_title.dart:12"
   ],
   "Operational Sector: sign_in_page_view": [
-    "features\\sign_in_view\\presentation\\widgets\\05_U_sign_in_page_view.dart:12"
+    "features\\sign_in_view\\presentation\\widgets\\sign_in_page_view.dart:12"
   ],
   "Operational Sector: sign_out_page_title": [
-    "features\\sign_out_title\\presentation\\widgets\\05_U_sign_out_page_title.dart:12"
+    "features\\sign_out_title\\presentation\\widgets\\sign_out_page_title.dart:12"
   ],
   "Operational Sector: sign_out_page_view": [
-    "features\\sign_out_view\\presentation\\widgets\\05_U_sign_out_page_view.dart:12"
+    "features\\sign_out_view\\presentation\\widgets\\sign_out_page_view.dart:12"
   ],
   "Operational Sector: sign_up_page_title": [
-    "features\\sign_up_title\\presentation\\widgets\\05_U_sign_up_page_title.dart:12"
+    "features\\sign_up_title\\presentation\\widgets\\sign_up_page_title.dart:12"
   ],
   "Operational Sector: sign_up_page_view": [
-    "features\\sign_up_view\\presentation\\widgets\\05_U_sign_up_page_view.dart:12"
+    "features\\sign_up_view\\presentation\\widgets\\sign_up_page_view.dart:12"
   ],
   "Download Reports": [
-    "features\\social_worker_dashboard\\presentation\\widgets\\05_U_social_worker_dashboard_screen.dart:24"
+    "features\\social_worker_dashboard\\presentation\\widgets\\social_worker_dashboard_screen.dart:24"
   ],
   "Aura Social Node": [
-    "features\\social_worker_dashboard\\presentation\\widgets\\05_U_social_worker_dashboard_screen.dart:187"
+    "features\\social_worker_dashboard\\presentation\\widgets\\social_worker_dashboard_screen.dart:187"
   ],
   "Support Command Center": [
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_dashboard_screen.dart:32"
+    "features\\support_dashboard\\presentation\\widgets\\support_dashboard_screen.dart:32"
   ],
   "Operational Volume": [
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_dashboard_screen.dart:59"
+    "features\\support_dashboard\\presentation\\widgets\\support_dashboard_screen.dart:59"
   ],
   "Support Queue Visualization - Active Tickets": [
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_dashboard_screen.dart:62"
+    "features\\support_dashboard\\presentation\\widgets\\support_dashboard_screen.dart:62"
   ],
   "Ticket Velocity Index": [
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_widgets.dart:23"
+    "features\\support_dashboard\\presentation\\widgets\\support_widgets.dart:23"
   ],
   "Satisfaction Matrix": [
-    "features\\support_dashboard\\presentation\\widgets\\05_U_support_widgets.dart:57"
+    "features\\support_dashboard\\presentation\\widgets\\support_widgets.dart:57"
   ],
   "Market Penetration": [
-    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\05_U_territory_expansion_widgets.dart:23"
+    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\territory_expansion_widgets.dart:23"
   ],
   "Expansion Opportunity Matrix": [
-    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\05_U_territory_expansion_widgets.dart:59"
+    "features\\territory_expansion_manager_dashboard\\presentation\\widgets\\territory_expansion_widgets.dart:59"
   ],
   "Training Command Center": [
-    "features\\training_director_dashboard\\presentation\\widgets\\05_U_training_director_dashboard_screen.dart:35"
+    "features\\training_director_dashboard\\presentation\\widgets\\training_director_dashboard_screen.dart:35"
   ],
   "Regional Curriculum Compliance": [
-    "features\\training_director_dashboard\\presentation\\widgets\\05_U_training_director_dashboard_screen.dart:81"
+    "features\\training_director_dashboard\\presentation\\widgets\\training_director_dashboard_screen.dart:81"
   ],
   "Training Hub Command Center": [
-    "features\\training_hub_dashboard\\presentation\\widgets\\05_U_training_hub_dashboard_screen.dart:34"
+    "features\\training_hub_dashboard\\presentation\\widgets\\training_hub_dashboard_screen.dart:34"
   ],
   "Volunteer Command Center": [
-    "features\\volunteer_coordinator_dashboard\\presentation\\widgets\\05_U_volunteer_coordinator_dashboard_screen.dart:36"
+    "features\\volunteer_coordinator_dashboard\\presentation\\widgets\\volunteer_coordinator_dashboard_screen.dart:36"
   ],
   "Unsupported Intent Type: ${intent.runtimeType}": [
-    "registry\\01_I_screen_registry.dart:158"
+    "registry\\screen_registry.dart:158"
   ],
   "Send Reset Link": [
-    "screens\\auth\\05_U_forgot_password.dart:52"
+    "screens\\auth\\forgot_password.dart:52"
   ],
   "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022": [
-    "screens\\auth\\05_U_login_screen.dart:134"
+    "screens\\auth\\login_screen.dart:134"
   ],
   "000000": [
-    "screens\\auth\\05_U_mfa_screen.dart:48"
+    "screens\\auth\\mfa_screen.dart:48"
   ],
   "Verify Code": [
-    "screens\\auth\\05_U_mfa_screen.dart:69"
+    "screens\\auth\\mfa_screen.dart:69"
   ],
   "Registration failed. Please check network.": [
-    "screens\\auth\\05_U_signup_screen.dart:47"
+    "screens\\auth\\signup_screen.dart:47"
   ],
   "Logout Console": [
-    "screens\\common\\05_U_history_logs.dart:154"
+    "screens\\common\\history_logs.dart:154"
   ],
   "Appointment Created": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:47",
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:187"
+    "screens\\common\\institutional_scheduler_screen.dart:47",
+    "screens\\common\\institutional_scheduler_screen.dart:187"
   ],
   "Creation Failed: $e": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:56",
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:196"
+    "screens\\common\\institutional_scheduler_screen.dart:56",
+    "screens\\common\\institutional_scheduler_screen.dart:196"
   ],
   "Appointment deleted": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:89"
+    "screens\\common\\institutional_scheduler_screen.dart:89"
   ],
   "Error: $e": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:98",
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:122"
+    "screens\\common\\institutional_scheduler_screen.dart:98",
+    "screens\\common\\institutional_scheduler_screen.dart:122"
   ],
   "Appointment updated": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:113"
+    "screens\\common\\institutional_scheduler_screen.dart:113"
   ],
   "Move Failed: $e": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:158"
+    "screens\\common\\institutional_scheduler_screen.dart:158"
   ],
   "Scheduler Error: $e": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:219"
+    "screens\\common\\institutional_scheduler_screen.dart:219"
   ],
   "New Appointment": [
-    "screens\\common\\05_U_institutional_scheduler_screen.dart:253"
+    "screens\\common\\institutional_scheduler_screen.dart:253"
   ],
   "Error: $err": [
-    "screens\\common\\05_U_primecare_horizon_scheduler_screen.dart:52"
+    "screens\\common\\primecare_horizon_scheduler_screen.dart:52"
   ],
   "Confirm": [
-    "screens\\common\\05_U_primecare_horizon_scheduler_screen.dart:124"
+    "screens\\common\\primecare_horizon_scheduler_screen.dart:124"
   ],
   "Enter code (e.g. LIFETIME50)": [
-    "screens\\common\\05_U_subscription_upgrade_screen.dart:156"
+    "screens\\common\\subscription_upgrade_screen.dart:156"
   ],
   "Delete User": [
-    "screens\\common\\05_U_user_management.dart:39",
-    "screens\\common\\05_U_user_management.dart:39",
-    "screens\\common\\05_U_user_management.dart:225"
+    "screens\\common\\user_management.dart:39",
+    "screens\\common\\user_management.dart:39",
+    "screens\\common\\user_management.dart:225"
   ],
   "Are you sure you want to delete ${user.name}?": [
-    "screens\\common\\05_U_user_management.dart:40"
+    "screens\\common\\user_management.dart:40"
   ],
   "User": [
-    "screens\\common\\05_U_user_management.dart:118"
+    "screens\\common\\user_management.dart:118"
   ],
   "Office / Department": [
-    "screens\\common\\05_U_user_management.dart:120"
+    "screens\\common\\user_management.dart:120"
   ],
   "Actions": [
-    "screens\\common\\05_U_user_management.dart:122"
+    "screens\\common\\user_management.dart:122"
   ],
   "Reset Password": [
-    "screens\\common\\05_U_user_management.dart:201"
+    "screens\\common\\user_management.dart:201"
   ],
   "OFFLINE CACHE": [
-    "screens\\dashboards\\05_U_architectural_planning_dashboard.dart:85"
+    "screens\\dashboards\\architectural_planning_dashboard.dart:85"
   ],
   "Compliance Interface Provisioning...": [
-    "screens\\dashboards\\05_U_compliance_hub.dart:13"
+    "screens\\dashboards\\compliance_hub.dart:13"
   ],
   "OFFLINE FALLBACK": [
-    "screens\\dashboards\\05_U_verification_hub.dart:53"
+    "screens\\dashboards\\verification_hub.dart:53"
   ],
   "$_selectedReportType report exported successfully as ${_selectedFormat.name.toUpperCase()}": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:61"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:61"
   ],
   "Export failed: $e": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:70"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:70"
   ],
   "Institutional Compliance Export": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:85",
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:85"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:85",
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:85"
   ],
   "Select Report Type": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:92"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:92"
   ],
   "Report Format": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:103"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:103"
   ],
   "PDF": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:110",
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:110"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:110",
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:110"
   ],
   "CSV": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:121",
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:121"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:121",
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:121"
   ],
   "Date Range (Optional)": [
-    "screens\\dashboards\\compliance\\05_U_export_reports_dialog.dart:132"
+    "screens\\dashboards\\compliance\\export_reports_dialog.dart:132"
   ],
   "Provisioning...": [
-    "screens\\scaffolded\\05_U_api_monitoring.dart:14",
-    "screens\\scaffolded\\05_U_audits.dart:14",
-    "screens\\scaffolded\\05_U_audit_logs.dart:14",
-    "screens\\scaffolded\\05_U_billing_console.dart:14",
-    "screens\\scaffolded\\05_U_branch_comparison.dart:14",
-    "screens\\scaffolded\\05_U_branch_operations.dart:14",
-    "screens\\scaffolded\\05_U_business_overview.dart:14",
-    "screens\\scaffolded\\05_U_campaign_analytics.dart:14",
-    "screens\\scaffolded\\05_U_care_plan.dart:14",
-    "screens\\scaffolded\\05_U_cases.dart:14",
-    "screens\\scaffolded\\05_U_cash_flow.dart:14",
-    "screens\\scaffolded\\05_U_compliance_status.dart:14",
-    "screens\\scaffolded\\05_U_curriculum_hub.dart:14",
-    "screens\\scaffolded\\05_U_enterprise_overview.dart:14",
-    "screens\\scaffolded\\05_U_family_home.dart:14",
-    "screens\\scaffolded\\05_U_financial_overview.dart:14",
-    "screens\\scaffolded\\05_U_financial_performance.dart:14",
-    "screens\\scaffolded\\05_U_growth_pipeline.dart:14",
-    "screens\\scaffolded\\05_U_incident_reviews.dart:14",
-    "screens\\scaffolded\\05_U_intake_pipeline.dart:14",
-    "screens\\scaffolded\\05_U_invoices.dart:14",
-    "screens\\scaffolded\\05_U_leadership_reports.dart:14",
-    "screens\\scaffolded\\05_U_ledger_command.dart:14",
-    "screens\\scaffolded\\05_U_marketing_hub.dart:14",
-    "screens\\scaffolded\\05_U_messages.dart:14",
-    "screens\\scaffolded\\05_U_operations_board.dart:14",
-    "screens\\scaffolded\\05_U_pending_assessments.dart:14",
-    "screens\\scaffolded\\05_U_platform_usage.dart:14",
-    "screens\\scaffolded\\05_U_policy_manager.dart:14",
-    "screens\\scaffolded\\05_U_profitability.dart:14",
-    "screens\\scaffolded\\05_U_referrals.dart:14",
-    "screens\\scaffolded\\05_U_region_performance.dart:14",
-    "screens\\scaffolded\\05_U_revenue_tracker.dart:14",
-    "screens\\scaffolded\\05_U_risk_register.dart:14",
-    "screens\\scaffolded\\05_U_scheduling_health.dart:14",
-    "screens\\scaffolded\\05_U_shift_tracker.dart:14",
-    "screens\\scaffolded\\05_U_skill_matrix.dart:14",
-    "screens\\scaffolded\\05_U_strategic_kpis.dart:13",
-    "screens\\scaffolded\\05_U_system_health.dart:13",
-    "screens\\scaffolded\\05_U_tax_remittance.dart:13"
+    "screens\\scaffolded\\api_monitoring.dart:14",
+    "screens\\scaffolded\\audits.dart:14",
+    "screens\\scaffolded\\audit_logs.dart:14",
+    "screens\\scaffolded\\billing_console.dart:14",
+    "screens\\scaffolded\\branch_comparison.dart:14",
+    "screens\\scaffolded\\branch_operations.dart:14",
+    "screens\\scaffolded\\business_overview.dart:14",
+    "screens\\scaffolded\\campaign_analytics.dart:14",
+    "screens\\scaffolded\\care_plan.dart:14",
+    "screens\\scaffolded\\cases.dart:14",
+    "screens\\scaffolded\\cash_flow.dart:14",
+    "screens\\scaffolded\\compliance_status.dart:14",
+    "screens\\scaffolded\\curriculum_hub.dart:14",
+    "screens\\scaffolded\\enterprise_overview.dart:14",
+    "screens\\scaffolded\\family_home.dart:14",
+    "screens\\scaffolded\\financial_overview.dart:14",
+    "screens\\scaffolded\\financial_performance.dart:14",
+    "screens\\scaffolded\\growth_pipeline.dart:14",
+    "screens\\scaffolded\\incident_reviews.dart:14",
+    "screens\\scaffolded\\intake_pipeline.dart:14",
+    "screens\\scaffolded\\invoices.dart:14",
+    "screens\\scaffolded\\leadership_reports.dart:14",
+    "screens\\scaffolded\\ledger_command.dart:14",
+    "screens\\scaffolded\\marketing_hub.dart:14",
+    "screens\\scaffolded\\messages.dart:14",
+    "screens\\scaffolded\\operations_board.dart:14",
+    "screens\\scaffolded\\pending_assessments.dart:14",
+    "screens\\scaffolded\\platform_usage.dart:14",
+    "screens\\scaffolded\\policy_manager.dart:14",
+    "screens\\scaffolded\\profitability.dart:14",
+    "screens\\scaffolded\\referrals.dart:14",
+    "screens\\scaffolded\\region_performance.dart:14",
+    "screens\\scaffolded\\revenue_tracker.dart:14",
+    "screens\\scaffolded\\risk_register.dart:14",
+    "screens\\scaffolded\\scheduling_health.dart:14",
+    "screens\\scaffolded\\shift_tracker.dart:14",
+    "screens\\scaffolded\\skill_matrix.dart:14",
+    "screens\\scaffolded\\strategic_kpis.dart:13",
+    "screens\\scaffolded\\system_health.dart:13",
+    "screens\\scaffolded\\tax_remittance.dart:13"
   ],
   "PrimeCare Platform": [
-    "utils\\01_I_report_exporter.dart:196"
+    "utils\\report_exporter.dart:196"
   ],
   "Page ${context.pageNumber} of ${context.pagesCount}": [
-    "utils\\01_I_report_exporter.dart:207"
+    "utils\\report_exporter.dart:207"
   ]
 }

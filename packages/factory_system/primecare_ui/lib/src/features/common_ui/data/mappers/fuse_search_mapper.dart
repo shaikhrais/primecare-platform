@@ -1,0 +1,12 @@
+// Layer: 03_DATA_DOMAIN_LOGIC
+import '../../domain/models/fuse_search_view_model.dart';
+import '../dtos/fuse_search_dto.dart';
+
+class FuseSearchMapper {
+  static FuseSearchViewModel fromDto(FuseSearchDto dto) {
+    return FuseSearchViewModel(
+      title: dto.raw['title']?.toString() ?? 'fuseSearch',
+      metadata: dto.raw,
+    );
+  }
+}

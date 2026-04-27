@@ -6,8 +6,8 @@ void main() {
       ? '$projectRoot/lib/src/features'
       : '$projectRoot/packages/factory_system/primecare_ui/lib/src/features';
   final bootstrapperFile = projectRoot.endsWith('primecare_ui')
-      ? '$projectRoot/lib/src/registry/02_I_governance_bootstrapper.dart'
-      : '$projectRoot/packages/factory_system/primecare_ui/lib/src/registry/02_I_governance_bootstrapper.dart';
+      ? '$projectRoot/lib/src/registry/governance_bootstrapper.dart'
+      : '$projectRoot/packages/factory_system/primecare_ui/lib/src/registry/governance_bootstrapper.dart';
 
   final intentFiles = Directory(featuresRoot)
       .listSync(recursive: true)
@@ -29,7 +29,7 @@ void main() {
 
   final buffer = StringBuffer();
   buffer.writeln('// Layer: 02_I_GOVERNANCE_BOOTSTRAPPER');
-  buffer.writeln("import 'package:flutter_core/00_B_flutter_core.dart';");
+  buffer.writeln("import 'package:flutter_core/flutter_core.dart';");
   buffer.writeln("import '../features/features_manifest.dart';");
   buffer.writeln('');
   buffer.writeln('class GovernanceBootstrapper {');

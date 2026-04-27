@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_driver/driver_extension.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app_router.dart';
+import 'core/routing/app_router.dart';
 
 void main() {
   enableFlutterDriverExtension();

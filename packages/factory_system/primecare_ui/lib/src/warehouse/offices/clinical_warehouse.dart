@@ -1,12 +1,12 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/src/warehouse/01_I_component_warehouse.dart';
+import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/01_I_primecare_placeholders.dart';
+import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
 import 'package:primecare_ui/src/features/features_manifest.dart';
-import 'package:primecare_ui/src/components/forms/clinical/01_I_patient_intake_form.dart';
-import 'package:primecare_ui/src/components/forms/clinical/01_I_vitals_capture_form.dart';
-import 'package:primecare_ui/src/components/forms/01_I_clinical_incident_form.dart';
-import 'package:primecare_ui/src/components/forms/01_I_medication_administration_form.dart';
+import 'package:primecare_ui/src/components/forms/clinical/patient_intake_form.dart';
+import 'package:primecare_ui/src/components/forms/clinical/vitals_capture_form.dart';
+import 'package:primecare_ui/src/components/forms/clinical_incident_form.dart';
+import 'package:primecare_ui/src/components/forms/medication_administration_form.dart';
 
 class ClinicalComponentWarehouse extends BaseOfficeWarehouse {
   @override

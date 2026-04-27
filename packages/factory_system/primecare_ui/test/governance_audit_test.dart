@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/registry/04_I_platform_governance_audit.dart';
+import 'package:primecare_ui/src/registry/platform_governance_audit.dart';
 
 void main() {
   print('--- PrimeCare Governance Integrity Audit ---');

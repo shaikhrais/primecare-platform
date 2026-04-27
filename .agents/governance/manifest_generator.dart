@@ -87,12 +87,12 @@ void main() {
   buffer.writeln('// Source: .agents/governance/page_inventory.yaml');
   buffer.writeln();
   buffer.writeln("import 'package:lucide_icons/lucide_icons.dart';");
-  buffer.writeln("import '../models/01_I_navigation_item.dart';");
-  buffer.writeln("import '../routes/groups/01_I_corporate_routes.dart';");
-  buffer.writeln("import '../routes/groups/01_I_franchise_routes.dart';");
-  buffer.writeln("import '../routes/groups/01_I_clinical_routes.dart';");
-  buffer.writeln("import '../routes/groups/01_I_client_routes.dart';");
-  buffer.writeln("import '../routes/groups/01_I_common_routes.dart';");
+  buffer.writeln("import 'navigation_item.dart';");
+  buffer.writeln("import '../routes/groups/corporate_routes.dart';");
+  buffer.writeln("import '../routes/groups/franchise_routes.dart';");
+  buffer.writeln("import '../routes/groups/clinical_routes.dart';");
+  buffer.writeln("import '../routes/groups/client_routes.dart';");
+  buffer.writeln("import '../routes/groups/common_routes.dart';");
   buffer.writeln();
   buffer.writeln('class NavigationRegistry {');
   buffer.writeln(
@@ -167,7 +167,7 @@ void main() {
 }''');
 
   final outputFile = File(
-    'packages/flutter_core/lib/config/01_I_navigation_registry.dart',
+    'packages/flutter_core/lib/config/navigation_registry.dart',
   );
   outputFile.writeAsStringSync(buffer.toString());
   print(

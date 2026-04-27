@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/src/warehouse/01_I_component_warehouse.dart';
+import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/01_I_primecare_placeholders.dart';
+import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
 import 'package:primecare_ui/src/features/features_manifest.dart';
 
 class InfrastructureComponentWarehouse extends BaseOfficeWarehouse {
