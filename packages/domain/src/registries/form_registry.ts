@@ -56,6 +56,8 @@ export interface FormEntry {
     category: 'auth' | 'admin' | 'admin-wizard' | 'client' | 'psw' | 'manager' |
               'rn' | 'shared' | 'marketing' | 'platform' | 'dam' | 'coordinator' | 'finance' |
               'training' | 'compliance' | 'skeleton' | 'dashboard';
+    /** Optional description of the form */
+    description?: string;
 }
 
 // ── Import domain sub-files ──────────────────────────────────────────────────

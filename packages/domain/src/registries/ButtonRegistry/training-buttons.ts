@@ -1,4 +1,4 @@
-import { ButtonDef } from '../01_I_button_registry';
+import { ButtonDef } from '../button_registry';
 
 /**
  * Training Director Button Definitions

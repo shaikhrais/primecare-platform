@@ -28,7 +28,7 @@ export const prismaMiddleware = () => {
         }
 
         if (!prismaInstance) {
-            const dbUrl = c.env.PRISMA_DATABASE_URL || c.env.DATABASE_URL;
+            const dbUrl = c.env.DATABASE_URL;
 
             try {
                 let edgeUri = dbUrl;

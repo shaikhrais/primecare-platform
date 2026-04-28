@@ -1,4 +1,4 @@
-import type { FormEntry } from '../01_I_form_registry';
+import type { FormEntry } from '../form_registry';
 
 export const MARKETING_FORMS: FormEntry[] = [
     {

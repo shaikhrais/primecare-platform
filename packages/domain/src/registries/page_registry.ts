@@ -50,6 +50,7 @@ export interface HomeEntry {
     statsEndpoints: string[];
     widgets: ('kpi-card' | 'chart' | 'table' | 'map' | 'calendar' | 'feed' | 'alert-panel')[];
     icon?: string;
+    roles?: string[];
 }
 
 export interface ListEntry {

@@ -1,4 +1,4 @@
-import type { WizardEntry, ReportEntry } from '../01_I_page_registry';
+import type { WizardEntry, ReportEntry } from '../page_registry';
 
 export const WizardRegistry: WizardEntry[] = [
     { id: 'admin.setup-wizard', label: 'Business Setup Wizard', route: '/platform/admin/setup-wizard', owner: 'admin', steps: ['Business Info', 'Services', 'Users', 'Settings'] },

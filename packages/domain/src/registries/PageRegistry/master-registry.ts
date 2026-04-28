@@ -1,4 +1,4 @@
-import type { PageType, PageEntry, MasterEntry } from '../01_I_page_registry';
+import type { PageType, PageEntry, MasterEntry } from '../page_registry';
 
 export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     // ── Auth Forms (F1–F5) ──

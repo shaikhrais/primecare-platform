@@ -1,4 +1,4 @@
-import type { PageActions } from '../01_I_page_action_registry';
+import type { PageActions } from '../page_action_registry';
 
 /**
  * Finance-Specific Page Action Mappings

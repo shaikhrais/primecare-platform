@@ -1,4 +1,4 @@
-import { ContentRegistry as MasterContentRegistry } from '../../registries/01_I_content_registry';
+import { ContentRegistry as MasterContentRegistry } from '../../registries/content_registry';
 
 /**
  * Web Admin Specific Content Overrides

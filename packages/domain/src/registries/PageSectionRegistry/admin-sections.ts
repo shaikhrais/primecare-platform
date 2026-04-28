@@ -1,4 +1,4 @@
-import type { PageSections } from '../01_I_page_section_registry';
+import type { PageSections } from '../page_section_registry';
 
 export const ADMIN_SECTIONS: Record<string, PageSections> = {
     // ── D1: Admin Home ──────────────────────────────────────────────────

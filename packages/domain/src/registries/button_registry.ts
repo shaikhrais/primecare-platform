@@ -9,7 +9,7 @@
 
 import { ApiRegistry } from './ApiRegistry';
 import { RouteRegistry } from '../apps/web-admin/RouteRegistry';
-import { ContentRegistry } from './01_I_content_registry';
+import { ContentRegistry } from './content_registry';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -269,7 +269,7 @@ export const ButtonGroups: NestedGroups = buildButtonGroups();
 
 // ── Derived: ButtonsByPage ───────────────────────────────────────────────────
 
-import { PageActionRegistry } from './01_I_page_action_registry';
+import { PageActionRegistry } from './page_action_registry';
 
 function buildButtonsByPage(): Record<string, ButtonDef[]> {
     const idx = new Map(ButtonRegistry.map(b => [b.id, b]));

@@ -1,4 +1,4 @@
-import type { ListEntry } from '../01_I_page_registry';
+import type { ListEntry } from '../page_registry';
 
 export const ListRegistry: ListEntry[] = [
     { id: 'admin.users', label: 'User List', route: '/platform/admin/users', owner: 'admin', fetchEndpoint: '/v1/admin/users', columns: ['name', 'email', 'role', 'status'], searchable: true, filterable: true },

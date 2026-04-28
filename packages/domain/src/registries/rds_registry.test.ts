@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { FormRegistry, getFormById } from './01_I_form_registry';
-import { PageRegistry } from './01_I_page_registry';
-import { ButtonRegistry } from './01_I_button_registry';
+import { FormRegistry, getFormById } from './form_registry';
+import { PageRegistry } from './page_registry';
+import { ButtonRegistry } from './button_registry';
 import { MASTER_REGISTRY } from './PageRegistry/master-registry';
 import { HomeRegistry } from './PageRegistry/homes';
 

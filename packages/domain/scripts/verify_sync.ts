@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { FormRegistry } from '../src/registries/01_I_form_registry';
+import { FormRegistry } from '../src/registries/form_registry';
 
 /**
  * PrimeCare Registry Sync Verifier

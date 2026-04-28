@@ -1,4 +1,4 @@
-import type { HomeEntry } from '../01_I_page_registry';
+import type { HomeEntry } from '../page_registry';
 
 export const HomeRegistry: HomeEntry[] = [
     // ── Platform Homes ──

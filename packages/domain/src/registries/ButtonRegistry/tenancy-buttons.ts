@@ -1,4 +1,4 @@
-import type { ButtonDef } from '../01_I_button_registry';
+import type { ButtonDef } from '../button_registry';
 import { ApiRegistry } from '../ApiRegistry';
 
 const R = {

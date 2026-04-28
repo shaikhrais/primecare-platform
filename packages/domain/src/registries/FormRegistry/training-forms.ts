@@ -1,4 +1,4 @@
-import { FormEntry } from '../01_I_form_registry';
+import { FormEntry } from '../form_registry';
 
 /**
  * Training Director Form Definitions

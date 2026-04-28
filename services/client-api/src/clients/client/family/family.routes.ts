@@ -1,0 +1,221 @@
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { Bindings, Variables } from '@primecare/contracts';
+
+const family = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+// GET /members — List family members for a client
+const listRoute = createRoute({
+    method: 'get', path: '/members',
+    summary: 'Client Family Members', tags: ['Family'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        id: z.string(), name: z.string(), relationship: z.string(),
+                        email: z.string().nullable(), accessLevel: z.string(),
+                        isEmergency: z.boolean(),
+                    }))
+                }
+            }, description: 'Members'
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
+});
+
+family.openapi(listRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const userId = (c.get('jwtPayload') as any).sub;
+
+    const clientProfile = await prisma.clientProfile.findUnique({ where: { userId } });
+    if (!clientProfile) return c.json([], 200);
+
+    const members = await prisma.familyMember.findMany({
+        where: { tenantId, clientId: clientProfile.id },
+    });
+    return c.json(members, 200);
+});
+
+// POST /members — Add family member
+const addRoute = createRoute({
+    method: 'post', path: '/members',
+    summary: 'Add Family Member', tags: ['Family'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        clientId: z.string(), name: z.string(),
+                        email: z.string().optional(), phone: z.string().optional(),
+                        relationship: z.string(),
+                        accessLevel: z.enum(['view_only', 'care_updates', 'full']).optional(),
+                        isEmergency: z.boolean().optional(),
+                    })
+                }
+            }
+        }
+    },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Added' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
+});
+
+family.openapi(addRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const body = c.req.valid('json');
+
+    const member = await prisma.familyMember.create({
+        data: { ...body, tenantId },
+    });
+    return c.json(member, 200);
+});
+
+// GET /feed/:clientId — View-only care feed
+const feedRoute = createRoute({
+    method: 'get', path: '/feed/{clientId}',
+    summary: 'Family Care Feed', tags: ['Family'],
+    request: { params: z.object({ clientId: z.string() }) },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        recentVisits: z.array(z.object({ id: z.string(), status: z.string(), requestedStartAt: z.string().nullable() })),
+                        carePlan: z.object({ diagnoses: z.array(z.string()), status: z.string() }).nullable(),
+                        recentEntries: z.array(z.object({ id: z.string(), activities: z.string().nullable() })),
+                    })
+                }
+            }, description: 'Feed'
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
+});
+
+family.openapi(feedRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const { clientId } = c.req.valid('param');
+
+    const [recentVisits, carePlan, recentEntries] = await Promise.all([
+        prisma.visit.findMany({
+            where: { clientId, status: { in: ['completed', 'in_progress', 'scheduled'] } },
+            orderBy: { requestedStartAt: 'desc' }, take: 10,
+            select: { id: true, status: true, requestedStartAt: true },
+        }),
+        prisma.carePlan.findFirst({
+            where: { clientId, tenantId, status: 'active' },
+            select: { diagnoses: true, status: true, clinicalGoals: true },
+        }),
+        prisma.dailyEntry.findMany({
+            where: { tenantId },
+            orderBy: { createdAt: 'desc' }, take: 5,
+            select: { id: true, activities: true },
+        }),
+    ]);
+
+    return c.json({ recentVisits, carePlan, recentEntries }, 200);
+});
+
+// POST /message — Family sends message
+const messageRoute = createRoute({
+    method: 'post', path: '/message',
+    summary: 'Family Message to Coordinator', tags: ['Family'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        clientId: z.string(), subject: z.string(), body: z.string(),
+                    })
+                }
+            }
+        }
+    },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ sent: z.boolean() }) } }, description: 'Sent' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
+});
+
+family.openapi(messageRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const userId = (c.get('jwtPayload') as any).sub;
+    const body = c.req.valid('json');
+
+    await prisma.auditLog.create({
+        data: {
+            actorUserId: userId, action: 'FAMILY_MESSAGE', resourceType: 'CLIENT',
+            resourceId: body.clientId,
+            metadata: JSON.stringify({ subject: body.subject, body: body.body }),
+            tenantId,
+        },
+    });
+    return c.json({ sent: true }, 200);
+});
+
+// GET /schedule/upcoming — Family calendar export
+const scheduleRoute = createRoute({
+    method: 'get', path: '/schedule/upcoming',
+    summary: 'Family Upcoming Schedule', tags: ['Family'],
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Upcoming visits' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    }
+});
+
+family.openapi(scheduleRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const userId = (c.get('jwtPayload') as any).sub;
+
+    let clientId;
+    const clientProfile = await prisma.clientProfile.findUnique({ where: { userId } });
+    if (clientProfile) {
+        clientId = clientProfile.id;
+    } else {
+        const userRec = await prisma.user.findUnique({ where: { id: userId } });
+        const familyMember = await prisma.familyMember.findFirst({ 
+            where: { tenantId, email: userRec?.email || '' } 
+        });
+        if (familyMember) clientId = familyMember.clientId;
+    }
+
+    if (!clientId) return c.json([], 200);
+
+    const visits = await prisma.visit.findMany({
+        where: { tenantId, clientId, status: { in: ['scheduled', 'en_route', 'in_progress'] }, requestedStartAt: { gte: new Date() } },
+        orderBy: { requestedStartAt: 'asc' },
+        take: 15,
+        include: {
+            service: { select: { name: true, durationMinutes: true, description: true } },
+            psw: { include: { user: true } },
+            client: { select: { addressLine1: true, city: true } }
+        }
+    });
+
+    const mapped = visits.map((v: any) => {
+        const startsAt = new Date(v.requestedStartAt);
+        const durationMinutes = v.service?.durationMinutes || 60;
+        const endsAt = new Date(startsAt.getTime() + durationMinutes * 60000);
+
+        return {
+            id: v.id,
+            title: `PrimeCare: ${v.service?.name || 'Home Care Visit'}`,
+            description: `Care visit performed by ${v.psw?.user?.fullName || v.psw?.fullName || 'Assigned Staff'}.`,
+            startsAt,
+            endsAt,
+            location: `${v.client?.addressLine1 || ''}, ${v.client?.city || ''}`
+        };
+    });
+
+    return c.json(mapped, 200);
+});
+
+export default family;

@@ -1,4 +1,4 @@
-import type { ButtonDef } from '../01_I_button_registry';
+import type { ButtonDef } from '../button_registry';
 
 /**
  * Specialized Financial & Ledger Buttons for the PrimeCare Platform.

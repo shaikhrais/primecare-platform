@@ -39,7 +39,7 @@ export class ComplianceController {
         ...data,
         timestamp: new Date().toISOString()
       }),
-      (error) => c.json({ success: false, error: error.message || error }, 500)
+      (error) => c.json({ success: false, error }, 500)
     );
   }
 
@@ -154,7 +154,7 @@ export class ComplianceController {
     const result = await TrainingService.createModule(c.get('prisma'), tenantId as string, body);
     return result.fold(
       (data) => c.json({ success: true, data }),
-      (error) => c.json({ success: false, error: error.message || error }, 500)
+      (error) => c.json({ success: false, error }, 500)
     );
   }
 
@@ -165,7 +165,7 @@ export class ComplianceController {
     const result = await TrainingService.updateModule(c.get('prisma'), tenantId as string, id, body);
     return result.fold(
       (data) => c.json({ success: true, data }),
-      (error) => c.json({ success: false, error: error.message || error }, 500)
+      (error) => c.json({ success: false, error }, 500)
     );
   }
 }

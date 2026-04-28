@@ -22,7 +22,7 @@ function extractEnumValues(filePath: string): string[] {
 }
 
 function generateSkeletonFile(ids: string[]) {
-    const header = `import { FormEntry } from '../01_I_form_registry';\n\n/**\n * Skeleton Form Definitions\n * Automatically generated transient placeholders for the 351-entry Flutter registry.\n */\nexport const SKELETON_FORMS: FormEntry[] = [\n`;
+    const header = `import { FormEntry } from '../form_registry';\n\n/**\n * Skeleton Form Definitions\n * Automatically generated transient placeholders for the 351-entry Flutter registry.\n */\nexport const SKELETON_FORMS: FormEntry[] = [\n`;
     
     const body = ids.map(id => `    { id: '${id}', label: '${id.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())} (Skeleton)', category: 'skeleton', fields: [] }`).join(',\n');
     

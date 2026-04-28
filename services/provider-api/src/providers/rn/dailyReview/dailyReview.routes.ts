@@ -1,0 +1,69 @@
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { Bindings, Variables } from '@primecare/contracts';
+import { ROUTE_METADATA } from '@primecare/infrastructure';
+import { requirePermission } from '@primecare/security';
+import { logAudit } from '@primecare/infrastructure';
+
+const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+
+const DailyEntryParamsSchema = z.object({
+    id: z.string().openapi({ param: { name: 'id', in: 'path' } }),
+});
+
+/**
+ * RN review/sign-off
+ */
+const reviewDailyEntryRoute = createRoute({
+    ...ROUTE_METADATA.RN.DAILY_REVIEW,
+    method: 'post',
+    path: '/{id}/review',
+    summary: 'Review Daily Entry',
+    tags: ['RN', 'DailyReview'],
+    middleware: [requirePermission('manage_assessments')],
+    request: {
+        params: DailyEntryParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        notes: z.string().optional(),
+                        status: z.enum(['APPROVED', 'REJECTED'])
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.any(),
+                },
+            },
+            description: 'Daily entry reviewed successfully',
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
+});
+
+r.openapi(reviewDailyEntryRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const { notes, status } = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+
+    const entry = await prisma.dailyEntry.update({
+        where: { id },
+        data: {
+            notes: notes ? `RN Review: ${notes}` : undefined,
+            status: status === 'APPROVED' ? 'SUBMITTED' : 'DRAFT'
+        }
+    });
+
+    await logAudit(prisma, userId, 'REVIEW_DAILY_ENTRY', 'DAILY_ENTRY', id, { status, notes });
+
+    return c.json(entry, 200);
+});
+
+export default r;
