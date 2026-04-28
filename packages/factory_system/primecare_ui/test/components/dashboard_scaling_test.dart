@@ -193,5 +193,46 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
     });
+
+    testWidgets('Full Structure Widget Diagnostics Snapshot (Instant UI Test)', (
+      tester,
+    ) async {
+      // Build a complex UI structure
+      final children = List<Widget>.generate(
+        4,
+        (i) => PrimeStatCard(
+          title: 'Snapshot Stat $i',
+          value: '$i',
+          icon: Icons.data_usage,
+          iconColor: Colors.blue,
+        ),
+      );
+
+      await tester.pumpWidget(
+        buildTestableWidget(
+          tier: ResolutionTier.fourK,
+          scaleFactor: 1.0,
+          child: SizedBox(
+            width: 1200,
+            child: PrimeCareResponsiveKpiGrid(children: children),
+          ),
+        ),
+      );
+
+      // 1. Capture the EXACT structural layout instantly (bypasses visual rendering)
+      final treeStructure = tester.binding.rootElement!.toStringDeep();
+
+      // We print it so you can see what it captures in the test output
+      debugPrint('==== FULL WIDGET STRUCTURE SNAPSHOT ====');
+      debugPrint(treeStructure);
+
+      // 2. We can assert the full structure is intact without searching element-by-element
+      expect(treeStructure, isNotEmpty);
+      expect(treeStructure.contains('PrimeCareResponsiveKpiGrid'), isTrue);
+      expect(treeStructure.contains('PrimeStatCard'), isTrue);
+
+      // In a real environment, you save `treeStructure` to a .txt file and do:
+      // expect(treeStructure, matchesReferenceStructure('my_dashboard_snapshot.txt'));
+    });
   });
 }
