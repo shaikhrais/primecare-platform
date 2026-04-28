@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum PlatformSubsystem { metrics, auraAI }
+enum PlatformSubsystem { metrics, auraAI, auth, core, registry }
 
 class GovernedWidget extends StatelessWidget {
   final PlatformSubsystem subsystem;

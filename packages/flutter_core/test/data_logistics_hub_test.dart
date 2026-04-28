@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   group('DataLogisticsHub - Fetch-or-Fallback Logic', () {
@@ -41,7 +41,10 @@ void main() {
 
         expect(model.isOfflineFallback, isTrue);
         expect(model.blueprints, isNotEmpty);
-        expect(model.blueprints.any((b) => b is StatGridBlueprint), isTrue);
+        expect(
+          model.blueprints.any((dynamic b) => b is StatGridBlueprint),
+          isTrue,
+        );
       },
     );
   });

@@ -18,6 +18,9 @@ enum ExecutionGateCategory {
   metricsLayer,
   navigationLayer,
   scheduler,
+  governance,
+  intelligence,
+  structuralIntegrity,
 }
 
 /// A centralized stream sink for cloud telemetry observability.

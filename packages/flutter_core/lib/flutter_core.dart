@@ -34,8 +34,7 @@ export 'src/resilience/mechanical_repair_kit.dart';
 export 'src/resilience/restart_wrapper.dart';
 export 'src/resilience/connectivity_service.dart';
 export 'src/resilience/provider_ttl.dart';
-export 'src/resilience/service_modulation_governor.dart';
-export 'src/resilience/widget_modulation_governor.dart';
+
 export 'config/resilience_config.dart';
 export 'verification_service.dart';
 export 'verification_providers.dart'

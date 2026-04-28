@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'report_service.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// Provider for the ReportService instance.

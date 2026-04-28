@@ -1,8 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
-import 'src/services/scheduler_service.dart';
-import 'aura_providers.dart';
-import 'src/models/aura_event.dart';
 
 final schedulerServiceProvider = Provider<SchedulerService>(
   (ref) => SchedulerService(),

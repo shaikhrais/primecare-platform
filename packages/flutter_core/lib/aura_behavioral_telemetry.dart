@@ -1,6 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
-import 'src/models/aura_event.dart';
 
 /// Tracks user behavioral interactions with Aura insights and suggestions.
 /// This data is used to weight future AI suggestions and prioritize critical mitigations.

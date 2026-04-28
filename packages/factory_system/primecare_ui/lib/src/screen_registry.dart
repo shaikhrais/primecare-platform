@@ -184,7 +184,12 @@ class ScreenRegistry {
 
   static void _registerDynamicDashboards() {
     registryJson.forEach((role, config) {
-      final String route = config['route'] as String;
+      final String route = (config['route'] ?? config['path']) as String;
+
+      if (_objectRegistry.containsKey(route)) {
+        return;
+      }
+
       final List<Map<String, dynamic>> kpis =
           (config['kpis'] as List?)?.cast<Map<String, dynamic>>() ?? [];
 

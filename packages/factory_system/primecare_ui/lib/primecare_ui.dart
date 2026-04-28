@@ -41,3 +41,4 @@ export 'package:primecare_ui/src/shared/src/core/primecare_components.dart'
 export 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL, tr, ComponentWarehouse;
 export 'package:primecare_ui/src/shared/src/components/primecare_scaffold.dart';
+export 'package:primecare_ui/src/shared/src/components/governed_widget.dart';

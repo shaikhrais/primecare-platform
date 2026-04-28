@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   group('Chart Hydration Tests', () {

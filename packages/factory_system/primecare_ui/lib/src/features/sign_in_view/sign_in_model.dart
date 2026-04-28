@@ -1,0 +1,3 @@
+class SignInViewModel {
+  const SignInViewModel();
+}

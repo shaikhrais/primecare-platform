@@ -1,6 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'intelligence_service.dart';
-import 'aura_providers.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// Provider for the base IntelligenceService.

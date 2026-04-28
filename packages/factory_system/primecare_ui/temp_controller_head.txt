@@ -1,0 +1,350 @@
+﻿// PRIMECARE CONSOLIDATED FILE
+import 'dart:async';
+import 'package:primecare_ui/src/features/features_model.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+    hide
+        isOnlineProvider,
+        ProviderTTL,
+        tr,
+        FranchiseOwnerViewModel,
+        PrimeCareViewModel;
+
+// --- MISSING INFRASTRUCTURE ---
+abstract class RnNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+typedef RnState = dynamic;
+
+abstract class PhysiotherapistNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+abstract class PswNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+abstract class RpnNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+abstract class FranchiseOwnerNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+abstract class ChiropractorNotifier<T> extends Notifier<T>
+    with ResilientNotifierMixin<T> {
+  T build();
+}
+
+// --- MANDATORY RESILIENCE INFRASTRUCTURE ---
+
+/// Base mixin for all PrimeCare Notifiers providing standardized hydration logic.
+mixin ResilientNotifierMixin<T> on Notifier<T> {
+  /// Standardized method to hydrate data from a repository with error handling and telemetry.
+  Future<void> guardHydration<D>({
+    required Future<Result<D>> Function() fetch,
+    required T Function(D data) onSuccess,
+    required T Function(String message) onError,
+    required T loadingState,
+    ExecutionGateCategory category = ExecutionGateCategory.domainApi,
+  }) async {
+    state = loadingState;
+    final result = await fetch();
+    result.fold(
+      (data) {
+        state = onSuccess(data);
+      },
+      (error) {
+        state = onError(error.toString());
+      },
+    );
+  }
+}
+
+// Feature-specific mixin stubs to maintain backward compatibility with generated code
+mixin PhysiotherapistResilientNotifierMixin<T> on Notifier<T>
+    implements ResilientNotifierMixin<T> {}
+mixin PswResilientNotifierMixin<T> on Notifier<T>
+    implements ResilientNotifierMixin<T> {}
+mixin RpnResilientNotifierMixin<T> on Notifier<T>
+    implements ResilientNotifierMixin<T> {}
+
+// --- Global Provider Aliases ---
+typedef PhysiotherapistNotifierProvider<T extends Notifier<S>, S> =
+    NotifierProvider<T, S>;
+typedef PswNotifierProvider<T extends Notifier<S>, S> = NotifierProvider<T, S>;
+typedef RnNotifierProvider<T extends Notifier<S>, S> = NotifierProvider<T, S>;
+typedef RpnNotifierProvider<T extends Notifier<S>, S> = NotifierProvider<T, S>;
+typedef FranchiseOwnerNotifierProvider<T extends Notifier<S>, S> =
+    NotifierProvider<T, S>;
+typedef ChiropractorNotifierProvider<T extends Notifier<S>, S> =
+    NotifierProvider<T, S>;
+
+typedef PswProvider<T> = Provider<T>;
+typedef RnProvider<T> = Provider<T>;
+// Registry Typedefs
+typedef FranchiseOwnerProvider<T> = Provider<T>;
+typedef ChiropractorProvider<T> = Provider<T>;
+typedef PhysiotherapistProvider<T> = Provider<T>;
+
+// --- DASHBOARD ADAPTER PROVIDER ALIASES ---
+final architecturePlanningDashboardAdapterProvider =
+    genericDashboardAdapterProvider(
+      PrimeCareForm.architecturePlanningDashboard,
+    );
+final billingAdminDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.billingAdminDashboard,
+);
+final ceoDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ceoDashboard,
+);
+final cfoDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cfoDashboard,
+);
+final cooDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cooDashboard,
+);
+final ctoDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ctoDashboard,
+);
+final customerSupportDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.customerSupportDashboard,
+);
+final cxDirectorDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cxDirectorDashboard,
+);
+final financeDirectorDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.financeDirectorDashboard,
+);
+final franchiseOwnerAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.franchiseOwnerDashboard,
+);
+final generalManagerDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.generalManagerDashboard,
+);
+final headOfBusDevDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.headOfBusDevDashboard,
+);
+final headOfMarketingDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.headOfMarketingDashboard,
+);
+final itAdminDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.itAdminDashboard,
+);
+final operationsManagerDashboardAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.operationsManagerDashboard);
+
+// --- NEWLY RESTORED ADAPTER PROVIDERS ---
+final systemVerificationAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.systemVerificationDashboard,
+);
+final trainingHubAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.trainingHub,
+);
+final incidentReportAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.incidentReports,
+);
+final complianceAuditAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.complianceAudit,
+);
+final clinicalIntelligenceAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.clinicalIntelligence,
+);
+final financialSnapshotAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.financialSnapshot,
+);
+final billingLedgerAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.billingLedger,
+);
+final messagingAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.messaging,
+);
+final userManagementAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.userManagement,
+);
+final franchiseOperationsAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.franchiseOperations,
+);
+final marketingCampaignAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.marketingCampaigns,
+);
+final salesPipelineAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.salesPipeline,
+);
+final itSupportAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.itSupport,
+);
+final strategicGrowthAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.strategicGrowth,
+);
+final revenueAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.revenueAnalysis,
+);
+final operationalEfficiencyAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.operationalEfficiency,
+);
+final marketExpansionAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.marketExpansion,
+);
+final ebitdaAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ebitdaAnalysis,
+);
+final cashOnHandAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cashOnHand,
+);
+final netMarginAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.netMarginAnalysis,
+);
+final operationalBurnAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.operationalBurn,
+);
+final taxOptimizationAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.taxOptimization,
+);
+final arAlertAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.arAlert,
+);
+final capitalEfficiencyAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.capitalEfficiency,
+);
+final operationalInsightsAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.operationalInsights,
+);
+final burnRateAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.burnRateAnalysis,
+);
+final operationalVolumeAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.operationalVolume,
+);
+final uptimeMonitorAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.uptimeMonitor,
+);
+final latencyAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.latencyAnalysis,
+);
+final errorRateAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.errorRate,
+);
+final securityPostureAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.securityPosture,
+);
+final devOpsVelocityAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.devOpsVelocity,
+);
+final staffingMatrixAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.staffingMatrix,
+);
+final protocolComplianceAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.protocolCompliance,
+);
+final incidentTrendAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.incidentTrend,
+);
+final cashFlowAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cashFlow,
+);
+final ledgerCommandAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ledgerCommand,
+);
+final roiAnalysisAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.roiAnalysis,
+);
+final cacVolatilityAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.cacVolatility,
+);
+final businessOverviewAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.businessOverview,
+);
+final financialPerformanceAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.financialPerformance,
+);
+final complianceStatusAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.complianceStatus,
+);
+final appointmentAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.appointment,
+);
+final carePlanAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.carePlan,
+);
+final ticketAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ticket,
+);
+final responseTimeAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.responseTime,
+);
+final satisfactionScoreAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.satisfactionScore,
+);
+final slaBreachRiskAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.slaBreachRisk,
+);
+final leadManagementAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.leadManagement,
+);
+final pendingVerificationAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.pendingVerification,
+);
+final recentAuditAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.recentAudit,
+);
+final systemStatusAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.systemStatus,
+);
+final featureIntakeAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.featureIntake,
+);
+final platformMetricsAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.platformMetrics,
+);
+final ownerDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.ownerDashboard,
+);
+final trainingDirectorDashboardAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.trainingDirectorDashboard);
+final franchiseSalesManagerDashboardAdapterProvider =
+    genericDashboardAdapterProvider(
+      PrimeCareForm.franchiseSalesManagerDashboard,
+    );
+final localMarketingManagerDashboardAdapterProvider =
+    genericDashboardAdapterProvider(
+      PrimeCareForm.localMarketingManagerDashboard,
+    );
+final partnershipManagerDashboardAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.partnershipManagerDashboard);
+final patientDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.patientDashboard,
+);
+final regionalBdmDashboardAdapterProvider = genericDashboardAdapterProvider(
+  PrimeCareForm.regionalBdmDashboard,
+);
+final regionalManagerUsaDashboardAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.regionalManagerUsaDashboard);
+
+// --- Start of administrative_forms\administrative_forms_controller.dart ---
+
+final administrativeFormsControllerProvider =
+    StateNotifierProvider<
+      AdministrativeFormsController,
+      AdministrativeFormsViewModel
+    >((ref) {
+      return AdministrativeFormsController();
+    });
+
+class AdministrativeFormsController
+    extends StateNotifier<AdministrativeFormsViewModel> {
+  AdministrativeFormsController()
+    : super(AdministrativeFormsViewModel.initial());
+
+  void selectForm(String form) {
+    state = state.copyWith(selectedForm: form);
+  }
+
+  Future<void> approveForm(String formId) async {
+    state = state.copyWith(isSubmitting: true);

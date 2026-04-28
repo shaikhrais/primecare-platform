@@ -1,6 +1,7 @@
 // Layer: 02_COMPONENTS
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+export '../components/governed_widget.dart';
 
 enum PrimeCareButtonType { primary, secondary, danger, ghost }
 
@@ -304,7 +305,13 @@ class PrimeStatCard extends StatelessWidget {
             children: [
               Icon(icon, color: iconColor, size: 20),
               SizedBox(width: theme.spacing.xs),
-              Text(title, style: theme.typography.labelMedium),
+              Expanded(
+                child: Text(
+                  title,
+                  style: theme.typography.labelMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           SizedBox(height: theme.spacing.sm),
@@ -488,7 +495,7 @@ class PrimeCareQuickActionsGrid extends StatelessWidget {
 }
 
 /// Base layout shell for consistent screen wrapping.
-class BaseLayoutShell extends StatelessWidget {
+class BaseLayoutShell extends ConsumerWidget {
   final Widget child;
   final String currentPath;
 
@@ -499,14 +506,24 @@ class BaseLayoutShell extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return child; // Stub for shell
+  Widget build(BuildContext context, WidgetRef ref) {
+    final layoutConfig = ref.watch(layoutProvider);
+    final scale = layoutConfig.scaleFactor;
+
+    return Scaffold(
+      appBar: AppBar(toolbarHeight: 56.0 * scale),
+      body: Padding(
+        key: const Key('shell_content_padding'),
+        padding: EdgeInsets.only(left: 24.0 * scale, top: 16.0 * scale),
+        child: child,
+      ),
+    );
   }
 }
 
 /// Automatically dims or disables components based on subsystem health.
 class WidgetModulationGovernor extends StatelessWidget {
-  final String subsystem;
+  final PlatformSubsystem subsystem;
   final Widget child;
 
   const WidgetModulationGovernor({

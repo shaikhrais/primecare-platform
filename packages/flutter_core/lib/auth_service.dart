@@ -1,15 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'routes/groups/clinical_routes.dart';
-import 'routes/groups/business_development_routes.dart';
-import 'routes/groups/client_routes.dart';
-import 'routes/groups/corporate_routes.dart';
-import 'routes/groups/franchise_routes.dart';
-import 'routes/groups/marketing_routes.dart';
-import 'routes/groups/support_routes.dart';
-import 'routes/groups/common_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class AuthState {

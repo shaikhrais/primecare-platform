@@ -1,7 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
-import 'src/utils/prime_logger.dart';
-import 'routes/groups/franchise_routes.dart';
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
   final apiClient = ref.watch(apiClientProvider);

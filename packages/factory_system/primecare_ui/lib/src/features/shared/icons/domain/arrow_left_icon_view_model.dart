@@ -1,5 +1,6 @@
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+
 // Layer: 02_MODELS_FOUNDATION
-import 'package:primecare_ui/src/shared/src/models/view_model.dart';
 
 class ArrowLeftIconViewModel extends PrimeCareViewModel {
   final String title;

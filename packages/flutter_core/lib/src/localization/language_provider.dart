@@ -1,9 +1,7 @@
 // Layer: 01_CORE
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../auth_service.dart';
 
 /// Language Provider
 /// Manages the currently selected language for the application.

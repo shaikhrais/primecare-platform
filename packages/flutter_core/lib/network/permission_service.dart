@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import '../routes/route_guard.dart';
 
 /// Service responsible for fetching, caching, and disseminating dynamic
 /// route permission boundaries from the PrimeCare backend.

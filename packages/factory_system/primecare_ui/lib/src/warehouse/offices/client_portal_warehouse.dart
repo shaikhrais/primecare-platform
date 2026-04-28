@@ -1,93 +1,93 @@
+import 'package:flutter/material.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
-import 'package:primecare_ui/src/features/features_manifest.dart';
-import 'package:primecare_ui/src/components/forms/billing_payment_form.dart';
+
+import 'package:primecare_ui/src/features/features_view.dart';
 
 class ClientPortalComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
     'clientDashboardAdapter': (context, payload) =>
-        ClientdashboardadapterPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboardadapter'),
     'clientDashboardDto': (context, payload) =>
-        ClientdashboarddtoPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboarddto'),
     'clientDashboardDtoAdapter': (context, payload) =>
-        ClientdashboarddtoadapterPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboarddtoadapter'),
     'clientDashboardMapper': (context, payload) =>
-        ClientdashboardmapperPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboardmapper'),
     'clientDashboardMapperAdapter': (context, payload) =>
-        ClientdashboardmapperadapterPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboardmapperadapter'),
     'clientDashboardViewModel': (context, payload) =>
-        const ClientDashboardScreen(),
+        const ClientDashboardView(),
     'clientDashboardViewModelAdapter': (context, payload) =>
-        ClientdashboardviewmodeladapterPlaceholder(data: payload),
+        const Text('Placeholder: Clientdashboardviewmodeladapter'),
 
     'familyDashboardAdapter': (context, payload) =>
-        FamilydashboardadapterPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboardadapter'),
     'familyDashboardDto': (context, payload) =>
-        FamilydashboarddtoPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboarddto'),
     'familyDashboardDtoAdapter': (context, payload) =>
-        FamilydashboarddtoadapterPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboarddtoadapter'),
     'familyDashboardMapper': (context, payload) =>
-        FamilydashboardmapperPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboardmapper'),
     'familyDashboardMapperAdapter': (context, payload) =>
-        FamilydashboardmapperadapterPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboardmapperadapter'),
     'familyDashboardViewModel': (context, payload) =>
-        const FamilyDashboardScreen(),
+        const FamilyDashboardView(),
     'familyDashboardViewModelAdapter': (context, payload) =>
-        FamilydashboardviewmodeladapterPlaceholder(data: payload),
+        const Text('Placeholder: Familydashboardviewmodeladapter'),
 
     'guestDashboardAdapter': (context, payload) =>
-        GuestdashboardadapterPlaceholder(data: payload),
+        const Text('Placeholder: Guestdashboardadapter'),
     'guestDashboardDto': (context, payload) =>
-        GuestdashboarddtoPlaceholder(data: payload),
+        const Text('Placeholder: Guestdashboarddto'),
     'guestDashboardDtoAdapter': (context, payload) =>
-        GuestdashboarddtoadapterPlaceholder(data: payload),
+        const Text('Placeholder: Guestdashboarddtoadapter'),
     'guestDashboardMapper': (context, payload) =>
-        GuestdashboardmapperPlaceholder(data: payload),
+        const Text('Placeholder: Guestdashboardmapper'),
     'guestDashboardMapperAdapter': (context, payload) =>
-        GuestdashboardmapperadapterPlaceholder(data: payload),
-    'guestDashboardViewModel': (context, payload) =>
-        const GuestDashboardScreen(),
+        const Text('Placeholder: Guestdashboardmapperadapter'),
+    'guestDashboardViewModel': (context, payload) => const GuestDashboardView(),
     'guestDashboardViewModelAdapter': (context, payload) =>
-        GuestdashboardviewmodeladapterPlaceholder(data: payload),
+        const Text('Placeholder: Guestdashboardviewmodeladapter'),
 
     'patientDashboardAdapter': (context, payload) =>
-        PatientdashboardadapterPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboardadapter'),
     'patientDashboardDto': (context, payload) =>
-        PatientdashboarddtoPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboarddto'),
     'patientDashboardDtoAdapter': (context, payload) =>
-        PatientdashboarddtoadapterPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboarddtoadapter'),
     'patientDashboardMapper': (context, payload) =>
-        PatientdashboardmapperPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboardmapper'),
     'patientDashboardMapperAdapter': (context, payload) =>
-        PatientdashboardmapperadapterPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboardmapperadapter'),
     'patientDashboardViewModel': (context, payload) =>
-        const PatientDashboardScreen(),
+        const PatientDashboardView(),
     'patientDashboardViewModelAdapter': (context, payload) =>
-        PatientdashboardviewmodeladapterPlaceholder(data: payload),
+        const Text('Placeholder: Patientdashboardviewmodeladapter'),
 
     'clientLayout': (context, payload) =>
-        ClientlayoutPlaceholder(data: payload),
+        const Text('Placeholder: Clientlayout'),
     'patientLayout': (context, payload) =>
-        PatientlayoutPlaceholder(data: payload),
+        const Text('Placeholder: Patientlayout'),
     'familyPortalLayout': (context, payload) =>
-        FamilyportallayoutPlaceholder(data: payload),
-    'guestLayout': (context, payload) => GuestlayoutPlaceholder(data: payload),
+        const Text('Placeholder: Familyportallayout'),
+    'guestLayout': (context, payload) => const Text('Placeholder: Guestlayout'),
 
     'viewCarePlanForm': (context, payload) =>
-        ViewcareplanformPlaceholder(data: payload),
+        const Text('Placeholder: Viewcareplanform'),
     'submitPatientFeedbackForm': (context, payload) =>
-        SubmitpatientfeedbackformPlaceholder(data: payload),
+        const Text('Placeholder: Submitpatientfeedbackform'),
     'requestAppointmentForm': (context, payload) =>
-        RequestappointmentformPlaceholder(data: payload),
+        const Text('Placeholder: Requestappointmentform'),
     'viewMedicalRecordsForm': (context, payload) =>
-        ViewmedicalrecordsformPlaceholder(data: payload),
+        const Text('Placeholder: Viewmedicalrecordsform'),
     'updatePersonalProfileForm': (context, payload) =>
-        UpdatepersonalprofileformPlaceholder(data: payload),
-    'billingPaymentForm': (context, payload) => const BillingPaymentForm(),
+        const Text('Placeholder: Updatepersonalprofileform'),
+    'billingPaymentForm': (context, payload) =>
+        const Text('BillingPaymentForm'),
     'approveMedicationRefillForm': (context, payload) =>
-        ApprovemedicationrefillformPlaceholder(data: payload),
+        const Text('Placeholder: Approvemedicationrefillform'),
   };
 }

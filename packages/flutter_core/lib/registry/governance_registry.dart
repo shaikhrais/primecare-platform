@@ -1,3 +1,4 @@
+import '../models/screen.dart';
 import 'intents/app_screen_intent.dart';
 import 'auditor_blueprint.dart';
 import 'platform_role.dart';
@@ -81,12 +82,38 @@ class GovernanceRegistry {
               }
             }
           } catch (e) {
-            // If labels are unmodifiable, we replace the intent in the registry
-            // (This requires the intent implementation to be replaceable or have a mutation hook)
-            // For now, we broadcast the remediation intent
             PrimeLogger.info(
-              'GovernanceRegistry: Attempting remediation for ${compliance.route}',
+              'GovernanceRegistry: Replacing intent to remediate drift for ${compliance.route}',
             );
+
+            final newLabels = List<String>.from(intent.componentLabels);
+            for (final missing in compliance.missingLabels) {
+              if (!newLabels.contains(missing)) {
+                newLabels.add(missing);
+              }
+            }
+
+            final newIntent = PrimeCareScreen(
+              name: intent.name,
+              title: intent.title,
+              subtitle: intent.subtitle,
+              route: intent.route,
+              requiredRole: intent.requiredRole,
+              componentLabels: newLabels,
+              provider: intent.provider,
+              resiliencePolicy: intent.resiliencePolicy,
+              primarySubsystem: intent.primarySubsystem,
+              structuralPlan: intent.structuralPlan,
+              blueprints: intent is PrimeCareScreen
+                  ? intent.blueprints
+                  : const [],
+            );
+
+            _intentsByRoute[compliance.route] = newIntent;
+            final role = intent.requiredRole?.nameSnake;
+            if (role != null) {
+              _intentsByRole[role] = newIntent;
+            }
           }
         }
       }

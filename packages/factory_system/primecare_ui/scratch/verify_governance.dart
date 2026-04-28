@@ -1,3 +1,4 @@
+import 'package:primecare_ui/src/governance_bootstrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 void main() async {

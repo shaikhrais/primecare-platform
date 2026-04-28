@@ -1,8 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
 
-import 'src/models/aura_intent.dart';
-
 class AuraCommandService {
   /// Processes raw natural language input into a structured [AuraIntent].
   /// Currently uses a high-performance keyword mapping engine, extensible to LLM synthesis.

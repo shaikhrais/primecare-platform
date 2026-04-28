@@ -4,7 +4,7 @@
 // Source: .agents/governance/page_inventory.yaml
 
 import 'package:lucide_icons/lucide_icons.dart';
-import 'navigation_item.dart';
+import '../models/navigation_item.dart';
 import '../routes/groups/corporate_routes.dart';
 import '../routes/groups/franchise_routes.dart';
 import '../routes/groups/clinical_routes.dart';

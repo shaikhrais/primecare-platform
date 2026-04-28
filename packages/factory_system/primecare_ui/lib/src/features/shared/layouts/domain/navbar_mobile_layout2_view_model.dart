@@ -1,5 +1,6 @@
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+
 // Layer: 02_MODELS_FOUNDATION
-import 'package:primecare_ui/src/shared/src/models/view_model.dart';
 
 class NavbarMobileLayout2ViewModel extends PrimeCareViewModel {
   final String title;

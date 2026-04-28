@@ -2,8 +2,6 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:primecare_ui/primecare_ui.dart';
-import 'src/models/aura_event.dart';
-import 'registry/governance_registry.dart';
 
 class AuraPulseService {
   final Ref _ref;
