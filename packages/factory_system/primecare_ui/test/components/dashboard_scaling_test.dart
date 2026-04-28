@@ -114,5 +114,84 @@ void main() {
 
       addTearDown(tester.view.resetPhysicalSize);
     });
+
+    testWidgets('DynamicScreenAdapter hydrates registry UI properly', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            home: Scaffold(
+              body: Consumer(
+                builder: (context, ref, _) {
+                  final adapter = ref.watch(
+                    dynamicAdapterProvider(PrimeCareForm.ceoDashboard),
+                  );
+                  final data = adapter.watchData();
+
+                  return data.when(
+                    data: (result) {
+                      if (result is Success<PrimeCareDashboardViewModel>) {
+                        return Text(
+                          'Hydrated: ${result.data.isOfflineFallback}',
+                        );
+                      }
+                      return const Text('Hydration Failed');
+                    },
+                    loading: () => const CircularProgressIndicator(),
+                    error: (err, stack) => Text('Fatal Error: $err'),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump();
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+      // Should find the 'Hydrated:' text, indicating the dynamic adapter successfully resolved
+      // the CeoDashboard registry data (even if fallback).
+      expect(find.textContaining('Hydrated:'), findsOneWidget);
+    });
+
+    testWidgets('Responsive KpiGrid scales down gracefully to Mobile tier', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(
+        390,
+        844,
+      ); // iPhone 12/13/14 portrait
+      tester.view.devicePixelRatio = 3.0;
+
+      final children = List<Widget>.generate(
+        4,
+        (i) => PrimeStatCard(
+          title: 'Mobile Stat $i',
+          value: '$i',
+          icon: Icons.smartphone,
+          iconColor: Colors.blue,
+        ),
+      );
+
+      await tester.pumpWidget(
+        buildTestableWidget(
+          tier: ResolutionTier.mob,
+          scaleFactor: 1.0,
+          child: SizedBox(
+            width: 390,
+            child: PrimeCareResponsiveKpiGrid(children: children),
+          ),
+        ),
+      );
+
+      final firstStatCard = find.byType(PrimeStatCard).first;
+      expect(firstStatCard, findsOneWidget);
+      expect(find.text('Mobile Stat 0'), findsOneWidget);
+
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+    });
   });
 }

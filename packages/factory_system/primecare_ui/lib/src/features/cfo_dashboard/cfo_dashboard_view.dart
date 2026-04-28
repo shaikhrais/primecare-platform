@@ -66,7 +66,11 @@ class CfoDashboardView extends ConsumerWidget {
 }
 
 class CfoDashboardIntent extends PrimeCareScreen {
-  CfoDashboardIntent() : super(title: 'CfoDashboard');
+  CfoDashboardIntent()
+    : super(
+        title: 'CfoDashboard',
+        route: '/offices/corporate/roles/cfo/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const CfoDashboardView();

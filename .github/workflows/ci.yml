@@ -51,6 +51,10 @@ jobs:
         run: npm run check-architecture
         working-directory: packages/database
 
+      - name: Platform Governance Audit Gate
+        run: flutter test test/governance_audit_test.dart
+        working-directory: packages/factory_system/primecare_ui
+
       - name: Run Global Pipeline (Test/Lint/Typecheck)
         run: npx turbo run typecheck lint test --concurrency=4
 

@@ -161,7 +161,11 @@ class TrainingDirectorDashboardView extends ConsumerWidget {
 }
 
 class TrainingDirectorDashboardIntent extends PrimeCareScreen {
-  TrainingDirectorDashboardIntent() : super(title: 'TrainingDirectorDashboard');
+  TrainingDirectorDashboardIntent()
+    : super(
+        title: 'TrainingDirectorDashboard',
+        route: '/offices/corporate/roles/training_director/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const TrainingDirectorDashboardView();

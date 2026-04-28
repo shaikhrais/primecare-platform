@@ -33,6 +33,8 @@ class AuraPulseService {
           _emitPredictiveEvent();
         } else if (_random.nextDouble() > 0.7) {
           _checkGovernanceDrift();
+        } else if (_random.nextDouble() > 0.6) {
+          _trackHydrationMetrics();
         } else if (_random.nextDouble() > 0.5) {
           _emitAnomaly();
         } else {
@@ -194,5 +196,46 @@ class AuraPulseService {
 
       _controller.add(event);
     }
+  }
+
+  void _trackHydrationMetrics() {
+    final result = PlatformGovernanceAudit.performAudit(_ref);
+    final isHealthy = result.integrityScore >= 100.0;
+
+    final event = AuraEvent(
+      id: 'hydr_${DateTime.now().millisecondsSinceEpoch}',
+      type: AuraEventType.hydrationMetrics,
+      title: isHealthy
+          ? 'aura.events.hydration_healthy_title'
+          : 'aura.events.hydration_incomplete_title',
+      description: isHealthy
+          ? 'aura.events.hydration_healthy_desc'
+          : 'aura.events.hydration_incomplete_desc',
+      impact: isHealthy ? InsightImpact.positive : InsightImpact.caution,
+      timestamp: DateTime.now(),
+      metadata: {
+        'score': result.integrityScore,
+        'realized': result.realizedRoles.length,
+        'pending': result.pendingRoles.length,
+        'orphans': result.orphans.length,
+      },
+    );
+
+    _ref
+        .read<ExecutionGateService>(executionGateProvider)
+        .passGate(
+          ExecutionGateCategory.auraEngine,
+          isHealthy
+              ? 'Hydration Metric: 100% (55/55)'
+              : 'Hydration Incomplete: ${result.integrityScore}%',
+          silent: isHealthy,
+          metadata: {
+            'score': result.integrityScore,
+            'realized': result.realizedRoles.length,
+            'pending': result.pendingRoles.length,
+          },
+        );
+
+    _controller.add(event);
   }
 }

@@ -7,9 +7,10 @@ import 'governance_bootstrapper.dart';
 /// the Domain Inventory with the Governance DashboardRegistry.
 class PlatformGovernanceAudit {
   /// Generates a comprehensive summary of unimplemented components.
-  static Result performAudit(dynamic ref) {
+  static PlatformAuditResult performAudit(dynamic ref) {
     // 1. Initialize DashboardRegistry
     GovernanceBootstrapper.bootstrap();
+    GovernanceRegistry.remediateDrift();
 
     final inventory = _getDomainUniverse();
     final List<String> realized = [];
@@ -49,7 +50,7 @@ class PlatformGovernanceAudit {
         : (realized.length / inventory.length) * 100;
     final blueprintAudit = GovernanceRegistry.performBlueprintAudit();
 
-    return Result(
+    return PlatformAuditResult(
       totalRoles: inventory.length,
       realizedRoles: realized,
       pendingRoles: pending,
@@ -62,18 +63,26 @@ class PlatformGovernanceAudit {
 
   /// Sourced directly from the PlatformRole source-of-truth.
   static List<String> _getDomainUniverse() {
+    final excluded = {
+      PlatformRole.unknown,
+      PlatformRole.system,
+      PlatformRole.corporate,
+      PlatformRole.franchise,
+      PlatformRole.office,
+      PlatformRole.clinical,
+      PlatformRole.portal,
+      PlatformRole.infrastructure,
+      PlatformRole.businessDevelopment,
+    };
     return PlatformRole.values
-        .where(
-          (PlatformRole r) =>
-              r != PlatformRole.unknown && r != PlatformRole.system,
-        )
+        .where((PlatformRole r) => !excluded.contains(r))
         .map((PlatformRole r) => r.nameSnake)
         .toList();
   }
 }
 
 /// SystemVerificationData container for audit results.
-class Result {
+class PlatformAuditResult {
   final int totalRoles;
   final List<String> realizedRoles;
   final List<String> pendingRoles;
@@ -82,7 +91,7 @@ class Result {
   final List<BlueprintCompliance> blueprintAudit;
   final List<String> orphans;
 
-  Result({
+  PlatformAuditResult({
     required this.totalRoles,
     required this.realizedRoles,
     required this.pendingRoles,
@@ -111,7 +120,7 @@ class Result {
 }
 
 /// Periodic Audit provider for UI-level visualization.
-final platformGovernanceAuditProvider = Provider<Result>((ref) {
+final platformGovernanceAuditProvider = Provider<PlatformAuditResult>((ref) {
   // We re-run the audit whenever the registry might have changed or on a timer
   return PlatformGovernanceAudit.performAudit(ref);
 });

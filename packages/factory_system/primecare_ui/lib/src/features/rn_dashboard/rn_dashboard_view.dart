@@ -78,7 +78,11 @@ class RnDashboardView extends ConsumerWidget {
 }
 
 class RnDashboardIntent extends PrimeCareScreen {
-  RnDashboardIntent() : super(title: 'RnDashboard');
+  RnDashboardIntent()
+    : super(
+        title: 'RnDashboard',
+        route: '/offices/clinical/roles/rn/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const RnDashboardView();

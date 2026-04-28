@@ -110,7 +110,15 @@ class GovernanceRegistry {
             );
 
             _intentsByRoute[compliance.route] = newIntent;
-            final role = intent.requiredRole?.nameSnake;
+
+            String? mappedRole;
+            for (final entry in _intentsByRole.entries) {
+              if (entry.value == intent) {
+                mappedRole = entry.key;
+                break;
+              }
+            }
+            final role = mappedRole ?? intent.requiredRole?.nameSnake;
             if (role != null) {
               _intentsByRole[role] = newIntent;
             }

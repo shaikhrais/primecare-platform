@@ -64,7 +64,11 @@ class ComplianceHubView extends ConsumerWidget {
 }
 
 class ComplianceHubIntent extends PrimeCareScreen {
-  ComplianceHubIntent() : super(title: 'ComplianceHub');
+  ComplianceHubIntent()
+    : super(
+        title: 'ComplianceHub',
+        route: '/offices/corporate/roles/compliance_manager/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const ComplianceHubView();

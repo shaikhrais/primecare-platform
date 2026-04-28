@@ -63,7 +63,11 @@ class CtoDashboardView extends ConsumerWidget {
 }
 
 class CtoDashboardIntent extends PrimeCareScreen {
-  CtoDashboardIntent() : super(title: 'CtoDashboard');
+  CtoDashboardIntent()
+    : super(
+        title: 'CtoDashboard',
+        route: '/offices/corporate/roles/cto/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const CtoDashboardView();

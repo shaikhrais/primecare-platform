@@ -3,9 +3,6 @@ main = "src/index.ts"
 compatibility_date = "2024-03-20"
 compatibility_flags = [ "nodejs_compat" ]
 
-[dev]
-port = 8700
-
 # Service Bindings linking to internal Microservices
 services = [
   { binding = "AUTH_SERVICE", service = "primecare-auth-service" },
@@ -19,3 +16,6 @@ services = [
   { binding = "COMPLIANCE_SERVICE", service = "primecare-compliance-service" },
   { binding = "FRANCHISE_REPORTING_SERVICE", service = "primecare-franchise-reporting-service" },
 ]
+
+[dev]
+port = 8700

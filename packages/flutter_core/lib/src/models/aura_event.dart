@@ -23,6 +23,7 @@ enum AuraEventType {
   predictedStaffingGap,
   predictedBudgetOverrun,
   architecturalDrift,
+  hydrationMetrics,
 }
 
 class AuraEvent {

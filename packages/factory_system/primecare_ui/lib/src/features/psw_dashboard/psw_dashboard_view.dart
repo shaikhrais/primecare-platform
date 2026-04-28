@@ -78,7 +78,11 @@ class PswDashboardView extends ConsumerWidget {
 }
 
 class PswDashboardIntent extends PrimeCareScreen {
-  PswDashboardIntent() : super(title: 'PswDashboard');
+  PswDashboardIntent()
+    : super(
+        title: 'PswDashboard',
+        route: '/offices/clinical/roles/psw/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const PswDashboardView();

@@ -29,6 +29,7 @@ export 'package:primecare_ui/src/shared/src/models/core/data_logistics_hub.dart'
 export 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 export 'package:primecare_ui/src/screen_registry.dart';
 export 'package:primecare_ui/src/engine/screen_engine.dart';
+export 'package:primecare_ui/src/platform_governance_audit.dart';
 
 // Frameworks
 export 'package:flutter_core/flutter_core.dart' hide AppTheme, tr, ProviderTTL;

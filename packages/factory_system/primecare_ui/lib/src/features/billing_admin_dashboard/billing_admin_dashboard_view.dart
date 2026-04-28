@@ -158,7 +158,11 @@ class BillingAdminDashboardView extends ConsumerWidget {
 }
 
 class BillingAdminDashboardIntent extends PrimeCareScreen {
-  BillingAdminDashboardIntent() : super(title: 'BillingAdminDashboard');
+  BillingAdminDashboardIntent()
+    : super(
+        title: 'BillingAdminDashboard',
+        route: '/offices/corporate/roles/billing_admin/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const BillingAdminDashboardView();

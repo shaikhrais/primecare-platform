@@ -157,7 +157,11 @@ class ClinicalDirectorDashboardView extends ConsumerWidget {
 }
 
 class ClinicalDirectorDashboardIntent extends PrimeCareScreen {
-  ClinicalDirectorDashboardIntent() : super(title: 'ClinicalDirectorDashboard');
+  ClinicalDirectorDashboardIntent()
+    : super(
+        title: 'ClinicalDirectorDashboard',
+        route: '/offices/clinical/roles/clinical_director/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const ClinicalDirectorDashboardView();

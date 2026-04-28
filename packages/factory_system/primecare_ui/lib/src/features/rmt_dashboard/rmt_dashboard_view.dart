@@ -80,7 +80,11 @@ class RmtDashboardView extends ConsumerWidget {
 }
 
 class RmtDashboardIntent extends PrimeCareScreen {
-  RmtDashboardIntent() : super(title: 'RmtDashboard');
+  RmtDashboardIntent()
+    : super(
+        title: 'RmtDashboard',
+        route: '/offices/clinical/roles/rmt/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const RmtDashboardView();

@@ -183,7 +183,11 @@ class FinanceDirectorDashboardView extends ConsumerWidget {
 }
 
 class FinanceDirectorDashboardIntent extends PrimeCareScreen {
-  FinanceDirectorDashboardIntent() : super(title: 'FinanceDirectorDashboard');
+  FinanceDirectorDashboardIntent()
+    : super(
+        title: 'FinanceDirectorDashboard',
+        route: '/offices/corporate/roles/finance_director/dashboard',
+      );
 
   @override
   Widget build(BuildContext context) => const FinanceDirectorDashboardView();
