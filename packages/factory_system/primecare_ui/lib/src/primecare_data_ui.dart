@@ -65,7 +65,7 @@ class PrimeCareAsyncCard<T> extends ConsumerWidget {
   }
 }
 
-/// 2. Dynamic Registry Form Engine
+/// 2. Dynamic DashboardRegistry Form Engine
 /// Eliminates raw static inputs. Mates directly with the `primecare_ui` core engine natively.
 class PrimeCareFormBuilder extends StatefulWidget {
   final List<Map<String, dynamic>> schema;
@@ -193,7 +193,8 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
                     ? TextInputType.phone
                     : (isNumber ? TextInputType.number : TextInputType.text),
                 validator: field['required'] == true
-                    ? (val) => (val == null || val.isEmpty) ? 'Required' : null
+                    ? (String? val) =>
+                          (val == null || val.isEmpty) ? 'Required' : null
                     : null,
               ),
             );

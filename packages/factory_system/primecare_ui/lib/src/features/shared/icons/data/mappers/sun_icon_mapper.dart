@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/sun_icon_view_model.dart';
+import '../../domain/sun_icon_view_model.dart';
 import '../dtos/sun_icon_dto.dart';
 
 class SunIconMapper {

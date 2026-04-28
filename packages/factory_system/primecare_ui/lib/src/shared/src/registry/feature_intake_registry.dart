@@ -1,4 +1,4 @@
-import '../../core/models.dart';
+import '../core/registry.dart';
 
 /// FEATURE INTAKE GOVERNANCE
 /// No developer is allowed to create a screen, API, or route without an approved FeatureRequest.
@@ -39,7 +39,8 @@ const List<FeatureRequest> featureRequests = [
     appId: 'corporate_admin',
     module: 'Governance & Telemetry',
     featureName: 'Unified Telemetry Engine',
-    description: 'Centralized Dashboard rendering bypassing legacy scripts.',
+    description:
+        'Centralized ComplianceManagerDashboard rendering bypassing legacy scripts.',
     screens: ['DynamicDashboardScreen'],
     apiEndpoints: ['GET /telemetry/aggregate'],
     roles: [UserRole.ceo, UserRole.cto],

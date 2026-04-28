@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/fuse_svg_icon_view_model.dart';
+import '../../domain/fuse_svg_icon_view_model.dart';
 import '../dtos/fuse_svg_icon_dto.dart';
 
 class FuseSvgIconMapper {

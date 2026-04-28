@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/code2_icon_view_model.dart';
+import '../../domain/code2_icon_view_model.dart';
 import '../dtos/code2_icon_dto.dart';
 
 class Code2IconMapper {

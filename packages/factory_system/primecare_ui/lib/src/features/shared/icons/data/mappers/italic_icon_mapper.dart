@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/italic_icon_view_model.dart';
+import '../../domain/italic_icon_view_model.dart';
 import '../dtos/italic_icon_dto.dart';
 
 class ItalicIconMapper {

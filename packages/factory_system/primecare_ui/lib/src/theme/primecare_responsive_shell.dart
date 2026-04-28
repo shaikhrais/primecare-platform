@@ -356,4 +356,4 @@ class _MobileBottomBar extends StatelessWidget {
   }
 }
 
-// Using dynamicPageProvider and ViewModel pattern for data binding.
+// Using dynamicPageProvider and FranchiseOwnerViewModel pattern for data binding.

@@ -1,2 +1,2 @@
-// Layer: 05_UI_PRESENTATION
-// Deprecated: Orchestrated screens are now exported via lib/screens.dart
+// REDIRECT TO BIG 3
+export 'package:primecare_ui/primecare_ui.dart';

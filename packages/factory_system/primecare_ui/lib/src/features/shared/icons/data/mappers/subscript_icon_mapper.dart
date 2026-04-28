@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/subscript_icon_view_model.dart';
+import '../../domain/subscript_icon_view_model.dart';
 import '../dtos/subscript_icon_dto.dart';
 
 class SubscriptIconMapper {

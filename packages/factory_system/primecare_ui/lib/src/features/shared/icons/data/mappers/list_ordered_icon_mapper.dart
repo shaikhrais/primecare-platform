@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/list_ordered_icon_view_model.dart';
+import '../../domain/list_ordered_icon_view_model.dart';
 import '../dtos/list_ordered_icon_dto.dart';
 
 class ListOrderedIconMapper {

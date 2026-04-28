@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/client_layout_view_model.dart';
+import '../../domain/client_layout_view_model.dart';
 import '../dtos/client_layout_dto.dart';
 
 class ClientLayoutMapper {

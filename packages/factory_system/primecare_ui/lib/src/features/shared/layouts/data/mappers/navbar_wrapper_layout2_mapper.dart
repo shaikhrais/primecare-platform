@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/navbar_wrapper_layout2_view_model.dart';
+import '../../domain/navbar_wrapper_layout2_view_model.dart';
 import '../dtos/navbar_wrapper_layout2_dto.dart';
 
 class NavbarWrapperLayout2Mapper {

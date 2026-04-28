@@ -42,7 +42,7 @@ class UniversalScreenEngine extends ConsumerWidget {
       }
     });
 
-    // 1. Resolve Data
+    // 1. Resolve RnData
     final data = screen.provider != null
         // ignore: argument_type_not_assignable, inference_failure_on_function_invocation
         ? ref.watch(screen.provider as dynamic)
@@ -105,7 +105,7 @@ class UniversalScreenEngine extends ConsumerWidget {
       );
     }
 
-    // 5. Wrap in Layout Shell (only if explicitly requested, as MasterLayout usually handles this)
+    // 5. Wrap in AuthLayout Shell (only if explicitly requested, as MasterLayout usually handles this)
     if (useShell) {
       body = BaseLayoutShell(currentPath: screen.route, child: body);
     }
@@ -172,15 +172,14 @@ class UniversalScreenEngine extends ConsumerWidget {
 
     if (unwrappedData is DashboardMetrics) {
       metrics = unwrappedData;
-    } else if (unwrappedData is ViewModel) {
+    } else if (unwrappedData is FranchiseOwnerViewModel) {
       try {
         metrics = (unwrappedData as dynamic).metrics as DashboardMetrics?;
       } catch (_) {}
     }
 
     return SingleChildScrollView(
-      physics:
-          AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
+      physics: AlwaysScrollableScrollPhysics(), // Required for RefreshIndicator
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +192,7 @@ class UniversalScreenEngine extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, PrimeCareThemeData theme) {
+  Widget _buildHeader(BuildContext context, PrimeThemeData theme) {
     final String localizedTitle = screen.title.tr();
     final String localizedSubtitle = screen.subtitle.tr();
 

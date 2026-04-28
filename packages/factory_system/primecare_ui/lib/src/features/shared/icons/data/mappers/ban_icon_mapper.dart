@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/ban_icon_view_model.dart';
+import '../../domain/ban_icon_view_model.dart';
 import '../dtos/ban_icon_dto.dart';
 
 class BanIconMapper {

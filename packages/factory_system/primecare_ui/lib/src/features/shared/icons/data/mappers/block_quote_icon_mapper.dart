@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/block_quote_icon_view_model.dart';
+import '../../domain/block_quote_icon_view_model.dart';
 import '../dtos/block_quote_icon_dto.dart';
 
 class BlockQuoteIconMapper {

@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/link_icon_view_model.dart';
+import '../../domain/link_icon_view_model.dart';
 import '../dtos/link_icon_dto.dart';
 
 class LinkIconMapper {

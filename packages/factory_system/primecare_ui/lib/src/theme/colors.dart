@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 
-/// The Official PrimeCare Global Color Grading Registry
+/// The Official PrimeCare Global Color Grading DashboardRegistry
 /// Hardcoded Hex values (Color(0xFF...)) are strictly banned outside this file to prevent UI blunders.
 class PrimeCareColors {
   // Deep Background & Surfaces

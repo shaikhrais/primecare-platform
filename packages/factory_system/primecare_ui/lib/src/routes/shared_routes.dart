@@ -1,45 +1,45 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/screens/common/user_management.dart';
+import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart';
 
 /// Central registry for routes that are available across all PrimeCare portals.
 /// These routes are typically hosted within a ShellRoute.
 final List<RouteBase> sharedCommonRoutes = [
   GoRoute(
     path: CommonRoutes.error500,
-    builder: (context, state) => Error500PageViewScreen(),
+    builder: (context, state) => CommonUiError500PageViewScreen(),
   ),
   GoRoute(
     path: CommonRoutes.error404,
-    builder: (context, state) => Error404PageViewScreen(),
+    builder: (context, state) => CommonUiError404PageViewScreen(),
   ),
   GoRoute(
     path: CommonRoutes.globalProfile,
-    builder: (context, state) => GlobalProfileScreen(),
+    builder: (context, state) => CommonGlobalProfileScreen(),
   ),
   GoRoute(
     path: CommonRoutes.globalSettings,
-    builder: (context, state) => GlobalSettingsScreen(),
+    builder: (context, state) => CommonGlobalSettingsScreen(),
   ),
   GoRoute(
     path: CommonRoutes.notificationCenter,
-    builder: (context, state) => NotificationCenterScreen(),
+    builder: (context, state) => CommonNotificationCenterScreen(),
   ),
   GoRoute(
     path: CommonRoutes.messagingHub,
-    builder: (context, state) => MessagingHubScreen(),
+    builder: (context, state) => CommonMessagingHubScreen(),
   ),
   GoRoute(
     path: CommonRoutes.documentVault,
-    builder: (context, state) => DocumentVaultScreen(),
+    builder: (context, state) => CommonDocumentVaultScreen(),
   ),
   GoRoute(
     path: CommonRoutes.userManagement,
-    builder: (context, state) => UserManagementScreen(),
+    builder: (context, state) => CommonUserManagementScreen(),
   ),
   GoRoute(
     path: CommonRoutes.architecturalPlanning,
-    builder: (context, state) => ArchitecturalPlanningDashboard(),
+    builder: (context, state) => DashboardsArchitecturalPlanningDashboard(),
   ),
 ];

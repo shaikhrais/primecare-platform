@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/underline_icon_view_model.dart';
+import '../../domain/underline_icon_view_model.dart';
 import '../dtos/underline_icon_dto.dart';
 
 class UnderlineIconMapper {

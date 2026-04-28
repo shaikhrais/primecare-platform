@@ -1,74 +1,52 @@
-import os
-import re
+﻿import re
 
-def main():
-    dart_files = []
-    for root, dirs, files in os.walk('.'):
-        for file in files:
-            if file.endswith('.dart'):
-                dart_files.append(os.path.join(root, file))
+with open('lib/src/features/features_view.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
 
-    for filepath in dart_files:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        original_content = content
-        
-        # Replace `const Text(LocaleKeys` -> `Text(LocaleKeys`
-        content = re.sub(r'const\s+Text\(\s*LocaleKeys', r'Text(LocaleKeys', content)
-        
-        # Replace `const [` -> `[` if followed somewhere by `.tr()`? Let's just remove `const` from `const [` if there's `LocaleKeys` in the file.
-        # Actually, let's find `const [` and check if the block contains `.tr()`.
-        # Even simpler: just replace `const [` with `[` and `const \w+\(` with `\w+\(` ONLY on lines that contain `.tr()`.
-        
-        lines = content.split('\n')
-        changed = False
-        
-        for i, line in enumerate(lines):
-            # If the line itself has LocaleKeys and const, remove const
-            if 'LocaleKeys' in line and 'const ' in line:
-                lines[i] = re.sub(r'\bconst\s+', '', line)
-                changed = True
+classes_and_types = [
+    ('BillingAdminDashboardView', 'BillingAdminDashboardViewModel'),
+    ('CeoDashboardView', 'CeoDashboardModel'),
+    ('ClientDashboardView', 'ClientViewModel'),
+    ('ClientDashboardLegacyView', 'ClientDashboardViewModel'),
+    ('ClinicalDirectorDashboardView', 'ClinicalDirectorViewModel'),
+    ('ClinicalDirectorDashboardLegacyView', 'ClinicalDirectorDashboardViewModel'),
+    ('ClinicDashboardView', 'ClinicDashboardModel'),
+    ('CommunityOutreachDashboardView', 'CommunityOutreachDashboardViewModel'),
+    ('CorporateGovernanceDashboardView', 'CorporateGovernanceDashboardViewModel'),
+    ('IntakeCoordinatorDashboardView', 'IntakeCoordinatorViewModel'),
+    ('PatientDashboardView', 'PatientDashboardViewModel'),
+    ('PswDashboardView', 'PswViewModel'),
+    ('RnDashboardView', 'RnViewModel'),
+    ('RpnDashboardView', 'RpnViewModel'),
+    ('ShareholderIntelligenceDashboardView', 'ShareholderIntelligenceViewModel'),
+]
+
+# Split content by classes
+parts = re.split(r'(class \w+(?:Dashboard|Legacy)?View extends ConsumerWidget \{)', content)
+new_parts = [parts[0]]
+
+for i in range(1, len(parts), 2):
+    class_def = parts[i]
+    body = parts[i+1]
+    
+    # Identify the type for this class
+    found_type = None
+    for c_name, t_name in classes_and_types:
+        if c_name in class_def:
+            found_type = t_name
+            break
             
-            # If the line has .tr() and const, remove const
-            if '.tr()' in line and 'const ' in line:
-                lines[i] = re.sub(r'\bconst\s+', '', line)
-                changed = True
-                
-        # Also, often `const [` is on a previous line to LocaleKeys.
-        # Let's find occurrences of `const [` and if the next few lines contain `.tr()`, remove `const`.
-        for i in range(len(lines)):
-            if 'const [' in lines[i] or 'const {' in lines[i]:
-                # look ahead up to 20 lines
-                has_tr = False
-                for j in range(i, min(i + 20, len(lines))):
-                    if '.tr()' in lines[j] or 'LocaleKeys' in lines[j]:
-                        has_tr = True
-                        break
-                    if ']' in lines[j] or '}' in lines[j]:
-                        break
-                
-                if has_tr:
-                    lines[i] = lines[i].replace('const [', '[')
-                    lines[i] = lines[i].replace('const {', '{')
-                    changed = True
+    if found_type:
+        # replace viewModel as dynamic with viewModel as TYPE
+        body = body.replace('viewModel as dynamic', f'viewModel as {found_type}')
+        # replace dynamic vm, with TYPE vm,
+        body = body.replace('dynamic vm,', f'{found_type} vm,')
+        # replace dynamic vm) with TYPE vm)
+        body = body.replace('dynamic vm)', f'{found_type} vm)')
+        
+    new_parts.append(class_def)
+    new_parts.append(body)
 
-            # Also check for `const WidgetName(` 
-            if re.search(r'const\s+[A-Z]\w*\(', lines[i]):
-                has_tr = False
-                for j in range(i, min(i + 20, len(lines))):
-                    if '.tr()' in lines[j] or 'LocaleKeys' in lines[j]:
-                        has_tr = True
-                        break
-                    if ')' in lines[j]: # Naive end of constructor, might not work for nested, but good enough for 20 lines.
-                        pass
-                if has_tr:
-                    lines[i] = re.sub(r'\bconst\s+([A-Z]\w*\()', r'\1', lines[i])
-                    changed = True
-
-        if changed:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write('\n'.join(lines))
-
-if __name__ == '__main__':
-    main()
+with open('lib/src/features/features_view.dart', 'w', encoding='utf-8') as f:
+    f.write("".join(new_parts))
+print("Done")

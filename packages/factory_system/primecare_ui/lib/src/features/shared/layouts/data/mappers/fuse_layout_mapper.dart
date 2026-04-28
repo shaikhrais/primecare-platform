@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/fuse_layout_view_model.dart';
+import '../../domain/fuse_layout_view_model.dart';
 import '../dtos/fuse_layout_dto.dart';
 
 class FuseLayoutMapper {

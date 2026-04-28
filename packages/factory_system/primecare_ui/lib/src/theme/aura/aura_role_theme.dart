@@ -98,10 +98,10 @@ class AuraRoleTheme {
         );
       default:
         return const AuraRoleTheme(
-          primaryGradient: [PrimeCareColors.sapphire, PrimeCareColors.skyBlue],
-          secondaryGradient: [PrimeCareColors.navy, PrimeCareColors.sapphire],
-          accentColor: PrimeCareColors.sapphire,
-          pulseColor: PrimeCareColors.sapphire,
+          primaryGradient: [Color(0xFF0F52BA), Color(0xFF87CEEB)],
+          secondaryGradient: [Color(0xFF000080), Color(0xFF0F52BA)],
+          accentColor: Color(0xFF0F52BA),
+          pulseColor: Color(0xFF0F52BA),
           auraLabel: 'AURA INTELLIGENCE',
         );
     }

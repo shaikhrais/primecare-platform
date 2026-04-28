@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/moon_star_icon_view_model.dart';
+import '../../domain/moon_star_icon_view_model.dart';
 import '../dtos/moon_star_icon_dto.dart';
 
 class MoonStarIconMapper {

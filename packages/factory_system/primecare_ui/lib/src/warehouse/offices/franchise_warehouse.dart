@@ -1,80 +1,74 @@
+import 'package:flutter/material.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
-import 'package:primecare_ui/src/features/features_manifest.dart';
+// import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
+// import 'package:primecare_ui/src/features/features_manifest.dart';
 
 class FranchiseComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
-    'franchiseDashboardAdapter': (context, payload) =>
-        FranchisedashboardadapterPlaceholder(data: payload),
-    'franchiseDashboardDto': (context, payload) =>
-        FranchisedashboarddtoPlaceholder(data: payload),
+    'franchiseDashboardAdapter': (context, payload) => const SizedBox.shrink(),
+    'franchiseDashboardDto': (context, payload) => const SizedBox.shrink(),
     'franchiseDashboardDtoAdapter': (context, payload) =>
-        FranchisedashboarddtoadapterPlaceholder(data: payload),
-    'franchiseDashboardMapper': (context, payload) =>
-        FranchisedashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
+    'franchiseDashboardMapper': (context, payload) => const SizedBox.shrink(),
     'franchiseDashboardMapperAdapter': (context, payload) =>
-        FranchisedashboardmapperadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseDashboardViewModel': (context, payload) =>
-        const FranchiseOwnerDashboardScreen(),
+        const SizedBox.shrink(),
     'franchiseDashboardViewModelAdapter': (context, payload) =>
-        FranchisedashboardviewmodeladapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
     'franchiseOwnerDashboardAdapter': (context, payload) =>
-        FranchiseownerdashboardadapterPlaceholder(data: payload),
-    'franchiseOwnerDashboardDto': (context, payload) =>
-        FranchiseownerdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
+    'franchiseOwnerDashboardDto': (context, payload) => const SizedBox.shrink(),
     'franchiseOwnerDashboardDtoAdapter': (context, payload) =>
-        FranchiseownerdashboarddtoadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseOwnerDashboardMapper': (context, payload) =>
-        FranchiseownerdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseOwnerDashboardMapperAdapter': (context, payload) =>
-        FranchiseownerdashboardmapperadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseOwnerDashboardViewModel': (context, payload) =>
-        const FranchiseOwnerDashboardScreen(),
+        const SizedBox.shrink(),
 
     'franchiseReconciliationDashboardDto': (context, payload) =>
-        FranchisereconciliationdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseRefundsDashboardAdapter': (context, payload) =>
-        FranchiserefundsdashboardadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseRefundsDashboardDto': (context, payload) =>
-        FranchiserefundsdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseRefundsDashboardDtoAdapter': (context, payload) =>
-        FranchiserefundsdashboarddtoadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseRefundsDashboardMapper': (context, payload) =>
-        FranchiserefundsdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseRefundsDashboardViewModel': (context, payload) =>
-        const FranchiseOwnerDashboardScreen(),
+        const SizedBox.shrink(),
 
     'franchiseReportsDashboardAdapter': (context, payload) =>
-        FranchisereportsdashboardadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseReportsDashboardDto': (context, payload) =>
-        FranchisereportsdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseReportsDashboardDtoAdapter': (context, payload) =>
-        FranchisereportsdashboarddtoadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseReportsDashboardMapper': (context, payload) =>
-        FranchisereportsdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseReportsDashboardViewModel': (context, payload) =>
-        const FranchiseOwnerDashboardScreen(),
+        const SizedBox.shrink(),
 
     'franchiseSalesManagerDashboardDto': (context, payload) =>
-        FranchisesalesmanagerdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'franchiseSalesManagerDashboardMapper': (context, payload) =>
-        FranchisesalesmanagerdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
     'franchiseOnboardingChecklistForm': (context, payload) =>
-        FranchiseonboardingchecklistformPlaceholder(data: payload),
-    'addFranchiseLeadForm': (context, payload) =>
-        AddfranchiseleadformPlaceholder(data: payload),
+        const SizedBox.shrink(),
+    'addFranchiseLeadForm': (context, payload) => const SizedBox.shrink(),
     'approveFranchiseDisclosureForm': (context, payload) =>
-        ApprovefranchisedisclosureformPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'logFranchiseevettingCallForm': (context, payload) =>
-        LogfranchiseevettingcallformPlaceholder(data: payload),
-    'auditRoyaltyPaymentForm': (context, payload) =>
-        AuditroyaltypaymentformPlaceholder(data: payload),
-    'approveRealEstateForm': (context, payload) =>
-        ApproverealestateformPlaceholder(data: payload),
+        const SizedBox.shrink(),
+    'auditRoyaltyPaymentForm': (context, payload) => const SizedBox.shrink(),
+    'approveRealEstateForm': (context, payload) => const SizedBox.shrink(),
   };
 }

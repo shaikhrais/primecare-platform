@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/trash_icon_view_model.dart';
+import '../../domain/trash_icon_view_model.dart';
 import '../dtos/trash_icon_dto.dart';
 
 class TrashIconMapper {

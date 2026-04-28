@@ -160,7 +160,7 @@ class ManagementActionBlueprint extends UIComponentBlueprint {
     : super(componentType: 'management_action');
 }
 
-/// A blueprint for Clinical Metrics and ADL oversight.
+/// A blueprint for Clinical DashboardMetrics and ADL oversight.
 class ClinicalMetricBlueprint extends UIComponentBlueprint {
   const ClinicalMetricBlueprint({required super.dataPayload})
     : super(componentType: 'clinical_metric');

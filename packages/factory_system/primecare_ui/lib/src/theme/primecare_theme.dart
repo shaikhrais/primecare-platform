@@ -42,7 +42,7 @@ class PrimeCareTheme {
     );
   }
 
-  // --- Provider & Typed Data Access ---
+  // --- Provider & Typed RnData Access ---
 
   static Color get primary => PrimeCareColors.skyBlue;
   static Color get secondary => PrimeCareColors.emerald;
@@ -92,8 +92,8 @@ class PrimeCareTheme {
       GoogleFonts.inter(fontSize: 11, color: PrimeCareColors.slate500);
 
   /// Access the hardened theme data from the current context.
-  static PrimeCareThemeData of(BuildContext context) {
-    return PrimeCareThemeData(Theme.of(context).brightness);
+  static PrimeThemeData of(BuildContext context) {
+    return PrimeThemeData(Theme.of(context).brightness);
   }
 
   // ============== ENTERPRISE LIGHT THEME ==============
@@ -425,11 +425,11 @@ class PrimeCareTheme {
   }
 }
 
-/// Hardened Theme Data class that provides a unified interface for all tokens.
-class PrimeCareThemeData {
+/// Hardened Theme RnData class that provides a unified interface for all tokens.
+class PrimeThemeData {
   final Brightness brightness;
 
-  PrimeCareThemeData(this.brightness);
+  PrimeThemeData(this.brightness);
 
   _PrimeCareColors get colors => _PrimeCareColors(brightness);
   _PrimeCareTypography get typography => _PrimeCareTypography(brightness);
@@ -503,6 +503,14 @@ class _PrimeCareColors {
   Color get slate400 => PrimeCareColors.slate400;
 
   // Surface Containers (M3 Standard)
+  Color get primaryContainer => PrimeCareColors.skyBlue.withValues(alpha: 0.1);
+  Color get onPrimaryContainer => PrimeCareColors.skyBlue;
+  Color get secondaryContainer =>
+      PrimeCareColors.emerald.withValues(alpha: 0.1);
+  Color get onSecondaryContainer => PrimeCareColors.emerald;
+  Color get tertiaryContainer => PrimeCareColors.amber.withValues(alpha: 0.1);
+  Color get onTertiaryContainer => PrimeCareColors.amber;
+
   Color get surfaceContainerHighest =>
       isDark ? PrimeCareColors.slate600 : PrimeCareColors.slate100;
   Color get surfaceContainerHigh =>
@@ -619,6 +627,8 @@ class PrimeCareTransitionBuilder extends PageTransitionsBuilder {
 }
 
 extension PrimeCareThemeContext on BuildContext {
-  PrimeCareThemeData get theme => PrimeCareTheme.of(this);
+  PrimeThemeData get theme => PrimeCareTheme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;
 }
+
+typedef PrimeCareThemeData = PrimeThemeData;

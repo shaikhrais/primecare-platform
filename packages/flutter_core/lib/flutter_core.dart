@@ -1,12 +1,12 @@
 // Layer: 00_ENTRY_POINT
 // Master export file for flutter_core.
 export 'package:flutter/material.dart';
-export 'package:primecare_ui/primecare_ui.dart'
-    hide
-        architecturePurposeProvider,
-        databaseReportProvider,
-        isOnlineProvider,
-        ProviderTTL;
+// export 'package:primecare_ui/primecare_ui.dart'
+//     hide
+//         architecturePurposeProvider,
+//         databaseReportProvider,
+//         isOnlineProvider,
+//         ProviderTTL;
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 // export 'package:primecare_ui/primecare_ui.dart' hide AppTheme;
 

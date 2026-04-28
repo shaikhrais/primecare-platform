@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/heading_icon_view_model.dart';
+import '../../domain/heading_icon_view_model.dart';
 import '../dtos/heading_icon_dto.dart';
 
 class HeadingIconMapper {

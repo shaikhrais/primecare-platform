@@ -12,9 +12,9 @@ abstract class PrimeCareViewModel extends Equatable {
   @override
   List<Object?> get props => [isOfflineFallback, version];
 
-  /// Data-binding contract for role-based serialization.
+  /// RnData-binding contract for role-based serialization.
   Map<String, dynamic> toJson();
 }
 
 /// Alias for PrimeCareViewModel to satisfy platform naming conventions.
-typedef ViewModel = PrimeCareViewModel;
+typedef FranchiseOwnerViewModel = PrimeCareViewModel;

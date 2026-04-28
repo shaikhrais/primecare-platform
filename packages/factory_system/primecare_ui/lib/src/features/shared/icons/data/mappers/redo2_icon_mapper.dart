@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/redo2_icon_view_model.dart';
+import '../../domain/redo2_icon_view_model.dart';
 import '../dtos/redo2_icon_dto.dart';
 
 class Redo2IconMapper {

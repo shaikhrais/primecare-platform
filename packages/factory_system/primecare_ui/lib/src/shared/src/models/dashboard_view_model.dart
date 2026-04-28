@@ -4,7 +4,7 @@ import 'core/dashboard_models.dart';
 import 'core/ui_blueprint.dart';
 import 'core/intelligence_insight.dart';
 
-/// Base class for all high-fidelity Dashboard ViewModels.
+/// Base class for all high-fidelity ComplianceManagerDashboard ViewModels.
 /// Enforces the registry-aware skeletal structure and Blueprint-driven UI.
 class PrimeCareDashboardViewModel extends PrimeCareViewModel {
   final DashboardMetrics metrics;

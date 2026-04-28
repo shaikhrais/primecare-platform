@@ -12,12 +12,14 @@ class DynamicScreenAdapter {
   /// Watches the hydrated data for this form.
   AsyncValue<Result<PrimeCareDashboardViewModel>> watchData() {
     final adapterProvider = ref.watch(primecareFormProvider(form));
+    // ignore: argument_type_not_assignable
     return ref.watch(adapterProvider);
   }
 
   /// Triggers a manual refresh of the underlying data.
   Future<void> refresh() async {
     final adapterProvider = ref.read(primecareFormProvider(form));
+    // ignore: avoid_dynamic_calls, argument_type_not_assignable
     return ref.refresh(adapterProvider.future);
   }
 }

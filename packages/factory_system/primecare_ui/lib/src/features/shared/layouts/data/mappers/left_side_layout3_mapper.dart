@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/left_side_layout3_view_model.dart';
+import '../../domain/left_side_layout3_view_model.dart';
 import '../dtos/left_side_layout3_dto.dart';
 
 class LeftSideLayout3Mapper {

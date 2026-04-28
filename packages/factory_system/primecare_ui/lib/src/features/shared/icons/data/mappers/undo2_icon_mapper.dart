@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/undo2_icon_view_model.dart';
+import '../../domain/undo2_icon_view_model.dart';
 import '../dtos/undo2_icon_dto.dart';
 
 class Undo2IconMapper {

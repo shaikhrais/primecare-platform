@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/align_right_icon_view_model.dart';
+import '../../domain/align_right_icon_view_model.dart';
 import '../dtos/align_right_icon_dto.dart';
 
 class AlignRightIconMapper {

@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/strike_icon_view_model.dart';
+import '../../domain/strike_icon_view_model.dart';
 import '../dtos/strike_icon_dto.dart';
 
 class StrikeIconMapper {

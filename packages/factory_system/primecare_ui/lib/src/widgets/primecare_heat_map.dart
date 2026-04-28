@@ -11,7 +11,7 @@ class PrimeCareHeatMap extends StatelessWidget {
   const PrimeCareHeatMap({
     super.key,
     required this.dataset,
-    this.title = 'Activity Heatmap',
+    this.title = 'DashboardActivity Heatmap',
     this.squareSize = 14,
   });
 

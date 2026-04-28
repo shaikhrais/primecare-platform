@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/toolbar_layout1_view_model.dart';
+import '../../domain/toolbar_layout1_view_model.dart';
 import '../dtos/toolbar_layout1_dto.dart';
 
 class ToolbarLayout1Mapper {

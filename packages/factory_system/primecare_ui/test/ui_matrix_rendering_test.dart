@@ -3,6 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+import 'package:primecare_ui/src/features/features_view.dart';
+import 'package:primecare_ui/src/features/features_model.dart';
+import 'package:primecare_ui/src/features/features_controller.dart';
 
 void main() {
   late SharedPreferences mockPrefs;

@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/chevron_down_icon_view_model.dart';
+import '../../domain/chevron_down_icon_view_model.dart';
 import '../dtos/chevron_down_icon_dto.dart';
 
 class ChevronDownIconMapper {

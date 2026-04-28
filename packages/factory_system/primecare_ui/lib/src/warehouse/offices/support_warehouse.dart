@@ -1,50 +1,39 @@
+import 'package:flutter/material.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
-import 'package:primecare_ui/src/features/features_manifest.dart';
+// import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
+// import 'package:primecare_ui/src/features/features_manifest.dart';
 
 class SupportComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
     'customerSupportDashboardAdapter': (context, payload) =>
-        CustomersupportdashboardadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'customerSupportDashboardDto': (context, payload) =>
-        CustomersupportdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'customerSupportDashboardDtoAdapter': (context, payload) =>
-        CustomersupportdashboarddtoadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'customerSupportDashboardMapper': (context, payload) =>
-        CustomersupportdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'customerSupportDashboardViewModel': (context, payload) =>
-        const CustomerSupportDashboardScreen(),
+        const SizedBox.shrink(),
 
-    'itAdminDashboardAdapter': (context, payload) =>
-        ItadmindashboardadapterPlaceholder(data: payload),
-    'itAdminDashboardDto': (context, payload) =>
-        ItadmindashboarddtoPlaceholder(data: payload),
-    'itAdminDashboardMapper': (context, payload) =>
-        ItadmindashboardmapperPlaceholder(data: payload),
+    'itAdminDashboardAdapter': (context, payload) => const SizedBox.shrink(),
+    'itAdminDashboardDto': (context, payload) => const SizedBox.shrink(),
+    'itAdminDashboardMapper': (context, payload) => const SizedBox.shrink(),
     'itAdminDashboardViewModel': (context, payload) =>
-        const CustomerSupportDashboardScreen(), // Using customer support for IT for now
+        const SizedBox.shrink(), // Using customer support for IT for now
 
-    'createCannedResponseForm': (context, payload) =>
-        CreatecannedresponseformPlaceholder(data: payload),
-    'resolveTicketForm': (context, payload) =>
-        ResolveticketformPlaceholder(data: payload),
-    'escalateTechnicalIssueForm': (context, payload) =>
-        EscalatetechnicalissueformPlaceholder(data: payload),
-    'assignCarePodForm': (context, payload) =>
-        AssigncarepodformPlaceholder(data: payload),
-    'logEmployeeGrievanceForm': (context, payload) =>
-        LogemployeegrievanceformPlaceholder(data: payload),
+    'createCannedResponseForm': (context, payload) => const SizedBox.shrink(),
+    'resolveTicketForm': (context, payload) => const SizedBox.shrink(),
+    'escalateTechnicalIssueForm': (context, payload) => const SizedBox.shrink(),
+    'assignCarePodForm': (context, payload) => const SizedBox.shrink(),
+    'logEmployeeGrievanceForm': (context, payload) => const SizedBox.shrink(),
 
-    'auditSystemLogsForm': (context, payload) =>
-        AuditsystemlogsformPlaceholder(data: payload),
-    'approveSystemAccessForm': (context, payload) =>
-        ApprovesystemaccessformPlaceholder(data: payload),
-    'provisionNewHardwareForm': (context, payload) =>
-        ProvisionnewhardwareformPlaceholder(data: payload),
-    'rollbackSystemVersionForm': (context, payload) =>
-        RollbacksystemversionformPlaceholder(data: payload),
+    'auditSystemLogsForm': (context, payload) => const SizedBox.shrink(),
+    'approveSystemAccessForm': (context, payload) => const SizedBox.shrink(),
+    'provisionNewHardwareForm': (context, payload) => const SizedBox.shrink(),
+    'rollbackSystemVersionForm': (context, payload) => const SizedBox.shrink(),
   };
 }

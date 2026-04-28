@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/master_layout_view_model.dart';
+import '../../domain/master_layout_view_model.dart';
 import '../dtos/master_layout_dto.dart';
 
 class MasterLayoutMapper {

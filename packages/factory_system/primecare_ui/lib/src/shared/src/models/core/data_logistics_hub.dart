@@ -1,11 +1,9 @@
 import 'package:primecare_ui/src/shared/primecare_adapters.dart';
-import 'package:easy_localization/easy_localization.dart';
 // Layer: 02_MODELS_FOUNDATION
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 
-/// Core Data Logistics Hub for the PrimeCare Platform.
+/// Core RnData Logistics Hub for the PrimeCare Platform.
 /// Provides a unified mechanism for API hydration with automatic fallback to offline blueprints.
 class DataLogisticsHub {
   /// Cached offline data loaded from the bundled JSON asset.
@@ -102,7 +100,7 @@ class DataLogisticsHub {
           .map(
             (n) => IntelligenceInsight(
               id: (n['id'] as String?) ?? 'ai_gen',
-              title: (n['name'] as String?) ?? 'Insight',
+              title: (n['name'] as String?) ?? 'DashboardInsight',
               summary:
                   (n['description'] as String?) ??
                   'Aura is analyzing domain patterns.',

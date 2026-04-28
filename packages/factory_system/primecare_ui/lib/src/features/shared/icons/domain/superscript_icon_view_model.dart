@@ -1,5 +1,5 @@
 // Layer: 02_MODELS_FOUNDATION
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/shared/src/models/view_model.dart';
 
 class SuperscriptIconViewModel extends PrimeCareViewModel {
   final String title;

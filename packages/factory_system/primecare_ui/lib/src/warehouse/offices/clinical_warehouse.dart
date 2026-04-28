@@ -1,92 +1,74 @@
+import 'package:flutter/material.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
-import 'package:primecare_ui/src/features/features_manifest.dart';
-import 'package:primecare_ui/src/components/forms/clinical/patient_intake_form.dart';
-import 'package:primecare_ui/src/components/forms/clinical/vitals_capture_form.dart';
-import 'package:primecare_ui/src/components/forms/clinical_incident_form.dart';
-import 'package:primecare_ui/src/components/forms/medication_administration_form.dart';
+// import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
+// import 'package:primecare_ui/src/features/features_manifest.dart';
+// import 'package:primecare_ui/src/components/forms/clinical/patient_intake_form.dart';
+// import 'package:primecare_ui/src/components/forms/clinical/vitals_capture_form.dart';
+// import 'package:primecare_ui/src/components/forms/clinical_incident_form.dart';
+// import 'package:primecare_ui/src/components/forms/medication_administration_form.dart';
 
 class ClinicalComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
-    'clinicDashboardAdapter': (context, payload) =>
-        ClinicdashboardadapterPlaceholder(data: payload),
-    'clinicDashboardDto': (context, payload) =>
-        ClinicdashboarddtoPlaceholder(data: payload),
-    'clinicDashboardDtoAdapter': (context, payload) =>
-        ClinicdashboarddtoadapterPlaceholder(data: payload),
-    'clinicDashboardMapper': (context, payload) =>
-        ClinicdashboardmapperPlaceholder(data: payload),
+    'clinicDashboardAdapter': (context, payload) => const SizedBox.shrink(),
+    'clinicDashboardDto': (context, payload) => const SizedBox.shrink(),
+    'clinicDashboardDtoAdapter': (context, payload) => const SizedBox.shrink(),
+    'clinicDashboardMapper': (context, payload) => const SizedBox.shrink(),
     'clinicDashboardMapperAdapter': (context, payload) =>
-        ClinicdashboardmapperadapterPlaceholder(data: payload),
-    'clinicDashboardViewModel': (context, payload) =>
-        const ClinicaldirectordashboardscreenPlaceholder(),
+        const SizedBox.shrink(),
+    'clinicDashboardViewModel': (context, payload) => const SizedBox.shrink(),
     'clinicDashboardViewModelAdapter': (context, payload) =>
-        ClinicdashboardviewmodeladapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
-    'clinicalIncidentForm': (context, payload) => ClinicalIncidentForm(),
-    'intakeDashboardAdapter': (context, payload) =>
-        IntakedashboardadapterPlaceholder(data: payload),
-    'intakeDashboardDto': (context, payload) =>
-        IntakedashboarddtoPlaceholder(data: payload),
-    'intakeDashboardDtoAdapter': (context, payload) =>
-        IntakedashboarddtoadapterPlaceholder(data: payload),
-    'intakeDashboardMapper': (context, payload) =>
-        IntakedashboardmapperPlaceholder(data: payload),
+    'clinicalIncidentForm': (context, payload) => const SizedBox.shrink(),
+    'intakeDashboardAdapter': (context, payload) => const SizedBox.shrink(),
+    'intakeDashboardDto': (context, payload) => const SizedBox.shrink(),
+    'intakeDashboardDtoAdapter': (context, payload) => const SizedBox.shrink(),
+    'intakeDashboardMapper': (context, payload) => const SizedBox.shrink(),
     'intakeDashboardMapperAdapter': (context, payload) =>
-        IntakedashboardmapperadapterPlaceholder(data: payload),
-    'intakeDashboardViewModel': (context, payload) =>
-        IntakeDashboardScreen(),
+        const SizedBox.shrink(),
+    'intakeDashboardViewModel': (context, payload) => const SizedBox.shrink(),
     'intakeDashboardViewModelAdapter': (context, payload) =>
-        IntakedashboardviewmodeladapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
-    'patientIntakeForm': (context, payload) => PatientIntakeForm(),
-    'vitalsCaptureForm': (context, payload) => VitalsCaptureForm(),
+    'patientIntakeForm': (context, payload) => const SizedBox.shrink(),
+    'vitalsCaptureForm': (context, payload) => const SizedBox.shrink(),
     'medicationAdministrationForm': (context, payload) =>
-        MedicationAdministrationForm(),
+        const SizedBox.shrink(),
 
-    'logClinicalIncidentForm': (context, payload) =>
-        LogclinicalincidentformPlaceholder(data: payload),
-    'logInfectionControlForm': (context, payload) =>
-        LoginfectioncontrolformPlaceholder(data: payload),
-    'carePlanEvaluationForm': (context, payload) =>
-        CareplanevaluationformPlaceholder(data: payload),
-    'dailyVitalsCardForm': (context, payload) =>
-        DailyvitalscardformPlaceholder(data: payload),
+    'logClinicalIncidentForm': (context, payload) => const SizedBox.shrink(),
+    'logInfectionControlForm': (context, payload) => const SizedBox.shrink(),
+    'carePlanEvaluationForm': (context, payload) => const SizedBox.shrink(),
+    'dailyVitalsCardForm': (context, payload) => const SizedBox.shrink(),
 
-    'qaManagerDashboardAdapter': (context, payload) =>
-        QadashboardadapterPlaceholder(data: payload),
-    'qaManagerDashboardDto': (context, payload) =>
-        QadashboarddtoPlaceholder(data: payload),
-    'qaManagerDashboardMapper': (context, payload) =>
-        QadashboardmapperPlaceholder(data: payload),
+    'qaManagerDashboardAdapter': (context, payload) => const SizedBox.shrink(),
+    'qaManagerDashboardDto': (context, payload) => const SizedBox.shrink(),
+    'qaManagerDashboardMapper': (context, payload) => const SizedBox.shrink(),
     'qaManagerDashboardViewModel': (context, payload) =>
-        QaDashboardScreen(),
+        const SizedBox.shrink(),
     'qaManagerDashboardViewModelAdapter': (context, payload) =>
-        QadashboardadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
     'complianceManagerDashboardAdapter': (context, payload) =>
-        CompliancemanagerdashboardadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'complianceManagerDashboardDto': (context, payload) =>
-        CompliancemanagerdashboarddtoPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'complianceManagerDashboardDtoAdapter': (context, payload) =>
-        CompliancemanagerdashboarddtoadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'complianceManagerDashboardMapper': (context, payload) =>
-        CompliancemanagerdashboardmapperPlaceholder(data: payload),
+        const SizedBox.shrink(),
     'complianceManagerDashboardViewModel': (context, payload) =>
-        ComplianceManagerDashboardScreen(),
+        const SizedBox.shrink(),
 
-    'infectionControlDashboardAdapter': (context, payload) => BasePlaceholder(
-      name: 'InfectionControlDashboardAdapter',
-      data: payload,
-    ),
+    'infectionControlDashboardAdapter': (context, payload) =>
+        const SizedBox.shrink(),
     'infectionControlDashboardDto': (context, payload) =>
-        BasePlaceholder(name: 'InfectionControlDashboardDto', data: payload),
+        const SizedBox.shrink(),
     'infectionControlDashboardMapper': (context, payload) =>
-        BasePlaceholder(name: 'InfectionControlDashboardMapper', data: payload),
+        const SizedBox.shrink(),
     'infectionControlDashboardViewModel': (context, payload) =>
-        DynamicScreenDashboardScreen(),
+        const SizedBox.shrink(),
   };
 }

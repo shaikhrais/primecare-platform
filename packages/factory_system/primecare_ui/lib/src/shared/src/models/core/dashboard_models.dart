@@ -113,7 +113,8 @@ class DashboardInsight {
 
   factory DashboardInsight.fromJson(Map<String, dynamic> json) {
     return DashboardInsight(
-      title: (json['title'] ?? json['label'] ?? 'Untitled Insight').toString(),
+      title: (json['title'] ?? json['label'] ?? 'Untitled DashboardInsight')
+          .toString(),
       description: (json['description'] ?? json['summary'] ?? '').toString(),
       type: (json['type'] ?? 'info').toString(),
       impact: json['impact'] != null
@@ -302,18 +303,13 @@ class AnalyticsChart {
         (e) => e.name == (json['type'] as String? ?? 'bar').toLowerCase(),
         orElse: () => ChartType.bar,
       ),
-      dataPoints:
-          (dataPointsRaw as List<dynamic>)
-              .map((e) => ChartDataPoint.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      dataPoints: (dataPointsRaw as List<dynamic>)
+          .map((e) => ChartDataPoint.fromJson(e as Map<String, dynamic>))
+          .toList(),
       labels: labelsRaw.map((e) => e.toString()).toList(),
-      datasets:
-          (datasetsRaw)
-              .map(
-                (e) =>
-                    AnalyticsChartDataset.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
+      datasets: (datasetsRaw)
+          .map((e) => AnalyticsChartDataset.fromJson(e as Map<String, dynamic>))
+          .toList(),
       forecastDataPoints: forecastRaw != null
           ? (forecastRaw as List)
                 .map((i) => ChartDataPoint.fromJson(i as Map<String, dynamic>))

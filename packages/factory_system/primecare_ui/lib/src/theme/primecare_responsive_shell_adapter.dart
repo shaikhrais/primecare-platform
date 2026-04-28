@@ -1,22 +1,26 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/src/shared/src/api_client.dart';
 // Prisma Load Adapter
 
-class PrimecareResponsiveShellViewModel {
+class CommonUiPrimecareResponsiveShellViewModel {
   final bool isLoading;
   final Map<String, dynamic>? data;
-  PrimecareResponsiveShellViewModel({this.isLoading = false, this.data});
+  CommonUiPrimecareResponsiveShellViewModel({
+    this.isLoading = false,
+    this.data,
+  });
 }
 
 class PrimecareResponsiveShellAdapter
-    extends Notifier<PrimecareResponsiveShellViewModel> {
+    extends Notifier<CommonUiPrimecareResponsiveShellViewModel> {
   @override
-  PrimecareResponsiveShellViewModel build() {
-    return PrimecareResponsiveShellViewModel();
+  CommonUiPrimecareResponsiveShellViewModel build() {
+    return CommonUiPrimecareResponsiveShellViewModel();
   }
 
   Future<void> loadData() async {
-    state = PrimecareResponsiveShellViewModel(
+    state = CommonUiPrimecareResponsiveShellViewModel(
       isLoading: true,
       data: state.data,
     );
@@ -25,13 +29,13 @@ class PrimecareResponsiveShellAdapter
       final response = await client.get(
         '/api/v1/primecare-responsive-shell-adapter',
       );
-      state = PrimecareResponsiveShellViewModel(
+      state = CommonUiPrimecareResponsiveShellViewModel(
         isLoading: false,
         data: response.data as Map<String, dynamic>?,
       );
     } catch (e) {
       // Fallback
-      state = PrimecareResponsiveShellViewModel(
+      state = CommonUiPrimecareResponsiveShellViewModel(
         isLoading: false,
         data: <String, dynamic>{},
       );
@@ -42,7 +46,7 @@ class PrimecareResponsiveShellAdapter
 final primecareResponsiveShellAdapterProvider =
     NotifierProvider<
       PrimecareResponsiveShellAdapter,
-      PrimecareResponsiveShellViewModel
+      CommonUiPrimecareResponsiveShellViewModel
     >(() {
       return PrimecareResponsiveShellAdapter();
     });

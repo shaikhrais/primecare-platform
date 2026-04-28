@@ -108,9 +108,7 @@ void main() {
   bootBuffer.writeln('}');
 
   bootstrapperFile.writeAsStringSync(bootBuffer.toString());
-  print(
-    'Updated governance_bootstrapper.dart with ${intents.length} intents.',
-  );
+  print('Updated governance_bootstrapper.dart with ${intents.length} intents.');
 }
 
 class IntentInfo {

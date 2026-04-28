@@ -1,188 +1,104 @@
+import 'package:flutter/material.dart';
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
+import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
+// import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
 
 class CommonComponentWarehouse extends BaseOfficeWarehouse {
   @override
   Map<String, ComponentBuilder> get builders => {
-    'auraDashboardHud': (context, payload) => const AuraDashboardHud(),
-    'auraNotificationCenter': (context, payload) =>
-        AuranotificationcenterPlaceholder(data: payload),
-    'auraSearch': (context, payload) => AurasearchPlaceholder(data: payload),
-    'auraSettings': (context, payload) =>
-        AurasettingsPlaceholder(data: payload),
-    'auraUserMenu': (context, payload) =>
-        AurausermenuPlaceholder(data: payload),
-    'auraBreadcrumbs': (context, payload) =>
-        AurabreadcrumbsPlaceholder(data: payload),
-    'auraSidebar': (context, payload) => AurasidebarPlaceholder(data: payload),
-    'auraHeader': (context, payload) => AuraheaderPlaceholder(data: payload),
-    'auraFooter': (context, payload) => AurafooterPlaceholder(data: payload),
+    'auraDashboardHud': (context, payload) => const SizedBox.shrink(),
+    'auraNotificationCenter': (context, payload) => const SizedBox.shrink(),
+    'auraSearch': (context, payload) => const SizedBox.shrink(),
+    'auraSettings': (context, payload) => const SizedBox.shrink(),
+    'auraUserMenu': (context, payload) => const SizedBox.shrink(),
+    'auraBreadcrumbs': (context, payload) => const SizedBox.shrink(),
+    'auraSidebar': (context, payload) => const SizedBox.shrink(),
+    'auraHeader': (context, payload) => const SizedBox.shrink(),
+    'auraFooter': (context, payload) => const SizedBox.shrink(),
 
-    'statCard': (context, payload) {
-      final data = payload as Map<String, dynamic>;
-      return PrimeCareStatCard(
-        title: data['title'] as String? ?? 'Stat',
-        value: data['value'] as String? ?? '0',
-        delta: data['delta'] as double?,
-        deltaSuffix: data['deltaSuffix'] as String?,
-        icon: data['icon'] as IconData? ?? LucideIcons.barChart,
-        iconColor: data['color'] as Color? ?? Colors.blueAccent,
-      );
-    },
-    'chartCard': (context, payload) {
-      final data = payload as Map<String, dynamic>;
-      return PrimeCareChartCard(
-        title: data['title'] as String? ?? 'Chart',
-        chart: data['chart'] as Widget? ?? SizedBox(),
-      );
-    },
-    'primeCareLineChart': (context, payload) {
-      final data = payload as Map<String, dynamic>;
-      return PrimeCareLineChart(
-        chart:
-            data['chart'] as AnalyticsChart? ??
-            AnalyticsChart(
-              id: 'line_chart_placeholder',
-              title: LocaleKeys.dashboards_common_labels_chart.tr(),
-              type: ChartType.line,
-              dataPoints: [],
-            ),
-      );
-    },
-    'aiForecastingDashlet': (context, payload) => AIForecastingDashlet(
-      data:
-          payload as AIAnalyticsForecastingData? ??
-          AIAnalyticsForecastingData(
-            projections: [],
-            kpis: ForecastingKPIs(
-              quarterlyRevenue: 0,
-              projectedGrowth: 0,
-              marginEfficiency: 0,
-              projectedAdmissions: 0,
-            ),
-            insights: [],
-            confidenceScore: 0,
-          ),
-    ),
-
-    'dynamicRoleDashboardScreen': (context, payload) {
-      final roleStr = payload as String;
-      final role = UserRole.values.firstWhere(
-        (e) => e.name.toLowerCase() == roleStr.replaceAll('_', '').toLowerCase(),
-        orElse: () => UserRole.patient,
-      );
-      return DynamicDashboard(role: role);
-    },
+    'statCard': (context, payload) => const SizedBox.shrink(),
+    'chartCard': (context, payload) => const SizedBox.shrink(),
+    'primeCareLineChart': (context, payload) => const SizedBox.shrink(),
+    'aiForecastingDashlet': (context, payload) => const SizedBox.shrink(),
+    'dynamicRoleDashboardScreen': (context, payload) => const SizedBox.shrink(),
     'dynamicRoleDashboardScreenAdapter': (context, payload) =>
-        DynamicroledashboardscreenadapterPlaceholder(data: payload),
+        const SizedBox.shrink(),
 
-    'error401PageView': (context, payload) =>
-        Error401pageviewPlaceholder(data: payload),
-    'error404PageView': (context, payload) =>
-        Error404pageviewPlaceholder(data: payload),
-    'errorBoundary': (context, payload) =>
-        ErrorboundaryPlaceholder(data: payload),
+    'error401PageView': (context, payload) => const SizedBox.shrink(),
+    'error404PageView': (context, payload) => const SizedBox.shrink(),
+    'errorBoundary': (context, payload) => const SizedBox.shrink(),
 
-    'app': (context, payload) => AppscreenPlaceholder(data: payload),
-    'authentication': (context, payload) =>
-        AuthenticationscreenPlaceholder(data: payload),
-    'button': (context, payload) => ButtonscreenPlaceholder(data: payload),
-    'configurator': (context, payload) =>
-        ConfiguratorscreenPlaceholder(data: payload),
-    'layout1': (context, payload) => Layout1screenPlaceholder(data: payload),
-    'layout2': (context, payload) => Layout2screenPlaceholder(data: payload),
-    'layout3': (context, payload) => Layout3screenPlaceholder(data: payload),
-    'link': (context, payload) => LinkscreenPlaceholder(data: payload),
-    'logo': (context, payload) => LogoscreenPlaceholder(data: payload),
-    'navigation': (context, payload) =>
-        NavigationscreenPlaceholder(data: payload),
+    'app': (context, payload) => const SizedBox.shrink(),
+    'authentication': (context, payload) => const SizedBox.shrink(),
+    'button': (context, payload) => const SizedBox.shrink(),
+    'configurator': (context, payload) => const SizedBox.shrink(),
+    'layout1': (context, payload) => const SizedBox.shrink(),
+    'layout2': (context, payload) => const SizedBox.shrink(),
+    'layout3': (context, payload) => const SizedBox.shrink(),
+    'link': (context, payload) => const SizedBox.shrink(),
+    'logo': (context, payload) => const SizedBox.shrink(),
+    'navigation': (context, payload) => const SizedBox.shrink(),
 
-    'pageBreadcrumb': (context, payload) =>
-        PagebreadcrumbPlaceholder(data: payload),
-    'pageTitle': (context, payload) => PagetitlePlaceholder(data: payload),
+    'pageBreadcrumb': (context, payload) => const SizedBox.shrink(),
+    'pageTitle': (context, payload) => const SizedBox.shrink(),
 
-    'moodSliderWidget': (context, payload) =>
-        MoodsliderwidgetPlaceholder(data: payload),
-    'etaTrackerWidget': (context, payload) =>
-        EtatrackerwidgetPlaceholder(data: payload),
-    'dragAssignWidget': (context, payload) =>
-        DragassignwidgetPlaceholder(data: payload),
-    'greetingHeaderWidget': (context, payload) =>
-        GreetingheaderwidgetPlaceholder(data: payload),
+    'moodSliderWidget': (context, payload) => const SizedBox.shrink(),
+    'etaTrackerWidget': (context, payload) => const SizedBox.shrink(),
+    'dragAssignWidget': (context, payload) => const SizedBox.shrink(),
+    'greetingHeaderWidget': (context, payload) => const SizedBox.shrink(),
 
-    'dataTable': (context, payload) => DatatablePlaceholder(data: payload),
-    'dataTableTopToolbar': (context, payload) =>
-        DatatabletoptoolbarPlaceholder(data: payload),
-    'demoContent': (context, payload) => DemocontentPlaceholder(data: payload),
-    'demoFrame': (context, payload) => DemoframePlaceholder(data: payload),
+    'dataTable': (context, payload) => const SizedBox.shrink(),
+    'dataTableTopToolbar': (context, payload) => const SizedBox.shrink(),
+    'demoContent': (context, payload) => const SizedBox.shrink(),
+    'demoFrame': (context, payload) => const SizedBox.shrink(),
 
-    'palettePreview': (context, payload) =>
-        PalettepreviewPlaceholder(data: payload),
-    'paletteSelector': (context, payload) =>
-        PaletteselectorPlaceholder(data: payload),
-    'lightDarkModeToggle': (context, payload) =>
-        LightdarkmodetogglePlaceholder(data: payload),
-    'fullScreenToggle': (context, payload) =>
-        FullscreentogglePlaceholder(data: payload),
-    'adjustFontSize': (context, payload) =>
-        AdjustfontsizePlaceholder(data: payload),
+    'palettePreview': (context, payload) => const SizedBox.shrink(),
+    'paletteSelector': (context, payload) => const SizedBox.shrink(),
+    'lightDarkModeToggle': (context, payload) => const SizedBox.shrink(),
+    'fullScreenToggle': (context, payload) => const SizedBox.shrink(),
+    'adjustFontSize': (context, payload) => const SizedBox.shrink(),
 
     // Icons
-    'alignCenterIcon': (context, payload) =>
-        AligncentericonPlaceholder(data: payload),
-    'alignJustifyIcon': (context, payload) =>
-        AlignjustifyiconPlaceholder(data: payload),
-    'alignLeftIcon': (context, payload) =>
-        AlignlefticonPlaceholder(data: payload),
-    'alignRightIcon': (context, payload) =>
-        AlignrighticonPlaceholder(data: payload),
-    'arrowLeftIcon': (context, payload) =>
-        ArrowlefticonPlaceholder(data: payload),
-    'banIcon': (context, payload) => BaniconPlaceholder(data: payload),
-    'chevronDownIcon': (context, payload) =>
-        ChevrondowniconPlaceholder(data: payload),
-    'closeIcon': (context, payload) => CloseiconPlaceholder(data: payload),
-    'code2Icon': (context, payload) => Code2iconPlaceholder(data: payload),
-    'externalLinkIcon': (context, payload) =>
-        ExternallinkiconPlaceholder(data: payload),
-    'heartIcon': (context, payload) => HearticonPlaceholder(data: payload),
-    'helpCircleIcon': (context, payload) =>
-        HelpcircleiconPlaceholder(data: payload),
-    'homeIcon': (context, payload) => HomeiconPlaceholder(data: payload),
-    'infoIcon': (context, payload) => InfoiconPlaceholder(data: payload),
-    'linkIcon': (context, payload) => LinkiconPlaceholder(data: payload),
-    'listIcon': (context, payload) => ListiconPlaceholder(data: payload),
-    'lockIcon': (context, payload) => LockiconPlaceholder(data: payload),
-    'logOutIcon': (context, payload) => LogouticonPlaceholder(data: payload),
-    'mailIcon': (context, payload) => MailiconPlaceholder(data: payload),
-    'menuIcon': (context, payload) => MenuiconPlaceholder(data: payload),
-    'messageCircleIcon': (context, payload) =>
-        MessagecircleiconPlaceholder(data: payload),
-    'messageSquareIcon': (context, payload) =>
-        MessagesquareiconPlaceholder(data: payload),
-    'moonIcon': (context, payload) => MooniconPlaceholder(data: payload),
-    'moreHorizontalIcon': (context, payload) =>
-        MorehorizontaliconPlaceholder(data: payload),
-    'moreVerticalIcon': (context, payload) =>
-        MoreverticaliconPlaceholder(data: payload),
-    'packageIcon': (context, payload) => PackageiconPlaceholder(data: payload),
-    'plusIcon': (context, payload) => PlusiconPlaceholder(data: payload),
-    'searchIcon': (context, payload) => SearchiconPlaceholder(data: payload),
-    'settingsIcon': (context, payload) =>
-        SettingsiconPlaceholder(data: payload),
-    'shieldIcon': (context, payload) => ShieldiconPlaceholder(data: payload),
-    'shoppingBagIcon': (context, payload) =>
-        ShoppingbagiconPlaceholder(data: payload),
-    'shoppingCartIcon': (context, payload) =>
-        ShoppingcarticonPlaceholder(data: payload),
-    'starIcon': (context, payload) => StariconPlaceholder(data: payload),
-    'sunIcon': (context, payload) => SuniconPlaceholder(data: payload),
-    'tagIcon': (context, payload) => TagiconPlaceholder(data: payload),
-    'trash2Icon': (context, payload) => Trash2iconPlaceholder(data: payload),
-    'userIcon': (context, payload) => UsericonPlaceholder(data: payload),
-    'usersIcon': (context, payload) => UsersiconPlaceholder(data: payload),
-    'xIcon': (context, payload) => XiconPlaceholder(data: payload),
+    'alignCenterIcon': (context, payload) => const SizedBox.shrink(),
+    'alignJustifyIcon': (context, payload) => const SizedBox.shrink(),
+    'alignLeftIcon': (context, payload) => const SizedBox.shrink(),
+    'alignRightIcon': (context, payload) => const SizedBox.shrink(),
+    'arrowLeftIcon': (context, payload) => const SizedBox.shrink(),
+    'banIcon': (context, payload) => const SizedBox.shrink(),
+    'chevronDownIcon': (context, payload) => const SizedBox.shrink(),
+    'closeIcon': (context, payload) => const SizedBox.shrink(),
+    'code2Icon': (context, payload) => const SizedBox.shrink(),
+    'externalLinkIcon': (context, payload) => const SizedBox.shrink(),
+    'heartIcon': (context, payload) => const SizedBox.shrink(),
+    'helpCircleIcon': (context, payload) => const SizedBox.shrink(),
+    'homeIcon': (context, payload) => const SizedBox.shrink(),
+    'infoIcon': (context, payload) => const SizedBox.shrink(),
+    'linkIcon': (context, payload) => const SizedBox.shrink(),
+    'listIcon': (context, payload) => const SizedBox.shrink(),
+    'lockIcon': (context, payload) => const SizedBox.shrink(),
+    'logOutIcon': (context, payload) => const SizedBox.shrink(),
+    'mailIcon': (context, payload) => const SizedBox.shrink(),
+    'menuIcon': (context, payload) => const SizedBox.shrink(),
+    'messageCircleIcon': (context, payload) => const SizedBox.shrink(),
+    'messageSquareIcon': (context, payload) => const SizedBox.shrink(),
+    'moonIcon': (context, payload) => const SizedBox.shrink(),
+    'moreHorizontalIcon': (context, payload) => const SizedBox.shrink(),
+    'moreVerticalIcon': (context, payload) => const SizedBox.shrink(),
+    'packageIcon': (context, payload) => const SizedBox.shrink(),
+    'plusIcon': (context, payload) => const SizedBox.shrink(),
+    'searchIcon': (context, payload) => const SizedBox.shrink(),
+    'settingsIcon': (context, payload) => const SizedBox.shrink(),
+    'shieldIcon': (context, payload) => const SizedBox.shrink(),
+    'shoppingBagIcon': (context, payload) => const SizedBox.shrink(),
+    'shoppingCartIcon': (context, payload) => const SizedBox.shrink(),
+    'starIcon': (context, payload) => const SizedBox.shrink(),
+    'sunIcon': (context, payload) => const SizedBox.shrink(),
+    'tagIcon': (context, payload) => const SizedBox.shrink(),
+    'trash2Icon': (context, payload) => const SizedBox.shrink(),
+    'userIcon': (context, payload) => const SizedBox.shrink(),
+    'usersIcon': (context, payload) => const SizedBox.shrink(),
+    'xIcon': (context, payload) => const SizedBox.shrink(),
   };
 }

@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/bold_icon_view_model.dart';
+import '../../domain/bold_icon_view_model.dart';
 import '../dtos/bold_icon_dto.dart';
 
 class BoldIconMapper {

@@ -4,20 +4,32 @@ abstract class LocaleKeys {
   static const String aura_auditors_blueprint = 'aura.auditors_blueprint';
   static const String aura_critical_insights = 'aura.critical_insights';
   static const String aura_daily_briefing = 'aura.daily_briefing';
-  static const String aura_events_architectural_drift_desc = 'aura.events.architectural_drift_desc';
-  static const String aura_events_architectural_drift_title = 'aura.events.architectural_drift_title';
-  static const String aura_events_budget_overrun_desc = 'aura.events.budget_overrun_desc';
-  static const String aura_events_budget_overrun_title = 'aura.events.budget_overrun_title';
-  static const String aura_events_critical_occupancy_desc = 'aura.events.critical_occupancy_desc';
-  static const String aura_events_critical_occupancy_title = 'aura.events.critical_occupancy_title';
-  static const String aura_events_efficiency_opt_desc = 'aura.events.efficiency_opt_desc';
-  static const String aura_events_efficiency_opt_title = 'aura.events.efficiency_opt_title';
-  static const String aura_events_revenue_variance_desc = 'aura.events.revenue_variance_desc';
-  static const String aura_events_revenue_variance_title = 'aura.events.revenue_variance_title';
+  static const String aura_events_architectural_drift_desc =
+      'aura.events.architectural_drift_desc';
+  static const String aura_events_architectural_drift_title =
+      'aura.events.architectural_drift_title';
+  static const String aura_events_budget_overrun_desc =
+      'aura.events.budget_overrun_desc';
+  static const String aura_events_budget_overrun_title =
+      'aura.events.budget_overrun_title';
+  static const String aura_events_critical_occupancy_desc =
+      'aura.events.critical_occupancy_desc';
+  static const String aura_events_critical_occupancy_title =
+      'aura.events.critical_occupancy_title';
+  static const String aura_events_efficiency_opt_desc =
+      'aura.events.efficiency_opt_desc';
+  static const String aura_events_efficiency_opt_title =
+      'aura.events.efficiency_opt_title';
+  static const String aura_events_revenue_variance_desc =
+      'aura.events.revenue_variance_desc';
+  static const String aura_events_revenue_variance_title =
+      'aura.events.revenue_variance_title';
   static const String aura_events_stable_desc = 'aura.events.stable_desc';
   static const String aura_events_stable_title = 'aura.events.stable_title';
-  static const String aura_events_staffing_gap_desc = 'aura.events.staffing_gap_desc';
-  static const String aura_events_staffing_gap_title = 'aura.events.staffing_gap_title';
+  static const String aura_events_staffing_gap_desc =
+      'aura.events.staffing_gap_desc';
+  static const String aura_events_staffing_gap_title =
+      'aura.events.staffing_gap_title';
   static const String aura_executive_overview = 'aura.executive_overview';
   static const String aura_full_system_audit = 'aura.full_system_audit';
   static const String aura_governance_alert = 'aura.governance_alert';
@@ -26,7 +38,8 @@ abstract class LocaleKeys {
   static const String aura_marketing_roi_surge = 'aura.marketing_roi_surge';
   static const String aura_offline = 'aura.offline';
   static const String aura_operational_summary = 'aura.operational_summary';
-  static const String aura_real_time_intelligence = 'aura.real_time_intelligence';
+  static const String aura_real_time_intelligence =
+      'aura.real_time_intelligence';
   static const String aura_resume = 'aura.resume';
   static const String aura_search_hint = 'aura.search_hint';
   static const String aura_see_report = 'aura.see_report';
@@ -45,7 +58,8 @@ abstract class LocaleKeys {
   static const String auth_curator_subtitle = 'auth.curator_subtitle';
   static const String auth_email = 'auth.email';
   static const String auth_email_placeholder = 'auth.email_placeholder';
-  static const String auth_enter_credentials_to_continue = 'auth.enter_credentials_to_continue';
+  static const String auth_enter_credentials_to_continue =
+      'auth.enter_credentials_to_continue';
   static const String auth_forgot_password = 'auth.forgot_password';
   static const String auth_login_instructions = 'auth.login_instructions';
   static const String auth_password = 'auth.password';
@@ -53,28 +67,50 @@ abstract class LocaleKeys {
   static const String auth_sign_in = 'auth.sign_in';
   static const String auth_title_curator = 'auth.title_curator';
   static const String auth_welcome_back = 'auth.welcome_back';
-  static const String ceo_dashboard_labels_market_expansion = 'ceo_dashboard_labels_market_expansion';
-  static const String ceo_dashboard_labels_revenue_growth = 'ceo_dashboard_labels_revenue_growth';
-  static const String ceo_dashboard_labels_strategic_growth = 'ceo_dashboard_labels_strategic_growth';
-  static const String cfo_dashboard_labels_ar_alert = 'cfo_dashboard_labels_ar_alert';
-  static const String cfo_dashboard_labels_capital_efficiency = 'cfo_dashboard_labels_capital_efficiency';
-  static const String cfo_dashboard_labels_cash_on_hand = 'cfo_dashboard_labels_cash_on_hand';
-  static const String cfo_dashboard_labels_ebitda_ttm = 'cfo_dashboard_labels_ebitda_ttm';
-  static const String cfo_dashboard_labels_net_margin = 'cfo_dashboard_labels_net_margin';
-  static const String cfo_dashboard_labels_operational_burn = 'cfo_dashboard_labels_operational_burn';
-  static const String cfo_dashboard_labels_tax_optimization = 'cfo_dashboard_labels_tax_optimization';
-  static const String clinical_director_labels_audit_adherence = 'clinical_director_labels_audit_adherence';
-  static const String clinical_director_labels_compliance_log = 'clinical_director_labels_compliance_log';
-  static const String clinical_director_labels_incident_criticality = 'clinical_director_labels_incident_criticality';
-  static const String clinical_director_labels_incident_trends = 'clinical_director_labels_incident_trends';
-  static const String clinical_director_labels_staffing_matrix = 'clinical_director_labels_staffing_matrix';
-  static const String clinical_director_labels_staffing_variance = 'clinical_director_labels_staffing_variance';
-  static const String command_center_labels_curriculum_compliance = 'command_center_labels_curriculum_compliance';
-  static const String command_center_labels_franchise_center = 'command_center_labels_franchise_center';
-  static const String command_center_labels_marketing_center = 'command_center_labels_marketing_center';
-  static const String command_center_labels_training_center = 'command_center_labels_training_center';
-  static const String command_center_labels_training_hub_center = 'command_center_labels_training_hub_center';
-  static const String command_center_labels_volunteer_center = 'command_center_labels_volunteer_center';
+  static const String ceo_dashboard_labels_market_expansion =
+      'ceo_dashboard_labels_market_expansion';
+  static const String ceo_dashboard_labels_revenue_growth =
+      'ceo_dashboard_labels_revenue_growth';
+  static const String ceo_dashboard_labels_strategic_growth =
+      'ceo_dashboard_labels_strategic_growth';
+  static const String cfo_dashboard_labels_ar_alert =
+      'cfo_dashboard_labels_ar_alert';
+  static const String cfo_dashboard_labels_capital_efficiency =
+      'cfo_dashboard_labels_capital_efficiency';
+  static const String cfo_dashboard_labels_cash_on_hand =
+      'cfo_dashboard_labels_cash_on_hand';
+  static const String cfo_dashboard_labels_ebitda_ttm =
+      'cfo_dashboard_labels_ebitda_ttm';
+  static const String cfo_dashboard_labels_net_margin =
+      'cfo_dashboard_labels_net_margin';
+  static const String cfo_dashboard_labels_operational_burn =
+      'cfo_dashboard_labels_operational_burn';
+  static const String cfo_dashboard_labels_tax_optimization =
+      'cfo_dashboard_labels_tax_optimization';
+  static const String clinical_director_labels_audit_adherence =
+      'clinical_director_labels_audit_adherence';
+  static const String clinical_director_labels_compliance_log =
+      'clinical_director_labels_compliance_log';
+  static const String clinical_director_labels_incident_criticality =
+      'clinical_director_labels_incident_criticality';
+  static const String clinical_director_labels_incident_trends =
+      'clinical_director_labels_incident_trends';
+  static const String clinical_director_labels_staffing_matrix =
+      'clinical_director_labels_staffing_matrix';
+  static const String clinical_director_labels_staffing_variance =
+      'clinical_director_labels_staffing_variance';
+  static const String command_center_labels_curriculum_compliance =
+      'command_center_labels_curriculum_compliance';
+  static const String command_center_labels_franchise_center =
+      'command_center_labels_franchise_center';
+  static const String command_center_labels_marketing_center =
+      'command_center_labels_marketing_center';
+  static const String command_center_labels_training_center =
+      'command_center_labels_training_center';
+  static const String command_center_labels_training_hub_center =
+      'command_center_labels_training_hub_center';
+  static const String command_center_labels_volunteer_center =
+      'command_center_labels_volunteer_center';
   static const String common_app_name = 'common.app_name';
   static const String common_cancel = 'common.cancel';
   static const String common_language_en = 'common.language.en';
@@ -82,1311 +118,2826 @@ abstract class LocaleKeys {
   static const String common_language_fr = 'common.language.fr';
   static const String common_loading = 'common.loading';
   static const String common_save = 'common.save';
-  static const String cto_dashboard_labels_api_latency = 'cto_dashboard_labels_api_latency';
-  static const String cto_dashboard_labels_deploys_day = 'cto_dashboard_labels_deploys_day';
-  static const String cto_dashboard_labels_devops_velocity = 'cto_dashboard_labels_devops_velocity';
-  static const String cto_dashboard_labels_error_rate = 'cto_dashboard_labels_error_rate';
-  static const String cto_dashboard_labels_global_uptime = 'cto_dashboard_labels_global_uptime';
-  static const String cto_dashboard_labels_infra_optimization = 'cto_dashboard_labels_infra_optimization';
-  static const String cto_dashboard_labels_security_posture = 'cto_dashboard_labels_security_posture';
-  static const String dashboards_architectureplanning_labels_api_coverage = 'dashboards.architectureplanning.labels.api_coverage';
-  static const String dashboards_architectureplanning_labels_architecture_integrity_trend = 'dashboards.architectureplanning.labels.architecture_integrity_trend';
-  static const String dashboards_architectureplanning_labels_c4_compliance = 'dashboards.architectureplanning.labels.c4_compliance';
-  static const String dashboards_architectureplanning_labels_c4_models_synchronized_with_sharding_strategy = 'dashboards.architectureplanning.labels.c4_models_synchronized_with_sharding_strategy';
-  static const String dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_architecture_roadmap = 'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_architecture_roadmap';
-  static const String dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_aura_hud = 'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_aura_hud';
-  static const String dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_project_timeline = 'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_project_timeline';
-  static const String dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_system_health_grid = 'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_system_health_grid';
-  static const String dashboards_architectureplanning_labels_flagged_gaps = 'dashboards.architectureplanning.labels.flagged_gaps';
-  static const String dashboards_architectureplanning_labels_infrastructure_gap = 'dashboards.architectureplanning.labels.infrastructure_gap';
-  static const String dashboards_architectureplanning_labels_system_stability = 'dashboards.architectureplanning.labels.system_stability';
-  static const String dashboards_architectureplanning_labels_topology_verified = 'dashboards.architectureplanning.labels.topology_verified';
-  static const String dashboards_architectureplanning_subtitle = 'dashboards.architectureplanning.subtitle';
-  static const String dashboards_architectureplanning_title = 'dashboards.architectureplanning.title';
-  static const String dashboards_billingadmin_labels_dashboards_billingadmin_labels_aging_accounts_grid = 'dashboards.billingadmin.labels.dashboards_billingadmin_labels_aging_accounts_grid';
-  static const String dashboards_billingadmin_labels_dashboards_billingadmin_labels_pending_claims_queue = 'dashboards.billingadmin.labels.dashboards_billingadmin_labels_pending_claims_queue';
-  static const String dashboards_billingadmin_labels_dashboards_billingadmin_labels_remittance_breakdown = 'dashboards.billingadmin.labels.dashboards_billingadmin_labels_remittance_breakdown';
-  static const String dashboards_billingadmin_labels_high_aging_alert = 'dashboards.billingadmin.labels.high_aging_alert';
-  static const String dashboards_billingadmin_labels_invoice_error_pattern = 'dashboards.billingadmin.labels.invoice_error_pattern';
-  static const String dashboards_billingadmin_labels_revenue_acceleration = 'dashboards.billingadmin.labels.revenue_acceleration';
-  static const String dashboards_billingadmin_subtitle = 'dashboards.billingadmin.subtitle';
-  static const String dashboards_billingadmin_title = 'dashboards.billingadmin.title';
+  static const String cto_dashboard_labels_api_latency =
+      'cto_dashboard_labels_api_latency';
+  static const String cto_dashboard_labels_deploys_day =
+      'cto_dashboard_labels_deploys_day';
+  static const String cto_dashboard_labels_devops_velocity =
+      'cto_dashboard_labels_devops_velocity';
+  static const String cto_dashboard_labels_error_rate =
+      'cto_dashboard_labels_error_rate';
+  static const String cto_dashboard_labels_global_uptime =
+      'cto_dashboard_labels_global_uptime';
+  static const String cto_dashboard_labels_infra_optimization =
+      'cto_dashboard_labels_infra_optimization';
+  static const String cto_dashboard_labels_security_posture =
+      'cto_dashboard_labels_security_posture';
+  static const String dashboards_architectureplanning_labels_api_coverage =
+      'dashboards.architectureplanning.labels.api_coverage';
+  static const String
+  dashboards_architectureplanning_labels_architecture_integrity_trend =
+      'dashboards.architectureplanning.labels.architecture_integrity_trend';
+  static const String dashboards_architectureplanning_labels_c4_compliance =
+      'dashboards.architectureplanning.labels.c4_compliance';
+  static const String
+  dashboards_architectureplanning_labels_c4_models_synchronized_with_sharding_strategy =
+      'dashboards.architectureplanning.labels.c4_models_synchronized_with_sharding_strategy';
+  static const String
+  dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_architecture_roadmap =
+      'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_architecture_roadmap';
+  static const String
+  dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_aura_hud =
+      'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_aura_hud';
+  static const String
+  dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_project_timeline =
+      'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_project_timeline';
+  static const String
+  dashboards_architectureplanning_labels_dashboards_architectureplanning_labels_system_health_grid =
+      'dashboards.architectureplanning.labels.dashboards_architectureplanning_labels_system_health_grid';
+  static const String dashboards_architectureplanning_labels_flagged_gaps =
+      'dashboards.architectureplanning.labels.flagged_gaps';
+  static const String
+  dashboards_architectureplanning_labels_infrastructure_gap =
+      'dashboards.architectureplanning.labels.infrastructure_gap';
+  static const String dashboards_architectureplanning_labels_system_stability =
+      'dashboards.architectureplanning.labels.system_stability';
+  static const String dashboards_architectureplanning_labels_topology_verified =
+      'dashboards.architectureplanning.labels.topology_verified';
+  static const String dashboards_architectureplanning_subtitle =
+      'dashboards.architectureplanning.subtitle';
+  static const String dashboards_architectureplanning_title =
+      'dashboards.architectureplanning.title';
+  static const String
+  dashboards_billingadmin_labels_dashboards_billingadmin_labels_aging_accounts_grid =
+      'dashboards.billingadmin.labels.dashboards_billingadmin_labels_aging_accounts_grid';
+  static const String
+  dashboards_billingadmin_labels_dashboards_billingadmin_labels_pending_claims_queue =
+      'dashboards.billingadmin.labels.dashboards_billingadmin_labels_pending_claims_queue';
+  static const String
+  dashboards_billingadmin_labels_dashboards_billingadmin_labels_remittance_breakdown =
+      'dashboards.billingadmin.labels.dashboards_billingadmin_labels_remittance_breakdown';
+  static const String dashboards_billingadmin_labels_high_aging_alert =
+      'dashboards.billingadmin.labels.high_aging_alert';
+  static const String dashboards_billingadmin_labels_invoice_error_pattern =
+      'dashboards.billingadmin.labels.invoice_error_pattern';
+  static const String dashboards_billingadmin_labels_revenue_acceleration =
+      'dashboards.billingadmin.labels.revenue_acceleration';
+  static const String dashboards_billingadmin_subtitle =
+      'dashboards.billingadmin.subtitle';
+  static const String dashboards_billingadmin_title =
+      'dashboards.billingadmin.title';
   static const String dashboards_ceo_labels_14_8 = 'dashboards.ceo.labels.14_8';
   static const String dashboards_ceo_labels_2_0 = 'dashboards.ceo.labels.2_0';
   static const String dashboards_ceo_labels_3_0 = 'dashboards.ceo.labels.3_0';
   static const String dashboards_ceo_labels_5_2 = 'dashboards.ceo.labels.5_2';
-  static const String dashboards_ceo_labels_dashboards_ceo_labels_global_kpi_metrics = 'dashboards.ceo.labels.dashboards_ceo_labels_global_kpi_metrics';
-  static const String dashboards_ceo_labels_dashboards_ceo_labels_region_comparison = 'dashboards.ceo.labels.dashboards_ceo_labels_region_comparison';
-  static const String dashboards_ceo_labels_dashboards_ceo_labels_strategic_initiatives = 'dashboards.ceo.labels.dashboards_ceo_labels_strategic_initiatives';
-  static const String dashboards_ceo_labels_global_nps = 'dashboards.ceo.labels.global_nps';
-  static const String dashboards_ceo_labels_m_a_pipeline_velocity = 'dashboards.ceo.labels.m_a_pipeline_velocity';
-  static const String dashboards_ceo_labels_real_time_telemetry_feed = 'dashboards.ceo.labels.real_time_telemetry_feed';
-  static const String dashboards_ceo_labels_regional_margin_sensitivity = 'dashboards.ceo.labels.regional_margin_sensitivity';
-  static const String dashboards_ceo_labels_stakeholder_sentiment_surge = 'dashboards.ceo.labels.stakeholder_sentiment_surge';
+  static const String
+  dashboards_ceo_labels_dashboards_ceo_labels_global_kpi_metrics =
+      'dashboards.ceo.labels.dashboards_ceo_labels_global_kpi_metrics';
+  static const String
+  dashboards_ceo_labels_dashboards_ceo_labels_region_comparison =
+      'dashboards.ceo.labels.dashboards_ceo_labels_region_comparison';
+  static const String
+  dashboards_ceo_labels_dashboards_ceo_labels_strategic_initiatives =
+      'dashboards.ceo.labels.dashboards_ceo_labels_strategic_initiatives';
+  static const String dashboards_ceo_labels_global_nps =
+      'dashboards.ceo.labels.global_nps';
+  static const String dashboards_ceo_labels_m_a_pipeline_velocity =
+      'dashboards.ceo.labels.m_a_pipeline_velocity';
+  static const String dashboards_ceo_labels_real_time_telemetry_feed =
+      'dashboards.ceo.labels.real_time_telemetry_feed';
+  static const String dashboards_ceo_labels_regional_margin_sensitivity =
+      'dashboards.ceo.labels.regional_margin_sensitivity';
+  static const String dashboards_ceo_labels_stakeholder_sentiment_surge =
+      'dashboards.ceo.labels.stakeholder_sentiment_surge';
   static const String dashboards_ceo_subtitle = 'dashboards.ceo.subtitle';
   static const String dashboards_ceo_title = 'dashboards.ceo.title';
   static const String dashboards_cfo_labels_1_5 = 'dashboards.cfo.labels.1_5';
   static const String dashboards_cfo_labels_2_1 = 'dashboards.cfo.labels.2_1';
   static const String dashboards_cfo_labels_4_2 = 'dashboards.cfo.labels.4_2';
-  static const String dashboards_cfo_labels_burn_rate_analysis = 'dashboards.cfo.labels.burn_rate_analysis';
-  static const String dashboards_cfo_labels_dashboards_cfo_labels_burn_rate_analysis = 'dashboards.cfo.labels.dashboards_cfo_labels_burn_rate_analysis';
-  static const String dashboards_cfo_labels_dashboards_cfo_labels_capital_allocation = 'dashboards.cfo.labels.dashboards_cfo_labels_capital_allocation';
-  static const String dashboards_cfo_labels_dashboards_cfo_labels_liquidity_index = 'dashboards.cfo.labels.dashboards_cfo_labels_liquidity_index';
+  static const String dashboards_cfo_labels_burn_rate_analysis =
+      'dashboards.cfo.labels.burn_rate_analysis';
+  static const String
+  dashboards_cfo_labels_dashboards_cfo_labels_burn_rate_analysis =
+      'dashboards.cfo.labels.dashboards_cfo_labels_burn_rate_analysis';
+  static const String
+  dashboards_cfo_labels_dashboards_cfo_labels_capital_allocation =
+      'dashboards.cfo.labels.dashboards_cfo_labels_capital_allocation';
+  static const String
+  dashboards_cfo_labels_dashboards_cfo_labels_liquidity_index =
+      'dashboards.cfo.labels.dashboards_cfo_labels_liquidity_index';
   static const String dashboards_cfo_subtitle = 'dashboards.cfo.subtitle';
   static const String dashboards_cfo_title = 'dashboards.cfo.title';
-  static const String dashboards_client_labels_care_plan_progress = 'dashboards.client.labels.care_plan_progress';
-  static const String dashboards_client_labels_medication_adherence = 'dashboards.client.labels.medication_adherence';
-  static const String dashboards_client_labels_next_visit = 'dashboards.client.labels.next_visit';
-  static const String dashboards_client_labels_nutritional_tip = 'dashboards.client.labels.nutritional_tip';
-  static const String dashboards_client_labels_vitals_status = 'dashboards.client.labels.vitals_status';
-  static const String dashboards_client_labels_weekly_wellness_score = 'dashboards.client.labels.weekly_wellness_score';
-  static const String dashboards_client_labels_wellness_milestone = 'dashboards.client.labels.wellness_milestone';
+  static const String dashboards_client_labels_care_plan_progress =
+      'dashboards.client.labels.care_plan_progress';
+  static const String dashboards_client_labels_medication_adherence =
+      'dashboards.client.labels.medication_adherence';
+  static const String dashboards_client_labels_next_visit =
+      'dashboards.client.labels.next_visit';
+  static const String dashboards_client_labels_nutritional_tip =
+      'dashboards.client.labels.nutritional_tip';
+  static const String dashboards_client_labels_vitals_status =
+      'dashboards.client.labels.vitals_status';
+  static const String dashboards_client_labels_weekly_wellness_score =
+      'dashboards.client.labels.weekly_wellness_score';
+  static const String dashboards_client_labels_wellness_milestone =
+      'dashboards.client.labels.wellness_milestone';
   static const String dashboards_client_subtitle = 'dashboards.client.subtitle';
   static const String dashboards_client_title = 'dashboards.client.title';
-  static const String dashboards_clinic_labels_compliance_alert = 'dashboards.clinic.labels.compliance_alert';
-  static const String dashboards_clinic_labels_compliance_rate = 'dashboards.clinic.labels.compliance_rate';
-  static const String dashboards_clinic_labels_floor_3_clinical_audit_passed_with_100__compliance = 'dashboards.clinic.labels.floor_3_clinical_audit_passed_with_100__compliance';
-  static const String dashboards_clinic_labels_incident_rate = 'dashboards.clinic.labels.incident_rate';
-  static const String dashboards_clinic_labels_incident_resolved = 'dashboards.clinic.labels.incident_resolved';
-  static const String dashboards_clinic_labels_medication_discrepancy_in_room_402_investigated_and_closed = 'dashboards.clinic.labels.medication_discrepancy_in_room_402_investigated_and_closed';
-  static const String dashboards_clinic_labels_medication_optimization = 'dashboards.clinic.labels.medication_optimization';
-  static const String dashboards_clinic_labels_occupancy = 'dashboards.clinic.labels.occupancy';
-  static const String dashboards_clinic_labels_safety_audit_complete = 'dashboards.clinic.labels.safety_audit_complete';
-  static const String dashboards_clinic_labels_safety_score = 'dashboards.clinic.labels.safety_score';
-  static const String dashboards_clinic_labels_safety_velocity__4w = 'dashboards.clinic.labels.safety_velocity__4w';
+  static const String dashboards_clinic_labels_compliance_alert =
+      'dashboards.clinic.labels.compliance_alert';
+  static const String dashboards_clinic_labels_compliance_rate =
+      'dashboards.clinic.labels.compliance_rate';
+  static const String
+  dashboards_clinic_labels_floor_3_clinical_audit_passed_with_100__compliance =
+      'dashboards.clinic.labels.floor_3_clinical_audit_passed_with_100__compliance';
+  static const String dashboards_clinic_labels_incident_rate =
+      'dashboards.clinic.labels.incident_rate';
+  static const String dashboards_clinic_labels_incident_resolved =
+      'dashboards.clinic.labels.incident_resolved';
+  static const String
+  dashboards_clinic_labels_medication_discrepancy_in_room_402_investigated_and_closed =
+      'dashboards.clinic.labels.medication_discrepancy_in_room_402_investigated_and_closed';
+  static const String dashboards_clinic_labels_medication_optimization =
+      'dashboards.clinic.labels.medication_optimization';
+  static const String dashboards_clinic_labels_occupancy =
+      'dashboards.clinic.labels.occupancy';
+  static const String dashboards_clinic_labels_safety_audit_complete =
+      'dashboards.clinic.labels.safety_audit_complete';
+  static const String dashboards_clinic_labels_safety_score =
+      'dashboards.clinic.labels.safety_score';
+  static const String dashboards_clinic_labels_safety_velocity__4w =
+      'dashboards.clinic.labels.safety_velocity__4w';
   static const String dashboards_clinic_subtitle = 'dashboards.clinic.subtitle';
   static const String dashboards_clinic_title = 'dashboards.clinic.title';
-  static const String dashboards_clinicaldirector_labels_clinical_safety_score = 'dashboards.clinicaldirector.labels.clinical_safety_score';
-  static const String dashboards_clinicaldirector_labels_compliance_peak = 'dashboards.clinicaldirector.labels.compliance_peak';
-  static const String dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_clinical_safety_score = 'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_clinical_safety_score';
-  static const String dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_protocol_compliance = 'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_protocol_compliance';
-  static const String dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_staffing_heatmap = 'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_staffing_heatmap';
-  static const String dashboards_clinicaldirector_labels_open_incidents = 'dashboards.clinicaldirector.labels.open_incidents';
-  static const String dashboards_clinicaldirector_labels_protocol_compliance = 'dashboards.clinicaldirector.labels.protocol_compliance';
-  static const String dashboards_clinicaldirector_labels_staffing_coverage = 'dashboards.clinicaldirector.labels.staffing_coverage';
-  static const String dashboards_clinicaldirector_labels_staffing_optimization = 'dashboards.clinicaldirector.labels.staffing_optimization';
-  static const String dashboards_clinicaldirector_subtitle = 'dashboards.clinicaldirector.subtitle';
-  static const String dashboards_clinicaldirector_title = 'dashboards.clinicaldirector.title';
+  static const String dashboards_clinicaldirector_labels_clinical_safety_score =
+      'dashboards.clinicaldirector.labels.clinical_safety_score';
+  static const String dashboards_clinicaldirector_labels_compliance_peak =
+      'dashboards.clinicaldirector.labels.compliance_peak';
+  static const String
+  dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_clinical_safety_score =
+      'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_clinical_safety_score';
+  static const String
+  dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_protocol_compliance =
+      'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_protocol_compliance';
+  static const String
+  dashboards_clinicaldirector_labels_dashboards_clinicaldirector_labels_staffing_heatmap =
+      'dashboards.clinicaldirector.labels.dashboards_clinicaldirector_labels_staffing_heatmap';
+  static const String dashboards_clinicaldirector_labels_open_incidents =
+      'dashboards.clinicaldirector.labels.open_incidents';
+  static const String dashboards_clinicaldirector_labels_protocol_compliance =
+      'dashboards.clinicaldirector.labels.protocol_compliance';
+  static const String dashboards_clinicaldirector_labels_staffing_coverage =
+      'dashboards.clinicaldirector.labels.staffing_coverage';
+  static const String dashboards_clinicaldirector_labels_staffing_optimization =
+      'dashboards.clinicaldirector.labels.staffing_optimization';
+  static const String dashboards_clinicaldirector_subtitle =
+      'dashboards.clinicaldirector.subtitle';
+  static const String dashboards_clinicaldirector_title =
+      'dashboards.clinicaldirector.title';
   static const String dashboards_common_labels_4 = 'dashboards.common.labels.4';
-  static const String dashboards_common_labels_a__smith = 'dashboards.common.labels.a__smith';
-  static const String dashboards_common_labels_actions = 'dashboards.common.labels.actions';
-  static const String dashboards_common_labels_active_hiring_funnel = 'dashboards.common.labels.active_hiring_funnel';
-  static const String dashboards_common_labels_active_intake_pipeline = 'dashboards.common.labels.active_intake_pipeline';
-  static const String dashboards_common_labels_active_node = 'dashboards.common.labels.active_node';
-  static const String dashboards_common_labels_actor_performed___log = 'dashboards.common.labels.actor_performed___log';
-  static const String dashboards_common_labels_add_a_new_administrative_user_to_the_platform = 'dashboards.common.labels.add_a_new_administrative_user_to_the_platform';
-  static const String dashboards_common_labels_add_a_new_standardized_support_response = 'dashboards.common.labels.add_a_new_standardized_support_response';
-  static const String dashboards_common_labels_add_franchise = 'dashboards.common.labels.add_franchise';
-  static const String dashboards_common_labels_add_franchise_lead = 'dashboards.common.labels.add_franchise_lead';
-  static const String dashboards_common_labels_add_lead = 'dashboards.common.labels.add_lead';
-  static const String dashboards_common_labels_add_referral = 'dashboards.common.labels.add_referral';
-  static const String dashboards_common_labels_addfranchiseleadform = 'dashboards.common.labels.addfranchiseleadform';
-  static const String dashboards_common_labels_adjustfontsize = 'dashboards.common.labels.adjustfontsize';
-  static const String dashboards_common_labels_adminlayout = 'dashboards.common.labels.adminlayout';
-  static const String dashboards_common_labels_aggregate_regional_revenue_footprint = 'dashboards.common.labels.aggregate_regional_revenue_footprint';
-  static const String dashboards_common_labels_ai_driven_projections_for_next_90_days = 'dashboards.common.labels.ai_driven_projections_for_next_90_days';
-  static const String dashboards_common_labels_ai_forecasting_component_not_found = 'dashboards.common.labels.ai_forecasting_component_not_found';
-  static const String dashboards_common_labels_alex_johnson__rpn = 'dashboards.common.labels.alex_johnson__rpn';
-  static const String dashboards_common_labels_aligncentericon = 'dashboards.common.labels.aligncentericon';
-  static const String dashboards_common_labels_alignjustifyicon = 'dashboards.common.labels.alignjustifyicon';
-  static const String dashboards_common_labels_alignlefticon = 'dashboards.common.labels.alignlefticon';
-  static const String dashboards_common_labels_alignrighticon = 'dashboards.common.labels.alignrighticon';
-  static const String dashboards_common_labels_all_actions = 'dashboards.common.labels.all_actions';
-  static const String dashboards_common_labels_analytics = 'dashboards.common.labels.analytics';
-  static const String dashboards_common_labels_analyze_market = 'dashboards.common.labels.analyze_market';
-  static const String dashboards_common_labels_analyze_peer_review_assessments = 'dashboards.common.labels.analyze_peer_review_assessments';
-  static const String dashboards_common_labels_anticipated_growth = 'dashboards.common.labels.anticipated_growth';
-  static const String dashboards_common_labels_app = 'dashboards.common.labels.app';
-  static const String dashboards_common_labels_appointment_created = 'dashboards.common.labels.appointment_created';
-  static const String dashboards_common_labels_appointment_deleted = 'dashboards.common.labels.appointment_deleted';
-  static const String dashboards_common_labels_appointment_updated = 'dashboards.common.labels.appointment_updated';
-  static const String dashboards_common_labels_approve_budget = 'dashboards.common.labels.approve_budget';
-  static const String dashboards_common_labels_approve_elevated_permission_requests = 'dashboards.common.labels.approve_elevated_permission_requests';
-  static const String dashboards_common_labels_approve_franchise_disclosure = 'dashboards.common.labels.approve_franchise_disclosure';
-  static const String dashboards_common_labels_approve_leave = 'dashboards.common.labels.approve_leave';
-  static const String dashboards_common_labels_approve_leave_request = 'dashboards.common.labels.approve_leave_request';
-  static const String dashboards_common_labels_approve_legal_fdd_before_signing = 'dashboards.common.labels.approve_legal_fdd_before_signing';
-  static const String dashboards_common_labels_approve_mass_corporate_staff_payroll = 'dashboards.common.labels.approve_mass_corporate_staff_payroll';
-  static const String dashboards_common_labels_approve_med_refill = 'dashboards.common.labels.approve_med_refill';
-  static const String dashboards_common_labels_approve_payroll_run = 'dashboards.common.labels.approve_payroll_run';
-  static const String dashboards_common_labels_approve_physical_branch_location = 'dashboards.common.labels.approve_physical_branch_location';
-  static const String dashboards_common_labels_approve_real_estate = 'dashboards.common.labels.approve_real_estate';
-  static const String dashboards_common_labels_approve_reimbursement = 'dashboards.common.labels.approve_reimbursement';
-  static const String dashboards_common_labels_approve_staff_monetary_reimbursement = 'dashboards.common.labels.approve_staff_monetary_reimbursement';
-  static const String dashboards_common_labels_approve_system_access = 'dashboards.common.labels.approve_system_access';
-  static const String dashboards_common_labels_approveexpensereimbursementform = 'dashboards.common.labels.approveexpensereimbursementform';
-  static const String dashboards_common_labels_approvefranchisedisclosureform = 'dashboards.common.labels.approvefranchisedisclosureform';
-  static const String dashboards_common_labels_approveleaverequestform = 'dashboards.common.labels.approveleaverequestform';
-  static const String dashboards_common_labels_approvemedicationrefillform = 'dashboards.common.labels.approvemedicationrefillform';
-  static const String dashboards_common_labels_approvepayrollrunform = 'dashboards.common.labels.approvepayrollrunform';
-  static const String dashboards_common_labels_approverealestateform = 'dashboards.common.labels.approverealestateform';
-  static const String dashboards_common_labels_approvesystemaccessform = 'dashboards.common.labels.approvesystemaccessform';
-  static const String dashboards_common_labels_architectural_governance = 'dashboards.common.labels.architectural_governance';
-  static const String dashboards_common_labels_are_you_sure_you_want_to_delete___user_name = 'dashboards.common.labels.are_you_sure_you_want_to_delete___user_name';
-  static const String dashboards_common_labels_arrowlefticon = 'dashboards.common.labels.arrowlefticon';
-  static const String dashboards_common_labels_assessments = 'dashboards.common.labels.assessments';
-  static const String dashboards_common_labels_assign = 'dashboards.common.labels.assign';
-  static const String dashboards_common_labels_assign_a_lead_to_a_sales_representative = 'dashboards.common.labels.assign_a_lead_to_a_sales_representative';
-  static const String dashboards_common_labels_assign_care_pod = 'dashboards.common.labels.assign_care_pod';
-  static const String dashboards_common_labels_assign_client_to_primary_care_nursing_pod = 'dashboards.common.labels.assign_client_to_primary_care_nursing_pod';
-  static const String dashboards_common_labels_assign_lead = 'dashboards.common.labels.assign_lead';
-  static const String dashboards_common_labels_assign_staff = 'dashboards.common.labels.assign_staff';
-  static const String dashboards_common_labels_assign_training_module = 'dashboards.common.labels.assign_training_module';
-  static const String dashboards_common_labels_assigncarepodform = 'dashboards.common.labels.assigncarepodform';
-  static const String dashboards_common_labels_assignleadform = 'dashboards.common.labels.assignleadform';
-  static const String dashboards_common_labels_assigntrainingmoduleform = 'dashboards.common.labels.assigntrainingmoduleform';
-  static const String dashboards_common_labels_audit___review_timeline = 'dashboards.common.labels.audit___review_timeline';
-  static const String dashboards_common_labels_audit_controlled_medication_distribution_logs = 'dashboards.common.labels.audit_controlled_medication_distribution_logs';
-  static const String dashboards_common_labels_audit_federal_compliance_rules = 'dashboards.common.labels.audit_federal_compliance_rules';
-  static const String dashboards_common_labels_audit_global_staff_educational_gaps = 'dashboards.common.labels.audit_global_staff_educational_gaps';
-  static const String dashboards_common_labels_audit_operational_vehicle_fleets = 'dashboards.common.labels.audit_operational_vehicle_fleets';
-  static const String dashboards_common_labels_audit_override = 'dashboards.common.labels.audit_override';
-  static const String dashboards_common_labels_audit_override_request_submitted_successfully = 'dashboards.common.labels.audit_override_request_submitted_successfully';
-  static const String dashboards_common_labels_audit_payroll_discrepancy = 'dashboards.common.labels.audit_payroll_discrepancy';
-  static const String dashboards_common_labels_audit_royalty_payments = 'dashboards.common.labels.audit_royalty_payments';
-  static const String dashboards_common_labels_audit_third_party_vendor_slas = 'dashboards.common.labels.audit_third_party_vendor_slas';
-  static const String dashboards_common_labels_audit_training = 'dashboards.common.labels.audit_training';
-  static const String dashboards_common_labels_auditcomplianceform = 'dashboards.common.labels.auditcomplianceform';
-  static const String dashboards_common_labels_auditglobaleducationform = 'dashboards.common.labels.auditglobaleducationform';
-  static const String dashboards_common_labels_auditoverrideform = 'dashboards.common.labels.auditoverrideform';
-  static const String dashboards_common_labels_auditpayrolldiscrepancyform = 'dashboards.common.labels.auditpayrolldiscrepancyform';
-  static const String dashboards_common_labels_auditroyaltypaymentform = 'dashboards.common.labels.auditroyaltypaymentform';
-  static const String dashboards_common_labels_auditsecuritycomplianceform = 'dashboards.common.labels.auditsecuritycomplianceform';
-  static const String dashboards_common_labels_auditsystemlogsform = 'dashboards.common.labels.auditsystemlogsform';
-  static const String dashboards_common_labels_aura_intelligence = 'dashboards.common.labels.aura_intelligence';
-  static const String dashboards_common_labels_aura_intelligence__active = 'dashboards.common.labels.aura_intelligence__active';
-  static const String dashboards_common_labels_authentication = 'dashboards.common.labels.authentication';
-  static const String dashboards_common_labels_authlayout = 'dashboards.common.labels.authlayout';
-  static const String dashboards_common_labels_authpagesmessagesection = 'dashboards.common.labels.authpagesmessagesection';
-  static const String dashboards_common_labels_authsplitlayout = 'dashboards.common.labels.authsplitlayout';
-  static const String dashboards_common_labels_awsauthcontext = 'dashboards.common.labels.awsauthcontext';
-  static const String dashboards_common_labels_awsauthenticator = 'dashboards.common.labels.awsauthenticator';
-  static const String dashboards_common_labels_awssignintab = 'dashboards.common.labels.awssignintab';
-  static const String dashboards_common_labels_awssignuptab = 'dashboards.common.labels.awssignuptab';
-  static const String dashboards_common_labels_banicon = 'dashboards.common.labels.banicon';
-  static const String dashboards_common_labels_baseform = 'dashboards.common.labels.baseform';
-  static const String dashboards_common_labels_basic_info = 'dashboards.common.labels.basic_info';
-  static const String dashboards_common_labels_bid = 'dashboards.common.labels.bid';
-  static const String dashboards_common_labels_billingpayment_details = 'dashboards.common.labels.billingpayment_details';
-  static const String dashboards_common_labels_block_velocity = 'dashboards.common.labels.block_velocity';
-  static const String dashboards_common_labels_blockquoteicon = 'dashboards.common.labels.blockquoteicon';
-  static const String dashboards_common_labels_board_report = 'dashboards.common.labels.board_report';
-  static const String dashboards_common_labels_board_resolutions = 'dashboards.common.labels.board_resolutions';
-  static const String dashboards_common_labels_boldicon = 'dashboards.common.labels.boldicon';
-  static const String dashboards_common_labels_brand_assets = 'dashboards.common.labels.brand_assets';
-  static const String dashboards_common_labels_button = 'dashboards.common.labels.button';
-  static const String dashboards_common_labels_cache_hydrated = 'dashboards.common.labels.cache_hydrated';
-  static const String dashboards_common_labels_campaign_conversion_funnel = 'dashboards.common.labels.campaign_conversion_funnel';
-  static const String dashboards_common_labels_cancel = 'dashboards.common.labels.cancel';
-  static const String dashboards_common_labels_capacity_audit = 'dashboards.common.labels.capacity_audit';
-  static const String dashboards_common_labels_capital_plan = 'dashboards.common.labels.capital_plan';
-  static const String dashboards_common_labels_capital_request = 'dashboards.common.labels.capital_request';
-  static const String dashboards_common_labels_capture_vitals = 'dashboards.common.labels.capture_vitals';
-  static const String dashboards_common_labels_care_plan = 'dashboards.common.labels.care_plan';
-  static const String dashboards_common_labels_care_plan_evaluation = 'dashboards.common.labels.care_plan_evaluation';
-  static const String dashboards_common_labels_careplanevaluationform = 'dashboards.common.labels.careplanevaluationform';
-  static const String dashboards_common_labels_categorize_unassigned_prospective_lead = 'dashboards.common.labels.categorize_unassigned_prospective_lead';
-  static const String dashboards_common_labels_ceo_dashboard = 'dashboards.common.labels.ceo_dashboard';
-  static const String dashboards_common_labels_certification_velocity_trend = 'dashboards.common.labels.certification_velocity_trend';
-  static const String dashboards_common_labels_cfo_dashboard = 'dashboards.common.labels.cfo_dashboard';
-  static const String dashboards_common_labels_chart = 'dashboards.common.labels.chart';
-  static const String dashboards_common_labels_chevrondownicon = 'dashboards.common.labels.chevrondownicon';
-  static const String dashboards_common_labels_claims_aging_status = 'dashboards.common.labels.claims_aging_status';
-  static const String dashboards_common_labels_clear_form = 'dashboards.common.labels.clear_form';
-  static const String dashboards_common_labels_clientlayout = 'dashboards.common.labels.clientlayout';
-  static const String dashboards_common_labels_clinical_dashboard = 'dashboards.common.labels.clinical_dashboard';
-  static const String dashboards_common_labels_clinical_details = 'dashboards.common.labels.clinical_details';
-  static const String dashboards_common_labels_clinical_outcomes_and_patient_care_overview = 'dashboards.common.labels.clinical_outcomes_and_patient_care_overview';
-  static const String dashboards_common_labels_clinical_retention_trend = 'dashboards.common.labels.clinical_retention_trend';
-  static const String dashboards_common_labels_clinical_vitals_compliance_report = 'dashboards.common.labels.clinical_vitals_compliance_report';
-  static const String dashboards_common_labels_clinicalincident_details = 'dashboards.common.labels.clinicalincident_details';
-  static const String dashboards_common_labels_closeicon = 'dashboards.common.labels.closeicon';
-  static const String dashboards_common_labels_closing_desk = 'dashboards.common.labels.closing_desk';
-  static const String dashboards_common_labels_code2icon = 'dashboards.common.labels.code2icon';
-  static const String dashboards_common_labels_codeblockicon = 'dashboards.common.labels.codeblockicon';
-  static const String dashboards_common_labels_common_documentvault_subtitle = 'dashboards.common.labels.common_documentvault_subtitle';
-  static const String dashboards_common_labels_common_documentvault_title = 'dashboards.common.labels.common_documentvault_title';
-  static const String dashboards_common_labels_common_globalprofile_subtitle = 'dashboards.common.labels.common_globalprofile_subtitle';
-  static const String dashboards_common_labels_common_globalprofile_title = 'dashboards.common.labels.common_globalprofile_title';
-  static const String dashboards_common_labels_common_globalsettings_subtitle = 'dashboards.common.labels.common_globalsettings_subtitle';
-  static const String dashboards_common_labels_common_globalsettings_title = 'dashboards.common.labels.common_globalsettings_title';
-  static const String dashboards_common_labels_common_messaginghub_subtitle = 'dashboards.common.labels.common_messaginghub_subtitle';
-  static const String dashboards_common_labels_common_messaginghub_title = 'dashboards.common.labels.common_messaginghub_title';
-  static const String dashboards_common_labels_common_notificationcenter_subtitle = 'dashboards.common.labels.common_notificationcenter_subtitle';
-  static const String dashboards_common_labels_common_notificationcenter_title = 'dashboards.common.labels.common_notificationcenter_title';
-  static const String dashboards_common_labels_complete_franchise_onboarding_steps = 'dashboards.common.labels.complete_franchise_onboarding_steps';
-  static const String dashboards_common_labels_complete_the_form_to_submit_billingpayment_information = 'dashboards.common.labels.complete_the_form_to_submit_billingpayment_information';
-  static const String dashboards_common_labels_complete_the_form_to_submit_clinicalincident_information = 'dashboards.common.labels.complete_the_form_to_submit_clinicalincident_information';
-  static const String dashboards_common_labels_complete_the_form_to_submit_employeetimesheet_information = 'dashboards.common.labels.complete_the_form_to_submit_employeetimesheet_information';
-  static const String dashboards_common_labels_compliance_audit = 'dashboards.common.labels.compliance_audit';
-  static const String dashboards_common_labels_compliance_audit__ottawa = 'dashboards.common.labels.compliance_audit__ottawa';
-  static const String dashboards_common_labels_compliance_dashboard = 'dashboards.common.labels.compliance_dashboard';
-  static const String dashboards_common_labels_compliance_hub = 'dashboards.common.labels.compliance_hub';
-  static const String dashboards_common_labels_compliance_interface_provisioning = 'dashboards.common.labels.compliance_interface_provisioning';
-  static const String dashboards_common_labels_comprehensive_intake = 'dashboards.common.labels.comprehensive_intake';
-  static const String dashboards_common_labels_configurator = 'dashboards.common.labels.configurator';
-  static const String dashboards_common_labels_confirm = 'dashboards.common.labels.confirm';
-  static const String dashboards_common_labels_coo_dashboard = 'dashboards.common.labels.coo_dashboard';
-  static const String dashboards_common_labels_cornerdownlefticon = 'dashboards.common.labels.cornerdownlefticon';
-  static const String dashboards_common_labels_corporate_governance_hud = 'dashboards.common.labels.corporate_governance_hud';
-  static const String dashboards_common_labels_create_ad_placement = 'dashboards.common.labels.create_ad_placement';
-  static const String dashboards_common_labels_create_canned_response = 'dashboards.common.labels.create_canned_response';
-  static const String dashboards_common_labels_create_custom_invoice = 'dashboards.common.labels.create_custom_invoice';
-  static const String dashboards_common_labels_create_hyper_local_geo_fenced_ad = 'dashboards.common.labels.create_hyper_local_geo_fenced_ad';
-  static const String dashboards_common_labels_create_revenue_report = 'dashboards.common.labels.create_revenue_report';
-  static const String dashboards_common_labels_create_shift = 'dashboards.common.labels.create_shift';
-  static const String dashboards_common_labels_create_supply_order = 'dashboards.common.labels.create_supply_order';
-  static const String dashboards_common_labels_create_ticket = 'dashboards.common.labels.create_ticket';
-  static const String dashboards_common_labels_create_user = 'dashboards.common.labels.create_user';
-  static const String dashboards_common_labels_createadplacementform = 'dashboards.common.labels.createadplacementform';
-  static const String dashboards_common_labels_createcannedresponseform = 'dashboards.common.labels.createcannedresponseform';
-  static const String dashboards_common_labels_createcustominvoiceform = 'dashboards.common.labels.createcustominvoiceform';
-  static const String dashboards_common_labels_createrevenuereportform = 'dashboards.common.labels.createrevenuereportform';
-  static const String dashboards_common_labels_createsupplyorderform = 'dashboards.common.labels.createsupplyorderform';
-  static const String dashboards_common_labels_creation_failed___e = 'dashboards.common.labels.creation_failed___e';
-  static const String dashboards_common_labels_critical_shifts_requiring_immediate_assignment = 'dashboards.common.labels.critical_shifts_requiring_immediate_assignment';
-  static const String dashboards_common_labels_csat_report = 'dashboards.common.labels.csat_report';
-  static const String dashboards_common_labels_csv = 'dashboards.common.labels.csv';
-  static const String dashboards_common_labels_cto_dashboard = 'dashboards.common.labels.cto_dashboard';
-  static const String dashboards_common_labels_cx_director_dashboard = 'dashboards.common.labels.cx_director_dashboard';
-  static const String dashboards_common_labels_cyber_shield_intelligence_and_threat_management_console = 'dashboards.common.labels.cyber_shield_intelligence_and_threat_management_console';
-  static const String dashboards_common_labels_daily = 'dashboards.common.labels.daily';
-  static const String dashboards_common_labels_daily_vitals = 'dashboards.common.labels.daily_vitals';
-  static const String dashboards_common_labels_dailyvitalscardform = 'dashboards.common.labels.dailyvitalscardform';
-  static const String dashboards_common_labels_datatable = 'dashboards.common.labels.datatable';
-  static const String dashboards_common_labels_datatabletoptoolbar = 'dashboards.common.labels.datatabletoptoolbar';
-  static const String dashboards_common_labels_date_range__optional = 'dashboards.common.labels.date_range__optional';
-  static const String dashboards_common_labels_delete = 'dashboards.common.labels.delete';
-  static const String dashboards_common_labels_delete_appointment = 'dashboards.common.labels.delete_appointment';
-  static const String dashboards_common_labels_delete_user = 'dashboards.common.labels.delete_user';
-  static const String dashboards_common_labels_democontent = 'dashboards.common.labels.democontent';
-  static const String dashboards_common_labels_demoframe = 'dashboards.common.labels.demoframe';
-  static const String dashboards_common_labels_demolayoutfootercontent = 'dashboards.common.labels.demolayoutfootercontent';
-  static const String dashboards_common_labels_demosidebarcontent = 'dashboards.common.labels.demosidebarcontent';
-  static const String dashboards_common_labels_developer_diagnostics = 'dashboards.common.labels.developer_diagnostics';
-  static const String dashboards_common_labels_discipline_log = 'dashboards.common.labels.discipline_log';
-  static const String dashboards_common_labels_disciplinelogform = 'dashboards.common.labels.disciplinelogform';
-  static const String dashboards_common_labels_discovery_call = 'dashboards.common.labels.discovery_call';
-  static const String dashboards_common_labels_dispatch_supplies = 'dashboards.common.labels.dispatch_supplies';
-  static const String dashboards_common_labels_distribution = 'dashboards.common.labels.distribution';
-  static const String dashboards_common_labels_distribution_of_outstanding_balances_by_days = 'dashboards.common.labels.distribution_of_outstanding_balances_by_days';
-  static const String dashboards_common_labels_documentationbutton = 'dashboards.common.labels.documentationbutton';
-  static const String dashboards_common_labels_draft = 'dashboards.common.labels.draft';
-  static const String dashboards_common_labels_dragassignwidget = 'dashboards.common.labels.dragassignwidget';
-  static const String dashboards_common_labels_dropdownmenu = 'dashboards.common.labels.dropdownmenu';
-  static const String dashboards_common_labels_employeetimesheet_details = 'dashboards.common.labels.employeetimesheet_details';
-  static const String dashboards_common_labels_enforcement = 'dashboards.common.labels.enforcement';
-  static const String dashboards_common_labels_enroll_staff_into_required_lms_modules = 'dashboards.common.labels.enroll_staff_into_required_lms_modules';
-  static const String dashboards_common_labels_enter_the_details_of_the_new_hire = 'dashboards.common.labels.enter_the_details_of_the_new_hire';
-  static const String dashboards_common_labels_enterprise_valuation_trend = 'dashboards.common.labels.enterprise_valuation_trend';
-  static const String dashboards_common_labels_enterprise_wide_operational_overview = 'dashboards.common.labels.enterprise_wide_operational_overview';
-  static const String dashboards_common_labels_equity_report = 'dashboards.common.labels.equity_report';
-  static const String dashboards_common_labels_error401pageview = 'dashboards.common.labels.error401pageview';
-  static const String dashboards_common_labels_error404pageview = 'dashboards.common.labels.error404pageview';
-  static const String dashboards_common_labels_error____state_error = 'dashboards.common.labels.error____state_error';
-  static const String dashboards_common_labels_error___e = 'dashboards.common.labels.error___e';
-  static const String dashboards_common_labels_error___err = 'dashboards.common.labels.error___err';
-  static const String dashboards_common_labels_errorboundary = 'dashboards.common.labels.errorboundary';
-  static const String dashboards_common_labels_etatrackerwidget = 'dashboards.common.labels.etatrackerwidget';
-  static const String dashboards_common_labels_evaluate_and_modify_the_care_plan = 'dashboards.common.labels.evaluate_and_modify_the_care_plan';
-  static const String dashboards_common_labels_evaluate_plan = 'dashboards.common.labels.evaluate_plan';
-  static const String dashboards_common_labels_exampleview = 'dashboards.common.labels.exampleview';
-  static const String dashboards_common_labels_executive_overview_and_corporate_strategy = 'dashboards.common.labels.executive_overview_and_corporate_strategy';
-  static const String dashboards_common_labels_expansion_plan = 'dashboards.common.labels.expansion_plan';
-  static const String dashboards_common_labels_export_failed___e = 'dashboards.common.labels.export_failed___e';
-  static const String dashboards_common_labels_externallinkicon = 'dashboards.common.labels.externallinkicon';
-  static const String dashboards_common_labels_facility_maintenance = 'dashboards.common.labels.facility_maintenance';
-  static const String dashboards_common_labels_facility_status = 'dashboards.common.labels.facility_status';
-  static const String dashboards_common_labels_filter = 'dashboards.common.labels.filter';
-  static const String dashboards_common_labels_finance_director = 'dashboards.common.labels.finance_director';
-  static const String dashboards_common_labels_financial_statements_and_forecasts_overview = 'dashboards.common.labels.financial_statements_and_forecasts_overview';
-  static const String dashboards_common_labels_firebaseauthcontext = 'dashboards.common.labels.firebaseauthcontext';
-  static const String dashboards_common_labels_firebasesigninform = 'dashboards.common.labels.firebasesigninform';
-  static const String dashboards_common_labels_firebasesignintab = 'dashboards.common.labels.firebasesignintab';
-  static const String dashboards_common_labels_firebasesignupform = 'dashboards.common.labels.firebasesignupform';
-  static const String dashboards_common_labels_firebasesignuptab = 'dashboards.common.labels.firebasesignuptab';
-  static const String dashboards_common_labels_footerlayout1 = 'dashboards.common.labels.footerlayout1';
-  static const String dashboards_common_labels_footerlayout2 = 'dashboards.common.labels.footerlayout2';
-  static const String dashboards_common_labels_footerlayout3 = 'dashboards.common.labels.footerlayout3';
-  static const String dashboards_common_labels_footertheme = 'dashboards.common.labels.footertheme';
-  static const String dashboards_common_labels_force_a_password_reset_for_this_user = 'dashboards.common.labels.force_a_password_reset_for_this_user';
-  static const String dashboards_common_labels_force_publish_global_branch_schedules = 'dashboards.common.labels.force_publish_global_branch_schedules';
-  static const String dashboards_common_labels_frameddemo = 'dashboards.common.labels.frameddemo';
-  static const String dashboards_common_labels_franchise_onboarding = 'dashboards.common.labels.franchise_onboarding';
-  static const String dashboards_common_labels_franchiseonboardingchecklistform = 'dashboards.common.labels.franchiseonboardingchecklistform';
-  static const String dashboards_common_labels_full_screen_toggle = 'dashboards.common.labels.full_screen_toggle';
-  static const String dashboards_common_labels_fullscreentoggle = 'dashboards.common.labels.fullscreentoggle';
-  static const String dashboards_common_labels_fuse_page_carded = 'dashboards.common.labels.fuse_page_carded';
-  static const String dashboards_common_labels_fuse_page_carded_header = 'dashboards.common.labels.fuse_page_carded_header';
-  static const String dashboards_common_labels_fuse_page_carded_sidebar = 'dashboards.common.labels.fuse_page_carded_sidebar';
-  static const String dashboards_common_labels_fuse_page_carded_sidebar_content = 'dashboards.common.labels.fuse_page_carded_sidebar_content';
-  static const String dashboards_common_labels_fuse_page_simple = 'dashboards.common.labels.fuse_page_simple';
-  static const String dashboards_common_labels_fuse_page_simple_header = 'dashboards.common.labels.fuse_page_simple_header';
-  static const String dashboards_common_labels_fuse_page_simple_sidebar = 'dashboards.common.labels.fuse_page_simple_sidebar';
-  static const String dashboards_common_labels_fuse_page_simple_sidebar_content = 'dashboards.common.labels.fuse_page_simple_sidebar_content';
-  static const String dashboards_common_labels_fuse_splash_screen = 'dashboards.common.labels.fuse_splash_screen';
-  static const String dashboards_common_labels_fuseauthcontext = 'dashboards.common.labels.fuseauthcontext';
-  static const String dashboards_common_labels_fuseauthorization = 'dashboards.common.labels.fuseauthorization';
-  static const String dashboards_common_labels_fuseawaitrender = 'dashboards.common.labels.fuseawaitrender';
-  static const String dashboards_common_labels_fusecountdown = 'dashboards.common.labels.fusecountdown';
-  static const String dashboards_common_labels_fusedialog = 'dashboards.common.labels.fusedialog';
-  static const String dashboards_common_labels_fuseexample = 'dashboards.common.labels.fuseexample';
-  static const String dashboards_common_labels_fusehighlight = 'dashboards.common.labels.fusehighlight';
-  static const String dashboards_common_labels_fuselayout = 'dashboards.common.labels.fuselayout';
-  static const String dashboards_common_labels_fuselayoutconfig = 'dashboards.common.labels.fuselayoutconfig';
-  static const String dashboards_common_labels_fuselayoutconfigs = 'dashboards.common.labels.fuselayoutconfigs';
-  static const String dashboards_common_labels_fuselayoutsettingscontext = 'dashboards.common.labels.fuselayoutsettingscontext';
-  static const String dashboards_common_labels_fuseloading = 'dashboards.common.labels.fuseloading';
-  static const String dashboards_common_labels_fusenavbadge = 'dashboards.common.labels.fusenavbadge';
-  static const String dashboards_common_labels_fusenavhorizontalcollapse = 'dashboards.common.labels.fusenavhorizontalcollapse';
-  static const String dashboards_common_labels_fusenavhorizontalgroup = 'dashboards.common.labels.fusenavhorizontalgroup';
-  static const String dashboards_common_labels_fusenavhorizontalitem = 'dashboards.common.labels.fusenavhorizontalitem';
-  static const String dashboards_common_labels_fusenavhorizontallayout1 = 'dashboards.common.labels.fusenavhorizontallayout1';
-  static const String dashboards_common_labels_fusenavhorizontallink = 'dashboards.common.labels.fusenavhorizontallink';
-  static const String dashboards_common_labels_fusenavigation = 'dashboards.common.labels.fusenavigation';
-  static const String dashboards_common_labels_fusenavitem = 'dashboards.common.labels.fusenavitem';
-  static const String dashboards_common_labels_fusenavverticalcollapse = 'dashboards.common.labels.fusenavverticalcollapse';
-  static const String dashboards_common_labels_fusenavverticalgroup = 'dashboards.common.labels.fusenavverticalgroup';
-  static const String dashboards_common_labels_fusenavverticalitem = 'dashboards.common.labels.fusenavverticalitem';
-  static const String dashboards_common_labels_fusenavverticalitembase = 'dashboards.common.labels.fusenavverticalitembase';
-  static const String dashboards_common_labels_fusenavverticallayout1 = 'dashboards.common.labels.fusenavverticallayout1';
-  static const String dashboards_common_labels_fusenavverticallayout2 = 'dashboards.common.labels.fusenavverticallayout2';
-  static const String dashboards_common_labels_fusenavverticallink = 'dashboards.common.labels.fusenavverticallink';
-  static const String dashboards_common_labels_fusenavverticaltab = 'dashboards.common.labels.fusenavverticaltab';
-  static const String dashboards_common_labels_fusepagecarded = 'dashboards.common.labels.fusepagecarded';
-  static const String dashboards_common_labels_fusepagecardedheader = 'dashboards.common.labels.fusepagecardedheader';
-  static const String dashboards_common_labels_fusepagecardedsidebar = 'dashboards.common.labels.fusepagecardedsidebar';
-  static const String dashboards_common_labels_fusepagecardedsidebarcontent = 'dashboards.common.labels.fusepagecardedsidebarcontent';
-  static const String dashboards_common_labels_fusepagesimple = 'dashboards.common.labels.fusepagesimple';
-  static const String dashboards_common_labels_fusepagesimpleheader = 'dashboards.common.labels.fusepagesimpleheader';
-  static const String dashboards_common_labels_fusepagesimplesidebar = 'dashboards.common.labels.fusepagesimplesidebar';
-  static const String dashboards_common_labels_fusepagesimplesidebarcontent = 'dashboards.common.labels.fusepagesimplesidebarcontent';
-  static const String dashboards_common_labels_fusescrollbars = 'dashboards.common.labels.fusescrollbars';
-  static const String dashboards_common_labels_fusesearch = 'dashboards.common.labels.fusesearch';
-  static const String dashboards_common_labels_fusesettings = 'dashboards.common.labels.fusesettings';
-  static const String dashboards_common_labels_fusesettingscontext = 'dashboards.common.labels.fusesettingscontext';
-  static const String dashboards_common_labels_fusesettingsviewerdialog = 'dashboards.common.labels.fusesettingsviewerdialog';
-  static const String dashboards_common_labels_fuseshortcuts = 'dashboards.common.labels.fuseshortcuts';
-  static const String dashboards_common_labels_fusesidepanel = 'dashboards.common.labels.fusesidepanel';
-  static const String dashboards_common_labels_fusesuspense = 'dashboards.common.labels.fusesuspense';
-  static const String dashboards_common_labels_fusesvgicon = 'dashboards.common.labels.fusesvgicon';
-  static const String dashboards_common_labels_fusetheme = 'dashboards.common.labels.fusetheme';
-  static const String dashboards_common_labels_fusethemehooks = 'dashboards.common.labels.fusethemehooks';
-  static const String dashboards_common_labels_fusethemeselector = 'dashboards.common.labels.fusethemeselector';
-  static const String dashboards_common_labels_generate_specialized_non_standard_billing = 'dashboards.common.labels.generate_specialized_non_standard_billing';
-  static const String dashboards_common_labels_global_audit = 'dashboards.common.labels.global_audit';
-  static const String dashboards_common_labels_global_education_audit = 'dashboards.common.labels.global_education_audit';
-  static const String dashboards_common_labels_gotodocbox = 'dashboards.common.labels.gotodocbox';
-  static const String dashboards_common_labels_governance__recruitment_velocity___talent_intelligence = 'dashboards.common.labels.governance__recruitment_velocity___talent_intelligence';
-  static const String dashboards_common_labels_greetingheaderwidget = 'dashboards.common.labels.greetingheaderwidget';
-  static const String dashboards_common_labels_growth_audit = 'dashboards.common.labels.growth_audit';
-  static const String dashboards_common_labels_growth_report = 'dashboards.common.labels.growth_report';
-  static const String dashboards_common_labels_headingbutton = 'dashboards.common.labels.headingbutton';
-  static const String dashboards_common_labels_headingdropdownmenu = 'dashboards.common.labels.headingdropdownmenu';
-  static const String dashboards_common_labels_headingfiveicon = 'dashboards.common.labels.headingfiveicon';
-  static const String dashboards_common_labels_headingfouricon = 'dashboards.common.labels.headingfouricon';
-  static const String dashboards_common_labels_headingicon = 'dashboards.common.labels.headingicon';
-  static const String dashboards_common_labels_headingoneicon = 'dashboards.common.labels.headingoneicon';
-  static const String dashboards_common_labels_headingsixicon = 'dashboards.common.labels.headingsixicon';
-  static const String dashboards_common_labels_headingthreeicon = 'dashboards.common.labels.headingthreeicon';
-  static const String dashboards_common_labels_headingtwoicon = 'dashboards.common.labels.headingtwoicon';
-  static const String dashboards_common_labels_high_fidelity_component_not_found____hf_viewid = 'dashboards.common.labels.high_fidelity_component_not_found____hf_viewid';
-  static const String dashboards_common_labels_high_pressure_alert = 'dashboards.common.labels.high_pressure_alert';
-  static const String dashboards_common_labels_highlightericon = 'dashboards.common.labels.highlightericon';
-  static const String dashboards_common_labels_highlightpopover = 'dashboards.common.labels.highlightpopover';
-  static const String dashboards_common_labels_hiring_gap__toronto_north = 'dashboards.common.labels.hiring_gap__toronto_north';
-  static const String dashboards_common_labels_hr_compliance_documentation = 'dashboards.common.labels.hr_compliance_documentation';
-  static const String dashboards_common_labels_hr_director_dashboard = 'dashboards.common.labels.hr_director_dashboard';
-  static const String dashboards_common_labels_human_capital_command = 'dashboards.common.labels.human_capital_command';
-  static const String dashboards_common_labels_human_capital_velocity = 'dashboards.common.labels.human_capital_velocity';
-  static const String dashboards_common_labels_imageplusicon = 'dashboards.common.labels.imageplusicon';
-  static const String dashboards_common_labels_imageuploadbutton = 'dashboards.common.labels.imageuploadbutton';
-  static const String dashboards_common_labels_imageuploadnode = 'dashboards.common.labels.imageuploadnode';
-  static const String dashboards_common_labels_impact_report = 'dashboards.common.labels.impact_report';
-  static const String dashboards_common_labels_incident_log = 'dashboards.common.labels.incident_log';
-  static const String dashboards_common_labels_incident_logs = 'dashboards.common.labels.incident_logs';
-  static const String dashboards_common_labels_incident_report = 'dashboards.common.labels.incident_report';
-  static const String dashboards_common_labels_indexform = 'dashboards.common.labels.indexform';
-  static const String dashboards_common_labels_infrastructure_health_and_api_performance_monitoring = 'dashboards.common.labels.infrastructure_health_and_api_performance_monitoring';
-  static const String dashboards_common_labels_initializefirebase = 'dashboards.common.labels.initializefirebase';
-  static const String dashboards_common_labels_institutional_audit_report = 'dashboards.common.labels.institutional_audit_report';
-  static const String dashboards_common_labels_institutional_compliance_export = 'dashboards.common.labels.institutional_compliance_export';
-  static const String dashboards_common_labels_institutional_integrity_and_architectural_compliance_audit = 'dashboards.common.labels.institutional_integrity_and_architectural_compliance_audit';
-  static const String dashboards_common_labels_institutional_route_recovery = 'dashboards.common.labels.institutional_route_recovery';
-  static const String dashboards_common_labels_intake_reports = 'dashboards.common.labels.intake_reports';
-  static const String dashboards_common_labels_internal_server_error = 'dashboards.common.labels.internal_server_error';
-  static const String dashboards_common_labels_intervention_impact_analysis = 'dashboards.common.labels.intervention_impact_analysis';
-  static const String dashboards_common_labels_intervention_stability_vector = 'dashboards.common.labels.intervention_stability_vector';
-  static const String dashboards_common_labels_inventory_audit = 'dashboards.common.labels.inventory_audit';
-  static const String dashboards_common_labels_investigate_potential_risks = 'dashboards.common.labels.investigate_potential_risks';
-  static const String dashboards_common_labels_invoice_velocity_trend = 'dashboards.common.labels.invoice_velocity_trend';
-  static const String dashboards_common_labels_it_security_hud = 'dashboards.common.labels.it_security_hud';
-  static const String dashboards_common_labels_italicicon = 'dashboards.common.labels.italicicon';
-  static const String dashboards_common_labels_j__doe = 'dashboards.common.labels.j__doe';
-  static const String dashboards_common_labels_jane_doe__psw = 'dashboards.common.labels.jane_doe__psw';
-  static const String dashboards_common_labels_john_smith__rn = 'dashboards.common.labels.john_smith__rn';
-  static const String dashboards_common_labels_jwsignuptab = 'dashboards.common.labels.jwsignuptab';
-  static const String dashboards_common_labels_jwtauthcontext = 'dashboards.common.labels.jwtauthcontext';
-  static const String dashboards_common_labels_jwtsigninform = 'dashboards.common.labels.jwtsigninform';
-  static const String dashboards_common_labels_jwtsignintab = 'dashboards.common.labels.jwtsignintab';
-  static const String dashboards_common_labels_jwtsignupform = 'dashboards.common.labels.jwtsignupform';
-  static const String dashboards_common_labels_languageswitcher = 'dashboards.common.labels.languageswitcher';
-  static const String dashboards_common_labels_launch_territory = 'dashboards.common.labels.launch_territory';
-  static const String dashboards_common_labels_layout1 = 'dashboards.common.labels.layout1';
-  static const String dashboards_common_labels_layout2 = 'dashboards.common.labels.layout2';
-  static const String dashboards_common_labels_layout3 = 'dashboards.common.labels.layout3';
-  static const String dashboards_common_labels_lead_conversion_review = 'dashboards.common.labels.lead_conversion_review';
-  static const String dashboards_common_labels_lead_gen = 'dashboards.common.labels.lead_gen';
-  static const String dashboards_common_labels_leave_request = 'dashboards.common.labels.leave_request';
-  static const String dashboards_common_labels_leaverequestform = 'dashboards.common.labels.leaverequestform';
-  static const String dashboards_common_labels_leftsidelayout1 = 'dashboards.common.labels.leftsidelayout1';
-  static const String dashboards_common_labels_leftsidelayout2 = 'dashboards.common.labels.leftsidelayout2';
-  static const String dashboards_common_labels_leftsidelayout3 = 'dashboards.common.labels.leftsidelayout3';
-  static const String dashboards_common_labels_legal_review = 'dashboards.common.labels.legal_review';
-  static const String dashboards_common_labels_lightdarkmodetoggle = 'dashboards.common.labels.lightdarkmodetoggle';
-  static const String dashboards_common_labels_line_chart_component_not_found = 'dashboards.common.labels.line_chart_component_not_found';
-  static const String dashboards_common_labels_link = 'dashboards.common.labels.link';
-  static const String dashboards_common_labels_linkicon = 'dashboards.common.labels.linkicon';
-  static const String dashboards_common_labels_linkpopover = 'dashboards.common.labels.linkpopover';
-  static const String dashboards_common_labels_listbutton = 'dashboards.common.labels.listbutton';
-  static const String dashboards_common_labels_listdropdownmenu = 'dashboards.common.labels.listdropdownmenu';
-  static const String dashboards_common_labels_listicon = 'dashboards.common.labels.listicon';
-  static const String dashboards_common_labels_listorderedicon = 'dashboards.common.labels.listorderedicon';
-  static const String dashboards_common_labels_listtodoicon = 'dashboards.common.labels.listtodoicon';
-  static const String dashboards_common_labels_load_distribution_graph_placeholder = 'dashboards.common.labels.load_distribution_graph_placeholder';
-  static const String dashboards_common_labels_log_clinical_incident = 'dashboards.common.labels.log_clinical_incident';
-  static const String dashboards_common_labels_log_employee_grievance = 'dashboards.common.labels.log_employee_grievance';
-  static const String dashboards_common_labels_log_finding = 'dashboards.common.labels.log_finding';
-  static const String dashboards_common_labels_log_incident = 'dashboards.common.labels.log_incident';
-  static const String dashboards_common_labels_log_infection_control = 'dashboards.common.labels.log_infection_control';
-  static const String dashboards_common_labels_log_inventory_spoilage = 'dashboards.common.labels.log_inventory_spoilage';
-  static const String dashboards_common_labels_log_lead = 'dashboards.common.labels.log_lead';
-  static const String dashboards_common_labels_log_patient_daily_vitals = 'dashboards.common.labels.log_patient_daily_vitals';
-  static const String dashboards_common_labels_log_petty_cash = 'dashboards.common.labels.log_petty_cash';
-  static const String dashboards_common_labels_log_ticket = 'dashboards.common.labels.log_ticket';
-  static const String dashboards_common_labels_log_vetting_call = 'dashboards.common.labels.log_vetting_call';
-  static const String dashboards_common_labels_log_visit = 'dashboards.common.labels.log_visit';
-  static const String dashboards_common_labels_logclinicalincidentform = 'dashboards.common.labels.logclinicalincidentform';
-  static const String dashboards_common_labels_logemployeegrievanceform = 'dashboards.common.labels.logemployeegrievanceform';
-  static const String dashboards_common_labels_logfranchiseevettingcallform = 'dashboards.common.labels.logfranchiseevettingcallform';
-  static const String dashboards_common_labels_loginfectioncontrolform = 'dashboards.common.labels.loginfectioncontrolform';
-  static const String dashboards_common_labels_loginventoryspoilageform = 'dashboards.common.labels.loginventoryspoilageform';
-  static const String dashboards_common_labels_logistics_and_operational_execution_overview = 'dashboards.common.labels.logistics_and_operational_execution_overview';
-  static const String dashboards_common_labels_logistics_manager = 'dashboards.common.labels.logistics_manager';
-  static const String dashboards_common_labels_logo = 'dashboards.common.labels.logo';
-  static const String dashboards_common_labels_logpettycashform = 'dashboards.common.labels.logpettycashform';
-  static const String dashboards_common_labels_mainprojectselection = 'dashboards.common.labels.mainprojectselection';
-  static const String dashboards_common_labels_maintain_institutional_risk_matrix = 'dashboards.common.labels.maintain_institutional_risk_matrix';
-  static const String dashboards_common_labels_manage_fleet = 'dashboards.common.labels.manage_fleet';
-  static const String dashboards_common_labels_manage_granular_access_control_for_system_roles_and_screens = 'dashboards.common.labels.manage_granular_access_control_for_system_roles_and_screens';
-  static const String dashboards_common_labels_manage_staff = 'dashboards.common.labels.manage_staff';
-  static const String dashboards_common_labels_manager_approval_for_time_off = 'dashboards.common.labels.manager_approval_for_time_off';
-  static const String dashboards_common_labels_margin_compression__london = 'dashboards.common.labels.margin_compression__london';
-  static const String dashboards_common_labels_margin_efficiency = 'dashboards.common.labels.margin_efficiency';
-  static const String dashboards_common_labels_markbutton = 'dashboards.common.labels.markbutton';
-  static const String dashboards_common_labels_market_analysis = 'dashboards.common.labels.market_analysis';
-  static const String dashboards_common_labels_masterappshell = 'dashboards.common.labels.masterappshell';
-  static const String dashboards_common_labels_masterdetaillayout = 'dashboards.common.labels.masterdetaillayout';
-  static const String dashboards_common_labels_masterlayout = 'dashboards.common.labels.masterlayout';
-  static const String dashboards_common_labels_medication_delivery = 'dashboards.common.labels.medication_delivery';
-  static const String dashboards_common_labels_medicationadministration_details = 'dashboards.common.labels.medicationadministration_details';
-  static const String dashboards_common_labels_message_nurse = 'dashboards.common.labels.message_nurse';
-  static const String dashboards_common_labels_mockapi = 'dashboards.common.labels.mockapi';
-  static const String dashboards_common_labels_modify_or_review_the_care_plan = 'dashboards.common.labels.modify_or_review_the_care_plan';
-  static const String dashboards_common_labels_moodsliderwidget = 'dashboards.common.labels.moodsliderwidget';
-  static const String dashboards_common_labels_moonstaricon = 'dashboards.common.labels.moonstaricon';
-  static const String dashboards_common_labels_move_failed___e = 'dashboards.common.labels.move_failed___e';
-  static const String dashboards_common_labels_name_and_dob = 'dashboards.common.labels.name_and_dob';
-  static const String dashboards_common_labels_navbarlayout2 = 'dashboards.common.labels.navbarlayout2';
-  static const String dashboards_common_labels_navbarlayout3 = 'dashboards.common.labels.navbarlayout3';
-  static const String dashboards_common_labels_navbarmobilelayout2 = 'dashboards.common.labels.navbarmobilelayout2';
-  static const String dashboards_common_labels_navbarmobilelayout3 = 'dashboards.common.labels.navbarmobilelayout3';
-  static const String dashboards_common_labels_navbarpintogglebutton = 'dashboards.common.labels.navbarpintogglebutton';
-  static const String dashboards_common_labels_navbarstyle1 = 'dashboards.common.labels.navbarstyle1';
-  static const String dashboards_common_labels_navbarstyle1content = 'dashboards.common.labels.navbarstyle1content';
-  static const String dashboards_common_labels_navbarstyle2 = 'dashboards.common.labels.navbarstyle2';
-  static const String dashboards_common_labels_navbarstyle2content = 'dashboards.common.labels.navbarstyle2content';
-  static const String dashboards_common_labels_navbartheme = 'dashboards.common.labels.navbartheme';
-  static const String dashboards_common_labels_navbartogglebutton = 'dashboards.common.labels.navbartogglebutton';
-  static const String dashboards_common_labels_navbartogglefab = 'dashboards.common.labels.navbartogglefab';
-  static const String dashboards_common_labels_navbartogglefablayout1 = 'dashboards.common.labels.navbartogglefablayout1';
-  static const String dashboards_common_labels_navbartogglefablayout2 = 'dashboards.common.labels.navbartogglefablayout2';
-  static const String dashboards_common_labels_navbarwrapperlayout1 = 'dashboards.common.labels.navbarwrapperlayout1';
-  static const String dashboards_common_labels_navbarwrapperlayout2 = 'dashboards.common.labels.navbarwrapperlayout2';
-  static const String dashboards_common_labels_navbarwrapperlayout3 = 'dashboards.common.labels.navbarwrapperlayout3';
-  static const String dashboards_common_labels_navigation = 'dashboards.common.labels.navigation';
-  static const String dashboards_common_labels_navigationsearch = 'dashboards.common.labels.navigationsearch';
-  static const String dashboards_common_labels_navigationshortcuts = 'dashboards.common.labels.navigationshortcuts';
-  static const String dashboards_common_labels_new_appointment = 'dashboards.common.labels.new_appointment';
-  static const String dashboards_common_labels_new_audit = 'dashboards.common.labels.new_audit';
-  static const String dashboards_common_labels_new_campaign = 'dashboards.common.labels.new_campaign';
-  static const String dashboards_common_labels_new_candidate = 'dashboards.common.labels.new_candidate';
-  static const String dashboards_common_labels_new_employee_onboarding = 'dashboards.common.labels.new_employee_onboarding';
-  static const String dashboards_common_labels_new_intake = 'dashboards.common.labels.new_intake';
-  static const String dashboards_common_labels_new_partner = 'dashboards.common.labels.new_partner';
-  static const String dashboards_common_labels_newemployeeonboardingform = 'dashboards.common.labels.newemployeeonboardingform';
-  static const String dashboards_common_labels_no_anomalies_detected_in_the_local_cache_nodes = 'dashboards.common.labels.no_anomalies_detected_in_the_local_cache_nodes';
-  static const String dashboards_common_labels_no_audit_logs_found = 'dashboards.common.labels.no_audit_logs_found';
-  static const String dashboards_common_labels_no_recent_activity = 'dashboards.common.labels.no_recent_activity';
-  static const String dashboards_common_labels_no_resource = 'dashboards.common.labels.no_resource';
-  static const String dashboards_common_labels_nodebutton = 'dashboards.common.labels.nodebutton';
-  static const String dashboards_common_labels_numberformcontroller = 'dashboards.common.labels.numberformcontroller';
-  static const String dashboards_common_labels_nurture_localized_lead = 'dashboards.common.labels.nurture_localized_lead';
-  static const String dashboards_common_labels_nurturelocalizedleadform = 'dashboards.common.labels.nurturelocalizedleadform';
-  static const String dashboards_common_labels_office___department = 'dashboards.common.labels.office___department';
-  static const String dashboards_common_labels_offline_cache = 'dashboards.common.labels.offline_cache';
-  static const String dashboards_common_labels_offline_fallback = 'dashboards.common.labels.offline_fallback';
-  static const String dashboards_common_labels_onboard_a_new_staff_member_and_assign_their_role = 'dashboards.common.labels.onboard_a_new_staff_member_and_assign_their_role';
-  static const String dashboards_common_labels_operational_insights = 'dashboards.common.labels.operational_insights';
-  static const String dashboards_common_labels_operational_sector__authpagesmessagesection = 'dashboards.common.labels.operational_sector__authpagesmessagesection';
-  static const String dashboards_common_labels_operational_sector__error401pageview = 'dashboards.common.labels.operational_sector__error401pageview';
-  static const String dashboards_common_labels_operational_sector__error404pageview = 'dashboards.common.labels.operational_sector__error404pageview';
-  static const String dashboards_common_labels_operational_sector__full_screen_toggle = 'dashboards.common.labels.operational_sector__full_screen_toggle';
-  static const String dashboards_common_labels_operational_sector__fuse_page_carded = 'dashboards.common.labels.operational_sector__fuse_page_carded';
-  static const String dashboards_common_labels_operational_sector__fuse_page_carded_header = 'dashboards.common.labels.operational_sector__fuse_page_carded_header';
-  static const String dashboards_common_labels_operational_sector__fuse_page_carded_sidebar = 'dashboards.common.labels.operational_sector__fuse_page_carded_sidebar';
-  static const String dashboards_common_labels_operational_sector__fuse_page_carded_sidebar_content = 'dashboards.common.labels.operational_sector__fuse_page_carded_sidebar_content';
-  static const String dashboards_common_labels_operational_sector__fuse_page_simple = 'dashboards.common.labels.operational_sector__fuse_page_simple';
-  static const String dashboards_common_labels_operational_sector__fuse_page_simple_header = 'dashboards.common.labels.operational_sector__fuse_page_simple_header';
-  static const String dashboards_common_labels_operational_sector__fuse_page_simple_sidebar = 'dashboards.common.labels.operational_sector__fuse_page_simple_sidebar';
-  static const String dashboards_common_labels_operational_sector__fuse_page_simple_sidebar_content = 'dashboards.common.labels.operational_sector__fuse_page_simple_sidebar_content';
-  static const String dashboards_common_labels_operational_sector__fuse_splash_screen = 'dashboards.common.labels.operational_sector__fuse_splash_screen';
-  static const String dashboards_common_labels_operational_sector__sign_in_page_title = 'dashboards.common.labels.operational_sector__sign_in_page_title';
-  static const String dashboards_common_labels_operational_sector__sign_in_page_view = 'dashboards.common.labels.operational_sector__sign_in_page_view';
-  static const String dashboards_common_labels_operational_sector__sign_out_page_title = 'dashboards.common.labels.operational_sector__sign_out_page_title';
-  static const String dashboards_common_labels_operational_sector__sign_out_page_view = 'dashboards.common.labels.operational_sector__sign_out_page_view';
-  static const String dashboards_common_labels_operational_sector__sign_up_page_title = 'dashboards.common.labels.operational_sector__sign_up_page_title';
-  static const String dashboards_common_labels_operational_sector__sign_up_page_view = 'dashboards.common.labels.operational_sector__sign_up_page_view';
-  static const String dashboards_common_labels_order_bulk_operational_supplies = 'dashboards.common.labels.order_bulk_operational_supplies';
-  static const String dashboards_common_labels_override_global_audit_configurations_for_specific_compliance_needs = 'dashboards.common.labels.override_global_audit_configurations_for_specific_compliance_needs';
-  static const String dashboards_common_labels_override_global_schedule = 'dashboards.common.labels.override_global_schedule';
-  static const String dashboards_common_labels_overrideglobalscheduleform = 'dashboards.common.labels.overrideglobalscheduleform';
-  static const String dashboards_common_labels_pagebreadcrumb = 'dashboards.common.labels.pagebreadcrumb';
-  static const String dashboards_common_labels_pagetitle = 'dashboards.common.labels.pagetitle';
-  static const String dashboards_common_labels_palettepreview = 'dashboards.common.labels.palettepreview';
-  static const String dashboards_common_labels_paletteselector = 'dashboards.common.labels.paletteselector';
-  static const String dashboards_common_labels_password_successfully_reset = 'dashboards.common.labels.password_successfully_reset';
-  static const String dashboards_common_labels_patient_intake = 'dashboards.common.labels.patient_intake';
-  static const String dashboards_common_labels_patient_intake_completed = 'dashboards.common.labels.patient_intake_completed';
-  static const String dashboards_common_labels_patient_outcome_trends = 'dashboards.common.labels.patient_outcome_trends';
-  static const String dashboards_common_labels_patientintakeform = 'dashboards.common.labels.patientintakeform';
-  static const String dashboards_common_labels_pdf = 'dashboards.common.labels.pdf';
-  static const String dashboards_common_labels_pending_fulfillment_requests = 'dashboards.common.labels.pending_fulfillment_requests';
-  static const String dashboards_common_labels_perform_a_comprehensive_clinical_intake_for_new_patients = 'dashboards.common.labels.perform_a_comprehensive_clinical_intake_for_new_patients';
-  static const String dashboards_common_labels_permissions_updated_successfully = 'dashboards.common.labels.permissions_updated_successfully';
-  static const String dashboards_common_labels_petty_cash_expenditure_successfully_logged = 'dashboards.common.labels.petty_cash_expenditure_successfully_logged';
-  static const String dashboards_common_labels_physical_therapy = 'dashboards.common.labels.physical_therapy';
-  static const String dashboards_common_labels_physician_approval_for_prescription_refill = 'dashboards.common.labels.physician_approval_for_prescription_refill';
-  static const String dashboards_common_labels_pipeline_conversion_velocity = 'dashboards.common.labels.pipeline_conversion_velocity';
-  static const String dashboards_common_labels_pipeline_report = 'dashboards.common.labels.pipeline_report';
-  static const String dashboards_common_labels_platform_roi___savings = 'dashboards.common.labels.platform_roi___savings';
-  static const String dashboards_common_labels_please_complete_all_steps_to_register_the_patient = 'dashboards.common.labels.please_complete_all_steps_to_register_the_patient';
-  static const String dashboards_common_labels_please_select_a_patient_first = 'dashboards.common.labels.please_select_a_patient_first';
-  static const String dashboards_common_labels_popover = 'dashboards.common.labels.popover';
-  static const String dashboards_common_labels_portal_for_self_service_shift_changes = 'dashboards.common.labels.portal_for_self_service_shift_changes';
-  static const String dashboards_common_labels_post_job = 'dashboards.common.labels.post_job';
-  static const String dashboards_common_labels_poweredbylinks = 'dashboards.common.labels.poweredbylinks';
-  static const String dashboards_common_labels_primecareresponsiveshell = 'dashboards.common.labels.primecareresponsiveshell';
-  static const String dashboards_common_labels_priority__high___gap__2_hours = 'dashboards.common.labels.priority__high___gap__2_hours';
-  static const String dashboards_common_labels_prn = 'dashboards.common.labels.prn';
-  static const String dashboards_common_labels_projected_patients = 'dashboards.common.labels.projected_patients';
-  static const String dashboards_common_labels_projected_q3_revenue = 'dashboards.common.labels.projected_q3_revenue';
-  static const String dashboards_common_labels_propose_new_regional_ad_spending_limit = 'dashboards.common.labels.propose_new_regional_ad_spending_limit';
-  static const String dashboards_common_labels_protocol_config = 'dashboards.common.labels.protocol_config';
-  static const String dashboards_common_labels_providerlayout = 'dashboards.common.labels.providerlayout';
-  static const String dashboards_common_labels_provision_new_staff = 'dashboards.common.labels.provision_new_staff';
-  static const String dashboards_common_labels_provisioning = 'dashboards.common.labels.provisioning';
-  static const String dashboards_common_labels_psw_hub_manager = 'dashboards.common.labels.psw_hub_manager';
-  static const String dashboards_common_labels_publish = 'dashboards.common.labels.publish';
-  static const String dashboards_common_labels_purchasebutton = 'dashboards.common.labels.purchasebutton';
-  static const String dashboards_common_labels_quality_report = 'dashboards.common.labels.quality_report';
-  static const String dashboards_common_labels_quality_review = 'dashboards.common.labels.quality_review';
-  static const String dashboards_common_labels_quick_review = 'dashboards.common.labels.quick_review';
-  static const String dashboards_common_labels_quickpanel = 'dashboards.common.labels.quickpanel';
-  static const String dashboards_common_labels_quickpaneltogglebutton = 'dashboards.common.labels.quickpaneltogglebutton';
-  static const String dashboards_common_labels_radioformcontroller = 'dashboards.common.labels.radioformcontroller';
-  static const String dashboards_common_labels_real_time_feed_of_patient_interactions_and_linkage_events = 'dashboards.common.labels.real_time_feed_of_patient_interactions_and_linkage_events';
-  static const String dashboards_common_labels_real_time_staffing_density_across_service_regions = 'dashboards.common.labels.real_time_staffing_density_across_service_regions';
-  static const String dashboards_common_labels_real_time_ticket_velocity = 'dashboards.common.labels.real_time_ticket_velocity';
-  static const String dashboards_common_labels_reason_for_visit = 'dashboards.common.labels.reason_for_visit';
-  static const String dashboards_common_labels_reconcile = 'dashboards.common.labels.reconcile';
-  static const String dashboards_common_labels_record_a_disciplinary_action_or_warning = 'dashboards.common.labels.record_a_disciplinary_action_or_warning';
-  static const String dashboards_common_labels_record_a_formal_hr_grievance_complaint = 'dashboards.common.labels.record_a_formal_hr_grievance_complaint';
-  static const String dashboards_common_labels_record_and_categorize_localized_petty_cash_expenditure = 'dashboards.common.labels.record_and_categorize_localized_petty_cash_expenditure';
-  static const String dashboards_common_labels_record_exit_interview_results = 'dashboards.common.labels.record_exit_interview_results';
-  static const String dashboards_common_labels_record_notes_from_initial_lead_vetting = 'dashboards.common.labels.record_notes_from_initial_lead_vetting';
-  static const String dashboards_common_labels_record_the_patient = 'dashboards.common.labels.record_the_patient';
-  static const String dashboards_common_labels_redo2icon = 'dashboards.common.labels.redo2icon';
-  static const String dashboards_common_labels_referral_conversion_velocity = 'dashboards.common.labels.referral_conversion_velocity';
-  static const String dashboards_common_labels_referral_log = 'dashboards.common.labels.referral_log';
-  static const String dashboards_common_labels_referral_velocity_trend = 'dashboards.common.labels.referral_velocity_trend';
-  static const String dashboards_common_labels_referrals = 'dashboards.common.labels.referrals';
-  static const String dashboards_common_labels_regional_audit = 'dashboards.common.labels.regional_audit';
-  static const String dashboards_common_labels_regional_dashboard = 'dashboards.common.labels.regional_dashboard';
-  static const String dashboards_common_labels_regional_ohip_velocity = 'dashboards.common.labels.regional_ohip_velocity';
-  static const String dashboards_common_labels_regional_p_l_overperformance_trend = 'dashboards.common.labels.regional_p_l_overperformance_trend';
-  static const String dashboards_common_labels_regional_performance_overview = 'dashboards.common.labels.regional_performance_overview';
-  static const String dashboards_common_labels_register_a_new_potential_franchise_lead = 'dashboards.common.labels.register_a_new_potential_franchise_lead';
-  static const String dashboards_common_labels_register_corporate_risk = 'dashboards.common.labels.register_corporate_risk';
-  static const String dashboards_common_labels_registercorporateriskform = 'dashboards.common.labels.registercorporateriskform';
-  static const String dashboards_common_labels_registration_failed__please_check_network = 'dashboards.common.labels.registration_failed__please_check_network';
-  static const String dashboards_common_labels_regulatory_and_standard_compliance_status = 'dashboards.common.labels.regulatory_and_standard_compliance_status';
-  static const String dashboards_common_labels_regulatory_audit = 'dashboards.common.labels.regulatory_audit';
-  static const String dashboards_common_labels_regulatory_compliance_and_audit_overview = 'dashboards.common.labels.regulatory_compliance_and_audit_overview';
-  static const String dashboards_common_labels_regulatory_compliance_trend = 'dashboards.common.labels.regulatory_compliance_trend';
-  static const String dashboards_common_labels_report_a_new_incident__fall__error = 'dashboards.common.labels.report_a_new_incident__fall__error';
-  static const String dashboards_common_labels_report_damaged_or_expired_supplies = 'dashboards.common.labels.report_damaged_or_expired_supplies';
-  static const String dashboards_common_labels_report_format = 'dashboards.common.labels.report_format';
-  static const String dashboards_common_labels_report_localized_infection_outbreak = 'dashboards.common.labels.report_localized_infection_outbreak';
-  static const String dashboards_common_labels_report_submitted_successfully = 'dashboards.common.labels.report_submitted_successfully';
-  static const String dashboards_common_labels_reports = 'dashboards.common.labels.reports';
-  static const String dashboards_common_labels_request_meds = 'dashboards.common.labels.request_meds';
-  static const String dashboards_common_labels_request_shift_adjustment = 'dashboards.common.labels.request_shift_adjustment';
-  static const String dashboards_common_labels_requestshiftadjustmentform = 'dashboards.common.labels.requestshiftadjustmentform';
-  static const String dashboards_common_labels_reset_password = 'dashboards.common.labels.reset_password';
-  static const String dashboards_common_labels_resource_optimization = 'dashboards.common.labels.resource_optimization';
-  static const String dashboards_common_labels_restore_all_healthy = 'dashboards.common.labels.restore_all_healthy';
-  static const String dashboards_common_labels_retry_hydration = 'dashboards.common.labels.retry_hydration';
-  static const String dashboards_common_labels_retry_synchronization = 'dashboards.common.labels.retry_synchronization';
-  static const String dashboards_common_labels_return_to_safety = 'dashboards.common.labels.return_to_safety';
-  static const String dashboards_common_labels_revenue_forecasting = 'dashboards.common.labels.revenue_forecasting';
-  static const String dashboards_common_labels_revenue_velocity___30_day_view = 'dashboards.common.labels.revenue_velocity___30_day_view';
-  static const String dashboards_common_labels_review_aggregated_royalty_discrepancies = 'dashboards.common.labels.review_aggregated_royalty_discrepancies';
-  static const String dashboards_common_labels_review_and_resolve_reported_clinical_incidents = 'dashboards.common.labels.review_and_resolve_reported_clinical_incidents';
-  static const String dashboards_common_labels_review_and_validate_sales_team_conversions = 'dashboards.common.labels.review_and_validate_sales_team_conversions';
-  static const String dashboards_common_labels_review_audits = 'dashboards.common.labels.review_audits';
-  static const String dashboards_common_labels_review_care_plan = 'dashboards.common.labels.review_care_plan';
-  static const String dashboards_common_labels_review_expenses = 'dashboards.common.labels.review_expenses';
-  static const String dashboards_common_labels_review_flagged_time_sheet_anomalies = 'dashboards.common.labels.review_flagged_time_sheet_anomalies';
-  static const String dashboards_common_labels_review_fleet_maintenance = 'dashboards.common.labels.review_fleet_maintenance';
-  static const String dashboards_common_labels_review_franchise_p_l_statements = 'dashboards.common.labels.review_franchise_p_l_statements';
-  static const String dashboards_common_labels_review_high_level_geographic_growth_metrics = 'dashboards.common.labels.review_high_level_geographic_growth_metrics';
-  static const String dashboards_common_labels_review_incident = 'dashboards.common.labels.review_incident';
-  static const String dashboards_common_labels_review_legal_contract = 'dashboards.common.labels.review_legal_contract';
-  static const String dashboards_common_labels_review_market_share = 'dashboards.common.labels.review_market_share';
-  static const String dashboards_common_labels_review_med_inventory = 'dashboards.common.labels.review_med_inventory';
-  static const String dashboards_common_labels_review_metrics = 'dashboards.common.labels.review_metrics';
-  static const String dashboards_common_labels_review_onboarding_status = 'dashboards.common.labels.review_onboarding_status';
-  static const String dashboards_common_labels_review_partnership_contract_metrics = 'dashboards.common.labels.review_partnership_contract_metrics';
-  static const String dashboards_common_labels_review_peer_performance = 'dashboards.common.labels.review_peer_performance';
-  static const String dashboards_common_labels_review_perf = 'dashboards.common.labels.review_perf';
-  static const String dashboards_common_labels_review_policy = 'dashboards.common.labels.review_policy';
-  static const String dashboards_common_labels_review_queue = 'dashboards.common.labels.review_queue';
-  static const String dashboards_common_labels_review_soc2_compliance_checklists = 'dashboards.common.labels.review_soc2_compliance_checklists';
-  static const String dashboards_common_labels_review_status_of_pending_new_hires = 'dashboards.common.labels.review_status_of_pending_new_hires';
-  static const String dashboards_common_labels_review_vendor_contracts = 'dashboards.common.labels.review_vendor_contracts';
-  static const String dashboards_common_labels_reviewcareplanform = 'dashboards.common.labels.reviewcareplanform';
-  static const String dashboards_common_labels_reviewclinicalincidentform = 'dashboards.common.labels.reviewclinicalincidentform';
-  static const String dashboards_common_labels_reviewfleetmaintenanceform = 'dashboards.common.labels.reviewfleetmaintenanceform';
-  static const String dashboards_common_labels_reviewleadconversionform = 'dashboards.common.labels.reviewleadconversionform';
-  static const String dashboards_common_labels_reviewlegalcontractform = 'dashboards.common.labels.reviewlegalcontractform';
-  static const String dashboards_common_labels_reviewmarketshareform = 'dashboards.common.labels.reviewmarketshareform';
-  static const String dashboards_common_labels_reviewmedicationinventoryform = 'dashboards.common.labels.reviewmedicationinventoryform';
-  static const String dashboards_common_labels_reviewmonthlyexpensesform = 'dashboards.common.labels.reviewmonthlyexpensesform';
-  static const String dashboards_common_labels_reviewonboardingstatusform = 'dashboards.common.labels.reviewonboardingstatusform';
-  static const String dashboards_common_labels_reviewpeerperformanceform = 'dashboards.common.labels.reviewpeerperformanceform';
-  static const String dashboards_common_labels_reviewvendorcontractsform = 'dashboards.common.labels.reviewvendorcontractsform';
-  static const String dashboards_common_labels_rightsidelayout1 = 'dashboards.common.labels.rightsidelayout1';
-  static const String dashboards_common_labels_rightsidelayout2 = 'dashboards.common.labels.rightsidelayout2';
-  static const String dashboards_common_labels_rightsidelayout3 = 'dashboards.common.labels.rightsidelayout3';
-  static const String dashboards_common_labels_rn_shift___region___index___1 = 'dashboards.common.labels.rn_shift___region___index___1';
-  static const String dashboards_common_labels_role = 'dashboards.common.labels.role';
-  static const String dashboards_common_labels_role_permissions_matrix = 'dashboards.common.labels.role_permissions_matrix';
-  static const String dashboards_common_labels_rolepermissionsform = 'dashboards.common.labels.rolepermissionsform';
-  static const String dashboards_common_labels_root_cause = 'dashboards.common.labels.root_cause';
-  static const String dashboards_common_labels_route = 'dashboards.common.labels.route';
-  static const String dashboards_common_labels_routesconfig = 'dashboards.common.labels.routesconfig';
-  static const String dashboards_common_labels_run_payroll = 'dashboards.common.labels.run_payroll';
-  static const String dashboards_common_labels_safety_incident_velocity = 'dashboards.common.labels.safety_incident_velocity';
-  static const String dashboards_common_labels_schedule = 'dashboards.common.labels.schedule';
-  static const String dashboards_common_labels_schedule_a_new_care_session_for_a_client = 'dashboards.common.labels.schedule_a_new_care_session_for_a_client';
-  static const String dashboards_common_labels_schedule_candidate_screening_interview = 'dashboards.common.labels.schedule_candidate_screening_interview';
-  static const String dashboards_common_labels_schedule_clinical_audit = 'dashboards.common.labels.schedule_clinical_audit';
-  static const String dashboards_common_labels_schedule_event = 'dashboards.common.labels.schedule_event';
-  static const String dashboards_common_labels_schedule_internal_external_compliance_audit = 'dashboards.common.labels.schedule_internal_external_compliance_audit';
-  static const String dashboards_common_labels_schedule_interview = 'dashboards.common.labels.schedule_interview';
-  static const String dashboards_common_labels_schedule_maintenance = 'dashboards.common.labels.schedule_maintenance';
-  static const String dashboards_common_labels_schedule_open_house = 'dashboards.common.labels.schedule_open_house';
-  static const String dashboards_common_labels_schedule_regional_franchise_discovery_day = 'dashboards.common.labels.schedule_regional_franchise_discovery_day';
-  static const String dashboards_common_labels_schedule_third_party_facility_repair = 'dashboards.common.labels.schedule_third_party_facility_repair';
-  static const String dashboards_common_labels_scheduleclinicalauditform = 'dashboards.common.labels.scheduleclinicalauditform';
-  static const String dashboards_common_labels_schedulefacilitymaintenanceform = 'dashboards.common.labels.schedulefacilitymaintenanceform';
-  static const String dashboards_common_labels_scheduleinterviewform = 'dashboards.common.labels.scheduleinterviewform';
-  static const String dashboards_common_labels_scheduleopenhouseform = 'dashboards.common.labels.scheduleopenhouseform';
-  static const String dashboards_common_labels_scheduler_error___e = 'dashboards.common.labels.scheduler_error___e';
-  static const String dashboards_common_labels_schemepreview = 'dashboards.common.labels.schemepreview';
-  static const String dashboards_common_labels_scout_location = 'dashboards.common.labels.scout_location';
-  static const String dashboards_common_labels_sectionpreview = 'dashboards.common.labels.sectionpreview';
-  static const String dashboards_common_labels_security_audit_trail = 'dashboards.common.labels.security_audit_trail';
-  static const String dashboards_common_labels_security_compliance_audit = 'dashboards.common.labels.security_compliance_audit';
-  static const String dashboards_common_labels_security_matrix__block_velocity = 'dashboards.common.labels.security_matrix__block_velocity';
-  static const String dashboards_common_labels_select_a_role_to_modify_permissions = 'dashboards.common.labels.select_a_role_to_modify_permissions';
-  static const String dashboards_common_labels_select_report_type = 'dashboards.common.labels.select_report_type';
-  static const String dashboards_common_labels_selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase = 'dashboards.common.labels.selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase';
-  static const String dashboards_common_labels_send_reset_link = 'dashboards.common.labels.send_reset_link';
-  static const String dashboards_common_labels_sentiment_velocity_trend = 'dashboards.common.labels.sentiment_velocity_trend';
-  static const String dashboards_common_labels_separator = 'dashboards.common.labels.separator';
-  static const String dashboards_common_labels_session_audit_report_copied_to_clipboard = 'dashboards.common.labels.session_audit_report_copied_to_clipboard';
-  static const String dashboards_common_labels_settingspanel = 'dashboards.common.labels.settingspanel';
-  static const String dashboards_common_labels_shift_coverage_optimization = 'dashboards.common.labels.shift_coverage_optimization';
-  static const String dashboards_common_labels_shift_coverage_velocity = 'dashboards.common.labels.shift_coverage_velocity';
-  static const String dashboards_common_labels_shift_created_successfully = 'dashboards.common.labels.shift_created_successfully';
-  static const String dashboards_common_labels_sign_in_page_title = 'dashboards.common.labels.sign_in_page_title';
-  static const String dashboards_common_labels_sign_in_page_view = 'dashboards.common.labels.sign_in_page_view';
-  static const String dashboards_common_labels_sign_out_page_title = 'dashboards.common.labels.sign_out_page_title';
-  static const String dashboards_common_labels_sign_out_page_view = 'dashboards.common.labels.sign_out_page_view';
-  static const String dashboards_common_labels_sign_up_page_title = 'dashboards.common.labels.sign_up_page_title';
-  static const String dashboards_common_labels_sign_up_page_view = 'dashboards.common.labels.sign_up_page_view';
-  static const String dashboards_common_labels_signinpageform = 'dashboards.common.labels.signinpageform';
-  static const String dashboards_common_labels_signinpagetitle = 'dashboards.common.labels.signinpagetitle';
-  static const String dashboards_common_labels_signinpageview = 'dashboards.common.labels.signinpageview';
-  static const String dashboards_common_labels_signoutpagetitle = 'dashboards.common.labels.signoutpagetitle';
-  static const String dashboards_common_labels_signoutpageview = 'dashboards.common.labels.signoutpageview';
-  static const String dashboards_common_labels_signuppagetitle = 'dashboards.common.labels.signuppagetitle';
-  static const String dashboards_common_labels_signuppageview = 'dashboards.common.labels.signuppageview';
-  static const String dashboards_common_labels_simpleeditor = 'dashboards.common.labels.simpleeditor';
-  static const String dashboards_common_labels_singleinputform = 'dashboards.common.labels.singleinputform';
-  static const String dashboards_common_labels_site_audit = 'dashboards.common.labels.site_audit';
-  static const String dashboards_common_labels_site_visit = 'dashboards.common.labels.site_visit';
-  static const String dashboards_common_labels_sla_tracking = 'dashboards.common.labels.sla_tracking';
-  static const String dashboards_common_labels_slidetoclockinwidget = 'dashboards.common.labels.slidetoclockinwidget';
-  static const String dashboards_common_labels_social_care_command_hud = 'dashboards.common.labels.social_care_command_hud';
-  static const String dashboards_common_labels_social_event_ledger = 'dashboards.common.labels.social_event_ledger';
-  static const String dashboards_common_labels_spacer = 'dashboards.common.labels.spacer';
-  static const String dashboards_common_labels_sprint_velocity_trend = 'dashboards.common.labels.sprint_velocity_trend';
-  static const String dashboards_common_labels_staff = 'dashboards.common.labels.staff';
-  static const String dashboards_common_labels_staff_audit = 'dashboards.common.labels.staff_audit';
-  static const String dashboards_common_labels_staff_meeting = 'dashboards.common.labels.staff_meeting';
-  static const String dashboards_common_labels_staff_provisioning___role_activity_report = 'dashboards.common.labels.staff_provisioning___role_activity_report';
-  static const String dashboards_common_labels_staffing_plan = 'dashboards.common.labels.staffing_plan';
-  static const String dashboards_common_labels_staffing_velocity_matrix = 'dashboards.common.labels.staffing_velocity_matrix';
-  static const String dashboards_common_labels_start_audit = 'dashboards.common.labels.start_audit';
-  static const String dashboards_common_labels_status = 'dashboards.common.labels.status';
-  static const String dashboards_common_labels_strategic_plan = 'dashboards.common.labels.strategic_plan';
-  static const String dashboards_common_labels_strikeicon = 'dashboards.common.labels.strikeicon';
-  static const String dashboards_common_labels_submit_activities_of_daily_living_checklist = 'dashboards.common.labels.submit_activities_of_daily_living_checklist';
-  static const String dashboards_common_labels_submit_adl_checklist = 'dashboards.common.labels.submit_adl_checklist';
-  static const String dashboards_common_labels_submit_an_employee_leave_request = 'dashboards.common.labels.submit_an_employee_leave_request';
-  static const String dashboards_common_labels_submit_daily_census = 'dashboards.common.labels.submit_daily_census';
-  static const String dashboards_common_labels_submit_exit_interview = 'dashboards.common.labels.submit_exit_interview';
-  static const String dashboards_common_labels_submit_healthcare_claim = 'dashboards.common.labels.submit_healthcare_claim';
-  static const String dashboards_common_labels_submit_location_based_bed_patient_census = 'dashboards.common.labels.submit_location_based_bed_patient_census';
-  static const String dashboards_common_labels_submit_marketing_budget = 'dashboards.common.labels.submit_marketing_budget';
-  static const String dashboards_common_labels_submit_tracking_for_gov_insurance_claim = 'dashboards.common.labels.submit_tracking_for_gov_insurance_claim';
-  static const String dashboards_common_labels_submitadlchecklistform = 'dashboards.common.labels.submitadlchecklistform';
-  static const String dashboards_common_labels_submitdailycensusform = 'dashboards.common.labels.submitdailycensusform';
-  static const String dashboards_common_labels_submitexitinterviewform = 'dashboards.common.labels.submitexitinterviewform';
-  static const String dashboards_common_labels_submithealthcareclaimform = 'dashboards.common.labels.submithealthcareclaimform';
-  static const String dashboards_common_labels_submitmarketingbudgetform = 'dashboards.common.labels.submitmarketingbudgetform';
-  static const String dashboards_common_labels_subscripticon = 'dashboards.common.labels.subscripticon';
-  static const String dashboards_common_labels_successfully_submitted = 'dashboards.common.labels.successfully_submitted';
-  static const String dashboards_common_labels_successfully_tracked_and_submitted = 'dashboards.common.labels.successfully_tracked_and_submitted';
-  static const String dashboards_common_labels_sunicon = 'dashboards.common.labels.sunicon';
-  static const String dashboards_common_labels_superscripticon = 'dashboards.common.labels.superscripticon';
-  static const String dashboards_common_labels_supply_chain_velocity_trend = 'dashboards.common.labels.supply_chain_velocity_trend';
-  static const String dashboards_common_labels_supply_order = 'dashboards.common.labels.supply_order';
-  static const String dashboards_common_labels_support_queue_visualization___active_tickets = 'dashboards.common.labels.support_queue_visualization___active_tickets';
-  static const String dashboards_common_labels_switchformcontroller = 'dashboards.common.labels.switchformcontroller';
-  static const String dashboards_common_labels_sync_data = 'dashboards.common.labels.sync_data';
-  static const String dashboards_common_labels_sync_status = 'dashboards.common.labels.sync_status';
-  static const String dashboards_common_labels_synergy_audit = 'dashboards.common.labels.synergy_audit';
-  static const String dashboards_common_labels_system_administrator = 'dashboards.common.labels.system_administrator';
-  static const String dashboards_common_labels_system_dashboard = 'dashboards.common.labels.system_dashboard';
-  static const String dashboards_common_labels_system_integrity_and_macro_reconciliation_telemetry_logs = 'dashboards.common.labels.system_integrity_and_macro_reconciliation_telemetry_logs';
-  static const String dashboards_common_labels_systems___architecture = 'dashboards.common.labels.systems___architecture';
-  static const String dashboards_common_labels_tax_filing = 'dashboards.common.labels.tax_filing';
-  static const String dashboards_common_labels_tax_planning = 'dashboards.common.labels.tax_planning';
-  static const String dashboards_common_labels_technical_operations_overview = 'dashboards.common.labels.technical_operations_overview';
-  static const String dashboards_common_labels_territory_growth_map = 'dashboards.common.labels.territory_growth_map';
-  static const String dashboards_common_labels_territory_plan = 'dashboards.common.labels.territory_plan';
-  static const String dashboards_common_labels_textalignbutton = 'dashboards.common.labels.textalignbutton';
-  static const String dashboards_common_labels_the_system_is_verifying_your_security_context_for___route = 'dashboards.common.labels.the_system_is_verifying_your_security_context_for___route';
-  static const String dashboards_common_labels_themepreview = 'dashboards.common.labels.themepreview';
-  static const String dashboards_common_labels_themespanel = 'dashboards.common.labels.themespanel';
-  static const String dashboards_common_labels_themetoggle = 'dashboards.common.labels.themetoggle';
-  static const String dashboards_common_labels_this_action_cannot_be_undone = 'dashboards.common.labels.this_action_cannot_be_undone';
-  static const String dashboards_common_labels_this_component_is_part_of_the_clinical_forms_module = 'dashboards.common.labels.this_component_is_part_of_the_clinical_forms_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_common_forms_module = 'dashboards.common.labels.this_component_is_part_of_the_common_forms_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_common_ui_module = 'dashboards.common.labels.this_component_is_part_of_the_common_ui_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_crm_forms_module = 'dashboards.common.labels.this_component_is_part_of_the_crm_forms_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_financial_forms_module = 'dashboards.common.labels.this_component_is_part_of_the_financial_forms_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_hr_forms_module = 'dashboards.common.labels.this_component_is_part_of_the_hr_forms_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_shared_icons_module = 'dashboards.common.labels.this_component_is_part_of_the_shared_icons_module';
-  static const String dashboards_common_labels_this_component_is_part_of_the_shared_layouts_module = 'dashboards.common.labels.this_component_is_part_of_the_shared_layouts_module';
-  static const String dashboards_common_labels_ticket_volume_trend = 'dashboards.common.labels.ticket_volume_trend';
-  static const String dashboards_common_labels_tid = 'dashboards.common.labels.tid';
-  static const String dashboards_common_labels_titlereferencelink = 'dashboards.common.labels.titlereferencelink';
-  static const String dashboards_common_labels_today = 'dashboards.common.labels.today';
-  static const String dashboards_common_labels_toolbar = 'dashboards.common.labels.toolbar';
-  static const String dashboards_common_labels_toolbarlayout1 = 'dashboards.common.labels.toolbarlayout1';
-  static const String dashboards_common_labels_toolbarlayout2 = 'dashboards.common.labels.toolbarlayout2';
-  static const String dashboards_common_labels_toolbarlayout3 = 'dashboards.common.labels.toolbarlayout3';
-  static const String dashboards_common_labels_toolbartheme = 'dashboards.common.labels.toolbartheme';
-  static const String dashboards_common_labels_tooltip = 'dashboards.common.labels.tooltip';
-  static const String dashboards_common_labels_topology_verification_feed = 'dashboards.common.labels.topology_verification_feed';
-  static const String dashboards_common_labels_trashicon = 'dashboards.common.labels.trashicon';
-  static const String dashboards_common_labels_underlineicon = 'dashboards.common.labels.underlineicon';
-  static const String dashboards_common_labels_undo2icon = 'dashboards.common.labels.undo2icon';
-  static const String dashboards_common_labels_undoredobutton = 'dashboards.common.labels.undoredobutton';
-  static const String dashboards_common_labels_unit_profitability_trend = 'dashboards.common.labels.unit_profitability_trend';
-  static const String dashboards_common_labels_unknown_component____blueprint_componenttype = 'dashboards.common.labels.unknown_component____blueprint_componenttype';
-  static const String dashboards_common_labels_unsupported_intent_type____intent_runtimetype = 'dashboards.common.labels.unsupported_intent_type____intent_runtimetype';
-  static const String dashboards_common_labels_upcoming_care_visits = 'dashboards.common.labels.upcoming_care_visits';
-  static const String dashboards_common_labels_useauth = 'dashboards.common.labels.useauth';
-  static const String dashboards_common_labels_useawsauth = 'dashboards.common.labels.useawsauth';
-  static const String dashboards_common_labels_usefirebaseauth = 'dashboards.common.labels.usefirebaseauth';
-  static const String dashboards_common_labels_usefusedialogcontext = 'dashboards.common.labels.usefusedialogcontext';
-  static const String dashboards_common_labels_usefuselayoutsettings = 'dashboards.common.labels.usefuselayoutsettings';
-  static const String dashboards_common_labels_usefuserouteparameter = 'dashboards.common.labels.usefuserouteparameter';
-  static const String dashboards_common_labels_usefusesettings = 'dashboards.common.labels.usefusesettings';
-  static const String dashboards_common_labels_usejwtauth = 'dashboards.common.labels.usejwtauth';
-  static const String dashboards_common_labels_uselocalstorage = 'dashboards.common.labels.uselocalstorage';
-  static const String dashboards_common_labels_usenavigate = 'dashboards.common.labels.usenavigate';
-  static const String dashboards_common_labels_usenavigationitems = 'dashboards.common.labels.usenavigationitems';
-  static const String dashboards_common_labels_usepathname = 'dashboards.common.labels.usepathname';
-  static const String dashboards_common_labels_user = 'dashboards.common.labels.user';
-  static const String dashboards_common_labels_user_management = 'dashboards.common.labels.user_management';
-  static const String dashboards_common_labels_user_profile = 'dashboards.common.labels.user_profile';
-  static const String dashboards_common_labels_usermenu = 'dashboards.common.labels.usermenu';
-  static const String dashboards_common_labels_useuser = 'dashboards.common.labels.useuser';
-  static const String dashboards_common_labels_variance = 'dashboards.common.labels.variance';
-  static const String dashboards_common_labels_velocity_score = 'dashboards.common.labels.velocity_score';
-  static const String dashboards_common_labels_verification_hub = 'dashboards.common.labels.verification_hub';
-  static const String dashboards_common_labels_verify_code = 'dashboards.common.labels.verify_code';
-  static const String dashboards_common_labels_vitals_log = 'dashboards.common.labels.vitals_log';
-  static const String dashboards_common_labels_volunteer_coordinator_dashboard = 'dashboards.common.labels.volunteer_coordinator_dashboard';
-  static const String dashboards_common_labels_volunteer_retention_trend = 'dashboards.common.labels.volunteer_retention_trend';
-  static const String dashboards_common_labels_waitlist_mgmt = 'dashboards.common.labels.waitlist_mgmt';
-  static const String dashboards_common_labels_withrouter = 'dashboards.common.labels.withrouter';
-  static const String dashboards_common_labels_withuser = 'dashboards.common.labels.withuser';
+  static const String dashboards_common_labels_a__smith =
+      'dashboards.common.labels.a__smith';
+  static const String dashboards_common_labels_actions =
+      'dashboards.common.labels.actions';
+  static const String dashboards_common_labels_active_hiring_funnel =
+      'dashboards.common.labels.active_hiring_funnel';
+  static const String dashboards_common_labels_active_intake_pipeline =
+      'dashboards.common.labels.active_intake_pipeline';
+  static const String dashboards_common_labels_active_node =
+      'dashboards.common.labels.active_node';
+  static const String dashboards_common_labels_actor_performed___log =
+      'dashboards.common.labels.actor_performed___log';
+  static const String
+  dashboards_common_labels_add_a_new_administrative_user_to_the_platform =
+      'dashboards.common.labels.add_a_new_administrative_user_to_the_platform';
+  static const String
+  dashboards_common_labels_add_a_new_standardized_support_response =
+      'dashboards.common.labels.add_a_new_standardized_support_response';
+  static const String dashboards_common_labels_add_franchise =
+      'dashboards.common.labels.add_franchise';
+  static const String dashboards_common_labels_add_franchise_lead =
+      'dashboards.common.labels.add_franchise_lead';
+  static const String dashboards_common_labels_add_lead =
+      'dashboards.common.labels.add_lead';
+  static const String dashboards_common_labels_add_referral =
+      'dashboards.common.labels.add_referral';
+  static const String dashboards_common_labels_addfranchiseleadform =
+      'dashboards.common.labels.addfranchiseleadform';
+  static const String dashboards_common_labels_adjustfontsize =
+      'dashboards.common.labels.adjustfontsize';
+  static const String dashboards_common_labels_adminlayout =
+      'dashboards.common.labels.adminlayout';
+  static const String
+  dashboards_common_labels_aggregate_regional_revenue_footprint =
+      'dashboards.common.labels.aggregate_regional_revenue_footprint';
+  static const String
+  dashboards_common_labels_ai_driven_projections_for_next_90_days =
+      'dashboards.common.labels.ai_driven_projections_for_next_90_days';
+  static const String
+  dashboards_common_labels_ai_forecasting_component_not_found =
+      'dashboards.common.labels.ai_forecasting_component_not_found';
+  static const String dashboards_common_labels_alex_johnson__rpn =
+      'dashboards.common.labels.alex_johnson__rpn';
+  static const String dashboards_common_labels_aligncentericon =
+      'dashboards.common.labels.aligncentericon';
+  static const String dashboards_common_labels_alignjustifyicon =
+      'dashboards.common.labels.alignjustifyicon';
+  static const String dashboards_common_labels_alignlefticon =
+      'dashboards.common.labels.alignlefticon';
+  static const String dashboards_common_labels_alignrighticon =
+      'dashboards.common.labels.alignrighticon';
+  static const String dashboards_common_labels_all_actions =
+      'dashboards.common.labels.all_actions';
+  static const String dashboards_common_labels_analytics =
+      'dashboards.common.labels.analytics';
+  static const String dashboards_common_labels_analyze_market =
+      'dashboards.common.labels.analyze_market';
+  static const String dashboards_common_labels_analyze_peer_review_assessments =
+      'dashboards.common.labels.analyze_peer_review_assessments';
+  static const String dashboards_common_labels_anticipated_growth =
+      'dashboards.common.labels.anticipated_growth';
+  static const String dashboards_common_labels_app =
+      'dashboards.common.labels.app';
+  static const String dashboards_common_labels_appointment_created =
+      'dashboards.common.labels.appointment_created';
+  static const String dashboards_common_labels_appointment_deleted =
+      'dashboards.common.labels.appointment_deleted';
+  static const String dashboards_common_labels_appointment_updated =
+      'dashboards.common.labels.appointment_updated';
+  static const String dashboards_common_labels_approve_budget =
+      'dashboards.common.labels.approve_budget';
+  static const String
+  dashboards_common_labels_approve_elevated_permission_requests =
+      'dashboards.common.labels.approve_elevated_permission_requests';
+  static const String dashboards_common_labels_approve_franchise_disclosure =
+      'dashboards.common.labels.approve_franchise_disclosure';
+  static const String dashboards_common_labels_approve_leave =
+      'dashboards.common.labels.approve_leave';
+  static const String dashboards_common_labels_approve_leave_request =
+      'dashboards.common.labels.approve_leave_request';
+  static const String
+  dashboards_common_labels_approve_legal_fdd_before_signing =
+      'dashboards.common.labels.approve_legal_fdd_before_signing';
+  static const String
+  dashboards_common_labels_approve_mass_corporate_staff_payroll =
+      'dashboards.common.labels.approve_mass_corporate_staff_payroll';
+  static const String dashboards_common_labels_approve_med_refill =
+      'dashboards.common.labels.approve_med_refill';
+  static const String dashboards_common_labels_approve_payroll_run =
+      'dashboards.common.labels.approve_payroll_run';
+  static const String
+  dashboards_common_labels_approve_physical_branch_location =
+      'dashboards.common.labels.approve_physical_branch_location';
+  static const String dashboards_common_labels_approve_real_estate =
+      'dashboards.common.labels.approve_real_estate';
+  static const String dashboards_common_labels_approve_reimbursement =
+      'dashboards.common.labels.approve_reimbursement';
+  static const String
+  dashboards_common_labels_approve_staff_monetary_reimbursement =
+      'dashboards.common.labels.approve_staff_monetary_reimbursement';
+  static const String dashboards_common_labels_approve_system_access =
+      'dashboards.common.labels.approve_system_access';
+  static const String dashboards_common_labels_approveexpensereimbursementform =
+      'dashboards.common.labels.approveexpensereimbursementform';
+  static const String dashboards_common_labels_approvefranchisedisclosureform =
+      'dashboards.common.labels.approvefranchisedisclosureform';
+  static const String dashboards_common_labels_approveleaverequestform =
+      'dashboards.common.labels.approveleaverequestform';
+  static const String dashboards_common_labels_approvemedicationrefillform =
+      'dashboards.common.labels.approvemedicationrefillform';
+  static const String dashboards_common_labels_approvepayrollrunform =
+      'dashboards.common.labels.approvepayrollrunform';
+  static const String dashboards_common_labels_approverealestateform =
+      'dashboards.common.labels.approverealestateform';
+  static const String dashboards_common_labels_approvesystemaccessform =
+      'dashboards.common.labels.approvesystemaccessform';
+  static const String dashboards_common_labels_architectural_governance =
+      'dashboards.common.labels.architectural_governance';
+  static const String
+  dashboards_common_labels_are_you_sure_you_want_to_delete___user_name =
+      'dashboards.common.labels.are_you_sure_you_want_to_delete___user_name';
+  static const String dashboards_common_labels_arrowlefticon =
+      'dashboards.common.labels.arrowlefticon';
+  static const String dashboards_common_labels_assessments =
+      'dashboards.common.labels.assessments';
+  static const String dashboards_common_labels_assign =
+      'dashboards.common.labels.assign';
+  static const String
+  dashboards_common_labels_assign_a_lead_to_a_sales_representative =
+      'dashboards.common.labels.assign_a_lead_to_a_sales_representative';
+  static const String dashboards_common_labels_assign_care_pod =
+      'dashboards.common.labels.assign_care_pod';
+  static const String
+  dashboards_common_labels_assign_client_to_primary_care_nursing_pod =
+      'dashboards.common.labels.assign_client_to_primary_care_nursing_pod';
+  static const String dashboards_common_labels_assign_lead =
+      'dashboards.common.labels.assign_lead';
+  static const String dashboards_common_labels_assign_staff =
+      'dashboards.common.labels.assign_staff';
+  static const String dashboards_common_labels_assign_training_module =
+      'dashboards.common.labels.assign_training_module';
+  static const String dashboards_common_labels_assigncarepodform =
+      'dashboards.common.labels.assigncarepodform';
+  static const String dashboards_common_labels_assignleadform =
+      'dashboards.common.labels.assignleadform';
+  static const String dashboards_common_labels_assigntrainingmoduleform =
+      'dashboards.common.labels.assigntrainingmoduleform';
+  static const String dashboards_common_labels_audit___review_timeline =
+      'dashboards.common.labels.audit___review_timeline';
+  static const String
+  dashboards_common_labels_audit_controlled_medication_distribution_logs =
+      'dashboards.common.labels.audit_controlled_medication_distribution_logs';
+  static const String dashboards_common_labels_audit_federal_compliance_rules =
+      'dashboards.common.labels.audit_federal_compliance_rules';
+  static const String
+  dashboards_common_labels_audit_global_staff_educational_gaps =
+      'dashboards.common.labels.audit_global_staff_educational_gaps';
+  static const String
+  dashboards_common_labels_audit_operational_vehicle_fleets =
+      'dashboards.common.labels.audit_operational_vehicle_fleets';
+  static const String dashboards_common_labels_audit_override =
+      'dashboards.common.labels.audit_override';
+  static const String
+  dashboards_common_labels_audit_override_request_submitted_successfully =
+      'dashboards.common.labels.audit_override_request_submitted_successfully';
+  static const String dashboards_common_labels_audit_payroll_discrepancy =
+      'dashboards.common.labels.audit_payroll_discrepancy';
+  static const String dashboards_common_labels_audit_royalty_payments =
+      'dashboards.common.labels.audit_royalty_payments';
+  static const String dashboards_common_labels_audit_third_party_vendor_slas =
+      'dashboards.common.labels.audit_third_party_vendor_slas';
+  static const String dashboards_common_labels_audit_training =
+      'dashboards.common.labels.audit_training';
+  static const String dashboards_common_labels_auditcomplianceform =
+      'dashboards.common.labels.auditcomplianceform';
+  static const String dashboards_common_labels_auditglobaleducationform =
+      'dashboards.common.labels.auditglobaleducationform';
+  static const String dashboards_common_labels_auditoverrideform =
+      'dashboards.common.labels.auditoverrideform';
+  static const String dashboards_common_labels_auditpayrolldiscrepancyform =
+      'dashboards.common.labels.auditpayrolldiscrepancyform';
+  static const String dashboards_common_labels_auditroyaltypaymentform =
+      'dashboards.common.labels.auditroyaltypaymentform';
+  static const String dashboards_common_labels_auditsecuritycomplianceform =
+      'dashboards.common.labels.auditsecuritycomplianceform';
+  static const String dashboards_common_labels_auditsystemlogsform =
+      'dashboards.common.labels.auditsystemlogsform';
+  static const String dashboards_common_labels_aura_intelligence =
+      'dashboards.common.labels.aura_intelligence';
+  static const String dashboards_common_labels_aura_intelligence__active =
+      'dashboards.common.labels.aura_intelligence__active';
+  static const String dashboards_common_labels_authentication =
+      'dashboards.common.labels.authentication';
+  static const String dashboards_common_labels_authlayout =
+      'dashboards.common.labels.authlayout';
+  static const String dashboards_common_labels_authpagesmessagesection =
+      'dashboards.common.labels.authpagesmessagesection';
+  static const String dashboards_common_labels_authsplitlayout =
+      'dashboards.common.labels.authsplitlayout';
+  static const String dashboards_common_labels_awsauthcontext =
+      'dashboards.common.labels.awsauthcontext';
+  static const String dashboards_common_labels_awsauthenticator =
+      'dashboards.common.labels.awsauthenticator';
+  static const String dashboards_common_labels_awssignintab =
+      'dashboards.common.labels.awssignintab';
+  static const String dashboards_common_labels_awssignuptab =
+      'dashboards.common.labels.awssignuptab';
+  static const String dashboards_common_labels_banicon =
+      'dashboards.common.labels.banicon';
+  static const String dashboards_common_labels_baseform =
+      'dashboards.common.labels.baseform';
+  static const String dashboards_common_labels_basic_info =
+      'dashboards.common.labels.basic_info';
+  static const String dashboards_common_labels_bid =
+      'dashboards.common.labels.bid';
+  static const String dashboards_common_labels_billingpayment_details =
+      'dashboards.common.labels.billingpayment_details';
+  static const String dashboards_common_labels_block_velocity =
+      'dashboards.common.labels.block_velocity';
+  static const String dashboards_common_labels_blockquoteicon =
+      'dashboards.common.labels.blockquoteicon';
+  static const String dashboards_common_labels_board_report =
+      'dashboards.common.labels.board_report';
+  static const String dashboards_common_labels_board_resolutions =
+      'dashboards.common.labels.board_resolutions';
+  static const String dashboards_common_labels_boldicon =
+      'dashboards.common.labels.boldicon';
+  static const String dashboards_common_labels_brand_assets =
+      'dashboards.common.labels.brand_assets';
+  static const String dashboards_common_labels_button =
+      'dashboards.common.labels.button';
+  static const String dashboards_common_labels_cache_hydrated =
+      'dashboards.common.labels.cache_hydrated';
+  static const String dashboards_common_labels_campaign_conversion_funnel =
+      'dashboards.common.labels.campaign_conversion_funnel';
+  static const String dashboards_common_labels_cancel =
+      'dashboards.common.labels.cancel';
+  static const String dashboards_common_labels_capacity_audit =
+      'dashboards.common.labels.capacity_audit';
+  static const String dashboards_common_labels_capital_plan =
+      'dashboards.common.labels.capital_plan';
+  static const String dashboards_common_labels_capital_request =
+      'dashboards.common.labels.capital_request';
+  static const String dashboards_common_labels_capture_vitals =
+      'dashboards.common.labels.capture_vitals';
+  static const String dashboards_common_labels_care_plan =
+      'dashboards.common.labels.care_plan';
+  static const String dashboards_common_labels_care_plan_evaluation =
+      'dashboards.common.labels.care_plan_evaluation';
+  static const String dashboards_common_labels_careplanevaluationform =
+      'dashboards.common.labels.careplanevaluationform';
+  static const String
+  dashboards_common_labels_categorize_unassigned_prospective_lead =
+      'dashboards.common.labels.categorize_unassigned_prospective_lead';
+  static const String dashboards_common_labels_ceo_dashboard =
+      'dashboards.common.labels.ceo_dashboard';
+  static const String dashboards_common_labels_certification_velocity_trend =
+      'dashboards.common.labels.certification_velocity_trend';
+  static const String dashboards_common_labels_cfo_dashboard =
+      'dashboards.common.labels.cfo_dashboard';
+  static const String dashboards_common_labels_chart =
+      'dashboards.common.labels.chart';
+  static const String dashboards_common_labels_chevrondownicon =
+      'dashboards.common.labels.chevrondownicon';
+  static const String dashboards_common_labels_claims_aging_status =
+      'dashboards.common.labels.claims_aging_status';
+  static const String dashboards_common_labels_clear_form =
+      'dashboards.common.labels.clear_form';
+  static const String dashboards_common_labels_clientlayout =
+      'dashboards.common.labels.clientlayout';
+  static const String dashboards_common_labels_clinical_dashboard =
+      'dashboards.common.labels.clinical_dashboard';
+  static const String dashboards_common_labels_clinical_details =
+      'dashboards.common.labels.clinical_details';
+  static const String
+  dashboards_common_labels_clinical_outcomes_and_patient_care_overview =
+      'dashboards.common.labels.clinical_outcomes_and_patient_care_overview';
+  static const String dashboards_common_labels_clinical_retention_trend =
+      'dashboards.common.labels.clinical_retention_trend';
+  static const String
+  dashboards_common_labels_clinical_vitals_compliance_report =
+      'dashboards.common.labels.clinical_vitals_compliance_report';
+  static const String dashboards_common_labels_clinicalincident_details =
+      'dashboards.common.labels.clinicalincident_details';
+  static const String dashboards_common_labels_closeicon =
+      'dashboards.common.labels.closeicon';
+  static const String dashboards_common_labels_closing_desk =
+      'dashboards.common.labels.closing_desk';
+  static const String dashboards_common_labels_code2icon =
+      'dashboards.common.labels.code2icon';
+  static const String dashboards_common_labels_codeblockicon =
+      'dashboards.common.labels.codeblockicon';
+  static const String dashboards_common_labels_common_documentvault_subtitle =
+      'dashboards.common.labels.common_documentvault_subtitle';
+  static const String dashboards_common_labels_common_documentvault_title =
+      'dashboards.common.labels.common_documentvault_title';
+  static const String dashboards_common_labels_common_globalprofile_subtitle =
+      'dashboards.common.labels.common_globalprofile_subtitle';
+  static const String dashboards_common_labels_common_globalprofile_title =
+      'dashboards.common.labels.common_globalprofile_title';
+  static const String dashboards_common_labels_common_globalsettings_subtitle =
+      'dashboards.common.labels.common_globalsettings_subtitle';
+  static const String dashboards_common_labels_common_globalsettings_title =
+      'dashboards.common.labels.common_globalsettings_title';
+  static const String dashboards_common_labels_common_messaginghub_subtitle =
+      'dashboards.common.labels.common_messaginghub_subtitle';
+  static const String dashboards_common_labels_common_messaginghub_title =
+      'dashboards.common.labels.common_messaginghub_title';
+  static const String
+  dashboards_common_labels_common_notificationcenter_subtitle =
+      'dashboards.common.labels.common_notificationcenter_subtitle';
+  static const String dashboards_common_labels_common_notificationcenter_title =
+      'dashboards.common.labels.common_notificationcenter_title';
+  static const String
+  dashboards_common_labels_complete_franchise_onboarding_steps =
+      'dashboards.common.labels.complete_franchise_onboarding_steps';
+  static const String
+  dashboards_common_labels_complete_the_form_to_submit_billingpayment_information =
+      'dashboards.common.labels.complete_the_form_to_submit_billingpayment_information';
+  static const String
+  dashboards_common_labels_complete_the_form_to_submit_clinicalincident_information =
+      'dashboards.common.labels.complete_the_form_to_submit_clinicalincident_information';
+  static const String
+  dashboards_common_labels_complete_the_form_to_submit_employeetimesheet_information =
+      'dashboards.common.labels.complete_the_form_to_submit_employeetimesheet_information';
+  static const String dashboards_common_labels_compliance_audit =
+      'dashboards.common.labels.compliance_audit';
+  static const String dashboards_common_labels_compliance_audit__ottawa =
+      'dashboards.common.labels.compliance_audit__ottawa';
+  static const String dashboards_common_labels_compliance_dashboard =
+      'dashboards.common.labels.compliance_dashboard';
+  static const String dashboards_common_labels_compliance_hub =
+      'dashboards.common.labels.compliance_hub';
+  static const String
+  dashboards_common_labels_compliance_interface_provisioning =
+      'dashboards.common.labels.compliance_interface_provisioning';
+  static const String dashboards_common_labels_comprehensive_intake =
+      'dashboards.common.labels.comprehensive_intake';
+  static const String dashboards_common_labels_configurator =
+      'dashboards.common.labels.configurator';
+  static const String dashboards_common_labels_confirm =
+      'dashboards.common.labels.confirm';
+  static const String dashboards_common_labels_coo_dashboard =
+      'dashboards.common.labels.coo_dashboard';
+  static const String dashboards_common_labels_cornerdownlefticon =
+      'dashboards.common.labels.cornerdownlefticon';
+  static const String dashboards_common_labels_corporate_governance_hud =
+      'dashboards.common.labels.corporate_governance_hud';
+  static const String dashboards_common_labels_create_ad_placement =
+      'dashboards.common.labels.create_ad_placement';
+  static const String dashboards_common_labels_create_canned_response =
+      'dashboards.common.labels.create_canned_response';
+  static const String dashboards_common_labels_create_custom_invoice =
+      'dashboards.common.labels.create_custom_invoice';
+  static const String
+  dashboards_common_labels_create_hyper_local_geo_fenced_ad =
+      'dashboards.common.labels.create_hyper_local_geo_fenced_ad';
+  static const String dashboards_common_labels_create_revenue_report =
+      'dashboards.common.labels.create_revenue_report';
+  static const String dashboards_common_labels_create_shift =
+      'dashboards.common.labels.create_shift';
+  static const String dashboards_common_labels_create_supply_order =
+      'dashboards.common.labels.create_supply_order';
+  static const String dashboards_common_labels_create_ticket =
+      'dashboards.common.labels.create_ticket';
+  static const String dashboards_common_labels_create_user =
+      'dashboards.common.labels.create_user';
+  static const String dashboards_common_labels_createadplacementform =
+      'dashboards.common.labels.createadplacementform';
+  static const String dashboards_common_labels_createcannedresponseform =
+      'dashboards.common.labels.createcannedresponseform';
+  static const String dashboards_common_labels_createcustominvoiceform =
+      'dashboards.common.labels.createcustominvoiceform';
+  static const String dashboards_common_labels_createrevenuereportform =
+      'dashboards.common.labels.createrevenuereportform';
+  static const String dashboards_common_labels_createsupplyorderform =
+      'dashboards.common.labels.createsupplyorderform';
+  static const String dashboards_common_labels_creation_failed___e =
+      'dashboards.common.labels.creation_failed___e';
+  static const String
+  dashboards_common_labels_critical_shifts_requiring_immediate_assignment =
+      'dashboards.common.labels.critical_shifts_requiring_immediate_assignment';
+  static const String dashboards_common_labels_csat_report =
+      'dashboards.common.labels.csat_report';
+  static const String dashboards_common_labels_csv =
+      'dashboards.common.labels.csv';
+  static const String dashboards_common_labels_cto_dashboard =
+      'dashboards.common.labels.cto_dashboard';
+  static const String dashboards_common_labels_cx_director_dashboard =
+      'dashboards.common.labels.cx_director_dashboard';
+  static const String
+  dashboards_common_labels_cyber_shield_intelligence_and_threat_management_console =
+      'dashboards.common.labels.cyber_shield_intelligence_and_threat_management_console';
+  static const String dashboards_common_labels_daily =
+      'dashboards.common.labels.daily';
+  static const String dashboards_common_labels_daily_vitals =
+      'dashboards.common.labels.daily_vitals';
+  static const String dashboards_common_labels_dailyvitalscardform =
+      'dashboards.common.labels.dailyvitalscardform';
+  static const String dashboards_common_labels_datatable =
+      'dashboards.common.labels.datatable';
+  static const String dashboards_common_labels_datatabletoptoolbar =
+      'dashboards.common.labels.datatabletoptoolbar';
+  static const String dashboards_common_labels_date_range__optional =
+      'dashboards.common.labels.date_range__optional';
+  static const String dashboards_common_labels_delete =
+      'dashboards.common.labels.delete';
+  static const String dashboards_common_labels_delete_appointment =
+      'dashboards.common.labels.delete_appointment';
+  static const String dashboards_common_labels_delete_user =
+      'dashboards.common.labels.delete_user';
+  static const String dashboards_common_labels_democontent =
+      'dashboards.common.labels.democontent';
+  static const String dashboards_common_labels_demoframe =
+      'dashboards.common.labels.demoframe';
+  static const String dashboards_common_labels_demolayoutfootercontent =
+      'dashboards.common.labels.demolayoutfootercontent';
+  static const String dashboards_common_labels_demosidebarcontent =
+      'dashboards.common.labels.demosidebarcontent';
+  static const String dashboards_common_labels_developer_diagnostics =
+      'dashboards.common.labels.developer_diagnostics';
+  static const String dashboards_common_labels_discipline_log =
+      'dashboards.common.labels.discipline_log';
+  static const String dashboards_common_labels_disciplinelogform =
+      'dashboards.common.labels.disciplinelogform';
+  static const String dashboards_common_labels_discovery_call =
+      'dashboards.common.labels.discovery_call';
+  static const String dashboards_common_labels_dispatch_supplies =
+      'dashboards.common.labels.dispatch_supplies';
+  static const String dashboards_common_labels_distribution =
+      'dashboards.common.labels.distribution';
+  static const String
+  dashboards_common_labels_distribution_of_outstanding_balances_by_days =
+      'dashboards.common.labels.distribution_of_outstanding_balances_by_days';
+  static const String dashboards_common_labels_documentationbutton =
+      'dashboards.common.labels.documentationbutton';
+  static const String dashboards_common_labels_draft =
+      'dashboards.common.labels.draft';
+  static const String dashboards_common_labels_dragassignwidget =
+      'dashboards.common.labels.dragassignwidget';
+  static const String dashboards_common_labels_dropdownmenu =
+      'dashboards.common.labels.dropdownmenu';
+  static const String dashboards_common_labels_employeetimesheet_details =
+      'dashboards.common.labels.employeetimesheet_details';
+  static const String dashboards_common_labels_enforcement =
+      'dashboards.common.labels.enforcement';
+  static const String
+  dashboards_common_labels_enroll_staff_into_required_lms_modules =
+      'dashboards.common.labels.enroll_staff_into_required_lms_modules';
+  static const String
+  dashboards_common_labels_enter_the_details_of_the_new_hire =
+      'dashboards.common.labels.enter_the_details_of_the_new_hire';
+  static const String dashboards_common_labels_enterprise_valuation_trend =
+      'dashboards.common.labels.enterprise_valuation_trend';
+  static const String
+  dashboards_common_labels_enterprise_wide_operational_overview =
+      'dashboards.common.labels.enterprise_wide_operational_overview';
+  static const String dashboards_common_labels_equity_report =
+      'dashboards.common.labels.equity_report';
+  static const String dashboards_common_labels_error401pageview =
+      'dashboards.common.labels.error401pageview';
+  static const String dashboards_common_labels_error404pageview =
+      'dashboards.common.labels.error404pageview';
+  static const String dashboards_common_labels_error____state_error =
+      'dashboards.common.labels.error____state_error';
+  static const String dashboards_common_labels_error___e =
+      'dashboards.common.labels.error___e';
+  static const String dashboards_common_labels_error___err =
+      'dashboards.common.labels.error___err';
+  static const String dashboards_common_labels_errorboundary =
+      'dashboards.common.labels.errorboundary';
+  static const String dashboards_common_labels_etatrackerwidget =
+      'dashboards.common.labels.etatrackerwidget';
+  static const String
+  dashboards_common_labels_evaluate_and_modify_the_care_plan =
+      'dashboards.common.labels.evaluate_and_modify_the_care_plan';
+  static const String dashboards_common_labels_evaluate_plan =
+      'dashboards.common.labels.evaluate_plan';
+  static const String dashboards_common_labels_exampleview =
+      'dashboards.common.labels.exampleview';
+  static const String
+  dashboards_common_labels_executive_overview_and_corporate_strategy =
+      'dashboards.common.labels.executive_overview_and_corporate_strategy';
+  static const String dashboards_common_labels_expansion_plan =
+      'dashboards.common.labels.expansion_plan';
+  static const String dashboards_common_labels_export_failed___e =
+      'dashboards.common.labels.export_failed___e';
+  static const String dashboards_common_labels_externallinkicon =
+      'dashboards.common.labels.externallinkicon';
+  static const String dashboards_common_labels_facility_maintenance =
+      'dashboards.common.labels.facility_maintenance';
+  static const String dashboards_common_labels_facility_status =
+      'dashboards.common.labels.facility_status';
+  static const String dashboards_common_labels_filter =
+      'dashboards.common.labels.filter';
+  static const String dashboards_common_labels_finance_director =
+      'dashboards.common.labels.finance_director';
+  static const String
+  dashboards_common_labels_financial_statements_and_forecasts_overview =
+      'dashboards.common.labels.financial_statements_and_forecasts_overview';
+  static const String dashboards_common_labels_firebaseauthcontext =
+      'dashboards.common.labels.firebaseauthcontext';
+  static const String dashboards_common_labels_firebasesigninform =
+      'dashboards.common.labels.firebasesigninform';
+  static const String dashboards_common_labels_firebasesignintab =
+      'dashboards.common.labels.firebasesignintab';
+  static const String dashboards_common_labels_firebasesignupform =
+      'dashboards.common.labels.firebasesignupform';
+  static const String dashboards_common_labels_firebasesignuptab =
+      'dashboards.common.labels.firebasesignuptab';
+  static const String dashboards_common_labels_footerlayout1 =
+      'dashboards.common.labels.footerlayout1';
+  static const String dashboards_common_labels_footerlayout2 =
+      'dashboards.common.labels.footerlayout2';
+  static const String dashboards_common_labels_footerlayout3 =
+      'dashboards.common.labels.footerlayout3';
+  static const String dashboards_common_labels_footertheme =
+      'dashboards.common.labels.footertheme';
+  static const String
+  dashboards_common_labels_force_a_password_reset_for_this_user =
+      'dashboards.common.labels.force_a_password_reset_for_this_user';
+  static const String
+  dashboards_common_labels_force_publish_global_branch_schedules =
+      'dashboards.common.labels.force_publish_global_branch_schedules';
+  static const String dashboards_common_labels_frameddemo =
+      'dashboards.common.labels.frameddemo';
+  static const String dashboards_common_labels_franchise_onboarding =
+      'dashboards.common.labels.franchise_onboarding';
+  static const String
+  dashboards_common_labels_franchiseonboardingchecklistform =
+      'dashboards.common.labels.franchiseonboardingchecklistform';
+  static const String dashboards_common_labels_full_screen_toggle =
+      'dashboards.common.labels.full_screen_toggle';
+  static const String dashboards_common_labels_fullscreentoggle =
+      'dashboards.common.labels.fullscreentoggle';
+  static const String dashboards_common_labels_fuse_page_carded =
+      'dashboards.common.labels.fuse_page_carded';
+  static const String dashboards_common_labels_fuse_page_carded_header =
+      'dashboards.common.labels.fuse_page_carded_header';
+  static const String dashboards_common_labels_fuse_page_carded_sidebar =
+      'dashboards.common.labels.fuse_page_carded_sidebar';
+  static const String
+  dashboards_common_labels_fuse_page_carded_sidebar_content =
+      'dashboards.common.labels.fuse_page_carded_sidebar_content';
+  static const String dashboards_common_labels_fuse_page_simple =
+      'dashboards.common.labels.fuse_page_simple';
+  static const String dashboards_common_labels_fuse_page_simple_header =
+      'dashboards.common.labels.fuse_page_simple_header';
+  static const String dashboards_common_labels_fuse_page_simple_sidebar =
+      'dashboards.common.labels.fuse_page_simple_sidebar';
+  static const String
+  dashboards_common_labels_fuse_page_simple_sidebar_content =
+      'dashboards.common.labels.fuse_page_simple_sidebar_content';
+  static const String dashboards_common_labels_fuse_splash_screen =
+      'dashboards.common.labels.fuse_splash_screen';
+  static const String dashboards_common_labels_fuseauthcontext =
+      'dashboards.common.labels.fuseauthcontext';
+  static const String dashboards_common_labels_fuseauthorization =
+      'dashboards.common.labels.fuseauthorization';
+  static const String dashboards_common_labels_fuseawaitrender =
+      'dashboards.common.labels.fuseawaitrender';
+  static const String dashboards_common_labels_fusecountdown =
+      'dashboards.common.labels.fusecountdown';
+  static const String dashboards_common_labels_fusedialog =
+      'dashboards.common.labels.fusedialog';
+  static const String dashboards_common_labels_fuseexample =
+      'dashboards.common.labels.fuseexample';
+  static const String dashboards_common_labels_fusehighlight =
+      'dashboards.common.labels.fusehighlight';
+  static const String dashboards_common_labels_fuselayout =
+      'dashboards.common.labels.fuselayout';
+  static const String dashboards_common_labels_fuselayoutconfig =
+      'dashboards.common.labels.fuselayoutconfig';
+  static const String dashboards_common_labels_fuselayoutconfigs =
+      'dashboards.common.labels.fuselayoutconfigs';
+  static const String dashboards_common_labels_fuselayoutsettingscontext =
+      'dashboards.common.labels.fuselayoutsettingscontext';
+  static const String dashboards_common_labels_fuseloading =
+      'dashboards.common.labels.fuseloading';
+  static const String dashboards_common_labels_fusenavbadge =
+      'dashboards.common.labels.fusenavbadge';
+  static const String dashboards_common_labels_fusenavhorizontalcollapse =
+      'dashboards.common.labels.fusenavhorizontalcollapse';
+  static const String dashboards_common_labels_fusenavhorizontalgroup =
+      'dashboards.common.labels.fusenavhorizontalgroup';
+  static const String dashboards_common_labels_fusenavhorizontalitem =
+      'dashboards.common.labels.fusenavhorizontalitem';
+  static const String dashboards_common_labels_fusenavhorizontallayout1 =
+      'dashboards.common.labels.fusenavhorizontallayout1';
+  static const String dashboards_common_labels_fusenavhorizontallink =
+      'dashboards.common.labels.fusenavhorizontallink';
+  static const String dashboards_common_labels_fusenavigation =
+      'dashboards.common.labels.fusenavigation';
+  static const String dashboards_common_labels_fusenavitem =
+      'dashboards.common.labels.fusenavitem';
+  static const String dashboards_common_labels_fusenavverticalcollapse =
+      'dashboards.common.labels.fusenavverticalcollapse';
+  static const String dashboards_common_labels_fusenavverticalgroup =
+      'dashboards.common.labels.fusenavverticalgroup';
+  static const String dashboards_common_labels_fusenavverticalitem =
+      'dashboards.common.labels.fusenavverticalitem';
+  static const String dashboards_common_labels_fusenavverticalitembase =
+      'dashboards.common.labels.fusenavverticalitembase';
+  static const String dashboards_common_labels_fusenavverticallayout1 =
+      'dashboards.common.labels.fusenavverticallayout1';
+  static const String dashboards_common_labels_fusenavverticallayout2 =
+      'dashboards.common.labels.fusenavverticallayout2';
+  static const String dashboards_common_labels_fusenavverticallink =
+      'dashboards.common.labels.fusenavverticallink';
+  static const String dashboards_common_labels_fusenavverticaltab =
+      'dashboards.common.labels.fusenavverticaltab';
+  static const String dashboards_common_labels_fusepagecarded =
+      'dashboards.common.labels.fusepagecarded';
+  static const String dashboards_common_labels_fusepagecardedheader =
+      'dashboards.common.labels.fusepagecardedheader';
+  static const String dashboards_common_labels_fusepagecardedsidebar =
+      'dashboards.common.labels.fusepagecardedsidebar';
+  static const String dashboards_common_labels_fusepagecardedsidebarcontent =
+      'dashboards.common.labels.fusepagecardedsidebarcontent';
+  static const String dashboards_common_labels_fusepagesimple =
+      'dashboards.common.labels.fusepagesimple';
+  static const String dashboards_common_labels_fusepagesimpleheader =
+      'dashboards.common.labels.fusepagesimpleheader';
+  static const String dashboards_common_labels_fusepagesimplesidebar =
+      'dashboards.common.labels.fusepagesimplesidebar';
+  static const String dashboards_common_labels_fusepagesimplesidebarcontent =
+      'dashboards.common.labels.fusepagesimplesidebarcontent';
+  static const String dashboards_common_labels_fusescrollbars =
+      'dashboards.common.labels.fusescrollbars';
+  static const String dashboards_common_labels_fusesearch =
+      'dashboards.common.labels.fusesearch';
+  static const String dashboards_common_labels_fusesettings =
+      'dashboards.common.labels.fusesettings';
+  static const String dashboards_common_labels_fusesettingscontext =
+      'dashboards.common.labels.fusesettingscontext';
+  static const String dashboards_common_labels_fusesettingsviewerdialog =
+      'dashboards.common.labels.fusesettingsviewerdialog';
+  static const String dashboards_common_labels_fuseshortcuts =
+      'dashboards.common.labels.fuseshortcuts';
+  static const String dashboards_common_labels_fusesidepanel =
+      'dashboards.common.labels.fusesidepanel';
+  static const String dashboards_common_labels_fusesuspense =
+      'dashboards.common.labels.fusesuspense';
+  static const String dashboards_common_labels_fusesvgicon =
+      'dashboards.common.labels.fusesvgicon';
+  static const String dashboards_common_labels_fusetheme =
+      'dashboards.common.labels.fusetheme';
+  static const String dashboards_common_labels_fusethemehooks =
+      'dashboards.common.labels.fusethemehooks';
+  static const String dashboards_common_labels_fusethemeselector =
+      'dashboards.common.labels.fusethemeselector';
+  static const String
+  dashboards_common_labels_generate_specialized_non_standard_billing =
+      'dashboards.common.labels.generate_specialized_non_standard_billing';
+  static const String dashboards_common_labels_global_audit =
+      'dashboards.common.labels.global_audit';
+  static const String dashboards_common_labels_global_education_audit =
+      'dashboards.common.labels.global_education_audit';
+  static const String dashboards_common_labels_gotodocbox =
+      'dashboards.common.labels.gotodocbox';
+  static const String
+  dashboards_common_labels_governance__recruitment_velocity___talent_intelligence =
+      'dashboards.common.labels.governance__recruitment_velocity___talent_intelligence';
+  static const String dashboards_common_labels_greetingheaderwidget =
+      'dashboards.common.labels.greetingheaderwidget';
+  static const String dashboards_common_labels_growth_audit =
+      'dashboards.common.labels.growth_audit';
+  static const String dashboards_common_labels_growth_report =
+      'dashboards.common.labels.growth_report';
+  static const String dashboards_common_labels_headingbutton =
+      'dashboards.common.labels.headingbutton';
+  static const String dashboards_common_labels_headingdropdownmenu =
+      'dashboards.common.labels.headingdropdownmenu';
+  static const String dashboards_common_labels_headingfiveicon =
+      'dashboards.common.labels.headingfiveicon';
+  static const String dashboards_common_labels_headingfouricon =
+      'dashboards.common.labels.headingfouricon';
+  static const String dashboards_common_labels_headingicon =
+      'dashboards.common.labels.headingicon';
+  static const String dashboards_common_labels_headingoneicon =
+      'dashboards.common.labels.headingoneicon';
+  static const String dashboards_common_labels_headingsixicon =
+      'dashboards.common.labels.headingsixicon';
+  static const String dashboards_common_labels_headingthreeicon =
+      'dashboards.common.labels.headingthreeicon';
+  static const String dashboards_common_labels_headingtwoicon =
+      'dashboards.common.labels.headingtwoicon';
+  static const String
+  dashboards_common_labels_high_fidelity_component_not_found____hf_viewid =
+      'dashboards.common.labels.high_fidelity_component_not_found____hf_viewid';
+  static const String dashboards_common_labels_high_pressure_alert =
+      'dashboards.common.labels.high_pressure_alert';
+  static const String dashboards_common_labels_highlightericon =
+      'dashboards.common.labels.highlightericon';
+  static const String dashboards_common_labels_highlightpopover =
+      'dashboards.common.labels.highlightpopover';
+  static const String dashboards_common_labels_hiring_gap__toronto_north =
+      'dashboards.common.labels.hiring_gap__toronto_north';
+  static const String dashboards_common_labels_hr_compliance_documentation =
+      'dashboards.common.labels.hr_compliance_documentation';
+  static const String dashboards_common_labels_hr_director_dashboard =
+      'dashboards.common.labels.hr_director_dashboard';
+  static const String dashboards_common_labels_human_capital_command =
+      'dashboards.common.labels.human_capital_command';
+  static const String dashboards_common_labels_human_capital_velocity =
+      'dashboards.common.labels.human_capital_velocity';
+  static const String dashboards_common_labels_imageplusicon =
+      'dashboards.common.labels.imageplusicon';
+  static const String dashboards_common_labels_imageuploadbutton =
+      'dashboards.common.labels.imageuploadbutton';
+  static const String dashboards_common_labels_imageuploadnode =
+      'dashboards.common.labels.imageuploadnode';
+  static const String dashboards_common_labels_impact_report =
+      'dashboards.common.labels.impact_report';
+  static const String dashboards_common_labels_incident_log =
+      'dashboards.common.labels.incident_log';
+  static const String dashboards_common_labels_incident_logs =
+      'dashboards.common.labels.incident_logs';
+  static const String dashboards_common_labels_incident_report =
+      'dashboards.common.labels.incident_report';
+  static const String dashboards_common_labels_indexform =
+      'dashboards.common.labels.indexform';
+  static const String
+  dashboards_common_labels_infrastructure_health_and_api_performance_monitoring =
+      'dashboards.common.labels.infrastructure_health_and_api_performance_monitoring';
+  static const String dashboards_common_labels_initializefirebase =
+      'dashboards.common.labels.initializefirebase';
+  static const String dashboards_common_labels_institutional_audit_report =
+      'dashboards.common.labels.institutional_audit_report';
+  static const String dashboards_common_labels_institutional_compliance_export =
+      'dashboards.common.labels.institutional_compliance_export';
+  static const String
+  dashboards_common_labels_institutional_integrity_and_architectural_compliance_audit =
+      'dashboards.common.labels.institutional_integrity_and_architectural_compliance_audit';
+  static const String dashboards_common_labels_institutional_route_recovery =
+      'dashboards.common.labels.institutional_route_recovery';
+  static const String dashboards_common_labels_intake_reports =
+      'dashboards.common.labels.intake_reports';
+  static const String dashboards_common_labels_internal_server_error =
+      'dashboards.common.labels.internal_server_error';
+  static const String dashboards_common_labels_intervention_impact_analysis =
+      'dashboards.common.labels.intervention_impact_analysis';
+  static const String dashboards_common_labels_intervention_stability_vector =
+      'dashboards.common.labels.intervention_stability_vector';
+  static const String dashboards_common_labels_inventory_audit =
+      'dashboards.common.labels.inventory_audit';
+  static const String dashboards_common_labels_investigate_potential_risks =
+      'dashboards.common.labels.investigate_potential_risks';
+  static const String dashboards_common_labels_invoice_velocity_trend =
+      'dashboards.common.labels.invoice_velocity_trend';
+  static const String dashboards_common_labels_it_security_hud =
+      'dashboards.common.labels.it_security_hud';
+  static const String dashboards_common_labels_italicicon =
+      'dashboards.common.labels.italicicon';
+  static const String dashboards_common_labels_j__doe =
+      'dashboards.common.labels.j__doe';
+  static const String dashboards_common_labels_jane_doe__psw =
+      'dashboards.common.labels.jane_doe__psw';
+  static const String dashboards_common_labels_john_smith__rn =
+      'dashboards.common.labels.john_smith__rn';
+  static const String dashboards_common_labels_jwsignuptab =
+      'dashboards.common.labels.jwsignuptab';
+  static const String dashboards_common_labels_jwtauthcontext =
+      'dashboards.common.labels.jwtauthcontext';
+  static const String dashboards_common_labels_jwtsigninform =
+      'dashboards.common.labels.jwtsigninform';
+  static const String dashboards_common_labels_jwtsignintab =
+      'dashboards.common.labels.jwtsignintab';
+  static const String dashboards_common_labels_jwtsignupform =
+      'dashboards.common.labels.jwtsignupform';
+  static const String dashboards_common_labels_languageswitcher =
+      'dashboards.common.labels.languageswitcher';
+  static const String dashboards_common_labels_launch_territory =
+      'dashboards.common.labels.launch_territory';
+  static const String dashboards_common_labels_layout1 =
+      'dashboards.common.labels.layout1';
+  static const String dashboards_common_labels_layout2 =
+      'dashboards.common.labels.layout2';
+  static const String dashboards_common_labels_layout3 =
+      'dashboards.common.labels.layout3';
+  static const String dashboards_common_labels_lead_conversion_review =
+      'dashboards.common.labels.lead_conversion_review';
+  static const String dashboards_common_labels_lead_gen =
+      'dashboards.common.labels.lead_gen';
+  static const String dashboards_common_labels_leave_request =
+      'dashboards.common.labels.leave_request';
+  static const String dashboards_common_labels_leaverequestform =
+      'dashboards.common.labels.leaverequestform';
+  static const String dashboards_common_labels_leftsidelayout1 =
+      'dashboards.common.labels.leftsidelayout1';
+  static const String dashboards_common_labels_leftsidelayout2 =
+      'dashboards.common.labels.leftsidelayout2';
+  static const String dashboards_common_labels_leftsidelayout3 =
+      'dashboards.common.labels.leftsidelayout3';
+  static const String dashboards_common_labels_legal_review =
+      'dashboards.common.labels.legal_review';
+  static const String dashboards_common_labels_lightdarkmodetoggle =
+      'dashboards.common.labels.lightdarkmodetoggle';
+  static const String dashboards_common_labels_line_chart_component_not_found =
+      'dashboards.common.labels.line_chart_component_not_found';
+  static const String dashboards_common_labels_link =
+      'dashboards.common.labels.link';
+  static const String dashboards_common_labels_linkicon =
+      'dashboards.common.labels.linkicon';
+  static const String dashboards_common_labels_linkpopover =
+      'dashboards.common.labels.linkpopover';
+  static const String dashboards_common_labels_listbutton =
+      'dashboards.common.labels.listbutton';
+  static const String dashboards_common_labels_listdropdownmenu =
+      'dashboards.common.labels.listdropdownmenu';
+  static const String dashboards_common_labels_listicon =
+      'dashboards.common.labels.listicon';
+  static const String dashboards_common_labels_listorderedicon =
+      'dashboards.common.labels.listorderedicon';
+  static const String dashboards_common_labels_listtodoicon =
+      'dashboards.common.labels.listtodoicon';
+  static const String
+  dashboards_common_labels_load_distribution_graph_placeholder =
+      'dashboards.common.labels.load_distribution_graph_placeholder';
+  static const String dashboards_common_labels_log_clinical_incident =
+      'dashboards.common.labels.log_clinical_incident';
+  static const String dashboards_common_labels_log_employee_grievance =
+      'dashboards.common.labels.log_employee_grievance';
+  static const String dashboards_common_labels_log_finding =
+      'dashboards.common.labels.log_finding';
+  static const String dashboards_common_labels_log_incident =
+      'dashboards.common.labels.log_incident';
+  static const String dashboards_common_labels_log_infection_control =
+      'dashboards.common.labels.log_infection_control';
+  static const String dashboards_common_labels_log_inventory_spoilage =
+      'dashboards.common.labels.log_inventory_spoilage';
+  static const String dashboards_common_labels_log_lead =
+      'dashboards.common.labels.log_lead';
+  static const String dashboards_common_labels_log_patient_daily_vitals =
+      'dashboards.common.labels.log_patient_daily_vitals';
+  static const String dashboards_common_labels_log_petty_cash =
+      'dashboards.common.labels.log_petty_cash';
+  static const String dashboards_common_labels_log_ticket =
+      'dashboards.common.labels.log_ticket';
+  static const String dashboards_common_labels_log_vetting_call =
+      'dashboards.common.labels.log_vetting_call';
+  static const String dashboards_common_labels_log_visit =
+      'dashboards.common.labels.log_visit';
+  static const String dashboards_common_labels_logclinicalincidentform =
+      'dashboards.common.labels.logclinicalincidentform';
+  static const String dashboards_common_labels_logemployeegrievanceform =
+      'dashboards.common.labels.logemployeegrievanceform';
+  static const String dashboards_common_labels_logfranchiseevettingcallform =
+      'dashboards.common.labels.logfranchiseevettingcallform';
+  static const String dashboards_common_labels_loginfectioncontrolform =
+      'dashboards.common.labels.loginfectioncontrolform';
+  static const String dashboards_common_labels_loginventoryspoilageform =
+      'dashboards.common.labels.loginventoryspoilageform';
+  static const String
+  dashboards_common_labels_logistics_and_operational_execution_overview =
+      'dashboards.common.labels.logistics_and_operational_execution_overview';
+  static const String dashboards_common_labels_logistics_manager =
+      'dashboards.common.labels.logistics_manager';
+  static const String dashboards_common_labels_logo =
+      'dashboards.common.labels.logo';
+  static const String dashboards_common_labels_logpettycashform =
+      'dashboards.common.labels.logpettycashform';
+  static const String dashboards_common_labels_mainprojectselection =
+      'dashboards.common.labels.mainprojectselection';
+  static const String
+  dashboards_common_labels_maintain_institutional_risk_matrix =
+      'dashboards.common.labels.maintain_institutional_risk_matrix';
+  static const String dashboards_common_labels_manage_fleet =
+      'dashboards.common.labels.manage_fleet';
+  static const String
+  dashboards_common_labels_manage_granular_access_control_for_system_roles_and_screens =
+      'dashboards.common.labels.manage_granular_access_control_for_system_roles_and_screens';
+  static const String dashboards_common_labels_manage_staff =
+      'dashboards.common.labels.manage_staff';
+  static const String dashboards_common_labels_manager_approval_for_time_off =
+      'dashboards.common.labels.manager_approval_for_time_off';
+  static const String dashboards_common_labels_margin_compression__london =
+      'dashboards.common.labels.margin_compression__london';
+  static const String dashboards_common_labels_margin_efficiency =
+      'dashboards.common.labels.margin_efficiency';
+  static const String dashboards_common_labels_markbutton =
+      'dashboards.common.labels.markbutton';
+  static const String dashboards_common_labels_market_analysis =
+      'dashboards.common.labels.market_analysis';
+  static const String dashboards_common_labels_masterappshell =
+      'dashboards.common.labels.masterappshell';
+  static const String dashboards_common_labels_masterdetaillayout =
+      'dashboards.common.labels.masterdetaillayout';
+  static const String dashboards_common_labels_masterlayout =
+      'dashboards.common.labels.masterlayout';
+  static const String dashboards_common_labels_medication_delivery =
+      'dashboards.common.labels.medication_delivery';
+  static const String
+  dashboards_common_labels_medicationadministration_details =
+      'dashboards.common.labels.medicationadministration_details';
+  static const String dashboards_common_labels_message_nurse =
+      'dashboards.common.labels.message_nurse';
+  static const String dashboards_common_labels_mockapi =
+      'dashboards.common.labels.mockapi';
+  static const String dashboards_common_labels_modify_or_review_the_care_plan =
+      'dashboards.common.labels.modify_or_review_the_care_plan';
+  static const String dashboards_common_labels_moodsliderwidget =
+      'dashboards.common.labels.moodsliderwidget';
+  static const String dashboards_common_labels_moonstaricon =
+      'dashboards.common.labels.moonstaricon';
+  static const String dashboards_common_labels_move_failed___e =
+      'dashboards.common.labels.move_failed___e';
+  static const String dashboards_common_labels_name_and_dob =
+      'dashboards.common.labels.name_and_dob';
+  static const String dashboards_common_labels_navbarlayout2 =
+      'dashboards.common.labels.navbarlayout2';
+  static const String dashboards_common_labels_navbarlayout3 =
+      'dashboards.common.labels.navbarlayout3';
+  static const String dashboards_common_labels_navbarmobilelayout2 =
+      'dashboards.common.labels.navbarmobilelayout2';
+  static const String dashboards_common_labels_navbarmobilelayout3 =
+      'dashboards.common.labels.navbarmobilelayout3';
+  static const String dashboards_common_labels_navbarpintogglebutton =
+      'dashboards.common.labels.navbarpintogglebutton';
+  static const String dashboards_common_labels_navbarstyle1 =
+      'dashboards.common.labels.navbarstyle1';
+  static const String dashboards_common_labels_navbarstyle1content =
+      'dashboards.common.labels.navbarstyle1content';
+  static const String dashboards_common_labels_navbarstyle2 =
+      'dashboards.common.labels.navbarstyle2';
+  static const String dashboards_common_labels_navbarstyle2content =
+      'dashboards.common.labels.navbarstyle2content';
+  static const String dashboards_common_labels_navbartheme =
+      'dashboards.common.labels.navbartheme';
+  static const String dashboards_common_labels_navbartogglebutton =
+      'dashboards.common.labels.navbartogglebutton';
+  static const String dashboards_common_labels_navbartogglefab =
+      'dashboards.common.labels.navbartogglefab';
+  static const String dashboards_common_labels_navbartogglefablayout1 =
+      'dashboards.common.labels.navbartogglefablayout1';
+  static const String dashboards_common_labels_navbartogglefablayout2 =
+      'dashboards.common.labels.navbartogglefablayout2';
+  static const String dashboards_common_labels_navbarwrapperlayout1 =
+      'dashboards.common.labels.navbarwrapperlayout1';
+  static const String dashboards_common_labels_navbarwrapperlayout2 =
+      'dashboards.common.labels.navbarwrapperlayout2';
+  static const String dashboards_common_labels_navbarwrapperlayout3 =
+      'dashboards.common.labels.navbarwrapperlayout3';
+  static const String dashboards_common_labels_navigation =
+      'dashboards.common.labels.navigation';
+  static const String dashboards_common_labels_navigationsearch =
+      'dashboards.common.labels.navigationsearch';
+  static const String dashboards_common_labels_navigationshortcuts =
+      'dashboards.common.labels.navigationshortcuts';
+  static const String dashboards_common_labels_new_appointment =
+      'dashboards.common.labels.new_appointment';
+  static const String dashboards_common_labels_new_audit =
+      'dashboards.common.labels.new_audit';
+  static const String dashboards_common_labels_new_campaign =
+      'dashboards.common.labels.new_campaign';
+  static const String dashboards_common_labels_new_candidate =
+      'dashboards.common.labels.new_candidate';
+  static const String dashboards_common_labels_new_employee_onboarding =
+      'dashboards.common.labels.new_employee_onboarding';
+  static const String dashboards_common_labels_new_intake =
+      'dashboards.common.labels.new_intake';
+  static const String dashboards_common_labels_new_partner =
+      'dashboards.common.labels.new_partner';
+  static const String dashboards_common_labels_newemployeeonboardingform =
+      'dashboards.common.labels.newemployeeonboardingform';
+  static const String
+  dashboards_common_labels_no_anomalies_detected_in_the_local_cache_nodes =
+      'dashboards.common.labels.no_anomalies_detected_in_the_local_cache_nodes';
+  static const String dashboards_common_labels_no_audit_logs_found =
+      'dashboards.common.labels.no_audit_logs_found';
+  static const String dashboards_common_labels_no_recent_activity =
+      'dashboards.common.labels.no_recent_activity';
+  static const String dashboards_common_labels_no_resource =
+      'dashboards.common.labels.no_resource';
+  static const String dashboards_common_labels_nodebutton =
+      'dashboards.common.labels.nodebutton';
+  static const String dashboards_common_labels_numberformcontroller =
+      'dashboards.common.labels.numberformcontroller';
+  static const String dashboards_common_labels_nurture_localized_lead =
+      'dashboards.common.labels.nurture_localized_lead';
+  static const String dashboards_common_labels_nurturelocalizedleadform =
+      'dashboards.common.labels.nurturelocalizedleadform';
+  static const String dashboards_common_labels_office___department =
+      'dashboards.common.labels.office___department';
+  static const String dashboards_common_labels_offline_cache =
+      'dashboards.common.labels.offline_cache';
+  static const String dashboards_common_labels_offline_fallback =
+      'dashboards.common.labels.offline_fallback';
+  static const String
+  dashboards_common_labels_onboard_a_new_staff_member_and_assign_their_role =
+      'dashboards.common.labels.onboard_a_new_staff_member_and_assign_their_role';
+  static const String dashboards_common_labels_operational_insights =
+      'dashboards.common.labels.operational_insights';
+  static const String
+  dashboards_common_labels_operational_sector__authpagesmessagesection =
+      'dashboards.common.labels.operational_sector__authpagesmessagesection';
+  static const String
+  dashboards_common_labels_operational_sector__error401pageview =
+      'dashboards.common.labels.operational_sector__error401pageview';
+  static const String
+  dashboards_common_labels_operational_sector__error404pageview =
+      'dashboards.common.labels.operational_sector__error404pageview';
+  static const String
+  dashboards_common_labels_operational_sector__full_screen_toggle =
+      'dashboards.common.labels.operational_sector__full_screen_toggle';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_carded =
+      'dashboards.common.labels.operational_sector__fuse_page_carded';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_carded_header =
+      'dashboards.common.labels.operational_sector__fuse_page_carded_header';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_carded_sidebar =
+      'dashboards.common.labels.operational_sector__fuse_page_carded_sidebar';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_carded_sidebar_content =
+      'dashboards.common.labels.operational_sector__fuse_page_carded_sidebar_content';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_simple =
+      'dashboards.common.labels.operational_sector__fuse_page_simple';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_simple_header =
+      'dashboards.common.labels.operational_sector__fuse_page_simple_header';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_simple_sidebar =
+      'dashboards.common.labels.operational_sector__fuse_page_simple_sidebar';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_page_simple_sidebar_content =
+      'dashboards.common.labels.operational_sector__fuse_page_simple_sidebar_content';
+  static const String
+  dashboards_common_labels_operational_sector__fuse_splash_screen =
+      'dashboards.common.labels.operational_sector__fuse_splash_screen';
+  static const String
+  dashboards_common_labels_operational_sector__sign_in_page_title =
+      'dashboards.common.labels.operational_sector__sign_in_page_title';
+  static const String
+  dashboards_common_labels_operational_sector__sign_in_page_view =
+      'dashboards.common.labels.operational_sector__sign_in_page_view';
+  static const String
+  dashboards_common_labels_operational_sector__sign_out_page_title =
+      'dashboards.common.labels.operational_sector__sign_out_page_title';
+  static const String
+  dashboards_common_labels_operational_sector__sign_out_page_view =
+      'dashboards.common.labels.operational_sector__sign_out_page_view';
+  static const String
+  dashboards_common_labels_operational_sector__sign_up_page_title =
+      'dashboards.common.labels.operational_sector__sign_up_page_title';
+  static const String
+  dashboards_common_labels_operational_sector__sign_up_page_view =
+      'dashboards.common.labels.operational_sector__sign_up_page_view';
+  static const String dashboards_common_labels_order_bulk_operational_supplies =
+      'dashboards.common.labels.order_bulk_operational_supplies';
+  static const String
+  dashboards_common_labels_override_global_audit_configurations_for_specific_compliance_needs =
+      'dashboards.common.labels.override_global_audit_configurations_for_specific_compliance_needs';
+  static const String dashboards_common_labels_override_global_schedule =
+      'dashboards.common.labels.override_global_schedule';
+  static const String dashboards_common_labels_overrideglobalscheduleform =
+      'dashboards.common.labels.overrideglobalscheduleform';
+  static const String dashboards_common_labels_pagebreadcrumb =
+      'dashboards.common.labels.pagebreadcrumb';
+  static const String dashboards_common_labels_pagetitle =
+      'dashboards.common.labels.pagetitle';
+  static const String dashboards_common_labels_palettepreview =
+      'dashboards.common.labels.palettepreview';
+  static const String dashboards_common_labels_paletteselector =
+      'dashboards.common.labels.paletteselector';
+  static const String dashboards_common_labels_password_successfully_reset =
+      'dashboards.common.labels.password_successfully_reset';
+  static const String dashboards_common_labels_patient_intake =
+      'dashboards.common.labels.patient_intake';
+  static const String dashboards_common_labels_patient_intake_completed =
+      'dashboards.common.labels.patient_intake_completed';
+  static const String dashboards_common_labels_patient_outcome_trends =
+      'dashboards.common.labels.patient_outcome_trends';
+  static const String dashboards_common_labels_patientintakeform =
+      'dashboards.common.labels.patientintakeform';
+  static const String dashboards_common_labels_pdf =
+      'dashboards.common.labels.pdf';
+  static const String dashboards_common_labels_pending_fulfillment_requests =
+      'dashboards.common.labels.pending_fulfillment_requests';
+  static const String
+  dashboards_common_labels_perform_a_comprehensive_clinical_intake_for_new_patients =
+      'dashboards.common.labels.perform_a_comprehensive_clinical_intake_for_new_patients';
+  static const String
+  dashboards_common_labels_permissions_updated_successfully =
+      'dashboards.common.labels.permissions_updated_successfully';
+  static const String
+  dashboards_common_labels_petty_cash_expenditure_successfully_logged =
+      'dashboards.common.labels.petty_cash_expenditure_successfully_logged';
+  static const String dashboards_common_labels_physical_therapy =
+      'dashboards.common.labels.physical_therapy';
+  static const String
+  dashboards_common_labels_physician_approval_for_prescription_refill =
+      'dashboards.common.labels.physician_approval_for_prescription_refill';
+  static const String dashboards_common_labels_pipeline_conversion_velocity =
+      'dashboards.common.labels.pipeline_conversion_velocity';
+  static const String dashboards_common_labels_pipeline_report =
+      'dashboards.common.labels.pipeline_report';
+  static const String dashboards_common_labels_platform_roi___savings =
+      'dashboards.common.labels.platform_roi___savings';
+  static const String
+  dashboards_common_labels_please_complete_all_steps_to_register_the_patient =
+      'dashboards.common.labels.please_complete_all_steps_to_register_the_patient';
+  static const String dashboards_common_labels_please_select_a_patient_first =
+      'dashboards.common.labels.please_select_a_patient_first';
+  static const String dashboards_common_labels_popover =
+      'dashboards.common.labels.popover';
+  static const String
+  dashboards_common_labels_portal_for_self_service_shift_changes =
+      'dashboards.common.labels.portal_for_self_service_shift_changes';
+  static const String dashboards_common_labels_post_job =
+      'dashboards.common.labels.post_job';
+  static const String dashboards_common_labels_poweredbylinks =
+      'dashboards.common.labels.poweredbylinks';
+  static const String dashboards_common_labels_primecareresponsiveshell =
+      'dashboards.common.labels.primecareresponsiveshell';
+  static const String dashboards_common_labels_priority__high___gap__2_hours =
+      'dashboards.common.labels.priority__high___gap__2_hours';
+  static const String dashboards_common_labels_prn =
+      'dashboards.common.labels.prn';
+  static const String dashboards_common_labels_projected_patients =
+      'dashboards.common.labels.projected_patients';
+  static const String dashboards_common_labels_projected_q3_revenue =
+      'dashboards.common.labels.projected_q3_revenue';
+  static const String
+  dashboards_common_labels_propose_new_regional_ad_spending_limit =
+      'dashboards.common.labels.propose_new_regional_ad_spending_limit';
+  static const String dashboards_common_labels_protocol_config =
+      'dashboards.common.labels.protocol_config';
+  static const String dashboards_common_labels_providerlayout =
+      'dashboards.common.labels.providerlayout';
+  static const String dashboards_common_labels_provision_new_staff =
+      'dashboards.common.labels.provision_new_staff';
+  static const String dashboards_common_labels_provisioning =
+      'dashboards.common.labels.provisioning';
+  static const String dashboards_common_labels_psw_hub_manager =
+      'dashboards.common.labels.psw_hub_manager';
+  static const String dashboards_common_labels_publish =
+      'dashboards.common.labels.publish';
+  static const String dashboards_common_labels_purchasebutton =
+      'dashboards.common.labels.purchasebutton';
+  static const String dashboards_common_labels_quality_report =
+      'dashboards.common.labels.quality_report';
+  static const String dashboards_common_labels_quality_review =
+      'dashboards.common.labels.quality_review';
+  static const String dashboards_common_labels_quick_review =
+      'dashboards.common.labels.quick_review';
+  static const String dashboards_common_labels_quickpanel =
+      'dashboards.common.labels.quickpanel';
+  static const String dashboards_common_labels_quickpaneltogglebutton =
+      'dashboards.common.labels.quickpaneltogglebutton';
+  static const String dashboards_common_labels_radioformcontroller =
+      'dashboards.common.labels.radioformcontroller';
+  static const String
+  dashboards_common_labels_real_time_feed_of_patient_interactions_and_linkage_events =
+      'dashboards.common.labels.real_time_feed_of_patient_interactions_and_linkage_events';
+  static const String
+  dashboards_common_labels_real_time_staffing_density_across_service_regions =
+      'dashboards.common.labels.real_time_staffing_density_across_service_regions';
+  static const String dashboards_common_labels_real_time_ticket_velocity =
+      'dashboards.common.labels.real_time_ticket_velocity';
+  static const String dashboards_common_labels_reason_for_visit =
+      'dashboards.common.labels.reason_for_visit';
+  static const String dashboards_common_labels_reconcile =
+      'dashboards.common.labels.reconcile';
+  static const String
+  dashboards_common_labels_record_a_disciplinary_action_or_warning =
+      'dashboards.common.labels.record_a_disciplinary_action_or_warning';
+  static const String
+  dashboards_common_labels_record_a_formal_hr_grievance_complaint =
+      'dashboards.common.labels.record_a_formal_hr_grievance_complaint';
+  static const String
+  dashboards_common_labels_record_and_categorize_localized_petty_cash_expenditure =
+      'dashboards.common.labels.record_and_categorize_localized_petty_cash_expenditure';
+  static const String dashboards_common_labels_record_exit_interview_results =
+      'dashboards.common.labels.record_exit_interview_results';
+  static const String
+  dashboards_common_labels_record_notes_from_initial_lead_vetting =
+      'dashboards.common.labels.record_notes_from_initial_lead_vetting';
+  static const String dashboards_common_labels_record_the_patient =
+      'dashboards.common.labels.record_the_patient';
+  static const String dashboards_common_labels_redo2icon =
+      'dashboards.common.labels.redo2icon';
+  static const String dashboards_common_labels_referral_conversion_velocity =
+      'dashboards.common.labels.referral_conversion_velocity';
+  static const String dashboards_common_labels_referral_log =
+      'dashboards.common.labels.referral_log';
+  static const String dashboards_common_labels_referral_velocity_trend =
+      'dashboards.common.labels.referral_velocity_trend';
+  static const String dashboards_common_labels_referrals =
+      'dashboards.common.labels.referrals';
+  static const String dashboards_common_labels_regional_audit =
+      'dashboards.common.labels.regional_audit';
+  static const String dashboards_common_labels_regional_dashboard =
+      'dashboards.common.labels.regional_dashboard';
+  static const String dashboards_common_labels_regional_ohip_velocity =
+      'dashboards.common.labels.regional_ohip_velocity';
+  static const String
+  dashboards_common_labels_regional_p_l_overperformance_trend =
+      'dashboards.common.labels.regional_p_l_overperformance_trend';
+  static const String dashboards_common_labels_regional_performance_overview =
+      'dashboards.common.labels.regional_performance_overview';
+  static const String
+  dashboards_common_labels_register_a_new_potential_franchise_lead =
+      'dashboards.common.labels.register_a_new_potential_franchise_lead';
+  static const String dashboards_common_labels_register_corporate_risk =
+      'dashboards.common.labels.register_corporate_risk';
+  static const String dashboards_common_labels_registercorporateriskform =
+      'dashboards.common.labels.registercorporateriskform';
+  static const String
+  dashboards_common_labels_registration_failed__please_check_network =
+      'dashboards.common.labels.registration_failed__please_check_network';
+  static const String
+  dashboards_common_labels_regulatory_and_standard_compliance_status =
+      'dashboards.common.labels.regulatory_and_standard_compliance_status';
+  static const String dashboards_common_labels_regulatory_audit =
+      'dashboards.common.labels.regulatory_audit';
+  static const String
+  dashboards_common_labels_regulatory_compliance_and_audit_overview =
+      'dashboards.common.labels.regulatory_compliance_and_audit_overview';
+  static const String dashboards_common_labels_regulatory_compliance_trend =
+      'dashboards.common.labels.regulatory_compliance_trend';
+  static const String
+  dashboards_common_labels_report_a_new_incident__fall__error =
+      'dashboards.common.labels.report_a_new_incident__fall__error';
+  static const String
+  dashboards_common_labels_report_damaged_or_expired_supplies =
+      'dashboards.common.labels.report_damaged_or_expired_supplies';
+  static const String dashboards_common_labels_report_format =
+      'dashboards.common.labels.report_format';
+  static const String
+  dashboards_common_labels_report_localized_infection_outbreak =
+      'dashboards.common.labels.report_localized_infection_outbreak';
+  static const String dashboards_common_labels_report_submitted_successfully =
+      'dashboards.common.labels.report_submitted_successfully';
+  static const String dashboards_common_labels_reports =
+      'dashboards.common.labels.reports';
+  static const String dashboards_common_labels_request_meds =
+      'dashboards.common.labels.request_meds';
+  static const String dashboards_common_labels_request_shift_adjustment =
+      'dashboards.common.labels.request_shift_adjustment';
+  static const String dashboards_common_labels_requestshiftadjustmentform =
+      'dashboards.common.labels.requestshiftadjustmentform';
+  static const String dashboards_common_labels_reset_password =
+      'dashboards.common.labels.reset_password';
+  static const String dashboards_common_labels_resource_optimization =
+      'dashboards.common.labels.resource_optimization';
+  static const String dashboards_common_labels_restore_all_healthy =
+      'dashboards.common.labels.restore_all_healthy';
+  static const String dashboards_common_labels_retry_hydration =
+      'dashboards.common.labels.retry_hydration';
+  static const String dashboards_common_labels_retry_synchronization =
+      'dashboards.common.labels.retry_synchronization';
+  static const String dashboards_common_labels_return_to_safety =
+      'dashboards.common.labels.return_to_safety';
+  static const String dashboards_common_labels_revenue_forecasting =
+      'dashboards.common.labels.revenue_forecasting';
+  static const String dashboards_common_labels_revenue_velocity___30_day_view =
+      'dashboards.common.labels.revenue_velocity___30_day_view';
+  static const String
+  dashboards_common_labels_review_aggregated_royalty_discrepancies =
+      'dashboards.common.labels.review_aggregated_royalty_discrepancies';
+  static const String
+  dashboards_common_labels_review_and_resolve_reported_clinical_incidents =
+      'dashboards.common.labels.review_and_resolve_reported_clinical_incidents';
+  static const String
+  dashboards_common_labels_review_and_validate_sales_team_conversions =
+      'dashboards.common.labels.review_and_validate_sales_team_conversions';
+  static const String dashboards_common_labels_review_audits =
+      'dashboards.common.labels.review_audits';
+  static const String dashboards_common_labels_review_care_plan =
+      'dashboards.common.labels.review_care_plan';
+  static const String dashboards_common_labels_review_expenses =
+      'dashboards.common.labels.review_expenses';
+  static const String
+  dashboards_common_labels_review_flagged_time_sheet_anomalies =
+      'dashboards.common.labels.review_flagged_time_sheet_anomalies';
+  static const String dashboards_common_labels_review_fleet_maintenance =
+      'dashboards.common.labels.review_fleet_maintenance';
+  static const String dashboards_common_labels_review_franchise_p_l_statements =
+      'dashboards.common.labels.review_franchise_p_l_statements';
+  static const String
+  dashboards_common_labels_review_high_level_geographic_growth_metrics =
+      'dashboards.common.labels.review_high_level_geographic_growth_metrics';
+  static const String dashboards_common_labels_review_incident =
+      'dashboards.common.labels.review_incident';
+  static const String dashboards_common_labels_review_legal_contract =
+      'dashboards.common.labels.review_legal_contract';
+  static const String dashboards_common_labels_review_market_share =
+      'dashboards.common.labels.review_market_share';
+  static const String dashboards_common_labels_review_med_inventory =
+      'dashboards.common.labels.review_med_inventory';
+  static const String dashboards_common_labels_review_metrics =
+      'dashboards.common.labels.review_metrics';
+  static const String dashboards_common_labels_review_onboarding_status =
+      'dashboards.common.labels.review_onboarding_status';
+  static const String
+  dashboards_common_labels_review_partnership_contract_metrics =
+      'dashboards.common.labels.review_partnership_contract_metrics';
+  static const String dashboards_common_labels_review_peer_performance =
+      'dashboards.common.labels.review_peer_performance';
+  static const String dashboards_common_labels_review_perf =
+      'dashboards.common.labels.review_perf';
+  static const String dashboards_common_labels_review_policy =
+      'dashboards.common.labels.review_policy';
+  static const String dashboards_common_labels_review_queue =
+      'dashboards.common.labels.review_queue';
+  static const String
+  dashboards_common_labels_review_soc2_compliance_checklists =
+      'dashboards.common.labels.review_soc2_compliance_checklists';
+  static const String
+  dashboards_common_labels_review_status_of_pending_new_hires =
+      'dashboards.common.labels.review_status_of_pending_new_hires';
+  static const String dashboards_common_labels_review_vendor_contracts =
+      'dashboards.common.labels.review_vendor_contracts';
+  static const String dashboards_common_labels_reviewcareplanform =
+      'dashboards.common.labels.reviewcareplanform';
+  static const String dashboards_common_labels_reviewclinicalincidentform =
+      'dashboards.common.labels.reviewclinicalincidentform';
+  static const String dashboards_common_labels_reviewfleetmaintenanceform =
+      'dashboards.common.labels.reviewfleetmaintenanceform';
+  static const String dashboards_common_labels_reviewleadconversionform =
+      'dashboards.common.labels.reviewleadconversionform';
+  static const String dashboards_common_labels_reviewlegalcontractform =
+      'dashboards.common.labels.reviewlegalcontractform';
+  static const String dashboards_common_labels_reviewmarketshareform =
+      'dashboards.common.labels.reviewmarketshareform';
+  static const String dashboards_common_labels_reviewmedicationinventoryform =
+      'dashboards.common.labels.reviewmedicationinventoryform';
+  static const String dashboards_common_labels_reviewmonthlyexpensesform =
+      'dashboards.common.labels.reviewmonthlyexpensesform';
+  static const String dashboards_common_labels_reviewonboardingstatusform =
+      'dashboards.common.labels.reviewonboardingstatusform';
+  static const String dashboards_common_labels_reviewpeerperformanceform =
+      'dashboards.common.labels.reviewpeerperformanceform';
+  static const String dashboards_common_labels_reviewvendorcontractsform =
+      'dashboards.common.labels.reviewvendorcontractsform';
+  static const String dashboards_common_labels_rightsidelayout1 =
+      'dashboards.common.labels.rightsidelayout1';
+  static const String dashboards_common_labels_rightsidelayout2 =
+      'dashboards.common.labels.rightsidelayout2';
+  static const String dashboards_common_labels_rightsidelayout3 =
+      'dashboards.common.labels.rightsidelayout3';
+  static const String dashboards_common_labels_rn_shift___region___index___1 =
+      'dashboards.common.labels.rn_shift___region___index___1';
+  static const String dashboards_common_labels_role =
+      'dashboards.common.labels.role';
+  static const String dashboards_common_labels_role_permissions_matrix =
+      'dashboards.common.labels.role_permissions_matrix';
+  static const String dashboards_common_labels_rolepermissionsform =
+      'dashboards.common.labels.rolepermissionsform';
+  static const String dashboards_common_labels_root_cause =
+      'dashboards.common.labels.root_cause';
+  static const String dashboards_common_labels_route =
+      'dashboards.common.labels.route';
+  static const String dashboards_common_labels_routesconfig =
+      'dashboards.common.labels.routesconfig';
+  static const String dashboards_common_labels_run_payroll =
+      'dashboards.common.labels.run_payroll';
+  static const String dashboards_common_labels_safety_incident_velocity =
+      'dashboards.common.labels.safety_incident_velocity';
+  static const String dashboards_common_labels_schedule =
+      'dashboards.common.labels.schedule';
+  static const String
+  dashboards_common_labels_schedule_a_new_care_session_for_a_client =
+      'dashboards.common.labels.schedule_a_new_care_session_for_a_client';
+  static const String
+  dashboards_common_labels_schedule_candidate_screening_interview =
+      'dashboards.common.labels.schedule_candidate_screening_interview';
+  static const String dashboards_common_labels_schedule_clinical_audit =
+      'dashboards.common.labels.schedule_clinical_audit';
+  static const String dashboards_common_labels_schedule_event =
+      'dashboards.common.labels.schedule_event';
+  static const String
+  dashboards_common_labels_schedule_internal_external_compliance_audit =
+      'dashboards.common.labels.schedule_internal_external_compliance_audit';
+  static const String dashboards_common_labels_schedule_interview =
+      'dashboards.common.labels.schedule_interview';
+  static const String dashboards_common_labels_schedule_maintenance =
+      'dashboards.common.labels.schedule_maintenance';
+  static const String dashboards_common_labels_schedule_open_house =
+      'dashboards.common.labels.schedule_open_house';
+  static const String
+  dashboards_common_labels_schedule_regional_franchise_discovery_day =
+      'dashboards.common.labels.schedule_regional_franchise_discovery_day';
+  static const String
+  dashboards_common_labels_schedule_third_party_facility_repair =
+      'dashboards.common.labels.schedule_third_party_facility_repair';
+  static const String dashboards_common_labels_scheduleclinicalauditform =
+      'dashboards.common.labels.scheduleclinicalauditform';
+  static const String dashboards_common_labels_schedulefacilitymaintenanceform =
+      'dashboards.common.labels.schedulefacilitymaintenanceform';
+  static const String dashboards_common_labels_scheduleinterviewform =
+      'dashboards.common.labels.scheduleinterviewform';
+  static const String dashboards_common_labels_scheduleopenhouseform =
+      'dashboards.common.labels.scheduleopenhouseform';
+  static const String dashboards_common_labels_scheduler_error___e =
+      'dashboards.common.labels.scheduler_error___e';
+  static const String dashboards_common_labels_schemepreview =
+      'dashboards.common.labels.schemepreview';
+  static const String dashboards_common_labels_scout_location =
+      'dashboards.common.labels.scout_location';
+  static const String dashboards_common_labels_sectionpreview =
+      'dashboards.common.labels.sectionpreview';
+  static const String dashboards_common_labels_security_audit_trail =
+      'dashboards.common.labels.security_audit_trail';
+  static const String dashboards_common_labels_security_compliance_audit =
+      'dashboards.common.labels.security_compliance_audit';
+  static const String dashboards_common_labels_security_matrix__block_velocity =
+      'dashboards.common.labels.security_matrix__block_velocity';
+  static const String
+  dashboards_common_labels_select_a_role_to_modify_permissions =
+      'dashboards.common.labels.select_a_role_to_modify_permissions';
+  static const String dashboards_common_labels_select_report_type =
+      'dashboards.common.labels.select_report_type';
+  static const String
+  dashboards_common_labels_selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase =
+      'dashboards.common.labels.selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase';
+  static const String dashboards_common_labels_send_reset_link =
+      'dashboards.common.labels.send_reset_link';
+  static const String dashboards_common_labels_sentiment_velocity_trend =
+      'dashboards.common.labels.sentiment_velocity_trend';
+  static const String dashboards_common_labels_separator =
+      'dashboards.common.labels.separator';
+  static const String
+  dashboards_common_labels_session_audit_report_copied_to_clipboard =
+      'dashboards.common.labels.session_audit_report_copied_to_clipboard';
+  static const String dashboards_common_labels_settingspanel =
+      'dashboards.common.labels.settingspanel';
+  static const String dashboards_common_labels_shift_coverage_optimization =
+      'dashboards.common.labels.shift_coverage_optimization';
+  static const String dashboards_common_labels_shift_coverage_velocity =
+      'dashboards.common.labels.shift_coverage_velocity';
+  static const String dashboards_common_labels_shift_created_successfully =
+      'dashboards.common.labels.shift_created_successfully';
+  static const String dashboards_common_labels_sign_in_page_title =
+      'dashboards.common.labels.sign_in_page_title';
+  static const String dashboards_common_labels_sign_in_page_view =
+      'dashboards.common.labels.sign_in_page_view';
+  static const String dashboards_common_labels_sign_out_page_title =
+      'dashboards.common.labels.sign_out_page_title';
+  static const String dashboards_common_labels_sign_out_page_view =
+      'dashboards.common.labels.sign_out_page_view';
+  static const String dashboards_common_labels_sign_up_page_title =
+      'dashboards.common.labels.sign_up_page_title';
+  static const String dashboards_common_labels_sign_up_page_view =
+      'dashboards.common.labels.sign_up_page_view';
+  static const String dashboards_common_labels_signinpageform =
+      'dashboards.common.labels.signinpageform';
+  static const String dashboards_common_labels_signinpagetitle =
+      'dashboards.common.labels.signinpagetitle';
+  static const String dashboards_common_labels_signinpageview =
+      'dashboards.common.labels.signinpageview';
+  static const String dashboards_common_labels_signoutpagetitle =
+      'dashboards.common.labels.signoutpagetitle';
+  static const String dashboards_common_labels_signoutpageview =
+      'dashboards.common.labels.signoutpageview';
+  static const String dashboards_common_labels_signuppagetitle =
+      'dashboards.common.labels.signuppagetitle';
+  static const String dashboards_common_labels_signuppageview =
+      'dashboards.common.labels.signuppageview';
+  static const String dashboards_common_labels_simpleeditor =
+      'dashboards.common.labels.simpleeditor';
+  static const String dashboards_common_labels_singleinputform =
+      'dashboards.common.labels.singleinputform';
+  static const String dashboards_common_labels_site_audit =
+      'dashboards.common.labels.site_audit';
+  static const String dashboards_common_labels_site_visit =
+      'dashboards.common.labels.site_visit';
+  static const String dashboards_common_labels_sla_tracking =
+      'dashboards.common.labels.sla_tracking';
+  static const String dashboards_common_labels_slidetoclockinwidget =
+      'dashboards.common.labels.slidetoclockinwidget';
+  static const String dashboards_common_labels_social_care_command_hud =
+      'dashboards.common.labels.social_care_command_hud';
+  static const String dashboards_common_labels_social_event_ledger =
+      'dashboards.common.labels.social_event_ledger';
+  static const String dashboards_common_labels_spacer =
+      'dashboards.common.labels.spacer';
+  static const String dashboards_common_labels_sprint_velocity_trend =
+      'dashboards.common.labels.sprint_velocity_trend';
+  static const String dashboards_common_labels_staff =
+      'dashboards.common.labels.staff';
+  static const String dashboards_common_labels_staff_audit =
+      'dashboards.common.labels.staff_audit';
+  static const String dashboards_common_labels_staff_meeting =
+      'dashboards.common.labels.staff_meeting';
+  static const String
+  dashboards_common_labels_staff_provisioning___role_activity_report =
+      'dashboards.common.labels.staff_provisioning___role_activity_report';
+  static const String dashboards_common_labels_staffing_plan =
+      'dashboards.common.labels.staffing_plan';
+  static const String dashboards_common_labels_staffing_velocity_matrix =
+      'dashboards.common.labels.staffing_velocity_matrix';
+  static const String dashboards_common_labels_start_audit =
+      'dashboards.common.labels.start_audit';
+  static const String dashboards_common_labels_status =
+      'dashboards.common.labels.status';
+  static const String dashboards_common_labels_strategic_plan =
+      'dashboards.common.labels.strategic_plan';
+  static const String dashboards_common_labels_strikeicon =
+      'dashboards.common.labels.strikeicon';
+  static const String
+  dashboards_common_labels_submit_activities_of_daily_living_checklist =
+      'dashboards.common.labels.submit_activities_of_daily_living_checklist';
+  static const String dashboards_common_labels_submit_adl_checklist =
+      'dashboards.common.labels.submit_adl_checklist';
+  static const String
+  dashboards_common_labels_submit_an_employee_leave_request =
+      'dashboards.common.labels.submit_an_employee_leave_request';
+  static const String dashboards_common_labels_submit_daily_census =
+      'dashboards.common.labels.submit_daily_census';
+  static const String dashboards_common_labels_submit_exit_interview =
+      'dashboards.common.labels.submit_exit_interview';
+  static const String dashboards_common_labels_submit_healthcare_claim =
+      'dashboards.common.labels.submit_healthcare_claim';
+  static const String
+  dashboards_common_labels_submit_location_based_bed_patient_census =
+      'dashboards.common.labels.submit_location_based_bed_patient_census';
+  static const String dashboards_common_labels_submit_marketing_budget =
+      'dashboards.common.labels.submit_marketing_budget';
+  static const String
+  dashboards_common_labels_submit_tracking_for_gov_insurance_claim =
+      'dashboards.common.labels.submit_tracking_for_gov_insurance_claim';
+  static const String dashboards_common_labels_submitadlchecklistform =
+      'dashboards.common.labels.submitadlchecklistform';
+  static const String dashboards_common_labels_submitdailycensusform =
+      'dashboards.common.labels.submitdailycensusform';
+  static const String dashboards_common_labels_submitexitinterviewform =
+      'dashboards.common.labels.submitexitinterviewform';
+  static const String dashboards_common_labels_submithealthcareclaimform =
+      'dashboards.common.labels.submithealthcareclaimform';
+  static const String dashboards_common_labels_submitmarketingbudgetform =
+      'dashboards.common.labels.submitmarketingbudgetform';
+  static const String dashboards_common_labels_subscripticon =
+      'dashboards.common.labels.subscripticon';
+  static const String dashboards_common_labels_successfully_submitted =
+      'dashboards.common.labels.successfully_submitted';
+  static const String
+  dashboards_common_labels_successfully_tracked_and_submitted =
+      'dashboards.common.labels.successfully_tracked_and_submitted';
+  static const String dashboards_common_labels_sunicon =
+      'dashboards.common.labels.sunicon';
+  static const String dashboards_common_labels_superscripticon =
+      'dashboards.common.labels.superscripticon';
+  static const String dashboards_common_labels_supply_chain_velocity_trend =
+      'dashboards.common.labels.supply_chain_velocity_trend';
+  static const String dashboards_common_labels_supply_order =
+      'dashboards.common.labels.supply_order';
+  static const String
+  dashboards_common_labels_support_queue_visualization___active_tickets =
+      'dashboards.common.labels.support_queue_visualization___active_tickets';
+  static const String dashboards_common_labels_switchformcontroller =
+      'dashboards.common.labels.switchformcontroller';
+  static const String dashboards_common_labels_sync_data =
+      'dashboards.common.labels.sync_data';
+  static const String dashboards_common_labels_sync_status =
+      'dashboards.common.labels.sync_status';
+  static const String dashboards_common_labels_synergy_audit =
+      'dashboards.common.labels.synergy_audit';
+  static const String dashboards_common_labels_system_administrator =
+      'dashboards.common.labels.system_administrator';
+  static const String dashboards_common_labels_system_dashboard =
+      'dashboards.common.labels.system_dashboard';
+  static const String
+  dashboards_common_labels_system_integrity_and_macro_reconciliation_telemetry_logs =
+      'dashboards.common.labels.system_integrity_and_macro_reconciliation_telemetry_logs';
+  static const String dashboards_common_labels_systems___architecture =
+      'dashboards.common.labels.systems___architecture';
+  static const String dashboards_common_labels_tax_filing =
+      'dashboards.common.labels.tax_filing';
+  static const String dashboards_common_labels_tax_planning =
+      'dashboards.common.labels.tax_planning';
+  static const String dashboards_common_labels_technical_operations_overview =
+      'dashboards.common.labels.technical_operations_overview';
+  static const String dashboards_common_labels_territory_growth_map =
+      'dashboards.common.labels.territory_growth_map';
+  static const String dashboards_common_labels_territory_plan =
+      'dashboards.common.labels.territory_plan';
+  static const String dashboards_common_labels_textalignbutton =
+      'dashboards.common.labels.textalignbutton';
+  static const String
+  dashboards_common_labels_the_system_is_verifying_your_security_context_for___route =
+      'dashboards.common.labels.the_system_is_verifying_your_security_context_for___route';
+  static const String dashboards_common_labels_themepreview =
+      'dashboards.common.labels.themepreview';
+  static const String dashboards_common_labels_themespanel =
+      'dashboards.common.labels.themespanel';
+  static const String dashboards_common_labels_themetoggle =
+      'dashboards.common.labels.themetoggle';
+  static const String dashboards_common_labels_this_action_cannot_be_undone =
+      'dashboards.common.labels.this_action_cannot_be_undone';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_clinical_forms_module =
+      'dashboards.common.labels.this_component_is_part_of_the_clinical_forms_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_common_forms_module =
+      'dashboards.common.labels.this_component_is_part_of_the_common_forms_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_common_ui_module =
+      'dashboards.common.labels.this_component_is_part_of_the_common_ui_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_crm_forms_module =
+      'dashboards.common.labels.this_component_is_part_of_the_crm_forms_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_financial_forms_module =
+      'dashboards.common.labels.this_component_is_part_of_the_financial_forms_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_hr_forms_module =
+      'dashboards.common.labels.this_component_is_part_of_the_hr_forms_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_shared_icons_module =
+      'dashboards.common.labels.this_component_is_part_of_the_shared_icons_module';
+  static const String
+  dashboards_common_labels_this_component_is_part_of_the_shared_layouts_module =
+      'dashboards.common.labels.this_component_is_part_of_the_shared_layouts_module';
+  static const String dashboards_common_labels_ticket_volume_trend =
+      'dashboards.common.labels.ticket_volume_trend';
+  static const String dashboards_common_labels_tid =
+      'dashboards.common.labels.tid';
+  static const String dashboards_common_labels_titlereferencelink =
+      'dashboards.common.labels.titlereferencelink';
+  static const String dashboards_common_labels_today =
+      'dashboards.common.labels.today';
+  static const String dashboards_common_labels_toolbar =
+      'dashboards.common.labels.toolbar';
+  static const String dashboards_common_labels_toolbarlayout1 =
+      'dashboards.common.labels.toolbarlayout1';
+  static const String dashboards_common_labels_toolbarlayout2 =
+      'dashboards.common.labels.toolbarlayout2';
+  static const String dashboards_common_labels_toolbarlayout3 =
+      'dashboards.common.labels.toolbarlayout3';
+  static const String dashboards_common_labels_toolbartheme =
+      'dashboards.common.labels.toolbartheme';
+  static const String dashboards_common_labels_tooltip =
+      'dashboards.common.labels.tooltip';
+  static const String dashboards_common_labels_topology_verification_feed =
+      'dashboards.common.labels.topology_verification_feed';
+  static const String dashboards_common_labels_trashicon =
+      'dashboards.common.labels.trashicon';
+  static const String dashboards_common_labels_underlineicon =
+      'dashboards.common.labels.underlineicon';
+  static const String dashboards_common_labels_undo2icon =
+      'dashboards.common.labels.undo2icon';
+  static const String dashboards_common_labels_undoredobutton =
+      'dashboards.common.labels.undoredobutton';
+  static const String dashboards_common_labels_unit_profitability_trend =
+      'dashboards.common.labels.unit_profitability_trend';
+  static const String
+  dashboards_common_labels_unknown_component____blueprint_componenttype =
+      'dashboards.common.labels.unknown_component____blueprint_componenttype';
+  static const String
+  dashboards_common_labels_unsupported_intent_type____intent_runtimetype =
+      'dashboards.common.labels.unsupported_intent_type____intent_runtimetype';
+  static const String dashboards_common_labels_upcoming_care_visits =
+      'dashboards.common.labels.upcoming_care_visits';
+  static const String dashboards_common_labels_useauth =
+      'dashboards.common.labels.useauth';
+  static const String dashboards_common_labels_useawsauth =
+      'dashboards.common.labels.useawsauth';
+  static const String dashboards_common_labels_usefirebaseauth =
+      'dashboards.common.labels.usefirebaseauth';
+  static const String dashboards_common_labels_usefusedialogcontext =
+      'dashboards.common.labels.usefusedialogcontext';
+  static const String dashboards_common_labels_usefuselayoutsettings =
+      'dashboards.common.labels.usefuselayoutsettings';
+  static const String dashboards_common_labels_usefuserouteparameter =
+      'dashboards.common.labels.usefuserouteparameter';
+  static const String dashboards_common_labels_usefusesettings =
+      'dashboards.common.labels.usefusesettings';
+  static const String dashboards_common_labels_usejwtauth =
+      'dashboards.common.labels.usejwtauth';
+  static const String dashboards_common_labels_uselocalstorage =
+      'dashboards.common.labels.uselocalstorage';
+  static const String dashboards_common_labels_usenavigate =
+      'dashboards.common.labels.usenavigate';
+  static const String dashboards_common_labels_usenavigationitems =
+      'dashboards.common.labels.usenavigationitems';
+  static const String dashboards_common_labels_usepathname =
+      'dashboards.common.labels.usepathname';
+  static const String dashboards_common_labels_user =
+      'dashboards.common.labels.user';
+  static const String dashboards_common_labels_user_management =
+      'dashboards.common.labels.user_management';
+  static const String dashboards_common_labels_user_profile =
+      'dashboards.common.labels.user_profile';
+  static const String dashboards_common_labels_usermenu =
+      'dashboards.common.labels.usermenu';
+  static const String dashboards_common_labels_useuser =
+      'dashboards.common.labels.useuser';
+  static const String dashboards_common_labels_variance =
+      'dashboards.common.labels.variance';
+  static const String dashboards_common_labels_velocity_score =
+      'dashboards.common.labels.velocity_score';
+  static const String dashboards_common_labels_verification_hub =
+      'dashboards.common.labels.verification_hub';
+  static const String dashboards_common_labels_verify_code =
+      'dashboards.common.labels.verify_code';
+  static const String dashboards_common_labels_vitals_log =
+      'dashboards.common.labels.vitals_log';
+  static const String dashboards_common_labels_volunteer_coordinator_dashboard =
+      'dashboards.common.labels.volunteer_coordinator_dashboard';
+  static const String dashboards_common_labels_volunteer_retention_trend =
+      'dashboards.common.labels.volunteer_retention_trend';
+  static const String dashboards_common_labels_waitlist_mgmt =
+      'dashboards.common.labels.waitlist_mgmt';
+  static const String dashboards_common_labels_withrouter =
+      'dashboards.common.labels.withrouter';
+  static const String dashboards_common_labels_withuser =
+      'dashboards.common.labels.withuser';
   static const String dashboards_common_subtitle = 'dashboards.common.subtitle';
   static const String dashboards_common_title = 'dashboards.common.title';
-  static const String dashboards_communityoutreach_labels_affiliation_with_city_food_bank_finalized = 'dashboards.communityoutreach.labels.affiliation_with_city_food_bank_finalized';
-  static const String dashboards_communityoutreach_labels_campaign_live = 'dashboards.communityoutreach.labels.campaign_live';
-  static const String dashboards_communityoutreach_labels_channel_efficiency = 'dashboards.communityoutreach.labels.channel_efficiency';
-  static const String dashboards_communityoutreach_labels_engagement_drop = 'dashboards.communityoutreach.labels.engagement_drop';
-  static const String dashboards_communityoutreach_labels_event_success = 'dashboards.communityoutreach.labels.event_success';
-  static const String dashboards_communityoutreach_labels_geo_targeting_opportunity = 'dashboards.communityoutreach.labels.geo_targeting_opportunity';
-  static const String dashboards_communityoutreach_labels_lead_generation_pipeline__30d = 'dashboards.communityoutreach.labels.lead_generation_pipeline__30d';
-  static const String dashboards_communityoutreach_labels_new_partnership = 'dashboards.communityoutreach.labels.new_partnership';
-  static const String dashboards_communityoutreach_labels_sentiment_analysis_alert = 'dashboards.communityoutreach.labels.sentiment_analysis_alert';
-  static const String dashboards_communityoutreach_labels_summer_wellness_series_launched = 'dashboards.communityoutreach.labels.summer_wellness_series_launched';
-  static const String dashboards_communityoutreach_subtitle = 'dashboards.communityoutreach.subtitle';
-  static const String dashboards_communityoutreach_title = 'dashboards.communityoutreach.title';
-  static const String dashboards_compliancemanager_labels_0_0 = 'dashboards.compliancemanager.labels.0_0';
-  static const String dashboards_compliancemanager_labels_1_5 = 'dashboards.compliancemanager.labels.1_5';
-  static const String dashboards_compliancemanager_labels_50_0 = 'dashboards.compliancemanager.labels.50_0';
-  static const String dashboards_compliancemanager_labels_audit_completion = 'dashboards.compliancemanager.labels.audit_completion';
-  static const String dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_anomaly_heatmap = 'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_anomaly_heatmap';
-  static const String dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_execution_gate_logs = 'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_execution_gate_logs';
-  static const String dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_registry_integrity_score = 'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_registry_integrity_score';
-  static const String dashboards_compliancemanager_labels_documentation_lag_detected = 'dashboards.compliancemanager.labels.documentation_lag_detected';
-  static const String dashboards_compliancemanager_labels_high_compliance__us_north = 'dashboards.compliancemanager.labels.high_compliance__us_north';
-  static const String dashboards_compliancemanager_labels_pending_policy_updates = 'dashboards.compliancemanager.labels.pending_policy_updates';
-  static const String dashboards_compliancemanager_labels_policy_review = 'dashboards.compliancemanager.labels.policy_review';
-  static const String dashboards_compliancemanager_labels_regulatory_alerts = 'dashboards.compliancemanager.labels.regulatory_alerts';
-  static const String dashboards_compliancemanager_labels_risk_exposure = 'dashboards.compliancemanager.labels.risk_exposure';
-  static const String dashboards_compliancemanager_subtitle = 'dashboards.compliancemanager.subtitle';
-  static const String dashboards_compliancemanager_title = 'dashboards.compliancemanager.title';
-  static const String dashboards_coo_labels_facility_expansion_velocity = 'dashboards.coo.labels.facility_expansion_velocity';
-  static const String dashboards_coo_labels_staffing_capacity_risk = 'dashboards.coo.labels.staffing_capacity_risk';
-  static const String dashboards_coo_labels_supply_chain_optimization = 'dashboards.coo.labels.supply_chain_optimization';
+  static const String
+  dashboards_communityoutreach_labels_affiliation_with_city_food_bank_finalized =
+      'dashboards.communityoutreach.labels.affiliation_with_city_food_bank_finalized';
+  static const String dashboards_communityoutreach_labels_campaign_live =
+      'dashboards.communityoutreach.labels.campaign_live';
+  static const String dashboards_communityoutreach_labels_channel_efficiency =
+      'dashboards.communityoutreach.labels.channel_efficiency';
+  static const String dashboards_communityoutreach_labels_engagement_drop =
+      'dashboards.communityoutreach.labels.engagement_drop';
+  static const String dashboards_communityoutreach_labels_event_success =
+      'dashboards.communityoutreach.labels.event_success';
+  static const String
+  dashboards_communityoutreach_labels_geo_targeting_opportunity =
+      'dashboards.communityoutreach.labels.geo_targeting_opportunity';
+  static const String
+  dashboards_communityoutreach_labels_lead_generation_pipeline__30d =
+      'dashboards.communityoutreach.labels.lead_generation_pipeline__30d';
+  static const String dashboards_communityoutreach_labels_new_partnership =
+      'dashboards.communityoutreach.labels.new_partnership';
+  static const String
+  dashboards_communityoutreach_labels_sentiment_analysis_alert =
+      'dashboards.communityoutreach.labels.sentiment_analysis_alert';
+  static const String
+  dashboards_communityoutreach_labels_summer_wellness_series_launched =
+      'dashboards.communityoutreach.labels.summer_wellness_series_launched';
+  static const String dashboards_communityoutreach_subtitle =
+      'dashboards.communityoutreach.subtitle';
+  static const String dashboards_communityoutreach_title =
+      'dashboards.communityoutreach.title';
+  static const String dashboards_compliancemanager_labels_0_0 =
+      'dashboards.compliancemanager.labels.0_0';
+  static const String dashboards_compliancemanager_labels_1_5 =
+      'dashboards.compliancemanager.labels.1_5';
+  static const String dashboards_compliancemanager_labels_50_0 =
+      'dashboards.compliancemanager.labels.50_0';
+  static const String dashboards_compliancemanager_labels_audit_completion =
+      'dashboards.compliancemanager.labels.audit_completion';
+  static const String
+  dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_anomaly_heatmap =
+      'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_anomaly_heatmap';
+  static const String
+  dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_execution_gate_logs =
+      'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_execution_gate_logs';
+  static const String
+  dashboards_compliancemanager_labels_dashboards_compliancemanager_labels_registry_integrity_score =
+      'dashboards.compliancemanager.labels.dashboards_compliancemanager_labels_registry_integrity_score';
+  static const String
+  dashboards_compliancemanager_labels_documentation_lag_detected =
+      'dashboards.compliancemanager.labels.documentation_lag_detected';
+  static const String
+  dashboards_compliancemanager_labels_high_compliance__us_north =
+      'dashboards.compliancemanager.labels.high_compliance__us_north';
+  static const String
+  dashboards_compliancemanager_labels_pending_policy_updates =
+      'dashboards.compliancemanager.labels.pending_policy_updates';
+  static const String dashboards_compliancemanager_labels_policy_review =
+      'dashboards.compliancemanager.labels.policy_review';
+  static const String dashboards_compliancemanager_labels_regulatory_alerts =
+      'dashboards.compliancemanager.labels.regulatory_alerts';
+  static const String dashboards_compliancemanager_labels_risk_exposure =
+      'dashboards.compliancemanager.labels.risk_exposure';
+  static const String dashboards_compliancemanager_subtitle =
+      'dashboards.compliancemanager.subtitle';
+  static const String dashboards_compliancemanager_title =
+      'dashboards.compliancemanager.title';
+  static const String dashboards_coo_labels_facility_expansion_velocity =
+      'dashboards.coo.labels.facility_expansion_velocity';
+  static const String dashboards_coo_labels_staffing_capacity_risk =
+      'dashboards.coo.labels.staffing_capacity_risk';
+  static const String dashboards_coo_labels_supply_chain_optimization =
+      'dashboards.coo.labels.supply_chain_optimization';
   static const String dashboards_coo_subtitle = 'dashboards.coo.subtitle';
   static const String dashboards_coo_title = 'dashboards.coo.title';
-  static const String dashboards_corporategovernance_labels_blueprint_mismatch_detected = 'dashboards.corporategovernance.labels.blueprint_mismatch_detected';
-  static const String dashboards_corporategovernance_labels_compliance_score = 'dashboards.corporategovernance.labels.compliance_score';
-  static const String dashboards_corporategovernance_labels_execution_gate_optimization = 'dashboards.corporategovernance.labels.execution_gate_optimization';
-  static const String dashboards_corporategovernance_labels_global_registry = 'dashboards.corporategovernance.labels.global_registry';
-  static const String dashboards_corporategovernance_labels_institutional_integrity_trend = 'dashboards.corporategovernance.labels.institutional_integrity_trend';
-  static const String dashboards_corporategovernance_labels_minor_anomalies = 'dashboards.corporategovernance.labels.minor_anomalies';
-  static const String dashboards_corporategovernance_labels_next_audit_cycle = 'dashboards.corporategovernance.labels.next_audit_cycle';
-  static const String dashboards_corporategovernance_labels_optimal_integrity = 'dashboards.corporategovernance.labels.optimal_integrity';
-  static const String dashboards_corporategovernance_labels_policy_gaps = 'dashboards.corporategovernance.labels.policy_gaps';
-  static const String dashboards_corporategovernance_labels_structural_drift = 'dashboards.corporategovernance.labels.structural_drift';
-  static const String dashboards_corporategovernance_labels_verified_routes = 'dashboards.corporategovernance.labels.verified_routes';
-  static const String dashboards_corporategovernance_subtitle = 'dashboards.corporategovernance.subtitle';
-  static const String dashboards_corporategovernance_title = 'dashboards.corporategovernance.title';
-  static const String dashboards_coursearchitect_labels_avg__pass_rate = 'dashboards.coursearchitect.labels.avg__pass_rate';
-  static const String dashboards_coursearchitect_labels_certifications = 'dashboards.coursearchitect.labels.certifications';
-  static const String dashboards_coursearchitect_labels_content_freshness = 'dashboards.coursearchitect.labels.content_freshness';
-  static const String dashboards_coursearchitect_labels_engagement = 'dashboards.coursearchitect.labels.engagement';
-  static const String dashboards_coursearchitect_labels_high_engagement_trend = 'dashboards.coursearchitect.labels.high_engagement_trend';
-  static const String dashboards_coursearchitect_labels_module_completion_velocity = 'dashboards.coursearchitect.labels.module_completion_velocity';
-  static const String dashboards_coursearchitect_labels_module_optimization = 'dashboards.coursearchitect.labels.module_optimization';
-  static const String dashboards_coursearchitect_subtitle = 'dashboards.coursearchitect.subtitle';
-  static const String dashboards_coursearchitect_title = 'dashboards.coursearchitect.title';
+  static const String
+  dashboards_corporategovernance_labels_blueprint_mismatch_detected =
+      'dashboards.corporategovernance.labels.blueprint_mismatch_detected';
+  static const String dashboards_corporategovernance_labels_compliance_score =
+      'dashboards.corporategovernance.labels.compliance_score';
+  static const String
+  dashboards_corporategovernance_labels_execution_gate_optimization =
+      'dashboards.corporategovernance.labels.execution_gate_optimization';
+  static const String dashboards_corporategovernance_labels_global_registry =
+      'dashboards.corporategovernance.labels.global_registry';
+  static const String
+  dashboards_corporategovernance_labels_institutional_integrity_trend =
+      'dashboards.corporategovernance.labels.institutional_integrity_trend';
+  static const String dashboards_corporategovernance_labels_minor_anomalies =
+      'dashboards.corporategovernance.labels.minor_anomalies';
+  static const String dashboards_corporategovernance_labels_next_audit_cycle =
+      'dashboards.corporategovernance.labels.next_audit_cycle';
+  static const String dashboards_corporategovernance_labels_optimal_integrity =
+      'dashboards.corporategovernance.labels.optimal_integrity';
+  static const String dashboards_corporategovernance_labels_policy_gaps =
+      'dashboards.corporategovernance.labels.policy_gaps';
+  static const String dashboards_corporategovernance_labels_structural_drift =
+      'dashboards.corporategovernance.labels.structural_drift';
+  static const String dashboards_corporategovernance_labels_verified_routes =
+      'dashboards.corporategovernance.labels.verified_routes';
+  static const String dashboards_corporategovernance_subtitle =
+      'dashboards.corporategovernance.subtitle';
+  static const String dashboards_corporategovernance_title =
+      'dashboards.corporategovernance.title';
+  static const String dashboards_coursearchitect_labels_avg__pass_rate =
+      'dashboards.coursearchitect.labels.avg__pass_rate';
+  static const String dashboards_coursearchitect_labels_certifications =
+      'dashboards.coursearchitect.labels.certifications';
+  static const String dashboards_coursearchitect_labels_content_freshness =
+      'dashboards.coursearchitect.labels.content_freshness';
+  static const String dashboards_coursearchitect_labels_engagement =
+      'dashboards.coursearchitect.labels.engagement';
+  static const String dashboards_coursearchitect_labels_high_engagement_trend =
+      'dashboards.coursearchitect.labels.high_engagement_trend';
+  static const String
+  dashboards_coursearchitect_labels_module_completion_velocity =
+      'dashboards.coursearchitect.labels.module_completion_velocity';
+  static const String dashboards_coursearchitect_labels_module_optimization =
+      'dashboards.coursearchitect.labels.module_optimization';
+  static const String dashboards_coursearchitect_subtitle =
+      'dashboards.coursearchitect.subtitle';
+  static const String dashboards_coursearchitect_title =
+      'dashboards.coursearchitect.title';
   static const String dashboards_cto_labels_0_01 = 'dashboards.cto.labels.0_01';
   static const String dashboards_cto_labels_0_02 = 'dashboards.cto.labels.0_02';
-  static const String dashboards_cto_labels_12_0ms = 'dashboards.cto.labels.12_0ms';
+  static const String dashboards_cto_labels_12_0ms =
+      'dashboards.cto.labels.12_0ms';
   static const String dashboards_cto_labels_2_0 = 'dashboards.cto.labels.2_0';
   static const String dashboards_cto_subtitle = 'dashboards.cto.subtitle';
   static const String dashboards_cto_title = 'dashboards.cto.title';
-  static const String dashboards_customersupport_labels_csat_sentiment_analysis = 'dashboards.customersupport.labels.csat_sentiment_analysis';
-  static const String dashboards_customersupport_labels_high_resolution_velocity = 'dashboards.customersupport.labels.high_resolution_velocity';
-  static const String dashboards_customersupport_labels_volume_surge_predicted = 'dashboards.customersupport.labels.volume_surge_predicted';
-  static const String dashboards_customersupport_subtitle = 'dashboards.customersupport.subtitle';
-  static const String dashboards_customersupport_title = 'dashboards.customersupport.title';
-  static const String dashboards_cxdirector_labels_churn_risk_volatility = 'dashboards.cxdirector.labels.churn_risk_volatility';
-  static const String dashboards_cxdirector_labels_cx_director_dashboard = 'dashboards.cxdirector.labels.cx_director_dashboard';
-  static const String dashboards_cxdirector_labels_response_latency_optimization = 'dashboards.cxdirector.labels.response_latency_optimization';
-  static const String dashboards_cxdirector_labels_sentiment_surge_detected = 'dashboards.cxdirector.labels.sentiment_surge_detected';
-  static const String dashboards_cxdirector_subtitle = 'dashboards.cxdirector.subtitle';
-  static const String dashboards_cxdirector_title = 'dashboards.cxdirector.title';
-  static const String dashboards_dynamicscreen_subtitle = 'dashboards.dynamicscreen.subtitle';
-  static const String dashboards_dynamicscreen_title = 'dashboards.dynamicscreen.title';
-  static const String dashboards_family_labels_care_engagement = 'dashboards.family.labels.care_engagement';
-  static const String dashboards_family_labels_care_plan_milestone = 'dashboards.family.labels.care_plan_milestone';
-  static const String dashboards_family_labels_engagement_trend = 'dashboards.family.labels.engagement_trend';
-  static const String dashboards_family_labels_upcoming_care_review = 'dashboards.family.labels.upcoming_care_review';
-  static const String dashboards_family_labels_upcoming_tasks = 'dashboards.family.labels.upcoming_tasks';
-  static const String dashboards_family_labels_visit_frequency = 'dashboards.family.labels.visit_frequency';
-  static const String dashboards_family_labels_wellness_score = 'dashboards.family.labels.wellness_score';
+  static const String
+  dashboards_customersupport_labels_csat_sentiment_analysis =
+      'dashboards.customersupport.labels.csat_sentiment_analysis';
+  static const String
+  dashboards_customersupport_labels_high_resolution_velocity =
+      'dashboards.customersupport.labels.high_resolution_velocity';
+  static const String dashboards_customersupport_labels_volume_surge_predicted =
+      'dashboards.customersupport.labels.volume_surge_predicted';
+  static const String dashboards_customersupport_subtitle =
+      'dashboards.customersupport.subtitle';
+  static const String dashboards_customersupport_title =
+      'dashboards.customersupport.title';
+  static const String dashboards_cxdirector_labels_churn_risk_volatility =
+      'dashboards.cxdirector.labels.churn_risk_volatility';
+  static const String dashboards_cxdirector_labels_cx_director_dashboard =
+      'dashboards.cxdirector.labels.cx_director_dashboard';
+  static const String
+  dashboards_cxdirector_labels_response_latency_optimization =
+      'dashboards.cxdirector.labels.response_latency_optimization';
+  static const String dashboards_cxdirector_labels_sentiment_surge_detected =
+      'dashboards.cxdirector.labels.sentiment_surge_detected';
+  static const String dashboards_cxdirector_subtitle =
+      'dashboards.cxdirector.subtitle';
+  static const String dashboards_cxdirector_title =
+      'dashboards.cxdirector.title';
+  static const String dashboards_dynamicscreen_subtitle =
+      'dashboards.dynamicscreen.subtitle';
+  static const String dashboards_dynamicscreen_title =
+      'dashboards.dynamicscreen.title';
+  static const String dashboards_family_labels_care_engagement =
+      'dashboards.family.labels.care_engagement';
+  static const String dashboards_family_labels_care_plan_milestone =
+      'dashboards.family.labels.care_plan_milestone';
+  static const String dashboards_family_labels_engagement_trend =
+      'dashboards.family.labels.engagement_trend';
+  static const String dashboards_family_labels_upcoming_care_review =
+      'dashboards.family.labels.upcoming_care_review';
+  static const String dashboards_family_labels_upcoming_tasks =
+      'dashboards.family.labels.upcoming_tasks';
+  static const String dashboards_family_labels_visit_frequency =
+      'dashboards.family.labels.visit_frequency';
+  static const String dashboards_family_labels_wellness_score =
+      'dashboards.family.labels.wellness_score';
   static const String dashboards_family_subtitle = 'dashboards.family.subtitle';
   static const String dashboards_family_title = 'dashboards.family.title';
-  static const String dashboards_familymember_labels_care_engagement = 'dashboards.familymember.labels.care_engagement';
-  static const String dashboards_familymember_labels_care_plan_milestone = 'dashboards.familymember.labels.care_plan_milestone';
-  static const String dashboards_familymember_labels_engagement_trend = 'dashboards.familymember.labels.engagement_trend';
-  static const String dashboards_familymember_labels_governance_status = 'dashboards.familymember.labels.governance_status';
-  static const String dashboards_familymember_labels_realization_score = 'dashboards.familymember.labels.realization_score';
-  static const String dashboards_familymember_labels_upcoming_care_review = 'dashboards.familymember.labels.upcoming_care_review';
-  static const String dashboards_familymember_labels_upcoming_tasks = 'dashboards.familymember.labels.upcoming_tasks';
-  static const String dashboards_familymember_labels_visit_frequency = 'dashboards.familymember.labels.visit_frequency';
-  static const String dashboards_familymember_labels_wellness_score = 'dashboards.familymember.labels.wellness_score';
-  static const String dashboards_familymember_subtitle = 'dashboards.familymember.subtitle';
-  static const String dashboards_familymember_title = 'dashboards.familymember.title';
-  static const String dashboards_financedirector_labels_dashboards_financedirector_labels_aura_hud = 'dashboards.financedirector.labels.dashboards_financedirector_labels_aura_hud';
-  static const String dashboards_financedirector_labels_dashboards_financedirector_labels_budget_distribution = 'dashboards.financedirector.labels.dashboards_financedirector_labels_budget_distribution';
-  static const String dashboards_financedirector_labels_dashboards_financedirector_labels_cash_flow_forecast = 'dashboards.financedirector.labels.dashboards_financedirector_labels_cash_flow_forecast';
-  static const String dashboards_financedirector_labels_dashboards_financedirector_labels_financial_summary_grid = 'dashboards.financedirector.labels.dashboards_financedirector_labels_financial_summary_grid';
-  static const String dashboards_financedirector_labels_double_entry_integrity_audit = 'dashboards.financedirector.labels.double_entry_integrity_audit';
-  static const String dashboards_financedirector_labels_ebitda_margin_sensitivity = 'dashboards.financedirector.labels.ebitda_margin_sensitivity';
-  static const String dashboards_financedirector_labels_revenue_velocity_alert = 'dashboards.financedirector.labels.revenue_velocity_alert';
-  static const String dashboards_financedirector_subtitle = 'dashboards.financedirector.subtitle';
-  static const String dashboards_financedirector_title = 'dashboards.financedirector.title';
-  static const String dashboards_franchiseowner_labels_referral_pipeline_strength = 'dashboards.franchiseowner.labels.referral_pipeline_strength';
-  static const String dashboards_franchiseowner_labels_retention_risk__night_shift = 'dashboards.franchiseowner.labels.retention_risk__night_shift';
-  static const String dashboards_franchiseowner_labels_territory_expansion_opportunity = 'dashboards.franchiseowner.labels.territory_expansion_opportunity';
-  static const String dashboards_franchiseowner_subtitle = 'dashboards.franchiseowner.subtitle';
-  static const String dashboards_franchiseowner_title = 'dashboards.franchiseowner.title';
-  static const String dashboards_franchisesalesmanager_labels_active_leads = 'dashboards.franchisesalesmanager.labels.active_leads';
-  static const String dashboards_franchisesalesmanager_labels_closing_ratio = 'dashboards.franchisesalesmanager.labels.closing_ratio';
-  static const String dashboards_franchisesalesmanager_labels_conversion_velocity = 'dashboards.franchisesalesmanager.labels.conversion_velocity';
-  static const String dashboards_franchisesalesmanager_labels_conversion_velocity_high = 'dashboards.franchisesalesmanager.labels.conversion_velocity_high';
-  static const String dashboards_franchisesalesmanager_labels_franchise_sales_pipeline__30d = 'dashboards.franchisesalesmanager.labels.franchise_sales_pipeline__30d';
-  static const String dashboards_franchisesalesmanager_labels_lead_source_distribution = 'dashboards.franchisesalesmanager.labels.lead_source_distribution';
-  static const String dashboards_franchisesalesmanager_labels_lead_velocity_spike = 'dashboards.franchisesalesmanager.labels.lead_velocity_spike';
-  static const String dashboards_franchisesalesmanager_labels_pipeline_value = 'dashboards.franchisesalesmanager.labels.pipeline_value';
-  static const String dashboards_franchisesalesmanager_labels_territory_saturation_alert = 'dashboards.franchisesalesmanager.labels.territory_saturation_alert';
-  static const String dashboards_franchisesalesmanager_subtitle = 'dashboards.franchisesalesmanager.subtitle';
-  static const String dashboards_franchisesalesmanager_title = 'dashboards.franchisesalesmanager.title';
-  static const String dashboards_generalmanager_labels_capital_inefficiency_detected = 'dashboards.generalmanager.labels.capital_inefficiency_detected';
-  static const String dashboards_generalmanager_labels_regional_p_l_overperformance = 'dashboards.generalmanager.labels.regional_p_l_overperformance';
-  static const String dashboards_generalmanager_subtitle = 'dashboards.generalmanager.subtitle';
-  static const String dashboards_generalmanager_title = 'dashboards.generalmanager.title';
-  static const String dashboards_guest_labels_check_in_success = 'dashboards.guest.labels.check_in_success';
-  static const String dashboards_guest_labels_dining_update = 'dashboards.guest.labels.dining_update';
-  static const String dashboards_guest_labels_feedback_submitted = 'dashboards.guest.labels.feedback_submitted';
-  static const String dashboards_guest_labels_main_lobby___guest_id__4421 = 'dashboards.guest.labels.main_lobby___guest_id__4421';
-  static const String dashboards_guest_labels_personalized_recommendation = 'dashboards.guest.labels.personalized_recommendation';
-  static const String dashboards_guest_labels_q1_dining_experience_survey = 'dashboards.guest.labels.q1_dining_experience_survey';
-  static const String dashboards_guest_labels_your_visits__monthly = 'dashboards.guest.labels.your_visits__monthly';
+  static const String dashboards_familymember_labels_care_engagement =
+      'dashboards.familymember.labels.care_engagement';
+  static const String dashboards_familymember_labels_care_plan_milestone =
+      'dashboards.familymember.labels.care_plan_milestone';
+  static const String dashboards_familymember_labels_engagement_trend =
+      'dashboards.familymember.labels.engagement_trend';
+  static const String dashboards_familymember_labels_governance_status =
+      'dashboards.familymember.labels.governance_status';
+  static const String dashboards_familymember_labels_realization_score =
+      'dashboards.familymember.labels.realization_score';
+  static const String dashboards_familymember_labels_upcoming_care_review =
+      'dashboards.familymember.labels.upcoming_care_review';
+  static const String dashboards_familymember_labels_upcoming_tasks =
+      'dashboards.familymember.labels.upcoming_tasks';
+  static const String dashboards_familymember_labels_visit_frequency =
+      'dashboards.familymember.labels.visit_frequency';
+  static const String dashboards_familymember_labels_wellness_score =
+      'dashboards.familymember.labels.wellness_score';
+  static const String dashboards_familymember_subtitle =
+      'dashboards.familymember.subtitle';
+  static const String dashboards_familymember_title =
+      'dashboards.familymember.title';
+  static const String
+  dashboards_financedirector_labels_dashboards_financedirector_labels_aura_hud =
+      'dashboards.financedirector.labels.dashboards_financedirector_labels_aura_hud';
+  static const String
+  dashboards_financedirector_labels_dashboards_financedirector_labels_budget_distribution =
+      'dashboards.financedirector.labels.dashboards_financedirector_labels_budget_distribution';
+  static const String
+  dashboards_financedirector_labels_dashboards_financedirector_labels_cash_flow_forecast =
+      'dashboards.financedirector.labels.dashboards_financedirector_labels_cash_flow_forecast';
+  static const String
+  dashboards_financedirector_labels_dashboards_financedirector_labels_financial_summary_grid =
+      'dashboards.financedirector.labels.dashboards_financedirector_labels_financial_summary_grid';
+  static const String
+  dashboards_financedirector_labels_double_entry_integrity_audit =
+      'dashboards.financedirector.labels.double_entry_integrity_audit';
+  static const String
+  dashboards_financedirector_labels_ebitda_margin_sensitivity =
+      'dashboards.financedirector.labels.ebitda_margin_sensitivity';
+  static const String dashboards_financedirector_labels_revenue_velocity_alert =
+      'dashboards.financedirector.labels.revenue_velocity_alert';
+  static const String dashboards_financedirector_subtitle =
+      'dashboards.financedirector.subtitle';
+  static const String dashboards_financedirector_title =
+      'dashboards.financedirector.title';
+  static const String
+  dashboards_franchiseowner_labels_referral_pipeline_strength =
+      'dashboards.franchiseowner.labels.referral_pipeline_strength';
+  static const String
+  dashboards_franchiseowner_labels_retention_risk__night_shift =
+      'dashboards.franchiseowner.labels.retention_risk__night_shift';
+  static const String
+  dashboards_franchiseowner_labels_territory_expansion_opportunity =
+      'dashboards.franchiseowner.labels.territory_expansion_opportunity';
+  static const String dashboards_franchiseowner_subtitle =
+      'dashboards.franchiseowner.subtitle';
+  static const String dashboards_franchiseowner_title =
+      'dashboards.franchiseowner.title';
+  static const String dashboards_franchisesalesmanager_labels_active_leads =
+      'dashboards.franchisesalesmanager.labels.active_leads';
+  static const String dashboards_franchisesalesmanager_labels_closing_ratio =
+      'dashboards.franchisesalesmanager.labels.closing_ratio';
+  static const String
+  dashboards_franchisesalesmanager_labels_conversion_velocity =
+      'dashboards.franchisesalesmanager.labels.conversion_velocity';
+  static const String
+  dashboards_franchisesalesmanager_labels_conversion_velocity_high =
+      'dashboards.franchisesalesmanager.labels.conversion_velocity_high';
+  static const String
+  dashboards_franchisesalesmanager_labels_franchise_sales_pipeline__30d =
+      'dashboards.franchisesalesmanager.labels.franchise_sales_pipeline__30d';
+  static const String
+  dashboards_franchisesalesmanager_labels_lead_source_distribution =
+      'dashboards.franchisesalesmanager.labels.lead_source_distribution';
+  static const String
+  dashboards_franchisesalesmanager_labels_lead_velocity_spike =
+      'dashboards.franchisesalesmanager.labels.lead_velocity_spike';
+  static const String dashboards_franchisesalesmanager_labels_pipeline_value =
+      'dashboards.franchisesalesmanager.labels.pipeline_value';
+  static const String
+  dashboards_franchisesalesmanager_labels_territory_saturation_alert =
+      'dashboards.franchisesalesmanager.labels.territory_saturation_alert';
+  static const String dashboards_franchisesalesmanager_subtitle =
+      'dashboards.franchisesalesmanager.subtitle';
+  static const String dashboards_franchisesalesmanager_title =
+      'dashboards.franchisesalesmanager.title';
+  static const String
+  dashboards_generalmanager_labels_capital_inefficiency_detected =
+      'dashboards.generalmanager.labels.capital_inefficiency_detected';
+  static const String
+  dashboards_generalmanager_labels_regional_p_l_overperformance =
+      'dashboards.generalmanager.labels.regional_p_l_overperformance';
+  static const String dashboards_generalmanager_subtitle =
+      'dashboards.generalmanager.subtitle';
+  static const String dashboards_generalmanager_title =
+      'dashboards.generalmanager.title';
+  static const String dashboards_guest_labels_check_in_success =
+      'dashboards.guest.labels.check_in_success';
+  static const String dashboards_guest_labels_dining_update =
+      'dashboards.guest.labels.dining_update';
+  static const String dashboards_guest_labels_feedback_submitted =
+      'dashboards.guest.labels.feedback_submitted';
+  static const String dashboards_guest_labels_main_lobby___guest_id__4421 =
+      'dashboards.guest.labels.main_lobby___guest_id__4421';
+  static const String dashboards_guest_labels_personalized_recommendation =
+      'dashboards.guest.labels.personalized_recommendation';
+  static const String dashboards_guest_labels_q1_dining_experience_survey =
+      'dashboards.guest.labels.q1_dining_experience_survey';
+  static const String dashboards_guest_labels_your_visits__monthly =
+      'dashboards.guest.labels.your_visits__monthly';
   static const String dashboards_guest_subtitle = 'dashboards.guest.subtitle';
   static const String dashboards_guest_title = 'dashboards.guest.title';
-  static const String dashboards_headofbusdev_labels_strategic_partnership_velocity = 'dashboards.headofbusdev.labels.strategic_partnership_velocity';
-  static const String dashboards_headofbusdev_labels_territory_saturation_alert = 'dashboards.headofbusdev.labels.territory_saturation_alert';
-  static const String dashboards_headofbusdev_subtitle = 'dashboards.headofbusdev.subtitle';
-  static const String dashboards_headofbusdev_title = 'dashboards.headofbusdev.title';
-  static const String dashboards_headofmarketing_subtitle = 'dashboards.headofmarketing.subtitle';
-  static const String dashboards_headofmarketing_title = 'dashboards.headofmarketing.title';
-  static const String dashboards_hrdirector_labels_hiring_pipeline_optimization = 'dashboards.hrdirector.labels.hiring_pipeline_optimization';
-  static const String dashboards_hrdirector_labels_hr_director_command_center = 'dashboards.hrdirector.labels.hr_director_command_center';
-  static const String dashboards_hrdirector_labels_retention_alert__us_east = 'dashboards.hrdirector.labels.retention_alert__us_east';
-  static const String dashboards_hrdirector_labels_training_compliance_milestone = 'dashboards.hrdirector.labels.training_compliance_milestone';
-  static const String dashboards_hrdirector_subtitle = 'dashboards.hrdirector.subtitle';
-  static const String dashboards_hrdirector_title = 'dashboards.hrdirector.title';
-  static const String dashboards_hrhiring_labels_candidate_drop_off_alert = 'dashboards.hrhiring.labels.candidate_drop_off_alert';
-  static const String dashboards_hrhiring_labels_dashboards_hrhiring_labels_aura_hud = 'dashboards.hrhiring.labels.dashboards_hrhiring_labels_aura_hud';
-  static const String dashboards_hrhiring_labels_dashboards_hrhiring_labels_candidate_pipeline = 'dashboards.hrhiring.labels.dashboards_hrhiring_labels_candidate_pipeline';
-  static const String dashboards_hrhiring_labels_dashboards_hrhiring_labels_hiring_analytics = 'dashboards.hrhiring.labels.dashboards_hrhiring_labels_hiring_analytics';
-  static const String dashboards_hrhiring_labels_dashboards_hrhiring_labels_interview_scheduler = 'dashboards.hrhiring.labels.dashboards_hrhiring_labels_interview_scheduler';
-  static const String dashboards_hrhiring_labels_interview_bottleneck_detected = 'dashboards.hrhiring.labels.interview_bottleneck_detected';
-  static const String dashboards_hrhiring_labels_offer_strategy_success = 'dashboards.hrhiring.labels.offer_strategy_success';
-  static const String dashboards_hrhiring_subtitle = 'dashboards.hrhiring.subtitle';
+  static const String
+  dashboards_headofbusdev_labels_strategic_partnership_velocity =
+      'dashboards.headofbusdev.labels.strategic_partnership_velocity';
+  static const String
+  dashboards_headofbusdev_labels_territory_saturation_alert =
+      'dashboards.headofbusdev.labels.territory_saturation_alert';
+  static const String dashboards_headofbusdev_subtitle =
+      'dashboards.headofbusdev.subtitle';
+  static const String dashboards_headofbusdev_title =
+      'dashboards.headofbusdev.title';
+  static const String dashboards_headofmarketing_subtitle =
+      'dashboards.headofmarketing.subtitle';
+  static const String dashboards_headofmarketing_title =
+      'dashboards.headofmarketing.title';
+  static const String
+  dashboards_hrdirector_labels_hiring_pipeline_optimization =
+      'dashboards.hrdirector.labels.hiring_pipeline_optimization';
+  static const String dashboards_hrdirector_labels_hr_director_command_center =
+      'dashboards.hrdirector.labels.hr_director_command_center';
+  static const String dashboards_hrdirector_labels_retention_alert__us_east =
+      'dashboards.hrdirector.labels.retention_alert__us_east';
+  static const String
+  dashboards_hrdirector_labels_training_compliance_milestone =
+      'dashboards.hrdirector.labels.training_compliance_milestone';
+  static const String dashboards_hrdirector_subtitle =
+      'dashboards.hrdirector.subtitle';
+  static const String dashboards_hrdirector_title =
+      'dashboards.hrdirector.title';
+  static const String dashboards_hrhiring_labels_candidate_drop_off_alert =
+      'dashboards.hrhiring.labels.candidate_drop_off_alert';
+  static const String
+  dashboards_hrhiring_labels_dashboards_hrhiring_labels_aura_hud =
+      'dashboards.hrhiring.labels.dashboards_hrhiring_labels_aura_hud';
+  static const String
+  dashboards_hrhiring_labels_dashboards_hrhiring_labels_candidate_pipeline =
+      'dashboards.hrhiring.labels.dashboards_hrhiring_labels_candidate_pipeline';
+  static const String
+  dashboards_hrhiring_labels_dashboards_hrhiring_labels_hiring_analytics =
+      'dashboards.hrhiring.labels.dashboards_hrhiring_labels_hiring_analytics';
+  static const String
+  dashboards_hrhiring_labels_dashboards_hrhiring_labels_interview_scheduler =
+      'dashboards.hrhiring.labels.dashboards_hrhiring_labels_interview_scheduler';
+  static const String dashboards_hrhiring_labels_interview_bottleneck_detected =
+      'dashboards.hrhiring.labels.interview_bottleneck_detected';
+  static const String dashboards_hrhiring_labels_offer_strategy_success =
+      'dashboards.hrhiring.labels.offer_strategy_success';
+  static const String dashboards_hrhiring_subtitle =
+      'dashboards.hrhiring.subtitle';
   static const String dashboards_hrhiring_title = 'dashboards.hrhiring.title';
-  static const String dashboards_infectioncontrol_labels_annual_flu_shot_campaign_launched_in_region_a = 'dashboards.infectioncontrol.labels.annual_flu_shot_campaign_launched_in_region_a';
-  static const String dashboards_infectioncontrol_labels_antibiotic_stewardship = 'dashboards.infectioncontrol.labels.antibiotic_stewardship';
-  static const String dashboards_infectioncontrol_labels_immunization_target = 'dashboards.infectioncontrol.labels.immunization_target';
-  static const String dashboards_infectioncontrol_labels_infection_telemetry__30d = 'dashboards.infectioncontrol.labels.infection_telemetry__30d';
-  static const String dashboards_infectioncontrol_labels_outbreak_alert = 'dashboards.infectioncontrol.labels.outbreak_alert';
-  static const String dashboards_infectioncontrol_labels_outbreak_status = 'dashboards.infectioncontrol.labels.outbreak_status';
-  static const String dashboards_infectioncontrol_labels_protocol_updated = 'dashboards.infectioncontrol.labels.protocol_updated';
-  static const String dashboards_infectioncontrol_labels_revised_mrsa_screening_guidelines_published = 'dashboards.infectioncontrol.labels.revised_mrsa_screening_guidelines_published';
-  static const String dashboards_infectioncontrol_labels_sentinel_surveillance_trigger = 'dashboards.infectioncontrol.labels.sentinel_surveillance_trigger';
-  static const String dashboards_infectioncontrol_labels_vaccination_drive = 'dashboards.infectioncontrol.labels.vaccination_drive';
-  static const String dashboards_infectioncontrol_subtitle = 'dashboards.infectioncontrol.subtitle';
-  static const String dashboards_infectioncontrol_title = 'dashboards.infectioncontrol.title';
+  static const String
+  dashboards_infectioncontrol_labels_annual_flu_shot_campaign_launched_in_region_a =
+      'dashboards.infectioncontrol.labels.annual_flu_shot_campaign_launched_in_region_a';
+  static const String
+  dashboards_infectioncontrol_labels_antibiotic_stewardship =
+      'dashboards.infectioncontrol.labels.antibiotic_stewardship';
+  static const String dashboards_infectioncontrol_labels_immunization_target =
+      'dashboards.infectioncontrol.labels.immunization_target';
+  static const String
+  dashboards_infectioncontrol_labels_infection_telemetry__30d =
+      'dashboards.infectioncontrol.labels.infection_telemetry__30d';
+  static const String dashboards_infectioncontrol_labels_outbreak_alert =
+      'dashboards.infectioncontrol.labels.outbreak_alert';
+  static const String dashboards_infectioncontrol_labels_outbreak_status =
+      'dashboards.infectioncontrol.labels.outbreak_status';
+  static const String dashboards_infectioncontrol_labels_protocol_updated =
+      'dashboards.infectioncontrol.labels.protocol_updated';
+  static const String
+  dashboards_infectioncontrol_labels_revised_mrsa_screening_guidelines_published =
+      'dashboards.infectioncontrol.labels.revised_mrsa_screening_guidelines_published';
+  static const String
+  dashboards_infectioncontrol_labels_sentinel_surveillance_trigger =
+      'dashboards.infectioncontrol.labels.sentinel_surveillance_trigger';
+  static const String dashboards_infectioncontrol_labels_vaccination_drive =
+      'dashboards.infectioncontrol.labels.vaccination_drive';
+  static const String dashboards_infectioncontrol_subtitle =
+      'dashboards.infectioncontrol.subtitle';
+  static const String dashboards_infectioncontrol_title =
+      'dashboards.infectioncontrol.title';
   static const String dashboards_intake_subtitle = 'dashboards.intake.subtitle';
   static const String dashboards_intake_title = 'dashboards.intake.title';
-  static const String dashboards_intakecoordinator_labels_active_referrals = 'dashboards.intakecoordinator.labels.active_referrals';
-  static const String dashboards_intakecoordinator_labels_avg__intake_time = 'dashboards.intakecoordinator.labels.avg__intake_time';
-  static const String dashboards_intakecoordinator_labels_capacity_bottleneck = 'dashboards.intakecoordinator.labels.capacity_bottleneck';
-  static const String dashboards_intakecoordinator_labels_high_priority_triage_alert = 'dashboards.intakecoordinator.labels.high_priority_triage_alert';
-  static const String dashboards_intakecoordinator_labels_intake_completed = 'dashboards.intakecoordinator.labels.intake_completed';
-  static const String dashboards_intakecoordinator_labels_jane_smith___sector_4 = 'dashboards.intakecoordinator.labels.jane_smith___sector_4';
-  static const String dashboards_intakecoordinator_labels_john_doe___north_general_hospital = 'dashboards.intakecoordinator.labels.john_doe___north_general_hospital';
-  static const String dashboards_intakecoordinator_labels_new_referral = 'dashboards.intakecoordinator.labels.new_referral';
-  static const String dashboards_intakecoordinator_labels_provider_network_optimization = 'dashboards.intakecoordinator.labels.provider_network_optimization';
-  static const String dashboards_intakecoordinator_labels_referral_volume__7d = 'dashboards.intakecoordinator.labels.referral_volume__7d';
-  static const String dashboards_intakecoordinator_labels_waitlist_depth = 'dashboards.intakecoordinator.labels.waitlist_depth';
-  static const String dashboards_intakecoordinator_labels_waitlist_efficiency_insight = 'dashboards.intakecoordinator.labels.waitlist_efficiency_insight';
-  static const String dashboards_intakecoordinator_subtitle = 'dashboards.intakecoordinator.subtitle';
-  static const String dashboards_intakecoordinator_title = 'dashboards.intakecoordinator.title';
-  static const String dashboards_itsecurity_labels_compliance = 'dashboards.itsecurity.labels.compliance';
-  static const String dashboards_itsecurity_labels_threat_intel = 'dashboards.itsecurity.labels.threat_intel';
-  static const String dashboards_itsecurity_subtitle = 'dashboards.itsecurity.subtitle';
-  static const String dashboards_itsecurity_title = 'dashboards.itsecurity.title';
-  static const String dashboards_localmarketingmanager_labels_conversion_rate_surge = 'dashboards.localmarketingmanager.labels.conversion_rate_surge';
-  static const String dashboards_localmarketingmanager_labels_lead_attrition_alert = 'dashboards.localmarketingmanager.labels.lead_attrition_alert';
-  static const String dashboards_localmarketingmanager_labels_market_expansion_opportunity = 'dashboards.localmarketingmanager.labels.market_expansion_opportunity';
-  static const String dashboards_localmarketingmanager_subtitle = 'dashboards.localmarketingmanager.subtitle';
-  static const String dashboards_localmarketingmanager_title = 'dashboards.localmarketingmanager.title';
-  static const String dashboards_operationsmanager_labels_facility_maintenance_trigger = 'dashboards.operationsmanager.labels.facility_maintenance_trigger';
-  static const String dashboards_operationsmanager_labels_operational_cost_saving = 'dashboards.operationsmanager.labels.operational_cost_saving';
-  static const String dashboards_operationsmanager_labels_predictive_staffing_gap = 'dashboards.operationsmanager.labels.predictive_staffing_gap';
-  static const String dashboards_operationsmanager_subtitle = 'dashboards.operationsmanager.subtitle';
-  static const String dashboards_operationsmanager_title = 'dashboards.operationsmanager.title';
-  static const String dashboards_owner_labels_ai_operational_efficiency = 'dashboards.owner.labels.ai_operational_efficiency';
-  static const String dashboards_owner_labels_m_a_opportunity__gta_north = 'dashboards.owner.labels.m_a_opportunity__gta_north';
-  static const String dashboards_owner_labels_regulatory_change__bill_124_impact = 'dashboards.owner.labels.regulatory_change__bill_124_impact';
+  static const String dashboards_intakecoordinator_labels_active_referrals =
+      'dashboards.intakecoordinator.labels.active_referrals';
+  static const String dashboards_intakecoordinator_labels_avg__intake_time =
+      'dashboards.intakecoordinator.labels.avg__intake_time';
+  static const String dashboards_intakecoordinator_labels_capacity_bottleneck =
+      'dashboards.intakecoordinator.labels.capacity_bottleneck';
+  static const String
+  dashboards_intakecoordinator_labels_high_priority_triage_alert =
+      'dashboards.intakecoordinator.labels.high_priority_triage_alert';
+  static const String dashboards_intakecoordinator_labels_intake_completed =
+      'dashboards.intakecoordinator.labels.intake_completed';
+  static const String
+  dashboards_intakecoordinator_labels_jane_smith___sector_4 =
+      'dashboards.intakecoordinator.labels.jane_smith___sector_4';
+  static const String
+  dashboards_intakecoordinator_labels_john_doe___north_general_hospital =
+      'dashboards.intakecoordinator.labels.john_doe___north_general_hospital';
+  static const String dashboards_intakecoordinator_labels_new_referral =
+      'dashboards.intakecoordinator.labels.new_referral';
+  static const String
+  dashboards_intakecoordinator_labels_provider_network_optimization =
+      'dashboards.intakecoordinator.labels.provider_network_optimization';
+  static const String dashboards_intakecoordinator_labels_referral_volume__7d =
+      'dashboards.intakecoordinator.labels.referral_volume__7d';
+  static const String dashboards_intakecoordinator_labels_waitlist_depth =
+      'dashboards.intakecoordinator.labels.waitlist_depth';
+  static const String
+  dashboards_intakecoordinator_labels_waitlist_efficiency_insight =
+      'dashboards.intakecoordinator.labels.waitlist_efficiency_insight';
+  static const String dashboards_intakecoordinator_subtitle =
+      'dashboards.intakecoordinator.subtitle';
+  static const String dashboards_intakecoordinator_title =
+      'dashboards.intakecoordinator.title';
+  static const String dashboards_itsecurity_labels_compliance =
+      'dashboards.itsecurity.labels.compliance';
+  static const String dashboards_itsecurity_labels_threat_intel =
+      'dashboards.itsecurity.labels.threat_intel';
+  static const String dashboards_itsecurity_subtitle =
+      'dashboards.itsecurity.subtitle';
+  static const String dashboards_itsecurity_title =
+      'dashboards.itsecurity.title';
+  static const String
+  dashboards_localmarketingmanager_labels_conversion_rate_surge =
+      'dashboards.localmarketingmanager.labels.conversion_rate_surge';
+  static const String
+  dashboards_localmarketingmanager_labels_lead_attrition_alert =
+      'dashboards.localmarketingmanager.labels.lead_attrition_alert';
+  static const String
+  dashboards_localmarketingmanager_labels_market_expansion_opportunity =
+      'dashboards.localmarketingmanager.labels.market_expansion_opportunity';
+  static const String dashboards_localmarketingmanager_subtitle =
+      'dashboards.localmarketingmanager.subtitle';
+  static const String dashboards_localmarketingmanager_title =
+      'dashboards.localmarketingmanager.title';
+  static const String
+  dashboards_operationsmanager_labels_facility_maintenance_trigger =
+      'dashboards.operationsmanager.labels.facility_maintenance_trigger';
+  static const String
+  dashboards_operationsmanager_labels_operational_cost_saving =
+      'dashboards.operationsmanager.labels.operational_cost_saving';
+  static const String
+  dashboards_operationsmanager_labels_predictive_staffing_gap =
+      'dashboards.operationsmanager.labels.predictive_staffing_gap';
+  static const String dashboards_operationsmanager_subtitle =
+      'dashboards.operationsmanager.subtitle';
+  static const String dashboards_operationsmanager_title =
+      'dashboards.operationsmanager.title';
+  static const String dashboards_owner_labels_ai_operational_efficiency =
+      'dashboards.owner.labels.ai_operational_efficiency';
+  static const String dashboards_owner_labels_m_a_opportunity__gta_north =
+      'dashboards.owner.labels.m_a_opportunity__gta_north';
+  static const String
+  dashboards_owner_labels_regulatory_change__bill_124_impact =
+      'dashboards.owner.labels.regulatory_change__bill_124_impact';
   static const String dashboards_owner_subtitle = 'dashboards.owner.subtitle';
   static const String dashboards_owner_title = 'dashboards.owner.title';
-  static const String dashboards_partnershipmanager_labels_high_value_pipeline = 'dashboards.partnershipmanager.labels.high_value_pipeline';
-  static const String dashboards_partnershipmanager_labels_partner_referral_drop = 'dashboards.partnershipmanager.labels.partner_referral_drop';
-  static const String dashboards_partnershipmanager_labels_synergy_optimization = 'dashboards.partnershipmanager.labels.synergy_optimization';
-  static const String dashboards_partnershipmanager_subtitle = 'dashboards.partnershipmanager.subtitle';
-  static const String dashboards_partnershipmanager_title = 'dashboards.partnershipmanager.title';
-  static const String dashboards_patient_labels_care_plan_milestone = 'dashboards.patient.labels.care_plan_milestone';
-  static const String dashboards_patient_labels_vitals_deviation_alert = 'dashboards.patient.labels.vitals_deviation_alert';
-  static const String dashboards_patient_subtitle = 'dashboards.patient.subtitle';
+  static const String dashboards_partnershipmanager_labels_high_value_pipeline =
+      'dashboards.partnershipmanager.labels.high_value_pipeline';
+  static const String
+  dashboards_partnershipmanager_labels_partner_referral_drop =
+      'dashboards.partnershipmanager.labels.partner_referral_drop';
+  static const String
+  dashboards_partnershipmanager_labels_synergy_optimization =
+      'dashboards.partnershipmanager.labels.synergy_optimization';
+  static const String dashboards_partnershipmanager_subtitle =
+      'dashboards.partnershipmanager.subtitle';
+  static const String dashboards_partnershipmanager_title =
+      'dashboards.partnershipmanager.title';
+  static const String dashboards_patient_labels_care_plan_milestone =
+      'dashboards.patient.labels.care_plan_milestone';
+  static const String dashboards_patient_labels_vitals_deviation_alert =
+      'dashboards.patient.labels.vitals_deviation_alert';
+  static const String dashboards_patient_subtitle =
+      'dashboards.patient.subtitle';
   static const String dashboards_patient_title = 'dashboards.patient.title';
-  static const String dashboards_psw_labels_clinical_priority = 'dashboards.psw.labels.clinical_priority';
-  static const String dashboards_psw_labels_dashboards_psw_labels_aura_hud = 'dashboards.psw.labels.dashboards_psw_labels_aura_hud';
-  static const String dashboards_psw_labels_dashboards_psw_labels_care_plan_checklist = 'dashboards.psw.labels.dashboards_psw_labels_care_plan_checklist';
-  static const String dashboards_psw_labels_dashboards_psw_labels_clinical_summary = 'dashboards.psw.labels.dashboards_psw_labels_clinical_summary';
-  static const String dashboards_psw_labels_dashboards_psw_labels_incident_quick_report = 'dashboards.psw.labels.dashboards_psw_labels_incident_quick_report';
-  static const String dashboards_psw_labels_schedule_density_alert = 'dashboards.psw.labels.schedule_density_alert';
+  static const String dashboards_psw_labels_clinical_priority =
+      'dashboards.psw.labels.clinical_priority';
+  static const String dashboards_psw_labels_dashboards_psw_labels_aura_hud =
+      'dashboards.psw.labels.dashboards_psw_labels_aura_hud';
+  static const String
+  dashboards_psw_labels_dashboards_psw_labels_care_plan_checklist =
+      'dashboards.psw.labels.dashboards_psw_labels_care_plan_checklist';
+  static const String
+  dashboards_psw_labels_dashboards_psw_labels_clinical_summary =
+      'dashboards.psw.labels.dashboards_psw_labels_clinical_summary';
+  static const String
+  dashboards_psw_labels_dashboards_psw_labels_incident_quick_report =
+      'dashboards.psw.labels.dashboards_psw_labels_incident_quick_report';
+  static const String dashboards_psw_labels_schedule_density_alert =
+      'dashboards.psw.labels.schedule_density_alert';
   static const String dashboards_psw_subtitle = 'dashboards.psw.subtitle';
   static const String dashboards_psw_title = 'dashboards.psw.title';
-  static const String dashboards_qa_labels_documentation_gap = 'dashboards.qa.labels.documentation_gap';
-  static const String dashboards_qa_labels_regulatory_drift_risk = 'dashboards.qa.labels.regulatory_drift_risk';
-  static const String dashboards_qa_labels_safety_achievement = 'dashboards.qa.labels.safety_achievement';
+  static const String dashboards_qa_labels_documentation_gap =
+      'dashboards.qa.labels.documentation_gap';
+  static const String dashboards_qa_labels_regulatory_drift_risk =
+      'dashboards.qa.labels.regulatory_drift_risk';
+  static const String dashboards_qa_labels_safety_achievement =
+      'dashboards.qa.labels.safety_achievement';
   static const String dashboards_qa_subtitle = 'dashboards.qa.subtitle';
   static const String dashboards_qa_title = 'dashboards.qa.title';
-  static const String dashboards_qualityassurance_labels_audit_readiness_high = 'dashboards.qualityassurance.labels.audit_readiness_high';
-  static const String dashboards_qualityassurance_labels_compliance_drift_detected = 'dashboards.qualityassurance.labels.compliance_drift_detected';
-  static const String dashboards_qualityassurance_subtitle = 'dashboards.qualityassurance.subtitle';
-  static const String dashboards_qualityassurance_title = 'dashboards.qualityassurance.title';
-  static const String dashboards_receptionist_labels_appointment_density_spike = 'dashboards.receptionist.labels.appointment_density_spike';
-  static const String dashboards_receptionist_labels_documentation_delay_risk = 'dashboards.receptionist.labels.documentation_delay_risk';
-  static const String dashboards_receptionist_labels_wait_time_optimization = 'dashboards.receptionist.labels.wait_time_optimization';
-  static const String dashboards_receptionist_subtitle = 'dashboards.receptionist.subtitle';
-  static const String dashboards_receptionist_title = 'dashboards.receptionist.title';
-  static const String dashboards_regionalbdm_labels_lead_velocity_decay = 'dashboards.regionalbdm.labels.lead_velocity_decay';
-  static const String dashboards_regionalbdm_labels_market_penetration_high = 'dashboards.regionalbdm.labels.market_penetration_high';
-  static const String dashboards_regionalbdm_subtitle = 'dashboards.regionalbdm.subtitle';
-  static const String dashboards_regionalbdm_title = 'dashboards.regionalbdm.title';
-  static const String dashboards_regionalmanagerontario_labels_digital_health_opportunity = 'dashboards.regionalmanagerontario.labels.digital_health_opportunity';
-  static const String dashboards_regionalmanagerontario_labels_lhin_resource_allocation = 'dashboards.regionalmanagerontario.labels.lhin_resource_allocation';
-  static const String dashboards_regionalmanagerontario_labels_waitlist_saturation__york = 'dashboards.regionalmanagerontario.labels.waitlist_saturation__york';
-  static const String dashboards_regionalmanagerontario_subtitle = 'dashboards.regionalmanagerontario.subtitle';
-  static const String dashboards_regionalmanagerontario_title = 'dashboards.regionalmanagerontario.title';
-  static const String dashboards_regionalmanagerusa_labels_compliance_rating = 'dashboards.regionalmanagerusa.labels.compliance_rating';
-  static const String dashboards_regionalmanagerusa_labels_interstate_mobility_optimization = 'dashboards.regionalmanagerusa.labels.interstate_mobility_optimization';
-  static const String dashboards_regionalmanagerusa_labels_market_reach = 'dashboards.regionalmanagerusa.labels.market_reach';
-  static const String dashboards_regionalmanagerusa_labels_market_saturation_warning__ca = 'dashboards.regionalmanagerusa.labels.market_saturation_warning__ca';
-  static const String dashboards_regionalmanagerusa_labels_regional_retention = 'dashboards.regionalmanagerusa.labels.regional_retention';
-  static const String dashboards_regionalmanagerusa_labels_revenue_velocity = 'dashboards.regionalmanagerusa.labels.revenue_velocity';
-  static const String dashboards_regionalmanagerusa_labels_texas_growth_corridor = 'dashboards.regionalmanagerusa.labels.texas_growth_corridor';
-  static const String dashboards_regionalmanagerusa_subtitle = 'dashboards.regionalmanagerusa.subtitle';
-  static const String dashboards_regionalmanagerusa_title = 'dashboards.regionalmanagerusa.title';
-  static const String dashboards_rmt_labels_adherence = 'dashboards.rmt.labels.adherence';
-  static const String dashboards_rmt_labels_fatigue_trend_detection = 'dashboards.rmt.labels.fatigue_trend_detection';
-  static const String dashboards_rmt_labels_mobility_gain = 'dashboards.rmt.labels.mobility_gain';
-  static const String dashboards_rmt_labels_mobility_recovery_index__weekly = 'dashboards.rmt.labels.mobility_recovery_index__weekly';
-  static const String dashboards_rmt_labels_recovery_speed = 'dashboards.rmt.labels.recovery_speed';
-  static const String dashboards_rmt_labels_therapeutic_strategy_alert = 'dashboards.rmt.labels.therapeutic_strategy_alert';
-  static const String dashboards_rmt_labels_treatments = 'dashboards.rmt.labels.treatments';
+  static const String dashboards_qualityassurance_labels_audit_readiness_high =
+      'dashboards.qualityassurance.labels.audit_readiness_high';
+  static const String
+  dashboards_qualityassurance_labels_compliance_drift_detected =
+      'dashboards.qualityassurance.labels.compliance_drift_detected';
+  static const String dashboards_qualityassurance_subtitle =
+      'dashboards.qualityassurance.subtitle';
+  static const String dashboards_qualityassurance_title =
+      'dashboards.qualityassurance.title';
+  static const String dashboards_receptionist_labels_appointment_density_spike =
+      'dashboards.receptionist.labels.appointment_density_spike';
+  static const String dashboards_receptionist_labels_documentation_delay_risk =
+      'dashboards.receptionist.labels.documentation_delay_risk';
+  static const String dashboards_receptionist_labels_wait_time_optimization =
+      'dashboards.receptionist.labels.wait_time_optimization';
+  static const String dashboards_receptionist_subtitle =
+      'dashboards.receptionist.subtitle';
+  static const String dashboards_receptionist_title =
+      'dashboards.receptionist.title';
+  static const String dashboards_regionalbdm_labels_lead_velocity_decay =
+      'dashboards.regionalbdm.labels.lead_velocity_decay';
+  static const String dashboards_regionalbdm_labels_market_penetration_high =
+      'dashboards.regionalbdm.labels.market_penetration_high';
+  static const String dashboards_regionalbdm_subtitle =
+      'dashboards.regionalbdm.subtitle';
+  static const String dashboards_regionalbdm_title =
+      'dashboards.regionalbdm.title';
+  static const String
+  dashboards_regionalmanagerontario_labels_digital_health_opportunity =
+      'dashboards.regionalmanagerontario.labels.digital_health_opportunity';
+  static const String
+  dashboards_regionalmanagerontario_labels_lhin_resource_allocation =
+      'dashboards.regionalmanagerontario.labels.lhin_resource_allocation';
+  static const String
+  dashboards_regionalmanagerontario_labels_waitlist_saturation__york =
+      'dashboards.regionalmanagerontario.labels.waitlist_saturation__york';
+  static const String dashboards_regionalmanagerontario_subtitle =
+      'dashboards.regionalmanagerontario.subtitle';
+  static const String dashboards_regionalmanagerontario_title =
+      'dashboards.regionalmanagerontario.title';
+  static const String dashboards_regionalmanagerusa_labels_compliance_rating =
+      'dashboards.regionalmanagerusa.labels.compliance_rating';
+  static const String
+  dashboards_regionalmanagerusa_labels_interstate_mobility_optimization =
+      'dashboards.regionalmanagerusa.labels.interstate_mobility_optimization';
+  static const String dashboards_regionalmanagerusa_labels_market_reach =
+      'dashboards.regionalmanagerusa.labels.market_reach';
+  static const String
+  dashboards_regionalmanagerusa_labels_market_saturation_warning__ca =
+      'dashboards.regionalmanagerusa.labels.market_saturation_warning__ca';
+  static const String dashboards_regionalmanagerusa_labels_regional_retention =
+      'dashboards.regionalmanagerusa.labels.regional_retention';
+  static const String dashboards_regionalmanagerusa_labels_revenue_velocity =
+      'dashboards.regionalmanagerusa.labels.revenue_velocity';
+  static const String
+  dashboards_regionalmanagerusa_labels_texas_growth_corridor =
+      'dashboards.regionalmanagerusa.labels.texas_growth_corridor';
+  static const String dashboards_regionalmanagerusa_subtitle =
+      'dashboards.regionalmanagerusa.subtitle';
+  static const String dashboards_regionalmanagerusa_title =
+      'dashboards.regionalmanagerusa.title';
+  static const String dashboards_rmt_labels_adherence =
+      'dashboards.rmt.labels.adherence';
+  static const String dashboards_rmt_labels_fatigue_trend_detection =
+      'dashboards.rmt.labels.fatigue_trend_detection';
+  static const String dashboards_rmt_labels_mobility_gain =
+      'dashboards.rmt.labels.mobility_gain';
+  static const String dashboards_rmt_labels_mobility_recovery_index__weekly =
+      'dashboards.rmt.labels.mobility_recovery_index__weekly';
+  static const String dashboards_rmt_labels_recovery_speed =
+      'dashboards.rmt.labels.recovery_speed';
+  static const String dashboards_rmt_labels_therapeutic_strategy_alert =
+      'dashboards.rmt.labels.therapeutic_strategy_alert';
+  static const String dashboards_rmt_labels_treatments =
+      'dashboards.rmt.labels.treatments';
   static const String dashboards_rmt_subtitle = 'dashboards.rmt.subtitle';
   static const String dashboards_rmt_title = 'dashboards.rmt.title';
-  static const String dashboards_rn_labels_active_patients = 'dashboards.rn.labels.active_patients';
-  static const String dashboards_rn_labels_charting_gap = 'dashboards.rn.labels.charting_gap';
-  static const String dashboards_rn_labels_deterioration_early_warning = 'dashboards.rn.labels.deterioration_early_warning';
-  static const String dashboards_rn_labels_high_acuity = 'dashboards.rn.labels.high_acuity';
-  static const String dashboards_rn_labels_med_compliance = 'dashboards.rn.labels.med_compliance';
-  static const String dashboards_rn_labels_medication_safety_streak = 'dashboards.rn.labels.medication_safety_streak';
-  static const String dashboards_rn_labels_vital_stability_index__24h_aggregate = 'dashboards.rn.labels.vital_stability_index__24h_aggregate';
+  static const String dashboards_rn_labels_active_patients =
+      'dashboards.rn.labels.active_patients';
+  static const String dashboards_rn_labels_charting_gap =
+      'dashboards.rn.labels.charting_gap';
+  static const String dashboards_rn_labels_deterioration_early_warning =
+      'dashboards.rn.labels.deterioration_early_warning';
+  static const String dashboards_rn_labels_high_acuity =
+      'dashboards.rn.labels.high_acuity';
+  static const String dashboards_rn_labels_med_compliance =
+      'dashboards.rn.labels.med_compliance';
+  static const String dashboards_rn_labels_medication_safety_streak =
+      'dashboards.rn.labels.medication_safety_streak';
+  static const String
+  dashboards_rn_labels_vital_stability_index__24h_aggregate =
+      'dashboards.rn.labels.vital_stability_index__24h_aggregate';
   static const String dashboards_rn_subtitle = 'dashboards.rn.subtitle';
   static const String dashboards_rn_title = 'dashboards.rn.title';
-  static const String dashboards_scheduler_labels_overtime_prevention_alert = 'dashboards.scheduler.labels.overtime_prevention_alert';
-  static const String dashboards_scheduler_labels_shift_coverage_gap = 'dashboards.scheduler.labels.shift_coverage_gap';
-  static const String dashboards_scheduler_labels_travel_optimization_opportunity = 'dashboards.scheduler.labels.travel_optimization_opportunity';
-  static const String dashboards_scheduler_subtitle = 'dashboards.scheduler.subtitle';
+  static const String dashboards_scheduler_labels_overtime_prevention_alert =
+      'dashboards.scheduler.labels.overtime_prevention_alert';
+  static const String dashboards_scheduler_labels_shift_coverage_gap =
+      'dashboards.scheduler.labels.shift_coverage_gap';
+  static const String
+  dashboards_scheduler_labels_travel_optimization_opportunity =
+      'dashboards.scheduler.labels.travel_optimization_opportunity';
+  static const String dashboards_scheduler_subtitle =
+      'dashboards.scheduler.subtitle';
   static const String dashboards_scheduler_title = 'dashboards.scheduler.title';
-  static const String dashboards_scrummaster_labels_blocker_resolved_early = 'dashboards.scrummaster.labels.blocker_resolved_early';
-  static const String dashboards_scrummaster_labels_velocity_dropping = 'dashboards.scrummaster.labels.velocity_dropping';
-  static const String dashboards_scrummaster_subtitle = 'dashboards.scrummaster.subtitle';
-  static const String dashboards_scrummaster_title = 'dashboards.scrummaster.title';
-  static const String dashboards_shareholderintelligence_labels_1_2 = 'dashboards.shareholderintelligence.labels.1_2';
-  static const String dashboards_shareholderintelligence_labels_active_development = 'dashboards.shareholderintelligence.labels.active_development';
-  static const String dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_feature_pipeline_kanban = 'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_pipeline_kanban';
-  static const String dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_feature_request_fab = 'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_request_fab';
-  static const String dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_global_governance_header = 'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_global_governance_header';
-  static const String dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_real_time_telemetry_feed = 'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_real_time_telemetry_feed';
-  static const String dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_shareholder_roi_matrix = 'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_shareholder_roi_matrix';
-  static const String dashboards_shareholderintelligence_labels_features_in_pipeline = 'dashboards.shareholderintelligence.labels.features_in_pipeline';
-  static const String dashboards_shareholderintelligence_labels_regional_manager_ontario_dashboard = 'dashboards.shareholderintelligence.labels.regional_manager_ontario_dashboard';
-  static const String dashboards_shareholderintelligence_labels_telemetry_hydrated = 'dashboards.shareholderintelligence.labels.telemetry_hydrated';
-  static const String dashboards_shareholderintelligence_labels_zero_error_compliance = 'dashboards.shareholderintelligence.labels.zero_error_compliance';
-  static const String dashboards_shareholderintelligence_subtitle = 'dashboards.shareholderintelligence.subtitle';
-  static const String dashboards_shareholderintelligence_title = 'dashboards.shareholderintelligence.title';
-  static const String dashboards_socialworker_labels_1_0 = 'dashboards.socialworker.labels.1_0';
-  static const String dashboards_socialworker_labels_2_0 = 'dashboards.socialworker.labels.2_0';
-  static const String dashboards_socialworker_labels_3_0 = 'dashboards.socialworker.labels.3_0';
-  static const String dashboards_socialworker_labels_5_0 = 'dashboards.socialworker.labels.5_0';
-  static const String dashboards_socialworker_labels_active_caseload = 'dashboards.socialworker.labels.active_caseload';
-  static const String dashboards_socialworker_labels_community_linkage = 'dashboards.socialworker.labels.community_linkage';
-  static const String dashboards_socialworker_labels_crisis_velocity = 'dashboards.socialworker.labels.crisis_velocity';
-  static const String dashboards_socialworker_labels_intervention_rate = 'dashboards.socialworker.labels.intervention_rate';
-  static const String dashboards_socialworker_labels_psychosocial_crisis_detection = 'dashboards.socialworker.labels.psychosocial_crisis_detection';
-  static const String dashboards_socialworker_labels_regulatory_funding_opportunity = 'dashboards.socialworker.labels.regulatory_funding_opportunity';
-  static const String dashboards_socialworker_subtitle = 'dashboards.socialworker.subtitle';
-  static const String dashboards_socialworker_title = 'dashboards.socialworker.title';
-  static const String dashboards_support_labels_aura_intelligence = 'dashboards.support.labels.aura_intelligence';
-  static const String dashboards_support_labels_operational_volume = 'dashboards.support.labels.operational_volume';
-  static const String dashboards_support_subtitle = 'dashboards.support.subtitle';
+  static const String dashboards_scrummaster_labels_blocker_resolved_early =
+      'dashboards.scrummaster.labels.blocker_resolved_early';
+  static const String dashboards_scrummaster_labels_velocity_dropping =
+      'dashboards.scrummaster.labels.velocity_dropping';
+  static const String dashboards_scrummaster_subtitle =
+      'dashboards.scrummaster.subtitle';
+  static const String dashboards_scrummaster_title =
+      'dashboards.scrummaster.title';
+  static const String dashboards_shareholderintelligence_labels_1_2 =
+      'dashboards.shareholderintelligence.labels.1_2';
+  static const String
+  dashboards_shareholderintelligence_labels_active_development =
+      'dashboards.shareholderintelligence.labels.active_development';
+  static const String
+  dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_feature_pipeline_kanban =
+      'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_pipeline_kanban';
+  static const String
+  dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_feature_request_fab =
+      'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_feature_request_fab';
+  static const String
+  dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_global_governance_header =
+      'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_global_governance_header';
+  static const String
+  dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_real_time_telemetry_feed =
+      'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_real_time_telemetry_feed';
+  static const String
+  dashboards_shareholderintelligence_labels_dashboards_shareholderintelligence_labels_shareholder_roi_matrix =
+      'dashboards.shareholderintelligence.labels.dashboards_shareholderintelligence_labels_shareholder_roi_matrix';
+  static const String
+  dashboards_shareholderintelligence_labels_features_in_pipeline =
+      'dashboards.shareholderintelligence.labels.features_in_pipeline';
+  static const String
+  dashboards_shareholderintelligence_labels_regional_manager_ontario_dashboard =
+      'dashboards.shareholderintelligence.labels.regional_manager_ontario_dashboard';
+  static const String
+  dashboards_shareholderintelligence_labels_telemetry_hydrated =
+      'dashboards.shareholderintelligence.labels.telemetry_hydrated';
+  static const String
+  dashboards_shareholderintelligence_labels_zero_error_compliance =
+      'dashboards.shareholderintelligence.labels.zero_error_compliance';
+  static const String dashboards_shareholderintelligence_subtitle =
+      'dashboards.shareholderintelligence.subtitle';
+  static const String dashboards_shareholderintelligence_title =
+      'dashboards.shareholderintelligence.title';
+  static const String dashboards_socialworker_labels_1_0 =
+      'dashboards.socialworker.labels.1_0';
+  static const String dashboards_socialworker_labels_2_0 =
+      'dashboards.socialworker.labels.2_0';
+  static const String dashboards_socialworker_labels_3_0 =
+      'dashboards.socialworker.labels.3_0';
+  static const String dashboards_socialworker_labels_5_0 =
+      'dashboards.socialworker.labels.5_0';
+  static const String dashboards_socialworker_labels_active_caseload =
+      'dashboards.socialworker.labels.active_caseload';
+  static const String dashboards_socialworker_labels_community_linkage =
+      'dashboards.socialworker.labels.community_linkage';
+  static const String dashboards_socialworker_labels_crisis_velocity =
+      'dashboards.socialworker.labels.crisis_velocity';
+  static const String dashboards_socialworker_labels_intervention_rate =
+      'dashboards.socialworker.labels.intervention_rate';
+  static const String
+  dashboards_socialworker_labels_psychosocial_crisis_detection =
+      'dashboards.socialworker.labels.psychosocial_crisis_detection';
+  static const String
+  dashboards_socialworker_labels_regulatory_funding_opportunity =
+      'dashboards.socialworker.labels.regulatory_funding_opportunity';
+  static const String dashboards_socialworker_subtitle =
+      'dashboards.socialworker.subtitle';
+  static const String dashboards_socialworker_title =
+      'dashboards.socialworker.title';
+  static const String dashboards_support_labels_aura_intelligence =
+      'dashboards.support.labels.aura_intelligence';
+  static const String dashboards_support_labels_operational_volume =
+      'dashboards.support.labels.operational_volume';
+  static const String dashboards_support_subtitle =
+      'dashboards.support.subtitle';
   static const String dashboards_support_title = 'dashboards.support.title';
-  static const String dashboards_systemverification_labels_infrastructure_optimization = 'dashboards.systemverification.labels.infrastructure_optimization';
-  static const String dashboards_systemverification_labels_security_compliance = 'dashboards.systemverification.labels.security_compliance';
-  static const String dashboards_systemverification_subtitle = 'dashboards.systemverification.subtitle';
-  static const String dashboards_systemverification_title = 'dashboards.systemverification.title';
-  static const String dashboards_territoryexpansionmanager_labels_contract_signed = 'dashboards.territoryexpansionmanager.labels.contract_signed';
-  static const String dashboards_territoryexpansionmanager_labels_geographic_density_alert = 'dashboards.territoryexpansionmanager.labels.geographic_density_alert';
-  static const String dashboards_territoryexpansionmanager_labels_lease_finalized_for_ottawa_east_hub = 'dashboards.territoryexpansionmanager.labels.lease_finalized_for_ottawa_east_hub';
-  static const String dashboards_territoryexpansionmanager_labels_market_maturity = 'dashboards.territoryexpansionmanager.labels.market_maturity';
-  static const String dashboards_territoryexpansionmanager_labels_new_site_identified = 'dashboards.territoryexpansionmanager.labels.new_site_identified';
-  static const String dashboards_territoryexpansionmanager_labels_optimal_launch_window = 'dashboards.territoryexpansionmanager.labels.optimal_launch_window';
-  static const String dashboards_territoryexpansionmanager_labels_potential_location_in_vancouver_north_cluster = 'dashboards.territoryexpansionmanager.labels.potential_location_in_vancouver_north_cluster';
-  static const String dashboards_territoryexpansionmanager_labels_projected_roi = 'dashboards.territoryexpansionmanager.labels.projected_roi';
-  static const String dashboards_territoryexpansionmanager_labels_regulatory_pulse = 'dashboards.territoryexpansionmanager.labels.regulatory_pulse';
-  static const String dashboards_territoryexpansionmanager_labels_regulatory_speed = 'dashboards.territoryexpansionmanager.labels.regulatory_speed';
-  static const String dashboards_territoryexpansionmanager_labels_site_acquisition = 'dashboards.territoryexpansionmanager.labels.site_acquisition';
-  static const String dashboards_territoryexpansionmanager_labels_site_acquisition_pipeline = 'dashboards.territoryexpansionmanager.labels.site_acquisition_pipeline';
-  static const String dashboards_territoryexpansionmanager_subtitle = 'dashboards.territoryexpansionmanager.subtitle';
-  static const String dashboards_territoryexpansionmanager_title = 'dashboards.territoryexpansionmanager.title';
-  static const String dashboards_territorysalesmanager_labels_ad_spend_optimization = 'dashboards.territorysalesmanager.labels.ad_spend_optimization';
-  static const String dashboards_territorysalesmanager_labels_territory_reallocation_suggestion = 'dashboards.territorysalesmanager.labels.territory_reallocation_suggestion';
-  static const String dashboards_territorysalesmanager_subtitle = 'dashboards.territorysalesmanager.subtitle';
-  static const String dashboards_territorysalesmanager_title = 'dashboards.territorysalesmanager.title';
-  static const String dashboards_trainingcoordinator_labels_compliance_expiry_risk = 'dashboards.trainingcoordinator.labels.compliance_expiry_risk';
-  static const String dashboards_trainingcoordinator_labels_course_efficiency_warning = 'dashboards.trainingcoordinator.labels.course_efficiency_warning';
-  static const String dashboards_trainingcoordinator_labels_credentialing_velocity = 'dashboards.trainingcoordinator.labels.credentialing_velocity';
-  static const String dashboards_trainingcoordinator_subtitle = 'dashboards.trainingcoordinator.subtitle';
-  static const String dashboards_trainingcoordinator_title = 'dashboards.trainingcoordinator.title';
-  static const String dashboards_trainingdirector_labels_compliance_risk_in_southwest = 'dashboards.trainingdirector.labels.compliance_risk_in_southwest';
-  static const String dashboards_trainingdirector_labels_new_curriculum_opportunity = 'dashboards.trainingdirector.labels.new_curriculum_opportunity';
-  static const String dashboards_trainingdirector_subtitle = 'dashboards.trainingdirector.subtitle';
-  static const String dashboards_trainingdirector_title = 'dashboards.trainingdirector.title';
-  static const String dashboards_trainingdirectorcertificate_labels_compliance_anomaly_detected = 'dashboards.trainingdirectorcertificate.labels.compliance_anomaly_detected';
-  static const String dashboards_trainingdirectorcertificate_labels_regulatory_optimization = 'dashboards.trainingdirectorcertificate.labels.regulatory_optimization';
-  static const String dashboards_trainingdirectorcertificate_subtitle = 'dashboards.trainingdirectorcertificate.subtitle';
-  static const String dashboards_trainingdirectorcertificate_title = 'dashboards.trainingdirectorcertificate.title';
-  static const String dashboards_traininghub_labels_high_engagement_in_clinical_safety = 'dashboards.traininghub.labels.high_engagement_in_clinical_safety';
-  static const String dashboards_traininghub_labels_resource_bottleneck_predicted = 'dashboards.traininghub.labels.resource_bottleneck_predicted';
-  static const String dashboards_traininghub_subtitle = 'dashboards.traininghub.subtitle';
-  static const String dashboards_traininghub_title = 'dashboards.traininghub.title';
-  static const String dashboards_volunteercoordinator_labels_high_retention_rate_detected = 'dashboards.volunteercoordinator.labels.high_retention_rate_detected';
-  static const String dashboards_volunteercoordinator_labels_shift_coverage_gap = 'dashboards.volunteercoordinator.labels.shift_coverage_gap';
-  static const String dashboards_volunteercoordinator_labels_volunteer_coordinator_dashboard = 'dashboards.volunteercoordinator.labels.volunteer_coordinator_dashboard';
-  static const String dashboards_volunteercoordinator_subtitle = 'dashboards.volunteercoordinator.subtitle';
-  static const String dashboards_volunteercoordinator_title = 'dashboards.volunteercoordinator.title';
-  static const String marketing_dashboard_labels_cac_volatility = 'marketing_dashboard_labels_cac_volatility';
-  static const String marketing_dashboard_labels_campaign_roi_peak = 'marketing_dashboard_labels_campaign_roi_peak';
+  static const String
+  dashboards_systemverification_labels_infrastructure_optimization =
+      'dashboards.systemverification.labels.infrastructure_optimization';
+  static const String dashboards_systemverification_labels_security_compliance =
+      'dashboards.systemverification.labels.security_compliance';
+  static const String dashboards_systemverification_subtitle =
+      'dashboards.systemverification.subtitle';
+  static const String dashboards_systemverification_title =
+      'dashboards.systemverification.title';
+  static const String
+  dashboards_territoryexpansionmanager_labels_contract_signed =
+      'dashboards.territoryexpansionmanager.labels.contract_signed';
+  static const String
+  dashboards_territoryexpansionmanager_labels_geographic_density_alert =
+      'dashboards.territoryexpansionmanager.labels.geographic_density_alert';
+  static const String
+  dashboards_territoryexpansionmanager_labels_lease_finalized_for_ottawa_east_hub =
+      'dashboards.territoryexpansionmanager.labels.lease_finalized_for_ottawa_east_hub';
+  static const String
+  dashboards_territoryexpansionmanager_labels_market_maturity =
+      'dashboards.territoryexpansionmanager.labels.market_maturity';
+  static const String
+  dashboards_territoryexpansionmanager_labels_new_site_identified =
+      'dashboards.territoryexpansionmanager.labels.new_site_identified';
+  static const String
+  dashboards_territoryexpansionmanager_labels_optimal_launch_window =
+      'dashboards.territoryexpansionmanager.labels.optimal_launch_window';
+  static const String
+  dashboards_territoryexpansionmanager_labels_potential_location_in_vancouver_north_cluster =
+      'dashboards.territoryexpansionmanager.labels.potential_location_in_vancouver_north_cluster';
+  static const String
+  dashboards_territoryexpansionmanager_labels_projected_roi =
+      'dashboards.territoryexpansionmanager.labels.projected_roi';
+  static const String
+  dashboards_territoryexpansionmanager_labels_regulatory_pulse =
+      'dashboards.territoryexpansionmanager.labels.regulatory_pulse';
+  static const String
+  dashboards_territoryexpansionmanager_labels_regulatory_speed =
+      'dashboards.territoryexpansionmanager.labels.regulatory_speed';
+  static const String
+  dashboards_territoryexpansionmanager_labels_site_acquisition =
+      'dashboards.territoryexpansionmanager.labels.site_acquisition';
+  static const String
+  dashboards_territoryexpansionmanager_labels_site_acquisition_pipeline =
+      'dashboards.territoryexpansionmanager.labels.site_acquisition_pipeline';
+  static const String dashboards_territoryexpansionmanager_subtitle =
+      'dashboards.territoryexpansionmanager.subtitle';
+  static const String dashboards_territoryexpansionmanager_title =
+      'dashboards.territoryexpansionmanager.title';
+  static const String
+  dashboards_territorysalesmanager_labels_ad_spend_optimization =
+      'dashboards.territorysalesmanager.labels.ad_spend_optimization';
+  static const String
+  dashboards_territorysalesmanager_labels_territory_reallocation_suggestion =
+      'dashboards.territorysalesmanager.labels.territory_reallocation_suggestion';
+  static const String dashboards_territorysalesmanager_subtitle =
+      'dashboards.territorysalesmanager.subtitle';
+  static const String dashboards_territorysalesmanager_title =
+      'dashboards.territorysalesmanager.title';
+  static const String
+  dashboards_trainingcoordinator_labels_compliance_expiry_risk =
+      'dashboards.trainingcoordinator.labels.compliance_expiry_risk';
+  static const String
+  dashboards_trainingcoordinator_labels_course_efficiency_warning =
+      'dashboards.trainingcoordinator.labels.course_efficiency_warning';
+  static const String
+  dashboards_trainingcoordinator_labels_credentialing_velocity =
+      'dashboards.trainingcoordinator.labels.credentialing_velocity';
+  static const String dashboards_trainingcoordinator_subtitle =
+      'dashboards.trainingcoordinator.subtitle';
+  static const String dashboards_trainingcoordinator_title =
+      'dashboards.trainingcoordinator.title';
+  static const String
+  dashboards_trainingdirector_labels_compliance_risk_in_southwest =
+      'dashboards.trainingdirector.labels.compliance_risk_in_southwest';
+  static const String
+  dashboards_trainingdirector_labels_new_curriculum_opportunity =
+      'dashboards.trainingdirector.labels.new_curriculum_opportunity';
+  static const String dashboards_trainingdirector_subtitle =
+      'dashboards.trainingdirector.subtitle';
+  static const String dashboards_trainingdirector_title =
+      'dashboards.trainingdirector.title';
+  static const String
+  dashboards_trainingdirectorcertificate_labels_compliance_anomaly_detected =
+      'dashboards.trainingdirectorcertificate.labels.compliance_anomaly_detected';
+  static const String
+  dashboards_trainingdirectorcertificate_labels_regulatory_optimization =
+      'dashboards.trainingdirectorcertificate.labels.regulatory_optimization';
+  static const String dashboards_trainingdirectorcertificate_subtitle =
+      'dashboards.trainingdirectorcertificate.subtitle';
+  static const String dashboards_trainingdirectorcertificate_title =
+      'dashboards.trainingdirectorcertificate.title';
+  static const String
+  dashboards_traininghub_labels_high_engagement_in_clinical_safety =
+      'dashboards.traininghub.labels.high_engagement_in_clinical_safety';
+  static const String
+  dashboards_traininghub_labels_resource_bottleneck_predicted =
+      'dashboards.traininghub.labels.resource_bottleneck_predicted';
+  static const String dashboards_traininghub_subtitle =
+      'dashboards.traininghub.subtitle';
+  static const String dashboards_traininghub_title =
+      'dashboards.traininghub.title';
+  static const String
+  dashboards_volunteercoordinator_labels_high_retention_rate_detected =
+      'dashboards.volunteercoordinator.labels.high_retention_rate_detected';
+  static const String
+  dashboards_volunteercoordinator_labels_shift_coverage_gap =
+      'dashboards.volunteercoordinator.labels.shift_coverage_gap';
+  static const String
+  dashboards_volunteercoordinator_labels_volunteer_coordinator_dashboard =
+      'dashboards.volunteercoordinator.labels.volunteer_coordinator_dashboard';
+  static const String dashboards_volunteercoordinator_subtitle =
+      'dashboards.volunteercoordinator.subtitle';
+  static const String dashboards_volunteercoordinator_title =
+      'dashboards.volunteercoordinator.title';
+  static const String marketing_dashboard_labels_cac_volatility =
+      'marketing_dashboard_labels_cac_volatility';
+  static const String marketing_dashboard_labels_campaign_roi_peak =
+      'marketing_dashboard_labels_campaign_roi_peak';
   static const String navigation_footer_language = 'navigation.footer.language';
-  static const String navigation_items_api_monitoring = 'navigation.items.api_monitoring';
-  static const String navigation_items_audit_logs = 'navigation.items.audit_logs';
+  static const String navigation_items_api_monitoring =
+      'navigation.items.api_monitoring';
+  static const String navigation_items_audit_logs =
+      'navigation.items.audit_logs';
   static const String navigation_items_audits = 'navigation.items.audits';
-  static const String navigation_items_auth_layout = 'navigation.items.auth_layout';
+  static const String navigation_items_auth_layout =
+      'navigation.items.auth_layout';
   static const String navigation_items_billing = 'navigation.items.billing';
-  static const String navigation_items_billing_console = 'navigation.items.billing_console';
-  static const String navigation_items_branch_comparison = 'navigation.items.branch_comparison';
-  static const String navigation_items_branch_operations = 'navigation.items.branch_operations';
-  static const String navigation_items_business_overview = 'navigation.items.business_overview';
-  static const String navigation_items_campaign_analytics = 'navigation.items.campaign_analytics';
+  static const String navigation_items_billing_console =
+      'navigation.items.billing_console';
+  static const String navigation_items_branch_comparison =
+      'navigation.items.branch_comparison';
+  static const String navigation_items_branch_operations =
+      'navigation.items.branch_operations';
+  static const String navigation_items_business_overview =
+      'navigation.items.business_overview';
+  static const String navigation_items_campaign_analytics =
+      'navigation.items.campaign_analytics';
   static const String navigation_items_care_plan = 'navigation.items.care_plan';
   static const String navigation_items_cases = 'navigation.items.cases';
   static const String navigation_items_cash_flow = 'navigation.items.cash_flow';
-  static const String navigation_items_cfo_dashboard = 'navigation.items.cfo_dashboard';
-  static const String navigation_items_cfo_dashboard_labels = 'navigation.items.cfo_dashboard_labels';
-  static const String navigation_items_clinical_dashboard = 'navigation.items.clinical_dashboard';
-  static const String navigation_items_clinical_director_dashboard = 'navigation.items.clinical_director_dashboard';
-  static const String navigation_items_compliance_hub = 'navigation.items.compliance_hub';
-  static const String navigation_items_compliance_status = 'navigation.items.compliance_status';
-  static const String navigation_items_coo_dashboard = 'navigation.items.coo_dashboard';
-  static const String navigation_items_create_shift_form = 'navigation.items.create_shift_form';
-  static const String navigation_items_create_user_form = 'navigation.items.create_user_form';
-  static const String navigation_items_cto_dashboard = 'navigation.items.cto_dashboard';
-  static const String navigation_items_curriculum_hub = 'navigation.items.curriculum_hub';
-  static const String navigation_items_customer_support_dashboard = 'navigation.items.customer_support_dashboard';
-  static const String navigation_items_document_vault = 'navigation.items.document_vault';
-  static const String navigation_items_enterprise_overview = 'navigation.items.enterprise_overview';
-  static const String navigation_items_family_home = 'navigation.items.family_home';
-  static const String navigation_items_financial_overview = 'navigation.items.financial_overview';
-  static const String navigation_items_financial_performance = 'navigation.items.financial_performance';
-  static const String navigation_items_global_settings = 'navigation.items.global_settings';
-  static const String navigation_items_growth_pipeline = 'navigation.items.growth_pipeline';
-  static const String navigation_items_head_of_bus_dev_dashboard = 'navigation.items.head_of_bus_dev_dashboard';
-  static const String navigation_items_head_of_marketing_dashboard = 'navigation.items.head_of_marketing_dashboard';
-  static const String navigation_items_hr_hiring_dashboard = 'navigation.items.hr_hiring_dashboard';
-  static const String navigation_items_incident_reviews = 'navigation.items.incident_reviews';
-  static const String navigation_items_intake_pipeline = 'navigation.items.intake_pipeline';
+  static const String navigation_items_cfo_dashboard =
+      'navigation.items.cfo_dashboard';
+  static const String navigation_items_cfo_dashboard_labels =
+      'navigation.items.cfo_dashboard_labels';
+  static const String navigation_items_clinical_dashboard =
+      'navigation.items.clinical_dashboard';
+  static const String navigation_items_clinical_director_dashboard =
+      'navigation.items.clinical_director_dashboard';
+  static const String navigation_items_compliance_hub =
+      'navigation.items.compliance_hub';
+  static const String navigation_items_compliance_status =
+      'navigation.items.compliance_status';
+  static const String navigation_items_coo_dashboard =
+      'navigation.items.coo_dashboard';
+  static const String navigation_items_create_shift_form =
+      'navigation.items.create_shift_form';
+  static const String navigation_items_create_user_form =
+      'navigation.items.create_user_form';
+  static const String navigation_items_cto_dashboard =
+      'navigation.items.cto_dashboard';
+  static const String navigation_items_curriculum_hub =
+      'navigation.items.curriculum_hub';
+  static const String navigation_items_customer_support_dashboard =
+      'navigation.items.customer_support_dashboard';
+  static const String navigation_items_document_vault =
+      'navigation.items.document_vault';
+  static const String navigation_items_enterprise_overview =
+      'navigation.items.enterprise_overview';
+  static const String navigation_items_family_home =
+      'navigation.items.family_home';
+  static const String navigation_items_financial_overview =
+      'navigation.items.financial_overview';
+  static const String navigation_items_financial_performance =
+      'navigation.items.financial_performance';
+  static const String navigation_items_global_settings =
+      'navigation.items.global_settings';
+  static const String navigation_items_growth_pipeline =
+      'navigation.items.growth_pipeline';
+  static const String navigation_items_head_of_bus_dev_dashboard =
+      'navigation.items.head_of_bus_dev_dashboard';
+  static const String navigation_items_head_of_marketing_dashboard =
+      'navigation.items.head_of_marketing_dashboard';
+  static const String navigation_items_hr_hiring_dashboard =
+      'navigation.items.hr_hiring_dashboard';
+  static const String navigation_items_incident_reviews =
+      'navigation.items.incident_reviews';
+  static const String navigation_items_intake_pipeline =
+      'navigation.items.intake_pipeline';
   static const String navigation_items_invoices = 'navigation.items.invoices';
-  static const String navigation_items_leadership_reports = 'navigation.items.leadership_reports';
-  static const String navigation_items_ledger_command = 'navigation.items.ledger_command';
-  static const String navigation_items_live_dispatch_map = 'navigation.items.live_dispatch_map';
-  static const String navigation_items_marketing_dashboard_labels = 'navigation.items.marketing_dashboard_labels';
-  static const String navigation_items_marketing_hub = 'navigation.items.marketing_hub';
+  static const String navigation_items_leadership_reports =
+      'navigation.items.leadership_reports';
+  static const String navigation_items_ledger_command =
+      'navigation.items.ledger_command';
+  static const String navigation_items_live_dispatch_map =
+      'navigation.items.live_dispatch_map';
+  static const String navigation_items_marketing_dashboard_labels =
+      'navigation.items.marketing_dashboard_labels';
+  static const String navigation_items_marketing_hub =
+      'navigation.items.marketing_hub';
   static const String navigation_items_messages = 'navigation.items.messages';
-  static const String navigation_items_messaging_hub = 'navigation.items.messaging_hub';
-  static const String navigation_items_notification_center = 'navigation.items.notification_center';
-  static const String navigation_items_operations_board = 'navigation.items.operations_board';
-  static const String navigation_items_operations_manager_dashboard = 'navigation.items.operations_manager_dashboard';
-  static const String navigation_items_password_reset_form = 'navigation.items.password_reset_form';
-  static const String navigation_items_pending_assessments = 'navigation.items.pending_assessments';
-  static const String navigation_items_platform_usage = 'navigation.items.platform_usage';
-  static const String navigation_items_policy_manager = 'navigation.items.policy_manager';
-  static const String navigation_items_profitability = 'navigation.items.profitability';
+  static const String navigation_items_messaging_hub =
+      'navigation.items.messaging_hub';
+  static const String navigation_items_notification_center =
+      'navigation.items.notification_center';
+  static const String navigation_items_operations_board =
+      'navigation.items.operations_board';
+  static const String navigation_items_operations_manager_dashboard =
+      'navigation.items.operations_manager_dashboard';
+  static const String navigation_items_password_reset_form =
+      'navigation.items.password_reset_form';
+  static const String navigation_items_pending_assessments =
+      'navigation.items.pending_assessments';
+  static const String navigation_items_platform_usage =
+      'navigation.items.platform_usage';
+  static const String navigation_items_policy_manager =
+      'navigation.items.policy_manager';
+  static const String navigation_items_profitability =
+      'navigation.items.profitability';
   static const String navigation_items_referrals = 'navigation.items.referrals';
-  static const String navigation_items_region_dashboard = 'navigation.items.region_dashboard';
-  static const String navigation_items_region_performance = 'navigation.items.region_performance';
-  static const String navigation_items_revenue_tracker = 'navigation.items.revenue_tracker';
-  static const String navigation_items_risk_register = 'navigation.items.risk_register';
-  static const String navigation_items_scheduling_health = 'navigation.items.scheduling_health';
-  static const String navigation_items_shareholder_dashboard = 'navigation.items.shareholder_dashboard';
-  static const String navigation_items_shift_tracker = 'navigation.items.shift_tracker';
-  static const String navigation_items_skill_matrix = 'navigation.items.skill_matrix';
-  static const String navigation_items_strategic_kpis = 'navigation.items.strategic_kpis';
-  static const String navigation_items_support_dashboard_labels = 'navigation.items.support_dashboard_labels';
-  static const String navigation_items_system_dashboard = 'navigation.items.system_dashboard';
-  static const String navigation_items_system_health = 'navigation.items.system_health';
-  static const String navigation_items_tax_remittance = 'navigation.items.tax_remittance';
-  static const String navigation_items_user_management = 'navigation.items.user_management';
+  static const String navigation_items_region_dashboard =
+      'navigation.items.region_dashboard';
+  static const String navigation_items_region_performance =
+      'navigation.items.region_performance';
+  static const String navigation_items_revenue_tracker =
+      'navigation.items.revenue_tracker';
+  static const String navigation_items_risk_register =
+      'navigation.items.risk_register';
+  static const String navigation_items_scheduling_health =
+      'navigation.items.scheduling_health';
+  static const String navigation_items_shareholder_dashboard =
+      'navigation.items.shareholder_dashboard';
+  static const String navigation_items_shift_tracker =
+      'navigation.items.shift_tracker';
+  static const String navigation_items_skill_matrix =
+      'navigation.items.skill_matrix';
+  static const String navigation_items_strategic_kpis =
+      'navigation.items.strategic_kpis';
+  static const String navigation_items_support_dashboard_labels =
+      'navigation.items.support_dashboard_labels';
+  static const String navigation_items_system_dashboard =
+      'navigation.items.system_dashboard';
+  static const String navigation_items_system_health =
+      'navigation.items.system_health';
+  static const String navigation_items_tax_remittance =
+      'navigation.items.tax_remittance';
+  static const String navigation_items_user_management =
+      'navigation.items.user_management';
   static const String navigation_sections_main = 'navigation.sections.main';
-  static const String navigation_sections_navigation = 'navigation.sections.navigation';
-  static const String regional_manager_labels_comparative_metrics = 'regional_manager_labels_comparative_metrics';
-  static const String regional_manager_labels_health_indices = 'regional_manager_labels_health_indices';
-  static const String regional_manager_labels_health_scorecard = 'regional_manager_labels_health_scorecard';
-  static const String regional_manager_labels_performance_matrix = 'regional_manager_labels_performance_matrix';
-  static const String support_dashboard_labels_common_pain_point = 'support_dashboard_labels_common_pain_point';
-  static const String support_dashboard_labels_resolution_efficiency = 'support_dashboard_labels_resolution_efficiency';
-  static const String support_dashboard_labels_sla_breach_risk = 'support_dashboard_labels_sla_breach_risk';
+  static const String navigation_sections_navigation =
+      'navigation.sections.navigation';
+  static const String regional_manager_labels_comparative_metrics =
+      'regional_manager_labels_comparative_metrics';
+  static const String regional_manager_labels_health_indices =
+      'regional_manager_labels_health_indices';
+  static const String regional_manager_labels_health_scorecard =
+      'regional_manager_labels_health_scorecard';
+  static const String regional_manager_labels_performance_matrix =
+      'regional_manager_labels_performance_matrix';
+  static const String support_dashboard_labels_common_pain_point =
+      'support_dashboard_labels_common_pain_point';
+  static const String support_dashboard_labels_resolution_efficiency =
+      'support_dashboard_labels_resolution_efficiency';
+  static const String support_dashboard_labels_sla_breach_risk =
+      'support_dashboard_labels_sla_breach_risk';
 }

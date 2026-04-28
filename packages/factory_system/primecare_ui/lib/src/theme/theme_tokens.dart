@@ -28,7 +28,7 @@ class PrimeCareSpacing {
   static double scaled(double value, double factor) => value * factor;
 }
 
-/// Enterprise Curvature Metrics (Institutional Classic: 4px - 8px limits)
+/// Enterprise Curvature DashboardMetrics (Institutional Classic: 4px - 8px limits)
 class PrimeCareRadii {
   static const double sm = 2.0;
   static const double md = 4.0;

@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/navbar_toggle_fab_layout1_view_model.dart';
+import '../../domain/navbar_toggle_fab_layout1_view_model.dart';
 import '../dtos/navbar_toggle_fab_layout1_dto.dart';
 
 class NavbarToggleFabLayout1Mapper {

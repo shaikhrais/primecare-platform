@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import '../../domain/models/admin_layout_view_model.dart';
+import '../../domain/admin_layout_view_model.dart';
 import '../dtos/admin_layout_dto.dart';
 
 class AdminLayoutMapper {
