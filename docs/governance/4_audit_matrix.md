@@ -25,3 +25,12 @@
 
 ## 5. Documents / Clinical
 *(Pending Audit)*
+
+## 6. Dashboard Hydration (V4)
+
+| Dashboard | Theme Verified? | Aura HUD Integrated? | V4 Cards Used? | Typographic Parity? | Overall Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **CEO Dashboard** | Pass | Pass | Pass | Pass | **Pass** | Fully hydrated with Sovereign Surgeon aesthetic. |
+| **Clinical Director** | Fail | Fail | Fail | Fail | **Fail** | Awaiting V4 hydration. |
+| **Finance Director** | Fail | Fail | Fail | Fail | **Fail** | Awaiting V4 hydration. |
+| **HR Director** | Fail | Fail | Fail | Fail | **Fail** | Awaiting V4 hydration. |

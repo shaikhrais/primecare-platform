@@ -1,7 +1,9 @@
 import 'dart:io';
 
 void main() {
-  var dir = Directory('packages/primecare_adapters/lib/src');
+  var dir = Directory(
+    'packages/factory_system/primecare_ui/lib/src/shared/src',
+  );
   var files = dir
       .listSync(recursive: true)
       .whereType<File>()

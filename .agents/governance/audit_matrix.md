@@ -17,5 +17,19 @@ This document implements the **Audit Matrix** component of the feature governanc
 - ⚠️ **Drift:** The intent is implemented, but the physical code has diverged from the data or structural mapping (e.g., UI capturing fields that do not exist in the database model).
 - ❔ **Unverified:** Pending deep implementation checks.
 
+
+## Dashboard Hydration (V4 Rollout)
+
+This section tracks the systematic hydration of professional role dashboards with the **Sovereign Surgeon** V4 design system.
+
+| Role | Design (Stitch) | View Hydrated | Adapter Linked | V4 Parity | **Status** |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **CEO** | ✅ | ✅ | ✅ | 100% | **PASS** |
+| **Clinical Director** | ✅ | ⚠️ | ❌ | 25% | **HYDRATING** |
+| **Operations Manager** | ✅ | ❌ | ❌ | 10% | **INIT** |
+| **Care Angel** | ✅ | ❌ | ❌ | 10% | **INIT** |
+| **Financial Director** | ✅ | ❌ | ❌ | 10% | **INIT** |
+| **System Administrator** | ✅ | ❌ | ❌ | 10% | **INIT** |
+
 ## Verification Engine Sync
 *This matrix provides a human-readable snapshot of the underlying `reconciliation_engine.dart` output. Always check `reconciliation_report.md` for specific AST-to-Prisma mismatch errors.*
