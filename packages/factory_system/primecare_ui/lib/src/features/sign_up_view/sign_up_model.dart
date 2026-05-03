@@ -1,3 +1,0 @@
-class SignUpViewModel {
-  const SignUpViewModel();
-}

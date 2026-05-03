@@ -1,3 +1,0 @@
-class SignOutViewModel {
-  const SignOutViewModel();
-}

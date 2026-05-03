@@ -38,9 +38,9 @@ void main() async {
       if (match != null) {
         final body = match.group(1)!;
         sourcePath = RegExp(r"sourcePath:\s*'([^']+)'").firstMatch(body)?.group(1);
-        final compMatch = RegExp(r"implementedComponents:\s*\[([\s\S]*?)\]").firstMatch(body);
+        final compMatch = RegExp(r'implementedComponents:\s*\[([\s\S]*?)\]').firstMatch(body);
         if (compMatch != null) {
-          expectedComponents = compMatch.group(1)!.split(',').map((e) => e.trim().replaceAll("'", "").replaceAll('"', "")).toList();
+          expectedComponents = compMatch.group(1)!.split(',').map((e) => e.trim().replaceAll("'", '').replaceAll('"', '')).toList();
         }
         break;
       }

@@ -65,7 +65,7 @@ void main() {
       updatedPrefix = updatedPrefix.replaceAll(RegExp('      $key: .*?,\n'), '');
     }
 
-    return "$updatedPrefix$attributes\n    ),";
+    return '$updatedPrefix$attributes\n    ),';
   });
 
   file.writeAsStringSync(content);

@@ -17,8 +17,8 @@ void main() {
     final id = match.group(1)!;
     final block = match.group(2)!;
     
-    final roleMatch = RegExp(r"role:\s*['""](.*?)['""]").firstMatch(block);
-    final titleMatch = RegExp(r"title:\s*['""](.*?)['""]").firstMatch(block);
+    final roleMatch = RegExp(r"role:\s*['""](.*?)['"']').firstMatch(block);
+    final titleMatch = RegExp(r"title:\s*['""](.*?)['"']').firstMatch(block);
     
     final role = roleMatch?.group(1)?.trim() ?? 'Unknown';
     final title = titleMatch?.group(1)?.trim() ?? 'Untitled';

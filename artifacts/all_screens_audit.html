@@ -1,0 +1,2843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeCare Platform - Screen Registry Audit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #818cf8;
+            --status-completed: #22c55e;
+            --status-backlog: #f59e0b;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; padding: 2rem; }
+        .header { max-width: 1200px; margin: 0 auto 3rem auto; text-align: center; }
+        h1 { font-size: 2.5rem; font-weight: 700; background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+        .stats-container { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 3rem; }
+        .stat-card { background: var(--card-bg); backdrop-filter: blur(10px); padding: 1.5rem 2rem; border-radius: 1rem; border: 1px solid var(--border-color); text-align: center; min-width: 150px; }
+        .stat-value { font-size: 2rem; font-weight: 700; display: block; }
+        .stat-label { color: var(--text-secondary); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .table-container { max-width: 1200px; margin: 0 auto; background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background: rgba(255, 255, 255, 0.05); padding: 1rem 1.5rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); }
+        td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.9375rem; }
+        tr:hover { background: rgba(255, 255, 255, 0.02); }
+        .status-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: capitalize; }
+        .status-completed { background: rgba(34, 197, 94, 0.1); color: var(--status-completed); border: 1px solid rgba(34, 197, 94, 0.2); }
+        .status-backlog { background: rgba(245, 158, 11, 0.1); color: var(--status-backlog); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .comp-count { display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; width: 2rem; height: 2rem; font-weight: 600; }
+        .id-cell { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--accent-primary); }
+        .office-cell { font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PrimeCare Registry Audit</h1>
+        <p class="subtitle">Platform Governance & Architectural Parity Monitoring</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <span class="stat-value">251</span>
+            <span class="stat-label">Total Screens</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">251</span>
+            <span class="stat-label">Completed</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">0</span>
+            <span class="stat-label">Backlog</span>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Title / ID</th>
+                    <th>Status</th>
+                    <th>Components</th>
+                    <th>Registry Path</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">system Dashboard</div>
+                        <div class="id-cell">SCREEN_SYSTEM_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">health Dashboard</div>
+                        <div class="id-cell">SCREEN_HEALTH_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">security Dashboard</div>
+                        <div class="id-cell">SCREEN_SECURITY_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">scrum Master Dashboard</div>
+                        <div class="id-cell">SCREEN_SCRUM_MASTER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">system Verification</div>
+                        <div class="id-cell">SCREEN_SYSTEM_VERIFICATION</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/infrastructure/governance/monitor</div>
+                        <div class="id-cell">SCREEN_INFRASTRUCTURE_GOVERNANCE_MONITOR_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/infrastructure-and-admin/system-infrastructure-overview</div>
+                        <div class="id-cell">SCREEN_INFRASTRUCTURE_AND_ADMIN_SYSTEM_INFRASTRUCTURE_OVERVIEW_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/infrastructure-and-admin/configurator-hub</div>
+                        <div class="id-cell">SCREEN_INFRASTRUCTURE_AND_ADMIN_CONFIGURATOR_HUB_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/infrastructure-and-admin/auxiliary-platform-view</div>
+                        <div class="id-cell">SCREEN_INFRASTRUCTURE_AND_ADMIN_AUXILIARY_PLATFORM_VIEW__I_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">IT Security Dashboard</div>
+                        <div class="id-cell">SCREEN_IT_SECURITY_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Unauthorized (401)</div>
+                        <div class="id-cell">SCREEN_ERROR_401</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Not Found (404)</div>
+                        <div class="id-cell">SCREEN_ERROR_404</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Sign In</div>
+                        <div class="id-cell">SCREEN_SIGN_IN</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Sign Out</div>
+                        <div class="id-cell">SCREEN_SIGN_OUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Sign Up</div>
+                        <div class="id-cell">SCREEN_SIGN_UP</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Architectural Planning</div>
+                        <div class="id-cell">SCREEN_ARCHITECTURAL_PLANNING</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Course Architect Dashboard</div>
+                        <div class="id-cell">SCREEN_COURSE_ARCHITECT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Dynamic Role Dashboard</div>
+                        <div class="id-cell">SCREEN_DYNAMIC_ROLE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Dynamic Screen Dashboard</div>
+                        <div class="id-cell">SCREEN_DYNAMIC_SCREEN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Features Explorer</div>
+                        <div class="id-cell">SCREEN_FEATURES_EXPLORER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Admin</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CreateUserForm</div>
+                        <div class="id-cell">SCREEN_CREATE_USER_FORM</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Admin</span></td>
+                    <td>
+                        <div style="font-weight: 600;">PasswordResetForm</div>
+                        <div class="id-cell">SCREEN_PASSWORD_RESET_FORM</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Admin</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CreateShiftForm</div>
+                        <div class="id-cell">SCREEN_CREATE_SHIFT_FORM</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Admin</span></td>
+                    <td>
+                        <div style="font-weight: 600;">UserManagement</div>
+                        <div class="id-cell">SCREEN_USER_MANAGEMENT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Admin Layout</div>
+                        <div class="id-cell">SCREEN_ADMIN_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Auth Layout</div>
+                        <div class="id-cell">SCREEN_AUTH_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Auth Split Layout</div>
+                        <div class="id-cell">SCREEN_AUTH_SPLIT_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Client Layout</div>
+                        <div class="id-cell">SCREEN_CLIENT_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Demo Layout Footer</div>
+                        <div class="id-cell">SCREEN_DEMO_LAYOUT_FOOTER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Fuse Core Layout</div>
+                        <div class="id-cell">SCREEN_FUSE_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Master Shell Layout</div>
+                        <div class="id-cell">SCREEN_MASTER_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Provider Layout</div>
+                        <div class="id-cell">SCREEN_PROVIDER_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Navigation Bar V2</div>
+                        <div class="id-cell">SCREEN_NAVBAR_V2</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Navigation Bar V3</div>
+                        <div class="id-cell">SCREEN_NAVBAR_V3</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Action Toolbar V1</div>
+                        <div class="id-cell">SCREEN_TOOLBAR_V1</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Action Toolbar V2</div>
+                        <div class="id-cell">SCREEN_TOOLBAR_V2</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Infrastructure</span></td>
+                    <td>
+                        <div style="font-weight: 600;">System Performance Metrics</div>
+                        <div class="id-cell">SCREEN_SYSTEM_METRICS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">1</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/admin_infrastructure_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">territory Expansion Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_TERRITORY_EXPANSION_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">regional Manager Ontario Dashboard</div>
+                        <div class="id-cell">SCREEN_REGIONAL_MANAGER_ONTARIO_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">regional Manager Usa Dashboard</div>
+                        <div class="id-cell">SCREEN_REGIONAL_MANAGER_USA_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">franchise Sales Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_FRANCHISE_SALES_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">partnership Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_PARTNERSHIP_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">general Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_GENERAL_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/business-development/regional-view</div>
+                        <div class="id-cell">SCREEN_BUSINESS_DEVELOPMENT_REGION_DOMAIN_REGIONAL_VIEW_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Regional BDM Dashboard</div>
+                        <div class="id-cell">SCREEN_REGIONAL_BDM_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/business_development_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Client Dashboard</div>
+                        <div class="id-cell">SCREEN_CLIENT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Family Member Dashboard</div>
+                        <div class="id-cell">SCREEN_FAMILY_MEMBER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Family Dashboard</div>
+                        <div class="id-cell">SCREEN_FAMILY_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Patient Dashboard</div>
+                        <div class="id-cell">SCREEN_PATIENT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Clinic Dashboard</div>
+                        <div class="id-cell">SCREEN_CLINIC_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Guest Dashboard</div>
+                        <div class="id-cell">SCREEN_GUEST_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/client_portal_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">clinical Director Dashboard</div>
+                        <div class="id-cell">SCREEN_CLINICAL_DIRECTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">intake Coordinator Dashboard</div>
+                        <div class="id-cell">SCREEN_INTAKE_COORDINATOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">nurse Dashboard</div>
+                        <div class="id-cell">SCREEN_NURSE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">rn Dashboard</div>
+                        <div class="id-cell">SCREEN_RN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">therapist Dashboard</div>
+                        <div class="id-cell">SCREEN_THERAPIST_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">psw Dashboard</div>
+                        <div class="id-cell">SCREEN_PSW_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">social Worker Dashboard</div>
+                        <div class="id-cell">SCREEN_SOCIAL_WORKER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Chiropractor Dashboard</div>
+                        <div class="id-cell">SCREEN_CHIROPRACTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Physiotherapist Dashboard</div>
+                        <div class="id-cell">SCREEN_PHYSIOTHERAPIST_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">infection Control Dashboard</div>
+                        <div class="id-cell">SCREEN_INFECTION_CONTROL_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">customer Support Dashboard</div>
+                        <div class="id-cell">SCREEN_CUSTOMER_SUPPORT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">support Intake Coordinator Dashboard</div>
+                        <div class="id-cell">SCREEN_SUPPORT_INTAKE_COORDINATOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">quality Assurance Dashboard</div>
+                        <div class="id-cell">SCREEN_QUALITY_ASSURANCE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">intake Coordinator Referrals</div>
+                        <div class="id-cell">SCREEN_INTAKE_COORDINATOR_REFERRALS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">intake Coordinator Assessments</div>
+                        <div class="id-cell">SCREEN_INTAKE_COORDINATOR_ASSESSMENTS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">clinical Director Quality Metrics</div>
+                        <div class="id-cell">SCREEN_CLINICAL_DIRECTOR_QUALITY_METRICS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">scheduler Dashboard</div>
+                        <div class="id-cell">SCREEN_SCHEDULER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">billing Admin Dashboard</div>
+                        <div class="id-cell">SCREEN_BILLING_ADMIN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Hiring Dashboard</div>
+                        <div class="id-cell">SCREEN_HR_HIRING_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/patient/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_PATIENT_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/partnership_manager/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_PARTNERSHIP_MANAGER_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/owner/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_OWNER_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/franchise_owner/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_FRANCHISE_OWNER_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/local_marketing_manager/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_LOCAL_MARKETING_MANAGER_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">RMT Dashboard</div>
+                        <div class="id-cell">SCREEN_RMT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">RPN Dashboard</div>
+                        <div class="id-cell">SCREEN_RPN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Volunteer Coordinator Dashboard</div>
+                        <div class="id-cell">SCREEN_VOLUNTEER_COORDINATOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Quality Assurance Dashboard</div>
+                        <div class="id-cell">SCREEN_QA_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Training Director Certificate Dashboard</div>
+                        <div class="id-cell">SCREEN_TRAINING_DIRECTOR_CERTIFICATE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Training Coordinator Dashboard</div>
+                        <div class="id-cell">SCREEN_TRAINING_COORDINATOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Training Hub Dashboard</div>
+                        <div class="id-cell">SCREEN_TRAINING_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ClinicalDashboard</div>
+                        <div class="id-cell">SCREEN_CLINICAL_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">clinical_director_labels</div>
+                        <div class="id-cell">SCREEN_CLINICAL_DIRECTOR_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">clinical_labels</div>
+                        <div class="id-cell">SCREEN_CLINICAL_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ceo Dashboard</div>
+                        <div class="id-cell">SCREEN_CEO_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">coo Dashboard</div>
+                        <div class="id-cell">SCREEN_COO_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">cfo Dashboard</div>
+                        <div class="id-cell">SCREEN_CFO_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">compliance Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_COMPLIANCE_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">training Director Dashboard</div>
+                        <div class="id-cell">SCREEN_TRAINING_DIRECTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">finance Director Dashboard</div>
+                        <div class="id-cell">SCREEN_FINANCE_DIRECTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">head Of Bus Dev Dashboard</div>
+                        <div class="id-cell">SCREEN_HEAD_OF_BUS_DEV_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">head Of Marketing Dashboard</div>
+                        <div class="id-cell">SCREEN_HEAD_OF_MARKETING_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_HR_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">5</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Hiring Dashboard</div>
+                        <div class="id-cell">SCREEN_HR_HIRING_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Director Dashboard</div>
+                        <div class="id-cell">SCREEN_HR_DIRECTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">cx Director Dashboard</div>
+                        <div class="id-cell">SCREEN_CX_DIRECTOR_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">it Admin Dashboard</div>
+                        <div class="id-cell">SCREEN_IT_ADMIN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">shareholder Intelligence Dashboard</div>
+                        <div class="id-cell">SCREEN_SHAREHOLDER_INTELLIGENCE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">7</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Corporate Governance Dashboard</div>
+                        <div class="id-cell">SCREEN_CORPORATE_GOVERNANCE_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CTO Dashboard</div>
+                        <div class="id-cell">SCREEN_CTO_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Owner Dashboard</div>
+                        <div class="id-cell">SCREEN_OWNER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Finance Ledger Dashboard</div>
+                        <div class="id-cell">SCREEN_FINANCE_LEDGER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">EnterpriseOverview</div>
+                        <div class="id-cell">SCREEN_ENTERPRISE_OVERVIEW</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">StrategicKPIs</div>
+                        <div class="id-cell">SCREEN_STRATEGIC_KPIS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">FinancialOverview</div>
+                        <div class="id-cell">SCREEN_FINANCIAL_OVERVIEW</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">OperationsBoard</div>
+                        <div class="id-cell">SCREEN_OPERATIONS_BOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">SystemHealth</div>
+                        <div class="id-cell">SCREEN_SYSTEM_HEALTH</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">franchise Owner Dashboard</div>
+                        <div class="id-cell">SCREEN_FRANCHISE_OWNER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">operations Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_OPERATIONS_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">scheduler Dashboard</div>
+                        <div class="id-cell">SCREEN_SCHEDULER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">5</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">billing Admin Dashboard</div>
+                        <div class="id-cell">SCREEN_BILLING_ADMIN_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Hiring Dashboard</div>
+                        <div class="id-cell">SCREEN_HR_HIRING_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">regional Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_REGIONAL_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">marketing Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_MARKETING_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">franchise Owner Financial Snapshot</div>
+                        <div class="id-cell">SCREEN_FRANCHISE_OWNER_FINANCIAL_SNAPSHOT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">hr Hiring Onboarding</div>
+                        <div class="id-cell">SCREEN_HR_HIRING_ONBOARDING</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">admin Invoices</div>
+                        <div class="id-cell">SCREEN_ADMIN_INVOICES</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/franchise_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Marketing</span></td>
+                    <td>
+                        <div style="font-weight: 600;">local Marketing Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_LOCAL_MARKETING_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/marketing_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Marketing</span></td>
+                    <td>
+                        <div style="font-weight: 600;">community Outreach Dashboard</div>
+                        <div class="id-cell">SCREEN_COMMUNITY_OUTREACH_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/marketing_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Marketing</span></td>
+                    <td>
+                        <div style="font-weight: 600;">territory Sales Manager Dashboard</div>
+                        <div class="id-cell">SCREEN_TERRITORY_SALES_MANAGER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/marketing_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">receptionist Dashboard</div>
+                        <div class="id-cell">SCREEN_RECEPTIONIST_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/admin-settings</div>
+                        <div class="id-cell">SCREEN_ADMIN_SETTINGS_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/architecture-governance</div>
+                        <div class="id-cell">SCREEN_ARCHITECTURE_GOVERNANCE_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/logistics-hub</div>
+                        <div class="id-cell">SCREEN_LOGISTICS_HUB_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/operational/staffing-director</div>
+                        <div class="id-cell">SCREEN_OPERATIONAL_STAFFING_DIRECTOR_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/operational/regional-manager</div>
+                        <div class="id-cell">SCREEN_OPERATIONAL_REGIONAL_MANAGER_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Compliance Hub</div>
+                        <div class="id-cell">SCREEN_COMPLIANCE_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Verification Hub</div>
+                        <div class="id-cell">SCREEN_VERIFICATION_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Region Dashboard</div>
+                        <div class="id-cell">SCREEN_REGION_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Support Dashboard</div>
+                        <div class="id-cell">SCREEN_SUPPORT_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">LiveDispatchMap</div>
+                        <div class="id-cell">SCREEN_LIVE_DISPATCH_MAP</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/operational_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Support</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/support-team/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_SUPPORT_TEAM_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/support_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Support</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/offices/roles/customer-support/dashboard</div>
+                        <div class="id-cell">SCREEN_OFFICES_ROLES_CUSTOMER_SUPPORT_DASHBOARD_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/support_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/add-franchise-lead-form</div>
+                        <div class="id-cell">SCREEN_WF_ADD_FRANCHISE_LEAD_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-expense-reimbursement-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_EXPENSE_REIMBURSEMENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-franchise-disclosure-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_FRANCHISE_DISCLOSURE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-leave-request-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_LEAVE_REQUEST_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-medication-refill-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_MEDICATION_REFILL_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-payroll-run-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_PAYROLL_RUN_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-real-estate-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_REAL_ESTATE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/approve-system-access-form</div>
+                        <div class="id-cell">SCREEN_WF_APPROVE_SYSTEM_ACCESS_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/assign-care-pod-form</div>
+                        <div class="id-cell">SCREEN_WF_ASSIGN_CARE_POD_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/assign-lead-form</div>
+                        <div class="id-cell">SCREEN_WF_ASSIGN_LEAD_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/assign-training-module-form</div>
+                        <div class="id-cell">SCREEN_WF_ASSIGN_TRAINING_MODULE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-compliance-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_COMPLIANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-global-education-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_GLOBAL_EDUCATION_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-override-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_OVERRIDE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-payroll-discrepancy-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_PAYROLL_DISCREPANCY_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-royalty-payment-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_ROYALTY_PAYMENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-security-compliance-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_SECURITY_COMPLIANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/audit-system-logs-form</div>
+                        <div class="id-cell">SCREEN_WF_AUDIT_SYSTEM_LOGS_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/care-plan-evaluation-form</div>
+                        <div class="id-cell">SCREEN_WF_CARE_PLAN_EVALUATION_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/create-ad-placement-form</div>
+                        <div class="id-cell">SCREEN_WF_CREATE_AD_PLACEMENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/create-canned-response-form</div>
+                        <div class="id-cell">SCREEN_WF_CREATE_CANNED_RESPONSE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/create-custom-invoice-form</div>
+                        <div class="id-cell">SCREEN_WF_CREATE_CUSTOM_INVOICE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/create-revenue-report-form</div>
+                        <div class="id-cell">SCREEN_WF_CREATE_REVENUE_REPORT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/create-supply-order-form</div>
+                        <div class="id-cell">SCREEN_WF_CREATE_SUPPLY_ORDER_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/daily-vitals-card-form</div>
+                        <div class="id-cell">SCREEN_WF_DAILY_VITALS_CARD_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/discipline-log-form</div>
+                        <div class="id-cell">SCREEN_WF_DISCIPLINE_LOG_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/franchise-onboarding-checklist-form</div>
+                        <div class="id-cell">SCREEN_WF_FRANCHISE_ONBOARDING_CHECKLIST_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/leave-request-form</div>
+                        <div class="id-cell">SCREEN_WF_LEAVE_REQUEST_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-clinical-incident-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_CLINICAL_INCIDENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-employee-grievance-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_EMPLOYEE_GRIEVANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-franchisee-vetting-call-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_FRANCHISEE_VETTING_CALL_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-infection-control-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_INFECTION_CONTROL_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-inventory-spoilage-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_INVENTORY_SPOILAGE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/log-petty-cash-form</div>
+                        <div class="id-cell">SCREEN_WF_LOG_PETTY_CASH_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/new-employee-onboarding-form</div>
+                        <div class="id-cell">SCREEN_WF_NEW_EMPLOYEE_ONBOARDING_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/nurture-localized-lead-form</div>
+                        <div class="id-cell">SCREEN_WF_NURTURE_LOCALIZED_LEAD_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/override-global-schedule-form</div>
+                        <div class="id-cell">SCREEN_WF_OVERRIDE_GLOBAL_SCHEDULE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/patient-intake-form</div>
+                        <div class="id-cell">SCREEN_WF_PATIENT_INTAKE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/register-corporate-risk-form</div>
+                        <div class="id-cell">SCREEN_WF_REGISTER_CORPORATE_RISK_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/request-shift-adjustment-form</div>
+                        <div class="id-cell">SCREEN_WF_REQUEST_SHIFT_ADJUSTMENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-care-plan-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_CARE_PLAN_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-clinical-incident-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_CLINICAL_INCIDENT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-fleet-maintenance-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_FLEET_MAINTENANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-lead-conversion-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_LEAD_CONVERSION_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-legal-contract-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_LEGAL_CONTRACT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-market-share-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_MARKET_SHARE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-medication-inventory-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_MEDICATION_INVENTORY_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-monthly-expenses-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_MONTHLY_EXPENSES_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-onboarding-status-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_ONBOARDING_STATUS_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-peer-performance-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_PEER_PERFORMANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/review-vendor-contracts-form</div>
+                        <div class="id-cell">SCREEN_WF_REVIEW_VENDOR_CONTRACTS_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/schedule-clinical-audit-form</div>
+                        <div class="id-cell">SCREEN_WF_SCHEDULE_CLINICAL_AUDIT_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/schedule-facility-maintenance-form</div>
+                        <div class="id-cell">SCREEN_WF_SCHEDULE_FACILITY_MAINTENANCE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/schedule-interview-form</div>
+                        <div class="id-cell">SCREEN_WF_SCHEDULE_INTERVIEW_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/schedule-open-house-form</div>
+                        <div class="id-cell">SCREEN_WF_SCHEDULE_OPEN_HOUSE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/submit-adl-checklist-form</div>
+                        <div class="id-cell">SCREEN_WF_SUBMIT_ADL_CHECKLIST_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/submit-daily-census-form</div>
+                        <div class="id-cell">SCREEN_WF_SUBMIT_DAILY_CENSUS_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/submit-exit-interview-form</div>
+                        <div class="id-cell">SCREEN_WF_SUBMIT_EXIT_INTERVIEW_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/submit-healthcare-claim-form</div>
+                        <div class="id-cell">SCREEN_WF_SUBMIT_HEALTHCARE_CLAIM_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/submit-marketing-budget-form</div>
+                        <div class="id-cell">SCREEN_WF_SUBMIT_MARKETING_BUDGET_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">/workflows-and-forms/verify-certificate-form</div>
+                        <div class="id-cell">SCREEN_WF_VERIFY_CERTIFICATE_FORM_</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">3</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Administrative Forms</div>
+                        <div class="id-cell">SCREEN_ADMINISTRATIVE_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Clinical</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Clinical Forms</div>
+                        <div class="id-cell">SCREEN_CLINICAL_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Common Forms</div>
+                        <div class="id-cell">SCREEN_COMMON_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CRM Forms</div>
+                        <div class="id-cell">SCREEN_CRM_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Corporate</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Financial Forms</div>
+                        <div class="id-cell">SCREEN_FINANCIAL_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Operational</span></td>
+                    <td>
+                        <div style="font-weight: 600;">HR Forms</div>
+                        <div class="id-cell">SCREEN_HR_FORMS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">4</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">AuthLayout</div>
+                        <div class="id-cell">SCREEN_AUTH_LAYOUT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">GlobalSettings</div>
+                        <div class="id-cell">SCREEN_GLOBAL_SETTINGS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">GrowthPipeline</div>
+                        <div class="id-cell">SCREEN_GROWTH_PIPELINE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">RegionPerformance</div>
+                        <div class="id-cell">SCREEN_REGION_PERFORMANCE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">LeadershipReports</div>
+                        <div class="id-cell">SCREEN_LEADERSHIP_REPORTS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">RevenueTracker</div>
+                        <div class="id-cell">SCREEN_REVENUE_TRACKER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Profitability</div>
+                        <div class="id-cell">SCREEN_PROFITABILITY</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Tax&Remittance</div>
+                        <div class="id-cell">SCREEN_TAX_REMITTANCE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">BranchOperations</div>
+                        <div class="id-cell">SCREEN_BRANCH_OPERATIONS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">SchedulingHealth</div>
+                        <div class="id-cell">SCREEN_SCHEDULING_HEALTH</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">IncidentReviews</div>
+                        <div class="id-cell">SCREEN_INCIDENT_REVIEWS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">PlatformUsage</div>
+                        <div class="id-cell">SCREEN_PLATFORM_USAGE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">APIMonitoring</div>
+                        <div class="id-cell">SCREEN_API_MONITORING</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">AuditLogs</div>
+                        <div class="id-cell">SCREEN_AUDIT_LOGS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Cases</div>
+                        <div class="id-cell">SCREEN_CASES</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">PolicyManager</div>
+                        <div class="id-cell">SCREEN_POLICY_MANAGER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Audits</div>
+                        <div class="id-cell">SCREEN_AUDITS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">RiskRegister</div>
+                        <div class="id-cell">SCREEN_RISK_REGISTER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CurriculumHub</div>
+                        <div class="id-cell">SCREEN_CURRICULUM_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">SkillMatrix</div>
+                        <div class="id-cell">SCREEN_SKILL_MATRIX</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">BranchComparison</div>
+                        <div class="id-cell">SCREEN_BRANCH_COMPARISON</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">LedgerCommand</div>
+                        <div class="id-cell">SCREEN_LEDGER_COMMAND</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CashFlow</div>
+                        <div class="id-cell">SCREEN_CASH_FLOW</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">IntakePipeline</div>
+                        <div class="id-cell">SCREEN_INTAKE_PIPELINE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Referrals</div>
+                        <div class="id-cell">SCREEN_REFERRALS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Pendingassessments</div>
+                        <div class="id-cell">SCREEN_PENDING_ASSESSMENTS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">BillingConsole</div>
+                        <div class="id-cell">SCREEN_BILLING_CONSOLE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Invoices</div>
+                        <div class="id-cell">SCREEN_INVOICES</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">MarketingHub</div>
+                        <div class="id-cell">SCREEN_MARKETING_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CampaignAnalytics</div>
+                        <div class="id-cell">SCREEN_CAMPAIGN_ANALYTICS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">BusinessOverview</div>
+                        <div class="id-cell">SCREEN_BUSINESS_OVERVIEW</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">FinancialPerformance</div>
+                        <div class="id-cell">SCREEN_FINANCIAL_PERFORMANCE</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ComplianceStatus</div>
+                        <div class="id-cell">SCREEN_COMPLIANCE_STATUS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ShiftTracker</div>
+                        <div class="id-cell">SCREEN_SHIFT_TRACKER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Messages</div>
+                        <div class="id-cell">SCREEN_MESSAGES</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">FamilyHome</div>
+                        <div class="id-cell">SCREEN_FAMILY_HOME</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CarePlan</div>
+                        <div class="id-cell">SCREEN_CARE_PLAN</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Billing</div>
+                        <div class="id-cell">SCREEN_BILLING</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">MessagingHub</div>
+                        <div class="id-cell">SCREEN_MESSAGING_HUB</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">DocumentVault</div>
+                        <div class="id-cell">SCREEN_DOCUMENT_VAULT</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">Notifications</div>
+                        <div class="id-cell">SCREEN_NOTIFICATION_CENTER</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ShareholderDashboard</div>
+                        <div class="id-cell">SCREEN_SHAREHOLDER_DASHBOARD</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">CommonDashboardLabels</div>
+                        <div class="id-cell">SCREEN_COMMON_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">regional_manager_labels</div>
+                        <div class="id-cell">SCREEN_REGIONAL_MANAGER_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">command_center_labels</div>
+                        <div class="id-cell">SCREEN_COMMAND_CENTER_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">cto_dashboard_labels</div>
+                        <div class="id-cell">SCREEN_CTO_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">ceo_dashboard_labels</div>
+                        <div class="id-cell">SCREEN_CEO_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">cfo_dashboard_labels</div>
+                        <div class="id-cell">SCREEN_CFO_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">support_dashboard_labels</div>
+                        <div class="id-cell">SCREEN_SUPPORT_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+                <tr>
+                    <td><span class="office-cell">Workflows</span></td>
+                    <td>
+                        <div style="font-weight: 600;">marketing_dashboard_labels</div>
+                        <div class="id-cell">SCREEN_MARKETING_DASHBOARD_LABELS</div>
+                    </td>
+                    <td><span class="status-badge status-completed">completed</span></td>
+                    <td style="text-align: center;"><span class="comp-count">2</span></td>
+                    <td style="font-size: 0.75rem; color: var(--text-secondary);">apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

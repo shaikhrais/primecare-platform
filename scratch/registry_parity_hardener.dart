@@ -125,7 +125,7 @@ List<UiScreen> _parseUiRegistry(String content) {
     // Extract component labels
     final componentsMatch = RegExp(r'componentLabels:\s*\[(.*?)\],', dotAll: true).firstMatch(block);
     final componentsStr = componentsMatch?.group(1) ?? '';
-    final components = componentsStr.split(',').map((e) => e.trim().replaceAll("'", "").replaceAll('"', "")).where((e) => e.isNotEmpty).toList();
+    final components = componentsStr.split(',').map((e) => e.trim().replaceAll("'", '').replaceAll('"', '')).where((e) => e.isNotEmpty).toList();
 
     screens.add(UiScreen(
       id: id,

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>PrimeCare PSW Field App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <meta name="theme-color" content="#020617">
+  </head>
+  <body>
+    <div id="app" class="app-container">
+      <header>
+        <div class="brand"><i class="fas fa-heartbeat"></i> PRIMECARE</div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="text-align: right;">
+            <div style="font-size: 0.75rem; font-weight: 700;">Sarah Miller</div>
+            <div style="font-size: 0.65rem; color: var(--text-secondary);">PSW ID: #9942</div>
+          </div>
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--secondary-color); display: flex; align-items: center; justify-content: center; font-weight: 800; border: 2px solid var(--border-color);">SM</div>
+        </div>
+      </header>
+
+      <div id="dashboard">
+        <div class="aura-hud">
+          <div class="aura-title"><i class="fas fa-robot"></i> AURA INTELLIGENCE</div>
+          <div class="aura-content">3 Urgent care plan updates for Mrs. Harrison. Mobility assistance protocol revised.</div>
+        </div>
+
+        <div class="section-title">Current Assignment</div>
+        <div class="card" style="border-left: 4px solid var(--primary-color);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+              <div style="font-size: 1.25rem; font-weight: 700;">Mrs. Dorothy Harrison</div>
+              <div style="font-size: 0.85rem; color: var(--text-secondary);">Room 402B • Palliative Care</div>
+            </div>
+            <div style="background: rgba(99, 102, 241, 0.1); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 700;">ACTIVE</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-size: 0.7rem;"><i class="fas fa-wheelchair"></i> Assistive Device</span>
+            <span style="background: rgba(255,255,255,0.05); padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-size: 0.7rem;"><i class="fas fa-clock"></i> 2h Duration</span>
+          </div>
+        </div>
+
+        <div class="section-title">Care Plan Checklist</div>
+        <div class="card">
+          <div class="checklist-item">
+            <div class="checkbox" data-id="1"><i class="fas fa-check"></i></div>
+            <div class="checklist-text">Morning personal hygiene & bathing</div>
+            <div class="checklist-time">08:30 AM</div>
+          </div>
+          <div class="checklist-item">
+            <div class="checkbox" data-id="2"><i class="fas fa-check"></i></div>
+            <div class="checklist-text">Hydration assistance (250ml water)</div>
+            <div class="checklist-time">09:15 AM</div>
+          </div>
+          <div class="checklist-item">
+            <div class="checkbox" data-id="3"><i class="fas fa-check"></i></div>
+            <div class="checklist-text">Repositioning (Left lateral)</div>
+            <div class="checklist-time">10:00 AM</div>
+          </div>
+          <div class="checklist-item">
+            <div class="checkbox" data-id="4"><i class="fas fa-check"></i></div>
+            <div class="checklist-text">Vital signs monitoring & log</div>
+            <div class="checklist-time">10:30 AM</div>
+          </div>
+        </div>
+
+        <div style="padding: 1rem;">
+          <button class="btn btn-primary" id="report-btn" style="width: 100%; justify-content: center; height: 55px;">
+            <i class="fas fa-exclamation-triangle"></i> QUICK INCIDENT REPORT
+          </button>
+        </div>
+      </div>
+
+      <nav class="bottom-nav">
+        <div class="nav-item active"><i class="fas fa-home"></i> Dashboard</div>
+        <div class="nav-item"><i class="fas fa-clipboard-list"></i> Schedule</div>
+        <div class="nav-item"><i class="fas fa-user-friends"></i> Patients</div>
+        <div class="nav-item"><i class="fas fa-comment-medical"></i> Messages</div>
+      </nav>
+
+      <div class="modal-overlay" id="report-modal">
+        <div class="modal">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.25rem;">New Incident Report</h2>
+            <i class="fas fa-times" id="close-modal" style="cursor: pointer;"></i>
+          </div>
+          <div class="section-title" style="margin-left: 0;">Description</div>
+          <textarea placeholder="Describe the incident, observation, or clinical change..."></textarea>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn btn-ghost" style="flex: 1; justify-content: center;">CANCEL</button>
+            <button class="btn btn-primary" style="flex: 2; justify-content: center;">SUBMIT TO RN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

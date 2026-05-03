@@ -29,7 +29,7 @@ void main() async {
 
   for (var file in files) {
     final content = file.readAsStringSync();
-    final screenMatches = RegExp(r"ScreenMetadata\(([\s\S]*?)\),").allMatches(content);
+    final screenMatches = RegExp(r'ScreenMetadata\(([\s\S]*?)\),').allMatches(content);
     
     for (var match in screenMatches) {
       total++;
@@ -38,7 +38,7 @@ void main() async {
       final idMatch = RegExp(r"id:\s*'([^']+)'").firstMatch(metaBody);
       final id = idMatch?.group(1) ?? 'Unknown';
 
-      final statusMatch = RegExp(r"lifecycleStatus:\s*LifecycleStatus\.(\w+)").firstMatch(metaBody);
+      final statusMatch = RegExp(r'lifecycleStatus:\s*LifecycleStatus\.(\w+)').firstMatch(metaBody);
       final status = statusMatch?.group(1) ?? 'backlog';
 
       final hasDrift = driftScreens.contains(id);

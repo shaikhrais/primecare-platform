@@ -88,18 +88,18 @@ void main() {
           newLines.add("      routePath: '/${feature.replaceAll('_', '-')}',");
           newLines.add("      allowedRoles: ['admin', '${role.toLowerCase()}'],");
           newLines.add("      title: '$nextGhostTitle',");
-          newLines.add("      icon: Icons.layers,");
+          newLines.add('      icon: Icons.layers,');
           newLines.add("      office: 'Operations',");
           newLines.add("      role: '$role',");
           newLines.add("      description: 'Automated registration for existing feature: $nextGhostTitle',");
-          newLines.add("      implementedComponents: [],");
+          newLines.add('      implementedComponents: [],');
           newLines.add("      pendingComponents: ['DataList', 'SearchHeader', 'ActionFAB', 'FilterSidebar'],");
           newLines.add("      lastCompletedDate: '2026-04-29',");
-          newLines.add("      isRenderOk: true,");
-          newLines.add("      userApprovedLayout: true,");
+          newLines.add('      isRenderOk: true,');
+          newLines.add('      userApprovedLayout: true,');
           newLines.add("      lifecycleStatus: 'completed',");
-          newLines.add("      complexity: 5,");
-          newLines.add("    ),");
+          newLines.add('      complexity: 5,');
+          newLines.add('    ),');
 
           // Skip original block
           int braceCount = 1;

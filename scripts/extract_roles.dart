@@ -9,7 +9,7 @@ void main() {
 
   final content = file.readAsStringSync();
   // Match role: '...' or role: "..."
-  final roleFieldRegex = RegExp(r"role:\s*['""](.*?)['""]");
+  final roleFieldRegex = RegExp(r"role:\s*['""](.*?)['"']');
   final roles = <String>{};
 
   for (final match in roleFieldRegex.allMatches(content)) {

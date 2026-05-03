@@ -51,7 +51,7 @@ List<String> _getListField(String block, String field) {
   
   return match.group(1)!
       .split(',')
-      .map((e) => e.trim().replaceAll("'", "").replaceAll('"', ""))
+      .map((e) => e.trim().replaceAll("'", '').replaceAll('"', ''))
       .where((e) => e.isNotEmpty)
       .toList();
 }

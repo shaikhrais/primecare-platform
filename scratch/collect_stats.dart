@@ -16,24 +16,24 @@ void main() async {
     final content = file.readAsStringSync();
     
     // Simple regex parsing for lifecycleStatus and office
-    final screenMatches = RegExp(r"ScreenMetadata\(([\s\S]*?)\),").allMatches(content);
+    final screenMatches = RegExp(r'ScreenMetadata\(([\s\S]*?)\),').allMatches(content);
     
     for (var match in screenMatches) {
       total++;
       final metaBody = match.group(1)!;
       
       // Extract lifecycleStatus
-      final statusMatch = RegExp(r"lifecycleStatus:\s*LifecycleStatus\.(\w+)").firstMatch(metaBody);
+      final statusMatch = RegExp(r'lifecycleStatus:\s*LifecycleStatus\.(\w+)').firstMatch(metaBody);
       final status = statusMatch?.group(1) ?? 'backlog';
       statusCounts[status] = (statusCounts[status] ?? 0) + 1;
 
       // Extract implemented vs pending components to determine "Part Done"
-      final implementedMatch = RegExp(r"implementedComponents:\s*\[([\s\S]*?)\]").firstMatch(metaBody);
-      final implementedStr = implementedMatch?.group(1) ?? "";
+      final implementedMatch = RegExp(r'implementedComponents:\s*\[([\s\S]*?)\]').firstMatch(metaBody);
+      final implementedStr = implementedMatch?.group(1) ?? '';
       final implementedCount = implementedStr.split(',').where((s) => s.trim().isNotEmpty).length;
 
-      final pendingCompMatch = RegExp(r"pendingComponents:\s*\[([\s\S]*?)\]").firstMatch(metaBody);
-      final pendingCompStr = pendingCompMatch?.group(1) ?? "";
+      final pendingCompMatch = RegExp(r'pendingComponents:\s*\[([\s\S]*?)\]').firstMatch(metaBody);
+      final pendingCompStr = pendingCompMatch?.group(1) ?? '';
       final pendingCompCount = pendingCompStr.split(',').where((s) => s.trim().isNotEmpty).length;
 
       // Extract office
