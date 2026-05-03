@@ -62,9 +62,11 @@ tsc_output.txt
 tsc_errors.txt
 dist-dry-run/
 
-# Mobile (React Native)
+# Mobile (React Native / Flutter)
 apps/PrimeCareClient/
 apps/PrimeCarePsw/
+apps/mobile_flutter/
+apps/primecare_v4/
 *.keystore
 *.jks
 
