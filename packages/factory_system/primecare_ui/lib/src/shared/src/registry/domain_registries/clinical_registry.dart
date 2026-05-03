@@ -93,6 +93,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for telemetry.',
+      prompt:
+          'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current visit (Timer active) and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for the entire shift. Incident Quick-Report shortcut (Large Orange Target).',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.pswVisitChecklist,
@@ -105,6 +108,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Care Plan Checklist: Patient Bio Summary with DNR/Allergy Alerts. InteractiveChecklist grouped by Hygiene, Nutrition, and Mobility. Floating Action Button for Unplanned Observations.',
+      prompt:
+          'Care Plan Checklist: Patient Bio Summary (Patient Name, DOB, MRN) with blinking DNR/Allergy Alerts. InteractiveChecklist grouped by: Hygiene (Bathing/Dressing), Nutrition (Meal Prep/Hydration), Mobility (Transfer/ROM). Floating Action Button (FAB) for "Add Unplanned Observation".',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.pswObservationVitalsLog,
@@ -117,6 +123,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood and Pain assessments. High-precision inputs for Temp, BP, and O2. Sparkline visualization of 24h vital trends.',
+      prompt:
+          'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood Assessment (Anxious -> Calm) and Pain Scale (0 -> 10). High-precision numeric inputs for Temp (C/F), BP (Sys/Dia), O2 (%). Sparkline showing last 24h trends of captured vitals.',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.pswIncidentReport,
@@ -129,6 +138,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Safety Reporting Hub: High-contrast urgency grid with large-tap targets for Fall, Refusal, and Skin incidents. Integrated camera interface for photo evidence and floating red Immediate Assistance trigger.',
+      prompt:
+          'Safety Reporting Hub: High-contrast grid with large-tap targets for Falls (Critical Red), Refusals (Warning Orange), and Skin Changes (Teal Info). Integrated camera placeholder for photo documentation + voice-to-text narrative area. Persistent red "Immediate Assistance" trigger at bottom edge.',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.pswPatientProfile,
@@ -141,6 +153,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Patient Digital Passport: Patient Avatar with secure QR bedside verification. PrimeCareV4Cards for medical history, preferred routines, and family contacts. Persistent Clinical Precautions banner.',
+      prompt:
+          'Patient Digital Passport: Patient Avatar with secure QR Code for bedside verification. PrimeCareV4Cards for Medical History, Preferred Routines, and Family Contact Map. Persistent "Clinical Precautions" banner (e.g., "Contact Isolation").',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.pswSchedule,
@@ -153,6 +168,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Logistics & Travel: Integrated route visualization for the full shift. Time-blocked cards showing travel vs. care duration with smart-travel time estimates and navigation actions.',
+      prompt:
+          'Logistics & Travel: Integrated Map visualization showing optimized shift route. Time-blocked cards showing travel duration vs. care duration. "Start Trip" action with real-time ETA updates based on current GPS.',
+      generateScreen: false,
     );
     registerRoute(
       ClinicalRoutes.socialWorkerDashboard,
@@ -487,6 +505,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for telemetry.',
+      'prompt':
+          'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current visit (Timer active) and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for the entire shift. Incident Quick-Report shortcut (Large Orange Target).',
+      'generateScreen': false,
     },
     'psw_visit_checklist': {
       'title': 'clinical.psw.visit_checklist.title',
@@ -499,6 +520,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Care Plan Checklist: Patient Bio Summary with DNR/Allergy Alerts. InteractiveChecklist grouped by Hygiene, Nutrition, and Mobility. Floating Action Button for Unplanned Observations.',
+      'prompt':
+          'Care Plan Checklist: Patient Bio Summary (Patient Name, DOB, MRN) with blinking DNR/Allergy Alerts. InteractiveChecklist grouped by: Hygiene (Bathing/Dressing), Nutrition (Meal Prep/Hydration), Mobility (Transfer/ROM). Floating Action Button (FAB) for "Add Unplanned Observation".',
+      'generateScreen': false,
     },
     'psw_observation_vitals_log': {
       'title': 'clinical.psw.observation_vitals_log.title',
@@ -511,6 +535,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood and Pain assessments. High-precision inputs for Temp, BP, and O2. Sparkline visualization of 24h vital trends.',
+      'prompt':
+          'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood Assessment (Anxious -> Calm) and Pain Scale (0 -> 10). High-precision numeric inputs for Temp (C/F), BP (Sys/Dia), O2 (%). Sparkline showing last 24h trends of captured vitals.',
+      'generateScreen': false,
     },
     'psw_incident_report': {
       'title': 'clinical.psw.incident_report.title',
@@ -523,6 +550,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Safety Reporting Hub: High-contrast urgency grid with large-tap targets for Fall, Refusal, and Skin incidents. Integrated camera interface for photo evidence and floating red Immediate Assistance trigger.',
+      'prompt':
+          'Safety Reporting Hub: High-contrast grid with large-tap targets for Falls (Critical Red), Refusals (Warning Orange), and Skin Changes (Teal Info). Integrated camera placeholder for photo documentation + voice-to-text narrative area. Persistent red "Immediate Assistance" trigger at bottom edge.',
+      'generateScreen': false,
     },
     'psw_patient_profile': {
       'title': 'clinical.psw.patient_profile.title',
@@ -535,6 +565,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Patient Digital Passport: Patient Avatar with secure QR bedside verification. PrimeCareV4Cards for medical history, preferred routines, and family contacts. Persistent Clinical Precautions banner.',
+      'prompt':
+          'Patient Digital Passport: Patient Avatar with secure QR Code for bedside verification. PrimeCareV4Cards for Medical History, Preferred Routines, and Family Contact Map. Persistent "Clinical Precautions" banner (e.g., "Contact Isolation").',
+      'generateScreen': false,
     },
     'psw_schedule': {
       'title': 'clinical.psw.schedule.title',
@@ -547,6 +580,9 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Logistics & Travel: Integrated route visualization for the full shift. Time-blocked cards showing travel vs. care duration with smart-travel time estimates and navigation actions.',
+      'prompt':
+          'Logistics & Travel: Integrated Map visualization showing optimized shift route. Time-blocked cards showing travel duration vs. care duration. "Start Trip" action with real-time ETA updates based on current GPS.',
+      'generateScreen': false,
     },
     'rn': {
       'title': 'clinical.rn.dashboard.title',

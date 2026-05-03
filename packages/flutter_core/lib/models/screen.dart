@@ -29,6 +29,9 @@ class PrimeCareScreen extends AppScreenIntent {
 
   final String? _routeOverride;
 
+  /// The associated form enum member.
+  final PrimeCareForm? form;
+
   /// The UI blueprint defining which components to render.
   final List<UIComponentBlueprint> blueprints;
 
@@ -41,17 +44,26 @@ class PrimeCareScreen extends AppScreenIntent {
   @override
   final String structuralPlan;
 
+  /// The specific prompt used to generate this screen via the Stitch Engine.
+  final String? generationPrompt;
+
+  /// Whether this screen should be actively generated/synchronized with the UI Engine.
+  final bool generateScreen;
+
   PrimeCareScreen({
     String? name,
     required this.title,
     this.subtitle = '',
     this.requiredRole,
     this.provider,
+    this.form,
     this.blueprints = const [],
     this.layoutType = 'dashboard',
     this.componentLabels = const [],
     this.resiliencePolicy = const ResiliencePolicy(),
     this.primarySubsystem = PlatformSubsystem.metrics,
+    this.generationPrompt,
+    this.generateScreen = true,
     String? structuralPlan,
     String? route,
   }) : name = name ?? (route ?? '').split('/').last,

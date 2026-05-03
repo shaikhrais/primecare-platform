@@ -15,6 +15,8 @@ abstract class OfficeScreenRegistry {
     List<String>? componentLabels,
     String? structuralPlan,
     String? titleKey,
+    String? prompt,
+    bool generateScreen = true,
   }) {
     final roleName =
         route
@@ -34,6 +36,7 @@ abstract class OfficeScreenRegistry {
       PrimeCareScreen(
         name: roleName,
         title: titleKey ?? form.label,
+        form: form,
         route: route,
         requiredRole: PlatformRole.fromRoute(route),
         provider: provider ?? genericDashboardAdapterProvider(form),
@@ -43,6 +46,8 @@ abstract class OfficeScreenRegistry {
         ],
         componentLabels: componentLabels ?? ['Aura HUD', 'KPI Stat Grid'],
         structuralPlan: structuralPlan,
+        generationPrompt: prompt,
+        generateScreen: generateScreen,
       ),
     );
   }
@@ -56,14 +61,15 @@ abstract class OfficeScreenRegistry {
     List<UIComponentBlueprint>? blueprints,
     String? structuralPlan,
   }) {
+    final form =
+        PrimeCareForm.fromString(pid) ?? PrimeCareForm.genericDashboard;
     ScreenRegistry.registerScreen(
       PrimeCareScreen(
         name: pid,
         title: title,
+        form: form,
         route: route,
-        provider: genericDashboardAdapterProvider(
-          PrimeCareForm.fromString(pid) ?? PrimeCareForm.genericDashboard,
-        ),
+        provider: genericDashboardAdapterProvider(form),
         blueprints:
             blueprints ??
             const <UIComponentBlueprint>[
