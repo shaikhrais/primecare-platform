@@ -25,6 +25,8 @@ class LocalMarketingManagerDashboardController
           (DashboardMetrics metrics) => LocalMarketingManagerDashboardViewModel(
             metrics: metrics,
             insights: const [],
+            campaigns: const [],
+            referrals: const [],
           ),
         ),
       );

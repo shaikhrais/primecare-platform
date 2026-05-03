@@ -35,7 +35,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: CommonRoutes.login,
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => const SignInView(),
       ),
       ShellRoute(
         builder: (context, state, child) => MasterLayout(

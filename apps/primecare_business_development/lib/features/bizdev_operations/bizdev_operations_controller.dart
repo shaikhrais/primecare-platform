@@ -1,47 +1,70 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'bizdev_operations_model.dart';
+
 
 final bizDevDashboardControllerProvider =
     FutureProvider<Result<BizDevDashboardModel>>((ref) async {
   const route = 'FRANCHISE_SALES_MANAGER';
   const cacheKey = 'bizdev_dashboard';
   final resilience = ref.read(resilienceServiceProvider);
+  final telemetry = ref.read(executionGateProvider);
 
   try {
-    final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
-    final metrics = metricsResult.fold((m) => m, (e) => DashboardMetrics.empty());
+    final response = await ref.read(apiClientProvider).get(
+      '/dashboard-metrics',
+      query: {'role': route},
+    );
+    final data = response.data as Map<String, dynamic>;
 
-    final insights = _getSmartFranchiseSalesMocks();
+    final metricsRaw = data['metrics'] ?? data['kpis'] ?? <dynamic>[];
+    final insightsRaw = data['insights'] ?? <dynamic>[];
+    final timelineRaw = data['timeline'] ?? data['recentActivity'] ?? <dynamic>[];
+    final trendsRaw = data['trends'] ?? data['charts'] ?? <dynamic>[];
+    final isFallback = data['isOfflineFallback'] ?? false;
+
+    final intlModel = IntelligenceDashboardModel.fromJson({
+      'metrics': metricsRaw,
+      'insights': insightsRaw,
+      'timeline': timelineRaw,
+      'trends': trendsRaw,
+      'isOfflineFallback': isFallback,
+      'lastUpdated': DateTime.now().toIso8601String(),
+    });
+
+    final dashboardMetrics = DashboardMetrics(
+      kpis: intlModel.metrics,
+      recentActivity: intlModel.timeline,
+      charts: intlModel.trends,
+      insights: intlModel.insights,
+      isOfflineFallback: intlModel.isFromCache,
+    );
+
+    final mappedInsights = intlModel.insights
+        .map((e) => IntelligenceInsight.fromDashboardInsight(e))
+        .toList();
 
     final model = BizDevDashboardModel(
-      metrics: metrics,
-      insights: insights,
+      metrics: dashboardMetrics,
+      insights: mappedInsights,
     );
 
     unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
     return Success(model);
   } catch (e) {
-    final snapshot = resilience.getSnapshot(cacheKey);
-    if (snapshot != null) {
-      return Success(BizDevDashboardModel.fromJson(snapshot).copyWith(isOfflineFallback: true));
-    }
-    return Success(BizDevDashboardModel.empty(isOfflineFallback: true));
+    return _handleFallback(resilience, cacheKey, telemetry, e);
   }
 });
 
-List<IntelligenceInsight> _getSmartFranchiseSalesMocks() {
-  return [
-    IntelligenceInsight(
-      id: 'fsm_1',
-      title: LocaleKeys.dashboards_franchisesalesmanager_labels_territory_saturation_alert.tr(),
-      summary: 'Toronto West territory is reaching 95% franchise density.',
-      impact: InsightImpact.warning,
-      type: InsightType.alert,
-      category: 'Market',
-      recommendation: 'Pause new applications for Toronto West.',
-    ),
-  ];
+Result<BizDevDashboardModel> _handleFallback(
+  ResilienceService resilience,
+  String cacheKey,
+  ExecutionGateService telemetry,
+  dynamic error,
+) {
+  final snapshot = resilience.getSnapshot(cacheKey);
+  if (snapshot != null) {
+    return Success(BizDevDashboardModel.fromJson(snapshot));
+  }
+  return Success(BizDevDashboardModel.empty(isOfflineFallback: true));
 }

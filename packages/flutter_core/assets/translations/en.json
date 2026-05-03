@@ -4478,5 +4478,18 @@
     "footer": {
       "language": "Language"
     }
+  },
+  "dashboards": {
+    "common": {
+      "labels": {
+        "sign_in_page_view": "Enterprise Command Login",
+        "operational_sector__sign_in_page_view": "Please verify your credentials to access the Governance HUD."
+      }
+    },
+    "corporategovernance": {
+      "labels": {
+        "compliance_score": "Global Compliance Score"
+      }
+    }
   }
 }

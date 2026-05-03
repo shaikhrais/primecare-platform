@@ -12,6 +12,7 @@ class ClinicalGlassPanel extends StatelessWidget {
   final double? width;
   final Widget? headerTrailing;
   final String? title;
+  final IconData? icon;
 
   const ClinicalGlassPanel({
     super.key,
@@ -21,6 +22,7 @@ class ClinicalGlassPanel extends StatelessWidget {
     this.width,
     this.headerTrailing,
     this.title,
+    this.icon,
   });
 
   @override
@@ -57,7 +59,16 @@ class ClinicalGlassPanel extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (title != null) Text(title!, style: theme.typography.h3),
+                  if (title != null || icon != null)
+                    Row(
+                      children: [
+                        if (icon != null) ...[
+                          Icon(icon, color: theme.colors.primary, size: 20),
+                          const SizedBox(width: 8),
+                        ],
+                        if (title != null) Text(title!, style: theme.typography.h3),
+                      ],
+                    ),
                   if (headerTrailing != null) headerTrailing!,
                 ],
               ),

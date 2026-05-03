@@ -2,9 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Weekly Revenue)
+// @governance: component=Business KPI Grid
+// @governance: component=Staff Oversight Table
+// @governance: component=Revenue Growth Chart
 class FranchiseOwnerDashboardView extends ConsumerWidget {
   const FranchiseOwnerDashboardView({super.key});
 
@@ -51,8 +54,12 @@ class FranchiseOwnerDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LocaleKeys.command_center_labels_franchise_center.tr(),
+                    LocaleKeys.franchise_owner_dashboard_title.tr(),
                     style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.franchise_owner_dashboard_subtitle.tr(),
+                    style: theme.typography.bodyLarge,
                   ),
                   Text(
                     'Unit profitability, royalty compliance, and operational growth telemetry',
@@ -156,7 +163,21 @@ class FranchiseOwnerDashboardView extends ConsumerWidget {
 }
 
 class FranchiseOwnerDashboardIntent extends PrimeCareScreen {
-  FranchiseOwnerDashboardIntent() : super(title: 'FranchiseOwnerDashboard');
+  FranchiseOwnerDashboardIntent()
+      : super(
+          name: 'franchise-owner',
+          title: LocaleKeys.franchise_owner_dashboard_title,
+          route: '/offices/franchise/roles/franchise-owner/dashboard',
+          requiredRole: PlatformRole.franchiseOwner,
+          form: PrimeCareForm.franchiseOwnerDashboard,
+          provider: franchiseOwnerAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Weekly Revenue)',
+            'Business KPI Grid',
+            'Staff Oversight Table',
+            'Revenue Growth Chart',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const FranchiseOwnerDashboardView();

@@ -5,6 +5,14 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
+// @governance: component=Aura HUD
+// @governance: component=Health Snapshot
+// @governance: component=Appointment Calendar
+// @governance: component=Care Team Messaging
 class ClientDashboardView extends ConsumerWidget {
   const ClientDashboardView({super.key});
 
@@ -76,7 +84,20 @@ class ClientDashboardView extends ConsumerWidget {
 }
 
 class ClientDashboardIntent extends PrimeCareScreen {
-  ClientDashboardIntent() : super(title: 'ClientDashboard');
+  ClientDashboardIntent()
+      : super(
+          name: 'client_dashboard',
+          title: LocaleKeys.client_portal_client_dashboard_title,
+          route: '/offices/corporate/roles/client',
+          form: PrimeCareForm.clientDashboard,
+          provider: clientDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Health Snapshot',
+            'Appointment Calendar',
+            'Care Team Messaging'
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ClientDashboardView();

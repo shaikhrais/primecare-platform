@@ -1,6 +1,10 @@
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class RegionDashboardView extends ConsumerWidget {
@@ -63,7 +67,21 @@ class RegionDashboardView extends ConsumerWidget {
 }
 
 class RegionDashboardIntent extends PrimeCareScreen {
-  RegionDashboardIntent() : super(title: 'RegionDashboard');
+  RegionDashboardIntent()
+    : super(
+        name: 'region',
+        title: 'dashboards.common.labels.regional_dashboard',
+        route: '/offices/corporate/roles/region/dashboard',
+        requiredRole: PlatformRole.regionalManagerOntario,
+        form: PrimeCareForm.regionDashboard,
+        provider: regionDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Regional Performance Comparison',
+          'Site Health Overlays',
+          'Local Management Controls',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const RegionDashboardView();

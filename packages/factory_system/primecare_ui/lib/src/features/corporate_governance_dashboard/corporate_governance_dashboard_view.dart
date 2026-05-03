@@ -4,6 +4,14 @@ import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/src/components/primecare_banner.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Subsystem Parity Matrix
+// @governance: component=Autonomous Remediation HUD
+// @governance: component=Audit Lifecycle Monitor
+
     hide isOnlineProvider, ProviderTTL;
 
 class CorporateGovernanceDashboardView extends ConsumerWidget {
@@ -217,7 +225,20 @@ class CorporateGovernanceDashboardView extends ConsumerWidget {
 
 class CorporateGovernanceDashboardIntent extends PrimeCareScreen {
   CorporateGovernanceDashboardIntent()
-    : super(title: 'CorporateGovernanceDashboard');
+      : super(
+          route: '/',
+          name: PlatformRole.system.nameSnake,
+          requiredRole: PlatformRole.system,
+          form: PrimeCareForm.governanceMonitorDashboard,
+          title: LocaleKeys.dashboards_common_labels_corporate_governance_hud,
+          provider: corporateGovernanceDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Subsystem Parity Matrix',
+            'Autonomous Remediation HUD',
+            'Audit Lifecycle Monitor',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

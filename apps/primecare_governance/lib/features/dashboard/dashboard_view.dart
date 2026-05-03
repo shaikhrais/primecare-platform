@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/ui/app_components.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../../core/ui/app_drawer.dart';
 import '../../../core/ui/dev_toolbox.dart';
 import '../../../core/ui/telemetry_hud.dart';
@@ -43,16 +42,30 @@ class DashboardView extends StatelessWidget {
             StaggeredGridTile.count(
               crossAxisCellCount: 2,
               mainAxisCellCount: 1,
+              child: GestureDetector(
+                onTap: () => context.push('/governance/hud'),
+                child: _buildMetricCard('Platform Governance', '0% Drift', Icons.gavel, Colors.deepPurple),
+              ),
+            ),
+            StaggeredGridTile.count(
+              crossAxisCellCount: 2,
+              mainAxisCellCount: 1,
+              child: GestureDetector(
+                onTap: () => context.push('/proposals'),
+                child: _buildMetricCard('Governance Proposals', '8 Pending', Icons.inbox_outlined, Colors.indigo),
+              ),
+            ),
+            StaggeredGridTile.count(
+              crossAxisCellCount: 2,
+              mainAxisCellCount: 1,
               child: _buildMetricCard('Pending Audits', '14', Icons.assignment_late, Colors.orange),
             ),
             StaggeredGridTile.count(
               crossAxisCellCount: 4,
               mainAxisCellCount: 2,
-              child: AppCard(
+              child: PrimeCareChartCard(
                 title: 'User Activity Trend',
-                child: SizedBox(
-                  height: 200,
-                  child: LineChart(
+                chart: LineChart(
                     LineChartData(
                       gridData: const FlGridData(show: false),
                       titlesData: const FlTitlesData(show: false),
@@ -71,12 +84,11 @@ class DashboardView extends StatelessWidget {
                           isCurved: true,
                           color: Colors.blue,
                           barWidth: 4,
-                          belowBarData: BarAreaData(show: true, color: Colors.blue.withOpacity(0.1)),
+                          belowBarData: BarAreaData(show: true, color: Colors.blue.withValues(alpha: 0.1)),
                         ),
                       ],
                     ),
                   ),
-                ),
               ),
             ),
             const StaggeredGridTile.count(
@@ -91,15 +103,11 @@ class DashboardView extends StatelessWidget {
   }
 
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
-    return AppCard(
+    return PrimeCareKpiCard(
       title: title,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          Icon(icon, size: 40, color: color),
-        ],
-      ),
+      value: value,
+      icon: icon,
+      color: color.withValues(alpha: 0.1),
     );
   }
 }

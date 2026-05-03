@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'bizdev_operations_model.dart';
 import 'bizdev_operations_controller.dart';
 
 class BizDevOperationsView extends ConsumerWidget {
@@ -13,21 +12,19 @@ class BizDevOperationsView extends ConsumerWidget {
     return state.when(
       data: (result) => result.fold(
         (model) => _buildDashboard(context, model),
-        (error) => ErrorStateView(error: error.toString()),
+        (error) => DashboardErrorWidget(message: error.toString(), onRetry: () => ref.refresh(bizDevDashboardControllerProvider)),
       ),
-      loading: () => const LoadingStateView(),
-      error: (e, s) => ErrorStateView(error: e.toString()),
+      loading: () => const DashboardLoadingWidget(),
+      error: (e, s) => DashboardErrorWidget(message: e.toString(), onRetry: () => ref.refresh(bizDevDashboardControllerProvider)),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, dynamic model) {
-    return DashboardScaffold(
-      title: 'Business Development',
-      isOffline: model.isOfflineFallback,
-      body: CustomScrollView(
+  Widget _buildDashboard(BuildContext context, BizDevDashboardModel model) {
+    return MasterLayout(
+      child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: MetricsRibbon(metrics: model.metrics),
+            child: PrimeCareResponsiveKpiGrid(metrics: model.metrics),
           ),
           const SliverPadding(padding: EdgeInsets.all(16)),
           SliverList(

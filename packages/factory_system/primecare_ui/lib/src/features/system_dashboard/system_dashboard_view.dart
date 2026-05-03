@@ -1,8 +1,16 @@
+// @governance: id=SCREEN_SYSTEM_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (System Uptime)
+// @governance: component=Server Uptime Graph
+// @governance: component=API Latency Monitor
+// @governance: component=Error Density Heatmap
 class SystemDashboardView extends ConsumerWidget {
   const SystemDashboardView({super.key});
 
@@ -63,7 +71,20 @@ class SystemDashboardView extends ConsumerWidget {
 }
 
 class SystemDashboardIntent extends PrimeCareScreen {
-  SystemDashboardIntent() : super(title: 'SystemDashboard');
+  SystemDashboardIntent()
+      : super(
+          name: 'SCREEN_SYSTEM_DASHBOARD',
+          title: LocaleKeys.dashboards_common_labels_system_dashboard,
+          route: '/offices/corporate/roles/system/dashboard',
+          requiredRole: PlatformRole.system,
+          form: PrimeCareForm.systemDashboard,
+          provider: systemDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Global KPI Grid',
+            'System Integrity Monitor',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const SystemDashboardView();

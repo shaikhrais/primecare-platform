@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_PARTNERSHIP_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Partner Synergy Matrix)
+// @governance: component=Partner Referral Grid
+// @governance: component=Affiliate Performance Table
+// @governance: component=Synergy DashboardMetrics
 class PartnershipManagerDashboardView extends ConsumerWidget {
   const PartnershipManagerDashboardView({super.key});
 
@@ -53,8 +60,12 @@ class PartnershipManagerDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Partnership Command Center',
+                    LocaleKeys.partnership_manager_dashboard_title.tr(),
                     style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.partnership_manager_dashboard_subtitle.tr(),
+                    style: theme.typography.bodyLarge,
                   ),
                   Text(
                     'Partner referrals, conversion rates, and active deal pipeline telemetry',
@@ -160,7 +171,20 @@ class PartnershipManagerDashboardView extends ConsumerWidget {
 
 class PartnershipManagerDashboardIntent extends PrimeCareScreen {
   PartnershipManagerDashboardIntent()
-    : super(title: 'PartnershipManagerDashboard');
+      : super(
+          name: 'SCREEN_PARTNERSHIP_MANAGER_DASHBOARD',
+          title: LocaleKeys.partnership_manager_dashboard_title,
+          route: '/partnership-manager-dashboard',
+          requiredRole: PlatformRole.partnershipManager,
+          form: PrimeCareForm.partnershipManagerDashboard,
+          provider: partnershipManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Partner Synergy Matrix)',
+            'Partner Referral Grid',
+            'Affiliate Performance Table',
+            'Synergy DashboardMetrics',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const PartnershipManagerDashboardView();

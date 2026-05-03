@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,10 +9,10 @@ class FileTransferService {
   FileTransferService(this._dio);
 
   Future<File?> pickFile() async {
-    final result = await FilePicker.platform.pickFiles();
-    if (result != null && result.files.single.path != null) {
-      return File(result.files.single.path!);
-    }
+    // final result = await FilePicker.platform.pickFiles();
+    // if (result != null && result.files.single.path != null) {
+    //   return File(result.files.single.path!);
+    // }
     return null;
   }
 

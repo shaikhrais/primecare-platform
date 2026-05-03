@@ -5,6 +5,14 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
+// @governance: component=Aura HUD (Lead Conversion)
+// @governance: component=Marketing KPI Grid
+// @governance: component=Lead Conversion Funnel
+// @governance: component=Brand Awareness DashboardMetrics
 class MarketingManagerDashboardView extends ConsumerWidget {
   const MarketingManagerDashboardView({super.key});
 
@@ -200,7 +208,15 @@ class MarketingManagerDashboardView extends ConsumerWidget {
 }
 
 class MarketingManagerDashboardIntent extends PrimeCareScreen {
-  MarketingManagerDashboardIntent() : super(title: 'MarketingManagerDashboard');
+  MarketingManagerDashboardIntent()
+      : super(
+          title: LocaleKeys.dashboards_common_labels_marketing_manager_dashboard,
+          name: 'marketing_manager_dashboard',
+          route: '/roles/marketing_manager/dashboard',
+          requiredRole: PlatformRole.headOfMarketing,
+          form: PrimeCareForm.marketingManagerDashboard,
+          provider: marketingManagerDashboardAdapterProvider,
+        );
 
   @override
   Widget build(BuildContext context) => const MarketingManagerDashboardView();

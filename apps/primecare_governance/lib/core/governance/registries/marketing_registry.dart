@@ -1,0 +1,51 @@
+import '../screen_metadata.dart';
+
+class MarketingRegistryRegistry {
+  static const Map<String, ScreenMetadata> screens = {
+        'SCREEN_LOCAL_MARKETING_MANAGER_DASHBOARD': ScreenMetadata(
+      id: 'SCREEN_LOCAL_MARKETING_MANAGER_DASHBOARD',
+      title: 'local Marketing Manager Dashboard',
+      featureName: 'local Marketing Manager Dashboard',
+      routePath: '/local-marketing-manager-dashboard',
+      office: 'Marketing',
+      role: 'Staff',
+      allowedRoles: ['Staff', 'Admin'],
+      lifecycleStatus: LifecycleStatus.completed,
+      isRenderOk: true,
+      userApprovedLayout: true,
+      isVirtual: false,
+      sourcePath: 'local_marketing_manager_dashboard_view.dart',
+      implementedComponents: ["Aura HUD (Local Lead Velocity)","Local KPI Grid","Community Engagement Log","Campaign Performance Table"],
+    ),
+        'SCREEN_COMMUNITY_OUTREACH_DASHBOARD': ScreenMetadata(
+      id: 'SCREEN_COMMUNITY_OUTREACH_DASHBOARD',
+      title: 'community Outreach Dashboard',
+      featureName: 'community Outreach Dashboard',
+      routePath: '/community-outreach-dashboard',
+      office: 'Marketing',
+      role: 'Staff',
+      allowedRoles: ['Staff', 'Admin'],
+      lifecycleStatus: LifecycleStatus.completed,
+      isRenderOk: true,
+      userApprovedLayout: true,
+      isVirtual: false,
+      sourcePath: 'community_outreach_dashboard_view.dart',
+      implementedComponents: ["Aura HUD (Event Traction)","Outreach Stat Grid","Partnership Growth Chart","Event Management Calendar"],
+    ),
+        'SCREEN_TERRITORY_SALES_MANAGER_DASHBOARD': ScreenMetadata(
+      id: 'SCREEN_TERRITORY_SALES_MANAGER_DASHBOARD',
+      title: 'territory Sales Manager Dashboard',
+      featureName: 'territory Sales Manager Dashboard',
+      routePath: '/territory-sales-manager-dashboard',
+      office: 'Marketing',
+      role: 'Staff',
+      allowedRoles: ['Staff', 'Admin'],
+      lifecycleStatus: LifecycleStatus.completed,
+      isRenderOk: true,
+      userApprovedLayout: true,
+      isVirtual: false,
+      sourcePath: 'territory_sales_manager_dashboard_view.dart',
+      implementedComponents: ["Aura HUD (Sales Velocity)","Sales KPI Grid","Pipeline Velocity Chart","Territory Growth Map"],
+    ),
+  };
+}

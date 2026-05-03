@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'user_form_view.dart';
 import 'user_controller.dart';
-import 'user.dart';
+import 'models/user.dart';
 
 class UserCreateView extends ConsumerWidget {
   const UserCreateView({super.key});

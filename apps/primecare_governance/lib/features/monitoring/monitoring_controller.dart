@@ -26,12 +26,13 @@ class MonitoringState {
   }
 }
 
-class MonitoringController extends StateNotifier<MonitoringState> {
-  MonitoringController(this.ref) : super(MonitoringState()) {
+class MonitoringController extends Notifier<MonitoringState> {
+  @override
+  MonitoringState build() {
     _listenToTelemetry();
+    return MonitoringState();
   }
 
-  final Ref ref;
   static const int maxHistory = 30;
 
   void _listenToTelemetry() {
@@ -53,6 +54,4 @@ class MonitoringController extends StateNotifier<MonitoringState> {
   }
 }
 
-final monitoringControllerProvider = StateNotifierProvider<MonitoringController, MonitoringState>((ref) {
-  return MonitoringController(ref);
-});
+final monitoringControllerProvider = NotifierProvider<MonitoringController, MonitoringState>(MonitoringController.new);

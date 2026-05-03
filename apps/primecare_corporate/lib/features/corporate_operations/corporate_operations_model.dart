@@ -35,23 +35,11 @@ class CorporateDashboardModel {
 
   factory CorporateDashboardModel.fromJson(Map<String, dynamic> json) =>
       CorporateDashboardModel(
-        metrics: DashboardMetrics.fromJson(json['metrics']),
+        metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
         insights: (json['insights'] as List)
-            .map((i) => IntelligenceInsight.fromJson(i))
+            .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
             .toList(),
-        isOfflineFallback: json['isOfflineFallback'] ?? false,
+        isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       );
 
-  List<AssemblyBlueprint> get blueprints {
-    return [
-      AssemblyBlueprint(
-        componentType: 'kpi_grid',
-        dataPayload: metrics.kpis,
-      ),
-      AssemblyBlueprint(
-        componentType: 'activity_feed',
-        dataPayload: metrics.recentActivity,
-      ),
-    ];
-  }
 }

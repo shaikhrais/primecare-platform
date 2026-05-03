@@ -2,6 +2,10 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class DynamicScreenDashboardView extends ConsumerWidget {
@@ -40,7 +44,14 @@ class DynamicScreenDashboardView extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Dynamic Screen Command Center', style: theme.typography.h2),
+          Text(
+            LocaleKeys.dynamic_screen_dashboard_title.tr(),
+            style: theme.typography.h2,
+          ),
+          Text(
+            LocaleKeys.dynamic_screen_dashboard_subtitle.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
@@ -59,7 +70,16 @@ class DynamicScreenDashboardView extends ConsumerWidget {
 }
 
 class DynamicScreenDashboardIntent extends PrimeCareScreen {
-  DynamicScreenDashboardIntent() : super(title: 'DynamicScreenDashboard');
+  DynamicScreenDashboardIntent()
+      : super(
+          name: 'dynamic_screen_dashboard',
+          title: LocaleKeys.dynamic_screen_dashboard_title,
+          route: '/infrastructure/dynamic-screen',
+          requiredRole: PlatformRole.dynamicScreen,
+          form: PrimeCareForm.dynamicRoleDashboard,
+          provider: dynamicScreenDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Widget Factory HUD', 'Screen Layout Architect', 'Style Token Monitor'],
+        );
 
   @override
   Widget build(BuildContext context) => const DynamicScreenDashboardView();

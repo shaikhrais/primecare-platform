@@ -2,8 +2,7 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
 class ClinicalDirectorDashboardView extends ConsumerWidget {
   const ClinicalDirectorDashboardView({super.key});
@@ -157,10 +156,23 @@ class ClinicalDirectorDashboardView extends ConsumerWidget {
 }
 
 class ClinicalDirectorDashboardIntent extends PrimeCareScreen {
+  static const kName = 'clinical-director-dashboard';
+  static const kRoute = '/offices/clinical/roles/clinical-director/dashboard';
+
   ClinicalDirectorDashboardIntent()
     : super(
-        title: 'ClinicalDirectorDashboard',
-        route: '/offices/clinical/roles/clinical_director/dashboard',
+        name: kName,
+        title: LocaleKeys.clinical_clinical_director_dashboard_title,
+        route: kRoute,
+        requiredRole: PlatformRole.clinicalDirector,
+        form: PrimeCareForm.clinicalDirectorDashboard,
+        provider: clinicalDirectorDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (Clinical Safety)',
+          'Patient Satisfaction Index',
+          'Clinical Staffing Matrix',
+          'Outcome Trends Waterfall',
+        ],
       );
 
   @override

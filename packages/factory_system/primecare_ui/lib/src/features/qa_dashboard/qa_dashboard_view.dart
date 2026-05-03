@@ -2,8 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD (Drift Score)
+// @governance: component=Registry Parity Monitor
+// @governance: component=Blueprint Compliance Audit
+// @governance: component=Remediation Queue
 
 class QaDashboardView extends ConsumerWidget {
   const QaDashboardView({super.key});
@@ -46,9 +50,12 @@ class QaDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Quality Assurance Hub', style: theme.typography.h2),
                   Text(
-                    'Regulatory compliance, audit telemetry, and clinical incident surveillance',
+                    LocaleKeys.qa_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.qa_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -154,7 +161,21 @@ class QaDashboardView extends ConsumerWidget {
 }
 
 class QaDashboardIntent extends PrimeCareScreen {
-  QaDashboardIntent() : super(title: 'QaDashboard');
+  QaDashboardIntent()
+      : super(
+          name: 'SCREEN_QA_DASHBOARD',
+          title: LocaleKeys.qa_dashboard_title,
+          route: ClinicalRoutes.qaDashboard,
+          requiredRole: PlatformRole.qa,
+          form: PrimeCareForm.qualityAssuranceDashboard,
+          provider: qaDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Drift Score)',
+            'Registry Parity Monitor',
+            'Blueprint Compliance Audit',
+            'Remediation Queue',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const QaDashboardView();

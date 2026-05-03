@@ -6,3 +6,7 @@ export 'shared/src/registry/domain_registries/business_development_registry.dart
 export 'shared/src/registry/domain_registries/client_portal_registry.dart';
 export 'shared/src/registry/domain_registries/admin_infrastructure_registry.dart';
 export 'shared/src/registry/domain_registries/marketing_registry.dart';
+export 'shared/src/registry/domain_registries/workflows_forms_registry.dart';
+export 'shared/src/registry/domain_registries/operational_registry.dart';
+export 'shared/src/registry/domain_registries/support_registry.dart';
+export 'shared/src/registry/domain_registries/regional_finance_registry.dart';

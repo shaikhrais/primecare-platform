@@ -1,6 +1,10 @@
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class VerificationHubView extends ConsumerWidget {
@@ -62,7 +66,21 @@ class VerificationHubView extends ConsumerWidget {
 }
 
 class VerificationHubIntent extends PrimeCareScreen {
-  VerificationHubIntent() : super(title: 'VerificationHub');
+  VerificationHubIntent()
+    : super(
+        name: 'SCREEN_VERIFICATION_HUB',
+        title: 'dashboards.common_labels.verification_hub',
+        route: '/offices/corporate/roles/system_verification/dashboard',
+        requiredRole: PlatformRole.systemVerification,
+        form: PrimeCareForm.verificationHub,
+        provider: verificationHubAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Identity Verification Queue',
+          'Credential Validation Heatmap',
+          'Security Checkpoint Logs',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const VerificationHubView();

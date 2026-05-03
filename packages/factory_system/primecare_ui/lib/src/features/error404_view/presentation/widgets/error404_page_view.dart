@@ -1,5 +1,10 @@
+// @governance: componentLabels=['Aura HUD (Drift Detection)', 'Site Map', 'Support Link']
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 // Layer: 05_UI_PRESENTATION

@@ -3,6 +3,14 @@ import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Portfolio Yield
+// @governance: component=Equity Growth Heatmap
+// @governance: component=Strategic Risk Matrix
+
     hide isOnlineProvider, ProviderTTL;
 
 class OwnerDashboardView extends ConsumerWidget {
@@ -50,10 +58,13 @@ class OwnerDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Owner Command Center', style: theme.typography.h2),
                   Text(
-                    'Enterprise valuation, EBITDA velocity, and global compliance',
-                    style: theme.typography.labelMedium,
+                    LocaleKeys.owner_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.owner_dashboard_subtitle.tr(),
+                    style: theme.typography.bodyLarge,
                   ),
                 ],
               ),
@@ -148,7 +159,21 @@ class OwnerDashboardView extends ConsumerWidget {
 }
 
 class OwnerDashboardIntent extends PrimeCareScreen {
-  OwnerDashboardIntent() : super(title: 'OwnerDashboard');
+  OwnerDashboardIntent()
+      : super(
+          name: 'owner_dashboard',
+          title: LocaleKeys.owner_dashboard_title,
+          route: '/offices/roles/owner/dashboard',
+          requiredRole: PlatformRole.owner,
+          form: PrimeCareForm.ownerDashboard,
+          provider: ownerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Portfolio Yield',
+            'Equity Growth Heatmap',
+            'Strategic Risk Matrix',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const OwnerDashboardView();

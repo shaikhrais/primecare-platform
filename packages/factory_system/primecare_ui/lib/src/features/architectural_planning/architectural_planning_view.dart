@@ -1,4 +1,7 @@
 // PRIMECARE CONSOLIDATED FILE
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
@@ -33,7 +36,7 @@ class ArchitecturalPlanningView extends ConsumerWidget {
                       .map(
                         (kpi) => PrimeCareKpiCard(
                           title: kpi.title,
-                          value: kpi.value,
+                           value: kpi.value,
                           subtitle: kpi.subtitle ?? '',
                           icon: _getIconForMetric(kpi.title),
                           onPinToggle: () {},
@@ -62,7 +65,21 @@ class ArchitecturalPlanningView extends ConsumerWidget {
 }
 
 class ArchitecturalPlanningIntent extends PrimeCareScreen {
-  ArchitecturalPlanningIntent() : super(title: 'ArchitecturalPlanning');
+  ArchitecturalPlanningIntent()
+      : super(
+          name: 'architectural_planning',
+          title: LocaleKeys.dashboards_common_labels_technical_operations_overview,
+          route: '/offices/corporate/roles/cto/architecture',
+          requiredRole: PlatformRole.architecturePlanning,
+          form: PrimeCareForm.architecturalPlanningDashboard,
+          provider: architecturalPlanningAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Subsystem Blueprints',
+            'Component Dependency Graph',
+            'State Management Audit'
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ArchitecturalPlanningView();

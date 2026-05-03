@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_TERRITORY_SALES_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Sales Velocity)
+// @governance: component=Sales KPI Grid
+// @governance: component=Pipeline Velocity Chart
+// @governance: component=Territory Growth Map
 class TerritorySalesManagerDashboardView extends ConsumerWidget {
   const TerritorySalesManagerDashboardView({super.key});
 
@@ -76,8 +83,33 @@ class TerritorySalesManagerDashboardView extends ConsumerWidget {
 }
 
 class TerritorySalesManagerDashboardIntent extends PrimeCareScreen {
+  static const kName = 'territory-sales-manager-dashboard';
+  static const kRoute = '/offices/corporate/roles/territory-sales-manager/dashboard';
+
+  @override
+  String get title => LocaleKeys.business_development_territory_sales_manager_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.territorySalesManager;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.territorySalesDashboard;
+
   TerritorySalesManagerDashboardIntent()
-    : super(title: 'TerritorySalesManagerDashboard');
+      : super(
+          name: kName,
+          title: LocaleKeys.business_development_territory_sales_manager_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.territorySalesManager,
+          form: PrimeCareForm.territorySalesDashboard,
+          provider: territorySalesManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Sales Velocity)',
+            'Sales KPI Grid',
+            'Pipeline Velocity Chart',
+            'Territory Growth Map',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

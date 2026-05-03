@@ -39,7 +39,7 @@ class DynamicFormBuilder extends StatelessWidget {
     for (var config in configs) {
       controls[config.name] = FormControl<dynamic>(
         value: config.initialValue,
-        validators: config.validators ?? [],
+        validators: config.validators?.cast<Validator<dynamic>>() ?? <Validator<dynamic>>[],
       );
     }
     return fb.group(controls);

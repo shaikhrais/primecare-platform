@@ -1,6 +1,11 @@
 // Layer: 02_COMPONENTS
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+import 'package:primecare_ui/src/theme/aura/aura_role_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'aura_models.dart';
+import 'dart:ui';
+import 'package:fl_chart/fl_chart.dart';
 export '../components/governed_widget.dart';
 
 enum PrimeCareButtonType { primary, secondary, danger, ghost }
@@ -35,12 +40,12 @@ class PrimeCareCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radii.lg),
-        border: Border.all(color: theme.colors.borderLight),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 12,
+            spreadRadius: 0,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -184,7 +189,7 @@ class PrimeCareChartCard extends StatelessWidget {
   }
 }
 
-/// Placeholder for charts until specific ones are implemented or restored.
+/// High-fidelity implementation of Line Chart using fl_chart
 class PrimeCareLineChart extends StatelessWidget {
   final AnalyticsChart chart;
   final Color? lineColor;
@@ -194,14 +199,142 @@ class PrimeCareLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+    
+    // Fallback if no data
+    if (chart.datasets.isEmpty && chart.dataPoints.isEmpty) {
+      return Container(
+        height: 200,
+        decoration: BoxDecoration(
+          color: theme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(theme.radii.md),
+        ),
+        child: Center(
+          child: Text(
+            'No Data Available',
+            style: theme.typography.labelMedium.copyWith(color: theme.colors.onSurfaceVariant),
+          ),
+        ),
+      );
+    }
+
+    // Determine values to plot. Favor datasets if available, otherwise dataPoints.
+    List<LineChartBarData> barDataList = [];
+    final primaryColor = lineColor ?? theme.colors.primary;
+
+    if (chart.datasets.isNotEmpty) {
+      for (int i = 0; i < chart.datasets.length; i++) {
+        final dataset = chart.datasets[i];
+        final color = dataset.color != null 
+            ? _parseColor(dataset.color!) 
+            : (i == 0 ? primaryColor : theme.colors.secondary);
+            
+        barDataList.add(
+          LineChartBarData(
+            spots: dataset.data.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value)).toList(),
+            isCurved: true,
+            color: color,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: true,
+              color: color.withValues(alpha: 0.1),
+            ),
+          ),
+        );
+      }
+    } else {
+      barDataList.add(
+        LineChartBarData(
+          spots: chart.dataPoints.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value.value)).toList(),
+          isCurved: true,
+          color: primaryColor,
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: const FlDotData(show: false),
+          belowBarData: BarAreaData(
+            show: true,
+            color: primaryColor.withValues(alpha: 0.1),
+          ),
+        ),
+      );
+    }
+
     return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: theme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(theme.radii.md),
+      height: 240,
+      padding: EdgeInsets.only(top: theme.spacing.md, right: theme.spacing.md),
+      child: LineChart(
+        LineChartData(
+          gridData: FlGridData(
+            show: true,
+            drawVerticalLine: false,
+            horizontalInterval: 1,
+            getDrawingHorizontalLine: (value) {
+              return FlLine(
+                color: theme.colors.outlineVariant.withValues(alpha: 0.5),
+                strokeWidth: 1,
+                dashArray: [5, 5],
+              );
+            },
+          ),
+          titlesData: FlTitlesData(
+            show: true,
+            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 30,
+                interval: 1,
+                getTitlesWidget: (value, meta) {
+                  int index = value.toInt();
+                  String label = '';
+                  if (chart.labels.isNotEmpty && index >= 0 && index < chart.labels.length) {
+                    label = chart.labels[index];
+                  } else if (chart.dataPoints.isNotEmpty && index >= 0 && index < chart.dataPoints.length) {
+                    label = chart.dataPoints[index].label;
+                  }
+                  return SideTitleWidget(
+                    meta: meta,
+                    child: Text(
+                      label,
+                      style: theme.typography.labelSmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    ),
+                  );
+                },
+              ),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                interval: 1,
+                reservedSize: 42,
+                getTitlesWidget: (value, meta) {
+                  return Text(
+                    value.toStringAsFixed(0),
+                    style: theme.typography.labelSmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    textAlign: TextAlign.left,
+                  );
+                },
+              ),
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          lineBarsData: barDataList,
+        ),
       ),
-      child: const Center(child: Text('Line Chart Visualization')),
     );
+  }
+  
+  Color _parseColor(String colorString) {
+    try {
+      if (colorString.startsWith('#')) {
+        return Color(int.parse(colorString.substring(1, 7), radix: 16) + 0xFF000000);
+      }
+      return Colors.blue; // Fallback
+    } catch (_) {
+      return Colors.blue;
+    }
   }
 }
 
@@ -260,17 +393,53 @@ class IntelligenceInsightCard extends StatelessWidget {
   }
 }
 
-enum AppShellType { desktop, mobile, tablet, minimal, admin }
+enum AppShellType { desktop, mobile, tablet, minimal, admin, client, provider }
 
 /// Master Layout wrapper for consistency.
-class MasterLayout extends StatelessWidget {
+class MasterLayout extends ConsumerWidget {
   final Widget child;
+  final Widget? drawer;
   final AppShellType? shellType;
-  const MasterLayout({required this.child, this.shellType, super.key});
+  const MasterLayout({
+    required this.child,
+    this.drawer,
+    this.shellType,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return child;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final portalConfig = ref.watch(portalConfigProvider);
+    final theme = context.theme;
+
+    return Scaffold(
+      backgroundColor: theme.colors.background,
+      drawer: drawer,
+      appBar: AppBar(
+        title: Text(
+          portalConfig.title,
+          style: theme.typography.titleLarge.copyWith(
+            color: theme.colors.onSurface,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              color: theme.colors.background.withValues(alpha: 0.8),
+            ),
+          ),
+        ),
+      ),
+      body: AuraVisionRenderer(
+        liveWidget: child,
+      ),
+    );
   }
 }
 
@@ -386,14 +555,22 @@ class PrimeCareKpiCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  if (icon != null) ...[
-                    Icon(icon, size: 16, color: theme.colors.primary),
-                    SizedBox(width: theme.spacing.xs),
+              Expanded(
+                child: Row(
+                  children: [
+                    if (icon != null) ...[
+                      Icon(icon, size: 16, color: theme.colors.primary),
+                      SizedBox(width: theme.spacing.xs),
+                    ],
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: theme.typography.labelMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
-                  Text(title, style: theme.typography.labelMedium),
-                ],
+                ),
               ),
               if (onPinToggle != null)
                 IconButton(
@@ -411,7 +588,10 @@ class PrimeCareKpiCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: theme.spacing.sm),
-          Text(value, style: theme.typography.h3),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(value, style: theme.typography.h3),
+          ),
           if (subtitle.isNotEmpty) ...[
             SizedBox(height: theme.spacing.xs),
             Text(
@@ -419,6 +599,71 @@ class PrimeCareKpiCard extends StatelessWidget {
               style: theme.typography.labelSmall.copyWith(
                 color: theme.colors.slateGray,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// A high-fidelity Aura-styled Card for intelligence metrics.
+class PrimeCareAuraCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final String subtitle;
+  final IconData? icon;
+  final Color? color;
+
+  const PrimeCareAuraCard({
+    required this.title,
+    required this.value,
+    this.subtitle = '',
+    this.icon,
+    this.color,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return PrimeCareCard(
+      width: 240,
+      color: color ?? theme.colors.primary.withValues(alpha: 0.05),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 16, color: theme.colors.primary),
+                SizedBox(width: theme.spacing.xs),
+              ],
+              Expanded(
+                child: Text(
+                  title,
+                  style: theme.typography.labelMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: theme.spacing.sm),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(value, style: theme.typography.h3),
+          ),
+          if (subtitle.isNotEmpty) ...[
+            SizedBox(height: theme.spacing.xs),
+            Text(
+              subtitle,
+              style: theme.typography.labelSmall.copyWith(
+                color: theme.colors.slateGray,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ],
@@ -428,12 +673,192 @@ class PrimeCareKpiCard extends StatelessWidget {
 }
 
 /// Aura real-time intelligence HUD.
-class AuraDashboardHud extends StatelessWidget {
-  const AuraDashboardHud({super.key});
+/// Aligned with "Clinical Atelier" high-fidelity standards.
+class AuraDashboardHud extends ConsumerWidget {
+  final String? title;
+  final String? value;
+  final String? auraLabel;
+
+  const AuraDashboardHud({
+    this.title,
+    this.value,
+    this.auraLabel,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final auraTheme = AuraRoleTheme.resolve(ref);
+    final visionMode = ref.watch(auraVisionProvider);
+    final pulseEvent = ref.watch<AuraEvent?>(auraPulseEventProvider);
+
+    // Only allow live telemetry to override if we are in live mode.
+    final hasActiveEvent = visionMode == AuraVisionMode.live && 
+                          pulseEvent != null && 
+                          pulseEvent.type != AuraEventType.stableheartbeat;
+
+    final displayTitle = hasActiveEvent ? pulseEvent.title.toUpperCase() : (title ?? 'SYSTEM INTELLIGENCE ACTIVE');
+    final displayValue = hasActiveEvent ? _getEventValue(pulseEvent) : (value ?? 'OPTIMIZED');
+    final displayLabel = hasActiveEvent ? 'AURA PULSE: ${pulseEvent.impact.name.toUpperCase()}' : (auraLabel ?? auraTheme.auraLabel);
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(theme.radii.xxl),
+        boxShadow: [
+          BoxShadow(
+            color: auraTheme.primaryGradient.first.withValues(alpha: 0.2),
+            blurRadius: 40,
+            offset: const Offset(0, 20),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(theme.radii.xxl),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Container(
+            padding: EdgeInsets.all(theme.spacing.xl),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  auraTheme.primaryGradient.first.withValues(alpha: 0.8),
+                  auraTheme.primaryGradient.last.withValues(alpha: 0.9),
+                ],
+              ),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.1),
+                width: 0.5,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      displayLabel,
+                      style: GoogleFonts.inter(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        color: hasActiveEvent ? Colors.white : Colors.white.withValues(alpha: 0.7),
+                        letterSpacing: 2.5,
+                      ),
+                    ),
+                    _AuraPulseIndicator(
+                      color: hasActiveEvent ? _getImpactColor(pulseEvent.impact) : auraTheme.pulseColor,
+                      isAlert: hasActiveEvent && pulseEvent.impact == InsightImpact.alert,
+                    ),
+                  ],
+                ),
+                SizedBox(height: theme.spacing.md),
+                Text(
+                  displayTitle,
+                  style: GoogleFonts.manrope(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withValues(alpha: 0.9),
+                  ),
+                ),
+                SizedBox(height: theme.spacing.xs),
+                Text(
+                  displayValue,
+                  style: GoogleFonts.manrope(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -1.5,
+                  ),
+                ),
+                if (hasActiveEvent) ...[
+                  SizedBox(height: theme.spacing.sm),
+                  Text(
+                    pulseEvent.description,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _getEventValue(AuraEvent event) {
+    if (event.metadata != null && event.metadata!.containsKey('telemetryValue')) {
+      return event.metadata!['telemetryValue'] as String;
+    }
+    return event.type.name.split('.').last.replaceAll(RegExp(r'(?=[A-Z])'), ' ').toUpperCase();
+  }
+
+  Color _getImpactColor(InsightImpact impact) {
+    switch (impact) {
+      case InsightImpact.alert: return Colors.redAccent;
+      case InsightImpact.caution: return Colors.orangeAccent;
+      case InsightImpact.positive: return Colors.greenAccent;
+      default: return Colors.blueAccent;
+    }
+  }
+}
+
+class _AuraPulseIndicator extends StatefulWidget {
+  final Color color;
+  final bool isAlert;
+  const _AuraPulseIndicator({required this.color, this.isAlert = false});
+
+  @override
+  State<_AuraPulseIndicator> createState() => _AuraPulseIndicatorState();
+}
+
+class _AuraPulseIndicatorState extends State<_AuraPulseIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.shrink(); // Stub for real-time telemetry HUD
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: widget.color,
+            boxShadow: [
+              BoxShadow(
+                color: widget.color.withValues(alpha: (widget.isAlert ? 0.8 : 0.6) * _controller.value),
+                blurRadius: (widget.isAlert ? 20 : 10) * _controller.value,
+                spreadRadius: (widget.isAlert ? 8 : 4) * _controller.value,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -539,26 +964,65 @@ class WidgetModulationGovernor extends StatelessWidget {
 }
 
 /// Renderer for Stitch-orchestrated screens.
-class StitchEngineRenderer extends StatelessWidget {
+/// Integrated with Aura Vision for high-fidelity HDL previews.
+class StitchEngineRenderer extends ConsumerWidget {
   final String featureId;
   final List<dynamic> items;
+  final String? visualCategory;
 
   const StitchEngineRenderer({
     required this.featureId,
     required this.items,
+    this.visualCategory,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Stitch Renderer: $featureId'));
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Wrap in AuraVisionRenderer to support HDL/Blueprint modes automatically
+    return AuraVisionRenderer(
+      blueprint: AuraScreenBlueprint(
+        screenId: featureId,
+        title: featureId.replaceAll('_', ' ').toUpperCase(),
+        visualCategory: visualCategory ?? 'General',
+        mockData: _resolveMockData(featureId),
+        components: items.map((e) => e.toString()).toList(),
+      ),
+      liveWidget: _buildComponentStack(context),
+    );
+  }
+
+  Widget _buildComponentStack(BuildContext context) {
+    if (items.isEmpty) {
+      return Center(
+        child: Text('Empty Stitch Canvas: $featureId', 
+        style: const TextStyle(color: Colors.grey)),
+      );
+    }
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: items.map((itemId) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: ComponentWarehouse.build(context, itemId.toString(), featureId),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Map<String, dynamic> _resolveMockData(String id) {
+    // Centralized mock data resolution logic
+    if (id.contains('FINANCE')) return {'telemetryValue': r'$2.4M', 'status': 'Stable'};
+    if (id.contains('CLINICAL')) return {'telemetryValue': '98%', 'status': 'Excellent'};
+    return {'telemetryValue': '--', 'status': 'Pending'};
   }
 }
 
-/// Global registry for UI components and builders.
 class ComponentWarehouse {
-  static final Map<String, Widget Function(BuildContext, dynamic)> _registry =
-      {};
+  static final Map<String, Widget Function(BuildContext, dynamic)> _registry = {};
 
   static void register(
     String id,
@@ -569,6 +1033,61 @@ class ComponentWarehouse {
 
   static Widget Function(BuildContext, dynamic)? getBuilder(String id) {
     return _registry[id];
+  }
+
+  static Widget build(BuildContext context, String componentId, String featureId) {
+    // Check registry first
+    final builder = getBuilder(componentId);
+    if (builder != null) return builder(context, null);
+
+    switch (componentId) {
+      case 'AuraDashboardHud':
+      case 'DASHBOARD_HUD':
+        return AuraDashboardHud(
+          title: 'INTELLIGENCE UNIT',
+          value: '--',
+          auraLabel: featureId,
+        );
+      case 'MetricCard':
+        return const Placeholder(fallbackHeight: 100);
+      case 'RevenueProjectionModel':
+        return const RevenueProjectionModel();
+      case 'LiveDispatchMap':
+        return const LiveDispatchMap();
+      case 'RoboticDispensingInterface':
+        return const RoboticDispensingInterface();
+      case 'AuditLogPanel':
+        return const AuraComponentStub(title: 'AUDIT LOG PANEL', icon: Icons.history_edu, color: Colors.purple);
+      case 'UserAccessGrid':
+        return const AuraComponentStub(title: 'USER ACCESS GRID', icon: Icons.people, color: Colors.blue);
+      case 'GitStatusStream':
+        return const AuraComponentStub(title: 'GIT STATUS STREAM', icon: Icons.terminal, color: Colors.cyan);
+      case 'CodeAnalysisGauge':
+        return const AuraComponentStub(title: 'CODE ANALYSIS GAUGE', icon: Icons.analytics, color: Colors.indigo);
+      case 'ComplianceChecklist':
+        return const AuraComponentStub(title: 'COMPLIANCE CHECKLIST', icon: Icons.rule, color: Colors.deepPurple);
+      case 'AuditHistory':
+        return const AuraComponentStub(title: 'AUDIT HISTORY', icon: Icons.assignment, color: Color(0xFF8B5CF6));
+      case 'PersonalCalendar':
+        return const AuraComponentStub(title: 'PERSONAL CALENDAR', icon: Icons.calendar_month, color: Colors.pink);
+      case 'TaskQueue':
+        return const AuraComponentStub(title: 'TASK QUEUE', icon: Icons.list_alt, color: Colors.orange);
+      case 'GlobalReachMap':
+        return const AuraComponentStub(title: 'GLOBAL REACH MAP', icon: Icons.public, color: Colors.red);
+      case 'ExecutiveSummary':
+        return const AuraComponentStub(title: 'EXECUTIVE SUMMARY', icon: Icons.summarize, color: Colors.redAccent);
+      default:
+        return Container(
+          height: 80,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.grey.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+          ),
+          child: Center(child: Text('Component Stub: $componentId')),
+        );
+    }
   }
 }
 
@@ -672,11 +1191,8 @@ class PrimeCareChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: (color ?? theme.colors.primary).withAlpha(20),
+          color: (color ?? theme.colors.primary).withAlpha(15),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: (color ?? theme.colors.primary).withAlpha(50),
-          ),
         ),
         child: Text(
           label,
@@ -696,13 +1212,20 @@ class PrimeCareTextField extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final int? maxLines;
+  final bool obscureText;
+
+  final String? Function(String?)? validator; // Function-based validation
+  final String? hintText; // Alias for placeholder
 
   const PrimeCareTextField({
     required this.label,
     this.placeholder,
+    this.hintText,
     this.controller,
     this.onChanged,
+    this.validator,
     this.maxLines = 1,
+    this.obscureText = false,
     super.key,
   });
 
@@ -714,23 +1237,28 @@ class PrimeCareTextField extends StatelessWidget {
       children: [
         Text(label, style: theme.typography.labelSmall),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           controller: controller,
           onChanged: onChanged,
           maxLines: maxLines,
+          obscureText: obscureText,
+          validator: validator,
           decoration: InputDecoration(
-            hintText: placeholder,
+            hintText: hintText ?? placeholder,
             filled: true,
             fillColor: theme.colors.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(theme.radii.md),
-              borderSide: BorderSide(color: theme.colors.borderLight),
+              borderSide: BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(theme.radii.md),
-              borderSide: BorderSide(color: theme.colors.borderLight),
+              borderSide: BorderSide.none,
             ),
-            contentPadding: EdgeInsets.all(theme.spacing.md),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: theme.spacing.md,
+              vertical: theme.spacing.md,
+            ),
           ),
         ),
       ],
@@ -904,6 +1432,165 @@ class PrimeCareTab extends StatelessWidget {
                 : theme.colors.onSurfaceVariant,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Specialized Aura Widget: Revenue Projection Model
+class RevenueProjectionModel extends StatelessWidget {
+  const RevenueProjectionModel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 240,
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.yellow.withValues(alpha: 0.3)),
+      ),
+      child: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.query_stats, color: Colors.yellow, size: 48),
+            SizedBox(height: 16),
+            Text('REVENUE PROJECTION MODEL', 
+              style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.bold)),
+            Text('Predictive Fiscal Intelligence Hydration', 
+              style: TextStyle(fontSize: 10, color: Colors.grey)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Specialized Aura Widget: Live Dispatch Map
+class LiveDispatchMap extends StatelessWidget {
+  const LiveDispatchMap({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.5)),
+      ),
+      child: Stack(
+        children: [
+          Center(
+            child: Icon(Icons.map, color: Colors.blue.withValues(alpha: 0.2), size: 120),
+          ),
+          const Positioned(
+            top: 16,
+            left: 16,
+            child: Text('LIVE DISPATCH RADAR', 
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, letterSpacing: 1)),
+          ),
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.blue.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Text('ACTIVE UNITS: 14', 
+                style: TextStyle(color: Colors.blue, fontSize: 10, fontWeight: FontWeight.bold)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Specialized Aura Widget: Robotic Dispensing Interface
+class RoboticDispensingInterface extends StatelessWidget {
+  const RoboticDispensingInterface({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.teal.withValues(alpha: 0.1), Colors.black.withValues(alpha: 0.05)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.teal.withValues(alpha: 0.3)),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.precision_manufacturing, color: Colors.teal, size: 40),
+              Text('ARM STATUS', style: TextStyle(fontSize: 10, color: Colors.grey)),
+              Text('NOMINAL', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          VerticalDivider(indent: 40, endIndent: 40),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.medication, color: Colors.teal, size: 40),
+              Text('THROUGHPUT', style: TextStyle(fontSize: 10, color: Colors.grey)),
+              Text('45 PKG/MIN', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// A generic, high-fidelity stub for Aura components.
+class AuraComponentStub extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color color;
+
+  const AuraComponentStub({
+    required this.title,
+    required this.icon,
+    required this.color,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color, size: 32),
+            const SizedBox(height: 8),
+            Text(title, 
+              style: TextStyle(
+                fontSize: 10, 
+                fontWeight: FontWeight.bold, 
+                color: color,
+                letterSpacing: 1.5,
+              )),
+          ],
         ),
       ),
     );

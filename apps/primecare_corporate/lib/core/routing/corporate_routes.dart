@@ -1,4 +1,4 @@
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide CeoDashboardView, CooDashboardView, CfoDashboardView, CtoDashboardView, VerificationHubView;
 import 'package:go_router/go_router.dart';
 import '../../features/corporate_operations/corporate_operations_view.dart';
 
@@ -34,7 +34,7 @@ final List<RouteBase> corporateRoutes = [
         case 'coo': return const CooDashboardView();
         case 'cfo': return const CfoDashboardView();
         case 'cto': return const CtoDashboardView();
-        default: return ErrorState(message: 'Unknown role: $role');
+        default: return DashboardErrorWidget(message: 'Unknown role: $role', onRetry: (){});
       }
     },
   ),

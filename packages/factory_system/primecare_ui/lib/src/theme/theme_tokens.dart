@@ -35,6 +35,7 @@ class PrimeCareRadii {
   static const double rounded = 6.0;
   static const double lg = 8.0;
   static const double xl = 12.0;
+  static const double xxl = 16.0;
   static const double pill = 999.0;
 
   static final BorderRadius boardSm = BorderRadius.circular(sm);
@@ -42,6 +43,7 @@ class PrimeCareRadii {
   static final BorderRadius boardRounded = BorderRadius.circular(rounded);
   static final BorderRadius boardLg = BorderRadius.circular(lg);
   static final BorderRadius boardXl = BorderRadius.circular(xl);
+  static final BorderRadius boardXxl = BorderRadius.circular(xxl);
   static final BorderRadius boardPill = BorderRadius.circular(pill);
 
   /// Returns a scaled BorderRadius based on the lg (8px) institutional standard.

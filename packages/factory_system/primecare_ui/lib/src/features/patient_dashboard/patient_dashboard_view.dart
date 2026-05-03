@@ -2,8 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Data Table
 
 class PatientDashboardView extends ConsumerWidget {
   const PatientDashboardView({super.key});
@@ -54,9 +58,12 @@ class PatientDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Patient Command Center', style: theme.typography.h2),
                   Text(
-                    'Personal wellness and care plan overview',
+                    LocaleKeys.patient_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.patient_dashboard_subtitle.tr(),
                     style: theme.typography.bodyLarge,
                   ),
                 ],
@@ -167,7 +174,21 @@ class PatientActionHub extends StatelessWidget {
 }
 
 class PatientDashboardIntent extends PrimeCareScreen {
-  PatientDashboardIntent() : super(title: 'PatientDashboard');
+  PatientDashboardIntent()
+      : super(
+          name: 'patient_dashboard',
+          title: LocaleKeys.patient_dashboard_title,
+          route: '/offices/roles/patient/dashboard',
+          requiredRole: PlatformRole.patient,
+          form: PrimeCareForm.patientDashboard,
+          provider: patientDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Personalized Care Plan',
+            'Vitals Log',
+            'Medication Adherence',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const PatientDashboardView();

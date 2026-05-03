@@ -14,6 +14,8 @@ class BusinessDevelopmentRoutes {
       '/offices/business_development/roles/territory_expansion_manager/dashboard';
   static const String generalManagerDashboard =
       '/offices/business_development/roles/general_manager/dashboard';
+  static const String regionalBdmDashboard =
+      '/offices/business_development/roles/regional_bdm/dashboard';
   static const String regionalBdmLeads =
       '/offices/business_development/roles/regional_bdm/leads';
   static const String regionalBdmFranchisePipeline =

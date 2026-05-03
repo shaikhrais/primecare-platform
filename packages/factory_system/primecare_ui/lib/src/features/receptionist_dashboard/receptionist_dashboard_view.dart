@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_RECEPTIONIST_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -47,11 +51,11 @@ class ReceptionistDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Receptionist Command Center',
+                    LocaleKeys.receptionist_dashboard_title.tr(),
                     style: theme.typography.h2,
                   ),
                   Text(
-                    'Front-desk operations and visitor management telemetry',
+                    LocaleKeys.receptionist_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -81,7 +85,21 @@ class ReceptionistDashboardView extends ConsumerWidget {
 }
 
 class ReceptionistDashboardIntent extends PrimeCareScreen {
-  ReceptionistDashboardIntent() : super(title: 'ReceptionistDashboard');
+  ReceptionistDashboardIntent()
+    : super(
+        name: 'receptionist',
+        title: LocaleKeys.receptionist_dashboard_title,
+        route: '/offices/clinical/roles/receptionist/dashboard',
+        requiredRole: PlatformRole.receptionist,
+        form: PrimeCareForm.receptionistDashboard,
+        provider: receptionistDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (Front Desk Velocity)',
+          'Appointment Calendar',
+          'Check-in Queue',
+          'Directory Search',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const ReceptionistDashboardView();

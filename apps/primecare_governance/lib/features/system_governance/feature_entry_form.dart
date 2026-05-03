@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
+/// [Component] - Feature Flag Configurator
 class FeatureEntryForm extends StatefulWidget {
   const FeatureEntryForm({super.key});
 
@@ -8,81 +9,64 @@ class FeatureEntryForm extends StatefulWidget {
 }
 
 class _FeatureEntryFormState extends State<FeatureEntryForm> {
-  final _featureByController = TextEditingController();
-  final _featureNameController = TextEditingController();
-  final _featureIntentController = TextEditingController();
-  String _featureApp = 'PSW App';
-  String _featureStatus = 'Draft';
+  bool _isEnabled = false;
+  String _environment = 'Production';
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Feature Intake',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          controller: _featureByController,
-          decoration: const InputDecoration(
-            labelText: 'Stakeholder / Requested By',
-            border: OutlineInputBorder(),
+    final theme = context.theme;
+
+    return ClinicalGlassPanel(
+      title: 'Feature Flag Configurator',
+      icon: Icons.toggle_on_rounded,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Manage dynamic feature toggles and rollout strategies.'),
+          const SizedBox(height: 24),
+          
+          SwitchListTile(
+            title: const Text('Enable Globally', style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: const Text('Toggles this feature across all tenant instances.'),
+            value: _isEnabled,
+            onChanged: (val) => setState(() => _isEnabled = val),
+            activeThumbColor: theme.colors.primary,
           ),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          controller: _featureNameController,
-          decoration: const InputDecoration(
-            labelText: 'Feature Name',
-            border: OutlineInputBorder(),
+          
+          const SizedBox(height: 24),
+          
+          const Text('Target Environment', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<String>(
+            initialValue: _environment,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: theme.colors.background.withValues(alpha: 0.5),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+            items: ['Development', 'Staging', 'Production']
+                .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                .toList(),
+            onChanged: (val) => setState(() => _environment = val!),
           ),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          controller: _featureIntentController,
-          maxLines: 3,
-          decoration: const InputDecoration(
-            labelText: 'Intent / Business Need',
-            border: OutlineInputBorder(),
+          
+          const SizedBox(height: 32),
+          
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colors.primary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: const Text('Update Feature Flag', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
-        DropdownButtonFormField<String>(
-          initialValue: _featureApp,
-          decoration: const InputDecoration(
-            labelText: 'App',
-            border: OutlineInputBorder(),
-          ),
-          items: [
-            'PSW App',
-            'Corporate Admin App',
-            'Client Family App',
-          ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-          onChanged: (val) => setState(() => _featureApp = val!),
-        ),
-        const SizedBox(height: 12),
-        DropdownButtonFormField<String>(
-          initialValue: _featureStatus,
-          decoration: const InputDecoration(
-            labelText: 'Status',
-            border: OutlineInputBorder(),
-          ),
-          items: [
-            'Draft',
-            'Review',
-            'Approved',
-            'Rejected',
-          ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-          onChanged: (val) => setState(() => _featureStatus = val!),
-        ),
-        const SizedBox(height: 12),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Create Feature Request'),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

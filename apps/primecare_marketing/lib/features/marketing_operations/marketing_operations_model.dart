@@ -31,11 +31,11 @@ class MarketingDashboardModel {
 
   factory MarketingDashboardModel.fromJson(Map<String, dynamic> json) =>
       MarketingDashboardModel(
-        metrics: DashboardMetrics.fromJson(json['metrics']),
+        metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
         insights: (json['insights'] as List)
-            .map((i) => IntelligenceInsight.fromJson(i))
+            .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
             .toList(),
-        isOfflineFallback: json['isOfflineFallback'] ?? false,
+        isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       );
 
   factory MarketingDashboardModel.empty({bool isOfflineFallback = false}) =>

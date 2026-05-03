@@ -3,9 +3,12 @@
 import 'package:flutter_core/flutter_core.dart';
 import 'features/features_view.dart';
 import 'blueprint_seeder.dart';
+import 'screen_registry.dart';
+
 
 class GovernanceBootstrapper {
   static void bootstrap() {
+    ScreenRegistry.bootstrap();
     BlueprintSeeder.seed();
     GovernanceRegistry.register(
       ArchitecturalPlanningIntent(),
@@ -30,6 +33,14 @@ class GovernanceBootstrapper {
     GovernanceRegistry.register(
       ClinicDashboardIntent(),
       role: PlatformRole.clinic.nameSnake,
+    );
+    GovernanceRegistry.register(
+      ChiropractorDashboardIntent(),
+      role: PlatformRole.chiropractor.nameSnake,
+    );
+    GovernanceRegistry.register(
+      PhysiotherapistDashboardIntent(),
+      role: PlatformRole.physiotherapist.nameSnake,
     );
     GovernanceRegistry.register(
       ClinicalDirectorDashboardIntent(),
@@ -147,12 +158,12 @@ class GovernanceBootstrapper {
       role: PlatformRole.psw.nameSnake,
     );
     GovernanceRegistry.register(
-      QaDashboardIntent(),
-      role: PlatformRole.qa.nameSnake,
-    );
-    GovernanceRegistry.register(
       QualityAssuranceDashboardIntent(),
       role: PlatformRole.qualityAssurance.nameSnake,
+    );
+    GovernanceRegistry.register(
+      QaDashboardIntent(),
+      role: PlatformRole.qa.nameSnake,
     );
     GovernanceRegistry.register(
       ReceptionistDashboardIntent(),
@@ -177,6 +188,10 @@ class GovernanceBootstrapper {
     GovernanceRegistry.register(
       RnDashboardIntent(),
       role: PlatformRole.rn.nameSnake,
+    );
+    GovernanceRegistry.register(
+      RpnDashboardIntent(),
+      role: PlatformRole.rpn.nameSnake,
     );
     GovernanceRegistry.register(
       SchedulerDashboardIntent(),
@@ -235,5 +250,18 @@ class GovernanceBootstrapper {
       VolunteerCoordinatorDashboardIntent(),
       role: PlatformRole.volunteerCoordinator.nameSnake,
     );
+
+    // --- RECONCILIATION LAYER ---
+    // Automatically register all screens from the ScreenRegistry that weren't manually registered above.
+    // This achieves platform-wide compliance by ensuring every metadata screen has a formal GovernanceIntent.
+    final allRegisteredRoutes = GovernanceRegistry.getAllIntents().map((i) => i.route).toSet();
+    
+    // We access ScreenRegistry safely to avoid circular dependencies if any
+    final metadataScreens = ScreenRegistry.getAllRegisteredScreens();
+    for (final screen in metadataScreens) {
+      if (!allRegisteredRoutes.contains(screen.route)) {
+        GovernanceRegistry.register(screen);
+      }
+    }
   }
 }

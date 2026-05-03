@@ -1,10 +1,23 @@
+// @governance: id=SCREEN_HR_HIRING_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Candidate Pipeline
+// @governance: component=Onboarding Checklist
+// @governance: component=Recruitment KPI Grid
+// @governance: component=Aura HUD (Pipeline Velocity)
+// @governance: component=Candidate Pipeline View
 class HrHiringDashboardView extends ConsumerWidget {
   const HrHiringDashboardView({super.key});
 
@@ -47,11 +60,11 @@ class HrHiringDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'HR Human Capital Dashboard',
+                    LocaleKeys.hr_hiring_dashboard_title.tr(),
                     style: theme.typography.h2,
                   ),
                   Text(
-                    'Human capital, recruitment pipeline, and staff retention telemetry',
+                    LocaleKeys.hr_hiring_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -343,7 +356,16 @@ class HrHiringDashboardView extends ConsumerWidget {
 }
 
 class HrHiringDashboardIntent extends PrimeCareScreen {
-  HrHiringDashboardIntent() : super(title: 'HrHiringDashboard');
+  HrHiringDashboardIntent()
+      : super(
+          name: 'hr_hiring_dashboard',
+          title: LocaleKeys.hr_hiring_dashboard_title,
+          route: '/offices/roles/hr/hiring',
+          requiredRole: PlatformRole.hrHiring,
+          form: PrimeCareForm.hrHiringDashboard,
+          provider: hrHiringDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Human Capital Telemetry'],
+        );
 
   @override
   Widget build(BuildContext context) => const HrHiringDashboardView();

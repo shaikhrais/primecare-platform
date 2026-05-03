@@ -38,11 +38,7 @@ final List<ScreenConfig> clientScreenRegistry = [
 final List<RouteBase> clientRoutes = [
   ...clientScreenRegistry.map((config) => GoRoute(
         path: config.routePath,
-        builder: (context, state) => config.customView ?? GenericClientView(
-          title: config.titleKey,
-          subtitle: config.subtitleKey,
-          providerId: config.providerId,
-        ),
+        builder: (context, state) => config.customView ?? const ClientOperationsView(),
       )),
 ];
 

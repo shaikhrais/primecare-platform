@@ -1,3 +1,8 @@
+// Layer: 02_I_COMPLIANCE_MANAGER_VIEW
+// @governance: id=SCREEN_COMPLIANCE_MANAGER
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
@@ -67,7 +72,20 @@ class ComplianceManagerView extends ConsumerWidget {
 }
 
 class ComplianceManagerIntent extends PrimeCareScreen {
-  ComplianceManagerIntent() : super(title: 'ComplianceManager');
+  ComplianceManagerIntent()
+      : super(
+          name: 'compliance_manager',
+          title: 'Compliance Manager',
+          route: '/offices/corporate/roles/compliance_manager/dashboard',
+          requiredRole: PlatformRole.complianceManager,
+          form: PrimeCareForm.complianceManagerDashboard,
+          provider: complianceManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Compliance Score',
+            'Audit Queue',
+            'Risk Matrix',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ComplianceManagerView();

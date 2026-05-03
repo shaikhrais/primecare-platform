@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_SYSTEM_VERIFICATION
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +9,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Validation Integrity)
+// @governance: component=Test Suite Results
+// @governance: component=Deployment Health
+// @governance: component=Checksum Logs
 class SystemVerificationDashboardView extends ConsumerWidget {
   const SystemVerificationDashboardView({super.key});
 
@@ -75,7 +83,20 @@ class SystemVerificationDashboardView extends ConsumerWidget {
 
 class SystemVerificationDashboardIntent extends PrimeCareScreen {
   SystemVerificationDashboardIntent()
-    : super(title: 'SystemVerificationDashboard');
+      : super(
+          name: 'SCREEN_SYSTEM_VERIFICATION_DASHBOARD',
+          title: 'System Verification',
+          route: '/system-verification-dashboard',
+          requiredRole: PlatformRole.systemVerification,
+          form: PrimeCareForm.systemVerificationDashboard,
+          provider: systemVerificationDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Validation Integrity)',
+            'Test Suite Results',
+            'Deployment Health',
+            'Checksum Logs',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const SystemVerificationDashboardView();

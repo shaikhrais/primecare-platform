@@ -1,20 +1,16 @@
 {
   "navigation": {
     "sections": {
-      "main": "Principale",
-      "navigation": "navigation",
-      "management": "Gestion",
-      "common_tools": "Outils Communs",
-      "strategic": "Stratégique",
-      "workflows": "Flux de Travail",
-      "operations": "Opérations",
-      "finance": "Finance",
-      "clinical": "Clinique",
-      "growth": "Croissance",
-      "master_directory": "Répertoire Principal"
+      "clinical": "Clinical",
+      "common": "Common",
+      "core": "Core",
+      "corporate": "Corporate",
+      "main": "Main",
+      "regional": "Regional",
+      "navigation": "navigation"
     },
     "items": {
-      "create_user_form": "Create Utilisateur Form",
+      "create_user_form": "Create User Form",
       "password_reset_form": "Password Reset Form",
       "live_dispatch_map": "Live Dispatch Map",
       "auth_layout": "Auth Layout",
@@ -79,1284 +75,84 @@
       "hr_hiring_dashboard": "navigation",
       "clinical_director_dashboard": "navigation",
       "shareholder_dashboard": "navigation",
-      "cfo_dashboard_labels": "Cfo Tableau de bord Labels",
-      "support_dashboard_labels": "Support Tableau de bord Labels",
-      "marketing_dashboard_labels": "Marketing Tableau de bord Labels"
+      "common_dashboard_labels": "Common Labels",
+      "regional_manager_labels": "Regional Manager Labels",
+      "clinical_director_labels": "Clinical Director Labels",
+      "command_center_labels": "Command Center Labels",
+      "cto_dashboard_labels": "Cto Dashboard Labels",
+      "ceo_dashboard_labels": "Ceo Dashboard Labels",
+      "clinical_labels": "Clinical Labels",
+      "cfo_dashboard_labels": "Cfo Dashboard Labels",
+      "support_dashboard_labels": "Support Dashboard Labels",
+      "marketing_dashboard_labels": "Marketing Dashboard Labels"
     },
     "footer": {
       "language": "Language"
     }
   },
   "dashboards": {
-    "architectureplanning": {
-      "title": "Architectureplanning Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_architectureplanning_labels_aura_hud": "Dashboards Architectureplanning Labels Aura Hud",
-        "dashboards_architectureplanning_labels_architecture_roadmap": "Dashboards Architectureplanning Labels Architecture Roadmap",
-        "dashboards_architectureplanning_labels_system_health_grid": "Dashboards Architectureplanning Labels Système Santé Grid",
-        "dashboards_architectureplanning_labels_project_timeline": "Dashboards Architectureplanning Labels Project Timeline",
-        "system_stability": "Système Stability",
-        "api_coverage": "Api Couverture",
-        "flagged_gaps": "Flagged Gaps",
-        "c4_compliance": "C4 Conformité",
-        "architecture_integrity_trend": "Architecture Integrity Trend",
-        "topology_verified": "Topology Verified",
-        "c4_models_synchronized_with_sharding_strategy": "C4 Models Synchronized With Sharding Strategy",
-        "infrastructure_gap": "Infrastructure Gap"
-      }
-    },
-    "billingadmin": {
-      "title": "Billingadmin Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_billingadmin_labels_aging_accounts_grid": "Dashboards Billingadmin Labels Aging Accounts Grid",
-        "dashboards_billingadmin_labels_pending_claims_queue": "Dashboards Billingadmin Labels Pending Claims Queue",
-        "dashboards_billingadmin_labels_remittance_breakdown": "Dashboards Billingadmin Labels Remise Breakdown",
-        "high_aging_alert": "High Aging Alert",
-        "revenue_acceleration": "Revenu Acceleration",
-        "invoice_error_pattern": "Invoice Error Pattern"
-      }
-    },
-    "ceo": {
-      "title": "Ceo Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_ceo_labels_global_kpi_metrics": "Dashboards Ceo Labels Global Kpi Metrics",
-        "dashboards_ceo_labels_region_comparison": "Dashboards Ceo Labels Région Comparison",
-        "dashboards_ceo_labels_strategic_initiatives": "Dashboards Ceo Labels Stratégique Initiatives",
-        "14_8": "14 8",
-        "global_nps": "Global Nps",
-        "3_0": "3 0",
-        "5_2": "5 2",
-        "2_0": "2 0",
-        "m_a_pipeline_velocity": "M A Pipeline Velocity",
-        "regional_margin_sensitivity": "Regional Margin Sensitivity",
-        "stakeholder_sentiment_surge": "Stakeholder Sentiment Surge",
-        "real_time_telemetry_feed": "Real Time Telemetry Feed"
-      }
-    },
-    "cfo": {
-      "title": "Cfo Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_cfo_labels_liquidity_index": "Dashboards Cfo Labels Liquidity Index",
-        "dashboards_cfo_labels_burn_rate_analysis": "Dashboards Cfo Labels Burn Rate Analysis",
-        "dashboards_cfo_labels_capital_allocation": "Dashboards Cfo Labels Capital Allocation",
-        "4_2": "4 2",
-        "2_1": "2 1",
-        "1_5": "1 5",
-        "burn_rate_analysis": "Burn Rate Analysis"
-      }
-    },
-    "client": {
-      "title": "Client Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "care_plan_progress": "Care Plan Progress",
-        "vitals_status": "Vitals Status",
-        "next_visit": "Next Visit",
-        "medication_adherence": "Medication Adhérence",
-        "weekly_wellness_score": "Weekly Wellness Score",
-        "wellness_milestone": "Wellness Milestone",
-        "nutritional_tip": "Nutritional Tip"
-      }
-    },
-    "clinicaldirector": {
-      "title": "Clinicaldirector Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_clinicaldirector_labels_clinical_safety_score": "Dashboards Clinicaldirector Labels Clinical Safety Score",
-        "dashboards_clinicaldirector_labels_staffing_heatmap": "Dashboards Clinicaldirector Labels Effectif Heatmap",
-        "dashboards_clinicaldirector_labels_protocol_compliance": "Dashboards Clinicaldirector Labels Protocole Conformité",
-        "clinical_safety_score": "Clinical Safety Score",
-        "staffing_coverage": "Effectif Couverture",
-        "open_incidents": "Open Incidents",
-        "protocol_compliance": "Protocole Conformité",
-        "staffing_optimization": "Effectif Optimization",
-        "compliance_peak": "Conformité Peak"
-      }
-    },
-    "clinic": {
-      "title": "Clinic Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "safety_score": "Safety Score",
-        "occupancy": "Occupancy",
-        "compliance_rate": "Conformité Rate",
-        "incident_rate": "Incident Rate",
-        "safety_audit_complete": "Safety Audit Complete",
-        "floor_3_clinical_audit_passed_with_100__compliance": "Floor 3 Clinical Audit Passed With 100 Conformité",
-        "incident_resolved": "Incident Resolved",
-        "medication_discrepancy_in_room_402_investigated_and_closed": "Medication Discrepancy In Room 402 Investigated And Closed",
-        "safety_velocity__4w": "Safety Velocity 4w",
-        "medication_optimization": "Medication Optimization",
-        "compliance_alert": "Conformité Alert"
-      }
-    },
-    "communityoutreach": {
-      "title": "Communityoutreach Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "event_success": "Event Success",
-        "engagement_drop": "Engagement Drop",
-        "lead_generation_pipeline__30d": "Lead Generation Pipeline 30d",
-        "channel_efficiency": "Channel Efficiency",
-        "new_partnership": "New Partnership",
-        "affiliation_with_city_food_bank_finalized": "Affiliation With City Food Bank Finalized",
-        "campaign_live": "Campaign Live",
-        "summer_wellness_series_launched": "Summer Wellness Series Launched",
-        "geo_targeting_opportunity": "Geo Targeting Opportunity",
-        "sentiment_analysis_alert": "Sentiment Analysis Alert"
-      }
-    },
-    "compliancemanager": {
-      "title": "Compliancemanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_compliancemanager_labels_registry_integrity_score": "Dashboards Compliancemanager Labels Registry Integrity Score",
-        "dashboards_compliancemanager_labels_anomaly_heatmap": "Dashboards Compliancemanager Labels Anomaly Heatmap",
-        "dashboards_compliancemanager_labels_execution_gate_logs": "Dashboards Compliancemanager Labels Execution Gate Journaux",
-        "audit_completion": "Audit Completion",
-        "1_5": "1 5",
-        "risk_exposure": "Risque Exposure",
-        "0_0": "0 0",
-        "regulatory_alerts": "Regulatory Alerts",
-        "50_0": "50 0",
-        "policy_review": "Politique Review",
-        "high_compliance__us_north": "High Conformité Us North",
-        "documentation_lag_detected": "Documentation Lag Detected",
-        "pending_policy_updates": "Pending Politique Updates"
-      }
-    },
-    "coo": {
-      "title": "Coo Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "supply_chain_optimization": "Supply Chain Optimization",
-        "staffing_capacity_risk": "Effectif Capacity Risque",
-        "facility_expansion_velocity": "Facility Expansion Velocity"
-      }
-    },
-    "coursearchitect": {
-      "title": "Coursearchitect Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "avg__pass_rate": "Avg Pass Rate",
-        "content_freshness": "Content Freshness",
-        "engagement": "Engagement",
-        "certifications": "Certifications",
-        "module_completion_velocity": "Module Completion Velocity",
-        "module_optimization": "Module Optimization",
-        "high_engagement_trend": "High Engagement Trend"
-      }
-    },
-    "customersupport": {
-      "title": "Customersupport Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "high_resolution_velocity": "High Resolution Velocity",
-        "volume_surge_predicted": "Volume Surge Predicted",
-        "csat_sentiment_analysis": "Csat Sentiment Analysis"
-      }
-    },
-    "cxdirector": {
-      "title": "Cxdirector Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "sentiment_surge_detected": "Sentiment Surge Detected",
-        "churn_risk_volatility": "Churn Risque Volatility",
-        "response_latency_optimization": "Response Latency Optimization",
-        "cx_director_dashboard": "Cx Director Tableau de bord"
-      }
-    },
-    "dynamicscreen": {
-      "title": "Dynamicscreen Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {}
-    },
-    "family": {
-      "title": "Family Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "visit_frequency": "Visit Frequency",
-        "care_engagement": "Care Engagement",
-        "upcoming_tasks": "Upcoming Tasks",
-        "wellness_score": "Wellness Score",
-        "engagement_trend": "Engagement Trend",
-        "care_plan_milestone": "Care Plan Milestone",
-        "upcoming_care_review": "Upcoming Care Review"
-      }
-    },
-    "familymember": {
-      "title": "Familymember Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "visit_frequency": "Visit Frequency",
-        "care_engagement": "Care Engagement",
-        "upcoming_tasks": "Upcoming Tasks",
-        "wellness_score": "Wellness Score",
-        "engagement_trend": "Engagement Trend",
-        "care_plan_milestone": "Care Plan Milestone",
-        "upcoming_care_review": "Upcoming Care Review",
-        "governance_status": "Governance Status",
-        "realization_score": "Realization Score"
-      }
-    },
-    "financedirector": {
-      "title": "Financedirector Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_financedirector_labels_aura_hud": "Dashboards Financedirector Labels Aura Hud",
-        "dashboards_financedirector_labels_financial_summary_grid": "Dashboards Financedirector Labels Financier Summary Grid",
-        "dashboards_financedirector_labels_cash_flow_forecast": "Dashboards Financedirector Labels Cash Flow Forecast",
-        "dashboards_financedirector_labels_budget_distribution": "Dashboards Financedirector Labels Budget Distribution",
-        "revenue_velocity_alert": "Revenu Velocity Alert",
-        "ebitda_margin_sensitivity": "Ebitda Margin Sensitivity",
-        "double_entry_integrity_audit": "Double Entry Integrity Audit"
-      }
-    },
-    "franchiseowner": {
-      "title": "Franchiseowner Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "territory_expansion_opportunity": "Territoire Expansion Opportunity",
-        "retention_risk__night_shift": "Retention Risque Night Shift",
-        "referral_pipeline_strength": "Referral Pipeline Strength"
-      }
-    },
-    "franchisesalesmanager": {
-      "title": "Franchisesalesmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "pipeline_value": "Pipeline Value",
-        "conversion_velocity": "Conversion Velocity",
-        "active_leads": "Active Leads",
-        "closing_ratio": "Closing Ratio",
-        "franchise_sales_pipeline__30d": "Franchise Sales Pipeline 30d",
-        "lead_source_distribution": "Lead Source Distribution",
-        "lead_velocity_spike": "Lead Velocity Spike",
-        "territory_saturation_alert": "Territoire Saturation Alert",
-        "conversion_velocity_high": "Conversion Velocity High"
-      }
-    },
-    "generalmanager": {
-      "title": "Generalmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "capital_inefficiency_detected": "Capital Inefficiency Detected",
-        "regional_p_l_overperformance": "Regional P L Overperformance"
-      }
-    },
-    "guest": {
-      "title": "Guest Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "your_visits__monthly": "Your Visits Monthly",
-        "check_in_success": "Check In Success",
-        "main_lobby___guest_id__4421": "Main Lobby Guest Id 4421",
-        "feedback_submitted": "Feedback Submitted",
-        "q1_dining_experience_survey": "Q1 Dining Experience Survey",
-        "personalized_recommendation": "Personalized Recommendation",
-        "dining_update": "Dining Update"
-      }
-    },
-    "headofbusdev": {
-      "title": "Headofbusdev Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "territory_saturation_alert": "Territoire Saturation Alert",
-        "strategic_partnership_velocity": "Stratégique Partnership Velocity"
-      }
-    },
-    "headofmarketing": {
-      "title": "Headofmarketing Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {}
-    },
-    "hrdirector": {
-      "title": "Hrdirector Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "retention_alert__us_east": "Retention Alert Us East",
-        "hiring_pipeline_optimization": "Hiring Pipeline Optimization",
-        "training_compliance_milestone": "Training Conformité Milestone",
-        "hr_director_command_center": "Hr Director Command Centre"
-      }
-    },
-    "hrhiring": {
-      "title": "Hrhiring Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_hrhiring_labels_aura_hud": "Dashboards Hrhiring Labels Aura Hud",
-        "dashboards_hrhiring_labels_candidate_pipeline": "Dashboards Hrhiring Labels Candidate Pipeline",
-        "dashboards_hrhiring_labels_interview_scheduler": "Dashboards Hrhiring Labels Interview Scheduler",
-        "dashboards_hrhiring_labels_hiring_analytics": "Dashboards Hrhiring Labels Hiring Analytics",
-        "interview_bottleneck_detected": "Interview Bottleneck Detected",
-        "offer_strategy_success": "Offer Strategy Success",
-        "candidate_drop_off_alert": "Candidate Drop Off Alert"
-      }
-    },
-    "intakecoordinator": {
-      "title": "Intakecoordinator Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "high_priority_triage_alert": "High Priority Triage Alert",
-        "provider_network_optimization": "Provider Network Optimization",
-        "waitlist_efficiency_insight": "Waitlist Efficiency Insight",
-        "active_referrals": "Active Referrals",
-        "avg__intake_time": "Avg Intake Time",
-        "waitlist_depth": "Waitlist Depth",
-        "new_referral": "New Referral",
-        "john_doe___north_general_hospital": "John Doe North General Hospital",
-        "intake_completed": "Intake Completed",
-        "jane_smith___sector_4": "Jane Smith Sector 4",
-        "referral_volume__7d": "Referral Volume 7d",
-        "capacity_bottleneck": "Capacity Bottleneck"
-      }
-    },
-    "intake": {
-      "title": "Intake Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {}
-    },
-    "localmarketingmanager": {
-      "title": "Localmarketingmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "conversion_rate_surge": "Conversion Rate Surge",
-        "lead_attrition_alert": "Lead Attrition Alert",
-        "market_expansion_opportunity": "Market Expansion Opportunity"
-      }
-    },
-    "operationsmanager": {
-      "title": "Operationsmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "predictive_staffing_gap": "Predictive Effectif Gap",
-        "operational_cost_saving": "Opérationnel Cost Saving",
-        "facility_maintenance_trigger": "Facility Maintenance Trigger"
-      }
-    },
-    "owner": {
-      "title": "Owner Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "m_a_opportunity__gta_north": "M A Opportunity Gta North",
-        "regulatory_change__bill_124_impact": "Regulatory Change Bill 124 Impact",
-        "ai_operational_efficiency": "Ai Opérationnel Efficiency"
-      }
-    },
-    "partnershipmanager": {
-      "title": "Partnershipmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "partner_referral_drop": "Partner Referral Drop",
-        "high_value_pipeline": "High Value Pipeline",
-        "synergy_optimization": "Synergy Optimization"
-      }
-    },
-    "patient": {
-      "title": "Patient Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "vitals_deviation_alert": "Vitals Deviation Alert",
-        "care_plan_milestone": "Care Plan Milestone"
-      }
-    },
-    "psw": {
-      "title": "Psw Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_psw_labels_aura_hud": "Dashboards Psw Labels Aura Hud",
-        "dashboards_psw_labels_clinical_summary": "Dashboards Psw Labels Clinical Summary",
-        "dashboards_psw_labels_care_plan_checklist": "Dashboards Psw Labels Care Plan Checklist",
-        "dashboards_psw_labels_incident_quick_report": "Dashboards Psw Labels Incident Quick Report",
-        "schedule_density_alert": "Schedule Density Alert",
-        "clinical_priority": "Clinical Priority"
-      }
-    },
-    "qa": {
-      "title": "Qa Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "regulatory_drift_risk": "Regulatory Drift Risque",
-        "safety_achievement": "Safety Achievement",
-        "documentation_gap": "Documentation Gap"
-      }
-    },
-    "qualityassurance": {
-      "title": "Qualityassurance Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "compliance_drift_detected": "Conformité Drift Detected",
-        "audit_readiness_high": "Audit Readiness High"
-      }
-    },
-    "receptionist": {
-      "title": "Receptionist Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "appointment_density_spike": "Appointment Density Spike",
-        "wait_time_optimization": "Wait Time Optimization",
-        "documentation_delay_risk": "Documentation Delay Risque"
-      }
-    },
-    "regionalbdm": {
-      "title": "Regionalbdm Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "market_penetration_high": "Market Penetration High",
-        "lead_velocity_decay": "Lead Velocity Decay"
-      }
-    },
-    "regionalmanagerontario": {
-      "title": "Regionalmanagerontario Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "lhin_resource_allocation": "Lhin Resource Allocation",
-        "waitlist_saturation__york": "Waitlist Saturation York",
-        "digital_health_opportunity": "Digital Santé Opportunity"
-      }
-    },
-    "regionalmanagerusa": {
-      "title": "Regionalmanagerusa Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "market_reach": "Market Reach",
-        "revenue_velocity": "Revenu Velocity",
-        "compliance_rating": "Conformité Rating",
-        "regional_retention": "Regional Retention",
-        "interstate_mobility_optimization": "Interstate Mobility Optimization",
-        "market_saturation_warning__ca": "Market Saturation Warning Ca",
-        "texas_growth_corridor": "Texas Croissance Corridor"
-      }
-    },
-    "rmt": {
-      "title": "Rmt Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "treatments": "Treatments",
-        "mobility_gain": "Mobility Gain",
-        "adherence": "Adhérence",
-        "recovery_speed": "Recovery Speed",
-        "mobility_recovery_index__weekly": "Mobility Recovery Index Weekly",
-        "therapeutic_strategy_alert": "Therapeutic Strategy Alert",
-        "fatigue_trend_detection": "Fatigue Trend Detection"
-      }
-    },
-    "rn": {
-      "title": "Rn Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "active_patients": "Active Patients",
-        "high_acuity": "High Acuity",
-        "med_compliance": "Med Conformité",
-        "charting_gap": "Charting Gap",
-        "vital_stability_index__24h_aggregate": "Vital Stability Index 24h Aggregate",
-        "deterioration_early_warning": "Deterioration Early Warning",
-        "medication_safety_streak": "Medication Safety Streak"
-      }
-    },
     "scheduler": {
-      "title": "Scheduler Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "overtime_prevention_alert": "Overtime Prevention Alert",
-        "travel_optimization_opportunity": "Travel Optimization Opportunity",
-        "shift_coverage_gap": "Shift Couverture Gap"
-      }
+      "title": "Scheduler"
     },
-    "scrummaster": {
-      "title": "Scrummaster Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "velocity_dropping": "Velocity Dropping",
-        "blocker_resolved_early": "Blocker Resolved Early"
-      }
-    },
-    "shareholderintelligence": {
-      "title": "Shareholderintelligence Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "dashboards_shareholderintelligence_labels_global_governance_header": "Dashboards Shareholderintelligence Labels Global Governance Header",
-        "dashboards_shareholderintelligence_labels_feature_pipeline_kanban": "Dashboards Shareholderintelligence Labels Feature Pipeline Kanban",
-        "dashboards_shareholderintelligence_labels_real_time_telemetry_feed": "Dashboards Shareholderintelligence Labels Real Time Telemetry Feed",
-        "dashboards_shareholderintelligence_labels_shareholder_roi_matrix": "Dashboards Shareholderintelligence Labels Shareholder Roi Matrice",
-        "dashboards_shareholderintelligence_labels_feature_request_fab": "Dashboards Shareholderintelligence Labels Feature Request Fab",
-        "zero_error_compliance": "Zero Error Conformité",
-        "1_2": "1 2",
-        "features_in_pipeline": "Features In Pipeline",
-        "active_development": "Active Development",
-        "telemetry_hydrated": "Telemetry Hydrated",
-        "regional_manager_ontario_dashboard": "Regional Manager Ontario Tableau de bord"
-      }
-    },
-    "support": {
-      "title": "Support Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "operational_volume": "Opérationnel Volume",
-        "aura_intelligence": "Aura Intelligence"
-      }
-    },
-    "systemverification": {
-      "title": "Systemverification Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "infrastructure_optimization": "Infrastructure Optimization",
-        "security_compliance": "Security Conformité"
-      }
-    },
-    "territoryexpansionmanager": {
-      "title": "Territoryexpansionmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "market_maturity": "Market Maturity",
-        "site_acquisition": "Site Acquisition",
-        "regulatory_speed": "Regulatory Speed",
-        "projected_roi": "Projected Roi",
-        "site_acquisition_pipeline": "Site Acquisition Pipeline",
-        "new_site_identified": "New Site Identified",
-        "potential_location_in_vancouver_north_cluster": "Potential Location In Vancouver North Cluster",
-        "contract_signed": "Contract Signed",
-        "lease_finalized_for_ottawa_east_hub": "Lease Finalized For Ottawa East Hub",
-        "regulatory_pulse": "Regulatory Pulse",
-        "geographic_density_alert": "Geographic Density Alert",
-        "optimal_launch_window": "Optimal Launch Window"
-      }
-    },
-    "territorysalesmanager": {
-      "title": "Territorysalesmanager Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "territory_reallocation_suggestion": "Territoire Reallocation Suggestion",
-        "ad_spend_optimization": "Ad Spend Optimization"
-      }
-    },
-    "trainingcoordinator": {
-      "title": "Trainingcoordinator Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "course_efficiency_warning": "Course Efficiency Warning",
-        "credentialing_velocity": "Credentialing Velocity",
-        "compliance_expiry_risk": "Conformité Expiry Risque"
-      }
-    },
-    "trainingdirectorcertificate": {
-      "title": "Trainingdirectorcertificate Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "compliance_anomaly_detected": "Conformité Anomaly Detected",
-        "regulatory_optimization": "Regulatory Optimization"
-      }
-    },
-    "trainingdirector": {
-      "title": "Trainingdirector Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "compliance_risk_in_southwest": "Conformité Risque In Southwest",
-        "new_curriculum_opportunity": "New Curriculum Opportunity"
-      }
-    },
-    "traininghub": {
-      "title": "Traininghub Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "high_engagement_in_clinical_safety": "High Engagement In Clinical Safety",
-        "resource_bottleneck_predicted": "Resource Bottleneck Predicted"
-      }
-    },
-    "volunteercoordinator": {
-      "title": "Volunteercoordinator Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "shift_coverage_gap": "Shift Couverture Gap",
-        "high_retention_rate_detected": "High Retention Rate Detected",
-        "volunteer_coordinator_dashboard": "Volunteer Coordinator Tableau de bord"
-      }
-    },
-    "infectioncontrol": {
-      "title": "Infectioncontrol Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "outbreak_alert": "Outbreak Alert",
-        "immunization_target": "Immunization Target",
-        "infection_telemetry__30d": "Infection Telemetry 30d",
-        "outbreak_status": "Outbreak Status",
-        "protocol_updated": "Protocole Updated",
-        "revised_mrsa_screening_guidelines_published": "Revised Mrsa Screening Guidelines Published",
-        "vaccination_drive": "Vaccination Drive",
-        "annual_flu_shot_campaign_launched_in_region_a": "Annual Flu Shot Campaign Launched In Région A",
-        "sentinel_surveillance_trigger": "Sentinel Surveillance Trigger",
-        "antibiotic_stewardship": "Antibiotic Stewardship"
-      }
-    },
-    "socialworker": {
-      "title": "Socialworker Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "active_caseload": "Active Caseload",
-        "2_0": "2 0",
-        "crisis_velocity": "Crisis Velocity",
-        "1_0": "1 0",
-        "intervention_rate": "Intervention Rate",
-        "5_0": "5 0",
-        "community_linkage": "Community Linkage",
-        "3_0": "3 0",
-        "psychosocial_crisis_detection": "Psychosocial Crisis Detection",
-        "regulatory_funding_opportunity": "Regulatory Funding Opportunity"
-      }
-    },
-    "cto": {
-      "title": "Cto Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "0_01": "0 01",
-        "12_0ms": "12 0ms",
-        "0_02": "0 02",
-        "2_0": "2 0"
-      }
-    },
-    "corporategovernance": {
-      "title": "Corporategovernance Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "compliance_score": "Conformité Score",
-        "optimal_integrity": "Optimal Integrity",
-        "structural_drift": "Structural Drift",
-        "minor_anomalies": "Minor Anomalies",
-        "verified_routes": "Verified Routes",
-        "global_registry": "Global Registry",
-        "policy_gaps": "Politique Gaps",
-        "next_audit_cycle": "Next Audit Cycle",
-        "institutional_integrity_trend": "Institutional Integrity Trend",
-        "blueprint_mismatch_detected": "Blueprint Mismatch Detected",
-        "execution_gate_optimization": "Execution Gate Optimization"
-      }
-    },
-    "itsecurity": {
-      "title": "Itsecurity Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
-      "labels": {
-        "threat_intel": "Threat Intel",
-        "compliance": "Conformité"
-      }
+    "corporate": {
+      "shareholder_title": "Shareholder Dashboard"
     },
     "common": {
-      "title": "Common Tableau de bord",
-      "subtitle": "Accéder aux indicateurs.",
+      "title": "Common Dashboard",
+      "subtitle": "Access metrics.",
       "labels": {
-        "cache_hydrated": "Cache Hydrated",
-        "active_node": "Active Node",
-        "sync_status": "Sync Status",
-        "aura_intelligence__active": "Aura Intelligence Active",
-        "no_anomalies_detected_in_the_local_cache_nodes": "No Anomalies Detected In The Local Cache Nodes",
-        "cx_director_dashboard": "Cx Director Tableau de bord",
-        "hr_director_dashboard": "Hr Director Tableau de bord",
-        "volunteer_coordinator_dashboard": "Volunteer Coordinator Tableau de bord",
-        "user_profile": "Utilisateur Profile",
-        "cancel": "Cancel",
-        "prn": "Prn",
-        "daily": "Daily",
-        "bid": "Bid",
-        "tid": "Tid",
-        "4": "4",
-        "staff": "Staff",
-        "variance": "Variance",
-        "j__doe": "J Doe",
-        "a__smith": "A Smith",
-        "projected_q3_revenue": "Projected Q3 Revenu",
-        "anticipated_growth": "Anticipated Croissance",
-        "margin_efficiency": "Margin Efficiency",
-        "projected_patients": "Projected Patients",
-        "investigate_potential_risks": "Investigate Potential Risks",
-        "no_recent_activity": "No Recent Activity",
-        "developer_diagnostics": "Developer Diagnostics",
-        "retry_synchronization": "Retry Synchronization",
-        "session_audit_report_copied_to_clipboard": "Session Audit Report Copied To Clipboard",
-        "report_submitted_successfully": "Report Submitted Successfully",
-        "successfully_submitted": "Successfully Submitted",
-        "billingpayment_details": "Billingpayment Details",
-        "complete_the_form_to_submit_billingpayment_information": "Complete The Form To Submit Billingpayment Information",
-        "draft": "Draft",
-        "publish": "Publish",
-        "clinicalincident_details": "Clinicalincident Details",
-        "complete_the_form_to_submit_clinicalincident_information": "Complete The Form To Submit Clinicalincident Information",
-        "employeetimesheet_details": "Employeetimesheet Details",
-        "complete_the_form_to_submit_employeetimesheet_information": "Complete The Form To Submit Employeetimesheet Information",
-        "medicationadministration_details": "Medicationadministration Details",
-        "successfully_tracked_and_submitted": "Successfully Tracked And Submitted",
-        "approve_reimbursement": "Approve Reimbursement",
-        "approve_staff_monetary_reimbursement": "Approve Staff Monetary Reimbursement",
-        "approve_payroll_run": "Approve Payroll Run",
-        "approve_mass_corporate_staff_payroll": "Approve Mass Corporate Staff Payroll",
-        "approve_real_estate": "Approve Real Estate",
-        "approve_physical_branch_location": "Approve Physical Branch Location",
-        "approve_system_access": "Approve Système Access",
-        "approve_elevated_permission_requests": "Approve Elevated Permission Requests",
-        "global_education_audit": "Global Education Audit",
-        "audit_global_staff_educational_gaps": "Audit Global Staff Educational Gaps",
-        "audit_override_request_submitted_successfully": "Audit Override Request Submitted Successfully",
-        "audit_override": "Audit Override",
-        "override_global_audit_configurations_for_specific_compliance_needs": "Override Global Audit Configurations For Specific Conformité Needs",
-        "audit_royalty_payments": "Audit Royalty Payments",
-        "review_aggregated_royalty_discrepancies": "Review Aggregated Royalty Discrepancies",
-        "security_compliance_audit": "Security Conformité Audit",
-        "review_soc2_compliance_checklists": "Review Soc2 Conformité Checklists",
-        "all_actions": "All Actions",
-        "error____state_error": "Error State Error",
-        "no_audit_logs_found": "No Audit Journaux Found",
-        "actor_performed___log": "Actor Performed Log",
-        "create_canned_response": "Create Canned Response",
-        "add_a_new_standardized_support_response": "Add A New Standardized Support Response",
-        "create_custom_invoice": "Create Custom Invoice",
-        "generate_specialized_non_standard_billing": "Generate Specialized Non Standard Billing",
-        "create_revenue_report": "Create Revenu Report",
-        "aggregate_regional_revenue_footprint": "Aggregate Regional Revenu Footprint",
-        "create_supply_order": "Create Supply Order",
-        "order_bulk_operational_supplies": "Order Bulk Opérationnel Supplies",
-        "log_inventory_spoilage": "Log Inventory Spoilage",
-        "report_damaged_or_expired_supplies": "Report Damaged Or Expired Supplies",
-        "petty_cash_expenditure_successfully_logged": "Petty Cash Expenditure Successfully Logged",
-        "log_petty_cash": "Log Petty Cash",
-        "record_and_categorize_localized_petty_cash_expenditure": "Record And Categorize Localized Petty Cash Expenditure",
-        "provision_new_staff": "Provision New Staff",
-        "onboard_a_new_staff_member_and_assign_their_role": "Onboard A New Staff Member And Assign Their Role",
-        "override_global_schedule": "Override Global Schedule",
-        "force_publish_global_branch_schedules": "Force Publish Global Branch Schedules",
-        "register_corporate_risk": "Registre Corporate Risque",
-        "maintain_institutional_risk_matrix": "Maintain Institutional Risque Matrice",
-        "review_care_plan": "Review Care Plan",
-        "modify_or_review_the_care_plan": "Modify Or Review The Care Plan",
-        "review_fleet_maintenance": "Review Fleet Maintenance",
-        "audit_operational_vehicle_fleets": "Audit Opérationnel Vehicle Fleets",
-        "review_legal_contract": "Review Legal Contract",
-        "review_partnership_contract_metrics": "Review Partnership Contract Metrics",
-        "review_expenses": "Review Expenses",
-        "review_franchise_p_l_statements": "Review Franchise P L Statements",
-        "review_vendor_contracts": "Review Vendor Contracts",
-        "audit_third_party_vendor_slas": "Audit Third Party Vendor Slas",
-        "role_permissions_matrix": "Role Permissions Matrice",
-        "manage_granular_access_control_for_system_roles_and_screens": "Manage Granular Access Control For Système Roles And Screens",
-        "permissions_updated_successfully": "Permissions Updated Successfully",
-        "select_a_role_to_modify_permissions": "Select A Role To Modify Permissions",
-        "schedule_maintenance": "Schedule Maintenance",
-        "schedule_third_party_facility_repair": "Schedule Third Party Facility Repair",
-        "submit_daily_census": "Submit Daily Census",
-        "submit_location_based_bed_patient_census": "Submit Location Based Bed Patient Census",
-        "submit_healthcare_claim": "Submit Healthcare Claim",
-        "submit_tracking_for_gov_insurance_claim": "Submit Tracking For Gov Insurance Claim",
-        "approve_med_refill": "Approve Med Refill",
-        "physician_approval_for_prescription_refill": "Physician Approval For Prescription Refill",
-        "assign_care_pod": "Assign Care Pod",
-        "assign_client_to_primary_care_nursing_pod": "Assign Client To Primary Care Nursing Pod",
-        "compliance_audit": "Conformité Audit",
-        "audit_federal_compliance_rules": "Audit Federal Conformité Rules",
-        "care_plan_evaluation": "Care Plan Evaluation",
-        "evaluate_and_modify_the_care_plan": "Evaluate And Modify The Care Plan",
-        "daily_vitals": "Daily Vitals",
-        "log_patient_daily_vitals": "Log Patient Daily Vitals",
-        "log_clinical_incident": "Log Clinical Incident",
-        "report_a_new_incident__fall__error": "Report A New Incident Fall Error",
-        "log_infection_control": "Log Infection Control",
-        "report_localized_infection_outbreak": "Report Localized Infection Outbreak",
-        "patient_intake_completed": "Patient Intake Completed",
-        "patient_intake": "Patient Intake",
-        "comprehensive_intake": "Comprehensive Intake",
-        "please_complete_all_steps_to_register_the_patient": "Please Complete All Steps To Registre The Patient",
-        "basic_info": "Basic Info",
-        "name_and_dob": "Name And Dob",
-        "clinical_details": "Clinical Details",
-        "reason_for_visit": "Reason For Visit",
-        "perform_a_comprehensive_clinical_intake_for_new_patients": "Perform A Comprehensive Clinical Intake For New Patients",
-        "review_incident": "Review Incident",
-        "review_and_resolve_reported_clinical_incidents": "Review And Resolve Reported Clinical Incidents",
-        "review_med_inventory": "Review Med Inventory",
-        "audit_controlled_medication_distribution_logs": "Audit Controlled Medication Distribution Journaux",
-        "schedule_clinical_audit": "Schedule Clinical Audit",
-        "schedule_internal_external_compliance_audit": "Schedule Internal External Conformité Audit",
-        "submit_adl_checklist": "Submit Adl Checklist",
-        "submit_activities_of_daily_living_checklist": "Submit Activities Of Daily Living Checklist",
-        "please_select_a_patient_first": "Please Select A Patient First",
-        "capture_vitals": "Capture Vitals",
-        "record_the_patient": "Record The Patient",
-        "clear_form": "Clear Form",
-        "add_franchise_lead": "Add Franchise Lead",
-        "register_a_new_potential_franchise_lead": "Registre A New Potential Franchise Lead",
-        "approve_franchise_disclosure": "Approve Franchise Disclosure",
-        "approve_legal_fdd_before_signing": "Approve Legal Fdd Before Signing",
-        "assign_lead": "Assign Lead",
-        "assign_a_lead_to_a_sales_representative": "Assign A Lead To A Sales Representative",
-        "create_ad_placement": "Create Ad Placement",
-        "create_hyper_local_geo_fenced_ad": "Create Hyper Local Geo Fenced Ad",
-        "franchise_onboarding": "Franchise Onboarding",
-        "complete_franchise_onboarding_steps": "Complete Franchise Onboarding Steps",
-        "log_vetting_call": "Log Vetting Call",
-        "record_notes_from_initial_lead_vetting": "Record Notes From Initial Lead Vetting",
-        "nurture_localized_lead": "Nurture Localized Lead",
-        "categorize_unassigned_prospective_lead": "Categorize Unassigned Prospective Lead",
-        "lead_conversion_review": "Lead Conversion Review",
-        "review_and_validate_sales_team_conversions": "Review And Validate Sales Team Conversions",
-        "review_market_share": "Review Market Share",
-        "review_high_level_geographic_growth_metrics": "Review High Level Geographic Croissance Metrics",
-        "schedule_open_house": "Schedule Open House",
-        "schedule_regional_franchise_discovery_day": "Schedule Regional Franchise Discovery Day",
-        "submit_marketing_budget": "Submit Marketing Budget",
-        "propose_new_regional_ad_spending_limit": "Propose New Regional Ad Spending Limit",
-        "create_user": "Create Utilisateur",
-        "add_a_new_administrative_user_to_the_platform": "Add A New Administrative Utilisateur To The Platform",
-        "system_administrator": "Système Administrator",
-        "finance_director": "Finance Director",
-        "logistics_manager": "Logistics Manager",
-        "psw_hub_manager": "Psw Hub Manager",
-        "password_successfully_reset": "Password Successfully Reset",
-        "reset_password": "Reset Password",
-        "force_a_password_reset_for_this_user": "Force A Password Reset For This Utilisateur",
-        "shift_created_successfully": "Shift Created Successfully",
-        "create_shift": "Create Shift",
-        "schedule_a_new_care_session_for_a_client": "Schedule A New Care Session For A Client",
-        "john_smith__rn": "John Smith Rn",
-        "jane_doe__psw": "Jane Doe Psw",
-        "alex_johnson__rpn": "Alex Johnson Rpn",
-        "approve_leave_request": "Approve Leave Request",
-        "manager_approval_for_time_off": "Manager Approval For Time Off",
-        "assign_training_module": "Assign Training Module",
-        "enroll_staff_into_required_lms_modules": "Enroll Staff Into Required Lms Modules",
-        "audit_payroll_discrepancy": "Audit Payroll Discrepancy",
-        "review_flagged_time_sheet_anomalies": "Review Flagged Time Sheet Anomalies",
-        "discipline_log": "Discipline Log",
-        "record_a_disciplinary_action_or_warning": "Record A Disciplinary Action Or Warning",
-        "leave_request": "Leave Request",
-        "submit_an_employee_leave_request": "Submit An Employee Leave Request",
-        "log_employee_grievance": "Log Employee Grievance",
-        "record_a_formal_hr_grievance_complaint": "Record A Formal Hr Grievance Complaint",
-        "new_employee_onboarding": "New Employee Onboarding",
-        "enter_the_details_of_the_new_hire": "Enter The Details Of The New Hire",
-        "request_shift_adjustment": "Request Shift Adjustment",
-        "portal_for_self_service_shift_changes": "Portal For Self Service Shift Changes",
-        "review_onboarding_status": "Review Onboarding Status",
-        "review_status_of_pending_new_hires": "Review Status Of Pending New Hires",
-        "review_peer_performance": "Review Peer Performance",
-        "analyze_peer_review_assessments": "Analyze Peer Review Assessments",
-        "schedule_interview": "Schedule Interview",
-        "schedule_candidate_screening_interview": "Schedule Candidate Screening Interview",
-        "submit_exit_interview": "Submit Exit Interview",
-        "record_exit_interview_results": "Record Exit Interview Results",
-        "no_resource": "No Resource",
-        "delete_appointment": "Delete Appointment",
-        "this_action_cannot_be_undone": "This Action Cannot Be Undone",
-        "delete": "Delete",
+        "unsupported_intent_type____intent_runtimetype": "Unsupported Intent Type Intent Runtimetype",
+        "dynamic_dashboard": "Dynamic Dashboard",
+        "institutional_route_recovery": "Institutional Route Recovery",
+        "the_system_is_verifying_your_security_context_for___route": "The System Is Verifying Your Security Context For Route",
         "high_fidelity_component_not_found____hf_viewid": "High Fidelity Component Not Found Hf Viewid",
         "line_chart_component_not_found": "Line Chart Component Not Found",
         "ai_forecasting_component_not_found": "Ai Forecasting Component Not Found",
         "unknown_component____blueprint_componenttype": "Unknown Component Blueprint Componenttype",
-        "topology_verification_feed": "Topology Vérification Feed",
-        "restore_all_healthy": "Restore All Healthy",
-        "operational_sector__authpagesmessagesection": "Opérationnel Sector Authpagesmessagesection",
-        "claims_aging_status": "Claims Aging Status",
-        "distribution_of_outstanding_balances_by_days": "Distribution Of Outstanding Balances By Days",
-        "revenue_forecasting": "Revenu Forecasting",
-        "ai_driven_projections_for_next_90_days": "Ai Driven Projections For Next 90 Days",
         "invoice_velocity_trend": "Invoice Velocity Trend",
         "aura_intelligence": "Aura Intelligence",
-        "board_report": "Board Report",
-        "global_audit": "Global Audit",
-        "strategic_plan": "Stratégique Plan",
-        "capital_request": "Capital Request",
-        "approve_budget": "Approve Budget",
-        "reconcile": "Reconcile",
-        "tax_filing": "Taxe Filing",
-        "capital_plan": "Capital Plan",
-        "upcoming_care_visits": "Upcoming Care Visits",
-        "physical_therapy": "Physical Therapy",
-        "medication_delivery": "Medication Delivery",
-        "operational_insights": "Opérationnel Insights",
-        "reports": "Rapports",
-        "quick_review": "Quick Review",
-        "patient_outcome_trends": "Patient Outcome Tendances",
+        "cfo_dashboard": "Cfo Dashboard",
+        "financial_statements_and_forecasts_overview": "Financial Statements And Forecasts Overview",
+        "operational_insights": "Operational Insights",
         "safety_incident_velocity": "Safety Incident Velocity",
-        "review_audits": "Review Audits",
-        "staffing_plan": "Effectif Plan",
-        "protocol_config": "Protocole Config",
-        "incident_report": "Incident Report",
-        "approvemedicationrefillform": "Approvemedicationrefillform",
-        "this_component_is_part_of_the_clinical_forms_module": "This Component Is Part Of The Clinical Forms Module",
-        "dailyvitalscardform": "Dailyvitalscardform",
-        "logclinicalincidentform": "Logclinicalincidentform",
-        "loginfectioncontrolform": "Loginfectioncontrolform",
-        "reviewcareplanform": "Reviewcareplanform",
-        "reviewclinicalincidentform": "Reviewclinicalincidentform",
-        "reviewmedicationinventoryform": "Reviewmedicationinventoryform",
-        "scheduleclinicalauditform": "Scheduleclinicalauditform",
-        "submitadlchecklistform": "Submitadlchecklistform",
-        "submitdailycensusform": "Submitdailycensusform",
-        "evaluate_plan": "Evaluate Plan",
-        "staff_audit": "Staff Audit",
-        "quality_review": "Quality Review",
-        "approverealestateform": "Approverealestateform",
-        "this_component_is_part_of_the_common_forms_module": "This Component Is Part Of The Common Forms Module",
-        "approvesystemaccessform": "Approvesystemaccessform",
-        "assigncarepodform": "Assigncarepodform",
-        "assigntrainingmoduleform": "Assigntrainingmoduleform",
-        "auditcomplianceform": "Auditcomplianceform",
-        "auditglobaleducationform": "Auditglobaleducationform",
-        "auditoverrideform": "Auditoverrideform",
-        "auditroyaltypaymentform": "Auditroyaltypaymentform",
-        "auditsecuritycomplianceform": "Auditsecuritycomplianceform",
-        "auditsystemlogsform": "Auditsystemlogsform",
-        "baseform": "Baseform",
-        "careplanevaluationform": "Careplanevaluationform",
-        "createcannedresponseform": "Createcannedresponseform",
-        "createsupplyorderform": "Createsupplyorderform",
-        "disciplinelogform": "Disciplinelogform",
-        "firebasesigninform": "Firebasesigninform",
-        "firebasesignupform": "Firebasesignupform",
-        "franchiseonboardingchecklistform": "Franchiseonboardingchecklistform",
-        "indexform": "Indexform",
-        "jwtsigninform": "Jwtsigninform",
-        "jwtsignupform": "Jwtsignupform",
-        "leaverequestform": "Leaverequestform",
-        "loginventoryspoilageform": "Loginventoryspoilageform",
-        "numberformcontroller": "Numberformcontroller",
-        "overrideglobalscheduleform": "Overrideglobalscheduleform",
-        "patientintakeform": "Patientintakeform",
-        "radioformcontroller": "Radioformcontroller",
-        "registercorporateriskform": "Registercorporateriskform",
-        "requestshiftadjustmentform": "Requestshiftadjustmentform",
-        "reviewfleetmaintenanceform": "Reviewfleetmaintenanceform",
-        "reviewlegalcontractform": "Reviewlegalcontractform",
-        "reviewonboardingstatusform": "Reviewonboardingstatusform",
-        "reviewpeerperformanceform": "Reviewpeerperformanceform",
-        "reviewvendorcontractsform": "Reviewvendorcontractsform",
-        "rolepermissionsform": "Rolepermissionsform",
-        "schedulefacilitymaintenanceform": "Schedulefacilitymaintenanceform",
-        "scheduleopenhouseform": "Scheduleopenhouseform",
-        "signinpageform": "Signinpageform",
-        "singleinputform": "Singleinputform",
-        "submithealthcareclaimform": "Submithealthcareclaimform",
-        "switchformcontroller": "Switchformcontroller",
-        "adjustfontsize": "Adjustfontsize",
-        "this_component_is_part_of_the_common_ui_module": "This Component Is Part Of The Common Ui Module",
-        "app": "App",
-        "authentication": "Authentication",
-        "authpagesmessagesection": "Authpagesmessagesection",
-        "awssignintab": "Awssignintab",
-        "awssignuptab": "Awssignuptab",
-        "awsauthenticator": "Awsauthenticator",
-        "awsauthcontext": "Awsauthcontext",
-        "button": "Button",
-        "configurator": "Configurator",
-        "datatable": "Datatable",
-        "datatabletoptoolbar": "Datatabletoptoolbar",
-        "democontent": "Democontent",
-        "demoframe": "Demoframe",
-        "demosidebarcontent": "Demosidebarcontent",
-        "documentationbutton": "Documentationbutton",
-        "dragassignwidget": "Dragassignwidget",
-        "dropdownmenu": "Dropdownmenu",
-        "error401pageview": "Error401pageview",
-        "error404pageview": "Error404pageview",
-        "internal_server_error": "Internal Server Error",
-        "return_to_safety": "Return To Safety",
-        "retry_hydration": "Retry Hydration",
-        "errorboundary": "Errorboundary",
-        "etatrackerwidget": "Etatrackerwidget",
-        "exampleview": "Exampleview",
-        "firebaseauthcontext": "Firebaseauthcontext",
-        "firebasesignintab": "Firebasesignintab",
-        "firebasesignuptab": "Firebasesignuptab",
-        "footertheme": "Footertheme",
-        "frameddemo": "Frameddemo",
-        "fullscreentoggle": "Fullscreentoggle",
-        "fuseauthorization": "Fuseauthorization",
-        "fuseauthcontext": "Fuseauthcontext",
-        "fuseawaitrender": "Fuseawaitrender",
-        "fusecountdown": "Fusecountdown",
-        "fusedialog": "Fusedialog",
-        "fuseexample": "Fuseexample",
-        "fusehighlight": "Fusehighlight",
-        "fuseloading": "Fuseloading",
-        "fusenavigation": "Fusenavigation",
-        "fusenavbadge": "Fusenavbadge",
-        "fusenavhorizontalcollapse": "Fusenavhorizontalcollapse",
-        "fusenavhorizontalgroup": "Fusenavhorizontalgroup",
-        "fusenavhorizontalitem": "Fusenavhorizontalitem",
-        "fusenavhorizontallink": "Fusenavhorizontallink",
-        "fusenavitem": "Fusenavitem",
-        "fusenavverticalcollapse": "Fusenavverticalcollapse",
-        "fusenavverticalgroup": "Fusenavverticalgroup",
-        "fusenavverticalitembase": "Fusenavverticalitembase",
-        "fusenavverticalitem": "Fusenavverticalitem",
-        "fusenavverticallink": "Fusenavverticallink",
-        "fusenavverticaltab": "Fusenavverticaltab",
-        "fusepagecardedheader": "Fusepagecardedheader",
-        "fusepagecarded": "Fusepagecarded",
-        "fusepagecardedsidebarcontent": "Fusepagecardedsidebarcontent",
-        "fusepagecardedsidebar": "Fusepagecardedsidebar",
-        "fusepagesimpleheader": "Fusepagesimpleheader",
-        "fusepagesimple": "Fusepagesimple",
-        "fusepagesimplesidebarcontent": "Fusepagesimplesidebarcontent",
-        "fusepagesimplesidebar": "Fusepagesimplesidebar",
-        "fusescrollbars": "Fusescrollbars",
-        "fusesearch": "Fusesearch",
-        "fusesettingscontext": "Fusesettingscontext",
-        "fusesettings": "Fusesettings",
-        "fusesettingsviewerdialog": "Fusesettingsviewerdialog",
-        "fuseshortcuts": "Fuseshortcuts",
-        "fusesidepanel": "Fusesidepanel",
-        "fusesuspense": "Fusesuspense",
-        "fusethemehooks": "Fusethemehooks",
-        "fusetheme": "Fusetheme",
-        "fusethemeselector": "Fusethemeselector",
-        "gotodocbox": "Gotodocbox",
-        "greetingheaderwidget": "Greetingheaderwidget",
-        "headingbutton": "Headingbutton",
-        "headingdropdownmenu": "Headingdropdownmenu",
-        "highlightpopover": "Highlightpopover",
-        "imageuploadbutton": "Imageuploadbutton",
-        "imageuploadnode": "Imageuploadnode",
-        "initializefirebase": "Initializefirebase",
-        "jwtauthcontext": "Jwtauthcontext",
-        "jwtsignintab": "Jwtsignintab",
-        "jwsignuptab": "Jwsignuptab",
-        "languageswitcher": "Languageswitcher",
-        "layout1": "Layout1",
-        "layout2": "Layout2",
-        "layout3": "Layout3",
-        "lightdarkmodetoggle": "Lightdarkmodetoggle",
-        "linkpopover": "Linkpopover",
-        "link": "Link",
-        "listbutton": "Listbutton",
-        "listdropdownmenu": "Listdropdownmenu",
-        "logo": "Logo",
-        "mainprojectselection": "Mainprojectselection",
-        "markbutton": "Markbutton",
-        "masterappshell": "Masterappshell",
-        "mockapi": "Mockapi",
-        "moodsliderwidget": "Moodsliderwidget",
-        "navbarpintogglebutton": "Navbarpintogglebutton",
-        "navbarstyle1content": "Navbarstyle1content",
-        "navbarstyle1": "Navbarstyle1",
-        "navbarstyle2content": "Navbarstyle2content",
-        "navbarstyle2": "Navbarstyle2",
-        "navbartheme": "Navbartheme",
-        "navbartogglebutton": "Navbartogglebutton",
-        "navbartogglefab": "Navbartogglefab",
-        "navigation": "Navigation",
-        "navigationsearch": "Navigationsearch",
-        "navigationshortcuts": "Navigationshortcuts",
-        "nodebutton": "Nodebutton",
-        "pagebreadcrumb": "Pagebreadcrumb",
-        "pagetitle": "Pagetitle",
-        "palettepreview": "Palettepreview",
-        "paletteselector": "Paletteselector",
-        "popover": "Popover",
-        "poweredbylinks": "Poweredbylinks",
-        "primecareresponsiveshell": "Primecareresponsiveshell",
-        "purchasebutton": "Purchasebutton",
-        "quickpanel": "Quickpanel",
-        "quickpaneltogglebutton": "Quickpaneltogglebutton",
-        "routesconfig": "Routesconfig",
-        "route": "Route",
-        "schemepreview": "Schemepreview",
-        "sectionpreview": "Sectionpreview",
-        "separator": "Separator",
-        "settingspanel": "Settingspanel",
-        "signinpagetitle": "Signinpagetitle",
-        "signinpageview": "Signinpageview",
-        "signoutpagetitle": "Signoutpagetitle",
-        "signoutpageview": "Signoutpageview",
-        "signuppagetitle": "Signuppagetitle",
-        "signuppageview": "Signuppageview",
-        "simpleeditor": "Simpleeditor",
-        "slidetoclockinwidget": "Slidetoclockinwidget",
-        "spacer": "Spacer",
-        "textalignbutton": "Textalignbutton",
-        "themespanel": "Themespanel",
-        "themepreview": "Themepreview",
-        "themetoggle": "Themetoggle",
-        "titlereferencelink": "Titlereferencelink",
-        "toolbar": "Toolbar",
-        "toolbartheme": "Toolbartheme",
-        "tooltip": "Tooltip",
-        "undoredobutton": "Undoredobutton",
-        "usermenu": "Usermenu",
-        "useauth": "Useauth",
-        "useawsauth": "Useawsauth",
-        "usefirebaseauth": "Usefirebaseauth",
-        "usefusedialogcontext": "Usefusedialogcontext",
-        "usefuserouteparameter": "Usefuserouteparameter",
-        "usefusesettings": "Usefusesettings",
-        "usejwtauth": "Usejwtauth",
-        "uselocalstorage": "Uselocalstorage",
-        "usenavigate": "Usenavigate",
-        "usenavigationitems": "Usenavigationitems",
-        "usepathname": "Usepathname",
-        "useuser": "Useuser",
-        "withrouter": "Withrouter",
-        "withuser": "Withuser",
-        "schedule_event": "Schedule Event",
-        "log_lead": "Log Lead",
-        "impact_report": "Impact Report",
-        "new_audit": "New Audit",
-        "audit___review_timeline": "Audit Review Timeline",
-        "review_policy": "Review Politique",
-        "log_finding": "Log Finding",
-        "regulatory_audit": "Regulatory Audit",
-        "enforcement": "Enforcement",
-        "supply_chain_velocity_trend": "Supply Chain Velocity Trend",
-        "dispatch_supplies": "Dispatch Supplies",
-        "capacity_audit": "Capacity Audit",
-        "incident_logs": "Incident Journaux",
-        "facility_status": "Facility Status",
+        "compliance_hub": "Compliance Hub",
+        "regulatory_and_standard_compliance_status": "Regulatory And Standard Compliance Status",
+        "coo_dashboard": "Coo Dashboard",
+        "logistics_and_operational_execution_overview": "Logistics And Operational Execution Overview",
         "corporate_governance_hud": "Corporate Governance Hud",
-        "institutional_integrity_and_architectural_compliance_audit": "Institutional Integrity And Architectural Conformité Audit",
-        "addfranchiseleadform": "Addfranchiseleadform",
-        "this_component_is_part_of_the_crm_forms_module": "This Component Is Part Of The Crm Forms Module",
-        "approvefranchisedisclosureform": "Approvefranchisedisclosureform",
-        "assignleadform": "Assignleadform",
-        "createadplacementform": "Createadplacementform",
-        "logfranchiseevettingcallform": "Logfranchiseevettingcallform",
-        "nurturelocalizedleadform": "Nurturelocalizedleadform",
-        "reviewleadconversionform": "Reviewleadconversionform",
-        "reviewmarketshareform": "Reviewmarketshareform",
-        "submitmarketingbudgetform": "Submitmarketingbudgetform",
-        "load_distribution_graph_placeholder": "Load Distribution Graph Placeholder",
-        "systems___architecture": "Systems Architecture",
-        "infrastructure_health_and_api_performance_monitoring": "Infrastructure Santé And Api Performance Surveillance",
-        "create_ticket": "Create Ticket",
-        "real_time_ticket_velocity": "Real Time Ticket Velocity",
+        "cto_dashboard": "Cto Dashboard",
+        "technical_operations_overview": "Technical Operations Overview",
         "ticket_volume_trend": "Ticket Volume Trend",
         "sentiment_velocity_trend": "Sentiment Velocity Trend",
-        "operational_sector__error401pageview": "Opérationnel Sector Error401pageview",
-        "operational_sector__error404pageview": "Opérationnel Sector Error404pageview",
-        "today": "Today",
-        "approveexpensereimbursementform": "Approveexpensereimbursementform",
-        "this_component_is_part_of_the_financial_forms_module": "This Component Is Part Of The Financier Forms Module",
-        "approvepayrollrunform": "Approvepayrollrunform",
-        "auditpayrolldiscrepancyform": "Auditpayrolldiscrepancyform",
-        "createcustominvoiceform": "Createcustominvoiceform",
-        "createrevenuereportform": "Createrevenuereportform",
-        "logpettycashform": "Logpettycashform",
-        "reviewmonthlyexpensesform": "Reviewmonthlyexpensesform",
-        "unit_profitability_trend": "Unit Rentabilité Trend",
-        "add_lead": "Add Lead",
-        "discovery_call": "Discovery Call",
-        "pipeline_report": "Pipeline Report",
-        "closing_desk": "Closing Desk",
-        "full_screen_toggle": "Full Screen Toggle",
-        "operational_sector__full_screen_toggle": "Opérationnel Sector Full Screen Toggle",
-        "fuse_page_carded": "Fuse Page Carded",
-        "operational_sector__fuse_page_carded": "Opérationnel Sector Fuse Page Carded",
-        "fuse_page_carded_header": "Fuse Page Carded Header",
-        "operational_sector__fuse_page_carded_header": "Opérationnel Sector Fuse Page Carded Header",
-        "fuse_page_carded_sidebar": "Fuse Page Carded Sidebar",
-        "operational_sector__fuse_page_carded_sidebar": "Opérationnel Sector Fuse Page Carded Sidebar",
-        "fuse_page_carded_sidebar_content": "Fuse Page Carded Sidebar Content",
-        "operational_sector__fuse_page_carded_sidebar_content": "Opérationnel Sector Fuse Page Carded Sidebar Content",
-        "fuse_page_simple": "Fuse Page Simple",
-        "operational_sector__fuse_page_simple": "Opérationnel Sector Fuse Page Simple",
-        "fuse_page_simple_header": "Fuse Page Simple Header",
-        "operational_sector__fuse_page_simple_header": "Opérationnel Sector Fuse Page Simple Header",
-        "fuse_page_simple_sidebar": "Fuse Page Simple Sidebar",
-        "operational_sector__fuse_page_simple_sidebar": "Opérationnel Sector Fuse Page Simple Sidebar",
-        "fuse_page_simple_sidebar_content": "Fuse Page Simple Sidebar Content",
-        "operational_sector__fuse_page_simple_sidebar_content": "Opérationnel Sector Fuse Page Simple Sidebar Content",
-        "fuse_splash_screen": "Fuse Splash Screen",
-        "operational_sector__fuse_splash_screen": "Opérationnel Sector Fuse Splash Screen",
-        "regional_p_l_overperformance_trend": "Regional P L Overperformance Trend",
-        "site_visit": "Site Visit",
-        "review_metrics": "Review Metrics",
-        "incident_log": "Incident Log",
-        "staff_meeting": "Staff Meeting",
-        "pipeline_conversion_velocity": "Pipeline Conversion Velocity",
-        "add_franchise": "Add Franchise",
-        "growth_audit": "Croissance Audit",
-        "market_analysis": "Market Analysis",
-        "legal_review": "Legal Review",
-        "new_campaign": "New Campaign",
-        "brand_assets": "Brand Assets",
-        "analytics": "Analytics",
-        "lead_gen": "Lead Gen",
+        "operational_sector__error401pageview": "Operational Sector Error401pageview",
+        "operational_sector__error404pageview": "Operational Sector Error404pageview",
+        "unit_profitability_trend": "Unit Profitability Trend",
         "clinical_retention_trend": "Clinical Retention Trend",
-        "approveleaverequestform": "Approveleaverequestform",
-        "this_component_is_part_of_the_hr_forms_module": "This Component Is Part Of The Hr Forms Module",
-        "logemployeegrievanceform": "Logemployeegrievanceform",
-        "newemployeeonboardingform": "Newemployeeonboardingform",
-        "scheduleinterviewform": "Scheduleinterviewform",
-        "submitexitinterviewform": "Submitexitinterviewform",
-        "staffing_velocity_matrix": "Effectif Velocity Matrice",
+        "staffing_velocity_matrix": "Staffing Velocity Matrix",
         "velocity_score": "Velocity Score",
         "active_hiring_funnel": "Active Hiring Funnel",
-        "human_capital_velocity": "Human Capital Velocity",
         "post_job": "Post Job",
         "approve_leave": "Approve Leave",
         "run_payroll": "Run Payroll",
         "audit_training": "Audit Training",
-        "human_capital_command": "Human Capital Command",
-        "governance__recruitment_velocity___talent_intelligence": "Governance Recruitment Velocity Talent Intelligence",
-        "filter": "Filter",
-        "new_candidate": "New Candidate",
-        "active_intake_pipeline": "Active Intake Pipeline",
-        "add_referral": "Add Referral",
-        "waitlist_mgmt": "Waitlist Mgmt",
-        "assign_staff": "Assign Staff",
-        "intake_reports": "Intake Rapports",
-        "referral_velocity_trend": "Referral Velocity Trend",
-        "new_intake": "New Intake",
-        "schedule": "Schedule",
-        "assessments": "Assessments",
-        "referrals": "Referrals",
-        "security_matrix__block_velocity": "Security Matrice Block Velocity",
+        "security_matrix__block_velocity": "Security Matrix Block Velocity",
         "block_velocity": "Block Velocity",
         "security_audit_trail": "Security Audit Trail",
-        "it_security_hud": "It Security Hud",
-        "cyber_shield_intelligence_and_threat_management_console": "Cyber Shield Intelligence And Threat Gestion Console",
         "campaign_conversion_funnel": "Campaign Conversion Funnel",
-        "manage_fleet": "Manage Fleet",
-        "inventory_audit": "Inventory Audit",
-        "facility_maintenance": "Facility Maintenance",
-        "supply_order": "Supply Order",
-        "enterprise_valuation_trend": "Entreprise Valuation Trend",
-        "equity_report": "Equity Report",
-        "distribution": "Distribution",
-        "board_resolutions": "Board Resolutions",
-        "tax_planning": "Taxe Planning",
+        "marketing_manager_dashboard": "Marketing Manager Dashboard",
+        "enterprise_valuation_trend": "Enterprise Valuation Trend",
         "referral_conversion_velocity": "Referral Conversion Velocity",
-        "new_partner": "New Partner",
-        "referral_log": "Referral Log",
-        "synergy_audit": "Synergy Audit",
         "request_meds": "Request Meds",
         "message_nurse": "Message Nurse",
         "care_plan": "Care Plan",
         "vitals_log": "Vitals Log",
-        "regulatory_compliance_trend": "Regulatory Conformité Trend",
-        "start_audit": "Start Audit",
-        "log_incident": "Log Incident",
-        "quality_report": "Quality Report",
-        "root_cause": "Root Cause",
-        "log_visit": "Log Visit",
-        "sync_data": "Sync Data",
-        "regional_audit": "Regional Audit",
-        "expansion_plan": "Expansion Plan",
-        "territory_growth_map": "Territoire Croissance Map",
-        "hiring_gap__toronto_north": "Hiring Gap Toronto North",
-        "compliance_audit__ottawa": "Conformité Audit Ottawa",
-        "margin_compression__london": "Margin Compression London",
-        "site_audit": "Site Audit",
-        "review_perf": "Review Perf",
-        "manage_staff": "Manage Staff",
-        "territory_plan": "Territoire Plan",
+        "regulatory_compliance_trend": "Regulatory Compliance Trend",
+        "territory_growth_map": "Territory Growth Map",
+        "regional_manager_dashboard": "Regional Manager Dashboard",
         "regional_ohip_velocity": "Regional Ohip Velocity",
-        "shift_coverage_optimization": "Shift Couverture Optimization",
-        "real_time_staffing_density_across_service_regions": "Real Time Effectif Density Across Service Regions",
-        "pending_fulfillment_requests": "Pending Fulfillment Requests",
-        "critical_shifts_requiring_immediate_assignment": "Critical Shifts Requiring Immediate Assignment",
-        "rn_shift___region___index___1": "Rn Shift Région Index 1",
-        "priority__high___gap__2_hours": "Priority High Gap 2 Hours",
-        "assign": "Assign",
-        "shift_coverage_velocity": "Shift Couverture Velocity",
+        "regional_dashboard": "Regional Dashboard",
+        "regional_performance_overview": "Regional Performance Overview",
+        "shift_coverage_velocity": "Shift Coverage Velocity",
         "sprint_velocity_trend": "Sprint Velocity Trend",
         "aligncentericon": "Aligncentericon",
         "this_component_is_part_of_the_shared_icons_module": "This Component Is Part Of The Shared Icons Module",
@@ -1435,219 +231,547 @@
         "toolbarlayout2": "Toolbarlayout2",
         "toolbarlayout3": "Toolbarlayout3",
         "usefuselayoutsettings": "Usefuselayoutsettings",
-        "platform_roi___savings": "Platform Roi Savings",
-        "sign_in_page_title": "Sign In Page Title",
-        "operational_sector__sign_in_page_title": "Opérationnel Sector Sign In Page Title",
         "sign_in_page_view": "Sign In Page View",
-        "operational_sector__sign_in_page_view": "Opérationnel Sector Sign In Page View",
-        "sign_out_page_title": "Sign Out Page Title",
-        "operational_sector__sign_out_page_title": "Opérationnel Sector Sign Out Page Title",
+        "operational_sector__sign_in_page_view": "Operational Sector Sign In Page View",
         "sign_out_page_view": "Sign Out Page View",
-        "operational_sector__sign_out_page_view": "Opérationnel Sector Sign Out Page View",
-        "sign_up_page_title": "Sign Up Page Title",
-        "operational_sector__sign_up_page_title": "Opérationnel Sector Sign Up Page Title",
+        "operational_sector__sign_out_page_view": "Operational Sector Sign Out Page View",
         "sign_up_page_view": "Sign Up Page View",
-        "operational_sector__sign_up_page_view": "Opérationnel Sector Sign Up Page View",
+        "operational_sector__sign_up_page_view": "Operational Sector Sign Up Page View",
         "social_care_command_hud": "Social Care Command Hud",
-        "intervention_impact_analysis": "Intervention Impact Analysis",
         "intervention_stability_vector": "Intervention Stability Vector",
         "social_event_ledger": "Social Event Ledger",
         "real_time_feed_of_patient_interactions_and_linkage_events": "Real Time Feed Of Patient Interactions And Linkage Events",
         "support_queue_visualization___active_tickets": "Support Queue Visualization Active Tickets",
-        "review_queue": "Review Queue",
-        "log_ticket": "Log Ticket",
-        "csat_report": "Csat Report",
-        "sla_tracking": "Sla Tracking",
-        "analyze_market": "Analyze Market",
-        "launch_territory": "Launch Territoire",
-        "growth_report": "Croissance Report",
-        "scout_location": "Scout Location",
+        "system_dashboard": "System Dashboard",
+        "enterprise_wide_operational_overview": "Enterprise Wide Operational Overview",
         "certification_velocity_trend": "Certification Velocity Trend",
+        "verification_hub": "Verification Hub",
         "volunteer_retention_trend": "Volunteer Retention Trend",
-        "unsupported_intent_type____intent_runtimetype": "Unsupported Intent Type Intent Runtimetype",
-        "institutional_route_recovery": "Institutional Route Recovery",
-        "the_system_is_verifying_your_security_context_for___route": "The Système Is Verifying Your Security Context For Route",
-        "send_reset_link": "Send Reset Link",
-        "verify_code": "Verify Code",
-        "registration_failed__please_check_network": "Registration Failed Please Check Network",
-        "common_documentvault_title": "Common Documentvault Title",
-        "common_documentvault_subtitle": "Common Documentvault Subtitle",
-        "common_globalprofile_title": "Common Globalprofile Title",
-        "common_globalprofile_subtitle": "Common Globalprofile Subtitle",
-        "common_globalsettings_title": "Common Globalsettings Title",
-        "common_globalsettings_subtitle": "Common Globalsettings Subtitle",
-        "appointment_created": "Appointment Created",
-        "creation_failed___e": "Creation Failed E",
-        "appointment_deleted": "Appointment Deleted",
-        "error___e": "Error E",
-        "appointment_updated": "Appointment Updated",
-        "move_failed___e": "Move Failed E",
-        "scheduler_error___e": "Scheduler Error E",
-        "new_appointment": "New Appointment",
-        "common_messaginghub_title": "Common Messaginghub Title",
-        "common_messaginghub_subtitle": "Common Messaginghub Subtitle",
-        "common_notificationcenter_title": "Common Notificationcenter Title",
-        "common_notificationcenter_subtitle": "Common Notificationcenter Subtitle",
-        "error___err": "Error Err",
-        "confirm": "Confirm",
-        "resource_optimization": "Resource Optimization",
-        "high_pressure_alert": "High Pressure Alert",
-        "revenue_velocity___30_day_view": "Revenu Velocity 30 Day View",
-        "delete_user": "Delete Utilisateur",
-        "are_you_sure_you_want_to_delete___user_name": "Are You Sure You Want To Delete Utilisateur Name",
-        "user_management": "Utilisateur Gestion",
-        "user": "Utilisateur",
-        "role": "Role",
-        "office___department": "Office Department",
-        "status": "Status",
-        "actions": "Actions",
-        "architectural_governance": "Architectural Governance",
-        "offline_cache": "Offline Cache",
-        "ceo_dashboard": "Ceo Tableau de bord",
-        "executive_overview_and_corporate_strategy": "Executive Aperçu And Corporate Strategy",
-        "cfo_dashboard": "Cfo Tableau de bord",
-        "financial_statements_and_forecasts_overview": "Financier Statements And Forecasts Aperçu",
-        "clinical_dashboard": "Clinical Tableau de bord",
-        "clinical_outcomes_and_patient_care_overview": "Clinical Outcomes And Patient Care Aperçu",
-        "compliance_hub": "Conformité Hub",
-        "regulatory_and_standard_compliance_status": "Regulatory And Standard Conformité Status",
-        "compliance_interface_provisioning": "Conformité Interface Provisioning",
-        "compliance_dashboard": "Conformité Tableau de bord",
-        "regulatory_compliance_and_audit_overview": "Regulatory Conformité And Audit Aperçu",
-        "coo_dashboard": "Coo Tableau de bord",
-        "logistics_and_operational_execution_overview": "Logistics And Opérationnel Execution Aperçu",
-        "cto_dashboard": "Cto Tableau de bord",
-        "technical_operations_overview": "Technical Opérations Aperçu",
-        "regional_dashboard": "Regional Tableau de bord",
-        "regional_performance_overview": "Regional Performance Aperçu",
-        "system_dashboard": "Système Tableau de bord",
-        "enterprise_wide_operational_overview": "Entreprise Wide Opérationnel Aperçu",
-        "verification_hub": "Vérification Hub",
-        "system_integrity_and_macro_reconciliation_telemetry_logs": "Système Integrity And Macro Reconciliation Telemetry Journaux",
-        "offline_fallback": "Offline Fallback",
-        "selectedreporttype_report_exported_successfully_as____selectedformat_name_touppercase": "Selectedreporttype Report Exported Successfully As Selectedformat Name Touppercase",
-        "export_failed___e": "Export Failed E",
-        "institutional_compliance_export": "Institutional Conformité Export",
-        "select_report_type": "Select Report Type",
-        "report_format": "Report Format",
-        "pdf": "Pdf",
-        "csv": "Csv",
-        "date_range__optional": "Date Range Optional",
-        "provisioning": "Provisioning",
+        "cache_hydrated": "Cache Hydrated",
+        "active_node": "Active Node",
+        "sync_status": "Sync Status",
+        "aura_intelligence__active": "Aura Intelligence Active",
+        "no_anomalies_detected_in_the_local_cache_nodes": "No Anomalies Detected In The Local Cache Nodes",
         "institutional_audit_report": "Institutional Audit Report",
-        "clinical_vitals_compliance_report": "Clinical Vitals Conformité Report",
+        "clinical_vitals_compliance_report": "Clinical Vitals Compliance Report",
         "staff_provisioning___role_activity_report": "Staff Provisioning Role Activity Report",
-        "hr_compliance_documentation": "Hr Conformité Documentation",
-        "chart": "Chart"
+        "hr_compliance_documentation": "Hr Compliance Documentation"
+      }
+    },
+    "support": {
+      "title": "Support Dashboard",
+      "subtitle": "Access metrics.",
+      "labels": {
+        "operational_volume": "Operational Volume",
+        "aura_intelligence": "Aura Intelligence"
+      }
+    },
+    "corporategovernance": {
+      "title": "Corporategovernance Dashboard",
+      "subtitle": "Access metrics.",
+      "labels": {
+        "compliance_score": "Compliance Score"
       }
     }
   },
+  "registries": {},
+  "admin": {
+    "governance_monitor": {
+      "title": "Governance Monitor"
+    },
+    "system_infrastructure_overview": {
+      "title": "System Infrastructure Overview"
+    },
+    "configurator_hub": {
+      "title": "Configurator Hub"
+    },
+    "system_health": {
+      "title": "System Health"
+    },
+    "it_security": {
+      "title": "It Security"
+    }
+  },
+  "infrastructure": {
+    "scrum_master": {
+      "title": "Scrum Master"
+    },
+    "system_verification": {
+      "title": "System Verification"
+    }
+  },
+  "business_development": {
+    "regional_manager_ontario": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "regional_manager_usa": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "franchise_sales_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "partnership_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "general_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "territory_expansion_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "regional_bdm": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "client_portal": {
+    "client": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "family_member": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "clinical": {
+    "clinical_director": {
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "quality_metrics": {
+        "title": "Quality Metrics"
+      }
+    },
+    "intake_coordinator": {
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "referrals": {
+        "title": "Referrals"
+      },
+      "assessments": {
+        "title": "Assessments"
+      }
+    },
+    "psw": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "rn": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "rmt": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "social_worker": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "infection_control": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "support": {
+    "quality_assurance": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "customer_support": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "intake_coordinator": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "corporate": {
+    "ceo": {
+      "enterprise_overview": {
+        "title": "Enterprise Overview"
+      },
+      "revenue_summary": {
+        "title": "Revenue Summary"
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "coo": {
+      "operations_overview": {
+        "title": "Operations Overview"
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "cfo": {
+      "financial_overview": {
+        "title": "Financial Overview"
+      },
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "cto": {
+      "system_health": {
+        "title": "System Health"
+      }
+    },
+    "compliance_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "training_director": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "finance_director": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "head_of_business_development": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "head_of_marketing": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "hr_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "hr_director": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "cx_director": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "it_admin": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "franchise": {
+    "franchise_owner": {
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "financial_snapshot": {
+        "title": "Financial Snapshot"
+      }
+    },
+    "operations_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "billing_admin": {
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "invoices": {
+        "title": "Invoices"
+      }
+    },
+    "hr_hiring": {
+      "dashboard": {
+        "title": "Dashboard"
+      },
+      "onboarding": {
+        "title": "Onboarding"
+      }
+    },
+    "regional_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "marketing_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "Revenue": "Revenue",
+  "marketing": {
+    "local_marketing_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "community_outreach": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    },
+    "territory_sales_manager": {
+      "dashboard": {
+        "title": "Dashboard"
+      }
+    }
+  },
+  "LocaleKeys": {
+    "receptionist_dashboard_title": "Locale Keys",
+    "Workflows_AddFranchiseLeadForm": "Locale Keys",
+    "Workflows_ApproveExpenseReimbursementForm": "Locale Keys",
+    "Workflows_ApproveFranchiseDisclosureForm": "Locale Keys",
+    "Workflows_ApproveLeaveRequestForm": "Locale Keys",
+    "Workflows_ApproveMedicationRefillForm": "Locale Keys",
+    "Workflows_ApprovePayrollRunForm": "Locale Keys",
+    "Workflows_ApproveRealEstateForm": "Locale Keys",
+    "Workflows_ApproveSystemAccessForm": "Locale Keys",
+    "Workflows_AssignCarePodForm": "Locale Keys",
+    "Workflows_AssignLeadForm": "Locale Keys",
+    "Workflows_AssignTrainingModuleForm": "Locale Keys",
+    "Workflows_AuditComplianceForm": "Locale Keys",
+    "Workflows_AuditGlobalEducationForm": "Locale Keys",
+    "Workflows_AuditOverrideForm": "Locale Keys",
+    "Workflows_AuditPayrollDiscrepancyForm": "Locale Keys",
+    "Workflows_AuditRoyaltyPaymentForm": "Locale Keys",
+    "Workflows_AuditSecurityComplianceForm": "Locale Keys",
+    "Workflows_AuditSystemLogsForm": "Locale Keys",
+    "Workflows_CarePlanEvaluationForm": "Locale Keys",
+    "Workflows_CreateAdPlacementForm": "Locale Keys",
+    "Workflows_CreateCannedResponseForm": "Locale Keys",
+    "Workflows_CreateCustomInvoiceForm": "Locale Keys",
+    "Workflows_CreateRevenueReportForm": "Locale Keys",
+    "Workflows_CreateSupplyOrderForm": "Locale Keys",
+    "Workflows_DailyVitalsCardForm": "Locale Keys",
+    "Workflows_DisciplineLogForm": "Locale Keys",
+    "Workflows_FranchiseOnboardingChecklistForm": "Locale Keys",
+    "Workflows_LeaveRequestForm": "Locale Keys",
+    "Workflows_LogClinicalIncidentForm": "Locale Keys",
+    "Workflows_LogEmployeeGrievanceForm": "Locale Keys",
+    "Workflows_LogFranchiseeVettingCallForm": "Locale Keys",
+    "Workflows_LogInfectionControlForm": "Locale Keys",
+    "Workflows_LogInventorySpoilageForm": "Locale Keys",
+    "Workflows_LogPettyCashForm": "Locale Keys",
+    "Workflows_NewEmployeeOnboardingForm": "Locale Keys",
+    "Workflows_NurtureLocalizedLeadForm": "Locale Keys",
+    "Workflows_OverrideGlobalScheduleForm": "Locale Keys",
+    "Workflows_PatientIntakeForm": "Locale Keys",
+    "Workflows_RegisterCorporateRiskForm": "Locale Keys",
+    "Workflows_RequestShiftAdjustmentForm": "Locale Keys",
+    "Workflows_ReviewCarePlanForm": "Locale Keys",
+    "Workflows_ReviewClinicalIncidentForm": "Locale Keys",
+    "Workflows_ReviewFleetMaintenanceForm": "Locale Keys",
+    "Workflows_ReviewLeadConversionForm": "Locale Keys",
+    "Workflows_ReviewLegalContractForm": "Locale Keys",
+    "Workflows_ReviewMarketShareForm": "Locale Keys",
+    "Workflows_ReviewMedicationInventoryForm": "Locale Keys",
+    "Workflows_ReviewMonthlyExpensesForm": "Locale Keys",
+    "Workflows_ReviewOnboardingStatusForm": "Locale Keys",
+    "Workflows_ReviewPeerPerformanceForm": "Locale Keys",
+    "Workflows_ReviewVendorContractsForm": "Locale Keys",
+    "Workflows_ScheduleClinicalAuditForm": "Locale Keys",
+    "Workflows_ScheduleFacilityMaintenanceForm": "Locale Keys",
+    "Workflows_ScheduleInterviewForm": "Locale Keys",
+    "Workflows_ScheduleOpenHouseForm": "Locale Keys",
+    "Workflows_SubmitAdlChecklistForm": "Locale Keys",
+    "Workflows_SubmitDailyCensusForm": "Locale Keys",
+    "Workflows_SubmitExitInterviewForm": "Locale Keys",
+    "Workflows_SubmitHealthcareClaimForm": "Locale Keys",
+    "Workflows_SubmitMarketingBudgetForm": "Locale Keys",
+    "Workflows_VerifyCertificateForm": "Locale Keys"
+  },
   "common": {
     "app_name": "PrimeCare",
-    "loading": "Chargement...",
-    "save": "Enregistrer",
-    "cancel": "Annuler",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "status": "Status",
+    "name": "Name",
+    "details": "Details",
     "language": {
-      "en": "Anglais",
-      "fr": "Français",
-      "es": "Espagnol"
+      "en": "English",
+      "fr": "French",
+      "es": "Spanish"
     }
   },
-  "auth": {
-    "title_curator": "Bienvenue chez PrimeCare",
-    "curator_subtitle": "Portail d'Accès Entreprise",
-    "welcome_back": "Bon retour",
-    "login_instructions": "Connectez-vous à votre compte",
-    "email": "Adresse Courriel",
-    "email_placeholder": "Entrez votre courriel",
-    "password": "Mot de passe",
-    "forgot_password": "Mot de passe oublié?",
-    "sign_in": "Se connecter",
-    "security_notice_long": "This system is restricted to authorized personnel.",
-    "authentication_failed": "Authentication failed.",
-    "enter_credentials_to_continue": "Please enter credentials."
+  "governance": {
+    "title": "Governance Dashboard",
+    "audit_logs": "Audit Logs",
+    "system_monitoring": "System Monitoring",
+    "architectural_health": "Architectural Health",
+    "ai_insights": "AI Insights & Remediation",
+    "discovered_forms": "Discovered Forms",
+    "module_entry": "Module Entry",
+    "module_name": "Module Name",
+    "save_module": "Save Module",
+    "role_entry": "Role Entry",
+    "role_name": "Role Name",
+    "save_role": "Save Role"
+  },
+  "command_center": {
+    "labels": {
+      "training_hub_center": "Training Hub Center",
+      "volunteer_center": "Volunteer Center",
+      "training_center": "Training Center",
+      "curriculum_compliance": "Curriculum Compliance"
+    }
   },
   "aura": {
-    "search_hint": "Search Aura...",
-    "sign_out": "Sign Out",
     "intelligence": "Aura Intelligence",
-    "daily_briefing": "Daily Briefing: {}",
-    "executive_overview": "EXECUTIVE OVERVIEW",
-    "operational_summary": "Systems are currently operating within nominal parameters.",
-    "critical_insights": "CRITICAL INSIGHTS",
-    "staff_retention_alert": "Staff Retention Alert",
-    "staff_retention_desc": "Regional turnover in Ontario South has increased by 12% this month.",
-    "view_retention_plan": "VIEW RETENTION PLAN",
-    "marketing_roi_surge": "Marketing ROI Surge",
-    "marketing_roi_desc": "Ad campaign 'CommunityCare' has achieved a 4.2x ROI.",
-    "adjust_budget": "ADJUST BUDGET",
-    "supply_chain_sync": "Supply Chain Sync",
-    "supply_chain_desc": "Inventory levels across 14 franchises synchronized successfully.",
-    "see_report": "SEE REPORT",
-    "governance_alert": "GOVERNANCE ALERT",
-    "real_time_intelligence": "REAL-TIME INTELLIGENCE",
-    "view_details": "VIEW DETAILS",
-    "synchronizing": "Synchronizing Aura IQ...",
-    "offline": "Aura Offline",
-    "snoozed": "Aura Alerts Snoozed",
-    "resume": "RESUME",
+    "search_hint": "Search Aura...",
     "auditors_blueprint": "AUDITOR'S BLUEPRINT",
     "structural_contract": "STRUCTURAL CONTRACT",
-    "verified_components": "VERIFIED COMPONENTS",
-    "full_system_audit": "Full System Audit",
-    "events": {
-      "stable_title": "System Stable",
-      "stable_desc": "Institutional heartbeat is nominal.",
-      "critical_occupancy_title": "Critical Occupancy Spike",
-      "critical_occupancy_desc": "Facility at 98% capacity.",
-      "revenue_variance_title": "Revenue Variance Detected",
-      "revenue_variance_desc": "Detected a 12% dip in projected daily billing.",
-      "efficiency_opt_title": "Efficiency Optimization",
-      "efficiency_opt_desc": "Shift change documentation cycle completed 4 minutes faster.",
-      "staffing_gap_title": "Anticipated Staffing Gap",
-      "staffing_gap_desc": "Trend analysis predicts a 15% staffing deficit.",
-      "budget_overrun_title": "Projected Budget Overrun",
-      "budget_overrun_desc": "Current spending velocity suggests a potential budget threshold breach.",
-      "architectural_drift_title": "Architectural Drift Detected",
-      "architectural_drift_desc": "Screen [{}] has drifted from Auditor Blueprint. Missing: {}"
-    }
+    "verified_components": "VERIFIED COMPONENTS"
   },
-  "ceo_dashboard_labels_strategic_growth": "Growth",
-  "ceo_dashboard_labels_revenue_growth": "Growth",
-  "ceo_dashboard_labels_market_expansion": "Expansion",
-  "cfo_dashboard_labels_ebitda_ttm": "Ttm",
-  "cfo_dashboard_labels_cash_on_hand": "Hand",
-  "cfo_dashboard_labels_net_margin": "Margin",
-  "cfo_dashboard_labels_operational_burn": "Burn",
-  "cfo_dashboard_labels_tax_optimization": "Optimization",
-  "cfo_dashboard_labels_ar_alert": "Alert",
-  "cfo_dashboard_labels_capital_efficiency": "Efficiency",
-  "cto_dashboard_labels_global_uptime": "Uptime",
-  "cto_dashboard_labels_api_latency": "Latency",
-  "cto_dashboard_labels_error_rate": "Rate",
-  "cto_dashboard_labels_deploys_day": "Day",
-  "cto_dashboard_labels_infra_optimization": "Optimization",
-  "cto_dashboard_labels_security_posture": "Posture",
-  "cto_dashboard_labels_devops_velocity": "Velocity",
-  "support_dashboard_labels_common_pain_point": "Point",
-  "support_dashboard_labels_resolution_efficiency": "Efficiency",
-  "support_dashboard_labels_sla_breach_risk": "Risk",
-  "marketing_dashboard_labels_campaign_roi_peak": "Peak",
-  "marketing_dashboard_labels_cac_volatility": "Volatility",
-  "clinical_director_labels_staffing_matrix": "Matrix",
-  "clinical_director_labels_staffing_variance": "Variance",
-  "clinical_director_labels_compliance_log": "Log",
-  "clinical_director_labels_audit_adherence": "Adherence",
-  "clinical_director_labels_incident_trends": "Trends",
-  "clinical_director_labels_incident_criticality": "Criticality",
-  "command_center_labels_franchise_center": "Center",
-  "command_center_labels_marketing_center": "Center",
-  "regional_manager_labels_performance_matrix": "Matrix",
-  "regional_manager_labels_comparative_metrics": "Metrics",
-  "regional_manager_labels_health_scorecard": "Scorecard",
-  "regional_manager_labels_health_indices": "Indices",
-  "command_center_labels_training_center": "Center",
-  "command_center_labels_curriculum_compliance": "Compliance",
-  "command_center_labels_training_hub_center": "Center",
-  "command_center_labels_volunteer_center": "Center"
+  "hr_manager_dashboard_title": "HR Manager Dashboard",
+  "intake_dashboard_title": "Intake Dashboard",
+  "intake_dashboard_subtitle": "Manage patient intakes.",
+  "intake_coordinator_dashboard_subtitle": "Coordinator insights.",
+  "it_security_dashboard_title": "IT Security Dashboard",
+  "it_security_dashboard_subtitle": "Security posture.",
+  "local_marketing_manager_dashboard_title": "Local Marketing Manager Dashboard",
+  "local_marketing_manager_dashboard_subtitle": "Campaign performance.",
+  "owner_dashboard_title": "Owner Dashboard",
+  "owner_dashboard_subtitle": "Business overview.",
+  "partnership_manager_dashboard_title": "Partnership Manager Dashboard",
+  "partnership_manager_dashboard_subtitle": "Partner relations.",
+  "patient_dashboard_title": "Patient Dashboard",
+  "patient_dashboard_subtitle": "Personal health record.",
+  "qa_dashboard_title": "QA Dashboard",
+  "qa_dashboard_subtitle": "Quality metrics.",
+  "quality_assurance_dashboard_title": "Quality Assurance Dashboard",
+  "quality_assurance_dashboard_subtitle": "Standard compliance.",
+  "receptionist_dashboard_title": "Receptionist Dashboard",
+  "receptionist_dashboard_subtitle": "Front desk operations.",
+  "training_director_dashboard_title": "Training Director Dashboard",
+  "training_director_dashboard_subtitle": "Education oversight.",
+  "franchise_owner_dashboard_title": "Franchise Owner Dashboard",
+  "head_of_marketing_dashboard_title": "Head Of Marketing Dashboard Title",
+  "Workflows_ReviewFleetMaintenanceForm": "Workflows Review Fleet Maintenance Form",
+  "Workflows_SubmitDailyCensusForm": "Workflows Submit Daily Census Form",
+  "Workflows_ScheduleOpenHouseForm": "Workflows Schedule Open House Form",
+  "customer_support_dashboard_subtitle": "Customer Support Dashboard Subtitle",
+  "general_manager_dashboard_subtitle": "General Manager Dashboard Subtitle",
+  "Workflows_CarePlanEvaluationForm": "Workflows Care Plan Evaluation Form",
+  "Workflows_ApproveFranchiseDisclosureForm": "Workflows Approve Franchise Disclosure Form",
+  "Workflows_OverrideGlobalScheduleForm": "Workflows Override Global Schedule Form",
+  "Workflows_SubmitExitInterviewForm": "Workflows Submit Exit Interview Form",
+  "Workflows_RequestShiftAdjustmentForm": "Workflows Request Shift Adjustment Form",
+  "Workflows_CreateAdPlacementForm": "Workflows Create Ad Placement Form",
+  "family_member_dashboard_title": "Family Member Dashboard Title",
+  "Workflows_SubmitMarketingBudgetForm": "Workflows Submit Marketing Budget Form",
+  "Workflows_ReviewLegalContractForm": "Workflows Review Legal Contract Form",
+  "Workflows_LogFranchiseeVettingCallForm": "Workflows Log Franchisee Vetting Call Form",
+  "dynamic_screen_dashboard_subtitle": "Dynamic Screen Dashboard Subtitle",
+  "Workflows_LogInventorySpoilageForm": "Workflows Log Inventory Spoilage Form",
+  "Workflows_LogClinicalIncidentForm": "Workflows Log Clinical Incident Form",
+  "Workflows_ReviewVendorContractsForm": "Workflows Review Vendor Contracts Form",
+  "Workflows_ReviewPeerPerformanceForm": "Workflows Review Peer Performance Form",
+  "Workflows_LogPettyCashForm": "Workflows Log Petty Cash Form",
+  "Registries": "Registries",
+  "business_development_training_coordinator_dashboard_title": "Business Development Training Coordinator Dashboard Title",
+  "clinical_rpn_dashboard_title": "Clinical Rpn Dashboard Title",
+  "Workflows_ReviewCarePlanForm": "Workflows Review Care Plan Form",
+  "general_manager_dashboard_title": "General Manager Dashboard Title",
+  "hr_director_dashboard_title": "Hr Director Dashboard Title",
+  "Workflows_ApproveSystemAccessForm": "Workflows Approve System Access Form",
+  "guest_dashboard_title": "Guest Dashboard Title",
+  "hr_manager_dashboard_subtitle": "Hr Manager Dashboard Subtitle",
+  "Workflows_NewEmployeeOnboardingForm": "Workflows New Employee Onboarding Form",
+  "Workflows_CreateCustomInvoiceForm": "Workflows Create Custom Invoice Form",
+  "Workflows_ApproveRealEstateForm": "Workflows Approve Real Estate Form",
+  "Workflows_AuditComplianceForm": "Workflows Audit Compliance Form",
+  "Workflows_LeaveRequestForm": "Workflows Leave Request Form",
+  "Workflows_SubmitAdlChecklistForm": "Workflows Submit Adl Checklist Form",
+  "guest_dashboard_subtitle": "Guest Dashboard Subtitle",
+  "course_architect_dashboard_subtitle": "Course Architect Dashboard Subtitle",
+  "Workflows_CreateSupplyOrderForm": "Workflows Create Supply Order Form",
+  "clinical_physiotherapist_dashboard_title": "Clinical Physiotherapist Dashboard Title",
+  "clinical_chiropractor_dashboard_title": "Clinical Chiropractor Dashboard Title",
+  "Workflows_AuditOverrideForm": "Workflows Audit Override Form",
+  "Workflows_ApproveMedicationRefillForm": "Workflows Approve Medication Refill Form",
+  "family_member_dashboard_subtitle": "Family Member Dashboard Subtitle",
+  "Workflows_ScheduleInterviewForm": "Workflows Schedule Interview Form",
+  "Workflows_ApproveExpenseReimbursementForm": "Workflows Approve Expense Reimbursement Form",
+  "Workflows_AuditSecurityComplianceForm": "Workflows Audit Security Compliance Form",
+  "dynamic_screen_dashboard_title": "Dynamic Screen Dashboard Title",
+  "Workflows_AddFranchiseLeadForm": "Workflows Add Franchise Lead Form",
+  "Workflows_ReviewMedicationInventoryForm": "Workflows Review Medication Inventory Form",
+  "Workflows_AuditRoyaltyPaymentForm": "Workflows Audit Royalty Payment Form",
+  "Workflows_AuditSystemLogsForm": "Workflows Audit System Logs Form",
+  "Workflows_ApprovePayrollRunForm": "Workflows Approve Payroll Run Form",
+  "Workflows_AssignCarePodForm": "Workflows Assign Care Pod Form",
+  "Workflows_ReviewLeadConversionForm": "Workflows Review Lead Conversion Form",
+  "Workflows_ReviewMarketShareForm": "Workflows Review Market Share Form",
+  "Workflows_VerifyCertificateForm": "Workflows Verify Certificate Form",
+  "Workflows_ScheduleClinicalAuditForm": "Workflows Schedule Clinical Audit Form",
+  "course_architect_dashboard_title": "Course Architect Dashboard Title",
+  "franchise_owner_dashboard_subtitle": "Franchise Owner Dashboard Subtitle",
+  "Workflows_AuditGlobalEducationForm": "Workflows Audit Global Education Form",
+  "Workflows_DailyVitalsCardForm": "Workflows Daily Vitals Card Form",
+  "Workflows_DisciplineLogForm": "Workflows Discipline Log Form",
+  "head_of_bus_dev_dashboard_title": "Head Of Bus Dev Dashboard Title",
+  "Workflows_NurtureLocalizedLeadForm": "Workflows Nurture Localized Lead Form",
+  "hr_director_dashboard_subtitle": "Hr Director Dashboard Subtitle",
+  "Workflows_PatientIntakeForm": "Workflows Patient Intake Form",
+  "business_development_territory_sales_manager_dashboard_title": "Business Development Territory Sales Manager Dashboard Title",
+  "business_development_community_outreach_dashboard_title": "Business Development Community Outreach Dashboard Title",
+  "head_of_marketing_dashboard_subtitle": "Head Of Marketing Dashboard Subtitle",
+  "Workflows_ReviewOnboardingStatusForm": "Workflows Review Onboarding Status Form",
+  "franchise_sales_manager_dashboard_title": "Franchise Sales Manager Dashboard Title",
+  "Workflows_ApproveLeaveRequestForm": "Workflows Approve Leave Request Form",
+  "Workflows_SubmitHealthcareClaimForm": "Workflows Submit Healthcare Claim Form",
+  "franchise_sales_manager_dashboard_subtitle": "Franchise Sales Manager Dashboard Subtitle",
+  "Workflows_ReviewClinicalIncidentForm": "Workflows Review Clinical Incident Form",
+  "Workflows_RegisterCorporateRiskForm": "Workflows Register Corporate Risk Form",
+  "Workflows_ScheduleFacilityMaintenanceForm": "Workflows Schedule Facility Maintenance Form",
+  "Workflows_AuditPayrollDiscrepancyForm": "Workflows Audit Payroll Discrepancy Form",
+  "hr_hiring_dashboard_title": "Hr Hiring Dashboard Title",
+  "Workflows_FranchiseOnboardingChecklistForm": "Workflows Franchise Onboarding Checklist Form",
+  "head_of_bus_dev_dashboard_subtitle": "Head Of Bus Dev Dashboard Subtitle",
+  "Workflows_AssignLeadForm": "Workflows Assign Lead Form",
+  "Workflows_LogEmployeeGrievanceForm": "Workflows Log Employee Grievance Form",
+  "Workflows_CreateCannedResponseForm": "Workflows Create Canned Response Form",
+  "Workflows_CreateRevenueReportForm": "Workflows Create Revenue Report Form",
+  "hr_hiring_dashboard_subtitle": "Hr Hiring Dashboard Subtitle",
+  "Workflows_AssignTrainingModuleForm": "Workflows Assign Training Module Form",
+  "cx_director_dashboard_subtitle": "Cx Director Dashboard Subtitle",
+  "Workflows_ReviewMonthlyExpensesForm": "Workflows Review Monthly Expenses Form",
+  "Workflows_LogInfectionControlForm": "Workflows Log Infection Control Form",
+  "cx_director_dashboard_title": "Cx Director Dashboard Title",
+  "customer_support_dashboard_title": "Customer Support Dashboard Title"
 }

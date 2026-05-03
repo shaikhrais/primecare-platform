@@ -1,18 +1,18 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ClinicDashboardModel {
+class ClinicOperationsModel {
   final DashboardMetrics metrics;
   final List<IntelligenceInsight> insights;
   final bool isOfflineFallback;
 
-  ClinicDashboardModel({
+  ClinicOperationsModel({
     required this.metrics,
     required this.insights,
     this.isOfflineFallback = false,
   });
 
-  factory ClinicDashboardModel.empty({bool isOfflineFallback = false}) {
-    return ClinicDashboardModel(
+  factory ClinicOperationsModel.empty({bool isOfflineFallback = false}) {
+    return ClinicOperationsModel(
       metrics: DashboardMetrics.empty(),
       insights: [],
       isOfflineFallback: isOfflineFallback,
@@ -25,27 +25,14 @@ class ClinicDashboardModel {
         'isOfflineFallback': isOfflineFallback,
       };
 
-  factory ClinicDashboardModel.fromJson(Map<String, dynamic> json) =>
-      ClinicDashboardModel(
-        metrics: DashboardMetrics.fromJson(json['metrics']),
+  factory ClinicOperationsModel.fromJson(Map<String, dynamic> json) =>
+      ClinicOperationsModel(
+        metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
         insights: (json['insights'] as List)
-            .map((i) => IntelligenceInsight.fromJson(i))
+            .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
             .toList(),
-        isOfflineFallback: json['isOfflineFallback'] ?? false,
+        isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       );
-
-  List<AssemblyBlueprint> get blueprints {
-    return [
-      AssemblyBlueprint(
-        componentType: 'kpi_grid',
-        dataPayload: metrics.kpis,
-      ),
-      AssemblyBlueprint(
-        componentType: 'activity_feed',
-        dataPayload: metrics.recentActivity,
-      ),
-    ];
-  }
 }
 
 // Add other models for clinic operations here

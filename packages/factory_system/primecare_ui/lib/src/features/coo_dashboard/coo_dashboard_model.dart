@@ -1,7 +1,16 @@
-import 'package:primecare_ui/src/features/features_model.dart';
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
 
-class COODashboardModel {
-  final List<KpiData> kpis;
+class COODashboardViewModel extends PrimeCareDashboardViewModel {
+  const COODashboardViewModel({
+    required super.metrics,
+    required super.insights,
+    super.isOfflineFallback = false,
+  });
 
-  COODashboardModel({required this.kpis});
+  factory COODashboardViewModel.empty() {
+    return COODashboardViewModel(
+      metrics: DashboardMetrics.empty(),
+      insights: const [],
+    );
+  }
 }

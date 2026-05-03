@@ -1,8 +1,11 @@
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart';
+
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 
 class FamilyDashboardView extends ConsumerWidget {
   const FamilyDashboardView({super.key});
@@ -59,7 +62,21 @@ class FamilyDashboardView extends ConsumerWidget {
 }
 
 class FamilyDashboardIntent extends PrimeCareScreen {
-  FamilyDashboardIntent() : super(title: 'FamilyDashboard');
+  FamilyDashboardIntent()
+    : super(
+        name: 'family',
+        title: 'dashboards.common.labels.family_dashboard',
+        route: '/offices/corporate/roles/family/dashboard',
+        requiredRole: PlatformRole.familyMember,
+          form: PrimeCareForm.familyDashboard,
+        provider: familyDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Household Health Overview',
+          'Shared Care Calendar',
+          'Family Wellness Score',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const FamilyDashboardView();

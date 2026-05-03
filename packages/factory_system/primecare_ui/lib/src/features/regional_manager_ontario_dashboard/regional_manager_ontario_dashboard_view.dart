@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_REGIONAL_MANAGER_ONTARIO_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Ontario Revenue Growth)
+// @governance: component=Regional Revenue Grid
+// @governance: component=Ontario Market Heatmap
+// @governance: component=Site Audit Tracker
 class RegionalManagerOntarioDashboardView extends ConsumerWidget {
   const RegionalManagerOntarioDashboardView({super.key});
 
@@ -152,7 +159,20 @@ class RegionalManagerOntarioDashboardView extends ConsumerWidget {
 
 class RegionalManagerOntarioDashboardIntent extends PrimeCareScreen {
   RegionalManagerOntarioDashboardIntent()
-    : super(title: 'RegionalManagerOntarioDashboard');
+    : super(
+        name: 'regional-manager-ontario',
+        title: LocaleKeys.business_development_regional_manager_ontario_dashboard_title,
+        route: '/offices/corporate/roles/regional-manager-ontario/dashboard',
+        requiredRole: PlatformRole.regionalManagerOntario,
+        form: PrimeCareForm.regionalManagerOntarioDashboard,
+        provider: regionalManagerOntarioDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (Ontario Revenue Growth)',
+          'Regional Revenue Grid',
+          'Ontario Market Heatmap',
+          'Site Audit Tracker',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) =>

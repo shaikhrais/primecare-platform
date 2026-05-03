@@ -1,16 +1,20 @@
 // PRIMECARE CONSOLIDATED FILE
-import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
+import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD
+// @governance: component=Vitals Monitor
+// @governance: component=Medication Queue
+// @governance: component=Shift Handover Notes
 
 class RpnView extends ConsumerWidget {
   const RpnView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(rpnAdapterProvider);
+    final state = ref.watch(rpnDashboardAdapterProvider);
 
     return MasterLayout(
       child: state.when(
@@ -18,13 +22,13 @@ class RpnView extends ConsumerWidget {
           (viewModel) => _buildContent(context, viewModel),
           (e) => DashboardErrorWidget(
             message: 'RPN Sync Error: $e',
-            onRetry: () => ref.refresh(rpnAdapterProvider),
+            onRetry: () => ref.refresh(rpnDashboardAdapterProvider),
           ),
         ),
         loading: () => const DashboardLoadingWidget(),
         error: (e, st) => DashboardErrorWidget(
           message: 'Connection Error: $e',
-          onRetry: () => ref.refresh(rpnAdapterProvider),
+          onRetry: () => ref.refresh(rpnDashboardAdapterProvider),
         ),
       ),
     );
@@ -83,8 +87,22 @@ class RpnView extends ConsumerWidget {
   }
 }
 
-class RpnIntent extends PrimeCareScreen {
-  RpnIntent() : super(title: 'Rpn');
+class RpnDashboardIntent extends PrimeCareScreen {
+  RpnDashboardIntent()
+      : super(
+          name: 'rpn',
+          title: LocaleKeys.clinical_rpn_dashboard_title,
+          route: '/offices/clinical/roles/rpn/dashboard',
+          requiredRole: PlatformRole.rpn,
+          form: PrimeCareForm.rpnDashboard,
+          provider: rpnDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Practical Clinical Oversight)',
+            'Vitals Monitor',
+            'Medication Queue',
+            'Shift Handover Notes',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const RpnView();

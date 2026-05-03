@@ -22,20 +22,17 @@ class QualityAssuranceDashboardController
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    final service = ref.read(dashboardServiceProvider);
+    final result = await ref.read(
+      dashboardMetricsProvider('quality_assurance').future,
+    );
 
-    try {
-      final result = await service.getMetrics('quality_assurance');
-      state = AsyncValue.data(
-        result.map(
-          (DashboardMetrics metrics) => QualityAssuranceDashboardViewModel(
-            metrics: metrics,
-            insights: const [],
-          ),
+    state = AsyncValue.data(
+      result.map(
+        (DashboardMetrics metrics) => QualityAssuranceDashboardViewModel(
+          metrics: metrics,
+          insights: const [],
         ),
-      );
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-    }
+      ),
+    );
   }
 }

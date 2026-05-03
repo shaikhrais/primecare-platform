@@ -1,60 +1,70 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'client_operations_model.dart';
+
 
 final clientDashboardControllerProvider =
     FutureProvider<Result<ClientDashboardModel>>((ref) async {
   const route = 'Client';
   const cacheKey = 'client_dashboard';
   final resilience = ref.read(resilienceServiceProvider);
+  final telemetry = ref.read(executionGateProvider);
 
   try {
-    final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
-    final metrics = metricsResult.fold((m) => _enhanceClientMetrics(m), (e) => DashboardMetrics.empty());
+    final response = await ref.read(apiClientProvider).get(
+      '/dashboard-metrics',
+      query: {'role': route},
+    );
+    final data = response.data as Map<String, dynamic>;
 
-    final insights = _generateClientInsights();
+    final metricsRaw = data['metrics'] ?? data['kpis'] ?? <dynamic>[];
+    final insightsRaw = data['insights'] ?? <dynamic>[];
+    final timelineRaw = data['timeline'] ?? data['recentActivity'] ?? <dynamic>[];
+    final trendsRaw = data['trends'] ?? data['charts'] ?? <dynamic>[];
+    final isFallback = data['isOfflineFallback'] ?? false;
+
+    final intlModel = IntelligenceDashboardModel.fromJson({
+      'metrics': metricsRaw,
+      'insights': insightsRaw,
+      'timeline': timelineRaw,
+      'trends': trendsRaw,
+      'isOfflineFallback': isFallback,
+      'lastUpdated': DateTime.now().toIso8601String(),
+    });
+
+    final dashboardMetrics = DashboardMetrics(
+      kpis: intlModel.metrics,
+      recentActivity: intlModel.timeline,
+      charts: intlModel.trends,
+      insights: intlModel.insights,
+      isOfflineFallback: intlModel.isFromCache,
+    );
+
+    final mappedInsights = intlModel.insights
+        .map((e) => IntelligenceInsight.fromDashboardInsight(e))
+        .toList();
 
     final model = ClientDashboardModel(
-      metrics: metrics,
-      insights: insights,
+      metrics: dashboardMetrics,
+      insights: mappedInsights,
     );
 
     unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
     return Success(model);
   } catch (e) {
-    final snapshot = resilience.getSnapshot(cacheKey);
-    if (snapshot != null) {
-      return Success(ClientDashboardModel.fromJson(snapshot).copyWith(isOfflineFallback: true));
-    }
-    return Success(ClientDashboardModel.empty(isOfflineFallback: true));
+    return _handleFallback(resilience, cacheKey, telemetry, e);
   }
 });
 
-DashboardMetrics _enhanceClientMetrics(DashboardMetrics original) {
-  return DashboardMetrics(
-    kpis: [
-      KpiMetric(
-        title: LocaleKeys.dashboards_client_labels_care_plan_progress.tr(),
-        value: '85%',
-        trend: '+5%',
-        status: 'positive',
-      ),
-    ],
-    charts: [],
-    recentActivity: [],
-  );
-}
-
-List<IntelligenceInsight> _generateClientInsights() {
-  return [
-    IntelligenceInsight(
-      id: 'client_1',
-      title: LocaleKeys.dashboards_client_labels_wellness_milestone.tr(),
-      summary: 'You have maintained optimal vitals for 7 consecutive days.',
-      type: InsightType.info,
-      impact: InsightImpact.positive,
-    ),
-  ];
+Result<ClientDashboardModel> _handleFallback(
+  ResilienceService resilience,
+  String cacheKey,
+  ExecutionGateService telemetry,
+  dynamic error,
+) {
+  final snapshot = resilience.getSnapshot(cacheKey);
+  if (snapshot != null) {
+    return Success(ClientDashboardModel.fromJson(snapshot));
+  }
+  return Success(ClientDashboardModel.empty(isOfflineFallback: true));
 }

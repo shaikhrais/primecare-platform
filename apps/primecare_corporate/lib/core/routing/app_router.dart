@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 
 import 'corporate_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/src/routes/shared_routes.dart';
+import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
@@ -49,17 +51,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     errorBuilder: (context, state) => MasterLayout(
       shellType: AppShellType.admin,
-      overrideUri: state.uri.toString(),
-      child: NotFoundScreen(message: state.error?.message),
+      child: CommonUiError404PageViewScreen(),
     ),
     routes: [
       GoRoute(
         path: CommonRoutes.splash,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const Placeholder(),
       ),
       GoRoute(
         path: CommonRoutes.login,
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => const SignInView(),
       ),
       ShellRoute(
         builder: (context, state, child) =>
@@ -69,17 +70,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ...sharedCommonRoutes,
           GoRoute(
             path: '/:segment1/:segment2',
-            builder: (context, state) => NotFoundScreen(
-              message:
-                  'God Mode Preview:\n\n${state.uri.toString()} belongs to a different frontend application in the monolithic PrimeCare system.',
-            ),
+            builder: (context, state) => CommonUiError404PageViewScreen(),
           ),
           GoRoute(
             path: '/:segment1/:segment2/:segment3',
-            builder: (context, state) => NotFoundScreen(
-              message:
-                  'God Mode Preview:\n\n${state.uri.toString()} belongs to a different frontend application in the monolithic PrimeCare system.',
-            ),
+            builder: (context, state) => CommonUiError404PageViewScreen(),
           ),
         ],
       ),

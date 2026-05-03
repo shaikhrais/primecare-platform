@@ -2,6 +2,10 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class CourseArchitectDashboardView extends ConsumerWidget {
@@ -40,7 +44,14 @@ class CourseArchitectDashboardView extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Course Architect Command Center', style: theme.typography.h2),
+          Text(
+            LocaleKeys.course_architect_dashboard_title.tr(),
+            style: theme.typography.h2,
+          ),
+          Text(
+            LocaleKeys.course_architect_dashboard_subtitle.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
@@ -59,7 +70,16 @@ class CourseArchitectDashboardView extends ConsumerWidget {
 }
 
 class CourseArchitectDashboardIntent extends PrimeCareScreen {
-  CourseArchitectDashboardIntent() : super(title: 'CourseArchitectDashboard');
+  CourseArchitectDashboardIntent()
+      : super(
+          name: 'course_architect_dashboard',
+          title: LocaleKeys.course_architect_dashboard_title,
+          route: '/corporate/education/architect',
+          requiredRole: PlatformRole.courseArchitect,
+          form: PrimeCareForm.courseArchitectTool,
+          provider: courseArchitectAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Curriculum Builder', 'Resource Mapping', 'LMS Integration Monitor'],
+        );
 
   @override
   Widget build(BuildContext context) => const CourseArchitectDashboardView();

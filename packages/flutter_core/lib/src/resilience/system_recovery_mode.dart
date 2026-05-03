@@ -41,7 +41,7 @@ class SystemRecoveryMode extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'A critical interface failure was intercepted. The session state has been protected and a diagnostic trail has been generated below.',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16),
@@ -55,7 +55,7 @@ class SystemRecoveryMode extends StatelessWidget {
               ElevatedButton(
                 onPressed: onAttemptReset,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2563EB),
+                  backgroundColor: Color(0xFF2563EB),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 48,
@@ -66,7 +66,7 @@ class SystemRecoveryMode extends StatelessWidget {
                   ),
                   elevation: 8,
                 ),
-                child: const Text(
+                child: Text(
                   'Attempt Interface Reset',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -90,7 +90,7 @@ class SystemRecoveryMode extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.terminal_rounded, color: Colors.amber, size: 18),
               SizedBox(width: 12),
@@ -109,7 +109,7 @@ class SystemRecoveryMode extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 16),
             child: Divider(color: Colors.white10, height: 1),
           ),
-          const Text(
+          Text(
             'EXCEPTION:',
             style: TextStyle(
               color: Color(0xFF64748B),
@@ -129,7 +129,7 @@ class SystemRecoveryMode extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'STACK TRACE:',
             style: TextStyle(
               color: Color(0xFF64748B),

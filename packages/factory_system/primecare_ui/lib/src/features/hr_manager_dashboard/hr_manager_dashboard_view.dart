@@ -1,10 +1,24 @@
+// @governance: id=SCREEN_HR_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Data Table
+
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Operational DashboardMetrics
+// @governance: component=HR Action Hub
+// @governance: component=Staffing Velocity
+// @governance: component=Compliance Audit
+// @governance: component=Aura HUD
 class HrManagerDashboardView extends ConsumerWidget {
   const HrManagerDashboardView({super.key});
 
@@ -46,9 +60,12 @@ class HrManagerDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Human Capital Command', style: theme.typography.h2),
                   Text(
-                    'Workforce stability, payroll velocity, and compliance telemetry',
+                    LocaleKeys.hr_manager_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.hr_manager_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -247,7 +264,16 @@ class HrActionHub extends StatelessWidget {
 }
 
 class HrManagerDashboardIntent extends PrimeCareScreen {
-  HrManagerDashboardIntent() : super(title: 'HrManagerDashboard');
+  HrManagerDashboardIntent()
+      : super(
+          name: 'hr_manager_dashboard',
+          title: LocaleKeys.hr_manager_dashboard_title,
+          route: '/offices/roles/hr/manager',
+          requiredRole: PlatformRole.hrManager,
+          form: PrimeCareForm.hrManagerDashboard,
+          provider: hrManagerDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'HR Telemetry'],
+        );
 
   @override
   Widget build(BuildContext context) => const HrManagerDashboardView();

@@ -2,8 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD
+// @governance: component=Territory Performance Heatmap
+// @governance: component=BDM Activity Log
+// @governance: component=Conversion Statistics
 
 class RegionalBdmDashboardView extends ConsumerWidget {
   const RegionalBdmDashboardView({super.key});
@@ -85,7 +89,21 @@ class RegionalBdmDashboardView extends ConsumerWidget {
 }
 
 class RegionalBdmDashboardIntent extends PrimeCareScreen {
-  RegionalBdmDashboardIntent() : super(title: 'RegionalBdmDashboard');
+  RegionalBdmDashboardIntent()
+    : super(
+        name: 'SCREEN_REGIONAL_BDM_DASHBOARD',
+        title: LocaleKeys.business_development_regional_bdm_dashboard_title,
+        route: '/regional-bdm-dashboard',
+        requiredRole: PlatformRole.regionalBdm,
+        form: PrimeCareForm.regionalBdmDashboard,
+        provider: regionalBdmDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Territory Performance Heatmap',
+          'BDM Activity Log',
+          'Conversion Statistics',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const RegionalBdmDashboardView();

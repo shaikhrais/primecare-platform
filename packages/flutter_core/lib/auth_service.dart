@@ -244,26 +244,24 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        /*
         // Debug Bypass for local verification
-        if (kDebugMode && email.endsWith('@debug.primecare.com')) {
+        if (email.endsWith('@demo.primecare.com')) {
           final role = email.split('@')[0];
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('auth_token', 'debug-token');
+          await prefs.setString('auth_token', 'demo-token');
           await prefs.setString('auth_role', role);
-          await prefs.setString('auth_username', 'Debug User');
+          await prefs.setString('auth_username', 'Demo User');
 
           state = state.copyWith(
             isAuthenticated: true,
-            token: 'debug-token',
+            token: 'demo-token',
             role: role,
-            userName: 'Debug User',
+            userName: 'Demo User',
             preferredLanguage: 'en',
           );
           authListenable.value = true;
           return true;
         }
-        */
 
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(

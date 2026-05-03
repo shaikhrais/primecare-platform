@@ -80,8 +80,18 @@ class RnDashboardView extends ConsumerWidget {
 class RnDashboardIntent extends PrimeCareScreen {
   RnDashboardIntent()
     : super(
-        title: 'RnDashboard',
+        name: 'rn',
+        title: LocaleKeys.clinical_rn_dashboard_title,
         route: '/offices/clinical/roles/rn/dashboard',
+        requiredRole: PlatformRole.rn,
+        form: PrimeCareForm.rnDashboard,
+        provider: rnDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Medication Administration Record',
+          'Wound Care Module',
+          'Clinical Outcome Trends',
+        ],
       );
 
   @override

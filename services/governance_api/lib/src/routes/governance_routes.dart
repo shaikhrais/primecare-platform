@@ -1,5 +1,5 @@
 import 'package:shelf_router/shelf_router.dart';
-import 'governance_controller.dart';
+import '../controllers/governance_controller.dart';
 
 class GovernanceRoutes {
   static Router get router {

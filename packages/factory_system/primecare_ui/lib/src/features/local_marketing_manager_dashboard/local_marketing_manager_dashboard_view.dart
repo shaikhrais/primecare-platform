@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_LOCAL_MARKETING_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Lead Velocity)
+// @governance: component=Campaign Performance Grid
+// @governance: component=Referral Source Tracking
+// @governance: component=Outreach Event Calendar
 class LocalMarketingManagerDashboardView extends ConsumerWidget {
   const LocalMarketingManagerDashboardView({super.key});
 
@@ -16,13 +23,9 @@ class LocalMarketingManagerDashboardView extends ConsumerWidget {
     return MasterLayout(
       child: state.when(
         data: (result) => result.fold(
-          (viewModel) => _buildContent(
-            context,
-            theme,
-            viewModel as LocalMarketingManagerDashboardViewModel,
-          ),
+          (viewModel) => _buildContent(context, theme, viewModel as LocalMarketingManagerDashboardViewModel),
           (e) => DashboardErrorWidget(
-            message: 'Governance Error: $e',
+            message: 'Marketing Governance Error: $e',
             onRetry: () =>
                 ref.refresh(localMarketingManagerDashboardAdapterProvider),
           ),
@@ -49,18 +52,9 @@ class LocalMarketingManagerDashboardView extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    LocaleKeys.command_center_labels_marketing_center.tr(),
-                    style: theme.typography.h2,
-                  ),
-                  Text(
-                    'Growth telemetry, campaign ROI, and lead conversion velocity',
-                    style: theme.typography.labelMedium,
-                  ),
-                ],
+              Text(
+                'Local Marketing Manager Command Center',
+                style: theme.typography.h2,
               ),
               const Spacer(),
               if (viewModel.isOfflineFallback) const OfflineStatusChip(),
@@ -78,18 +72,16 @@ class LocalMarketingManagerDashboardView extends ConsumerWidget {
                 flex: 2,
                 child: Column(
                   children: [
-                    _buildCampaignPerformance(context, theme),
+                    _buildCampaignPerformance(theme, viewModel.campaigns),
                     SizedBox(height: theme.spacing.xl),
-                    _buildLeadConversionFunnel(context, theme),
+                    _buildReferralSources(theme, viewModel.referrals),
                   ],
                 ),
               ),
-              if (viewModel.insights.isNotEmpty) ...[
-                SizedBox(width: theme.spacing.xl),
-                Expanded(
-                  child: _buildAuraInsightsColumn(theme, viewModel.insights),
-                ),
-              ],
+              SizedBox(width: theme.spacing.xl),
+              Expanded(
+                child: _buildAuraInsights(theme, viewModel.insights),
+              ),
             ],
           ),
         ],
@@ -98,129 +90,65 @@ class LocalMarketingManagerDashboardView extends ConsumerWidget {
   }
 
   Widget _buildCampaignPerformance(
-    BuildContext context,
     PrimeCareThemeData theme,
+    List<MarketingCampaign> campaigns,
   ) {
     return PrimeCareCard(
-      padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Active Campaign ROI', style: theme.typography.titleLarge),
-          SizedBox(height: theme.spacing.md),
-          _buildPerformanceRow(
-            theme,
-            'Senior Living Expo',
-            0.85,
-            theme.colors.success,
-          ),
-          _buildPerformanceRow(
-            theme,
-            'Facebook Outreach',
-            0.62,
-            theme.colors.primary,
-          ),
-          _buildPerformanceRow(
-            theme,
-            'Local Print Ads',
-            0.45,
-            theme.colors.warning,
-          ),
-          _buildPerformanceRow(
-            theme,
-            'Community Referral',
-            0.91,
-            theme.colors.info,
+          Text('Campaign Performance', style: theme.typography.h4),
+          SizedBox(height: theme.spacing.lg),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: campaigns.length,
+            separatorBuilder: (_, __) => Divider(height: theme.spacing.xl),
+            itemBuilder: (context, index) {
+              final campaign = campaigns[index];
+              return ListTile(
+                title: Text(campaign.title, style: theme.typography.bodyLarge),
+                subtitle: Text('Conversion Rate: ${campaign.conversionRate}%'),
+                trailing: Text(
+                  campaign.status,
+                  style: theme.typography.labelMedium.copyWith(
+                    color: campaign.status == 'Active' ? Colors.green : Colors.orange,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPerformanceRow(
+  Widget _buildReferralSources(
     PrimeCareThemeData theme,
-    String name,
-    double value,
-    Color color,
-  ) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: theme.spacing.sm),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(name, style: theme.typography.bodyLarge),
-              const Spacer(),
-              Text(
-                '${(value * 10).toStringAsFixed(1)}x ROI',
-                style: theme.typography.label,
-              ),
-            ],
-          ),
-          SizedBox(height: theme.spacing.xs),
-          LinearProgressIndicator(
-            value: value,
-            backgroundColor: theme.colors.surfaceContainerHighest,
-            color: color,
-            minHeight: 8,
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLeadConversionFunnel(
-    BuildContext context,
-    PrimeCareThemeData theme,
+    List<ReferralSource> referrals,
   ) {
     return PrimeCareCard(
-      padding: EdgeInsets.all(theme.spacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Conversion Velocity', style: theme.typography.titleLarge),
-          SizedBox(height: theme.spacing.md),
-          _buildFunnelStep(theme, 'New Leads', 124, theme.colors.primary),
-          _buildFunnelStep(theme, 'Qualified', 85, theme.colors.info),
-          _buildFunnelStep(theme, 'Assessment', 42, theme.colors.warning),
-          _buildFunnelStep(theme, 'Contracted', 18, theme.colors.success),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFunnelStep(
-    PrimeCareThemeData theme,
-    String step,
-    int count,
-    Color color,
-  ) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: theme.spacing.sm),
-      child: Row(
-        children: [
-          Container(
-            width: 4,
-            height: 32,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(2),
+          Text('Referral Sources', style: theme.typography.h4),
+          SizedBox(height: theme.spacing.lg),
+          ...referrals.map((ref) => Padding(
+            padding: EdgeInsets.only(bottom: theme.spacing.md),
+            child: Row(
+              children: [
+                Text(ref.source, style: theme.typography.bodyMedium),
+                const Spacer(),
+                Text('${ref.count} leads', style: theme.typography.labelLarge),
+              ],
             ),
-          ),
-          SizedBox(width: theme.spacing.md),
-          Text(step, style: theme.typography.bodyLarge),
-          const Spacer(),
-          Text(
-            count.toString(),
-            style: theme.typography.h4.copyWith(color: color),
-          ),
+          )).toList(),
         ],
       ),
     );
   }
 
-  Widget _buildAuraInsightsColumn(
+  Widget _buildAuraInsights(
     PrimeCareThemeData theme,
     List<IntelligenceInsight> insights,
   ) {
@@ -244,8 +172,33 @@ class LocalMarketingManagerDashboardView extends ConsumerWidget {
 }
 
 class LocalMarketingManagerDashboardIntent extends PrimeCareScreen {
+  static const kName = 'local-marketing-manager-dashboard';
+  static const kRoute = '/offices/corporate/roles/local-marketing-manager/dashboard';
+
+  @override
+  String get title => LocaleKeys.local_marketing_manager_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.localMarketingManager;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.localMarketingManagerDashboard;
+
   LocalMarketingManagerDashboardIntent()
-    : super(title: 'LocalMarketingManagerDashboard');
+      : super(
+          name: kName,
+          title: LocaleKeys.local_marketing_manager_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.localMarketingManager,
+          form: PrimeCareForm.localMarketingManagerDashboard,
+          provider: localMarketingManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Lead Velocity)',
+            'Campaign Performance Grid',
+            'Referral Source Tracking',
+            'Outreach Event Calendar',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

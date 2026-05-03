@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_FINANCE_DIRECTOR_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -185,8 +189,18 @@ class FinanceDirectorDashboardView extends ConsumerWidget {
 class FinanceDirectorDashboardIntent extends PrimeCareScreen {
   FinanceDirectorDashboardIntent()
     : super(
-        title: 'FinanceDirectorDashboard',
+        title: 'dashboards.common.labels.finance_director_dashboard',
+        name: 'finance_director_dashboard',
         route: '/offices/corporate/roles/finance_director/dashboard',
+        requiredRole: PlatformRole.financeDirector,
+        form: PrimeCareForm.financeDirectorDashboard,
+        provider: financeDirectorDashboardAdapterProvider,
+        componentLabels: [
+          'Aura HUD',
+          'Financial Summary Grid',
+          'Cash Flow Forecast',
+          'Budget Distribution',
+        ],
       );
 
   @override

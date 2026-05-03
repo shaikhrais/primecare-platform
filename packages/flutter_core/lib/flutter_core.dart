@@ -72,6 +72,7 @@ export 'routes/groups/marketing_routes.dart';
 export 'routes/groups/support_routes.dart';
 export 'routes/groups/office_routes.dart';
 export 'routes/groups/common_routes.dart';
+export 'routes/groups/regional_finance_routes.dart';
 export 'theme/app_theme.dart';
 
 // Dashboards and ViewModels are now consolidated in primecare_adapters
@@ -89,7 +90,7 @@ export 'aura_providers.dart';
 export 'src/services/scheduler_service.dart';
 export 'scheduler_providers.dart';
 export 'src/models/aura_intent.dart';
-export 'src/models/aura_event.dart';
+// Aura Models are now exported via primecare_ui
 
 // Presentation ViewModels and Adapters have been relocated to primecare_adapters and primecare_ui.
 // Direct exports from local features have been removed to maintain decoupling.

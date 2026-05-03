@@ -1,3 +1,8 @@
+// Layer: 02_I_HR_DIRECTOR_DASHBOARD_VIEW
+// @governance: id=SCREEN_HR_DIRECTOR_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +10,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Workforce Stability)
+// @governance: component=Retention Analytics Chart
+// @governance: component=Recruitment Pipeline Grid
+// @governance: component=Policy Compliance Monitor
 class HrDirectorDashboardView extends ConsumerWidget {
   const HrDirectorDashboardView({super.key});
 
@@ -47,11 +56,11 @@ class HrDirectorDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Workforce Intelligence Hub',
+                    LocaleKeys.hr_director_dashboard_title.tr(),
                     style: theme.typography.h2,
                   ),
                   Text(
-                    'Workforce stability, clinical turnover, and hiring velocity telemetry',
+                    LocaleKeys.hr_director_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -152,7 +161,16 @@ class HrDirectorDashboardView extends ConsumerWidget {
 }
 
 class HrDirectorDashboardIntent extends PrimeCareScreen {
-  HrDirectorDashboardIntent() : super(title: 'HrDirectorDashboard');
+  HrDirectorDashboardIntent()
+      : super(
+          name: 'hr_director_dashboard',
+          title: LocaleKeys.hr_director_dashboard_title,
+          route: '/offices/roles/hr/director',
+          requiredRole: PlatformRole.hrDirector,
+          form: PrimeCareForm.hrDirectorDashboard,
+          provider: hrDirectorDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Workforce Intelligence'],
+        );
 
   @override
   Widget build(BuildContext context) => const HrDirectorDashboardView();

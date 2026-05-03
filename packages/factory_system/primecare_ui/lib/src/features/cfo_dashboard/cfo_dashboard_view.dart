@@ -1,8 +1,16 @@
+// @governance: id=SCREEN_CFO_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD
+// @governance: component=Liquidity Index
+// @governance: component=Burn Rate Analysis
+// @governance: component=Capital Allocation
 class CfoDashboardView extends ConsumerWidget {
   const CfoDashboardView({super.key});
 
@@ -68,8 +76,18 @@ class CfoDashboardView extends ConsumerWidget {
 class CfoDashboardIntent extends PrimeCareScreen {
   CfoDashboardIntent()
     : super(
-        title: 'CfoDashboard',
+        name: 'cfo',
+        title: LocaleKeys.dashboards_common_labels_cfo_dashboard,
         route: '/offices/corporate/roles/cfo/dashboard',
+        requiredRole: PlatformRole.cfo,
+        form: PrimeCareForm.cfoDashboard,
+        provider: cfoDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (Financial Intelligence)',
+          'Liquidity Index',
+          'Burn Rate Analysis',
+          'Capital Allocation',
+        ],
       );
 
   @override

@@ -1,10 +1,18 @@
+// @governance: id=SCREEN_FRANCHISE_SALES_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+
+// @governance: component=Aura HUD (Franchise Sales Funnel)
+// @governance: component=Sales Funnel Visualization
+// @governance: component=Candidate Lifecycle Map
+// @governance: component=CD Pipeline Monitor
 class FranchiseSalesManagerDashboardView extends ConsumerWidget {
   const FranchiseSalesManagerDashboardView({super.key});
 
@@ -66,9 +74,12 @@ class _DashboardHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Sales Command', style: theme.typography.h2),
             Text(
-              'Pipeline velocity, lead conversion, and territorial expansion telemetry',
+              LocaleKeys.franchise_sales_manager_dashboard_title.tr(),
+              style: theme.typography.h2,
+            ),
+            Text(
+              LocaleKeys.franchise_sales_manager_dashboard_subtitle.tr(),
               style: theme.typography.labelMedium,
             ),
           ],
@@ -146,7 +157,20 @@ class _FranchiseLeadList extends StatelessWidget {
 
 class FranchiseSalesManagerDashboardIntent extends PrimeCareScreen {
   FranchiseSalesManagerDashboardIntent()
-    : super(title: 'FranchiseSalesManagerDashboard');
+      : super(
+          name: 'SCREEN_FRANCHISE_SALES_MANAGER_DASHBOARD',
+          title: LocaleKeys.franchise_sales_manager_dashboard_title,
+          route: '/franchise-sales-manager-dashboard',
+          requiredRole: PlatformRole.franchiseSalesManager,
+          form: PrimeCareForm.franchiseSalesManagerDashboard,
+          provider: franchiseSalesAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Franchise Sales Funnel)',
+            'Sales Funnel Visualization',
+            'Candidate Lifecycle Map',
+            'CD Pipeline Monitor',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

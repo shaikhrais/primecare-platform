@@ -1,6 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// Production-grade error boundary that captures all unhandled exceptions
@@ -166,7 +167,7 @@ class SystemHealingPlaceholder extends StatelessWidget {
             Text(
               'MECHANICAL FIX IN PROGRESS...',
               style: TextStyle(
-                color: Colors.cyanAccent.withValues(alpha: 0.8),
+                color: Colors.cyanAccent.withOpacity(0.8),
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
               ),
@@ -175,7 +176,7 @@ class SystemHealingPlaceholder extends StatelessWidget {
             Text(
               'Attempting to clear system error #${SystemRecoveryManager.healCount}',
               style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.5),
+                color: Colors.white.withOpacity(0.5),
                 fontSize: 12,
               ),
             ),

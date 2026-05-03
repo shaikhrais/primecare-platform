@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../core/ui/app_components.dart';
-import 'user.dart';
+import 'models/user.dart';
 
 class UserFormView extends StatelessWidget {
   final User? user;

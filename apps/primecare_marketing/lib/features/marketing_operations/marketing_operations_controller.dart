@@ -1,47 +1,70 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'marketing_operations_model.dart';
+
 
 final marketingDashboardControllerProvider =
     FutureProvider<Result<MarketingDashboardModel>>((ref) async {
   const route = '/v2/marketing/head_of_marketing';
   const cacheKey = 'marketing_dashboard';
   final resilience = ref.read(resilienceServiceProvider);
+  final telemetry = ref.read(executionGateProvider);
 
   try {
-    final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
-    final metrics = metricsResult.fold((m) => m, (e) => DashboardMetrics.empty());
+    final response = await ref.read(apiClientProvider).get(
+      '/dashboard-metrics',
+      query: {'role': route},
+    );
+    final data = response.data as Map<String, dynamic>;
 
-    final insights = await _fetchMarketingInsights();
+    final metricsRaw = data['metrics'] ?? data['kpis'] ?? <dynamic>[];
+    final insightsRaw = data['insights'] ?? <dynamic>[];
+    final timelineRaw = data['timeline'] ?? data['recentActivity'] ?? <dynamic>[];
+    final trendsRaw = data['trends'] ?? data['charts'] ?? <dynamic>[];
+    final isFallback = data['isOfflineFallback'] ?? false;
+
+    final intlModel = IntelligenceDashboardModel.fromJson({
+      'metrics': metricsRaw,
+      'insights': insightsRaw,
+      'timeline': timelineRaw,
+      'trends': trendsRaw,
+      'isOfflineFallback': isFallback,
+      'lastUpdated': DateTime.now().toIso8601String(),
+    });
+
+    final dashboardMetrics = DashboardMetrics(
+      kpis: intlModel.metrics,
+      recentActivity: intlModel.timeline,
+      charts: intlModel.trends,
+      insights: intlModel.insights,
+      isOfflineFallback: intlModel.isFromCache,
+    );
+
+    final mappedInsights = intlModel.insights
+        .map((e) => IntelligenceInsight.fromDashboardInsight(e))
+        .toList();
 
     final model = MarketingDashboardModel(
-      metrics: metrics,
-      insights: insights,
+      metrics: dashboardMetrics,
+      insights: mappedInsights,
     );
 
     unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
     return Success(model);
   } catch (e) {
-    final snapshot = resilience.getSnapshot(cacheKey);
-    if (snapshot != null) {
-      return Success(MarketingDashboardModel.fromJson(snapshot).copyWith(isOfflineFallback: true));
-    }
-    return Success(MarketingDashboardModel.empty(isOfflineFallback: true));
+    return _handleFallback(resilience, cacheKey, telemetry, e);
   }
 });
 
-Future<List<IntelligenceInsight>> _fetchMarketingInsights() async {
-  return [
-    IntelligenceInsight(
-      id: 'mkt_1',
-      title: LocaleKeys.marketing_dashboard_labels_campaign_roi_peak.tr(),
-      summary: 'Q2 Clinical Growth campaign is delivering a 4.2x ROI.',
-      impact: InsightImpact.positive,
-      type: InsightType.optimization,
-      category: 'Growth',
-      recommendation: 'Reallocate 15% of LinkedIn budget.',
-    ),
-  ];
+Result<MarketingDashboardModel> _handleFallback(
+  ResilienceService resilience,
+  String cacheKey,
+  ExecutionGateService telemetry,
+  dynamic error,
+) {
+  final snapshot = resilience.getSnapshot(cacheKey);
+  if (snapshot != null) {
+    return Success(MarketingDashboardModel.fromJson(snapshot));
+  }
+  return Success(MarketingDashboardModel.empty(isOfflineFallback: true));
 }

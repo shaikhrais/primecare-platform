@@ -40,9 +40,12 @@ export 'src/generic/dynamic_adapter_provider.dart';
 export 'src/registry/primecare_form_enum.dart';
 export 'src/registry/primecare_form_provider.dart';
 export 'src/utils/primecare_formatters.dart';
-export 'src/config/locale_keys.dart';
+export '../i18n/locale_keys.g.dart';
 export '../screen_registry.dart';
 export 'src/core/primecare_components.dart';
+export 'src/core/primecare_v4_components.dart';
+export 'src/core/aura_vision.dart';
+export 'src/core/aura_vision_blueprints.dart';
 export '../primecare_ui.dart';
 
 // Extensions

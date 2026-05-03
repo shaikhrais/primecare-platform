@@ -1,224 +1,87 @@
-import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import '../../../core/ui/dynamic_form_builder.dart';
-import '../../../core/utils/logger.dart';
-import 'audit_log_view.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
+import 'audit_log_view.dart';
+import 'role_entry_form.dart';
+import 'module_entry_form.dart';
+import 'app_entry_form.dart';
+import 'api_entry_form.dart';
+import 'feature_entry_form.dart';
+import 'lifecycle_governance_form.dart';
+import 'language_entry_form.dart';
+
+import 'correction_ticket_form.dart';
+import 'ticket_list_view.dart';
+
+/// [View] - Orchestrator for all Architectural Data Entry
+/// Provides a unified, tabbed interface for managing platform metadata.
 class GovernanceDataEntryView extends StatelessWidget {
   const GovernanceDataEntryView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     return DefaultTabController(
-      length: 7,
+      length: 9,
       child: Scaffold(
+        backgroundColor: Colors.transparent, // Allow glassmorphism background
         appBar: AppBar(
-          title: const Text('Governance Management'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Screens', icon: Icon(Icons.monitor)),
-              Tab(text: 'Routes', icon: Icon(Icons.route)),
-              Tab(text: 'Permissions', icon: Icon(Icons.security)),
-              Tab(text: 'Apps', icon: Icon(Icons.apps)),
-              Tab(text: 'Modules', icon: Icon(Icons.view_module)),
-              Tab(text: 'Roles', icon: Icon(Icons.badge)),
-              Tab(text: 'Audit Logs', icon: Icon(Icons.history)),
+          title: Text(LocaleKeys.governance_discovered_forms.tr()),
+          backgroundColor: theme.colors.background.withValues(alpha: 0.8),
+          elevation: 0,
+          bottom: TabBar(
+            isScrollable: true,
+            indicatorColor: theme.colors.primary,
+            labelColor: theme.colors.primary,
+            unselectedLabelColor: theme.colors.slateGray,
+            tabs: const [
+              Tab(text: 'Roles', icon: Icon(Icons.admin_panel_settings_rounded)),
+              Tab(text: 'Modules', icon: Icon(Icons.view_module_rounded)),
+              Tab(text: 'Apps', icon: Icon(Icons.apps_rounded)),
+              Tab(text: 'Endpoints', icon: Icon(Icons.api_rounded)),
+              Tab(text: 'Features', icon: Icon(Icons.toggle_on_rounded)),
+              Tab(text: 'Lifecycle', icon: Icon(Icons.published_with_changes_rounded)),
+              Tab(text: 'Tickets 🎟', icon: Icon(Icons.confirmation_number_rounded)),
+              Tab(text: 'Language', icon: Icon(Icons.translate_rounded)),
+              Tab(text: 'Audit', icon: Icon(Icons.history_edu_rounded)),
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            _buildScreenForm(),
-            _buildRouteForm(),
-            _buildPermissionForm(),
-            _buildAppForm(),
-            _buildModuleForm(),
-            _buildRoleForm(),
-            const AuditLogView(),
+            _TabWrapper(child: RoleEntryForm()),
+            _TabWrapper(child: ModuleEntryForm()),
+            _TabWrapper(child: AppEntryForm()),
+            _TabWrapper(child: ApiEntryForm()),
+            _TabWrapper(child: FeatureEntryForm()),
+            _TabWrapper(child: LifecycleGovernanceForm()),
+            _TabWrapper(
+              child: Column(
+                children: [
+                  CorrectionTicketForm(),
+                  SizedBox(height: 32),
+                  TicketListView(),
+                ],
+              ),
+            ),
+            _TabWrapper(child: LanguageEntryForm()),
+            _TabWrapper(child: AuditLogView()),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildScreenForm() {
+class _TabWrapper extends StatelessWidget {
+  final Widget child;
+  const _TabWrapper({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'id',
-            label: 'Screen ID (Upper Case)',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'title',
-            label: 'Display Title',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'featureName',
-            label: 'Feature Group',
-            type: FieldType.dropdown,
-            options: ['Core', 'User Management', 'Financials', 'Logistics'],
-            validators: [Validators.required.call],
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving Form Data: $data'),
-      ),
-    );
-  }
-
-  Widget _buildRouteForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'path',
-            label: 'Route Path (e.g. /users)',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'screenId',
-            label: 'Target Screen',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving Form Data: $data'),
-      ),
-    );
-  }
-
-  Widget _buildPermissionForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'role',
-            label: 'Role Name',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'resource',
-            label: 'Protected Resource',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'canRead',
-            label: 'Read Access',
-            type: FieldType.boolean,
-            initialValue: true,
-          ),
-          FormFieldConfig(
-            name: 'canWrite',
-            label: 'Write Access',
-            type: FieldType.boolean,
-            initialValue: false,
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving Form Data: $data'),
-      ),
-    );
-  }
-
-  Widget _buildModuleForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'moduleId',
-            label: 'Module ID (e.g. MOD-001)',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'moduleName',
-            label: 'Module Name',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'description',
-            label: 'Module Description',
-            type: FieldType.text,
-          ),
-          FormFieldConfig(
-            name: 'appId',
-            label: 'Parent Application',
-            type: FieldType.dropdown,
-            options: ['APP-CORP-001', 'APP-PSW-001'],
-            validators: [Validators.required.call],
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving Module: $data'),
-      ),
-    );
-  }
-
-  Widget _buildAppForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'appId',
-            label: 'Application ID (e.g. APP-001)',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'appName',
-            label: 'Application Name',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'appType',
-            label: 'Type',
-            type: FieldType.dropdown,
-            options: ['Web Admin', 'Mobile', 'Kiosk', 'Worker Service'],
-            validators: [Validators.required.call],
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving App: $data'),
-      ),
-    );
-  }
-
-  Widget _buildRoleForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: DynamicFormBuilder(
-        configs: [
-          FormFieldConfig(
-            name: 'roleName',
-            label: 'Role Name',
-            type: FieldType.text,
-            validators: [Validators.required.call],
-          ),
-          FormFieldConfig(
-            name: 'description',
-            label: 'Role Description',
-            type: FieldType.text,
-          ),
-          FormFieldConfig(
-            name: 'appId',
-            label: 'Associated App',
-            type: FieldType.dropdown,
-            options: ['APP-CORP-001', 'APP-PSW-001'],
-          ),
-        ],
-        onSave: (data) => AppLogger.i('Saving Role: $data'),
-      ),
+      child: child,
     );
   }
 }

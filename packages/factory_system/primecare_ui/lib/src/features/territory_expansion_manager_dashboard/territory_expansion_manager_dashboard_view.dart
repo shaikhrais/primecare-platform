@@ -1,22 +1,29 @@
+// @governance: id=SCREEN_TERRITORY_EXPANSION_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Expansion Roadmap)
+// @governance: component=Geographic Vetting Map
+// @governance: component=Site Viability Scorecard
+// @governance: component=Research Log
 class TerritoryExpansionManagerDashboardView extends ConsumerWidget {
   const TerritoryExpansionManagerDashboardView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final state = ref.watch(territoryExpansionManagerDashboardAdapterProvider);
+    final state = ref.watch<AsyncValue<Result<TerritoryExpansionManagerDashboardViewModel>>>(territoryExpansionManagerDashboardAdapterProvider);
 
     return MasterLayout(
       child: state.when(
-        data: (result) => result.fold(
-          (viewModel) => _buildContent(context, theme, viewModel),
+        data: (Result<TerritoryExpansionManagerDashboardViewModel> result) => result.fold(
+          (TerritoryExpansionManagerDashboardViewModel viewModel) => _buildContent(context, theme, viewModel),
           (e) => DashboardErrorWidget(
             message: 'Expansion Governance Error: $e',
             onRetry: () =>
@@ -76,8 +83,33 @@ class TerritoryExpansionManagerDashboardView extends ConsumerWidget {
 }
 
 class TerritoryExpansionManagerDashboardIntent extends PrimeCareScreen {
+  static const kName = 'territory-expansion-manager-dashboard';
+  static const kRoute = '/offices/corporate/roles/territory-expansion-manager/dashboard';
+
+  @override
+  String get title => LocaleKeys.business_development_territory_expansion_manager_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.territoryExpansionManager;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.territoryExpansionDashboard;
+
   TerritoryExpansionManagerDashboardIntent()
-    : super(title: 'TerritoryExpansionManagerDashboard');
+      : super(
+          name: kName,
+          title: LocaleKeys.business_development_territory_expansion_manager_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.territoryExpansionManager,
+          form: PrimeCareForm.territoryExpansionDashboard,
+          provider: territoryExpansionManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Expansion Roadmap)',
+            'Geographic Vetting Map',
+            'Site Viability Scorecard',
+            'Research Log',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

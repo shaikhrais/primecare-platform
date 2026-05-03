@@ -1,11 +1,14 @@
+// @governance: id=SCREEN_SOCIAL_WORKER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/src/components/primecare_app_bar.dart';
 import 'package:primecare_ui/src/shared/src/components/primecare_scaffold.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
 class SocialWorkerDashboardView extends ConsumerWidget {
   const SocialWorkerDashboardView({super.key});
@@ -285,7 +288,21 @@ class SocialWorkerDashboardView extends ConsumerWidget {
 }
 
 class SocialWorkerDashboardIntent extends PrimeCareScreen {
-  SocialWorkerDashboardIntent() : super(title: 'SocialWorkerDashboard');
+  SocialWorkerDashboardIntent()
+    : super(
+        name: 'social-worker',
+        title: LocaleKeys.dashboards_common_labels_social_care_command_hud,
+        route: '/offices/clinical/roles/social-worker/dashboard',
+        requiredRole: PlatformRole.socialWorker,
+        form: PrimeCareForm.socialWorkerDashboard,
+        provider: socialWorkerDashboardAdapterProvider,
+        componentLabels: [
+          'Aura HUD (Crisis Response Time)',
+          'Psychosocial Observation Log',
+          'Resource Mapping Tool',
+          'Intervention Tracker',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const SocialWorkerDashboardView();

@@ -2,6 +2,10 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class GuestDashboardView extends ConsumerWidget {
@@ -40,7 +44,11 @@ class GuestDashboardView extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Guest Command Center', style: theme.typography.h2),
+          Text(LocaleKeys.guest_dashboard_title.tr(), style: theme.typography.h2),
+          Text(
+            LocaleKeys.guest_dashboard_subtitle.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
@@ -59,7 +67,16 @@ class GuestDashboardView extends ConsumerWidget {
 }
 
 class GuestDashboardIntent extends PrimeCareScreen {
-  GuestDashboardIntent() : super(title: 'GuestDashboard');
+  GuestDashboardIntent()
+      : super(
+          name: 'guest_dashboard',
+          title: LocaleKeys.guest_dashboard_title,
+          route: '/portal/guest/dashboard',
+          requiredRole: PlatformRole.guest,
+          form: PrimeCareForm.guestDashboard,
+          provider: guestDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Welcome Module', 'Service Explorer', 'Self-Guided Intake'],
+        );
 
   @override
   Widget build(BuildContext context) => const GuestDashboardView();

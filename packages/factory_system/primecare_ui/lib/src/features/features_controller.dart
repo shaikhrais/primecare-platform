@@ -23,6 +23,7 @@ export 'crm_forms/crm_forms_controller.dart';
 export 'cto_dashboard/cto_dashboard_controller.dart';
 export 'customer_support_dashboard/customer_support_dashboard_controller.dart';
 export 'cx_director_dashboard/cx_director_dashboard_controller.dart';
+export 'dynamic_role_dashboard/dynamic_role_dashboard_controller.dart';
 export 'dynamic_screen_dashboard/dynamic_screen_dashboard_controller.dart';
 export 'family_dashboard/family_dashboard_controller.dart';
 export 'family_member/family_member_controller.dart';

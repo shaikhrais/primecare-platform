@@ -26,7 +26,7 @@ final List<ScreenConfig> clinicScreenRegistry = [
     routePath: CommonRoutes.clinicDashboard,
     titleKey: 'Clinical Intelligence',
     subtitleKey: 'High-fidelity operations and risk surveillance.',
-    view: ClinicDashboardView(),
+    view: ClinicOperationsView(),
   ),
   const ScreenConfig(
     routePath: CommonRoutes.clinicClientProfile,
@@ -98,11 +98,11 @@ final List<RouteBase> clinicRoutes = [
   // Note: These screens below still need consolidation into their own 3-file MVCs
   GoRoute(
     path: CommonRoutes.institutionalScheduler,
-    builder: (context, state) => const Placeholder('Institutional Scheduler'),
+    builder: (context, state) => const Placeholder(),
   ),
   GoRoute(
     path: '/offices/system-verification',
-    builder: (context, state) => const Placeholder('System Verification'),
+    builder: (context, state) => const Placeholder(),
   ),
 ];
 

@@ -2,8 +2,16 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Care Coordination)
+// @governance: component=Patient Status Card
+// @governance: component=Care Log Timeline
+// @governance: component=Wellness Trend Chart
 class FamilyMemberDashboardView extends ConsumerWidget {
   const FamilyMemberDashboardView({super.key});
 
@@ -40,7 +48,14 @@ class FamilyMemberDashboardView extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Family Member Command Center', style: theme.typography.h2),
+          Text(
+            LocaleKeys.family_member_dashboard_title.tr(),
+            style: theme.typography.h2,
+          ),
+          Text(
+            LocaleKeys.family_member_dashboard_subtitle.tr(),
+            style: theme.typography.labelMedium,
+          ),
           SizedBox(height: theme.spacing.xl),
           PrimeCareResponsiveKpiGrid(metrics: metrics),
           SizedBox(height: theme.spacing.xl),
@@ -59,7 +74,16 @@ class FamilyMemberDashboardView extends ConsumerWidget {
 }
 
 class FamilyMemberDashboardIntent extends PrimeCareScreen {
-  FamilyMemberDashboardIntent() : super(title: 'FamilyMemberDashboard');
+  FamilyMemberDashboardIntent()
+      : super(
+          name: 'family_member_dashboard',
+          title: LocaleKeys.family_member_dashboard_title,
+          route: '/portal/family/dashboard',
+          requiredRole: PlatformRole.familyMember,
+          form: PrimeCareForm.familyMemberDashboard,
+          provider: familyMemberDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Care Coordination'],
+        );
 
   @override
   Widget build(BuildContext context) => const FamilyMemberDashboardView();

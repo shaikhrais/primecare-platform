@@ -27,6 +27,7 @@ dependencies:
   printing: ^5.14.3
   freezed_annotation: any
   equatable: any
+  collection: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

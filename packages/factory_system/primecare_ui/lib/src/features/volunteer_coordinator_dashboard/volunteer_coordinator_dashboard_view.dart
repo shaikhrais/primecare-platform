@@ -2,8 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD
+// @governance: component=Volunteer Roster
+// @governance: component=Impact Heatmap
+// @governance: component=Orientation Progress
 
 class VolunteerCoordinatorDashboardView extends ConsumerWidget {
   const VolunteerCoordinatorDashboardView({super.key});
@@ -19,13 +23,13 @@ class VolunteerCoordinatorDashboardView extends ConsumerWidget {
           (viewModel) => _buildContent(context, theme, viewModel),
           (e) => DashboardErrorWidget(
             message: 'Volunteer Governance Error: $e',
-            onRetry: () => ref.refresh(verificationHubAdapterProvider),
+            onRetry: () => ref.refresh(volunteerCoordinatorDashboardAdapterProvider),
           ),
         ),
         loading: () => const DashboardLoadingWidget(),
         error: (e, st) => DashboardErrorWidget(
           message: 'Connection Error: $e',
-          onRetry: () => ref.refresh(verificationHubAdapterProvider),
+          onRetry: () => ref.refresh(volunteerCoordinatorDashboardAdapterProvider),
         ),
       ),
     );
@@ -142,7 +146,20 @@ class VolunteerCoordinatorDashboardView extends ConsumerWidget {
 
 class VolunteerCoordinatorDashboardIntent extends PrimeCareScreen {
   VolunteerCoordinatorDashboardIntent()
-    : super(title: 'VolunteerCoordinatorDashboard');
+      : super(
+          name: 'SCREEN_VOLUNTEER_COORDINATOR_DASHBOARD',
+          title: LocaleKeys.command_center_labels_volunteer_center,
+          route: '/volunteer-coordinator-dashboard',
+          requiredRole: PlatformRole.volunteerCoordinator,
+          form: PrimeCareForm.volunteerCoordinatorDashboard,
+          provider: volunteerCoordinatorDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Volunteer Roster',
+            'Impact Heatmap',
+            'Orientation Progress',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

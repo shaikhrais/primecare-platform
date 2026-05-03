@@ -1,9 +1,13 @@
 // PRIMECARE CONSOLIDATED FILE
-import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
+import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD
+// @governance: component=Massage Session Log
+// @governance: component=Client Trigger Point Map
+// @governance: component=Therapeutic Goal Tracker
 
 class RmtDashboardView extends ConsumerWidget {
   const RmtDashboardView({super.key});
@@ -19,13 +23,13 @@ class RmtDashboardView extends ConsumerWidget {
           (viewModel) => _buildContent(context, theme, viewModel),
           (e) => DashboardErrorWidget(
             message: 'RMT Governance Error: $e',
-            onRetry: () => ref.refresh(regionDashboardAdapterProvider),
+            onRetry: () => ref.refresh(rmtDashboardAdapterProvider),
           ),
         ),
         loading: () => const DashboardLoadingWidget(),
         error: (e, st) => DashboardErrorWidget(
           message: 'Connection Error: $e',
-          onRetry: () => ref.refresh(regionDashboardAdapterProvider),
+          onRetry: () => ref.refresh(rmtDashboardAdapterProvider),
         ),
       ),
     );
@@ -81,10 +85,22 @@ class RmtDashboardView extends ConsumerWidget {
 
 class RmtDashboardIntent extends PrimeCareScreen {
   RmtDashboardIntent()
-    : super(
-        title: 'RmtDashboard',
-        route: '/offices/clinical/roles/rmt/dashboard',
-      );
+      : super(
+          name: 'rmt',
+          title: LocaleKeys.clinical_rmt_dashboard_title,
+          route: '/offices/clinical/roles/rmt/dashboard',
+          requiredRole: PlatformRole.rmt,
+          form: PrimeCareForm.rmtDashboard,
+          provider: rmtDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Musculoskeletal Chart',
+            'Treatment Plan',
+            'Massage Session Log',
+            'Client Trigger Point Map',
+            'Therapeutic Goal Tracker',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const RmtDashboardView();

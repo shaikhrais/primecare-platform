@@ -58,6 +58,33 @@ class FeatureIntakeView extends ConsumerWidget {
                   initialValue: 'Medium',
                 ),
                 FormFieldConfig(
+                  name: 'storyPoints',
+                  label: 'Story Points',
+                  type: FieldType.dropdown,
+                  options: ['1', '2', '3', '5', '8', '13', '21'],
+                  initialValue: '3',
+                ),
+                FormFieldConfig(
+                  name: 'securityLevel',
+                  label: 'Security Sensitivity',
+                  type: FieldType.dropdown,
+                  options: ['Public', 'Internal', 'Restricted', 'Highly-Confidential'],
+                  initialValue: 'Internal',
+                ),
+                FormFieldConfig(
+                  name: 'sprintName',
+                  label: 'Target Sprint',
+                  type: FieldType.text,
+                  initialValue: 'Sprint 23',
+                ),
+                FormFieldConfig(
+                  name: 'assignedDeveloper',
+                  label: 'Assigned Developer',
+                  type: FieldType.dropdown,
+                  options: ['Shaikh Rais', 'Antigravity-AI', 'Core-Team', 'Unassigned'],
+                  initialValue: 'Unassigned',
+                ),
+                FormFieldConfig(
                   name: 'description',
                   label: 'Requirement Description',
                   type: FieldType.text,

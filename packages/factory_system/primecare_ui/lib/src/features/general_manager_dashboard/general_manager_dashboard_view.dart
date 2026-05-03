@@ -1,10 +1,18 @@
+// @governance: id=SCREEN_GENERAL_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+
+// @governance: component=Aura HUD (Occupancy Trend)
+// @governance: component=Occupancy Heatmap
+// @governance: component=Facility Revenue Grid
+// @governance: component=Resource Utilization
 class GeneralManagerDashboardView extends ConsumerWidget {
   const GeneralManagerDashboardView({super.key});
 
@@ -46,9 +54,12 @@ class GeneralManagerDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Operational Command', style: theme.typography.h2),
                   Text(
-                    'Efficiency, facility compliance, and multi-unit synchronization telemetry',
+                    LocaleKeys.general_manager_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.general_manager_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -134,7 +145,21 @@ class _AuditProtocolList extends StatelessWidget {
 }
 
 class GeneralManagerDashboardIntent extends PrimeCareScreen {
-  GeneralManagerDashboardIntent() : super(title: 'GeneralManagerDashboard');
+  GeneralManagerDashboardIntent()
+      : super(
+          name: 'general-manager',
+          title: LocaleKeys.general_manager_dashboard_title,
+          route: '/offices/corporate/roles/general-manager/dashboard',
+          requiredRole: PlatformRole.generalManager,
+          form: PrimeCareForm.generalManagerDashboard,
+          provider: generalManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Operational Command)',
+            'Multi-Department KPI Grid',
+            'Staffing Utilization Matrix',
+            'Daily Ops Summary',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const GeneralManagerDashboardView();

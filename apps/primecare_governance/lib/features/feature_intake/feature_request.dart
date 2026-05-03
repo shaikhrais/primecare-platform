@@ -14,6 +14,13 @@ class FeatureRequest {
   final List<String> apiEndpoints;
   final String priority;
   final String status;
+  
+  // Governance Fields
+  final int storyPoints;
+  final String securityLevel;
+  final String sprintName;
+  final String assignedDeveloper;
+  final List<String> subTasks;
 
   FeatureRequest({
     required this.requestId,
@@ -26,6 +33,11 @@ class FeatureRequest {
     required this.apiEndpoints,
     required this.priority,
     required this.status,
+    this.storyPoints = 0,
+    this.securityLevel = 'medium',
+    this.sprintName = 'Backlog',
+    this.assignedDeveloper = 'Unassigned',
+    this.subTasks = const [],
   });
 
   factory FeatureRequest.fromJson(Map<String, dynamic> json) => _$FeatureRequestFromJson(json);

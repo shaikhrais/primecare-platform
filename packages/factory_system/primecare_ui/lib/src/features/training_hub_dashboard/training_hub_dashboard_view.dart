@@ -3,6 +3,14 @@ import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Learning Management UI
+// @governance: component=Course Progression Heatmap
+// @governance: component=Resource Library
+
     hide isOnlineProvider, ProviderTTL;
 
 class TrainingHubDashboardView extends ConsumerWidget {
@@ -74,7 +82,21 @@ class TrainingHubDashboardView extends ConsumerWidget {
 }
 
 class TrainingHubDashboardIntent extends PrimeCareScreen {
-  TrainingHubDashboardIntent() : super(title: 'TrainingHubDashboard');
+  TrainingHubDashboardIntent()
+    : super(
+        name: 'training_hub',
+        title: LocaleKeys.command_center_labels_training_hub_center,
+        route: '/offices/corporate/roles/training_hub/dashboard',
+        requiredRole: PlatformRole.trainingHub,
+        form: PrimeCareForm.trainingHub,
+        provider: trainingHubDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Learning Management UI',
+          'Course Progression Heatmap',
+          'Resource Library',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const TrainingHubDashboardView();

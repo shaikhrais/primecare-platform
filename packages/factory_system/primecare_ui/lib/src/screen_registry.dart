@@ -1,10 +1,11 @@
 import 'package:flutter_core/flutter_core.dart';
+import 'package:collection/collection.dart';
 import 'package:primecare_ui/src/engine/screen_engine.dart';
 import 'package:primecare_ui/src/registries.dart';
 import 'package:primecare_ui/src/shared/src/models/core/dashboard_models.dart';
 import 'package:primecare_ui/src/shared/src/models/core/ui_blueprint.dart';
 import 'package:primecare_ui/src/shared/src/core/primecare_components.dart';
-import 'package:primecare_ui/src/shared/src/config/locale_keys.dart';
+import 'package:primecare_ui/src/i18n/locale_keys.g.dart';
 import 'package:primecare_ui/src/governance_bootstrapper.dart';
 import 'package:primecare_ui/src/shared/src/models/core/render_config.dart';
 import 'package:primecare_ui/src/shared/src/generic/dynamic_adapter_provider.dart';
@@ -28,7 +29,7 @@ class KpiConfig {
 
   factory KpiConfig.fromJson(Map<String, dynamic> json) {
     return KpiConfig(
-      title: json['title'] as String? ?? 'Stat',
+      title: json['title'] as String? ?? 'dashboards.common.labels.stat',
       value: json['value'] as String? ?? '0',
       deltaSuffix: json['deltaSuffix'] as String? ?? '',
       icon: _getIconData(json['icon'] as String?),
@@ -108,9 +109,9 @@ class DashboardConfig {
 
   factory DashboardConfig.fromJson(Map<String, dynamic> json) {
     return DashboardConfig(
-      title: json['title'] as String? ?? 'DashboardsComplianceManagerDashboard',
+      title: json['title'] as String? ?? 'dashboards.common.labels.dashboards',
       subtitle:
-          json['subtitle'] as String? ?? 'Overview metrics and operations.',
+          json['subtitle'] as String? ?? 'dashboards.common.labels.overview_metrics',
       kpis:
           (json['kpis'] as List<dynamic>?)
               ?.map((kpi) => KpiConfig.fromJson(kpi as Map<String, dynamic>))
@@ -131,6 +132,12 @@ class ScreenRegistry {
   // We represent the registry as JSON structures so it can easily be backed by an API/Edge Worker later.
   static final Map<String, Map<String, dynamic>> registryJson = {};
 
+  /// Returns all registered screens.
+  static List<PrimeCareScreen> getAllScreens() => _objectRegistry.values.toList();
+
+  /// Map of registered screens by route.
+  static Map<String, PrimeCareScreen> get screens => Map.unmodifiable(_objectRegistry);
+
   /// Registers a high-fidelity screen object.
   static void registerScreen(PrimeCareScreen screen) {
     _objectRegistry[screen.route] = screen;
@@ -142,9 +149,7 @@ class ScreenRegistry {
   /// This will eventually replace the manual route registry in the UI layer.
   static void bootstrap() {
     if (_isBootstrapped) return;
-
-    // Ensure Governance System is primed
-    GovernanceBootstrapper.bootstrap();
+    _isBootstrapped = true;
 
     // Initialize the global renderer bridge
     AppScreenIntent.globalRenderer = (context, intent) {
@@ -169,6 +174,10 @@ class ScreenRegistry {
       ClientPortalRegistry(),
       AdminInfrastructureRegistry(),
       MarketingRegistry(),
+      WorkflowsFormsRegistry(),
+      OperationalRegistry(),
+      SupportRegistry(),
+      RegionalFinanceRegistry(),
     ];
 
     for (final registry in registries) {
@@ -179,7 +188,21 @@ class ScreenRegistry {
     // 2. Specialized Multi-Blueprint Screens (Dynamic Dashboards)
     _registerDynamicDashboards();
 
-    _isBootstrapped = true;
+    // 3. Register the generic DYNAMIC_ROLE_DASHBOARD template
+    registerScreen(
+      PrimeCareScreen(
+        name: 'DYNAMIC_ROLE_DASHBOARD',
+        title: LocaleKeys.dashboards_common_labels_dynamic_dashboard,
+        route: 'DYNAMIC_ROLE_DASHBOARD',
+        requiredRole: PlatformRole.dynamicScreen,
+        form: PrimeCareForm.dynamicRoleDashboard,
+        provider: genericDashboardAdapterProvider(PrimeCareForm.dynamicRoleDashboard),
+        componentLabels: ['Aura HUD', 'Dynamic Content'],
+      ),
+    );
+
+    // 4. Ensure Governance System is primed (Called at the end to allow reconciliation loop to see all screens)
+    GovernanceBootstrapper.bootstrap();
   }
 
   static void _registerDynamicDashboards() {
@@ -195,16 +218,16 @@ class ScreenRegistry {
 
       final String? hfViewId = config['highFidelityViewId'] as String?;
 
+      final form = PrimeCareForm.fromString(role) ?? PrimeCareForm.genericDashboard;
       registerScreen(
         PrimeCareScreen(
           name: role,
           title: config['title'] as String,
           subtitle: config['subtitle'] as String? ?? '',
+          form: form,
           route: route,
           requiredRole: PlatformRole.dynamicScreen, // Generic for dynamic
-          provider: genericDashboardAdapterProvider(
-            PrimeCareForm.fromString(role) ?? PrimeCareForm.genericDashboard,
-          ),
+          provider: genericDashboardAdapterProvider(form),
           blueprints: hfViewId != null
               ? <UIComponentBlueprint>[
                   const AuraDashboardHudBlueprint(),
@@ -216,7 +239,7 @@ class ScreenRegistry {
                     dataPayload: kpis
                         .map(
                           (k) => KpiMetric(
-                            title: k['title'] as String? ?? 'Stat',
+                            title: k['title'] as String? ?? 'dashboards.common.labels.stat',
                             value: k['value'] as String? ?? '0',
                             subtitle: k['deltaSuffix'] as String? ?? '',
                             status: 'neutral',
@@ -234,6 +257,26 @@ class ScreenRegistry {
         ),
       );
     });
+  }
+
+  static List<PrimeCareScreen> getAllRegisteredScreens() {
+    return _objectRegistry.values.toList();
+  }
+
+  /// Retrieves a registered screen by its name.
+  static PrimeCareScreen? getScreenByName(String name) {
+    if (!_isBootstrapped) {
+      bootstrap();
+    }
+    return _objectRegistry.values.firstWhereOrNull((s) => s.name == name);
+  }
+
+  /// Resolves a screen by its associated [PrimeCareForm] enum member.
+  static PrimeCareScreen? getScreenByForm(PrimeCareForm form) {
+    if (!_isBootstrapped) {
+      bootstrap();
+    }
+    return _objectRegistry.values.firstWhereOrNull((s) => s.form == form);
   }
 
   /// Retrieves a registered screen by its route.
@@ -333,7 +376,7 @@ class ScreenRegistry {
       );
     }
 
-    // 2. Secondary: Governance TerritorySalesManagerDashboardTerritorySalesManagerDashboardIntent Lookup
+    // 2. Secondary: Governance Dashboard Lookup
     final intent = GovernanceRegistry.getIntentByRoute(route);
 
     if (intent != null) {

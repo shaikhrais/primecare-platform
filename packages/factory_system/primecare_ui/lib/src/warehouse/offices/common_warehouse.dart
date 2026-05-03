@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-// Layer: 01_INFRASTRUCTURE
-import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/warehouse/offices/base_office_warehouse.dart';
-import 'package:primecare_ui/src/warehouse/component_warehouse.dart';
 // import 'package:primecare_ui/src/components/generated_placeholders/primecare_placeholders.dart';
 
 class CommonComponentWarehouse extends BaseOfficeWarehouse {
@@ -22,7 +19,12 @@ class CommonComponentWarehouse extends BaseOfficeWarehouse {
     'chartCard': (context, payload) => const SizedBox.shrink(),
     'primeCareLineChart': (context, payload) => const SizedBox.shrink(),
     'aiForecastingDashlet': (context, payload) => const SizedBox.shrink(),
-    'dynamicRoleDashboardScreen': (context, payload) => const SizedBox.shrink(),
+    'dynamicRoleDashboardScreen': (context, payload) {
+      final data = payload is Map<String, dynamic> ? payload : <String, dynamic>{};
+      return DynamicRoleDashboardScreen(
+        role: (data['role'] as Object?).toString(),
+      );
+    },
     'dynamicRoleDashboardScreenAdapter': (context, payload) =>
         const SizedBox.shrink(),
 

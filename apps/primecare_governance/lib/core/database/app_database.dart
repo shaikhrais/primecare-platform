@@ -1,9 +1,8 @@
-import 'dart:io';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../connection/connection_stub.dart'
+    if (dart.library.ffi) '../connection/connection_native.dart'
+    if (dart.library.html) '../connection/connection_web.dart';
 
 part 'app_database.g.dart';
 
@@ -37,18 +36,10 @@ class FeatureIntakes extends Table {
 
 @DriftDatabase(tables: [Users, AuditLogs, FeatureIntakes])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  AppDatabase() : super(openConnection('db.sqlite'));
 
   @override
   int get schemaVersion => 1;
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
-    return NativeDatabase.createInBackground(file);
-  });
 }
 
 final databaseProvider = Provider<AppDatabase>((ref) {

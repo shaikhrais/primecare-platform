@@ -1,4 +1,4 @@
-enum Environment { dev, staging, prod }
+enum Environment { dev, demo, staging, prod }
 
 class EnvConfig {
   static Environment environment = Environment.dev;
@@ -7,6 +7,8 @@ class EnvConfig {
     switch (environment) {
       case Environment.dev:
         return 'https://dev-api.primecare.local/v1';
+      case Environment.demo:
+        return 'https://demo-api.primecare.local/v1';
       case Environment.staging:
         return 'https://staging-api.primecare.local/v1';
       case Environment.prod:

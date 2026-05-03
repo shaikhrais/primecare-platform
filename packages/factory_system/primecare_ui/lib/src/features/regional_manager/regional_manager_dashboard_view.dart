@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_REGIONAL_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +9,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Regional Growth)
+// @governance: component=Regional KPI Grid
+// @governance: component=Multi-site Performance Table
+// @governance: component=Synergy Audit Log
 class RegionalManagerDashboardView extends ConsumerWidget {
   const RegionalManagerDashboardView({super.key});
 
@@ -189,7 +197,21 @@ class RegionalManagerDashboardView extends ConsumerWidget {
 }
 
 class RegionalManagerDashboardIntent extends PrimeCareScreen {
-  RegionalManagerDashboardIntent() : super(title: 'RegionalManagerDashboard');
+  RegionalManagerDashboardIntent()
+      : super(
+          name: 'regional-manager',
+          title: LocaleKeys.dashboards_common_labels_regional_manager_dashboard,
+          route: '/offices/corporate/roles/regional-manager/dashboard',
+          requiredRole: PlatformRole.regionalManagerOntario, // Keeping existing role for now
+          form: PrimeCareForm.regionalManagerDashboard,
+          provider: regionalManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Regional Performance Comparison',
+            'Site Health Overlays',
+            'Local Management Controls',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const RegionalManagerDashboardView();

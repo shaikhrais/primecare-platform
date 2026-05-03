@@ -1,51 +1,39 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'governance_operations_model.dart';
 
-final governanceDashboardControllerProvider =
-    FutureProvider<Result<GovernanceDashboardModel>>((ref) async {
-  const cacheKey = 'governance_dashboard';
-  final resilience = ref.read(resilienceServiceProvider);
+/// [Controller] - Unified Governance Intelligence Manager
+/// Inherits all sync, persistence, and resilience logic from the base manager.
+class GovernanceDashboardController extends IntegratedDashboardManager {
+  @override
+  String get storageKey => 'governance_dashboard';
 
-  try {
-    // In a real app, this might fetch from a specialized governance endpoint
-    final metrics = DashboardMetrics(
-      kpis: [
-        KpiMetric(
-          title: LocaleKeys.dashboards_corporategovernance_labels_compliance_score.tr(),
-          value: '98.4%',
-          status: 'positive',
-        ),
-      ],
-      recentActivity: [],
-      charts: [],
-    );
+  @override
+  String get role => 'governance';
 
-    final insights = [
-      IntelligenceInsight(
-        id: 'gov_1',
-        title: LocaleKeys.dashboards_corporategovernance_labels_blueprint_mismatch_detected.tr(),
-        summary: '3 clinical screens show minor structural drift.',
-        impact: InsightImpact.warning,
-        category: 'Integrity',
-        recommendation: 'Run remediation script.',
-      ),
-    ];
-
-    final model = GovernanceDashboardModel(
-      metrics: metrics,
-      insights: insights,
-    );
-
-    unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
-    return Success(model);
-  } catch (e) {
-    final snapshot = resilience.getSnapshot(cacheKey);
-    if (snapshot != null) {
-      return Success(GovernanceDashboardModel.fromJson(snapshot).copyWith(isOfflineFallback: true));
-    }
-    return Success(GovernanceDashboardModel.empty(isOfflineFallback: true));
+  @override
+  Future<IntelligenceDashboardModel> fetchRemote(String role) async {
+    final response = await ref.read(apiClientProvider).get('/dashboard-metrics');
+    final data = response.data as Map<String, dynamic>;
+    
+    // Auto-map resilience/legacy keys to precision IntelligenceDashboardModel keys
+    final metricsRaw = data['metrics'] ?? data['kpis'];
+    final insightsRaw = data['insights'];
+    final timelineRaw = data['timeline'] ?? data['recentActivity'];
+    final trendsRaw = data['trends'] ?? data['charts'];
+    
+    return IntelligenceDashboardModel.fromJson({
+      'metrics': metricsRaw,
+      'insights': insightsRaw,
+      'timeline': timelineRaw,
+      'trends': trendsRaw,
+      'isOfflineFallback': data['isOfflineFallback'],
+      'lastUpdated': DateTime.now().toIso8601String(),
+    });
   }
-});
+}
+
+/// The global provider for the Governance Intelligence Manager.
+final governanceDashboardControllerProvider = 
+    AsyncNotifierProvider<GovernanceDashboardController, Result<IntelligenceDashboardModel>>(
+  () => GovernanceDashboardController(),
+);

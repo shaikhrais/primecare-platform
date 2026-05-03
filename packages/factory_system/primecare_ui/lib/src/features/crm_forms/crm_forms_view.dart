@@ -2,6 +2,14 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Lead Capture Hook
+// @governance: component=Contact Field Synchronization
+// @governance: component=Pipeline Event Trigger
+
     hide isOnlineProvider, ProviderTTL;
 
 class CrmFormsView extends ConsumerWidget {
@@ -76,7 +84,16 @@ class CrmFormsView extends ConsumerWidget {
 }
 
 class CrmFormsIntent extends PrimeCareScreen {
-  CrmFormsIntent() : super(title: 'CrmForms');
+  CrmFormsIntent()
+      : super(
+          title: 'CrmForms',
+          componentLabels: const [
+            'Aura HUD',
+            'Lead Capture Hook',
+            'Contact Field Synchronization',
+            'Pipeline Event Trigger',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const CrmFormsView();

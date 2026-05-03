@@ -95,7 +95,7 @@ typedef PhysiotherapistProvider<T> = Provider<T>;
 // --- DASHBOARD ADAPTER PROVIDER ALIASES ---
 final architecturePlanningDashboardAdapterProvider =
     genericDashboardAdapterProvider(
-      PrimeCareForm.architecturePlanningDashboard,
+      PrimeCareForm.architecturalPlanningDashboard,
     );
 final billingAdminDashboardAdapterProvider = genericDashboardAdapterProvider(
   PrimeCareForm.billingAdminDashboard,
@@ -325,3 +325,10 @@ final regionalBdmDashboardAdapterProvider = genericDashboardAdapterProvider(
 );
 final regionalManagerUsaDashboardAdapterProvider =
     genericDashboardAdapterProvider(PrimeCareForm.regionalManagerUsaDashboard);
+
+final ontFinOverviewAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.ontFinOverview);
+final ontFinApprovalsAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.ontFinApprovals);
+final ontFinRoadmapAdapterProvider =
+    genericDashboardAdapterProvider(PrimeCareForm.ontFinRoadmap);

@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_SHAREHOLDER_INTELLIGENCE_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -150,7 +154,24 @@ class ShareholderIntelligenceView extends ConsumerWidget {
 }
 
 class ShareholderIntelligenceIntent extends PrimeCareScreen {
-  ShareholderIntelligenceIntent() : super(title: 'ShareholderIntelligence');
+  ShareholderIntelligenceIntent()
+      : super(
+          name: 'shareholder_intelligence',
+          title: LocaleKeys.dashboards_corporate_shareholder_title,
+          route: '/offices/corporate/roles/shareholder/dashboard',
+          requiredRole: PlatformRole.shareholder,
+          form: PrimeCareForm.shareholderDashboard,
+          provider: shareholderIntelligenceAdapterProvider,
+          componentLabels: [
+            'Aura HUD',
+            'Global Header',
+            'Stage 1: Initial',
+            'Stage 2: In Processing',
+            'Stage 3: Implemented',
+            'Stage 4: Tested & Done',
+            'Telemetry Table',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ShareholderIntelligenceView();

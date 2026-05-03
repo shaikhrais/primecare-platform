@@ -1,4 +1,4 @@
-import 'package:flutter_core/primecare_core.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'core/routing/app_router.dart';
 
 void main() {

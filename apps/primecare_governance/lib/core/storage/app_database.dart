@@ -1,8 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
-import 'dart:io';
+import '../connection/connection_stub.dart'
+    if (dart.library.ffi) '../connection/connection_native.dart'
+    if (dart.library.html) '../connection/connection_web.dart';
 
 part 'app_database.g.dart';
 
@@ -19,7 +18,7 @@ class Users extends Table {
 
 @DriftDatabase(tables: [Users])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  AppDatabase() : super(openConnection('primecare.sqlite'));
 
   @override
   int get schemaVersion => 1;
@@ -28,12 +27,4 @@ class AppDatabase extends _$AppDatabase {
   Future<List<User>> getAllUsers() => select(users).get();
   Future<int> insertUser(User user) => into(users).insert(user);
   Future<bool> updateUser(User user) => update(users).replace(user);
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'primecare.sqlite'));
-    return NativeDatabase(file);
-  });
 }

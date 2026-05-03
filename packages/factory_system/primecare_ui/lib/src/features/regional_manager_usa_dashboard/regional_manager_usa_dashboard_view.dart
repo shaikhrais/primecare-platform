@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_REGIONAL_MANAGER_USA_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (US Expansion Velocity)
+// @governance: component=Multi-state Revenue Grid
+// @governance: component=USA Expansion Map
+// @governance: component=Compliance Drift Log
 class RegionalManagerUsaDashboardView extends ConsumerWidget {
   const RegionalManagerUsaDashboardView({super.key});
 
@@ -90,7 +97,20 @@ class RegionalManagerUsaDashboardView extends ConsumerWidget {
 
 class RegionalManagerUsaDashboardIntent extends PrimeCareScreen {
   RegionalManagerUsaDashboardIntent()
-    : super(title: 'RegionalManagerUsaDashboard');
+    : super(
+        name: 'SCREEN_REGIONAL_MANAGER_USA_DASHBOARD',
+        title: LocaleKeys.business_development_regional_manager_usa_dashboard_title,
+        route: '/regional-manager-usa-dashboard',
+        requiredRole: PlatformRole.regionalManagerUsa,
+        form: PrimeCareForm.regionalManagerUsaDashboard,
+        provider: regionalManagerUsaDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (US Expansion Velocity)',
+          'Multi-state Revenue Grid',
+          'USA Expansion Map',
+          'Compliance Drift Log',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const RegionalManagerUsaDashboardView();

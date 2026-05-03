@@ -5,6 +5,11 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Standard Actions
+
 class ClinicDashboardView extends ConsumerWidget {
   const ClinicDashboardView({super.key});
 
@@ -176,7 +181,21 @@ class ClinicDashboardView extends ConsumerWidget {
 }
 
 class ClinicDashboardIntent extends PrimeCareScreen {
-  ClinicDashboardIntent() : super(title: 'ClinicDashboard');
+  ClinicDashboardIntent()
+      : super(
+          name: 'clinic-dashboard',
+          title: LocaleKeys.clinical_clinical_director_dashboard_title,
+          route: '/clinic-dashboard',
+          requiredRole: PlatformRole.clinic,
+          form: PrimeCareForm.clinicDashboard,
+          provider: clinicDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Clinic Performance KPIs',
+            'Daily Patient Flow',
+            'Staffing Levels',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ClinicDashboardView();

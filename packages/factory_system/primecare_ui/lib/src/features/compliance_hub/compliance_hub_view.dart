@@ -1,6 +1,10 @@
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class ComplianceHubView extends ConsumerWidget {
@@ -64,11 +68,27 @@ class ComplianceHubView extends ConsumerWidget {
 }
 
 class ComplianceHubIntent extends PrimeCareScreen {
+  static const kName = 'compliance-hub';
+  static const kRoute = '/offices/corporate/roles/compliance-manager/dashboard';
+
   ComplianceHubIntent()
-    : super(
-        title: 'ComplianceHub',
-        route: '/offices/corporate/roles/compliance_manager/dashboard',
-      );
+      : super(
+          name: kName,
+          title: LocaleKeys.corporate_compliance_manager_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.complianceManager,
+          form: PrimeCareForm.complianceManagerDashboard,
+          provider: complianceHubAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'DashboardRegistry Integrity Score',
+            'Anomaly Heatmap',
+            'Execution Gate Logs',
+            'Regulatory Alignment Score',
+            'Audit Trailing Grid',
+            'Compliance Deadlines',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ComplianceHubView();

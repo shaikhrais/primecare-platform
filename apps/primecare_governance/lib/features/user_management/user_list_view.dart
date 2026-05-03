@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'user_controller.dart';
 import '../../../core/ui/app_components.dart';
 import '../../../core/ui/app_drawer.dart';
@@ -56,7 +58,7 @@ class _UserListViewState extends ConsumerState<UserListView> {
                   AppButton(
                     text: 'Edit',
                     onPressed: () {},
-                    type: GFButtonType.outline2x,
+                    type: GFButtonType.outline,
                   ),
                 ],
                 child: ListTile(

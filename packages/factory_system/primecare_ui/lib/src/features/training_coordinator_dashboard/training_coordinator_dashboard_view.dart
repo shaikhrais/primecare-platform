@@ -2,8 +2,12 @@
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
+
+// @governance: component=Aura HUD (Training Velocity)
+// @governance: component=Session Scheduling Grid
+// @governance: component=Attendee Tracking
+// @governance: component=Material Management
 
 class TrainingCoordinatorDashboardView extends ConsumerWidget {
   const TrainingCoordinatorDashboardView({super.key});
@@ -77,7 +81,20 @@ class TrainingCoordinatorDashboardView extends ConsumerWidget {
 
 class TrainingCoordinatorDashboardIntent extends PrimeCareScreen {
   TrainingCoordinatorDashboardIntent()
-    : super(title: 'TrainingCoordinatorDashboard');
+      : super(
+          name: 'SCREEN_TRAINING_COORDINATOR_DASHBOARD',
+          title: LocaleKeys.business_development_training_coordinator_dashboard_title,
+          route: '/training-coordinator-dashboard',
+          requiredRole: PlatformRole.trainingCoordinator,
+          form: PrimeCareForm.trainingCoordinatorDashboard,
+          provider: trainingCoordinatorDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Training Velocity)',
+            'Session Scheduling Grid',
+            'Attendee Tracking',
+            'Material Management',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) =>

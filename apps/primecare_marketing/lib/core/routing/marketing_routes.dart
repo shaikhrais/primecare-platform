@@ -24,25 +24,21 @@ final List<ScreenConfig> marketingScreenRegistry = [
     titleKey: 'Marketing Dashboard',
     subtitleKey: 'Local campaign oversight.',
     providerId: 'marketingDashboard',
-    customView: MarketingDashboardView(),
+    customView: const MarketingOperationsView(),
   ),
   const ScreenConfig(
     routePath: MarketingRoutes.communityOutreachDashboard,
     titleKey: 'Outreach Dashboard',
     subtitleKey: 'Community engagement hub.',
     providerId: 'outreachDashboard',
-    customView: OutreachDashboardView(),
+    customView: const MarketingOperationsView(),
   ),
 ];
 
 final List<RouteBase> marketingRoutes = [
   ...marketingScreenRegistry.map((config) => GoRoute(
         path: config.routePath,
-        builder: (context, state) => config.customView ?? GenericMarketingView(
-          title: config.titleKey,
-          subtitle: config.subtitleKey,
-          providerId: config.providerId,
-        ),
+        builder: (context, state) => config.customView ?? const MarketingOperationsView(),
       )),
 ];
 

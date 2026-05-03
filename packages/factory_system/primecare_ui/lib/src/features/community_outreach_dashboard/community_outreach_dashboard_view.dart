@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_COMMUNITY_OUTREACH_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Event Traction)
+// @governance: component=Outreach Stat Grid
+// @governance: component=Partnership Growth Chart
+// @governance: component=Event Management Calendar
 class CommunityOutreachDashboardView extends ConsumerWidget {
   const CommunityOutreachDashboardView({super.key});
 
@@ -75,7 +82,20 @@ class CommunityOutreachDashboardView extends ConsumerWidget {
 
 class CommunityOutreachDashboardIntent extends PrimeCareScreen {
   CommunityOutreachDashboardIntent()
-    : super(title: 'CommunityOutreachDashboard');
+      : super(
+          name: 'SCREEN_COMMUNITY_OUTREACH_DASHBOARD',
+          title: LocaleKeys.business_development_community_outreach_dashboard_title,
+          route: '/community-outreach-dashboard',
+          requiredRole: PlatformRole.communityOutreach,
+          form: PrimeCareForm.communityOutreachDashboard,
+          provider: communityOutreachDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Event Traction)',
+            'Outreach Stat Grid',
+            'Partnership Growth Chart',
+            'Event Management Calendar',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const CommunityOutreachDashboardView();

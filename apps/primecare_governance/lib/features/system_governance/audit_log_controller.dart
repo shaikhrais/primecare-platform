@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:drift/drift.dart';
 import '../../../core/database/app_database.dart';
 
 final auditLogsProvider = StreamProvider<List<AuditLog>>((ref) {

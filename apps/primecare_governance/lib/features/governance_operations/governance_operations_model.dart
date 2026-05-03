@@ -31,11 +31,11 @@ class GovernanceDashboardModel {
 
   factory GovernanceDashboardModel.fromJson(Map<String, dynamic> json) =>
       GovernanceDashboardModel(
-        metrics: DashboardMetrics.fromJson(json['metrics']),
+        metrics: DashboardMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
         insights: (json['insights'] as List)
-            .map((i) => IntelligenceInsight.fromJson(i))
+            .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
             .toList(),
-        isOfflineFallback: json['isOfflineFallback'] ?? false,
+        isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
       );
 
   factory GovernanceDashboardModel.empty({bool isOfflineFallback = false}) =>

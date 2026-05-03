@@ -21,7 +21,7 @@ class ApiClient {
   void _initialize() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: '${ApiConfig.baseUrl}/${ApiConfig.version}',
+        baseUrl: '${ApiConfig.baseUrl}/${ApiConfig.version}/',
         connectTimeout: ApiConfig.timeout,
         receiveTimeout: ApiConfig.timeout,
         headers: {

@@ -31,11 +31,13 @@ class FranchiseRegistry extends OfficeScreenRegistry {
     registerRoute(
       FranchiseRoutes.schedulerDashboard,
       PrimeCareForm.schedulerDashboard,
+      provider: schedulerDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Shift Coverage)',
-        'Scheduling Stat Grid',
-        'Shift Coordination Calendar',
-        'Urgent Coverage List',
+        'Aura HUD',
+        'Logistics Command Center',
+        'Staffing Grid',
+        'Coverage Velocity Chart',
+        'Telemetry Table',
       ],
       structuralPlan:
           'Coordination Hub: Aura HUD with shift coverage telemetry. Centered around a coordination calendar with an urgent remediation sidebar.',
@@ -75,7 +77,7 @@ class FranchiseRegistry extends OfficeScreenRegistry {
         'Synergy Audit Log',
       ],
       structuralPlan:
-          'Regional Governance Portal: Aura HUD with growth telemetry. DashboardsComplianceManagerDashboard focuses on comparative analysis and synergy audit logs.',
+          'Regional Governance Portal: Aura HUD with growth telemetry. Dashboards focuses on comparative analysis and synergy audit logs.',
     );
     registerRoute(
       FranchiseRoutes.marketingManagerDashboard,
@@ -190,14 +192,15 @@ class FranchiseRegistry extends OfficeScreenRegistry {
       'highFidelityViewId': 'operationsManagerDashboardViewModel',
     },
     'scheduler': {
-      'title': 'franchise.scheduler.dashboard.title',
+      'title': 'dashboards.scheduler.title',
       'subtitle': 'franchise.scheduler.dashboard.subtitle',
       'route': FranchiseRoutes.schedulerDashboard,
       'componentLabels': [
-        'Aura HUD (Shift Coverage)',
-        'Scheduling Stat Grid',
-        'Shift Coordination Calendar',
-        'Urgent Coverage List',
+        'Aura HUD',
+        'Logistics Command Center',
+        'Staffing Grid',
+        'Coverage Velocity Chart',
+        'Telemetry Table',
       ],
       'structuralPlan':
           'Coordination Hub: Aura HUD with shift coverage telemetry. Centered around a coordination calendar with an urgent remediation sidebar.',
@@ -293,7 +296,7 @@ class FranchiseRegistry extends OfficeScreenRegistry {
         'Synergy Audit Log',
       ],
       'structuralPlan':
-          'Regional Governance Portal: Aura HUD with growth telemetry. DashboardsComplianceManagerDashboard focuses on comparative analysis and synergy audit logs.',
+          'Regional Governance Portal: Aura HUD with growth telemetry. Dashboards focuses on comparative analysis and synergy audit logs.',
       'kpis': [
         {
           'title': 'Regional Revenue',

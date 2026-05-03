@@ -225,6 +225,7 @@ export 'cto_dashboard/cto_dashboard_model.dart';
 export 'customer_support/domain/customer_support_view_model.dart';
 export 'customer_support_dashboard/customer_support_dashboard_model.dart';
 export 'cx_director_dashboard/cx_director_dashboard_model.dart';
+export 'dynamic_role_dashboard/dynamic_role_dashboard_model.dart';
 export 'developer_samples/domain/developer_samples_view_model.dart';
 export 'dynamic_screen_dashboard/dynamic_screen_dashboard_model.dart';
 export 'family_dashboard/family_dashboard_model.dart';

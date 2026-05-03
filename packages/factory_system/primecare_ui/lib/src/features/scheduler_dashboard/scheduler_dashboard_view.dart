@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_SCHEDULER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Shift Coverage)
+// @governance: component=Scheduling Stat Grid
+// @governance: component=Shift Coordination Calendar
+// @governance: component=Urgent Coverage List
 class SchedulerDashboardView extends ConsumerWidget {
   const SchedulerDashboardView({super.key});
 
@@ -151,7 +158,21 @@ class SchedulerDashboardView extends ConsumerWidget {
 }
 
 class SchedulerDashboardIntent extends PrimeCareScreen {
-  SchedulerDashboardIntent() : super(title: 'SchedulerDashboard');
+  SchedulerDashboardIntent()
+      : super(
+          name: 'scheduler',
+          title: LocaleKeys.dashboards_scheduler_title,
+          route: '/offices/franchise/roles/scheduler/dashboard',
+          requiredRole: PlatformRole.scheduler,
+          form: PrimeCareForm.schedulerDashboard,
+          provider: schedulerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Shift Coverage)',
+            'Scheduling Stat Grid',
+            'Shift Coordination Calendar',
+            'Urgent Coverage List',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const SchedulerDashboardView();

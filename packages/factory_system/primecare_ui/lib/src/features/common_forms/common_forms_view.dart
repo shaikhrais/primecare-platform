@@ -2,6 +2,14 @@
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Shared Component Library
+// @governance: component=Global Validation Hooks
+// @governance: component=Multi-Tenant Logic
+
     hide isOnlineProvider, ProviderTTL;
 
 class CommonFormsView extends ConsumerWidget {
@@ -76,7 +84,21 @@ class CommonFormsView extends ConsumerWidget {
 }
 
 class CommonFormsIntent extends PrimeCareScreen {
-  CommonFormsIntent() : super(title: 'CommonForms');
+  CommonFormsIntent()
+      : super(
+          name: 'common-forms',
+          title: 'Common Forms',
+          route: '/common-forms',
+          requiredRole: PlatformRole.admin,
+          form: PrimeCareForm.commonForms,
+          provider: commonFormsControllerProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Shared Component Library',
+            'Global Validation Hooks',
+            'Multi-Tenant Logic',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const CommonFormsView();

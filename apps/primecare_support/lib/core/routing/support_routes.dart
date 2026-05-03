@@ -24,14 +24,14 @@ final List<ScreenConfig> supportScreenRegistry = [
     titleKey: 'Customer Support Dashboard',
     subtitleKey: 'Ticketing and support hub.',
     providerId: 'supportDashboard',
-    customView: SupportDashboardView(),
+    customView: const SupportOperationsView(),
   ),
   const ScreenConfig(
     routePath: SupportRoutes.qualityAssuranceDashboard,
     titleKey: 'Quality Assurance Dashboard',
     subtitleKey: 'QA and Compliance overview.',
     providerId: 'qaDashboard',
-    customView: QualityAssuranceDashboardView(),
+    customView: const SupportOperationsView(),
   ),
   const ScreenConfig(
     routePath: SupportRoutes.customerSupportTickets,
@@ -44,11 +44,7 @@ final List<ScreenConfig> supportScreenRegistry = [
 final List<RouteBase> supportRoutes = [
   ...supportScreenRegistry.map((config) => GoRoute(
         path: config.routePath,
-        builder: (context, state) => config.customView ?? GenericSupportView(
-          title: config.titleKey,
-          subtitle: config.subtitleKey,
-          providerId: config.providerId,
-        ),
+        builder: (context, state) => config.customView ?? const SupportOperationsView(),
       )),
 ];
 

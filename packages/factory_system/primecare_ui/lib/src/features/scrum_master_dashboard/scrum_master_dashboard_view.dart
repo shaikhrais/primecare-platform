@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_SCRUM_MASTER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +9,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Sprint Velocity)
+// @governance: component=Burn-down Chart
+// @governance: component=Team Capacity
+// @governance: component=Blocker Management
 class ScrumMasterDashboardView extends ConsumerWidget {
   const ScrumMasterDashboardView({super.key});
 
@@ -150,7 +158,20 @@ class ScrumMasterDashboardView extends ConsumerWidget {
 }
 
 class ScrumMasterDashboardIntent extends PrimeCareScreen {
-  ScrumMasterDashboardIntent() : super(title: 'ScrumMasterDashboard');
+  ScrumMasterDashboardIntent()
+      : super(
+          name: 'SCREEN_SCRUM_MASTER_DASHBOARD',
+          title: LocaleKeys.dashboards_common_labels_sprint_velocity_trend,
+          route: '/offices/corporate/roles/scrum_master/dashboard',
+          requiredRole: PlatformRole.scrumMaster,
+          form: PrimeCareForm.scrumMasterDashboard,
+          provider: scrumMasterDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD',
+            'Sprint Burndown',
+            'Velocity Analytics',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const ScrumMasterDashboardView();

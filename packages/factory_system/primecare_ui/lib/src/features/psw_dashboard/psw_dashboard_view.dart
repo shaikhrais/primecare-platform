@@ -80,8 +80,18 @@ class PswDashboardView extends ConsumerWidget {
 class PswDashboardIntent extends PrimeCareScreen {
   PswDashboardIntent()
     : super(
-        title: 'PswDashboard',
+        name: 'psw',
+        title: LocaleKeys.clinical_psw_dashboard_title,
         route: '/offices/clinical/roles/psw/dashboard',
+        requiredRole: PlatformRole.psw,
+        form: PrimeCareForm.pswDashboard,
+        provider: pswDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Clinical Summary',
+          'Care Plan Checklist',
+          'Incident Quick-Report',
+        ],
       );
 
   @override

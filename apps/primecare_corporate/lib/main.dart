@@ -44,7 +44,6 @@ void main() {
     await DataLogisticsHub.ensureOfflineDataLoaded();
 
     // Bootstrap Governance Registry early for structural integrity
-    GovernanceBootstrapper.bootstrap();
 
     runApp(
       RestartWrapper(

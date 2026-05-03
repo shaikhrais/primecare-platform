@@ -59,11 +59,7 @@ final List<ScreenConfig> franchiseScreenRegistry = [
 final List<RouteBase> franchiseRoutes = [
   ...franchiseScreenRegistry.map((config) => GoRoute(
         path: config.routePath,
-        builder: (context, state) => config.customView ?? GenericFranchiseView(
-          title: config.titleKey,
-          subtitle: config.subtitleKey,
-          providerId: config.providerId,
-        ),
+        builder: (context, state) => config.customView ?? const FranchiseOperationsView(),
       )),
 ];
 

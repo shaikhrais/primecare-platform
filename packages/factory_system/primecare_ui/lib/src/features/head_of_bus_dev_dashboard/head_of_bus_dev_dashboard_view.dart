@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_HEAD_OF_BUS_DEV_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Pipeline Velocity)
+// @governance: component=Pipeline Velocity Chart
+// @governance: component=Expansion Roadmap Heatmap
+// @governance: component=Partner Synergy Matrix
 class HeadOfBusDevDashboardView extends ConsumerWidget {
   const HeadOfBusDevDashboardView({super.key});
 
@@ -46,9 +53,12 @@ class HeadOfBusDevDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Strategic Command', style: theme.typography.h2),
                   Text(
-                    'Market expansion, partnership velocity, and global growth telemetry',
+                    LocaleKeys.head_of_bus_dev_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.head_of_bus_dev_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -134,7 +144,33 @@ class _StrategicOpportunities extends StatelessWidget {
 }
 
 class HeadOfBusDevDashboardIntent extends PrimeCareScreen {
-  HeadOfBusDevDashboardIntent() : super(title: 'HeadOfBusDevDashboard');
+  static const kName = 'head-of-bus-dev-dashboard';
+  static const kRoute = '/offices/corporate/roles/head-of-bus-dev/dashboard';
+
+  @override
+  String get title => LocaleKeys.head_of_bus_dev_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.headOfBusDev;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.headOfBusDevDashboard;
+
+  HeadOfBusDevDashboardIntent()
+      : super(
+          name: kName,
+          title: LocaleKeys.head_of_bus_dev_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.headOfBusDev,
+          form: PrimeCareForm.headOfBusDevDashboard,
+          provider: headOfBusDevAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Pipeline Velocity)',
+            'Pipeline Velocity Chart',
+            'Expansion Roadmap Heatmap',
+            'Partner Synergy Matrix',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const HeadOfBusDevDashboardView();

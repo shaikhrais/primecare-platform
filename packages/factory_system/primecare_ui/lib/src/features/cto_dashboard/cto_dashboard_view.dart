@@ -1,3 +1,11 @@
+// @governance: id=SCREEN_CTO_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD (Tech Ops)
+// @governance: component=Cloudflare Stack Health
+// @governance: component=API Gateway Performance
+// @governance: component=CI/CD Pipeline Velocity
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
@@ -65,8 +73,23 @@ class CtoDashboardView extends ConsumerWidget {
 class CtoDashboardIntent extends PrimeCareScreen {
   CtoDashboardIntent()
     : super(
-        title: 'CtoDashboard',
+        name: 'cto',
+        title: LocaleKeys.dashboards_common_labels_cto_dashboard,
         route: '/offices/corporate/roles/cto/dashboard',
+        requiredRole: PlatformRole.cto,
+        form: PrimeCareForm.ctoDashboard,
+        provider: ctoDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD (Tech Ops)',
+          'Command Horizon Header',
+          'Briefing Panel',
+          'Cloudflare Stack Health',
+          'API Gateway Performance',
+          'CI/CD Pipeline Velocity',
+          'System Health Cards',
+          'Security Audit Log',
+          'Architectural Load',
+        ],
       );
 
   @override

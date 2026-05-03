@@ -1,3 +1,8 @@
+// Layer: 02_I_HEAD_OF_MARKETING_DASHBOARD_VIEW
+// @governance: id=SCREEN_HEAD_OF_MARKETING_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +10,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Campaign Intelligence)
+// @governance: component=Marketing ROI Grid
+// @governance: component=Creative Asset Performance
+// @governance: component=Brand Sentiment Analysis
 class HeadOfMarketingDashboardView extends ConsumerWidget {
   const HeadOfMarketingDashboardView({super.key});
 
@@ -46,9 +55,12 @@ class HeadOfMarketingDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Marketing Command', style: theme.typography.h2),
                   Text(
-                    'Brand resonance, campaign velocity, and market penetration telemetry',
+                    LocaleKeys.head_of_marketing_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.head_of_marketing_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -134,7 +146,33 @@ class _CreativeAssetList extends StatelessWidget {
 }
 
 class HeadOfMarketingDashboardIntent extends PrimeCareScreen {
-  HeadOfMarketingDashboardIntent() : super(title: 'HeadOfMarketingDashboard');
+  static const kName = 'head-of-marketing-dashboard';
+  static const kRoute = '/offices/corporate/roles/head-of-marketing/dashboard';
+
+  @override
+  String get title => LocaleKeys.head_of_marketing_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.headOfMarketing;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.headOfMarketingDashboard;
+
+  HeadOfMarketingDashboardIntent()
+      : super(
+          name: kName,
+          title: LocaleKeys.head_of_marketing_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.headOfMarketing,
+          form: PrimeCareForm.headOfMarketingDashboard,
+          provider: headOfMarketingAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Campaign Intelligence)',
+            'Marketing ROI Grid',
+            'Creative Asset Performance',
+            'Brand Sentiment Analysis',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const HeadOfMarketingDashboardView();

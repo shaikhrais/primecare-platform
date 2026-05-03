@@ -37,6 +37,7 @@ enum PlatformRole {
   scheduler,
   billingAdmin,
   hrHiring,
+  hrManager,
   owner,
 
   // Clinical & Support
@@ -48,7 +49,10 @@ enum PlatformRole {
   receptionist,
   psw,
   rn,
+  rpn,
   rmt,
+  chiropractor,
+  physiotherapist,
   socialWorker,
   clinic,
   patient,
@@ -99,6 +103,17 @@ enum PlatformRole {
 
   /// Derives a categorical platform role from a route string.
   static PlatformRole fromRoute(String route) {
+    final segments = route.split('/').where((s) => s.isNotEmpty).toSet();
+
+    // First pass: look for explicit role matches (e.g. /roles/rpn/)
+    for (final role in PlatformRole.values) {
+      if (role == PlatformRole.unknown) continue;
+      if (segments.contains(role.nameSnake)) {
+        return role;
+      }
+    }
+
+    // Second pass: category fallbacks
     if (route.contains('/clinical/')) return PlatformRole.clinical;
     if (route.contains('/offices/')) return PlatformRole.office;
     if (route.contains('/corporate/')) return PlatformRole.corporate;

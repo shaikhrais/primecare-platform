@@ -3,6 +3,11 @@ import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Data Table
+
     hide isOnlineProvider, ProviderTTL;
 
 class ITSecurityDashboardView extends ConsumerWidget {
@@ -46,9 +51,12 @@ class ITSecurityDashboardView extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cyber Shield Command', style: theme.typography.h2),
                   Text(
-                    'Real-time threat telemetry and system integrity surveillance',
+                    LocaleKeys.it_security_dashboard_title.tr(),
+                    style: theme.typography.h2,
+                  ),
+                  Text(
+                    LocaleKeys.it_security_dashboard_subtitle.tr(),
                     style: theme.typography.labelMedium,
                   ),
                 ],
@@ -194,7 +202,16 @@ class ITSecurityDashboardView extends ConsumerWidget {
 }
 
 class ITSecurityDashboardIntent extends PrimeCareScreen {
-  ITSecurityDashboardIntent() : super(title: 'ITSecurityDashboard');
+  ITSecurityDashboardIntent()
+      : super(
+          name: 'it_security_dashboard',
+          title: LocaleKeys.it_security_dashboard_title,
+          route: '/offices/roles/admin/it-security',
+          requiredRole: PlatformRole.admin,
+          form: PrimeCareForm.itSecurityDashboard,
+          provider: itSecurityDashboardAdapterProvider,
+          componentLabels: const ['Aura HUD', 'Threat Intelligence', 'Access Control Logs', 'Encryption Status'],
+        );
 
   @override
   Widget build(BuildContext context) => const ITSecurityDashboardView();

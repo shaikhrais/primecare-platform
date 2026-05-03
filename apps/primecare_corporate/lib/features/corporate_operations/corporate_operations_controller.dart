@@ -1,106 +1,74 @@
 import 'dart:async';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'corporate_operations_model.dart';
 
-final corporateDashboardControllerProvider =
-    FutureProvider<Result<CorporateDashboardModel>>((ref) async {
-  const cacheKey = 'corporate_dashboard';
-  const route = 'CEO';
-  final resilience = ref.read(resilienceServiceProvider);
-  final telemetry = ref.read(executionGateProvider);
+/// [Controller] - Unified Corporate Intelligence Manager
+/// Manages high-level executive data across all corporate roles (CEO, CFO, etc.)
+class CorporateDashboardController extends IntegratedDashboardManager {
+  @override
+  String get storageKey => 'corporate_dashboard';
 
-  try {
-    // 1. Fetch metrics and insights directly
-    final metricsResult = await ref.watch(dashboardMetricsProvider(route).future);
+  @override
+  Future<IntelligenceDashboardModel> fetchRemote(String role) async {
+    final response = await ref.read(apiClientProvider).get('/dashboard-metrics');
+    final data = response.data as Map<String, dynamic>;
     
-    final metrics = metricsResult.fold(
-      (m) => _enrichCorporateMetrics(m),
-      (e) => DashboardMetrics.empty(),
-    );
-
-    final insights = await _fetchCorporateInsights();
-
-    final model = CorporateDashboardModel(
-      metrics: metrics,
-      insights: insights,
-    );
-
-    // 2. Persist for resilience
-    unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
+    // Auto-map resilience/legacy keys to precision IntelligenceDashboardModel keys
+    final metricsRaw = data['metrics'] ?? data['kpis'];
+    final insightsRaw = data['insights'] ?? _getRoleSpecificInsights(role).map((e) => e.toJson()).toList();
+    final timelineRaw = data['timeline'] ?? data['recentActivity'];
+    final trendsRaw = data['trends'] ?? data['charts'];
     
-    telemetry.passGate(
-      ExecutionGateCategory.resilience,
-      'Corporate Dashboard fully hydrated.',
-    );
-
-    return Success(model);
-  } catch (e) {
-    final snapshot = resilience.getSnapshot(cacheKey);
-    if (snapshot != null) {
-      return Success(CorporateDashboardModel.fromJson(snapshot).copyWith(isOfflineFallback: true));
-    }
-    return Success(CorporateDashboardModel.empty(isOfflineFallback: true));
+    return IntelligenceDashboardModel.fromJson({
+      'metrics': metricsRaw,
+      'insights': insightsRaw,
+      'timeline': timelineRaw,
+      'trends': trendsRaw,
+      'isOfflineFallback': data['isOfflineFallback'],
+      'lastUpdated': DateTime.now().toIso8601String(),
+    });
   }
-});
 
-DashboardMetrics _enrichCorporateMetrics(DashboardMetrics metrics) {
-  final enrichedKpis = metrics.kpis.isEmpty
-      ? [
-          KpiMetric(
-            title: LocaleKeys.ceo_dashboard_labels_strategic_growth.tr(),
-            value: '\$84.2M',
-            subtitle: LocaleKeys.dashboards_ceo_labels_14_8.tr(),
-            trend: 'up',
-            status: 'success',
-          ),
-          KpiMetric(
-            title: LocaleKeys.dashboards_ceo_labels_global_nps.tr(),
-            value: '78',
-            subtitle: LocaleKeys.dashboards_ceo_labels_3_0.tr(),
-            trend: 'up',
-            status: 'success',
-          ),
-          KpiMetric(
-            title: LocaleKeys.ceo_dashboard_labels_revenue_growth.tr(),
-            value: '22.4%',
-            subtitle: LocaleKeys.dashboards_ceo_labels_5_2.tr(),
-            trend: 'up',
-            status: 'success',
-          ),
-          KpiMetric(
-            title: LocaleKeys.ceo_dashboard_labels_market_expansion.tr(),
-            value: '18',
-            subtitle: LocaleKeys.dashboards_ceo_labels_2_0.tr(),
-            trend: 'up',
-            status: 'success',
-          ),
-        ]
-      : metrics.kpis;
+  List<KpiMetric> _getRoleSpecificMetrics(String role) {
+    switch (role.toUpperCase()) {
+      case 'CEO':
+        return [
+          KpiMetric(title: 'Strategic Growth', value: '$84.2M', status: 'success', subtitle: '+14.8% YoY'),
+          KpiMetric(title: 'Global NPS', value: '78', status: 'success', subtitle: '+3.0 vs LY'),
+          KpiMetric(title: 'Market Cap', value: '$1.2B', status: 'positive', subtitle: 'Strong Growth'),
+        ];
+      case 'CFO':
+        return [
+          KpiMetric(title: 'Net Margin', value: '24.2%', status: 'success', subtitle: 'Above Target'),
+          KpiMetric(title: 'OpEx Ratio', value: '18.4%', status: 'positive', subtitle: 'Efficient'),
+          KpiMetric(title: 'Cash Reserve', value: '$42M', status: 'success', subtitle: 'Liquid'),
+        ];
+      default:
+        return [
+          KpiMetric(title: 'Operations', value: 'Optimal', status: 'success', subtitle: 'All Systems'),
+        ];
+    }
+  }
 
-  return metrics.copyWith(kpis: enrichedKpis);
+  List<DashboardInsight> _getRoleSpecificInsights(String role) {
+    return [
+      DashboardInsight(
+        title: '${role.toUpperCase()} Strategic Insight',
+        description: 'Optimization potential of 12% detected in regional workflows.',
+        type: 'growth',
+        impact: InsightImpact.growth,
+      ),
+      DashboardInsight(
+        title: 'Network Resilience',
+        description: 'Current platform stability is at 99.99%.',
+        type: 'success',
+        impact: InsightImpact.positive,
+      ),
+    ];
+  }
 }
 
-Future<List<IntelligenceInsight>> _fetchCorporateInsights() async {
-  return [
-    IntelligenceInsight(
-      id: 'corp_1',
-      title: LocaleKeys.dashboards_ceo_labels_m_a_pipeline_velocity.tr(),
-      summary: 'Due diligence on "Pacific Care Group" shows 94% alignment.',
-      impact: InsightImpact.positive,
-      type: InsightType.growth,
-      category: 'Strategic Expansion',
-      recommendation: 'Authorize Phase 2 financial audit.',
-    ),
-    IntelligenceInsight(
-      id: 'corp_2',
-      title: LocaleKeys.dashboards_ceo_labels_regional_margin_sensitivity.tr(),
-      summary: 'Expansion into Florida market shows 4% higher friction.',
-      impact: InsightImpact.warning,
-      type: InsightType.risk,
-      category: 'Operations',
-      recommendation: 'Consolidate regional compliance functions.',
-    ),
-  ];
-}
+/// The global provider for Corporate Intelligence.
+final corporateDashboardControllerProvider = 
+    AsyncNotifierProvider.family<CorporateDashboardController, Result<IntelligenceDashboardModel>, String>(
+  () => CorporateDashboardController(),
+);

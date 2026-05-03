@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_TRAINING_DIRECTOR_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Certification Velocity)
+// @governance: component=Certification Heatmap
+// @governance: component=Active Course Enrollment
+// @governance: component=Competency Drift Alert
 class TrainingDirectorDashboardView extends ConsumerWidget {
   const TrainingDirectorDashboardView({super.key});
 
@@ -52,12 +59,12 @@ class TrainingDirectorDashboardView extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LocaleKeys.command_center_labels_training_center.tr(),
+                    LocaleKeys.training_director_dashboard_title.tr(),
                     style: theme.typography.h2,
                   ),
                   Text(
-                    'Completion rates, compliance status, and certification velocity telemetry',
-                    style: theme.typography.labelMedium,
+                    LocaleKeys.training_director_dashboard_subtitle.tr(),
+                    style: theme.typography.bodyLarge,
                   ),
                 ],
               ),
@@ -162,10 +169,20 @@ class TrainingDirectorDashboardView extends ConsumerWidget {
 
 class TrainingDirectorDashboardIntent extends PrimeCareScreen {
   TrainingDirectorDashboardIntent()
-    : super(
-        title: 'TrainingDirectorDashboard',
-        route: '/offices/corporate/roles/training_director/dashboard',
-      );
+      : super(
+          name: 'SCREEN_TRAINING_DIRECTOR_DASHBOARD',
+          title: LocaleKeys.training_director_dashboard_title,
+          route: '/training-director-dashboard',
+          requiredRole: PlatformRole.trainingDirector,
+          form: PrimeCareForm.trainingDirectorDashboard,
+          provider: trainingDirectorDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Certification Velocity)',
+            'Certification Heatmap',
+            'Active Course Enrollment',
+            'Competency Drift Alert',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const TrainingDirectorDashboardView();

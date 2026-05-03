@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'user.dart';
-import '../services/user_service.dart';
+import 'models/user.dart';
+import 'services/user_service.dart';
 import '../../../core/network/dio_provider.dart';
 
 final userServiceProvider = Provider((ref) {
@@ -10,7 +10,6 @@ final userServiceProvider = Provider((ref) {
 });
 
 class UserController extends AsyncNotifier<List<User>> {
-  int _currentPage = 1;
   bool _hasMore = true;
 
   @override
@@ -31,13 +30,12 @@ class UserController extends AsyncNotifier<List<User>> {
 
     final previousUsers = state.value ?? [];
     state = AsyncValue.data([...previousUsers, ...moreUsers]);
-    _currentPage++;
   }
 
   Future<void> addUser(User user) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final service = ref.read(userServiceProvider);
+      // final service = ref.read(userServiceProvider);
       // service._api.createUser(user); // Real call
       final currentUsers = state.value ?? [];
       return [...currentUsers, user];

@@ -1,13 +1,8 @@
-/*
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_core/flutter_core.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart';
-import 'package:primecare_ui/src/features/features_view.dart';
-import 'package:primecare_ui/src/features/features_model.dart';
-import 'package:primecare_ui/src/features/features_controller.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   late SharedPreferences mockPrefs;
@@ -81,11 +76,11 @@ void main() {
 
         // Verify the dynamic placeholder is successfully hydrated in the tree
         expect(find.byType(DynamicRoleDashboardScreen), findsOneWidget);
-        expect(find.textContaining('Receptionist'), findsOneWidget);
-        expect(find.textContaining('Workspace'), findsOneWidget);
+        expect(find.textContaining('RECEPTIONIST'), findsOneWidget);
+        expect(find.textContaining('Command Center'), findsOneWidget);
 
         // Assure Admin Console headers render without conflict
-        expect(find.text('Admin Console'), findsOneWidget);
+        expect(find.text('Admin Console'), findsAtLeastNWidgets(1));
       },
     );
 
@@ -111,8 +106,12 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
     });
+  group('Registry Audit Tests', () {
+    test('Verifies ScreenRegistry mapping integrity', () {
+      // Test dynamic hydration mapping
+      final dynamicDashboard = ScreenRegistry.getScreen('DYNAMIC_ROLE_DASHBOARD');
+      expect(dynamicDashboard, isNotNull);
+    });
+  });
   });
 }
-
-*/
-void main() {}

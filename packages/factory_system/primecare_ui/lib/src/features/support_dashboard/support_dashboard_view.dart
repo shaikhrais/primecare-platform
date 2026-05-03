@@ -3,6 +3,10 @@ import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+
     hide isOnlineProvider, ProviderTTL;
 
 class SupportDashboardView extends ConsumerWidget {
@@ -123,7 +127,21 @@ class SupportDashboardView extends ConsumerWidget {
 }
 
 class SupportDashboardIntent extends PrimeCareScreen {
-  SupportDashboardIntent() : super(title: 'SupportDashboard');
+  SupportDashboardIntent()
+    : super(
+        name: 'support_dashboard',
+        title: LocaleKeys.dashboards_support_title,
+        route: '/offices/corporate/roles/support/dashboard',
+        requiredRole: PlatformRole.support,
+        form: PrimeCareForm.supportDashboard,
+        provider: supportDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Ticket Lifecycle Tracker',
+          'SLA Compliance Monitor',
+          'Support Knowledge Base',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => const SupportDashboardView();

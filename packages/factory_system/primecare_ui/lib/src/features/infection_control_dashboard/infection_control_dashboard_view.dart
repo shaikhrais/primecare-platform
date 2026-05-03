@@ -1,10 +1,17 @@
+// @governance: id=SCREEN_INFECTION_CONTROL_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
-import 'package:primecare_ui/src/shared/primecare_adapters.dart'
-    hide isOnlineProvider, ProviderTTL;
+import 'package:primecare_ui/src/shared/primecare_adapters.dart' hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Infection Velocity)
+// @governance: component=Transmission Trend
+// @governance: component=Outbreak Monitoring Grid
+// @governance: component=Immunization Tracker
 class InfectionControlDashboardView extends ConsumerWidget {
   const InfectionControlDashboardView({super.key});
 
@@ -278,7 +285,20 @@ class InfectionActionHub extends StatelessWidget {
 }
 
 class InfectionControlDashboardIntent extends PrimeCareScreen {
-  InfectionControlDashboardIntent() : super(title: 'InfectionControlDashboard');
+  InfectionControlDashboardIntent()
+      : super(
+          name: 'SCREEN_INFECTION_CONTROL_DASHBOARD',
+          title: LocaleKeys.clinical_infection_control_dashboard_title,
+          route: ClinicalRoutes.infectionControlDashboard,
+          requiredRole: PlatformRole.clinicalDirector,
+          provider: infectionControlDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Infection Velocity)',
+            'Transmission Trend',
+            'Outbreak Monitoring Grid',
+            'Immunization Tracker',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const InfectionControlDashboardView();

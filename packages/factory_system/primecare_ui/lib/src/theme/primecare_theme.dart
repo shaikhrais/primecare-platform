@@ -101,7 +101,7 @@ class PrimeCareTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      scaffoldBackgroundColor: PrimeCareColors.white,
+      scaffoldBackgroundColor: PrimeCareColors.slate50,
       primaryColor: PrimeCareColors.skyBlue,
       colorScheme: const ColorScheme.light(
         primary: PrimeCareColors.skyBlue,
@@ -136,7 +136,7 @@ class PrimeCareTheme {
         margin: PrimeCareSpacing.edgeAllMd,
         shape: RoundedRectangleBorder(
           borderRadius: PrimeCareRadii.boardLg,
-          side: const BorderSide(color: PrimeCareColors.slate200),
+          side: BorderSide.none, // No-Line Philosophy
         ),
       ),
 
@@ -254,8 +254,8 @@ class PrimeCareTheme {
         labelStyle: GoogleFonts.inter(color: PrimeCareColors.slate500),
       ),
 
-      dividerTheme: const DividerThemeData(
-        color: PrimeCareColors.slate200,
+      dividerTheme: DividerThemeData(
+        color: PrimeCareColors.slate200.withValues(alpha: 0.5),
         thickness: 1,
         space: PrimeCareSpacing.xl,
       ),
@@ -308,7 +308,7 @@ class PrimeCareTheme {
         margin: PrimeCareSpacing.edgeAllMd,
         shape: RoundedRectangleBorder(
           borderRadius: PrimeCareRadii.boardLg,
-          side: const BorderSide(color: PrimeCareColors.slate700),
+          side: BorderSide.none, // No-Line Philosophy
         ),
       ),
 
@@ -608,6 +608,7 @@ class _PrimeCareRadii {
   double get md => PrimeCareRadii.md;
   double get lg => PrimeCareRadii.lg;
   double get xl => PrimeCareRadii.xl;
+  double get xxl => PrimeCareRadii.xxl;
   double get radiusSm => PrimeCareRadii.sm; // Legacy bridging
 }
 

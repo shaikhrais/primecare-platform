@@ -9,6 +9,8 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.ceoDashboard,
       provider: ceoDashboardAdapterProvider,
       componentLabels: [
+        'Aura HUD',
+
         'Global KPI DashboardMetrics',
         'Region Comparison',
         'Strategic Initiatives',
@@ -20,10 +22,11 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.cooDashboard,
       provider: cooDashboardAdapterProvider,
       componentLabels: [
-        'corporate.coo.labels.aura_hud',
-        'corporate.coo.labels.operational_kpi',
-        'corporate.coo.labels.branch_efficiency',
-        'corporate.coo.labels.service_quality',
+        'Aura HUD',
+
+        'Operational KPI Grid',
+        'Branch Efficiency Table',
+        'Service Quality Log',
       ],
       structuralPlan: 'corporate.coo.structural_plan',
     );
@@ -32,6 +35,8 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.cfoDashboard,
       provider: cfoDashboardAdapterProvider,
       componentLabels: [
+        'Aura HUD',
+
         'Liquidity Index',
         'Burn Rate Analysis',
         'Capital Allocation',
@@ -43,6 +48,8 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.complianceManagerDashboard,
       provider: complianceManagerDashboardAdapterProvider,
       componentLabels: [
+        'Aura HUD',
+
         'DashboardRegistry Integrity Score',
         'Anomaly Heatmap',
         'Execution Gate Logs',
@@ -55,6 +62,8 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.trainingDirectorDashboard,
       provider: trainingDirectorDashboardAdapterProvider,
       componentLabels: [
+        'Aura HUD',
+
         'Certification Heatmap',
         'Active Course Enrollment',
         'Competency Drift Alert',
@@ -73,7 +82,7 @@ class CorporateRegistry extends OfficeScreenRegistry {
         'Budget Distribution',
       ],
       structuralPlan:
-          'Finance Operations: Aura HUD with cash flow telemetry. DashboardsComplianceManagerDashboard provides a summary of receivables/payables and budget distribution.',
+          'Finance Operations: Aura HUD with cash flow telemetry. Dashboards provides a summary of receivables/payables and budget distribution.',
     );
     registerRoute(
       CorporateRoutes.headOfBusDevDashboard,
@@ -93,10 +102,10 @@ class CorporateRegistry extends OfficeScreenRegistry {
       PrimeCareForm.headOfMarketingDashboard,
       provider: headOfMarketingDashboardAdapterProvider,
       componentLabels: [
-        'corporate.head_of_marketing.labels.aura_hud',
-        'corporate.head_of_marketing.labels.campaign_heatmap',
-        'corporate.head_of_marketing.labels.funnel_grid',
-        'corporate.head_of_marketing.labels.brand_awareness',
+        'Aura HUD',
+        'Campaign Heatmap',
+        'Funnel Grid',
+        'Brand Awareness',
       ],
       structuralPlan: 'corporate.head_of_marketing.structural_plan',
     );
@@ -120,10 +129,9 @@ class CorporateRegistry extends OfficeScreenRegistry {
       provider: hrHiringDashboardAdapterProvider,
       componentLabels: [
         'Aura HUD',
-        'Hiring Analytics',
-        'Pipeline Saturation',
-        'Human Capital Intelligence',
-        'Administrative Queue',
+        'Candidate Pipeline',
+        'Onboarding Checklist',
+        'Recruitment KPI Grid',
       ],
       structuralPlan:
           'Recruitment HUB: Manages candidate pipeline, conversion rates, and role-specific saturation.',
@@ -199,7 +207,7 @@ class CorporateRegistry extends OfficeScreenRegistry {
         'title': 'corporate.coo.operations_overview.title',
         'pid': 'cooOperationsOverview',
         'labels': [
-          'corporate.coo.operations_overview.labels.aura_hud',
+          'Aura HUD (Operations Overview)',
           'corporate.coo.operations_overview.labels.incident_summary',
           'corporate.coo.operations_overview.labels.resource_efficiency',
         ],
@@ -246,8 +254,10 @@ class CorporateRegistry extends OfficeScreenRegistry {
       CorporateRoutes.shareholderIntelligenceDashboard,
       PrimeCareForm.genericDashboard,
       provider: shareholderIntelligenceAdapterProvider,
-      titleKey: 'corporate.shareholder.dashboard.title',
+      titleKey: LocaleKeys.dashboards_corporate_shareholder_title,
       componentLabels: [
+        'Aura HUD',
+
         'Global Header',
         'Stage 1: Initial',
         'Stage 2: In Processing',
@@ -324,7 +334,7 @@ class CorporateRegistry extends OfficeScreenRegistry {
     },
     'shareholder': {
       'path': CorporateRoutes.shareholderIntelligenceDashboard,
-      'title': 'corporate.shareholder.dashboard.title',
+      'title': LocaleKeys.dashboards_corporate_shareholder_title,
       'form': PrimeCareForm.genericDashboard.name,
     },
   };

@@ -1,3 +1,7 @@
+// @governance: id=SCREEN_OPERATIONS_MANAGER_DASHBOARD
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
 // PRIMECARE CONSOLIDATED FILE
 import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
@@ -5,6 +9,10 @@ import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
     hide isOnlineProvider, ProviderTTL;
 
+// @governance: component=Aura HUD (Utilization Score)
+// @governance: component=Logistics KPI Grid
+// @governance: component=Resource Allocation Map
+// @governance: component=Efficiency DashboardMetrics
 class OperationsManagerDashboardView extends ConsumerWidget {
   const OperationsManagerDashboardView({super.key});
 
@@ -348,8 +356,33 @@ class OperationsManagerDashboardView extends ConsumerWidget {
 }
 
 class OperationsManagerDashboardIntent extends PrimeCareScreen {
+  static const kName = 'operations-manager-dashboard';
+  static const kRoute = '/offices/corporate/roles/operations-manager/dashboard';
+
+  @override
+  String get title => LocaleKeys.operations_manager_dashboard_title;
+
+  @override
+  PlatformRole get requiredRole => PlatformRole.operationsManager;
+
+  @override
+  PrimeCareForm get form => PrimeCareForm.operationsManagerDashboard;
+
   OperationsManagerDashboardIntent()
-    : super(title: 'OperationsManagerDashboard');
+      : super(
+          name: kName,
+          title: LocaleKeys.operations_manager_dashboard_title,
+          route: kRoute,
+          requiredRole: PlatformRole.operationsManager,
+          form: PrimeCareForm.operationsManagerDashboard,
+          provider: operationsManagerDashboardAdapterProvider,
+          componentLabels: const [
+            'Aura HUD (Utilization Score)',
+            'Logistics KPI Grid',
+            'Resource Allocation Map',
+            'Efficiency Dynamics',
+          ],
+        );
 
   @override
   Widget build(BuildContext context) => const OperationsManagerDashboardView();

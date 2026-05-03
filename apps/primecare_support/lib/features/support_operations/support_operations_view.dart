@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'support_operations_controller.dart';
+import 'support_operations_model.dart';
 
 class SupportOperationsView extends ConsumerWidget {
   const SupportOperationsView({super.key});
@@ -13,21 +12,19 @@ class SupportOperationsView extends ConsumerWidget {
     return state.when(
       data: (result) => result.fold(
         (model) => _buildDashboard(context, model),
-        (error) => ErrorStateView(error: error.toString()),
+        (error) => DashboardErrorWidget(message: error.toString(), onRetry: () {}),
       ),
-      loading: () => const LoadingStateView(),
-      error: (e, s) => ErrorStateView(error: e.toString()),
+      loading: () => const DashboardLoadingWidget(),
+      error: (e, s) => DashboardErrorWidget(message: e.toString(), onRetry: () {}),
     );
   }
 
-  Widget _buildDashboard(BuildContext context, dynamic model) {
-    return DashboardScaffold(
-      title: 'Customer Support',
-      isOffline: model.isOfflineFallback,
-      body: CustomScrollView(
+  Widget _buildDashboard(BuildContext context, SupportDashboardModel model) {
+    return MasterLayout(
+      child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: MetricsRibbon(metrics: model.metrics),
+            child: PrimeCareResponsiveKpiGrid(metrics: model.metrics),
           ),
           const SliverPadding(padding: EdgeInsets.all(16)),
           SliverList(

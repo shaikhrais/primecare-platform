@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LanguageProvider extends StateNotifier<String> {
-  LanguageProvider() : super('en');
+class LanguageProvider extends Notifier<String> {
+  @override
+  String build() => 'en';
 
   void setLanguage(String lang) => state = lang;
 
@@ -23,4 +24,4 @@ class LanguageProvider extends StateNotifier<String> {
   }
 }
 
-final languageProvider = StateNotifierProvider<LanguageProvider, String>((ref) => LanguageProvider());
+final languageProvider = NotifierProvider<LanguageProvider, String>(LanguageProvider.new);

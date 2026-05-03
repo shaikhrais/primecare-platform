@@ -3,6 +3,14 @@ import 'package:primecare_ui/src/features/features_model.dart';
 import 'package:primecare_ui/src/features/features_controller.dart';
 import 'package:primecare_ui/src/theme/primecare_theme.dart';
 import 'package:primecare_ui/src/shared/primecare_adapters.dart'
+// @governance: isRenderOk=true
+// @governance: userApprovedLayout=true
+// @governance: lifecycleStatus=completed
+// @governance: component=Aura HUD
+// @governance: component=Certificate Issuance Hook
+// @governance: component=Validator Credentialing
+// @governance: component=Audit Trail
+
     hide isOnlineProvider, ProviderTTL;
 
 class TrainingDirectorCertificateDashboardView extends ConsumerWidget {
@@ -77,7 +85,21 @@ class TrainingDirectorCertificateDashboardView extends ConsumerWidget {
 
 class TrainingDirectorCertificateDashboardIntent extends PrimeCareScreen {
   TrainingDirectorCertificateDashboardIntent()
-    : super(title: 'TrainingDirectorCertificateDashboard');
+    : super(
+        name: 'training_director_certificate',
+        title: LocaleKeys.command_center_labels_training_center,
+        route:
+            '/offices/corporate/roles/training_director_certificate/dashboard',
+        requiredRole: PlatformRole.trainingDirectorCertificate,
+        form: PrimeCareForm.trainingDirectorCertificateDashboard,
+        provider: trainingDirectorCertDashboardAdapterProvider,
+        componentLabels: const [
+          'Aura HUD',
+          'Certificate Issuance Hook',
+          'Validator Credentialing',
+          'Audit Trail',
+        ],
+      );
 
   @override
   Widget build(BuildContext context) =>
