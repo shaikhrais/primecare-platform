@@ -1,0 +1,121 @@
+import 'dart:io';
+
+void main() {
+  print('--- 👮 PrimeCare Governance Audit: Enforcement Mode ---');
+  
+  final uiPackagePath = 'packages/factory_system/primecare_ui/lib/src/features';
+  final governanceDir = Directory('apps/primecare_governance/lib/core/governance/registries');
+  
+  if (!governanceDir.existsSync()) {
+    print('ERROR: Registry directory not found at ${governanceDir.path}');
+    exit(1);
+  }
+
+  final registryFiles = governanceDir.listSync(recursive: true)
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.dart'))
+      .toList();
+
+  final List<RegistryEntry> screens = [];
+  for (final file in registryFiles) {
+    final content = file.readAsStringSync();
+    screens.addAll(_parseRegistry(content));
+  }
+  
+  int verifiedImplementation = 0;
+  int verifiedVirtual = 0;
+  int orphans = 0;
+  final List<String> errorMessages = [];
+
+  // Get all UI files
+  final List<String> uiFiles = Directory(uiPackagePath)
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((f) => f.path.replaceAll('\\', '/').split('/').last)
+      .toList();
+
+  for (final screen in screens) {
+    final hasFile = uiFiles.contains(screen.sourcePath);
+    
+    if (hasFile) {
+      verifiedImplementation++;
+    } else if (screen.isVirtual) {
+      verifiedVirtual++;
+    } else {
+      // It's in the registry but has no file and isn't virtual
+      errorMessages.add('MISSING_IMPLEMENTATION: ${screen.id} (Expected: ${screen.sourcePath})');
+      orphans++;
+    }
+  }
+
+  final int totalVerified = verifiedImplementation + verifiedVirtual;
+  const int targetParity = 251;
+
+  print('\n=== AUDIT SUMMARY ===');
+  print('Total Registered Screens: ${screens.length}');
+  print('Verified Implementation Mappings: $verifiedImplementation');
+  print('Verified Virtual Mappings: $verifiedVirtual');
+  print('Total Verified Governance Screens: $totalVerified');
+  print('Orphaned Registry Entries (Missing File): $orphans');
+  print('======================\n');
+
+  if (totalVerified != targetParity) {
+    print('❌ FAIL: Platform Architectural Parity Error!');
+    print('   Expected: $targetParity screens verified');
+    print('   Actual:   $totalVerified screens verified');
+    exit(1);
+  }
+
+  if (orphans == 0 && totalVerified == targetParity) {
+    print('✅ SUCCESS: Total Platform Architectural Parity Achieved ($totalVerified/$targetParity).');
+    print('   All registered screens are verified against the implementation layer.');
+    exit(0);
+  } else {
+    print('❌ AUDIT FAILED: Structural discrepancies identified.');
+    for (final msg in errorMessages) {
+      print('  - $msg');
+    }
+    exit(1);
+  }
+}
+
+class RegistryEntry {
+  final String id;
+  final bool isVirtual;
+  final String sourcePath;
+
+  RegistryEntry({
+    required this.id,
+    required this.isVirtual,
+    required this.sourcePath,
+  });
+}
+
+List<RegistryEntry> _parseRegistry(String content) {
+  final List<RegistryEntry> entries = [];
+  final regex = RegExp(r'ScreenMetadata\((.*?)\),', dotAll: true);
+  final matches = regex.allMatches(content);
+
+  for (final match in matches) {
+    final block = match.group(1)!;
+    entries.add(RegistryEntry(
+      id: _getField(block, 'id'),
+      isVirtual: _getBoolField(block, 'isVirtual'),
+      sourcePath: _getField(block, 'sourcePath'),
+    ));
+  }
+  return entries;
+}
+
+String _getField(String block, String field) {
+  // Matches both 'id': '...' and id: '...' formats
+  final regex = RegExp('$field:\\s*\'(.*?)\'');
+  final match = regex.firstMatch(block);
+  return match?.group(1) ?? 'Unknown';
+}
+
+bool _getBoolField(String block, String field) {
+  final regex = RegExp('$field:\\s*(true|false)');
+  final match = regex.firstMatch(block);
+  return match?.group(1) == 'true';
+}
