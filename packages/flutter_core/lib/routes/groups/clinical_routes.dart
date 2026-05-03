@@ -19,18 +19,32 @@ class ClinicalRoutes {
       '/offices/clinical/roles/intake_coordinator/assessments';
 
   static const String rnDashboard = '/offices/clinical/roles/rn/dashboard';
+  static const String rpnDashboard = '/offices/clinical/roles/rpn/dashboard';
   static const String rmtDashboard = '/offices/clinical/roles/rmt/dashboard';
   static const String nurseDashboard =
       '/offices/clinical/roles/nurse/dashboard';
   static const String physicianDashboard =
       '/offices/clinical/roles/physician/dashboard';
   static const String pswDashboard = '/offices/clinical/roles/psw/dashboard';
+  static const String pswVisitChecklist =
+      '/offices/clinical/roles/psw/visit-checklist';
+  static const String pswObservationVitalsLog =
+      '/offices/clinical/roles/psw/observation-vitals-log';
+  static const String pswIncidentReport =
+      '/offices/clinical/roles/psw/incident-report';
+  static const String pswPatientProfile =
+      '/offices/clinical/roles/psw/patient-profile';
+  static const String pswSchedule = '/offices/clinical/roles/psw/schedule';
   static const String careGiverDashboard =
       '/offices/clinical/roles/caregiver/dashboard';
   static const String therapistDashboard =
       '/offices/clinical/roles/therapist/dashboard';
   static const String socialWorkerDashboard =
       '/offices/clinical/roles/social_worker/dashboard';
+  static const String chiropractorDashboard =
+      '/offices/clinical/roles/chiropractor/dashboard';
+  static const String physiotherapistDashboard =
+      '/offices/clinical/roles/physiotherapist/dashboard';
 
   // Support-Clinical Bridge
   static const String customerSupportDashboard =
@@ -39,6 +53,7 @@ class ClinicalRoutes {
       '/offices/support/roles/intake_coordinator/dashboard';
   static const String qualityAssuranceDashboard =
       '/offices/support/roles/quality_assurance/dashboard';
+  static const String qaDashboard = '/offices/support/roles/qa/dashboard';
   static const String trainingCoordinatorDashboard =
       '/offices/support/roles/training_coordinator/dashboard';
   static const String customerSupportTickets =

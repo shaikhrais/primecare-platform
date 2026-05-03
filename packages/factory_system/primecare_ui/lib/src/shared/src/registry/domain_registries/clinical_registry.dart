@@ -9,10 +9,10 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       PrimeCareForm.clinicalDirectorDashboard,
       provider: clinicalDirectorDashboardAdapterProvider,
       componentLabels: [
+        'Aura HUD',
         'Clinical Safety Score',
         'Staffing Heatmap',
         'Protocol Compliance',
-        'Incident Trend Chart',
       ],
       structuralPlan:
           'Clinical Oversight Hub: Aura HUD with high-priority safety metrics. Main grid contains staffing heatmaps and a detailed protocol compliance log with incident trending.',
@@ -21,6 +21,7 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ClinicalRoutes.intakeCoordinatorDashboard,
       PrimeCareForm.intakeCoordinatorDashboard,
       provider: intakeCoordinatorDashboardAdapterProvider,
+      titleKey: LocaleKeys.intake_dashboard_title,
       componentLabels: [
         'Aura HUD (Total Active Intakes)',
         'Intake Funnel Chart',
@@ -44,16 +45,28 @@ class ClinicalRegistry extends OfficeScreenRegistry {
     );
     registerRoute(
       ClinicalRoutes.rnDashboard,
-      PrimeCareForm.nurseDashboard,
+      PrimeCareForm.rnDashboard,
       provider: rnDashboardAdapterProvider,
       componentLabels: [
         'Aura HUD',
         'Medication Administration Record',
         'Wound Care Module',
-        'Clinical Triage Grid',
       ],
       structuralPlan:
           'Advanced Care Console: Aura HUD with critical alert telemetry. Dominant MAR interface paired with structured wound care assessments and triage logic.',
+    );
+    registerRoute(
+      ClinicalRoutes.rpnDashboard,
+      PrimeCareForm.rpnDashboard,
+      provider: rpnDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD',
+        'Vitals Monitor',
+        'Medication Queue',
+        'Shift Handover Notes',
+      ],
+      structuralPlan:
+          'Practical Nursing Hub: Aura HUD with vital signs monitoring. Features a medication queue and structured shift handover notes.',
     );
     registerRoute(
       ClinicalRoutes.therapistDashboard,
@@ -73,13 +86,73 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       PrimeCareForm.pswDashboard,
       provider: pswDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD',
-        'Clinical Summary',
-        'Care Plan Checklist',
+        'Aura HUD (Visit Completion %)',
+        'Visit Timeline Card',
+        'Live Task Burn-down Sparkline',
         'Incident Quick-Report',
       ],
       structuralPlan:
-          'Field Care Portal: Aura HUD with visit throughput telemetry. AuthLayout centers on high-visibility patient summary cards and a real-time task checklist for incident monitoring.',
+          'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for telemetry.',
+    );
+    registerRoute(
+      ClinicalRoutes.pswVisitChecklist,
+      PrimeCareForm.pswVisitChecklist,
+      provider: pswDashboardAdapterProvider,
+      componentLabels: [
+        'Patient Bio Summary',
+        'Interactive Checklist (Hygiene, Nutrition, Mobility)',
+        'Unplanned Observation FAB',
+      ],
+      structuralPlan:
+          'Care Plan Checklist: Patient Bio Summary with DNR/Allergy Alerts. InteractiveChecklist grouped by Hygiene, Nutrition, and Mobility. Floating Action Button for Unplanned Observations.',
+    );
+    registerRoute(
+      ClinicalRoutes.pswObservationVitalsLog,
+      PrimeCareForm.pswObservationVitalsLog,
+      provider: pswDashboardAdapterProvider,
+      componentLabels: [
+        'Aura Form Container (Mood/Pain)',
+        'High-Precision Vitals Input',
+        'Vital Trends Sparkline',
+      ],
+      structuralPlan:
+          'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood and Pain assessments. High-precision inputs for Temp, BP, and O2. Sparkline visualization of 24h vital trends.',
+    );
+    registerRoute(
+      ClinicalRoutes.pswIncidentReport,
+      PrimeCareForm.pswIncidentReport,
+      provider: pswDashboardAdapterProvider,
+      componentLabels: [
+        'Urgency Grid (Fall, Refusal, Skin)',
+        'Evidence Camera Interface',
+        'Immediate Assistance Trigger',
+      ],
+      structuralPlan:
+          'Safety Reporting Hub: High-contrast urgency grid with large-tap targets for Fall, Refusal, and Skin incidents. Integrated camera interface for photo evidence and floating red Immediate Assistance trigger.',
+    );
+    registerRoute(
+      ClinicalRoutes.pswPatientProfile,
+      PrimeCareForm.pswPatientProfile,
+      provider: pswDashboardAdapterProvider,
+      componentLabels: [
+        'Patient Avatar & QR Code',
+        'Medical History Card',
+        'Clinical Precautions Banner',
+      ],
+      structuralPlan:
+          'Patient Digital Passport: Patient Avatar with secure QR bedside verification. PrimeCareV4Cards for medical history, preferred routines, and family contacts. Persistent Clinical Precautions banner.',
+    );
+    registerRoute(
+      ClinicalRoutes.pswSchedule,
+      PrimeCareForm.pswSchedule,
+      provider: pswDashboardAdapterProvider,
+      componentLabels: [
+        'Integrated Route Map',
+        'Time-Blocked Roster Cards',
+        'Smart-Travel Estimates',
+      ],
+      structuralPlan:
+          'Logistics & Travel: Integrated route visualization for the full shift. Time-blocked cards showing travel vs. care duration with smart-travel time estimates and navigation actions.',
     );
     registerRoute(
       ClinicalRoutes.socialWorkerDashboard,
@@ -93,6 +166,32 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       structuralPlan:
           'Social Care Command: Aura HUD with response-time telemetry. Centers on psychosocial logging and a real-time intervention tracking grid.',
+    );
+    registerRoute(
+      ClinicalRoutes.chiropractorDashboard,
+      PrimeCareForm.chiropractorDashboard,
+      provider: chiropractorDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD',
+        'Patient Spine Health Tracker',
+        'Adjustment Protocol Log',
+        'Imaging View',
+      ],
+      structuralPlan:
+          'Chiropractic Care Portal: Aura HUD with recovery-rate telemetry. Core features include a spine health tracker and a detailed adjustment protocol log with integrated imaging view.',
+    );
+    registerRoute(
+      ClinicalRoutes.physiotherapistDashboard,
+      PrimeCareForm.physiotherapistDashboard,
+      provider: physiotherapistDashboardAdapterProvider,
+      componentLabels: [
+        'Aura HUD',
+        'Mobility Progress Chart',
+        'Treatment Session Timer',
+        'Rehab Plan Builder',
+      ],
+      structuralPlan:
+          'Physiotherapy Rehabilitation Center: Aura HUD with mobility telemetry. Features a progress chart, session timing interface, and a drag-and-drop rehab plan builder.',
     );
 
     registerRoute(
@@ -120,12 +219,13 @@ class ClinicalRegistry extends OfficeScreenRegistry {
         'Customer Sentiment Hub',
       ],
       structuralPlan:
-          'Service Excellence Console: Aura HUD with ticket volume telemetry. DashboardsComplianceManagerDashboard features a live ticket queue and SLA performance monitoring.',
+          'Service Excellence Console: Aura HUD with ticket volume telemetry. Dashboards features a live ticket queue and SLA performance monitoring.',
     );
     registerRoute(
       ClinicalRoutes.supportIntakeCoordinatorDashboard,
       PrimeCareForm.intakeCoordinatorDashboard,
       provider: intakeDashboardAdapterProvider,
+      titleKey: LocaleKeys.intake_dashboard_title,
       componentLabels: [
         'Aura HUD (Intake Velocity)',
         'Referral Pipeline',
@@ -139,6 +239,7 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ClinicalRoutes.qualityAssuranceDashboard,
       PrimeCareForm.qualityAssuranceDashboard,
       provider: qualityAssuranceDashboardAdapterProvider,
+      titleKey: LocaleKeys.quality_assurance_dashboard_title,
       componentLabels: [
         'Aura HUD (Compliance Drift)',
         'Medication Safety Log',
@@ -217,26 +318,84 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       PrimeCareForm.hrHiringDashboard,
       provider: hrHiringDashboardAdapterProvider,
       componentLabels: [
-        'Aura HUD (Pipeline Velocity)',
-        'Recruitment KPI Grid',
-        'Candidate Pipeline View',
+        'Aura HUD',
+        'Candidate Pipeline',
         'Onboarding Checklist',
+        'Recruitment KPI Grid',
       ],
       structuralPlan:
           'Talent Pipeline Command: Aura HUD with recruitment throughput telemetry. Features a candidate pipeline and onboarding compliance checklists.',
     );
+
     registerRoute(
-      OfficeRoutes.receptionistDashboard,
-      PrimeCareForm.receptionistDashboard,
-      provider: receptionistDashboardAdapterProvider,
+      '/offices/roles/patient/dashboard',
+      PrimeCareForm.patientDashboard,
+      provider: patientDashboardAdapterProvider,
+      titleKey: LocaleKeys.patient_dashboard_title,
       componentLabels: [
-        'Aura HUD (Visitor Flow)',
-        'Receptionist KPI Grid',
-        'Check-in Queue',
-        'Directory Search',
+        'Aura HUD (Wellness Score)',
+        'Action Hub',
+        'Care Plan Progress',
+        'Vitals Telemetry',
       ],
       structuralPlan:
-          'Front-Office Command: Aura HUD with visitor flow telemetry. Prioritizes real-time check-in management and institutional directory access.',
+          'Patient Command Center: Aura HUD with wellness telemetry. Features care plan tracking and vital signs monitoring.',
+    );
+    registerRoute(
+      '/offices/roles/partnership_manager/dashboard',
+      PrimeCareForm.partnershipManagerDashboard,
+      provider: partnershipManagerDashboardAdapterProvider,
+      titleKey: LocaleKeys.partnership_manager_dashboard_title,
+      componentLabels: [
+        'Aura HUD (Partnership Health)',
+        'Contract Lifecycle Grid',
+        'Revenue Share Analytics',
+        'Referral Network Map',
+      ],
+      structuralPlan:
+          'Partnership Command Center: Aura HUD with alliance health telemetry. Tracks contract lifecycles and referral network growth.',
+    );
+    registerRoute(
+      '/offices/roles/owner/dashboard',
+      PrimeCareForm.ownerDashboard,
+      provider: ownerDashboardAdapterProvider,
+      titleKey: LocaleKeys.owner_dashboard_title,
+      componentLabels: [
+        'Aura HUD (Enterprise Valuation)',
+        'Portfolio Performance Grid',
+        'Strategic Growth Insights',
+        'Global Risk Assessment',
+      ],
+      structuralPlan:
+          'Owner Command Center: Aura HUD with enterprise telemetry. High-level portfolio performance and strategic growth monitoring.',
+    );
+    registerRoute(
+      '/offices/roles/franchise_owner/dashboard',
+      PrimeCareForm.franchiseOwnerDashboard,
+      provider: franchiseOwnerAdapterProvider,
+      titleKey: LocaleKeys.franchise_owner_dashboard_title,
+      componentLabels: [
+        'Aura HUD (Unit Profitability)',
+        'Operational Health Grid',
+        'Staffing Utilization',
+        'Revenue Projections',
+      ],
+      structuralPlan:
+          'Franchise Owner Command: Aura HUD with profitability telemetry. Regional performance and operational health monitoring.',
+    );
+    registerRoute(
+      '/offices/roles/local_marketing_manager/dashboard',
+      PrimeCareForm.localMarketingManagerDashboard,
+      provider: localMarketingManagerDashboardAdapterProvider,
+      titleKey: LocaleKeys.local_marketing_manager_dashboard_title,
+      componentLabels: [
+        'Aura HUD (Lead Velocity)',
+        'Campaign Performance Grid',
+        'Referral Source Tracking',
+        'Outreach Event Calendar',
+      ],
+      structuralPlan:
+          'Local Marketing Command: Aura HUD with lead telemetry. Local community outreach and lead generation tracking.',
     );
   }
 
@@ -316,18 +475,78 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       'structuralPlan':
           'Patient Onboarding Portal: Aura HUD with velocity tracking. Main section features the smart intake form builder with document verification gates.',
     },
-    'psw': {
+    'psw_dashboard': {
       'title': 'clinical.psw.dashboard.title',
       'subtitle': 'clinical.psw.dashboard.subtitle',
       'route': ClinicalRoutes.pswDashboard,
       'componentLabels': [
         'Aura HUD (Visit Completion %)',
-        'Patient Summary Cards',
-        'Task Checklist',
+        'Visit Timeline Card',
+        'Live Task Burn-down Sparkline',
         'Incident Quick-Report',
       ],
       'structuralPlan':
-          'Field Care Portal: Aura HUD with visit throughput telemetry. AuthLayout centers on high-visibility patient summary cards and a real-time task checklist for incident monitoring.',
+          'PSW Command Center: Aura HUD with SHIFT THROUGHPUT (4/6 Visits Completed). VisitTimelineCard showing current and next 2 visits with mini-maps. Live "Task Burn-down" sparkline for telemetry.',
+    },
+    'psw_visit_checklist': {
+      'title': 'clinical.psw.visit_checklist.title',
+      'subtitle': 'clinical.psw.visit_checklist.subtitle',
+      'route': ClinicalRoutes.pswVisitChecklist,
+      'componentLabels': [
+        'Patient Bio Summary',
+        'Interactive Checklist (Hygiene, Nutrition, Mobility)',
+        'Unplanned Observation FAB',
+      ],
+      'structuralPlan':
+          'Care Plan Checklist: Patient Bio Summary with DNR/Allergy Alerts. InteractiveChecklist grouped by Hygiene, Nutrition, and Mobility. Floating Action Button for Unplanned Observations.',
+    },
+    'psw_observation_vitals_log': {
+      'title': 'clinical.psw.observation_vitals_log.title',
+      'subtitle': 'clinical.psw.observation_vitals_log.subtitle',
+      'route': ClinicalRoutes.pswObservationVitalsLog,
+      'componentLabels': [
+        'Aura Form Container (Mood/Pain)',
+        'High-Precision Vitals Input',
+        'Vital Trends Sparkline',
+      ],
+      'structuralPlan':
+          'Clinical Data Entry: AuraFormContainer with interactive sliders for Mood and Pain assessments. High-precision inputs for Temp, BP, and O2. Sparkline visualization of 24h vital trends.',
+    },
+    'psw_incident_report': {
+      'title': 'clinical.psw.incident_report.title',
+      'subtitle': 'clinical.psw.incident_report.subtitle',
+      'route': ClinicalRoutes.pswIncidentReport,
+      'componentLabels': [
+        'Urgency Grid (Fall, Refusal, Skin)',
+        'Evidence Camera Interface',
+        'Immediate Assistance Trigger',
+      ],
+      'structuralPlan':
+          'Safety Reporting Hub: High-contrast urgency grid with large-tap targets for Fall, Refusal, and Skin incidents. Integrated camera interface for photo evidence and floating red Immediate Assistance trigger.',
+    },
+    'psw_patient_profile': {
+      'title': 'clinical.psw.patient_profile.title',
+      'subtitle': 'clinical.psw.patient_profile.subtitle',
+      'route': ClinicalRoutes.pswPatientProfile,
+      'componentLabels': [
+        'Patient Avatar & QR Code',
+        'Medical History Card',
+        'Clinical Precautions Banner',
+      ],
+      'structuralPlan':
+          'Patient Digital Passport: Patient Avatar with secure QR bedside verification. PrimeCareV4Cards for medical history, preferred routines, and family contacts. Persistent Clinical Precautions banner.',
+    },
+    'psw_schedule': {
+      'title': 'clinical.psw.schedule.title',
+      'subtitle': 'clinical.psw.schedule.subtitle',
+      'route': ClinicalRoutes.pswSchedule,
+      'componentLabels': [
+        'Integrated Route Map',
+        'Time-Blocked Roster Cards',
+        'Smart-Travel Estimates',
+      ],
+      'structuralPlan':
+          'Logistics & Travel: Integrated route visualization for the full shift. Time-blocked cards showing travel vs. care duration with smart-travel time estimates and navigation actions.',
     },
     'rn': {
       'title': 'clinical.rn.dashboard.title',
@@ -341,6 +560,19 @@ class ClinicalRegistry extends OfficeScreenRegistry {
       ],
       'structuralPlan':
           'Advanced Care Console: Aura HUD with critical alert telemetry. Dominant MAR interface paired with structured wound care assessments and triage logic.',
+    },
+    'rpn': {
+      'title': 'clinical.rpn.dashboard.title',
+      'subtitle': 'clinical.rpn.dashboard.subtitle',
+      'route': ClinicalRoutes.rpnDashboard,
+      'componentLabels': [
+        'Aura HUD',
+        'Vitals Monitor',
+        'Medication Queue',
+        'Shift Handover Notes',
+      ],
+      'structuralPlan':
+          'Practical Nursing Hub: Aura HUD with vital signs monitoring. Features a medication queue and structured shift handover notes.',
     },
     'rmt': {
       'title': 'clinical.rmt.dashboard.title',
@@ -414,7 +646,7 @@ class ClinicalRegistry extends OfficeScreenRegistry {
         'Customer Sentiment Hub',
       ],
       'structuralPlan':
-          'Service Excellence Console: Aura HUD with ticket volume telemetry. DashboardsComplianceManagerDashboard features a live ticket queue and SLA performance monitoring.',
+          'Service Excellence Console: Aura HUD with ticket volume telemetry. Dashboards features a live ticket queue and SLA performance monitoring.',
       'kpis': [
         {
           'title': 'Open Tickets',

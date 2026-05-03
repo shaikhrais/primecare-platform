@@ -5,11 +5,9 @@
 enum PrimeCareForm {
   addFranchiseLeadForm('Add Franchise Lead Form'),
   adjustFontSize('Adjust Font Size'),
-  adminDashboard('Admin ComplianceManagerDashboard'),
-  adminLayout('Admin AuthLayout'),
-  adminReconciliationDashboard(
-    'Admin Reconciliation ComplianceManagerDashboard',
-  ),
+  adminDashboard('Admin Dashboard'),
+  adminLayout('Admin Layout'),
+  adminReconciliationDashboard('Admin Reconciliation Dashboard'),
   alignCenterIcon('Align Center Icon'),
   alignJustifyIcon('Align Justify Icon'),
   alignLeftIcon('Align Left Icon'),
@@ -34,9 +32,9 @@ enum PrimeCareForm {
   auditSecurityComplianceForm('Audit Security Compliance Form'),
   auditSystemLogsForm('Audit System Logs Form'),
   authContext('Auth Context'),
-  authLayout('Auth AuthLayout'),
+  authLayout('Auth Layout'),
   authPagesMessageSection('Auth Pages Message Section'),
-  authSplitLayout('Auth Split AuthLayout'),
+  authSplitLayout('Auth Split Layout'),
   authentication('Authentication'),
   authenticator('Authenticator'),
   awsSignInTab('Aws Sign In Tab'),
@@ -48,7 +46,7 @@ enum PrimeCareForm {
   incidentReports('Incident Reports'),
   complianceAudit('Compliance Audit'),
   clinicalIntelligence('Clinical Intelligence'),
-  financialSnapshot('Financial Snapshot'),
+  financialSnapshot('dashboards.common.labels.financial_snapshot'),
   billingLedger('Billing Ledger'),
   messaging('Messaging'),
   userManagement('User Management'),
@@ -97,79 +95,106 @@ enum PrimeCareForm {
   systemStatus('System Status'),
   featureIntake('Feature Intake'),
   platformMetrics('Platform Metrics'),
-  billingAdminDashboard('Billing Admin ComplianceManagerDashboard'),
+  billingAdminDashboard('dashboards.common.labels.billing_admin_dashboard'),
   blockQuoteIcon('Block Quote Icon'),
   boldIcon('Bold Icon'),
   button('Button'),
   carePlanEvaluationForm('Care Plan Evaluation Form'),
-  ceoDashboard('Ceo ComplianceManagerDashboard'),
-  cfoDashboard('Cfo ComplianceManagerDashboard'),
+  ceoDashboard('dashboards.common.labels.ceo_dashboard'),
+  cfoDashboard('dashboards.common.labels.cfo_dashboard'),
   chevronDownIcon('Chevron Down Icon'),
-  clientDashboard('Client ComplianceManagerDashboard'),
-  clientLayout('Client AuthLayout'),
-  clinicDashboard('Clinic ComplianceManagerDashboard'),
-  clinicalDirectorDashboard('Clinical Director ComplianceManagerDashboard'),
-  nurseDashboard('Nurse ComplianceManagerDashboard'),
-  rnDashboard('RN ComplianceManagerDashboard'),
-  rmtDashboard('RMT ComplianceManagerDashboard'),
-  physicianDashboard('Physician ComplianceManagerDashboard'),
-  pswDashboard('PSW ComplianceManagerDashboard'),
-  careGiverDashboard('Caregiver ComplianceManagerDashboard'),
-  therapistDashboard('Therapist ComplianceManagerDashboard'),
-  socialWorkerDashboard('Social Worker ComplianceManagerDashboard'),
-  familyMemberDashboard('Family Member ComplianceManagerDashboard'),
-  receptionistDashboard('Receptionist ComplianceManagerDashboard'),
-  schedulerDashboard('Scheduler ComplianceManagerDashboard'),
+  clientDashboard('dashboards.common.labels.client_dashboard'),
+  clientLayout('Client Layout'),
+  clinicDashboard('dashboards.common.labels.clinic_dashboard'),
+  clinicalDirectorDashboard(
+    'dashboards.common.labels.clinical_director_dashboard',
+  ),
+  nurseDashboard('dashboards.common.labels.nurse_dashboard'),
+  rnDashboard('dashboards.common.labels.rn_dashboard'),
+  rpnDashboard('dashboards.common.labels.rpn_dashboard'),
+  rmtDashboard('dashboards.common.labels.rmt_dashboard'),
+  physicianDashboard('dashboards.common.labels.physician_dashboard'),
+  pswDashboard('dashboards.common.labels.psw_dashboard'),
+  pswVisitChecklist('dashboards.common.labels.psw_visit_checklist'),
+  pswObservationVitalsLog(
+    'dashboards.common.labels.psw_observation_vitals_log',
+  ),
+  pswIncidentReport('dashboards.common.labels.psw_incident_report'),
+  pswPatientProfile('dashboards.common.labels.psw_patient_profile'),
+  pswSchedule('dashboards.common.labels.psw_schedule'),
+  careGiverDashboard('dashboards.common.labels.care_giver_dashboard'),
+  therapistDashboard('dashboards.common.labels.therapist_dashboard'),
+  socialWorkerDashboard('dashboards.common.labels.social_worker_dashboard'),
+  familyMemberDashboard('dashboards.common.labels.family_member_dashboard'),
+  receptionistDashboard('dashboards.common.labels.receptionist_dashboard'),
+  schedulerDashboard('dashboards.common.labels.scheduler_dashboard'),
   infrastructureHealth('Infrastructure Health'),
   systemInfrastructure('System Infrastructure'),
-  intakeCoordinatorDashboard('Intake Coordinator ComplianceManagerDashboard'),
-  qualityAssuranceDashboard('Quality Assurance ComplianceManagerDashboard'),
+  intakeCoordinatorDashboard(
+    'dashboards.common.labels.intake_coordinator_dashboard',
+  ),
+  qualityAssuranceDashboard(
+    'dashboards.common.labels.quality_assurance_dashboard',
+  ),
+  qaDashboard('dashboards.common.labels.qa_dashboard'),
   closeIcon('Close Icon'),
   code2Icon('Code2 Icon'),
   codeBlockIcon('Code Block Icon'),
-  communityOutreachDashboard('Community Outreach ComplianceManagerDashboard'),
-  complianceManagerDashboard('Compliance Manager ComplianceManagerDashboard'),
+  communityOutreachDashboard(
+    'dashboards.common.labels.community_outreach_dashboard',
+  ),
+  complianceManagerDashboard(
+    'dashboards.common.labels.compliance_manager_dashboard',
+  ),
   configurator('Configurator'),
-  cooDashboard('Coo ComplianceManagerDashboard'),
+  cooDashboard('dashboards.common.labels.coo_dashboard'),
   cornerDownLeftIcon('Corner Down Left Icon'),
   createAdPlacementForm('Create Ad Placement Form'),
   createCannedResponseForm('Create Canned Response Form'),
   createCustomInvoiceForm('Create Custom Invoice Form'),
   createRevenueReportForm('Create Revenue Report Form'),
   createSupplyOrderForm('Create Supply Order Form'),
-  ctoDashboard('Cto ComplianceManagerDashboard'),
-  systemVerificationDashboard('System Verification ComplianceManagerDashboard'),
-  systemHealthDashboard('System Health ComplianceManagerDashboard'),
-  itSecurityDashboard('IT Security ComplianceManagerDashboard'),
-  courseArchitectTool('Course Architect Tool'),
-  architecturePlanningDashboard(
-    'Architecture Planning ComplianceManagerDashboard',
+  ctoDashboard('dashboards.common.labels.cto_dashboard'),
+  systemVerificationDashboard(
+    'dashboards.common.labels.system_verification_dashboard',
   ),
-  customerSupportDashboard('Customer Support ComplianceManagerDashboard'),
+  systemHealthDashboard('dashboards.common.labels.system_health_dashboard'),
+  itSecurityDashboard('dashboards.common.labels.it_security_dashboard'),
+  courseArchitectTool('Course Architect Tool'),
+  architecturalPlanningDashboard('Architecture Planning Dashboard'),
+  customerSupportDashboard(
+    'dashboards.common.labels.customer_support_dashboard',
+  ),
   dailyVitalsCardForm('Daily Vitals Card Form'),
-  dataTable('RnData Table'),
-  dataTableTopToolbar('RnData Table Top Toolbar'),
+  dataTable('Data Table'),
+  dataTableTopToolbar('Data Table Top Toolbar'),
   demoContent('Demo Content'),
-  demoDashboard('Demo ComplianceManagerDashboard'),
+  demoDashboard('Demo Dashboard'),
   demoFrame('Demo Frame'),
-  demoLayoutFooterContent('Demo AuthLayout Footer Content'),
+  demoLayoutFooterContent('Demo Layout Footer Content'),
   demoSidebarContent('Demo Sidebar Content'),
   disciplineLogForm('Discipline Log Form'),
   documentationButton('Documentation Button'),
   dragAssignWidget('Drag Assign Widget'),
   dropdownMenu('Dropdown Menu'),
-  dynamicRoleDashboard('Dynamic Role ComplianceManagerDashboard'),
-  trainingDirectorDashboard('Training Director ComplianceManagerDashboard'),
-  infectionControlDashboard('Infection Control ComplianceManagerDashboard'),
+  dynamicRoleDashboard('Dynamic Role Dashboard'),
+  trainingDirectorDashboard(
+    'dashboards.common.labels.training_director_dashboard',
+  ),
+  infectionControlDashboard(
+    'dashboards.common.labels.infection_control_dashboard',
+  ),
   error401PageView('Error401 Page View'),
   error404PageView('Error404 Page View'),
   errorBoundary('Error Boundary'),
   etaTrackerWidget('Eta Tracker Widget'),
   exampleView('Example View'),
   externalLinkIcon('External Link Icon'),
-  familyDashboard('Family ComplianceManagerDashboard'),
+  familyDashboard('Family Dashboard'),
   familyMember('Family Member'),
-  financeDirectorDashboard('Finance Director ComplianceManagerDashboard'),
+  financeDirectorDashboard(
+    'dashboards.common.labels.finance_director_dashboard',
+  ),
   firebaseAuthContext('Firebase Auth Context'),
   firebaseSignInForm('Firebase Sign In Form'),
   firebaseSignInTab('Firebase Sign In Tab'),
@@ -180,19 +205,19 @@ enum PrimeCareForm {
   footerLayout3('Footer Layout3'),
   footerTheme('Footer Theme'),
   framedDemo('Framed Demo'),
-  franchiseDashboard('Franchise ComplianceManagerDashboard'),
+  franchiseDashboard('Franchise Dashboard'),
   franchiseOnboardingChecklistForm('Franchise Onboarding Checklist Form'),
-  franchiseOwnerDashboard('Franchise Owner ComplianceManagerDashboard'),
-  franchiseReconciliationDashboard(
-    'Franchise Reconciliation ComplianceManagerDashboard',
-  ),
-  franchiseRefundsDashboard('Franchise Refunds ComplianceManagerDashboard'),
-  franchiseReportsDashboard('Franchise Reports ComplianceManagerDashboard'),
+  franchiseOwnerDashboard('dashboards.common.labels.franchise_owner_dashboard'),
+  franchiseReconciliationDashboard('Franchise Reconciliation Dashboard'),
+  franchiseRefundsDashboard('Franchise Refunds Dashboard'),
+  franchiseReportsDashboard('Franchise Reports Dashboard'),
   franchiseSalesManagerDashboard(
-    'Franchise Sales Manager ComplianceManagerDashboard',
+    'dashboards.common.labels.franchise_sales_manager_dashboard',
   ),
-  marketingManagerDashboard('Marketing Manager ComplianceManagerDashboard'),
-  fullScreenToggle('Full TrainingCoordinatorDashboardScreen Toggle'),
+  marketingManagerDashboard(
+    'dashboards.common.labels.marketing_manager_dashboard',
+  ),
+  fullScreenToggle('Full Screen Toggle'),
   fuseAuthContext('Fuse Auth Context'),
   fuseAuthorization('Fuse Authorization'),
   fuseAwaitRender('Fuse Await Render'),
@@ -200,11 +225,11 @@ enum PrimeCareForm {
   fuseDialog('Fuse Dialog'),
   fuseExample('Fuse Example'),
   fuseHighlight('Fuse Highlight'),
-  fuseLayout('Fuse AuthLayout'),
-  fuseLayoutConfig('Fuse AuthLayout Config'),
-  fuseLayoutConfigs('Fuse AuthLayout Configs'),
-  systemDashboard('System ComplianceManagerDashboard'),
-  fuseLayoutSettingsContext('Fuse AuthLayout Settings Context'),
+  fuseLayout('Fuse Layout'),
+  fuseLayoutConfig('Fuse Layout Config'),
+  fuseLayoutConfigs('Fuse Layout Configs'),
+  systemDashboard('System Dashboard'),
+  fuseLayoutSettingsContext('Fuse Layout Settings Context'),
   fuseLoading('Fuse Loading'),
   fuseNavBadge('Fuse Nav Badge'),
   fuseNavHorizontalCollapse('Fuse Nav Horizontal Collapse'),
@@ -243,15 +268,15 @@ enum PrimeCareForm {
   fuseTheme('Fuse Theme'),
   fuseThemeHooks('Fuse Theme Hooks'),
   fuseThemeSelector('Fuse Theme Selector'),
-  generalManagerDashboard('General Manager ComplianceManagerDashboard'),
+  generalManagerDashboard('dashboards.common.labels.general_manager_dashboard'),
   goToDocBox('Go To Doc Box'),
-  governanceComplianceDashboard(
-    'Governance Compliance ComplianceManagerDashboard',
-  ),
+  governanceComplianceDashboard('Governance Compliance Dashboard'),
   greetingHeaderWidget('Greeting Header Widget'),
-  guestDashboard('Guest ComplianceManagerDashboard'),
-  headOfBusDevDashboard('Head Of Bus Dev ComplianceManagerDashboard'),
-  headOfMarketingDashboard('Head Of Marketing ComplianceManagerDashboard'),
+  guestDashboard('dashboards.common.labels.guest_dashboard'),
+  headOfBusDevDashboard('dashboards.common.labels.head_of_bus_dev_dashboard'),
+  headOfMarketingDashboard(
+    'dashboards.common.labels.head_of_marketing_dashboard',
+  ),
   headingButton('Heading Button'),
   headingDropdownMenu('Heading Dropdown Menu'),
   headingFiveIcon('Heading Five Icon'),
@@ -263,21 +288,24 @@ enum PrimeCareForm {
   headingTwoIcon('Heading Two Icon'),
   highlightPopover('Highlight Popover'),
   highlighterIcon('Highlighter Icon'),
-  hrHiringDashboard('Hr Hiring ComplianceManagerDashboard'),
-  hrDirectorDashboard('HR Director ComplianceManagerDashboard'),
-  hrManagerDashboard('HR Manager ComplianceManagerDashboard'),
-  cxDirectorDashboard('CX Director ComplianceManagerDashboard'),
-  itAdminDashboard('IT Admin ComplianceManagerDashboard'),
+  hrHiringDashboard('dashboards.common.labels.hr_hiring_dashboard'),
+  hrDirectorDashboard('dashboards.common.labels.hr_director_dashboard'),
+  hrManagerDashboard('dashboards.common.labels.hr_manager_dashboard'),
+  cxDirectorDashboard('dashboards.common.labels.cx_director_dashboard'),
+  itAdminDashboard('dashboards.common.labels.it_admin_dashboard'),
+  governanceMonitorDashboard(
+    'dashboards.common.labels.governance_monitor_dashboard',
+  ),
   hrManager('Hr Manager'),
 
   imagePlusIcon('Image Plus Icon'),
   imageUploadButton('Image Upload Button'),
   imageUploadNode('Image Upload Node'),
-  genericDashboard('Generic ComplianceManagerDashboard'),
+  genericDashboard('Generic Dashboard'),
   indexForm('Index Form'),
   initializeFirebase('Initialize Firebase'),
   intakeCoordinator('Intake Coordinator'),
-  intakeDashboard('Intake ComplianceManagerDashboard'),
+  intakeDashboard('Intake Dashboard'),
   italicIcon('Italic Icon'),
   jwSignUpTab('Jw Sign Up Tab'),
   jwtAuthContext('Jwt Auth Context'),
@@ -303,7 +331,7 @@ enum PrimeCareForm {
   listTodoIcon('List Todo Icon'),
   localMarketing('Local Marketing'),
   localMarketingManagerDashboard(
-    'Local Marketing Manager ComplianceManagerDashboard',
+    'dashboards.common.labels.local_marketing_manager_dashboard',
   ),
   logClinicalIncidentForm('Log Clinical Incident Form'),
   logEmployeeGrievanceForm('Log Employee Grievance Form'),
@@ -315,9 +343,9 @@ enum PrimeCareForm {
   mainProjectSelection('Main Project Selection'),
   markButton('Mark Button'),
   masterAppShell('Master App Shell'),
-  masterDashboardPage('Master ComplianceManagerDashboard Page'),
-  masterDetailLayout('Master Detail AuthLayout'),
-  masterLayout('Master AuthLayout'),
+  masterDashboardPage('Master Dashboard Page'),
+  masterDetailLayout('Master Detail Layout'),
+  masterLayout('Master Layout'),
   mockApi('Mock Api'),
   moodSliderWidget('Mood Slider Widget'),
   moonStarIcon('Moon Star Icon'),
@@ -345,35 +373,43 @@ enum PrimeCareForm {
   nodeButton('Node Button'),
   numberFormController('Number Form Controller'),
   nurtureLocalizedLeadForm('Nurture Localized Lead Form'),
-  operationsManagerDashboard('Operations Manager ComplianceManagerDashboard'),
+  operationsManagerDashboard(
+    'dashboards.common.labels.operations_manager_dashboard',
+  ),
   overrideGlobalScheduleForm('Override Global Schedule Form'),
-  ownerDashboard('Owner ComplianceManagerDashboard'),
+  ownerDashboard('Owner Dashboard'),
   pageBreadcrumb('Page Breadcrumb'),
   pageTitle('Page Title'),
   palettePreview('Palette Preview'),
   paletteSelector('Palette Selector'),
-  partnershipManagerDashboard('Partnership Manager ComplianceManagerDashboard'),
-  patientDashboard('Patient ComplianceManagerDashboard'),
+  partnershipManagerDashboard(
+    'dashboards.common.labels.partnership_manager_dashboard',
+  ),
+  patientDashboard('Patient Dashboard'),
   patientIntakeForm('Patient Intake Form'),
   popover('Popover'),
   poweredByLinks('Powered By Links'),
   primecareResponsiveShell('Primecare Responsive Shell'),
-  providerLayout('Provider AuthLayout'),
+  providerLayout('Provider Layout'),
   purchaseButton('Purchase Button'),
-  qaDashboard('Qa ComplianceManagerDashboard'),
   qualityAssurance('Quality Assurance'),
   quickPanel('Quick Panel'),
   quickPanelToggleButton('Quick Panel Toggle Button'),
   radioFormController('Radio Form Controller'),
   redo2Icon('Redo2 Icon'),
-  regionalBdmDashboard('Regional Bdm ComplianceManagerDashboard'),
-  regionalManagerDashboard('Regional Manager ComplianceManagerDashboard'),
+  regionalBdmDashboard('Regional Bdm Dashboard'),
+  regionalManagerDashboard(
+    'dashboards.common.labels.regional_manager_dashboard',
+  ),
   regionalManagerOntarioDashboard(
-    'Regional Manager Ontario ComplianceManagerDashboard',
+    'dashboards.common.labels.regional_manager_ontario_dashboard',
   ),
   regionalManagerUsaDashboard(
-    'Regional Manager Usa ComplianceManagerDashboard',
+    'dashboards.common.labels.regional_manager_usa_dashboard',
   ),
+  ontFinOverview('Ontario Finance Overview'),
+  ontFinApprovals('Ontario Finance Approvals'),
+  ontFinRoadmap('Ontario Finance Roadmap'),
   registerCorporateRiskForm('Register Corporate Risk Form'),
   requestShiftAdjustmentForm('Request Shift Adjustment Form'),
   reviewCarePlanForm('Review Care Plan Form'),
@@ -422,12 +458,16 @@ enum PrimeCareForm {
   sunIcon('Sun Icon'),
   superscriptIcon('Superscript Icon'),
   switchFormController('Switch Form Controller'),
+  territoryExpansionDashboard(
+    'dashboards.common.labels.territory_expansion_dashboard',
+  ),
+  territorySalesDashboard('dashboards.common.labels.territory_sales_dashboard'),
   territoryExpansionManagerDashboard(
-    'Territory Expansion Manager ComplianceManagerDashboard',
+    'dashboards.common.labels.territory_expansion_manager_dashboard',
   ),
   territorySales('Territory Sales'),
   territorySalesManagerDashboard(
-    'Territory Sales Manager ComplianceManagerDashboard',
+    'dashboards.common.labels.territory_sales_manager_dashboard',
   ),
   textAlignButton('Text Align Button'),
   themePreview('Theme Preview'),
@@ -441,7 +481,7 @@ enum PrimeCareForm {
   toolbarTheme('Toolbar Theme'),
   tooltip('Tooltip'),
   trainingCoordinatorDashboard(
-    'Training Coordinator ComplianceManagerDashboard',
+    'dashboards.common.labels.training_coordinator_dashboard',
   ),
   trashIcon('Trash Icon'),
   underlineIcon('Underline Icon'),
@@ -451,7 +491,7 @@ enum PrimeCareForm {
   useAwsAuth('Use Aws Auth'),
   useFirebaseAuth('Use Firebase Auth'),
   useFuseDialogContext('Use Fuse Dialog Context'),
-  useFuseLayoutSettings('Use Fuse AuthLayout Settings'),
+  useFuseLayoutSettings('Use Fuse Layout Settings'),
   useFuseRouteParameter('Use Fuse Route Parameter'),
   useFuseSettings('Use Fuse Settings'),
 
@@ -475,70 +515,209 @@ enum PrimeCareForm {
   certifications('Certifications'),
 
   // Franchise Operations
-  onboardingWizard('Onboarding Wizard'),
-  invoiceManagement('Invoice Management'),
+  onboardingWizard('dashboards.common.labels.onboarding_wizard'),
+  invoiceManagement('dashboards.common.labels.invoice_management'),
 
   // Clinical Operations
-  referralManagement('Referral Management'),
-  intakeAssessment('Intake Assessment'),
-  qualityMetrics('Quality DashboardMetrics'),
-  volunteerCoordinatorDashboard('Volunteer Coordinator Dashboard'),
+  referralManagement('dashboards.common.labels.referral_management'),
+  intakeAssessment('dashboards.common.labels.intake_assessment'),
+  qualityMetrics('dashboards.common.labels.quality_metrics'),
+  volunteerCoordinatorDashboard(
+    'dashboards.common.labels.volunteer_coordinator_dashboard',
+  ),
 
   // Infrastructure
-  scrumMasterDashboard('Scrum Master ComplianceManagerDashboard'),
-  trainingHub_legacy('Training Hub'),
-  incidentReports_legacy('Incident Reports'),
-  complianceAudit_legacy('Compliance Audit'),
-  clinicalIntelligence_legacy('Clinical Intelligence'),
-  financialSnapshot_legacy('Financial Snapshot'),
-  billingLedger_legacy('Billing Ledger'),
-  messaging_legacy('Messaging'),
-  userManagement_legacy('User Management'),
-  franchiseOperations_legacy('Franchise Operations'),
-  marketingCampaigns_legacy('Marketing Campaigns'),
-  salesPipeline_legacy('Sales Pipeline'),
-  itSupport_legacy('IT Support'),
-  strategicGrowth_legacy('Strategic Growth'),
-  revenueAnalysis_legacy('Revenue Analysis'),
-  operationalEfficiency_legacy('Operational Efficiency'),
-  marketExpansion_legacy('Market Expansion'),
-  ebitdaAnalysis_legacy('EBITDA Analysis'),
-  cashOnHand_legacy('Cash On Hand'),
-  netMarginAnalysis_legacy('Net Margin Analysis'),
-  operationalBurn_legacy('Operational Burn'),
-  taxOptimization_legacy('Tax Optimization'),
-  arAlert_legacy('A/R Alert'),
-  capitalEfficiency_legacy('Capital Efficiency'),
-  operationalInsights_legacy('Operational Insights'),
-  burnRateAnalysis_legacy('Burn Rate Analysis'),
-  operationalVolume_legacy('Operational Volume'),
-  uptimeMonitor_legacy('Uptime Monitor'),
-  latencyAnalysis_legacy('Latency Analysis'),
-  errorRate_legacy('Error Rate'),
-  securityPosture_legacy('Security Posture'),
-  devOpsVelocity_legacy('DevOps Velocity'),
-  staffingMatrix_legacy('Staffing Matrix'),
-  protocolCompliance_legacy('Protocol Compliance'),
-  incidentTrend_legacy('Incident Trend'),
-  cashFlow_legacy('Cash Flow'),
-  ledgerCommand_legacy('Ledger Command'),
-  roiAnalysis_legacy('ROI Analysis'),
-  cacVolatility_legacy('CAC Volatility'),
-  businessOverview_legacy('Business Overview'),
-  financialPerformance_legacy('Financial Performance'),
-  complianceStatus_legacy('Compliance Status'),
-  appointment_legacy('Appointment'),
-  carePlan_legacy('Care Plan'),
-  ticket_legacy('Ticket'),
-  responseTime_legacy('Response Time'),
-  satisfactionScore_legacy('Satisfaction Score'),
-  slaBreachRisk_legacy('SLA Breach Risk'),
-  leadManagement_legacy('Lead Management'),
-  pendingVerification_legacy('Pending Verification'),
-  recentAudit_legacy('Recent Audit'),
-  systemStatus_legacy('System Status'),
-  featureIntake_legacy('Feature Intake'),
-  platformMetrics_legacy('Platform Metrics');
+  scrumMasterDashboard('dashboards.common.labels.scrum_master_dashboard'),
+  healthDashboard('Health Dashboard'),
+  securityDashboard('Security Dashboard'),
+  infrastructureGovernanceMonitor('Infrastructure Governance Monitor '),
+  infrastructureAndAdminSystemInfrastructureOverview(
+    'Infrastructure And Admin System Infrastructure Overview ',
+  ),
+  infrastructureAndAdminConfiguratorHub(
+    'Infrastructure And Admin Configurator Hub ',
+  ),
+  infrastructureAndAdminAuxiliaryPlatformViewI(
+    'Infrastructure And Admin Auxiliary Platform View  I ',
+  ),
+  error401('Error 401'),
+  error404('Error 404'),
+  signIn('Sign In'),
+  signOut('Sign Out'),
+  signUp('Sign Up'),
+  architecturalPlanning('Architectural Planning'),
+  courseArchitectDashboard('Course Architect Dashboard'),
+  dynamicScreenDashboard('Dynamic Screen Dashboard'),
+  featuresExplorer('Features Explorer'),
+  createUserForm('Create User Form'),
+  passwordResetForm('Password Reset Form'),
+  createShiftForm('Create Shift Form'),
+  demoLayoutFooter('Demo Layout Footer'),
+  navbarV2('Navbar V2'),
+  navbarV3('Navbar V3'),
+  toolbarV1('Toolbar V1'),
+  toolbarV2('Toolbar V2'),
+  systemMetrics('System Metrics'),
+  businessDevelopmentRegionDomainRegionalView(
+    'Business Development Region Domain Regional View ',
+  ),
+  supportIntakeCoordinatorDashboard('Support Intake Coordinator Dashboard'),
+  intakeCoordinatorReferrals('Intake Coordinator Referrals'),
+  intakeCoordinatorAssessments('Intake Coordinator Assessments'),
+  clinicalDirectorQualityMetrics('Clinical Director Quality Metrics'),
+  officesRolesPatientDashboard('Offices Roles Patient Dashboard '),
+  officesRolesPartnershipManagerDashboard(
+    'Offices Roles Partnership Manager Dashboard ',
+  ),
+  officesRolesOwnerDashboard('Offices Roles Owner Dashboard '),
+  officesRolesFranchiseOwnerDashboard(
+    'Offices Roles Franchise Owner Dashboard ',
+  ),
+  officesRolesLocalMarketingManagerDashboard(
+    'Offices Roles Local Marketing Manager Dashboard ',
+  ),
+  chiropractorDashboard('Chiropractor Dashboard'),
+  physiotherapistDashboard('Physiotherapist Dashboard'),
+  trainingDirectorCertificateDashboard(
+    'Training Director Certificate Dashboard',
+  ),
+  clinicalDashboard('Clinical Dashboard'),
+  clinicalDirectorLabels('Clinical Director Labels'),
+  clinicalLabels('Clinical Labels'),
+  shareholderIntelligenceDashboard('Shareholder Intelligence Dashboard'),
+  corporateGovernanceDashboard('Corporate Governance Dashboard'),
+  financeLedger('Finance Ledger'),
+  enterpriseOverview('Enterprise Overview'),
+  strategicKpis('Strategic Kpis'),
+  financialOverview('Financial Overview'),
+  operationsBoard('Operations Board'),
+  franchiseOwnerFinancialSnapshot('Franchise Owner Financial Snapshot'),
+  hrHiringOnboarding('Hr Hiring Onboarding'),
+  adminInvoices('Admin Invoices'),
+  adminSettings('Admin Settings '),
+  architectureGovernance('Architecture Governance '),
+  logisticsHub('Logistics Hub '),
+  operationalStaffingDirector('Operational Staffing Director '),
+  operationalRegionalManager('Operational Regional Manager '),
+  complianceHub('Compliance Hub'),
+  verificationHub('Verification Hub'),
+  regionDashboard('Region Dashboard'),
+  supportDashboard('Support Dashboard'),
+  liveDispatchMap('Live Dispatch Map'),
+  officesRolesSupportTeamDashboard('Offices Roles Support Team Dashboard '),
+  officesRolesCustomerSupportDashboard(
+    'Offices Roles Customer Support Dashboard ',
+  ),
+  wfAddFranchiseLeadForm('Wf Add Franchise Lead Form '),
+  wfApproveExpenseReimbursementForm('Wf Approve Expense Reimbursement Form '),
+  wfApproveFranchiseDisclosureForm('Wf Approve Franchise Disclosure Form '),
+  wfApproveLeaveRequestForm('Wf Approve Leave Request Form '),
+  wfApproveMedicationRefillForm('Wf Approve Medication Refill Form '),
+  wfApprovePayrollRunForm('Wf Approve Payroll Run Form '),
+  wfApproveRealEstateForm('Wf Approve Real Estate Form '),
+  wfApproveSystemAccessForm('Wf Approve System Access Form '),
+  wfAssignCarePodForm('Wf Assign Care Pod Form '),
+  wfAssignLeadForm('Wf Assign Lead Form '),
+  wfAssignTrainingModuleForm('Wf Assign Training Module Form '),
+  wfAuditComplianceForm('Wf Audit Compliance Form '),
+  wfAuditGlobalEducationForm('Wf Audit Global Education Form '),
+  wfAuditOverrideForm('Wf Audit Override Form '),
+  wfAuditPayrollDiscrepancyForm('Wf Audit Payroll Discrepancy Form '),
+  wfAuditRoyaltyPaymentForm('Wf Audit Royalty Payment Form '),
+  wfAuditSecurityComplianceForm('Wf Audit Security Compliance Form '),
+  wfAuditSystemLogsForm('Wf Audit System Logs Form '),
+  wfCarePlanEvaluationForm('Wf Care Plan Evaluation Form '),
+  wfCreateAdPlacementForm('Wf Create Ad Placement Form '),
+  wfCreateCannedResponseForm('Wf Create Canned Response Form '),
+  wfCreateCustomInvoiceForm('Wf Create Custom Invoice Form '),
+  wfCreateRevenueReportForm('Wf Create Revenue Report Form '),
+  wfCreateSupplyOrderForm('Wf Create Supply Order Form '),
+  wfDailyVitalsCardForm('Wf Daily Vitals Card Form '),
+  wfDisciplineLogForm('Wf Discipline Log Form '),
+  wfFranchiseOnboardingChecklistForm('Wf Franchise Onboarding Checklist Form '),
+  wfLeaveRequestForm('Wf Leave Request Form '),
+  wfLogClinicalIncidentForm('Wf Log Clinical Incident Form '),
+  wfLogEmployeeGrievanceForm('Wf Log Employee Grievance Form '),
+  wfLogFranchiseeVettingCallForm('Wf Log Franchisee Vetting Call Form '),
+  wfLogInfectionControlForm('Wf Log Infection Control Form '),
+  wfLogInventorySpoilageForm('Wf Log Inventory Spoilage Form '),
+  wfLogPettyCashForm('Wf Log Petty Cash Form '),
+  wfNewEmployeeOnboardingForm('Wf New Employee Onboarding Form '),
+  wfNurtureLocalizedLeadForm('Wf Nurture Localized Lead Form '),
+  wfOverrideGlobalScheduleForm('Wf Override Global Schedule Form '),
+  wfPatientIntakeForm('Wf Patient Intake Form '),
+  wfRegisterCorporateRiskForm('Wf Register Corporate Risk Form '),
+  wfRequestShiftAdjustmentForm('Wf Request Shift Adjustment Form '),
+  wfReviewCarePlanForm('Wf Review Care Plan Form '),
+  wfReviewClinicalIncidentForm('Wf Review Clinical Incident Form '),
+  wfReviewFleetMaintenanceForm('Wf Review Fleet Maintenance Form '),
+  wfReviewLeadConversionForm('Wf Review Lead Conversion Form '),
+  wfReviewLegalContractForm('Wf Review Legal Contract Form '),
+  wfReviewMarketShareForm('Wf Review Market Share Form '),
+  wfReviewMedicationInventoryForm('Wf Review Medication Inventory Form '),
+  wfReviewMonthlyExpensesForm('Wf Review Monthly Expenses Form '),
+  wfReviewOnboardingStatusForm('Wf Review Onboarding Status Form '),
+  wfReviewPeerPerformanceForm('Wf Review Peer Performance Form '),
+  wfReviewVendorContractsForm('Wf Review Vendor Contracts Form '),
+  wfScheduleClinicalAuditForm('Wf Schedule Clinical Audit Form '),
+  wfScheduleFacilityMaintenanceForm('Wf Schedule Facility Maintenance Form '),
+  wfScheduleInterviewForm('Wf Schedule Interview Form '),
+  wfScheduleOpenHouseForm('Wf Schedule Open House Form '),
+  wfSubmitAdlChecklistForm('Wf Submit Adl Checklist Form '),
+  wfSubmitDailyCensusForm('Wf Submit Daily Census Form '),
+  wfSubmitExitInterviewForm('Wf Submit Exit Interview Form '),
+  wfSubmitHealthcareClaimForm('Wf Submit Healthcare Claim Form '),
+  wfSubmitMarketingBudgetForm('Wf Submit Marketing Budget Form '),
+  wfVerifyCertificateForm('Wf Verify Certificate Form '),
+  administrativeForms('Administrative Forms'),
+  clinicalForms('Clinical Forms'),
+  commonForms('Common Forms'),
+  crmForms('Crm Forms'),
+  financialForms('Financial Forms'),
+  hrForms('Hr Forms'),
+  globalSettings('Global Settings'),
+  growthPipeline('Growth Pipeline'),
+  regionPerformance('Region Performance'),
+  leadershipReports('Leadership Reports'),
+  revenueTracker('Revenue Tracker'),
+  profitability('Profitability'),
+  taxRemittance('Tax Remittance'),
+  branchOperations('Branch Operations'),
+  schedulingHealth('Scheduling Health'),
+  incidentReviews('Incident Reviews'),
+  platformUsage('Platform Usage'),
+  apiMonitoring('Api Monitoring'),
+  auditLogs('Audit Logs'),
+  cases('Cases'),
+  policyManager('Policy Manager'),
+  audits('Audits'),
+  riskRegister('Risk Register'),
+  curriculumHub('Curriculum Hub'),
+  skillMatrix('Skill Matrix'),
+  branchComparison('Branch Comparison'),
+  intakePipeline('Intake Pipeline'),
+  referrals('Referrals'),
+  pendingAssessments('Pending Assessments'),
+  billingConsole('Billing Console'),
+  invoices('Invoices'),
+  marketingHub('Marketing Hub'),
+  campaignAnalytics('Campaign Analytics'),
+  shiftTracker('Shift Tracker'),
+  messages('Messages'),
+  familyHome('Family Home'),
+  billing('Billing'),
+  messagingHub('Messaging Hub'),
+  documentVault('Document Vault'),
+  notificationCenter('Notification Center'),
+  shareholderDashboard('Shareholder Dashboard'),
+  commonDashboardLabels('Common Dashboard Labels'),
+  regionalManagerLabels('Regional Manager Labels'),
+  commandCenterLabels('Command Center Labels'),
+  ctoDashboardLabels('Cto Dashboard Labels'),
+  ceoDashboardLabels('Ceo Dashboard Labels'),
+  cfoDashboardLabels('Cfo Dashboard Labels'),
+  supportDashboardLabels('Support Dashboard Labels'),
+  marketingDashboardLabels('Marketing Dashboard Labels');
 
   final String label;
   const PrimeCareForm(this.label);
@@ -656,32 +835,32 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'CLINICAL_DIRECTOR_DASHBOARD';
       case PrimeCareForm.clinicalIntelligence:
         return 'CLINICAL_INTELLIGENCE';
-      case PrimeCareForm.clinicalIntelligence_legacy:
-        return 'CLINICAL_INTELLIGENCE_LEGACY';
       case PrimeCareForm.billingLedger:
         return 'BILLING_LEDGER';
-      case PrimeCareForm.billingLedger_legacy:
-        return 'BILLING_LEDGER_LEGACY';
-      case PrimeCareForm.financialSnapshot_legacy:
-        return 'FINANCIAL_SNAPSHOT_LEGACY';
-      case PrimeCareForm.incidentReports_legacy:
-        return 'INCIDENT_REPORTS_LEGACY';
-      case PrimeCareForm.complianceAudit_legacy:
-        return 'COMPLIANCE_AUDIT_LEGACY';
       case PrimeCareForm.nurseDashboard:
         return 'NURSE_DASHBOARD';
       case PrimeCareForm.messaging:
         return 'MESSAGING';
-      case PrimeCareForm.messaging_legacy:
-        return 'MESSAGING_LEGACY';
       case PrimeCareForm.rnDashboard:
         return 'RN_DASHBOARD';
+      case PrimeCareForm.rpnDashboard:
+        return 'RPN_DASHBOARD';
       case PrimeCareForm.rmtDashboard:
         return 'RMT_DASHBOARD';
       case PrimeCareForm.physicianDashboard:
         return 'PHYSICIAN_DASHBOARD';
       case PrimeCareForm.pswDashboard:
         return 'PSW_DASHBOARD';
+      case PrimeCareForm.pswVisitChecklist:
+        return 'PSW_VISIT_CHECKLIST';
+      case PrimeCareForm.pswObservationVitalsLog:
+        return 'PSW_OBSERVATION_VITALS_LOG';
+      case PrimeCareForm.pswIncidentReport:
+        return 'PSW_INCIDENT_REPORT';
+      case PrimeCareForm.pswPatientProfile:
+        return 'PSW_PATIENT_PROFILE';
+      case PrimeCareForm.pswSchedule:
+        return 'PSW_SCHEDULE';
       case PrimeCareForm.careGiverDashboard:
         return 'CAREGIVER_DASHBOARD';
       case PrimeCareForm.therapistDashboard:
@@ -712,6 +891,8 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'COMMUNITY_OUTREACH_DASHBOARD';
       case PrimeCareForm.complianceManagerDashboard:
         return 'COMPLIANCE_MANAGER_DASHBOARD';
+      case PrimeCareForm.governanceMonitorDashboard:
+        return 'GOVERNANCE_MONITOR_DASHBOARD';
       case PrimeCareForm.configurator:
         return 'CONFIGURATOR';
       case PrimeCareForm.cooDashboard:
@@ -734,7 +915,7 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'IT_SECURITY_DASHBOARD';
       case PrimeCareForm.courseArchitectTool:
         return 'COURSE_ARCHITECT_TOOL';
-      case PrimeCareForm.architecturePlanningDashboard:
+      case PrimeCareForm.architecturalPlanningDashboard:
         return 'ARCHITECTURE_PLANNING_DASHBOARD';
       case PrimeCareForm.customerSupportDashboard:
         return 'CUSTOMER_SUPPORT_DASHBOARD';
@@ -1163,6 +1344,12 @@ extension PrimeCareFormExtension on PrimeCareForm {
         return 'REGIONAL_MANAGER_ONTARIO_DASHBOARD';
       case PrimeCareForm.regionalManagerUsaDashboard:
         return 'REGIONAL_MANAGER_USA_DASHBOARD';
+      case PrimeCareForm.ontFinOverview:
+        return 'ONT_FIN_OVERVIEW';
+      case PrimeCareForm.ontFinApprovals:
+        return 'ONT_FIN_APPROVALS';
+      case PrimeCareForm.ontFinRoadmap:
+        return 'ONT_FIN_ROADMAP';
       case PrimeCareForm.registerCorporateRiskForm:
         return 'REGISTER_CORPORATE_RISK_FORM';
       case PrimeCareForm.requestShiftAdjustmentForm:
@@ -1370,7 +1557,13 @@ extension PrimeCareFormExtension on PrimeCareForm {
       case PrimeCareForm.trainingDirectorCertificate:
         return 'TRAINING_DIRECTOR_CERTIFICATE';
       default:
-        return name;
+        // Convert camelCase to CONSTANT_CASE for auto-lookup
+        return name
+            .replaceAllMapped(
+              RegExp(r'([a-z])([A-Z0-9])'),
+              (Match m) => '${m[1]}_${m[2]}',
+            )
+            .toUpperCase();
     }
   }
 
