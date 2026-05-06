@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class SchedulerService {
   ExecutionGateService? _telemetry;
@@ -12,11 +12,13 @@ class SchedulerService {
     return Result.guardFuture<HorizonSchedule>(
       () async {
         final data = await DataLogisticsHub.fetchAndAssemble<HorizonSchedule>(
+          'get_horizon_schedule',
           fetchCall: () async {
             // Implementation for real API call would go here
             return _getBootstrapSchedule();
           },
           fallbackBuilder: () => _getBootstrapSchedule(),
+          assembler: (_) => _getBootstrapSchedule(), // Adding dummy assembler to satisfy signature
         );
 
         _telemetry?.passGate(

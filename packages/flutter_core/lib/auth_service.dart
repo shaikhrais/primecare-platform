@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class AuthState {
   final bool isAuthenticated;
@@ -164,10 +164,12 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('clinical_director')) {
       return ClinicalRoutes.clinicalDirectorDashboard;
     }
+    if (r == 'psw') {
+      return ClinicalRoutes.pswDashboard;
+    }
     if (r == 'rn' ||
         r == 'rpn' ||
         r == 'rmt' ||
-        r == 'psw' ||
         r.contains('clinical')) {
       return CommonRoutes.clinicalDashboard;
     }

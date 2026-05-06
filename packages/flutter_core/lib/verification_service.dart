@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Hardened Verification Service for PrimeCare Infrastructure audits.
 /// Handles architectural purpose reports and database integrity metrics.

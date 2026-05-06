@@ -1,5 +1,5 @@
 // Layer: 03_DATA_DOMAIN_LOGIC
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Provider that supplies the navigation menu items for the current user's role.
 final navigationMenuProvider = Provider<List<PrimeCareNavigationItem>>((ref) {

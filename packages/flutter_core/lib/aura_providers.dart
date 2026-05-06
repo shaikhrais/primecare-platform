@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Track the current institutional context (e.g., active office or feature).
 /// This allows Aura to surface screen-specific insights and commands.
@@ -26,7 +26,7 @@ final auraPulseProvider = StreamProvider<AuraEvent>((ref) {
   
   // Bridge the pulse to the UI-layer provider in primecare_ui
   final subscription = pulseStream.listen((event) {
-    ref.read(auraPulseEventProvider.notifier).state = event;
+    ref.read(auraPulseEventProvider.notifier).update(event);
   });
   
   ref.onDispose(() => subscription.cancel());
@@ -130,9 +130,21 @@ final auraIntentProvider = Provider.autoDispose((ref) {
   );
 });
 
-/// Surfaces contextual suggestions based on the active platform context.
+/// surfaces contextual suggestions based on the active platform context.
 final auraContextualSuggestionsProvider = Provider<List<String>>((ref) {
   final context = ref.watch(auraContextProvider);
   final service = ref.watch(auraCommandServiceProvider);
   return service.getSuggestions(context: context);
 });
+
+/// A notifier that tracks the most recent Aura heartbeat event.
+class AuraPulseEventNotifier extends Notifier<AuraEvent?> {
+  @override
+  AuraEvent? build() => null;
+  void update(AuraEvent event) => state = event;
+}
+
+final auraPulseEventProvider =
+    NotifierProvider<AuraPulseEventNotifier, AuraEvent?>(() {
+      return AuraPulseEventNotifier();
+    });

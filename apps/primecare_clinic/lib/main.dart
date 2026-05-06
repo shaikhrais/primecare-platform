@@ -12,7 +12,7 @@ void main() {
     runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-        path: 'packages/flutter_core/assets/translations',
+        path: 'assets/translations',
         fallbackLocale: const Locale('en'),
         useOnlyLangCode: true,
         child: ProviderScope(

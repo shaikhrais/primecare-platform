@@ -1,5 +1,14 @@
 $rootDir = Get-Location
 
+# --- STAGE-GATE: Pre-flight Verification ---
+Write-Host "🔍 STAGE-GATE: PRE-FLIGHT VERIFICATION" -ForegroundColor Yellow
+powershell -ExecutionPolicy Bypass -File scripts/preflight.ps1
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "❌ Pre-flight failed. Deployment aborted to prevent shipping faulty UI." -ForegroundColor Red
+    return
+}
+# -------------------------------------------
+
 # --- STAGE-GATE: Data Hydration Check ---
 Write-Host "🚧 STAGE-GATE: DATA READINESS CHECK" -ForegroundColor Yellow
 $refreshData = Read-Host "Refresh offline seed data from database before shipping? (y/n)"

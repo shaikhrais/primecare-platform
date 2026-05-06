@@ -10,7 +10,7 @@
       "outputs": []
     },
     "deploy": {
-      "dependsOn": ["build"],
+      "dependsOn": ["lint", "test", "build"],
       "cache": false
     },
     "test": {

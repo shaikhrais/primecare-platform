@@ -1,5 +1,9 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import '../registry/platform_role.dart';
+import '../registry/intents/app_screen_intent.dart';
+import 'platform_types.dart';
+import '../src/models/blueprint_models.dart';
+import 'package:flutter/material.dart';
 
 /// The unified, high-fidelity definition of a PrimeCare screen.
 /// This object is the single source of truth for routing, hydration, and rendering.

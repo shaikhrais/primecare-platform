@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Service responsible for fetching, caching, and disseminating dynamic
 /// route permission boundaries from the PrimeCare backend.

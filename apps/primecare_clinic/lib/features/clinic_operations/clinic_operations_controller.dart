@@ -13,7 +13,7 @@ final clinicDashboardControllerProvider =
   try {
     final response = await ref.read(apiClientProvider).get(
       '/dashboard-metrics',
-      query: {'role': route},
+      queryParameters: {'role': route},
     );
     final data = response.data as Map<String, dynamic>;
 
@@ -32,37 +32,25 @@ final clinicDashboardControllerProvider =
       'lastUpdated': DateTime.now().toIso8601String(),
     });
 
-    final dashboardMetrics = DashboardMetrics(
-      kpis: intlModel.metrics,
-      recentActivity: intlModel.timeline,
-      charts: intlModel.trends,
-      insights: intlModel.insights,
-      isOfflineFallback: intlModel.isFromCache,
-    );
-
-    final mappedInsights = intlModel.insights
-        .map((e) => IntelligenceInsight.fromDashboardInsight(e))
-        .toList();
-
     final model = ClinicOperationsModel(
-      metrics: dashboardMetrics,
-      insights: mappedInsights,
+      metrics: intlModel.metrics,
+      insights: intlModel.insights,
     );
 
     unawaited(resilience.saveSnapshot(cacheKey, model.toJson()));
     return Success(model);
   } catch (e) {
-    return _handleFallback(resilience, cacheKey, telemetry, e);
+    return await _handleFallback(resilience, cacheKey, telemetry, e);
   }
 });
 
-Result<ClinicOperationsModel> _handleFallback(
+Future<Result<ClinicOperationsModel>> _handleFallback(
   ResilienceService resilience,
   String cacheKey,
   ExecutionGateService telemetry,
   dynamic error,
-) {
-  final snapshot = resilience.getSnapshot(cacheKey);
+) async {
+  final snapshot = await resilience.getSnapshot(cacheKey);
   if (snapshot != null) {
     return Success(ClinicOperationsModel.fromJson(snapshot));
   }

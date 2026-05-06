@@ -58,7 +58,7 @@ void main() {
       for (final m in missing) {
         PrimeLogger.warning(' - $m');
       }
-      // fail('Missing ${missing.length} mappings');
+      fail('Missing ${missing.length} mappings');
     }
   });
 }

@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 final dynamicPageProvider =
     FutureProvider.family<Result<List<dynamic>>, String>((

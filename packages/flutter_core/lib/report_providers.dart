@@ -1,5 +1,4 @@
-// Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Provider for the ReportService instance.
 final reportServiceProvider = Provider<ReportService>((ref) {

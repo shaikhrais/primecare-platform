@@ -1,10 +1,8 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 final dashboardServiceProvider = Provider<DashboardService>((ref) {
-  final apiClient = ref.watch(apiClientProvider);
-  final telemetry = ref.watch<ExecutionGateService>(executionGateProvider);
-  return DashboardService(apiClient, telemetry);
+  return DashboardService();
 });
 
 final clinicIntelligenceProvider =

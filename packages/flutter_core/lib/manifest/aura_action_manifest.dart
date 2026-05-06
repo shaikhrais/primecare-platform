@@ -1,6 +1,6 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:google_fonts/google_fonts.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Centralized service for mapping Aura anomalies to platform mitigation tasks.
 /// Decouples UI triggers from concrete navigation and API logic.

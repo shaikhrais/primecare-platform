@@ -2,6 +2,8 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/clinic_operations/clinic_operations_view.dart';
 
+import '../../features/psw/dashboard/psw_dashboard_view.dart';
+
 // InstitutionalSchedulerScreen and SystemVerificationDashboardScreen should also be moved to the MVC structure eventually.
 // For now, I'll keep them as imports if they exist.
 // import '../../features/institutional_scheduler/institutional_scheduler_view.dart'; 
@@ -103,6 +105,10 @@ final List<RouteBase> clinicRoutes = [
   GoRoute(
     path: '/offices/system-verification',
     builder: (context, state) => const Placeholder(),
+  ),
+  GoRoute(
+    path: ClinicalRoutes.pswDashboard,
+    builder: (context, state) => const PswDashboardView(),
   ),
 ];
 

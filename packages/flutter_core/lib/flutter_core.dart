@@ -1,19 +1,22 @@
 // Layer: 00_ENTRY_POINT
 // Master export file for flutter_core.
 export 'package:flutter/material.dart';
-// export 'package:primecare_ui/primecare_ui.dart'
+// export 'package:flutter_core/flutter_core.dart'
 //     hide
 //         architecturePurposeProvider,
 //         databaseReportProvider,
 //         isOnlineProvider,
 //         ProviderTTL;
 export 'package:easy_localization/easy_localization.dart' hide TextDirection;
-// export 'package:primecare_ui/primecare_ui.dart' hide AppTheme;
+// export 'package:flutter_core/flutter_core.dart' hide AppTheme;
 
 export 'adapter_providers.dart';
+export 'src/models/blueprint_models.dart';
 export 'auth_service.dart';
 export 'dashboard_providers.dart'
     hide dashboardServiceProvider, dashboardMetricsProvider;
+export 'src/services/dashboard_service.dart';
+
 export 'domain_service.dart';
 export 'dynamic_page_providers.dart';
 export 'preference_service.dart';
@@ -27,6 +30,7 @@ export 'registry/intents/app_screen_intent.dart';
 export 'registry/widgets/governance_skeleton.dart';
 
 export 'src/localization/language_provider.dart';
+export 'src/registry/dynamic_adapter_resolver.dart';
 export 'src/resilience/app_error_boundary.dart';
 export 'src/resilience/system_recovery_mode.dart';
 export 'src/resilience/system_recovery_manager.dart';
@@ -34,6 +38,9 @@ export 'src/resilience/mechanical_repair_kit.dart';
 export 'src/resilience/restart_wrapper.dart';
 export 'src/resilience/connectivity_service.dart';
 export 'src/resilience/provider_ttl.dart';
+export 'src/resilience/execution_gate_service.dart';
+export 'src/resilience/resilience_service.dart';
+export 'src/resilience/result.dart';
 
 export 'config/resilience_config.dart';
 export 'verification_service.dart';
@@ -48,6 +55,7 @@ export 'package:lucide_icons/lucide_icons.dart';
 
 export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';
+export 'providers/persistence_providers.dart';
 
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
@@ -56,10 +64,16 @@ export 'config/screen_breakpoints.dart';
 export 'config/adaptive_scaling_config.dart';
 export 'config/navigation_registry.dart';
 export 'models/navigation_item.dart';
+export 'models/platform_types.dart';
+export 'models/domain_response.dart';
+export 'src/models/scheduler_models.dart';
+export 'src/models/dashboard_models.dart';
+
 
 export 'manifest/action_manifest.dart';
 
 export 'network/error_mapper.dart';
+export 'src/network/api_client.dart';
 export 'registry/file_registry.dart';
 export 'registry/screen_data_registry.dart';
 export 'routes/groups/admin_routes.dart';
@@ -97,3 +111,10 @@ export 'src/models/aura_intent.dart';
 
 export 'src/utils/prime_logger.dart';
 export 'aura_behavioral_telemetry.dart';
+
+// PSW Layer
+export 'src/models/psw_models.dart';
+export 'src/services/psw_service.dart';
+export 'src/providers/psw_providers.dart';
+
+

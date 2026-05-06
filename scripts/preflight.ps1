@@ -9,6 +9,13 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+Write-Host "Running Localization Audit..." -ForegroundColor Yellow
+dart run scripts/audit_localization.dart
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Localization audit failed! Check your i18n paths and asset registrations." -ForegroundColor Red
+    exit 1
+}
+
 Write-Host "Running Linting..." -ForegroundColor Yellow
 npm run turbo:lint
 if ($LASTEXITCODE -ne 0) {

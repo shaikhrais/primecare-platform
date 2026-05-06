@@ -472,7 +472,16 @@
           "subtitle": "Psw Panel"
         },
         "description": "View top-level system dashboard.",
-        "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+        "subtitle": "Visión general en tiempo real obtenida nativamente vía API.",
+        "welcome_greeting": "Buenos Días, {name}",
+        "care_plan_subtitle": "Aquí está su plan de cuidado para {date}.",
+        "log_care_note": "Registrar Nota de Cuidado",
+        "shift_progress": "Progreso del Turno",
+        "shift_time": "{start} - {end}",
+        "next_review": "Próxima Revisión",
+        "clients_title": "Clientes Actuales",
+        "tasks_title": "Tareas Asignadas",
+        "view_all": "Ver Todo"
       },
       "psw_dashboard": {
         "title": {

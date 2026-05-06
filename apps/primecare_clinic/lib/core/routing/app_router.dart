@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'clinic_routes.dart';
+import '../../features/auth/sign_in_view.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);

@@ -1,5 +1,5 @@
 // Layer: 01_CORE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

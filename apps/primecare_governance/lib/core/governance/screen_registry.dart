@@ -540,6 +540,7 @@ class ScreenRegistry {
     ),
 };
 
+
   // Helper to find screen by ID
   static ScreenMetadata? getById(String id) => screens[id];
 

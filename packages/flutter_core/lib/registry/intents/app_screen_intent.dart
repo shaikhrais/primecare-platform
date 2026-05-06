@@ -1,5 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter/material.dart';
+import '../platform_role.dart';
+import '../../models/platform_types.dart';
 
 /// Defines the recovery strategy for a screen when a critical failure occurs.
 enum ScreenRecoveryStrategy {

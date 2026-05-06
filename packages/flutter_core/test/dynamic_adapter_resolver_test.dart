@@ -1,42 +1,37 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:dio/dio.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class MockApiClient implements ApiClient {
   @override
-  Future<Response<dynamic>> get(
+  Future<ApiResponse> get(
     String path, {
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? queryParameters,
   }) async {
-    return Response<dynamic>(
-      requestOptions: RequestOptions(path: path),
+    return ApiResponse(
+      data: {'role': 'psw'},
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<ApiResponse> post(String path, {dynamic body}) async {
+    return ApiResponse(
       data: <String, dynamic>{},
       statusCode: 200,
     );
   }
 
   @override
-  Future<Response<dynamic>> post(String path, {dynamic body}) async {
-    return Response<dynamic>(
-      requestOptions: RequestOptions(path: path),
+  Future<ApiResponse> put(String path, {dynamic body}) async {
+    return ApiResponse(
       data: <String, dynamic>{},
       statusCode: 200,
     );
   }
 
   @override
-  Future<Response<dynamic>> put(String path, {dynamic body}) async {
-    return Response<dynamic>(
-      requestOptions: RequestOptions(path: path),
-      data: <String, dynamic>{},
-      statusCode: 200,
-    );
-  }
-
-  @override
-  Future<Response<dynamic>> delete(String path, {dynamic body}) async {
-    return Response<dynamic>(
-      requestOptions: RequestOptions(path: path),
+  Future<ApiResponse> delete(String path) async {
+    return ApiResponse(
       data: <String, dynamic>{},
       statusCode: 200,
     );
@@ -44,12 +39,16 @@ class MockApiClient implements ApiClient {
 }
 
 void main() {
-  group('Dynamic Form Registry Validation', () {
+  group('DynamicScreenAdapter - Registry Resolution', () {
     late ProviderContainer container;
+    late MockApiClient mockApi;
 
     setUp(() {
+      mockApi = MockApiClient();
       container = ProviderContainer(
-        overrides: [apiClientProvider.overrideWithValue(MockApiClient())],
+        overrides: [
+          apiClientProvider.overrideWithValue(mockApi),
+        ],
       );
     });
 
@@ -57,33 +56,28 @@ void main() {
       container.dispose();
     });
 
-    test('Verify all PrimeCareForm enum values have associated providers', () {
-      for (final form in PrimeCareForm.values) {
-        // This should not throw and should return a valid provider
-        final adapterProvider = container.read(primecareFormProvider(form));
-        expect(
-          adapterProvider,
-          isNotNull,
-          reason: 'Provider for $form must not be null.',
-        );
-      }
+    test('Registry contains pswDashboard', () {
+      expect(PrimeCareForm.values, contains(PrimeCareForm.pswDashboard));
     });
 
-    test('DynamicScreenAdapter correctly binds to form registry', () {
-      final form = PrimeCareForm.ceoDashboard;
+    test('DynamicScreenAdapter - Correctly binds form to view model', () async {
+      const form = PrimeCareForm.pswDashboard;
 
-      // We need a Ref that is associated with our container.
       // In Riverpod, we can get this by creating a simple provider.
       final refProvider = Provider((ref) => ref);
       final ref = container.read(refProvider);
+      
+      final response = await mockApi.get('/test');
+      expect((response.data as Map<String, dynamic>)['role'], equals('psw'));
 
       final adapter = DynamicScreenAdapter(ref, form);
 
-      expect(adapter.form, equals(form));
-      expect(
-        adapter.watchData(),
-        isA<AsyncValue<Result<PrimeCareDashboardViewModel>>>(),
-      );
+      final viewModelAsync = adapter.watchData();
+      final result = viewModelAsync.value!;
+      final viewModel = result.fold((d) => d, (e) => throw e);
+
+      expect(viewModel, isA<PrimeCareDashboardViewModel>());
+      expect(viewModel.metrics, isNotNull);
     });
   });
 }

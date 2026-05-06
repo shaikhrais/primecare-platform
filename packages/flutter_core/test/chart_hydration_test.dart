@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   group('Chart Hydration Tests', () {
@@ -8,11 +8,11 @@ void main() {
         id: 'test_id',
         title: 'Test Chart',
         type: ChartType.line,
-        dataPoints: [ChartDataPoint(label: 'Pt1', value: 10.0)],
+        dataPoints: [const DataPoint(label: 'Pt1', value: 10.0)],
       );
 
-      final blueprint = ChartBlueprint(dataPayload: chart);
-      expect(blueprint.componentType, equals('analytics_chart'));
+      final blueprint = ChartBlueprint(id: 'chart_1', title: 'Test Chart', dataPayload: chart);
+      expect(blueprint.type, equals('chart'));
       expect(blueprint.dataPayload, isA<AnalyticsChart>());
       expect((blueprint.dataPayload as AnalyticsChart).id, equals('test_id'));
     });
@@ -28,7 +28,7 @@ void main() {
                 'id': 'response_chart',
                 'title': 'Response Chart',
                 'type': 'line',
-                'data_points': [
+                'dataPoints': [
                   {'label': 'A', 'value': 5.0},
                 ],
               },
@@ -42,12 +42,14 @@ void main() {
             .map((bp) {
               if (bp['type'] == 'analytics_chart') {
                 return ChartBlueprint(
+                  id: bp['id']?.toString() ?? 'chart',
+                  title: bp['title']?.toString() ?? 'Chart',
                   dataPayload: AnalyticsChart.fromJson(
                     bp['data'] as Map<String, dynamic>,
                   ),
                 );
               }
-              return const ActivityFeedBlueprint(dataPayload: <dynamic>[]);
+              return const ActivityFeedBlueprint(id: 'feed', title: 'Feed', dataPayload: <dynamic>[]);
             })
             .toList();
 

@@ -520,7 +520,16 @@
           "subtitle": "Psw Dashboard"
         },
         "description": "Must have: Aura HUD (Visit Completion %), Patient Quick-Look Cards, Shift Time Log. Intent: Field Operations.",
-        "subtitle": "Must have: Aura HUD (Visit Completion %), Patient Quick-Look Cards, Shift Time Log."
+        "subtitle": "Must have: Aura HUD (Visit Completion %), Patient Quick-Look Cards, Shift Time Log.",
+        "welcome_greeting": "Good Morning, {name}",
+        "care_plan_subtitle": "Here is your care plan for {date}.",
+        "log_care_note": "Log Care Note",
+        "shift_progress": "Shift Progress",
+        "shift_time": "{start} - {end}",
+        "next_review": "Next Review",
+        "clients_title": "Current Clients",
+        "tasks_title": "Assigned Tasks",
+        "view_all": "View All"
       },
       "psw_dashboard": {
         "title": {

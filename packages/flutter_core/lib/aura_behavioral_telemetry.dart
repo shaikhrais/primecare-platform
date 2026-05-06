@@ -1,5 +1,5 @@
 // Layer: 01_INFRASTRUCTURE
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// Tracks user behavioral interactions with Aura insights and suggestions.
 /// This data is used to weight future AI suggestions and prioritize critical mitigations.

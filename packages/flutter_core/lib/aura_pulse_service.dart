@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class AuraPulseService {
   final Ref _ref;

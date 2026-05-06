@@ -50,7 +50,7 @@ class RouteGuard {
     'rn': ['/offices/clinic', '/common', '/dynamic'],
     'rpn': ['/offices/clinic', '/common', '/dynamic'],
     'rmt': ['/offices/clinic', '/common', '/dynamic'],
-    'psw': ['/offices/clinic', '/common', '/dynamic'],
+    'psw': ['/offices/clinic', '/common', '/dynamic', '/debug'],
     'physio': ['/offices/clinic', '/common', '/dynamic'],
     'chiro': ['/offices/clinic', '/common', '/dynamic'],
 

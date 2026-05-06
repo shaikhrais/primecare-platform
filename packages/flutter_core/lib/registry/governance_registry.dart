@@ -156,8 +156,9 @@ class GovernanceRegistry {
 
     return DomainAuditResult(
       totalRoles: universe.length,
-      realized: realized,
-      pending: pending,
+      realizedRoles: realized,
+      pendingRoles: pending,
+      orphans: [],
       integrityScore: score,
     );
   }
@@ -167,6 +168,13 @@ class GovernanceRegistry {
   static void flush() {
     _intentsByRoute.clear();
     _intentsByRole.clear();
+  }
+}
+
+/// Bridge class for the Aura Pulse service to perform governance audits.
+class PlatformGovernanceAudit {
+  static DomainAuditResult performAudit(dynamic ref) {
+    return GovernanceRegistry.performDomainAudit();
   }
 }
 
@@ -182,16 +190,21 @@ class HealthReport {
 /// A summary of the platform's domain implementation state.
 class DomainAuditResult {
   final int totalRoles;
-  final List<PlatformRole> realized;
-  final List<PlatformRole> pending;
+  final List<PlatformRole> realizedRoles;
+  final List<PlatformRole> pendingRoles;
+  final List<String> orphans;
   final double integrityScore;
 
   DomainAuditResult({
     required this.totalRoles,
-    required this.realized,
-    required this.pending,
+    required this.realizedRoles,
+    required this.pendingRoles,
+    required this.orphans,
     required this.integrityScore,
   });
+
+  List<PlatformRole> get realized => realizedRoles;
+  List<PlatformRole> get pending => pendingRoles;
 
   @override
   String toString() {
