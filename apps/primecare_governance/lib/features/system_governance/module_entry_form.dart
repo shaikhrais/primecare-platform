@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../generated/locale_keys.g.dart';
 
 /// [Component] - High-Fidelity Module Entry Form
 /// Facilitates the registration of system modules within the platform registry.
@@ -35,7 +36,7 @@ class _ModuleEntryFormState extends State<ModuleEntryForm> {
           children: [
             Text(
               'Register new architectural modules to expand the platform capability map.',
-              style: theme.typography.bodySmall.copyWith(color: theme.colors.slateGray),
+              style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
             ),
             const SizedBox(height: 24),
             
@@ -140,8 +141,8 @@ class _ModuleEntryFormState extends State<ModuleEntryForm> {
           child: Text(
             label,
             textAlign: TextAlign.center,
-            style: theme.typography.labelSmall.copyWith(
-              color: isSelected ? color : theme.colors.slateGray,
+            style: theme.typography.bodySmall.copyWith(
+              color: isSelected ? color : theme.colors.onSurfaceVariant,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),

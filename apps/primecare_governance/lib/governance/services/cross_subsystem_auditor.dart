@@ -39,11 +39,11 @@ class CrossSubsystemAuditor {
     
     final enumPath = p.join(
       projectRoot, 
-      'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_enum.dart'
+      'packages/flutter_core/lib/models/platform_types.dart'
     );
     final providerPath = p.join(
       projectRoot,
-      'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart'
+      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart'
     );
 
     if (!File(enumPath).existsSync() || !File(providerPath).existsSync()) {
@@ -86,7 +86,7 @@ class CrossSubsystemAuditor {
             metadata: {
               'type': 'missing_form_provider',
               'form': value,
-              'targetPath': relativeProviderPath,
+              'targetPath': 'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
             },
           ));
         }

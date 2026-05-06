@@ -1,4 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 /// [View] - Real-time System Telemetry & Performance Monitor
 /// Visualizes architectural health, network latency, and service availability.
@@ -107,7 +110,7 @@ class SystemMonitoringView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(label, style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray)),
+              Text(label, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
               Text(value, style: theme.typography.titleMedium.copyWith(fontWeight: FontWeight.bold)),
             ],
           ),

@@ -1,47 +1,25 @@
 {
-  "dashboards": {
-    "architecture_planning": {
-      "title": "تخطيط الهندسة المعمارية",
-      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
-    },
-    "billing_admin": {
-      "title": "إدارة الفواتير",
-      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
-    },
-    "ceo": {
-      "title": "مركز القيادة التنفيذية",
-      "subtitle": "الذكاء الاستراتيجي رفيع المستوى وصحة المنصة"
-    },
-    "cfo": {
-      "title": "مركز الذكاء المالي",
-      "subtitle": "المراقبة المالية في الوقت الفعلي، والسيولة، والقياس عن بعد للمراجعة"
-    },
-    "coo": {
-      "title": "مركز قيادة العمليات",
-      "subtitle": "الكفاءة التشغيلية الاستراتيجية، والاستخدام، والقياس عن بعد للخدمات اللوجستية"
-    },
-    "cto": {
-      "title": "مركز حوكمة التكنولوجيا",
-      "subtitle": "سلامة النظام، ومرونة البنية التحتية، والقياس عن بعد للأمن"
-    },
-    "hr_director": {
-      "title": "قيادة رأس المال البشري",
-      "subtitle": "تحسين القوى العاملة، والاحتفاظ بها، والقياس عن بعد للتوظيف"
-    },
-    "common": {
-      "labels": {
-        "chart": "Chart"
-      }
-    }
-  },
   "common": {
     "loading": "جاري التحميل...",
     "error": "حدث خطأ",
     "retry": "إعادة المحاولة",
-    "save": "حفظ التغييرات",
+    "save": "حفظ",
     "cancel": "إلغاء",
     "back": "رجوع",
     "next": "التالي",
+    "finish": "إنهاء",
+    "offline_mode": "وضع العمل بدون اتصال نشط",
+    "connected": "متصل",
+    "disconnected": "غير متصل",
+    "refresh": "تحديث",
+    "search": "بحث",
+    "filter": "تصفية",
+    "no_data": "لا توجد بيانات متاحة",
+    "actions": "إجراءات",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "help": "مساعدة",
+    "logout": "تسجيل الخروج",
     "language": {
       "en": "الإنجليزية",
       "fr": "الفرنسية",
@@ -60,19 +38,6 @@
       "es": "ES",
       "ar": "AR"
     },
-    "finish": "إنهاء",
-    "offline_mode": "وضع العمل بدون اتصال نشط",
-    "connected": "متصل",
-    "disconnected": "غير متصل",
-    "refresh": "تحديث",
-    "search": "بحث",
-    "filter": "تصفية",
-    "no_data": "لا توجد بيانات متاحة",
-    "actions": "إجراءات",
-    "settings": "الإعدادات",
-    "profile": "الملف الشخصي",
-    "help": "مساعدة",
-    "logout": "تسجيل الخروج",
     "tooltips": {
       "change_language": "تغيير اللغة"
     }
@@ -114,7 +79,43 @@
     "email_placeholder": "أدخل بريدك الإلكتروني",
     "security_notice_long": "هذا النظام مخصص لموظفي PrimeCare وشركائها المصرح لهم فقط. يتم مراقبة جميع عمليات الدخول والأنشطة وتسجيلها وتدقيقها لضمان الامتثال للوائح البيانات الصحية العالمية (HIPAA/GDPR). يُحظر تمامًا أي محاولة دخول غير مصرح بها أو إساءة استخدام لهذه المنصة وسيتم الملاحقة القانونية إلى أقصى حد يسمح به القانون. من خلال الاستمرار، فإنك تقر وتوافق على هذه الشروط."
   },
+  "dashboards": {
+    "architecture_planning": {
+      "title": "تخطيط الهندسة المعمارية",
+      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
+    },
+    "billing_admin": {
+      "title": "إدارة الفواتير",
+      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
+    },
+    "ceo": {
+      "title": "مركز القيادة التنفيذية",
+      "subtitle": "الذكاء الاستراتيجي رفيع المستوى وصحة المنصة"
+    },
+    "cfo": {
+      "title": "مركز الذكاء المالي",
+      "subtitle": "المراقبة المالية في الوقت الفعلي، والسيولة، والقياس عن بعد للمراجعة"
+    },
+    "coo": {
+      "title": "مركز قيادة العمليات",
+      "subtitle": "الكفاءة التشغيلية الاستراتيجية، والاستخدام، والقياس عن بعد للخدمات اللوجستية"
+    },
+    "cto": {
+      "title": "مركز حوكمة التكنولوجيا",
+      "subtitle": "سلامة النظام، ومرونة البنية التحتية، والقياس عن بعد للأمن"
+    },
+    "hr_director": {
+      "title": "قيادة رأس المال البشري",
+      "subtitle": "تحسين القوى العاملة، والاحتفاظ بها، والقياس عن بعد للتوظيف"
+    },
+    "common": {
+      "labels": {
+        "chart": "Chart"
+      }
+    }
+  },
   "aura": {
+    "intelligence": "Aura Intelligence",
     "search_hint": "ابحث في ذكاء Aura...",
     "profile": "نظرة عامة على الملف الشخصي",
     "system_preferences": "تفضيلات النظام",
@@ -122,6 +123,23 @@
     "confirm_departure": "تأكيد المغادرة",
     "exit_message": "هل أنت متأكد أنك تريد إنهاء جلستك الحالية؟",
     "stay": "البقاء",
-    "exit_session": "إنهاء الجلسة"
+    "exit_session": "إنهاء الجلسة",
+    "auditors_blueprint": "AUDITOR'S BLUEPRINT",
+    "structural_contract": "STRUCTURAL CONTRACT",
+    "verified_components": "VERIFIED COMPONENTS"
+  },
+  "governance": {
+    "title": "Governance Dashboard",
+    "audit_logs": "Audit Logs",
+    "system_monitoring": "System Monitoring",
+    "architectural_health": "Architectural Health",
+    "ai_insights": "AI Insights & Remediation",
+    "discovered_forms": "Discovered Forms",
+    "module_entry": "Module Entry",
+    "module_name": "Module Name",
+    "save_module": "Save Module",
+    "role_entry": "Role Entry",
+    "role_name": "Role Name",
+    "save_role": "Save Role"
   }
 }

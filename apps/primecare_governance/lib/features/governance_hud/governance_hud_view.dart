@@ -1,5 +1,7 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/governance/governance_provider.dart';
@@ -7,6 +9,7 @@ import '../../core/governance/screen_metadata.dart' as meta;
 import '../../core/governance/screen_registry.dart' as local;
 import 'widgets/subsystem_charts.dart';
 import 'widgets/screen_audit_bottom_sheet.dart';
+import '../governance_kanban/widgets/kanban_board.dart';
 import '../../governance/widgets/governance_dashboard.dart';
 import '../../governance/widgets/governance_domain_chart.dart';
 import '../../governance/widgets/governance_master_score.dart';
@@ -85,20 +88,30 @@ class GovernanceHudView extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        'Architectural Kanban',
+                        style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const KanbanBoard(),
+                    const SizedBox(height: 24),
                     _buildFeatureMaturityIndex(state),
                     const SizedBox(height: 24),
-                    const Text(
+                    Text(
                       'Subsystem Architectural Health',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     _buildSubsystemGrid(state),
                     const SizedBox(height: 32),
                     _buildSubsystemParitySection(context, ref, state),
                     const SizedBox(height: 32),
-                    const Text(
+                    Text(
                       'Audit Distribution & Domain Health',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     if (state.report != null)
@@ -111,14 +124,14 @@ class GovernanceHudView extends ConsumerWidget {
                     const SizedBox(height: 32),
                     _buildGovernanceReport(state),
                     const SizedBox(height: 32),
-                    const Text(
+                    Text(
                       'Advanced Governance Insights',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     _buildAdvancedInsights(context, state),
                     const SizedBox(height: 32),
-                    const Text('Developer Quick Actions', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    Text('Developer Quick Actions', style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 12),
                     _buildDeveloperActions(context, ref),
                     const SizedBox(height: 32),
@@ -129,7 +142,7 @@ class GovernanceHudView extends ConsumerWidget {
 
                     Text(
                       LocaleKeys.governance_discovered_forms.tr(),
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     _buildManagementConsole(context),
@@ -155,7 +168,7 @@ class GovernanceHudView extends ConsumerWidget {
                         Text('Synchronizing Platform Architecture...',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         Text('Scanning 25 subsystems...',
-                            style: TextStyle(fontSize: 12, color: Colors.grey)),
+                            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                       ],
                     ),
                   ),
@@ -175,12 +188,12 @@ class GovernanceHudView extends ConsumerWidget {
           children: [
             const Text(
               'Aura Intelligence Subsystem',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blueGrey),
+              style: theme.typography.labelBold.copyWith(color: theme.colors.onSurfaceVariant),
             ),
             const Spacer(),
             Text(
               'Registry: ${PlatformGovernanceRegistry.buildVersion} | Sig: ${PlatformGovernanceRegistry.buildSignature.substring(0, 12)}',
-              style: const TextStyle(fontSize: 10, color: Colors.grey),
+              style: theme.typography.bodySmall.copyWith(fontSize: 10, color: theme.colors.outline),
             ),
           ],
         ),
@@ -247,20 +260,17 @@ class GovernanceHudView extends ConsumerWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'UNIVERSAL ARCHITECTURAL PARITY',
-                          style: TextStyle(
+                          style: theme.typography.labelBold.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
                             letterSpacing: 1.2,
-                            fontSize: 14,
                           ),
                         ),
                         Text(
                           'Verified: 55/55 Roles | 251/251 Features | Clean Build',
-                          style: TextStyle(
+                          style: theme.typography.bodySmall.copyWith(
                             color: Colors.white.withValues(alpha: 0.7),
-                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -297,8 +307,8 @@ class GovernanceHudView extends ConsumerWidget {
           children: [
             Icon(icon, color: color, size: 32),
             const SizedBox(height: 8),
-            Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            Text(title, style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+            Text(value, style: theme.typography.h1.copyWith(fontSize: 28, fontWeight: FontWeight.bold)),
+            Text(title, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
           ],
         ),
       ),
@@ -349,12 +359,12 @@ class GovernanceHudView extends ConsumerWidget {
                         children: [
                           Text(
                             summary.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             'Last Checked: ${summary.lastCheckedAt.hour}:${summary.lastCheckedAt.minute.toString().padLeft(2, '0')}',
-                            style: const TextStyle(fontSize: 10, color: Colors.grey),
+                            style: theme.typography.bodySmall.copyWith(fontSize: 10, color: theme.colors.outline),
                           ),
                         ],
                       ),

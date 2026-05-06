@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../generated/locale_keys.g.dart';
 
 /// [Component] - High-Fidelity Role Entry Form
 /// Handles architectural role registration with premium validation and styling.
@@ -36,7 +37,7 @@ class _RoleEntryFormState extends State<RoleEntryForm> {
           children: [
             Text(
               'Define the architectural permissions and access scope for this role.',
-              style: theme.typography.bodySmall.copyWith(color: theme.colors.slateGray),
+              style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
             ),
             const SizedBox(height: 24),
             
@@ -136,12 +137,12 @@ class _RoleEntryFormState extends State<RoleEntryForm> {
           ),
           child: Column(
             children: [
-              Icon(icon, color: isSelected ? theme.colors.primary : theme.colors.slateGray),
+              Icon(icon, color: isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant),
               const SizedBox(height: 8),
               Text(
                 label,
-                style: theme.typography.labelSmall.copyWith(
-                  color: isSelected ? theme.colors.primary : theme.colors.slateGray,
+                style: theme.typography.bodySmall.copyWith(
+                  color: isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

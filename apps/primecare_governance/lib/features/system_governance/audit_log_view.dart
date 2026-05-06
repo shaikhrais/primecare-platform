@@ -66,12 +66,12 @@ class AuditLogView extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: selected ? theme.colors.primary : theme.colors.slateGray),
+          Icon(icon, size: 16, color: selected ? theme.colors.primary : theme.colors.onSurfaceVariant),
           const SizedBox(width: 8),
           Text(
             label,
             style: theme.typography.labelMedium.copyWith(
-              color: selected ? theme.colors.primary : theme.colors.slateGray,
+              color: selected ? theme.colors.primary : theme.colors.onSurfaceVariant,
               fontWeight: selected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -108,10 +108,10 @@ class AuditLogView extends ConsumerWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text('Timestamp', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 2, child: Text('Type', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 2, child: Text('Level', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 6, child: Text('Message', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
+          Expanded(flex: 2, child: Text('Timestamp', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 2, child: Text('Type', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 2, child: Text('Level', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 6, child: Text('Message', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
         ],
       ),
     );
@@ -143,7 +143,7 @@ class AuditLogView extends ConsumerWidget {
               child: Text(
                 event.level.name.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: theme.typography.labelSmall.copyWith(color: statusColor, fontSize: 10),
+                style: theme.typography.bodySmall.copyWith(color: statusColor, fontSize: 10),
               ),
             ),
           ),

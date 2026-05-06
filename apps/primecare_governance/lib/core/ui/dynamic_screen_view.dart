@@ -1,7 +1,6 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import '../governance/screen_registry.dart';
 
-
 class DynamicScreenView extends StatelessWidget {
   final ScreenMetadata metadata;
 
@@ -9,9 +8,10 @@ class DynamicScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: PrimeCareColors.radarDark,
+    final theme = context.theme;
+    
+      decoration: BoxDecoration(
+        color: theme.colors.surfaceContainerLowest,
       ),
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
@@ -30,6 +30,8 @@ class DynamicScreenView extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final theme = context.theme;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,13 +40,13 @@ class DynamicScreenView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: PrimeCareColors.skyBlue.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(20),
+                color: theme.colors.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(theme.radiusSm),
               ),
               child: Text(
                 metadata.featureName.toUpperCase(),
-                style: const TextStyle(
-                  color: PrimeCareColors.skyBlue,
+                style: TextStyle(
+                  color: theme.colors.primary,
                   fontSize: 10,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.5,
@@ -54,8 +56,8 @@ class DynamicScreenView extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               'ID: ${metadata.id}',
-              style: const TextStyle(
-                color: PrimeCareColors.slate500,
+              style: TextStyle(
+                color: theme.colors.onSurfaceVariant,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
               ),
@@ -65,18 +67,13 @@ class DynamicScreenView extends StatelessWidget {
         const SizedBox(height: 16),
         Text(
           metadata.title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.5,
-          ),
+          style: theme.typography.h1,
         ),
         const SizedBox(height: 8),
         Text(
           metadata.description,
-          style: const TextStyle(
-            color: PrimeCareColors.slate400,
+          style: TextStyle(
+            color: theme.colors.textSecondary,
             fontSize: 16,
             height: 1.5,
           ),
@@ -86,25 +83,27 @@ class DynamicScreenView extends StatelessWidget {
   }
 
   Widget _buildStatusRow(BuildContext context) {
+    final theme = context.theme;
     return Row(
       children: [
-        _buildStatusItem('Status', metadata.lifecycleStatus.name.toUpperCase(), PrimeCareColors.emerald),
+        _buildStatusItem(context, 'Status', metadata.lifecycleStatus.name.toUpperCase(), theme.colors.success),
         const SizedBox(width: 24),
-        _buildStatusItem('Priority', metadata.priority.name.toUpperCase(), PrimeCareColors.amber),
+        _buildStatusItem(context, 'Priority', metadata.priority.name.toUpperCase(), theme.colors.warning),
         const SizedBox(width: 24),
-        _buildStatusItem('Security', metadata.securityLevel.name.toUpperCase(), PrimeCareColors.rose),
+        _buildStatusItem(context, 'Security', metadata.securityLevel.name.toUpperCase(), theme.colors.error),
       ],
     );
   }
 
-  Widget _buildStatusItem(String label, String value, Color color) {
+  Widget _buildStatusItem(BuildContext context, String label, String value, Color color) {
+    final theme = context.theme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(
-            color: PrimeCareColors.slate500,
+          style: TextStyle(
+            color: theme.colors.onSurfaceVariant,
             fontSize: 10,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.0,
@@ -124,11 +123,7 @@ class DynamicScreenView extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               value,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+              style: theme.typography.bodySmall,
             ),
           ],
         ),
@@ -137,50 +132,51 @@ class DynamicScreenView extends StatelessWidget {
   }
 
   Widget _buildGrid(BuildContext context) {
+    final theme = context.theme;
     return Wrap(
       spacing: 24,
       runSpacing: 24,
       children: [
         _buildComponentCard(
+          context,
           'Implemented Components',
           metadata.implementedComponents,
-          PrimeCareColors.emerald,
+          theme.colors.success,
         ),
         _buildComponentCard(
+          context,
           'Pending Components',
           metadata.pendingComponents,
-          PrimeCareColors.slate500,
+          theme.colors.textSecondary,
         ),
-        _buildDetailsCard(),
+        _buildDetailsCard(context),
       ],
     );
   }
 
-  Widget _buildComponentCard(String title, List<String> components, Color color) {
+  Widget _buildComponentCard(BuildContext context, String title, List<String> components, Color color) {
+    final theme = context.theme;
     return Container(
       width: 340,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: PrimeCareColors.slate800.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusLg),
+        border: Border.all(color: theme.colors.outlineVariant),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
+            style: theme.typography.h3,
           ),
           const SizedBox(height: 16),
           if (components.isEmpty)
-            const Text(
+            Text(
               'No components registered.',
-              style: TextStyle(color: PrimeCareColors.slate500, fontStyle: FontStyle.italic),
+              style: TextStyle(color: theme.colors.onSurfaceVariant, fontStyle: FontStyle.italic),
             )
           else
             ...components.map((c) => Padding(
@@ -191,7 +187,7 @@ class DynamicScreenView extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         c,
-                        style: const TextStyle(color: PrimeCareColors.slate300, fontSize: 13),
+                        style: TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13),
                       ),
                     ],
                   ),
@@ -201,44 +197,43 @@ class DynamicScreenView extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailsCard() {
+  Widget _buildDetailsCard(BuildContext context) {
+    final theme = context.theme;
     return Container(
       width: 340,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: PrimeCareColors.slate800.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusLg),
+        border: Border.all(color: theme.colors.outlineVariant),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Architectural Metrics',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
+            style: theme.typography.h3,
           ),
           const SizedBox(height: 16),
-          _buildMetricRow('Parity Score', '${metadata.architecturalParityScore.toInt()}%'),
-          _buildMetricRow('Story Points', metadata.storyPoints.toString()),
-          _buildMetricRow('Complexity', '${metadata.complexity}/10'),
-          _buildMetricRow('UAT Approver', metadata.uatApprover),
+          _buildMetricRow(context, 'Parity Score', '${metadata.architecturalParityScore.toInt()}%'),
+          _buildMetricRow(context, 'Story Points', metadata.storyPoints.toString()),
+          _buildMetricRow(context, 'Complexity', '${metadata.complexity}/10'),
+          _buildMetricRow(context, 'UAT Approver', metadata.uatApprover),
         ],
       ),
     );
   }
 
-  Widget _buildMetricRow(String label, String value) {
+  Widget _buildMetricRow(BuildContext context, String label, String value) {
+    final theme = context.theme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
-          Text(value, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
+          Text(label, style: theme.typography.bodySmall),
+          Text(value, style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
     );

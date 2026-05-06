@@ -17,6 +17,8 @@ class ScreenWorkItem {
   final String? stitchProject;
   final String? stitchScreenId;
   final String? routePath;
+  final String targetApp;
+  final String? category;
   final DateTime createdAt;
   final DateTime? completedAt;
 
@@ -34,6 +36,8 @@ class ScreenWorkItem {
     this.stitchProject,
     this.stitchScreenId,
     this.routePath,
+    required this.targetApp,
+    this.category,
     DateTime? createdAt,
     this.completedAt,
   }) : createdAt = createdAt ?? DateTime.now();

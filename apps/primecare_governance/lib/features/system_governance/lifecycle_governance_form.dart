@@ -52,7 +52,7 @@ class _LifecycleGovernanceFormState extends State<LifecycleGovernanceForm> {
           const SizedBox(height: 12),
           LinearProgressIndicator(
             value: (_stages.indexOf(_selectedStage) + 1) / _stages.length,
-            backgroundColor: theme.colors.slateGray.withValues(alpha: 0.2),
+            backgroundColor: theme.colors.onSurfaceVariant.withValues(alpha: 0.2),
             color: theme.colors.primary,
             minHeight: 8,
           ),

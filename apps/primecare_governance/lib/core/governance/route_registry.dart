@@ -15,6 +15,11 @@ import '../../features/system_governance/correction_ticket_center_view.dart';
 import '../../features/proposal_governance/views/proposal_inbox_view.dart';
 import '../../features/proposal_governance/views/new_proposal_form.dart';
 import '../../features/proposal_governance/views/proposal_detail_view.dart';
+import '../../features/debug/kitchen_sink_view.dart';
+import '../../features/debug/theme_center_view.dart';
+import '../../features/dashboard/dashboard_view.dart';
+import '../../features/governance_hud/governance_hud_view.dart';
+
 
 /// A factory to map registry IDs to specific view implementations
 final Map<String, WidgetBuilder> _viewFactory = {
@@ -45,7 +50,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // Dashboard Root
           GoRoute(
             path: '/',
-            builder: (context, state) => const DynamicRoleDashboardScreen(role: 'admin'),
+            builder: (context, state) => const DashboardView(),
           ),
           GoRoute(
             path: '/verification',
@@ -54,6 +59,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/governance/monitoring',
             builder: (context, state) => const SystemMonitoringView(),
+          ),
+          GoRoute(
+            path: '/governance/hud',
+            builder: (context, state) => const GovernanceHudView(),
           ),
           GoRoute(
             path: '/governance/data-entry',
@@ -80,6 +89,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/proposals/detail/:id',
             builder: (context, state) => ProposalDetailView(proposalId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: '/debug/kitchen-sink',
+            builder: (context, state) => const KitchenSinkView(),
+          ),
+          GoRoute(
+            path: '/debug/theme-center',
+            builder: (context, state) => const ThemeCenterView(),
           ),
           
           // Dynamic Registry-Driven Routes (251 Screens)

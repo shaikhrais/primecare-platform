@@ -52,7 +52,7 @@ class CorrectionTicketCenterView extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: theme.typography.labelSmall.copyWith(color: color)),
+            Text(label, style: theme.typography.bodySmall.copyWith(color: color)),
             const SizedBox(height: 4),
             Text(
               value,
@@ -97,11 +97,11 @@ class CorrectionTicketCenterView extends ConsumerWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text('ID', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 5, child: Text('Description', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 2, child: Text('Severity', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 2, child: Text('Status', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
-          Expanded(flex: 2, child: Text('Action', style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray))),
+          Expanded(flex: 2, child: Text('ID', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 5, child: Text('Description', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 2, child: Text('Severity', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 2, child: Text('Status', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
+          Expanded(flex: 2, child: Text('Action', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant))),
         ],
       ),
     );
@@ -126,7 +126,7 @@ class CorrectionTicketCenterView extends ConsumerWidget {
             flex: 2,
             child: Text(
               ticket.severity.toUpperCase(),
-              style: theme.typography.labelSmall.copyWith(color: priorityColor, fontWeight: FontWeight.bold, fontSize: 10),
+              style: theme.typography.bodySmall.copyWith(color: priorityColor, fontWeight: FontWeight.bold, fontSize: 10),
             ),
           ),
           Expanded(
@@ -140,7 +140,7 @@ class CorrectionTicketCenterView extends ConsumerWidget {
               child: Text(
                 ticket.status,
                 textAlign: TextAlign.center,
-                style: theme.typography.labelSmall.copyWith(
+                style: theme.typography.bodySmall.copyWith(
                   color: isResolved ? Colors.green : Colors.orange,
                   fontSize: 10,
                 ),

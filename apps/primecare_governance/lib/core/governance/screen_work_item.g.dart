@@ -21,6 +21,8 @@ ScreenWorkItem _$ScreenWorkItemFromJson(Map<String, dynamic> json) =>
       stitchProject: json['stitchProject'] as String?,
       stitchScreenId: json['stitchScreenId'] as String?,
       routePath: json['routePath'] as String?,
+      targetApp: json['targetApp'] as String,
+      category: json['category'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -44,6 +46,8 @@ Map<String, dynamic> _$ScreenWorkItemToJson(ScreenWorkItem instance) =>
       'stitchProject': instance.stitchProject,
       'stitchScreenId': instance.stitchScreenId,
       'routePath': instance.routePath,
+      'targetApp': instance.targetApp,
+      'category': instance.category,
       'createdAt': instance.createdAt.toIso8601String(),
       'completedAt': instance.completedAt?.toIso8601String(),
     };

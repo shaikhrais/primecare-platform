@@ -110,7 +110,7 @@ class CareAngelManagementView extends ConsumerWidget {
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: theme.colors.slateGray,
+          color: theme.colors.onSurfaceVariant,
           letterSpacing: 1.2,
         ),
       ),

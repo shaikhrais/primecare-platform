@@ -346,6 +346,17 @@ class GovernanceState {
 class GovernanceNotifier extends Notifier<GovernanceState> {
   StreamSubscription? _telemetrySubscription;
   Timer? _automationTimer;
+  
+  // Persist live metrics across rebuilds
+  double _currentApiUptime = 99.9;
+  int _currentDbConnections = 4;
+  Map<String, dynamic> _currentServiceHealth = {
+    'Auth-Service': 'healthy',
+    'Staffing-Engine': 'healthy',
+    'Registry-Sync': 'healthy',
+    'Audit-Runner': 'healthy',
+  };
+  List<GovernanceEvent> _currentEvents = [];
 
   @override
   GovernanceState build() {
@@ -361,7 +372,12 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       _automationTimer?.cancel();
     });
     
-    return _calculateState();
+    return _calculateState(
+      apiUptime: _currentApiUptime,
+      dbConnections: _currentDbConnections,
+      liveServiceHealth: _currentServiceHealth,
+      existingEvents: _currentEvents,
+    );
   }
 
   void _startAutomationLoop() {
@@ -380,20 +396,25 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
   }
 
   Future<void> _loadHistory() async {
-    final historyService = ref.read(governanceHistoryServiceProvider);
-    final trend = await historyService.getHealthTrend();
-    state = state.copyWith(healthTrend: trend);
+    try {
+      final historyService = ref.read(governanceHistoryServiceProvider);
+      final trend = await historyService.getHealthTrend();
+      state = state.copyWith(healthTrend: trend);
+    } catch (e) {
+      AppLogger.e('History load failed: $e');
+    }
   }
 
   void _initTelemetry() {
-    _telemetrySubscription?.cancel();
-    _telemetrySubscription = ref.read(governanceApiServiceProvider).telemetryStream.listen((data) {
+    if (_telemetrySubscription != null) return;
+    final service = ref.read(governanceApiServiceProvider);
+    final stream = service.telemetryStream;
+    _telemetrySubscription = stream.listen((data) {
       final List<dynamic>? eventData = data['events'];
-      List<GovernanceEvent> newEvents = List.from(state.recentEvents);
       
       if (eventData != null && eventData.isNotEmpty) {
         for (final e in eventData) {
-          newEvents.insert(0, GovernanceEvent(
+          _currentEvents.insert(0, GovernanceEvent(
             type: e['type'] ?? 'info',
             message: e['message'] ?? '',
             level: _parseEventLevel(e['level']),
@@ -402,16 +423,20 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           ));
         }
         // Keep only last 50 events
-        if (newEvents.length > 50) {
-          newEvents = newEvents.sublist(0, 50);
+        if (_currentEvents.length > 50) {
+          _currentEvents = _currentEvents.sublist(0, 50);
         }
       }
 
+      _currentApiUptime = data['api_uptime']?.toDouble() ?? _currentApiUptime;
+      _currentDbConnections = data['db_connections'] ?? _currentDbConnections;
+      _currentServiceHealth = Map<String, dynamic>.from(data['service_health'] ?? _currentServiceHealth);
+
       state = state.copyWith(
-        apiUptime: data['api_uptime']?.toDouble(),
-        dbConnections: data['db_connections'],
-        liveServiceHealth: Map<String, dynamic>.from(data['service_health'] ?? {}),
-        recentEvents: newEvents,
+        apiUptime: _currentApiUptime,
+        dbConnections: _currentDbConnections,
+        liveServiceHealth: _currentServiceHealth,
+        recentEvents: List.from(_currentEvents),
       );
     });
   }
@@ -419,6 +444,9 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
   GovernanceState _calculateState({
     List<Map<String, dynamic>>? existingTrend,
     List<GovernanceEvent>? existingEvents,
+    double? apiUptime,
+    int? dbConnections,
+    Map<String, dynamic>? liveServiceHealth,
   }) {
     final proposalAsync = ref.read(proposalListProvider);
     final proposals = proposalAsync.value ?? [];
@@ -486,8 +514,6 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
         failedApis: 0,
         lastCheckedAt: DateTime.now(),
       ));
-
-
     }
 
     final auditReports = ui.ScreenRegistry.auditRegistry();
@@ -504,9 +530,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       featureScores.putIfAbsent(category, () => []).add(screen.completionPercent);
     }
 
-
-
-    // 9. Initialize Governance Services
+    // Initialize Governance Services
     final govService = ScreenGovernanceService(local.ScreenRegistry.screens.values.toList());
     final governanceReport = ScreenGovernanceReporter.generateReport();
 
@@ -541,9 +565,9 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       integrityScore: avgScore,
       categorizedCoverage: {},
       featureHealth: {},
-      apiUptime: 99.9,
-      dbConnections: 4,
-      liveServiceHealth: {
+      apiUptime: apiUptime ?? 0.0,
+      dbConnections: dbConnections ?? 4,
+      liveServiceHealth: liveServiceHealth ?? {
         'Auth-Service': 'healthy',
         'Staffing-Engine': 'healthy',
         'Registry-Sync': 'healthy',
@@ -571,6 +595,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       intakeReadinessScore: readinessTotal,
       allScreens: local.ScreenRegistry.screens,
     );
+
   }
 
   /// Performs a deep audit across all platform subsystems.
@@ -704,13 +729,27 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       final newState = _calculateState(
         existingTrend: state.healthTrend,
         existingEvents: state.recentEvents,
+        apiUptime: state.apiUptime,
+        dbConnections: state.dbConnections,
+        liveServiceHealth: state.liveServiceHealth,
       );
+      
+      // Sync private fields with state
+      _currentApiUptime = state.apiUptime;
+      _currentDbConnections = state.dbConnections;
+      _currentServiceHealth = state.liveServiceHealth;
+      _currentEvents = state.recentEvents;
+
       state = newState;
       
       // Capture snapshot for history
       if (state.report != null) {
-        await ref.read(governanceHistoryServiceProvider).captureSnapshot(state.report!);
-        await _loadHistory();
+        try {
+          await ref.read(governanceHistoryServiceProvider).captureSnapshot(state.report!);
+          await _loadHistory();
+        } catch (e) {
+          AppLogger.e('History capture failed: $e');
+        }
       }
     } finally {
       state = state.copyWith(isSyncing: false, isBackgroundSyncing: false);

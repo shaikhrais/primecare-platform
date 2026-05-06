@@ -137,11 +137,11 @@ class ComponentCoverageHeatmap extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(category, style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray, fontWeight: FontWeight.bold)),
+              Text(category, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant, fontWeight: FontWeight.bold)),
               const Spacer(),
               Text(
                 '$implementedCount/${coverage.length} (${(progress * 100).toInt()}%)',
-                style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray, fontSize: 10),
+                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant, fontSize: 10),
               ),
             ],
           ),

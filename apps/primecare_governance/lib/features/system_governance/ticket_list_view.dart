@@ -69,7 +69,7 @@ class TicketListView extends StatelessWidget {
   }
 
   Widget _getStatusChip(String status, PrimeThemeData theme) {
-    Color color = theme.colors.slateGray;
+    Color color = theme.colors.onSurfaceVariant;
     if (status == 'open') color = Colors.blue;
     if (status == 'in_progress') color = Colors.orange;
     if (status == 'verified') color = Colors.green;

@@ -71,7 +71,7 @@ class _DashboardContent extends StatelessWidget {
             child: Center(
               child: Text(
                 'Last Intelligence Sync: ${model.lastUpdated.hour}:${model.lastUpdated.minute}',
-                style: theme.typography.labelSmall.copyWith(color: theme.colors.slateGray),
+                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
               ),
             ),
           ),

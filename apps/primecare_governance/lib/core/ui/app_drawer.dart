@@ -9,6 +9,7 @@ class AppDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
     final visionMode = ref.watch(auraVisionProvider);
     // In a real app, this would come from a role provider
     const String userRole = 'admin';
@@ -30,74 +31,56 @@ class AppDrawer extends ConsumerWidget {
     final sortedRoles = groupedByRole.keys.toList()..sort();
 
     return Drawer(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      width: 320,
-      child: Stack(
+      backgroundColor: theme.colors.surface,
+      width: 300,
+      child: Column(
         children: [
-          // Glassmorphic background - Obsidian Lens
-          ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      PrimeCareColors.radarDark.withValues(alpha: 0.95),
-                      PrimeCareColors.radarDark.withValues(alpha: 0.85),
-                    ],
-                  ),
-                  border: Border(
-                    right: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
-                  ),
-                ),
-              ),
+          _buildHeader(context),
+          _buildVisionControl(context, ref, visionMode),
+          Divider(color: theme.colors.outlineVariant, height: 1),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              children: [
+                _buildSectionHeader(context, 'SYSTEM CORE'),
+                _buildStaticLink(context, 'Governance HUD', Icons.radar_outlined, '/governance/hud'),
+                _buildStaticLink(context, 'Governance Dashboard', Icons.dashboard_outlined, '/'),
+                _buildStaticLink(context, 'Verification Center', Icons.verified_user_outlined, '/verification'),
+                const SizedBox(height: 16),
+                _buildSectionHeader(context, 'FEATURE GOVERNANCE'),
+                _buildStaticLink(context, 'Proposal Inbox', Icons.inbox_outlined, '/proposals'),
+                _buildStaticLink(context, 'New Feature Request', Icons.add_to_photos_outlined, '/proposals/new'),
+                const SizedBox(height: 16),
+                _buildSectionHeader(context, 'ROLE REGISTRIES'),
+                ...sortedRoles.map((role) {
+                  return _buildRoleGroup(context, role, groupedByRole[role]!);
+                }).toList(),
+                const SizedBox(height: 16),
+                _buildSectionHeader(context, 'DESIGN & DEBUG'),
+                _buildStaticLink(context, 'Theme Center', Icons.palette_outlined, '/debug/theme-center'),
+                _buildStaticLink(context, 'Kitchen Sink', Icons.widgets_outlined, '/debug/kitchen-sink'),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
-          Column(
-            children: [
-              _buildHeader(context),
-              _buildVisionControl(context, ref, visionMode),
-              const Divider(color: Colors.white10, height: 1),
-              _buildSectionHeader('SYSTEM CORE'),
-              _buildStaticLink(context, 'Governance Dashboard', Icons.dashboard_outlined, '/'),
-              _buildStaticLink(context, 'Verification Center', Icons.verified_user_outlined, '/verification'),
-              const SizedBox(height: 16),
-              _buildSectionHeader('FEATURE GOVERNANCE'),
-              _buildStaticLink(context, 'Proposal Inbox', Icons.inbox_outlined, '/proposals'),
-              _buildStaticLink(context, 'New Feature Request', Icons.add_to_photos_outlined, '/proposals/new'),
-              const SizedBox(height: 16),
-              _buildSectionHeader('ROLE REGISTRIES'),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                  children: sortedRoles.map((role) {
-                    return _buildRoleGroup(context, role, groupedByRole[role]!);
-                  }).toList(),
-                ),
-              ),
-              const Divider(color: Colors.white10, height: 1),
-              _buildFooter(context),
-            ],
-          ),
+          Divider(color: theme.colors.outlineVariant, height: 1),
+          _buildFooter(context),
         ],
       ),
     );
   }
 
   Widget _buildVisionControl(BuildContext context, WidgetRef ref, AuraVisionMode currentMode) {
+    final theme = context.theme;
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'AURA VISION MODES',
-            style: TextStyle(
-              color: PrimeCareColors.slate400,
-              fontSize: 9,
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.onSurfaceVariant,
               fontWeight: FontWeight.w900,
               letterSpacing: 2.0,
             ),
@@ -134,48 +117,41 @@ class AppDrawer extends ConsumerWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final theme = context.theme;
     return Container(
       padding: const EdgeInsets.fromLTRB(24, 64, 24, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Row(
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: theme.colors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(theme.radiusXs),
+            ),
+            child: Icon(
+              Icons.shield_outlined,
+              color: theme.colors.primary,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: PrimeCareColors.skyBlue.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.shield_outlined,
-                  color: PrimeCareColors.skyBlue,
-                  size: 28,
+              Text(
+                'PRIMECARE',
+                style: theme.typography.h3.copyWith(
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.5,
                 ),
               ),
-              const SizedBox(width: 16),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'PRIMECARE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                  Text(
-                    'GOVERNANCE',
-                    style: TextStyle(
-                      color: PrimeCareColors.slate400,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ],
+              Text(
+                'GOVERNANCE',
+                style: theme.typography.bodySmall.copyWith(
+                  color: theme.colors.onSurfaceVariant,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                ),
               ),
             ],
           ),
@@ -185,25 +161,25 @@ class AppDrawer extends ConsumerWidget {
   }
 
   Widget _buildRoleGroup(BuildContext context, String role, List<ScreenMetadata> screens) {
+    final theme = context.theme;
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         title: Text(
           role.replaceAll('_', ' ').toUpperCase(),
-          style: const TextStyle(
-            color: PrimeCareColors.slate300,
-            fontSize: 11,
+          style: theme.typography.bodySmall.copyWith(
+            color: theme.colors.onSurfaceVariant,
             fontWeight: FontWeight.w800,
-            letterSpacing: 1.5,
+            letterSpacing: 1.2,
           ),
         ),
         leading: Icon(
           _getRoleIcon(role),
-          color: PrimeCareColors.skyBlue,
-          size: 20,
+          color: theme.colors.primary,
+          size: 18,
         ),
-        iconColor: PrimeCareColors.slate400,
-        collapsedIconColor: PrimeCareColors.slate500,
+        iconColor: theme.colors.onSurfaceVariant,
+        collapsedIconColor: theme.colors.onSurfaceVariant,
         childrenPadding: const EdgeInsets.only(left: 12),
         children: screens.map((screen) {
           return ListTile(
@@ -211,19 +187,14 @@ class AppDrawer extends ConsumerWidget {
             visualDensity: VisualDensity.compact,
             leading: Icon(
               screen.icon ?? Icons.circle_outlined,
-              color: PrimeCareColors.skyBlue.withValues(alpha: 0.5),
-              size: 16,
+              color: theme.colors.primary.withValues(alpha: 0.5),
+              size: 14,
             ),
             title: Text(
               screen.title,
-              style: const TextStyle(
-                color: PrimeCareColors.slate100,
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
+              style: theme.typography.bodySmall,
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            hoverColor: Colors.white.withValues(alpha: 0.05),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusXs)),
             onTap: () {
               context.go(screen.routePath);
               Navigator.pop(context);
@@ -247,13 +218,14 @@ class AppDrawer extends ConsumerWidget {
     }
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(BuildContext context, String title) {
+    final theme = context.theme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
         title,
-        style: const TextStyle(
-          color: PrimeCareColors.slate400,
+        style: TextStyle(
+          color: theme.colors.onSurfaceVariant,
           fontSize: 9,
           fontWeight: FontWeight.w900,
           letterSpacing: 1.5,
@@ -263,14 +235,15 @@ class AppDrawer extends ConsumerWidget {
   }
 
   Widget _buildStaticLink(BuildContext context, String title, IconData icon, String route) {
+    final theme = context.theme;
     return ListTile(
       dense: true,
       visualDensity: VisualDensity.compact,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-      leading: Icon(icon, color: PrimeCareColors.skyBlue, size: 18),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      leading: Icon(icon, color: theme.colors.primary, size: 18),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+        style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.w500),
       ),
       onTap: () {
         context.go(route);
@@ -280,44 +253,35 @@ class AppDrawer extends ConsumerWidget {
   }
 
   Widget _buildFooter(BuildContext context) {
+    final theme = context.theme;
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.2),
-      ),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundColor: PrimeCareColors.slate700,
+          CircleAvatar(
+            backgroundColor: theme.colors.surfaceContainer,
             radius: 18,
-            child: Icon(Icons.person_outline, color: Colors.white, size: 20),
+            child: Icon(Icons.person_outline, color: theme.colors.primary, size: 20),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   'Admin User',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.w600),
                 ),
                 Text(
                   'System Auditor',
-                  style: TextStyle(
-                    color: PrimeCareColors.slate400,
-                    fontSize: 11,
-                  ),
+                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.logout_outlined, color: PrimeCareColors.rose, size: 20),
+            icon: Icon(Icons.logout_outlined, color: theme.colors.error, size: 20),
             onPressed: () {},
           ),
         ],
@@ -339,26 +303,20 @@ class _VisionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(theme.radiusXs),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? PrimeCareColors.skyBlue : Colors.white.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: isSelected ? [
-            BoxShadow(
-              color: PrimeCareColors.skyBlue.withValues(alpha: 0.3),
-              blurRadius: 10,
-              spreadRadius: 1,
-            )
-          ] : null,
+          color: isSelected ? theme.colors.primary : theme.colors.surfaceContainer,
+          borderRadius: BorderRadius.circular(theme.radiusXs),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.black : Colors.white70,
+            color: isSelected ? theme.colors.onPrimary : theme.colors.onSurfaceVariant,
             fontSize: 9,
             fontWeight: FontWeight.w900,
           ),
@@ -367,3 +325,4 @@ class _VisionButton extends StatelessWidget {
     );
   }
 }
+

@@ -211,7 +211,7 @@ class _StatBadge extends StatelessWidget {
       ),
       child: Text(
         '$count $label',
-        style: theme.typography.labelSmall.copyWith(color: color, fontWeight: FontWeight.bold),
+        style: theme.typography.bodySmall.copyWith(color: color, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -268,7 +268,7 @@ class _DetailRow extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label.toUpperCase(), style: theme.typography.labelSmall.copyWith(color: theme.colors.primary, letterSpacing: 1)),
+        Text(label.toUpperCase(), style: theme.typography.bodySmall.copyWith(color: theme.colors.primary, letterSpacing: 1)),
         const SizedBox(height: 4),
         Text(value, style: theme.typography.bodyMedium.copyWith(
           color: isAction ? theme.colors.error : null,

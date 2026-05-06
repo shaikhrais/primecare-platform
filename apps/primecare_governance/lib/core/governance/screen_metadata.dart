@@ -102,6 +102,12 @@ class ScreenMetadata {
   final String? stitchProject;
   final String? serialNo;
 
+  /// The specific prompt used to generate this screen via the Stitch Engine.
+  final String? generationPrompt;
+
+  /// Whether this screen should be actively generated/synchronized with the UI Engine.
+  final bool generateScreen;
+
   final List<String> requiredApis;
   final List<String> requiredPermissions;
   final List<String> featureFlags;
@@ -171,6 +177,8 @@ class ScreenMetadata {
     this.assignedDeveloper = 'Unassigned',
     this.subTasks = const [],
     this.stitchProject,
+    this.generationPrompt,
+    this.generateScreen = false,
     this.requiredApis = const [],
     this.requiredPermissions = const [],
     this.featureFlags = const [],
@@ -269,6 +277,8 @@ class ScreenMetadata {
     String? assignedDeveloper,
     List<String>? subTasks,
     String? stitchProject,
+    String? generationPrompt,
+    bool? generateScreen,
     List<String>? requiredApis,
     List<String>? requiredPermissions,
     List<String>? featureFlags,
@@ -339,6 +349,8 @@ class ScreenMetadata {
       assignedDeveloper: assignedDeveloper ?? this.assignedDeveloper,
       subTasks: subTasks ?? this.subTasks,
       stitchProject: stitchProject ?? this.stitchProject,
+      generationPrompt: generationPrompt ?? this.generationPrompt,
+      generateScreen: generateScreen ?? this.generateScreen,
       requiredApis: requiredApis ?? this.requiredApis,
       requiredPermissions: requiredPermissions ?? this.requiredPermissions,
       featureFlags: featureFlags ?? this.featureFlags,

@@ -22,7 +22,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
         children: [
           Text(
             'Register and manage high-level application instances across the platform.',
-            style: theme.typography.bodySmall.copyWith(color: theme.colors.slateGray),
+            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
           TextFormField(

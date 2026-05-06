@@ -33,15 +33,7 @@ class ScreenRegistry {
     ...ClientPortalRegistryRegistry.screens,
     ...SupportRegistryRegistry.screens,
     ...RegionalFinanceRegistry.screens,
-      'RECOVERED_OFFICES_CLINICAL_ROLES_PSW_DASHBOARD': const ScreenMetadata(
-      id: 'RECOVERED_OFFICES_CLINICAL_ROLES_PSW_DASHBOARD',
-      featureName: 'Recovered OFFICES_CLINICAL_ROLES_PSW_DASHBOARD',
-      routePath: '/offices/clinical/roles/psw/dashboard',
-      allowedRoles: ['Admin'],
-      title: 'Recovered OFFICES_CLINICAL_ROLES_PSW_DASHBOARD',
-      pendingComponents: [],
-      lifecycleStatus: LifecycleStatus.backlog,
-    ),
+
     'RECOVERED_OFFICES_CLINICAL_ROLES_RMT_DASHBOARD': const ScreenMetadata(
       id: 'RECOVERED_OFFICES_CLINICAL_ROLES_RMT_DASHBOARD',
       featureName: 'Recovered OFFICES_CLINICAL_ROLES_RMT_DASHBOARD',

@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../generated/locale_keys.g.dart';
 
 import 'audit_log_view.dart';
 import 'role_entry_form.dart';
@@ -33,7 +34,7 @@ class GovernanceDataEntryView extends StatelessWidget {
             isScrollable: true,
             indicatorColor: theme.colors.primary,
             labelColor: theme.colors.primary,
-            unselectedLabelColor: theme.colors.slateGray,
+            unselectedLabelColor: theme.colors.onSurfaceVariant,
             tabs: const [
               Tab(text: 'Roles', icon: Icon(Icons.admin_panel_settings_rounded)),
               Tab(text: 'Modules', icon: Icon(Icons.view_module_rounded)),

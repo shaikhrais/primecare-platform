@@ -1,6 +1,7 @@
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/theme/app_theme.dart' as local_theme;
 import 'core/governance/route_registry.dart';
+import 'core/i18n/language_provider.dart';
 
 import 'dart:ui';
 import 'dart:developer' as dev;
@@ -52,16 +53,20 @@ class PrimeCareApp extends ConsumerWidget {
       });
     }
 
-    return MaterialApp.router(
-      title: 'PrimeCare Enterprise',
-      theme: local_theme.AppTheme.light,
-      darkTheme: local_theme.AppTheme.dark,
-      themeMode: ThemeMode.system,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routerConfig: ref.watch(appRouterProvider),
-      debugShowCheckedModeBanner: false,
+    const primeTheme = PrimeThemeData();
+
+    return PrimeTheme(
+      data: primeTheme,
+      child: MaterialApp.router(
+        title: 'PrimeCare Enterprise',
+        theme: primeTheme.toThemeData(),
+        themeMode: ThemeMode.light,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        routerConfig: ref.watch(appRouterProvider),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
