@@ -31,7 +31,7 @@ class GovernanceFilterBar extends StatelessWidget {
         children: [
           const Icon(Icons.filter_list_rounded, color: Colors.grey, size: 20),
           const SizedBox(width: 16),
-          
+
           // Severity Filter
           _buildFilterChip<GovernanceSeverity>(
             context,
@@ -40,9 +40,9 @@ class GovernanceFilterBar extends StatelessWidget {
             selectedSeverity,
             onSeverityChanged,
           ),
-          
+
           const SizedBox(width: 12),
-          
+
           // Category Filter
           _buildFilterChip<GovernanceCategory>(
             context,
@@ -51,14 +51,17 @@ class GovernanceFilterBar extends StatelessWidget {
             selectedCategory,
             onCategoryChanged,
           ),
-          
+
           const Spacer(),
-          
+
           if (selectedSeverity != null || selectedCategory != null)
             TextButton.icon(
               onPressed: onClear,
               icon: const Icon(Icons.clear_all_rounded, size: 18),
-              label: const Text('Clear Filters', style: TextStyle(fontSize: 12)),
+              label: const Text(
+                'Clear Filters',
+                style: TextStyle(fontSize: 12),
+              ),
               style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
             ),
         ],
@@ -76,21 +79,17 @@ class GovernanceFilterBar extends StatelessWidget {
     return PopupMenuButton<T?>(
       onSelected: onSelected,
       itemBuilder: (context) => [
-        PopupMenuItem<T?>(
-          value: null,
-          child: const Text('All'),
+        PopupMenuItem<T?>(value: null, child: const Text('All')),
+        ...values.map(
+          (v) => PopupMenuItem<T?>(value: v, child: Text(v.name.toUpperCase())),
         ),
-        ...values.map((v) => PopupMenuItem<T?>(
-          value: v,
-          child: Text(v.name.toUpperCase()),
-        )),
       ],
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: selectedValue != null 
-            ? Colors.blue.withValues(alpha: 0.1) 
-            : Colors.grey.withValues(alpha: 0.05),
+          color: selectedValue != null
+              ? Colors.blue.withValues(alpha: 0.1)
+              : Colors.grey.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: selectedValue != null ? Colors.blue : Colors.transparent,
@@ -102,7 +101,9 @@ class GovernanceFilterBar extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 12,
-                fontWeight: selectedValue != null ? FontWeight.bold : FontWeight.normal,
+                fontWeight: selectedValue != null
+                    ? FontWeight.bold
+                    : FontWeight.normal,
                 color: selectedValue != null ? Colors.blue : null,
               ),
             ),

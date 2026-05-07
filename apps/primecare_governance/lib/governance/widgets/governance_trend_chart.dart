@@ -6,10 +6,7 @@ import 'package:intl/intl.dart';
 class GovernanceTrendChart extends StatelessWidget {
   final List<Map<String, dynamic>> trendData;
 
-  const GovernanceTrendChart({
-    super.key,
-    required this.trendData,
-  });
+  const GovernanceTrendChart({super.key, required this.trendData});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +44,9 @@ class GovernanceTrendChart extends StatelessWidget {
                     'Stability metrics over the last 30 snapshots',
                     style: GoogleFonts.inter(
                       fontSize: 13,
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -64,32 +63,44 @@ class GovernanceTrendChart extends StatelessWidget {
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (value) {
                     return FlLine(
-                      color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.1),
                       strokeWidth: 1,
                     );
                   },
                 ),
                 titlesData: FlTitlesData(
                   show: true,
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
                       reservedSize: 30,
-                      interval: trendData.length > 5 ? (trendData.length / 5).floor().toDouble() : 1,
+                      interval: trendData.length > 5
+                          ? (trendData.length / 5).floor().toDouble()
+                          : 1,
                       getTitlesWidget: (value, meta) {
-                        if (value.toInt() < 0 || value.toInt() >= trendData.length) {
+                        if (value.toInt() < 0 ||
+                            value.toInt() >= trendData.length) {
                           return const SizedBox.shrink();
                         }
-                        final date = trendData[value.toInt()]['date'] as DateTime;
+                        final date =
+                            trendData[value.toInt()]['date'] as DateTime;
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
                             DateFormat('MM/dd').format(date),
                             style: GoogleFonts.inter(
                               fontSize: 10,
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.5),
                             ),
                           ),
                         );
@@ -106,7 +117,9 @@ class GovernanceTrendChart extends StatelessWidget {
                           '${value.toInt()}%',
                           style: GoogleFonts.inter(
                             fontSize: 10,
-                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.5),
                           ),
                         );
                       },
@@ -121,7 +134,10 @@ class GovernanceTrendChart extends StatelessWidget {
                 lineBarsData: [
                   LineChartBarData(
                     spots: trendData.asMap().entries.map((e) {
-                      return FlSpot(e.key.toDouble(), e.value['score'] as double);
+                      return FlSpot(
+                        e.key.toDouble(),
+                        e.value['score'] as double,
+                      );
                     }).toList(),
                     isCurved: true,
                     gradient: LinearGradient(
@@ -137,8 +153,12 @@ class GovernanceTrendChart extends StatelessWidget {
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                          Theme.of(context).colorScheme.primary.withValues(alpha: 0.0),
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.3),
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.0),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -156,7 +176,7 @@ class GovernanceTrendChart extends StatelessWidget {
 
   Widget _buildTrendIndicator() {
     if (trendData.length < 2) return const SizedBox.shrink();
-    
+
     final current = trendData.last['score'] as double;
     final previous = trendData[trendData.length - 2]['score'] as double;
     final diff = current - previous;
@@ -206,14 +226,18 @@ class GovernanceTrendChart extends StatelessWidget {
             Icon(
               Icons.analytics_outlined,
               size: 48,
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.2),
             ),
             const SizedBox(height: 16),
             Text(
               'No Trend Data Available',
               style: GoogleFonts.outfit(
                 fontSize: 16,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.4),
               ),
             ),
             const SizedBox(height: 8),
@@ -221,7 +245,9 @@ class GovernanceTrendChart extends StatelessWidget {
               'Capture snapshots to track platform health.',
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.3),
               ),
             ),
           ],

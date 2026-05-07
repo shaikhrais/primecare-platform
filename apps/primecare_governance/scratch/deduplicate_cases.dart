@@ -1,19 +1,22 @@
-
 import 'dart:io';
 
 void main() {
-  final file = File('../../packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart');
+  final file = File(
+    '../../packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart',
+  );
   final lines = file.readAsLinesSync();
-  
+
   final newLines = <String>[];
   final seenCases = <String>{};
-  
+
   bool skipNext = false;
-  
+
   for (int i = 0; i < lines.length; i++) {
     final line = lines[i];
     if (line.contains('case PrimeCareForm.')) {
-      final caseMatch = RegExp(r'case (PrimeCareForm\.[a-zA-Z0-9_]+):').firstMatch(line);
+      final caseMatch = RegExp(
+        r'case (PrimeCareForm\.[a-zA-Z0-9_]+):',
+      ).firstMatch(line);
       if (caseMatch != null) {
         final caseValue = caseMatch.group(1)!;
         if (seenCases.contains(caseValue)) {
@@ -28,6 +31,6 @@ void main() {
     }
     newLines.add(line);
   }
-  
+
   file.writeAsStringSync(newLines.join('\n'));
 }

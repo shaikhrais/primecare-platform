@@ -9,13 +9,18 @@ void main() {
     return;
   }
 
-  final files = dir.listSync().whereType<File>().where((f) => f.path.endsWith('.dart'));
+  final files = dir.listSync().whereType<File>().where(
+    (f) => f.path.endsWith('.dart'),
+  );
   final List<Map<String, dynamic>> allScreens = [];
 
   for (final file in files) {
     final content = file.readAsStringSync();
-    
-    final screenRegex = RegExp(r"'(SCREEN_[^']+|RECOVERED_[^']+)':\s*(?:const\s+)?ScreenMetadata\(([\s\S]*?)\),", multiLine: true);
+
+    final screenRegex = RegExp(
+      r"'(SCREEN_[^']+|RECOVERED_[^']+)':\s*(?:const\s+)?ScreenMetadata\(([\s\S]*?)\),",
+      multiLine: true,
+    );
     final matches = screenRegex.allMatches(content);
 
     for (final match in matches) {
@@ -41,13 +46,15 @@ void main() {
       int implCount = countList('implementedComponents');
       int pendCount = countList('pendingComponents');
       int legacyCount = countList('components');
-      
+
       allScreens.add({
         'id': id,
         'title': extract('title'),
         'office': extract('office'),
         'lifecycle': extract('lifecycleStatus').split('.').last,
-        'components': implCount > 0 ? implCount : (pendCount > 0 ? pendCount : legacyCount),
+        'components': implCount > 0
+            ? implCount
+            : (pendCount > 0 ? pendCount : legacyCount),
         'path': file.path.replaceAll('\\', '/'),
       });
     }
@@ -55,19 +62,23 @@ void main() {
 
   final jsonOutput = jsonEncode(allScreens);
   File('artifacts/all_screens_data.json').writeAsStringSync(jsonOutput);
-  
+
   final markdown = StringBuffer();
   markdown.writeln('# PrimeCare Screen Registry Audit');
   markdown.writeln('');
   markdown.writeln('| Office | Title | ID | Status | Components | Path |');
   markdown.writeln('| :--- | :--- | :--- | :--- | :--- | :--- |');
   for (final s in allScreens) {
-    markdown.writeln('| ${s['office']} | ${s['title']} | ${s['id']} | ${s['lifecycle']} | ${s['components']} | ${s['path']} |');
+    markdown.writeln(
+      '| ${s['office']} | ${s['title']} | ${s['id']} | ${s['lifecycle']} | ${s['components']} | ${s['path']} |',
+    );
   }
-  
+
   File('artifacts/all_screens_data.md').writeAsStringSync(markdown.toString());
 
-  final int completedCount = allScreens.where((s) => s['lifecycle'] == 'completed').length;
+  final int completedCount = allScreens
+      .where((s) => s['lifecycle'] == 'completed')
+      .length;
   final int backlogCount = allScreens.length - completedCount;
 
   print('Total screens audited: ${allScreens.length}');

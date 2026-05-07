@@ -1,7 +1,9 @@
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/screen_registry.dart');
+  final file = File(
+    'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  );
   if (!file.existsSync()) {
     print('Registry not found');
     return;
@@ -9,7 +11,11 @@ void main() {
 
   final content = file.readAsStringSync();
   // Match role: '...' or role: "..."
-  final roleFieldRegex = RegExp(r"role:\s*['""](.*?)['"']');
+  final roleFieldRegex = RegExp(
+    r"role:\s*['"
+    "](.*?)['"
+    ']',
+  );
   final roles = <String>{};
 
   for (final match in roleFieldRegex.allMatches(content)) {

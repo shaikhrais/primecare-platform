@@ -3,7 +3,7 @@ import 'package:primecare_governance/governance/services/cross_subsystem_auditor
 void main() async {
   print('--- Starting Comprehensive Governance Audit ---');
   final auditor = CrossSubsystemAuditor(projectRoot: '../..');
-  
+
   print('\n[1/2] Auditing Form Provider Parity...');
   final formIssues = await auditor.auditFormProviderParity();
   if (formIssues.isEmpty) {
@@ -25,6 +25,8 @@ void main() async {
   }
 
   print('\n--- Audit Results ---');
-  print('Stability Score: ${formIssues.isEmpty && screenIssues.isEmpty ? "100%" : "DEGRADED"}');
+  print(
+    'Stability Score: ${formIssues.isEmpty && screenIssues.isEmpty ? "100%" : "DEGRADED"}',
+  );
   print('--- Audit Complete ---');
 }

@@ -41,9 +41,8 @@ class ScreenWorkRegistry {
       status: 'verified',
       priority: 1,
       assignedTo: 'Developer',
-      notes: 'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      stitchProject: '5790421608425017338',
-      stitchScreenId: '571ffcbd6940455d97548c532ca511c9',
+      notes:
+          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
       routePath: '/regional/finance/overview',
       targetApp: 'primecare_admin',
     ),
@@ -57,9 +56,8 @@ class ScreenWorkRegistry {
       status: 'implemented',
       priority: 1,
       assignedTo: 'Developer',
-      notes: 'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      stitchProject: '5790421608425017338',
-      stitchScreenId: '042cdd9fe37746a2b73b7c3e15772637',
+      notes:
+          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
       routePath: '/regional/finance/approvals',
       targetApp: 'primecare_admin',
     ),
@@ -73,9 +71,8 @@ class ScreenWorkRegistry {
       status: 'implemented',
       priority: 2,
       assignedTo: 'Developer',
-      notes: 'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      stitchProject: '5790421608425017338',
-      stitchScreenId: '96f21a13aa514cce89635f3ee2e903c9',
+      notes:
+          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
       routePath: '/regional/finance/roadmap',
       targetApp: 'primecare_admin',
     ),
@@ -84,28 +81,29 @@ class ScreenWorkRegistry {
 
   static void updateStatus(String serialNo, String newStatus, {String? notes}) {
     // Check pending list
-    final pendingIndex = pendingList.indexWhere((item) => item.serialNo == serialNo);
+    final pendingIndex = pendingList.indexWhere(
+      (item) => item.serialNo == serialNo,
+    );
     if (pendingIndex != -1) {
-      final item = pendingList[pendingIndex];
       if (newStatus == 'implemented' || newStatus == 'verified') {
         final removed = pendingList.removeAt(pendingIndex);
-        implementationList.add(ScreenWorkItem(
-          serialNo: removed.serialNo.replaceFirst('PC-PEN', 'PC-IMP'),
-          screenCode: removed.screenCode,
-          title: removed.title,
-          office: removed.office,
-          module: removed.module,
-          action: 'update',
-          status: newStatus,
-          priority: removed.priority,
-          assignedTo: 'Agent',
-          notes: notes ?? removed.notes,
-          stitchProject: removed.stitchProject,
-          stitchScreenId: removed.stitchScreenId,
-          routePath: removed.routePath,
-          targetApp: removed.targetApp,
-          category: removed.category,
-        ));
+        implementationList.add(
+          ScreenWorkItem(
+            serialNo: removed.serialNo.replaceFirst('PC-PEN', 'PC-IMP'),
+            screenCode: removed.screenCode,
+            title: removed.title,
+            office: removed.office,
+            module: removed.module,
+            action: 'update',
+            status: newStatus,
+            priority: removed.priority,
+            assignedTo: 'Agent',
+            notes: notes ?? removed.notes,
+            routePath: removed.routePath,
+            targetApp: removed.targetApp,
+            category: removed.category,
+          ),
+        );
       } else {
         // Just update status in place (though it's already pending)
         // pendingList[pendingIndex] = ... (not needed if it stays in pending)
@@ -114,7 +112,9 @@ class ScreenWorkRegistry {
     }
 
     // Check implementation list
-    final implIndex = implementationList.indexWhere((item) => item.serialNo == serialNo);
+    final implIndex = implementationList.indexWhere(
+      (item) => item.serialNo == serialNo,
+    );
     if (implIndex != -1) {
       final item = implementationList[implIndex];
       implementationList[implIndex] = ScreenWorkItem(
@@ -128,12 +128,12 @@ class ScreenWorkRegistry {
         priority: item.priority,
         assignedTo: item.assignedTo,
         notes: notes ?? item.notes,
-        stitchProject: item.stitchProject,
-        stitchScreenId: item.stitchScreenId,
         routePath: item.routePath,
         targetApp: item.targetApp,
         category: item.category,
-        completedAt: newStatus == 'verified' ? DateTime.now() : item.completedAt,
+        completedAt: newStatus == 'verified'
+            ? DateTime.now()
+            : item.completedAt,
       );
     }
   }

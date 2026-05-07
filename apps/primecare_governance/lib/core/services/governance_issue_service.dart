@@ -32,7 +32,10 @@ class GovernanceIssueService {
   /// In a real implementation, this would fetch from a dedicated table.
   /// For this iteration, we use the audit log as the persistent store.
   Future<void> resolveIssue(int flagId) async {
-    await _auditService.logAction('GOVERNANCE_RESOLVE', 'Resolved flag ID: $flagId');
+    await _auditService.logAction(
+      'GOVERNANCE_RESOLVE',
+      'Resolved flag ID: $flagId',
+    );
   }
 }
 

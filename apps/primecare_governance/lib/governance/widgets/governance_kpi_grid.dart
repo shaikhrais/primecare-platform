@@ -17,19 +17,73 @@ class GovernanceKPIGrid extends StatelessWidget {
       mainAxisSpacing: 16,
       childAspectRatio: 3.2,
       children: [
-        _buildKPI(context, 'Total Screens', report.totalScreens.toString(), Icons.layers_rounded, Colors.blue),
-        _buildKPI(context, 'Total Issues', report.totalIssues.toString(), Icons.bug_report_rounded, Colors.orange),
-        _buildKPI(context, 'Critical Issues', report.criticalIssues.toString(), Icons.warning_amber_rounded, Colors.red),
-        _buildKPI(context, 'Production Ready', report.productionReadyScreens.toString(), Icons.check_circle_outline_rounded, Colors.green),
-        _buildKPI(context, 'Avg. Test Rate', '${report.averageTestPassRate.toStringAsFixed(1)}%', Icons.fact_check_rounded, Colors.purple),
-        _buildKPI(context, 'Render Health', '${report.renderOkPercent.toStringAsFixed(1)}%', Icons.monitor_heart_rounded, Colors.cyan),
-        _buildKPI(context, 'Accessibility', '${report.accessibilityPercent.toStringAsFixed(1)}%', Icons.accessibility_new_rounded, Colors.indigo),
-        _buildKPI(context, 'Performance', '${report.performancePercent.toStringAsFixed(1)}%', Icons.speed_rounded, Colors.teal),
+        _buildKPI(
+          context,
+          'Total Screens',
+          report.totalScreens.toString(),
+          Icons.layers_rounded,
+          Colors.blue,
+        ),
+        _buildKPI(
+          context,
+          'Total Issues',
+          report.totalIssues.toString(),
+          Icons.bug_report_rounded,
+          Colors.orange,
+        ),
+        _buildKPI(
+          context,
+          'Critical Issues',
+          report.criticalIssues.toString(),
+          Icons.warning_amber_rounded,
+          Colors.red,
+        ),
+        _buildKPI(
+          context,
+          'Production Ready',
+          report.productionReadyScreens.toString(),
+          Icons.check_circle_outline_rounded,
+          Colors.green,
+        ),
+        _buildKPI(
+          context,
+          'Avg. Test Rate',
+          '${report.averageTestPassRate.toStringAsFixed(1)}%',
+          Icons.fact_check_rounded,
+          Colors.purple,
+        ),
+        _buildKPI(
+          context,
+          'Render Health',
+          '${report.renderOkPercent.toStringAsFixed(1)}%',
+          Icons.monitor_heart_rounded,
+          Colors.cyan,
+        ),
+        _buildKPI(
+          context,
+          'Accessibility',
+          '${report.accessibilityPercent.toStringAsFixed(1)}%',
+          Icons.accessibility_new_rounded,
+          Colors.indigo,
+        ),
+        _buildKPI(
+          context,
+          'Performance',
+          '${report.performancePercent.toStringAsFixed(1)}%',
+          Icons.speed_rounded,
+          Colors.teal,
+        ),
       ],
     );
   }
 
-  Widget _buildKPI(BuildContext context, String label, String value, IconData icon, Color color) {
+  Widget _buildKPI(
+    BuildContext context,
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -60,9 +114,22 @@ class GovernanceKPIGrid extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.w500)),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),

@@ -48,10 +48,7 @@ sealed class Result<T> {
   }
 
   /// Transforms the [Result] using the provided functions.
-  R fold<R>(
-    R Function(T data) onSuccess,
-    R Function(Object error) onFailure,
-  ) {
+  R fold<R>(R Function(T data) onSuccess, R Function(Object error) onFailure) {
     if (this is Success<T>) {
       return onSuccess((this as Success<T>).data);
     } else {

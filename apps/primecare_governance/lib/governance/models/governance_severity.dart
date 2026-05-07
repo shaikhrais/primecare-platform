@@ -1,7 +1,1 @@
-enum GovernanceSeverity {
-  critical,
-  high,
-  medium,
-  low,
-  info,
-}
+enum GovernanceSeverity { critical, high, medium, low, info }

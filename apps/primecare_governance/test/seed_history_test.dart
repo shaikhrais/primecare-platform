@@ -7,9 +7,9 @@ import 'package:drift/native.dart';
 void main() {
   test('Seed Governance History', () async {
     PrimeLogger.info('Seeding Governance History...');
-    
+
     final db = GovernanceDatabase(NativeDatabase.memory());
-    
+
     final now = DateTime.now();
     final data = [
       {'score': 65.0, 'days': 30},
@@ -24,16 +24,22 @@ void main() {
 
     for (final entry in data) {
       final timestamp = now.subtract(Duration(days: entry['days'] as int));
-      await db.saveSnapshot(GovernanceSnapshotsCompanion(
-        healthScore: Value(entry['score'] as double),
-        criticalIssues: Value((100 - (entry['score'] as double)).toInt() ~/ 5),
-        highIssues: Value(5),
-        mediumIssues: Value(10),
-        lowIssues: Value(20),
-        totalScreens: Value(251),
-        productionReadyScreens: Value(((entry['score'] as double) / 100 * 251).toInt()),
-        timestamp: Value(timestamp),
-      ));
+      await db.saveSnapshot(
+        GovernanceSnapshotsCompanion(
+          healthScore: Value(entry['score'] as double),
+          criticalIssues: Value(
+            (100 - (entry['score'] as double)).toInt() ~/ 5,
+          ),
+          highIssues: Value(5),
+          mediumIssues: Value(10),
+          lowIssues: Value(20),
+          totalScreens: Value(251),
+          productionReadyScreens: Value(
+            ((entry['score'] as double) / 100 * 251).toInt(),
+          ),
+          timestamp: Value(timestamp),
+        ),
+      );
     }
 
     PrimeLogger.info('SUCCESS: Seeded 8 historical snapshots.');

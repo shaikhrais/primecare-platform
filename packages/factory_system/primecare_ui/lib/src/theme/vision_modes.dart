@@ -1,6 +1,1 @@
-enum AuraVisionMode {
-  live,
-  highFidelity,
-  blueprint,
-  auraAudit,
-}
+enum AuraVisionMode { live, highFidelity, blueprint, auraAudit }

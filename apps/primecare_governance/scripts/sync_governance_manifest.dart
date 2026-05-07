@@ -2,30 +2,55 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 /// Automated Governance Manifest Generator for PrimeCare Platform.
-/// 
+///
 /// Scans the workspace to calculate LOC, file counts, and MVC patterns
 /// to update the [PlatformGovernanceRegistry].
 void main() async {
   stdout.writeln('🚀 Starting PrimeCare Governance Sync...');
-  
+
   final rootDir = Directory.current.parent.parent;
-  final registryFile = File(p.join(
-    rootDir.path, 
-    'packages', 'factory_system', 'primecare_ui', 'lib', 'src', 'shared', 'src', 'integration', 'platform_governance_registry.dart'
-  ));
+  final registryFile = File(
+    p.join(
+      rootDir.path,
+      'packages',
+      'factory_system',
+      'primecare_ui',
+      'lib',
+      'src',
+      'shared',
+      'src',
+      'integration',
+      'platform_governance_registry.dart',
+    ),
+  );
 
-  final roleFile = File(p.join(
-    rootDir.path,
-    'packages', 'flutter_core', 'lib', 'registry', 'platform_role.dart'
-  ));
+  final roleFile = File(
+    p.join(
+      rootDir.path,
+      'packages',
+      'flutter_core',
+      'lib',
+      'registry',
+      'platform_role.dart',
+    ),
+  );
 
-  final screenRegistryFile = File(p.join(
-    rootDir.path,
-    'apps', 'primecare_governance', 'lib', 'core', 'governance', 'screen_registry.dart'
-  ));
+  final screenRegistryFile = File(
+    p.join(
+      rootDir.path,
+      'apps',
+      'primecare_governance',
+      'lib',
+      'core',
+      'governance',
+      'screen_registry.dart',
+    ),
+  );
 
   if (!registryFile.existsSync()) {
-    stderr.writeln('❌ Error: Could not find registry file at ${registryFile.path}');
+    stderr.writeln(
+      '❌ Error: Could not find registry file at ${registryFile.path}',
+    );
     exit(1);
   }
 
@@ -87,9 +112,11 @@ void main() async {
         final fileName = p.basename(file.path).toLowerCase();
         if (fileName.contains('model.dart')) {
           m++;
-        } else if (fileName.contains('view.dart') || fileName.contains('screen.dart')) {
+        } else if (fileName.contains('view.dart') ||
+            fileName.contains('screen.dart')) {
           v++;
-        } else if (fileName.contains('controller.dart') || fileName.contains('notifier.dart')) {
+        } else if (fileName.contains('controller.dart') ||
+            fileName.contains('notifier.dart')) {
           c++;
         }
       }
@@ -98,7 +125,7 @@ void main() async {
     locManifest[projectName] = loc;
     fileManifest[projectName] = files;
     mvcManifest[projectName] = {'M': m, 'V': v, 'C': c};
-    
+
     stdout.writeln('✅ Synced $projectName: $loc LOC, $files files');
   }
 
@@ -108,7 +135,9 @@ void main() async {
     final content = await roleFile.readAsString();
     final enumPart = content.split('enum PlatformRole {');
     if (enumPart.length > 1) {
-      totalRoles = RegExp(r'[a-zA-Z0-9]+,').allMatches(enumPart[1].split('}')[0]).length;
+      totalRoles = RegExp(
+        r'[a-zA-Z0-9]+,',
+      ).allMatches(enumPart[1].split('}')[0]).length;
     }
   }
 
@@ -121,19 +150,23 @@ void main() async {
   }
 
   final newContent = _generateRegistryContent(
-    locManifest, 
-    fileManifest, 
+    locManifest,
+    fileManifest,
     mvcManifest,
     totalRoles: totalRoles,
     rolesWithScreens: rolesWithScreens,
   );
   await registryFile.writeAsString(newContent);
 
-  stdout.writeln('✨ Governance Manifest successfully updated with RBAC & MVC statistics!');
+  stdout.writeln(
+    '✨ Governance Manifest successfully updated with RBAC & MVC statistics!',
+  );
 }
 
 bool _isSignificantFile(String path) {
-  if (!path.endsWith('.dart') && !path.endsWith('.ts') && !path.endsWith('.js')) {
+  if (!path.endsWith('.dart') &&
+      !path.endsWith('.ts') &&
+      !path.endsWith('.js')) {
     return false;
   }
   if (path.contains('.dart_tool')) {
@@ -152,33 +185,54 @@ bool _isSignificantFile(String path) {
 }
 
 String _generateRegistryContent(
-  Map<String, int> loc, 
-  Map<String, int> files, 
-  Map<String, Map<String, int>> mvc,
-  {int totalRoles = 0, int rolesWithScreens = 0}
-) {
+  Map<String, int> loc,
+  Map<String, int> files,
+  Map<String, Map<String, int>> mvc, {
+  int totalRoles = 0,
+  int rolesWithScreens = 0,
+}) {
   final now = DateTime.now().toIso8601String();
   final signature = 'UNIVERSAL-LOCK-\${DateTime.now().millisecondsSinceEpoch}';
 
-  final locEntries = loc.entries.map((e) => '    PlatformProject.${e.key}: ${e.value},').join('\n');
-  final fileEntries = files.entries.map((e) => '    PlatformProject.${e.key}: ${e.value},').join('\n');
-  
+  final locEntries = loc.entries
+      .map((e) => '    PlatformProject.${e.key}: ${e.value},')
+      .join('\n');
+  final fileEntries = files.entries
+      .map((e) => '    PlatformProject.${e.key}: ${e.value},')
+      .join('\n');
+
   final uiMvcEntries = mvc.entries
-    .where((e) => !e.key.toLowerCase().contains('api'))
-    .map((e) => "    PlatformProject.${e.key}: {'M': ${e.value['M']}, 'V': ${e.value['V']}, 'C': ${e.value['C']}},")
-    .join('\n');
+      .where((e) => !e.key.toLowerCase().contains('api'))
+      .map(
+        (e) =>
+            "    PlatformProject.${e.key}: {'M': ${e.value['M']}, 'V': ${e.value['V']}, 'C': ${e.value['C']}},",
+      )
+      .join('\n');
 
   final apiMvcEntries = mvc.entries
-    .where((e) => e.key.toLowerCase().contains('api'))
-    .map((e) => "    PlatformProject.${e.key}: {'M': ${e.value['M']}, 'V': ${e.value['V']}, 'C': ${e.value['C']}},")
-    .join('\n');
+      .where((e) => e.key.toLowerCase().contains('api'))
+      .map(
+        (e) =>
+            "    PlatformProject.${e.key}: {'M': ${e.value['M']}, 'V': ${e.value['V']}, 'C': ${e.value['C']}},",
+      )
+      .join('\n');
 
-  final totalUi = loc.length - mvc.entries.where((e) => e.key.toLowerCase().contains('api')).length;
-  final totalApi = mvc.entries.where((e) => e.key.toLowerCase().contains('api')).length;
+  final totalUi =
+      loc.length -
+      mvc.entries.where((e) => e.key.toLowerCase().contains('api')).length;
+  final totalApi = mvc.entries
+      .where((e) => e.key.toLowerCase().contains('api'))
+      .length;
   final totalScreens = mvc.values.fold(0, (sum, e) => sum + (e['V'] ?? 0));
 
-  final uiProjectsList = loc.keys.where((k) => !k.toLowerCase().contains('api')).map((k) => '    PlatformProject.$k,').join('\n');
-  final apiProjectsList = loc.keys.where((k) => k.toLowerCase().contains('api')).map((k) => '    PlatformProject.$k,').join('\n');
+  final uiProjectsList = loc.keys
+      .where((k) => !k.toLowerCase().contains('api'))
+      .map((k) => '    PlatformProject.$k,')
+      .join('\n');
+  final apiProjectsList = loc.keys
+      .where((k) => k.toLowerCase().contains('api'))
+      .map((k) => '    PlatformProject.$k,')
+      .join('\n');
 
   return '''// Layer: 00_GOVERNANCE_MANIFEST
 // Generated: $now

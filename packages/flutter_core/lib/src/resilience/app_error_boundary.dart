@@ -221,27 +221,8 @@ class BoundaryTelemetryDrain extends ConsumerWidget {
 
   void _triggerStructuralAudit(WidgetRef ref, ExecutionGateService telemetry) {
     try {
-      final auditResults = GovernanceRegistry.performBlueprintAudit();
       final healthReports = GovernanceRegistry.performHealthSweep(ref);
       final domainAudit = GovernanceRegistry.performDomainAudit();
-
-      // 1. Report Structural Blueprint Compliance
-      final totalBlueprints = auditResults.length;
-      final compliantBlueprints = auditResults
-          .where((r) => r.isCompliant)
-          .length;
-
-      if (totalBlueprints > 0) {
-        telemetry.passGate(
-          ExecutionGateCategory.structuralIntegrity,
-          'Blueprint Audit: $compliantBlueprints/$totalBlueprints compliant.',
-          metadata: {
-            'total': totalBlueprints,
-            'compliant': compliantBlueprints,
-            'results': auditResults.map((r) => r.toString()).toList(),
-          },
-        );
-      }
 
       // 2. Report Domain Implementation Integrity
       telemetry.passGate(

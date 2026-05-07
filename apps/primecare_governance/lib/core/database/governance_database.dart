@@ -56,14 +56,19 @@ class GovernanceDatabase extends _$GovernanceDatabase {
   int get schemaVersion => 2;
 
   // Snapshot Operations
-  Future<int> saveSnapshot(GovernanceSnapshotsCompanion entry) => 
+  Future<int> saveSnapshot(GovernanceSnapshotsCompanion entry) =>
       into(governanceSnapshots).insert(entry);
 
   Future<List<GovernanceSnapshot>> getRecentSnapshots({int limit = 30}) =>
       (select(governanceSnapshots)
-        ..orderBy([(t) => OrderingTerm(expression: t.timestamp, mode: OrderingMode.desc)])
-        ..limit(limit))
-      .get();
+            ..orderBy([
+              (t) => OrderingTerm(
+                expression: t.timestamp,
+                mode: OrderingMode.desc,
+              ),
+            ])
+            ..limit(limit))
+          .get();
 
   // Proposal Operations
   Future<int> upsertProposal(ProposalsCompanion entry) =>

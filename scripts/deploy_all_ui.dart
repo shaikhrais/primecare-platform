@@ -18,10 +18,15 @@ void main() async {
   for (final app in apps) {
     print('\n📦 Processing $app...');
     final appPath = 'apps/$app';
-    
+
     // 1. Pub get
     print('   - Running flutter pub get...');
-    final getResult = await Process.run('flutter', ['pub', 'get'], workingDirectory: appPath, runInShell: true);
+    final getResult = await Process.run(
+      'flutter',
+      ['pub', 'get'],
+      workingDirectory: appPath,
+      runInShell: true,
+    );
     if (getResult.exitCode != 0) {
       print('   ❌ Error: pub get failed for $app');
       print(getResult.stderr);
@@ -30,7 +35,12 @@ void main() async {
 
     // 2. Build web
     print('   - Building for web...');
-    final buildResult = await Process.run('flutter', ['build', 'web', '--release'], workingDirectory: appPath, runInShell: true);
+    final buildResult = await Process.run(
+      'flutter',
+      ['build', 'web', '--release'],
+      workingDirectory: appPath,
+      runInShell: true,
+    );
     if (buildResult.exitCode != 0) {
       print('   ❌ Error: build web failed for $app');
       print(buildResult.stderr);
@@ -40,12 +50,20 @@ void main() async {
     // 3. Deploy to Cloudflare
     final projectName = 'primecare-${app.replaceAll("_", "-")}';
     print('   - Deploying to Cloudflare Pages as $projectName...');
-    final deployResult = await Process.run('npx', [
-      'wrangler', 'pages', 'deploy', 'build/web',
-      '--project-name=$projectName',
-      '--branch=main',
-      '--yes'
-    ], workingDirectory: appPath, runInShell: true);
+    final deployResult = await Process.run(
+      'npx',
+      [
+        'wrangler',
+        'pages',
+        'deploy',
+        'build/web',
+        '--project-name=$projectName',
+        '--branch=main',
+        '--yes',
+      ],
+      workingDirectory: appPath,
+      runInShell: true,
+    );
 
     if (deployResult.exitCode != 0) {
       print('   ❌ Error: deployment failed for $app');

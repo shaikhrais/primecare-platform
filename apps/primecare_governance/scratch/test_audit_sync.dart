@@ -3,10 +3,10 @@ import 'package:primecare_governance/governance/services/cross_subsystem_auditor
 void main() async {
   print('--- Starting Cross-Subsystem Registry Audit ---');
   final auditor = CrossSubsystemAuditor(projectRoot: '.');
-  
+
   print('Auditing Screen Registry Parity...');
   final issues = await auditor.auditScreenRegistryParity();
-  
+
   if (issues.isEmpty) {
     print('SUCCESS: No registry parity issues detected.');
   } else {

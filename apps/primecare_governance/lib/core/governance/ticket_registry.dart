@@ -15,7 +15,8 @@ class TicketRegistry {
       id: 'TICKET-002',
       screenId: 'SCREEN_FINANCE_DIRECTOR',
       reportedBy: 'User-122',
-      description: 'Export to CSV functionality is timing out for large datasets.',
+      description:
+          'Export to CSV functionality is timing out for large datasets.',
       severity: 'major',
       status: 'in_progress',
       createdAt: '2026-04-29T11:30:00Z',
@@ -24,7 +25,8 @@ class TicketRegistry {
       id: 'TICKET-003',
       screenId: 'SCREEN_GOVERNANCE_SERVICE',
       reportedBy: 'Architectural Audit',
-      description: 'governanceService package is a skeleton with 0 LOC. Needs implementation of backend task runners.',
+      description:
+          'governanceService package is a skeleton with 0 LOC. Needs implementation of backend task runners.',
       severity: 'critical',
       status: 'open',
       createdAt: '2026-04-30T09:40:00Z',
@@ -33,7 +35,8 @@ class TicketRegistry {
       id: 'TICKET-004',
       screenId: 'SCREEN_COMPLIANCE_API',
       reportedBy: 'Sync Engine',
-      description: 'Compliance API health is warning. Potential memory leak in audit logging middleware.',
+      description:
+          'Compliance API health is warning. Potential memory leak in audit logging middleware.',
       severity: 'major',
       status: 'open',
       createdAt: '2026-04-30T09:42:00Z',
@@ -49,7 +52,9 @@ class TicketRegistry {
   }
 
   static List<CorrectionTicket> getOpenTickets() {
-    return tickets.where((t) => t.status == 'open' || t.status == 'in_progress').toList();
+    return tickets
+        .where((t) => t.status == 'open' || t.status == 'in_progress')
+        .toList();
   }
 
   static int get totalTickets => tickets.length;

@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -9,15 +8,16 @@ import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   test('Audit Form Provider Parity', () async {
-    final projectRoot = 'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
-    
+    final projectRoot =
+        'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
+
     final enumPath = p.join(
-      projectRoot, 
-      'packages/flutter_core/lib/models/platform_types.dart'
+      projectRoot,
+      'packages/flutter_core/lib/models/platform_types.dart',
     );
     final providerPath = p.join(
       projectRoot,
-      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart'
+      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
     );
 
     PrimeLogger.info('Auditing Form Provider Parity...');
@@ -25,7 +25,11 @@ void main() {
     PrimeLogger.info('Provider Path: $providerPath');
 
     expect(File(enumPath).existsSync(), true, reason: 'Enum file missing');
-    expect(File(providerPath).existsSync(), true, reason: 'Provider file missing');
+    expect(
+      File(providerPath).existsSync(),
+      true,
+      reason: 'Provider file missing',
+    );
 
     final enumContent = File(enumPath).readAsStringSync();
     final providerContent = File(providerPath).readAsStringSync();
@@ -38,7 +42,9 @@ void main() {
     enumResult.unit.accept(visitor);
 
     final providerCases = <String>{};
-    final providerVisitor = _SwitchCaseVisitor((name) => providerCases.add(name));
+    final providerVisitor = _SwitchCaseVisitor(
+      (name) => providerCases.add(name),
+    );
     providerResult.unit.accept(providerVisitor);
 
     PrimeLogger.info('Found ${enumValues.length} enum values.');
@@ -52,7 +58,9 @@ void main() {
     }
 
     if (missing.isEmpty) {
-      PrimeLogger.info('SUCCESS: All enum values have a corresponding switch case in the provider.');
+      PrimeLogger.info(
+        'SUCCESS: All enum values have a corresponding switch case in the provider.',
+      );
     } else {
       PrimeLogger.warning('FAILURE: Missing ${missing.length} mappings:');
       for (final m in missing) {

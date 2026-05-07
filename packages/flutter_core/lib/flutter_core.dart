@@ -11,7 +11,7 @@ export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 // export 'package:flutter_core/flutter_core.dart' hide AppTheme;
 
 export 'adapter_providers.dart';
-export 'src/models/blueprint_models.dart';
+export 'src/models/dashboard_models.dart';
 export 'auth_service.dart';
 export 'dashboard_providers.dart'
     hide dashboardServiceProvider, dashboardMetricsProvider;
@@ -24,7 +24,6 @@ export 'provider_service.dart';
 export 'routes/route_guard.dart';
 export 'routes/governance_navigator.dart';
 export 'registry/governance_registry.dart';
-export 'registry/auditor_blueprint.dart';
 export 'registry/platform_role.dart';
 export 'registry/intents/app_screen_intent.dart';
 export 'registry/widgets/governance_skeleton.dart';
@@ -67,8 +66,6 @@ export 'models/navigation_item.dart';
 export 'models/platform_types.dart';
 export 'models/domain_response.dart';
 export 'src/models/scheduler_models.dart';
-export 'src/models/dashboard_models.dart';
-
 
 export 'manifest/action_manifest.dart';
 
@@ -116,5 +113,10 @@ export 'aura_behavioral_telemetry.dart';
 export 'src/models/psw_models.dart';
 export 'src/services/psw_service.dart';
 export 'src/providers/psw_providers.dart';
+export 'src/services/telemetry_service.dart';
 
-
+// Clinical Education Repository
+export 'models/clinical_article.dart';
+export 'providers/clinical_education_provider.dart';
+export 'widgets/clinical_article_detail_dialog.dart';
+export 'widgets/clinical_term_highlighter.dart';

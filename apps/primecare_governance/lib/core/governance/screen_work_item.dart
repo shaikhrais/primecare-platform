@@ -14,8 +14,6 @@ class ScreenWorkItem {
   final int priority; // 1 high, 2 medium, 3 low
   final String assignedTo;
   final String notes;
-  final String? stitchProject;
-  final String? stitchScreenId;
   final String? routePath;
   final String targetApp;
   final String? category;
@@ -33,8 +31,6 @@ class ScreenWorkItem {
     required this.priority,
     required this.assignedTo,
     required this.notes,
-    this.stitchProject,
-    this.stitchScreenId,
     this.routePath,
     required this.targetApp,
     this.category,
@@ -42,7 +38,8 @@ class ScreenWorkItem {
     this.completedAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
-  factory ScreenWorkItem.fromJson(Map<String, dynamic> json) => _$ScreenWorkItemFromJson(json);
+  factory ScreenWorkItem.fromJson(Map<String, dynamic> json) =>
+      _$ScreenWorkItemFromJson(json);
   Map<String, dynamic> toJson() => _$ScreenWorkItemToJson(this);
 }
 
@@ -64,6 +61,7 @@ class ScreenChangeLog {
     this.metadata,
   }) : timestamp = timestamp ?? DateTime.now();
 
-  factory ScreenChangeLog.fromJson(Map<String, dynamic> json) => _$ScreenChangeLogFromJson(json);
+  factory ScreenChangeLog.fromJson(Map<String, dynamic> json) =>
+      _$ScreenChangeLogFromJson(json);
   Map<String, dynamic> toJson() => _$ScreenChangeLogToJson(this);
 }

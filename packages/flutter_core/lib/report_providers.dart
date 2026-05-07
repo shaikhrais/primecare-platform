@@ -65,7 +65,7 @@ final reportDataProvider = FutureProvider.family<Result<ReportData>, String>((
 /// It observes the revenue_log report and generates proactive insights.
 final auraFinancialForecastProvider =
     Provider<
-      ({List<ChartDataPoint> forecast, List<IntelligenceInsight> insights})
+      ({List<DataPoint> forecast, List<IntelligenceInsight> insights})
     >((ref) {
       final reportAsync = ref.watch(reportDataProvider('revenue_log'));
 
@@ -116,39 +116,35 @@ final auraFinancialForecastProvider =
               // Mock Forecast Calculation: Simple growth based on total paid
               final baseVal = totalPaid / (rows.isNotEmpty ? rows.length : 1);
               final forecast = [
-                ChartDataPoint(
+                DataPoint(
                   label: 'Next Wk',
                   value: baseVal * 1.2,
-                  color: '#9333EA',
                 ),
-                ChartDataPoint(
+                DataPoint(
                   label: 'Wk 2',
                   value: baseVal * 1.35,
-                  color: '#9333EA',
                 ),
-                ChartDataPoint(
+                DataPoint(
                   label: 'Wk 3',
                   value: baseVal * 1.48,
-                  color: '#9333EA',
                 ),
-                ChartDataPoint(
+                DataPoint(
                   label: 'Month 1',
                   value: baseVal * 1.6,
-                  color: '#9333EA',
                 ),
               ];
 
               return (forecast: forecast, insights: insights);
             },
             (_) => (
-              forecast: <ChartDataPoint>[],
+              forecast: <DataPoint>[],
               insights: <IntelligenceInsight>[],
             ),
           );
         },
         loading: () =>
-            (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
+            (forecast: <DataPoint>[], insights: <IntelligenceInsight>[]),
         error: (_, _) =>
-            (forecast: <ChartDataPoint>[], insights: <IntelligenceInsight>[]),
+            (forecast: <DataPoint>[], insights: <IntelligenceInsight>[]),
       );
     });

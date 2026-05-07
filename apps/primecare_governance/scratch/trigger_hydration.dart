@@ -4,10 +4,10 @@ import 'package:primecare_governance/features/proposal_governance/services/bluep
 void main() async {
   final container = ProviderContainer();
   final service = container.read(blueprintHydrationServiceProvider);
-  
+
   print('Starting Platform Registry Hydration...');
   final results = await service.hydrateFromBlueprints();
-  
+
   print('Hydration Results:');
   results.forEach((key, value) {
     print(' - $key: $value');

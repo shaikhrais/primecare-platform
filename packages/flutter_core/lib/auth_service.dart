@@ -167,10 +167,7 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r == 'psw') {
       return ClinicalRoutes.pswDashboard;
     }
-    if (r == 'rn' ||
-        r == 'rpn' ||
-        r == 'rmt' ||
-        r.contains('clinical')) {
+    if (r == 'rn' || r == 'rpn' || r == 'rmt' || r.contains('clinical')) {
       return CommonRoutes.clinicalDashboard;
     }
 

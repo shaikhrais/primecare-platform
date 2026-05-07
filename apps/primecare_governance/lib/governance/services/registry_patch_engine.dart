@@ -7,14 +7,19 @@ class RegistryPatchEngine {
   /// Attempts to automatically apply a fix to the registry file.
   /// This is a high-risk operation and should ideally be done using AST parsing.
   /// For this implementation, we use targeted line-replacement logic.
-  static Future<bool> applyFix(String projectRoot, GovernanceIssue issue, String property, String value) async {
+  static Future<bool> applyFix(
+    String projectRoot,
+    GovernanceIssue issue,
+    String property,
+    String value,
+  ) async {
     try {
       final file = File('$projectRoot/apps/primecare_governance/$registryPath');
       if (!await file.exists()) return false;
 
       final lines = await file.readAsLines();
       final newLines = <String>[];
-      
+
       bool inScreenBlock = false;
       bool fixed = false;
 
@@ -22,7 +27,7 @@ class RegistryPatchEngine {
         final line = lines[i];
 
         // Detect start of screen block
-        if (line.contains("'${issue.screenId}': const ScreenMetadata(") || 
+        if (line.contains("'${issue.screenId}': const ScreenMetadata(") ||
             line.contains("'${issue.screenId}': ScreenMetadata(")) {
           inScreenBlock = true;
         }
@@ -46,7 +51,7 @@ class RegistryPatchEngine {
         await file.writeAsString(newLines.join('\n'));
         return true;
       }
-      
+
       return false;
     } catch (e) {
       // TODO: Replace with proper logging framework in next phase

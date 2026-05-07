@@ -12,11 +12,37 @@ class LanguageProvider extends Notifier<String> {
         'dashboard': 'Dashboard',
         'users': 'User Management',
         'active_users': 'Active Users',
+        'governance': 'Governance',
+        'security': 'Security',
+        'compliance': 'Compliance',
+        'settings': 'Settings',
       },
       'fr': {
         'dashboard': 'Tableau de bord',
         'users': 'Gestion des utilisateurs',
         'active_users': 'Utilisateurs actifs',
+        'governance': 'Gouvernance',
+        'security': 'Sécurité',
+        'compliance': 'Conformité',
+        'settings': 'Paramètres',
+      },
+      'es': {
+        'dashboard': 'Tablero',
+        'users': 'Gestión de usuarios',
+        'active_users': 'Usuarios activos',
+        'governance': 'Gobernanza',
+        'security': 'Seguridad',
+        'compliance': 'Cumplimiento',
+        'settings': 'Configuración',
+      },
+      'ar': {
+        'dashboard': 'لوحة القيادة',
+        'users': 'إدارة المستخدمين',
+        'active_users': 'المستخدمون النشطون',
+        'governance': 'الحوكمة',
+        'security': 'الأمن',
+        'compliance': 'الامتثال',
+        'settings': 'الإعدادات',
       },
     };
 
@@ -24,4 +50,6 @@ class LanguageProvider extends Notifier<String> {
   }
 }
 
-final languageProvider = NotifierProvider<LanguageProvider, String>(LanguageProvider.new);
+final languageProvider = NotifierProvider<LanguageProvider, String>(
+  LanguageProvider.new,
+);

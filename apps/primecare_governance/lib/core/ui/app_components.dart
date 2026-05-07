@@ -92,11 +92,7 @@ class AppTable extends StatelessWidget {
   final List<String> columns;
   final List<List<dynamic>> rows;
 
-  const AppTable({
-    super.key,
-    required this.columns,
-    required this.rows,
-  });
+  const AppTable({super.key, required this.columns, required this.rows});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +100,15 @@ class AppTable extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: columns.map((c) => DataColumn(label: Text(c))).toList(),
-        rows: rows.map((r) => DataRow(cells: r.map((cell) => DataCell(Text(cell.toString()))).toList())).toList(),
+        rows: rows
+            .map(
+              (r) => DataRow(
+                cells: r
+                    .map((cell) => DataCell(Text(cell.toString())))
+                    .toList(),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -128,9 +132,7 @@ class AppLoadingOverlay extends StatelessWidget {
         if (isLoading)
           Container(
             color: Colors.black.withValues(alpha: 0.3),
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: const Center(child: CircularProgressIndicator()),
           ),
       ],
     );

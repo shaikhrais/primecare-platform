@@ -6,7 +6,9 @@ void main() {
   final intents = GovernanceRegistry.getAllIntents();
   for (final intent in intents) {
     if (intent is PrimeCareScreen) {
-      print('[${intent.route}] Provider: ${intent.provider != null ? "YES" : "NO"} | Labels: ${intent.componentLabels}');
+      print(
+        '[${intent.route}] Provider: ${intent.provider != null ? "YES" : "NO"}',
+      );
     }
   }
 }

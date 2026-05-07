@@ -16,10 +16,7 @@ class DataPoint {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'label': label,
-        'value': value,
-      };
+  Map<String, dynamic> toJson() => {'label': label, 'value': value};
 }
 
 class AnalyticsChart {
@@ -50,11 +47,11 @@ class AnalyticsChart {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'type': type.name,
-        'dataPoints': dataPoints.map((p) => p.toJson()).toList(),
-      };
+    'id': id,
+    'title': title,
+    'type': type.name,
+    'dataPoints': dataPoints.map((p) => p.toJson()).toList(),
+  };
 }
 
 class ActivityItem {
@@ -77,19 +74,20 @@ class ActivityItem {
       id: (json['id'] as String?) ?? '',
       title: (json['title'] as String?) ?? '',
       subtitle: (json['subtitle'] as String?) ?? '',
-      timestamp: DateTime.tryParse((json['timestamp'] as String?) ?? '') ??
+      timestamp:
+          DateTime.tryParse((json['timestamp'] as String?) ?? '') ??
           DateTime.now(),
       type: json['type'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'subtitle': subtitle,
-        'timestamp': timestamp.toIso8601String(),
-        'type': type,
-      };
+    'id': id,
+    'title': title,
+    'subtitle': subtitle,
+    'timestamp': timestamp.toIso8601String(),
+    'type': type,
+  };
 }
 
 class IntelligenceInsight {
@@ -121,12 +119,12 @@ class IntelligenceInsight {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'summary': summary,
-        'impact': impact.name,
-        'relatedMetricId': relatedMetricId,
-      };
+    'id': id,
+    'title': title,
+    'summary': summary,
+    'impact': impact.name,
+    'relatedMetricId': relatedMetricId,
+  };
 }
 
 class DashboardMetrics {
@@ -146,8 +144,9 @@ class DashboardMetrics {
 
   factory DashboardMetrics.fromJson(Map<String, dynamic> json) {
     return DashboardMetrics(
-      kpis: (json['kpis'] ?? json['metrics'] ?? <String, dynamic>{})
-          as Map<String, dynamic>,
+      kpis:
+          (json['kpis'] ?? json['metrics'] ?? <String, dynamic>{})
+              as Map<String, dynamic>,
       charts: (json['charts'] as List? ?? [])
           .map((c) => AnalyticsChart.fromJson(c as Map<String, dynamic>))
           .toList(),
@@ -162,19 +161,19 @@ class DashboardMetrics {
   }
 
   Map<String, dynamic> toJson() => {
-        'kpis': kpis,
-        'charts': charts.map((c) => c.toJson()).toList(),
-        'recentActivity': recentActivity.map((a) => a.toJson()).toList(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'isOfflineFallback': isOfflineFallback,
-      };
+    'kpis': kpis,
+    'charts': charts.map((c) => c.toJson()).toList(),
+    'recentActivity': recentActivity.map((a) => a.toJson()).toList(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'isOfflineFallback': isOfflineFallback,
+  };
 
   factory DashboardMetrics.empty() => const DashboardMetrics(
-        kpis: {},
-        charts: [],
-        recentActivity: [],
-        insights: [],
-      );
+    kpis: {},
+    charts: [],
+    recentActivity: [],
+    insights: [],
+  );
 
   DashboardMetrics copyWith({
     Map<String, dynamic>? kpis,
@@ -197,35 +196,29 @@ class ClinicalIntelligenceViewModel {
   final DashboardMetrics metrics;
   final List<IntelligenceInsight> clinicalInsights;
   final bool isOfflineFallback;
-  final List<UIComponentBlueprint> blueprints;
-
   const ClinicalIntelligenceViewModel({
     required this.metrics,
     required this.clinicalInsights,
     this.isOfflineFallback = false,
-    this.blueprints = const [],
   });
 
   factory ClinicalIntelligenceViewModel.fromJson(Map<String, dynamic> json) {
     return ClinicalIntelligenceViewModel(
       metrics: DashboardMetrics.fromJson(
-          (json['metrics'] as Map<String, dynamic>?) ?? {}),
+        (json['metrics'] as Map<String, dynamic>?) ?? {},
+      ),
       clinicalInsights: (json['clinicalInsights'] as List? ?? [])
           .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
           .toList(),
       isOfflineFallback: json['isOfflineFallback'] as bool? ?? false,
-      blueprints: (json['blueprints'] as List? ?? [])
-          .map((b) => UIComponentBlueprint.fromJson(b as Map<String, dynamic>))
-          .toList(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'clinicalInsights': clinicalInsights.map((i) => i.toJson()).toList(),
-        'isOfflineFallback': isOfflineFallback,
-        'blueprints': blueprints.map((b) => b.toJson()).toList(),
-      };
+    'metrics': metrics.toJson(),
+    'clinicalInsights': clinicalInsights.map((i) => i.toJson()).toList(),
+    'isOfflineFallback': isOfflineFallback,
+  };
 }
 
 class AIAnalyticsForecastingData {
@@ -249,9 +242,9 @@ class AIAnalyticsForecastingData {
   }
 
   Map<String, dynamic> toJson() => {
-        'predictedTrends': predictedTrends.map((c) => c.toJson()).toList(),
-        'recommendations': recommendations.map((i) => i.toJson()).toList(),
-      };
+    'predictedTrends': predictedTrends.map((c) => c.toJson()).toList(),
+    'recommendations': recommendations.map((i) => i.toJson()).toList(),
+  };
 }
 
 class PrimeCareDashboardViewModel {
@@ -274,7 +267,8 @@ class PrimeCareDashboardViewModel {
   factory PrimeCareDashboardViewModel.fromJson(Map<String, dynamic> json) {
     return PrimeCareDashboardViewModel(
       metrics: DashboardMetrics.fromJson(
-          (json['metrics'] as Map<String, dynamic>?) ?? {}),
+        (json['metrics'] as Map<String, dynamic>?) ?? {},
+      ),
       insights: (json['insights'] as List? ?? [])
           .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
           .toList(),
@@ -285,19 +279,20 @@ class PrimeCareDashboardViewModel {
           .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
           .toList(),
       isFromCache: json['isOfflineFallback'] as bool? ?? false,
-      lastUpdated: DateTime.tryParse((json['lastUpdated'] as String?) ?? '') ??
+      lastUpdated:
+          DateTime.tryParse((json['lastUpdated'] as String?) ?? '') ??
           DateTime.now(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'metrics': metrics.toJson(),
-        'insights': insights.map((i) => i.toJson()).toList(),
-        'timeline': timeline.map((i) => i.toJson()).toList(),
-        'trends': trends.map((i) => i.toJson()).toList(),
-        'isOfflineFallback': isFromCache,
-        'lastUpdated': lastUpdated.toIso8601String(),
-      };
+    'metrics': metrics.toJson(),
+    'insights': insights.map((i) => i.toJson()).toList(),
+    'timeline': timeline.map((i) => i.toJson()).toList(),
+    'trends': trends.map((i) => i.toJson()).toList(),
+    'isOfflineFallback': isFromCache,
+    'lastUpdated': lastUpdated.toIso8601String(),
+  };
 
   PrimeCareDashboardViewModel copyWith({
     DashboardMetrics? metrics,

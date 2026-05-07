@@ -32,7 +32,9 @@ class GovernancePatchManager extends StatelessWidget {
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: script));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Remediation script copied to clipboard.')),
+                    const SnackBar(
+                      content: Text('Remediation script copied to clipboard.'),
+                    ),
                   );
                 },
               ),
@@ -63,7 +65,11 @@ class GovernancePatchManager extends StatelessWidget {
           padding: EdgeInsets.all(24.0),
           child: Text(
             'Note: Applying this patch requires manual review in the registry file. Automated patching is currently in preview.',
-            style: TextStyle(fontSize: 11, color: Colors.grey, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.grey,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],

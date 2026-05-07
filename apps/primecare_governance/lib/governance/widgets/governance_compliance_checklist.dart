@@ -26,7 +26,9 @@ class GovernanceComplianceChecklist extends StatelessWidget {
           const SizedBox(height: 16),
           _buildCheckItem(
             'Architectural Parity (Render/A11y/Perf)',
-            report.renderOkPercent > 90 && report.accessibilityPercent > 90 && report.performancePercent > 90,
+            report.renderOkPercent > 90 &&
+                report.accessibilityPercent > 90 &&
+                report.performancePercent > 90,
             'All screens must pass 90% threshold for core vitals.',
           ),
           _buildCheckItem(
@@ -41,12 +43,16 @@ class GovernanceComplianceChecklist extends StatelessWidget {
           ),
           _buildCheckItem(
             'Security Baseline',
-            report.issues.where((i) => i.category == GovernanceCategory.security).isEmpty,
+            report.issues
+                .where((i) => i.category == GovernanceCategory.security)
+                .isEmpty,
             'No unresolved security drifts detected.',
           ),
-           _buildCheckItem(
+          _buildCheckItem(
             'Documentation Integrity',
-            report.issues.where((i) => i.category == GovernanceCategory.audit).isEmpty,
+            report.issues
+                .where((i) => i.category == GovernanceCategory.audit)
+                .isEmpty,
             'All screens must have sourcePath and assigned owners.',
           ),
         ],
@@ -85,9 +91,23 @@ class GovernanceComplianceChecklist extends StatelessWidget {
             ),
           ),
           if (isPassed)
-            const Text('PASSED', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 10))
+            const Text(
+              'PASSED',
+              style: TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            )
           else
-            const Text('FAILED', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 10)),
+            const Text(
+              'FAILED',
+              style: TextStyle(
+                color: Colors.orange,
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+            ),
         ],
       ),
     );

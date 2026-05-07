@@ -26,6 +26,7 @@ class CorrectionTicket {
     this.developerNotes,
   });
 
-  factory CorrectionTicket.fromJson(Map<String, dynamic> json) => _$CorrectionTicketFromJson(json);
+  factory CorrectionTicket.fromJson(Map<String, dynamic> json) =>
+      _$CorrectionTicketFromJson(json);
   Map<String, dynamic> toJson() => _$CorrectionTicketToJson(this);
 }

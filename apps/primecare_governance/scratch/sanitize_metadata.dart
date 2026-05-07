@@ -1,8 +1,12 @@
 import 'dart:io';
 
 void main() {
-  final dir = Directory('apps/primecare_governance/lib/core/governance/registries');
-  final files = dir.listSync().whereType<File>().where((f) => f.path.endsWith('.dart'));
+  final dir = Directory(
+    'apps/primecare_governance/lib/core/governance/registries',
+  );
+  final files = dir.listSync().whereType<File>().where(
+    (f) => f.path.endsWith('.dart'),
+  );
 
   for (final file in files) {
     var content = file.readAsStringSync();
@@ -13,12 +17,19 @@ void main() {
     // We only target titles that don't already look like LocaleKeys or camelCase
     content = content.replaceAllMapped(titleRegex, (match) {
       final title = match.group(1)!;
-      if (title.contains('LocaleKeys') || title.contains('.')) return match.group(0)!;
-      
+      if (title.contains('LocaleKeys') || title.contains('.'))
+        return match.group(0)!;
+
       final key = title.replaceAll(' ', '');
       changed = true;
       // Determine the domain from the filename
-      final domain = file.path.split('/').last.replaceAll('_registry.dart', '').split('_').map((e) => e[0].toUpperCase() + e.substring(1)).join('');
+      final domain = file.path
+          .split('/')
+          .last
+          .replaceAll('_registry.dart', '')
+          .split('_')
+          .map((e) => e[0].toUpperCase() + e.substring(1))
+          .join('');
       return "title: 'LocaleKeys.${domain}_$key'";
     });
 

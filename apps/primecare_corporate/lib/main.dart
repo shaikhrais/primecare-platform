@@ -19,7 +19,7 @@ void main() {
       MechanicalRepairKit.performDeepFlush(
         onCustomFlush: () {
           // Flush the UI component registry
-          ComponentWarehouse.flush();
+          // ComponentWarehouse removed
         },
       );
 
@@ -41,7 +41,6 @@ void main() {
 
     // Explicitly hydrate offline data integrity before proceeding
     // Errors are logged internally by the Logistics Hub
-    await DataLogisticsHub.ensureOfflineDataLoaded();
 
     // Bootstrap Governance Registry early for structural integrity
 
@@ -87,12 +86,19 @@ class PrimeCareCorporateApp extends ConsumerWidget {
     }
 
     final router = ref.watch(appRouterProvider);
-    return MaterialApp.router(
-      title: 'PrimeCare Corporate',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routerConfig: router,
+    const primeTheme = PrimeThemeData();
+
+    return PrimeTheme(
+      data: primeTheme,
+      child: MaterialApp.router(
+        title: 'PrimeCare Corporate',
+        debugShowCheckedModeBanner: false,
+        theme: primeTheme.toThemeData(),
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        routerConfig: router,
+      ),
     );
   }
 }

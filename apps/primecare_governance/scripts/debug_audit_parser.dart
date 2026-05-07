@@ -3,7 +3,8 @@ import 'dart:io';
 
 void main() {
   final governanceDir = Directory('lib/core/governance/registries');
-  final registryFiles = governanceDir.listSync()
+  final registryFiles = governanceDir
+      .listSync()
       .whereType<File>()
       .where((f) => f.path.endsWith('.dart'))
       .toList();

@@ -5,7 +5,7 @@ void main() {
   group('AutomatedAuditEngine Tests', () {
     test('runAudits returns results for all 7 core checks', () {
       final results = AutomatedAuditEngine.runAudits();
-      
+
       final checkNames = results.map((r) => r.check).toSet();
       expect(checkNames, contains('Registry Integrity Audit'));
       expect(checkNames, contains('Localization Enforcement'));
@@ -18,8 +18,10 @@ void main() {
 
     test('Localization Enforcement reports correctly', () {
       final results = AutomatedAuditEngine.runAudits();
-      final l10nCheck = results.firstWhere((r) => r.check == 'Localization Enforcement');
-      
+      final l10nCheck = results.firstWhere(
+        (r) => r.check == 'Localization Enforcement',
+      );
+
       if (!l10nCheck.isPass) {
         expect(l10nCheck.isWarning, isTrue);
         expect(l10nCheck.meaning, contains('hardcoded strings'));
@@ -30,8 +32,10 @@ void main() {
 
     test('Environment Security Gate reflects development state', () {
       final results = AutomatedAuditEngine.runAudits();
-      final securityCheck = results.firstWhere((r) => r.check == 'Environment Security Gate');
-      
+      final securityCheck = results.firstWhere(
+        (r) => r.check == 'Environment Security Gate',
+      );
+
       expect(securityCheck.meaning, contains('Development security context'));
       expect(securityCheck.isPass, isTrue);
     });

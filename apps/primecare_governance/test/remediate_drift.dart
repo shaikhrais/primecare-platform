@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/governance/services/governance_remediation_engine.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   test('Execute Autonomous Remediation', () async {
@@ -11,23 +12,25 @@ void main() {
         governanceProvider.overrideWith(() => MockGovernanceNotifier()),
       ],
     );
-    
-    print('Starting platform remediation via GovernanceRemediationEngine...');
-    
+
+    debugPrint(
+      'Starting platform remediation via GovernanceRemediationEngine...',
+    );
+
     // 2. Instantiate engine
     final engine = container.read(governanceRemediationEngineProvider);
-    
+
     // 3. Execute remediation
     final result = await engine.executeGlobalRemediation();
-    
-    print('Remediation complete.');
-    print('Issues Detected: ${result.issuesDetected}');
-    print('Issues Resolved: ${result.issuesResolved}');
-    
+
+    debugPrint('Remediation complete.');
+    debugPrint('Issues Detected: ${result.issuesDetected}');
+    debugPrint('Issues Resolved: ${result.issuesResolved}');
+
     for (final log in result.resolutionLogs) {
-      print(' - $log');
+      debugPrint(' - $log');
     }
-    
+
     container.dispose();
   });
 }

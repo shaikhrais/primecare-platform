@@ -1,7 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/routes/shared_routes.dart';
-import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart';
 import 'business_development_routes.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {

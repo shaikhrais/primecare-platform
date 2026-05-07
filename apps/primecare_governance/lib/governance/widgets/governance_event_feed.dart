@@ -7,10 +7,7 @@ import '../../core/governance/governance_provider.dart';
 class GovernanceEventFeed extends StatelessWidget {
   final List<GovernanceEvent> events;
 
-  const GovernanceEventFeed({
-    super.key,
-    required this.events,
-  });
+  const GovernanceEventFeed({super.key, required this.events});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +37,7 @@ class GovernanceEventFeed extends StatelessWidget {
                   SizedBox(width: 12),
                   Text(
                     'Live Telemetry Feed',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -84,7 +78,11 @@ class GovernanceEventFeed extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.sensors_off_rounded, color: Colors.grey, size: 48),
+                    Icon(
+                      Icons.sensors_off_rounded,
+                      color: Colors.grey,
+                      size: 48,
+                    ),
                     SizedBox(height: 16),
                     Text(
                       'No events detected yet',
@@ -151,10 +149,7 @@ class _EventItem extends StatelessWidget {
                   ),
                   Text(
                     DateFormat('HH:mm:ss').format(event.timestamp),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey,
-                    ),
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
                   ),
                 ],
               ),

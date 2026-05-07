@@ -10,9 +10,10 @@ void main() {
 
   setUp(() async {
     tempDir = await Directory.systemTemp.createTemp('ast_patch_test');
-    final libDir = Directory(p.join(tempDir.path, 'lib/core/governance'))..createSync(recursive: true);
+    final libDir = Directory(p.join(tempDir.path, 'lib/core/governance'))
+      ..createSync(recursive: true);
     registryPath = p.join(libDir.path, 'screen_registry.dart');
-    
+
     // Create a mock ScreenRegistry file
     File(registryPath).writeAsStringSync('''
 import 'package:flutter/material.dart';
@@ -50,30 +51,38 @@ class ScreenRegistry {
     await tempDir.delete(recursive: true);
   });
 
-  test('injectScreenConstant should add a new entry to ScreenRegistry', () async {
-    final success = await engine.injectScreenConstant(
-      registryPath: 'lib/core/governance/screen_registry.dart',
-      className: 'ScreenRegistry',
-      screenId: 'SCREEN_NEW',
-      metadata: {
-        'id': 'SCREEN_NEW',
-        'routePath': '/new',
-        'requiredComponents': ['Comp1'],
-        'lifecycleStatus': 'LifecycleStatus.backlog',
-      },
-    );
-    
-    expect(success, isTrue);
-    
-    final content = File(registryPath).readAsStringSync();
-    expect(content, contains("'SCREEN_NEW': const ScreenMetadata("));
-    expect(content, contains("routePath: '/new'"));
-    expect(content, contains("requiredComponents: ['Comp1']"));
-  });
+  test(
+    'injectScreenConstant should add a new entry to ScreenRegistry',
+    () async {
+      final success = await engine.injectScreenConstant(
+        registryPath: 'lib/core/governance/screen_registry.dart',
+        className: 'ScreenRegistry',
+        screenId: 'SCREEN_NEW',
+        metadata: {
+          'id': 'SCREEN_NEW',
+          'routePath': '/new',
+          'requiredComponents': ['Comp1'],
+          'lifecycleStatus': 'LifecycleStatus.backlog',
+        },
+      );
 
-  test('batchInjectSwitchCases should add new cases to a switch statement', () async {
-    final providerPath = p.join(tempDir.path, 'lib/core/governance/provider.dart');
-    File(providerPath).writeAsStringSync('''
+      expect(success, isTrue);
+
+      final content = File(registryPath).readAsStringSync();
+      expect(content, contains("'SCREEN_NEW': const ScreenMetadata("));
+      expect(content, contains("routePath: '/new'"));
+      expect(content, contains("requiredComponents: ['Comp1']"));
+    },
+  );
+
+  test(
+    'batchInjectSwitchCases should add new cases to a switch statement',
+    () async {
+      final providerPath = p.join(
+        tempDir.path,
+        'lib/core/governance/provider.dart',
+      );
+      File(providerPath).writeAsStringSync('''
 import 'package:flutter/material.dart';
 
 String primecareFormProvider(String type) {
@@ -86,17 +95,18 @@ String primecareFormProvider(String type) {
 }
 ''');
 
-    final success = await engine.batchInjectSwitchCases(
-      [(enumValue: "'new_type'", returnValue: "'new_provider'")],
-      filePath: 'lib/core/governance/provider.dart',
-      variableName: 'primecareFormProvider',
-    );
+      final success = await engine.batchInjectSwitchCases(
+        [(enumValue: "'new_type'", returnValue: "'new_provider'")],
+        filePath: 'lib/core/governance/provider.dart',
+        variableName: 'primecareFormProvider',
+      );
 
-    expect(success, isTrue);
+      expect(success, isTrue);
 
-    final content = File(providerPath).readAsStringSync();
-    expect(content, contains("case 'new_type':"));
-    expect(content, contains("return 'new_provider';"));
-    expect(content, contains("default:"));
-  });
+      final content = File(providerPath).readAsStringSync();
+      expect(content, contains("case 'new_type':"));
+      expect(content, contains("return 'new_provider';"));
+      expect(content, contains("default:"));
+    },
+  );
 }

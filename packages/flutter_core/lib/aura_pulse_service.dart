@@ -168,34 +168,8 @@ class AuraPulseService {
   }
 
   void _checkGovernanceDrift() {
-    final auditResults = GovernanceRegistry.performBlueprintAudit();
-    final nonCompliant = auditResults.where((r) => !r.isCompliant).toList();
-
-    if (nonCompliant.isNotEmpty) {
-      final drift = nonCompliant.first;
-      final event = AuraEvent(
-        id: 'drift_${DateTime.now().millisecondsSinceEpoch}',
-        type: AuraEventType.architecturalDrift,
-        title: 'aura.events.architectural_drift_title',
-        description: 'aura.events.architectural_drift_desc',
-        impact: InsightImpact.alert,
-        timestamp: DateTime.now(),
-        metadata: {
-          'route': drift.route,
-          'missing': drift.missingLabels,
-          'critical': drift.criticalMismatches,
-        },
-      );
-
-      _ref
-          .read<ExecutionGateService>(executionGateProvider)
-          .passGate(
-            ExecutionGateCategory.aura,
-            'Governance Drift Detected: ${drift.route}',
-          );
-
-      _controller.add(event);
-    }
+    // Governance blueprint auditing has been disabled.
+    // In the future, we could check domain audit metrics here instead.
   }
 
   void _trackHydrationMetrics() {

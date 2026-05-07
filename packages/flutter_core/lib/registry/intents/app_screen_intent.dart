@@ -71,20 +71,6 @@ abstract class AppScreenIntent {
   /// If provided, the UI will automatically modulate based on this subsystem's health.
   PlatformSubsystem? get primarySubsystem => null;
 
-  /// Explicit list of high-level UI component labels (e.g. ['Grid', 'Table', 'Chart']).
-  /// Used for structural validation and documentation.
-  List<String> get componentLabels => [];
-
-  /// A detailed description of the intended screen structure.
-  /// Used for architectural transparency and developer auditing.
-  String get structuralPlan =>
-      'Standard Governed Layout: ${componentLabels.join(", ")}';
-
-  /// The global renderer for intents that don't define their own build logic.
-  /// This allows decoupling of data models from the UI engine.
-  static Widget Function(BuildContext context, AppScreenIntent intent)?
-  globalRenderer;
-
   /// Builds the UI representation of this intent.
   Widget build(BuildContext context);
 
@@ -98,17 +84,15 @@ abstract class AppScreenIntent {
         if (state == null) {
           return GovernanceHealth.unhealthy(
             'Dependency ${dep.runtimeType} is null',
-            componentLabels: componentLabels,
           );
         }
       } catch (e) {
         return GovernanceHealth.unhealthy(
           'Dependency ${dep.runtimeType} failed: $e',
-          componentLabels: componentLabels,
         );
       }
     }
-    return GovernanceHealth.healthy(componentLabels: componentLabels);
+    return const GovernanceHealth.healthy();
   }
 }
 
@@ -116,16 +100,12 @@ abstract class AppScreenIntent {
 class GovernanceHealth {
   final bool isReady;
   final String? message;
-  final List<String> componentLabels;
 
-  const GovernanceHealth.healthy({this.componentLabels = const []})
+  const GovernanceHealth.healthy()
     : isReady = true,
       message = null;
 
-  const GovernanceHealth.unhealthy(
-    this.message, {
-    this.componentLabels = const [],
-  }) : isReady = false;
+  const GovernanceHealth.unhealthy(this.message) : isReady = false;
 }
 
 /// Exception thrown when a governed component is accessed before implementation.

@@ -1,8 +1,9 @@
-
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/screen_registry.dart');
+  final file = File(
+    'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  );
   if (!file.existsSync()) return;
 
   var content = file.readAsStringSync();
@@ -16,7 +17,7 @@ void main() {
   content = content.replaceAllMapped(instanceRegex, (match) {
     final prefix = match.group(1)!;
     final id = match.group(2)!;
-    
+
     // Determine governance attributes
     int storyPoints = 5;
     String priority = 'p2';
@@ -24,7 +25,10 @@ void main() {
     double parityScore = 100.0;
     String lifecycle = 'completed';
 
-    if (id == 'DASHBOARD' || id.contains('FINANCE') || id.contains('CLINICAL') || id.contains('CARE_ANGEL')) {
+    if (id == 'DASHBOARD' ||
+        id.contains('FINANCE') ||
+        id.contains('CLINICAL') ||
+        id.contains('CARE_ANGEL')) {
       storyPoints = 13;
       priority = 'p0';
       securityLevel = 'high';
@@ -39,10 +43,11 @@ void main() {
     }
 
     if (id.contains('DATA_ENTRY')) {
-        lifecycle = 'research';
+      lifecycle = 'research';
     }
 
-    final attributes = """
+    final attributes =
+        """
       lastAuditDate: '2026-04-29',
       storyPoints: $storyPoints,
       priority: '$priority',
@@ -54,15 +59,25 @@ void main() {
       subTasks: ['Design Review', 'Security Audit', 'Performance Benchmarking'],""";
 
     var updatedPrefix = prefix;
-    
+
     // List of keys to remove if they already exist in the prefix to avoid duplicates
     final keysToRemove = [
-      'storyPoints', 'priority', 'sprintName', 'assignedDeveloper', 'subTasks', 
-      'securityLevel', 'architecturalParityScore', 'lifecycleStatus', 'lastAuditDate'
+      'storyPoints',
+      'priority',
+      'sprintName',
+      'assignedDeveloper',
+      'subTasks',
+      'securityLevel',
+      'architecturalParityScore',
+      'lifecycleStatus',
+      'lastAuditDate',
     ];
 
     for (var key in keysToRemove) {
-      updatedPrefix = updatedPrefix.replaceAll(RegExp('      $key: .*?,\n'), '');
+      updatedPrefix = updatedPrefix.replaceAll(
+        RegExp('      $key: .*?,\n'),
+        '',
+      );
     }
 
     return '$updatedPrefix$attributes\n    ),';

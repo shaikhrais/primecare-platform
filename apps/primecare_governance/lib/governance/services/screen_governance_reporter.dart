@@ -35,15 +35,17 @@ class ScreenGovernanceReporter {
     }
 
     final total = screens.length;
-    final productionReady = screens.values.where(ProductionReadinessService.isReady).length;
-    final blocked = screens.values.where((s) => !ProductionReadinessService.isReady(s)).length;
+    final productionReady = screens.values
+        .where(ProductionReadinessService.isReady)
+        .length;
+    final blocked = screens.values
+        .where((s) => !ProductionReadinessService.isReady(s))
+        .length;
 
     final avgTest = total == 0
         ? 0.0
-        : screens.values
-                .map((s) => s.testPassRate)
-                .reduce((a, b) => a + b) /
-            total;
+        : screens.values.map((s) => s.testPassRate).reduce((a, b) => a + b) /
+              total;
 
     final renderOk = _percent(
       screens.values.where((s) => s.isRenderOk).length,
@@ -76,7 +78,6 @@ class ScreenGovernanceReporter {
       issues: issues,
     );
   }
-
 
   static int _count(List<GovernanceIssue> issues, GovernanceSeverity severity) {
     return issues.where((i) => i.severity == severity).length;

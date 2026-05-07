@@ -39,7 +39,9 @@ class DynamicFormBuilder extends StatelessWidget {
     for (var config in configs) {
       controls[config.name] = FormControl<dynamic>(
         value: config.initialValue,
-        validators: config.validators?.cast<Validator<dynamic>>() ?? <Validator<dynamic>>[],
+        validators:
+            config.validators?.cast<Validator<dynamic>>() ??
+            <Validator<dynamic>>[],
       );
     }
     return fb.group(controls);
@@ -76,38 +78,41 @@ class DynamicFormBuilder extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: switch (config.type) {
         FieldType.text => ReactiveTextField<String>(
-            formControlName: config.name,
-            decoration: InputDecoration(labelText: config.label),
-          ),
+          formControlName: config.name,
+          decoration: InputDecoration(labelText: config.label),
+        ),
         FieldType.email => ReactiveTextField<String>(
-            formControlName: config.name,
-            decoration: InputDecoration(labelText: config.label, prefixIcon: const Icon(Icons.email)),
+          formControlName: config.name,
+          decoration: InputDecoration(
+            labelText: config.label,
+            prefixIcon: const Icon(Icons.email),
           ),
+        ),
         FieldType.dropdown => ReactiveDropdownField<String>(
-            formControlName: config.name,
-            decoration: InputDecoration(labelText: config.label),
-            items: config.options!
-                .map((opt) => DropdownMenuItem(value: opt, child: Text(opt)))
-                .toList(),
-          ),
+          formControlName: config.name,
+          decoration: InputDecoration(labelText: config.label),
+          items: config.options!
+              .map((opt) => DropdownMenuItem(value: opt, child: Text(opt)))
+              .toList(),
+        ),
         FieldType.boolean => Row(
-            children: [
-              Text(config.label),
-              const Spacer(),
-              ReactiveSwitch(formControlName: config.name),
-            ],
-          ),
+          children: [
+            Text(config.label),
+            const Spacer(),
+            ReactiveSwitch(formControlName: config.name),
+          ],
+        ),
         FieldType.date => ReactiveTextField<DateTime>(
-            formControlName: config.name,
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: config.label,
-              suffixIcon: const Icon(Icons.calendar_today),
-            ),
-            onTap: (control) async {
-              // Implementation for date picker
-            },
+          formControlName: config.name,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: config.label,
+            suffixIcon: const Icon(Icons.calendar_today),
           ),
+          onTap: (control) async {
+            // Implementation for date picker
+          },
+        ),
       },
     );
   }

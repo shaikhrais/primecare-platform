@@ -8,15 +8,17 @@ class AuditService {
   AuditService(this._db);
 
   Future<void> logAction(String action, String details) async {
-    await _db.into(_db.auditLogs).insert(
-      AuditLogsCompanion.insert(
-        action: action,
-        details: details,
-        timestamp: Value(DateTime.now()),
-        isSynced: const Value(false),
-      ),
-    );
-    
+    await _db
+        .into(_db.auditLogs)
+        .insert(
+          AuditLogsCompanion.insert(
+            action: action,
+            details: details,
+            timestamp: Value(DateTime.now()),
+            isSynced: const Value(false),
+          ),
+        );
+
     // In a real app, attempt to sync here if connectivity is available
     _syncWithBackend();
   }

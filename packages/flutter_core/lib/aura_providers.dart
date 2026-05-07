@@ -23,12 +23,12 @@ final auraPulseServiceProvider = Provider<AuraPulseService>((ref) {
 
 final auraPulseProvider = StreamProvider<AuraEvent>((ref) {
   final pulseStream = ref.watch(auraPulseServiceProvider).pulse;
-  
+
   // Bridge the pulse to the UI-layer provider in primecare_ui
   final subscription = pulseStream.listen((event) {
     ref.read(auraPulseEventProvider.notifier).update(event);
   });
-  
+
   ref.onDispose(() => subscription.cancel());
 
   return pulseStream;

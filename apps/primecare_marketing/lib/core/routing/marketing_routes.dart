@@ -1,20 +1,18 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/marketing_operations/marketing_operations_view.dart';
+
+class MarketingRoutes {
+  static const String localMarketingManagerDashboard = '/local-marketing';
+  static const String communityOutreachDashboard = '/outreach';
+}
 
 class ScreenConfig {
   final String routePath;
   final String titleKey;
-  final String subtitleKey;
-  final String providerId;
-  final Widget? customView;
 
   const ScreenConfig({
     required this.routePath,
     required this.titleKey,
-    required this.subtitleKey,
-    required this.providerId,
-    this.customView,
   });
 }
 
@@ -22,23 +20,22 @@ final List<ScreenConfig> marketingScreenRegistry = [
   const ScreenConfig(
     routePath: MarketingRoutes.localMarketingManagerDashboard,
     titleKey: 'Marketing Dashboard',
-    subtitleKey: 'Local campaign oversight.',
-    providerId: 'marketingDashboard',
-    customView: const MarketingOperationsView(),
   ),
   const ScreenConfig(
     routePath: MarketingRoutes.communityOutreachDashboard,
     titleKey: 'Outreach Dashboard',
-    subtitleKey: 'Community engagement hub.',
-    providerId: 'outreachDashboard',
-    customView: const MarketingOperationsView(),
   ),
 ];
 
 final List<RouteBase> marketingRoutes = [
-  ...marketingScreenRegistry.map((config) => GoRoute(
-        path: config.routePath,
-        builder: (context, state) => config.customView ?? const MarketingOperationsView(),
-      )),
+  ...marketingScreenRegistry.map(
+    (config) => GoRoute(
+      path: config.routePath,
+      builder: (context, state) => Scaffold(
+        body: Center(
+          child: Text('Not Implemented: ${config.titleKey}'),
+        ),
+      ),
+    ),
+  ),
 ];
-

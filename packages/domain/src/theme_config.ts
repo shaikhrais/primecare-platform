@@ -1,52 +1,124 @@
 export const theme = {
+    name: 'PrimeCare Clinical',
     colors: {
-        primary: '#00897b',      // PrimeCare Light Green (Standard)
-        primaryDark: '#004d40',  // PrimeCare Dark Teal (Used for headers/accents)
-        secondary: '#004d40',
-        accent: '#c2ffd9',
-        background: '#f9fafb',
-        white: '#ffffff',
-        text: {
-            primary: '#111827',
-            secondary: '#4b5563',
-            muted: '#6b7280',
-        },
-        status: {
-            success: {
-                text: '#065f46',
-                bg: '#ecfdf5'
-            },
-            warning: {
-                text: '#92400e',
-                bg: '#fef3c7'
-            },
-            error: {
-                text: '#991b1b',
-                bg: '#fee2e2'
-            },
-            info: {
-                text: '#0369a1',
-                bg: '#e0f2fe'
-            }
-        }
+        surface: '#f7f9fb',
+        surfaceDim: '#d8dadc',
+        surfaceBright: '#f7f9fb',
+        surfaceContainerLowest: '#ffffff',
+        surfaceContainerLow: '#f2f4f6',
+        surfaceContainer: '#eceef0',
+        surfaceContainerHigh: '#e6e8ea',
+        surfaceContainerHighest: '#e0e3e5',
+        onSurface: '#191c1e',
+        onSurfaceVariant: '#434655',
+        inverseSurface: '#2d3133',
+        inverseOnSurface: '#eff1f3',
+        outline: '#737686',
+        outlineVariant: '#c3c6d7',
+        surfaceTint: '#0053db',
+        primary: '#004ac6',
+        onPrimary: '#ffffff',
+        primaryContainer: '#2563eb',
+        onPrimaryContainer: '#eeefff',
+        inversePrimary: '#b4c5ff',
+        secondary: '#4059aa',
+        onSecondary: '#ffffff',
+        secondaryContainer: '#8fa7fe',
+        onSecondaryContainer: '#1d3989',
+        tertiary: '#943700',
+        onTertiary: '#ffffff',
+        tertiaryContainer: '#bc4800',
+        onTertiaryContainer: '#ffede6',
+        error: '#ba1a1a',
+        onError: '#ffffff',
+        errorContainer: '#ffdad6',
+        onErrorContainer: '#93000a',
+        primaryFixed: '#dbe1ff',
+        primaryFixedDim: '#b4c5ff',
+        onPrimaryFixed: '#00174b',
+        onPrimaryFixedVariant: '#003ea8',
+        secondaryFixed: '#dce1ff',
+        secondaryFixedDim: '#b6c4ff',
+        onSecondaryFixed: '#00164e',
+        onSecondaryFixedVariant: '#264191',
+        tertiaryFixed: '#ffdbcd',
+        tertiaryFixedDim: '#ffb596',
+        onTertiaryFixed: '#360f00',
+        onTertiaryFixedVariant: '#7d2d00',
+        background: '#f7f9fb',
+        onBackground: '#191c1e',
+        surfaceVariant: '#e0e3e5',
     },
-    spacing: {
-        xs: '0.25rem',
-        sm: '0.5rem',
-        md: '1rem',
-        lg: '1.5rem',
-        xl: '2rem',
+    typography: {
+        h1: {
+            fontFamily: 'Manrope',
+            fontSize: '30px',
+            fontWeight: '700',
+            lineHeight: '38px',
+            letterSpacing: '-0.02em',
+        },
+        h2: {
+            fontFamily: 'Manrope',
+            fontSize: '24px',
+            fontWeight: '600',
+            lineHeight: '32px',
+            letterSpacing: '-0.01em',
+        },
+        h3: {
+            fontFamily: 'Manrope',
+            fontSize: '20px',
+            fontWeight: '600',
+            lineHeight: '28px',
+        },
+        bodyLg: {
+            fontFamily: 'Inter',
+            fontSize: '16px',
+            fontWeight: '400',
+            lineHeight: '24px',
+        },
+        bodyMd: {
+            fontFamily: 'Inter',
+            fontSize: '14px',
+            fontWeight: '400',
+            lineHeight: '20px',
+        },
+        bodySm: {
+            fontFamily: 'Inter',
+            fontSize: '13px',
+            fontWeight: '400',
+            lineHeight: '18px',
+        },
+        labelBold: {
+            fontFamily: 'Inter',
+            fontSize: '12px',
+            fontWeight: '600',
+            lineHeight: '16px',
+            letterSpacing: '0.05em',
+        },
+        labelMd: {
+            fontFamily: 'Inter',
+            fontSize: '12px',
+            fontWeight: '500',
+            lineHeight: '16px',
+        },
     },
     borderRadius: {
-        sm: '0.375rem',
-        md: '0.5rem',
-        lg: '0.75rem',
-        xl: '1rem',
+        sm: '0.25rem',
+        default: '0.5rem',
+        md: '0.75rem',
+        lg: '1rem',
+        xl: '1.5rem',
         full: '9999px',
     },
-    shadows: {
-        sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-        md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    }
+    spacing: {
+        base: '4px',
+        xs: '4px',
+        sm: '8px',
+        md: '16px',
+        lg: '24px',
+        xl: '32px',
+        containerPadding: '24px',
+        cardGap: '16px',
+    },
 };
+

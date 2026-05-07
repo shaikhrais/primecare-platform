@@ -1,8 +1,9 @@
-
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/screen_registry.dart');
+  final file = File(
+    'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  );
   if (!file.existsSync()) {
     print('Registry not found');
     return;

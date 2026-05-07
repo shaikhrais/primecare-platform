@@ -1,30 +1,71 @@
-import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
-class AppEmptyState extends StatelessWidget {
+class EmptyState extends StatelessWidget {
+  final IconData? icon;
   final String title;
-  final String message;
-  final IconData icon;
+  final String? subtitle;
+  final VoidCallback? onRetry;
+  final String? retryLabel;
 
-  const AppEmptyState({
+  const EmptyState({
     super.key,
-    this.title = 'No Data Found',
-    this.message = 'Try adjusting your filters or checking back later.',
-    this.icon = Icons.inbox_outlined,
+    this.icon,
+    required this.title,
+    this.subtitle,
+    this.onRetry,
+    this.retryLabel,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 80, color: Colors.grey),
-          const SizedBox(height: 16),
-          Text(title, style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 8),
-          Text(message, textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey)),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              Icon(
+                icon,
+                size: 64,
+                color: theme.colors.primary.withValues(alpha: 0.2),
+              ),
+              const SizedBox(height: 24),
+            ],
+            Text(
+              title,
+              style: theme.typography.h3,
+              textAlign: TextAlign.center,
+            ),
+            if (subtitle != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                subtitle!,
+                style: theme.typography.bodyMedium.copyWith(
+                  color: theme.colors.primary.withValues(alpha: 0.6),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+            if (onRetry != null) ...[
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: onRetry,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colors.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(retryLabel ?? 'Retry'),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -46,9 +87,16 @@ class AppErrorState extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: 80, color: Colors.red),
             const SizedBox(height: 16),
-            Text('Something went wrong', style: Theme.of(context).textTheme.headlineSmall),
+            Text(
+              'Something went wrong',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 8),
-            Text(error.toString(), textAlign: TextAlign.center, style: const TextStyle(color: Colors.redAccent)),
+            Text(
+              error.toString(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.redAccent),
+            ),
             if (onRetry != null) ...[
               const SizedBox(height: 24),
               GFButton(onPressed: onRetry, text: 'Retry'),
@@ -70,11 +118,20 @@ class NoAccessScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.lock_person_outlined, size: 100, color: Colors.orange),
+            const Icon(
+              Icons.lock_person_outlined,
+              size: 100,
+              color: Colors.orange,
+            ),
             const SizedBox(height: 24),
-            Text('Access Restricted', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'Access Restricted',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 16),
-            const Text('You do not have the required permissions to view this screen.'),
+            const Text(
+              'You do not have the required permissions to view this screen.',
+            ),
             const SizedBox(height: 32),
             GFButton(
               onPressed: () => Navigator.of(context).pop(),

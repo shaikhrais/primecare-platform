@@ -1,5 +1,4 @@
 import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
-import 'core/theme/app_theme.dart' as local_theme;
 import 'core/governance/route_registry.dart';
 import 'core/i18n/language_provider.dart';
 
@@ -9,7 +8,7 @@ import 'dart:developer' as dev;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  
+
   // Handle Flutter-level errors
   FlutterError.onError = (details) {
     dev.log(details.exceptionAsString(), stackTrace: details.stack);
@@ -32,9 +31,7 @@ void main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       useOnlyLangCode: true,
-      child: const ProviderScope(
-        child: PrimeCareApp(),
-      ),
+      child: const ProviderScope(child: PrimeCareApp()),
     ),
   );
 }

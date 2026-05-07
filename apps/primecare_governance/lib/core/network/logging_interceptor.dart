@@ -10,13 +10,17 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    dev.log('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+    dev.log(
+      'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
+    );
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    dev.log('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+    dev.log(
+      'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+    );
     super.onError(err, handler);
   }
 }

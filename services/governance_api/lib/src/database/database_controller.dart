@@ -7,7 +7,8 @@ class DatabaseController {
   static Connection get connection => _connection;
 
   static Future<void> initialize() async {
-    final dbUrl = Platform.environment['DATABASE_URL'] ??
+    final dbUrl =
+        Platform.environment['DATABASE_URL'] ??
         'postgresql://postgres:password@localhost:5432/primecare';
     final uri = Uri.parse(dbUrl);
 
@@ -19,7 +20,9 @@ class DatabaseController {
       Endpoint(
         host: uri.host,
         port: uri.port,
-        database: uri.pathSegments.isNotEmpty ? uri.pathSegments.first : 'primecare',
+        database: uri.pathSegments.isNotEmpty
+            ? uri.pathSegments.first
+            : 'primecare',
         username: username,
         password: password,
       ),

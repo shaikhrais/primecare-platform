@@ -1,7 +1,7 @@
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// A service dedicated to ensuring platform resilience through state snapshotting 
+/// A service dedicated to ensuring platform resilience through state snapshotting
 /// and Last Known Good (LKG) recovery.
 class ResilienceService {
   final Map<String, dynamic> _memoryCache = {};

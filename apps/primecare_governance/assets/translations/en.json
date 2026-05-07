@@ -11,7 +11,22 @@
     "save_module": "Save Module",
     "role_entry": "Role Entry",
     "role_name": "Role Name",
-    "save_role": "Save Role"
+    "save_role": "Save Role",
+    "screen_status": {
+      "title": "Screen Status Dashboard",
+      "no_data": "No data available",
+      "overall_summary": "Overall Summary",
+      "total_screens": "Total Screens",
+      "implemented": "Implemented",
+      "pending": "Pending",
+      "completion": "Completion",
+      "app_breakdown": "App Breakdown",
+      "detailed_screen_list": "Detailed Screen List",
+      "unknown_id": "Unknown ID",
+      "unknown_app": "Unknown App",
+      "unknown_office": "Unknown Office",
+      "unknown_charter": "Unknown Charter"
+    }
   },
   "clinical": {
     "clinic": {

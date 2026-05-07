@@ -27,32 +27,23 @@ class InstitutionalResource {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'status': status.name,
-      };
+    'id': id,
+    'name': name,
+    'status': status.name,
+  };
 }
 
 class StaffMember {
   final String id;
   final String name;
 
-  const StaffMember({
-    required this.id,
-    required this.name,
-  });
+  const StaffMember({required this.id, required this.name});
 
   factory StaffMember.fromJson(Map<String, dynamic> json) {
-    return StaffMember(
-      id: json['id'] as String,
-      name: json['name'] as String,
-    );
+    return StaffMember(id: json['id'] as String, name: json['name'] as String);
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-      };
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
 }
 
 class Appointment {
@@ -86,13 +77,13 @@ class Appointment {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'patientName': patientName,
-        'staffId': staffId,
-        'resourceId': resourceId,
-        'startTime': startTime.toIso8601String(),
-        'endTime': endTime.toIso8601String(),
-      };
+    'id': id,
+    'patientName': patientName,
+    'staffId': staffId,
+    'resourceId': resourceId,
+    'startTime': startTime.toIso8601String(),
+    'endTime': endTime.toIso8601String(),
+  };
 
   Appointment copyWith({
     String? id,
@@ -139,10 +130,10 @@ class HorizonSchedule {
   }
 
   Map<String, dynamic> toJson() => {
-        'appointments': appointments.map((e) => e.toJson()).toList(),
-        'resources': resources.map((e) => e.toJson()).toList(),
-        'staff': staff.map((e) => e.toJson()).toList(),
-      };
+    'appointments': appointments.map((e) => e.toJson()).toList(),
+    'resources': resources.map((e) => e.toJson()).toList(),
+    'staff': staff.map((e) => e.toJson()).toList(),
+  };
 
   HorizonSchedule copyWith({
     List<Appointment>? appointments,

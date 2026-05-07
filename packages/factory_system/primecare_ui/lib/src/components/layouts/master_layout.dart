@@ -1,7 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// [Layout] - The master shell for all PrimeCare Dashboards.
-/// Provides a consistent structural foundation with automatic padding and 
+/// Provides a consistent structural foundation with automatic padding and
 /// background styling.
 class MasterLayout extends ConsumerWidget {
   final Widget child;
@@ -9,6 +9,7 @@ class MasterLayout extends ConsumerWidget {
   final List<Widget>? actions;
   final AppShellType? shellType;
   final Widget? drawer;
+  final Widget? endDrawer;
   final Widget? floatingActionButton;
 
   const MasterLayout({
@@ -18,6 +19,7 @@ class MasterLayout extends ConsumerWidget {
     this.actions,
     this.shellType,
     this.drawer,
+    this.endDrawer,
     this.floatingActionButton,
   });
 
@@ -29,6 +31,7 @@ class MasterLayout extends ConsumerWidget {
     return Scaffold(
       backgroundColor: theme.colors.background,
       drawer: drawer ?? _buildSidebar(context, authState),
+      endDrawer: endDrawer,
       appBar: AppBar(
         title: Text(
           title ?? _getDefaultTitle(shellType),
@@ -50,12 +53,9 @@ class MasterLayout extends ConsumerWidget {
         ),
       ),
       floatingActionButton: floatingActionButton,
-      body: SafeArea(
-        child: child,
-      ),
+      body: SafeArea(child: child),
     );
   }
-
 
   String _getDefaultTitle(AppShellType? type) {
     switch (type) {
@@ -74,7 +74,7 @@ class MasterLayout extends ConsumerWidget {
     }
   }
 
-  List<Widget> _getDefaultActions(BuildContext context, dynamic authState) {
+  List<Widget> _getDefaultActions(BuildContext context, AuthState auth) {
     final theme = context.theme;
     return [
       IconButton(
@@ -83,17 +83,19 @@ class MasterLayout extends ConsumerWidget {
       ),
       const CircleAvatar(
         radius: 16,
-        backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=User'),
+        backgroundImage: NetworkImage(
+          'https://api.dicebear.com/7.x/avataaars/png?seed=User',
+        ),
       ),
       const SizedBox(width: 16),
     ];
   }
 
-  Widget? _buildSidebar(BuildContext context, dynamic auth) {
+  Widget? _buildSidebar(BuildContext context, AuthState auth) {
     if (shellType == null) return null;
 
     return PrimeCareSidebar(
-      userName: auth.user?.name ?? 'Alex Rivera',
+      userName: auth.userName ?? 'Alex Rivera',
       userRole: auth.role ?? 'Senior Administrator',
       items: _getNavigationItems(shellType!),
     );
@@ -103,18 +105,56 @@ class MasterLayout extends ConsumerWidget {
     switch (type) {
       case AppShellType.provider:
         return [
-          const NavigationItem(icon: LucideIcons.layoutDashboard, label: 'Dashboard', route: ClinicalRoutes.pswDashboard, isSelected: true),
-          const NavigationItem(icon: LucideIcons.users, label: 'Clients', route: '/psw/clients'),
-          const NavigationItem(icon: LucideIcons.listTodo, label: 'Tasks', route: '/psw/tasks'),
-          const NavigationItem(icon: LucideIcons.calendar, label: 'Schedule', route: '/psw/schedule'),
-          const NavigationItem(icon: LucideIcons.messageSquare, label: 'Messages', route: '/psw/messages'),
+          const NavigationItem(
+            icon: LucideIcons.layoutDashboard,
+            label: 'Dashboard',
+            route: ClinicalRoutes.pswDashboard,
+            isSelected: true,
+          ),
+          const NavigationItem(
+            icon: LucideIcons.users,
+            label: 'Clients',
+            route: '/psw/clients',
+          ),
+          const NavigationItem(
+            icon: LucideIcons.listTodo,
+            label: 'Tasks',
+            route: '/psw/tasks',
+          ),
+          const NavigationItem(
+            icon: LucideIcons.calendar,
+            label: 'Schedule',
+            route: '/psw/schedule',
+          ),
+          const NavigationItem(
+            icon: LucideIcons.messageSquare,
+            label: 'Messages',
+            route: '/psw/messages',
+          ),
         ];
       case AppShellType.clinical:
         return [
-          const NavigationItem(icon: LucideIcons.activity, label: 'Clinical Ops', route: CommonRoutes.clinicDashboard, isSelected: true),
-          const NavigationItem(icon: LucideIcons.userPlus, label: 'Intake', route: '/clinic/intake'),
-          const NavigationItem(icon: LucideIcons.fileText, label: 'Care Plans', route: CommonRoutes.clinicCarePlan),
-          const NavigationItem(icon: LucideIcons.history, label: 'History', route: CommonRoutes.clinicHistoryLogs),
+          const NavigationItem(
+            icon: LucideIcons.activity,
+            label: 'Clinical Ops',
+            route: CommonRoutes.clinicDashboard,
+            isSelected: true,
+          ),
+          const NavigationItem(
+            icon: LucideIcons.userPlus,
+            label: 'Intake',
+            route: '/clinic/intake',
+          ),
+          const NavigationItem(
+            icon: LucideIcons.fileText,
+            label: 'Care Plans',
+            route: CommonRoutes.clinicCarePlan,
+          ),
+          const NavigationItem(
+            icon: LucideIcons.history,
+            label: 'History',
+            route: CommonRoutes.clinicHistoryLogs,
+          ),
         ];
       default:
         return [];

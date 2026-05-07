@@ -5,7 +5,11 @@ class PermissionRegistry {
     return allowedRoles.contains(userRole);
   }
 
-  static bool canAccessScreen(String userRole, String screenId, Map<String, dynamic> screenMetadata) {
+  static bool canAccessScreen(
+    String userRole,
+    String screenId,
+    Map<String, dynamic> screenMetadata,
+  ) {
     final allowedRoles = screenMetadata['allowedRoles'] as List<String>? ?? [];
     return hasPermission(userRole, allowedRoles);
   }

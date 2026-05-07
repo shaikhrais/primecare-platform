@@ -8,39 +8,51 @@ class GovernanceExporter {
   /// Generates a Markdown representation of the governance report
   static String toMarkdown(GovernanceReport report) {
     final buffer = StringBuffer();
-    
+
     buffer.writeln('# PrimeCare Platform Governance Report');
     buffer.writeln('Generated: ${DateTime.now().toString().split('.')[0]}');
     buffer.writeln('');
-    
+
     buffer.writeln('## 1. Executive Summary');
     buffer.writeln('| Metric | Value |');
     buffer.writeln('| :--- | :--- |');
     buffer.writeln('| Total Screens | ${report.totalScreens} |');
     buffer.writeln('| Overall Issues | ${report.totalIssues} |');
     buffer.writeln('| Critical Issues | ${report.criticalIssues} |');
-    buffer.writeln('| Production Ready | ${report.productionReadyScreens} / ${report.totalScreens} (${report.productionReadyScreens / report.totalScreens * 100}% ) |');
-    buffer.writeln('| Avg Test Pass Rate | ${report.averageTestPassRate.toStringAsFixed(1)}% |');
+    buffer.writeln(
+      '| Production Ready | ${report.productionReadyScreens} / ${report.totalScreens} (${report.productionReadyScreens / report.totalScreens * 100}% ) |',
+    );
+    buffer.writeln(
+      '| Avg Test Pass Rate | ${report.averageTestPassRate.toStringAsFixed(1)}% |',
+    );
     buffer.writeln('');
-    
+
     buffer.writeln('## 2. Platform Quality Gates');
-    buffer.writeln('- **Render Health:** ${report.renderOkPercent.toStringAsFixed(1)}%');
-    buffer.writeln('- **Accessibility:** ${report.accessibilityPercent.toStringAsFixed(1)}%');
-    buffer.writeln('- **Performance:** ${report.performancePercent.toStringAsFixed(1)}%');
+    buffer.writeln(
+      '- **Render Health:** ${report.renderOkPercent.toStringAsFixed(1)}%',
+    );
+    buffer.writeln(
+      '- **Accessibility:** ${report.accessibilityPercent.toStringAsFixed(1)}%',
+    );
+    buffer.writeln(
+      '- **Performance:** ${report.performancePercent.toStringAsFixed(1)}%',
+    );
     buffer.writeln('');
-    
+
     buffer.writeln('## 3. Detected Architectural Issues');
     buffer.writeln('| Severity | Category | Screen | Issue | Fix |');
     buffer.writeln('| :--- | :--- | :--- | :--- | :--- |');
-    
+
     for (final issue in report.issues) {
-      buffer.writeln('| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${issue.title} | ${issue.message} | ${issue.fix} |');
+      buffer.writeln(
+        '| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${issue.title} | ${issue.message} | ${issue.fix} |',
+      );
     }
-    
+
     buffer.writeln('');
     buffer.writeln('---');
     buffer.writeln('PrimeCare Governance Engine v1.0.0');
-    
+
     return buffer.toString();
   }
 
@@ -69,23 +81,29 @@ class GovernanceExporter {
         'accessibilityPercent': report.accessibilityPercent,
         'performancePercent': report.performancePercent,
       },
-      'issues': report.issues.map((i) => {
-        'screenId': i.screenId,
-        'severity': i.severity.name,
-        'category': i.category.name,
-        'message': i.message,
-        'fix': i.fix,
-        'owner': i.owner,
-        'detectedAt': i.detectedAt.toIso8601String(),
-      }).toList(),
+      'issues': report.issues
+          .map(
+            (i) => {
+              'screenId': i.screenId,
+              'severity': i.severity.name,
+              'category': i.category.name,
+              'message': i.message,
+              'fix': i.fix,
+              'owner': i.owner,
+              'detectedAt': i.detectedAt.toIso8601String(),
+            },
+          )
+          .toList(),
     });
   }
 
   /// Generates a CSV representation of the issues
   static String toCsv(GovernanceReport report) {
     final buffer = StringBuffer();
-    buffer.writeln('Severity,Category,Screen,Route,Message,Fix,Owner,DetectedAt');
-    
+    buffer.writeln(
+      'Severity,Category,Screen,Route,Message,Fix,Owner,DetectedAt',
+    );
+
     for (final i in report.issues) {
       final line = [
         i.severity.name,
@@ -99,7 +117,7 @@ class GovernanceExporter {
       ].join(',');
       buffer.writeln(line);
     }
-    
+
     return buffer.toString();
   }
 
@@ -202,22 +220,43 @@ class GovernanceExporter {
             child: pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                pw.Text('PrimeCare Platform Governance Report', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue)),
-                pw.Text('v1.0.0', style: const pw.TextStyle(color: PdfColors.grey)),
+                pw.Text(
+                  'PrimeCare Platform Governance Report',
+                  style: pw.TextStyle(
+                    fontSize: 24,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.blue,
+                  ),
+                ),
+                pw.Text(
+                  'v1.0.0',
+                  style: const pw.TextStyle(color: PdfColors.grey),
+                ),
               ],
             ),
           ),
-          pw.Paragraph(text: 'Generated: ${DateTime.now().toString().split('.')[0]}'),
-          
+          pw.Paragraph(
+            text: 'Generated: ${DateTime.now().toString().split('.')[0]}',
+          ),
+
           pw.Header(level: 1, text: 'Executive Summary'),
           pw.TableHelper.fromTextArray(
             headers: ['Metric', 'Value'],
             data: [
               ['Total Screens', report.totalScreens.toString()],
-              ['Overall Health Score', '${report.overallHealthScore.toStringAsFixed(1)}%'],
+              [
+                'Overall Health Score',
+                '${report.overallHealthScore.toStringAsFixed(1)}%',
+              ],
               ['Critical Issues', report.criticalIssues.toString()],
-              ['Production Ready', '${report.productionReadyScreens} / ${report.totalScreens}'],
-              ['Avg Test Pass Rate', '${report.averageTestPassRate.toStringAsFixed(1)}%'],
+              [
+                'Production Ready',
+                '${report.productionReadyScreens} / ${report.totalScreens}',
+              ],
+              [
+                'Avg Test Pass Rate',
+                '${report.averageTestPassRate.toStringAsFixed(1)}%',
+              ],
             ],
             headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
             headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
@@ -226,19 +265,26 @@ class GovernanceExporter {
           pw.Header(level: 1, text: 'Architectural Findings'),
           pw.TableHelper.fromTextArray(
             headers: ['Severity', 'Category', 'Screen', 'Violation'],
-            data: report.issues.map((i) => [
-              i.severity.name.toUpperCase(),
-              i.category.name.toUpperCase(),
-              i.title,
-              i.message,
-            ]).toList(),
+            data: report.issues
+                .map(
+                  (i) => [
+                    i.severity.name.toUpperCase(),
+                    i.category.name.toUpperCase(),
+                    i.title,
+                    i.message,
+                  ],
+                )
+                .toList(),
             headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
             headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
             cellAlignment: pw.Alignment.centerLeft,
           ),
-          
+
           pw.Footer(
-            trailing: pw.Text('Page ${context.pageNumber} of ${context.pagesCount}', style: const pw.TextStyle(fontSize: 10)),
+            trailing: pw.Text(
+              'Page ${context.pageNumber} of ${context.pagesCount}',
+              style: const pw.TextStyle(fontSize: 10),
+            ),
           ),
         ],
       ),

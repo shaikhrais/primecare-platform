@@ -1,42 +1,60 @@
-import 'package:primecare_ui/primecare_ui.dart' hide CeoDashboardView, CooDashboardView, CfoDashboardView, CtoDashboardView, VerificationHubView;
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/corporate_operations/corporate_operations_view.dart';
+
+class ScreenConfig {
+  final String routePath;
+  final String titleKey;
+
+  const ScreenConfig({
+    required this.routePath,
+    required this.titleKey,
+  });
+}
+
+final List<ScreenConfig> corporateScreenRegistry = [
+  const ScreenConfig(
+    routePath: CorporateRoutes.ceoDashboard,
+    titleKey: 'CEO Dashboard',
+  ),
+  const ScreenConfig(
+    routePath: CorporateRoutes.cooDashboard,
+    titleKey: 'COO Dashboard',
+  ),
+  const ScreenConfig(
+    routePath: CorporateRoutes.cfoDashboard,
+    titleKey: 'CFO Dashboard',
+  ),
+  const ScreenConfig(
+    routePath: CorporateRoutes.ctoDashboard,
+    titleKey: 'CTO Dashboard',
+  ),
+  const ScreenConfig(
+    routePath: CorporateRoutes.ctoVerificationHub,
+    titleKey: 'CTO Verification Hub',
+  ),
+];
 
 final List<RouteBase> corporateRoutes = [
-  GoRoute(
-    path: CorporateRoutes.ceoDashboard,
-    builder: (context, state) => const CeoDashboardView(),
+  ...corporateScreenRegistry.map(
+    (config) => GoRoute(
+      path: config.routePath,
+      builder: (context, state) => Scaffold(
+        body: Center(
+          child: Text('Not Implemented: ${config.titleKey}'),
+        ),
+      ),
+    ),
   ),
-  GoRoute(
-    path: CorporateRoutes.cooDashboard,
-    builder: (context, state) => const CooDashboardView(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.cfoDashboard,
-    builder: (context, state) => const CfoDashboardView(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoDashboard,
-    builder: (context, state) => const CtoDashboardView(),
-  ),
-  GoRoute(
-    path: CorporateRoutes.ctoVerificationHub,
-    builder: (context, state) => const VerificationHubView(),
-  ),
-
   // Fallback for role-based dynamic routes
   GoRoute(
     path: '/offices/:officeId/roles/:role/dashboard',
     builder: (context, state) {
       final role = state.pathParameters['role'] ?? 'guest';
-      switch (role.toLowerCase()) {
-        case 'ceo': return const CeoDashboardView();
-        case 'coo': return const CooDashboardView();
-        case 'cfo': return const CfoDashboardView();
-        case 'cto': return const CtoDashboardView();
-        default: return DashboardErrorWidget(message: 'Unknown role: $role', onRetry: (){});
-      }
+      return Scaffold(
+        body: Center(
+          child: Text('Not Implemented: $role Dashboard'),
+        ),
+      );
     },
   ),
 ];
-

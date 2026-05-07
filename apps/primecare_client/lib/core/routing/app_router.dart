@@ -1,7 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/routes/shared_routes.dart';
-import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart';
 import 'client_routes.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -35,7 +33,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     errorBuilder: (context, state) => MasterLayout(
-      shellType: AppShellType.client,
+      shellType: AppShellType.patient,
       child: CommonUiError404PageViewScreen(),
     ),
     routes: [
@@ -45,7 +43,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       ShellRoute(
         builder: (context, state, child) => MasterLayout(
-          shellType: AppShellType.client, // client uses client shell
+          shellType: AppShellType.patient, // client uses patient shell
           child: child,
         ),
         routes: [...clientRoutes, ...sharedCommonRoutes],

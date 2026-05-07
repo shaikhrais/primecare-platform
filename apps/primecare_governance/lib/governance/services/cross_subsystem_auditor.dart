@@ -36,14 +36,14 @@ class CrossSubsystemAuditor {
   /// Audits the parity between PrimeCareForm enum and PrimeCareFormProvider switch-cases.
   Future<List<AuditIssue>> auditFormProviderParity() async {
     final List<AuditIssue> issues = [];
-    
+
     final enumPath = p.join(
-      projectRoot, 
-      'packages/flutter_core/lib/models/platform_types.dart'
+      projectRoot,
+      'packages/flutter_core/lib/models/platform_types.dart',
     );
     final providerPath = p.join(
       projectRoot,
-      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart'
+      'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
     );
 
     if (!File(enumPath).existsSync() || !File(providerPath).existsSync()) {
@@ -52,8 +52,9 @@ class CrossSubsystemAuditor {
           subsystem: 'primecare_ui',
           registry: 'FormProvider',
           issue: 'Registry files missing',
-          suggestion: 'Ensure the primecare_ui package is correctly structured.',
-        )
+          suggestion:
+              'Ensure the primecare_ui package is correctly structured.',
+        ),
       ];
     }
 
@@ -69,35 +70,43 @@ class CrossSubsystemAuditor {
       enumResult.unit.accept(visitor);
 
       final providerCases = <String>{};
-      final providerVisitor = _SwitchCaseVisitor((name) => providerCases.add(name));
+      final providerVisitor = _SwitchCaseVisitor(
+        (name) => providerCases.add(name),
+      );
       providerResult.unit.accept(providerVisitor);
 
-      const relativeProviderPath = 'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
-      
+      // provider path for reference
+      // const relativeProviderPath = 'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
+
       // Check for missing mappings
       for (final value in enumValues) {
         if (!providerCases.contains(value)) {
-          issues.add(AuditIssue(
-            subsystem: 'primecare_ui',
-            registry: 'PrimeCareFormProvider',
-            issue: 'Missing binding for Form: $value',
-            suggestion: 'Run ASTPatchEngine to inject missing switch-case.',
-            autoRemediable: true,
-            metadata: {
-              'type': 'missing_form_provider',
-              'form': value,
-              'targetPath': 'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
-            },
-          ));
+          issues.add(
+            AuditIssue(
+              subsystem: 'primecare_ui',
+              registry: 'PrimeCareFormProvider',
+              issue: 'Missing binding for Form: $value',
+              suggestion: 'Run ASTPatchEngine to inject missing switch-case.',
+              autoRemediable: true,
+              metadata: {
+                'type': 'missing_form_provider',
+                'form': value,
+                'targetPath':
+                    'packages/flutter_core/lib/src/registry/dynamic_adapter_resolver.dart',
+              },
+            ),
+          );
         }
       }
     } catch (e) {
-      issues.add(AuditIssue(
-        subsystem: 'primecare_governance',
-        registry: 'Auditor',
-        issue: 'Audit process failed: $e',
-        suggestion: 'Check file permissions and AST parser compatibility.',
-      ));
+      issues.add(
+        AuditIssue(
+          subsystem: 'primecare_governance',
+          registry: 'Auditor',
+          issue: 'Audit process failed: $e',
+          suggestion: 'Check file permissions and AST parser compatibility.',
+        ),
+      );
     }
 
     return issues;
@@ -109,29 +118,34 @@ class CrossSubsystemAuditor {
 
     // Adaptive path resolution
     String root = projectRoot;
-    if (File(p.join(root, 'pubspec.yaml')).existsSync() && 
+    if (File(p.join(root, 'pubspec.yaml')).existsSync() &&
         !Directory(p.join(root, 'packages')).existsSync()) {
       // We are likely in an app directory, workspace root is two levels up
       root = p.normalize(p.join(root, '../..'));
     }
 
-    final blueprintPath = p.normalize(p.join(
-      root,
-      'packages/factory_system/primecare_ui/lib/src/blueprint_seeder.dart'
-    ));
-    final screenRegistryPath = p.normalize(p.join(
-      root,
-      'apps/primecare_governance/lib/core/governance/screen_registry.dart'
-    ));
+    final blueprintPath = p.normalize(
+      p.join(
+        root,
+        'packages/factory_system/primecare_ui/lib/src/blueprint_seeder.dart',
+      ),
+    );
+    final screenRegistryPath = p.normalize(
+      p.join(
+        root,
+        'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+      ),
+    );
 
-    if (!File(blueprintPath).existsSync() || !File(screenRegistryPath).existsSync()) {
+    if (!File(blueprintPath).existsSync() ||
+        !File(screenRegistryPath).existsSync()) {
       return [
         AuditIssue(
           subsystem: 'primecare_governance',
           registry: 'ScreenRegistry',
           issue: 'Registry or Blueprint files missing',
           suggestion: 'Ensure both BlueprintSeeder and ScreenRegistry exist.',
-        )
+        ),
       ];
     }
 
@@ -151,24 +165,55 @@ class CrossSubsystemAuditor {
       // --- ADVANCED PARITY: Handle Dynamic/Interpolated Blueprints ---
       // The AST visitor misses interpolated strings like '/business-development/$region-$domain-regional-view'
       // We perform a targeted regex sweep for these known architectural patterns.
-      final bdLoopRegex = RegExp(r"route:\s*'/business-development/\$region-\$pathDomain-regional-view'");
+      final bdLoopRegex = RegExp(
+        r"route:\s*'/business-development/\$region-\$pathDomain-regional-view'",
+      );
       if (bdLoopRegex.hasMatch(blueprintContent)) {
-        final regions = ['ontario', 'usa', 'quebec', 'bc', 'alberta', 'maritimes'];
-        final domains = ['finance', 'clinical', 'operations', 'hr', 'marketing', 'compliance'];
+        final regions = [
+          'ontario',
+          'usa',
+          'quebec',
+          'bc',
+          'alberta',
+          'maritimes',
+        ];
+        final domains = [
+          'finance',
+          'clinical',
+          'operations',
+          'hr',
+          'marketing',
+          'compliance',
+        ];
         for (final r in regions) {
           for (final d in domains) {
             final route = '/business-development/$r-$d-regional-view';
             // Only add if not already caught by AST (unlikely for interpolated)
             if (!blueprints.containsKey(route)) {
-              blueprints[route] = ["Aura HUD", "Regional Heatmap", "Site Compliance Grid", "Territory KPI HUD"];
+              blueprints[route] = [
+                "Aura HUD",
+                "Regional Heatmap",
+                "Site Compliance Grid",
+                "Territory KPI HUD",
+              ];
             }
           }
         }
       }
 
-      final registeredScreens = <String, ({String route, List<String> components, String? status})>{};
-      final registryVisitor = _ScreenRegistryMetadataVisitor((id, route, components, status) {
-        registeredScreens[id] = (route: route, components: components, status: status);
+      final registeredScreens =
+          <String, ({String route, List<String> components, String? status})>{};
+      final registryVisitor = _ScreenRegistryMetadataVisitor((
+        id,
+        route,
+        components,
+        status,
+      ) {
+        registeredScreens[id] = (
+          route: route,
+          components: components,
+          status: status,
+        );
       });
       registryResult.unit.accept(registryVisitor);
 
@@ -188,39 +233,45 @@ class CrossSubsystemAuditor {
         }
 
         if (!routeFound) {
-          issues.add(AuditIssue(
-            subsystem: 'primecare_governance',
-            registry: 'ScreenRegistry',
-            issue: 'Blueprint route not registered: $blueprintRoute',
-            suggestion: 'Add screen metadata to ScreenRegistry for this route.',
-            autoRemediable: true,
-            metadata: {
-              'type': 'missing_screen_registration',
-              'route': blueprintRoute,
-              'requiredComponents': requiredComponents,
-            },
-          ));
+          issues.add(
+            AuditIssue(
+              subsystem: 'primecare_governance',
+              registry: 'ScreenRegistry',
+              issue: 'Blueprint route not registered: $blueprintRoute',
+              suggestion:
+                  'Add screen metadata to ScreenRegistry for this route.',
+              autoRemediable: true,
+              metadata: {
+                'type': 'missing_screen_registration',
+                'route': blueprintRoute,
+                'requiredComponents': requiredComponents,
+              },
+            ),
+          );
         } else if (foundId != null) {
-      // 2. Check for missing components (Structural Parity)
+          // 2. Check for missing components (Structural Parity)
           final implementedComponents = registeredScreens[foundId]!.components;
           final missingComponents = requiredComponents
               .where((c) => !implementedComponents.contains(c))
               .toList();
 
           if (missingComponents.isNotEmpty) {
-            issues.add(AuditIssue(
-              subsystem: 'primecare_governance',
-              registry: 'ScreenRegistry',
-              issue: 'Structural Drift in $foundId: Missing components $missingComponents',
-              suggestion: 'Update implementedComponents in ScreenRegistry.',
-              autoRemediable: true,
-              metadata: {
-                'type': 'structural_drift',
-                'screenId': foundId,
-                'route': blueprintRoute,
-                'missing': missingComponents,
-              },
-            ));
+            issues.add(
+              AuditIssue(
+                subsystem: 'primecare_governance',
+                registry: 'ScreenRegistry',
+                issue:
+                    'Structural Drift in $foundId: Missing components $missingComponents',
+                suggestion: 'Update implementedComponents in ScreenRegistry.',
+                autoRemediable: true,
+                metadata: {
+                  'type': 'structural_drift',
+                  'screenId': foundId,
+                  'route': blueprintRoute,
+                  'missing': missingComponents,
+                },
+              ),
+            );
           }
         }
       }
@@ -231,28 +282,34 @@ class CrossSubsystemAuditor {
         final screenRoute = screenData.route;
         final screenStatus = screenData.status;
 
-        if (!blueprints.containsKey(screenRoute) && screenStatus != 'LifecycleStatus.legacy') {
-          issues.add(AuditIssue(
-            subsystem: 'primecare_governance',
-            registry: 'ScreenRegistry',
-            issue: 'Untracked registration: $screenId ($screenRoute)',
-            suggestion: 'Flag this screen as legacy or remove if no longer needed.',
-            autoRemediable: true,
-            metadata: {
-              'type': 'untracked_registration',
-              'screenId': screenId,
-            },
-          ));
+        if (!blueprints.containsKey(screenRoute) &&
+            screenStatus != 'LifecycleStatus.legacy') {
+          issues.add(
+            AuditIssue(
+              subsystem: 'primecare_governance',
+              registry: 'ScreenRegistry',
+              issue: 'Untracked registration: $screenId ($screenRoute)',
+              suggestion:
+                  'Flag this screen as legacy or remove if no longer needed.',
+              autoRemediable: true,
+              metadata: {
+                'type': 'untracked_registration',
+                'screenId': screenId,
+              },
+            ),
+          );
         }
       }
-
     } catch (e) {
-      issues.add(AuditIssue(
-        subsystem: 'primecare_governance',
-        registry: 'Auditor',
-        issue: 'Screen registry audit failed: $e',
-        suggestion: 'Verify AST parser compatibility with modern Dart syntax.',
-      ));
+      issues.add(
+        AuditIssue(
+          subsystem: 'primecare_governance',
+          registry: 'Auditor',
+          issue: 'Screen registry audit failed: $e',
+          suggestion:
+              'Verify AST parser compatibility with modern Dart syntax.',
+        ),
+      );
     }
 
     return issues;
@@ -311,7 +368,6 @@ class _BlueprintVisitor extends RecursiveAstVisitor<void> {
   void visitInstanceCreationExpression(InstanceCreationExpression node) {
     if (node.staticType?.getDisplayString() == 'AuditorBlueprint' ||
         node.constructorName.type.name.lexeme == 'AuditorBlueprint') {
-      
       String? route;
       final components = <String>[];
 
@@ -330,7 +386,8 @@ class _BlueprintVisitor extends RecursiveAstVisitor<void> {
                 if (element is InstanceCreationExpression) {
                   // BlueprintComponent
                   for (final compArg in element.argumentList.arguments) {
-                    if (compArg is NamedExpression && compArg.name.label.name == 'label') {
+                    if (compArg is NamedExpression &&
+                        compArg.name.label.name == 'label') {
                       final labelExpr = compArg.expression;
                       if (labelExpr is StringLiteral) {
                         components.add(labelExpr.stringValue ?? '');
@@ -353,7 +410,13 @@ class _BlueprintVisitor extends RecursiveAstVisitor<void> {
 }
 
 class _ScreenRegistryMetadataVisitor extends RecursiveAstVisitor<void> {
-  final void Function(String id, String route, List<String> components, String? status) onMetadata;
+  final void Function(
+    String id,
+    String route,
+    List<String> components,
+    String? status,
+  )
+  onMetadata;
   _ScreenRegistryMetadataVisitor(this.onMetadata);
 
   @override
@@ -399,4 +462,3 @@ class _ScreenRegistryMetadataVisitor extends RecursiveAstVisitor<void> {
     super.visitMapLiteralEntry(node);
   }
 }
-

@@ -12,10 +12,7 @@ class ScreenGovernanceService {
     for (final screen in registry) {
       counts[screen.routePath] = (counts[screen.routePath] ?? 0) + 1;
     }
-    return counts.entries
-        .where((e) => e.value > 1)
-        .map((e) => e.key)
-        .toList();
+    return counts.entries.where((e) => e.value > 1).map((e) => e.key).toList();
   }
 
   /// Returns screens that share duplicate route paths.
@@ -27,30 +24,31 @@ class ScreenGovernanceService {
   /// Calculates the aggregate health score for the entire platform.
   double calculatePlatformHealth() {
     if (registry.isEmpty) return 0;
-    
+
     final dupRoutes = findDuplicateRoutes().length;
-    
+
     final totalScore = registry.fold(0.0, (sum, screen) {
-      double screenScore = screen.completionPercent * 0.4 + 
-                          screen.testPassRate * 0.3 + 
-                          screen.accessibilityScore * 0.15 + 
-                          screen.performanceScore * 0.15;
-      
+      double screenScore =
+          screen.completionPercent * 0.4 +
+          screen.testPassRate * 0.3 +
+          screen.accessibilityScore * 0.15 +
+          screen.performanceScore * 0.15;
+
       // Penalize for security risks without verification
       if (screen.securityLevel == SecurityTier.high && !screen.isRenderOk) {
-        screenScore *= 0.8; 
+        screenScore *= 0.8;
       }
-      
+
       return sum + screenScore;
     });
-    
+
     double aggregateScore = totalScore / registry.length;
-    
+
     // Global penalty for navigation collisions
     if (dupRoutes > 0) {
       aggregateScore -= (dupRoutes * 0.5); // 0.5% penalty per collision
     }
-    
+
     return aggregateScore.clamp(0.0, 100.0);
   }
 
@@ -78,7 +76,7 @@ class ScreenGovernanceService {
   /// Counts screens by lifecycle status.
   Map<LifecycleStatus, int> getLifecycleDistribution() {
     final Map<LifecycleStatus, int> stats = {
-      for (var status in LifecycleStatus.values) status: 0
+      for (var status in LifecycleStatus.values) status: 0,
     };
     for (final screen in registry) {
       stats[screen.lifecycleStatus] = (stats[screen.lifecycleStatus] ?? 0) + 1;

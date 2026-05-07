@@ -3,10 +3,10 @@ import 'package:primecare_governance/governance/services/cross_subsystem_auditor
 void main() async {
   print('--- Starting Cross-Subsystem Audit ---');
   final auditor = CrossSubsystemAuditor(projectRoot: '../..');
-  
+
   print('Auditing Form Provider Parity...');
   final issues = await auditor.auditFormProviderParity();
-  
+
   if (issues.isEmpty) {
     print('✅ No parity issues found.');
   } else {

@@ -1,9 +1,5 @@
-import '../models/screen.dart';
 import 'intents/app_screen_intent.dart';
-import 'auditor_blueprint.dart';
 import 'platform_role.dart';
-import '../src/utils/prime_logger.dart';
-
 /// Central Governance Registry for the PrimeCare Platform.
 /// This system manages the lifecycle and "Intent" of all platform screens,
 /// ensuring advanced decoupling between route definition and UI implementation.
@@ -54,79 +50,6 @@ class GovernanceRegistry {
     return reports;
   }
 
-  /// Performs a structural audit against the "Auditor's Blueprints".
-  static List<BlueprintCompliance> performBlueprintAudit() {
-    final results = <BlueprintCompliance>[];
-    _intentsByRoute.forEach((route, intent) {
-      final blueprint = BlueprintRegistry.getBlueprint(route);
-      if (blueprint != null) {
-        results.add(blueprint.audit(intent.componentLabels));
-      }
-    });
-    return results;
-  }
-
-  /// Programmatically repairs architectural drift by patching non-compliant intents.
-  static void remediateDrift() {
-    final results = performBlueprintAudit();
-    for (final compliance in results) {
-      if (!compliance.isCompliant || compliance.missingLabels.isNotEmpty) {
-        final intent = _intentsByRoute[compliance.route];
-        if (intent != null) {
-          // Patch the intent's labels at runtime
-          // Since PrimeCareScreen labels are final, we check if they are mutable
-          try {
-            for (final missing in compliance.missingLabels) {
-              if (!intent.componentLabels.contains(missing)) {
-                intent.componentLabels.add(missing);
-              }
-            }
-          } catch (e) {
-            PrimeLogger.info(
-              'GovernanceRegistry: Replacing intent to remediate drift for ${compliance.route}',
-            );
-
-            final newLabels = List<String>.from(intent.componentLabels);
-            for (final missing in compliance.missingLabels) {
-              if (!newLabels.contains(missing)) {
-                newLabels.add(missing);
-              }
-            }
-
-            final newIntent = PrimeCareScreen(
-              name: intent.name,
-              title: intent.title,
-              subtitle: intent.subtitle,
-              route: intent.route,
-              requiredRole: intent.requiredRole,
-              componentLabels: newLabels,
-              provider: intent.provider,
-              resiliencePolicy: intent.resiliencePolicy,
-              primarySubsystem: intent.primarySubsystem,
-              structuralPlan: intent.structuralPlan,
-              blueprints: intent is PrimeCareScreen
-                  ? intent.blueprints
-                  : const [],
-            );
-
-            _intentsByRoute[compliance.route] = newIntent;
-
-            String? mappedRole;
-            for (final entry in _intentsByRole.entries) {
-              if (entry.value == intent) {
-                mappedRole = entry.key;
-                break;
-              }
-            }
-            final role = mappedRole ?? intent.requiredRole?.nameSnake;
-            if (role != null) {
-              _intentsByRole[role] = newIntent;
-            }
-          }
-        }
-      }
-    }
-  }
 
   /// Performs a full domain audit to identify missing role implementations.
   static DomainAuditResult performDomainAudit() {

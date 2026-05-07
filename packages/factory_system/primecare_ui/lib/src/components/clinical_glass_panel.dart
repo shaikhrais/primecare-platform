@@ -20,7 +20,7 @@ class ClinicalGlassPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     return Container(
       decoration: BoxDecoration(
         color: color ?? theme.colors.surface.withValues(alpha: 0.7),
@@ -77,10 +77,7 @@ class ClinicalGlassPanel extends StatelessWidget {
               ),
             ),
           ],
-          Padding(
-            padding: padding,
-            child: child,
-          ),
+          Padding(padding: padding, child: child),
         ],
       ),
     );

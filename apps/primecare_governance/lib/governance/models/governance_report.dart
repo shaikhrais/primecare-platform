@@ -33,9 +33,9 @@ class GovernanceReport {
 
   double get overallHealthScore {
     // Weighted average of core metrics
-    return (renderOkPercent * 0.3) + 
-           (accessibilityPercent * 0.2) + 
-           (performancePercent * 0.2) + 
-           (averageTestPassRate * 0.3);
+    return (renderOkPercent * 0.3) +
+        (accessibilityPercent * 0.2) +
+        (performancePercent * 0.2) +
+        (averageTestPassRate * 0.3);
   }
 }

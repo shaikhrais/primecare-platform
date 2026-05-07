@@ -26,7 +26,9 @@ class GovernanceIssueTable extends ConsumerWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
-            headingRowColor: WidgetStateProperty.all(Colors.grey.withValues(alpha: 0.05)),
+            headingRowColor: WidgetStateProperty.all(
+              Colors.grey.withValues(alpha: 0.05),
+            ),
             columnSpacing: 24,
             columns: const [
               DataColumn(label: Text('Severity')),
@@ -37,71 +39,140 @@ class GovernanceIssueTable extends ConsumerWidget {
               DataColumn(label: Text('Owner')),
               DataColumn(label: Text('Actions')),
             ],
-            rows: issues.map((issue) => DataRow(
-              cells: [
-                DataCell(_buildSeverityBadge(issue.severity)),
-                DataCell(Text(issue.category.name.toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                DataCell(Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(issue.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                    Text(issue.routePath, style: const TextStyle(fontSize: 10, color: Colors.grey)),
-                  ],
-                )),
-                DataCell(SizedBox(width: 250, child: Text(issue.message, style: const TextStyle(fontSize: 12)))),
-                DataCell(SizedBox(width: 250, child: Text(issue.fix, style: const TextStyle(fontSize: 12, color: Colors.blue)))),
-                DataCell(Text(issue.owner, style: const TextStyle(fontSize: 12))),
-                DataCell(Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (issue.sourcePath != null && issue.sourcePath!.isNotEmpty)
-                      IconButton(
-                        icon: const Icon(Icons.code, size: 18),
-                        tooltip: 'Open in VS Code',
-                        onPressed: () async {
-                          final uri = env.getVSCodeUri(issue.sourcePath!);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          }
-                        },
+            rows: issues
+                .map(
+                  (issue) => DataRow(
+                    cells: [
+                      DataCell(_buildSeverityBadge(issue.severity)),
+                      DataCell(
+                        Text(
+                          issue.category.name.toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    if (issue.fixProperty != null)
-                      IconButton(
-                        icon: const Icon(Icons.auto_fix_high_rounded, size: 18, color: Colors.green),
-                        tooltip: 'Auto-Fix Registry',
-                        onPressed: () async {
-                          final success = await RegistryPatchEngine.applyFix(
-                            PlatformEnvService.projectRoot,
-                            issue,
-                            issue.fixProperty!,
-                            issue.fixValue!,
-                          );
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(success 
-                                  ? 'Fixed ${issue.fixProperty} for ${issue.screenId}' 
-                                  : 'Auto-fix failed for ${issue.screenId}'),
-                                backgroundColor: success ? Colors.green : Colors.red,
+                      DataCell(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              issue.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
                               ),
-                            );
-                          }
-                        },
+                            ),
+                            Text(
+                              issue.routePath,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    IconButton(
-                      icon: const Icon(Icons.build, size: 18, color: Colors.blue),
-                      tooltip: 'Manual Remediate',
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Remediation for ${issue.title} initiated...')),
-                        );
-                      },
-                    ),
-                  ],
-                )),
-              ],
-            )).toList(),
+                      DataCell(
+                        SizedBox(
+                          width: 250,
+                          child: Text(
+                            issue.message,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        SizedBox(
+                          width: 250,
+                          child: Text(
+                            issue.fix,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        Text(issue.owner, style: const TextStyle(fontSize: 12)),
+                      ),
+                      DataCell(
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (issue.sourcePath != null &&
+                                issue.sourcePath!.isNotEmpty)
+                              IconButton(
+                                icon: const Icon(Icons.code, size: 18),
+                                tooltip: 'Open in VS Code',
+                                onPressed: () async {
+                                  final uri = env.getVSCodeUri(
+                                    issue.sourcePath!,
+                                  );
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(uri);
+                                  }
+                                },
+                              ),
+                            if (issue.fixProperty != null)
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.auto_fix_high_rounded,
+                                  size: 18,
+                                  color: Colors.green,
+                                ),
+                                tooltip: 'Auto-Fix Registry',
+                                onPressed: () async {
+                                  final success =
+                                      await RegistryPatchEngine.applyFix(
+                                        PlatformEnvService.projectRoot,
+                                        issue,
+                                        issue.fixProperty!,
+                                        issue.fixValue!,
+                                      );
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          success
+                                              ? 'Fixed ${issue.fixProperty} for ${issue.screenId}'
+                                              : 'Auto-fix failed for ${issue.screenId}',
+                                        ),
+                                        backgroundColor: success
+                                            ? Colors.green
+                                            : Colors.red,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.build,
+                                size: 18,
+                                color: Colors.blue,
+                              ),
+                              tooltip: 'Manual Remediate',
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Remediation for ${issue.title} initiated...',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+                .toList(),
           ),
         ),
       ),
@@ -111,11 +182,21 @@ class GovernanceIssueTable extends ConsumerWidget {
   Widget _buildSeverityBadge(GovernanceSeverity severity) {
     Color color;
     switch (severity) {
-      case GovernanceSeverity.critical: color = Colors.red; break;
-      case GovernanceSeverity.high: color = Colors.orange; break;
-      case GovernanceSeverity.medium: color = Colors.amber; break;
-      case GovernanceSeverity.low: color = Colors.blue; break;
-      case GovernanceSeverity.info: color = Colors.teal; break;
+      case GovernanceSeverity.critical:
+        color = Colors.red;
+        break;
+      case GovernanceSeverity.high:
+        color = Colors.orange;
+        break;
+      case GovernanceSeverity.medium:
+        color = Colors.amber;
+        break;
+      case GovernanceSeverity.low:
+        color = Colors.blue;
+        break;
+      case GovernanceSeverity.info:
+        color = Colors.teal;
+        break;
     }
 
     return Container(
@@ -127,7 +208,11 @@ class GovernanceIssueTable extends ConsumerWidget {
       ),
       child: Text(
         severity.name.toUpperCase(),
-        style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: color,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -34,11 +34,11 @@ class GovernancePatchService {
     return buffer.toString();
   }
 
-  /// In a more advanced implementation, this could use `dart:io` to 
+  /// In a more advanced implementation, this could use `dart:io` to
   /// programmatically patch the registry file using `String.replaceFirst`.
   static Future<bool> applyQuickFix(GovernanceIssue issue) async {
-    // For now, this is a simulated fix. 
+    // For now, this is a simulated fix.
     // Real implementation would require parsing the registry file.
-    return true; 
+    return true;
   }
 }

@@ -31,7 +31,9 @@ class ASTPatchEngine {
     final visitor = _RegistryVisitor(className: className, mapName: mapName);
     unit.accept(visitor);
 
-    if (visitor.registryClass == null || visitor.targetMap == null) return false;
+    if (visitor.registryClass == null || visitor.targetMap == null) {
+      return false;
+    }
 
     // Check if entry already exists
     final entryExists = content.contains("'$screenId':");
@@ -43,20 +45,7 @@ class ASTPatchEngine {
     final buffer = StringBuffer();
     buffer.writeln("    '$screenId': const ScreenMetadata(");
     metadata.forEach((key, value) {
-      if (value is String) {
-        if (value.startsWith('LifecycleStatus.') || value.startsWith('Icons.') || value.startsWith('PriorityLevel.') || value.startsWith('SecurityTier.') || value.startsWith('DataMode.')) {
-          buffer.writeln("      $key: $value,");
-        } else if (value == 'true' || value == 'false') {
-          buffer.writeln("      $key: $value,");
-        } else {
-          buffer.writeln("      $key: '$value',");
-        }
-      } else if (value is List) {
-        final listStr = value.map((e) => "'$e'").join(', ');
-        buffer.writeln("      $key: [$listStr],");
-      } else {
-        buffer.writeln("      $key: $value,");
-      }
+      buffer.writeln("      $key: ${_formatValue(value)},");
     });
     buffer.writeln("    ),");
 
@@ -65,15 +54,21 @@ class ASTPatchEngine {
       final startMatch = "'$screenId': const ScreenMetadata(";
       final startIndex = content.indexOf(startMatch);
       if (startIndex == -1) return false;
-      
+
       int endIndex = content.indexOf("),", startIndex);
       if (endIndex == -1) return false;
-      endIndex += 2; 
+      endIndex += 2;
 
-      updatedContent = content.substring(0, startIndex) + buffer.toString() + content.substring(endIndex);
+      updatedContent =
+          content.substring(0, startIndex) +
+          buffer.toString() +
+          content.substring(endIndex);
     } else {
       final mapEnd = visitor.targetMap!.rightBracket.offset;
-      updatedContent = content.substring(0, mapEnd) + buffer.toString() + content.substring(mapEnd);
+      updatedContent =
+          content.substring(0, mapEnd) +
+          buffer.toString() +
+          content.substring(mapEnd);
     }
 
     await file.writeAsString(updatedContent);
@@ -91,7 +86,7 @@ class ASTPatchEngine {
     if (!await file.exists()) return false;
 
     String content = await file.readAsString();
-    
+
     for (final c in cases) {
       final result = parseString(content: content);
       final visitor = _SwitchVisitor(variableName);
@@ -109,7 +104,8 @@ class ASTPatchEngine {
           }
         } else if (member is SwitchPatternCase) {
           final pattern = member.guardedPattern.pattern;
-          if (pattern is ConstantPattern && pattern.expression.toString() == c.enumValue) {
+          if (pattern is ConstantPattern &&
+              pattern.expression.toString() == c.enumValue) {
             exists = true;
             break;
           }
@@ -125,17 +121,24 @@ class ASTPatchEngine {
         }
       }
 
-      final newCase = "    case ${c.enumValue}:\n      return ${c.returnValue};\n";
-      content = content.substring(0, insertOffset) + newCase + content.substring(insertOffset);
+      final newCase =
+          "    case ${c.enumValue}:\n      return ${c.returnValue};\n";
+      content =
+          content.substring(0, insertOffset) +
+          newCase +
+          content.substring(insertOffset);
     }
-    
+
     await file.writeAsString(content);
     return true;
   }
 
   /// Updates metadata for a specific entry in a registry.
-  Future<bool> updateRegistryMetadata(String entryKey, Map<String, String> updates, {
-    String registryPath = 'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  Future<bool> updateRegistryMetadata(
+    String entryKey,
+    Map<String, dynamic> updates, {
+    String registryPath =
+        'apps/primecare_governance/lib/core/governance/screen_registry.dart',
     String className = 'ScreenRegistry',
     String mapName = 'screens',
   }) async {
@@ -165,12 +168,15 @@ class ASTPatchEngine {
               // Re-parse to get fresh offsets after each update
               final freshResult = parseString(content: updatedContent);
               final freshUnit = freshResult.unit;
-              final freshVisitor = _RegistryVisitor(className: className, mapName: mapName);
+              final freshVisitor = _RegistryVisitor(
+                className: className,
+                mapName: mapName,
+              );
               freshUnit.accept(freshVisitor);
-              
+
               final freshMap = freshVisitor.targetMap;
               if (freshMap == null) break;
-              
+
               InstanceCreationExpression? freshTarget;
               for (final element in freshMap.elements) {
                 if (element is MapLiteralEntry) {
@@ -186,7 +192,12 @@ class ASTPatchEngine {
               }
 
               if (freshTarget != null) {
-                updatedContent = _updateArgument(updatedContent, freshTarget.argumentList, update.key, update.value);
+                updatedContent = _updateArgument(
+                  updatedContent,
+                  freshTarget.argumentList,
+                  update.key,
+                  _formatValue(update.value),
+                );
               }
             }
 
@@ -203,48 +214,63 @@ class ASTPatchEngine {
   }
 
   /// Updates metadata for a specific screen in screen_registry.dart. (Legacy wrapper)
-  Future<bool> updateScreenMetadata(String screenId, {
-    bool? isRenderOk, 
+  Future<bool> updateScreenMetadata(
+    String screenId, {
+    bool? isRenderOk,
     String? lifecycleStatus,
     int? storyPoints,
     String? lastAuditDate,
   }) async {
-    final updates = <String, String>{};
-    if (isRenderOk != null) updates['isRenderOk'] = isRenderOk.toString();
-    if (lifecycleStatus != null) updates['lifecycleStatus'] = 'LifecycleStatus.$lifecycleStatus';
-    if (storyPoints != null) updates['storyPoints'] = storyPoints.toString();
-    if (lastAuditDate != null) updates['lastAuditDate'] = "'$lastAuditDate'";
-    
+    final updates = <String, dynamic>{};
+    if (isRenderOk != null) updates['isRenderOk'] = isRenderOk;
+    if (lifecycleStatus != null) {
+      updates['lifecycleStatus'] = 'LifecycleStatus.$lifecycleStatus';
+    }
+    if (storyPoints != null) updates['storyPoints'] = storyPoints;
+    if (lastAuditDate != null) updates['lastAuditDate'] = lastAuditDate;
+
     return updateRegistryMetadata(
       screenId,
       updates,
-      registryPath: 'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+      registryPath:
+          'apps/primecare_governance/lib/core/governance/screen_registry.dart',
       className: 'ScreenRegistry',
       mapName: 'screens',
     );
   }
 
-  String _updateArgument(String content, ArgumentList args, String name, String newValue) {
+  String _updateArgument(
+    String content,
+    ArgumentList args,
+    String name,
+    String newValue,
+  ) {
     for (final arg in args.arguments) {
       if (arg is NamedExpression && arg.name.label.name == name) {
         // Update existing argument
         final offset = arg.expression.offset;
         final length = arg.expression.length;
-        return content.substring(0, offset) + newValue + content.substring(offset + length);
+        return content.substring(0, offset) +
+            newValue +
+            content.substring(offset + length);
       }
     }
-    
+
     // If not found, append to the argument list
     final closingParen = args.rightParenthesis.offset;
     final hasArgs = args.arguments.isNotEmpty;
     final prefix = hasArgs ? ", " : "";
     final newArg = "$prefix$name: $newValue";
-    
-    return content.substring(0, closingParen) + newArg + content.substring(closingParen);
+
+    return content.substring(0, closingParen) +
+        newArg +
+        content.substring(closingParen);
   }
 
   /// Safely injects a new case into a switch statement within a provider.
-  Future<bool> injectSwitchCase(String enumValue, String returnValue, {
+  Future<bool> injectSwitchCase(
+    String enumValue,
+    String returnValue, {
     required String filePath,
     required String variableName,
   }) async {
@@ -271,7 +297,8 @@ class ASTPatchEngine {
         }
       } else if (member is SwitchPatternCase) {
         final pattern = member.guardedPattern.pattern;
-        if (pattern is ConstantPattern && pattern.expression.toString() == enumValue) {
+        if (pattern is ConstantPattern &&
+            pattern.expression.toString() == enumValue) {
           exists = true;
           break;
         }
@@ -289,12 +316,59 @@ class ASTPatchEngine {
     }
 
     final newCase = "    case $enumValue:\n      return $returnValue;\n";
-    
+
     // Ensure we don't mess up the indentation or structure
-    String updatedContent = content.substring(0, insertOffset) + newCase + content.substring(insertOffset);
-    
+    String updatedContent =
+        content.substring(0, insertOffset) +
+        newCase +
+        content.substring(insertOffset);
+
     await file.writeAsString(updatedContent);
     return true;
+  }
+
+  String _formatValue(dynamic value) {
+    if (value is String) {
+      // 1. Explicitly quoted strings are returned as is
+      if ((value.startsWith("'") && value.endsWith("'")) ||
+          (value.startsWith('"') && value.endsWith('"'))) {
+        return value;
+      }
+
+      // 2. Known code constants/enums (Heuristic)
+      final bool isBoolean = value == 'true' || value == 'false';
+      final bool isEnumOrStatic = RegExp(
+        r'^[A-Z][a-zA-Z0-9_]*\.[a-zA-Z0-9_]+$',
+      ).hasMatch(value);
+      final bool isIcon = RegExp(
+        r'^Icons\.[a-z][a-zA-Z0-9_]*$',
+      ).hasMatch(value);
+      final bool isColor = RegExp(
+        r'^Color\(0x[0-9a-fA-F]{8}\)$',
+      ).hasMatch(value);
+      final bool isConstructor = RegExp(
+        r'^const\s+[A-Z][a-zA-Z0-9_]*\(',
+      ).hasMatch(value);
+
+      if (isBoolean || isEnumOrStatic || isIcon || isColor || isConstructor) {
+        return value;
+      }
+
+      // 3. Fallback to single-quoted string
+      // Escape single quotes if present
+      final escaped = value.replaceAll("'", "\\'");
+      return "'$escaped'";
+    } else if (value is List) {
+      final listStr = value.map((e) => _formatValue(e)).join(', ');
+      return "[$listStr]";
+    } else if (value is Map) {
+      final mapEntries = value.entries
+          .map((e) => "${_formatValue(e.key)}: ${_formatValue(e.value)}")
+          .join(', ');
+      return "{$mapEntries}";
+    } else {
+      return value.toString();
+    }
   }
 }
 
@@ -366,4 +440,3 @@ class _SwitchVisitor extends RecursiveAstVisitor<void> {
     super.visitSwitchStatement(node);
   }
 }
-

@@ -49,11 +49,7 @@ enum SecurityTier {
 }
 
 /// [DataMode] - Tracks the source of data for the screen.
-enum DataMode {
-  mock,
-  live,
-  hybrid,
-}
+enum DataMode { mock, live, hybrid }
 
 /// [ScreenMetadata] - Comprehensive governance model for a single platform screen.
 class ScreenMetadata {
@@ -99,15 +95,7 @@ class ScreenMetadata {
   final String sprintName;
   final String assignedDeveloper;
   final List<String> subTasks;
-  final String? stitchProject;
   final String? serialNo;
-
-  /// The specific prompt used to generate this screen via the Stitch Engine.
-  final String? generationPrompt;
-
-  /// Whether this screen should be actively generated/synchronized with the UI Engine.
-  final bool generateScreen;
-
   final List<String> requiredApis;
   final List<String> requiredPermissions;
   final List<String> featureFlags;
@@ -119,7 +107,6 @@ class ScreenMetadata {
   final bool isDesktopVerified;
   final bool isPhiCompliant;
   final String figmaUrl;
-  final String stitchUrl;
   final String productOwner;
   final String qaOwner;
   final List<String> blockers;
@@ -176,9 +163,6 @@ class ScreenMetadata {
     this.sprintName = 'Sprint 1',
     this.assignedDeveloper = 'Unassigned',
     this.subTasks = const [],
-    this.stitchProject,
-    this.generationPrompt,
-    this.generateScreen = false,
     this.requiredApis = const [],
     this.requiredPermissions = const [],
     this.featureFlags = const [],
@@ -190,7 +174,6 @@ class ScreenMetadata {
     this.isDesktopVerified = false,
     this.isPhiCompliant = false,
     this.figmaUrl = '',
-    this.stitchUrl = '',
     this.productOwner = '',
     this.qaOwner = '',
     this.blockers = const [],
@@ -210,8 +193,8 @@ class ScreenMetadata {
   bool canAccess(String userRole) {
     final normalizedRole = userRole.toLowerCase();
     return allowedRoles.any((r) => r.toLowerCase() == normalizedRole) ||
-           normalizedRole == 'admin' ||
-           normalizedRole == 'super_admin';
+        normalizedRole == 'admin' ||
+        normalizedRole == 'super_admin';
   }
 
   /// Calculates the completion percentage based on component implementation.
@@ -276,9 +259,6 @@ class ScreenMetadata {
     String? sprintName,
     String? assignedDeveloper,
     List<String>? subTasks,
-    String? stitchProject,
-    String? generationPrompt,
-    bool? generateScreen,
     List<String>? requiredApis,
     List<String>? requiredPermissions,
     List<String>? featureFlags,
@@ -290,7 +270,6 @@ class ScreenMetadata {
     bool? isDesktopVerified,
     bool? isPhiCompliant,
     String? figmaUrl,
-    String? stitchUrl,
     String? productOwner,
     String? qaOwner,
     List<String>? blockers,
@@ -313,7 +292,8 @@ class ScreenMetadata {
       title: title ?? this.title,
       icon: icon ?? this.icon,
       description: description ?? this.description,
-      implementedComponents: implementedComponents ?? this.implementedComponents,
+      implementedComponents:
+          implementedComponents ?? this.implementedComponents,
       pendingComponents: pendingComponents ?? this.pendingComponents,
       office: office ?? this.office,
       role: role ?? this.role,
@@ -326,7 +306,8 @@ class ScreenMetadata {
       testingDate: testingDate ?? this.testingDate,
       lastVerificationHash: lastVerificationHash ?? this.lastVerificationHash,
       uatApprover: uatApprover ?? this.uatApprover,
-      deploymentEnvironment: deploymentEnvironment ?? this.deploymentEnvironment,
+      deploymentEnvironment:
+          deploymentEnvironment ?? this.deploymentEnvironment,
       isRenderOk: isRenderOk ?? this.isRenderOk,
       userApprovedLayout: userApprovedLayout ?? this.userApprovedLayout,
       flowSteps: flowSteps ?? this.flowSteps,
@@ -338,31 +319,31 @@ class ScreenMetadata {
       visualCategory: visualCategory ?? this.visualCategory,
       testScenarioCount: testScenarioCount ?? this.testScenarioCount,
       testPassRate: testPassRate ?? this.testPassRate,
-      architecturalParityScore: architecturalParityScore ?? this.architecturalParityScore,
+      architecturalParityScore:
+          architecturalParityScore ?? this.architecturalParityScore,
       securityLevel: securityLevel ?? this.securityLevel,
-      isAccessibilityVerified: isAccessibilityVerified ?? this.isAccessibilityVerified,
-      isPerformanceVerified: isPerformanceVerified ?? this.isPerformanceVerified,
+      isAccessibilityVerified:
+          isAccessibilityVerified ?? this.isAccessibilityVerified,
+      isPerformanceVerified:
+          isPerformanceVerified ?? this.isPerformanceVerified,
       complexity: complexity ?? this.complexity,
       storyPoints: storyPoints ?? this.storyPoints,
       priority: priority ?? this.priority,
       sprintName: sprintName ?? this.sprintName,
       assignedDeveloper: assignedDeveloper ?? this.assignedDeveloper,
       subTasks: subTasks ?? this.subTasks,
-      stitchProject: stitchProject ?? this.stitchProject,
-      generationPrompt: generationPrompt ?? this.generationPrompt,
-      generateScreen: generateScreen ?? this.generateScreen,
       requiredApis: requiredApis ?? this.requiredApis,
       requiredPermissions: requiredPermissions ?? this.requiredPermissions,
       featureFlags: featureFlags ?? this.featureFlags,
       dataMode: dataMode ?? this.dataMode,
-      hasUnsavedChangeGuard: hasUnsavedChangeGuard ?? this.hasUnsavedChangeGuard,
+      hasUnsavedChangeGuard:
+          hasUnsavedChangeGuard ?? this.hasUnsavedChangeGuard,
       isLocalizationReady: isLocalizationReady ?? this.isLocalizationReady,
       isMobileVerified: isMobileVerified ?? this.isMobileVerified,
       isTabletVerified: isTabletVerified ?? this.isTabletVerified,
       isDesktopVerified: isDesktopVerified ?? this.isDesktopVerified,
       isPhiCompliant: isPhiCompliant ?? this.isPhiCompliant,
       figmaUrl: figmaUrl ?? this.figmaUrl,
-      stitchUrl: stitchUrl ?? this.stitchUrl,
       productOwner: productOwner ?? this.productOwner,
       qaOwner: qaOwner ?? this.qaOwner,
       blockers: blockers ?? this.blockers,
@@ -381,8 +362,9 @@ class ScreenMetadata {
 
   /// Identifies if the screen is currently high-risk.
   bool get hasRisk {
-    return (securityLevel == SecurityTier.high || securityLevel == SecurityTier.internal) && 
-           (testPassRate < 90 || !isPhiCompliant);
+    return (securityLevel == SecurityTier.high ||
+            securityLevel == SecurityTier.internal) &&
+        (testPassRate < 90 || !isPhiCompliant);
   }
 
   /// Returns the count of missing components.
@@ -396,7 +378,8 @@ class ScreenMetadata {
     String role = 'Staff',
   }) {
     final String rawTitle = json['title'] as String? ?? 'N/A';
-    final String route = (json['route'] ?? json['path']) as String? ?? '/unknown';
+    final String route =
+        (json['route'] ?? json['path']) as String? ?? '/unknown';
     final List<String> components =
         (json['componentLabels'] as List?)?.cast<String>() ?? [];
     final String description = json['structuralPlan'] as String? ?? '';

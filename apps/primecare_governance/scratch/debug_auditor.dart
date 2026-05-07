@@ -5,10 +5,10 @@ import 'package:primecare_governance/governance/services/cross_subsystem_auditor
 void main() async {
   print('CWD: ${Directory.current.path}');
   final auditor = CrossSubsystemAuditor(projectRoot: '../..');
-  
+
   print('Running audit...');
   final screenIssues = await auditor.auditScreenRegistryParity();
-  
+
   print('Found ${screenIssues.length} screen issues.');
   for (final issue in screenIssues) {
     print(' - ${issue.issue}');

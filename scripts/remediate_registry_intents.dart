@@ -1,8 +1,9 @@
-
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/screen_registry.dart');
+  final file = File(
+    'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  );
   if (!file.existsSync()) {
     print('Registry not found');
     return;
@@ -15,14 +16,16 @@ void main() {
     r"(title: '.*?Dashboard',[\s\S]*?pendingComponents: \[)(.*?)(\],)",
     multiLine: true,
   );
-  
+
   content = content.replaceAllMapped(dashboardRegex, (match) {
     var pending = match.group(2) ?? '';
     if (!pending.contains('PrimeCareResponsiveKpiGrid')) {
       if (pending.isEmpty) {
-        pending = "'PrimeCareResponsiveKpiGrid', 'PrimeCareChartCard', 'IntelligenceInsightCard', 'MasterLayout'";
+        pending =
+            "'PrimeCareResponsiveKpiGrid', 'PrimeCareChartCard', 'IntelligenceInsightCard', 'MasterLayout'";
       } else {
-        pending += ", 'PrimeCareResponsiveKpiGrid', 'PrimeCareChartCard', 'IntelligenceInsightCard', 'MasterLayout'";
+        pending +=
+            ", 'PrimeCareResponsiveKpiGrid', 'PrimeCareChartCard', 'IntelligenceInsightCard', 'MasterLayout'";
       }
     }
     return '${match.group(1)}$pending${match.group(3)}';
@@ -38,9 +41,11 @@ void main() {
     var pending = match.group(2) ?? '';
     if (!pending.contains('PrimeCareFormBuilder')) {
       if (pending.isEmpty) {
-        pending = "'PrimeCareFormBuilder', 'HealthcareSignaturePad', 'ValidationSummary'";
+        pending =
+            "'PrimeCareFormBuilder', 'HealthcareSignaturePad', 'ValidationSummary'";
       } else {
-        pending += ", 'PrimeCareFormBuilder', 'HealthcareSignaturePad', 'ValidationSummary'";
+        pending +=
+            ", 'PrimeCareFormBuilder', 'HealthcareSignaturePad', 'ValidationSummary'";
       }
     }
     return '${match.group(1)}$pending${match.group(3)}';
@@ -56,9 +61,11 @@ void main() {
     var pending = match.group(2) ?? '';
     if (!pending.contains('RealTimeTelemetryGraph')) {
       if (pending.isEmpty) {
-        pending = "'RealTimeTelemetryGraph', 'SystemHealthGauge', 'ExportAuditLogButton'";
+        pending =
+            "'RealTimeTelemetryGraph', 'SystemHealthGauge', 'ExportAuditLogButton'";
       } else {
-        pending += ", 'RealTimeTelemetryGraph', 'SystemHealthGauge', 'ExportAuditLogButton'";
+        pending +=
+            ", 'RealTimeTelemetryGraph', 'SystemHealthGauge', 'ExportAuditLogButton'";
       }
     }
     return '${match.group(1)}$pending${match.group(3)}';

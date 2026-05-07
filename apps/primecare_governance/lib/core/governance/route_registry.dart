@@ -1,113 +1,78 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
 import 'screen_registry.dart';
+import '../../features/system_governance/sidebar_mapping/role_sidebar_mapping_view.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/app_drawer.dart';
 import '../../features/auth/login_view.dart';
-
-import '../../features/operations/care_angel_management_view.dart';
-import '../../features/governance_operations/governance_operations_view.dart';
-import '../../features/system_governance/verification_center_view.dart';
-import '../../features/system_governance/audit_log_view.dart';
-import '../../features/system_governance/governance_data_entry_view.dart';
-import '../../features/system_governance/system_monitoring_view.dart';
-import '../../features/system_governance/correction_ticket_center_view.dart';
-import '../../features/proposal_governance/views/proposal_inbox_view.dart';
-import '../../features/proposal_governance/views/new_proposal_form.dart';
-import '../../features/proposal_governance/views/proposal_detail_view.dart';
-import '../../features/debug/kitchen_sink_view.dart';
-import '../../features/debug/theme_center_view.dart';
-import '../../features/dashboard/dashboard_view.dart';
-import '../../features/governance_hud/governance_hud_view.dart';
-
-
-/// A factory to map registry IDs to specific view implementations
-final Map<String, WidgetBuilder> _viewFactory = {
-  'SCREEN_1': (context) => const GovernanceOperationsView(),
-  'SCREEN_12': (context) => const CareAngelManagementView(),
-  'VERIFICATION_CENTER': (context) => const VerificationCenterView(),
-  'AUDIT_LOG': (context) => const AuditLogView(),
-  'DATA_ENTRY': (context) => const GovernanceDataEntryView(),
-  'MONITORING': (context) => const SystemMonitoringView(),
-  'TICKET_CENTER': (context) => const CorrectionTicketCenterView(),
-};
+import '../ui/language_selector.dart';
+import '../../features/system_governance/screen_status_dashboard/screen_status_view.dart';
+import '../../features/governance_dashboard/governance_dashboard_view.dart';
+import '../../features/system_governance/monitoring/system_monitoring_view.dart';
+import '../../features/clinical_reference/clinical_reference_view.dart';
+import '../../features/clinical_reference/widgets/clinical_reference_drawer.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: ScreenRegistry.getById('SCREEN_STATUS_DASHBOARD')?.routePath ?? '/governance/screen-status',
     routes: [
       GoRoute(
-        path: '/login',
+        path: ScreenRegistry.getById('LOGIN')?.routePath ?? '/login',
         builder: (context, state) => const LoginView(),
       ),
       ShellRoute(
-        builder: (context, state, child) => MasterLayout(
-          shellType: AppShellType.admin,
-          drawer: const AppDrawer(),
-          child: child,
-        ),
+        builder: (context, state, child) {
+          final matchedLocation = state.matchedLocation;
+          final screen = ScreenRegistry.screens.values.cast<ScreenMetadata?>().firstWhere(
+            (s) => s?.routePath == matchedLocation,
+            orElse: () => null,
+          );
+          final title = screen?.title ?? 'Platform Governance';
+
+          return MasterLayout(
+            title: title,
+            shellType: AppShellType.admin,
+            drawer: const AppDrawer(),
+            endDrawer: const ClinicalReferenceDrawer(),
+            actions: [
+              const LanguageSelector(),
+              const SizedBox(width: 8),
+              Builder(
+                builder: (context) => IconButton(
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  icon: const Icon(LucideIcons.search),
+                ),
+              ),
+              const CircleAvatar(
+                radius: 16,
+                backgroundImage: NetworkImage(
+                  'https://api.dicebear.com/7.x/avataaars/png?seed=Admin',
+                ),
+              ),
+              const SizedBox(width: 16),
+            ],
+            child: child,
+          );
+        },
         routes: [
-          // Dashboard Root
-          GoRoute(
-            path: '/',
-            builder: (context, state) => const DashboardView(),
-          ),
-          GoRoute(
-            path: '/verification',
-            builder: (context, state) => const VerificationCenterView(),
-          ),
-          GoRoute(
-            path: '/governance/monitoring',
-            builder: (context, state) => const SystemMonitoringView(),
-          ),
-          GoRoute(
-            path: '/governance/hud',
-            builder: (context, state) => const GovernanceHudView(),
-          ),
-          GoRoute(
-            path: '/governance/data-entry',
-            builder: (context, state) => const GovernanceDataEntryView(),
-          ),
-          GoRoute(
-            path: '/governance/audit',
-            builder: (context, state) => const AuditLogView(),
-          ),
-          GoRoute(
-            path: '/governance/tickets',
-            builder: (context, state) => const CorrectionTicketCenterView(),
-          ),
-          
-          // Proposal Governance
-          GoRoute(
-            path: '/proposals',
-            builder: (context, state) => const ProposalInboxView(),
-          ),
-          GoRoute(
-            path: '/proposals/new',
-            builder: (context, state) => const NewProposalForm(),
-          ),
-          GoRoute(
-            path: '/proposals/detail/:id',
-            builder: (context, state) => ProposalDetailView(proposalId: state.pathParameters['id']!),
-          ),
-          GoRoute(
-            path: '/debug/kitchen-sink',
-            builder: (context, state) => const KitchenSinkView(),
-          ),
-          GoRoute(
-            path: '/debug/theme-center',
-            builder: (context, state) => const ThemeCenterView(),
-          ),
-          
-          // Dynamic Registry-Driven Routes (251 Screens)
+          // Dynamic Registry-Driven Routes
           ...ScreenRegistry.screens.values.map((screen) {
-            final factoryBuilder = _viewFactory[screen.id];
-            
             return GoRoute(
               path: screen.routePath,
-              builder: (context, state) => factoryBuilder != null 
-                ? factoryBuilder(context)
-                : DynamicScreenView(metadata: screen),
+              builder: (context, state) {
+                if (screen.id == 'SCREEN_STATUS_DASHBOARD') {
+                  return const ScreenStatusView();
+                } else if (screen.id == 'GOVERNANCE_DASHBOARD' || screen.id == 'SYSTEM_GOVERNANCE_DASHBOARD') {
+                  return const GovernanceDashboardView();
+                } else if (screen.id == 'MONITORING') {
+                  return const SystemMonitoringView();
+                } else if (screen.id == 'SIDEBAR_MAPPING') {
+                  return const RoleSidebarMappingView();
+                } else if (screen.id == 'CLINICAL_REFERENCE') {
+                  return const ClinicalReferenceView();
+                }
+                return DynamicScreenView(metadata: screen);
+              },
             );
           }),
         ],
@@ -115,4 +80,3 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-

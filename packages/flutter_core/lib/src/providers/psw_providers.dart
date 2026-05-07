@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 
-final pswDashboardProvider =
-    FutureProvider.autoDispose<Result<PswDashboardData>>((ref) async {
+final pswDashboardProvider = FutureProvider.autoDispose<Result<PswDashboardData>>((
+  ref,
+) async {
   // Section 9: Provider TTL - Auto-invalidate after 5 minutes to prevent stale data
   ProviderTTL.autoInvalidate(ref, duration: const Duration(minutes: 5));
 
@@ -54,15 +55,17 @@ Future<Result<PswDashboardData>> _handlePswFallback(
   if (snapshot != null) {
     return Success(PswDashboardData.fromJson(snapshot));
   }
-  
+
   // Return empty state if no cache
-  return Success(const PswDashboardData(
-    stats: {},
-    shiftProgress: 0.0,
-    shiftDurationRemaining: '0h 0m',
-    clients: [],
-    tasks: [],
-    monthlyCompletedTasks: 0,
-    nextReviewDate: 'TBD',
-  ));
+  return Success(
+    const PswDashboardData(
+      stats: {},
+      shiftProgress: 0.0,
+      shiftDurationRemaining: '0h 0m',
+      clients: [],
+      tasks: [],
+      monthlyCompletedTasks: 0,
+      nextReviewDate: 'TBD',
+    ),
+  );
 }

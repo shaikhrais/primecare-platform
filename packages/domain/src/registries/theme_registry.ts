@@ -2,37 +2,38 @@ export const ThemeRegistry = {
     COLORS: {
         PRIMARY: '--pc-primary',
         PRIMARY_DARK: '--pc-primary-dark',
-        ACCENT: '--pc-accent',
-        BACKGROUND: '--pc-bg',
-        SURFACE: '--pc-surface',
-        BORDER: '--pc-border',
+        PRIMARY_CONTAINER: '--pc-primary-container',
+        BACKGROUND: '--pc-bg-primary',
+        SURFACE: '--pc-surface-card',
+        BORDER: '--pc-border-primary',
+        BORDER_SECONDARY: '--pc-border-secondary',
+        OUTLINE: '--pc-outline',
         TEXT: {
-            BASE: '--pc-text-base',
-            MUTED: '--pc-text-muted',
+            PRIMARY: '--pc-text-primary',
+            SECONDARY: '--pc-text-secondary',
             ON_PRIMARY: '--pc-text-on-primary',
         },
         STATUS: {
-            SUCCESS: '--pc-status-success',
-            WARNING: '--pc-status-warning',
-            ERROR: '--pc-status-error',
-            INFO: '--pc-status-info',
+            SUCCESS: '--pc-success',
+            WARNING: '--pc-warning',
+            ERROR: '--pc-error',
+            ERROR_CONTAINER: '--pc-error-container',
         }
     },
     PRESETS: {
-        PRIMECARE_STANDARD: {
-            primary: '#00897b',
-            primaryDark: '#004d40',
-            accent: '#c2ffd9',
+        PRIMECARE_CLINICAL: {
+            primary: '#004ac6',
+            surface: '#f7f9fb',
+            onSurface: '#191c1e',
+            primaryContainer: '#2563eb',
+            outline: '#737686',
         },
-        DUSK_MODE: {
-            primary: '#1e293b',
-            primaryDark: '#0f172a',
-            accent: '#38bdf8',
-        },
-        EMERALD_CITY: {
-            primary: '#059669',
-            primaryDark: '#064e3b',
-            accent: '#a7f3d0',
+        PRIMECARE_DARK: {
+            primary: '#b4c5ff',
+            surface: '#191c1e',
+            onSurface: '#eff1f3',
+            primaryContainer: '#004ac6',
+            outline: '#938f99',
         }
     }
 } as const;

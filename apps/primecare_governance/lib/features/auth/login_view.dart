@@ -37,10 +37,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
     });
 
     try {
-      final success = await ref.read(authProvider.notifier).login(
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-          );
+      final success = await ref
+          .read(authProvider.notifier)
+          .login(_emailController.text.trim(), _passwordController.text.trim());
 
       if (!mounted) return;
 
@@ -50,7 +49,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
       if (!success) {
         setState(() {
-          _errorMessage = 'Authentication failed. Please verify your credentials.';
+          _errorMessage =
+              'Authentication failed. Please verify your credentials.';
         });
       }
     } catch (e) {
@@ -65,7 +65,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     return Scaffold(
       backgroundColor: theme.colors.background,
       body: Stack(
@@ -87,7 +87,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
               ),
             ),
           ),
-          
+
           // 2. Dynamic Visual Elements
           Positioned(
             top: -150,
@@ -105,7 +105,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
               size: 400,
             ),
           ),
-          
+
           // 3. Main Content
           Center(
             child: SingleChildScrollView(
@@ -149,7 +149,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ),
                     ),
                     const SizedBox(height: 48),
-                    
+
                     // Glassmorphic Authentication Card
                     ClipRRect(
                       borderRadius: BorderRadius.circular(32),
@@ -161,7 +161,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             color: theme.colors.surface.withValues(alpha: 0.7),
                             borderRadius: BorderRadius.circular(32),
                             border: Border.all(
-                              color: theme.colors.borderLight.withValues(alpha: 0.3),
+                              color: theme.colors.border.withValues(alpha: 0.3),
                               width: 1.5,
                             ),
                             boxShadow: [
@@ -183,11 +183,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                               const SizedBox(height: 8),
                               Text(
                                 'Enter your secure credentials to continue',
-                                style: theme.typography.labelSmall,
+                                style: theme.typography.labelMedium,
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 32),
-                              
+
                               // Email Field
                               _buildInputField(
                                 context,
@@ -197,7 +197,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                 controller: _emailController,
                               ),
                               const SizedBox(height: 20),
-                              
+
                               // Password Field
                               _buildInputField(
                                 context,
@@ -207,103 +207,145 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                 controller: _passwordController,
                                 obscureText: true,
                               ),
-                              
+
                               if (_errorMessage != null) ...[
                                 const SizedBox(height: 20),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: theme.colors.error.withValues(alpha: 0.08),
+                                    color: theme.colors.error.withValues(
+                                      alpha: 0.08,
+                                    ),
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: theme.colors.error.withValues(alpha: 0.2)),
+                                    border: Border.all(
+                                      color: theme.colors.error.withValues(
+                                        alpha: 0.2,
+                                      ),
+                                    ),
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.error_outline_rounded, size: 16, color: theme.colors.error),
+                                      Icon(
+                                        Icons.error_outline_rounded,
+                                        size: 16,
+                                        color: theme.colors.error,
+                                      ),
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
                                           _errorMessage!,
-                                          style: theme.typography.labelSmall.copyWith(
-                                            color: theme.colors.error,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                          style: theme.typography.labelMedium
+                                              .copyWith(
+                                                color: theme.colors.error,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
-                              
+
                               const SizedBox(height: 32),
-                              
-                              _isLoading 
-                                ? const Center(child: CircularProgressIndicator())
-                                : Column(
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: _handleLogin,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: theme.colors.primary,
-                                          foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.symmetric(vertical: 20),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(16),
-                                          ),
-                                          elevation: 0,
-                                        ).copyWith(
-                                          overlayColor: WidgetStateProperty.all(Colors.white.withValues(alpha: 0.1)),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            'INITIATE SESSION',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              letterSpacing: 1.5,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      if (kDebugMode || EnvConfig.environment == Environment.demo || EnvConfig.environment == Environment.dev) ...[
-                                        const SizedBox(height: 16),
-                                        OutlinedButton(
-                                          onPressed: () {
-                                            _emailController.text = 'admin@demo.primecare.com';
-                                            _passwordController.text = 'demo';
-                                            _handleLogin();
-                                          },
-                                          style: OutlinedButton.styleFrom(
-                                            foregroundColor: theme.colors.primary,
-                                            side: BorderSide(color: theme.colors.primary.withValues(alpha: 0.5)),
-                                            padding: const EdgeInsets.symmetric(vertical: 18),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(16),
-                                            ),
-                                          ),
+
+                              _isLoading
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Column(
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: _handleLogin,
+                                          style:
+                                              ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    theme.colors.primary,
+                                                foregroundColor: Colors.white,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 20,
+                                                    ),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                ),
+                                                elevation: 0,
+                                              ).copyWith(
+                                                overlayColor:
+                                                    WidgetStateProperty.all(
+                                                      Colors.white.withValues(
+                                                        alpha: 0.1,
+                                                      ),
+                                                    ),
+                                              ),
                                           child: const Center(
                                             child: Text(
-                                              'ACCESS DEMO MODE',
+                                              'INITIATE SESSION',
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                letterSpacing: 1,
+                                                fontWeight: FontWeight.w900,
+                                                letterSpacing: 1.5,
                                               ),
                                             ),
                                           ),
                                         ),
+                                        if (kDebugMode ||
+                                            EnvConfig.environment ==
+                                                Environment.demo ||
+                                            EnvConfig.environment ==
+                                                Environment.dev) ...[
+                                          const SizedBox(height: 16),
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              _emailController.text =
+                                                  'admin@demo.primecare.com';
+                                              _passwordController.text = 'demo';
+                                              _handleLogin();
+                                            },
+                                            style: OutlinedButton.styleFrom(
+                                              foregroundColor:
+                                                  theme.colors.primary,
+                                              side: BorderSide(
+                                                color: theme.colors.primary
+                                                    .withValues(alpha: 0.5),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 18,
+                                                  ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                              ),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                'ACCESS DEMO MODE',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ],
-                                    ],
-                                  ),
+                                    ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 48),
                     Text(
                       '© 2026 PRIMECARE PLATFORM · SECURITY LAYER 4',
-                      style: theme.typography.labelSmall.copyWith(
-                        color: theme.colors.onSurfaceVariant.withValues(alpha: 0.6),
+                      style: theme.typography.labelMedium.copyWith(
+                        color: theme.colors.onSurfaceVariant.withValues(
+                          alpha: 0.6,
+                        ),
                         letterSpacing: 1,
                       ),
                     ),
@@ -333,7 +375,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
           padding: const EdgeInsets.only(left: 4, bottom: 8),
           child: Text(
             label,
-            style: theme.typography.labelSmall.copyWith(
+            style: theme.typography.labelMedium.copyWith(
               fontWeight: FontWeight.w900,
               letterSpacing: 1,
               color: theme.colors.onSurfaceVariant,
@@ -343,13 +385,24 @@ class _LoginViewState extends ConsumerState<LoginView> {
         TextField(
           controller: controller,
           obscureText: obscureText,
-          style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+          style: theme.typography.bodyMedium.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
           decoration: InputDecoration(
             hintText: placeholder,
-            prefixIcon: Icon(icon, size: 20, color: theme.colors.primary.withValues(alpha: 0.6)),
+            prefixIcon: Icon(
+              icon,
+              size: 20,
+              color: theme.colors.primary.withValues(alpha: 0.6),
+            ),
             filled: true,
-            fillColor: theme.colors.surfaceContainerHighest.withValues(alpha: 0.3),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            fillColor: theme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 18,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none,
@@ -382,10 +435,7 @@ class _BlurredBlob extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
         child: Container(color: Colors.transparent),

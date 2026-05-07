@@ -13,68 +13,132 @@
 :root,
 [data-theme="light"] {
   /* Brand */
-  --pc-primary: #00897b;
-  --pc-primary-dark: #004d40;
-  --pc-accent: #c2ffd9;
-  --pc-text-on-primary: #ffffff;
+  --pc-primary: #004ac6;
+  --pc-on-primary: #ffffff;
+  --pc-primary-container: #2563eb;
+  --pc-on-primary-container: #eeefff;
+  --pc-inverse-primary: #b4c5ff;
 
-  /* Backgrounds */
-  --pc-bg-primary: #FFFFFF;
-  --pc-bg-secondary: #F9FAFB;
-  --pc-bg-tertiary: #F3F4F6;
-  --pc-bg-elevated: #FFFFFF;
-  --pc-bg-overlay: rgba(0, 0, 0, 0.5);
+  /* Backgrounds (Surface 0) */
+  --pc-bg-primary: #f7f9fb;
+  --pc-bg-secondary: #f2f4f6;
+  --pc-bg-tertiary: #eceef0;
+  --pc-bg-elevated: #ffffff;
+  --pc-on-background: #191c1e;
 
   /* Surfaces */
   --pc-surface-card: #FFFFFF;
-  --pc-surface-sidebar: #0F172A;
+  --pc-surface-sidebar: #00174B;
   --pc-surface-topbar: #FFFFFF;
   --pc-surface-input: #FFFFFF;
+  
+  /* Surface Containers */
+  --pc-surface-dim: #d8dadc;
+  --pc-surface-bright: #f7f9fb;
+  --pc-surface-lowest: #ffffff;
+  --pc-surface-low: #f2f4f6;
+  --pc-surface-container: #eceef0;
+  --pc-surface-high: #e6e8ea;
+  --pc-surface-highest: #e0e3e5;
+  --pc-on-surface: #191c1e;
+  --pc-on-surface-variant: #434655;
+  --pc-inverse-surface: #2d3133;
+  --pc-inverse-on-surface: #eff1f3;
+  --pc-outline: #737686;
+  --pc-outline-variant: #c3c6d7;
+  --pc-surface-tint: #0053db;
 
-  /* Text */
-  --pc-text-primary: #111827;
-  --pc-text-secondary: #6B7280;
-  --pc-text-tertiary: #9CA3AF;
-  --pc-text-inverse: #FFFFFF;
-  --pc-text-link: #3B82F6;
-
-  /* Borders */
-  --pc-border-primary: #E5E7EB;
-  --pc-border-secondary: #D1D5DB;
-  --pc-border-focus: #3B82F6;
-
-  /* Shadows */
-  --pc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  /* Secondary & Tertiary */
+  --pc-secondary: #4059aa;
+  --pc-on-secondary: #ffffff;
+  --pc-secondary-container: #8fa7fe;
+  --pc-on-secondary-container: #1d3989;
+  --pc-tertiary: #943700;
+  --pc-on-tertiary: #ffffff;
+  --pc-tertiary-container: #bc4800;
+  --pc-on-tertiary-container: #ffede6;
 
   /* Status */
-  --pc-success: #10B981;
-  --pc-success-bg: #ECFDF5;
-  --pc-warning: #F59E0B;
-  --pc-warning-bg: #FFFBEB;
-  --pc-error: #EF4444;
-  --pc-error-bg: #FEF2F2;
-  --pc-info: #3B82F6;
-  --pc-info-bg: #EFF6FF;
+  --pc-success: #10b981;
+  --pc-error: #ba1a1a;
+  --pc-on-error: #ffffff;
+  --pc-error-container: #ffdad6;
+  --pc-on-error-container: #93000a;
 
-  /* Scrollbar */
-  --pc-scrollbar-track: #F3F4F6;
-  --pc-scrollbar-thumb: #D1D5DB;
+  /* Fixed Colors */
+  --pc-primary-fixed: #dbe1ff;
+  --pc-primary-fixed-dim: #b4c5ff;
+  --pc-on-primary-fixed: #00174b;
+  --pc-on-primary-fixed-variant: #003ea8;
+  --pc-secondary-fixed: #dce1ff;
+  --pc-secondary-fixed-dim: #b6c4ff;
+  --pc-on-secondary-fixed: #00164e;
+  --pc-on-secondary-fixed-variant: #264191;
+  --pc-tertiary-fixed: #ffdbcd;
+  --pc-tertiary-fixed-dim: #ffb596;
+  --pc-on-tertiary-fixed: #360f00;
+  --pc-on-tertiary-fixed-variant: #7d2d00;
+
+  /* Semantic Mappings */
+  --pc-border-primary: var(--pc-outline-variant);
+  --pc-border-secondary: var(--pc-outline);
+  --pc-text-primary: var(--pc-on-surface);
+  --pc-text-secondary: var(--pc-on-surface-variant);
+  --pc-text-on-primary: var(--pc-on-primary);
+  --pc-primary-dark: #003ea8; /* Derived from on-primary-fixed-variant or similar deep shade */
+
+  /* Spacing */
+  --pc-spacing-base: 4px;
+  --pc-spacing-xs: 4px;
+  --pc-spacing-sm: 8px;
+  --pc-spacing-md: 16px;
+  --pc-spacing-lg: 24px;
+  --pc-spacing-xl: 32px;
+  --pc-spacing-container-padding: 24px;
+  --pc-spacing-card-gap: 16px;
 
   /* Radius */
-  --pc-radius-sm: 6px;
-  --pc-radius-md: 8px;
-  --pc-radius-lg: 12px;
+  --pc-radius-sm: 0.25rem;
+  --pc-radius-default: 0.5rem;
+  --pc-radius-md: 0.75rem;
+  --pc-radius-lg: 1rem;
+  --pc-radius-xl: 1.5rem;
   --pc-radius-full: 9999px;
 
   /* Focus ring */
   --pc-ring: 0 0 0 2px var(--pc-primary);
 
   /* Typography */
-  --pc-font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --pc-font-display: 'Inter', sans-serif;
+  --pc-font-main: 'Inter', sans-serif;
+  --pc-font-display: 'Manrope', sans-serif;
+  
+  --pc-text-h1-size: 30px;
+  --pc-text-h1-weight: 700;
+  --pc-text-h1-line: 38px;
+  --pc-text-h1-spacing: -0.02em;
+  
+  --pc-text-h2-size: 24px;
+  --pc-text-h2-weight: 600;
+  --pc-text-h2-line: 32px;
+  --pc-text-h2-spacing: -0.01em;
+  
+  --pc-text-h3-size: 20px;
+  --pc-text-h3-weight: 600;
+  --pc-text-h3-line: 28px;
+  
+  --pc-text-body-lg-size: 16px;
+  --pc-text-body-lg-line: 24px;
+  
+  --pc-text-body-md-size: 14px;
+  --pc-text-body-md-line: 20px;
+  
+  --pc-text-body-sm-size: 13px;
+  --pc-text-body-sm-line: 18px;
+  
+  --pc-text-label-bold-size: 12px;
+  --pc-text-label-bold-weight: 600;
+  --pc-text-label-bold-line: 16px;
+  --pc-text-label-bold-spacing: 0.05em;
 
   /* Animation */
   --pc-transition: all 0.15s ease;
@@ -85,35 +149,6 @@
   --z-index-sidebar: 1000;
   --z-index-header: 900;
 
-  /* ── Legacy aliases (bridge to old tokens) ── */
-  --brand-500: var(--pc-primary);
-  --brand-600: var(--pc-primary-dark);
-  --bg-900: var(--pc-bg-secondary);
-  --bg-850: var(--pc-bg-secondary);
-  --bg-800: var(--pc-bg-secondary);
-  --bg-grad-1: var(--pc-surface-card);
-  --bg-grad-2: var(--pc-surface-card);
-  --bg-grad-3: var(--pc-surface-card);
-  --card: var(--pc-surface-card);
-  --card-soft: var(--pc-bg-secondary);
-  --card-border: var(--pc-border-primary);
-  --text-100: var(--pc-text-primary);
-  --text-200: var(--pc-text-primary);
-  --text-300: var(--pc-text-primary);
-  --muted: var(--pc-text-secondary);
-  --r-16: var(--pc-radius-md);
-  --r-20: var(--pc-radius-md);
-  --shadow-lg: var(--pc-shadow-lg);
-  --shadow-md: var(--pc-shadow-md);
-  --ring: var(--pc-ring);
-  --primary: var(--brand-500);
-  --primary-dark: var(--brand-600);
-  --bg: var(--bg-900);
-  --bg-elev: var(--bg-850);
-  --text: var(--text-100);
-  --text-muted: var(--muted);
-  --line: var(--card-border);
-  --line-bold: var(--pc-border-secondary);
 }
 
 /* ── Dark theme ────────────────────────────────────────────────────────── */

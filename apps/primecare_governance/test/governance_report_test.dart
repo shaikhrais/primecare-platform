@@ -7,7 +7,7 @@ void main() {
     ScreenRegistry.bootstrap();
     final results = AutomatedAuditEngine.runAudits();
     final score = AutomatedAuditEngine.calculateHealthScore();
-    
+
     print('\n--- AUDIT FAILURES ---\n');
     for (final item in results.where((r) => !r.isPass)) {
       print('FAILED: ${item.check} - ${item.result}: ${item.meaning}');

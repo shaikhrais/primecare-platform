@@ -1,8 +1,9 @@
-
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/screen_registry.dart');
+  final file = File(
+    'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+  );
   if (!file.existsSync()) return;
 
   var content = file.readAsStringSync();
@@ -17,9 +18,11 @@ void main() {
     var pending = match.group(2) ?? '';
     if (!pending.contains('AnatomicalBodyMap')) {
       if (pending.isEmpty) {
-        pending = "'AnatomicalBodyMap', 'ClinicalSessionTimer', 'TreatmentNoteEditor'";
+        pending =
+            "'AnatomicalBodyMap', 'ClinicalSessionTimer', 'TreatmentNoteEditor'";
       } else {
-        pending += ", 'AnatomicalBodyMap', 'ClinicalSessionTimer', 'TreatmentNoteEditor'";
+        pending +=
+            ", 'AnatomicalBodyMap', 'ClinicalSessionTimer', 'TreatmentNoteEditor'";
       }
     }
     return '${match.group(1)}$pending${match.group(3)}';

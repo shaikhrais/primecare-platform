@@ -4,7 +4,9 @@ void main() {
   print('🚀 Starting Platform-wide Localization Normalization...');
   final rootDir = Directory.current;
   final appsDir = Directory('${rootDir.path}/apps');
-  final sourceTranslations = Directory('${rootDir.path}/packages/flutter_core/assets/translations');
+  final sourceTranslations = Directory(
+    '${rootDir.path}/packages/flutter_core/assets/translations',
+  );
 
   if (!sourceTranslations.existsSync()) {
     print('❌ Error: Source translations not found in flutter_core.');
@@ -76,7 +78,7 @@ void normalizeApp(Directory appDir, Directory sourceTranslations) {
         );
       }
     }
-    
+
     if (newMainContent != pubspecContent) {
       pubspecFile.writeAsStringSync(newMainContent);
       print('📝 Updated pubspec.yaml assets');

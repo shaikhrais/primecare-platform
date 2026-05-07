@@ -67,14 +67,17 @@ class PrimeCareSidebar extends StatelessWidget {
             radius: 40,
             backgroundColor: theme.colors.primary.withValues(alpha: 0.1),
             backgroundImage: NetworkImage(
-              userAvatarUrl ?? 'https://api.dicebear.com/7.x/avataaars/png?seed=$userName',
+              userAvatarUrl ??
+                  'https://api.dicebear.com/7.x/avataaars/png?seed=$userName',
             ),
           ),
           const SizedBox(height: 16),
           Text(userName, style: theme.typography.h3),
           Text(
             userRole,
-            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.onSurfaceVariant,
+            ),
           ),
         ],
       ),
@@ -86,12 +89,16 @@ class PrimeCareSidebar extends StatelessWidget {
     return ListTile(
       leading: Icon(
         item.icon,
-        color: item.isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant,
+        color: item.isSelected
+            ? theme.colors.primary
+            : theme.colors.onSurfaceVariant,
       ),
       title: Text(
         item.label,
         style: theme.typography.bodyMedium.copyWith(
-          color: item.isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant,
+          color: item.isSelected
+              ? theme.colors.primary
+              : theme.colors.onSurfaceVariant,
           fontWeight: item.isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
@@ -103,5 +110,4 @@ class PrimeCareSidebar extends StatelessWidget {
       },
     );
   }
-
 }

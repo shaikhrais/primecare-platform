@@ -23,7 +23,8 @@ class PswDashboardData {
     return PswDashboardData(
       stats: (json['stats'] as Map<String, dynamic>?) ?? {},
       shiftProgress: (json['shiftProgress'] as num?)?.toDouble() ?? 0.0,
-      shiftDurationRemaining: (json['shiftDurationRemaining'] as String?) ?? '0h 0m',
+      shiftDurationRemaining:
+          (json['shiftDurationRemaining'] as String?) ?? '0h 0m',
       clients: (json['clients'] as List? ?? [])
           .map((c) => PswClient.fromJson(c as Map<String, dynamic>))
           .toList(),
@@ -36,14 +37,14 @@ class PswDashboardData {
   }
 
   Map<String, dynamic> toJson() => {
-        'stats': stats,
-        'shiftProgress': shiftProgress,
-        'shiftDurationRemaining': shiftDurationRemaining,
-        'clients': clients.map((c) => c.toJson()).toList(),
-        'tasks': tasks.map((t) => t.toJson()).toList(),
-        'monthlyCompletedTasks': monthlyCompletedTasks,
-        'nextReviewDate': nextReviewDate,
-      };
+    'stats': stats,
+    'shiftProgress': shiftProgress,
+    'shiftDurationRemaining': shiftDurationRemaining,
+    'clients': clients.map((c) => c.toJson()).toList(),
+    'tasks': tasks.map((t) => t.toJson()).toList(),
+    'monthlyCompletedTasks': monthlyCompletedTasks,
+    'nextReviewDate': nextReviewDate,
+  };
 }
 
 class PswClient {
@@ -75,13 +76,13 @@ class PswClient {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'location': location,
-        'nextVisitTime': nextVisitTime,
-        'condition': condition,
-        'status': status,
-      };
+    'id': id,
+    'name': name,
+    'location': location,
+    'nextVisitTime': nextVisitTime,
+    'condition': condition,
+    'status': status,
+  };
 }
 
 class PswTask {
@@ -110,10 +111,10 @@ class PswTask {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'description': description,
-        'isHighPriority': isHighPriority,
-        'isCompleted': isCompleted,
-      };
+    'id': id,
+    'title': title,
+    'description': description,
+    'isHighPriority': isHighPriority,
+    'isCompleted': isCompleted,
+  };
 }

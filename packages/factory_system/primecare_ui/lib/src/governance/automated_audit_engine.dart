@@ -23,7 +23,7 @@ class AuditResultItem {
 /// and identifying drifts between registries and implementation code.
 class AutomatedAuditEngine {
   final String subsystem;
-  
+
   AutomatedAuditEngine({required this.subsystem});
 
   /// Performs a suite of audits and returns a list of results.
@@ -56,28 +56,32 @@ class AutomatedAuditEngine {
         check: 'Auth Role Enforcement',
         result: 'PASSED',
         isPass: true,
-        meaning: 'Role-based access control (RBAC) verified for all clinical modules.',
+        meaning:
+            'Role-based access control (RBAC) verified for all clinical modules.',
         fix: 'None required.',
       ),
       const AuditResultItem(
         check: 'Telemetry HUD Coverage',
         result: 'PASSED',
         isPass: true,
-        meaning: 'Aura Telemetry HUD is active for 100% of newly hydrated screens.',
+        meaning:
+            'Aura Telemetry HUD is active for 100% of newly hydrated screens.',
         fix: 'None required.',
       ),
       const AuditResultItem(
         check: 'Adapter Connectivity',
         result: 'PASSED',
         isPass: true,
-        meaning: 'DynamicScreenAdapters successfully bound to primary providers.',
+        meaning:
+            'DynamicScreenAdapters successfully bound to primary providers.',
         fix: 'None required.',
       ),
       const AuditResultItem(
         check: 'Environment Security Gate',
         result: 'PASSED',
         isPass: true,
-        meaning: 'Development security context active. Production keys isolated.',
+        meaning:
+            'Development security context active. Production keys isolated.',
         fix: 'None required.',
       ),
     ];
@@ -89,7 +93,7 @@ class AutomatedAuditEngine {
     // In a real scenario, this would trigger the ASTPatchEngine or similar.
     await Future<void>.delayed(const Duration(milliseconds: 500));
   }
-  
+
   /// Calculates the overall health score of the subsystem based on audit results.
   static int calculateHealthScore() {
     // In a real scenario, this would aggregate scores from multiple audits.

@@ -1,5 +1,3 @@
-import 'package:primecare_ui/primecare_ui.dart';
-
 class IntegrityService {
   static double calculateHealthScore(dynamic project) {
     // Mock implementation for health score calculation
@@ -17,7 +15,7 @@ class IntegrityService {
   static List<String> getProjectSuggestions(dynamic project) {
     return [
       'Enable biometric secondary auth for PSW role.',
-      'Optimize R2 bucket replication for media assets.'
+      'Optimize R2 bucket replication for media assets.',
     ];
   }
 }

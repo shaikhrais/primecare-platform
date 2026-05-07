@@ -55,7 +55,7 @@ bool auditApp(Directory appDir) {
 
   // 1. Extract path from main.dart
   final mainContent = mainFile.readAsStringSync();
-  final pathRegex = RegExp(r"path:\s*['""]([^'""]+)['""]");
+  final pathRegex = RegExp(r'''path:\s*['"]([^'"]+)['"]''');
   final match = pathRegex.firstMatch(mainContent);
 
   if (match == null) {
@@ -67,7 +67,9 @@ bool auditApp(Directory appDir) {
   print('📍 i18n Path: $i18nPath');
 
   if (i18nPath.startsWith('packages/')) {
-    print('❌ Error: Non-normalized path detected. Use local "assets/translations" instead of package paths.');
+    print(
+      '❌ Error: Non-normalized path detected. Use local "assets/translations" instead of package paths.',
+    );
     return false;
   }
 
@@ -75,11 +77,16 @@ bool auditApp(Directory appDir) {
   final physicalPath = '${appDir.path}/$i18nPath';
   final dir = Directory(physicalPath);
   if (!dir.existsSync()) {
-    print('❌ Error: Physical translation directory does not exist: $physicalPath');
+    print(
+      '❌ Error: Physical translation directory does not exist: $physicalPath',
+    );
     return false;
   }
 
-  final translationFiles = dir.listSync().where((f) => f.path.endsWith('.json')).toList();
+  final translationFiles = dir
+      .listSync()
+      .where((f) => f.path.endsWith('.json'))
+      .toList();
   if (translationFiles.isEmpty) {
     print('❌ Error: No .json translation files found in $physicalPath');
     return false;
@@ -88,7 +95,9 @@ bool auditApp(Directory appDir) {
 
   // 3. Verify pubspec.yaml registration
   if (!pubspecContent.contains(i18nPath)) {
-    print('❌ Error: i18n path "$i18nPath" is not registered in pubspec.yaml assets.');
+    print(
+      '❌ Error: i18n path "$i18nPath" is not registered in pubspec.yaml assets.',
+    );
     return false;
   }
 

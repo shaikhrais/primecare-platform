@@ -36,12 +36,36 @@ class GovernanceApiService {
   /// Provides a stream of live telemetry updates (simulating a WebSocket).
   Stream<Map<String, dynamic>> get telemetryStream async* {
     final List<Map<String, String>> eventTemplates = [
-      {'type': 'security', 'message': 'Unauthorized login attempt blocked from 192.168.1.45', 'level': 'high'},
-      {'type': 'audit', 'message': 'Subsystem "Billing" synchronized with Registry v2.4', 'level': 'low'},
-      {'type': 'performance', 'message': 'Latency spike in auth-api detected (340ms)', 'level': 'medium'},
-      {'type': 'audit', 'message': 'Daily architectural sweep completed. 0 drifts found.', 'level': 'low'},
-      {'type': 'security', 'message': 'API Key rotation initiated for "Internal-Service-Bot"', 'level': 'medium'},
-      {'type': 'deployment', 'message': 'New version of "primecare_ui" detected in manifest', 'level': 'medium'},
+      {
+        'type': 'security',
+        'message': 'Unauthorized login attempt blocked from 192.168.1.45',
+        'level': 'high',
+      },
+      {
+        'type': 'audit',
+        'message': 'Subsystem "Billing" synchronized with Registry v2.4',
+        'level': 'low',
+      },
+      {
+        'type': 'performance',
+        'message': 'Latency spike in auth-api detected (340ms)',
+        'level': 'medium',
+      },
+      {
+        'type': 'audit',
+        'message': 'Daily architectural sweep completed. 0 drifts found.',
+        'level': 'low',
+      },
+      {
+        'type': 'security',
+        'message': 'API Key rotation initiated for "Internal-Service-Bot"',
+        'level': 'medium',
+      },
+      {
+        'type': 'deployment',
+        'message': 'New version of "primecare_ui" detected in manifest',
+        'level': 'medium',
+      },
     ];
 
     int tick = 0;
@@ -83,17 +107,20 @@ class GovernanceApiService {
     if (command.contains('sync')) {
       return GovernanceActionResponse(
         success: true,
-        output: '[Governance Sync] Audited 25 subsystems. Updated LOC manifest. Detected 0 drift issues.',
+        output:
+            '[Governance Sync] Audited 25 subsystems. Updated LOC manifest. Detected 0 drift issues.',
       );
     } else if (command.contains('lint')) {
       return GovernanceActionResponse(
         success: true,
-        output: '[Lint Sweep] Cleaned 12 files. 0 violations remaining in core packages.',
+        output:
+            '[Lint Sweep] Cleaned 12 files. 0 violations remaining in core packages.',
       );
     } else if (command.contains('fix')) {
       return GovernanceActionResponse(
         success: true,
-        output: '[Deprecation Fix] Migrated withOpacity() to withValues() in 5 components.',
+        output:
+            '[Deprecation Fix] Migrated withOpacity() to withValues() in 5 components.',
       );
     }
 

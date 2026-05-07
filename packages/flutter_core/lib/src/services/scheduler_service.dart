@@ -18,7 +18,8 @@ class SchedulerService {
             return _getBootstrapSchedule();
           },
           fallbackBuilder: () => _getBootstrapSchedule(),
-          assembler: (_) => _getBootstrapSchedule(), // Adding dummy assembler to satisfy signature
+          assembler: (_) =>
+              _getBootstrapSchedule(), // Adding dummy assembler to satisfy signature
         );
 
         _telemetry?.passGate(

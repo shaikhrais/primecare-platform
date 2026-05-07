@@ -43,6 +43,7 @@ dependencies:
 
   riverpod_annotation: any
   uuid: any
+  flutter_widget_from_html: ^0.17.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,3 +59,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/translations/
+    - assets/screen_status.json

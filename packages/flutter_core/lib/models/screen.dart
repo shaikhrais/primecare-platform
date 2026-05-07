@@ -2,7 +2,6 @@
 import '../registry/platform_role.dart';
 import '../registry/intents/app_screen_intent.dart';
 import 'platform_types.dart';
-import '../src/models/blueprint_models.dart';
 import 'package:flutter/material.dart';
 
 /// The unified, high-fidelity definition of a PrimeCare screen.
@@ -21,7 +20,6 @@ class PrimeCareScreen extends AppScreenIntent {
   @override
   final PlatformRole? requiredRole;
 
-  /// The primary data provider for this screen (usually an Adapter Provider).
   @override
   final dynamic provider;
 
@@ -33,129 +31,40 @@ class PrimeCareScreen extends AppScreenIntent {
 
   final String? _routeOverride;
 
-  /// The associated form enum member.
-  final PrimeCareForm? form;
-
-  /// The UI blueprint defining which components to render.
-  final List<UIComponentBlueprint> blueprints;
-
-  /// Optional layout configuration (e.g. 'dashboard', 'form', 'split').
-  final String layoutType;
-
-  @override
-  final List<String> componentLabels;
-
-  @override
-  final String structuralPlan;
-
-  /// The specific prompt used to generate this screen via the Stitch Engine.
-  final String? generationPrompt;
-
-  /// Whether this screen should be actively generated/synchronized with the UI Engine.
-  final bool generateScreen;
-
   PrimeCareScreen({
     String? name,
     required this.title,
     this.subtitle = '',
     this.requiredRole,
     this.provider,
-    this.form,
-    this.blueprints = const [],
-    this.layoutType = 'dashboard',
-    this.componentLabels = const [],
     this.resiliencePolicy = const ResiliencePolicy(),
     this.primarySubsystem = PlatformSubsystem.metrics,
-    this.generationPrompt,
-    this.generateScreen = true,
-    String? structuralPlan,
     String? route,
   }) : name = name ?? (route ?? '').split('/').last,
-       _routeOverride = route,
-       structuralPlan =
-           structuralPlan ??
-           _generateSmartStructuralPlan(
-             name ?? (route ?? '').split('/').last,
-             route ?? '',
-             componentLabels,
-           );
-
-  static String _generateSmartStructuralPlan(
-    String name,
-    String route,
-    List<String> labels,
-  ) {
-    final category = route.contains('/report')
-        ? 'Analytical Report'
-        : (route.contains('/form')
-              ? 'Data Entry Interface'
-              : 'Operational Dashboard');
-    final context = name
-        .replaceAll('_', ' ')
-        .replaceAll('-', ' ')
-        .split(' ')
-        .map(
-          (s) => s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : '',
-        )
-        .join(' ');
-
-    final componentsStr = labels.isEmpty
-        ? 'Standard UI Components'
-        : labels.join(', ');
-
-    return '$category for $context: This architectural layout is strictly governed by the PrimeCare v4 Structural Integrity Framework. It prioritizes $category resilience and data hydration transparency. Active components include: $componentsStr.';
-  }
+       _routeOverride = route;
 
   @override
   String get route => _routeOverride ?? '/$name';
 
-  /// Factory for creating a standard Dashboard.
-  factory PrimeCareScreen.dashboard({
-    required String name,
-    required String title,
-    String? subtitle,
-    PlatformRole? role,
-    required dynamic provider,
-    List<UIComponentBlueprint> blueprints = const [],
-    List<String> componentLabels = const [],
-  }) {
-    return PrimeCareScreen(
-      name: name,
-      title: title,
-      subtitle: subtitle ?? 'Governed Portal for $title',
-      requiredRole: role,
-      provider: provider,
-      blueprints: blueprints,
-      componentLabels: componentLabels,
-      layoutType: 'dashboard',
-      primarySubsystem: PlatformSubsystem.metrics,
-    );
-  }
-
-  /// Factory for creating a standard Form.
-  factory PrimeCareScreen.form({
-    required String name,
-    required String title,
-    required dynamic provider,
-    List<UIComponentBlueprint> blueprints = const [],
-  }) {
-    return PrimeCareScreen(
-      name: name,
-      title: title,
-      provider: provider,
-      blueprints: blueprints,
-      layoutType: 'form',
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (AppScreenIntent.globalRenderer != null) {
-      return AppScreenIntent.globalRenderer!(context, this);
-    }
-    return Center(
-      child: Text(
-        'Renderer not initialized for $title. Please check the GovernanceBootstrapper.',
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.warning_amber_rounded, size: 48, color: Colors.orange),
+            const SizedBox(height: 16),
+            Text(
+              'Screen is registered but not implemented yet.',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            Text('Route: $route'),
+            Text('Role: ${requiredRole?.name ?? "Public"}'),
+          ],
+        ),
       ),
     );
   }

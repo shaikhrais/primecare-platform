@@ -4,7 +4,8 @@ import 'dart:async';
 
 /// [Infrastructure] - Unified base for all Intelligence-driven Dashboards.
 /// Handles state management, resilience, and telemetry for presenters.
-abstract class IntegratedDashboardManager extends AsyncNotifier<Result<IntelligenceDashboardModel>> {
+abstract class IntegratedDashboardManager
+    extends AsyncNotifier<Result<IntelligenceDashboardModel>> {
   /// The institutional role this dashboard serves.
   String get role;
 
@@ -23,15 +24,15 @@ abstract class IntegratedDashboardManager extends AsyncNotifier<Result<Intellige
 
     try {
       final model = await fetchRemote(role);
-      
+
       // Persist for offline resilience
       unawaited(resilience.saveSnapshot(storageKey, model.toJson()));
-      
+
       telemetry.passGate(
         ExecutionGateCategory.domainApi,
         'Dashboard hydrated for role: $role',
       );
-      
+
       return Success(model);
     } catch (e, st) {
       telemetry.failGate(
@@ -44,7 +45,11 @@ abstract class IntegratedDashboardManager extends AsyncNotifier<Result<Intellige
       // Attempt LKG restoration
       final snapshot = await resilience.getSnapshot(storageKey);
       if (snapshot != null) {
-        return Success(IntelligenceDashboardModel.fromJson(snapshot).copyWith(isFromCache: true));
+        return Success(
+          IntelligenceDashboardModel.fromJson(
+            snapshot,
+          ).copyWith(isFromCache: true),
+        );
       }
 
       return Failure(e);
@@ -81,7 +86,9 @@ class IntelligenceDashboardModel {
 
   factory IntelligenceDashboardModel.fromJson(Map<String, dynamic> json) {
     return IntelligenceDashboardModel(
-      metrics: DashboardMetrics.fromJson((json['metrics'] as Map<String, dynamic>?) ?? {}),
+      metrics: DashboardMetrics.fromJson(
+        (json['metrics'] as Map<String, dynamic>?) ?? {},
+      ),
       insights: (json['insights'] as List? ?? [])
           .map((i) => IntelligenceInsight.fromJson(i as Map<String, dynamic>))
           .toList(),
@@ -92,7 +99,9 @@ class IntelligenceDashboardModel {
           .map((i) => AnalyticsChart.fromJson(i as Map<String, dynamic>))
           .toList(),
       isFromCache: json['isOfflineFallback'] as bool? ?? false,
-      lastUpdated: DateTime.tryParse((json['lastUpdated'] as String?) ?? '') ?? DateTime.now(),
+      lastUpdated:
+          DateTime.tryParse((json['lastUpdated'] as String?) ?? '') ??
+          DateTime.now(),
     );
   }
 

@@ -2,8 +2,6 @@ import 'package:go_router/go_router.dart';
 
 import 'corporate_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/routes/shared_routes.dart';
-import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);

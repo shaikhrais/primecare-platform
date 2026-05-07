@@ -15,12 +15,14 @@ class PerformanceInterceptor extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     _stopwatch.stop();
     final duration = _stopwatch.elapsedMilliseconds;
-    dev.log('✅ Response: [${response.statusCode}] ${response.requestOptions.uri} ($duration ms)');
-    
+    dev.log(
+      '✅ Response: [${response.statusCode}] ${response.requestOptions.uri} ($duration ms)',
+    );
+
     if (duration > 1000) {
       dev.log('⚠️ SLOW REQUEST detected: $duration ms');
     }
-    
+
     _stopwatch.reset();
     super.onResponse(response, handler);
   }

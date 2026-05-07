@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import '../src/models/blueprint_models.dart';
 import '../src/models/scheduler_models.dart';
 import '../src/models/dashboard_models.dart';
 
@@ -19,14 +18,7 @@ enum PlatformSubsystem {
 }
 
 /// Defines the type of shell layout to use for the application.
-enum AppShellType {
-  admin,
-  clinical,
-  patient,
-  system,
-  provider,
-}
-
+enum AppShellType { admin, clinical, patient, system, provider }
 
 /// Standardized labels for UI components and classification.
 enum PrimeCareLabel {
@@ -52,7 +44,6 @@ enum PrimeCareForm {
   ceoDashboard,
   pswDashboard,
 }
-
 
 /// Centralized hub for resilient data orchestration and assembly.
 /// This component is the primary interface for "Fetch-or-Fallback" logic.
@@ -86,13 +77,6 @@ class DataLogisticsHub {
       metrics: DashboardMetrics.empty(),
       clinicalInsights: <IntelligenceInsight>[],
       isOfflineFallback: true,
-      blueprints: [
-        const StatGridBlueprint(
-          id: 'clinical_stats',
-          title: 'Clinical Statistics',
-          metrics: ['patients_seen', 'active_orders'],
-        ),
-      ],
     );
   }
 
@@ -105,7 +89,7 @@ class DataLogisticsHub {
           {'date': '2024-03-01', 'amount': 1200, 'status': 'paid'},
           {'date': '2024-03-02', 'amount': 850, 'status': 'pending'},
         ],
-      }
+      },
     };
     return blueprints[reportId];
   }

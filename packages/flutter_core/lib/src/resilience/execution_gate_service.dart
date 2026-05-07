@@ -40,13 +40,13 @@ class AuraEvent {
   });
 
   factory AuraEvent.stable() => AuraEvent(
-        id: 'stable',
-        type: AuraEventType.stable,
-        title: 'aura.events.stable_title',
-        description: 'aura.events.stable_desc',
-        impact: InsightImpact.info,
-        timestamp: DateTime.now(),
-      );
+    id: 'stable',
+    type: AuraEventType.stable,
+    title: 'aura.events.stable_title',
+    description: 'aura.events.stable_desc',
+    impact: InsightImpact.info,
+    timestamp: DateTime.now(),
+  );
 }
 
 /// Categories for telemetry and auditing gates.
@@ -99,7 +99,9 @@ class ExecutionGateService {
     StackTrace? stackTrace,
     Map<String, dynamic>? metadata,
   }) {
-    debugPrint('FAIL_GATE [$category]: $message ${error ?? ''} ${metadata ?? ''}');
+    debugPrint(
+      'FAIL_GATE [$category]: $message ${error ?? ''} ${metadata ?? ''}',
+    );
     if (stackTrace != null) {
       debugPrint(stackTrace.toString());
     }

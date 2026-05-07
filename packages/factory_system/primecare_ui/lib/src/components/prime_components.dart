@@ -22,9 +22,7 @@ class PrimeCareCard extends StatelessWidget {
     final theme = context.theme;
     return Container(
       margin: margin,
-      decoration: BoxDecoration(
-        boxShadow: theme.shadowsSurface1,
-      ),
+      decoration: BoxDecoration(boxShadow: theme.shadowsSurface1),
       child: Card(
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -73,10 +71,7 @@ class PrimeCareTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: theme.typography.labelMedium,
-        ),
+        Text(label, style: theme.typography.labelMedium),
         const SizedBox(height: 8),
         TextFormField(
           controller: controller,
@@ -89,7 +84,10 @@ class PrimeCareTextField extends StatelessWidget {
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(theme.radiusDefault),
               borderSide: BorderSide(color: theme.colors.outline),
@@ -115,9 +113,7 @@ class DashboardLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    return const Center(child: CircularProgressIndicator());
   }
 }
 
@@ -126,11 +122,7 @@ class DashboardErrorWidget extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
 
-  const DashboardErrorWidget({
-    super.key,
-    required this.message,
-    this.onRetry,
-  });
+  const DashboardErrorWidget({super.key, required this.message, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -141,15 +133,14 @@ class DashboardErrorWidget extends StatelessWidget {
         children: [
           Icon(LucideIcons.alertTriangle, size: 48, color: theme.colors.error),
           const SizedBox(height: 16),
-          Text(
-            'Operational Anomaly Detected',
-            style: theme.typography.h3,
-          ),
+          Text('Operational Anomaly Detected', style: theme.typography.h3),
           const SizedBox(height: 8),
           Text(
             message,
             textAlign: TextAlign.center,
-            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+            style: theme.typography.bodyMedium.copyWith(
+              color: theme.colors.onSurfaceVariant,
+            ),
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 24),
@@ -213,15 +204,9 @@ class DashboardKpiGrid extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                key,
-                style: context.theme.typography.labelMedium,
-              ),
+              Text(key, style: context.theme.typography.labelMedium),
               const SizedBox(height: 4),
-              Text(
-                value.toString(),
-                style: context.theme.typography.h2,
-              ),
+              Text(value.toString(), style: context.theme.typography.h2),
             ],
           ),
         );
@@ -260,14 +245,13 @@ class ActionableInsightCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    insight.title,
-                    style: theme.typography.h3,
-                  ),
+                  Text(insight.title, style: theme.typography.h3),
                   const SizedBox(height: 4),
                   Text(
                     insight.summary,
-                    style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+                    style: theme.typography.bodyMedium.copyWith(
+                      color: theme.colors.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -307,7 +291,9 @@ class SystemIntegrityManifest extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colors.primary.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(theme.radiusMd),
-          border: Border.all(color: theme.colors.primary.withValues(alpha: 0.1)),
+          border: Border.all(
+            color: theme.colors.primary.withValues(alpha: 0.1),
+          ),
         ),
         child: Row(
           children: [
@@ -319,11 +305,15 @@ class SystemIntegrityManifest extends StatelessWidget {
                 children: [
                   Text(
                     'Architectural Parity: 100%',
-                    style: theme.typography.h3.copyWith(color: theme.colors.primary),
+                    style: theme.typography.h3.copyWith(
+                      color: theme.colors.primary,
+                    ),
                   ),
                   Text(
                     'All platform registries synchronized and verified.',
-                    style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    style: theme.typography.bodySmall.copyWith(
+                      color: theme.colors.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -365,10 +355,7 @@ class PrimeCareKpiCard extends StatelessWidget {
             child: Icon(icon, color: color, size: 20),
           ),
           const Spacer(),
-          Text(
-            title,
-            style: theme.typography.labelMedium,
-          ),
+          Text(title, style: theme.typography.labelMedium),
           const SizedBox(height: 4),
           Text(
             value,
@@ -457,15 +444,9 @@ class PrimeCareStatCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Text(
-            title,
-            style: theme.typography.labelMedium,
-          ),
+          Text(title, style: theme.typography.labelMedium),
           const SizedBox(height: 4),
-          Text(
-            value,
-            style: theme.typography.h2,
-          ),
+          Text(value, style: theme.typography.h2),
         ],
       ),
     );
@@ -473,15 +454,18 @@ class PrimeCareStatCard extends StatelessWidget {
 }
 
 /// [Component] - Standardized Button for PrimeCare Platform.
-class PrimeCareButton extends StatelessWidget {
+class PrimeButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
   final bool isLoading;
   final bool isFullWidth;
   final Color? color;
+  final Color? textColor;
+  final Color? borderColor;
+  final bool isGhost;
 
-  const PrimeCareButton({
+  const PrimeButton({
     super.key,
     required this.label,
     this.onPressed,
@@ -489,12 +473,73 @@ class PrimeCareButton extends StatelessWidget {
     this.isLoading = false,
     this.isFullWidth = false,
     this.color,
+    this.textColor,
+    this.borderColor,
+    this.isGhost = false,
   });
+
+  /// Factory for the standard primary button.
+  factory PrimeButton.primary({
+    required String label,
+    VoidCallback? onPressed,
+    IconData? icon,
+    bool isLoading = false,
+    bool isFullWidth = false,
+  }) {
+    return PrimeButton(
+      label: label,
+      onPressed: onPressed,
+      icon: icon,
+      isLoading: isLoading,
+      isFullWidth: isFullWidth,
+    );
+  }
+
+  /// Factory for the secondary/outline button style.
+  factory PrimeButton.secondary({
+    required String label,
+    VoidCallback? onPressed,
+    IconData? icon,
+    bool isLoading = false,
+    bool isFullWidth = false,
+  }) {
+    return PrimeButton(
+      label: label,
+      onPressed: onPressed,
+      icon: icon,
+      isLoading: isLoading,
+      isFullWidth: isFullWidth,
+      color: Colors.transparent,
+      textColor: const Color(0xFF004AC6),
+      borderColor: const Color(0xFF004AC6).withValues(alpha: 0.2),
+    );
+  }
+
+  /// Factory for the ghost/text-only button style.
+  factory PrimeButton.ghost({
+    required String label,
+    VoidCallback? onPressed,
+    IconData? icon,
+    bool isLoading = false,
+    bool isFullWidth = false,
+  }) {
+    return PrimeButton(
+      label: label,
+      onPressed: onPressed,
+      icon: icon,
+      isLoading: isLoading,
+      isFullWidth: isFullWidth,
+      color: Colors.transparent,
+      textColor: const Color(0xFF434655),
+      isGhost: true,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     final buttonColor = color ?? theme.colors.primary;
+    final actualTextColor = textColor ?? (color == Colors.transparent ? theme.colors.primary : theme.colors.onPrimary);
 
     final child = Row(
       mainAxisSize: MainAxisSize.min,
@@ -504,15 +549,35 @@ class PrimeCareButton extends StatelessWidget {
           SizedBox(
             width: 16,
             height: 16,
-            child: CircularProgressIndicator(strokeWidth: 2, color: theme.colors.onPrimary),
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: actualTextColor,
+            ),
           )
         else if (icon != null) ...[
-          Icon(icon, size: 18),
+          Icon(icon, size: 18, color: actualTextColor),
           const SizedBox(width: 8),
         ],
-        if (!isLoading) Text(label),
+        if (!isLoading)
+          Text(
+            label,
+            style: theme.typography.labelBold.copyWith(color: actualTextColor),
+          ),
       ],
     );
+
+    if (isGhost) {
+      return TextButton(
+        onPressed: isLoading ? null : onPressed,
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(theme.radiusDefault),
+          ),
+        ),
+        child: child,
+      );
+    }
 
     return SizedBox(
       width: isFullWidth ? double.infinity : null,
@@ -520,17 +585,21 @@ class PrimeCareButton extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
-          foregroundColor: theme.colors.onPrimary,
+          foregroundColor: actualTextColor,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusDefault)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(theme.radiusDefault),
+            side: borderColor != null ? BorderSide(color: borderColor!) : BorderSide.none,
+          ),
           elevation: 0,
-          textStyle: theme.typography.labelBold,
         ),
         child: child,
       ),
     );
   }
 }
+
+typedef PrimeCareButton = PrimeButton;
 
 /// [Component] - Standardized Emergency FAB for PrimeCare Platform.
 class EmergencyFab extends StatelessWidget {

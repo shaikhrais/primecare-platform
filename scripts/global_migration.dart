@@ -1,11 +1,13 @@
 import 'dart:io';
 
 void main() {
-  final rootDir = Directory('c:/Users/Admin2/Documents/GitHub/primecare-platform');
-  
+  final rootDir = Directory(
+    'c:/Users/Admin2/Documents/GitHub/primecare-platform',
+  );
+
   void processDirectory(Directory dir) {
-    if (dir.path.contains('node_modules') || 
-        dir.path.contains('.git') || 
+    if (dir.path.contains('node_modules') ||
+        dir.path.contains('.git') ||
         dir.path.contains('.turbo') ||
         dir.path.contains('.agents')) {
       return;
@@ -18,7 +20,7 @@ void main() {
           processDirectory(entity);
         } else if (entity is File) {
           final path = entity.path;
-          
+
           // 1. Update pubspec.yaml
           if (path.endsWith('pubspec.yaml')) {
             var content = entity.readAsStringSync();
@@ -41,7 +43,7 @@ void main() {
               print('Updated Pubspec: $path');
             }
           }
-          
+
           // 2. Update Dart imports
           if (path.endsWith('.dart')) {
             if (path.contains('primecare_adapters')) continue;

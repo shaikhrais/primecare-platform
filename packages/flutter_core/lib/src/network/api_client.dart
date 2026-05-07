@@ -11,16 +11,25 @@ final apiClientProvider = Provider<ApiClient>((ref) {
 class ApiClient {
   final Dio _dio;
 
-  ApiClient() : _dio = Dio(BaseOptions(
-    baseUrl: ApiConfig.baseUrl,
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-  ));
+  ApiClient()
+    : _dio = Dio(
+        BaseOptions(
+          baseUrl: ApiConfig.baseUrl,
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        ),
+      );
 
   /// Performs a GET request.
-  Future<ApiResponse> get(String path, {Map<String, dynamic>? queryParameters}) async {
+  Future<ApiResponse> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(path, queryParameters: queryParameters);
+      final response = await _dio.get<Map<String, dynamic>>(
+        path,
+        queryParameters: queryParameters,
+      );
       return ApiResponse(
         data: response.data,
         statusCode: response.statusCode ?? 200,
@@ -92,11 +101,7 @@ class ApiResponse {
   final int statusCode;
   final String? error;
 
-  ApiResponse({
-    required this.data,
-    required this.statusCode,
-    this.error,
-  });
+  ApiResponse({required this.data, required this.statusCode, this.error});
 
   bool get isSuccess => statusCode >= 200 && statusCode < 300;
 }

@@ -12,7 +12,8 @@ class GovernanceDomainChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryCounts = <GovernanceCategory, int>{};
     for (final issue in report.issues) {
-      categoryCounts[issue.category] = (categoryCounts[issue.category] ?? 0) + 1;
+      categoryCounts[issue.category] =
+          (categoryCounts[issue.category] ?? 0) + 1;
     }
 
     final data = categoryCounts.entries.map((e) {
@@ -20,7 +21,11 @@ class GovernanceDomainChart extends StatelessWidget {
         value: e.value.toDouble(),
         title: '${e.key.name.toUpperCase()}\n${e.value}',
         radius: 100,
-        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        titleStyle: const TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
         color: _getCategoryColor(e.key),
       );
     }).toList();
@@ -44,7 +49,15 @@ class GovernanceDomainChart extends StatelessWidget {
             height: 300,
             child: PieChart(
               PieChartData(
-                sections: data.isEmpty ? [PieChartSectionData(value: 1, title: 'No Issues', color: Colors.grey)] : data,
+                sections: data.isEmpty
+                    ? [
+                        PieChartSectionData(
+                          value: 1,
+                          title: 'No Issues',
+                          color: Colors.grey,
+                        ),
+                      ]
+                    : data,
                 centerSpaceRadius: 40,
                 sectionsSpace: 2,
               ),
@@ -57,23 +70,40 @@ class GovernanceDomainChart extends StatelessWidget {
 
   Color _getCategoryColor(GovernanceCategory category) {
     switch (category) {
-      case GovernanceCategory.audit: return Colors.blue;
-      case GovernanceCategory.render: return Colors.pink;
-      case GovernanceCategory.routing: return Colors.orange;
-      case GovernanceCategory.rbac: return Colors.red;
-      case GovernanceCategory.lifecycle: return Colors.green;
-      case GovernanceCategory.component: return Colors.purple;
-      case GovernanceCategory.testing: return Colors.indigo;
-      case GovernanceCategory.accessibility: return Colors.teal;
-      case GovernanceCategory.performance: return Colors.cyan;
-      case GovernanceCategory.security: return Colors.amber;
-      case GovernanceCategory.production: return Colors.deepOrange;
-      case GovernanceCategory.ownership: return Colors.grey;
-      case GovernanceCategory.compliance: return Colors.brown;
-      case GovernanceCategory.api: return Colors.blueGrey;
-      case GovernanceCategory.data: return Colors.lime;
-      case GovernanceCategory.localization: return Colors.lightBlue;
-      case GovernanceCategory.responsive: return Colors.deepPurple;
+      case GovernanceCategory.audit:
+        return Colors.blue;
+      case GovernanceCategory.render:
+        return Colors.pink;
+      case GovernanceCategory.routing:
+        return Colors.orange;
+      case GovernanceCategory.rbac:
+        return Colors.red;
+      case GovernanceCategory.lifecycle:
+        return Colors.green;
+      case GovernanceCategory.component:
+        return Colors.purple;
+      case GovernanceCategory.testing:
+        return Colors.indigo;
+      case GovernanceCategory.accessibility:
+        return Colors.teal;
+      case GovernanceCategory.performance:
+        return Colors.cyan;
+      case GovernanceCategory.security:
+        return Colors.amber;
+      case GovernanceCategory.production:
+        return Colors.deepOrange;
+      case GovernanceCategory.ownership:
+        return Colors.grey;
+      case GovernanceCategory.compliance:
+        return Colors.brown;
+      case GovernanceCategory.api:
+        return Colors.blueGrey;
+      case GovernanceCategory.data:
+        return Colors.lime;
+      case GovernanceCategory.localization:
+        return Colors.lightBlue;
+      case GovernanceCategory.responsive:
+        return Colors.deepPurple;
     }
   }
 }
