@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../models/clinical_article.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClinicalArticleDetailDialog extends StatelessWidget {
   final ClinicalArticle article;
 
-  const ClinicalArticleDetailDialog({
-    super.key,
-    required this.article,
-  });
+  const ClinicalArticleDetailDialog({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +23,16 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(LucideIcons.externalLink),
-              onPressed: () {
-                // TODO: Use url_launcher to open article.url
+              tooltip: 'Open in browser',
+              onPressed: () async {
+                final uri = Uri.parse(article.url);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
+                } else if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Could not open the link')),
+                  );
+                }
               },
             ),
           ],
@@ -37,7 +43,10 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(8),

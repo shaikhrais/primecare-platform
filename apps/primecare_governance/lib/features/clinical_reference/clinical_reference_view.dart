@@ -1,17 +1,25 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ClinicalReferenceView extends ConsumerStatefulWidget {
+class ClinicalReferenceView extends GovernedConsumerStatefulWidget {
   const ClinicalReferenceView({super.key});
 
   @override
-  ConsumerState<ClinicalReferenceView> createState() => _ClinicalReferenceViewState();
+  ConsumerState<ClinicalReferenceView> createState() =>
+      _ClinicalReferenceViewState();
 }
 
-class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
+class _ClinicalReferenceViewState
+    extends GovernedConsumerState<ClinicalReferenceView> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   String _selectedCategory = 'All';
-  final List<String> _categories = ['All', 'Anatomy', 'Conditions', 'Professional Practice', 'Techniques'];
+  final List<String> _categories = [
+    'All',
+    'Anatomy',
+    'Conditions',
+    'Professional Practice',
+    'Techniques',
+  ];
 
   @override
   void dispose() {
@@ -20,10 +28,10 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     // If there is a search query, use search API, otherwise use category filter
     final AsyncValue<List<ClinicalArticle>> articlesAsync;
-    
+
     if (_searchQuery.isNotEmpty) {
       articlesAsync = ref.watch(clinicalArticlesSearchProvider(_searchQuery));
     } else {
@@ -36,7 +44,9 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
-            border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor)),
+            border: Border(
+              bottom: BorderSide(color: Theme.of(context).dividerColor),
+            ),
           ),
           child: Row(
             children: [
@@ -51,7 +61,9 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    fillColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
                     isDense: true,
                   ),
                   onSubmitted: (value) {
@@ -71,10 +83,14 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    fillColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
                     isDense: true,
                   ),
-                  items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
+                  items: _categories
+                      .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                      .toList(),
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
@@ -93,16 +109,19 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
           child: articlesAsync.when(
             data: (articles) {
               if (articles.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(LucideIcons.searchX, size: 48, color: Theme.of(context).disabledColor),
-                      const SizedBox(height: 16),
-                      Text('No articles found', style: Theme.of(context).textTheme.titleLarge),
-                      Text('Try adjusting your search or category filter.', style: Theme.of(context).textTheme.bodyMedium),
-                    ],
-                  ),
+                return EmptyState(
+                  title: 'No Reference Found',
+                  subtitle:
+                      'No articles match "$_searchQuery" in $_selectedCategory.',
+                  icon: LucideIcons.searchX,
+                  actionLabel: 'Clear Filters',
+                  onAction: () {
+                    setState(() {
+                      _searchQuery = '';
+                      _selectedCategory = 'All';
+                      _searchController.clear();
+                    });
+                  },
                 );
               }
               return ListView.builder(
@@ -118,22 +137,36 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                       side: BorderSide(color: Theme.of(context).dividerColor),
                     ),
                     child: ExpansionTile(
-                      shape: const RoundedRectangleBorder(side: BorderSide.none),
-                      collapsedShape: const RoundedRectangleBorder(side: BorderSide.none),
-                      title: Text(article.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                      shape: const RoundedRectangleBorder(
+                        side: BorderSide.none,
+                      ),
+                      collapsedShape: const RoundedRectangleBorder(
+                        side: BorderSide.none,
+                      ),
+                      title: Text(
+                        article.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       subtitle: Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primaryContainer,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
                               article.category,
                               style: TextStyle(
                                 fontSize: 10,
-                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -147,8 +180,8 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                article.content.length > 300 
-                                    ? '${article.content.substring(0, 300).trim()}...' 
+                                article.content.length > 300
+                                    ? '${article.content.substring(0, 300).trim()}...'
                                     : article.content,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
@@ -160,7 +193,10 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                                     onPressed: () {
                                       _showFullArticle(context, article);
                                     },
-                                    icon: const Icon(LucideIcons.bookOpen, size: 16),
+                                    icon: const Icon(
+                                      LucideIcons.bookOpen,
+                                      size: 16,
+                                    ),
                                     label: const Text('Read Full Article'),
                                   ),
                                 ],
@@ -174,17 +210,19 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
                 },
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stack) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(LucideIcons.alertCircle, size: 48, color: Theme.of(context).colorScheme.error),
-                  const SizedBox(height: 16),
-                  Text('Error loading articles', style: Theme.of(context).textTheme.titleLarge),
-                  Text(error.toString(), style: Theme.of(context).textTheme.bodyMedium),
-                ],
-              ),
+            loading: () => const EmptyState(
+              title: 'Loading Articles',
+              subtitle:
+                  'Fetching the latest clinical education articles from the repository.',
+              icon: LucideIcons.bookMarked,
+            ),
+            error: (error, stack) => EmptyState(
+              title: 'Clinical Data Outage',
+              subtitle: error.toString(),
+              icon: LucideIcons.cloudOff,
+              actionLabel: 'Retry Search',
+              onAction: () =>
+                  ref.refresh(clinicalArticlesSearchProvider(_searchQuery)),
             ),
           ),
         ),
@@ -202,11 +240,12 @@ class _ClinicalReferenceViewState extends ConsumerState<ClinicalReferenceView> {
 }
 
 // Temporary provider for fetching by category
-final _categoryArticlesProvider = FutureProvider.family<List<ClinicalArticle>, String>((ref, category) async {
-  final repo = ref.watch(clinicalEducationRepositoryProvider);
-  if (category == 'All') {
-    // Get a mixed list or search empty (which isn't supported, let's just search 'a' or get conditions)
-    return repo.getArticlesByCategory('Conditions', limit: 50); // Fallback
-  }
-  return repo.getArticlesByCategory(category, limit: 50);
-});
+final _categoryArticlesProvider =
+    FutureProvider.family<List<ClinicalArticle>, String>((ref, category) async {
+      final repo = ref.watch(clinicalEducationRepositoryProvider);
+      if (category == 'All') {
+        // Get a mixed list or search empty (which isn't supported, let's just search 'a' or get conditions)
+        return repo.getArticlesByCategory('Conditions', limit: 50); // Fallback
+      }
+      return repo.getArticlesByCategory(category, limit: 50);
+    });

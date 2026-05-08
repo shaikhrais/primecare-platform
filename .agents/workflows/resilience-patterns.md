@@ -308,6 +308,83 @@ final liveKpiProvider = FutureProvider.autoDispose<KpiModel>((ref) async {
 
 ---
 
+## Section 10: Layout Invariant Enforcement
+
+**All screens must be rendered within the `MasterLayout` shell.** This ensures that sidebars, top app bars, governance telemetry, and global context are present. To prevent developers from accidentally routing directly to a screen without the shell, use the Governed Base Classes:
+
+```dart
+// ✅ CORRECT — extends GovernedConsumerWidget
+class MyDashboardView extends GovernedConsumerWidget {
+  const MyDashboardView({super.key});
+
+  @override
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    // The framework will assert AppShellBoundary.isActive(context) automatically
+    return Container();
+  }
+}
+
+// ❌ WRONG — extends standard ConsumerWidget directly
+class MyDashboardView extends ConsumerWidget {
+  const MyDashboardView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // This allows routing directly to the view without the MasterLayout shell
+    return Container();
+  }
+}
+```
+
+### Available Base Classes:
+| Type | Use When |
+|---|---|
+| `GovernedConsumerWidget` | For Riverpod-connected stateless screens |
+| `GovernedStatelessWidget` | For simple stateless screens |
+| `GovernedConsumerStatefulWidget` | For Riverpod-connected stateful screens |
+
+### Rules:
+- ✅ **Always** extend `GovernedConsumerWidget` (or its variants) for top-level screens intended to be routed via GoRouter
+- ✅ **Always** override `buildScreen` instead of `build`
+- ❌ **Never** extend `StatelessWidget` or `ConsumerWidget` directly for top-level dashboard or governance screens
+
+---
+
+## Section 11: Omnichannel Responsive Constraint
+
+**Prevent "ridiculous" UI stretching on ultra-wide (4K/100-inch) monitors.** All layout containers must be bounded, and grid implementations must use physical extent sizing rather than fixed column counts.
+
+```dart
+// ✅ CORRECT — Bounded width and extent-based grid
+class DashboardGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.extent(
+      maxCrossAxisExtent: 350, // Card physical size is constrained
+      children: [ /* ... */ ],
+    );
+  }
+}
+
+// ❌ WRONG — Infinite stretch on 4K monitors
+class BadGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2, // At 3840px wide, each card becomes 1920px!
+      children: [ /* ... */ ],
+    );
+  }
+}
+```
+
+### Rules:
+- ✅ **Always** use `GridView.extent` or `SliverGridDelegateWithMaxCrossAxisExtent` instead of `GridView.count` for flowing card layouts.
+- ✅ **Always** ensure the primary shell (`MasterLayout`) uses `OmniConstraintWrapper` to cap content width at `OmniBreakpoints.maxContentWidth`.
+- ❌ **Never** use `Expanded` to infinitely stretch core interactive components (like cards or buttons) across an unbounded screen width.
+
+---
+
 ## Anti-Patterns — Never Do This
 
 ```dart
@@ -341,6 +418,9 @@ final result = await service.fetchData(); // 15s timeout if offline
 
 // ❌ 7. FutureProvider without TTL for dashboard data
 final myProvider = FutureProvider<MyModel>((ref) async { ... }); // stale forever
+
+// ❌ 8. Using fixed column counts for fluid grids
+GridView.count(crossAxisCount: 3); // Stretches out of control on large monitors
 ```
 
 ---
@@ -356,3 +436,5 @@ final myProvider = FutureProvider<MyModel>((ref) async { ... }); // stale foreve
 - [ ] No bare `try-catch` blocks in service-layer code
 - [ ] Dashboard/metrics providers have `ProviderTTL` set
 - [ ] Data-loading providers check `isOnlineProvider` for offline fast-fail
+- [ ] Top-level screens extend Governed classes (`GovernedConsumerWidget`) and override `buildScreen`
+- [ ] Grids use `GridView.extent` and fluid containers do not infinitely stretch on 4K displays

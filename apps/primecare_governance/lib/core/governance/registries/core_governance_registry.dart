@@ -10,6 +10,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/control-center',
       icon: Icons.hub_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'VERIFICATION_CENTER': ScreenMetadata(
       id: 'VERIFICATION_CENTER',
@@ -18,6 +19,7 @@ class CoreGovernanceRegistry {
       routePath: '/verification',
       icon: Icons.verified_user_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'AUDIT_LOG': ScreenMetadata(
       id: 'AUDIT_LOG',
@@ -26,6 +28,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/audit',
       icon: Icons.history_edu_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'DATA_ENTRY': ScreenMetadata(
       id: 'DATA_ENTRY',
@@ -34,6 +37,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/data-entry',
       icon: Icons.edit_note_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'MONITORING': ScreenMetadata(
       id: 'MONITORING',
@@ -42,6 +46,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/monitoring',
       icon: Icons.monitor_heart_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'SECURITY_SENTINEL': ScreenMetadata(
       id: 'SECURITY_SENTINEL',
@@ -50,6 +55,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/security',
       icon: Icons.security_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'TICKET_CENTER': ScreenMetadata(
       id: 'TICKET_CENTER',
@@ -58,6 +64,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/tickets',
       icon: Icons.confirmation_number_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'GOVERNANCE_HUD': ScreenMetadata(
       id: 'GOVERNANCE_HUD',
@@ -66,6 +73,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/hud',
       icon: Icons.radar_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'SCREEN_STATUS_DASHBOARD': ScreenMetadata(
       id: 'SCREEN_STATUS_DASHBOARD',
@@ -74,6 +82,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/screen-status',
       icon: Icons.checklist_rtl_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'SYSTEM_GOVERNANCE_DASHBOARD': ScreenMetadata(
       id: 'SYSTEM_GOVERNANCE_DASHBOARD',
@@ -82,6 +91,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/dashboard',
       icon: Icons.dashboard_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'SIDEBAR_MAPPING': ScreenMetadata(
       id: 'SIDEBAR_MAPPING',
@@ -90,6 +100,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/sidebar-mapping',
       icon: Icons.account_tree_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'CLINICAL_REFERENCE': ScreenMetadata(
       id: 'CLINICAL_REFERENCE',
@@ -98,6 +109,7 @@ class CoreGovernanceRegistry {
       routePath: '/governance/clinical-reference',
       icon: Icons.library_books_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'PROPOSALS': ScreenMetadata(
       id: 'PROPOSALS',
@@ -106,6 +118,7 @@ class CoreGovernanceRegistry {
       routePath: '/proposals',
       icon: Icons.inbox_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'PROPOSAL_NEW': ScreenMetadata(
       id: 'PROPOSAL_NEW',
@@ -114,6 +127,7 @@ class CoreGovernanceRegistry {
       routePath: '/proposals/new',
       icon: Icons.add_to_photos_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
+      lifecycleStatus: LifecycleStatus.design,
     ),
     'DEBUG_THEME': ScreenMetadata(
       id: 'DEBUG_THEME',
@@ -122,6 +136,7 @@ class CoreGovernanceRegistry {
       routePath: '/debug/theme-center',
       icon: Icons.palette_outlined,
       allowedRoles: ['ADMIN'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'DEBUG_KITCHEN_SINK': ScreenMetadata(
       id: 'DEBUG_KITCHEN_SINK',
@@ -130,6 +145,7 @@ class CoreGovernanceRegistry {
       routePath: '/debug/kitchen-sink',
       icon: Icons.widgets_outlined,
       allowedRoles: ['ADMIN'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
     'LOGIN': ScreenMetadata(
       id: 'LOGIN',
@@ -138,6 +154,7 @@ class CoreGovernanceRegistry {
       routePath: '/login',
       icon: Icons.login_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER', 'guest'],
+      lifecycleStatus: LifecycleStatus.completed,
     ),
   };
 }

@@ -5,10 +5,12 @@ class ClinicalReferenceDrawer extends ConsumerStatefulWidget {
   const ClinicalReferenceDrawer({super.key});
 
   @override
-  ConsumerState<ClinicalReferenceDrawer> createState() => _ClinicalReferenceDrawerState();
+  ConsumerState<ClinicalReferenceDrawer> createState() =>
+      _ClinicalReferenceDrawerState();
 }
 
-class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawer> {
+class _ClinicalReferenceDrawerState
+    extends ConsumerState<ClinicalReferenceDrawer> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
 
@@ -21,7 +23,7 @@ class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawe
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     return Drawer(
       width: 400,
       backgroundColor: theme.colors.surface,
@@ -30,9 +32,7 @@ class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawe
         children: [
           _buildHeader(context),
           _buildSearchField(context),
-          Expanded(
-            child: _buildResultsList(context),
-          ),
+          Expanded(child: _buildResultsList(context)),
         ],
       ),
     );
@@ -44,19 +44,14 @@ class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawe
       padding: const EdgeInsets.fromLTRB(24, 64, 16, 24),
       decoration: BoxDecoration(
         color: theme.colors.primary.withValues(alpha: 0.05),
-        border: Border(
-          bottom: BorderSide(color: theme.colors.divider),
-        ),
+        border: Border(bottom: BorderSide(color: theme.colors.divider)),
       ),
       child: Row(
         children: [
           Icon(LucideIcons.bookOpen, color: theme.colors.primary),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              'Clinical Reference',
-              style: theme.typography.h3,
-            ),
+            child: Text('Clinical Reference', style: theme.typography.h3),
           ),
           IconButton(
             icon: const Icon(LucideIcons.x),
@@ -101,25 +96,23 @@ class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawe
 
   Widget _buildResultsList(BuildContext context) {
     if (_query.isEmpty) {
-      return _buildInitialState(context);
+      return const EmptyState(
+        icon: LucideIcons.library,
+        title: 'Quick Reference Library',
+        subtitle:
+            'Search the Precision Clinical database for evidence-based conditions and techniques.',
+      );
     }
 
     final searchResults = ref.watch(clinicalArticlesSearchProvider(_query));
-    final theme = context.theme;
 
     return searchResults.when(
       data: (articles) {
         if (articles.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(LucideIcons.searchX, size: 48, color: theme.colors.outline),
-                const SizedBox(height: 16),
-                Text('No results found', style: theme.typography.h3),
-                Text('Try searching for a different term', style: theme.typography.bodyMedium),
-              ],
-            ),
+          return const EmptyState(
+            icon: LucideIcons.searchX,
+            title: 'No results found',
+            subtitle: 'Try searching for a different term',
           );
         }
 
@@ -136,38 +129,15 @@ class _ClinicalReferenceDrawerState extends ConsumerState<ClinicalReferenceDrawe
           },
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error: $err')),
-    );
-  }
-
-  Widget _buildInitialState(BuildContext context) {
-    final theme = context.theme;
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            LucideIcons.library,
-            size: 64,
-            color: theme.colors.primary.withValues(alpha: 0.2),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'Quick Reference Library',
-            style: theme.typography.h3,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'Search the Precision Clinical database for evidence-based conditions and techniques.',
-            style: theme.typography.bodyLarge.copyWith(
-              color: theme.colors.onSurfaceVariant,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+      loading: () => const EmptyState(
+        icon: LucideIcons.loader2,
+        title: 'Searching Database...',
+        subtitle: 'Retrieving evidence-based data from the repository.',
+      ),
+      error: (err, stack) => EmptyState(
+        icon: LucideIcons.alertCircle,
+        title: 'Error searching library',
+        subtitle: err.toString(),
       ),
     );
   }

@@ -9,8 +9,8 @@ class GovernanceKPIGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: MediaQuery.of(context).size.width > 1400 ? 4 : 2,
+    return GridView.extent(
+      maxCrossAxisExtent: 320,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 16,

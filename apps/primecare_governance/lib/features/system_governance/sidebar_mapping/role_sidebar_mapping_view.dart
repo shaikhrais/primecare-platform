@@ -4,30 +4,36 @@ import '../../../../core/governance/role_impersonation_provider.dart';
 import '../../../../core/governance/governance_provider.dart';
 import '../../../../core/governance/screen_metadata.dart' as meta;
 
-class RoleSidebarMappingView extends ConsumerStatefulWidget {
+class RoleSidebarMappingView extends GovernedConsumerStatefulWidget {
   const RoleSidebarMappingView({super.key});
 
   @override
-  ConsumerState<RoleSidebarMappingView> createState() => _RoleSidebarMappingViewState();
+  ConsumerState<RoleSidebarMappingView> createState() =>
+      _RoleSidebarMappingViewState();
 }
 
-class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView> {
+class _RoleSidebarMappingViewState
+    extends GovernedConsumerState<RoleSidebarMappingView> {
   String? _selectedOffice;
   String? _selectedRole;
   meta.ScreenMetadata? _selectedPreviewScreen;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     final theme = context.theme;
     final govState = ref.watch(governanceProvider);
     final allScreens = govState.allScreens;
 
     // Group screens by office and role
-    final Map<String, Map<String, List<meta.ScreenMetadata>>> officeRoleMapping = {};
+    final Map<String, Map<String, List<meta.ScreenMetadata>>>
+    officeRoleMapping = {};
     for (var screen in allScreens.values) {
       final office = screen.office;
       final role = screen.role;
-      officeRoleMapping.putIfAbsent(office, () => {}).putIfAbsent(role, () => []).add(screen);
+      officeRoleMapping
+          .putIfAbsent(office, () => {})
+          .putIfAbsent(role, () => [])
+          .add(screen);
     }
 
     // Set initial selection if none
@@ -48,9 +54,15 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
             width: 320,
             decoration: BoxDecoration(
               color: theme.colors.surface,
-              border: Border(right: BorderSide(color: theme.colors.outlineVariant)),
+              border: Border(
+                right: BorderSide(color: theme.colors.outlineVariant),
+              ),
               boxShadow: [
-                BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 8, offset: const Offset(2, 0)),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.02),
+                  blurRadius: 8,
+                  offset: const Offset(2, 0),
+                ),
               ],
             ),
             child: ListView(
@@ -58,46 +70,95 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-                  child: Text('OFFICES & ROLES', style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+                  child: Text(
+                    'OFFICES & ROLES',
+                    style: theme.typography.bodySmall.copyWith(
+                      color: theme.colors.onSurfaceVariant,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
                 ),
                 ...officeRoleMapping.keys.map((office) {
                   final bool isOfficeSelected = office == _selectedOffice;
                   return Theme(
-                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    data: Theme.of(
+                      context,
+                    ).copyWith(dividerColor: Colors.transparent),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 2,
+                      ),
                       child: ExpansionTile(
                         initiallyExpanded: office == _selectedOffice,
-                        collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusLg)),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusLg)),
-                        backgroundColor: isOfficeSelected ? theme.colors.primary.withValues(alpha: 0.02) : null,
-                        leading: Icon(LucideIcons.building2, size: 20, color: isOfficeSelected ? theme.colors.primary : theme.colors.onSurfaceVariant),
+                        collapsedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(theme.radiusLg),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(theme.radiusLg),
+                        ),
+                        backgroundColor: isOfficeSelected
+                            ? theme.colors.primary.withValues(alpha: 0.02)
+                            : null,
+                        leading: Icon(
+                          LucideIcons.building2,
+                          size: 20,
+                          color: isOfficeSelected
+                              ? theme.colors.primary
+                              : theme.colors.onSurfaceVariant,
+                        ),
                         title: Text(
                           office.toUpperCase(),
                           style: theme.typography.bodyMedium.copyWith(
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0.5,
-                            color: isOfficeSelected ? theme.colors.primary : theme.colors.onSurface,
+                            color: isOfficeSelected
+                                ? theme.colors.primary
+                                : theme.colors.onSurface,
                           ),
                         ),
                         children: officeRoleMapping[office]!.keys.map((role) {
-                          final isSelected = office == _selectedOffice && role == _selectedRole;
+                          final isSelected =
+                              office == _selectedOffice &&
+                              role == _selectedRole;
                           return Padding(
-                            padding: const EdgeInsets.only(left: 32, right: 8, bottom: 4),
+                            padding: const EdgeInsets.only(
+                              left: 32,
+                              right: 8,
+                              bottom: 4,
+                            ),
                             child: ListTile(
                               dense: true,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
-                              leading: Icon(LucideIcons.user, size: 16, color: isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  theme.radiusMd,
+                                ),
+                              ),
+                              leading: Icon(
+                                LucideIcons.user,
+                                size: 16,
+                                color: isSelected
+                                    ? theme.colors.primary
+                                    : theme.colors.onSurfaceVariant,
+                              ),
                               title: Text(
                                 role,
                                 style: theme.typography.bodyMedium.copyWith(
-                                  color: isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant,
-                                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                  color: isSelected
+                                      ? theme.colors.primary
+                                      : theme.colors.onSurfaceVariant,
+                                  fontWeight: isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
                                 ),
                               ),
                               selected: isSelected,
-                              selectedTileColor: theme.colors.primary.withValues(alpha: 0.1),
-                              hoverColor: theme.colors.primary.withValues(alpha: 0.05),
+                              selectedTileColor: theme.colors.primary
+                                  .withValues(alpha: 0.1),
+                              hoverColor: theme.colors.primary.withValues(
+                                alpha: 0.05,
+                              ),
                               onTap: () {
                                 setState(() {
                                   _selectedOffice = office;
@@ -115,7 +176,7 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
               ],
             ),
           ),
-          
+
           // Right Content: Sidebar Preview
           Expanded(
             child: _selectedOffice == null || _selectedRole == null
@@ -123,22 +184,42 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(LucideIcons.layoutTemplate, size: 64, color: theme.colors.outline),
+                        Icon(
+                          LucideIcons.layoutTemplate,
+                          size: 64,
+                          color: theme.colors.outline,
+                        ),
                         const SizedBox(height: 16),
-                        Text('Select an office and role to view the sidebar mapping preview.'.tr(), style: theme.typography.bodyLarge),
+                        Text(
+                          'Select an office and role to view the sidebar mapping preview.'
+                              .tr(),
+                          style: theme.typography.bodyLarge,
+                        ),
                       ],
                     ),
                   )
-                : _buildSidebarPreview(context, theme, _selectedOffice!, _selectedRole!, officeRoleMapping),
+                : _buildSidebarPreview(
+                    context,
+                    theme,
+                    _selectedOffice!,
+                    _selectedRole!,
+                    officeRoleMapping,
+                  ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSidebarPreview(BuildContext context, PrimeThemeData theme, String office, String role, Map<String, Map<String, List<meta.ScreenMetadata>>> mapping) {
+  Widget _buildSidebarPreview(
+    BuildContext context,
+    PrimeThemeData theme,
+    String office,
+    String role,
+    Map<String, Map<String, List<meta.ScreenMetadata>>> mapping,
+  ) {
     final screens = mapping[office]![role] ?? [];
-    
+
     // Group by featureName (charter) to simulate sections in a sidebar
     final Map<String, List<meta.ScreenMetadata>> byFeature = {};
     for (var s in screens) {
@@ -160,21 +241,23 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                   color: theme.colors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(theme.radiusLg),
                 ),
-                child: Icon(LucideIcons.layoutTemplate, color: theme.colors.primary),
+                child: Icon(
+                  LucideIcons.layoutTemplate,
+                  color: theme.colors.primary,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Sidebar Preview'.tr(),
-                      style: theme.typography.h2,
-                    ),
+                    Text('Sidebar Preview'.tr(), style: theme.typography.h2),
                     const SizedBox(height: 4),
                     Text(
                       'Office: ${office.toUpperCase()}  •  Role: $role',
-                      style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant),
+                      style: theme.typography.bodyLarge.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -184,7 +267,9 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                 label: 'Impersonate this Role'.tr(),
                 icon: LucideIcons.userCheck,
                 onPressed: () {
-                  ref.read(roleImpersonationProvider.notifier).impersonate(role);
+                  ref
+                      .read(roleImpersonationProvider.notifier)
+                      .impersonate(role);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Now viewing platform as: $role'.tr()),
@@ -196,14 +281,17 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
             ],
           ),
           const SizedBox(height: 32),
-          
+
           // Render a simulated application frame
           Expanded(
             child: Container(
               decoration: BoxDecoration(
                 color: theme.colors.surfaceContainerLowest,
                 borderRadius: BorderRadius.circular(theme.radiusXl),
-                border: Border.all(color: theme.colors.outlineVariant, width: 2),
+                border: Border.all(
+                  color: theme.colors.outlineVariant,
+                  width: 2,
+                ),
                 boxShadow: theme.shadowsSurface2,
               ),
               clipBehavior: Clip.antiAlias,
@@ -222,13 +310,26 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
-                            border: Border(bottom: BorderSide(color: theme.colors.outlineVariant)),
+                            border: Border(
+                              bottom: BorderSide(
+                                color: theme.colors.outlineVariant,
+                              ),
+                            ),
                           ),
                           child: Row(
                             children: [
-                              Icon(LucideIcons.activity, color: theme.colors.primary, size: 24),
+                              Icon(
+                                LucideIcons.activity,
+                                color: theme.colors.primary,
+                                size: 24,
+                              ),
                               const SizedBox(width: 12),
-                              Text('PrimeCare', style: theme.typography.h3.copyWith(color: theme.colors.primary)),
+                              Text(
+                                'PrimeCare',
+                                style: theme.typography.h3.copyWith(
+                                  color: theme.colors.primary,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -238,16 +339,42 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                           child: Row(
                             children: [
                               CircleAvatar(
-                                backgroundColor: theme.colors.primary.withValues(alpha: 0.1),
-                                child: Text(role.isNotEmpty ? role.substring(0, 1).toUpperCase() : '?', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold)),
+                                backgroundColor: theme.colors.primary
+                                    .withValues(alpha: 0.1),
+                                child: Text(
+                                  role.isNotEmpty
+                                      ? role.substring(0, 1).toUpperCase()
+                                      : '?',
+                                  style: TextStyle(
+                                    color: theme.colors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(role, style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
-                                    Text(office, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant), maxLines: 1, overflow: TextOverflow.ellipsis),
+                                    Text(
+                                      role,
+                                      style: theme.typography.bodyMedium
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      office,
+                                      style: theme.typography.bodySmall
+                                          .copyWith(
+                                            color:
+                                                theme.colors.onSurfaceVariant,
+                                          ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -264,7 +391,12 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+                                      padding: const EdgeInsets.fromLTRB(
+                                        24,
+                                        16,
+                                        24,
+                                        8,
+                                      ),
                                       child: Text(
                                         feature.toUpperCase(),
                                         style: TextStyle(
@@ -276,30 +408,54 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                                       ),
                                     ),
                                     ...byFeature[feature]!.map((screen) {
-                                      final isSelected = _selectedPreviewScreen?.id == screen.id;
+                                      final isSelected =
+                                          _selectedPreviewScreen?.id ==
+                                          screen.id;
                                       return Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 2,
+                                        ),
                                         child: ListTile(
                                           dense: true,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
-                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              theme.radiusMd,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                horizontal: 16,
+                                              ),
                                           leading: Icon(
-                                            screen.icon ?? LucideIcons.circleDot, 
-                                            size: 16, 
-                                            color: isSelected ? theme.colors.primary : theme.colors.onSurfaceVariant
+                                            screen.icon ??
+                                                LucideIcons.circleDot,
+                                            size: 16,
+                                            color: isSelected
+                                                ? theme.colors.primary
+                                                : theme.colors.onSurfaceVariant,
                                           ),
                                           title: Text(
                                             screen.title,
-                                            style: theme.typography.bodyMedium.copyWith(
-                                              color: isSelected ? theme.colors.primary : theme.colors.onSurface,
-                                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                            ),
+                                            style: theme.typography.bodyMedium
+                                                .copyWith(
+                                                  color: isSelected
+                                                      ? theme.colors.primary
+                                                      : theme.colors.onSurface,
+                                                  fontWeight: isSelected
+                                                      ? FontWeight.bold
+                                                      : FontWeight.normal,
+                                                ),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           selected: isSelected,
-                                          selectedTileColor: theme.colors.primary.withValues(alpha: 0.1),
-                                          hoverColor: theme.colors.primary.withValues(alpha: 0.05),
+                                          selectedTileColor: theme
+                                              .colors
+                                              .primary
+                                              .withValues(alpha: 0.1),
+                                          hoverColor: theme.colors.primary
+                                              .withValues(alpha: 0.05),
                                           onTap: () {
                                             setState(() {
                                               _selectedPreviewScreen = screen;
@@ -323,57 +479,91 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                     child: Container(
                       color: theme.colors.surfaceContainerLowest,
                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                         children: [
-                           // Fake Top Bar
-                           Container(
-                             height: 64,
-                             padding: const EdgeInsets.symmetric(horizontal: 24),
-                             decoration: BoxDecoration(
-                               color: theme.colors.surface,
-                               border: Border(bottom: BorderSide(color: theme.colors.outlineVariant)),
-                             ),
-                             child: Row(
-                               children: [
-                                 Icon(LucideIcons.menu, color: theme.colors.onSurfaceVariant),
-                                 const Spacer(),
-                                 Icon(LucideIcons.bell, color: theme.colors.onSurfaceVariant, size: 20),
-                                 const SizedBox(width: 16),
-                                 Icon(LucideIcons.search, color: theme.colors.onSurfaceVariant, size: 20),
-                               ],
-                             ),
-                           ),
-                           // Fake Page Content
-                           Expanded(
-                             child: _selectedPreviewScreen == null
-                                 ? Center(
-                                     child: Column(
-                                       mainAxisSize: MainAxisSize.min,
-                                       children: [
-                                         Icon(LucideIcons.mousePointerClick, size: 48, color: theme.colors.outline),
-                                         const SizedBox(height: 16),
-                                         Text('Select a screen from the sidebar to view its status'.tr(), style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant)),
-                                       ],
-                                     ),
-                                   )
-                                 : _buildScreenStatusPreview(theme, _selectedPreviewScreen!),
-                           ),
-                         ],
-                       ),
-                     ),
-                   ),
-                 ],
-               ),
-             ),
-           ),
-         ],
-       ),
-     );
-   }
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Fake Top Bar
+                          Container(
+                            height: 64,
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            decoration: BoxDecoration(
+                              color: theme.colors.surface,
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: theme.colors.outlineVariant,
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  LucideIcons.menu,
+                                  color: theme.colors.onSurfaceVariant,
+                                ),
+                                const Spacer(),
+                                Icon(
+                                  LucideIcons.bell,
+                                  color: theme.colors.onSurfaceVariant,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 16),
+                                Icon(
+                                  LucideIcons.search,
+                                  color: theme.colors.onSurfaceVariant,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Fake Page Content
+                          Expanded(
+                            child: _selectedPreviewScreen == null
+                                ? Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          LucideIcons.mousePointerClick,
+                                          size: 48,
+                                          color: theme.colors.outline,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          'Select a screen from the sidebar to view its status'
+                                              .tr(),
+                                          style: theme.typography.bodyLarge
+                                              .copyWith(
+                                                color: theme
+                                                    .colors
+                                                    .onSurfaceVariant,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : _buildScreenStatusPreview(
+                                    theme,
+                                    _selectedPreviewScreen!,
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildScreenStatusPreview(PrimeThemeData theme, meta.ScreenMetadata screen) {
+  Widget _buildScreenStatusPreview(
+    PrimeThemeData theme,
+    meta.ScreenMetadata screen,
+  ) {
     final status = screen.isRenderOk ? 'IMPLEMENTED' : 'DECLARED';
-    
+
     Color statusColor;
     IconData statusIcon;
     if (screen.isRenderOk) {
@@ -411,7 +601,10 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                     const SizedBox(height: 4),
                     Text(
                       'Status: ${status.tr()}',
-                      style: theme.typography.bodyLarge.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                      style: theme.typography.bodyLarge.copyWith(
+                        color: statusColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -419,11 +612,11 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
             ],
           ),
           const SizedBox(height: 32),
-          
+
           Text('Platform Component Status'.tr(), style: theme.typography.h3),
           const SizedBox(height: 16),
           _buildComponentStatusGrid(theme, screen),
-          
+
           const SizedBox(height: 32),
           Text('Screen Details'.tr(), style: theme.typography.h3),
           const SizedBox(height: 16),
@@ -441,7 +634,11 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
                 Divider(height: 1, color: theme.colors.outlineVariant),
                 _buildDetailRow(theme, 'Feature Name'.tr(), screen.featureName),
                 Divider(height: 1, color: theme.colors.outlineVariant),
-                _buildDetailRow(theme, 'Story Points'.tr(), screen.storyPoints.toString()),
+                _buildDetailRow(
+                  theme,
+                  'Story Points'.tr(),
+                  screen.storyPoints.toString(),
+                ),
               ],
             ),
           ),
@@ -461,23 +658,46 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
     );
   }
 
-  Widget _buildComponentStatusGrid(PrimeThemeData theme, meta.ScreenMetadata screen) {
-    return GridView.count(
-      crossAxisCount: 3,
+  Widget _buildComponentStatusGrid(
+    PrimeThemeData theme,
+    meta.ScreenMetadata screen,
+  ) {
+    return GridView.extent(
+      maxCrossAxisExtent: 250,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       childAspectRatio: 1.5,
       children: [
-        _buildComponentCard(theme, 'Sidebar Nav'.tr(), 'IMPLEMENTED', LucideIcons.layoutPanelLeft),
-        _buildComponentCard(theme, 'Platform Top Bar'.tr(), 'IMPLEMENTED', LucideIcons.layoutPanelTop),
-        _buildComponentCard(theme, 'Main Content'.tr(), screen.isRenderOk ? 'IMPLEMENTED' : 'DECLARED', LucideIcons.layout),
+        _buildComponentCard(
+          theme,
+          'Sidebar Nav'.tr(),
+          'IMPLEMENTED',
+          LucideIcons.layoutPanelLeft,
+        ),
+        _buildComponentCard(
+          theme,
+          'Platform Top Bar'.tr(),
+          'IMPLEMENTED',
+          LucideIcons.layoutPanelTop,
+        ),
+        _buildComponentCard(
+          theme,
+          'Main Content'.tr(),
+          screen.isRenderOk ? 'IMPLEMENTED' : 'DECLARED',
+          LucideIcons.layout,
+        ),
       ],
     );
   }
 
-  Widget _buildComponentCard(PrimeThemeData theme, String name, String status, IconData icon) {
+  Widget _buildComponentCard(
+    PrimeThemeData theme,
+    String name,
+    String status,
+    IconData icon,
+  ) {
     Color statusColor;
     switch (status.toUpperCase()) {
       case 'IMPLEMENTED':
@@ -513,7 +733,9 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
               Expanded(
                 child: Text(
                   name,
-                  style: theme.typography.labelSmall.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.typography.labelSmall.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -546,12 +768,21 @@ class _RoleSidebarMappingViewState extends ConsumerState<RoleSidebarMappingView>
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
-          Text(label, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+          Text(
+            label,
+            style: theme.typography.bodyMedium.copyWith(
+              color: theme.colors.onSurfaceVariant,
+            ),
+          ),
           const Spacer(),
-          Text(value, style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
+          Text(
+            value,
+            style: theme.typography.bodyMedium.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

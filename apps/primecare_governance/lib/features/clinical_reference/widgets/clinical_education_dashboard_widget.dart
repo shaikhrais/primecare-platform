@@ -57,7 +57,11 @@ class ClinicalEducationDashboardWidget extends ConsumerWidget {
             );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Text('Error: $error'),
+          error: (error, stack) => EmptyState(
+            icon: LucideIcons.alertTriangle,
+            title: 'Featured Articles Unavailable',
+            subtitle: error.toString(),
+          ),
         ),
       ],
     );
@@ -71,12 +75,14 @@ class ClinicalEducationDashboardWidget extends ConsumerWidget {
   }
 }
 
-final _featuredArticlesProvider = FutureProvider<List<ClinicalArticle>>((ref) async {
+final _featuredArticlesProvider = FutureProvider<List<ClinicalArticle>>((
+  ref,
+) async {
   final repo = ref.watch(clinicalEducationRepositoryProvider);
   // Get a few articles from different categories to show variety
   final conditions = await repo.getArticlesByCategory('Conditions', limit: 2);
   final techniques = await repo.getArticlesByCategory('Techniques', limit: 2);
   final anatomy = await repo.getArticlesByCategory('Anatomy', limit: 1);
-  
+
   return [...conditions, ...techniques, ...anatomy];
 });

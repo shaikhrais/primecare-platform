@@ -1,16 +1,18 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'screen_status_controller.dart';
 
-class ScreenStatusView extends ConsumerWidget {
+class ScreenStatusView extends GovernedConsumerWidget {
   const ScreenStatusView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(screenStatusControllerProvider);
 
     if (state.isLoading) {
-      return Center(child: CircularProgressIndicator(color: theme.colors.primary));
+      return Center(
+        child: CircularProgressIndicator(color: theme.colors.primary),
+      );
     }
 
     if (state.error != null) {
@@ -37,15 +39,24 @@ class ScreenStatusView extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('governance.screen_status.overall_summary'.tr(), style: theme.typography.h2),
+            Text(
+              'governance.screen_status.overall_summary'.tr(),
+              style: theme.typography.h2,
+            ),
             const SizedBox(height: 16),
             _buildSummaryCards(theme, summary),
             const SizedBox(height: 32),
-            Text('governance.screen_status.app_breakdown'.tr(), style: theme.typography.h2),
+            Text(
+              'governance.screen_status.app_breakdown'.tr(),
+              style: theme.typography.h2,
+            ),
             const SizedBox(height: 16),
             _buildAppBreakdownGrid(theme, byApp),
             const SizedBox(height: 32),
-            Text('${'governance.screen_status.detailed_screen_list'.tr()} (${screens.length})', style: theme.typography.h2),
+            Text(
+              '${'governance.screen_status.detailed_screen_list'.tr()} (${screens.length})',
+              style: theme.typography.h2,
+            ),
             const SizedBox(height: 16),
             _buildScreenList(theme, screens),
           ],
@@ -54,21 +65,56 @@ class ScreenStatusView extends ConsumerWidget {
     );
   }
 
-  Widget _buildSummaryCards(PrimeThemeData theme, Map<String, dynamic> summary) {
-    return Row(
+  Widget _buildSummaryCards(
+    PrimeThemeData theme,
+    Map<String, dynamic> summary,
+  ) {
+    return GridView.extent(
+      maxCrossAxisExtent: 280,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisSpacing: 16,
+      mainAxisSpacing: 16,
+      childAspectRatio: 2.0,
       children: [
-        Expanded(child: _buildStatCard(theme, 'governance.screen_status.total_screens'.tr(), summary['total'].toString(), Icons.layers)),
-        const SizedBox(width: 16),
-        Expanded(child: _buildStatCard(theme, 'governance.screen_status.implemented'.tr(), summary['implemented'].toString(), Icons.check_circle_outline, color: theme.colors.success)),
-        const SizedBox(width: 16),
-        Expanded(child: _buildStatCard(theme, 'governance.screen_status.pending'.tr(), summary['pending'].toString(), Icons.pending_actions, color: theme.colors.warning)),
-        const SizedBox(width: 16),
-        Expanded(child: _buildStatCard(theme, 'governance.screen_status.completion'.tr(), '${summary['implementedPercentage']}%', Icons.analytics_outlined, color: theme.colors.primary)),
+        _buildStatCard(
+          theme,
+          'governance.screen_status.total_screens'.tr(),
+          summary['total'].toString(),
+          Icons.layers,
+        ),
+        _buildStatCard(
+          theme,
+          'governance.screen_status.implemented'.tr(),
+          summary['implemented'].toString(),
+          Icons.check_circle_outline,
+          color: theme.colors.success,
+        ),
+        _buildStatCard(
+          theme,
+          'governance.screen_status.pending'.tr(),
+          summary['pending'].toString(),
+          Icons.pending_actions,
+          color: theme.colors.warning,
+        ),
+        _buildStatCard(
+          theme,
+          'governance.screen_status.completion'.tr(),
+          '${summary['implementedPercentage']}%',
+          Icons.analytics_outlined,
+          color: theme.colors.primary,
+        ),
       ],
     );
   }
 
-  Widget _buildStatCard(PrimeThemeData theme, String title, String value, IconData icon, {Color? color}) {
+  Widget _buildStatCard(
+    PrimeThemeData theme,
+    String title,
+    String value,
+    IconData icon, {
+    Color? color,
+  }) {
     final effectiveColor = color ?? theme.colors.onSurface;
     return Container(
       padding: const EdgeInsets.all(24),
@@ -88,7 +134,9 @@ class ScreenStatusView extends ConsumerWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+                  style: theme.typography.bodyMedium.copyWith(
+                    color: theme.colors.onSurfaceVariant,
+                  ),
                 ),
               ),
             ],
@@ -103,13 +151,16 @@ class ScreenStatusView extends ConsumerWidget {
     );
   }
 
-  Widget _buildAppBreakdownGrid(PrimeThemeData theme, Map<String, dynamic> byApp) {
+  Widget _buildAppBreakdownGrid(
+    PrimeThemeData theme,
+    Map<String, dynamic> byApp,
+  ) {
     final appNames = byApp.keys.toList();
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 350,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         childAspectRatio: 2.5,
@@ -118,8 +169,10 @@ class ScreenStatusView extends ConsumerWidget {
       itemBuilder: (context, index) {
         final appName = appNames[index];
         final appData = byApp[appName] as Map<String, dynamic>;
-        
-        final double progress = appData['total'] > 0 ? (appData['implemented'] / appData['total']) : 0;
+
+        final double progress = appData['total'] > 0
+            ? (appData['implemented'] / appData['total'])
+            : 0;
         final metadata = _getAppMetadata(appName);
 
         return Container(
@@ -138,7 +191,12 @@ class ScreenStatusView extends ConsumerWidget {
                   Icon(metadata.$2, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(metadata.$1, style: theme.typography.h3, maxLines: 1, overflow: TextOverflow.ellipsis),
+                    child: Text(
+                      metadata.$1,
+                      style: theme.typography.h3,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -146,15 +204,25 @@ class ScreenStatusView extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('${appData['implemented']} / ${appData['total']}', style: theme.typography.bodyMedium),
-                  Text('${(progress * 100).toStringAsFixed(0)}%', style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    '${appData['implemented']} / ${appData['total']}',
+                    style: theme.typography.bodyMedium,
+                  ),
+                  Text(
+                    '${(progress * 100).toStringAsFixed(0)}%',
+                    style: theme.typography.bodyMedium.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
               LinearProgressIndicator(
                 value: progress,
                 backgroundColor: theme.colors.surfaceContainerHighest,
-                valueColor: AlwaysStoppedAnimation<Color>(progress == 1.0 ? theme.colors.success : theme.colors.primary),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  progress == 1.0 ? theme.colors.success : theme.colors.primary,
+                ),
                 borderRadius: BorderRadius.circular(4),
               ),
             ],
@@ -175,28 +243,51 @@ class ScreenStatusView extends ConsumerWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: screens.length,
-        separatorBuilder: (context, index) => Divider(height: 1, color: theme.colors.outlineVariant),
+        separatorBuilder: (context, index) =>
+            Divider(height: 1, color: theme.colors.outlineVariant),
         itemBuilder: (context, index) {
           final screen = screens[index] as Map<String, dynamic>;
           final status = screen['status'] as String;
           final isImplemented = status == 'implemented';
-          
+
           return ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 8,
+            ),
             leading: Icon(
               isImplemented ? Icons.check_circle : Icons.radio_button_unchecked,
-              color: isImplemented ? theme.colors.success : theme.colors.onSurfaceVariant,
+              color: isImplemented
+                  ? theme.colors.success
+                  : theme.colors.onSurfaceVariant,
             ),
-            title: Text(screen['id'] ?? 'governance.screen_status.unknown_id'.tr(), style: theme.typography.h3),
+            title: Text(
+              screen['id'] ?? 'governance.screen_status.unknown_id'.tr(),
+              style: theme.typography.h3,
+            ),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Row(
                 children: [
-                  _buildBadge(theme, screen['app'] ?? 'governance.screen_status.unknown_app'.tr()),
+                  _buildBadge(
+                    theme,
+                    screen['app'] ??
+                        'governance.screen_status.unknown_app'.tr(),
+                  ),
                   const SizedBox(width: 8),
-                  _buildBadge(theme, screen['office'] ?? 'governance.screen_status.unknown_office'.tr(), color: theme.colors.secondary),
+                  _buildBadge(
+                    theme,
+                    screen['office'] ??
+                        'governance.screen_status.unknown_office'.tr(),
+                    color: theme.colors.secondary,
+                  ),
                   const SizedBox(width: 8),
-                  _buildBadge(theme, screen['charter'] ?? 'governance.screen_status.unknown_charter'.tr(), color: theme.colors.tertiary),
+                  _buildBadge(
+                    theme,
+                    screen['charter'] ??
+                        'governance.screen_status.unknown_charter'.tr(),
+                    color: theme.colors.tertiary,
+                  ),
                 ],
               ),
             ),
@@ -204,7 +295,9 @@ class ScreenStatusView extends ConsumerWidget {
               status.toUpperCase(),
               style: theme.typography.bodySmall.copyWith(
                 fontWeight: FontWeight.bold,
-                color: isImplemented ? theme.colors.success : theme.colors.warning,
+                color: isImplemented
+                    ? theme.colors.success
+                    : theme.colors.warning,
               ),
             ),
           );
@@ -224,7 +317,11 @@ class ScreenStatusView extends ConsumerWidget {
       ),
       child: Text(
         text,
-        style: theme.typography.bodySmall.copyWith(color: badgeColor, fontSize: 10, fontWeight: FontWeight.bold),
+        style: theme.typography.bodySmall.copyWith(
+          color: badgeColor,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -248,8 +345,17 @@ class ScreenStatusView extends ConsumerWidget {
       case 'prime_marketing':
         return ('Marketing', Icons.campaign);
       default:
-        final name = rawName.replaceAll('prime_', '').replaceAll('primecare_', '').replaceAll('_', ' ');
-        final displayName = name.split(' ').map((w) => w.isNotEmpty ? '${w[0].toUpperCase()}${w.substring(1)}' : '').join(' ');
+        final name = rawName
+            .replaceAll('prime_', '')
+            .replaceAll('primecare_', '')
+            .replaceAll('_', ' ');
+        final displayName = name
+            .split(' ')
+            .map(
+              (w) =>
+                  w.isNotEmpty ? '${w[0].toUpperCase()}${w.substring(1)}' : '',
+            )
+            .join(' ');
         return (displayName, Icons.apps);
     }
   }

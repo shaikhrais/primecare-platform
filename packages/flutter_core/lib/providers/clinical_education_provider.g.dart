@@ -58,6 +58,45 @@ final class ClinicalEducationRepositoryProvider
 String _$clinicalEducationRepositoryHash() =>
     r'e1ce90027f1a502b9b7b0c93c4bb673360c8b978';
 
+@ProviderFor(clinicalTip)
+final clinicalTipProvider = ClinicalTipProvider._();
+
+final class ClinicalTipProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ClinicalArticle?>,
+          ClinicalArticle?,
+          FutureOr<ClinicalArticle?>
+        >
+    with $FutureModifier<ClinicalArticle?>, $FutureProvider<ClinicalArticle?> {
+  ClinicalTipProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'clinicalTipProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$clinicalTipHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<ClinicalArticle?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<ClinicalArticle?> create(Ref ref) {
+    return clinicalTip(ref);
+  }
+}
+
+String _$clinicalTipHash() => r'33a218255f91b85cde35335ef987d4245b43bfeb';
+
 @ProviderFor(clinicalArticlesSearch)
 final clinicalArticlesSearchProvider = ClinicalArticlesSearchFamily._();
 

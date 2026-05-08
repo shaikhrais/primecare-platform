@@ -53,7 +53,9 @@ class MasterLayout extends ConsumerWidget {
         ),
       ),
       floatingActionButton: floatingActionButton,
-      body: SafeArea(child: child),
+      body: SafeArea(
+        child: AppShellBoundary(child: OmniConstraintWrapper(child: child)),
+      ),
     );
   }
 

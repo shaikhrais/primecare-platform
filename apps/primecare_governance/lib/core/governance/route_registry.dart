@@ -14,7 +14,9 @@ import '../../features/clinical_reference/widgets/clinical_reference_drawer.dart
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: ScreenRegistry.getById('SCREEN_STATUS_DASHBOARD')?.routePath ?? '/governance/screen-status',
+    initialLocation:
+        ScreenRegistry.getById('SCREEN_STATUS_DASHBOARD')?.routePath ??
+        '/governance/screen-status',
     routes: [
       GoRoute(
         path: ScreenRegistry.getById('LOGIN')?.routePath ?? '/login',
@@ -23,10 +25,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) {
           final matchedLocation = state.matchedLocation;
-          final screen = ScreenRegistry.screens.values.cast<ScreenMetadata?>().firstWhere(
-            (s) => s?.routePath == matchedLocation,
-            orElse: () => null,
-          );
+          final screen = ScreenRegistry.screens.values
+              .cast<ScreenMetadata?>()
+              .firstWhere(
+                (s) => s?.routePath == matchedLocation,
+                orElse: () => null,
+              );
           final title = screen?.title ?? 'Platform Governance';
 
           return MasterLayout(
@@ -60,18 +64,30 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             return GoRoute(
               path: screen.routePath,
               builder: (context, state) {
-                if (screen.id == 'SCREEN_STATUS_DASHBOARD') {
-                  return const ScreenStatusView();
-                } else if (screen.id == 'GOVERNANCE_DASHBOARD' || screen.id == 'SYSTEM_GOVERNANCE_DASHBOARD') {
-                  return const GovernanceDashboardView();
-                } else if (screen.id == 'MONITORING') {
-                  return const SystemMonitoringView();
-                } else if (screen.id == 'SIDEBAR_MAPPING') {
-                  return const RoleSidebarMappingView();
-                } else if (screen.id == 'CLINICAL_REFERENCE') {
-                  return const ClinicalReferenceView();
+                // If not completed, show the Governance Status preview
+                if (screen.lifecycleStatus != LifecycleStatus.completed) {
+                  return DynamicScreenView(metadata: screen);
                 }
-                return DynamicScreenView(metadata: screen);
+
+                // Route to actual implementation if completed
+                switch (screen.id) {
+                  case 'SCREEN_STATUS_DASHBOARD':
+                    return const ScreenStatusView();
+                  case 'GOVERNANCE_DASHBOARD':
+                  case 'SYSTEM_GOVERNANCE_DASHBOARD':
+                    return const GovernanceDashboardView();
+                  case 'MONITORING':
+                    return const SystemMonitoringView();
+                  case 'SIDEBAR_MAPPING':
+                    return const RoleSidebarMappingView();
+                  case 'CLINICAL_REFERENCE':
+                    return const ClinicalReferenceView();
+                  case 'DEBUG_THEME':
+                  case 'DEBUG_KITCHEN_SINK':
+                    return DynamicScreenView(metadata: screen);
+                  default:
+                    return DynamicScreenView(metadata: screen);
+                }
               },
             );
           }),

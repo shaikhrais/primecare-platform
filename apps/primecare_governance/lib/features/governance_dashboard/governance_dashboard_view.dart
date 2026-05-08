@@ -15,18 +15,25 @@ import '../../governance/widgets/governance_event_feed.dart';
 import '../../core/governance/governance_provider.dart';
 import '../clinical_reference/widgets/clinical_education_dashboard_widget.dart';
 
-class GovernanceDashboardView extends ConsumerWidget {
+class GovernanceDashboardView extends GovernedConsumerWidget {
   const GovernanceDashboardView({super.key});
 
-  void _exportReport(BuildContext context, WidgetRef ref, GovernanceReport report, String format) async {
+  void _exportReport(
+    BuildContext context,
+    WidgetRef ref,
+    GovernanceReport report,
+    String format,
+  ) async {
     final controller = ref.read(governanceDashboardControllerProvider.notifier);
     final isPdf = await controller.exportReport(report, format);
-    
+
     if (context.mounted) {
       if (isPdf) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Professional PDF Report Generated (Ready for Download)'),
+            content: Text(
+              'Professional PDF Report Generated (Ready for Download)',
+            ),
             backgroundColor: Colors.blue,
             behavior: SnackBarBehavior.floating,
           ),
@@ -34,7 +41,9 @@ class GovernanceDashboardView extends ConsumerWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Report exported as $format and copied to clipboard!'),
+            content: Text(
+              'Report exported as $format and copied to clipboard!',
+            ),
             backgroundColor: Colors.blue,
             behavior: SnackBarBehavior.floating,
           ),
@@ -44,7 +53,7 @@ class GovernanceDashboardView extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final governanceState = ref.watch(governanceProvider);
     final report = governanceState.report;
@@ -73,7 +82,9 @@ class GovernanceDashboardView extends ConsumerWidget {
                   unselectedLabelColor: theme.colors.onSurfaceVariant,
                   indicatorColor: theme.colors.primary,
                   indicatorWeight: 3,
-                  labelStyle: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                  labelStyle: theme.typography.bodyMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                   unselectedLabelStyle: theme.typography.bodyMedium,
                   tabs: [
                     Tab(text: 'Platform Audit'.tr()),
@@ -86,7 +97,9 @@ class GovernanceDashboardView extends ConsumerWidget {
               child: TabBarView(
                 children: [
                   _buildAuditView(context, ref, report, governanceState),
-                  GovernancePatchManager(issues: _getFilteredIssues(ref, report)),
+                  GovernancePatchManager(
+                    issues: _getFilteredIssues(ref, report),
+                  ),
                 ],
               ),
             ),
@@ -96,16 +109,23 @@ class GovernanceDashboardView extends ConsumerWidget {
     );
   }
 
-  List<GovernanceIssue> _getFilteredIssues(WidgetRef ref, GovernanceReport report) {
+  List<GovernanceIssue> _getFilteredIssues(
+    WidgetRef ref,
+    GovernanceReport report,
+  ) {
     final state = ref.watch(governanceDashboardControllerProvider);
     return report.issues.where((issue) {
       final matchesSeverity =
-          state.selectedSeverity == null || issue.severity == state.selectedSeverity;
+          state.selectedSeverity == null ||
+          issue.severity == state.selectedSeverity;
       final matchesCategory =
-          state.selectedCategory == null || issue.category == state.selectedCategory;
+          state.selectedCategory == null ||
+          issue.category == state.selectedCategory;
       final matchesSearch =
           state.searchQuery.isEmpty ||
-          issue.screenId.toLowerCase().contains(state.searchQuery.toLowerCase()) ||
+          issue.screenId.toLowerCase().contains(
+            state.searchQuery.toLowerCase(),
+          ) ||
           issue.title.toLowerCase().contains(state.searchQuery.toLowerCase());
       return matchesSeverity && matchesCategory && matchesSearch;
     }).toList();
@@ -144,18 +164,23 @@ class GovernanceDashboardView extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  if (governanceState.hasDrift || governanceState.brokenScreens > 0)
+                  if (governanceState.hasDrift ||
+                      governanceState.brokenScreens > 0)
                     Padding(
                       padding: const EdgeInsets.only(right: 12),
                       child: OutlinedButton.icon(
                         onPressed: governanceState.isSyncing
                             ? null
-                            : () => ref.read(governanceProvider.notifier).applyAutomatedFixes(),
+                            : () => ref
+                                  .read(governanceProvider.notifier)
+                                  .applyAutomatedFixes(),
                         icon: governanceState.isSyncing
                             ? const SizedBox(
                                 width: 16,
                                 height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               )
                             : const Icon(Icons.auto_fix_high_rounded, size: 20),
                         label: const Text('Auto-Remediate'),
@@ -166,39 +191,74 @@ class GovernanceDashboardView extends ConsumerWidget {
                       ),
                     ),
                   PopupMenuButton<String>(
-                    onSelected: (format) => _exportReport(context, ref, report, format),
+                    onSelected: (format) =>
+                        _exportReport(context, ref, report, format),
                     itemBuilder: (context) => [
-                      const PopupMenuItem(value: 'pdf', child: Text('Professional PDF Report')),
-                      const PopupMenuItem(value: 'html', child: Text('Export HTML (Professional)')),
-                      const PopupMenuItem(value: 'markdown', child: Text('Export Markdown')),
-                      const PopupMenuItem(value: 'json', child: Text('Export JSON')),
-                      const PopupMenuItem(value: 'csv', child: Text('Export CSV')),
+                      const PopupMenuItem(
+                        value: 'pdf',
+                        child: Text('Professional PDF Report'),
+                      ),
+                      const PopupMenuItem(
+                        value: 'html',
+                        child: Text('Export HTML (Professional)'),
+                      ),
+                      const PopupMenuItem(
+                        value: 'markdown',
+                        child: Text('Export Markdown'),
+                      ),
+                      const PopupMenuItem(
+                        value: 'json',
+                        child: Text('Export JSON'),
+                      ),
+                      const PopupMenuItem(
+                        value: 'csv',
+                        child: Text('Export CSV'),
+                      ),
                     ],
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.blue),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Row(
                         children: [
-                          Icon(Icons.download_rounded, color: Colors.blue, size: 20),
+                          Icon(
+                            Icons.download_rounded,
+                            color: Colors.blue,
+                            size: 20,
+                          ),
                           SizedBox(width: 8),
-                          Text('Export', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Export',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   ElevatedButton.icon(
-                    onPressed: () => ref.read(governanceProvider.notifier).refresh(),
+                    onPressed: () =>
+                        ref.read(governanceProvider.notifier).refresh(),
                     icon: const Icon(Icons.refresh_rounded),
                     label: const Text('Re-Scan'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ],
@@ -214,7 +274,10 @@ class GovernanceDashboardView extends ConsumerWidget {
                   children: [
                     Expanded(flex: 3, child: GovernanceKPIGrid(report: report)),
                     const SizedBox(width: 24),
-                    Expanded(flex: 2, child: GovernanceDomainChart(report: report)),
+                    Expanded(
+                      flex: 2,
+                      child: GovernanceDomainChart(report: report),
+                    ),
                   ],
                 );
               } else {
@@ -246,7 +309,9 @@ class GovernanceDashboardView extends ConsumerWidget {
                       flex: 3,
                       child: SizedBox(
                         height: 400,
-                        child: GovernanceTrendChart(trendData: governanceState.healthTrend),
+                        child: GovernanceTrendChart(
+                          trendData: governanceState.healthTrend,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 24),
@@ -254,7 +319,9 @@ class GovernanceDashboardView extends ConsumerWidget {
                       flex: 2,
                       child: SizedBox(
                         height: 400,
-                        child: GovernanceEventFeed(events: governanceState.recentEvents),
+                        child: GovernanceEventFeed(
+                          events: governanceState.recentEvents,
+                        ),
                       ),
                     ),
                   ],
@@ -264,12 +331,16 @@ class GovernanceDashboardView extends ConsumerWidget {
                   children: [
                     SizedBox(
                       height: 350,
-                      child: GovernanceTrendChart(trendData: governanceState.healthTrend),
+                      child: GovernanceTrendChart(
+                        trendData: governanceState.healthTrend,
+                      ),
                     ),
                     const SizedBox(height: 24),
                     SizedBox(
                       height: 400,
-                      child: GovernanceEventFeed(events: governanceState.recentEvents),
+                      child: GovernanceEventFeed(
+                        events: governanceState.recentEvents,
+                      ),
                     ),
                   ],
                 );
@@ -279,7 +350,7 @@ class GovernanceDashboardView extends ConsumerWidget {
           const SizedBox(height: 32),
           const ClinicalEducationDashboardWidget(),
           const SizedBox(height: 32),
-          _buildClinicalTip(context),
+          _buildClinicalTip(context, ref),
           const SizedBox(height: 32),
           Row(
             children: [
@@ -303,11 +374,15 @@ class GovernanceDashboardView extends ConsumerWidget {
                     fillColor: Theme.of(context).cardColor,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+                      borderSide: BorderSide(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+                      borderSide: BorderSide(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                      ),
                     ),
                   ),
                   onChanged: controller.setSearchQuery,
@@ -340,8 +415,10 @@ class GovernanceDashboardView extends ConsumerWidget {
     );
   }
 
-  Widget _buildClinicalTip(BuildContext context) {
+  Widget _buildClinicalTip(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+    final tipAsync = ref.watch(clinicalTipProvider);
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -366,11 +443,19 @@ class GovernanceDashboardView extends ConsumerWidget {
               children: [
                 Text(
                   'Clinical Tip of the Day',
-                  style: theme.typography.h3.copyWith(color: theme.colors.primary),
+                  style: theme.typography.h3.copyWith(
+                    color: theme.colors.primary,
+                  ),
                 ),
                 const SizedBox(height: 8),
-                ClinicalTermHighlighter(
-                  text: 'When treating Sciatica, consider using various Soft Tissue Release techniques to alleviate pressure on the sciatic nerve.',
+                tipAsync.when(
+                  data: (article) => ClinicalTermHighlighter(
+                    text:
+                        article?.content ??
+                        'No clinical tips available at the moment.',
+                  ),
+                  loading: () => const Text('Loading clinical tip...'),
+                  error: (e, _) => const Text('Unable to load clinical tip.'),
                 ),
               ],
             ),

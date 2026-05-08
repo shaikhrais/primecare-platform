@@ -32,11 +32,16 @@ class ClinicalEducationRepository {
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (_) {}
-      
+
       // Copy from asset
-      ByteData data = await rootBundle.load(join('assets', 'db', 'precision_education.db'));
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      
+      ByteData data = await rootBundle.load(
+        join('assets', 'db', 'precision_education.db'),
+      );
+      List<int> bytes = data.buffer.asUint8List(
+        data.offsetInBytes,
+        data.lengthInBytes,
+      );
+
       // Write and flush the bytes written
       await File(path).writeAsBytes(bytes, flush: true);
     }
@@ -45,10 +50,13 @@ class ClinicalEducationRepository {
     return await openDatabase(path, readOnly: true);
   }
 
-  Future<List<ClinicalArticle>> searchArticles(String query, {int limit = 20}) async {
+  Future<List<ClinicalArticle>> searchArticles(
+    String query, {
+    int limit = 20,
+  }) async {
     final db = await database;
     final searchTerm = '%$query%';
-    
+
     final List<Map<String, dynamic>> maps = await db.query(
       'articles',
       where: 'title LIKE ? OR content LIKE ?',
@@ -61,9 +69,13 @@ class ClinicalEducationRepository {
     });
   }
 
-  Future<List<ClinicalArticle>> getArticlesByCategory(String category, {int limit = 20, int offset = 0}) async {
+  Future<List<ClinicalArticle>> getArticlesByCategory(
+    String category, {
+    int limit = 20,
+    int offset = 0,
+  }) async {
     final db = await database;
-    
+
     final List<Map<String, dynamic>> maps = await db.query(
       'articles',
       where: 'category = ?',
@@ -76,9 +88,10 @@ class ClinicalEducationRepository {
       return ClinicalArticle.fromJson(maps[i]);
     });
   }
+
   Future<ClinicalArticle?> findArticleByTitle(String title) async {
     final db = await database;
-    
+
     final List<Map<String, dynamic>> maps = await db.query(
       'articles',
       where: 'title = ? COLLATE NOCASE',
@@ -92,14 +105,35 @@ class ClinicalEducationRepository {
 
   Future<List<String>> getAllArticleTitles() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('articles', columns: ['title']);
+    final List<Map<String, dynamic>> maps = await db.query(
+      'articles',
+      columns: ['title'],
+    );
     return maps.map((m) => m['title'] as String).toList();
+  }
+
+  Future<ClinicalArticle?> getRandomArticle() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'articles',
+      orderBy: 'RANDOM()',
+      limit: 1,
+    );
+
+    if (maps.isEmpty) return null;
+    return ClinicalArticle.fromJson(maps.first);
   }
 }
 
 @riverpod
 ClinicalEducationRepository clinicalEducationRepository(Ref ref) {
   return ClinicalEducationRepository();
+}
+
+@riverpod
+Future<ClinicalArticle?> clinicalTip(Ref ref) async {
+  final repository = ref.watch(clinicalEducationRepositoryProvider);
+  return repository.getRandomArticle();
 }
 
 @riverpod
