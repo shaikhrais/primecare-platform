@@ -53,6 +53,7 @@ class Appointment {
   final String? resourceId;
   final DateTime startTime;
   final DateTime endTime;
+  final bool isBreak;
 
   const Appointment({
     required this.id,
@@ -61,6 +62,7 @@ class Appointment {
     this.resourceId,
     required this.startTime,
     required this.endTime,
+    this.isBreak = false,
   });
 
   Duration get duration => endTime.difference(startTime);
@@ -73,6 +75,7 @@ class Appointment {
       resourceId: json['resourceId'] as String?,
       startTime: DateTime.parse(json['startTime'] as String),
       endTime: DateTime.parse(json['endTime'] as String),
+      isBreak: json['isBreak'] as bool? ?? false,
     );
   }
 
@@ -83,6 +86,7 @@ class Appointment {
     'resourceId': resourceId,
     'startTime': startTime.toIso8601String(),
     'endTime': endTime.toIso8601String(),
+    'isBreak': isBreak,
   };
 
   Appointment copyWith({
@@ -92,6 +96,7 @@ class Appointment {
     String? resourceId,
     DateTime? startTime,
     DateTime? endTime,
+    bool? isBreak,
   }) {
     return Appointment(
       id: id ?? this.id,
@@ -100,6 +105,7 @@ class Appointment {
       resourceId: resourceId ?? this.resourceId,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
+      isBreak: isBreak ?? this.isBreak,
     );
   }
 }

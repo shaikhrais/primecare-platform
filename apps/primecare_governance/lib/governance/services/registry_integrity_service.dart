@@ -115,8 +115,6 @@ class RegistryIntegrityService {
           ),
         );
       }
-
-
     });
 
     return issues;

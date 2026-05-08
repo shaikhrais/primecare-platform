@@ -1,8 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:io';
 
 import '../models/clinical_article.dart';
 
@@ -54,6 +56,23 @@ class ClinicalEducationRepository {
     String query, {
     int limit = 20,
   }) async {
+    if (kIsWeb) {
+      final jsonStr = await rootBundle.loadString(
+        'packages/flutter_core/assets/db/precision_education.json',
+      );
+      final List<dynamic> data = jsonDecode(jsonStr);
+      final searchTerm = query.toLowerCase();
+      final all = data
+          .map((json) => ClinicalArticle.fromJson(json))
+          .where(
+            (a) =>
+                a.title.toLowerCase().contains(searchTerm) ||
+                a.content.toLowerCase().contains(searchTerm),
+          )
+          .toList();
+      return all.take(limit).toList();
+    }
+
     final db = await database;
     final searchTerm = '%$query%';
 
@@ -74,6 +93,19 @@ class ClinicalEducationRepository {
     int limit = 20,
     int offset = 0,
   }) async {
+    if (kIsWeb) {
+      final jsonStr = await rootBundle.loadString(
+        'packages/flutter_core/assets/db/precision_education.json',
+      );
+      final List<dynamic> data = jsonDecode(jsonStr);
+      final all = data
+          .map((json) => ClinicalArticle.fromJson(json))
+          .where((a) => a.category == category)
+          .toList();
+      if (offset >= all.length) return [];
+      return all.skip(offset).take(limit).toList();
+    }
+
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query(
@@ -86,6 +118,33 @@ class ClinicalEducationRepository {
 
     return List.generate(maps.length, (i) {
       return ClinicalArticle.fromJson(maps[i]);
+    });
+  }
+
+  Future<List<String>> getAllCategories() async {
+    if (kIsWeb) {
+      final jsonStr = await rootBundle.loadString(
+        'packages/flutter_core/assets/db/precision_education.json',
+      );
+      final List<dynamic> data = jsonDecode(jsonStr);
+      final categories = data
+          .map((json) => json['category'] as String)
+          .toSet()
+          .toList();
+      categories.sort();
+      return categories;
+    }
+
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'articles',
+      distinct: true,
+      columns: ['category'],
+      orderBy: 'category ASC',
+    );
+
+    return List.generate(maps.length, (i) {
+      return maps[i]['category'] as String;
     });
   }
 

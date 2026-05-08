@@ -15,7 +15,7 @@ class SystemMonitoringController extends _$SystemMonitoringController {
     try {
       // Simulate network request
       await Future.delayed(const Duration(milliseconds: 800));
-      
+
       final mockData = {
         'cpuUsage': 42.5,
         'ramUsage': 68.1,
@@ -28,13 +28,16 @@ class SystemMonitoringController extends _$SystemMonitoringController {
           {'name': 'Worker Nodes', 'status': 'Operational'},
         ],
       };
-      
+
       state = state.copyWith(isLoading: false, metrics: mockData);
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: 'Failed to load monitoring data');
+      state = state.copyWith(
+        isLoading: false,
+        error: 'Failed to load monitoring data',
+      );
     }
   }
-  
+
   void refreshMetrics() {
     state = state.copyWith(isLoading: true, error: null);
     _loadMetrics();

@@ -539,7 +539,11 @@ class PrimeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final buttonColor = color ?? theme.colors.primary;
-    final actualTextColor = textColor ?? (color == Colors.transparent ? theme.colors.primary : theme.colors.onPrimary);
+    final actualTextColor =
+        textColor ??
+        (color == Colors.transparent
+            ? theme.colors.primary
+            : theme.colors.onPrimary);
 
     final child = Row(
       mainAxisSize: MainAxisSize.min,
@@ -589,7 +593,9 @@ class PrimeButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(theme.radiusDefault),
-            side: borderColor != null ? BorderSide(color: borderColor!) : BorderSide.none,
+            side: borderColor != null
+                ? BorderSide(color: borderColor!)
+                : BorderSide.none,
           ),
           elevation: 0,
         ),

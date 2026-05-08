@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/env_config.dart';
 import '../governance/screen_registry.dart';
+
 class DevToolbox extends ConsumerWidget {
   const DevToolbox({super.key});
 
@@ -53,7 +54,9 @@ class DevToolbox extends ConsumerWidget {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    final screen = ScreenRegistry.getById('VERIFICATION_CENTER');
+                    final screen = ScreenRegistry.getById(
+                      'VERIFICATION_CENTER',
+                    );
                     if (screen != null) {
                       context.push(screen.routePath);
                     }

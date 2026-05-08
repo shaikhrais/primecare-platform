@@ -16,11 +16,16 @@ class ScreenStatusController extends _$ScreenStatusController {
 
   Future<void> _loadStatusData() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/screen_status.json');
+      final jsonString = await rootBundle.loadString(
+        'assets/screen_status.json',
+      );
       final data = jsonDecode(jsonString) as Map<String, dynamic>;
       state = state.copyWith(statusData: data, isLoading: false);
     } catch (e) {
-      state = state.copyWith(error: 'Failed to load screen status data: $e', isLoading: false);
+      state = state.copyWith(
+        error: 'Failed to load screen status data: $e',
+        isLoading: false,
+      );
     }
   }
 }

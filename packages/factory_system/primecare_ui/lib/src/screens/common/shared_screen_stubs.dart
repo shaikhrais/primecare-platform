@@ -34,7 +34,7 @@ class ScreenNotImplementedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    
+
     return Center(
       child: Container(
         padding: const EdgeInsets.all(40),
@@ -68,7 +68,8 @@ class ScreenNotImplementedView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              screenName ?? 'This feature is currently pending implementation in the platform registry.',
+              screenName ??
+                  'This feature is currently pending implementation in the platform registry.',
               style: theme.typography.bodyLarge.copyWith(
                 color: theme.colors.onSurfaceVariant,
               ),
@@ -85,7 +86,7 @@ class ScreenNotImplementedView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

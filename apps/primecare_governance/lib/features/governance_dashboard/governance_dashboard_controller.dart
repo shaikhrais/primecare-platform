@@ -6,9 +6,12 @@ import '../../governance/models/governance_category.dart';
 import '../../governance/models/governance_report.dart';
 import '../../governance/services/governance_exporter.dart';
 
-final governanceDashboardControllerProvider = NotifierProvider<GovernanceDashboardController, GovernanceDashboardModel>(() {
-  return GovernanceDashboardController();
-});
+final governanceDashboardControllerProvider =
+    NotifierProvider<GovernanceDashboardController, GovernanceDashboardModel>(
+      () {
+        return GovernanceDashboardController();
+      },
+    );
 
 class GovernanceDashboardController extends Notifier<GovernanceDashboardModel> {
   @override

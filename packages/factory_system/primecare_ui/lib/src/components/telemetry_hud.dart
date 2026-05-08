@@ -25,8 +25,8 @@ class TelemetryHud extends ConsumerWidget {
             SizedBox(height: theme.spacing * 4),
 
             // Primary Metrics Grid
-            GridView.count(
-              crossAxisCount: 2,
+            GridView.extent(
+              maxCrossAxisExtent: 160,
               crossAxisSpacing: theme.spacing * 2,
               mainAxisSpacing: theme.spacing * 2,
               shrinkWrap: true,

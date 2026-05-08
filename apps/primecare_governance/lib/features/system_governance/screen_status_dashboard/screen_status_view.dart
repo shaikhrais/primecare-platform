@@ -69,13 +69,15 @@ class ScreenStatusView extends GovernedConsumerWidget {
     PrimeThemeData theme,
     Map<String, dynamic> summary,
   ) {
-    return GridView.extent(
-      maxCrossAxisExtent: 280,
+    return GridView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 16,
-      mainAxisSpacing: 16,
-      childAspectRatio: 2.0,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 280,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        mainAxisExtent: 160,
+      ),
       children: [
         _buildStatCard(
           theme,
@@ -163,7 +165,7 @@ class ScreenStatusView extends GovernedConsumerWidget {
         maxCrossAxisExtent: 350,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: 2.5,
+        mainAxisExtent: 120,
       ),
       itemCount: appNames.length,
       itemBuilder: (context, index) {

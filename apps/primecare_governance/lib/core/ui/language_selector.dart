@@ -14,7 +14,9 @@ class LanguageSelector extends ConsumerWidget {
         if (lang != 'en') {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Alert: $lang language translations are incomplete/missing for this module.'),
+              content: Text(
+                'Alert: $lang language translations are incomplete/missing for this module.',
+              ),
               backgroundColor: theme.colors.error,
               behavior: SnackBarBehavior.floating,
             ),

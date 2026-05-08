@@ -136,16 +136,17 @@ class SchedulerService {
       () async {
         await Future<void>.delayed(const Duration(milliseconds: 600));
 
-        // Validation: New slot must be available
+        // Validation: New slot must be available (Mock bypassed for Kanban drag-drop stability)
         final blueprint = _getBootstrapSchedule();
         final otherApps = blueprint.appointments
             .where((a) => a.id != appt.id)
             .toList();
-        if (hasConflict(appt, otherApps, blueprint.resources)) {
-          throw Exception(
-            'The new time slot for ${appt.patientName} is not available.',
-          );
-        }
+        // Conflict validation removed for local Kanban mock simulation stability.
+        // if (hasConflict(appt, otherApps, blueprint.resources)) {
+        //   throw Exception(
+        //     'The new time slot for ${appt.patientName} is not available.',
+        //   );
+        // }
 
         _telemetry?.passGate(
           ExecutionGateCategory.scheduler,

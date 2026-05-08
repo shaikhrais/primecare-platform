@@ -12,7 +12,7 @@ class AppDrawer extends ConsumerWidget {
     final authState = ref.watch(authProvider);
     final impersonatedRole = ref.watch(roleImpersonationProvider);
     final visionMode = ref.watch(auraVisionProvider);
-    
+
     final String userRole = impersonatedRole ?? authState.role ?? 'guest';
 
     final screens = ScreenRegistry.screens.values
@@ -37,7 +37,8 @@ class AppDrawer extends ConsumerWidget {
       child: Column(
         children: [
           _buildHeader(context),
-          if (impersonatedRole != null) _buildImpersonationBanner(context, ref, impersonatedRole),
+          if (impersonatedRole != null)
+            _buildImpersonationBanner(context, ref, impersonatedRole),
           _buildVisionControl(context, ref, visionMode),
           Divider(color: theme.colors.outlineVariant, height: 1),
           Expanded(
@@ -77,7 +78,11 @@ class AppDrawer extends ConsumerWidget {
     );
   }
 
-  Widget _buildImpersonationBanner(BuildContext context, WidgetRef ref, String role) {
+  Widget _buildImpersonationBanner(
+    BuildContext context,
+    WidgetRef ref,
+    String role,
+  ) {
     final theme = context.theme;
     return Container(
       width: double.infinity,
@@ -85,7 +90,11 @@ class AppDrawer extends ConsumerWidget {
       color: theme.colors.errorContainer.withValues(alpha: 0.3),
       child: Row(
         children: [
-          Icon(Icons.theater_comedy_outlined, color: theme.colors.error, size: 18),
+          Icon(
+            Icons.theater_comedy_outlined,
+            color: theme.colors.error,
+            size: 18,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -110,7 +119,8 @@ class AppDrawer extends ConsumerWidget {
           ),
           IconButton(
             icon: Icon(Icons.close, size: 16, color: theme.colors.error),
-            onPressed: () => ref.read(roleImpersonationProvider.notifier).impersonate(null),
+            onPressed: () =>
+                ref.read(roleImpersonationProvider.notifier).impersonate(null),
             visualDensity: VisualDensity.compact,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
@@ -307,20 +317,21 @@ class AppDrawer extends ConsumerWidget {
     );
   }
 
-  Widget _buildRegistryLink(
-    BuildContext context,
-    String screenId,
-  ) {
+  Widget _buildRegistryLink(BuildContext context, String screenId) {
     final theme = context.theme;
     final screen = ScreenRegistry.getById(screenId);
-    
+
     if (screen == null) return const SizedBox.shrink();
 
     return ListTile(
       dense: true,
       visualDensity: VisualDensity.compact,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      leading: Icon(screen.icon ?? Icons.circle_outlined, color: theme.colors.primary, size: 18),
+      leading: Icon(
+        screen.icon ?? Icons.circle_outlined,
+        color: theme.colors.primary,
+        size: 18,
+      ),
       title: Text(
         screen.title.tr(),
         style: theme.typography.bodyMedium.copyWith(

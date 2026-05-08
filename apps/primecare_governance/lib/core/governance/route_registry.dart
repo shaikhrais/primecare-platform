@@ -11,6 +11,7 @@ import '../../features/governance_dashboard/governance_dashboard_view.dart';
 import '../../features/system_governance/monitoring/system_monitoring_view.dart';
 import '../../features/clinical_reference/clinical_reference_view.dart';
 import '../../features/clinical_reference/widgets/clinical_reference_drawer.dart';
+import '../../features/debug/kitchen_sink_view.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -83,8 +84,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   case 'CLINICAL_REFERENCE':
                     return const ClinicalReferenceView();
                   case 'DEBUG_THEME':
-                  case 'DEBUG_KITCHEN_SINK':
                     return DynamicScreenView(metadata: screen);
+                  case 'DEBUG_KITCHEN_SINK':
+                    return const KitchenSinkView();
                   default:
                     return DynamicScreenView(metadata: screen);
                 }

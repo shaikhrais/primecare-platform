@@ -20,8 +20,12 @@ class GovernanceDashboardModel {
     String? searchQuery,
   }) {
     return GovernanceDashboardModel(
-      selectedSeverity: clearSeverity ? null : (selectedSeverity ?? this.selectedSeverity),
-      selectedCategory: clearCategory ? null : (selectedCategory ?? this.selectedCategory),
+      selectedSeverity: clearSeverity
+          ? null
+          : (selectedSeverity ?? this.selectedSeverity),
+      selectedCategory: clearCategory
+          ? null
+          : (selectedCategory ?? this.selectedCategory),
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }

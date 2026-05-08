@@ -3,11 +3,7 @@ class ScreenStatusState {
   final bool isLoading;
   final String? error;
 
-  const ScreenStatusState({
-    this.statusData,
-    this.isLoading = true,
-    this.error,
-  });
+  const ScreenStatusState({this.statusData, this.isLoading = true, this.error});
 
   ScreenStatusState copyWith({
     Map<String, dynamic>? statusData,
