@@ -1,0 +1,14 @@
+{
+  "primecare_governance": {
+    "lastDeployedAt": "2026-05-09T01:56:01.460267Z"
+  },
+  "primecare_client": {
+    "lastDeployedAt": "2026-05-09T01:58:23.865125Z"
+  },
+  "primecare_clinic": {
+    "lastDeployedAt": "2026-05-09T02:00:18.250399Z"
+  },
+  "primecare_corporate": {
+    "lastDeployedAt": "2026-05-09T02:02:03.365610Z"
+  }
+}

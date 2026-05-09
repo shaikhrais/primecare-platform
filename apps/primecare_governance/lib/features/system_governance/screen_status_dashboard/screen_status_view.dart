@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'screen_status_controller.dart';
 
 class ScreenStatusView extends GovernedConsumerWidget {
@@ -177,57 +178,93 @@ class ScreenStatusView extends GovernedConsumerWidget {
             : 0;
         final metadata = _getAppMetadata(appName);
 
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: theme.colors.surface,
-            borderRadius: BorderRadius.circular(theme.radiusLg),
-            border: Border.all(color: theme.colors.outlineVariant),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
+        return GestureDetector(
+          onTap: () async {
+            final formattedAppName = appName.replaceAll('_', '-');
+            final uri = Uri.parse(
+              'https://primecare-$formattedAppName.pages.dev/',
+            );
+            try {
+              final launched = await launchUrl(
+                uri,
+                mode: LaunchMode.externalApplication,
+              );
+              if (!launched && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Could not launch $uri')),
+                );
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Error launching URL: $e')),
+                );
+              }
+            }
+          },
+          behavior: HitTestBehavior.opaque,
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusLg),
+                border: Border.all(color: theme.colors.outlineVariant),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(metadata.$2, color: theme.colors.primary, size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      metadata.$1,
-                      style: theme.typography.h3,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      Icon(metadata.$2, color: theme.colors.primary, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          metadata.$1,
+                          style: theme.typography.h3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Icon(
+                        Icons.open_in_new,
+                        color: theme.colors.onSurfaceVariant,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${appData['implemented']} / ${appData['total']}',
+                        style: theme.typography.bodyMedium,
+                      ),
+                      Text(
+                        '${(progress * 100).toStringAsFixed(0)}%',
+                        style: theme.typography.bodyMedium.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: theme.colors.surfaceContainerHighest,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      progress == 1.0
+                          ? theme.colors.success
+                          : theme.colors.primary,
                     ),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${appData['implemented']} / ${appData['total']}',
-                    style: theme.typography.bodyMedium,
-                  ),
-                  Text(
-                    '${(progress * 100).toStringAsFixed(0)}%',
-                    style: theme.typography.bodyMedium.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              LinearProgressIndicator(
-                value: progress,
-                backgroundColor: theme.colors.surfaceContainerHighest,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  progress == 1.0 ? theme.colors.success : theme.colors.primary,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ],
+            ),
           ),
         );
       },

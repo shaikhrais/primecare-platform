@@ -2,38 +2,8 @@ import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/governance/route_registry.dart';
 import 'core/i18n/language_provider.dart';
 
-import 'dart:ui';
-import 'dart:developer' as dev;
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-
-  // Handle Flutter-level errors
-  FlutterError.onError = (details) {
-    dev.log(details.exceptionAsString(), stackTrace: details.stack);
-  };
-
-  // Handle platform-level/async errors
-  PlatformDispatcher.instance.onError = (error, stack) {
-    dev.log(error.toString(), stackTrace: stack);
-    return true;
-  };
-
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [
-        Locale('en'),
-        Locale('fr'),
-        Locale('es'),
-        Locale('ar'),
-      ],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      useOnlyLangCode: true,
-      child: const ProviderScope(child: PrimeCareApp()),
-    ),
-  );
+void main() {
+  PrimeCareAppRunner.run(appWidget: const PrimeCareApp());
 }
 
 class PrimeCareApp extends ConsumerWidget {

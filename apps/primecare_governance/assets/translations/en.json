@@ -26,6 +26,50 @@
       "unknown_app": "Unknown App",
       "unknown_office": "Unknown Office",
       "unknown_charter": "Unknown Charter"
+    },
+    "sidebar_mapping": {
+      "offices_and_roles": "OFFICES & ROLES",
+      "select_office_role": "Select an office and role to view the sidebar mapping preview.",
+      "sidebar_preview": "Sidebar Preview",
+      "impersonate_role": "Impersonate this Role",
+      "viewing_platform_as": "Now viewing platform as: {}",
+      "status_label": "Status:",
+      "platform_component_status": "Platform Component Status",
+      "screen_details": "Screen Details",
+      "identifier": "Identifier",
+      "route_path": "Route Path",
+      "feature_name": "Feature Name",
+      "story_points": "Story Points",
+      "open_live_screen": "Open Live Screen",
+      "sidebar_nav": "Sidebar Nav",
+      "platform_top_bar": "Platform Top Bar",
+      "main_content": "Main Content",
+      "select_screen_prompt": "Select a screen from the sidebar to view its status",
+      "status": {
+        "implemented": "IMPLEMENTED",
+        "declared": "DECLARED",
+        "not_implemented": "NOT IMPLEMENTED",
+        "stubbed": "STUBBED"
+      }
+    },
+    "dynamic_screen": {
+      "governance_status": "GOVERNANCE STATUS: {}",
+      "development_lifecycle": "Development Lifecycle",
+      "screen_specifications": "Screen Specifications",
+      "platform_architecture_status": "Platform Architecture Status",
+      "current": "CURRENT",
+      "identifier": "Identifier",
+      "feature": "Feature",
+      "route_path": "Route Path",
+      "office": "Office",
+      "security": "Security",
+      "story_points": "Story Points",
+      "sidebar_navigation": "SIDEBAR NAVIGATION",
+      "platform_top_bar": "PLATFORM TOP BAR",
+      "main_content_area": "MAIN CONTENT AREA",
+      "governance_actions": "GOVERNANCE ACTIONS",
+      "initiate_development": "Initiate Development",
+      "file_correction_ticket": "File Correction Ticket"
     }
   },
   "clinical": {

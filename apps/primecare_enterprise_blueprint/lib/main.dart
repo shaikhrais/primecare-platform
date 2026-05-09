@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 void main() {
-  runApp(const MyApp());
+  PrimeCareAppRunner.run(appWidget: const MyApp());
 }
 
 class MyApp extends StatelessWidget {

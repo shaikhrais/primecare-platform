@@ -71,7 +71,7 @@ class _RoleSidebarMappingViewState
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
                   child: Text(
-                    'OFFICES & ROLES',
+                    'governance.sidebar_mapping.offices_and_roles'.tr(),
                     style: theme.typography.bodySmall.copyWith(
                       color: theme.colors.onSurfaceVariant,
                       fontWeight: FontWeight.bold,
@@ -191,8 +191,7 @@ class _RoleSidebarMappingViewState
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Select an office and role to view the sidebar mapping preview.'
-                              .tr(),
+                          'governance.sidebar_mapping.select_office_role'.tr(),
                           style: theme.typography.bodyLarge,
                         ),
                       ],
@@ -251,7 +250,10 @@ class _RoleSidebarMappingViewState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Sidebar Preview'.tr(), style: theme.typography.h2),
+                    Text(
+                      'governance.sidebar_mapping.sidebar_preview'.tr(),
+                      style: theme.typography.h2,
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       'Office: ${office.toUpperCase()}  •  Role: $role',
@@ -264,7 +266,7 @@ class _RoleSidebarMappingViewState
               ),
               const SizedBox(width: 16),
               PrimeButton.primary(
-                label: 'Impersonate this Role'.tr(),
+                label: 'governance.sidebar_mapping.impersonate_role'.tr(),
                 icon: LucideIcons.userCheck,
                 onPressed: () {
                   ref
@@ -272,7 +274,11 @@ class _RoleSidebarMappingViewState
                       .impersonate(role);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Now viewing platform as: $role'.tr()),
+                      content: Text(
+                        'governance.sidebar_mapping.viewing_platform_as'.tr(
+                          args: [role],
+                        ),
+                      ),
                       backgroundColor: theme.colors.primary,
                     ),
                   );
@@ -528,7 +534,7 @@ class _RoleSidebarMappingViewState
                                         ),
                                         const SizedBox(height: 16),
                                         Text(
-                                          'Select a screen from the sidebar to view its status'
+                                          'governance.sidebar_mapping.select_screen_prompt'
                                               .tr(),
                                           style: theme.typography.bodyLarge
                                               .copyWith(
@@ -600,7 +606,7 @@ class _RoleSidebarMappingViewState
                     Text(screen.title, style: theme.typography.h1),
                     const SizedBox(height: 4),
                     Text(
-                      'Status: ${status.tr()}',
+                      '${'governance.sidebar_mapping.status_label'.tr()} ${('governance.sidebar_mapping.status.${status.toLowerCase()}').tr()}',
                       style: theme.typography.bodyLarge.copyWith(
                         color: statusColor,
                         fontWeight: FontWeight.bold,
@@ -613,12 +619,18 @@ class _RoleSidebarMappingViewState
           ),
           const SizedBox(height: 32),
 
-          Text('Platform Component Status'.tr(), style: theme.typography.h3),
+          Text(
+            'governance.sidebar_mapping.platform_component_status'.tr(),
+            style: theme.typography.h3,
+          ),
           const SizedBox(height: 16),
           _buildComponentStatusGrid(theme, screen),
 
           const SizedBox(height: 32),
-          Text('Screen Details'.tr(), style: theme.typography.h3),
+          Text(
+            'governance.sidebar_mapping.screen_details'.tr(),
+            style: theme.typography.h3,
+          ),
           const SizedBox(height: 16),
           Container(
             decoration: BoxDecoration(
@@ -628,15 +640,27 @@ class _RoleSidebarMappingViewState
             ),
             child: Column(
               children: [
-                _buildDetailRow(theme, 'Identifier'.tr(), screen.id),
-                Divider(height: 1, color: theme.colors.outlineVariant),
-                _buildDetailRow(theme, 'Route Path'.tr(), screen.routePath),
-                Divider(height: 1, color: theme.colors.outlineVariant),
-                _buildDetailRow(theme, 'Feature Name'.tr(), screen.featureName),
+                _buildDetailRow(
+                  theme,
+                  'governance.sidebar_mapping.identifier'.tr(),
+                  screen.id,
+                ),
                 Divider(height: 1, color: theme.colors.outlineVariant),
                 _buildDetailRow(
                   theme,
-                  'Story Points'.tr(),
+                  'governance.sidebar_mapping.route_path'.tr(),
+                  screen.routePath,
+                ),
+                Divider(height: 1, color: theme.colors.outlineVariant),
+                _buildDetailRow(
+                  theme,
+                  'governance.sidebar_mapping.feature_name'.tr(),
+                  screen.featureName,
+                ),
+                Divider(height: 1, color: theme.colors.outlineVariant),
+                _buildDetailRow(
+                  theme,
+                  'governance.sidebar_mapping.story_points'.tr(),
                   screen.storyPoints.toString(),
                 ),
               ],
@@ -646,7 +670,7 @@ class _RoleSidebarMappingViewState
           SizedBox(
             width: double.infinity,
             child: PrimeButton.secondary(
-              label: 'Open Live Screen'.tr(),
+              label: 'governance.sidebar_mapping.open_live_screen'.tr(),
               icon: LucideIcons.externalLink,
               onPressed: () {
                 context.go(screen.routePath);
@@ -672,19 +696,19 @@ class _RoleSidebarMappingViewState
       children: [
         _buildComponentCard(
           theme,
-          'Sidebar Nav'.tr(),
+          'governance.sidebar_mapping.sidebar_nav'.tr(),
           'IMPLEMENTED',
           LucideIcons.layoutPanelLeft,
         ),
         _buildComponentCard(
           theme,
-          'Platform Top Bar'.tr(),
+          'governance.sidebar_mapping.platform_top_bar'.tr(),
           'IMPLEMENTED',
           LucideIcons.layoutPanelTop,
         ),
         _buildComponentCard(
           theme,
-          'Main Content'.tr(),
+          'governance.sidebar_mapping.main_content'.tr(),
           screen.isRenderOk ? 'IMPLEMENTED' : 'DECLARED',
           LucideIcons.layout,
         ),
@@ -750,7 +774,8 @@ class _RoleSidebarMappingViewState
               borderRadius: BorderRadius.circular(theme.radiusXs),
             ),
             child: Text(
-              status.tr(),
+              ('governance.sidebar_mapping.status.${status.toLowerCase()}')
+                  .tr(),
               style: theme.typography.bodySmall.copyWith(
                 color: statusColor,
                 fontWeight: FontWeight.bold,

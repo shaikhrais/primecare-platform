@@ -49,7 +49,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     errorBuilder: (context, state) => MasterLayout(
       shellType: AppShellType.admin,
-      child: CommonUiError404PageViewScreen(),
+      child: const ScreenNotImplementedView(),
     ),
     routes: [
       GoRoute(
@@ -68,11 +68,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ...sharedCommonRoutes,
           GoRoute(
             path: '/:segment1/:segment2',
-            builder: (context, state) => CommonUiError404PageViewScreen(),
+            builder: (context, state) => const ScreenNotImplementedView(),
           ),
           GoRoute(
             path: '/:segment1/:segment2/:segment3',
-            builder: (context, state) => CommonUiError404PageViewScreen(),
+            builder: (context, state) => const ScreenNotImplementedView(),
           ),
         ],
       ),

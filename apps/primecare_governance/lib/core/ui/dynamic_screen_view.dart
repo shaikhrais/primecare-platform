@@ -85,7 +85,12 @@ class DynamicScreenView extends GovernedStatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        'GOVERNANCE STATUS: $statusText',
+                        'governance.dynamic_screen.governance_status'.tr(
+                          args: [
+                            ('governance.sidebar_mapping.status.${statusText.toLowerCase()}')
+                                .tr(),
+                          ],
+                        ),
                         style: theme.typography.bodyLarge.copyWith(
                           color: statusColor,
                           fontWeight: FontWeight.bold,
@@ -108,14 +113,22 @@ class DynamicScreenView extends GovernedStatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildSectionHeader(theme, 'Development Lifecycle'),
+                          _buildSectionHeader(
+                            theme,
+                            'governance.dynamic_screen.development_lifecycle'
+                                .tr(),
+                          ),
                           const SizedBox(height: 16),
                           _buildLifecycleStepper(
                             theme,
                             metadata.lifecycleStatus,
                           ),
                           const SizedBox(height: 48),
-                          _buildSectionHeader(theme, 'Screen Specifications'),
+                          _buildSectionHeader(
+                            theme,
+                            'governance.dynamic_screen.screen_specifications'
+                                .tr(),
+                          ),
                           const SizedBox(height: 16),
                           _buildSpecsTable(theme, metadata),
                         ],
@@ -130,7 +143,8 @@ class DynamicScreenView extends GovernedStatelessWidget {
                         children: [
                           _buildSectionHeader(
                             theme,
-                            'Platform Architecture Status',
+                            'governance.dynamic_screen.platform_architecture_status'
+                                .tr(),
                           ),
                           const SizedBox(height: 16),
                           _buildArchitectureStatus(theme, statusText),
@@ -221,7 +235,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      'CURRENT',
+                      'governance.dynamic_screen.current'.tr(),
                       style: theme.typography.labelSmall.copyWith(
                         color: theme.colors.primary,
                         fontSize: 8,
@@ -245,18 +259,34 @@ class DynamicScreenView extends GovernedStatelessWidget {
       ),
       child: Column(
         children: [
-          _buildSpecRow(theme, 'Identifier', metadata.id),
-          _buildSpecRow(theme, 'Feature', metadata.featureName),
-          _buildSpecRow(theme, 'Route Path', metadata.routePath),
-          _buildSpecRow(theme, 'Office', metadata.office),
           _buildSpecRow(
             theme,
-            'Security',
+            'governance.dynamic_screen.identifier'.tr(),
+            metadata.id,
+          ),
+          _buildSpecRow(
+            theme,
+            'governance.dynamic_screen.feature'.tr(),
+            metadata.featureName,
+          ),
+          _buildSpecRow(
+            theme,
+            'governance.dynamic_screen.route_path'.tr(),
+            metadata.routePath,
+          ),
+          _buildSpecRow(
+            theme,
+            'governance.dynamic_screen.office'.tr(),
+            metadata.office,
+          ),
+          _buildSpecRow(
+            theme,
+            'governance.dynamic_screen.security'.tr(),
             metadata.securityLevel.name.toUpperCase(),
           ),
           _buildSpecRow(
             theme,
-            'Story Points',
+            'governance.dynamic_screen.story_points'.tr(),
             metadata.storyPoints.toString(),
             isLast: true,
           ),
@@ -306,21 +336,21 @@ class DynamicScreenView extends GovernedStatelessWidget {
       children: [
         _buildArchCard(
           theme,
-          'SIDEBAR NAVIGATION',
+          'governance.dynamic_screen.sidebar_navigation'.tr(),
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
           LucideIcons.layoutPanelLeft,
         ),
         const SizedBox(height: 12),
         _buildArchCard(
           theme,
-          'PLATFORM TOP BAR',
+          'governance.dynamic_screen.platform_top_bar'.tr(),
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
           LucideIcons.layoutPanelTop,
         ),
         const SizedBox(height: 12),
         _buildArchCard(
           theme,
-          'MAIN CONTENT AREA',
+          'governance.dynamic_screen.main_content_area'.tr(),
           screenStatus,
           LucideIcons.layout,
         ),
@@ -372,7 +402,8 @@ class DynamicScreenView extends GovernedStatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  status,
+                  ('governance.sidebar_mapping.status.${status.toLowerCase()}')
+                      .tr(),
                   style: theme.typography.bodySmall.copyWith(
                     color: statusColor,
                     fontWeight: FontWeight.bold,
@@ -403,7 +434,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'GOVERNANCE ACTIONS',
+            'governance.dynamic_screen.governance_actions'.tr(),
             style: theme.typography.labelSmall.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -412,7 +443,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
           SizedBox(
             width: double.infinity,
             child: PrimeButton.primary(
-              label: 'Initiate Development',
+              label: 'governance.dynamic_screen.initiate_development'.tr(),
               icon: LucideIcons.code,
               onPressed: () {},
             ),
@@ -421,7 +452,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
           SizedBox(
             width: double.infinity,
             child: PrimeButton.secondary(
-              label: 'File Correction Ticket',
+              label: 'governance.dynamic_screen.file_correction_ticket'.tr(),
               icon: LucideIcons.ticket,
               onPressed: () {},
             ),

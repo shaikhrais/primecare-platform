@@ -34,7 +34,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     errorBuilder: (context, state) => MasterLayout(
       shellType: AppShellType.patient,
-      child: CommonUiError404PageViewScreen(),
+      child: const ScreenNotImplementedView(),
     ),
     routes: [
       GoRoute(

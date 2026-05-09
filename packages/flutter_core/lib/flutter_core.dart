@@ -40,6 +40,7 @@ export 'src/resilience/provider_ttl.dart';
 export 'src/resilience/execution_gate_service.dart';
 export 'src/resilience/resilience_service.dart';
 export 'src/resilience/result.dart';
+export 'src/resilience/primecare_app_runner.dart';
 
 export 'config/resilience_config.dart';
 export 'verification_service.dart';

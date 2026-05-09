@@ -140,6 +140,50 @@
     "save_module": "Save Module",
     "role_entry": "Role Entry",
     "role_name": "Role Name",
-    "save_role": "Save Role"
+    "save_role": "Save Role",
+    "sidebar_mapping": {
+      "offices_and_roles": "OFFICES & ROLES",
+      "select_office_role": "Select an office and role to view the sidebar mapping preview.",
+      "sidebar_preview": "Sidebar Preview",
+      "impersonate_role": "Impersonate this Role",
+      "viewing_platform_as": "Now viewing platform as: {}",
+      "status_label": "Status:",
+      "platform_component_status": "Platform Component Status",
+      "screen_details": "Screen Details",
+      "identifier": "Identifier",
+      "route_path": "Route Path",
+      "feature_name": "Feature Name",
+      "story_points": "Story Points",
+      "open_live_screen": "Open Live Screen",
+      "sidebar_nav": "Sidebar Nav",
+      "platform_top_bar": "Platform Top Bar",
+      "main_content": "Main Content",
+      "select_screen_prompt": "Select a screen from the sidebar to view its status",
+      "status": {
+        "implemented": "IMPLEMENTED",
+        "declared": "DECLARED",
+        "not_implemented": "NOT IMPLEMENTED",
+        "stubbed": "STUBBED"
+      }
+    },
+    "dynamic_screen": {
+      "governance_status": "حالة الحوكمة: {}",
+      "development_lifecycle": "دورة حياة التطوير",
+      "screen_specifications": "مواصفات الشاشة",
+      "platform_architecture_status": "حالة معمارية المنصة",
+      "current": "الحالي",
+      "identifier": "المعرف",
+      "feature": "ميزة",
+      "route_path": "مسار التوجيه",
+      "office": "مكتب. مقر. مركز",
+      "security": "أمان",
+      "story_points": "نقاط القصة",
+      "sidebar_navigation": "التنقل الجانبي",
+      "platform_top_bar": "الشريط العلوي",
+      "main_content_area": "منطقة المحتوى الرئيسي",
+      "governance_actions": "إجراءات الحوكمة",
+      "initiate_development": "بدء التطوير",
+      "file_correction_ticket": "تذكرة تصحيح الملف"
+    }
   }
 }

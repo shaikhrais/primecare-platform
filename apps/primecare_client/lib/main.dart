@@ -2,20 +2,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'core/routing/app_router.dart';
 
 void main() {
-  AppErrorBoundary.runGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await EasyLocalization.ensureInitialized();
-
-    runApp(
-      EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-        path: 'assets/translations',
-        fallbackLocale: const Locale('en'),
-        useOnlyLangCode: true,
-        child: const ProviderScope(child: PrimeCareClientApp()),
-      ),
-    );
-  });
+  PrimeCareAppRunner.run(appWidget: const PrimeCareClientApp());
 }
 
 class PrimeCareClientApp extends ConsumerWidget {
