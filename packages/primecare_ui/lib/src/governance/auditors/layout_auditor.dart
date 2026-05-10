@@ -18,7 +18,7 @@ class LayoutAuditor {
         missingBreakpoints++;
       }
       // Check for 4K readiness (designSize >= 3840 width)
-      if (screen.designSize == null || screen.designSize!.width < 3840) {
+      if (screen.designSize.width < 3840) {
         // We only warn for now if it's below 4K, as some legacy screens might be smaller.
         // But for Clinical/Logistics, 4K is the new standard.
         missingHifiSpecs++;

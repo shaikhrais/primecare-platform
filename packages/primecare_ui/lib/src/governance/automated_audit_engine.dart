@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'auditors/localization_auditor.dart';
 import 'auditors/layout_auditor.dart';

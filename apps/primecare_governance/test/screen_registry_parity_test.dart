@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:yaml/yaml.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
 
 void main() {
