@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/governance/controllers/governance_dashboard_controller.dart';
-import 'package:primecare_governance/governance/models/governance_severity.dart';
-import 'package:primecare_governance/governance/models/governance_category.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   group('GovernanceDashboardController', () {
@@ -29,10 +27,10 @@ void main() {
         governanceDashboardControllerProvider.notifier,
       );
 
-      controller.setSeverity(GovernanceSeverity.critical);
+      controller.setSeverity(AuditSeverity.critical);
 
       final state = container.read(governanceDashboardControllerProvider);
-      expect(state.selectedSeverity, equals(GovernanceSeverity.critical));
+      expect(state.selectedSeverity, equals(AuditSeverity.critical));
     });
 
     test('setCategory updates state', () {
@@ -62,7 +60,7 @@ void main() {
         governanceDashboardControllerProvider.notifier,
       );
 
-      controller.setSeverity(GovernanceSeverity.critical);
+      controller.setSeverity(AuditSeverity.critical);
       controller.setCategory(GovernanceCategory.routing);
       controller.setSearchQuery('test query');
 

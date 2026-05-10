@@ -3,9 +3,12 @@ import 'package:path/path.dart' as p;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:yaml/yaml.dart';
-import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
+import 'package:primecare_governance/core/governance/registries/index.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_governance/core/governance/governance_provider.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   test('Audit Screen Registry Parity', () async {
     final projectRoot =
         'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
@@ -37,7 +40,13 @@ void main() {
             .toList(),
     };
 
-    final registeredScreens = CoreGovernanceRegistry.screens;
+    // Initialize registry and hydrate from blueprints
+    final container = ProviderContainer();
+    await container.read(governanceProvider.notifier).hydrateRegistries();
+    
+    // Fallback registration for hardcoded screens not in blueprints
+    Registry.registerAll();
+    final registeredScreens = PlatformScreenRegistry.screens;
 
     PrimeLogger.info('Found ${blueprintMap.length} blueprints.');
     PrimeLogger.info(

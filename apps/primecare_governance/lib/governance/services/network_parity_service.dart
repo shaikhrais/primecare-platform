@@ -25,6 +25,7 @@ class NetworkParityService {
 
       return violations.map((v) {
         return AuditIssue(
+          id: 'backend_violation_${v['id'] ?? v['path'] ?? 'unknown'}',
           subsystem: 'governance_api',
           registry: 'ApiGovernanceRegistry',
           issue: v['type'] == 'rogue_endpoint' 
@@ -40,6 +41,7 @@ class NetworkParityService {
     } catch (e) {
       return [
         AuditIssue(
+          id: 'backend_unreachable',
           subsystem: 'governance_api',
           registry: 'Network',
           issue: 'Backend Audit Unreachable',

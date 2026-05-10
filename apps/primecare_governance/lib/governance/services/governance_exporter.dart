@@ -45,7 +45,7 @@ class GovernanceExporter {
 
     for (final issue in report.issues) {
       buffer.writeln(
-        '| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${issue.title} | ${issue.message} | ${issue.fix} |',
+        '| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${issue.title} | ${issue.message} | ${issue.suggestedFix} |',
       );
     }
 
@@ -88,7 +88,7 @@ class GovernanceExporter {
               'severity': i.severity.name,
               'category': i.category.name,
               'message': i.message,
-              'fix': i.fix,
+              'suggestedFix': i.suggestedFix,
               'owner': i.owner,
               'detectedAt': i.detectedAt.toIso8601String(),
             },
@@ -111,7 +111,7 @@ class GovernanceExporter {
         '"${i.title}"',
         i.routePath,
         '"${i.message}"',
-        '"${i.fix}"',
+        '"${i.suggestedFix}"',
         i.owner,
         i.detectedAt.toIso8601String(),
       ].join(',');
@@ -193,7 +193,7 @@ class GovernanceExporter {
                 <td>${i.category.name.toUpperCase()}</td>
                 <td>${i.title}</td>
                 <td>${i.message}</td>
-                <td>${i.fix}</td>
+                <td>${i.suggestedFix}</td>
             </tr>
             ''').join('')}
         </tbody>

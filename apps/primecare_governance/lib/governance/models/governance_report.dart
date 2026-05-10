@@ -1,4 +1,4 @@
-import 'package:flutter_core/models/governance_types.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceReport {
   final int totalScreens;

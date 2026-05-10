@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
-import '../models/governance_severity.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceFilterBar extends StatelessWidget {
-  final GovernanceSeverity? selectedSeverity;
+  final AuditSeverity? selectedSeverity;
   final GovernanceCategory? selectedCategory;
-  final Function(GovernanceSeverity?) onSeverityChanged;
+  final Function(AuditSeverity?) onSeverityChanged;
   final Function(GovernanceCategory?) onCategoryChanged;
   final VoidCallback onClear;
 
@@ -34,7 +31,7 @@ class GovernanceFilterBar extends StatelessWidget {
           const SizedBox(width: 16),
 
           // Severity Filter
-          _buildFilterChip<GovernanceSeverity>(
+          _buildFilterChip<AuditSeverity>(
             context,
             'governance.filterBar.severityLabel'.tr(
               args: [
@@ -42,7 +39,7 @@ class GovernanceFilterBar extends StatelessWidget {
                     'governance.filterBar.all'.tr(),
               ],
             ),
-            GovernanceSeverity.values,
+            AuditSeverity.values,
             selectedSeverity,
             onSeverityChanged,
           ),

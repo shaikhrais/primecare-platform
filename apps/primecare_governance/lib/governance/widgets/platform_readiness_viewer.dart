@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_core/models/governance_types.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// A widget that displays a high-level system readiness report.
 class PlatformReadinessViewer extends StatelessWidget {

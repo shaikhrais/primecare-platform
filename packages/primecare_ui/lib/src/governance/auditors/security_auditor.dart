@@ -1,4 +1,4 @@
-import 'package:primecare_governance/core/governance/screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../automated_audit_engine.dart';
 
 class SecurityAuditor {

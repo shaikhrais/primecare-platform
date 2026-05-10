@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/clinical_article.dart';
@@ -198,7 +199,7 @@ Future<List<ClinicalArticle>> clinicalArticlesSearch(
   return repository.searchArticles(query);
 }
 
-// Legacy-compatible Notifier without requiring build_runner for tests
+// Simple Notifier for stable cross-package access during tests
 class ClinicalReferenceDrawerController extends Notifier<String> {
   @override
   String build() => '';
@@ -210,9 +211,11 @@ class ClinicalReferenceDrawerController extends Notifier<String> {
   void clearQuery() {
     state = '';
   }
+
+  String get query => state;
 }
 
 final clinicalReferenceDrawerControllerProvider =
-    NotifierProvider<ClinicalReferenceDrawerController, String>(
-  ClinicalReferenceDrawerController.new,
-);
+    NotifierProvider<ClinicalReferenceDrawerController, String>(() {
+  return ClinicalReferenceDrawerController();
+});

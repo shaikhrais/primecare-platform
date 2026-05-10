@@ -47,9 +47,21 @@ registries:
     mapped_blueprints:
       - screen_id: "clinical.clinical_director.dashboard"
         blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 100
+        office: "Clinical Governance"
+      - screen_id: "clinical.clinical_director.reports"
+        blueprint_id: "blueprint.list.audit"
+        completion_percent: 45
+        office: "Clinical Analytics"
       - screen_id: "corporate.ceo.dashboard"
         blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 85
+        office: "Executive Office"
       - screen_id: "clinical.psw.dashboard"
         blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 92
+        office: "Frontline Operations"
       - screen_id: "clinical.intake.patient_intake_form"
         blueprint_id: "blueprint.form.clinical"
+        completion_percent: 75
+        office: "Admissions"

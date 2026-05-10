@@ -1,5 +1,4 @@
-import 'package:flutter_core/models/governance_types.dart';
-import '../../core/governance/screen_registry.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class RouteAuditService {
   static List<PlatformAuditIssue> scan(ScreenMetadata s) {
@@ -9,13 +8,15 @@ class RouteAuditService {
       issues.add(
         PlatformAuditIssue(
           id: 'route_invalid_${s.id}',
+          title: 'Invalid Route Path',
+          category: GovernanceCategory.routing,
+          screenId: s.id,
           subsystem: 'primecare_governance',
           registry: 'Routing',
           issue: 'Invalid route path: ${s.routePath}',
           suggestion: 'Route path must start with a forward slash (/).',
           severity: AuditSeverity.critical,
           metadata: {
-            'screenId': s.id,
             'owner': s.assignedDeveloper,
           },
         ),
@@ -26,13 +27,15 @@ class RouteAuditService {
       issues.add(
         PlatformAuditIssue(
           id: 'route_trailing_${s.id}',
+          title: 'Trailing Slash in Route',
+          category: GovernanceCategory.routing,
+          screenId: s.id,
           subsystem: 'primecare_governance',
           registry: 'Routing',
           issue: 'Trailing slash in route path.',
           suggestion: 'Remove the trailing slash for consistency.',
           severity: AuditSeverity.low,
           metadata: {
-            'screenId': s.id,
             'owner': s.assignedDeveloper,
           },
         ),

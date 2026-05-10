@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../models/governance_issue.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../services/governance_patch_service.dart';
 
 class GovernancePatchManager extends StatelessWidget {
-  final List<GovernanceIssue> issues;
+  final List<PlatformAuditIssue> issues;
 
   const GovernancePatchManager({super.key, required this.issues});
 

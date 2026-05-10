@@ -1,7 +1,6 @@
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/services.dart';
 import '../../core/governance/screen_registry.dart';
-import '../models/governance_issue.dart';
 import '../models/governance_report.dart';
 import 'governance_kpi_grid.dart';
 import 'governance_issue_table.dart';
@@ -161,7 +160,7 @@ class _GovernanceDashboardContentState
   }
 
   Widget _buildAuditView(
-    List<GovernanceIssue> filteredIssues,
+    List<PlatformAuditIssue> filteredIssues,
     GovernanceState governanceState,
     GovernanceDashboardState dashboardState,
     GovernanceReport report,

@@ -1,6 +1,6 @@
-import '../models/governance_issue.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
-import '../models/governance_severity.dart';
+import '../../core/governance/screen_registry.dart';
 
 import 'registry_integrity_service.dart';
 import 'route_audit_service.dart';
@@ -10,7 +10,6 @@ import 'component_audit_service.dart';
 import 'test_quality_audit_service.dart';
 import 'production_readiness_service.dart';
 import 'security_audit_service.dart';
-import '../../core/governance/screen_registry.dart';
 
 class ScreenGovernanceReporter {
   static GovernanceReport generateReport() {
@@ -18,7 +17,7 @@ class ScreenGovernanceReporter {
   }
 
   static GovernanceReport scan(Map<String, ScreenMetadata> screens) {
-    final issues = <GovernanceIssue>[];
+    final issues = <PlatformAuditIssue>[];
 
     // 1. Structural Registry Audit
     issues.addAll(RegistryIntegrityService.inspect(screens));
@@ -65,10 +64,10 @@ class ScreenGovernanceReporter {
     return GovernanceReport(
       totalScreens: total,
       totalIssues: issues.length,
-      criticalIssues: _count(issues, GovernanceSeverity.critical),
-      highIssues: _count(issues, GovernanceSeverity.high),
-      mediumIssues: _count(issues, GovernanceSeverity.medium),
-      lowIssues: _count(issues, GovernanceSeverity.low),
+      criticalIssues: _count(issues, AuditSeverity.critical),
+      highIssues: _count(issues, AuditSeverity.high),
+      mediumIssues: _count(issues, AuditSeverity.medium),
+      lowIssues: _count(issues, AuditSeverity.low),
       productionReadyScreens: productionReady,
       blockedScreens: blocked,
       averageTestPassRate: avgTest,
@@ -79,7 +78,7 @@ class ScreenGovernanceReporter {
     );
   }
 
-  static int _count(List<GovernanceIssue> issues, GovernanceSeverity severity) {
+  static int _count(List<PlatformAuditIssue> issues, AuditSeverity severity) {
     return issues.where((i) => i.severity == severity).length;
   }
 

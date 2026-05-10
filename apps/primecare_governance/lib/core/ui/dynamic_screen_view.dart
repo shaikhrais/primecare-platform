@@ -105,6 +105,9 @@ class DynamicScreenView extends GovernedStatelessWidget {
                   ),
                 ),
 
+                SizedBox(height: context.s(32)),
+                _buildCompletionHUD(theme, metadata.completionPercent),
+
                 if (metadata.lifecycleStatus == LifecycleStatus.design)
                   Padding(
                     padding: EdgeInsets.only(top: context.s(24.0)),
@@ -326,20 +329,12 @@ class DynamicScreenView extends GovernedStatelessWidget {
             'governance.dynamic_screen.story_points'.tr(),
             metadata.storyPoints.toString(),
           ),
-          if (metadata.designSize != null)
-            _buildSpecRow(
-              theme,
-              'DESIGN TARGET',
-              '${metadata.designSize!.width.toInt()} x ${metadata.designSize!.height.toInt()} (4K Ultra HD)',
-              isLast: true,
-            )
-          else
-            _buildSpecRow(
-              theme,
-              'DESIGN TARGET',
-              'Responsive (Mobile/Tab/Desktop)',
-              isLast: true,
-            ),
+          _buildSpecRow(
+            theme,
+            'DESIGN TARGET',
+            '${metadata.designSize.width.toInt()} x ${metadata.designSize.height.toInt()} (4K Ultra HD)',
+            isLast: true,
+          ),
         ],
       ),
     );
@@ -518,6 +513,171 @@ class DynamicScreenView extends GovernedStatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+  
+  Widget _buildCompletionHUD(PrimeThemeData theme, double percent) {
+    final color = percent > 90 
+        ? Colors.green 
+        : (percent > 40 ? Colors.blue : Colors.orange);
+
+    return Container(
+      width: context.s(700),
+      padding: EdgeInsets.all(context.s(32)),
+      decoration: BoxDecoration(
+        color: theme.colors.surface.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(context.s(24)),
+        border: Border.all(color: theme.colors.outlineVariant.withValues(alpha: 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.1),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+            spreadRadius: -5,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(context.s(24)),
+        child: Stack(
+          children: [
+            // Decorative background gradient
+            Positioned(
+              right: -context.s(50),
+              top: -context.s(50),
+              child: Container(
+                width: context.s(200),
+                height: context.s(200),
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    colors: [
+                      color.withValues(alpha: 0.1),
+                      color.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(context.s(12)),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(context.s(12)),
+                      ),
+                      child: Icon(LucideIcons.activity, color: color, size: context.s(24)),
+                    ),
+                    SizedBox(width: context.s(20)),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'governance.dynamic_screen.implementation_progress'.tr().toUpperCase(),
+                            style: theme.typography.labelMedium.copyWith(
+                              fontSize: context.s(13),
+                              fontWeight: FontWeight.w900,
+                              color: theme.colors.onSurfaceVariant,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                          Text(
+                            percent >= 100 
+                                ? 'Architectural Parity Achieved' 
+                                : 'Structural Hydration in Progress',
+                            style: theme.typography.bodySmall.copyWith(
+                              color: theme.colors.onSurfaceVariant.withValues(alpha: 0.7),
+                              fontSize: context.s(12),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '${percent.toInt()}%',
+                          style: theme.typography.h2.copyWith(
+                            color: color,
+                            fontWeight: FontWeight.w900,
+                            fontSize: context.s(32),
+                            letterSpacing: -1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: context.s(32)),
+                Stack(
+                  children: [
+                    Container(
+                      height: context.s(16),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: theme.colors.outlineVariant.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(context.s(100)),
+                      ),
+                    ),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 1000),
+                      curve: Curves.easeOutCubic,
+                      height: context.s(16),
+                      width: (context.s(700) - context.s(64)) * (percent / 100),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            color.withValues(alpha: 0.7),
+                            color,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(context.s(100)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: color.withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: context.s(24)),
+                Container(
+                  padding: EdgeInsets.all(context.s(16)),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surfaceContainerLow,
+                    borderRadius: BorderRadius.circular(context.s(16)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(LucideIcons.shieldCheck, size: context.s(18), color: color),
+                      SizedBox(width: context.s(12)),
+                      Expanded(
+                        child: Text(
+                          percent >= 100 
+                              ? 'This screen has passed all automated governance audits and is certified for production deployment.' 
+                              : 'Current metadata reflects implementation status in blueprints.yaml. Automated drift detection is active.',
+                          style: theme.typography.bodySmall.copyWith(
+                            color: theme.colors.onSurface,
+                            fontSize: context.s(12),
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../../core/services/platform_env_service.dart';
-import '../models/governance_issue.dart';
-import '../models/governance_severity.dart';
 import '../services/registry_patch_engine.dart';
 
 class GovernanceIssueTable extends ConsumerWidget {
-  final List<GovernanceIssue> issues;
+  final List<PlatformAuditIssue> issues;
 
   const GovernanceIssueTable({super.key, required this.issues});
 
@@ -82,7 +78,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                         SizedBox(
                           width: 250,
                           child: Text(
-                            issue.message,
+                            issue.issue,
                             style: const TextStyle(fontSize: 12),
                           ),
                         ),
@@ -91,7 +87,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                         SizedBox(
                           width: 250,
                           child: Text(
-                            issue.fix,
+                            issue.suggestion,
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.blue,
@@ -100,27 +96,29 @@ class GovernanceIssueTable extends ConsumerWidget {
                         ),
                       ),
                       DataCell(
-                        Text(issue.owner, style: const TextStyle(fontSize: 12)),
+                        Text(
+                          issue.metadata['owner'] ?? 'Unassigned',
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                       DataCell(
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (issue.sourcePath != null &&
-                                issue.sourcePath!.isNotEmpty)
+                            if (issue.metadata['sourcePath'] != null)
                               IconButton(
                                 icon: const Icon(Icons.code, size: 18),
                                 tooltip: 'Open in VS Code',
                                 onPressed: () async {
                                   final uri = env.getVSCodeUri(
-                                    issue.sourcePath!,
+                                    issue.metadata['sourcePath']!,
                                   );
                                   if (await canLaunchUrl(uri)) {
                                     await launchUrl(uri);
                                   }
                                 },
                               ),
-                            if (issue.fixProperty != null)
+                            if (issue.metadata['fixProperty'] != null)
                               IconButton(
                                 icon: const Icon(
                                   Icons.auto_fix_high_rounded,
@@ -133,8 +131,8 @@ class GovernanceIssueTable extends ConsumerWidget {
                                       await RegistryPatchEngine.applyFix(
                                         PlatformEnvService.projectRoot,
                                         issue,
-                                        issue.fixProperty!,
-                                        issue.fixValue!,
+                                        issue.metadata['fixProperty']!,
+                                        issue.metadata['fixValue']!,
                                       );
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -144,7 +142,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                                               ? 'governance.issueTable.fixSuccess'
                                                     .tr(
                                                       args: [
-                                                        issue.fixProperty
+                                                        issue.metadata['fixProperty']
                                                             .toString(),
                                                         issue.screenId,
                                                       ],
@@ -191,22 +189,22 @@ class GovernanceIssueTable extends ConsumerWidget {
     );
   }
 
-  Widget _buildSeverityBadge(GovernanceSeverity severity) {
+  Widget _buildSeverityBadge(AuditSeverity severity) {
     Color color;
     switch (severity) {
-      case GovernanceSeverity.critical:
+      case AuditSeverity.critical:
         color = Colors.red;
         break;
-      case GovernanceSeverity.high:
+      case AuditSeverity.high:
         color = Colors.orange;
         break;
-      case GovernanceSeverity.medium:
+      case AuditSeverity.medium:
         color = Colors.amber;
         break;
-      case GovernanceSeverity.low:
+      case AuditSeverity.low:
         color = Colors.blue;
         break;
-      case GovernanceSeverity.info:
+      case AuditSeverity.info:
         color = Colors.teal;
         break;
     }

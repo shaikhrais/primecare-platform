@@ -1,5 +1,4 @@
-import 'package:flutter_core/models/governance_types.dart';
-import 'package:flutter_core/models/screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class RegistryIntegrityService {
   /// Scans the registry for structural and logical inconsistencies.
@@ -13,13 +12,15 @@ class RegistryIntegrityService {
         issues.add(
           PlatformAuditIssue(
             id: 'registry_id_mismatch_$id',
+            title: 'Registry ID Mismatch',
+            category: GovernanceCategory.audit,
+            screenId: id,
             subsystem: 'primecare_governance',
             registry: 'CoreRegistry',
             issue: 'Registry key ($id) does not match metadata ID (${metadata.id}).',
             suggestion: 'Update the metadata.id to match the registry key.',
             severity: AuditSeverity.critical,
             metadata: {
-              'screenId': id,
               'actualId': metadata.id,
             },
           ),
@@ -32,13 +33,15 @@ class RegistryIntegrityService {
         issues.add(
           PlatformAuditIssue(
             id: 'registry_duplicate_route_${id}_${metadata.routePath.replaceAll('/', '_')}',
+            title: 'Duplicate Route Path',
+            category: GovernanceCategory.routing,
+            screenId: id,
             subsystem: 'primecare_governance',
             registry: 'Routing',
             issue: 'Duplicate route path detected: ${metadata.routePath}',
             suggestion: 'Assign a unique route path to this screen.',
             severity: AuditSeverity.high,
             metadata: {
-              'screenId': id,
               'routePath': metadata.routePath,
             },
           ),
@@ -52,14 +55,14 @@ class RegistryIntegrityService {
         issues.add(
           PlatformAuditIssue(
             id: 'registry_missing_source_$id',
+            title: 'Missing Source Path',
+            category: GovernanceCategory.compliance,
+            screenId: id,
             subsystem: 'primecare_governance',
             registry: 'CoreRegistry',
             issue: 'Screen is marked "Completed" but lacks a sourcePath.',
             suggestion: 'Add the absolute or relative source path to the registry entry.',
             severity: AuditSeverity.high,
-            metadata: {
-              'screenId': id,
-            },
           ),
         );
       }
@@ -70,14 +73,14 @@ class RegistryIntegrityService {
         issues.add(
           PlatformAuditIssue(
             id: 'registry_missing_components_$id',
+            title: 'Missing Component Documentation',
+            category: GovernanceCategory.component,
+            screenId: id,
             subsystem: 'primecare_governance',
             registry: 'Compliance',
             issue: 'Completed screen has zero registered components.',
             suggestion: 'Document the primary UI components used in this screen.',
             severity: AuditSeverity.medium,
-            metadata: {
-              'screenId': id,
-            },
           ),
         );
       }
@@ -87,14 +90,14 @@ class RegistryIntegrityService {
         issues.add(
           PlatformAuditIssue(
             id: 'registry_zero_points_$id',
+            title: 'Zero Story Points',
+            category: GovernanceCategory.ownership,
+            screenId: id,
             subsystem: 'primecare_governance',
             registry: 'CoreRegistry',
             issue: 'Screen has 0 story points assigned.',
             suggestion: 'Perform a complexity estimation for this feature.',
             severity: AuditSeverity.low,
-            metadata: {
-              'screenId': id,
-            },
           ),
         );
       }

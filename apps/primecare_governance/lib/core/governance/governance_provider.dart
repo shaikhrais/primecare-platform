@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart' as ui;
+import 'package:yaml/yaml.dart';
+import 'package:path/path.dart' as p;
 import 'governance_api_service.dart';
 import 'ticket_registry.dart';
 import 'screen_registry.dart' as local;
-import 'screen_metadata.dart' as meta;
+import 'package:flutter_core/flutter_core.dart' as meta;
 import 'screen_governance_service.dart';
 import '../../governance/models/governance_report.dart';
 import '../../governance/services/screen_governance_reporter.dart';
@@ -681,9 +684,101 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
         'Operational': 0,
         'Skipped': 0,
       };
-      final total = 0;
+
+      // 1. Load blueprints.yaml
+      String projectRoot = Directory.current.path;
+      if (projectRoot.contains('apps') || projectRoot.contains('packages')) {
+        // If running from a sub-package, go up to the repo root
+        projectRoot = p.dirname(p.dirname(projectRoot));
+      }
+      
+      final blueprintsPath = p.join(projectRoot, '.agents', 'governance', 'blueprints.yaml');
+      
+      if (!File(blueprintsPath).existsSync()) {
+        throw Exception('blueprints.yaml not found at $blueprintsPath');
+      }
+
+      final content = File(blueprintsPath).readAsStringSync();
+      final yaml = loadYaml(content);
+      
+      final blueprints = yaml['blueprints'] as YamlList;
+      final registries = yaml['registries'] as YamlList;
+
+      // Create a map of blueprints for easy lookup
+      final blueprintMap = {
+        for (final b in blueprints) b['id'] as String: b
+      };
+
+      int total = 0;
+
+      // 2. Hydrate
+      for (final registry in registries) {
+        final mapped = registry['mapped_blueprints'] as YamlList;
+        for (final item in mapped) {
+          final screenId = item['screen_id'] as String;
+          final blueprintId = item['blueprint_id'] as String;
+          
+          final parts = screenId.split('.');
+          String normalizedId;
+          if (parts.length >= 2) {
+             normalizedId = 'SCREEN_${parts.skip(1).join('_').toUpperCase()}';
+          } else {
+             normalizedId = screenId.toUpperCase();
+          }
+          
+          final completionPercent = (item['completion_percent'] as num?)?.toDouble() ?? 0.0;
+          final office = item['office'] as String? ?? 'Clinical Governance';
+
+          // Check if already registered
+          final existing = meta.PlatformScreenRegistry.getById(normalizedId);
+          if (existing != null) {
+            final updated = existing.copyWith(
+              completionPercent: completionPercent,
+              office: office,
+            );
+            meta.PlatformScreenRegistry.screens[normalizedId] = updated;
+            results['Skipped'] = (results['Skipped'] ?? 0) + 1; // Still counting as skipped injection, but updated metadata
+            continue;
+          }
+
+          final blueprint = blueprintMap[blueprintId];
+          if (blueprint == null) continue;
+
+          final category = parts[0].toUpperCase(); // CLINICAL, CORPORATE, etc.
+          final displayCategory = category[0] + category.substring(1).toLowerCase();
+          
+          final pendingComponents = (blueprint['required_components'] as YamlList)
+              .map((c) => c['id'] as String)
+              .toList();
+
+          final newMetadata = meta.ScreenMetadata(
+            id: normalizedId,
+            featureName: blueprint['name'] as String,
+            title: blueprint['name'] as String,
+            routePath: '/${parts.join('/')}',
+            icon: meta.Icons.auto_awesome_outlined,
+            allowedRoles: [parts.length > 1 ? parts[1].toUpperCase() : 'ADMIN'],
+            lifecycleStatus: meta.LifecycleStatus.design,
+            designSize: const meta.PlatformSize(3840, 2160),
+            sourcePath: 'packages/primecare_ui/lib/src/registry/screen_registry.dart',
+            pendingComponents: pendingComponents,
+            completionPercent: completionPercent,
+            office: office,
+          );
+
+          meta.PlatformScreenRegistry.registerScreens([newMetadata]);
+          
+          if (results.containsKey(displayCategory)) {
+            results[displayCategory] = results[displayCategory]! + 1;
+          } else {
+            results['Operational'] = results['Operational']! + 1;
+          }
+          total++;
+        }
+      }
+
       final message =
-          'Hydration Complete: Injected $total new screens (Clinical: ${results['Clinical']}, Corporate: ${results['Corporate']}, Operational: ${results['Operational']}). Skipped: ${results['Skipped']}.';
+          'Hydration Complete: Injected $total new screens (Clinical: ${results['Clinical']}, Corporate: ${results['Corporate']}, Operational: ${results['Operational']}). Updated metadata for ${results['Skipped']} existing screens.';
 
       logEvent('Hydrator', message, GovernanceEventLevel.success);
 

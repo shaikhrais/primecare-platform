@@ -92,12 +92,36 @@ class PlatformReadinessReport {
   };
 }
 
-/// [AuditSeverity] - Defines the severity of an audit issue.
 enum AuditSeverity { critical, high, medium, low, info }
+
+/// [GovernanceCategory] - Categorizes governance issues.
+enum GovernanceCategory {
+  routing,
+  rbac,
+  lifecycle,
+  component,
+  render,
+  testing,
+  accessibility,
+  performance,
+  security,
+  audit,
+  ownership,
+  api,
+  data,
+  compliance,
+  localization,
+  responsive,
+  production,
+}
 
 /// [PlatformAuditIssue] - Represents a specific architectural or compliance issue found during audit.
 class PlatformAuditIssue {
   final String id;
+  final String title;
+  final GovernanceCategory category;
+  final String screenId;
+  final String routePath;
   final String subsystem;
   final String registry;
   final String issue;
@@ -106,9 +130,14 @@ class PlatformAuditIssue {
   final bool autoRemediable;
   final Map<String, dynamic> metadata;
   final DateTime detectedAt;
+  final String owner;
 
   PlatformAuditIssue({
     required this.id,
+    this.title = '',
+    this.category = GovernanceCategory.audit,
+    this.screenId = '',
+    this.routePath = '',
     required this.subsystem,
     required this.registry,
     required this.issue,
@@ -117,10 +146,19 @@ class PlatformAuditIssue {
     this.autoRemediable = false,
     this.metadata = const {},
     DateTime? detectedAt,
+    this.owner = 'unassigned',
   }) : detectedAt = detectedAt ?? DateTime.now();
+
+  /// Compatibility aliases
+  String get message => issue;
+  String get suggestedFix => suggestion;
 
   Map<String, dynamic> toJson() => {
     'id': id,
+    'title': title,
+    'category': category.name,
+    'screenId': screenId,
+    'routePath': routePath,
     'subsystem': subsystem,
     'registry': registry,
     'issue': issue,
@@ -129,6 +167,7 @@ class PlatformAuditIssue {
     'autoRemediable': autoRemediable,
     'metadata': metadata,
     'detectedAt': detectedAt.toIso8601String(),
+    'owner': owner,
   };
 }
 

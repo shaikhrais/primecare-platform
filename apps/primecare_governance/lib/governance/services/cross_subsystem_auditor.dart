@@ -8,7 +8,6 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter_core/flutter_core.dart';
-import '../../core/governance/registries/core_governance_registry.dart';
 import '../../core/governance/registries/api_governance_registry.dart';
 
 typedef AuditIssue = PlatformAuditIssue;
@@ -28,8 +27,9 @@ class CrossSubsystemAuditor {
 
     allIssues.addAll(await auditFormProviderParity());
     allIssues.addAll(await auditApiParity());
-    // allIssues.addAll(await auditRegistryDrift());
-    // allIssues.addAll(await auditAssetParity());
+    allIssues.addAll(await auditScreenRegistryParity());
+    allIssues.addAll(await auditAssetParity());
+    allIssues.addAll(await auditStitchDesignParity());
 
     if (onlyFailed) {
       // By definition, all items in 'issues' are failures/drift detections.
@@ -111,6 +111,7 @@ class CrossSubsystemAuditor {
     } catch (e) {
       issues.add(
         AuditIssue(
+          id: 'audit_exception',
           subsystem: 'primecare_governance',
           registry: 'Auditor',
           issue: 'Audit process failed: $e',
@@ -625,6 +626,7 @@ class CrossSubsystemAuditor {
     } catch (e) {
       issues.add(
         AuditIssue(
+          id: 'parity_audit_failed',
           subsystem: 'primecare_governance',
           registry: 'Auditor',
           issue: 'Audit process failed: $e',
@@ -640,7 +642,7 @@ class CrossSubsystemAuditor {
   /// Enforces 4K design standards and orphan detection.
   Future<List<PlatformAuditIssue>> auditApiParity() async {
     final List<PlatformAuditIssue> issues = [];
-    final allScreens = CoreGovernanceRegistry.screens;
+    final allScreens = PlatformScreenRegistry.screens;
     final allApis = ApiGovernanceRegistry.endpoints;
 
     // 1. Check for Orphaned API Requirements in Screens
@@ -683,6 +685,104 @@ class CrossSubsystemAuditor {
               'requiredWidth': 3840,
               'requiredHeight': 2160,
             },
+          ),
+        );
+      }
+    }
+
+    return issues;
+  }
+
+  /// Audits if all required assets (source files, translations) exist for registered screens.
+  Future<List<PlatformAuditIssue>> auditAssetParity() async {
+    final List<PlatformAuditIssue> issues = [];
+    final allScreens = PlatformScreenRegistry.screens;
+
+    for (final screen in allScreens.values) {
+      if (screen.isVirtual) continue;
+
+      // 1. Verify Source Path
+      if (screen.sourcePath.isNotEmpty) {
+        final sourceFile = File(p.join(projectRoot, screen.sourcePath));
+        if (!sourceFile.existsSync()) {
+          issues.add(
+            PlatformAuditIssue(
+              id: 'missing_source_file_${screen.id}',
+              subsystem: 'primecare_governance',
+              registry: 'AssetParity',
+              issue: 'Implementation file missing: ${screen.sourcePath}',
+              suggestion: 'Create implementation or update sourcePath in CoreGovernanceRegistry.',
+              autoRemediable: false,
+              metadata: {'screenId': screen.id, 'path': screen.sourcePath},
+            ),
+          );
+        }
+      }
+
+      // 2. Verify Translations
+      if (screen.isLocalizationReady) {
+        final translationsDir = p.join(projectRoot, 'apps/primecare_governance/assets/translations');
+        final supportedLangs = ['en', 'fr', 'es', 'ar'];
+        
+        for (final lang in supportedLangs) {
+          final langFile = File(p.join(translationsDir, '$lang.json'));
+          if (!langFile.existsSync()) {
+            issues.add(
+              PlatformAuditIssue(
+                id: 'missing_translation_bundle_$lang',
+                subsystem: 'primecare_governance',
+                registry: 'AssetParity',
+                issue: 'Missing translation bundle for language: $lang',
+                suggestion: 'Ensure assets/translations/$lang.json exists.',
+                autoRemediable: false,
+              ),
+            );
+          }
+        }
+      }
+    }
+
+    return issues;
+  }
+
+  /// Audits compliance with Stitch Design Tokens and 4K Platform Standards.
+  Future<List<PlatformAuditIssue>> auditStitchDesignParity() async {
+    final List<PlatformAuditIssue> issues = [];
+    final allScreens = PlatformScreenRegistry.screens;
+
+    for (final screen in allScreens.values) {
+      // 1. Enforce 4K Standard
+      if (screen.designSize.width != 3840 || screen.designSize.height != 2160) {
+        issues.add(
+          PlatformAuditIssue(
+            id: 'design_size_violation_${screen.id}',
+            subsystem: 'primecare_governance',
+            registry: 'StitchDesignParity',
+            issue: '4K Standard Violation in "${screen.title}": Resolution must be 3840x2160.',
+            suggestion: 'Update designSize to PlatformSize(3840, 2160) for 4K compliance.',
+            autoRemediable: true,
+            metadata: {
+              'type': 'design_standard_violation',
+              'screenId': screen.id,
+              'field': 'designSize',
+              'value': 'const PlatformSize(3840, 2160)',
+            },
+          ),
+        );
+      }
+
+      // 2. Check for "No-Line" Rule Compliance in Metadata
+      // (This is a simplified check for the presence of design intent metadata)
+      if (screen.lifecycleStatus == LifecycleStatus.completed && !screen.isRenderOk) {
+         issues.add(
+          PlatformAuditIssue(
+            id: 'design_verification_drift_${screen.id}',
+            subsystem: 'primecare_governance',
+            registry: 'StitchDesignParity',
+            issue: 'Design Verification Drift: Screen is marked completed but isRenderOk (Visual Audit) is false.',
+            suggestion: 'Perform a visual audit to ensure "No-Line" rule and glassmorphism compliance.',
+            autoRemediable: false,
+            metadata: {'screenId': screen.id},
           ),
         );
       }

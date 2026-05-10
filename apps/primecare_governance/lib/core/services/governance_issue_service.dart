@@ -1,7 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'audit_service.dart';
-import '../../governance/models/governance_severity.dart';
-import '../../governance/models/governance_category.dart';
 
 class GovernanceIssueService {
   final AuditService _auditService;
@@ -14,7 +12,7 @@ class GovernanceIssueService {
     required String screenId,
     required String screenTitle,
     required String reason,
-    GovernanceSeverity severity = GovernanceSeverity.medium,
+    AuditSeverity severity = AuditSeverity.medium,
     GovernanceCategory category = GovernanceCategory.compliance,
   }) async {
     final details = {

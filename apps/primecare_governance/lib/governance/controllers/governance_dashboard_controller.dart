@@ -1,12 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/governance_severity.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
 import '../services/governance_exporter.dart';
 import '../../core/governance/governance_provider.dart';
 
 class GovernanceDashboardState {
-  final GovernanceSeverity? selectedSeverity;
+  final AuditSeverity? selectedSeverity;
   final GovernanceCategory? selectedCategory;
   final String searchQuery;
   final bool isExporting;
@@ -21,7 +19,7 @@ class GovernanceDashboardState {
   });
 
   GovernanceDashboardState copyWith({
-    GovernanceSeverity? selectedSeverity,
+    AuditSeverity? selectedSeverity,
     bool clearSeverity = false,
     GovernanceCategory? selectedCategory,
     bool clearCategory = false,
@@ -52,7 +50,7 @@ class GovernanceDashboardController extends Notifier<GovernanceDashboardState> {
     return const GovernanceDashboardState();
   }
 
-  void setSeverity(GovernanceSeverity? severity) {
+  void setSeverity(AuditSeverity? severity) {
     state = state.copyWith(
       selectedSeverity: severity,
       clearSeverity: severity == null,

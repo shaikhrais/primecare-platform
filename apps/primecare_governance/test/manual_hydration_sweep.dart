@@ -1,13 +1,14 @@
 import 'dart:io';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 import 'package:primecare_governance/governance/services/registry_hydration_service.dart';
 
 void main() async {
-  print('--- REGISTRY HYDRATION SWEEP TEST ---');
+  PrimeLogger.info('--- REGISTRY HYDRATION SWEEP TEST ---');
   
   // 1. Setup paths
   final projectRoot = Directory.current.path;
-  print('Project Root: $projectRoot');
+  PrimeLogger.info('Project Root: $projectRoot');
 
   // 2. Initialize engines
   final astEngine = ASTPatchEngine(projectRoot);
@@ -17,21 +18,21 @@ void main() async {
   );
 
   // 3. Perform sweep
-  print('Starting hydration sweep...');
+  PrimeLogger.info('Starting hydration sweep...');
   final results = await hydrationService.performHydrationSweep();
 
   // 4. Output results
-  print('\nSweep Results:');
-  print('Total Screens Processed: ${results['total']}');
-  print('Successfully Hydrated: ${results['hydrated']}');
-  print('Failed/Skipped: ${results['failed']}');
+  PrimeLogger.info('\nSweep Results:');
+  PrimeLogger.info('Total Screens Processed: ${results['total']}');
+  PrimeLogger.info('Successfully Hydrated: ${results['hydrated']}');
+  PrimeLogger.info('Failed/Skipped: ${results['failed']}');
   
   if ((results['details'] as Map).isNotEmpty) {
-    print('\nDetails:');
+    PrimeLogger.info('\nDetails:');
     (results['details'] as Map).forEach((id, reason) {
-      print('- $id: $reason');
+      PrimeLogger.info('- $id: $reason');
     });
   }
   
-  print('\n--- TEST COMPLETE ---');
+  PrimeLogger.info('\n--- TEST COMPLETE ---');
 }

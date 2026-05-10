@@ -2,9 +2,8 @@ import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/governance/route_registry.dart';
 import 'core/i18n/language_provider.dart';
 
-import 'core/governance/registries/core_governance_registry.dart';
+import 'core/governance/registries/index.dart';
 
-import 'package:flutter_core/flutter_core.dart' hide languageProvider;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,10 +14,8 @@ void main() async {
   // 2. Perform Environment Integrity Audit
   await AppIntegrityService.instance.checkIntegrity();
 
-  // 3. Initialize and apply production readiness sweep to registry
-  CoreGovernanceRegistry.applyProductionReadiness(
-    CoreGovernanceRegistry.screens,
-  );
+  // 3. Initialize and register all governance screens
+  Registry.registerAll();
 
   PrimeCareAppRunner.run(appWidget: const PrimeCareApp());
 }

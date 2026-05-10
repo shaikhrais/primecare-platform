@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// unnecessary import removed
 import '../models/governance_report.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceComplianceChecklist extends StatelessWidget {
   final GovernanceReport report;

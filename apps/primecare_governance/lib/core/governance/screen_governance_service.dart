@@ -1,4 +1,4 @@
-import 'screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 /// [ScreenGovernanceService] - Orchestrates cross-registry analytics and validation.
 class ScreenGovernanceService {

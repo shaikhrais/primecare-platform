@@ -449,8 +449,8 @@ class ASTPatchEngine {
 
     final body = visitor.constructorBody!;
     int insertOffset;
-    if (body is Block) {
-      insertOffset = body.leftBracket.offset + 1;
+    if (body is BlockFunctionBody) {
+      insertOffset = body.block.leftBracket.offset + 1;
     } else {
       // Expression body or something else not easily handleable
       return false;
@@ -484,8 +484,8 @@ class ASTPatchEngine {
 
     final body = visitor.functionBody!;
     int insertOffset;
-    if (body is Block) {
-      insertOffset = body.leftBracket.offset + 1;
+    if (body is BlockFunctionBody) {
+      insertOffset = body.block.leftBracket.offset + 1;
     } else {
       return false;
     }

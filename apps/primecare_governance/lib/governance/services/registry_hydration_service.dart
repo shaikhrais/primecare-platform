@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:primecare_governance/core/governance/screen_metadata.dart';
-import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
+import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 import 'package:path/path.dart' as p;
 
@@ -18,7 +17,7 @@ class RegistryHydrationService {
   /// Performs a full hydration sweep across the registry.
   Future<Map<String, dynamic>> performHydrationSweep() async {
     final screens = ScreenRegistry.allScreens;
-    final results = {
+    final Map<String, dynamic> results = {
       'total': screens.length,
       'hydrated': 0,
       'failed': 0,
@@ -27,22 +26,22 @@ class RegistryHydrationService {
 
     for (final screen in screens) {
       try {
-        final implementationPath = _resolveImplementationPath(screen.featureId);
+        final implementationPath = _resolveImplementationPath(screen.id);
         if (implementationPath == null) {
           results['failed'] = (results['failed'] as int) + 1;
-          results['details']![screen.featureId] = 'Could not resolve implementation path';
+          (results['details'] as Map<String, String>)[screen.id] = 'Could not resolve implementation path';
           continue;
         }
 
         // 1. Extract attributes from the class
-        final className = _resolveClassName(screen.featureId);
+        final className = _resolveClassName(screen.id);
         final attributes = await astEngine.extractScreenClassAttributes(
           filePath: implementationPath,
           className: className,
         );
 
         if (attributes.isEmpty) {
-          results['details']![screen.featureId] = 'No governance attributes found in class';
+          (results['details'] as Map<String, String>)[screen.id] = 'No governance attributes found in class';
           continue;
         }
 
@@ -50,13 +49,11 @@ class RegistryHydrationService {
         final updated = await astEngine.injectScreenConstant(
           registryPath: 'apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart',
           className: 'CoreGovernanceRegistry',
-          screenId: screen.featureId,
+          screenId: screen.id,
           metadata: {
             ...screen.toJson(), // Start with current metadata
-            'translationKeys': attributes['translationKeys'] ?? screen.translationKeys,
             'hasAllTranslations': attributes['isTranslationVerified'] ?? screen.hasAllTranslations,
             'isMobileVerified': attributes['isMobileVerified'] ?? screen.isMobileVerified,
-            'isTabletVerified': attributes['isTabletVerified'] ?? screen.isTabletVerified,
             'isDesktopVerified': attributes['isDesktopVerified'] ?? screen.isDesktopVerified,
             'isSecurityVerified': attributes['isSecurityVerified'] ?? screen.isSecurityVerified,
             'subsystem': attributes['subsystem'] ?? screen.subsystem,
@@ -69,11 +66,11 @@ class RegistryHydrationService {
           results['hydrated'] = (results['hydrated'] as int) + 1;
         } else {
           results['failed'] = (results['failed'] as int) + 1;
-          results['details']![screen.featureId] = 'Failed to update registry entry';
+          (results['details'] as Map<String, String>)[screen.id] = 'Failed to update registry entry';
         }
       } catch (e) {
         results['failed'] = (results['failed'] as int) + 1;
-        results['details']![screen.featureId] = 'Error: $e';
+        (results['details'] as Map<String, String>)[screen.id] = 'Error: $e';
       }
     }
 

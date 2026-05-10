@@ -1,5 +1,5 @@
 import 'dart:io';
-import '../models/governance_issue.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class RegistryPatchEngine {
   static const String registryPath = 'lib/core/governance/screen_registry.dart';
@@ -9,7 +9,7 @@ class RegistryPatchEngine {
   /// For this implementation, we use targeted line-replacement logic.
   static Future<bool> applyFix(
     String projectRoot,
-    GovernanceIssue issue,
+    PlatformAuditIssue issue,
     String property,
     String value,
   ) async {

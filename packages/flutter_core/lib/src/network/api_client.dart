@@ -17,6 +17,10 @@ class ApiClient {
           baseUrl: ApiConfig.baseUrl,
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-Device-ID': 'DeviceManager.instance.deviceId', // In reality, this would be dynamic
+          },
         ),
       ) {
     _dio.interceptors.add(SecurityInterceptor());

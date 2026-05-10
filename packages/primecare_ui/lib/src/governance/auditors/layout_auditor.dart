@@ -1,4 +1,4 @@
-import 'package:primecare_governance/core/governance/screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../automated_audit_engine.dart';
 
 class LayoutAuditor {
@@ -8,6 +8,7 @@ class LayoutAuditor {
     int layoutUnapproved = 0;
     int missingBreakpoints = 0;
     int missingHifiSpecs = 0;
+    int lowCompletion = 0;
 
     for (final screen in screens) {
       if (!screen.userApprovedLayout) {
@@ -22,7 +23,21 @@ class LayoutAuditor {
         // But for Clinical/Logistics, 4K is the new standard.
         missingHifiSpecs++;
       }
+      if (screen.completionPercent < 50 && screen.lifecycleStatus != LifecycleStatus.backlog) {
+        lowCompletion++;
+      }
     }
+
+    results.add(AuditResultItem(
+      check: 'Implementation Velocity Audit',
+      result: lowCompletion == 0 ? 'PASSED' : 'WARNING',
+      isPass: true,
+      isWarning: lowCompletion > 0,
+      meaning: lowCompletion == 0 
+          ? 'Platform-wide implementation velocity is within healthy parameters (>50%).' 
+          : '$lowCompletion screens are currently in high-drift state (<50% complete).',
+      fix: 'Accelerate high-fidelity UI hydration or update blueprint completion stats.',
+    ));
 
     results.add(AuditResultItem(
       check: 'UX Layout Sign-off',
