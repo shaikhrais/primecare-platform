@@ -95,7 +95,6 @@ class GovernanceRemediationEngine {
     final newRoute =
         '${issue.routePath}_alt_${issue.screenId.hashCode.toString().substring(0, 4)}';
     final registryPath = _getRegistryPathForScreen(issue.screenId);
-    if (registryPath == null) return false;
 
     return await _patchEngine.updateRegistryMetadata(issue.screenId, {
       'routePath': newRoute,
@@ -165,19 +164,17 @@ class GovernanceRemediationEngine {
           final missing = List<String>.from(issue.metadata['missing'] as List);
 
           final registryPath = _getRegistryPathForScreen(screenId);
-          if (registryPath != null) {
-            final success = await _patchEngine.updateRegistryMetadata(screenId, {
-              'implementedComponents':
-                  "[...implementedComponents, ${missing.map((c) => "'$c'").join(', ')}]",
-            }, registryPath: registryPath);
-            if (success) {
-              count++;
-              logs.add(
-                '[RESOLVED] Cross-Subsystem: Fixed structural drift (added $missing) for $screenId',
-              );
-            }
+          final success = await _patchEngine.updateRegistryMetadata(screenId, {
+            'implementedComponents':
+                "[...implementedComponents, ${missing.map((c) => "'$c'").join(', ')}]",
+          }, registryPath: registryPath);
+          if (success) {
+            count++;
+            logs.add(
+              '[RESOLVED] Cross-Subsystem: Fixed structural drift (added $missing) for $screenId',
+            );
           }
-        }
+                }
       }
     }
     return count;

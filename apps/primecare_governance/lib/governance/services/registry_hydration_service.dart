@@ -109,10 +109,10 @@ class RegistryHydrationService {
     final parts = featureId.split('.');
     final screenName = parts.last;
     
-    final className = screenName.split('_').map((s) {
+    final className = '${screenName.split('_').map((s) {
       if (s.isEmpty) return '';
       return s[0].toUpperCase() + s.substring(1);
-    }).join('') + 'View';
+    }).join('')}View';
 
     return className;
   }

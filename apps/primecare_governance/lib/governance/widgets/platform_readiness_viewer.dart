@@ -174,7 +174,7 @@ class PlatformReadinessViewer extends StatelessWidget {
               const Icon(Icons.chevron_right, color: Colors.red, size: 20),
             ],
           ),
-        )).toList(),
+        )),
       ],
     );
   }

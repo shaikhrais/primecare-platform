@@ -7,8 +7,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as p;
-import 'package:flutter/material.dart' show Size;
-import 'package:flutter_core/models/api_metadata.dart';
 import 'package:flutter_core/models/screen_metadata.dart';
 import '../../core/governance/registries/core_governance_registry.dart';
 import '../../core/governance/registries/api_governance_registry.dart';

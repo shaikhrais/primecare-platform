@@ -30,6 +30,7 @@ dependencies:
   freezed_annotation: any
   equatable: any
   collection: any
+  primecare_governance: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

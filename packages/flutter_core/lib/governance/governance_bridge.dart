@@ -1,5 +1,4 @@
 import '../models/api_metadata.dart';
-import '../models/governance_types.dart';
 
 /// Base interface for platform registries to ensure architectural parity 
 /// between UI and API subsystems.
@@ -16,7 +15,7 @@ class Governed {
     final metadata = registry[id];
     
     if (metadata == null) {
-      throw GovernanceException("Unregistered API Access: $id. Every endpoint must be registered in the ApiGovernanceRegistry.");
+      throw GovernanceException('Unregistered API Access: $id. Every endpoint must be registered in the ApiGovernanceRegistry.');
     }
 
     // Performance Note: In a real shelf/worker environment, 

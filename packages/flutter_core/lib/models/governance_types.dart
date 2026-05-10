@@ -1,5 +1,4 @@
 // Layer: 01_INFRASTRUCTURE
-import 'platform_geometry.dart';
 
 /// [LifecycleStatus] - Tracks the stage of a feature (Screen or API) in the development lifecycle.
 enum LifecycleStatus {

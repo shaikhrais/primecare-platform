@@ -25,5 +25,5 @@ void main() {
   File('packages/flutter_core/assets/db/precision_education.json')
       .writeAsStringSync(jsonStr);
   print(
-      'Successfully exported to JSON (${File('packages/flutter_core/assets/db/precision_education.json').lengthSync()} bytes)');
+      'Successfully exported to JSON (${File('packages/flutter_core/assets/db/precision_education.json').lengthSync()} bytes)',);
 }
