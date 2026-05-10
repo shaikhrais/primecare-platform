@@ -1,44 +1,61 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 
-class ScreenConfig {
-  final String routePath;
-  final String titleKey;
-  final String subtitleKey;
-  final String providerId;
+class ClientTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_client';
 
-  const ScreenConfig({
-    required this.routePath,
-    required this.titleKey,
-    required this.subtitleKey,
-    required this.providerId,
-  });
+  @override
+  String get name => 'PrimeCare Client Portal';
+
+  @override
+  ThemeData get branding => ThemeData.light(); // Could be customized for patient view
 }
 
-final List<ScreenConfig> clientScreenRegistry = [
-  const ScreenConfig(
-    routePath: ClientRoutes.patientDashboard,
-    titleKey: 'Patient Dashboard',
-    subtitleKey: 'Manage your care plan.',
-    providerId: 'patientDashboard',
-  ),
-  const ScreenConfig(
-    routePath: ClientRoutes.familyMemberDashboard,
-    titleKey: 'Family Dashboard',
-    subtitleKey: 'Loved one care updates.',
-    providerId: 'familyDashboard',
-  ),
-];
+class ClientOperationsModule extends PlatformModule {
+  @override
+  String get moduleId => 'client_operations';
 
-final List<RouteBase> clientRoutes = [
-  ...clientScreenRegistry.map(
-    (config) => GoRoute(
-      path: config.routePath,
-      builder: (context, state) => Scaffold(
-        body: Center(
-          child: Text('Not Implemented: ${config.titleKey}'),
-        ),
-      ),
+  @override
+  String get name => 'Client Operations';
+
+  @override
+  IconData get icon => Icons.health_and_safety;
+
+  @override
+  List<PlatformRole> get allowedRoles => [
+    PlatformRole.patient,
+    PlatformRole.familyMember,
+    PlatformRole.client,
+    PlatformRole.guest,
+  ];
+
+  @override
+  List<PrimeCareScreen> get screens => [
+    PrimeCareScreen(
+      title: 'Patient Dashboard',
+      route: ClientRoutes.patientDashboard,
+      requiredRole:
+          PlatformRole.patient, // Assuming client also maps to patient
     ),
-  ),
-];
+    PrimeCareScreen(
+      title: 'Family Dashboard',
+      route: ClientRoutes.familyMemberDashboard,
+      requiredRole: PlatformRole.familyMember,
+    ),
+  ];
+}
+
+class ClientApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_client';
+
+  @override
+  String get name => 'PrimeCare Client Portal';
+
+  @override
+  PlatformTenant get tenant => ClientTenant();
+
+  @override
+  List<PlatformModule> get modules => [ClientOperationsModule()];
+}

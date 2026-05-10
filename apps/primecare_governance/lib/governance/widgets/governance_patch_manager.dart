@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../models/governance_issue.dart';
 import '../services/governance_patch_service.dart';
 
@@ -21,19 +22,24 @@ class GovernancePatchManager extends StatelessWidget {
             children: [
               const Icon(Icons.build_circle, color: Colors.blue),
               const SizedBox(width: 12),
-              const Text(
-                'Remediation Patch Manager',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Text(
+                'governance.patchManager.title'.tr(),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Spacer(),
               ElevatedButton.icon(
                 icon: const Icon(Icons.copy),
-                label: const Text('Copy Patch Script'),
+                label: Text('governance.patchManager.copyScript'.tr()),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: script));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Remediation script copied to clipboard.'),
+                    SnackBar(
+                      content: Text(
+                        'governance.patchManager.copiedSuccess'.tr(),
+                      ),
                     ),
                   );
                 },
@@ -61,11 +67,11 @@ class GovernancePatchManager extends StatelessWidget {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(24.0),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
           child: Text(
-            'Note: Applying this patch requires manual review in the registry file. Automated patching is currently in preview.',
-            style: TextStyle(
+            'governance.patchManager.manualReviewNote'.tr(),
+            style: const TextStyle(
               fontSize: 11,
               color: Colors.grey,
               fontStyle: FontStyle.italic,

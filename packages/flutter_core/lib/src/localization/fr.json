@@ -86,5 +86,45 @@
     "footer": {
       "language": "Langue"
     }
+  },
+  "governance": {
+    "unauthorized_access": "Accès non autorisé",
+    "access_denied": "Accès refusé",
+    "unauthorized_route_message": "404 / Route non autorisée ou non implémentée",
+    "role_label": "Rôle : {}",
+    "screen_not_implemented": "L'écran est enregistré mais pas encore implémenté.",
+    "route_label": "Route : {}",
+    "dashboard": {
+      "title": "Gouvernance de l'Architecture",
+      "subtitle": "Audit architectural en direct de {} écrans de la plateforme",
+      "auto_remediate": "Auto-Corriger",
+      "export_pdf": "Rapport PDF Professionnel",
+      "export_html": "Exporter HTML (Professionnel)",
+      "export_markdown": "Exporter Markdown",
+      "export_json": "Exporter JSON",
+      "export_csv": "Exporter CSV",
+      "export": "Exporter",
+      "rescan": "Re-Scan",
+      "loading_tip": "Chargement du conseil clinique...",
+      "error_tip": "Impossible de charger le conseil clinique."
+    },
+    "monitoring": {
+      "title": "Surveillance de la Gouvernance",
+      "recent_activity": "Activité d'implémentation récente"
+    },
+    "kitchen_sink": {
+      "title": "Cuisine PrimeCare",
+      "subtitle": "Composants de Télémétrie, Planificateur et Tableau Kanban Haute Fidélité",
+      "scheduler": "Planificateur de Production",
+      "workflow_board": "Tableau de Flux de Gouvernance",
+      "error": "Erreur: {}",
+      "no_appointments": "Aucun rendez-vous actif",
+      "break": "Pause",
+      "upcoming": "À VENIR",
+      "in_progress": "EN COURS",
+      "completed": "TERMINÉ",
+      "unassigned": "Non assigné",
+      "no_items": "Aucun élément actif"
+    }
   }
 }

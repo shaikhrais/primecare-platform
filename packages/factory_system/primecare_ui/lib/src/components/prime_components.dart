@@ -480,6 +480,7 @@ class PrimeButton extends StatelessWidget {
 
   /// Factory for the standard primary button.
   factory PrimeButton.primary({
+    Key? key,
     required String label,
     VoidCallback? onPressed,
     IconData? icon,
@@ -487,6 +488,7 @@ class PrimeButton extends StatelessWidget {
     bool isFullWidth = false,
   }) {
     return PrimeButton(
+      key: key,
       label: label,
       onPressed: onPressed,
       icon: icon,
@@ -497,6 +499,7 @@ class PrimeButton extends StatelessWidget {
 
   /// Factory for the secondary/outline button style.
   factory PrimeButton.secondary({
+    Key? key,
     required String label,
     VoidCallback? onPressed,
     IconData? icon,
@@ -504,6 +507,7 @@ class PrimeButton extends StatelessWidget {
     bool isFullWidth = false,
   }) {
     return PrimeButton(
+      key: key,
       label: label,
       onPressed: onPressed,
       icon: icon,
@@ -517,6 +521,7 @@ class PrimeButton extends StatelessWidget {
 
   /// Factory for the ghost/text-only button style.
   factory PrimeButton.ghost({
+    Key? key,
     required String label,
     VoidCallback? onPressed,
     IconData? icon,
@@ -524,6 +529,7 @@ class PrimeButton extends StatelessWidget {
     bool isFullWidth = false,
   }) {
     return PrimeButton(
+      key: key,
       label: label,
       onPressed: onPressed,
       icon: icon,

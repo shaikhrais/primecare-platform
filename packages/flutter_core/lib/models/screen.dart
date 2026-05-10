@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
 
+import 'package:easy_localization/easy_localization.dart';
+
 /// Base class for governed consumer widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
 abstract class GovernedConsumerWidget extends ConsumerWidget {
@@ -160,12 +162,17 @@ class PrimeCareScreen extends AppScreenIntent {
             ),
             const SizedBox(height: 16),
             Text(
-              'Screen is registered but not implemented yet.',
+              tr('governance.screen_not_implemented'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            Text('Route: $route'),
-            Text('Role: ${requiredRole?.name ?? "Public"}'),
+            Text(tr('governance.route_label', args: [route])),
+            Text(
+              tr(
+                'governance.role_label',
+                args: [requiredRole?.displayName ?? 'Public'],
+              ),
+            ),
           ],
         ),
       ),

@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/services.dart';
 import '../../core/governance/screen_registry.dart';
-import '../services/governance_exporter.dart';
 import '../models/governance_issue.dart';
 import '../models/governance_report.dart';
-import '../models/governance_severity.dart';
-import '../models/governance_category.dart';
 import 'governance_kpi_grid.dart';
 import 'governance_issue_table.dart';
 import 'governance_filter_bar.dart';
@@ -18,30 +14,44 @@ import 'governance_master_score.dart';
 import 'governance_trend_chart.dart';
 import 'governance_event_feed.dart';
 import '../../core/governance/governance_provider.dart';
+import '../controllers/governance_dashboard_controller.dart';
+import 'network_parity_audit_table.dart';
+import 'platform_discovery_viewer.dart';
+import 'platform_readiness_viewer.dart';
 
-class GovernanceDashboard extends ConsumerStatefulWidget {
+class GovernanceDashboard extends GovernedScreen {
   final GovernanceReport? report;
   const GovernanceDashboard({super.key, this.report});
 
   @override
-  ConsumerState<GovernanceDashboard> createState() =>
-      _GovernanceDashboardState();
+  String get featureId => 'SYSTEM_GOVERNANCE_DASHBOARD';
+
+  @override
+  String get requiredRole => 'ADMIN';
+
+  @override
+  Widget buildGovernedView(BuildContext context, WidgetRef ref) {
+    return const _GovernanceDashboardContent();
+  }
 }
 
-class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
-    with SingleTickerProviderStateMixin {
-  late GovernanceReport _report;
-  late TabController _tabController;
+class _GovernanceDashboardContent extends ConsumerStatefulWidget {
+  const _GovernanceDashboardContent();
 
-  GovernanceSeverity? _selectedSeverity;
-  GovernanceCategory? _selectedCategory;
-  String _searchQuery = '';
+  @override
+  ConsumerState<_GovernanceDashboardContent> createState() =>
+      _GovernanceDashboardContentState();
+}
+
+class _GovernanceDashboardContentState
+    extends ConsumerState<_GovernanceDashboardContent>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _refreshReport();
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -51,53 +61,32 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
   }
 
   void _refreshReport() {
-    ref.read(governanceProvider.notifier).refresh();
+    ref.read(governanceDashboardControllerProvider.notifier).rescan();
   }
 
-  Future<void> _exportReport(String format) async {
-    String content = '';
+  Future<void> _exportReport(String format, GovernanceReport report) async {
+    final result = await ref
+        .read(governanceDashboardControllerProvider.notifier)
+        .exportReport(format, report);
 
-    if (format == 'pdf') {
-      await GovernanceExporter.toPdf(_report);
-      // In a real app, use path_provider and file_picker to save
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Professional PDF Report Generated (Ready for Download)',
-            ),
-            backgroundColor: Colors.blue,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+    if (result != null) {
+      if (!mounted) return;
+      if (format != 'pdf') {
+        await Clipboard.setData(ClipboardData(text: result));
       }
-      return;
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            format == 'pdf'
+                ? 'Professional PDF Report Generated (Ready for Download)'
+                : 'governance.dashboard.reportExported'.tr(args: [format]),
+          ),
+          backgroundColor: Colors.blue,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
-
-    switch (format) {
-      case 'markdown':
-        content = GovernanceExporter.toMarkdown(_report);
-        break;
-      case 'html':
-        content = GovernanceExporter.toHtml(_report);
-        break;
-      case 'json':
-        content = GovernanceExporter.toJson(_report);
-        break;
-      case 'csv':
-        content = GovernanceExporter.toCsv(_report);
-        break;
-    }
-
-    await Clipboard.setData(ClipboardData(text: content));
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Report exported as $format and copied to clipboard!'),
-        backgroundColor: Colors.blue,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
   }
 
   @override
@@ -109,17 +98,23 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
       return const Center(child: CircularProgressIndicator());
     }
 
-    _report = report; // Keep for backward compatibility in some methods
+    final dashboardState = ref.watch(governanceDashboardControllerProvider);
 
-    final filteredIssues = _report.issues.where((issue) {
+    final filteredIssues = report.issues.where((issue) {
       final matchesSeverity =
-          _selectedSeverity == null || issue.severity == _selectedSeverity;
+          dashboardState.selectedSeverity == null ||
+          issue.severity == dashboardState.selectedSeverity;
       final matchesCategory =
-          _selectedCategory == null || issue.category == _selectedCategory;
+          dashboardState.selectedCategory == null ||
+          issue.category == dashboardState.selectedCategory;
       final matchesSearch =
-          _searchQuery.isEmpty ||
-          issue.screenId.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          issue.title.toLowerCase().contains(_searchQuery.toLowerCase());
+          dashboardState.searchQuery.isEmpty ||
+          issue.screenId.toLowerCase().contains(
+            dashboardState.searchQuery.toLowerCase(),
+          ) ||
+          issue.title.toLowerCase().contains(
+            dashboardState.searchQuery.toLowerCase(),
+          );
       return matchesSeverity && matchesCategory && matchesSearch;
     }).toList();
 
@@ -140,7 +135,9 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
             tabs: const [
-              Tab(text: 'Platform Audit'),
+              Tab(text: 'Architecture Audit'),
+              Tab(text: 'Microservice Mesh'),
+              Tab(text: 'System Readiness'),
               Tab(text: 'Remediation Patches'),
             ],
           ),
@@ -149,7 +146,14 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildAuditView(filteredIssues, governanceState),
+          _buildAuditView(
+            filteredIssues,
+            governanceState,
+            dashboardState,
+            report,
+          ),
+          const PlatformDiscoveryViewer(baseUrl: 'http://localhost:8700/api/governance'),
+          const PlatformReadinessViewer(),
           GovernancePatchManager(issues: filteredIssues),
         ],
       ),
@@ -159,6 +163,8 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
   Widget _buildAuditView(
     List<GovernanceIssue> filteredIssues,
     GovernanceState governanceState,
+    GovernanceDashboardState dashboardState,
+    GovernanceReport report,
   ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
@@ -191,8 +197,11 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                         onPressed: governanceState.isSyncing
                             ? null
                             : () => ref
-                                  .read(governanceProvider.notifier)
-                                  .applyAutomatedFixes(),
+                                  .read(
+                                    governanceDashboardControllerProvider
+                                        .notifier,
+                                  )
+                                  .remediate(),
                         icon: governanceState.isSyncing
                             ? const SizedBox(
                                 width: 16,
@@ -202,7 +211,7 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                                 ),
                               )
                             : const Icon(Icons.auto_fix_high_rounded, size: 20),
-                        label: const Text('Auto-Remediate'),
+                        label: Text('governance.dashboard.auto_remediate'.tr()),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.blue,
                           side: const BorderSide(color: Colors.blue),
@@ -210,27 +219,29 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                       ),
                     ),
                   PopupMenuButton<String>(
-                    onSelected: _exportReport,
+                    onSelected: (format) => _exportReport(format, report),
                     itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'pdf',
-                        child: Text('Professional PDF Report'),
+                        child: Text('governance.dashboard.export_pdf'.tr()),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'html',
-                        child: Text('Export HTML (Professional)'),
+                        child: Text('governance.dashboard.export_html'.tr()),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'markdown',
-                        child: Text('Export Markdown'),
+                        child: Text(
+                          'governance.dashboard.export_markdown'.tr(),
+                        ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'json',
-                        child: Text('Export JSON'),
+                        child: Text('governance.dashboard.export_json'.tr()),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'csv',
-                        child: Text('Export CSV'),
+                        child: Text('governance.dashboard.export_csv'.tr()),
                       ),
                     ],
                     child: Container(
@@ -242,15 +253,22 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                         border: Border.all(color: Colors.blue),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(
-                            Icons.download_rounded,
-                            color: Colors.blue,
-                            size: 20,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
+                          if (dashboardState.isExporting)
+                            const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          else
+                            const Icon(
+                              Icons.download_rounded,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
+                          const SizedBox(width: 8),
+                          const Text(
                             'Export',
                             style: TextStyle(
                               color: Colors.blue,
@@ -265,7 +283,7 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                   ElevatedButton.icon(
                     onPressed: _refreshReport,
                     icon: const Icon(Icons.refresh_rounded),
-                    label: const Text('Re-Scan'),
+                    label: Text('governance.dashboard.rescan'.tr()),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
@@ -289,14 +307,11 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: GovernanceKPIGrid(report: _report),
-                    ),
+                    Expanded(flex: 3, child: GovernanceKPIGrid(report: report)),
                     const SizedBox(width: 24),
                     Expanded(
                       flex: 2,
-                      child: GovernanceDomainChart(report: _report),
+                      child: GovernanceDomainChart(report: report),
                     ),
                   ],
                 );
@@ -306,13 +321,13 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GovernanceMasterScore(report: _report),
+                        GovernanceMasterScore(report: report),
                         const SizedBox(width: 48),
-                        Expanded(child: GovernanceKPIGrid(report: _report)),
+                        Expanded(child: GovernanceKPIGrid(report: report)),
                       ],
                     ),
                     const SizedBox(height: 24),
-                    GovernanceDomainChart(report: _report),
+                    GovernanceDomainChart(report: report),
                   ],
                 );
               }
@@ -373,16 +388,17 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
             children: [
               Expanded(
                 child: GovernanceFilterBar(
-                  selectedSeverity: _selectedSeverity,
-                  selectedCategory: _selectedCategory,
-                  onSeverityChanged: (s) =>
-                      setState(() => _selectedSeverity = s),
-                  onCategoryChanged: (c) =>
-                      setState(() => _selectedCategory = c),
-                  onClear: () => setState(() {
-                    _selectedSeverity = null;
-                    _selectedCategory = null;
-                  }),
+                  selectedSeverity: dashboardState.selectedSeverity,
+                  selectedCategory: dashboardState.selectedCategory,
+                  onSeverityChanged: (s) => ref
+                      .read(governanceDashboardControllerProvider.notifier)
+                      .setSeverity(s),
+                  onCategoryChanged: (c) => ref
+                      .read(governanceDashboardControllerProvider.notifier)
+                      .setCategory(c),
+                  onClear: () => ref
+                      .read(governanceDashboardControllerProvider.notifier)
+                      .clearFilters(),
                 ),
               ),
               const SizedBox(width: 16),
@@ -407,7 +423,9 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                       ),
                     ),
                   ),
-                  onChanged: (v) => setState(() => _searchQuery = v),
+                  onChanged: (v) => ref
+                      .read(governanceDashboardControllerProvider.notifier)
+                      .setSearchQuery(v),
                 ),
               ),
             ],
@@ -422,7 +440,7 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                'Showing ${filteredIssues.length} of ${_report.totalIssues} issues',
+                'Showing ${filteredIssues.length} of ${report.totalIssues} issues',
                 style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
             ],
@@ -430,15 +448,48 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
           const SizedBox(height: 16),
           GovernanceIssueTable(issues: filteredIssues),
           const SizedBox(height: 32),
-          GovernanceComplianceChecklist(report: _report),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Network Parity & Backend Audit',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.green.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.security, size: 14, color: Colors.green),
+                    SizedBox(width: 4),
+                    Text(
+                      'ZERO-TRUST ENFORCED',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const NetworkParityAuditTable(),
           const SizedBox(height: 32),
-          _buildReadinessPanel(),
+          GovernanceComplianceChecklist(report: report),
+          const SizedBox(height: 32),
+          _buildReadinessPanel(report),
         ],
       ),
     );
   }
 
-  Widget _buildReadinessPanel() {
+  Widget _buildReadinessPanel(GovernanceReport report) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -465,7 +516,7 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${_report.productionReadyScreens} screens meet all production quality gates. ${_report.blockedScreens} screens are currently blocked by critical or high-severity issues.',
+                  '${report.productionReadyScreens} screens meet all production quality gates. ${report.blockedScreens} screens are currently blocked by critical or high-severity issues.',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 14,
@@ -476,8 +527,8 @@ class _GovernanceDashboardState extends ConsumerState<GovernanceDashboard>
           ),
           const SizedBox(width: 32),
           CircularProgressIndicator(
-            value: _report.totalScreens > 0
-                ? _report.productionReadyScreens / _report.totalScreens
+            value: report.totalScreens > 0
+                ? report.productionReadyScreens / report.totalScreens
                 : 0,
             backgroundColor: Colors.white.withValues(alpha: 0.2),
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.greenAccent),

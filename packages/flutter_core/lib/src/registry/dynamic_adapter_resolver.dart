@@ -35,5 +35,22 @@ class DynamicScreenAdapter {
 /// Provider for form-specific adapters.
 final primecareFormProvider =
     Provider.family<DynamicScreenAdapter, PrimeCareForm>((ref, form) {
-      return ref.watch(genericDashboardAdapterProvider(form));
+      switch (form) {
+        case PrimeCareForm.patientIntake:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.staffOnboarding:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.billingSubmission:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.incidentReport:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.carePlan:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.schedulerEntry:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.ceoDashboard:
+          return ref.watch(genericDashboardAdapterProvider(form));
+        case PrimeCareForm.pswDashboard:
+          return ref.watch(genericDashboardAdapterProvider(form));
+      }
     });

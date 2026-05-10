@@ -12,6 +12,11 @@ import '../../governance/services/history_provider.dart';
 import '../../governance/services/cross_subsystem_auditor.dart';
 import '../utils/logger.dart';
 import '../../governance/services/governance_remediation_engine.dart';
+import '../../governance/services/network_parity_service.dart';
+
+final networkParityServiceProvider = Provider<NetworkParityService>((ref) {
+  return NetworkParityService(baseUrl: 'http://localhost:8080');
+});
 
 enum GovernanceEventLevel { all, info, success, warning, error, critical }
 
@@ -740,12 +745,44 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     }
 
     try {
-      final newState = _calculateState(
+      // 1. Fetch Backend Audit Data (Platform Parity Bridge)
+      final backendIssues = await ref
+          .read(networkParityServiceProvider)
+          .fetchBackendAudit();
+
+      // 1b. Fetch Backend Telemetry Data
+      final telemetryData = await ref
+          .read(networkParityServiceProvider)
+          .fetchTelemetry();
+      
+      final List<GovernanceEvent> telemetryEvents = telemetryData.map((e) => GovernanceEvent(
+        type: e['type'] ?? 'info',
+        message: e['message'] ?? '',
+        level: _parseEventLevel(e['level']),
+        source: e['source'],
+        timestamp: DateTime.tryParse(e['timestamp'] ?? '') ?? DateTime.now(),
+      )).toList();
+
+      // 2. Calculate Base Local State
+      var newState = _calculateState(
         existingTrend: state.healthTrend,
-        existingEvents: state.recentEvents,
+        existingEvents: [
+          ...telemetryEvents,
+          ...state.recentEvents,
+        ].take(50).toList(),
         apiUptime: state.apiUptime,
         dbConnections: state.dbConnections,
         liveServiceHealth: state.liveServiceHealth,
+      );
+
+      // 3. Inject Backend Parity Data into Platform HUD
+      newState = newState.copyWith(
+        subsystemIssues: [...newState.subsystemIssues, ...backendIssues],
+        hasDrift: newState.hasDrift || backendIssues.isNotEmpty,
+        driftIssues: [
+          ...newState.driftIssues,
+          ...backendIssues.map((i) => "[BACKEND] ${i.message}"),
+        ],
       );
 
       // Sync private fields with state

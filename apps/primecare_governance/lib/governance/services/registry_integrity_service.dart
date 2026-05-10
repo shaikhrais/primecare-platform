@@ -1,7 +1,7 @@
 import '../models/governance_issue.dart';
 import '../models/governance_severity.dart';
 import '../models/governance_category.dart';
-import '../../core/governance/screen_metadata.dart';
+import 'package:flutter_core/models/screen_metadata.dart';
 
 class RegistryIntegrityService {
   /// Scans the registry for structural and logical inconsistencies.

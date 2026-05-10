@@ -1,81 +1,50 @@
 import 'package:go_router/go_router.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 import 'corporate_routes.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+
+final corporateApplicationProvider = Provider<CorporateApplication>((ref) {
+  return CorporateApplication();
+});
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
+  final application = ref.watch(corporateApplicationProvider);
 
-  return GoRouter(
-    initialLocation: '/offices/corporate/roles/shareholder/dashboard',
+  // Provide a safe fallback role for public/unauthenticated access
+  final activeRole = authState.isAuthenticated
+      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
+              (r) => r?.name == authState.role,
+              orElse: () => PlatformRole.guest,
+            ) ??
+            PlatformRole.guest)
+      : PlatformRole.guest;
+
+  return GovernanceRouter.buildZeroTrustRouter(
+    application: application,
+    activeRole: activeRole,
+    initialLocation:
+        '/offices/corporate/roles/shareholder/dashboard', // Default starting location
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
-      /*
-      final guard = RouteGuard.verify(
-        requestedRoute: requestedRoute,
-        isLoggedIn: authState.isAuthenticated,
-        userRole: authState.role,
-      );
-      */
 
-      // 1. Enforce Guard Redirections (Security boundaries)
-      /*
-      if (!guard.isAllowed && guard.redirectRoute != null) {
-        return guard.redirectRoute;
-      }
-      */
-
-      // 2. Dashboard Resolution (Logged in users on home/login)
       final isAtLanding =
           requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+
       if (authState.isAuthenticated && isAtLanding) {
         final role = authState.role ?? '';
         final destination = AuthNotifier.getDashboardRouteForRole(role);
-
-        // Safety: If for some reason the role isn't corporate, don't trap them in a loop
-        // if they are in the corporate app.
         return destination;
       }
 
-      // 3. Prevent unauthenticated access to non-public routes (already handled by Guard but as a fallback)
-      /*
       if (!authState.isAuthenticated && !isAtLanding) {
+        // Enforce login for unauthorized users
         return CommonRoutes.login;
       }
-      */
 
       return null;
     },
-    errorBuilder: (context, state) => MasterLayout(
-      shellType: AppShellType.admin,
-      child: const ScreenNotImplementedView(),
-    ),
-    routes: [
-      GoRoute(
-        path: CommonRoutes.splash,
-        builder: (context, state) => const Placeholder(),
-      ),
-      GoRoute(
-        path: CommonRoutes.login,
-        builder: (context, state) => const SignInView(),
-      ),
-      ShellRoute(
-        builder: (context, state, child) =>
-            MasterLayout(shellType: AppShellType.admin, child: child),
-        routes: [
-          ...corporateRoutes,
-          ...sharedCommonRoutes,
-          GoRoute(
-            path: '/:segment1/:segment2',
-            builder: (context, state) => const ScreenNotImplementedView(),
-          ),
-          GoRoute(
-            path: '/:segment1/:segment2/:segment3',
-            builder: (context, state) => const ScreenNotImplementedView(),
-          ),
-        ],
-      ),
-    ],
   );
 });

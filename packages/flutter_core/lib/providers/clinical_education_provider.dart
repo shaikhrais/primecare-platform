@@ -60,10 +60,10 @@ class ClinicalEducationRepository {
       final jsonStr = await rootBundle.loadString(
         'packages/flutter_core/assets/db/precision_education.json',
       );
-      final List<dynamic> data = jsonDecode(jsonStr);
+      final List<dynamic> data = jsonDecode(jsonStr) as List<dynamic>;
       final searchTerm = query.toLowerCase();
       final all = data
-          .map((json) => ClinicalArticle.fromJson(json))
+          .map((json) => ClinicalArticle.fromJson(json as Map<String, dynamic>))
           .where(
             (a) =>
                 a.title.toLowerCase().contains(searchTerm) ||
@@ -97,9 +97,9 @@ class ClinicalEducationRepository {
       final jsonStr = await rootBundle.loadString(
         'packages/flutter_core/assets/db/precision_education.json',
       );
-      final List<dynamic> data = jsonDecode(jsonStr);
+      final List<dynamic> data = jsonDecode(jsonStr) as List<dynamic>;
       final all = data
-          .map((json) => ClinicalArticle.fromJson(json))
+          .map((json) => ClinicalArticle.fromJson(json as Map<String, dynamic>))
           .where((a) => a.category == category)
           .toList();
       if (offset >= all.length) return [];
@@ -126,9 +126,9 @@ class ClinicalEducationRepository {
       final jsonStr = await rootBundle.loadString(
         'packages/flutter_core/assets/db/precision_education.json',
       );
-      final List<dynamic> data = jsonDecode(jsonStr);
+      final List<dynamic> data = jsonDecode(jsonStr) as List<dynamic>;
       final categories = data
-          .map((json) => json['category'] as String)
+          .map((json) => (json as Map<String, dynamic>)['category'] as String)
           .toSet()
           .toList();
       categories.sort();

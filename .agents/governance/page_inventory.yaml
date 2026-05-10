@@ -34,7 +34,6 @@ pages:
     role_allowed: ["manager_portal"]
     actions: ["submit"]
     linked_intent: "create_shift"
-    implementation_status: "verified"
   - id: "system_dashboard"
     route: "/offices/corporate/roles/ceo/dashboard"
     name: "SystemDashboard"
@@ -44,7 +43,6 @@ pages:
     role_allowed: ["Admin", "CEO"]
     actions: ["view"]
     linked_intent: "navigate_system_dashboard"
-    implementation_status: "verified"
   - id: "compliance_hub"
     route: "/offices/corporate/roles/compliance_manager/dashboard"
     name: "ComplianceHub"
@@ -54,7 +52,6 @@ pages:
     role_allowed: ["Admin", "Compliance Manager"]
     actions: ["view"]
     linked_intent: "navigate_compliance_hub"
-    implementation_status: "verified"
   - id: "global_settings"
     route: "/generated/${CommonRoutes.globalSettings}" # Placeholder since we don't know literal route string
     name: "GlobalSettings"
@@ -74,7 +71,6 @@ pages:
     role_allowed: ["Admin", "CEO"]
     actions: ["view", "deactivate", "delete"]
     linked_intent: "user_management.view_users"
-    implementation_status: "verified"
   - id: "enterprise_overview"
     route: "/offices/corporate/roles/ceo/enterprise-overview"
     name: "EnterpriseOverview"
@@ -84,7 +80,6 @@ pages:
     role_allowed: ["CEO"]
     actions: ["view"]
     linked_intent: "navigate_enterprise_overview"
-    implementation_status: "verified"
   - id: "strategic_kpis"
     route: "/offices/corporate/roles/ceo/strategic-kpis"
     name: "StrategicKPIs"
@@ -94,7 +89,6 @@ pages:
     role_allowed: ["CEO"]
     actions: ["view"]
     linked_intent: "navigate_strategic_kpis"
-    implementation_status: "verified"
   - id: "customer_support_dashboard"
     route: "/offices/support/roles/customer_support/dashboard"
     name: "CustomerSupportDashboard"
@@ -104,7 +98,6 @@ pages:
     role_allowed: ["Customer Support"]
     actions: ["view"]
     linked_intent: "navigate_support_dashboard"
-    implementation_status: "verified"
   - id: "growth_pipeline"
     route: "/generated/${CorporateRoutes.ceoGrowthPipeline}" # Placeholder since we don't know literal route string
     name: "GrowthPipeline"
@@ -144,7 +137,6 @@ pages:
     role_allowed: ["CFO"]
     actions: ["view"]
     linked_intent: "navigate_cfo_dashboard"
-    implementation_status: "verified"
   - id: "financial_overview"
     route: "/offices/corporate/roles/cfo/financial-overview"
     name: "FinancialOverview"
@@ -154,7 +146,6 @@ pages:
     role_allowed: ["CFO"]
     actions: ["view"]
     linked_intent: "navigate_financial_overview"
-    implementation_status: "verified"
   - id: "revenue_tracker"
     route: "/generated/${CorporateRoutes.cfoRevenue}" # Placeholder since we don't know literal route string
     name: "RevenueTracker"
@@ -194,7 +185,6 @@ pages:
     role_allowed: ["COO"]
     actions: ["view"]
     linked_intent: "navigate_coo_dashboard"
-    implementation_status: "verified"
   - id: "operations_board"
     route: "/offices/corporate/roles/coo/operations-overview"
     name: "OperationsBoard"
@@ -204,7 +194,6 @@ pages:
     role_allowed: ["COO"]
     actions: ["view"]
     linked_intent: "navigate_operations_board"
-    implementation_status: "verified"
   - id: "branch_operations"
     route: "/generated/${CorporateRoutes.cooBranchOperations}" # Placeholder since we don't know literal route string
     name: "BranchOperations"
@@ -244,7 +233,6 @@ pages:
     role_allowed: ["CTO"]
     actions: ["view"]
     linked_intent: "navigate_cto_dashboard"
-    implementation_status: "verified"
   - id: "system_health"
     route: "/offices/corporate/roles/cto/system-health"
     name: "SystemHealth"
@@ -254,7 +242,6 @@ pages:
     role_allowed: ["CTO"]
     actions: ["view"]
     linked_intent: "navigate_system_health"
-    implementation_status: "verified"
   - id: "platform_usage"
     route: "/generated/${CorporateRoutes.ctoPlatformUsage}" # Placeholder since we don't know literal route string
     name: "PlatformUsage"

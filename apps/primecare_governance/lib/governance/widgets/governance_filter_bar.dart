@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/governance_severity.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../models/governance_category.dart';
 
 class GovernanceFilterBar extends StatelessWidget {
@@ -35,7 +36,12 @@ class GovernanceFilterBar extends StatelessWidget {
           // Severity Filter
           _buildFilterChip<GovernanceSeverity>(
             context,
-            'Severity: ${selectedSeverity?.name.toUpperCase() ?? "All"}',
+            'governance.filterBar.severityLabel'.tr(
+              args: [
+                selectedSeverity?.name.toUpperCase() ??
+                    'governance.filterBar.all'.tr(),
+              ],
+            ),
             GovernanceSeverity.values,
             selectedSeverity,
             onSeverityChanged,
@@ -46,7 +52,12 @@ class GovernanceFilterBar extends StatelessWidget {
           // Category Filter
           _buildFilterChip<GovernanceCategory>(
             context,
-            'Category: ${selectedCategory?.name.toUpperCase() ?? "All"}',
+            'governance.filterBar.categoryLabel'.tr(
+              args: [
+                selectedCategory?.name.toUpperCase() ??
+                    'governance.filterBar.all'.tr(),
+              ],
+            ),
             GovernanceCategory.values,
             selectedCategory,
             onCategoryChanged,
@@ -58,9 +69,9 @@ class GovernanceFilterBar extends StatelessWidget {
             TextButton.icon(
               onPressed: onClear,
               icon: const Icon(Icons.clear_all_rounded, size: 18),
-              label: const Text(
-                'Clear Filters',
-                style: TextStyle(fontSize: 12),
+              label: Text(
+                'governance.filterBar.clearFilters'.tr(),
+                style: const TextStyle(fontSize: 12),
               ),
               style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
             ),
@@ -79,7 +90,10 @@ class GovernanceFilterBar extends StatelessWidget {
     return PopupMenuButton<T?>(
       onSelected: onSelected,
       itemBuilder: (context) => [
-        PopupMenuItem<T?>(value: null, child: const Text('All')),
+        PopupMenuItem<T?>(
+          value: null,
+          child: Text('governance.filterBar.all'.tr()),
+        ),
         ...values.map(
           (v) => PopupMenuItem<T?>(value: v, child: Text(v.name.toUpperCase())),
         ),

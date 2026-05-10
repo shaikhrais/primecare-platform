@@ -6,10 +6,10 @@ void main() {
   final dbPath = 'packages/flutter_core/assets/db/precision_education.db';
   print('Opening $dbPath');
   final db = sqlite3.open(dbPath);
-  
+
   final result = db.select('SELECT * FROM articles');
   print('Found ${result.length} articles');
-  
+
   final List<Map<String, dynamic>> articles = [];
   for (final row in result) {
     articles.add({
@@ -20,8 +20,10 @@ void main() {
       'tags': row['tags'],
     });
   }
-  
+
   final jsonStr = jsonEncode(articles);
-  File('packages/flutter_core/assets/db/precision_education.json').writeAsStringSync(jsonStr);
-  print('Successfully exported to JSON (${File('packages/flutter_core/assets/db/precision_education.json').lengthSync()} bytes)');
+  File('packages/flutter_core/assets/db/precision_education.json')
+      .writeAsStringSync(jsonStr);
+  print(
+      'Successfully exported to JSON (${File('packages/flutter_core/assets/db/precision_education.json').lengthSync()} bytes)');
 }

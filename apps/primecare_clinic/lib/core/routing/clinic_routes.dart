@@ -1,109 +1,126 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 
-class ScreenConfig {
-  final String routePath;
-  final String titleKey;
-  final String subtitleKey;
+class ClinicTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_clinic';
 
-  const ScreenConfig({
-    required this.routePath,
-    required this.titleKey,
-    required this.subtitleKey,
-  });
+  @override
+  String get name => 'PrimeCare Clinic';
+
+  @override
+  ThemeData get branding => ThemeData.light();
 }
 
-final List<ScreenConfig> clinicScreenRegistry = [
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicDashboard,
-    titleKey: 'Clinical Intelligence',
-    subtitleKey: 'High-fidelity operations and risk surveillance.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicClientProfile,
-    titleKey: 'Clinic Client Profile',
-    subtitleKey: 'View and manage client details.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicCarePlan,
-    titleKey: 'Clinic Care Plan',
-    subtitleKey: 'Review and update client care plans.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicHistoryLogs,
-    titleKey: 'Clinic History Logs',
-    subtitleKey: 'Audit logs and past interactions.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicProfileSettings,
-    titleKey: 'Clinic Profile Settings',
-    subtitleKey: 'Manage user preferences.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicMessaging,
-    titleKey: 'Clinic Messaging',
-    subtitleKey: 'Secure communications.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicIncidentReport,
-    titleKey: 'Clinic Incident Report',
-    subtitleKey: 'File reports for any incidents.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicCheckInOut,
-    titleKey: 'Clinic Check In Out',
-    subtitleKey: 'Log time and attendance.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicDailyNotes,
-    titleKey: 'Clinic Daily Notes',
-    subtitleKey: 'Document daily observations.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicShiftDetails,
-    titleKey: 'Clinic Shift Details',
-    subtitleKey: 'View upcoming and active shifts.',
-  ),
-  const ScreenConfig(
-    routePath: CommonRoutes.clinicMyShifts,
-    titleKey: 'Clinic My Shifts',
-    subtitleKey: 'Manage your assigned shifts.',
-  ),
-];
+class ClinicOperationsModule extends PlatformModule {
+  @override
+  String get moduleId => 'clinic_operations';
 
-final List<RouteBase> clinicRoutes = [
-  ...clinicScreenRegistry.map(
-    (config) => GoRoute(
-      path: config.routePath,
-      builder: (context, state) => Scaffold(
-        body: Center(
-          child: Text('Not Implemented: ${config.titleKey}'),
-        ),
-      ),
+  @override
+  String get name => 'Operations';
+
+  @override
+  IconData get icon => Icons.local_hospital;
+
+  @override
+  List<PlatformRole> get allowedRoles => [
+    PlatformRole.clinic,
+    PlatformRole.rn,
+    PlatformRole.rpn,
+    PlatformRole.psw,
+    PlatformRole.rmt,
+    PlatformRole.chiropractor,
+    PlatformRole.physiotherapist,
+    PlatformRole.socialWorker,
+    PlatformRole.intakeCoordinator,
+    PlatformRole.systemVerification,
+  ];
+
+  @override
+  List<PrimeCareScreen> get screens => [
+    PrimeCareScreen(
+      title: 'Clinical Intelligence',
+      route: CommonRoutes.clinicDashboard,
+      requiredRole: PlatformRole.clinic,
     ),
-  ),
-  GoRoute(
-    path: CommonRoutes.institutionalScheduler,
-    builder: (context, state) => const Scaffold(
-      body: Center(
-        child: Text('Not Implemented: Institutional Scheduler'),
-      ),
+    PrimeCareScreen(
+      title: 'Clinic Client Profile',
+      route: CommonRoutes.clinicClientProfile,
+      requiredRole: PlatformRole.clinic,
     ),
-  ),
-  GoRoute(
-    path: '/offices/system-verification',
-    builder: (context, state) => const Scaffold(
-      body: Center(
-        child: Text('Not Implemented: System Verification'),
-      ),
+    PrimeCareScreen(
+      title: 'Clinic Care Plan',
+      route: CommonRoutes.clinicCarePlan,
+      requiredRole: PlatformRole.clinic,
     ),
-  ),
-  GoRoute(
-    path: ClinicalRoutes.pswDashboard,
-    builder: (context, state) => const Scaffold(
-      body: Center(
-        child: Text('Not Implemented: PSW Dashboard'),
-      ),
+    PrimeCareScreen(
+      title: 'Clinic History Logs',
+      route: CommonRoutes.clinicHistoryLogs,
+      requiredRole: PlatformRole.clinic,
     ),
-  ),
-];
+    PrimeCareScreen(
+      title: 'Clinic Profile Settings',
+      route: CommonRoutes.clinicProfileSettings,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic Messaging',
+      route: CommonRoutes.clinicMessaging,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic Incident Report',
+      route: CommonRoutes.clinicIncidentReport,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic Check In Out',
+      route: CommonRoutes.clinicCheckInOut,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic Daily Notes',
+      route: CommonRoutes.clinicDailyNotes,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic Shift Details',
+      route: CommonRoutes.clinicShiftDetails,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Clinic My Shifts',
+      route: CommonRoutes.clinicMyShifts,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'Institutional Scheduler',
+      route: CommonRoutes.institutionalScheduler,
+      requiredRole: PlatformRole.clinic,
+    ),
+    PrimeCareScreen(
+      title: 'System Verification',
+      route: '/offices/system-verification',
+      requiredRole: PlatformRole.systemVerification,
+    ),
+    PrimeCareScreen(
+      title: 'PSW Dashboard',
+      route: ClinicalRoutes.pswDashboard,
+      requiredRole: PlatformRole.psw,
+    ),
+  ];
+}
+
+class ClinicApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_clinic';
+
+  @override
+  String get name => 'PrimeCare Clinic Portal';
+
+  @override
+  PlatformTenant get tenant => ClinicTenant();
+
+  @override
+  List<PlatformModule> get modules => [ClinicOperationsModule()];
+}

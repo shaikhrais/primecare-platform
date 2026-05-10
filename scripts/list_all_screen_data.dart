@@ -10,8 +10,8 @@ void main() {
   }
 
   final files = dir.listSync().whereType<File>().where(
-    (f) => f.path.endsWith('.dart'),
-  );
+        (f) => f.path.endsWith('.dart'),
+      );
   final List<Map<String, dynamic>> allScreens = [];
 
   for (final file in files) {
@@ -76,9 +76,8 @@ void main() {
 
   File('artifacts/all_screens_data.md').writeAsStringSync(markdown.toString());
 
-  final int completedCount = allScreens
-      .where((s) => s['lifecycle'] == 'completed')
-      .length;
+  final int completedCount =
+      allScreens.where((s) => s['lifecycle'] == 'completed').length;
   final int backlogCount = allScreens.length - completedCount;
 
   print('Total screens audited: ${allScreens.length}');

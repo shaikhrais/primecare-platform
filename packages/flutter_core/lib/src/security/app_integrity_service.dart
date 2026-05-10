@@ -1,0 +1,81 @@
+import 'package:safe_device/safe_device.dart';
+import 'package:root_checker_plus/root_checker_plus.dart';
+import 'dart:io';
+import '../utils/prime_logger.dart';
+import 'security_sentinel_service.dart';
+
+/// Defines the integrity status of the application environment.
+class AppIntegrityStatus {
+  final bool isRooted;
+  final bool isJailbroken;
+  final bool isEmulator;
+  final bool isDevelopmentMode;
+  final bool isTampered;
+
+  const AppIntegrityStatus({
+    required this.isRooted,
+    required this.isJailbroken,
+    required this.isEmulator,
+    required this.isDevelopmentMode,
+    this.isTampered = false,
+  });
+
+  bool get isSecure => !isRooted && !isJailbroken && !isEmulator && !isTampered;
+
+  @override
+  String toString() {
+    return 'Integrity(Secure: $isSecure, Rooted: $isRooted, Emulator: $isEmulator)';
+  }
+}
+
+/// [AppIntegrityService] - Implements bank-grade environment verification.
+class AppIntegrityService {
+  static final AppIntegrityService instance = AppIntegrityService._internal();
+  AppIntegrityService._internal();
+
+  /// Performs a deep sweep of the device environment to detect threats.
+  Future<AppIntegrityStatus> checkIntegrity() async {
+    try {
+      bool isRooted = false;
+      bool isJailbroken = false;
+
+      if (Platform.isAndroid) {
+        isRooted = await RootCheckerPlus.isRootChecker() ?? false;
+      } else if (Platform.isIOS) {
+        isJailbroken = await SafeDevice.isJailBroken;
+      }
+
+      final isEmulator = await SafeDevice.isRealDevice == false;
+      final isDevMode = await SafeDevice.isDevelopmentModeEnable;
+
+      final status = AppIntegrityStatus(
+        isRooted: isRooted,
+        isJailbroken: isJailbroken,
+        isEmulator: isEmulator,
+        isDevelopmentMode: isDevMode,
+      );
+
+      PrimeLogger.info('App Integrity Audit: $status', tag: 'AppIntegrity');
+      if (status.isRooted)
+        SecuritySentinelService().reportIntegrityFailure('ROOTED');
+      if (status.isJailbroken)
+        SecuritySentinelService().reportIntegrityFailure('JAILBROKEN');
+      if (status.isEmulator)
+        SecuritySentinelService().reportMetricViolation(
+          'DEVICE_TYPE',
+          'Emulator detected in production-like audit',
+        );
+
+      return status;
+    } catch (e) {
+      PrimeLogger.error('Integrity check failed', tag: 'AppIntegrity', error: e);
+      // Fail-safe: assume insecure if check fails
+      return const AppIntegrityStatus(
+        isRooted: true,
+        isJailbroken: true,
+        isEmulator: true,
+        isDevelopmentMode: true,
+      );
+    }
+  }
+}

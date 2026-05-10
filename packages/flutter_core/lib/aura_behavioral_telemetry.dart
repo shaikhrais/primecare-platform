@@ -8,7 +8,24 @@ class AuraBehavioralTelemetry {
   final Map<String, int> _interactionCounts = {};
   final List<Map<String, dynamic>> _interactionLogs = [];
 
+  Map<String, dynamic> _governanceContext = {};
+
   AuraBehavioralTelemetry(this._ref);
+
+  /// Updates the governance context to automatically populate telemetry logs with tenant and module breadcrumbs.
+  void updateGovernanceContext({
+    required PlatformTenant tenant,
+    PlatformModule? module,
+    PlatformRole? role,
+  }) {
+    _governanceContext = {
+      'tenantId': tenant.tenantId,
+      'tenantName': tenant.name,
+      if (module != null) 'moduleId': module.moduleId,
+      if (module != null) 'moduleName': module.name,
+      if (role != null) 'activeRole': role.name,
+    };
+  }
 
   /// Logs a structural event (e.g., screen mount, layout change) for auditing.
   void logStructuralEvent({
@@ -22,6 +39,7 @@ class AuraBehavioralTelemetry {
       'route': route,
       'eventType': eventType,
       'timestamp': DateTime.now().toIso8601String(),
+      ..._governanceContext,
       ...metadata,
     };
 
@@ -47,6 +65,7 @@ class AuraBehavioralTelemetry {
       'isCompliant': isCompliant,
       'details': details,
       'timestamp': DateTime.now().toIso8601String(),
+      ..._governanceContext,
     };
 
     _interactionLogs.add(log);
@@ -73,6 +92,7 @@ class AuraBehavioralTelemetry {
       'actionType': actionType,
       'timestamp': DateTime.now().toIso8601String(),
       'isPredictive': event.isPredictive,
+      ..._governanceContext,
     };
 
     _interactionLogs.add(log);
@@ -93,6 +113,7 @@ class AuraBehavioralTelemetry {
       'context': context,
       'actionType': 'suggestion_click',
       'timestamp': DateTime.now().toIso8601String(),
+      ..._governanceContext,
     };
 
     _interactionLogs.add(log);

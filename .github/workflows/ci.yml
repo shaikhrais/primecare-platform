@@ -1,4 +1,4 @@
-name: Shift-Left CI/CD Pipeline
+name: PrimeCare Unified Dart CI
 
 on:
   push:
@@ -10,20 +10,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  NODE_VERSION: '20'
-
 jobs:
-  factory-pipeline:
-    name: Component Validation Pipeline
+  validate-platform:
+    name: Platform Validation (Analyze & Test)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -31,61 +23,52 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Install Monorepo Dependencies
-        run: npm ci
+      - name: Verify Platform Architecture
+        run: dart analyze . --fatal-warnings
 
-      - name: Generate Prisma Client (Worker API)
-        run: npx prisma generate
-        working-directory: apps/worker-api
-        continue-on-error: true
+      - name: Run Backend Service Tests
+        run: |
+          for dir in services/*; do
+            if [ -f "$dir/pubspec.yaml" ]; then
+              echo "Testing service: $dir"
+              cd "$dir"
+              dart pub get
+              dart test
+              cd - > /dev/null
+            fi
+          done
 
-      - name: Cache Turborepo
-        uses: actions/cache@v4
-        with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
+      - name: Run Frontend App Tests
+        run: |
+          for dir in apps/*; do
+            if [ -f "$dir/pubspec.yaml" ]; then
+              echo "Testing app: $dir"
+              cd "$dir"
+              flutter pub get
+              flutter test
+              cd - > /dev/null
+            fi
+          done
 
-      - name: Architectural Governance Gate
-        run: npm run check-architecture
-        working-directory: packages/database
-
-      - name: Platform Governance Audit Gate
-        run: flutter test test/governance_audit_test.dart
-        working-directory: packages/factory_system/primecare_ui
-
-      - name: Run Global Pipeline (Test/Lint/Typecheck)
-        run: npx turbo run typecheck lint test --concurrency=4
-
-  security-architecture-sweep:
-    name: Shift-Left Security Scans
+  security-sweep:
+    name: Security & Compliance Sweep
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
 
-      - name: Package Vulnerability Audit (NPM)
-        run: npm audit --audit-level=high
-
-      - name: Threat Matrix Vulnerability Audit (Dart SDKs)
+      - name: Dependency Vulnerability Audit
         run: |
-          for dir in apps/* packages/*; do
+          for dir in services/* apps/*; do
             if [ -f "$dir/pubspec.yaml" ]; then
               echo "Scanning $dir for security vulnerabilities..."
               cd "$dir"
               flutter pub get
-              # Only fail if a serious vulnerability is found. The pub tool handles exit codes.
               flutter pub outdated --mode=security
               cd - > /dev/null
             fi

@@ -67,7 +67,7 @@ class DataLogisticsHub {
   static HorizonSchedule getHorizonBlueprint() {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    
+
     return HorizonSchedule(
       staff: const [
         StaffMember(id: 's_001', name: 'Dr. Sarah Connor'),
@@ -75,9 +75,21 @@ class DataLogisticsHub {
         StaffMember(id: 's_003', name: 'Tech Maria Garcia'),
       ],
       resources: const [
-        InstitutionalResource(id: 'r_001', name: 'Room 101', status: ResourceStatus.available),
-        InstitutionalResource(id: 'r_002', name: 'Room 102', status: ResourceStatus.available),
-        InstitutionalResource(id: 'r_003', name: 'MRI Scanner', status: ResourceStatus.available),
+        InstitutionalResource(
+          id: 'r_001',
+          name: 'Room 101',
+          status: ResourceStatus.available,
+        ),
+        InstitutionalResource(
+          id: 'r_002',
+          name: 'Room 102',
+          status: ResourceStatus.available,
+        ),
+        InstitutionalResource(
+          id: 'r_003',
+          name: 'MRI Scanner',
+          status: ResourceStatus.available,
+        ),
       ],
       appointments: [
         Appointment(

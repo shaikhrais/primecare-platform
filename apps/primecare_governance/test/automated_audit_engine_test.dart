@@ -13,7 +13,9 @@ void main() {
       expect(checkNames, contains('Auth Role Enforcement'));
       expect(checkNames, contains('Telemetry HUD Coverage'));
       expect(checkNames, contains('Adapter Connectivity'));
-      expect(checkNames, contains('Environment Security Gate'));
+      expect(checkNames, contains('Telemetry HUD Coverage'));
+      expect(checkNames, contains('Adapter Connectivity'));
+      expect(checkNames, contains('Max OOP Architectural Audit'));
     });
 
     test('Localization Enforcement reports correctly', () {
@@ -26,18 +28,18 @@ void main() {
         expect(l10nCheck.isWarning, isTrue);
         expect(l10nCheck.meaning, contains('hardcoded strings'));
       } else {
-        expect(l10nCheck.meaning, contains('I18n compliance'));
+        expect(l10nCheck.meaning, contains('All strings migrated'));
       }
     });
 
-    test('Environment Security Gate reflects development state', () {
+    test('Max OOP Architectural Audit reflects state', () {
       final results = AutomatedAuditEngine.runAudits();
-      final securityCheck = results.firstWhere(
-        (r) => r.check == 'Environment Security Gate',
+      final oopCheck = results.firstWhere(
+        (r) => r.check == 'Max OOP Architectural Audit',
       );
 
-      expect(securityCheck.meaning, contains('Development security context'));
-      expect(securityCheck.isPass, isTrue);
+      expect(oopCheck.meaning, contains('Strict MVC/DDD compliance'));
+      expect(oopCheck.isPass, isTrue);
     });
 
     test('Health Score calculation is deterministic', () {

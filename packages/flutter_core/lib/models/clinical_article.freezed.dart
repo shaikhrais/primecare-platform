@@ -212,8 +212,8 @@ return $default(_that.url,_that.title,_that.category,_that.content,_that.htmlCon
 /// @nodoc
 @JsonSerializable()
 
-class _ClinicalArticle implements ClinicalArticle {
-  const _ClinicalArticle({required this.url, required this.title, required this.category, required this.content, @JsonKey(name: 'html_content') required this.htmlContent});
+class _ClinicalArticle extends ClinicalArticle {
+  const _ClinicalArticle({required this.url, required this.title, required this.category, required this.content, @JsonKey(name: 'html_content') required this.htmlContent}): super._();
   factory _ClinicalArticle.fromJson(Map<String, dynamic> json) => _$ClinicalArticleFromJson(json);
 
 @override final  String url;

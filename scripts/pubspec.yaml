@@ -1,0 +1,9 @@
+name: scripts
+description: Utility scripts for PrimeCare Platform
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  sqlite3: ^2.4.6

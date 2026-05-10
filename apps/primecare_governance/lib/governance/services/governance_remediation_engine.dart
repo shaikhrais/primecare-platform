@@ -4,6 +4,7 @@ import 'registry_integrity_service.dart';
 import 'cross_subsystem_auditor.dart';
 import '../models/governance_issue.dart';
 import '../../core/governance/governance_provider.dart';
+import '../../core/governance/screen_metadata.dart';
 
 class RemediationResult {
   final int issuesDetected;
@@ -18,7 +19,7 @@ class RemediationResult {
 }
 
 class GovernanceRemediationEngine {
-  final Ref ref;
+  final Ref? ref;
   final ASTPatchEngine _patchEngine;
   final String projectRoot;
 
@@ -27,8 +28,8 @@ class GovernanceRemediationEngine {
 
   /// Performs a platform-wide scan and automated remediation of all registries.
   Future<RemediationResult> executeGlobalRemediation() async {
-    final state = ref.read(governanceProvider);
-    final allScreens = state.allScreens;
+    final state = ref?.read(governanceProvider);
+    final allScreens = state?.allScreens ?? <String, ScreenMetadata>{};
 
     int resolvedCount = 0;
     final logs = <String>[];
@@ -62,10 +63,20 @@ class GovernanceRemediationEngine {
     final crossSubsystemCount = await _remediateCrossSubsystemDrift(logs);
     resolvedCount += crossSubsystemCount;
 
-    // Blueprint Drift Remediation disabled since feature is removed.
+    // 3. Network Security Scan
+    final securityCount = await _remediateSecurityDrift(logs);
+    resolvedCount += securityCount;
+
+    // 4. Localization Parity Scan
+    final localizationCount = await _remediateLocalizationDrift(logs, allScreens);
+    resolvedCount += localizationCount;
 
     return RemediationResult(
-      issuesDetected: issues.length + crossSubsystemCount,
+      issuesDetected:
+          issues.length +
+          crossSubsystemCount +
+          securityCount +
+          localizationCount,
       issuesResolved: resolvedCount,
       resolutionLogs: logs,
     );
@@ -76,8 +87,7 @@ class GovernanceRemediationEngine {
       issue.screenId,
       {'id': issue.screenId},
       registryPath:
-          _getRegistryPathForScreen(issue.screenId) ??
-          'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+          _getRegistryPathForScreen(issue.screenId),
     );
   }
 
@@ -131,7 +141,7 @@ class GovernanceRemediationEngine {
 
           final success = await _patchEngine.injectScreenConstant(
             registryPath:
-                'apps/primecare_governance/lib/core/governance/screen_registry.dart',
+                'apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart',
             className: 'ScreenRegistry',
             screenId: screenId,
             metadata: {
@@ -173,14 +183,116 @@ class GovernanceRemediationEngine {
     return count;
   }
 
-  String? _getRegistryPathForScreen(String screenId) {
-    if (screenId.contains('clinical')) {
-      return 'apps/primecare_governance/lib/core/governance/registries/clinical_registry.dart';
+  Future<int> _remediateSecurityDrift(List<String> logs) async {
+    int count = 0;
+    final auditor = CrossSubsystemAuditor(projectRoot: projectRoot);
+    final securityIssues = await auditor.auditNetworkSecurity();
+    final bankGradeIssues = await auditor.auditBankGradeSecurityCompliance();
+
+    final allIssues = [...securityIssues, ...bankGradeIssues];
+
+    for (final issue in allIssues) {
+      if (issue.autoRemediable) {
+        bool success = false;
+
+        if (issue.metadata['type'] == 'missing_security_header') {
+          final header = issue.metadata['header'] as String;
+          final value = issue.metadata['value'] as String;
+          final isRaw = issue.metadata['isRaw'] as bool? ?? false;
+          final targetPath = issue.metadata['targetPath'] as String;
+
+          success = await _patchEngine.injectHeader(
+            header,
+            value,
+            filePath: targetPath,
+            isRaw: isRaw,
+          );
+        } else if (issue.metadata['type'] == 'missing_security_interceptor') {
+          final targetPath = issue.metadata['targetPath'] as String;
+          final interceptor = issue.metadata['interceptor'] as String;
+
+          success = await _patchEngine.injectIntoConstructor(
+            filePath: targetPath,
+            className: 'ApiClient',
+            codeLine: '_dio.interceptors.add($interceptor);',
+          );
+        } else if (issue.metadata['type'] == 'missing_bootstrap_security') {
+          final targetPath = issue.metadata['targetPath'] as String;
+          final call = issue.metadata['call'] as String;
+
+          success = await _patchEngine.injectIntoFunction(
+            filePath: targetPath,
+            functionName: 'main',
+            codeLine: call,
+          );
+        }
+
+        if (success) {
+          count++;
+          logs.add('[RESOLVED] Security Compliance: ${issue.issue}');
+        }
+      }
     }
-    if (screenId.contains('corporate') || screenId.contains('finance')) {
-      return 'apps/primecare_governance/lib/core/governance/registries/corporate_registry.dart';
+    return count;
+  }
+
+  Future<int> _remediateLocalizationDrift(
+    List<String> logs,
+    Map<String, ScreenMetadata> allScreens,
+  ) async {
+    int count = 0;
+    final auditor = CrossSubsystemAuditor(projectRoot: projectRoot);
+    final l10nIssues = await auditor.auditTranslationParity(allScreens);
+    final complianceIssues = await auditor.auditArticleCompliance(allScreens);
+    final featureIssues = await auditor.auditFeatureVerification(allScreens);
+
+    final allIssues = [...l10nIssues, ...complianceIssues, ...featureIssues];
+
+    for (final issue in allIssues) {
+      if (issue.autoRemediable) {
+        final screenId = issue.metadata['screenId'] as String;
+        final registryPath = _getRegistryPathForScreen(screenId);
+
+        bool success = false;
+        if (issue.metadata['type'] == 'l10n_flag_drift') {
+          final hasAll = issue.metadata['hasAll'] as bool;
+          success = await _patchEngine.updateRegistryMetadata(screenId, {
+            'hasAllTranslations': hasAll.toString(),
+          }, registryPath: registryPath);
+        } else if (issue.metadata['type'] == 'compliance_drift') {
+          final compliant = issue.metadata['compliant'] as bool;
+          success = await _patchEngine.updateRegistryMetadata(screenId, {
+            'isAuditCompliant': compliant.toString(),
+          }, registryPath: registryPath);
+        } else if (issue.metadata['type'] == 'feature_flag_drift') {
+          final field = issue.metadata['field'] as String;
+          final value = issue.metadata['value'] as bool;
+          success = await _patchEngine.updateRegistryMetadata(screenId, {
+            field: value.toString(),
+          }, registryPath: registryPath);
+        }
+
+        if (success) {
+          count++;
+          logs.add('[RESOLVED] Compliance: ${issue.issue}');
+        }
+      } else {
+        logs.add('[WARNING] Localization: ${issue.issue}');
+      }
     }
-    return 'apps/primecare_governance/lib/core/governance/registries/operational_registry.dart';
+    return count;
+  }
+
+  /// Public entry point for cross-subsystem drift remediation.
+  Future<int> remediateDrift() async {
+    final logs = <String>[];
+    return await _remediateCrossSubsystemDrift(logs);
+  }
+
+  String _getRegistryPathForScreen(String screenId) {
+    // Currently all metadata resides in the core governance registry.
+    // In future versions, this can be split into feature-specific registries.
+    return 'apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart';
   }
 }
 

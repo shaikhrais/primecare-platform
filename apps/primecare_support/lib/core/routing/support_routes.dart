@@ -1,41 +1,69 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class SupportRoutes {
   static const String helpDeskDashboard = '/helpdesk';
   static const String escalationDashboard = '/escalation';
 }
 
-class ScreenConfig {
-  final String routePath;
-  final String titleKey;
+class SupportTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_support';
 
-  const ScreenConfig({
-    required this.routePath,
-    required this.titleKey,
-  });
+  @override
+  String get name => 'PrimeCare Support';
+
+  @override
+  ThemeData get branding => ThemeData.light();
 }
 
-final List<ScreenConfig> supportScreenRegistry = [
-  const ScreenConfig(
-    routePath: SupportRoutes.helpDeskDashboard,
-    titleKey: 'Help Desk Dashboard',
-  ),
-  const ScreenConfig(
-    routePath: SupportRoutes.escalationDashboard,
-    titleKey: 'Escalation Dashboard',
-  ),
-];
+class SupportOperationsModule extends PlatformModule {
+  @override
+  String get moduleId => 'support_operations';
 
-final List<RouteBase> supportRoutes = [
-  ...supportScreenRegistry.map(
-    (config) => GoRoute(
-      path: config.routePath,
-      builder: (context, state) => Scaffold(
-        body: Center(
-          child: Text('Not Implemented: ${config.titleKey}'),
-        ),
-      ),
+  @override
+  String get name => 'Support Operations';
+
+  @override
+  IconData get icon => Icons.support_agent;
+
+  @override
+  List<PlatformRole> get allowedRoles => [
+    PlatformRole.support,
+    PlatformRole.customerSupport,
+    PlatformRole.systemVerification,
+  ];
+
+  @override
+  List<PrimeCareScreen> get screens => [
+    PrimeCareScreen(
+      title: 'Help Desk Dashboard',
+      route: SupportRoutes.helpDeskDashboard,
+      requiredRole: PlatformRole.support,
     ),
-  ),
-];
+    PrimeCareScreen(
+      title: 'Escalation Dashboard',
+      route: SupportRoutes.escalationDashboard,
+      requiredRole: PlatformRole.support,
+    ),
+    PrimeCareScreen(
+      title: 'System Verification',
+      route: '/offices/system-verification',
+      requiredRole: PlatformRole.systemVerification,
+    ),
+  ];
+}
+
+class SupportApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_support';
+
+  @override
+  String get name => 'PrimeCare Support Portal';
+
+  @override
+  PlatformTenant get tenant => SupportTenant();
+
+  @override
+  List<PlatformModule> get modules => [SupportOperationsModule()];
+}

@@ -1,1 +1,0 @@
-export const shared_types = "shared-types";

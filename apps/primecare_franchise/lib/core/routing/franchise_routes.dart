@@ -1,62 +1,78 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 
-class ScreenConfig {
-  final String routePath;
-  final String titleKey;
-  final String subtitleKey;
-  final String providerId;
+class FranchiseTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_franchise';
 
-  const ScreenConfig({
-    required this.routePath,
-    required this.titleKey,
-    required this.subtitleKey,
-    required this.providerId,
-  });
+  @override
+  String get name => 'PrimeCare Franchise';
+
+  @override
+  ThemeData get branding => ThemeData.light();
 }
 
-final List<ScreenConfig> franchiseScreenRegistry = [
-  const ScreenConfig(
-    routePath: FranchiseRoutes.franchiseOwnerDashboard,
-    titleKey: 'Franchise Owner Dashboard',
-    subtitleKey: 'Real-time business overview.',
-    providerId: 'franchiseOwnerDashboard',
-  ),
-  const ScreenConfig(
-    routePath: FranchiseRoutes.operationsManagerDashboard,
-    titleKey: 'Operations Manager Dashboard',
-    subtitleKey: 'Daily operational management.',
-    providerId: 'operationsManagerDashboard',
-  ),
-  const ScreenConfig(
-    routePath: FranchiseRoutes.billingAdminDashboard,
-    titleKey: 'Billing Admin Dashboard',
-    subtitleKey: 'Financial reconciliation and invoicing.',
-    providerId: 'billingAdminDashboard',
-  ),
-  const ScreenConfig(
-    routePath: FranchiseRoutes.hrHiringDashboard,
-    titleKey: 'Hr Hiring Dashboard',
-    subtitleKey: 'Staff onboarding and credentialing.',
-    providerId: 'hrHiringDashboard',
-  ),
-  const ScreenConfig(
-    routePath: FranchiseRoutes.schedulerDashboard,
-    titleKey: 'Scheduler Dashboard',
-    subtitleKey: 'Real-time overview fetched natively via API.',
-    providerId: 'schedulerDashboard',
-  ),
-];
+class FranchiseOperationsModule extends PlatformModule {
+  @override
+  String get moduleId => 'franchise_operations';
 
-final List<RouteBase> franchiseRoutes = [
-  ...franchiseScreenRegistry.map(
-    (config) => GoRoute(
-      path: config.routePath,
-      builder: (context, state) => Scaffold(
-        body: Center(
-          child: Text('Not Implemented: ${config.titleKey}'),
-        ),
-      ),
+  @override
+  String get name => 'Franchise Operations';
+
+  @override
+  IconData get icon => Icons.storefront;
+
+  @override
+  List<PlatformRole> get allowedRoles => [
+    PlatformRole.franchiseOwner,
+    PlatformRole.operationsManager,
+    PlatformRole.scheduler,
+    PlatformRole.billingAdmin,
+    PlatformRole.hrHiring,
+    PlatformRole.hrManager,
+    PlatformRole.owner,
+  ];
+
+  @override
+  List<PrimeCareScreen> get screens => [
+    PrimeCareScreen(
+      title: 'Franchise Owner Dashboard',
+      route: FranchiseRoutes.franchiseOwnerDashboard,
+      requiredRole: PlatformRole.franchiseOwner,
     ),
-  ),
-];
+    PrimeCareScreen(
+      title: 'Operations Manager Dashboard',
+      route: FranchiseRoutes.operationsManagerDashboard,
+      requiredRole: PlatformRole.operationsManager,
+    ),
+    PrimeCareScreen(
+      title: 'Billing Admin Dashboard',
+      route: FranchiseRoutes.billingAdminDashboard,
+      requiredRole: PlatformRole.billingAdmin,
+    ),
+    PrimeCareScreen(
+      title: 'Hr Hiring Dashboard',
+      route: FranchiseRoutes.hrHiringDashboard,
+      requiredRole: PlatformRole.hrHiring,
+    ),
+    PrimeCareScreen(
+      title: 'Scheduler Dashboard',
+      route: FranchiseRoutes.schedulerDashboard,
+      requiredRole: PlatformRole.scheduler,
+    ),
+  ];
+}
+
+class FranchiseApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_franchise';
+
+  @override
+  String get name => 'PrimeCare Franchise Portal';
+
+  @override
+  PlatformTenant get tenant => FranchiseTenant();
+
+  @override
+  List<PlatformModule> get modules => [FranchiseOperationsModule()];
+}

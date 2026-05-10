@@ -190,6 +190,7 @@ class PrimeColors {
     Color? success,
     Color? divider,
     Color? border,
+    Color? onErrorContainer,
   }) {
     return PrimeColors(
       primary: primary ?? this.primary,

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:path/path.dart' as p;
 
 /// [ASTPatchEngine] - A high-fidelity remediation engine that uses AST parsing
@@ -370,6 +371,205 @@ class ASTPatchEngine {
       return value.toString();
     }
   }
+
+  /// Safely injects a header into the ApiClient's BaseOptions.
+  Future<bool> injectHeader(
+    String header,
+    String value, {
+    required String filePath,
+    bool isRaw = false,
+  }) async {
+    final fullPath = p.join(projectRoot, filePath);
+    final file = File(fullPath);
+    if (!await file.exists()) {
+      PrimeLogger.warning(
+        'injectHeader - File not found at $fullPath',
+        tag: 'ASTPatchEngine',
+      );
+      return false;
+    }
+
+    final content = await file.readAsString();
+    final unit = parseString(content: content).unit;
+    final visitor = _HeadersVisitor();
+    unit.accept(visitor);
+
+    if (visitor.headersMap == null) {
+      return false;
+    }
+
+    final headersMap = visitor.headersMap!;
+
+    // Check if header already exists
+    bool exists = false;
+    for (final element in headersMap.elements) {
+      if (element is MapLiteralEntry) {
+        final key = element.key;
+        if (key is SimpleStringLiteral && key.value == header) {
+          exists = true;
+          break;
+        }
+      }
+    }
+    if (exists) return true;
+
+    // Inject into existing map
+    final insertOffset = headersMap.leftBracket.offset + 1;
+    final entry = isRaw
+        ? "\n            '$header': $value,"
+        : "\n            '$header': '$value',";
+
+    final updatedContent =
+        content.substring(0, insertOffset) +
+        entry +
+        content.substring(insertOffset);
+
+    await file.writeAsString(updatedContent);
+    return true;
+  }
+
+  /// Safely injects a line of code into a specific class constructor.
+  Future<bool> injectIntoConstructor({
+    required String filePath,
+    required String className,
+    required String codeLine,
+  }) async {
+    final fullPath = p.join(projectRoot, filePath);
+    final file = File(fullPath);
+    if (!await file.exists()) return false;
+
+    final content = await file.readAsString();
+    if (content.contains(codeLine)) return true;
+
+    final unit = parseString(content: content).unit;
+    final visitor = _ConstructorVisitor(className);
+    unit.accept(visitor);
+
+    if (visitor.constructorBody == null) return false;
+
+    final body = visitor.constructorBody!;
+    int insertOffset;
+    if (body is Block) {
+      insertOffset = body.leftBracket.offset + 1;
+    } else {
+      // Expression body or something else not easily handleable
+      return false;
+    }
+
+    final updatedContent =
+        "${content.substring(0, insertOffset)}\n    $codeLine${content.substring(insertOffset)}";
+
+    await file.writeAsString(updatedContent);
+    return true;
+  }
+
+  /// Safely injects a line of code into a specific function (e.g. main).
+  Future<bool> injectIntoFunction({
+    required String filePath,
+    required String functionName,
+    required String codeLine,
+  }) async {
+    final fullPath = p.join(projectRoot, filePath);
+    final file = File(fullPath);
+    if (!await file.exists()) return false;
+
+    final content = await file.readAsString();
+    if (content.contains(codeLine)) return true;
+
+    final unit = parseString(content: content).unit;
+    final visitor = _FunctionVisitor(functionName);
+    unit.accept(visitor);
+
+    if (visitor.functionBody == null) return false;
+
+    final body = visitor.functionBody!;
+    int insertOffset;
+    if (body is Block) {
+      insertOffset = body.leftBracket.offset + 1;
+    } else {
+      return false;
+    }
+
+    final updatedContent =
+        "${content.substring(0, insertOffset)}\n  $codeLine${content.substring(insertOffset)}";
+
+    await file.writeAsString(updatedContent);
+    return true;
+  }
+
+  /// Extracts attributes like translationKeys and isTranslationVerified from a GovernedScreen class.
+  Future<Map<String, dynamic>> extractScreenClassAttributes({
+    required String filePath,
+    required String className,
+  }) async {
+    final fullPath = p.join(projectRoot, filePath);
+    final file = File(fullPath);
+    if (!await file.exists()) return {};
+
+    final content = await file.readAsString();
+    final unit = parseString(content: content).unit;
+    final visitor = _ScreenClassVisitor(className);
+    unit.accept(visitor);
+
+    final results = <String, dynamic>{};
+    if (visitor.translationKeys != null) {
+      results['translationKeys'] = visitor.translationKeys;
+    }
+    if (visitor.isTranslationVerified != null) {
+      results['isTranslationVerified'] = visitor.isTranslationVerified;
+    }
+    if (visitor.isMobileVerified != null) {
+      results['isMobileVerified'] = visitor.isMobileVerified;
+    }
+    if (visitor.isTabletVerified != null) {
+      results['isTabletVerified'] = visitor.isTabletVerified;
+    }
+    if (visitor.isDesktopVerified != null) {
+      results['isDesktopVerified'] = visitor.isDesktopVerified;
+    }
+    if (visitor.isSecurityVerified != null) {
+      results['isSecurityVerified'] = visitor.isSecurityVerified;
+    }
+    if (visitor.subsystem != null) {
+      results['subsystem'] = visitor.subsystem;
+    }
+    if (visitor.hasEmptyState != null) {
+      results['hasEmptyState'] = visitor.hasEmptyState;
+    }
+
+    return results;
+  }
+}
+
+class _ConstructorVisitor extends RecursiveAstVisitor<void> {
+  final String className;
+  FunctionBody? constructorBody;
+
+  _ConstructorVisitor(this.className);
+
+  @override
+  void visitConstructorDeclaration(ConstructorDeclaration node) {
+    final parent = node.parent;
+    if (parent is ClassDeclaration && parent.name.lexeme == className) {
+      constructorBody = node.body;
+    }
+    super.visitConstructorDeclaration(node);
+  }
+}
+
+class _FunctionVisitor extends RecursiveAstVisitor<void> {
+  final String functionName;
+  FunctionBody? functionBody;
+
+  _FunctionVisitor(this.functionName);
+
+  @override
+  void visitFunctionDeclaration(FunctionDeclaration node) {
+    if (node.name.lexeme == functionName) {
+      functionBody = node.functionExpression.body;
+    }
+    super.visitFunctionDeclaration(node);
+  }
 }
 
 class _RegistryVisitor extends RecursiveAstVisitor<void> {
@@ -438,5 +638,82 @@ class _SwitchVisitor extends RecursiveAstVisitor<void> {
       targetSwitch = node;
     }
     super.visitSwitchStatement(node);
+  }
+}
+
+class _HeadersVisitor extends RecursiveAstVisitor<void> {
+  SetOrMapLiteral? headersMap;
+
+  @override
+  void visitNamedExpression(NamedExpression node) {
+    if (node.name.label.name == 'headers' &&
+        node.expression is SetOrMapLiteral) {
+      headersMap = node.expression as SetOrMapLiteral;
+    }
+    super.visitNamedExpression(node);
+  }
+}
+
+class _ScreenClassVisitor extends RecursiveAstVisitor<void> {
+  final String className;
+  List<String>? translationKeys;
+  bool? isTranslationVerified;
+  bool? isMobileVerified;
+  bool? isTabletVerified;
+  bool? isDesktopVerified;
+  bool? isSecurityVerified;
+  String? subsystem;
+  bool? hasEmptyState;
+
+  _ScreenClassVisitor(this.className);
+
+  @override
+  void visitClassDeclaration(ClassDeclaration node) {
+    if (node.name.lexeme == className) {
+      for (final member in node.members) {
+        if (member is MethodDeclaration && member.isGetter) {
+          final name = member.name.lexeme;
+          final body = member.body;
+
+          if (name == 'translationKeys') {
+            if (body is ExpressionFunctionBody && body.expression is ListLiteral) {
+              translationKeys = (body.expression as ListLiteral).elements
+                  .whereType<SimpleStringLiteral>()
+                  .map((e) => e.value)
+                  .toList();
+            }
+          } else if (name == 'isTranslationVerified') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              isTranslationVerified = (body.expression as BooleanLiteral).value;
+            }
+          } else if (name == 'isMobileVerified') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              isMobileVerified = (body.expression as BooleanLiteral).value;
+            }
+          } else if (name == 'isTabletVerified') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              isTabletVerified = (body.expression as BooleanLiteral).value;
+            }
+          } else if (name == 'isDesktopVerified') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              isDesktopVerified = (body.expression as BooleanLiteral).value;
+            }
+          } else if (name == 'isSecurityVerified') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              isSecurityVerified = (body.expression as BooleanLiteral).value;
+            }
+          } else if (name == 'subsystem') {
+            if (body is ExpressionFunctionBody && body.expression is SimpleStringLiteral) {
+              subsystem = (body.expression as SimpleStringLiteral).value;
+            }
+          } else if (name == 'hasEmptyState') {
+            if (body is ExpressionFunctionBody && body.expression is BooleanLiteral) {
+              hasEmptyState = (body.expression as BooleanLiteral).value;
+            }
+          }
+        }
+      }
+    }
+    super.visitClassDeclaration(node);
   }
 }

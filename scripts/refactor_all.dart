@@ -33,8 +33,7 @@ class GovernanceData {
   void _parseInventory(String content) {
     final blocks = content.split(RegExp(r'\n\s*-\s+id:'));
     for (var block in blocks.skip(1)) {
-      final idMatch =
-          RegExp(r'^"([^"]+)"').firstMatch(block.trim()) ??
+      final idMatch = RegExp(r'^"([^"]+)"').firstMatch(block.trim()) ??
           RegExp(r'^\s*([^:\n\s]+)').firstMatch(block);
       String? id = idMatch?.group(1);
 
@@ -63,8 +62,7 @@ class GovernanceData {
   void _parseRegister(String content) {
     final blocks = content.split(RegExp(r'\n\s*-\s+id:'));
     for (var block in blocks.skip(1)) {
-      final idMatch =
-          RegExp(r'^"([^"]+)"').firstMatch(block.trim()) ??
+      final idMatch = RegExp(r'^"([^"]+)"').firstMatch(block.trim()) ??
           RegExp(r'^\s*([^:\n\s]+)').firstMatch(block);
       String? id = idMatch?.group(1);
       final goalMatch = RegExp(r'business_goal:\s*"([^"]+)"').firstMatch(block);
@@ -189,13 +187,10 @@ Map<String, dynamic> refactorData(
 
   String toTitleCase(String text) {
     if (text.isEmpty) return text;
-    return text
-        .split(' ')
-        .map((word) {
-          if (word.isEmpty) return word;
-          return word[0].toUpperCase() + word.substring(1).toLowerCase();
-        })
-        .join(' ');
+    return text.split(' ').map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
   }
 
   final officeRoles = {
@@ -403,8 +398,7 @@ Map<String, dynamic> refactorData(
 
       final subKey = cleanSegments.join('.');
       final leafKey = cleanSegments.last;
-      final isMetadataKey =
-          leafKey == 'title' ||
+      final isMetadataKey = leafKey == 'title' ||
           leafKey == 'subtitle' ||
           leafKey == 'description';
       final screenKey = isMetadataKey

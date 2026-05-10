@@ -1,6 +1,6 @@
-// Layer: 01_INFRASTRUCTURE
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
+import '../security/security_interceptor.dart';
 
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
@@ -18,7 +18,9 @@ class ApiClient {
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         ),
-      );
+      ) {
+    _dio.interceptors.add(SecurityInterceptor());
+  }
 
   /// Performs a GET request.
   Future<ApiResponse> get(

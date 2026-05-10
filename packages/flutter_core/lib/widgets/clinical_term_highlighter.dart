@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 import '../providers/clinical_education_provider.dart';
 import 'clinical_article_detail_dialog.dart';
 
@@ -22,12 +21,15 @@ class ClinicalTermHighlighter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = context.theme;
-    final AsyncValue<List<String>> titlesAsync = ref.watch(clinicalArticleTitlesProvider);
+    final theme = Theme.of(context);
+    final AsyncValue<List<String>> titlesAsync = ref.watch(
+      clinicalArticleTitlesProvider,
+    );
 
     return titlesAsync.when(
       data: (List<String> titles) {
-        if (titles.isEmpty) return Text(text, style: style, textAlign: textAlign);
+        if (titles.isEmpty)
+          return Text(text, style: style, textAlign: textAlign);
 
         // Sort titles by length descending to match longest terms first
         final sortedTitles = List<String>.from(titles)
@@ -45,8 +47,8 @@ class ClinicalTermHighlighter extends ConsumerWidget {
             spans.add(
               TextSpan(
                 text: term,
-                style: (style ?? theme.typography.bodyLarge).copyWith(
-                  color: theme.colors.primary,
+                style: (style ?? theme.textTheme.bodyLarge)?.copyWith(
+                  color: theme.colorScheme.primary,
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline,
                   decorationStyle: TextDecorationStyle.dotted,
@@ -73,10 +75,14 @@ class ClinicalTermHighlighter extends ConsumerWidget {
     );
   }
 
-  Future<void> _handleTermTap(BuildContext context, WidgetRef ref, String term) async {
+  Future<void> _handleTermTap(
+    BuildContext context,
+    WidgetRef ref,
+    String term,
+  ) async {
     final repository = ref.read(clinicalEducationRepositoryProvider);
     final article = await repository.findArticleByTitle(term);
-    
+
     if (article != null && context.mounted) {
       showDialog<void>(
         context: context,

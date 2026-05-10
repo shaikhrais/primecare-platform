@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/services/platform_env_service.dart';
 import '../models/governance_issue.dart';
@@ -30,14 +31,16 @@ class GovernanceIssueTable extends ConsumerWidget {
               Colors.grey.withValues(alpha: 0.05),
             ),
             columnSpacing: 24,
-            columns: const [
-              DataColumn(label: Text('Severity')),
-              DataColumn(label: Text('Category')),
-              DataColumn(label: Text('Screen')),
-              DataColumn(label: Text('Issue')),
-              DataColumn(label: Text('Suggested Fix')),
-              DataColumn(label: Text('Owner')),
-              DataColumn(label: Text('Actions')),
+            columns: [
+              DataColumn(label: Text('governance.issueTable.severity'.tr())),
+              DataColumn(label: Text('governance.issueTable.category'.tr())),
+              DataColumn(label: Text('governance.issueTable.screen'.tr())),
+              DataColumn(label: Text('governance.issueTable.issue'.tr())),
+              DataColumn(
+                label: Text('governance.issueTable.suggestedFix'.tr()),
+              ),
+              DataColumn(label: Text('governance.issueTable.owner'.tr())),
+              DataColumn(label: Text('governance.issueTable.actions'.tr())),
             ],
             rows: issues
                 .map(
@@ -138,8 +141,16 @@ class GovernanceIssueTable extends ConsumerWidget {
                                       SnackBar(
                                         content: Text(
                                           success
-                                              ? 'Fixed ${issue.fixProperty} for ${issue.screenId}'
-                                              : 'Auto-fix failed for ${issue.screenId}',
+                                              ? 'governance.issueTable.fixSuccess'
+                                                    .tr(
+                                                      args: [
+                                                        issue.fixProperty
+                                                            .toString(),
+                                                        issue.screenId,
+                                                      ],
+                                                    )
+                                              : 'governance.issueTable.fixFailed'
+                                                    .tr(args: [issue.screenId]),
                                         ),
                                         backgroundColor: success
                                             ? Colors.green
@@ -160,7 +171,8 @@ class GovernanceIssueTable extends ConsumerWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Remediation for ${issue.title} initiated...',
+                                      'governance.issueTable.remediationInitiated'
+                                          .tr(args: [issue.title]),
                                     ),
                                   ),
                                 );

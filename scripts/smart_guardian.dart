@@ -5,8 +5,7 @@ import 'lib/cache_manager.dart';
 void main(List<String> args) async {
   final force = args.contains('--force');
   final watch = args.contains('--watch');
-  final gracePeriod =
-      int.tryParse(
+  final gracePeriod = int.tryParse(
         args
             .firstWhere(
               (a) => a.startsWith('--grace='),
@@ -15,8 +14,7 @@ void main(List<String> args) async {
             .split('=')[1],
       ) ??
       60;
-  final repeats =
-      int.tryParse(
+  final repeats = int.tryParse(
         args
             .firstWhere(
               (a) => a.startsWith('--repeats='),

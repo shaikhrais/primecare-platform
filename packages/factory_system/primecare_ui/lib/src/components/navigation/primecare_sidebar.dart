@@ -36,14 +36,15 @@ class PrimeCareSidebar extends StatelessWidget {
     final theme = context.theme;
     return Drawer(
       backgroundColor: theme.colors.surface,
+      width: context.s(320), // Responsive sidebar width
       child: Column(
         children: [
-          const SizedBox(height: 60),
-          _buildProfileSection(theme),
+          SizedBox(height: context.s(60)),
+          _buildProfileSection(context, theme),
           Divider(color: theme.colors.divider),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.symmetric(horizontal: context.s(12)),
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index];
@@ -52,31 +53,35 @@ class PrimeCareSidebar extends StatelessWidget {
             ),
           ),
           if (footer != null) footer!,
-          const SizedBox(height: 24),
+          SizedBox(height: context.s(24)),
         ],
       ),
     );
   }
 
-  Widget _buildProfileSection(PrimeThemeData theme) {
+  Widget _buildProfileSection(BuildContext context, PrimeThemeData theme) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.all(context.s(24.0)),
       child: Column(
         children: [
           CircleAvatar(
-            radius: 40,
+            radius: context.s(40),
             backgroundColor: theme.colors.primary.withValues(alpha: 0.1),
             backgroundImage: NetworkImage(
               userAvatarUrl ??
                   'https://api.dicebear.com/7.x/avataaars/png?seed=$userName',
             ),
           ),
-          const SizedBox(height: 16),
-          Text(userName, style: theme.typography.h3),
+          SizedBox(height: context.s(16)),
+          Text(
+            userName,
+            style: theme.typography.h3.copyWith(fontSize: context.s(18)),
+          ),
           Text(
             userRole,
             style: theme.typography.bodySmall.copyWith(
               color: theme.colors.onSurfaceVariant,
+              fontSize: context.s(12),
             ),
           ),
         ],
@@ -89,6 +94,7 @@ class PrimeCareSidebar extends StatelessWidget {
     return ListTile(
       leading: Icon(
         item.icon,
+        size: context.s(20),
         color: item.isSelected
             ? theme.colors.primary
             : theme.colors.onSurfaceVariant,
@@ -99,10 +105,13 @@ class PrimeCareSidebar extends StatelessWidget {
           color: item.isSelected
               ? theme.colors.primary
               : theme.colors.onSurfaceVariant,
+          fontSize: context.s(14),
           fontWeight: item.isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(context.s(8)),
+      ),
       selected: item.isSelected,
       selectedTileColor: theme.colors.primary.withValues(alpha: 0.05),
       onTap: () {

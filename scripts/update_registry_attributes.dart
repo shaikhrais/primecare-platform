@@ -46,8 +46,7 @@ void main() {
       lifecycle = 'research';
     }
 
-    final attributes =
-        """
+    final attributes = """
       lastAuditDate: '2026-04-29',
       storyPoints: $storyPoints,
       priority: '$priority',

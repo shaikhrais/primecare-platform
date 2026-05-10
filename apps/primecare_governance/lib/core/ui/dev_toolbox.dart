@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../config/env_config.dart';
 import '../governance/screen_registry.dart';
 
@@ -28,7 +29,7 @@ class DevToolbox extends ConsumerWidget {
             const Divider(),
             Row(
               children: [
-                const Text('Env:'),
+                Text('governance.devToolbox.env'.tr()),
                 const SizedBox(width: 8),
                 DropdownButton<Environment>(
                   value: EnvConfig.environment,
@@ -62,7 +63,7 @@ class DevToolbox extends ConsumerWidget {
                     }
                   },
                   icon: const Icon(Icons.analytics_outlined, size: 18),
-                  label: const Text('System Verify'),
+                  label: Text('governance.devToolbox.systemVerify'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],
                     foregroundColor: Colors.white,
@@ -79,7 +80,7 @@ class DevToolbox extends ConsumerWidget {
                       }
                     },
                     icon: const Icon(Icons.logout, size: 18),
-                    label: const Text('Exit Demo'),
+                    label: Text('governance.devToolbox.exitDemo'.tr()),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.red[700],
                     ),

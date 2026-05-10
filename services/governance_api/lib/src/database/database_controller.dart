@@ -77,7 +77,10 @@ class DatabaseController {
     await _connection.execute('''
       CREATE TABLE IF NOT EXISTS screens (
         id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        status TEXT,
+        design_size_width INTEGER,
+        design_size_height INTEGER
       );
     ''');
 
@@ -91,7 +94,11 @@ class DatabaseController {
     await _connection.execute('''
       CREATE TABLE IF NOT EXISTS apis (
         id SERIAL PRIMARY KEY,
-        endpoint TEXT NOT NULL
+        endpoint TEXT NOT NULL,
+        status TEXT,
+        tier TEXT,
+        design_size_width INTEGER,
+        design_size_height INTEGER
       );
     ''');
 

@@ -2,7 +2,24 @@ import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/governance/route_registry.dart';
 import 'core/i18n/language_provider.dart';
 
-void main() {
+import 'core/governance/registries/core_governance_registry.dart';
+
+import 'package:flutter_core/flutter_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 1. Initialize Security Governance Watchdog (Bank-Grade)
+  SessionWatchdog.instance.initialize();
+
+  // 2. Perform Environment Integrity Audit
+  await AppIntegrityService.instance.checkIntegrity();
+
+  // 3. Initialize and apply production readiness sweep to registry
+  CoreGovernanceRegistry.applyProductionReadiness(
+    CoreGovernanceRegistry.screens,
+  );
+
   PrimeCareAppRunner.run(appWidget: const PrimeCareApp());
 }
 

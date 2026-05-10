@@ -1,41 +1,70 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class MarketingRoutes {
   static const String localMarketingManagerDashboard = '/local-marketing';
   static const String communityOutreachDashboard = '/outreach';
 }
 
-class ScreenConfig {
-  final String routePath;
-  final String titleKey;
+class MarketingTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_marketing';
 
-  const ScreenConfig({
-    required this.routePath,
-    required this.titleKey,
-  });
+  @override
+  String get name => 'PrimeCare Marketing';
+
+  @override
+  ThemeData get branding => ThemeData.light();
 }
 
-final List<ScreenConfig> marketingScreenRegistry = [
-  const ScreenConfig(
-    routePath: MarketingRoutes.localMarketingManagerDashboard,
-    titleKey: 'Marketing Dashboard',
-  ),
-  const ScreenConfig(
-    routePath: MarketingRoutes.communityOutreachDashboard,
-    titleKey: 'Outreach Dashboard',
-  ),
-];
+class MarketingOperationsModule extends PlatformModule {
+  @override
+  String get moduleId => 'marketing_operations';
 
-final List<RouteBase> marketingRoutes = [
-  ...marketingScreenRegistry.map(
-    (config) => GoRoute(
-      path: config.routePath,
-      builder: (context, state) => Scaffold(
-        body: Center(
-          child: Text('Not Implemented: ${config.titleKey}'),
-        ),
-      ),
+  @override
+  String get name => 'Marketing Operations';
+
+  @override
+  IconData get icon => Icons.campaign;
+
+  @override
+  List<PlatformRole> get allowedRoles => [
+    PlatformRole.headOfMarketing,
+    PlatformRole.localMarketingManager,
+    PlatformRole.communityOutreach,
+    PlatformRole.systemVerification,
+  ];
+
+  @override
+  List<PrimeCareScreen> get screens => [
+    PrimeCareScreen(
+      title: 'Marketing Dashboard',
+      route: MarketingRoutes.localMarketingManagerDashboard,
+      requiredRole: PlatformRole.localMarketingManager,
     ),
-  ),
-];
+    PrimeCareScreen(
+      title: 'Outreach Dashboard',
+      route: MarketingRoutes.communityOutreachDashboard,
+      requiredRole: PlatformRole.communityOutreach,
+    ),
+    PrimeCareScreen(
+      title: 'System Verification',
+      route: '/offices/system-verification',
+      requiredRole: PlatformRole.systemVerification,
+    ),
+  ];
+}
+
+class MarketingApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_marketing';
+
+  @override
+  String get name => 'PrimeCare Marketing Portal';
+
+  @override
+  PlatformTenant get tenant => MarketingTenant();
+
+  @override
+  List<PlatformModule> get modules => [MarketingOperationsModule()];
+}

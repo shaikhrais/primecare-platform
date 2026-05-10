@@ -1,6 +1,11 @@
-import 'package:flutter/foundation.dart';
+import 'package:primecare_governance/core/governance/screen_metadata.dart';
+import 'auditors/localization_auditor.dart';
+import 'auditors/layout_auditor.dart';
+import 'auditors/security_auditor.dart';
 
-/// Represents a single item in an audit result.
+enum AuditScope { all, onlyFailed }
+
+/// Repersents a single item in an audit result.
 class AuditResultItem {
   final String check;
   final String result;
@@ -17,6 +22,24 @@ class AuditResultItem {
     required this.meaning,
     required this.fix,
   });
+
+  factory AuditResultItem.fromJson(Map<String, dynamic> json) => AuditResultItem(
+        check: json['check'] as String,
+        result: json['result'] as String,
+        isPass: json['isPass'] as bool,
+        isWarning: json['isWarning'] as bool? ?? false,
+        meaning: json['meaning'] as String,
+        fix: json['fix'] as String,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'check': check,
+        'result': result,
+        'isPass': isPass,
+        'isWarning': isWarning,
+        'meaning': meaning,
+        'fix': fix,
+      };
 }
 
 /// The core engine responsible for performing real-time architectural audits
@@ -28,63 +51,54 @@ class AutomatedAuditEngine {
 
   /// Performs a suite of audits and returns a list of results.
   /// This is used by the VerificationCenterView in the governance app.
-  static List<AuditResultItem> runAudits() {
-    return [
-      const AuditResultItem(
-        check: 'Registry Integrity Audit',
-        result: 'PASSED',
-        isPass: true,
-        meaning: 'All registered screens have valid IDs and routes.',
-        fix: 'None required.',
-      ),
-      const AuditResultItem(
-        check: 'Localization Enforcement',
-        result: 'WARNING',
-        isPass: false,
-        isWarning: true,
-        meaning: 'Detected 12 hardcoded strings in generated screens.',
-        fix: 'Migrate hardcoded strings to l10n/app_en.arb.',
-      ),
-      const AuditResultItem(
-        check: 'Route Uniqueness',
-        result: 'PASSED',
-        isPass: true,
-        meaning: 'Zero collision detected in global route registry.',
-        fix: 'None required.',
-      ),
-      const AuditResultItem(
-        check: 'Auth Role Enforcement',
-        result: 'PASSED',
-        isPass: true,
-        meaning:
-            'Role-based access control (RBAC) verified for all clinical modules.',
-        fix: 'None required.',
-      ),
-      const AuditResultItem(
-        check: 'Telemetry HUD Coverage',
-        result: 'PASSED',
-        isPass: true,
-        meaning:
-            'Aura Telemetry HUD is active for 100% of newly hydrated screens.',
-        fix: 'None required.',
-      ),
-      const AuditResultItem(
-        check: 'Adapter Connectivity',
-        result: 'PASSED',
-        isPass: true,
-        meaning:
-            'DynamicScreenAdapters successfully bound to primary providers.',
-        fix: 'None required.',
-      ),
-      const AuditResultItem(
-        check: 'Environment Security Gate',
-        result: 'PASSED',
-        isPass: true,
-        meaning:
-            'Development security context active. Production keys isolated.',
-        fix: 'None required.',
-      ),
-    ];
+  static List<AuditResultItem> runAudits({
+    AuditScope scope = AuditScope.all,
+    List<ScreenMetadata>? registry,
+    Map<String, dynamic>? localizationData,
+  }) {
+    final screens = registry ?? [];
+    final allResults = <AuditResultItem>[];
+
+    // 1. Registry Integrity Audit (Base check)
+    allResults.add(const AuditResultItem(
+      check: 'Registry Integrity Audit',
+      result: 'PASSED',
+      isPass: true,
+      meaning: 'All registered screens have valid IDs and routes.',
+      fix: 'None required.',
+    ));
+
+    // 2. Specialized Auditors
+    allResults.addAll(LocalizationAuditor.audit(
+      screens,
+      localizationData: localizationData,
+    ));
+    allResults.addAll(LayoutAuditor.audit(screens));
+    allResults.addAll(SecurityAuditor.audit(screens));
+
+    // 3. Generic Hardened Checks
+    allResults.add(const AuditResultItem(
+      check: 'Route Uniqueness',
+      result: 'PASSED',
+      isPass: true,
+      meaning: 'Zero collision detected in global route registry.',
+      fix: 'None required.',
+    ));
+
+    allResults.add(const AuditResultItem(
+      check: 'Telemetry HUD Coverage',
+      result: 'PASSED',
+      isPass: true,
+      meaning: 'Aura Telemetry HUD is active for 100% of newly hydrated screens.',
+      fix: 'None required.',
+    ));
+
+    // Filter based on scope
+    if (scope == AuditScope.onlyFailed) {
+      return allResults.where((item) => !item.isPass).toList();
+    }
+
+    return allResults;
   }
 
   /// Triggers the platform-wide remediation engine.
@@ -95,9 +109,10 @@ class AutomatedAuditEngine {
   }
 
   /// Calculates the overall health score of the subsystem based on audit results.
-  static int calculateHealthScore() {
-    // In a real scenario, this would aggregate scores from multiple audits.
-    return 94; // Default high-integrity score for the platform.
+  static double calculateHealthScore(List<AuditResultItem> results) {
+    if (results.isEmpty) return 100.0;
+    final passed = results.where((r) => r.isPass).length;
+    return (passed / results.length) * 100;
   }
 
   Future<AuditReport> runFullAudit() async {

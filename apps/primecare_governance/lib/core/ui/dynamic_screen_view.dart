@@ -39,35 +39,38 @@ class DynamicScreenView extends GovernedStatelessWidget {
       child: SingleChildScrollView(
         child: Center(
           child: Container(
-            constraints: const BoxConstraints(maxWidth: 800),
-            padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 64),
+            constraints: BoxConstraints(maxWidth: context.s(1200)),
+            padding: EdgeInsets.symmetric(
+              horizontal: context.s(48),
+              vertical: context.s(64),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Top Status Header
                 Container(
-                  padding: const EdgeInsets.all(32),
+                  padding: EdgeInsets.all(context.s(32)),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(statusIcon, color: statusColor, size: 80),
+                  child: Icon(statusIcon, color: statusColor, size: context.s(80)),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: context.s(24)),
                 Text(
                   metadata.title,
-                  style: theme.typography.h1.copyWith(fontSize: 40),
+                  style: theme.typography.h1.copyWith(fontSize: context.s(40)),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: context.s(12)),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.s(24),
+                    vertical: context.s(12),
                   ),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.circular(context.s(100)),
                     border: Border.all(
                       color: statusColor.withValues(alpha: 0.2),
                     ),
@@ -76,14 +79,14 @@ class DynamicScreenView extends GovernedStatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: 8,
-                        height: 8,
+                        width: context.s(8),
+                        height: context.s(8),
                         decoration: BoxDecoration(
                           color: statusColor,
                           shape: BoxShape.circle,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: context.s(12)),
                       Text(
                         'governance.dynamic_screen.governance_status'.tr(
                           args: [
@@ -93,6 +96,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
                         ),
                         style: theme.typography.bodyLarge.copyWith(
                           color: statusColor,
+                          fontSize: context.s(16),
                           fontWeight: FontWeight.bold,
                           letterSpacing: 2.0,
                         ),
@@ -101,7 +105,38 @@ class DynamicScreenView extends GovernedStatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 64),
+                if (metadata.lifecycleStatus == LifecycleStatus.design)
+                  Padding(
+                    padding: EdgeInsets.only(top: context.s(24.0)),
+                    child: Container(
+                      padding: EdgeInsets.all(context.s(16)),
+                      decoration: BoxDecoration(
+                        color: theme.colors.errorContainer.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(context.s(12)),
+                        border: Border.all(
+                          color: theme.colors.error.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(LucideIcons.alertTriangle,
+                              color: theme.colors.error, size: context.s(20)),
+                          SizedBox(width: context.s(12)),
+                          Text(
+                            'REGISTERED: Implementation of high-fidelity code is pending.',
+                            style: theme.typography.bodyMedium.copyWith(
+                              color: theme.colors.error,
+                              fontSize: context.s(14),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                SizedBox(height: context.s(64)),
 
                 // Content Layout
                 Row(
@@ -171,12 +206,13 @@ class DynamicScreenView extends GovernedStatelessWidget {
           title.toUpperCase(),
           style: theme.typography.labelMedium.copyWith(
             color: theme.colors.onSurfaceVariant,
+            fontSize: context.s(12),
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5,
           ),
         ),
-        const SizedBox(height: 8),
-        Container(width: 40, height: 3, color: theme.colors.primary),
+        SizedBox(height: context.s(8)),
+        Container(width: context.s(40), height: context.s(3), color: theme.colors.primary),
       ],
     );
   }
@@ -184,10 +220,10 @@ class DynamicScreenView extends GovernedStatelessWidget {
   Widget _buildLifecycleStepper(PrimeThemeData theme, LifecycleStatus current) {
     final steps = LifecycleStatus.values;
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(context.s(24)),
       decoration: BoxDecoration(
         color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(theme.radiusLg),
+        borderRadius: BorderRadius.circular(context.s(theme.radiusLg)),
         border: Border.all(color: theme.colors.outlineVariant),
       ),
       child: Column(
@@ -201,7 +237,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
                     : theme.colors.onSurfaceVariant.withValues(alpha: 0.3));
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: EdgeInsets.symmetric(vertical: context.s(8.0)),
             child: Row(
               children: [
                 Icon(
@@ -210,35 +246,36 @@ class DynamicScreenView extends GovernedStatelessWidget {
                       : (isCurrent
                             ? LucideIcons.circleDot
                             : LucideIcons.circle),
-                  size: 20,
+                  size: context.s(20),
                   color: color,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: context.s(16)),
                 Text(
                   s.name.toUpperCase(),
                   style: theme.typography.bodyMedium.copyWith(
                     color: isCurrent
                         ? theme.colors.onSurface
                         : theme.colors.onSurfaceVariant,
+                    fontSize: context.s(14),
                     fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
                 const Spacer(),
                 if (isCurrent)
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.s(8),
+                      vertical: context.s(2),
                     ),
                     decoration: BoxDecoration(
                       color: theme.colors.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(context.s(4)),
                     ),
                     child: Text(
                       'governance.dynamic_screen.current'.tr(),
                       style: theme.typography.labelSmall.copyWith(
                         color: theme.colors.primary,
-                        fontSize: 8,
+                        fontSize: context.s(8),
                       ),
                     ),
                   ),
@@ -254,7 +291,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(theme.radiusLg),
+        borderRadius: BorderRadius.circular(context.s(theme.radiusLg)),
         border: Border.all(color: theme.colors.outlineVariant),
       ),
       child: Column(
@@ -288,8 +325,21 @@ class DynamicScreenView extends GovernedStatelessWidget {
             theme,
             'governance.dynamic_screen.story_points'.tr(),
             metadata.storyPoints.toString(),
-            isLast: true,
           ),
+          if (metadata.designSize != null)
+            _buildSpecRow(
+              theme,
+              'DESIGN TARGET',
+              '${metadata.designSize!.width.toInt()} x ${metadata.designSize!.height.toInt()} (4K Ultra HD)',
+              isLast: true,
+            )
+          else
+            _buildSpecRow(
+              theme,
+              'DESIGN TARGET',
+              'Responsive (Mobile/Tab/Desktop)',
+              isLast: true,
+            ),
         ],
       ),
     );
@@ -302,11 +352,16 @@ class DynamicScreenView extends GovernedStatelessWidget {
     bool isLast = false,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.s(24),
+        vertical: context.s(16),
+      ),
       decoration: BoxDecoration(
         border: isLast
             ? null
-            : Border(bottom: BorderSide(color: theme.colors.outlineVariant)),
+            : Border(
+                bottom: BorderSide(color: theme.colors.outlineVariant),
+              ),
       ),
       child: Row(
         children: [
@@ -314,6 +369,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
             label,
             style: theme.typography.bodyMedium.copyWith(
               color: theme.colors.onSurfaceVariant,
+              fontSize: context.s(14),
             ),
           ),
           const Spacer(),
@@ -322,6 +378,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
             style: theme.typography.bodyMedium.copyWith(
               fontWeight: FontWeight.bold,
               fontFamily: 'monospace',
+              fontSize: context.s(14),
             ),
           ),
         ],
@@ -340,14 +397,14 @@ class DynamicScreenView extends GovernedStatelessWidget {
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
           LucideIcons.layoutPanelLeft,
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: context.s(12)),
         _buildArchCard(
           theme,
           'governance.dynamic_screen.platform_top_bar'.tr(),
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
           LucideIcons.layoutPanelTop,
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: context.s(12)),
         _buildArchCard(
           theme,
           'governance.dynamic_screen.main_content_area'.tr(),
@@ -380,16 +437,16 @@ class DynamicScreenView extends GovernedStatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(context.s(20)),
       decoration: BoxDecoration(
         color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(theme.radiusLg),
+        borderRadius: BorderRadius.circular(context.s(theme.radiusLg)),
         border: Border.all(color: theme.colors.outlineVariant),
       ),
       child: Row(
         children: [
-          Icon(icon, color: theme.colors.primary, size: 24),
-          const SizedBox(width: 16),
+          Icon(icon, color: theme.colors.primary, size: context.s(24)),
+          SizedBox(width: context.s(16)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,15 +454,17 @@ class DynamicScreenView extends GovernedStatelessWidget {
                 Text(
                   label,
                   style: theme.typography.labelSmall.copyWith(
+                    fontSize: context.s(11),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: context.s(4)),
                 Text(
                   ('governance.sidebar_mapping.status.${status.toLowerCase()}')
                       .tr(),
                   style: theme.typography.bodySmall.copyWith(
                     color: statusColor,
+                    fontSize: context.s(12),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -415,7 +474,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
           Icon(
             LucideIcons.checkCircle2,
             color: statusColor.withValues(alpha: 0.3),
-            size: 20,
+            size: context.s(20),
           ),
         ],
       ),
@@ -424,10 +483,10 @@ class DynamicScreenView extends GovernedStatelessWidget {
 
   Widget _buildAuditActions(PrimeThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(context.s(24)),
       decoration: BoxDecoration(
         color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(theme.radiusLg),
+        borderRadius: BorderRadius.circular(context.s(theme.radiusLg)),
         border: Border.all(color: theme.colors.outlineVariant),
       ),
       child: Column(
@@ -436,10 +495,11 @@ class DynamicScreenView extends GovernedStatelessWidget {
           Text(
             'governance.dynamic_screen.governance_actions'.tr(),
             style: theme.typography.labelSmall.copyWith(
+              fontSize: context.s(11),
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: context.s(16)),
           SizedBox(
             width: double.infinity,
             child: PrimeButton.primary(
@@ -448,7 +508,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
               onPressed: () {},
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: context.s(12)),
           SizedBox(
             width: double.infinity,
             child: PrimeButton.secondary(

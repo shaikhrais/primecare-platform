@@ -1,6 +1,7 @@
 name: governance_api
 description: A server app using the shelf package and Docker.
 version: 1.0.0
+publish_to: 'none'
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -10,8 +11,12 @@ dependencies:
   postgres: ^3.5.9
   shelf: ^1.4.2
   shelf_router: ^1.1.4
-
-  governance_service: any
+  analyzer: ^9.0.0
+  path: ^1.9.0
+  flutter_core:
+    path: ../../packages/flutter_core
+  shelf_cors_headers: ^0.1.5
+  crypto: ^3.0.6
 dev_dependencies:
   http: ^1.2.2
   lints: ^6.0.0

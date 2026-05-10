@@ -1,3 +1,11 @@
-node scripts/run_rds.js
-npx lint-staged
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-commit Dart analysis..."
+dart analyze . --fatal-warnings
+if [ $? -ne 0 ]; then
+  echo "[❌ Shift-Left] Dart analysis failed. Fix issues before committing."
+  exit 1
+fi
+
 echo "[✅ Shift-Left] Local Checks Passed. Code is clean."

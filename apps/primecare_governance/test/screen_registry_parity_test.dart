@@ -1,237 +1,128 @@
 import 'dart:io';
 import 'package:path/path.dart' as p;
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:yaml/yaml.dart';
+import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
 
 void main() {
   test('Audit Screen Registry Parity', () async {
     final projectRoot =
         'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
-
     final blueprintPath = p.join(
       projectRoot,
-      'packages/factory_system/primecare_ui/lib/src/blueprint_seeder.dart',
-    );
-    final registriesDir = p.join(
-      projectRoot,
-      'apps/primecare_governance/lib/core/governance/registries',
+      '.agents/governance/blueprints.yaml',
     );
 
-    PrimeLogger.info('Auditing Screen Registry Parity...');
-    PrimeLogger.info('Blueprint Path: $blueprintPath');
-    PrimeLogger.info('Registries Directory: $registriesDir');
+    PrimeLogger.info(
+      'Auditing Screen Registry Parity using blueprints.yaml...',
+    );
 
     expect(
       File(blueprintPath).existsSync(),
       true,
-      reason: 'Blueprint file missing',
-    );
-    expect(
-      Directory(registriesDir).existsSync(),
-      true,
-      reason: 'Registries directory missing',
+      reason: 'blueprints.yaml missing',
     );
 
-    final blueprintContent = File(blueprintPath).readAsStringSync();
-    final blueprintResult = parseString(content: blueprintContent);
+    final yamlContent = File(blueprintPath).readAsStringSync();
+    final yaml = loadYaml(yamlContent);
 
-    final blueprints = <String, List<String>>{};
-    final blueprintVisitor = _BlueprintVisitor((route, components) {
-      blueprints[route] = components;
-    });
-    blueprintResult.unit.accept(blueprintVisitor);
+    final blueprints = yaml['blueprints'] as YamlList;
+    final registries = yaml['registries'] as YamlList;
 
-    final registeredScreens =
-        <String, ({String route, List<String> components})>{};
+    final blueprintMap = {
+      for (var b in blueprints)
+        b['id']: (b['required_components'] as YamlList)
+            .map((c) => c['id'].toString())
+            .toList(),
+    };
 
-    final registryFiles = Directory(
-      registriesDir,
-    ).listSync().whereType<File>().where((f) => f.path.endsWith('.dart'));
+    final registeredScreens = CoreGovernanceRegistry.screens;
 
-    for (final file in registryFiles) {
-      final content = file.readAsStringSync();
-      final result = parseString(content: content);
-      final visitor = _ScreenRegistryMetadataVisitor((
-        id,
-        route,
-        components,
-        status,
-      ) {
-        registeredScreens[id] = (route: route, components: components);
-      });
-      result.unit.accept(visitor);
-    }
-
-    PrimeLogger.info('Found ${blueprints.length} blueprints.');
+    PrimeLogger.info('Found ${blueprintMap.length} blueprints.');
     PrimeLogger.info(
-      'Found ${registeredScreens.length} total registered screens across all registries.',
+      'Found ${registeredScreens.length} total registered screens.',
     );
 
-    final missingRoutes = <String>[];
-    for (final blueprintRoute in blueprints.keys) {
-      if (blueprintRoute == 'DYNAMIC_ROLE_DASHBOARD') {
-        continue; // Skip generic placeholder
-      }
-
-      bool found = false;
-      for (final screen in registeredScreens.values) {
-        if (screen.route == blueprintRoute) {
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        missingRoutes.add(blueprintRoute);
-      }
-    }
-
-    if (missingRoutes.isEmpty) {
-      PrimeLogger.info(
-        'SUCCESS: All specific blueprint routes are registered.',
-      );
-    } else {
-      PrimeLogger.warning(
-        'FAILURE: Missing ${missingRoutes.length} route registrations:',
-      );
-      for (final r in missingRoutes) {
-        PrimeLogger.warning(' - $r');
-      }
-    }
-
-    // Structural check
     int driftCount = 0;
-    for (final blueprintEntry in blueprints.entries) {
-      final route = blueprintEntry.key;
-      if (route == 'DYNAMIC_ROLE_DASHBOARD') continue;
+    int missingCount = 0;
 
-      final required = blueprintEntry.value;
+    for (var reg in registries) {
+      if (reg['id'] == 'registry.auditor') {
+        final mapped = reg['mapped_blueprints'] as YamlList;
+        for (var entry in mapped) {
+          final screenId = entry['screen_id'].toString();
+          final blueprintId = entry['blueprint_id'].toString();
 
-      for (final screen in registeredScreens.values) {
-        if (screen.route == route) {
-          final implemented = screen.components;
+          // Match screen_id from YAML to Registry IDs
+          // The YAML screen_id is often hierarchical like 'clinical.psw.dashboard'
+          // We convert it to SCREEN_PSW_DASHBOARD for matching.
+          final parts = screenId.split('.');
+          final normalizedId =
+              'SCREEN_${parts.skip(1).join('_').toUpperCase()}';
+
+          final screen =
+              registeredScreens[normalizedId] ??
+              registeredScreens[screenId.toUpperCase().replaceAll('.', '_')];
+
+          if (screen == null) {
+            PrimeLogger.warning(
+              'MISSING: Screen $screenId (mapped to $blueprintId) not found in registry (tried $normalizedId).',
+            );
+            missingCount++;
+            continue;
+          }
+
+          final required = blueprintMap[blueprintId];
+          if (required == null) {
+            PrimeLogger.warning('ERROR: Blueprint $blueprintId not found.');
+            continue;
+          }
+
+          final implemented = screen.implementedComponents;
+          final pending = screen.pendingComponents;
+          final allComponents = [...implemented, ...pending];
+
           final missingComps = required
-              .where((c) => !implemented.contains(c))
+              .where((c) => !allComponents.contains(c))
               .toList();
+
           if (missingComps.isNotEmpty) {
             PrimeLogger.warning(
-              'DRIFT: Route $route is missing components: $missingComps',
+              'DRIFT: Screen ${screen.id} is missing expected components from $blueprintId: $missingComps',
             );
             driftCount++;
+          } else {
+            PrimeLogger.info(
+              'PARITY OK: Screen ${screen.id} matches $blueprintId',
+            );
           }
         }
       }
     }
-    if (driftCount == 0) {
-      PrimeLogger.info('SUCCESS: No structural drift detected.');
-    } else {
+
+    if (missingCount > 0) {
       PrimeLogger.warning(
-        'FAILURE: Found $driftCount screens with structural drift.',
+        'FAILURE: $missingCount screens mapped in blueprints.yaml are missing from the registry.',
       );
     }
+
+    if (driftCount > 0) {
+      PrimeLogger.warning(
+        'FAILURE: $driftCount screens have structural drift.',
+      );
+    }
+
+    expect(
+      missingCount,
+      0,
+      reason:
+          'Some screens mapped in blueprints.yaml are missing from the registry.',
+    );
+    expect(
+      driftCount,
+      0,
+      reason: 'Structural drift detected between blueprints and registry.',
+    );
   });
-}
-
-class _BlueprintVisitor extends RecursiveAstVisitor<void> {
-  final void Function(String route, List<String> components) onBlueprint;
-  _BlueprintVisitor(this.onBlueprint);
-
-  @override
-  void visitInstanceCreationExpression(InstanceCreationExpression node) {
-    if (node.staticType?.getDisplayString() == 'AuditorBlueprint' ||
-        node.constructorName.type.name.lexeme == 'AuditorBlueprint') {
-      String? route;
-      final components = <String>[];
-
-      for (final arg in node.argumentList.arguments) {
-        if (arg is NamedExpression) {
-          final name = arg.name.label.name;
-          if (name == 'route') {
-            final expr = arg.expression;
-            if (expr is StringLiteral) {
-              route = expr.stringValue;
-            }
-          } else if (name == 'requiredComponents') {
-            final expr = arg.expression;
-            if (expr is ListLiteral) {
-              for (final element in expr.elements) {
-                if (element is InstanceCreationExpression) {
-                  for (final compArg in element.argumentList.arguments) {
-                    if (compArg is NamedExpression &&
-                        compArg.name.label.name == 'label') {
-                      final labelExpr = compArg.expression;
-                      if (labelExpr is StringLiteral) {
-                        components.add(labelExpr.stringValue ?? '');
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      if (route != null) {
-        onBlueprint(route, components);
-      }
-    }
-    super.visitInstanceCreationExpression(node);
-  }
-}
-
-class _ScreenRegistryMetadataVisitor extends RecursiveAstVisitor<void> {
-  final void Function(
-    String id,
-    String route,
-    List<String> components,
-    String? status,
-  )
-  onMetadata;
-  _ScreenRegistryMetadataVisitor(this.onMetadata);
-
-  @override
-  void visitMapLiteralEntry(MapLiteralEntry node) {
-    final value = node.value;
-    if (value is InstanceCreationExpression) {
-      String? route;
-      String? status;
-      final components = <String>[];
-
-      for (final arg in value.argumentList.arguments) {
-        if (arg is NamedExpression) {
-          final name = arg.name.label.name;
-          if (name == 'routePath') {
-            final expr = arg.expression;
-            if (expr is StringLiteral) {
-              route = expr.stringValue;
-            }
-          } else if (name == 'lifecycleStatus') {
-            final expr = arg.expression;
-            status = expr.toString();
-          } else if (name == 'implementedComponents' ||
-              name == 'pendingComponents') {
-            final expr = arg.expression;
-            if (expr is ListLiteral) {
-              for (final element in expr.elements) {
-                if (element is StringLiteral) {
-                  components.add(element.stringValue ?? '');
-                }
-              }
-            }
-          }
-        }
-      }
-
-      if (route != null) {
-        final key = node.key;
-        String id = 'UNKNOWN';
-        if (key is StringLiteral) id = key.stringValue ?? 'UNKNOWN';
-        onMetadata(id, route, components, status);
-      }
-    }
-    super.visitMapLiteralEntry(node);
-  }
 }

@@ -1,51 +1,50 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'business_development_routes.dart';
+
+final businessDevelopmentApplicationProvider =
+    Provider<BusinessDevelopmentApplication>((ref) {
+      return BusinessDevelopmentApplication();
+    });
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
+  final application = ref.watch(businessDevelopmentApplicationProvider);
 
-  return GoRouter(
-    initialLocation: '/',
+  // Provide a safe fallback role for public/unauthenticated access
+  final activeRole = authState.isAuthenticated
+      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
+              (r) => r?.name == authState.role,
+              orElse: () => PlatformRole.guest,
+            ) ??
+            PlatformRole.guest)
+      : PlatformRole.guest;
+
+  return GovernanceRouter.buildZeroTrustRouter(
+    application: application,
+    activeRole: activeRole,
+    initialLocation: BusinessDevelopmentRoutes
+        .regionalManagerOntarioDashboard, // Default starting location, will redirect based on role
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
-      final guard = RouteGuard.verify(
-        requestedRoute: requestedRoute,
-        isLoggedIn: authState.isAuthenticated,
-        userRole: authState.role,
-      );
-
-      if (!guard.isAllowed && guard.redirectRoute != null) {
-        return guard.redirectRoute;
-      }
 
       final isAtLanding =
           requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+
       if (authState.isAuthenticated && isAtLanding) {
-        return AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+        final role = authState.role ?? '';
+        final destination = AuthNotifier.getDashboardRouteForRole(role);
+        return destination;
       }
 
       if (!authState.isAuthenticated && !isAtLanding) {
+        // Enforce login for unauthorized users
         return CommonRoutes.login;
       }
 
       return null;
     },
-    errorBuilder: (context, state) => MasterLayout(
-      shellType: AppShellType.admin,
-      child: const ScreenNotImplementedView(),
-    ),
-    routes: [
-      GoRoute(
-        path: CommonRoutes.login,
-        builder: (context, state) => const SignInView(),
-      ),
-      ShellRoute(
-        builder: (context, state, child) =>
-            MasterLayout(shellType: AppShellType.admin, child: child),
-        routes: [...businessDevelopmentRoutes, ...sharedCommonRoutes],
-      ),
-    ],
   );
 });

@@ -9,6 +9,7 @@ export 'src/features/common_ui/domain/main_project_selection_view_model.dart';
 export 'src/theme/prime_theme.dart';
 export 'src/theme/vision_modes.dart';
 export 'src/theme/vision_provider.dart';
+export 'src/theme/screen_scaling.dart';
 export 'src/components/clinical_glass_panel.dart';
 export 'src/components/prime_components.dart';
 export 'src/components/telemetry_hud.dart';

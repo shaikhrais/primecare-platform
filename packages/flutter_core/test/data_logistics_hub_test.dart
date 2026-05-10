@@ -39,6 +39,5 @@ void main() {
 
       expect(errorCalled, isTrue);
     });
-
   });
 }

@@ -86,5 +86,65 @@
     "footer": {
       "language": "Language"
     }
+  },
+  "governance": {
+    "unauthorized_access": "Unauthorized access",
+    "access_denied": "Access Denied",
+    "unauthorized_route_message": "404 / Unauthorized or Unimplemented Route",
+    "role_label": "Role: {}",
+    "screen_not_implemented": "Screen is registered but not implemented yet.",
+    "route_label": "Route: {}",
+    "dashboard": {
+      "title": "Architecture Governance",
+      "subtitle": "Live architectural audit of {} platform screens",
+      "auto_remediate": "Auto-Remediate",
+      "export_pdf": "Professional PDF Report",
+      "export_html": "Export HTML (Professional)",
+      "export_markdown": "Export Markdown",
+      "export_json": "Export JSON",
+      "export_csv": "Export CSV",
+      "export": "Export",
+      "rescan": "Re-Scan",
+      "loading_tip": "Loading clinical tip...",
+      "error_tip": "Unable to load clinical tip."
+    },
+    "monitoring": {
+      "title": "Governance Monitoring",
+      "recent_activity": "Recent Implementation Activity"
+    },
+    "kitchen_sink": {
+      "title": "PrimeCare Kitchen Sink",
+      "subtitle": "High-Fidelity Telemetry, Scheduler, & Kanban Board Components",
+      "scheduler": "Production Scheduler",
+      "workflow_board": "Governance Workflow Board",
+      "error": "Error: {}",
+      "no_appointments": "No active appointments",
+      "break": "Break",
+      "upcoming": "UPCOMING",
+      "in_progress": "IN PROGRESS",
+      "completed": "COMPLETED",
+      "unassigned": "Unassigned",
+      "no_items": "No active items"
+    }
+  },
+  "security": {
+    "environment_audit": "Environment Audit",
+    "posture_status": "Posture Status",
+    "trusted_device": "Trusted Device",
+    "mfa_active": "MFA Active",
+    "bank_grade_secured": "Bank-Grade Secured",
+    "elevated_risk": "Elevated Risk",
+    "secure_environment": "Secure Environment",
+    "hardware_keystore": "Hardware Keystore",
+    "biometric_ready": "Biometric Ready",
+    "integrity_verified": "Integrity Verified",
+    "root_check": "Hardware Root Check",
+    "keystore_check": "Secure Keystore Check",
+    "biometric_status": "Biometric Status",
+    "upgrade_security": "Upgrade Security",
+    "lock_session": "Lock Session",
+    "verifying": "Verifying Integrity...",
+    "trust_upgrade_required": "Security Upgrade Required",
+    "trust_upgrade_desc": "Your device is not fully trusted. Please perform MFA to enable bank-grade access."
   }
 }

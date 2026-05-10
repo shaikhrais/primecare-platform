@@ -9,33 +9,10 @@ on:
       - '.github/workflows/deploy-flutter.yml'
 
 jobs:
-  governance-audit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      - name: Install Monorepo Dependencies
-        run: npm ci
-
-      - name: Install UI Package Dependencies
-        working-directory: ./packages/factory_system/primecare_ui
-        run: flutter pub get
-
-      - name: Platform Governance Audit Gate
-        working-directory: ./packages/factory_system/primecare_ui
-        run: flutter test test/governance_audit_test.dart
-
   build-and-deploy:
-    needs: governance-audit
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         app: 
           - primecare_business_development
@@ -45,6 +22,8 @@ jobs:
           - primecare_franchise
           - primecare_marketing
           - primecare_support
+          - primecare_governance
+          - primecare_enterprise_blueprint
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4

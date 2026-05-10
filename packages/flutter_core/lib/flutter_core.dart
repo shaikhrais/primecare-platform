@@ -12,6 +12,7 @@ export 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 export 'adapter_providers.dart';
 export 'src/models/dashboard_models.dart';
+export 'src/domain/platform_hierarchy.dart';
 export 'auth_service.dart';
 export 'dashboard_providers.dart'
     hide dashboardServiceProvider, dashboardMetricsProvider;
@@ -23,10 +24,12 @@ export 'preference_service.dart';
 export 'provider_service.dart';
 export 'routes/route_guard.dart';
 export 'routes/governance_navigator.dart';
+export 'routes/governance_router.dart';
 export 'registry/governance_registry.dart';
 export 'registry/platform_role.dart';
 export 'registry/intents/app_screen_intent.dart';
 export 'registry/widgets/governance_skeleton.dart';
+export 'registry/widgets/governance_master_layout.dart';
 
 export 'src/localization/language_provider.dart';
 export 'src/registry/dynamic_adapter_resolver.dart';
@@ -66,6 +69,7 @@ export 'config/navigation_registry.dart';
 export 'models/navigation_item.dart';
 export 'models/platform_types.dart';
 export 'models/domain_response.dart';
+export 'models/domain_governance.dart';
 export 'src/models/scheduler_models.dart';
 
 export 'manifest/action_manifest.dart';
@@ -108,6 +112,18 @@ export 'src/models/aura_intent.dart';
 // Direct exports from local features have been removed to maintain decoupling.
 
 export 'src/utils/prime_logger.dart';
+export 'src/services/device_manager.dart';
+export 'src/security/device_fingerprint.dart';
+export 'src/security/mfa_service.dart';
+export 'src/security/trusted_device_service.dart';
+export 'src/security/security_orchestrator.dart';
+export 'src/security/app_integrity_service.dart';
+export 'src/security/secure_storage_manager.dart';
+export 'src/security/session_watchdog.dart';
+export 'src/security/screen_shield_service.dart';
+export 'src/security/sensitive_action_guard.dart';
+export 'src/security/security_event.dart';
+export 'src/security/security_sentinel_service.dart';
 export 'aura_behavioral_telemetry.dart';
 
 // PSW Layer

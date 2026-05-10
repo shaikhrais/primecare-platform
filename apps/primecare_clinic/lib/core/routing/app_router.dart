@@ -1,49 +1,48 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'clinic_routes.dart';
+
+final clinicApplicationProvider = Provider<ClinicApplication>((ref) {
+  return ClinicApplication();
+});
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
+  final application = ref.watch(clinicApplicationProvider);
 
-  return GoRouter(
-    initialLocation: CommonRoutes.login,
+  // Provide a safe fallback role for public/unauthenticated access
+  final activeRole = authState.isAuthenticated
+      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
+              (r) => r?.name == authState.role,
+              orElse: () => PlatformRole.guest,
+            ) ??
+            PlatformRole.guest)
+      : PlatformRole.guest;
+
+  return GovernanceRouter.buildZeroTrustRouter(
+    application: application,
+    activeRole: activeRole,
+    initialLocation: CommonRoutes.clinicDashboard, // Default starting location
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
-      final guard = RouteGuard.verify(
-        requestedRoute: requestedRoute,
-        isLoggedIn: authState.isAuthenticated,
-        userRole: authState.role,
-      );
-
-      if (!guard.isAllowed && guard.redirectRoute != null) {
-        return guard.redirectRoute;
-      }
 
       final isAtLanding =
           requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+
       if (authState.isAuthenticated && isAtLanding) {
-        return AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+        final role = authState.role ?? '';
+        final destination = AuthNotifier.getDashboardRouteForRole(role);
+        return destination;
       }
 
       if (!authState.isAuthenticated && !isAtLanding) {
+        // Enforce login for unauthorized users
         return CommonRoutes.login;
       }
 
       return null;
     },
-    routes: [
-      GoRoute(
-        path: CommonRoutes.login,
-        builder: (context, state) => const SignInView(),
-      ),
-      ShellRoute(
-        builder: (context, state, child) => MasterLayout(
-          shellType: AppShellType.provider, // clinic uses provider shell
-          child: child,
-        ),
-        routes: clinicRoutes,
-      ),
-    ],
   );
 });

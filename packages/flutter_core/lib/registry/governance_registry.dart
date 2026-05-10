@@ -1,5 +1,6 @@
 import 'intents/app_screen_intent.dart';
 import 'platform_role.dart';
+
 /// Central Governance Registry for the PrimeCare Platform.
 /// This system manages the lifecycle and "Intent" of all platform screens,
 /// ensuring advanced decoupling between route definition and UI implementation.
@@ -49,7 +50,6 @@ class GovernanceRegistry {
     });
     return reports;
   }
-
 
   /// Performs a full domain audit to identify missing role implementations.
   static DomainAuditResult performDomainAudit() {

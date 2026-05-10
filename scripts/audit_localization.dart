@@ -83,10 +83,8 @@ bool auditApp(Directory appDir) {
     return false;
   }
 
-  final translationFiles = dir
-      .listSync()
-      .where((f) => f.path.endsWith('.json'))
-      .toList();
+  final translationFiles =
+      dir.listSync().where((f) => f.path.endsWith('.json')).toList();
   if (translationFiles.isEmpty) {
     print('❌ Error: No .json translation files found in $physicalPath');
     return false;

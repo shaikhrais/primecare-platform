@@ -19,41 +19,125 @@ services:
       timeout: 5s
       retries: 5
 
-  worker-api:
+  api-gateway:
     build:
-      context: ./apps/worker-api
-      dockerfile: Dockerfile
-    container_name: primecare-api
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/api-gateway
+    container_name: primecare-gateway
     ports:
-      - "8787:8787"
+      - "8700:8080"
     environment:
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/primecare
-      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+      AUTH_SERVICE_URL: http://auth-api:8080
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
 
-  web-admin:
+  auth-api:
     build:
-      context: ./apps/web-admin
-      dockerfile: Dockerfile
-    container_name: primecare-admin
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/auth-api
+    container_name: primecare-auth
     ports:
-      - "5173:5173"
+      - "8081:8080"
     environment:
-      VITE_API_URL: http://localhost:8787
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
     depends_on:
-      - worker-api
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
-  governance-service:
+  governance-api:
     build:
-      context: ./services/governance_service
-      dockerfile: Dockerfile
-    container_name: primecare-governance-api
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/governance_api
+    container_name: primecare-governance
     ports:
       - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  billing-api:
+    build:
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/billing-api
+    container_name: primecare-billing
+    ports:
+      - "8082:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  client-api:
+    build:
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/client-api
+    container_name: primecare-client
+    ports:
+      - "8083:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  provider-api:
+    build:
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/provider-api
+    container_name: primecare-provider
+    ports:
+      - "8088:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:

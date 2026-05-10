@@ -101,9 +101,7 @@ class GovernanceHealth {
   final bool isReady;
   final String? message;
 
-  const GovernanceHealth.healthy()
-    : isReady = true,
-      message = null;
+  const GovernanceHealth.healthy() : isReady = true, message = null;
 
   const GovernanceHealth.unhealthy(this.message) : isReady = false;
 }

@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
-import 'package:governance_service/src/database/database_controller.dart';
-import 'package:governance_service/src/routes/governance_routes.dart';
+import 'package:governance_api/src/database/database_controller.dart';
+import 'package:governance_api/src/routes/governance_routes.dart';
+import 'package:governance_api/src/controllers/governance_controller.dart';
+import 'package:governance_api/src/repositories/governance_repository.dart';
 
 // Helper to add CORS headers
 Middleware corsMiddleware() {
@@ -31,15 +33,20 @@ void main(List<String> args) async {
   await DatabaseController.initialize();
   print('Database initialized.');
 
-  // 2. Setup Routing
-  final router = GovernanceRoutes.router;
+  // 2. Max OOP MVC Injection (The "Max" part)
+  // Dependency Flow: Connection -> Repository -> Controller -> Routes
+  final repository = GovernanceRepository(DatabaseController.connection);
+  final controller = GovernanceController(repository);
+  final routes = GovernanceRoutes(controller);
 
   // 3. Configure Pipeline
   final ip = InternetAddress.anyIPv4;
   final handler = Pipeline()
       .addMiddleware(corsMiddleware())
       .addMiddleware(logRequests())
-      .addHandler(router.call);
+      // Apply the instance-based middleware for baseline parity enforcement and telemetry
+      .addMiddleware(routes.governanceMiddleware)
+      .addHandler(routes.router.call);
 
   // 4. Start Server
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
