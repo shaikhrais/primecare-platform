@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:shelf/shelf.dart';
+import 'package:path/path.dart' as p;
 import '../core/base_controller.dart';
 import 'package:governance_api/src/repositories/governance_repository.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -9,12 +11,30 @@ import '../core/subsystem_scanner.dart';
 
 class GovernanceController extends BaseController implements PrimeCareApi {
   final GovernanceRepository _repository;
+  final IAuditScanner _scanner;
+
+  GovernanceController(this._repository, this._scanner);
 
   /// Dynamically extracts implemented routes from the entire platform source code.
   List<String> get _implementedRoutes {
-    final rootPath = Directory.current.parent.parent.path;
-    final platformRoutes = SubsystemScanner.scanPlatform(rootPath);
-    return platformRoutes.values.expand((r) => r).toList();
+    final rootPath = _getMonorepoRoot();
+    final platformResult = _scanner.scanPlatform(rootPath);
+    return [
+      ...platformResult.services.values.expand((r) => r),
+      ...platformResult.apps.values.expand((r) => r),
+    ];
+  }
+
+  String _getMonorepoRoot() {
+    var dir = Directory.current;
+    while (dir.path != dir.parent.path) {
+      if (File(p.join(dir.path, 'docker-compose.yml')).existsSync() && 
+          Directory(p.join(dir.path, 'services')).existsSync()) {
+        return dir.path;
+      }
+      dir = dir.parent;
+    }
+    return Directory.current.path;
   }
 
   @override
@@ -26,8 +46,6 @@ class GovernanceController extends BaseController implements PrimeCareApi {
     subsystem: 'governance',
     lifecycleStatus: LifecycleStatus.completed,
   );
-
-  GovernanceController(this._repository);
 
   // Apps
   Future<Response> getApps(Request request) async {
@@ -63,13 +81,11 @@ class GovernanceController extends BaseController implements PrimeCareApi {
   Future<Response> performAudit(Request request) async {
     try {
       final apis = await _repository.getApis();
-      
-      // Convert database rows to ApiMetadata map for scanning
       final registeredApis = {
         for (final a in apis) a['id'].toString(): ApiMetadata(
           id: a['id'].toString(),
           endpoint: a['endpoint'],
-          allowedRoles: [], // Simplified for audit
+          allowedRoles: [],
           designSize: PlatformSize(
             (a['design_size_width'] as num?)?.toDouble() ?? 3840,
             (a['design_size_height'] as num?)?.toDouble() ?? 2160,
@@ -84,13 +100,13 @@ class GovernanceController extends BaseController implements PrimeCareApi {
 
       final violations = <Map<String, dynamic>>[];
       
-      // Check for 4K compliance and Rogue status
       for (final api in apis) {
         if (api['design_size_width'] != 3840) {
           violations.add({
             'type': '4k_violation',
             'id': api['id'],
             'endpoint': api['endpoint'],
+            'severity': 'medium',
           });
         }
       }
@@ -111,6 +127,7 @@ class GovernanceController extends BaseController implements PrimeCareApi {
           'api_count': apis.length,
           'rogue_count': rogueEndpoints.length,
           'violation_count': violations.length,
+          'compliance_percentage': apis.isEmpty ? 100 : ((apis.length - violations.where((v) => v['type'] == '4k_violation').length) / apis.length * 100).round(),
         }
       });
     } catch (e) {
@@ -151,15 +168,10 @@ class GovernanceController extends BaseController implements PrimeCareApi {
   // Platform Audit
   Future<Response> getPlatformAudit(Request request) async {
     try {
-      final rootPath = Directory.current.parent.parent.path;
-      final platformRoutes = SubsystemScanner.scanPlatform(rootPath);
+      final rootPath = _getMonorepoRoot();
+      final result = _scanner.scanPlatform(rootPath);
       
-      return success({
-        'timestamp': DateTime.now().toIso8601String(),
-        'root': rootPath,
-        'services_scanned': platformRoutes.keys.length,
-        'discovery': platformRoutes,
-      });
+      return success(result.toJson());
     } catch (e) {
       return error('Failed to perform platform audit: $e');
     }

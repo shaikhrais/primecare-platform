@@ -5,6 +5,7 @@ import 'package:governance_api/src/database/database_controller.dart';
 import 'package:governance_api/src/routes/governance_routes.dart';
 import 'package:governance_api/src/controllers/governance_controller.dart';
 import 'package:governance_api/src/repositories/governance_repository.dart';
+import 'package:governance_api/src/core/subsystem_scanner.dart';
 
 // Helper to add CORS headers
 Middleware corsMiddleware() {
@@ -34,9 +35,10 @@ void main(List<String> args) async {
   print('Database initialized.');
 
   // 2. Max OOP MVC Injection (The "Max" part)
-  // Dependency Flow: Connection -> Repository -> Controller -> Routes
+  // Dependency Flow: Scanner + Connection -> Repository -> Controller -> Routes
+  final scanner = SubsystemScanner();
   final repository = GovernanceRepository(DatabaseController.connection);
-  final controller = GovernanceController(repository);
+  final controller = GovernanceController(repository, scanner);
   final routes = GovernanceRoutes(controller);
 
   // 3. Configure Pipeline

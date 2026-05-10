@@ -38,6 +38,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "buffer",
+      "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/buffer-1.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cached_network_image",
       "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/cached_network_image-3.4.1",
       "packageUri": "lib/",
@@ -60,6 +66,12 @@
       "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "charcode",
+      "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/charcode-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "chewie",
@@ -132,6 +144,12 @@
       "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.9",
       "packageUri": "lib/",
       "languageVersion": "3.9"
+    },
+    {
+      "name": "database_client",
+      "rootUri": "../../../packages/database_client",
+      "packageUri": "lib/",
+      "languageVersion": "3.11"
     },
     {
       "name": "dbus",
@@ -678,6 +696,12 @@
       "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "postgres",
+      "rootUri": "file:///C:/Users/Admin2/AppData/Local/Pub/Cache/hosted/pub.dev/postgres-3.5.10",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     },
     {
       "name": "process_run",

@@ -122,5 +122,16 @@ class DatabaseController {
         name TEXT NOT NULL
       );
     ''');
+
+    await _connection.execute('''
+      CREATE TABLE IF NOT EXISTS governance_events (
+        id SERIAL PRIMARY KEY,
+        type TEXT NOT NULL,
+        message TEXT NOT NULL,
+        level TEXT NOT NULL,
+        metadata JSONB,
+        created_at TIMESTAMP DEFAULT NOW()
+      );
+    ''');
   }
 }

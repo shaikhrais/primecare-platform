@@ -66,7 +66,7 @@ class ApiMetadata {
     int? requestLimitPerMinute,
     List<String>? requiredPermissions,
     List<String>? responseComponents,
-    Size? designSize,
+    PlatformSize? designSize,
   }) {
     return ApiMetadata(
       id: id ?? this.id,

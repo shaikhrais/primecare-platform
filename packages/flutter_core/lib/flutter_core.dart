@@ -62,6 +62,7 @@ export 'providers/persistence_providers.dart';
 
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
+export 'models/api_metadata.dart';
 export 'models/screen.dart';
 export 'config/screen_breakpoints.dart';
 export 'config/adaptive_scaling_config.dart';
