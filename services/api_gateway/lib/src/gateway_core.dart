@@ -34,15 +34,15 @@ class ServiceMesh {
 
   factory ServiceMesh.fromEnvironment() {
     return ServiceMesh({
-      'auth': Platform.environment['AUTH_SERVICE_URL'] ?? 'http://auth-api:8080',
-      'providers': Platform.environment['PROVIDER_SERVICE_URL'] ?? 'http://provider-api:8080',
-      'clients': Platform.environment['CLIENT_SERVICE_URL'] ?? 'http://client-api:8080',
-      'billing': Platform.environment['BILLING_SERVICE_URL'] ?? 'http://billing-api:8080',
-      'governance': Platform.environment['GOVERNANCE_SERVICE_URL'] ?? 'http://governance-api:8080',
-      'verification': Platform.environment['VERIFICATION_SERVICE_URL'] ?? 'http://verification-api:8080',
-      'compliance': Platform.environment['COMPLIANCE_SERVICE_URL'] ?? 'http://compliance-api:8080',
-      'scheduling': Platform.environment['SCHEDULING_SERVICE_URL'] ?? 'http://scheduling-api:8080',
-      'visits': Platform.environment['VISIT_SERVICE_URL'] ?? 'http://visit-api:8080',
+      'auth': Platform.environment['AUTH_SERVICE_URL'] ?? 'http://auth_api:8080',
+      'providers': Platform.environment['PROVIDER_SERVICE_URL'] ?? 'http://provider_api:8080',
+      'clients': Platform.environment['CLIENT_SERVICE_URL'] ?? 'http://client_api:8080',
+      'billing': Platform.environment['BILLING_SERVICE_URL'] ?? 'http://billing_api:8080',
+      'governance': Platform.environment['GOVERNANCE_SERVICE_URL'] ?? 'http://governance_api:8080',
+      'verification': Platform.environment['VERIFICATION_SERVICE_URL'] ?? 'http://verification_api:8080',
+      'compliance': Platform.environment['COMPLIANCE_SERVICE_URL'] ?? 'http://compliance_api:8080',
+      'scheduling': Platform.environment['SCHEDULING_SERVICE_URL'] ?? 'http://scheduling_api:8080',
+      'visits': Platform.environment['VISIT_SERVICE_URL'] ?? 'http://visit_api:8080',
     });
   }
 
