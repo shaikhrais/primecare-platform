@@ -94,3 +94,16 @@ test-reports/
 **/typecheck*.txt
 **/out*.log
 **/analyze_output*.txt
+
+# Dart/Flutter
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+pubspec.lock
+build/
+*.pyc
+.flutter-plugins
+.flutter-plugins-dependencies
+.project
+.metadata
