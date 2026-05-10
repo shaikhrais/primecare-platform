@@ -31,22 +31,6 @@
         { "pattern": "screens/", "layer": "05" }
       ]
     },
-    "typescript": {
-      "extensions": [".ts", ".tsx"],
-      "ignore_patterns": [".d.ts", "node_modules"],
-      "mappings": [
-        { "pattern": "index.ts", "layer": "00" },
-        { "pattern": "api/", "layer": "01" },
-        { "pattern": "middleware/", "layer": "01" },
-        { "pattern": "infrastructure/", "layer": "01" },
-        { "pattern": "prisma/", "layer": "02" },
-        { "pattern": "entities/", "layer": "02" },
-        { "pattern": "dto/", "layer": "02" },
-        { "pattern": "services/", "layer": "03" },
-        { "pattern": "repositories/", "layer": "03" },
-        { "pattern": "logic/", "layer": "04" },
-        { "pattern": "controllers/", "layer": "04" }
-      ]
     }
   }
 }

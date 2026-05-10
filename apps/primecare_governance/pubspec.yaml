@@ -31,7 +31,7 @@ dependencies:
   path: ^1.9.1
   path_provider: ^2.1.5
   primecare_ui:
-    path: ../../packages/factory_system/primecare_ui
+    path: ../../packages/primecare_ui
   reactive_forms: ^18.2.2
   retrofit: ^4.9.2
   shimmer: ^3.0.0

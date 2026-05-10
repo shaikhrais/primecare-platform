@@ -388,6 +388,21 @@
       ]
     },
     {
+      "name": "postgres",
+      "version": "3.5.10",
+      "dependencies": [
+        "async",
+        "buffer",
+        "charcode",
+        "collection",
+        "crypto",
+        "meta",
+        "pool",
+        "stack_trace",
+        "stream_channel"
+      ]
+    },
+    {
       "name": "local_auth_darwin",
       "version": "2.0.3",
       "dependencies": [
@@ -855,6 +870,16 @@
         "meta",
         "source_span"
       ]
+    },
+    {
+      "name": "charcode",
+      "version": "1.4.0",
+      "dependencies": []
+    },
+    {
+      "name": "buffer",
+      "version": "1.2.3",
+      "dependencies": []
     },
     {
       "name": "local_auth_platform_interface",
@@ -1891,31 +1916,6 @@
         "meta",
         "plugin_platform_interface"
       ]
-    },
-    {
-      "name": "postgres",
-      "version": "3.5.10",
-      "dependencies": [
-        "async",
-        "buffer",
-        "charcode",
-        "collection",
-        "crypto",
-        "meta",
-        "pool",
-        "stack_trace",
-        "stream_channel"
-      ]
-    },
-    {
-      "name": "charcode",
-      "version": "1.4.0",
-      "dependencies": []
-    },
-    {
-      "name": "buffer",
-      "version": "1.2.3",
-      "dependencies": []
     }
   ],
   "configVersion": 1

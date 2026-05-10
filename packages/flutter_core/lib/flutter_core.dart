@@ -64,6 +64,8 @@ export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
 export 'models/api_metadata.dart';
 export 'models/screen.dart';
+export 'models/screen_metadata.dart';
+export 'models/governance_types.dart';
 export 'config/screen_breakpoints.dart';
 export 'config/adaptive_scaling_config.dart';
 export 'config/navigation_registry.dart';
@@ -136,5 +138,6 @@ export 'src/services/telemetry_service.dart';
 // Clinical Education Repository
 export 'models/clinical_article.dart';
 export 'providers/clinical_education_provider.dart';
+export 'providers/clinical_education_provider.g.dart';
 export 'widgets/clinical_article_detail_dialog.dart';
 export 'widgets/clinical_term_highlighter.dart';

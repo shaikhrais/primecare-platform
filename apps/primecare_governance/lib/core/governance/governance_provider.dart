@@ -15,7 +15,7 @@ import '../../governance/services/governance_remediation_engine.dart';
 import '../../governance/services/network_parity_service.dart';
 
 final networkParityServiceProvider = Provider<NetworkParityService>((ref) {
-  return NetworkParityService(baseUrl: 'http://localhost:8080');
+  return NetworkParityService(baseUrl: 'http://localhost:8700/api/governance');
 });
 
 enum GovernanceEventLevel { all, info, success, warning, error, critical }

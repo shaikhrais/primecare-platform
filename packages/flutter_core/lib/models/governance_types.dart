@@ -91,3 +91,44 @@ class PlatformReadinessReport {
     'timestamp': timestamp.toIso8601String(),
   };
 }
+
+/// [AuditSeverity] - Defines the severity of an audit issue.
+enum AuditSeverity { critical, high, medium, low, info }
+
+/// [PlatformAuditIssue] - Represents a specific architectural or compliance issue found during audit.
+class PlatformAuditIssue {
+  final String id;
+  final String subsystem;
+  final String registry;
+  final String issue;
+  final String suggestion;
+  final AuditSeverity severity;
+  final bool autoRemediable;
+  final Map<String, dynamic> metadata;
+  final DateTime detectedAt;
+
+  PlatformAuditIssue({
+    required this.id,
+    required this.subsystem,
+    required this.registry,
+    required this.issue,
+    required this.suggestion,
+    this.severity = AuditSeverity.medium,
+    this.autoRemediable = false,
+    this.metadata = const {},
+    DateTime? detectedAt,
+  }) : detectedAt = detectedAt ?? DateTime.now();
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'subsystem': subsystem,
+    'registry': registry,
+    'issue': issue,
+    'suggestion': suggestion,
+    'severity': severity.name,
+    'autoRemediable': autoRemediable,
+    'metadata': metadata,
+    'detectedAt': detectedAt.toIso8601String(),
+  };
+}
+

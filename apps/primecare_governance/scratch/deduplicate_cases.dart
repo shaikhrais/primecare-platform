@@ -2,7 +2,7 @@ import 'dart:io';
 
 void main() {
   final file = File(
-    '../../packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart',
+    '../../packages/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart',
   );
   final lines = file.readAsLinesSync();
 

@@ -1,5 +1,4 @@
-export 'screen_metadata.dart';
-import 'screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 // Domain Registries
 import 'package:primecare_governance/core/governance/registries/index.dart';
@@ -19,7 +18,7 @@ class ScreenRegistry {
   // Helper to find screen by route
   static ScreenMetadata? getByRoute(String route) {
     try {
-      return screens.values.firstWhere((s) => s.routePath == route);
+      return screens.values.firstWhere((s) => s.route == route);
     } catch (_) {
       return null;
     }

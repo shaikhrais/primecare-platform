@@ -1191,7 +1191,7 @@ packages:
   primecare_ui:
     dependency: "direct main"
     description:
-      path: "../../packages/factory_system/primecare_ui"
+      path: "../../packages/primecare_ui"
       relative: true
     source: path
     version: "1.0.0+1"

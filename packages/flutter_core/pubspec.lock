@@ -750,7 +750,7 @@ packages:
     source: hosted
     version: "3.0.1"
   local_auth_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: local_auth_android
       sha256: b201c006fa769c23386f89aa6837ec0eb8179fcfb212eadcf87b422b3f9a6a78
@@ -758,7 +758,7 @@ packages:
     source: hosted
     version: "2.0.8"
   local_auth_darwin:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: local_auth_darwin
       sha256: a8c3d4e17454111f7fd31ff72a31222359f6059f7fe956c2dcfe0f88f49826d4
@@ -814,7 +814,7 @@ packages:
     source: hosted
     version: "0.13.0"
   meta:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: meta
       sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
@@ -1291,7 +1291,7 @@ packages:
     source: hosted
     version: "2.4.0"
   sqlite3:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqlite3
       sha256: "3145bd74dcdb4fd6f5c6dda4d4e4490a8087d7f286a14dee5d37087290f0f8a2"

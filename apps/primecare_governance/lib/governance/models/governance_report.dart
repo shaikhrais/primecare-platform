@@ -1,4 +1,4 @@
-import 'governance_issue.dart';
+import 'package:flutter_core/models/governance_types.dart';
 
 class GovernanceReport {
   final int totalScreens;
@@ -13,7 +13,7 @@ class GovernanceReport {
   final double renderOkPercent;
   final double accessibilityPercent;
   final double performancePercent;
-  final List<GovernanceIssue> issues;
+  final List<PlatformAuditIssue> issues;
 
   const GovernanceReport({
     required this.totalScreens,

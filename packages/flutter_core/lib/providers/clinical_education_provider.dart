@@ -23,19 +23,14 @@ class ClinicalEducationRepository {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'precision_education.db');
 
-    // Check if the database exists
     final exists = await databaseExists(path);
 
     if (!exists) {
-      // Should happen only the first time you launch your application
       print('Creating new copy from asset');
-
-      // Make sure the parent directory exists
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (_) {}
 
-      // Copy from asset
       ByteData data = await rootBundle.load(
         join('assets', 'db', 'precision_education.db'),
       );
@@ -44,11 +39,9 @@ class ClinicalEducationRepository {
         data.lengthInBytes,
       );
 
-      // Write and flush the bytes written
       await File(path).writeAsBytes(bytes, flush: true);
     }
 
-    // open the database
     return await openDatabase(path, readOnly: true);
   }
 
@@ -204,3 +197,22 @@ Future<List<ClinicalArticle>> clinicalArticlesSearch(
   final repository = ref.watch(clinicalEducationRepositoryProvider);
   return repository.searchArticles(query);
 }
+
+// Legacy-compatible Notifier without requiring build_runner for tests
+class ClinicalReferenceDrawerController extends Notifier<String> {
+  @override
+  String build() => '';
+
+  void setQuery(String query) {
+    state = query;
+  }
+
+  void clearQuery() {
+    state = '';
+  }
+}
+
+final clinicalReferenceDrawerControllerProvider =
+    NotifierProvider<ClinicalReferenceDrawerController, String>(
+  ClinicalReferenceDrawerController.new,
+);

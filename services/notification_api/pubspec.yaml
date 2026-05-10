@@ -1,4 +1,4 @@
-﻿name: notification_api
+name: notification_api
 description: PrimeCare notification-api - Migrated to Full-Stack Dart.
 version: 1.0.0
 publish_to: 'none'

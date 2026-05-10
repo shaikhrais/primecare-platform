@@ -118,7 +118,7 @@ void main(List<String> args) {
 
   // 4. Scaffold UI Form
   String fileName = pageIdStr + '.dart';
-  String formDirPath = 'packages/factory_system/primecare_ui/lib/src/components/forms/generated';
+  String formDirPath = 'packages/primecare_ui/lib/src/components/forms/generated';
   Directory(formDirPath).createSync(recursive: true);
   
   if (File('$formDirPath/$fileName').existsSync()) {

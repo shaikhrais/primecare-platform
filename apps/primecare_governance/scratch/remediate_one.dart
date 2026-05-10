@@ -5,7 +5,7 @@ void main() async {
   final engine = ASTPatchEngine('../..'); // Using workspace root
 
   final targetPath =
-      'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
+      'packages/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
   final formName = 'platformMetrics_legacy';
 
   print('Injecting switch case for $formName...');

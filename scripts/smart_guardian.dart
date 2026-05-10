@@ -50,7 +50,7 @@ void main(List<String> args) async {
       ),
       Milestone(
         name: 'ui',
-        path: 'packages/factory_system/primecare_ui',
+        path: 'packages/primecare_ui',
         command: 'dart analyze',
         description: 'Analyzing UI Design System',
         dependencies: ['core', 'adapters'],
@@ -64,7 +64,7 @@ void main(List<String> args) async {
       ),
       Milestone(
         name: 'registry',
-        path: 'packages/factory_system/primecare_ui',
+        path: 'packages/primecare_ui',
         command: 'flutter test scripts/health_sweep.dart',
         description: 'Running Global Registry Health Sweep',
         dependencies: ['ui'],

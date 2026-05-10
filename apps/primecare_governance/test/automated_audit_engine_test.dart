@@ -43,7 +43,7 @@ void main() {
     });
 
     test('Health Score calculation is deterministic', () {
-      final score = AutomatedAuditEngine.calculateHealthScore();
+      final score = AutomatedAuditEngine.calculateHealthScore(AutomatedAuditEngine.runAudits());
       expect(score, greaterThanOrEqualTo(0.0));
       expect(score, lessThanOrEqualTo(100.0));
     });

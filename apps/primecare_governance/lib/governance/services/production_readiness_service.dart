@@ -1,11 +1,9 @@
-import '../models/governance_issue.dart';
-import '../models/governance_severity.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/models/governance_types.dart';
 import '../../core/governance/screen_registry.dart';
 
 class ProductionReadinessService {
-  static List<GovernanceIssue> scan(ScreenMetadata s) {
-    final issues = <GovernanceIssue>[];
+  static List<PlatformAuditIssue> scan(ScreenMetadata s) {
+    final issues = <PlatformAuditIssue>[];
 
     final isMissingVitals =
         !s.isRenderOk ||
@@ -15,20 +13,17 @@ class ProductionReadinessService {
 
     if (s.deploymentEnvironment == 'production' && isMissingVitals) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.production,
-          severity: GovernanceSeverity.critical,
-          message:
-              'Screen targeted for production but fails vitals check (Render/A11y/Perf).',
-          fix:
-              'Complete all verification checklists and generate a final audit hash.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'prod_missing_vitals_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'ProductionReadiness',
+          issue: 'Screen targeted for production but fails vitals check (Render/A11y/Perf).',
+          suggestion: 'Complete all verification checklists and generate a final audit hash.',
+          severity: AuditSeverity.critical,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+          },
         ),
       );
     }
@@ -37,38 +32,36 @@ class ProductionReadinessService {
     if (s.deploymentEnvironment == 'production') {
       if (!s.isLocalizationReady) {
         issues.add(
-          GovernanceIssue(
-            screenId: s.id,
-            title: s.title,
-            routePath: s.routePath,
-            category: GovernanceCategory.compliance,
-            severity: GovernanceSeverity.high,
-            message: 'Production screen is not localization ready.',
-            fix: 'Extract hardcoded strings to i18n bundles.',
-            owner: s.assignedDeveloper,
-            sprintName: s.sprintName,
-            sourcePath: s.sourcePath,
-            fixProperty: 'isLocalizationReady',
-            fixValue: 'true',
-            detectedAt: DateTime.now(),
+          PlatformAuditIssue(
+            id: 'prod_missing_i18n_${s.id}',
+            subsystem: 'primecare_governance',
+            registry: 'Compliance',
+            issue: 'Production screen is not localization ready.',
+            suggestion: 'Extract hardcoded strings to i18n bundles.',
+            severity: AuditSeverity.high,
+            metadata: {
+              'screenId': s.id,
+              'owner': s.assignedDeveloper,
+              'fixProperty': 'isLocalizationReady',
+              'fixValue': 'true',
+            },
           ),
         );
       }
 
       if (!s.isMobileVerified || !s.isDesktopVerified) {
         issues.add(
-          GovernanceIssue(
-            screenId: s.id,
-            title: s.title,
-            routePath: s.routePath,
-            category: GovernanceCategory.production,
-            severity: GovernanceSeverity.medium,
-            message: 'Screen lacks cross-device verification (Mobile/Desktop).',
-            fix: 'Test layout on target devices and update registry.',
-            owner: s.assignedDeveloper,
-            sprintName: s.sprintName,
-            sourcePath: s.sourcePath,
-            detectedAt: DateTime.now(),
+          PlatformAuditIssue(
+            id: 'prod_missing_device_verif_${s.id}',
+            subsystem: 'primecare_governance',
+            registry: 'ProductionReadiness',
+            issue: 'Screen lacks cross-device verification (Mobile/Desktop).',
+            suggestion: 'Test layout on target devices and update registry.',
+            severity: AuditSeverity.medium,
+            metadata: {
+              'screenId': s.id,
+              'owner': s.assignedDeveloper,
+            },
           ),
         );
       }
@@ -76,19 +69,17 @@ class ProductionReadinessService {
 
     if (s.uatApprover == 'Antigravity-AI') {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.production,
-          severity: GovernanceSeverity.medium,
-          message: 'Screen only has AI-level UAT approval.',
-          fix:
-              'A human product owner must review and sign off on this feature.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'prod_ai_uat_only_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'ProductionReadiness',
+          issue: 'Screen only has AI-level UAT approval.',
+          suggestion: 'A human product owner must review and sign off on this feature.',
+          severity: AuditSeverity.medium,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+          },
         ),
       );
     }

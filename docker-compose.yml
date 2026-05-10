@@ -19,12 +19,12 @@ services:
       timeout: 5s
       retries: 5
 
-  api-gateway:
+  api_gateway:
     build:
       context: .
       dockerfile: services/service.Dockerfile
       args:
-        SERVICE_PATH: services/api-gateway
+        SERVICE_PATH: services/api_gateway
     container_name: primecare-gateway
     ports:
       - "8700:8080"
@@ -34,18 +34,39 @@ services:
       DB_NAME: primecare
       DB_USER: postgres
       DB_PASSWORD: password
-      AUTH_SERVICE_URL: http://auth-api:8080
+      AUTH_SERVICE_URL: http://auth_api:8080
+      VERIFICATION_SERVICE_URL: http://verification_api:8080
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
 
-  auth-api:
+  verification_api:
     build:
       context: .
       dockerfile: services/service.Dockerfile
       args:
-        SERVICE_PATH: services/auth-api
+        SERVICE_PATH: services/verification_api
+    container_name: primecare-verification
+    ports:
+      - "8800:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: primecare
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  auth_api:
+    build:
+      context: .
+      dockerfile: services/service.Dockerfile
+      args:
+        SERVICE_PATH: services/auth_api
     container_name: primecare-auth
     ports:
       - "8081:8080"
@@ -60,7 +81,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  governance-api:
+  governance_api:
     build:
       context: .
       dockerfile: services/service.Dockerfile
@@ -80,12 +101,12 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  billing-api:
+  billing_api:
     build:
       context: .
       dockerfile: services/service.Dockerfile
       args:
-        SERVICE_PATH: services/billing-api
+        SERVICE_PATH: services/billing_api
     container_name: primecare-billing
     ports:
       - "8082:8080"
@@ -100,12 +121,12 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  client-api:
+  client_api:
     build:
       context: .
       dockerfile: services/service.Dockerfile
       args:
-        SERVICE_PATH: services/client-api
+        SERVICE_PATH: services/client_api
     container_name: primecare-client
     ports:
       - "8083:8080"
@@ -120,12 +141,12 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  provider-api:
+  provider_api:
     build:
       context: .
       dockerfile: services/service.Dockerfile
       args:
-        SERVICE_PATH: services/provider-api
+        SERVICE_PATH: services/provider_api
     container_name: primecare-provider
     ports:
       - "8088:8080"

@@ -4,7 +4,6 @@ import 'package:path/path.dart' as p;
 import '../core/base_controller.dart';
 import 'package:governance_api/src/repositories/governance_repository.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:flutter_core/models/governance_types.dart';
 import 'package:flutter_core/models/platform_geometry.dart';
 import 'package:flutter_core/governance/registry_scanner.dart';
 import '../core/subsystem_scanner.dart';

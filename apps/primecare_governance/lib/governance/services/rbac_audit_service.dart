@@ -1,27 +1,23 @@
-import '../models/governance_issue.dart';
-import '../models/governance_severity.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/models/governance_types.dart';
 import '../../core/governance/screen_registry.dart';
 
 class RbacAuditService {
-  static List<GovernanceIssue> scan(ScreenMetadata s) {
-    final issues = <GovernanceIssue>[];
+  static List<PlatformAuditIssue> scan(ScreenMetadata s) {
+    final issues = <PlatformAuditIssue>[];
 
     if (s.allowedRoles.isEmpty) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.rbac,
-          severity: GovernanceSeverity.critical,
-          message: 'No roles assigned to screen.',
-          fix:
-              'Add at least one role to allowedRoles to ensure security coverage.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'rbac_missing_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'RBAC',
+          issue: 'No roles assigned to screen.',
+          suggestion: 'Add at least one role to allowedRoles to ensure security coverage.',
+          severity: AuditSeverity.critical,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+          },
         ),
       );
     }
@@ -29,19 +25,17 @@ class RbacAuditService {
     if (s.securityLevel == SecurityTier.high &&
         s.allowedRoles.contains('guest')) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.rbac,
-          severity: GovernanceSeverity.high,
-          message: 'Guest role allowed on high-security screen.',
-          fix:
-              'Remove "guest" role from allowedRoles for this sensitive feature.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'rbac_guest_leak_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'RBAC',
+          issue: 'Guest role allowed on high-security screen.',
+          suggestion: 'Remove "guest" role from allowedRoles for this sensitive feature.',
+          severity: AuditSeverity.high,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+          },
         ),
       );
     }

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ast_patch_engine.dart';
 import 'registry_integrity_service.dart';
 import 'cross_subsystem_auditor.dart';
-import '../models/governance_issue.dart';
+import 'package:flutter_core/models/governance_types.dart';
 import '../../core/governance/governance_provider.dart';
 import '../../core/governance/screen_metadata.dart';
 
@@ -41,21 +41,23 @@ class GovernanceRemediationEngine {
     for (final issue in issues) {
       bool success = false;
 
-      switch (issue.message) {
+      final screenId = issue.metadata['screenId'] as String? ?? '';
+
+      switch (issue.issue) {
         case String msg when msg.contains('does not match metadata ID'):
-          success = await _fixIdMismatch(issue);
+          success = await _fixIdMismatch(issue, screenId);
           break;
         case String msg when msg.contains('Duplicate route path detected'):
-          success = await _fixDuplicateRoute(issue);
+          success = await _fixDuplicateRoute(issue, screenId);
           break;
         case String msg when msg.contains('0 story points'):
-          success = await _fixZeroWeight(issue);
+          success = await _fixZeroWeight(issue, screenId);
           break;
       }
 
       if (success) {
         resolvedCount++;
-        logs.add('[RESOLVED] ${issue.screenId}: ${issue.message}');
+        logs.add('[RESOLVED] $screenId: ${issue.issue}');
       }
     }
 
@@ -82,28 +84,29 @@ class GovernanceRemediationEngine {
     );
   }
 
-  Future<bool> _fixIdMismatch(GovernanceIssue issue) async {
+  Future<bool> _fixIdMismatch(PlatformAuditIssue issue, String screenId) async {
     return await _patchEngine.updateRegistryMetadata(
-      issue.screenId,
-      {'id': issue.screenId},
+      screenId,
+      {'id': screenId},
       registryPath:
-          _getRegistryPathForScreen(issue.screenId),
+          _getRegistryPathForScreen(screenId),
     );
   }
 
-  Future<bool> _fixDuplicateRoute(GovernanceIssue issue) async {
+  Future<bool> _fixDuplicateRoute(PlatformAuditIssue issue, String screenId) async {
+    final routePath = issue.metadata['routePath'] as String? ?? '';
     final newRoute =
-        '${issue.routePath}_alt_${issue.screenId.hashCode.toString().substring(0, 4)}';
-    final registryPath = _getRegistryPathForScreen(issue.screenId);
+        '${routePath}_alt_${screenId.hashCode.toString().substring(0, 4)}';
+    final registryPath = _getRegistryPathForScreen(screenId);
 
-    return await _patchEngine.updateRegistryMetadata(issue.screenId, {
+    return await _patchEngine.updateRegistryMetadata(screenId, {
       'routePath': newRoute,
     }, registryPath: registryPath);
   }
 
-  Future<bool> _fixZeroWeight(GovernanceIssue issue) async {
+  Future<bool> _fixZeroWeight(PlatformAuditIssue issue, String screenId) async {
     return await _patchEngine.updateScreenMetadata(
-      issue.screenId,
+      screenId,
       storyPoints: 1,
     );
   }

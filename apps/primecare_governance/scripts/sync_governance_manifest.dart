@@ -59,7 +59,7 @@ void main() async {
     'corporateApp': 'apps/primecare_corporate',
     'franchiseApp': 'apps/primecare_franchise',
     'clinicApp': 'apps/primecare_clinic',
-    'uiFactory': 'packages/factory_system/primecare_ui',
+    'uiFactory': 'packages/primecare_ui',
     'marketingApp': 'apps/primecare_marketing',
     'businessDevApp': 'apps/primecare_business_development',
     'supportApp': 'apps/primecare_support',

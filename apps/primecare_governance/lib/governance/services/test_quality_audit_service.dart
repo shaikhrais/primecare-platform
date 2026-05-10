@@ -1,65 +1,60 @@
-import '../models/governance_issue.dart';
-import '../models/governance_severity.dart';
-import '../models/governance_category.dart';
+import 'package:flutter_core/models/governance_types.dart';
 import '../../core/governance/screen_registry.dart';
 
 class TestQualityAuditService {
-  static List<GovernanceIssue> scan(ScreenMetadata s) {
-    final issues = <GovernanceIssue>[];
+  static List<PlatformAuditIssue> scan(ScreenMetadata s) {
+    final issues = <PlatformAuditIssue>[];
 
     if (s.testScenarioCount == 0) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.testing,
-          severity: GovernanceSeverity.high,
-          message: 'No test scenarios registered.',
-          fix:
-              'Define at least 3 test scenarios (e.g., render, role-check, data-load).',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'test_missing_scenarios_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'Testing',
+          issue: 'No test scenarios registered.',
+          suggestion: 'Define at least 3 test scenarios (e.g., render, role-check, data-load).',
+          severity: AuditSeverity.high,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+          },
         ),
       );
     }
 
     if (s.testPassRate < 90) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.testing,
-          severity: GovernanceSeverity.high,
-          message:
-              'Test pass rate (${s.testPassRate}%) is below the 90% threshold.',
-          fix: 'Debug and resolve failing tests before proceeding.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'test_low_pass_rate_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'Testing',
+          issue: 'Test pass rate (${s.testPassRate}%) is below the 90% threshold.',
+          suggestion: 'Debug and resolve failing tests before proceeding.',
+          severity: AuditSeverity.high,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+            'passRate': s.testPassRate,
+          },
         ),
       );
     }
 
     if (s.complexity > 8 && s.testScenarioCount < 10) {
       issues.add(
-        GovernanceIssue(
-          screenId: s.id,
-          title: s.title,
-          routePath: s.routePath,
-          category: GovernanceCategory.testing,
-          severity: GovernanceSeverity.medium,
-          message:
-              'Very complex screen requires more comprehensive testing (min 10 scenarios).',
-          fix: 'Add edge-case and performance-focused test scenarios.',
-          owner: s.assignedDeveloper,
-          sprintName: s.sprintName,
-          sourcePath: s.sourcePath,
-          detectedAt: DateTime.now(),
+        PlatformAuditIssue(
+          id: 'test_insufficient_coverage_${s.id}',
+          subsystem: 'primecare_governance',
+          registry: 'Testing',
+          issue: 'Very complex screen requires more comprehensive testing (min 10 scenarios).',
+          suggestion: 'Add edge-case and performance-focused test scenarios.',
+          severity: AuditSeverity.medium,
+          metadata: {
+            'screenId': s.id,
+            'owner': s.assignedDeveloper,
+            'complexity': s.complexity,
+            'scenarioCount': s.testScenarioCount,
+          },
         ),
       );
     }

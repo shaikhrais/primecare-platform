@@ -39,6 +39,7 @@ class ServiceMesh {
       'clients': Platform.environment['CLIENT_SERVICE_URL'] ?? 'http://client-api:8080',
       'billing': Platform.environment['BILLING_SERVICE_URL'] ?? 'http://billing-api:8080',
       'governance': Platform.environment['GOVERNANCE_SERVICE_URL'] ?? 'http://governance-api:8080',
+      'verification': Platform.environment['VERIFICATION_SERVICE_URL'] ?? 'http://verification-api:8080',
       'compliance': Platform.environment['COMPLIANCE_SERVICE_URL'] ?? 'http://compliance-api:8080',
       'scheduling': Platform.environment['SCHEDULING_SERVICE_URL'] ?? 'http://scheduling-api:8080',
       'visits': Platform.environment['VISIT_SERVICE_URL'] ?? 'http://visit-api:8080',

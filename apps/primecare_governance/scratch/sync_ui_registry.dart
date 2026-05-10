@@ -5,7 +5,7 @@ void main() {
     'apps/primecare_governance/lib/core/governance/registries/workflows_forms_registry.dart',
   );
   final uiFile = File(
-    'packages/factory_system/primecare_ui/lib/src/shared/src/registry/domain_registries/workflows_forms_registry.dart',
+    'packages/primecare_ui/lib/src/shared/src/registry/domain_registries/workflows_forms_registry.dart',
   );
 
   final govContent = govFile.readAsStringSync();

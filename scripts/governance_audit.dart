@@ -3,7 +3,7 @@ import 'dart:io';
 void main() {
   print('--- 👮 PrimeCare Governance Audit: Enforcement Mode ---');
 
-  final uiPackagePath = 'packages/factory_system/primecare_ui/lib/src/features';
+  final uiPackagePath = 'packages/primecare_ui/lib/src/features';
   final governanceDir = Directory(
     'apps/primecare_governance/lib/core/governance/registries',
   );

@@ -21,7 +21,7 @@ dependencies:
   flutter_core:
     path: ../../packages/flutter_core
   primecare_ui:
-    path: ../../packages/factory_system/primecare_ui
+    path: ../../packages/primecare_ui
   freezed_annotation: 3.1.0
   flutter_driver: any
 dev_dependencies:

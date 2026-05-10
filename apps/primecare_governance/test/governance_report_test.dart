@@ -6,7 +6,7 @@ void main() {
   test('Governance Audit Report', () {
     ScreenRegistry.bootstrap();
     final results = AutomatedAuditEngine.runAudits();
-    final score = AutomatedAuditEngine.calculateHealthScore();
+    final score = AutomatedAuditEngine.calculateHealthScore(results);
 
     print('\n--- AUDIT FAILURES ---\n');
     for (final item in results.where((r) => !r.isPass)) {

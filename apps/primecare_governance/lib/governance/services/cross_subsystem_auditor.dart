@@ -7,28 +7,11 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as p;
-import 'package:flutter_core/models/screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/registries/core_governance_registry.dart';
 import '../../core/governance/registries/api_governance_registry.dart';
 
-/// Model for an audit failure in cross-subsystem consistency.
-class AuditIssue {
-  final String subsystem;
-  final String registry;
-  final String issue;
-  final String suggestion;
-  final bool autoRemediable;
-  final Map<String, dynamic> metadata;
-
-  AuditIssue({
-    required this.subsystem,
-    required this.registry,
-    required this.issue,
-    required this.suggestion,
-    this.autoRemediable = false,
-    this.metadata = const {},
-  });
-}
+typedef AuditIssue = PlatformAuditIssue;
 
 /// Orchestrates architectural consistency audits across the PrimeCare platform.
 /// Specifically focuses on parity between 'primecare_ui' registries and 'primecare_governance' expectations.
@@ -41,7 +24,7 @@ class CrossSubsystemAuditor {
   Future<List<AuditIssue>> runFullAuditSuite({
     bool onlyFailed = false,
   }) async {
-    final allIssues = <AuditIssue>[];
+    final allIssues = <PlatformAuditIssue>[];
 
     allIssues.addAll(await auditFormProviderParity());
     allIssues.addAll(await auditApiParity());
@@ -59,8 +42,8 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits the parity between PrimeCareForm enum and PrimeCareFormProvider switch-cases.
-  Future<List<AuditIssue>> auditFormProviderParity() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditFormProviderParity() async {
+    final List<PlatformAuditIssue> issues = [];
 
     final enumPath = p.join(
       projectRoot,
@@ -73,7 +56,8 @@ class CrossSubsystemAuditor {
 
     if (!File(enumPath).existsSync() || !File(providerPath).existsSync()) {
       return [
-        AuditIssue(
+        PlatformAuditIssue(
+          id: 'parity_files_missing',
           subsystem: 'primecare_ui',
           registry: 'FormProvider',
           issue: 'Registry files missing',
@@ -101,13 +85,14 @@ class CrossSubsystemAuditor {
       providerResult.unit.accept(providerVisitor);
 
       // provider path for reference
-      // const relativeProviderPath = 'packages/factory_system/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
+      // const relativeProviderPath = 'packages/primecare_ui/lib/src/shared/src/registry/primecare_form_provider.dart';
 
       // Check for missing mappings
       for (final value in enumValues) {
         if (!providerCases.contains(value)) {
           issues.add(
-            AuditIssue(
+            PlatformAuditIssue(
+              id: 'missing_binding_$value',
               subsystem: 'primecare_ui',
               registry: 'PrimeCareFormProvider',
               issue: 'Missing binding for Form: $value',
@@ -139,8 +124,8 @@ class CrossSubsystemAuditor {
 
   /// Audits the entire project for Max OOP / MVC violations.
   /// Enforces "Dumb UI" and "Pure Logic" principles.
-  Future<List<AuditIssue>> auditMaxOOPCompliance() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditMaxOOPCompliance() async {
+    final List<PlatformAuditIssue> issues = [];
     final featuresDir = Directory(
       p.join(projectRoot, 'apps/primecare_governance/lib/features'),
     );
@@ -163,7 +148,8 @@ class CrossSubsystemAuditor {
               if (content.contains('package:flutter/material.dart') ||
                   content.contains('package:flutter/cupertino.dart')) {
                 issues.add(
-                  AuditIssue(
+                  PlatformAuditIssue(
+                    id: 'architectural_leakage_${p.basename(file.path)}',
                     subsystem: 'governance',
                     registry: 'MaxOOPCompliance',
                     issue:
@@ -188,8 +174,8 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits the network layer for mandatory security headers (CSRF, Device ID).
-  Future<List<AuditIssue>> auditNetworkSecurity() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditNetworkSecurity() async {
+    final List<PlatformAuditIssue> issues = [];
     final relativeClientPath =
         'packages/flutter_core/lib/src/network/api_client.dart';
     final clientPath = p.join(projectRoot, relativeClientPath);
@@ -202,7 +188,8 @@ class CrossSubsystemAuditor {
 
     if (!content.contains("'X-Requested-With': 'XMLHttpRequest'")) {
       issues.add(
-        AuditIssue(
+        PlatformAuditIssue(
+          id: 'missing_csrf_header',
           subsystem: 'flutter_core',
           registry: 'ApiClient',
           issue: 'Missing Mandatory CSRF Header: X-Requested-With',
@@ -221,7 +208,8 @@ class CrossSubsystemAuditor {
 
     if (!content.contains("'X-Device-ID'")) {
       issues.add(
-        AuditIssue(
+        PlatformAuditIssue(
+          id: 'missing_device_id_header',
           subsystem: 'flutter_core',
           registry: 'ApiClient',
           issue: 'Missing Device Governance Header: X-Device-ID',
@@ -242,8 +230,8 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits for Bank-Grade Security Compliance across the platform.
-  Future<List<AuditIssue>> auditBankGradeSecurityCompliance() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditBankGradeSecurityCompliance() async {
+    final List<PlatformAuditIssue> issues = [];
 
     // 1. Check for SecurityInterceptor in all network clients
     final clientPath = p.join(
@@ -254,7 +242,8 @@ class CrossSubsystemAuditor {
       final content = File(clientPath).readAsStringSync();
       if (!content.contains('SecurityInterceptor()')) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: 'missing_security_interceptor',
             subsystem: 'flutter_core',
             registry: 'NetworkSecurity',
             issue: 'SecurityInterceptor not active in ApiClient',
@@ -281,7 +270,8 @@ class CrossSubsystemAuditor {
       final content = File(mainPath).readAsStringSync();
       if (!content.contains('AppIntegrityService.instance.checkIntegrity()')) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: 'missing_bootstrap_security',
             subsystem: 'primecare_governance',
             registry: 'BootstrapSecurity',
             issue: 'App integrity check missing from startup',
@@ -305,7 +295,8 @@ class CrossSubsystemAuditor {
     );
     if (!File(bootstrapPath).existsSync()) {
       issues.add(
-        AuditIssue(
+        PlatformAuditIssue(
+          id: 'missing_device_trust_manager',
           subsystem: 'flutter_core',
           registry: 'TrustedDevice',
           issue: 'DeviceTrustManager missing from core security layer',
@@ -319,10 +310,10 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits for Translation Parity across all registered screens.
-  Future<List<AuditIssue>> auditTranslationParity(
+  Future<List<PlatformAuditIssue>> auditTranslationParity(
     Map<String, ScreenMetadata> allScreens,
   ) async {
-    final List<AuditIssue> issues = [];
+    final List<PlatformAuditIssue> issues = [];
     final List<String> platformSupportedLangs = ['en', 'fr', 'es', 'ar'];
 
     for (final entry in allScreens.entries) {
@@ -334,7 +325,8 @@ class CrossSubsystemAuditor {
 
       if (missingLangs.isNotEmpty) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: 'missing_translations_${screen.id}',
             subsystem: 'primecare_governance',
             registry: 'Localization',
             issue:
@@ -355,7 +347,8 @@ class CrossSubsystemAuditor {
       final bool hasAll = missingLangs.isEmpty;
       if (screen.hasAllTranslations != hasAll) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: 'l10n_flag_drift_${screen.id}',
             subsystem: 'primecare_governance',
             registry: 'Localization',
             issue: 'L10n Audit Drift: hasAllTranslations is ${screen.hasAllTranslations} but actual coverage is $hasAll',
@@ -375,10 +368,10 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits overall Article Compliance for all registered screens.
-  Future<List<AuditIssue>> auditArticleCompliance(
+  Future<List<PlatformAuditIssue>> auditArticleCompliance(
     Map<String, ScreenMetadata> allScreens,
   ) async {
-    final List<AuditIssue> issues = [];
+    final List<PlatformAuditIssue> issues = [];
 
     for (final entry in allScreens.entries) {
       final screen = entry.value;
@@ -395,7 +388,8 @@ class CrossSubsystemAuditor {
 
       if (screen.isAuditCompliant != actuallyCompliant) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: 'compliance_drift_${screen.id}',
             subsystem: 'primecare_governance',
             registry: 'Compliance',
             issue: 'Compliance Drift for "${screen.title}": isAuditCompliant is ${screen.isAuditCompliant} but article pass rate requires $actuallyCompliant',
@@ -415,10 +409,10 @@ class CrossSubsystemAuditor {
   }
 
   /// Performs deep AST analysis on screen implementations to verify feature presence.
-  Future<List<AuditIssue>> auditFeatureVerification(
+  Future<List<PlatformAuditIssue>> auditFeatureVerification(
     Map<String, ScreenMetadata> allScreens,
   ) async {
-    final List<AuditIssue> issues = [];
+    final List<PlatformAuditIssue> issues = [];
 
     for (final entry in allScreens.entries) {
       final screen = entry.value;
@@ -457,8 +451,9 @@ class CrossSubsystemAuditor {
     return issues;
   }
 
-  AuditIssue _createFeatureDriftIssue(ScreenMetadata screen, String field, bool value) {
-    return AuditIssue(
+  PlatformAuditIssue _createFeatureDriftIssue(ScreenMetadata screen, String field, bool value) {
+    return PlatformAuditIssue(
+      id: 'feature_drift_${screen.id}_$field',
       subsystem: 'primecare_governance',
       registry: 'FeatureVerification',
       issue: 'Verification Drift for "${screen.title}": $field is false but implementation is present.',
@@ -474,8 +469,8 @@ class CrossSubsystemAuditor {
   }
 
   /// Audits if all governance-defined screens exist in the ScreenRegistry.
-  Future<List<AuditIssue>> auditScreenRegistryParity() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditScreenRegistryParity() async {
+    final List<PlatformAuditIssue> issues = [];
 
     // Adaptive path resolution
     String root = projectRoot;
@@ -497,7 +492,8 @@ class CrossSubsystemAuditor {
     if (!File(blueprintPath).existsSync() ||
         !File(screenRegistryPath).existsSync()) {
       return [
-        AuditIssue(
+        PlatformAuditIssue(
+          id: 'registry_files_missing',
           subsystem: 'primecare_governance',
           registry: 'ScreenRegistry',
           issue: 'Registry or Blueprint files missing',
@@ -570,7 +566,8 @@ class CrossSubsystemAuditor {
 
         if (screenData == null) {
           issues.add(
-            AuditIssue(
+            PlatformAuditIssue(
+              id: 'missing_registration_$normalizedId',
               subsystem: 'primecare_governance',
               registry: 'CoreGovernanceRegistry',
               issue: 'Mapped screen not found: $screenId (tried $normalizedId)',
@@ -589,7 +586,8 @@ class CrossSubsystemAuditor {
         final requiredComps = blueprintDefinitions[blueprintId];
         if (requiredComps == null) {
           issues.add(
-            AuditIssue(
+            PlatformAuditIssue(
+              id: 'unknown_blueprint_$blueprintId',
               subsystem: 'primecare_governance',
               registry: 'Blueprints',
               issue: 'Reference to unknown blueprint: $blueprintId',
@@ -606,7 +604,8 @@ class CrossSubsystemAuditor {
 
         if (missingComps.isNotEmpty) {
           issues.add(
-            AuditIssue(
+            PlatformAuditIssue(
+              id: 'structural_drift_$normalizedId',
               subsystem: 'primecare_governance',
               registry: 'CoreGovernanceRegistry',
               issue: 'Structural Drift in $normalizedId: Missing $missingComps',
@@ -639,8 +638,8 @@ class CrossSubsystemAuditor {
 
   /// Audits parity between ScreenMetadata and ApiGovernanceRegistry.
   /// Enforces 4K design standards and orphan detection.
-  Future<List<AuditIssue>> auditApiParity() async {
-    final List<AuditIssue> issues = [];
+  Future<List<PlatformAuditIssue>> auditApiParity() async {
+    final List<PlatformAuditIssue> issues = [];
     final allScreens = CoreGovernanceRegistry.screens;
     final allApis = ApiGovernanceRegistry.endpoints;
 
@@ -649,7 +648,8 @@ class CrossSubsystemAuditor {
       for (final apiId in screen.requiredApis) {
         if (!allApis.containsKey(apiId)) {
           issues.add(
-            AuditIssue(
+            PlatformAuditIssue(
+              id: 'orphaned_api_req_${screen.id}_$apiId',
               subsystem: 'primecare_governance',
               registry: 'ApiParity',
               issue: 'Orphaned API Requirement: Screen "${screen.title}" requires "$apiId" which is not registered.',
@@ -670,7 +670,8 @@ class CrossSubsystemAuditor {
     for (final api in allApis.values) {
       if (api.designSize == null || api.designSize!.width != 3840) {
         issues.add(
-          AuditIssue(
+          PlatformAuditIssue(
+            id: '4k_violation_${api.id}',
             subsystem: 'governance_api',
             registry: 'ApiParity',
             issue: '4K Standard Violation: API "${api.id}" is missing 3840x2160 design size attribute.',

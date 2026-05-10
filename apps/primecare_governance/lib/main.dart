@@ -4,7 +4,7 @@ import 'core/i18n/language_provider.dart';
 
 import 'core/governance/registries/core_governance_registry.dart';
 
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/flutter_core.dart' hide languageProvider;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

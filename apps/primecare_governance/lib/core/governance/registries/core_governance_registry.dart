@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_core/models/screen_metadata.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 class CoreGovernanceRegistry {
   static final Map<String, ScreenMetadata> screens = {
@@ -11,7 +10,7 @@ class CoreGovernanceRegistry {
       icon: Icons.hub_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'VERIFICATION_CENTER': ScreenMetadata(
       id: 'VERIFICATION_CENTER',
@@ -27,7 +26,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'AUDIT_LOG': ScreenMetadata(
       id: 'AUDIT_LOG',
@@ -37,7 +36,7 @@ class CoreGovernanceRegistry {
       icon: Icons.history_edu_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'DATA_ENTRY': ScreenMetadata(
       id: 'DATA_ENTRY',
@@ -47,7 +46,7 @@ class CoreGovernanceRegistry {
       icon: Icons.edit_note_rounded,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'MONITORING': ScreenMetadata(
       id: 'MONITORING',
@@ -63,7 +62,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'DEVICE_SECURITY': ScreenMetadata(
       id: 'DEVICE_SECURITY',
@@ -79,7 +78,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SECURITY_SENTINEL': ScreenMetadata(
       id: 'SECURITY_SENTINEL',
@@ -95,7 +94,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'TICKET_CENTER': ScreenMetadata(
       id: 'TICKET_CENTER',
@@ -105,7 +104,7 @@ class CoreGovernanceRegistry {
       icon: Icons.confirmation_number_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'GOVERNANCE_HUD': ScreenMetadata(
       id: 'GOVERNANCE_HUD',
@@ -115,7 +114,7 @@ class CoreGovernanceRegistry {
       icon: Icons.radar_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_STATUS_DASHBOARD': ScreenMetadata(
       id: 'SCREEN_STATUS_DASHBOARD',
@@ -131,7 +130,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SYSTEM_GOVERNANCE_DASHBOARD': ScreenMetadata(
       id: 'SYSTEM_GOVERNANCE_DASHBOARD',
@@ -147,7 +146,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SIDEBAR_MAPPING': ScreenMetadata(
       id: 'SIDEBAR_MAPPING',
@@ -163,7 +162,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'CLINICAL_REFERENCE': ScreenMetadata(
       id: 'CLINICAL_REFERENCE',
@@ -173,7 +172,7 @@ class CoreGovernanceRegistry {
       icon: Icons.library_books_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'PROPOSALS': ScreenMetadata(
       id: 'PROPOSALS',
@@ -183,7 +182,7 @@ class CoreGovernanceRegistry {
       icon: Icons.inbox_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'PROPOSAL_NEW': ScreenMetadata(
       id: 'PROPOSAL_NEW',
@@ -193,7 +192,7 @@ class CoreGovernanceRegistry {
       icon: Icons.add_to_photos_outlined,
       allowedRoles: ['ADMIN', 'GOVERNANCE_OFFICER'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'DEBUG_THEME': ScreenMetadata(
       id: 'DEBUG_THEME',
@@ -209,7 +208,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'DEBUG_KITCHEN_SINK': ScreenMetadata(
       id: 'DEBUG_KITCHEN_SINK',
@@ -225,7 +224,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'LOGIN': ScreenMetadata(
       id: 'LOGIN',
@@ -241,7 +240,7 @@ class CoreGovernanceRegistry {
       isPhiCompliant: true,
       isLocalizationReady: true,
       isDesktopVerified: true,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // --- HYDRATED DECENTRALIZED SCREENS ---
@@ -255,7 +254,7 @@ class CoreGovernanceRegistry {
       icon: Icons.medical_services_outlined,
       allowedRoles: ['CLINICAL_DIRECTOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // Corporate Role: CEO
@@ -267,7 +266,7 @@ class CoreGovernanceRegistry {
       icon: Icons.business_center_outlined,
       allowedRoles: ['CEO', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // Clinical Role: PSW
@@ -279,7 +278,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_customize_outlined,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_PSW_SHIFT_TRACKER': ScreenMetadata(
       id: 'SCREEN_PSW_SHIFT_TRACKER',
@@ -289,7 +288,7 @@ class CoreGovernanceRegistry {
       icon: Icons.timer_outlined,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.backlog,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_PSW_TASKS': ScreenMetadata(
       id: 'SCREEN_PSW_TASKS',
@@ -299,7 +298,7 @@ class CoreGovernanceRegistry {
       icon: Icons.checklist_outlined,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_PSW_SCHEDULE': ScreenMetadata(
       id: 'SCREEN_PSW_SCHEDULE',
@@ -309,7 +308,7 @@ class CoreGovernanceRegistry {
       icon: Icons.calendar_today_outlined,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_PSW_VISIT_NOTES': ScreenMetadata(
       id: 'SCREEN_PSW_VISIT_NOTES',
@@ -319,7 +318,7 @@ class CoreGovernanceRegistry {
       icon: Icons.note_alt_outlined,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_PSW_CLIENTS': ScreenMetadata(
       id: 'SCREEN_PSW_CLIENTS',
@@ -329,7 +328,7 @@ class CoreGovernanceRegistry {
       icon: Icons.people_outline,
       allowedRoles: ['PSW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // Clinical Role: Intake
@@ -341,7 +340,7 @@ class CoreGovernanceRegistry {
       icon: Icons.assignment_ind_outlined,
       allowedRoles: ['INTAKE_COORDINATOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // Coordinator Role
@@ -353,7 +352,7 @@ class CoreGovernanceRegistry {
       icon: Icons.hub_outlined,
       allowedRoles: ['COORDINATOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_COORDINATOR_DISPATCH_MAP': ScreenMetadata(
       id: 'SCREEN_COORDINATOR_DISPATCH_MAP',
@@ -363,7 +362,7 @@ class CoreGovernanceRegistry {
       icon: Icons.map_outlined,
       allowedRoles: ['COORDINATOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_COORDINATOR_SOS': ScreenMetadata(
       id: 'SCREEN_COORDINATOR_SOS',
@@ -373,7 +372,7 @@ class CoreGovernanceRegistry {
       icon: Icons.emergency_outlined,
       allowedRoles: ['COORDINATOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_COORDINATOR_WAITLIST': ScreenMetadata(
       id: 'SCREEN_COORDINATOR_WAITLIST',
@@ -383,7 +382,7 @@ class CoreGovernanceRegistry {
       icon: Icons.hourglass_empty_outlined,
       allowedRoles: ['COORDINATOR', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // RN Role
@@ -395,7 +394,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['RN', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_RN_ASSESSMENTS': ScreenMetadata(
       id: 'SCREEN_RN_ASSESSMENTS',
@@ -405,7 +404,7 @@ class CoreGovernanceRegistry {
       icon: Icons.assessment_outlined,
       allowedRoles: ['RN', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_RN_CARE_PLANS': ScreenMetadata(
       id: 'SCREEN_RN_CARE_PLANS',
@@ -415,7 +414,7 @@ class CoreGovernanceRegistry {
       icon: Icons.assignment_outlined,
       allowedRoles: ['RN', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // RPN Role
@@ -427,7 +426,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['RPN', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
 
     // Allied Health
@@ -439,7 +438,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['PT', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_RMT_DASHBOARD': ScreenMetadata(
       id: 'SCREEN_RMT_DASHBOARD',
@@ -449,7 +448,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['RMT', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_SW_DASHBOARD': ScreenMetadata(
       id: 'SCREEN_SW_DASHBOARD',
@@ -459,7 +458,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['SW', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
     'SCREEN_CHIRO_DASHBOARD': ScreenMetadata(
       id: 'SCREEN_CHIRO_DASHBOARD',
@@ -469,7 +468,7 @@ class CoreGovernanceRegistry {
       icon: Icons.dashboard_outlined,
       allowedRoles: ['CHIRO', 'ADMIN'],
       lifecycleStatus: LifecycleStatus.design,
-      designSize: const Size(3840, 2160),
+      designSize: const PlatformSize(3840, 2160),
     ),
   };
 

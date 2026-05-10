@@ -52,7 +52,7 @@ void main() {
     // 2. Audit Metadata Screens (The 251 screens)
     for (final screen in metadataScreens) {
       // Avoid double auditing if already registered as intent
-      if (intents.any((i) => i.route == screen.routePath)) continue;
+      if (intents.any((i) => i.route == screen.route)) continue;
 
       bool hasIssue = false;
       String issues = '';
@@ -77,14 +77,14 @@ void main() {
       issues += '[Orphaned Adapter] ';
 
       if (hasIssue) {
-        PrimeLogger.warning('FAILED (Metadata): [${screen.routePath}] $issues');
+        PrimeLogger.warning('FAILED (Metadata): [${screen.route}] $issues');
       }
     }
 
     final totalUniqueScreens =
         intents.length +
         metadataScreens
-            .where((s) => !intents.any((i) => i.route == s.routePath))
+            .where((s) => !intents.any((i) => i.route == s.route))
             .length;
 
     PrimeLogger.info('\n--- SUMMARY ---');

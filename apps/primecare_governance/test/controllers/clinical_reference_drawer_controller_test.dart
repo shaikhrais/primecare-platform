@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_governance/features/clinical_reference/widgets/clinical_reference_drawer_controller.dart';
+import 'package:flutter_core/flutter_core.dart';
 
 void main() {
   group('ClinicalReferenceDrawerController', () {

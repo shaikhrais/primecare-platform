@@ -21,7 +21,7 @@ dependencies:
   fl_chart: ^1.2.0
 
   flutter_core:
-    path: ../../flutter_core
+    path: ../flutter_core
 
   intl: any
   pdf: ^3.12.0

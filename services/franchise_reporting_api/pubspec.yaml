@@ -1,5 +1,5 @@
-﻿name: notes_api
-description: PrimeCare notes-api - Migrated to Full-Stack Dart.
+name: franchise_reporting_api
+description: PrimeCare franchise-reporting-api - Migrated to Full-Stack Dart.
 version: 1.0.0
 publish_to: 'none'
 environment:

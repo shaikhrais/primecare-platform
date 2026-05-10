@@ -83,9 +83,9 @@ void main() {
 
       bool uiVerified = false;
       var pathsToCheck = [
-        'packages/factory_system/primecare_ui/lib/src/components/forms/generated/$page.dart',
-        'packages/factory_system/primecare_ui/lib/src/components/forms/domain_forms/$page.dart',
-        'packages/factory_system/primecare_ui/lib/src/screens/auth/$page.dart'
+        'packages/primecare_ui/lib/src/components/forms/generated/$page.dart',
+        'packages/primecare_ui/lib/src/components/forms/domain_forms/$page.dart',
+        'packages/primecare_ui/lib/src/screens/auth/$page.dart'
       ];
       
       for (var p in pathsToCheck) {
@@ -166,7 +166,7 @@ void main() {
   }
 
   // --- ZERO TRUST PHYSICAL FILE VERIFICATION ---
-  final uiDir = Directory('packages/factory_system/primecare_ui/lib');
+  final uiDir = Directory('packages/primecare_ui/lib');
   final allDartFiles = uiDir.existsSync() 
       ? uiDir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart')).map((f) => f.path.replaceAll('\\', '/').split('/').last).toSet() 
       : <String>{};
