@@ -41,8 +41,8 @@
       "dependencies": []
     },
     {
-      "name": "collection",
-      "version": "1.19.1",
+      "name": "meta",
+      "version": "1.18.2",
       "dependencies": []
     },
     {
@@ -51,8 +51,8 @@
       "dependencies": []
     },
     {
-      "name": "meta",
-      "version": "1.18.2",
+      "name": "collection",
+      "version": "1.19.1",
       "dependencies": []
     }
   ],

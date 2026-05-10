@@ -1,10 +1,10 @@
 {
   "roots": [
-    "verification_service"
+    "verification_api"
   ],
   "packages": [
     {
-      "name": "verification_service",
+      "name": "verification_api",
       "version": "1.0.0",
       "dependencies": [
         "flutter_core",

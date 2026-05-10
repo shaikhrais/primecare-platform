@@ -100,7 +100,7 @@ List<Map<String, dynamic>> _generateStitchFeatures(String key) {
           'id': 'stitch-pharmacy-00$i',
           'type': 'DISPENSARY',
           'title': 'Pharmacy Fulfillment Logs [Archetype $i]',
-          'inventoryAlerts': [],
+          'inventoryAlerts': <dynamic>[],
           'prescriptionsPending': 10,
           'status': 'Active Dispensing'
         });

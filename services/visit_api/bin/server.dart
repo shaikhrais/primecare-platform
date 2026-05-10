@@ -29,7 +29,7 @@ void main() async {
   // Start a new visit
   router.post('/api/visits', (Request request) async {
     try {
-      final payload = jsonDecode(await request.readAsString());
+      final payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
       await db.query(
         'INSERT INTO visits (client_id, provider_id, visit_date, status) VALUES (@clientId, @providerId, NOW(), @status)',
         substitutionValues: {

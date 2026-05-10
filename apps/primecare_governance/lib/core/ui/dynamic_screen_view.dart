@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import '../governance/screen_registry.dart';
+
 
 class DynamicScreenView extends GovernedStatelessWidget {
   final ScreenMetadata metadata;
@@ -106,7 +106,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
                 ),
 
                 SizedBox(height: context.s(32)),
-                _buildCompletionHUD(theme, metadata.completionPercent),
+                _buildCompletionHUD(context, theme, metadata.completionPercent),
 
                 if (metadata.lifecycleStatus == LifecycleStatus.design)
                   Padding(
@@ -152,23 +152,26 @@ class DynamicScreenView extends GovernedStatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildSectionHeader(
+                            context,
                             theme,
                             'governance.dynamic_screen.development_lifecycle'
                                 .tr(),
                           ),
                           const SizedBox(height: 16),
                           _buildLifecycleStepper(
+                            context,
                             theme,
                             metadata.lifecycleStatus,
                           ),
                           const SizedBox(height: 48),
                           _buildSectionHeader(
+                            context,
                             theme,
                             'governance.dynamic_screen.screen_specifications'
                                 .tr(),
                           ),
                           const SizedBox(height: 16),
-                          _buildSpecsTable(theme, metadata),
+                          _buildSpecsTable(context, theme, metadata),
                         ],
                       ),
                     ),
@@ -180,14 +183,15 @@ class DynamicScreenView extends GovernedStatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildSectionHeader(
+                            context,
                             theme,
                             'governance.dynamic_screen.platform_architecture_status'
                                 .tr(),
                           ),
                           const SizedBox(height: 16),
-                          _buildArchitectureStatus(theme, statusText),
+                          _buildArchitectureStatus(context, theme, statusText),
                           const SizedBox(height: 48),
-                          _buildAuditActions(theme),
+                          _buildAuditActions(context, theme),
                         ],
                       ),
                     ),
@@ -201,7 +205,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(PrimeThemeData theme, String title) {
+  Widget _buildSectionHeader(BuildContext context, PrimeThemeData theme, String title) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -220,7 +224,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
 
-  Widget _buildLifecycleStepper(PrimeThemeData theme, LifecycleStatus current) {
+  Widget _buildLifecycleStepper(BuildContext context, PrimeThemeData theme, LifecycleStatus current) {
     final steps = LifecycleStatus.values;
     return Container(
       padding: EdgeInsets.all(context.s(24)),
@@ -290,7 +294,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
 
-  Widget _buildSpecsTable(PrimeThemeData theme, ScreenMetadata metadata) {
+  Widget _buildSpecsTable(BuildContext context, PrimeThemeData theme, ScreenMetadata metadata) {
     return Container(
       decoration: BoxDecoration(
         color: theme.colors.surface,
@@ -300,36 +304,43 @@ class DynamicScreenView extends GovernedStatelessWidget {
       child: Column(
         children: [
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.identifier'.tr(),
             metadata.id,
           ),
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.feature'.tr(),
             metadata.featureName,
           ),
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.route_path'.tr(),
             metadata.routePath,
           ),
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.office'.tr(),
             metadata.office,
           ),
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.security'.tr(),
             metadata.securityLevel.name.toUpperCase(),
           ),
           _buildSpecRow(
+            context,
             theme,
             'governance.dynamic_screen.story_points'.tr(),
             metadata.storyPoints.toString(),
           ),
           _buildSpecRow(
+            context,
             theme,
             'DESIGN TARGET',
             '${metadata.designSize.width.toInt()} x ${metadata.designSize.height.toInt()} (4K Ultra HD)',
@@ -341,6 +352,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
   }
 
   Widget _buildSpecRow(
+    BuildContext context,
     PrimeThemeData theme,
     String label,
     String value, {
@@ -381,12 +393,13 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
 
-  Widget _buildArchitectureStatus(PrimeThemeData theme, String screenStatus) {
+  Widget _buildArchitectureStatus(BuildContext context, PrimeThemeData theme, String screenStatus) {
     final bool isImplemented = screenStatus == 'IMPLEMENTED';
 
     return Column(
       children: [
         _buildArchCard(
+          context,
           theme,
           'governance.dynamic_screen.sidebar_navigation'.tr(),
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
@@ -394,6 +407,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
         ),
         SizedBox(height: context.s(12)),
         _buildArchCard(
+          context,
           theme,
           'governance.dynamic_screen.platform_top_bar'.tr(),
           isImplemented ? 'IMPLEMENTED' : 'DECLARED',
@@ -401,6 +415,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
         ),
         SizedBox(height: context.s(12)),
         _buildArchCard(
+          context,
           theme,
           'governance.dynamic_screen.main_content_area'.tr(),
           screenStatus,
@@ -411,6 +426,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
   }
 
   Widget _buildArchCard(
+    BuildContext context,
     PrimeThemeData theme,
     String label,
     String status,
@@ -476,7 +492,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
 
-  Widget _buildAuditActions(PrimeThemeData theme) {
+  Widget _buildAuditActions(BuildContext context, PrimeThemeData theme) {
     return Container(
       padding: EdgeInsets.all(context.s(24)),
       decoration: BoxDecoration(
@@ -517,7 +533,7 @@ class DynamicScreenView extends GovernedStatelessWidget {
     );
   }
   
-  Widget _buildCompletionHUD(PrimeThemeData theme, double percent) {
+  Widget _buildCompletionHUD(BuildContext context, PrimeThemeData theme, double percent) {
     final color = percent > 90 
         ? Colors.green 
         : (percent > 40 ? Colors.blue : Colors.orange);

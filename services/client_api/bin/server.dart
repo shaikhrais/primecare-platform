@@ -30,7 +30,7 @@ void main() async {
   // Add a new client
   router.post('/api/clients', (Request request) async {
     try {
-      final payload = jsonDecode(await request.readAsString());
+      final payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
       await db.query(
         'INSERT INTO clients (first_name, last_name, email) VALUES (@firstName, @lastName, @email)',
         substitutionValues: {

@@ -29,7 +29,7 @@ void main() async {
   // Register a new compliance finding
   router.post('/api/compliance/findings', (Request request) async {
     try {
-      final payload = jsonDecode(await request.readAsString());
+      final payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
       await db.query(
         'INSERT INTO compliance_findings (category, severity, message, metadata) VALUES (@category, @severity, @message, @metadata)',
         substitutionValues: {

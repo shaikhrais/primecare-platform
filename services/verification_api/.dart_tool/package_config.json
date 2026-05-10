@@ -1160,7 +1160,7 @@
       "languageVersion": "3.4"
     },
     {
-      "name": "verification_service",
+      "name": "verification_api",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.11"

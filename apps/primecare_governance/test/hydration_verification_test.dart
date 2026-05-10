@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   test('Hydration Verification - CompletionPercent and Office propagation', () async {
     // 1. Setup - Path to blueprints.yaml
-    final projectRoot = 'c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform';
+
     
     // We need to make sure the GovernanceNotifier uses this path.
     // In governance_provider.dart, it uses Directory.current.path.

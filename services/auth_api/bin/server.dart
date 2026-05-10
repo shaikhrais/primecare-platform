@@ -20,7 +20,7 @@ void main() async {
 
   // Login route (Example of DB interaction)
   router.post('/login', (Request request) async {
-    final payload = jsonDecode(await request.readAsString());
+    final payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
     final email = payload['email'];
 
     // Real DB Query using the shared client
