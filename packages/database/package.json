@@ -1,0 +1,23 @@
+{
+  "name": "@primecare/database",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "postinstall": "prisma generate",
+    "typecheck": "tsc --noEmit",
+    "check-architecture": "npx tsx ci_architectural_gate.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@prisma/extension-accelerate": "^1.2.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0",
+    "typescript": "^5.0.0"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
+  }
+}

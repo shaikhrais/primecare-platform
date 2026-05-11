@@ -1,0 +1,1 @@
+export const shared_events = "shared-events";

@@ -7,8 +7,7 @@ class DatabaseController {
   static Connection get connection => _connection;
 
   static Future<void> initialize() async {
-    final dbUrl =
-        Platform.environment['DATABASE_URL'] ??
+    final dbUrl = Platform.environment['DATABASE_URL'] ??
         'postgresql://postgres:password@localhost:5432/primecare';
     final uri = Uri.parse(dbUrl);
 
@@ -20,9 +19,7 @@ class DatabaseController {
       Endpoint(
         host: uri.host,
         port: uri.port,
-        database: uri.pathSegments.isNotEmpty
-            ? uri.pathSegments.first
-            : 'primecare',
+        database: uri.pathSegments.isNotEmpty ? uri.pathSegments.first : 'primecare',
         username: username,
         password: password,
       ),
@@ -77,10 +74,7 @@ class DatabaseController {
     await _connection.execute('''
       CREATE TABLE IF NOT EXISTS screens (
         id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        status TEXT,
-        design_size_width INTEGER,
-        design_size_height INTEGER
+        name TEXT NOT NULL
       );
     ''');
 
@@ -94,11 +88,7 @@ class DatabaseController {
     await _connection.execute('''
       CREATE TABLE IF NOT EXISTS apis (
         id SERIAL PRIMARY KEY,
-        endpoint TEXT NOT NULL,
-        status TEXT,
-        tier TEXT,
-        design_size_width INTEGER,
-        design_size_height INTEGER
+        endpoint TEXT NOT NULL
       );
     ''');
 
@@ -120,17 +110,6 @@ class DatabaseController {
       CREATE TABLE IF NOT EXISTS statuses (
         id SERIAL PRIMARY KEY,
         name TEXT NOT NULL
-      );
-    ''');
-
-    await _connection.execute('''
-      CREATE TABLE IF NOT EXISTS governance_events (
-        id SERIAL PRIMARY KEY,
-        type TEXT NOT NULL,
-        message TEXT NOT NULL,
-        level TEXT NOT NULL,
-        metadata JSONB,
-        created_at TIMESTAMP DEFAULT NOW()
       );
     ''');
   }

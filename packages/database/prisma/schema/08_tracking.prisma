@@ -1,0 +1,45 @@
+// ==========================================
+// TRACKING MATRIX MODULE
+// ==========================================
+
+model PlatformScreen {
+  id          String  @id @default(uuid())
+  roleId      String  @map("role_id")
+  name        String // e.g., "PSW Live Visit"
+  route       String // e.g., "/psw/live-visit/:id"
+  status      String  @default("pending") // pending, in-progress, completed
+  description String? @db.Text
+  orderIndex  Int     @default(0) @map("order_index")
+
+  role      PlatformRole          @relation(fields: [roleId], references: [id])
+  functions ScreenFunctionality[]
+  componentPurposes ComponentPurpose[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([roleId])
+  @@map("platform_screens")
+}
+
+model ScreenFunctionality {
+  id              String  @id @default(uuid())
+  screenId        String  @map("screen_id")
+  title           String // e.g., "Submit GPS EVV Data"
+  isCore          Boolean @default(true) @map("is_core")
+  status          String  @default("unimplemented") // unimplemented, wired_to_api, fully_tested
+  apiEndpoint     String? @map("api_endpoint") // e.g., "POST /v1/activities/evv"
+  dataEntryFields String? @map("data_entry_fields") // e.g., "lat, lng, photoId"
+  justification   String? @db.Text // Why is this feature enough? (MVP logic)
+  notes           String?
+  orderIndex      Int     @default(0) @map("order_index")
+
+  screen PlatformScreen @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  componentPurposes ComponentPurpose[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([screenId])
+  @@map("screen_functionalities")
+}

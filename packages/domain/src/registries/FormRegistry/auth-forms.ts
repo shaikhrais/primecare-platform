@@ -1,0 +1,76 @@
+import type { FormEntry } from '../form_registry';
+
+export const AUTH_FORMS: FormEntry[] = [
+    {
+        id: 'auth.login',
+        label: 'Login',
+        route: '/login',
+        apiEndpoint: '/v1/auth/login',
+        method: 'POST',
+        dataCyPrefix: 'login',
+        category: 'auth',
+        fields: [
+            { name: 'email', label: 'Email', type: 'email', required: true, placeholder: 'admin@company.com' },
+            { name: 'password', label: 'Password', type: 'password', required: true, placeholder: '••••••••' },
+        ],
+    },
+    {
+        id: 'auth.register',
+        label: 'Register',
+        route: '/register',
+        apiEndpoint: '/v1/auth/register',
+        method: 'POST',
+        dataCyPrefix: 'register',
+        category: 'auth',
+        fields: [
+            { name: 'firstName', label: 'First Name', type: 'text', required: true },
+            { name: 'lastName', label: 'Last Name', type: 'text', required: true },
+            { name: 'email', label: 'Email Address', type: 'email', required: true },
+            { name: 'password', label: 'Password', type: 'password', required: true },
+            { name: 'confirmPassword', label: 'Confirm Password', type: 'password', required: true },
+        ],
+    },
+    {
+        id: 'auth.forgot-password',
+        label: 'Forgot Password',
+        route: '/forgot-password',
+        apiEndpoint: '/v1/auth/forgot-password',
+        method: 'POST',
+        dataCyPrefix: 'forgot-password',
+        category: 'auth',
+        fields: [
+            { name: 'email', label: 'Email Address', type: 'email', required: true },
+        ],
+    },
+    {
+        id: 'auth.reset-password',
+        label: 'Reset Password',
+        route: '/reset-password',
+        apiEndpoint: '/v1/auth/reset-password',
+        method: 'POST',
+        dataCyPrefix: 'reset-password',
+        category: 'auth',
+        fields: [
+            { name: 'token', label: 'Reset Token', type: 'hidden', required: true },
+            { name: 'password', label: 'New Password', type: 'password', required: true },
+            { name: 'confirmPassword', label: 'Confirm Password', type: 'password', required: true },
+        ],
+    },
+    {
+        id: 'auth.onboard-business',
+        label: 'Onboard Business',
+        route: '/onboard-business',
+        apiEndpoint: '/v1/auth/onboard-business',
+        method: 'POST',
+        dataCyPrefix: 'onboard-business',
+        category: 'auth',
+        fields: [
+            { name: 'businessName', label: 'Business Name', type: 'text', required: true },
+            { name: 'ownerName', label: 'Owner Full Name', type: 'text', required: true },
+            { name: 'email', label: 'Business Email', type: 'email', required: true },
+            { name: 'phone', label: 'Phone Number', type: 'tel', required: true },
+            { name: 'password', label: 'Admin Password', type: 'password', required: true },
+            { name: 'industry', label: 'Industry', type: 'select', required: true },
+        ],
+    },
+];

@@ -1,0 +1,606 @@
+// ==========================================
+// PLATFORM MODULES (Global Infrastructure)
+// ==========================================
+
+model User {
+  id                 String              @id @default(uuid())
+  email              String              @unique
+  firstName          String?
+  lastName           String?
+  phone              String?
+  passwordHash       String?             @map("password_hash")
+  osmId              String?             @unique @map("osm_id")
+  status             String?             @default("active")
+  resetToken         String?
+  resetTokenExpiry   DateTime?
+  lastLoginAt        DateTime?           @map("last_login_at")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  tenantId           String              @map("tenant_id")
+  roles              String              @default("client")
+  auditLogs          AuditLog[]
+  blogPosts          BlogPost[]
+  clientProfile      ClientProfile?
+  DailyEntry         DailyEntry[]
+  reportedIncidents  Incident[]          @relation("Reporter")
+  sentMessages       Message[]
+  verifiedDocs       ProviderDocument[]  @relation("VerifiedBy")
+  providerProfile    ProviderProfile?
+  reviewedTimesheets Timesheet[]         @relation("ReviewedBy")
+  telehealthSessions TelehealthSession[]
+  tenant             Tenant              @relation(fields: [tenantId], references: [id])
+  VisitCheckEvent    VisitCheckEvent[]
+  StaffGroupMember   StaffGroupMember[]
+  assignedTasks      StaffTask[]         @relation("AssignedTasks")
+
+  // RN Mastery Extensions
+  carePlansAuthored          CarePlan[]                  @relation("CarePlanAuthor")
+  ledgerEntries              TransactionLedger[]         @relation("LedgerActor")
+  assessments                ClinicalAssessment[]
+  medicationRecons           MedicationRecon[]
+  supervisionLogs            SupervisionLog[]
+  acknowledgedIncidents      Incident[]                  @relation("Acknowledger")
+  performedAudits            TechnicalAudit[]            @relation("PerformedAudits")
+  dailyAuditSignOffs         DailyAuditSignOff[]
+  wellnessPulses             WellnessPulse[]
+  devices                    UserDevice[]
+  systemEvents               SystemEvent[]
+  performanceReviewsAuthored PerformanceReview[]         @relation("ReviewAuthor")
+  iotEvents                  IoTEvent[]
+  appNotifications           AppNotification[]
+  gamificationProfile        GamificationProfile?
+  reputation                 UserReputation?
+  DailyActivity              DailyActivity[]
+  shiftCheckIns              ProviderShiftLog[]          @relation("UserShiftLogs")
+  adlCareLogs                AdlCareLog[]                @relation("UserAdlLogs")
+  providerVitals             ProviderVitalSign[]         @relation("UserPswVitals")
+  behaviorNotes              BehaviorNote[]              @relation("UserBehaviorNotes")
+  nutritionRecords           NutritionRecord[]           @relation("UserNutrition")
+  mobilityLogs               MobilityLog[]               @relation("UserMobility")
+  infectionLogs              InfectionControlChecklist[] @relation("UserInfectionControl")
+  narrativeNotes             NarrativeProgressNote[]     @relation("UserNarrativeNotes")
+  carePlanFollowUps          CarePlanFollowUp[]          @relation("UserCarePlanFollowUp")
+  preferredLanguage          String                      @default("en") @map("preferred_language")
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Tenant {
+  id                   String                 @id @default(uuid())
+  name                 String
+  slug                 String                 @unique
+  status               String                 @default("active")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+  auditLogs            AuditLog[]
+  bookings             Booking[]
+  clientProfiles       ClientProfile[]
+  dailyEntries         DailyEntry[]
+  incidents            Incident[]
+  invoices             Invoice[]
+  messageThreads       MessageThread[]
+  pswAvailability      ProviderAvailability[]
+  providerProfiles     ProviderProfile[]
+  services             Service[]
+  shiftAssignments     ShiftAssignment[]
+  timesheets           Timesheet[]
+  staffTasks           StaffTask[]
+  leads                Lead[]
+  users                User[]
+  checkEvents          VisitCheckEvent[]
+  visits               Visit[]
+  apiKeys              ApiKey[]
+  feedbacks            Feedback[]
+  carePlans            CarePlan[]
+  trainingModules      TrainingModule[]
+  surveys              Survey[]
+  regions              Region[]
+  clinicalRecords      ClinicalRecord[]
+  fhirSyncLogs         FhirSyncLog[]
+  aiRecommendations    AIRecommendation[]
+  sentimentAnalyses    SentimentAnalysis[]
+  securityThreats      SecurityThreat[]
+  slas                 TenantSLA[]
+  telehealthSessions   TelehealthSession[]
+  patientAlerts        PatientAlert[]
+  insuranceProviders   InsuranceProvider[]
+  visitMatches         VisitMatch[]
+  waitlistEntries      WaitlistEntry[]
+  claims               Claim[]
+  prescriptions        Prescription[]
+  branchStats          BranchStat[]
+  complianceRecords    ComplianceRecord[]
+  familyNotifications  FamilyNotification[]
+  careFeedbacks        CareFeedback[]
+  technicalAudits      TechnicalAudit[]
+  bookingRequests      BookingRequest[]
+  dailyAuditSignOffs   DailyAuditSignOff[]
+  wellnessPulses       WellnessPulse[]
+  systemTouchpoints    SystemTouchpoint[]
+  iotEvents            IoTEvent[]
+  appNotifications     AppNotification[]
+  gamificationProfiles GamificationProfile[]
+  aiInferences         AIInference[]
+  communicationLogs    CommunicationLog[]
+  transactionLedger    TransactionLedger[]
+
+  // Business Model Extensions
+  businessNumber  String? @map("business_number")
+  supportEmail    String? @map("support_email")
+  logoUrl         String? @map("logo_url")
+  taxSettings     Json?   @map("tax_settings")
+  brandingConfig  Json?   @map("branding_config")
+  stripeAccountId String? @map("stripe_account_id")
+  onboardingStep  Int     @default(1) @map("onboarding_step")
+
+  // Security & Sovereignty Extensions
+  allowedVpnRanges      String  @map("allowed_vpn_ranges")
+  enforceVpn            Boolean @default(false) @map("enforce_vpn")
+  requireDeviceApproval Boolean @default(false) @map("require_device_approval")
+  maxDevicesPerUser     Int     @default(5) @map("max_devices_per_user")
+
+  // Runtime CORS Configuration
+  corsAllowedOrigins Json     @map("cors_allowed_origins")
+  corsAllowedMethods Json     @map("cors_allowed_methods")
+  corsAllowedHeaders Json     @map("cors_allowed_headers")
+  taxPercentage      Decimal? @map("tax_percentage")
+  baseCurrency       String   @default("CAD") @map("base_currency")
+
+  // Fractal SaaS Extensions
+  parentTenantId        String?                @map("parent_tenant_id")
+  parentTenant          Tenant?                @relation("TenantHierarchy", fields: [parentTenantId], references: [id])
+  childTenants          Tenant[]               @relation("TenantHierarchy")
+  franchises            Franchise[]            @relation("ResellerTenants")
+  marketplaceListings   MarketplaceListing[]
+  handovers             ShiftHandover[]
+  availabilityOverrides AvailabilityOverride[]
+  payouts               Payout[]
+  clinicalAssessments   ClinicalAssessment[]
+  medicationRecons      MedicationRecon[]
+  supervisionLogs       SupervisionLog[]
+  inventoryItems        InventoryItem[]
+  purchaseOrders        PurchaseOrder[]
+  systemEvents          SystemEvent[]
+
+  // Financial Engine
+  financialAccounts        ChartOfAccount[]
+  financialTransactions    FinancialTransaction[]
+  financialJournalEntries  JournalEntry[]
+  financialReconciliations FinancialReconciliation[]
+  bankTransactions         BankTransaction[]
+
+  // Registry
+  registries Registry[]
+
+  // SaaS Subscription Extensions
+  subscriptionTier     String                @default("basic") @map("subscription_tier")
+  subscriptionUpgrades SubscriptionUpgrade[]
+
+  // Domain Feature Extensions
+  evvRecords            EVVRecord[]
+  serviceAuthorizations ServiceAuthorization[]
+  consentForms          ConsentForm[]
+  mileageLogs           MileageLog[]
+  referrals             Referral[]
+  familyMembers         FamilyMember[]
+  performanceReviews    PerformanceReview[]
+  webhookEndpoints      WebhookEndpoint[]
+  staffGroups           StaffGroup[]
+  platformRoles         PlatformRole[]
+  DailyActivity         DailyActivity[]
+  shiftCheckIns         ProviderShiftLog[]          @relation("TenantShiftLogs")
+  adlCareLogs           AdlCareLog[]                @relation("TenantAdlLogs")
+  providerVitals        ProviderVitalSign[]         @relation("TenantPswVitals")
+  behaviorNotes         BehaviorNote[]              @relation("TenantBehaviorNotes")
+  nutritionRecords      NutritionRecord[]           @relation("TenantNutrition")
+  mobilityLogs          MobilityLog[]               @relation("TenantMobility")
+  infectionLogs         InfectionControlChecklist[] @relation("TenantInfectionControl")
+  narrativeNotes        NarrativeProgressNote[]     @relation("TenantNarrativeNotes")
+  carePlanFollowUps     CarePlanFollowUp[]          @relation("TenantCarePlanFollowUp")
+  dynamicFeatureRecords DynamicFeatureRecord[]
+
+  @@map("tenants")
+}
+
+model Registry {
+  id        String   @id @default(uuid())
+  key       String // dot-path key e.g. "ADMIN_HOME.TITLE"
+  value     String // the actual text/content value
+  category  String // content, api, route, theme, button, interaction
+  section   String? // grouping: e.g. "homes", "nav", "operations"
+  metadata  String? // extra config, icon, color, etc.
+  tenantId  String?  @map("tenant_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@unique([key, tenantId])
+  @@index([category])
+  @@index([section])
+  @@index([tenantId])
+  @@map("registries")
+}
+
+model ApiKey {
+  id         String    @id @default(uuid())
+  key        String    @unique
+  name       String
+  status     String    @default("active")
+  tenantId   String    @map("tenant_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  tenant     Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("api_keys")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  actorUserId  String?  @map("actor_user_id")
+  action       String
+  resourceType String   @map("resource_type")
+  resourceId   String?  @map("resource_id")
+  metadata     Json?    @map("metadata_json")
+  deviceId     String?  @map("device_id")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+  tenantId     String   @map("tenant_id")
+  actor        User?    @relation(fields: [actorUserId], references: [id])
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, createdAt])
+  @@index([actorUserId])
+  @@index([deviceId])
+  @@map("audit_logs")
+}
+
+model SystemEvent {
+  id               String   @id @default(uuid())
+  tenantId         String   @map("tenant_id")
+  operation        String // CREATE, UPDATE, DELETE
+  modelName        String   @map("model_name")
+  entityId         String?  @map("entity_id")
+  payload          Json?
+  previousData     Json?    @map("previous_data")
+  actorUserId      String?  @map("actor_user_id")
+  deviceId         String?  @map("device_id")
+  ipAddress        String?  @map("ip_address")
+  checksum         String   @default("")
+  previousChecksum String?  @map("previous_checksum")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  actor  User?  @relation(fields: [actorUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([modelName, entityId])
+  @@index([createdAt])
+  @@map("system_events")
+}
+
+model Lead {
+  id                String    @id @default(uuid())
+  fullName          String    @map("full_name")
+  email             String
+  phone             String?
+  message           String?
+  source            String
+  status            String?   @default("new")
+  serviceInterest   String    @map("service_interest")
+  notes             String?
+  convertedToUserId String?   @map("converted_to_user_id")
+  conversionDate    DateTime? @map("conversion_date")
+  tenantId          String?   @map("tenant_id")
+  tenant            Tenant?   @relation(fields: [tenantId], references: [id])
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  @@index([tenantId])
+  @@map("leads")
+}
+
+model FAQ {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  category  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("faqs")
+}
+
+model UserDevice {
+  id           String    @id @default(uuid())
+  userId       String    @map("user_id")
+  deviceId     String    @map("device_id")
+  deviceName   String?   @map("device_name")
+  deviceType   String?   @map("device_type")
+  lastIp       String?   @map("last_ip")
+  status       String    @default("active")
+  isAuthorized Boolean   @default(false) @map("is_authorized")
+  authorizedAt DateTime? @map("authorized_at")
+  isTemporary  Boolean   @default(false) @map("is_temporary")
+  expiresAt    DateTime? @map("expires_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  lastActiveAt DateTime  @default(now()) @map("last_active_at")
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, deviceId])
+  @@index([userId])
+  @@map("user_devices")
+}
+
+model SystemPolicy {
+  id         String   @id @default(uuid())
+  code       String   @unique // e.g., 'CORE_SEC_01'
+  name       String
+  category   String // SECURITY, CLINICAL, BILLING, OPS
+  value      String
+  isEnforced Boolean  @default(true) @map("is_enforced")
+  version    Int      @default(1)
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("system_policies")
+}
+
+model ResponseBotAudit {
+  id         String   @id @default(uuid())
+  type       String // REGISTRY_CHECK, 404_HEARTBEAT, SCHEMA_PARITY
+  status     String   @default("success") // success, warning, failure
+  summary    String
+  details    String
+  durationMs Int      @map("duration_ms")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("response_bot_audits")
+}
+
+model SystemTouchpoint {
+  id            String   @id @default(uuid())
+  touchpointId  String   @unique @map("touchpoint_id")
+  type          String // BUTTON, LINK, INTERACTION
+  role          String
+  module        String
+  label         String? // The text displayed on UI
+  path          String
+  status        String   @default("OK") // OK, 404, ERROR
+  errorDetail   String?  @map("error_detail")
+  isOverridden  Boolean  @default(false) @map("is_overridden")
+  overrideValue String?  @map("override_value")
+  lastChecked   DateTime @default(now()) @map("last_checked")
+  tenantId      String   @map("tenant_id")
+  tenant        Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("system_touchpoints")
+}
+
+model RegistryEntry {
+  id          String    @id @default(uuid())
+  externalId  String    @unique @map("external_id") // e.g., 'btn-admin-user-invite'
+  type        String // button, link, interaction
+  label       String
+  role        String
+  module      String
+  action      String?
+  targetPath  String?   @map("target_path")
+  description String?
+  status      String    @default("active")
+  lastChecked DateTime? @map("last_checked")
+  errorCount  Int       @default(0) @map("error_count")
+  metadata    String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("registry_entries")
+}
+
+model MessageThread {
+  id         String           @id @default(uuid())
+  threadType String           @map("thread_type")
+  clientId   String?          @map("client_id")
+  providerId String?          @map("provider_id")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  tenantId   String           @map("tenant_id")
+  messages   Message[]
+  client     ClientProfile?   @relation(fields: [clientId], references: [id])
+  psw        ProviderProfile? @relation("ProviderToThreads", fields: [providerId], references: [id])
+  tenant     Tenant           @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("messages_threads")
+}
+
+model Message {
+  id           String        @id @default(uuid())
+  threadId     String        @map("thread_id")
+  senderUserId String        @map("sender_user_id")
+  bodyText     String        @map("body_text")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  sender       User          @relation(fields: [senderUserId], references: [id])
+  thread       MessageThread @relation(fields: [threadId], references: [id])
+
+  @@map("messages")
+}
+
+// ==========================================
+// ECOSYSTEM ENGINE (Phase 66, 67, 68)
+// ==========================================
+
+model PlatformRole {
+  id           String               @id @default(uuid())
+  name         String               @unique // e.g., 'PSW', 'COORDINATOR', 'RN', 'GM'
+  description  String?
+  isCustom     Boolean              @default(false) @map("is_custom")
+  tenantId     String?              @map("tenant_id")
+  tenant       Tenant?              @relation(fields: [tenantId], references: [id])
+  screenAccess RoleScreenAccess[]
+  resolutions  ProtocolResolution[] @relation("EscalationRoles")
+  screens      PlatformScreen[]
+  createdAt    DateTime             @default(now()) @map("created_at")
+  updatedAt    DateTime             @updatedAt @map("updated_at")
+
+  @@map("platform_roles")
+}
+
+model RoleScreenAccess {
+  id          String       @id @default(uuid())
+  roleId      String       @map("role_id")
+  screenRoute String       @map("screen_route") // e.g., '/coordinator/live-map'
+  canRead     Boolean      @default(true) @map("can_read")
+  canWrite    Boolean      @default(false) @map("can_write")
+  role        PlatformRole @relation(fields: [roleId], references: [id])
+
+  @@unique([roleId, screenRoute])
+  @@map("role_screen_access")
+}
+
+model CrisisProtocol {
+  id           String               @id @default(uuid())
+  scenarioName String               @map("scenario_name") // e.g., 'Wi-Fi Drops'
+  triggerEvent String               @unique @map("trigger_event") // e.g., 'EVV_CHECKOUT_TIMEOUT'
+  severity     String               @default("medium")
+  isActive     Boolean              @default(true) @map("is_active")
+  tenantId     String?              @map("tenant_id")
+  resolutions  ProtocolResolution[]
+  createdAt    DateTime             @default(now()) @map("created_at")
+
+  @@map("crisis_protocols")
+}
+
+model ProtocolResolution {
+  id               String  @id @default(uuid())
+  protocolId       String  @map("protocol_id")
+  actionType       String  @map("action_type") // e.g., 'ENABLE_SQLITE_BUFFER', 'ACTIVATE_WEB_RTC'
+  escalateToRoleId String? @map("escalate_to_role_id")
+  uiOverrideKey    String? @map("ui_override_key") // e.g., 'RED_SOS_BANNER'
+  orderIndex       Int     @default(0) @map("order_index")
+
+  protocol       CrisisProtocol @relation(fields: [protocolId], references: [id])
+  escalateToRole PlatformRole?  @relation("EscalationRoles", fields: [escalateToRoleId], references: [id])
+
+  @@map("protocol_resolutions")
+}
+
+model EcosystemStateOverride {
+  id                String    @id @default(uuid())
+  globalStateMacro  String    @unique @map("global_state_macro") // e.g., 'SEVERE_STAFF_SHORTAGE', 'CODE_BLACK'
+  isActive          Boolean   @default(false) @map("is_active")
+  payMultiplier     Decimal?  @default(1.0) @map("pay_multiplier")
+  forceOfflineMode  Boolean   @default(false) @map("force_offline_mode")
+  filterTriageOnly  Boolean   @default(false) @map("filter_triage_only")
+  activatedAt       DateTime? @map("activated_at")
+  activatedByUserId String?   @map("activated_by_user_id")
+
+  @@map("ecosystem_state_overrides")
+}
+
+model UserReputation {
+  id                  String   @id @default(uuid())
+  userId              String   @unique @map("user_id")
+  points              Int      @default(0)
+  eliteStatus         Boolean  @default(false) @map("elite_status")
+  permanentMultiplier Decimal  @default(1.0) @map("permanent_multiplier")
+  crisesResolved      Int      @default(0) @map("crises_resolved")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_reputations")
+}
+
+model EcosystemAutopilotConfig {
+  id                     String    @id @default(uuid())
+  tenantId               String    @unique @map("tenant_id")
+  isActive               Boolean   @default(true) @map("is_active")
+  maxDailySurgeBudget    Decimal   @default(200.0) @map("max_daily_surge_budget")
+  currentDailySurgeSpend Decimal   @default(0.0) @map("current_daily_surge_spend")
+  marginFreezeThreshold  Decimal   @default(25.0) @map("margin_freeze_threshold")
+  lastCronRun            DateTime? @map("last_cron_run")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+
+  @@map("ecosystem_autopilot_configs")
+}
+
+model HospitalTarget {
+  id               String    @id @default(uuid())
+  tenantId         String    @map("tenant_id")
+  hospitalName     String    @map("hospital_name")
+  dischargePlanner String?   @map("discharge_planner")
+  status           String    @default("prospecting")
+  lastTouchpointAt DateTime? @map("last_touchpoint_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  pipelines ReferralPipeline[]
+
+  @@map("hospital_targets")
+}
+
+model ReferralPipeline {
+  id            String   @id @default(uuid())
+  tenantId      String   @map("tenant_id")
+  hospitalId    String   @map("hospital_id")
+  patientName   String   @map("patient_name")
+  referralValue Decimal  @default(0.0) @map("referral_value")
+  isConverted   Boolean  @default(false) @map("is_converted")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  hospital HospitalTarget @relation(fields: [hospitalId], references: [id])
+
+  @@map("referral_pipelines")
+}
+
+model SupplyForecastMetrics {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  targetDate      DateTime @map("target_date")
+  geographyZone   String   @map("geography_zone")
+  predictedDemand Int      @map("predicted_demand")
+  physicalSupply  Int      @map("physical_supply")
+  deficitWarning  Boolean  @default(false) @map("deficit_warning")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("supply_forecast_metrics")
+}
+
+model PromoCode {
+  id              String    @id @default(uuid())
+  code            String    @unique
+  discountPercent Int?      @map("discount_percent")
+  targetTier      String?   @map("target_tier")
+  maxUses         Int?      @map("max_uses")
+  currentUses     Int       @default(0) @map("current_uses")
+  expiresAt       DateTime? @map("expires_at")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  upgrades SubscriptionUpgrade[]
+
+  @@map("promo_codes")
+}
+
+model SubscriptionUpgrade {
+  id          String   @id @default(uuid())
+  tenantId    String   @map("tenant_id")
+  promoCodeId String?  @map("promo_code_id")
+  oldTier     String   @map("old_tier")
+  newTier     String   @map("new_tier")
+  upgradedAt  DateTime @default(now()) @map("upgraded_at")
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+  promoCode PromoCode? @relation(fields: [promoCodeId], references: [id])
+
+  @@index([tenantId])
+  @@map("subscription_upgrades")
+}

@@ -1,44 +1,50 @@
 import 'package:shelf_router/shelf_router.dart';
 import '../controllers/governance_controller.dart';
-import 'package:shelf/shelf.dart';
 
 class GovernanceRoutes {
-  final GovernanceController _controller;
-
-  GovernanceRoutes(this._controller);
-
-  Router get router {
+  static Router get router {
     final router = Router();
 
-    // Max OOP MVC Route Mapping
-    router.get('/api/apps', _controller.getApps);
-    router.get('/api/roles', _controller.getRoles);
-    router.get('/api/apis', _controller.getApis);
-    
-    // Audit & Telemetry Endpoints
-    router.post('/api/audit', _controller.performAudit);
-    router.get('/api/audit/platform', _controller.getPlatformAudit);
-    router.post('/api/remediate', _controller.remediateDrift);
-    router.get('/api/telemetry', _controller.getTelemetry);
+    // Apps
+    router.get('/api/apps', GovernanceController.getApps);
+    router.post('/api/apps', GovernanceController.createApp);
+
+    // Roles
+    router.get('/api/roles', GovernanceController.getRoles);
+    router.post('/api/roles', GovernanceController.createRole);
+
+    // Modules
+    router.get('/api/modules', GovernanceController.getModules);
+    router.post('/api/modules', GovernanceController.createModule);
+
+    // Features
+    router.get('/api/features', GovernanceController.getFeatures);
+    router.post('/api/features', GovernanceController.createFeature);
+
+    // Screens
+    router.get('/api/screens', GovernanceController.getScreens);
+    router.post('/api/screens', GovernanceController.createScreen);
+
+    // Routes
+    router.get('/api/routes', GovernanceController.getRoutes);
+    router.post('/api/routes', GovernanceController.createRoute);
+
+    // APIs
+    router.get('/api/apis', GovernanceController.getApis);
+    router.post('/api/apis', GovernanceController.createApi);
+
+    // Permissions
+    router.get('/api/permissions', GovernanceController.getPermissions);
+    router.post('/api/permissions', GovernanceController.createPermission);
+
+    // Languages
+    router.get('/api/languages', GovernanceController.getLanguages);
+    router.post('/api/languages', GovernanceController.createLanguage);
+
+    // Statuses
+    router.get('/api/statuses', GovernanceController.getStatuses);
+    router.post('/api/statuses', GovernanceController.createStatus);
 
     return router;
-  }
-
-  /// Middleware Bridge for maximum developer convenience.
-  /// Wraps any existing handler with governance parity logic and telemetry logging.
-  Handler governanceMiddleware(Handler innerHandler) {
-    return (Request request) async {
-      // 1. Pre-Execution Governance (Telemetry)
-      await _controller.logRequest(request);
-      
-      final response = await innerHandler(request);
-      
-      // 2. Post-Execution Parity Verification
-      return response.change(headers: {
-        ...response.headers,
-        'X-Platform-Parity': 'compliant',
-        'X-Design-Standard': '4K-3840x2160',
-      });
-    };
   }
 }
