@@ -16,6 +16,7 @@ void main() async {
 
   // 3. Initialize and register all governance screens
   Registry.registerAll();
+  debugPrint('Registry Hydrated: ${Registry.getAllScreens().length} screens registered.');
 
   PrimeCareAppRunner.run(
     appWidget: const PrimeCareApp(),

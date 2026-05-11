@@ -22,9 +22,10 @@ const SLOW_REQUEST_THRESHOLD_MS = 3000;
 export const correlationId = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
     return async (c, next) => {
         // Accept client-provided correlation ID or generate one
-        const reqId = c.req.header('X-Request-ID') || crypto.randomUUID();
+        const reqId = c.req.header('X-Correlation-ID') || c.req.header('X-Request-ID') || crypto.randomUUID();
         c.set('requestId', reqId);
         c.header('X-Request-ID', reqId);
+        c.header('X-Correlation-ID', reqId);
         await next();
     };
 };

@@ -1,25 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
-import '../../features/auth/login_page.dart';
-import '../../features/dashboard/shareholder_dashboard_page.dart';
-
-/// A custom implementation of PrimeCareScreen that renders a specific widget.
-class RealPrimeCareScreen extends PrimeCareScreen {
-  final Widget child;
-
-  RealPrimeCareScreen({
-    required super.title,
-    required super.route,
-    required super.requiredRole,
-    required this.child,
-    super.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
-  }
-}
 
 class PrimeCareTenant extends PlatformTenant {
   @override
@@ -116,46 +96,6 @@ class CFOModule extends PlatformModule {
       ];
 }
 
-class PublicAuthModule extends PlatformModule {
-  @override
-  String get moduleId => 'auth';
-  @override
-  String get name => 'Authentication';
-  @override
-  IconData get icon => Icons.lock;
-  @override
-  List<PlatformRole> get allowedRoles => PlatformRole.values;
-  @override
-  List<PrimeCareScreen> get screens => [
-        RealPrimeCareScreen(
-          title: 'Login',
-          route: CommonRoutes.login,
-          requiredRole: PlatformRole.guest,
-          child: const LoginPage(),
-        ),
-      ];
-}
-
-class ShareholderModule extends PlatformModule {
-  @override
-  String get moduleId => 'shareholder';
-  @override
-  String get name => 'Shareholder Portal';
-  @override
-  IconData get icon => Icons.pie_chart;
-  @override
-  List<PlatformRole> get allowedRoles => [PlatformRole.shareholder];
-  @override
-  List<PrimeCareScreen> get screens => [
-        RealPrimeCareScreen(
-          title: 'Shareholder Dashboard',
-          route: '/offices/corporate/roles/shareholder/dashboard',
-          requiredRole: PlatformRole.shareholder,
-          child: const ShareholderDashboardPage(),
-        ),
-      ];
-}
-
 class CTOModule extends PlatformModule {
   @override
   String get moduleId => 'cto_tech';
@@ -228,6 +168,8 @@ class CorporateApplication extends PlatformApplication {
   @override
   String get name => 'PrimeCare Corporate Portal';
   @override
+  String get homeRoute => CorporateRoutes.ceoDashboard;
+  @override
   PlatformTenant get tenant => PrimeCareTenant();
 
   @override
@@ -235,42 +177,32 @@ class CorporateApplication extends PlatformApplication {
         PlatformRoleDefinition(
           role: PlatformRole.ceo,
           dashboardRoute: CorporateRoutes.ceoDashboard,
-          modules: [PublicAuthModule(), CEOModule()],
+          modules: [CEOModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.coo,
           dashboardRoute: CorporateRoutes.cooDashboard,
-          modules: [PublicAuthModule(), COOModule()],
+          modules: [COOModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.cfo,
           dashboardRoute: CorporateRoutes.cfoDashboard,
-          modules: [PublicAuthModule(), CFOModule()],
+          modules: [CFOModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.cto,
           dashboardRoute: CorporateRoutes.ctoDashboard,
-          modules: [PublicAuthModule(), CTOModule()],
+          modules: [CTOModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.legal,
           dashboardRoute: CorporateRoutes.legalDashboard,
-          modules: [PublicAuthModule(), LegalModule()],
+          modules: [LegalModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.ciso,
           dashboardRoute: CorporateRoutes.cisoDashboard,
-          modules: [PublicAuthModule(), CISOModule()],
-        ),
-        PlatformRoleDefinition(
-          role: PlatformRole.shareholder,
-          dashboardRoute: '/offices/corporate/roles/shareholder/dashboard',
-          modules: [PublicAuthModule(), ShareholderModule()],
-        ),
-        PlatformRoleDefinition(
-          role: PlatformRole.guest,
-          dashboardRoute: CommonRoutes.login,
-          modules: [PublicAuthModule()],
+          modules: [CISOModule()],
         ),
       ];
 }

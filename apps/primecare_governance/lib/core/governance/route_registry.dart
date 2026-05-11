@@ -62,13 +62,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             );
           }),
           // Fallback route to ensure ShellRoute is never empty
-          if (ScreenRegistry.screens.isEmpty)
-            GoRoute(
-              path: '/governance/placeholder',
-              builder: (context, state) => const Scaffold(
-                body: Center(child: Text('Initializing Registry...')),
-              ),
+          // This prevents the 'routes.isNotEmpty' assertion failure in go_router
+          GoRoute(
+            path: '/governance/placeholder',
+            builder: (context, state) => const Scaffold(
+              body: Center(child: Text('Initializing Registry...')),
             ),
+          ),
         ],
       ),
     ],

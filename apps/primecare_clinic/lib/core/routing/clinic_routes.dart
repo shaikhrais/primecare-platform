@@ -1,6 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
