@@ -3,6 +3,7 @@ import { Bindings, Variables } from '@primecare/contracts';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { registerCorsMiddleware, registerErrorHandler } from './cors_wrapper';
 import { prismaMiddleware } from './prisma_client';
+import { correlationId, requestLogger } from './observability';
 
 /**
  * #16: Tenant Isolation Middleware
@@ -134,7 +135,9 @@ export const sanitizeInput = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
  * Ensures that every service in the PrimeCare mesh adheres to the same isolation and resilience standards.
  */
 export function registerStandardMiddleware(app: OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>) {
-    // 1. Foundation
+    // 1. Foundation & Observability
+    app.use('*', correlationId());
+    app.use('*', requestLogger());
     registerCorsMiddleware(app as any);
     registerErrorHandler(app as any);
     
