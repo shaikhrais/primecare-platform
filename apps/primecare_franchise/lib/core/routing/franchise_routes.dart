@@ -74,5 +74,41 @@ class FranchiseApplication extends PlatformApplication {
   PlatformTenant get tenant => FranchiseTenant();
 
   @override
-  List<PlatformModule> get modules => [FranchiseOperationsModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.franchiseOwner,
+          dashboardRoute: FranchiseRoutes.franchiseOwnerDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.operationsManager,
+          dashboardRoute: FranchiseRoutes.operationsManagerDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.scheduler,
+          dashboardRoute: FranchiseRoutes.schedulerDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.billingAdmin,
+          dashboardRoute: FranchiseRoutes.billingAdminDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.hrHiring,
+          dashboardRoute: FranchiseRoutes.hrHiringDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.hrManager,
+          dashboardRoute: FranchiseRoutes.hrHiringDashboard, // Default for now
+          modules: [FranchiseOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.owner,
+          dashboardRoute: FranchiseRoutes.franchiseOwnerDashboard,
+          modules: [FranchiseOperationsModule()],
+        ),
+      ];
 }

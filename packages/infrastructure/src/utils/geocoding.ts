@@ -16,11 +16,12 @@ export async function geocodeAddress(address: string): Promise<GeocodeResult | n
     if (!address) return null;
 
     try {
+        const { apiClient } = await import('./api_client');
         // We use Nominatim (OSM) for free geocoding. 
         // Note: In production, you might want to use Google Maps or a dedicated service for higher reliability/rate limits.
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`;
 
-        const response = await fetch(url, {
+        const response = await apiClient.fetch(url, {
             headers: {
                 'User-Agent': 'PrimeCare-Platform-Dev/1.0'
             }

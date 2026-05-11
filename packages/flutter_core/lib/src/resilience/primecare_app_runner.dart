@@ -15,7 +15,10 @@ final GlobalKey _primeCareRootKey = GlobalKey();
 class PrimeCareAppRunner {
   /// Bootstraps the application with full resilience:
   /// BoundaryTelemetryDrain, RestartWrapper, EasyLocalization, and ProviderScope.
-  static void run({required Widget appWidget}) {
+  static void run({
+    required Widget appWidget,
+    List<dynamic> overrides = const [],
+  }) {
     AppErrorBoundary.runGuarded(() async {
       WidgetsFlutterBinding.ensureInitialized();
 
@@ -58,6 +61,7 @@ class PrimeCareAppRunner {
             child: ProviderScope(
               overrides: [
                 sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+                ...overrides.cast(),
               ],
               child: BoundaryTelemetryDrain(child: appWidget),
             ),

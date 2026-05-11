@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
 import 'screen_registry.dart';
 import '../ui/dynamic_screen_view.dart';
-import '../ui/app_drawer.dart';
 import '../../features/auth/login_view.dart';
 import '../ui/language_selector.dart';
 
@@ -28,7 +27,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return MasterLayout(
             title: title,
             shellType: AppShellType.admin,
-            drawer: const AppDrawer(),
             actions: [
               const LanguageSelector(),
               const SizedBox(width: 8),
@@ -51,7 +49,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
         routes: [
           // Dynamic Registry-Driven Routes
-          ...ScreenRegistry.screens.values.map((screen) {
+          ...ScreenRegistry.screens.values
+              .where((screen) => screen.id != 'LOGIN')
+              .map((screen) {
             return GoRoute(
               path: screen.routePath,
               builder: (context, state) {
@@ -61,6 +61,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               },
             );
           }),
+          // Fallback route to ensure ShellRoute is never empty
+          if (ScreenRegistry.screens.isEmpty)
+            GoRoute(
+              path: '/governance/placeholder',
+              builder: (context, state) => const Scaffold(
+                body: Center(child: Text('Initializing Registry...')),
+              ),
+            ),
         ],
       ),
     ],

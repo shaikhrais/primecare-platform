@@ -1,10 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-// Triggering hot reload to refresh assets.
-
+import 'package:easy_localization/easy_localization.dart';
+import 'core/routing/corporate_routes.dart';
 import 'core/routing/app_router.dart';
 
+
 void main() {
-  PrimeCareAppRunner.run(appWidget: const PrimeCareCorporateApp());
+  PrimeCareAppRunner.run(
+    appWidget: const PrimeCareCorporateApp(),
+    overrides: [
+      platformApplicationProvider.overrideWithValue(CorporateApplication()),
+    ],
+  );
 }
 
 class PrimeCareCorporateApp extends ConsumerWidget {

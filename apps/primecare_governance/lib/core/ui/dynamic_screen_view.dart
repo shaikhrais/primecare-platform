@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 
 class DynamicScreenView extends GovernedStatelessWidget {
@@ -18,13 +19,13 @@ class DynamicScreenView extends GovernedStatelessWidget {
     switch (metadata.lifecycleStatus) {
       case LifecycleStatus.completed:
         statusText = 'IMPLEMENTED';
-        statusColor = Colors.green;
-        statusIcon = LucideIcons.checkCircle;
+        statusColor = const Color(0xFF10B981); // Emerald 500
+        statusIcon = LucideIcons.checkCircle2;
         break;
       case LifecycleStatus.generation:
       case LifecycleStatus.testing:
         statusText = 'STUBBED';
-        statusColor = Colors.orange;
+        statusColor = const Color(0xFFF59E0B); // Amber 500
         statusIcon = LucideIcons.hammer;
         break;
       case LifecycleStatus.backlog:
@@ -34,174 +35,164 @@ class DynamicScreenView extends GovernedStatelessWidget {
         statusIcon = LucideIcons.fileSearch;
     }
 
-    return Container(
-      color: theme.colors.surfaceContainerLowest,
-      child: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            constraints: BoxConstraints(maxWidth: context.s(1200)),
-            padding: EdgeInsets.symmetric(
-              horizontal: context.s(48),
-              vertical: context.s(64),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          // 1. Premium Mesh Gradient Background
+          Positioned.fill(
+            child: AnimatedContainer(
+              duration: const Duration(seconds: 5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    theme.colors.surface,
+                    statusColor.withValues(alpha: 0.05),
+                    theme.colors.surface,
+                  ],
+                ),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Top Status Header
-                Container(
-                  padding: EdgeInsets.all(context.s(32)),
-                  decoration: BoxDecoration(
-                    color: statusColor.withValues(alpha: 0.05),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(statusIcon, color: statusColor, size: context.s(80)),
+          ),
+
+          // 2. Main Content
+          SingleChildScrollView(
+            child: Center(
+              child: Container(
+                constraints: BoxConstraints(maxWidth: context.s(1200)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.s(48),
+                  vertical: context.s(64),
                 ),
-                SizedBox(height: context.s(24)),
-                Text(
-                  metadata.title,
-                  style: theme.typography.h1.copyWith(fontSize: context.s(40)),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: context.s(12)),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.s(24),
-                    vertical: context.s(12),
-                  ),
-                  decoration: BoxDecoration(
-                    color: statusColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(context.s(100)),
-                    border: Border.all(
-                      color: statusColor.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: context.s(8),
-                        height: context.s(8),
-                        decoration: BoxDecoration(
-                          color: statusColor,
-                          shape: BoxShape.circle,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Status Badge (Floating Glass)
+                    Hero(
+                      tag: 'status_${metadata.id}',
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.s(20),
+                          vertical: context.s(10),
                         ),
-                      ),
-                      SizedBox(width: context.s(12)),
-                      Text(
-                        'governance.dynamic_screen.governance_status'.tr(
-                          args: [
-                            ('governance.sidebar_mapping.status.${statusText.toLowerCase()}')
-                                .tr(),
+                        decoration: BoxDecoration(
+                          color: statusColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(context.s(100)),
+                          border: Border.all(
+                            color: statusColor.withValues(alpha: 0.2),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(statusIcon, color: statusColor, size: context.s(16)),
+                            SizedBox(width: context.s(12)),
+                            Text(
+                              statusText,
+                              style: theme.typography.labelBold.copyWith(
+                                color: statusColor,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
                           ],
                         ),
-                        style: theme.typography.bodyLarge.copyWith(
-                          color: statusColor,
-                          fontSize: context.s(16),
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2.0,
+                      ),
+                    ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
+
+                    SizedBox(height: context.s(40)),
+
+                    // Title Section
+                    Text(
+                      metadata.title,
+                      style: theme.typography.h1.copyWith(
+                        fontSize: context.s(56),
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ).animate().fadeIn(delay: 200.ms).scale(begin: const Offset(0.95, 0.95)),
+
+                    SizedBox(height: context.s(16)),
+
+                    Text(
+                      'Feature Architecture: ${metadata.featureName}',
+                      style: theme.typography.bodyLarge.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                        fontSize: context.s(20),
+                      ),
+                    ).animate().fadeIn(delay: 400.ms),
+
+                    SizedBox(height: context.s(64)),
+
+                    // Completion HUD (The Big Progress Meter)
+                    _buildCompletionHUD(context, theme, metadata.completionPercent)
+                        .animate()
+                        .fadeIn(delay: 600.ms)
+                        .slideY(begin: 0.1),
+
+                    SizedBox(height: context.s(80)),
+
+                    // Technical Specifications Grid
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Left: Technical Specs
+                        Expanded(
+                          flex: 4,
+                          child: _buildTechnicalManifest(context, theme, metadata)
+                              .animate()
+                              .fadeIn(delay: 800.ms)
+                              .slideX(begin: -0.05),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: context.s(32)),
-                _buildCompletionHUD(context, theme, metadata.completionPercent),
-
-                if (metadata.lifecycleStatus == LifecycleStatus.design)
-                  Padding(
-                    padding: EdgeInsets.only(top: context.s(24.0)),
-                    child: Container(
-                      padding: EdgeInsets.all(context.s(16)),
-                      decoration: BoxDecoration(
-                        color: theme.colors.errorContainer.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(context.s(12)),
-                        border: Border.all(
-                          color: theme.colors.error.withValues(alpha: 0.3),
+                        SizedBox(width: context.s(48)),
+                        // Right: Governance Stack
+                        Expanded(
+                          flex: 3,
+                          child: _buildGovernanceStack(context, theme, metadata)
+                              .animate()
+                              .fadeIn(delay: 1000.ms)
+                              .slideX(begin: 0.05),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(LucideIcons.alertTriangle,
-                              color: theme.colors.error, size: context.s(20)),
-                          SizedBox(width: context.s(12)),
-                          Text(
-                            'REGISTERED: Implementation of high-fidelity code is pending.',
-                            style: theme.typography.bodyMedium.copyWith(
-                              color: theme.colors.error,
-                              fontSize: context.s(14),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                SizedBox(height: context.s(64)),
-
-                // Content Layout
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Left Column: Details
-                    Expanded(
-                      flex: 4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildSectionHeader(
-                            context,
-                            theme,
-                            'governance.dynamic_screen.development_lifecycle'
-                                .tr(),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildLifecycleStepper(
-                            context,
-                            theme,
-                            metadata.lifecycleStatus,
-                          ),
-                          const SizedBox(height: 48),
-                          _buildSectionHeader(
-                            context,
-                            theme,
-                            'governance.dynamic_screen.screen_specifications'
-                                .tr(),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildSpecsTable(context, theme, metadata),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 48),
-                    // Right Column: Platform Components
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildSectionHeader(
-                            context,
-                            theme,
-                            'governance.dynamic_screen.platform_architecture_status'
-                                .tr(),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildArchitectureStatus(context, theme, statusText),
-                          const SizedBox(height: 48),
-                          _buildAuditActions(context, theme),
-                        ],
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildTechnicalManifest(BuildContext context, PrimeThemeData theme, ScreenMetadata metadata) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader(context, theme, 'Technical Manifest'),
+        SizedBox(height: context.s(32)),
+        _buildSpecsTable(context, theme, metadata),
+        SizedBox(height: context.s(48)),
+        _buildSectionHeader(context, theme, 'Development Pipeline'),
+        SizedBox(height: context.s(32)),
+        _buildLifecycleStepper(context, theme, metadata.lifecycleStatus),
+      ],
+    );
+  }
+
+  Widget _buildGovernanceStack(BuildContext context, PrimeThemeData theme, ScreenMetadata metadata) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader(context, theme, 'Platform Integrity'),
+        SizedBox(height: context.s(32)),
+        _buildArchitectureStatus(context, theme, metadata.lifecycleStatus.name.toUpperCase()),
+        SizedBox(height: context.s(48)),
+        _buildAuditActions(context, theme),
+      ],
     );
   }
 

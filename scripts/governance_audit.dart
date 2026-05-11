@@ -38,7 +38,10 @@ void main() {
       .toList();
 
   for (final screen in screens) {
-    final hasFile = uiFiles.contains(screen.sourcePath);
+    // Check if the source path ends with any of the files found in the UI directory
+    // or if the file actually exists at the absolute/relative path provided.
+    final bool hasFile = File(screen.sourcePath).existsSync() || 
+                        uiFiles.any((f) => screen.sourcePath.endsWith(f));
 
     if (hasFile) {
       verifiedImplementation++;
@@ -104,18 +107,33 @@ class RegistryEntry {
 
 List<RegistryEntry> _parseRegistry(String content) {
   final List<RegistryEntry> entries = [];
-  final regex = RegExp(r'ScreenMetadata\((.*?)\),', dotAll: true);
-  final matches = regex.allMatches(content);
-
-  for (final match in matches) {
-    final block = match.group(1)!;
-    entries.add(
-      RegistryEntry(
-        id: _getField(block, 'id'),
-        isVirtual: _getBoolField(block, 'isVirtual'),
-        sourcePath: _getField(block, 'sourcePath'),
-      ),
-    );
+  
+  // Split by 'ScreenMetadata(' and then find the matching ')' to handle nested parens
+  final parts = content.split('ScreenMetadata(');
+  for (int i = 1; i < parts.length; i++) {
+    final part = parts[i];
+    int balance = 1;
+    int endPos = -1;
+    for (int j = 0; j < part.length; j++) {
+      if (part[j] == '(') balance++;
+      else if (part[j] == ')') balance--;
+      
+      if (balance == 0) {
+        endPos = j;
+        break;
+      }
+    }
+    
+    if (endPos != -1) {
+      final block = part.substring(0, endPos);
+      entries.add(
+        RegistryEntry(
+          id: _getField(block, 'id'),
+          isVirtual: _getBoolField(block, 'isVirtual'),
+          sourcePath: _getField(block, 'sourcePath'),
+        ),
+      );
+    }
   }
   return entries;
 }

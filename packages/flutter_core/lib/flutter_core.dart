@@ -28,6 +28,7 @@ export 'routes/governance_router.dart';
 export 'registry/governance_registry.dart';
 export 'registry/platform_role.dart';
 export 'registry/intents/app_screen_intent.dart';
+export 'registry/platform_application_registry.dart';
 export 'registry/widgets/governance_skeleton.dart';
 export 'registry/widgets/governance_master_layout.dart';
 
@@ -59,6 +60,7 @@ export 'package:lucide_icons/lucide_icons.dart';
 export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';
 export 'providers/persistence_providers.dart';
+export 'providers/platform_providers.dart';
 
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';
@@ -74,6 +76,7 @@ export 'models/navigation_item.dart';
 export 'models/platform_types.dart';
 export 'models/domain_response.dart';
 export 'models/domain_governance.dart';
+export 'models/governance_role.dart';
 export 'src/models/scheduler_models.dart';
 
 export 'manifest/action_manifest.dart';

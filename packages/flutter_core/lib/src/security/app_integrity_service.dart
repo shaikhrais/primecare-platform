@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:safe_device/safe_device.dart';
 import 'package:root_checker_plus/root_checker_plus.dart';
 import 'dart:io';
@@ -39,14 +40,21 @@ class AppIntegrityService {
       bool isRooted = false;
       bool isJailbroken = false;
 
-      if (Platform.isAndroid) {
-        isRooted = await RootCheckerPlus.isRootChecker() ?? false;
-      } else if (Platform.isIOS) {
-        isJailbroken = await SafeDevice.isJailBroken;
+      if (!kIsWeb) {
+        if (Platform.isAndroid) {
+          isRooted = await RootCheckerPlus.isRootChecker() ?? false;
+        } else if (Platform.isIOS) {
+          isJailbroken = await SafeDevice.isJailBroken;
+        }
       }
 
-      final isEmulator = await SafeDevice.isRealDevice == false;
-      final isDevMode = await SafeDevice.isDevelopmentModeEnable;
+      bool isEmulator = false;
+      bool isDevMode = false;
+
+      if (!kIsWeb) {
+        isEmulator = await SafeDevice.isRealDevice == false;
+        isDevMode = await SafeDevice.isDevelopmentModeEnable;
+      }
 
       final status = AppIntegrityStatus(
         isRooted: isRooted,

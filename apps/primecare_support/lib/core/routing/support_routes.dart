@@ -65,5 +65,21 @@ class SupportApplication extends PlatformApplication {
   PlatformTenant get tenant => SupportTenant();
 
   @override
-  List<PlatformModule> get modules => [SupportOperationsModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.support,
+          dashboardRoute: SupportRoutes.helpDeskDashboard,
+          modules: [SupportOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.customerSupport,
+          dashboardRoute: SupportRoutes.helpDeskDashboard,
+          modules: [SupportOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.systemVerification,
+          dashboardRoute: '/offices/system-verification',
+          modules: [SupportOperationsModule()],
+        ),
+      ];
 }

@@ -57,5 +57,26 @@ class ClientApplication extends PlatformApplication {
   PlatformTenant get tenant => ClientTenant();
 
   @override
-  List<PlatformModule> get modules => [ClientOperationsModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.patient,
+          dashboardRoute: ClientRoutes.patientDashboard,
+          modules: [ClientOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.familyMember,
+          dashboardRoute: ClientRoutes.familyMemberDashboard,
+          modules: [ClientOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.client,
+          dashboardRoute: ClientRoutes.patientDashboard,
+          modules: [ClientOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.guest,
+          dashboardRoute: ClientRoutes.patientDashboard, // Fallback
+          modules: [ClientOperationsModule()],
+        ),
+      ];
 }

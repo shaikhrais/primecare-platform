@@ -97,7 +97,7 @@ async function generateStitchFeatures(key: string, prisma: any): Promise<any[]> 
   const seed = match ? parseInt(match[0], 10) : 1;
   const countToGenerate = seed > 0 && seed <= 150 ? 1 : 10; // Expanded to 150 archetypes
 
-  const records = [];
+  const records: any[] = [];
   
   let shiftCount = 0;
   let visitCount = 0;

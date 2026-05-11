@@ -34,7 +34,9 @@
     "@fastify/busboy": "^3.2.0",
     "decimal.js": "^10.6.0",
     "esbuild": "^0.27.2",
+    "hono": "4.12.18",
     "pg": "8.11.3",
+    "semver": "7.6.3",
     "stripe": "^22.0.0"
   },
   "optionalDependencies": {

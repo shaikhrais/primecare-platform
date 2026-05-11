@@ -4,14 +4,15 @@ import '../security/security_interceptor.dart';
 
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
-  return ApiClient();
+  return ApiClient(ref);
 });
 
 /// A standardized API client for the PrimeCare platform using Dio.
 class ApiClient {
   final Dio _dio;
+  final Ref _ref;
 
-  ApiClient()
+  ApiClient(this._ref)
     : _dio = Dio(
         BaseOptions(
           baseUrl: ApiConfig.baseUrl,
@@ -19,11 +20,10 @@ class ApiClient {
           receiveTimeout: const Duration(seconds: 10),
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-Device-ID': 'DeviceManager.instance.deviceId', // In reality, this would be dynamic
           },
         ),
       ) {
-    _dio.interceptors.add(SecurityInterceptor());
+    _dio.interceptors.add(SecurityInterceptor(_ref));
   }
 
   /// Performs a GET request.
@@ -114,7 +114,7 @@ class ApiResponse {
 
 /// Centralized configuration for API endpoints and base URL.
 class ApiConfig {
-  static const String baseUrl = 'https://api.primecare.io';
+  static const String baseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8700');
 
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',

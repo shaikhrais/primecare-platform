@@ -61,7 +61,23 @@ registries:
         blueprint_id: "blueprint.dashboard.standard"
         completion_percent: 92
         office: "Frontline Operations"
+      - screen_id: "clinical.psw.shift_tracker"
+        blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 15
+        office: "Frontline Operations"
+      - screen_id: "clinical.psw.tasks"
+        blueprint_id: "blueprint.list.audit"
+        completion_percent: 65
+        office: "Frontline Operations"
       - screen_id: "clinical.intake.patient_intake_form"
         blueprint_id: "blueprint.form.clinical"
         completion_percent: 75
         office: "Admissions"
+      - screen_id: "corporate.cfo.dashboard"
+        blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 25
+        office: "Executive Office"
+      - screen_id: "corporate.cto.dashboard"
+        blueprint_id: "blueprint.dashboard.standard"
+        completion_percent: 30
+        office: "Executive Office"

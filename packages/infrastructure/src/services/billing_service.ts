@@ -35,9 +35,9 @@ export class BillingService {
 
         // 1. Fetch tax settings from tenant if tax amount not explicitly provided
         if (tax === undefined) {
-            let tenant = null;
+            let tenant: any = null;
             try {
-              tenant = this.prisma.tenant.findUnique({
+              tenant = await this.prisma.tenant.findUnique({
                             where: { id: tenantId },
                             select: { taxPercentage: true }
                         });

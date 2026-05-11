@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
-import 'package:governance_service/src/database/database_controller.dart';
-import 'package:governance_service/src/routes/governance_routes.dart';
+import 'package:governance_api/src/database/database_controller.dart';
+import 'package:governance_api/src/routes/governance_routes.dart';
 
 // Helper to add CORS headers
 Middleware corsMiddleware() {

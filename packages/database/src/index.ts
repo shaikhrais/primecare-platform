@@ -1,1 +1,2 @@
-export * from '../generated/client';
+export * from '../generated/client/edge.js';
+

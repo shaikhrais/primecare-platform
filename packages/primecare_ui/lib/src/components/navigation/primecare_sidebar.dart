@@ -1,25 +1,12 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 
-class NavigationItem {
-  final IconData icon;
-  final String label;
-  final String route;
-  final bool isSelected;
-
-  const NavigationItem({
-    required this.icon,
-    required this.label,
-    required this.route,
-    this.isSelected = false,
-  });
-}
-
 class PrimeCareSidebar extends StatelessWidget {
   final String userName;
   final String userRole;
   final String? userAvatarUrl;
-  final List<NavigationItem> items;
+  final List<PrimeCareNavigationItem> items;
+  final String? currentRoute;
   final Widget? footer;
 
   const PrimeCareSidebar({
@@ -28,6 +15,7 @@ class PrimeCareSidebar extends StatelessWidget {
     required this.userRole,
     this.userAvatarUrl,
     required this.items,
+    this.currentRoute,
     this.footer,
   });
 
@@ -89,30 +77,34 @@ class PrimeCareSidebar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(BuildContext context, NavigationItem item) {
+  Widget _buildNavItem(BuildContext context, PrimeCareNavigationItem item) {
     final theme = context.theme;
+    final isSelected = currentRoute == item.route || 
+                      ((currentRoute?.startsWith(item.route) ?? false) && item.route != '/');
+
+    
     return ListTile(
       leading: Icon(
         item.icon,
         size: context.s(20),
-        color: item.isSelected
+        color: isSelected
             ? theme.colors.primary
             : theme.colors.onSurfaceVariant,
       ),
       title: Text(
         item.label,
         style: theme.typography.bodyMedium.copyWith(
-          color: item.isSelected
+          color: isSelected
               ? theme.colors.primary
               : theme.colors.onSurfaceVariant,
           fontSize: context.s(14),
-          fontWeight: item.isSelected ? FontWeight.bold : FontWeight.normal,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(context.s(8)),
       ),
-      selected: item.isSelected,
+      selected: isSelected,
       selectedTileColor: theme.colors.primary.withValues(alpha: 0.05),
       onTap: () {
         context.go(item.route);

@@ -315,5 +315,8 @@
     "exit_message": "Are you sure you want to end your current session?",
     "stay": "Stay",
     "exit_session": "Exit Session"
+  },
+  "governance": {
+    "role_label": "Role"
   }
 }

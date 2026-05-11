@@ -11,6 +11,8 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "archive/**"
+    - "scratch/**"
+
 
 linter:
   rules:

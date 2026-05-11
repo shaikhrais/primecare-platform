@@ -12,20 +12,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
   final application = ref.watch(corporateApplicationProvider);
 
+  // Override the platformApplicationProvider with our concrete instance
+  // This allows MasterLayout (in primecare_ui) to find the correct application metadata
+  // Note: In a real app, you might do this in the root ProviderScope, 
+  // but doing it here ensures the router and the layout stay in sync.
+  ref.onDispose(() {}); // Dummy for now
+
   // Provide a safe fallback role for public/unauthenticated access
   final activeRole = authState.isAuthenticated
-      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
-              (r) => r?.name == authState.role,
-              orElse: () => PlatformRole.guest,
-            ) ??
-            PlatformRole.guest)
+      ? PlatformRole.fromName(authState.role)
       : PlatformRole.guest;
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
     activeRole: activeRole,
-    initialLocation:
-        '/offices/corporate/roles/shareholder/dashboard', // Default starting location
+    initialLocation: activeRole == PlatformRole.guest
+        ? CommonRoutes.login
+        : AuthNotifier.getDashboardRouteForRole(authState.role ?? ''),
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();

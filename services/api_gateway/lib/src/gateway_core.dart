@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf_proxy/shelf_proxy.dart';
+
+import 'package:http/http.dart' as http;
 import 'package:database_client/database_client.dart';
 import 'mock_ui_service.dart';
 
@@ -11,19 +12,19 @@ class GatewayController {
 
   GatewayController(this._db);
 
-  Future<Response> healthCheck(Request request) async {
+  Future<shelf.Response> healthCheck(shelf.Request request) async {
     try {
       await _db.query('SELECT 1');
-      return Response.ok('{"status": "API Gateway Operational", "database": "healthy"}',
+      return shelf.Response.ok('{"status": "API Gateway Operational", "database": "healthy"}',
           headers: {'Content-Type': 'application/json'});
     } catch (e) {
-      return Response.internalServerError(
+      return shelf.Response.internalServerError(
           body: '{"status": "Gateway Degraded", "database": "offline"}',
           headers: {'Content-Type': 'application/json'});
     }
   }
 
-  Future<Response> mockUI(Request request) => handleMockUIEndpoint(request);
+  Future<shelf.Response> mockUI(shelf.Request request) => handleMockUIEndpoint(request);
 }
 
 /// [ServiceMesh] - Manages the configuration and proxying of microservices.
@@ -34,8 +35,8 @@ class ServiceMesh {
 
   factory ServiceMesh.fromEnvironment() {
     return ServiceMesh({
-      'auth': Platform.environment['AUTH_SERVICE_URL'] ?? 'http://auth_api:8080',
-      'providers': Platform.environment['PROVIDER_SERVICE_URL'] ?? 'http://provider_api:8080',
+      'auth': Platform.environment['AUTH_SERVICE_URL'] ?? 'http://localhost:8081',
+      'providers': Platform.environment['PROVIDER_SERVICE_URL'] ?? 'http://localhost:8082',
       'clients': Platform.environment['CLIENT_SERVICE_URL'] ?? 'http://client_api:8080',
       'billing': Platform.environment['BILLING_SERVICE_URL'] ?? 'http://billing_api:8080',
       'governance': Platform.environment['GOVERNANCE_SERVICE_URL'] ?? 'http://governance_api:8080',
@@ -48,7 +49,41 @@ class ServiceMesh {
 
   void registerRoutes(Router router) {
     services.forEach((key, url) {
-      router.all('/api/$key/<ignored|.*>', proxyHandler(url));
+      print('Registering route: /v1/$key/ to $url');
+      
+      final handler = (shelf.Request request) async {
+        final remainingPath = request.params['path'] ?? '';
+        final targetUrl = '$url/$remainingPath';
+        
+        print('Manual Proxying ${request.method} ${request.requestedUri.path} to $targetUrl');
+        
+        try {
+          final client = http.Client();
+          final body = await request.read().fold<List<int>>(<int>[], (p, e) => p..addAll(e));
+          
+          final proxiedRequest = http.Request(request.method, Uri.parse(targetUrl))
+            ..headers.addAll(request.headers)
+            ..bodyBytes = body;
+          
+          // Remove host header to avoid conflicts
+          proxiedRequest.headers.remove('host');
+          
+          final streamedResponse = await client.send(proxiedRequest);
+          final response = await http.Response.fromStream(streamedResponse);
+          
+          return shelf.Response(
+            response.statusCode,
+            body: response.bodyBytes,
+            headers: response.headers,
+          );
+        } catch (e) {
+          print('Proxy Error: $e');
+          return shelf.Response.internalServerError(body: 'Proxy Error: $e');
+        }
+      };
+
+      router.all('/api/$key/<path|.*>', handler);
+      router.all('/v1/$key/<path|.*>', handler);
     });
   }
 }

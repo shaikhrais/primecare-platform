@@ -5,6 +5,7 @@
   "types": "src/index.ts",
   "scripts": {
     "generate": "prisma generate",
+    "db-sync": "prisma db push",
     "postinstall": "prisma generate",
     "typecheck": "tsc --noEmit",
     "check-architecture": "npx tsx ci_architectural_gate.ts"

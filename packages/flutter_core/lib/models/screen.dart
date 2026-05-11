@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:go_router/go_router.dart';
 
 /// Base class for governed consumer widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
@@ -126,6 +128,7 @@ class PrimeCareScreen extends AppScreenIntent {
   final PlatformSubsystem? primarySubsystem;
 
   final String? _routeOverride;
+  final IconData? icon;
 
   PrimeCareScreen({
     String? name,
@@ -135,6 +138,7 @@ class PrimeCareScreen extends AppScreenIntent {
     this.provider,
     this.resiliencePolicy = const ResiliencePolicy(),
     this.primarySubsystem = PlatformSubsystem.metrics,
+    this.icon,
     String? route,
   }) : name = name ?? (route ?? '').split('/').last,
        _routeOverride = route;
@@ -149,33 +153,193 @@ class PrimeCareScreen extends AppScreenIntent {
       'Layout Invariant Violation: All screens must be rendered within a MasterLayout shell. Direct routing without the shell is prohibited.',
     );
 
+    return DefaultNotImplementedView(
+      title: title,
+      route: route,
+      requiredRole: requiredRole,
+    );
+  }
+}
+
+class DefaultNotImplementedView extends StatelessWidget {
+  final String title;
+  final String route;
+  final PlatformRole? requiredRole;
+
+  const DefaultNotImplementedView({
+    super.key,
+    required this.title,
+    required this.route,
+    this.requiredRole,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.primaryColor;
+
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.warning_amber_rounded,
-              size: 48,
-              color: Colors.orange,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              tr('governance.screen_not_implemented'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-            Text(tr('governance.route_label', args: [route])),
-            Text(
-              tr(
-                'governance.role_label',
-                args: [requiredRole?.displayName ?? 'Public'],
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          // Dynamic Mesh Gradient Background
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    primaryColor.withValues(alpha: 0.05),
+                    theme.scaffoldBackgroundColor,
+                    primaryColor.withValues(alpha: 0.02),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          // Floating Decorative Elements
+          _buildFloatingIcon(LucideIcons.code, 100, 100, 0.1),
+          _buildFloatingIcon(LucideIcons.layers, 300, 150, 0.05),
+          _buildFloatingIcon(LucideIcons.construction, 150, 400, 0.08),
+          _buildFloatingIcon(LucideIcons.sparkles, 350, 500, 0.1),
+
+          Center(
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeOutBack,
+              builder: (context, value, child) {
+                return Transform.scale(
+                  scale: value,
+                  child: Opacity(
+                    opacity: value.clamp(0, 1),
+                    child: child,
+                  ),
+                );
+              },
+              child: Container(
+                width: 500,
+                padding: const EdgeInsets.all(48),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.5),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: primaryColor.withValues(alpha: 0.1),
+                      blurRadius: 40,
+                      offset: const Offset(0, 20),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: primaryColor.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        LucideIcons.penTool,
+                        size: 64,
+                        color: primaryColor,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      tr('governance.screen_under_construction'),
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.textTheme.bodyLarge?.color,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.hintColor,
+                        letterSpacing: 0.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 32),
+                    const Divider(),
+                    const SizedBox(height: 32),
+                    _buildInfoRow(
+                      context,
+                      LucideIcons.mapPin,
+                      tr('governance.route_label', args: [route]),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildInfoRow(
+                      context,
+                      LucideIcons.shield,
+                      tr(
+                        'governance.role_label',
+                        args: [requiredRole?.displayName ?? 'Public'],
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    ElevatedButton.icon(
+                      onPressed: () => context.pop(),
+                      icon: const Icon(LucideIcons.arrowLeft, size: 18),
+                      label: const Text('Back to Dashboard'),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildFloatingIcon(
+    IconData icon,
+    double top,
+    double left,
+    double opacity,
+  ) {
+    return Positioned(
+      top: top,
+      left: left,
+      child: Opacity(
+        opacity: opacity,
+        child: Icon(icon, size: 120),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(BuildContext context, IconData icon, String text) {
+    final theme = Theme.of(context);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 16, color: theme.primaryColor),
+        const SizedBox(width: 12),
+        Text(
+          text,
+          style: theme.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

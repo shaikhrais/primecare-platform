@@ -7,9 +7,13 @@
     "@primecare/database": "^1.0.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "@sentry/cloudflare": "^10.47.0",
-    "@sentry/core": "^10.47.0"
+    "@sentry/core": "^10.47.0",
+    "decimal.js": "^10.6.0",
+    "hono": "^4.0.0",
+    "stripe": "^14.19.0"
   },
   "scripts": {
+    "build": "tsc",
     "typecheck": "tsc --noEmit"
   }
 }

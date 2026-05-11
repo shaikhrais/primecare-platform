@@ -31,7 +31,7 @@ export const prismaMiddleware = () => {
             const dbUrl = c.env.DATABASE_URL;
 
             try {
-                let edgeUri = dbUrl;
+                let edgeUri = c.env.PRISMA_DATABASE_URL || c.env.DATABASE_URL;
                 
                 if (!edgeUri) {
                     throw new Error("CRITICAL STARTUP FAILURE: DATABASE_URL is utterly undefined.");
@@ -39,6 +39,7 @@ export const prismaMiddleware = () => {
 
                 console.log(`[PRISMA_INIT] Initializing with URL type: ${edgeUri.split(':')[0]}`);
 
+                // Manual conversion for legacy postgres URLs pointing to Prisma DB
                 if (edgeUri.includes('db.prisma.io') && edgeUri.startsWith('postgres://')) {
                     const urlObj = new URL(edgeUri);
                     const apiKey = urlObj.username ? `${urlObj.username}:${urlObj.password}` : urlObj.password;
@@ -75,7 +76,7 @@ export const prismaMiddleware = () => {
             const parts = host.split('.');
             if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost', 'primecare-api'].includes(parts[0]!)) {
                 const tenantSlug = parts[0];
-                let tenant = null;
+                let tenant: any = null;
                 try {
                     tenant = await prismaInstance.tenant.findUnique({
                         where: { slug: tenantSlug },

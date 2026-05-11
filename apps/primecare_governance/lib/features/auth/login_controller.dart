@@ -87,6 +87,24 @@ class LoginController extends Notifier<LoginState> {
     state = state.copyWith(email: 'admin@demo.primecare.com', password: 'demo');
     login();
   }
+
+  /// Simulates a login for a specific role (Development/Demo only).
+  Future<void> simulateLogin(String role) async {
+    state = state.copyWith(isLoading: true, clearError: true);
+    // Simulate API delay
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    try {
+      // Injects the role directly into the session via the auth provider
+      await ref.read(authProvider.notifier).simulateRoleSession(role);
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'Simulation failed: $e',
+      );
+    }
+  }
 }
 
 final loginControllerProvider = NotifierProvider<LoginController, LoginState>(

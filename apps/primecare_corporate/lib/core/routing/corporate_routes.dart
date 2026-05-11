@@ -1,5 +1,25 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
+import '../../features/auth/login_page.dart';
+import '../../features/dashboard/shareholder_dashboard_page.dart';
+
+/// A custom implementation of PrimeCareScreen that renders a specific widget.
+class RealPrimeCareScreen extends PrimeCareScreen {
+  final Widget child;
+
+  RealPrimeCareScreen({
+    required super.title,
+    required super.route,
+    required super.requiredRole,
+    required this.child,
+    super.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return child;
+  }
+}
 
 class PrimeCareTenant extends PlatformTenant {
   @override
@@ -12,66 +32,245 @@ class PrimeCareTenant extends PlatformTenant {
   ThemeData get branding => ThemeData.light();
 }
 
-class CorporateLeadershipModule extends PlatformModule {
+class CEOModule extends PlatformModule {
   @override
-  String get moduleId => 'corporate_leadership';
-
+  String get moduleId => 'ceo_leadership';
   @override
-  String get name => 'Leadership';
-
+  String get name => 'CEO Dashboard';
   @override
   IconData get icon => Icons.admin_panel_settings;
-
   @override
-  List<PlatformRole> get allowedRoles => [
-    PlatformRole.ceo,
-    PlatformRole.coo,
-    PlatformRole.cfo,
-    PlatformRole.cto,
-    PlatformRole.shareholder,
-    PlatformRole.corporate,
-  ];
-
+  List<PlatformRole> get allowedRoles => [PlatformRole.ceo];
   @override
   List<PrimeCareScreen> get screens => [
-    PrimeCareScreen(
-      title: 'CEO Dashboard',
-      route: CorporateRoutes.ceoDashboard,
-      requiredRole: PlatformRole.ceo,
-    ),
-    PrimeCareScreen(
-      title: 'COO Dashboard',
-      route: CorporateRoutes.cooDashboard,
-      requiredRole: PlatformRole.coo,
-    ),
-    PrimeCareScreen(
-      title: 'CFO Dashboard',
-      route: CorporateRoutes.cfoDashboard,
-      requiredRole: PlatformRole.cfo,
-    ),
-    PrimeCareScreen(
-      title: 'CTO Dashboard',
-      route: CorporateRoutes.ctoDashboard,
-      requiredRole: PlatformRole.cto,
-    ),
-    PrimeCareScreen(
-      title: 'CTO Verification Hub',
-      route: CorporateRoutes.ctoVerificationHub,
-      requiredRole: PlatformRole.cto,
-    ),
-  ];
+        PrimeCareScreen(
+          title: 'CEO Overview',
+          route: CorporateRoutes.ceoDashboard,
+          requiredRole: PlatformRole.ceo,
+          icon: LucideIcons.layoutDashboard,
+        ),
+        PrimeCareScreen(
+          title: tr('corporate.ceo_enterprise_overview'),
+          route: CorporateRoutes.ceoEnterpriseOverview,
+          requiredRole: PlatformRole.ceo,
+          icon: LucideIcons.building,
+        ),
+        PrimeCareScreen(
+          title: tr('corporate.ceo_franchise_overview'),
+          route: CorporateRoutes.ceoFranchiseOverview,
+          requiredRole: PlatformRole.ceo,
+          icon: LucideIcons.briefcase,
+        ),
+        PrimeCareScreen(
+          title: tr('corporate.ceo_strategic_kpis'),
+          route: CorporateRoutes.ceoStrategicKpis,
+          requiredRole: PlatformRole.ceo,
+          icon: LucideIcons.trendingUp,
+        ),
+        PrimeCareScreen(
+          title: tr('corporate.ceo_revenue_summary'),
+          route: CorporateRoutes.ceoRevenueSummary,
+          requiredRole: PlatformRole.ceo,
+          icon: LucideIcons.dollarSign,
+        ),
+      ];
+}
+
+class COOModule extends PlatformModule {
+  @override
+  String get moduleId => 'coo_ops';
+  @override
+  String get name => 'Operations';
+  @override
+  IconData get icon => Icons.settings_applications_outlined;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.coo];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'COO Dashboard',
+          route: CorporateRoutes.cooDashboard,
+          requiredRole: PlatformRole.coo,
+          icon: LucideIcons.settings,
+        ),
+      ];
+}
+
+class CFOModule extends PlatformModule {
+  @override
+  String get moduleId => 'cfo_finance';
+  @override
+  String get name => 'Finance';
+  @override
+  IconData get icon => Icons.account_balance_outlined;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.cfo];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'CFO Dashboard',
+          route: CorporateRoutes.cfoDashboard,
+          requiredRole: PlatformRole.cfo,
+          icon: LucideIcons.wallet,
+        ),
+      ];
+}
+
+class PublicAuthModule extends PlatformModule {
+  @override
+  String get moduleId => 'auth';
+  @override
+  String get name => 'Authentication';
+  @override
+  IconData get icon => Icons.lock;
+  @override
+  List<PlatformRole> get allowedRoles => PlatformRole.values;
+  @override
+  List<PrimeCareScreen> get screens => [
+        RealPrimeCareScreen(
+          title: 'Login',
+          route: CommonRoutes.login,
+          requiredRole: PlatformRole.guest,
+          child: const LoginPage(),
+        ),
+      ];
+}
+
+class ShareholderModule extends PlatformModule {
+  @override
+  String get moduleId => 'shareholder';
+  @override
+  String get name => 'Shareholder Portal';
+  @override
+  IconData get icon => Icons.pie_chart;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.shareholder];
+  @override
+  List<PrimeCareScreen> get screens => [
+        RealPrimeCareScreen(
+          title: 'Shareholder Dashboard',
+          route: '/offices/corporate/roles/shareholder/dashboard',
+          requiredRole: PlatformRole.shareholder,
+          child: const ShareholderDashboardPage(),
+        ),
+      ];
+}
+
+class CTOModule extends PlatformModule {
+  @override
+  String get moduleId => 'cto_tech';
+  @override
+  String get name => 'Technology';
+  @override
+  IconData get icon => Icons.memory_outlined;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.cto];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'CTO Dashboard',
+          route: CorporateRoutes.ctoDashboard,
+          requiredRole: PlatformRole.cto,
+          icon: LucideIcons.cpu,
+        ),
+        PrimeCareScreen(
+          title: 'Verification Hub',
+          route: CorporateRoutes.ctoVerificationHub,
+          requiredRole: PlatformRole.cto,
+          icon: LucideIcons.clipboardCheck,
+        ),
+      ];
+}
+
+class LegalModule extends PlatformModule {
+  @override
+  String get moduleId => 'legal_compliance';
+  @override
+  String get name => 'Legal & Compliance';
+  @override
+  IconData get icon => Icons.gavel_outlined;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.legal];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'Legal Dashboard',
+          route: CorporateRoutes.legalDashboard,
+          requiredRole: PlatformRole.legal,
+          icon: LucideIcons.gavel,
+        ),
+      ];
+}
+
+class CISOModule extends PlatformModule {
+  @override
+  String get moduleId => 'ciso_security';
+  @override
+  String get name => 'Security';
+  @override
+  IconData get icon => Icons.security_outlined;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.ciso];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'CISO Dashboard',
+          route: CorporateRoutes.cisoDashboard,
+          requiredRole: PlatformRole.ciso,
+          icon: LucideIcons.shieldCheck,
+        ),
+      ];
 }
 
 class CorporateApplication extends PlatformApplication {
   @override
   String get appId => 'primecare_corporate';
-
   @override
   String get name => 'PrimeCare Corporate Portal';
-
   @override
   PlatformTenant get tenant => PrimeCareTenant();
 
   @override
-  List<PlatformModule> get modules => [CorporateLeadershipModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.ceo,
+          dashboardRoute: CorporateRoutes.ceoDashboard,
+          modules: [PublicAuthModule(), CEOModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.coo,
+          dashboardRoute: CorporateRoutes.cooDashboard,
+          modules: [PublicAuthModule(), COOModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.cfo,
+          dashboardRoute: CorporateRoutes.cfoDashboard,
+          modules: [PublicAuthModule(), CFOModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.cto,
+          dashboardRoute: CorporateRoutes.ctoDashboard,
+          modules: [PublicAuthModule(), CTOModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.legal,
+          dashboardRoute: CorporateRoutes.legalDashboard,
+          modules: [PublicAuthModule(), LegalModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.ciso,
+          dashboardRoute: CorporateRoutes.cisoDashboard,
+          modules: [PublicAuthModule(), CISOModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.shareholder,
+          dashboardRoute: '/offices/corporate/roles/shareholder/dashboard',
+          modules: [PublicAuthModule(), ShareholderModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.guest,
+          dashboardRoute: CommonRoutes.login,
+          modules: [PublicAuthModule()],
+        ),
+      ];
 }

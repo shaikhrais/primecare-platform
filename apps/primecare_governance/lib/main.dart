@@ -2,8 +2,8 @@ import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/governance/route_registry.dart';
 import 'core/i18n/language_provider.dart';
 
+import 'core/routing/governance_application.dart';
 import 'core/governance/registries/index.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,12 @@ void main() async {
   // 3. Initialize and register all governance screens
   Registry.registerAll();
 
-  PrimeCareAppRunner.run(appWidget: const PrimeCareApp());
+  PrimeCareAppRunner.run(
+    appWidget: const PrimeCareApp(),
+    overrides: [
+      platformApplicationProvider.overrideWithValue(GovernanceApplication()),
+    ],
+  );
 }
 
 class PrimeCareApp extends ConsumerWidget {

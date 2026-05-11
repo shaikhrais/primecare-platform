@@ -159,4 +159,8 @@ class CorporateRoutes {
       '/offices/corporate/roles/cx_director/dashboard';
   static const String itAdminDashboard =
       '/offices/corporate/roles/it_admin/dashboard';
+  static const String legalDashboard =
+      '/offices/corporate/roles/legal/dashboard';
+  static const String cisoDashboard =
+      '/offices/corporate/roles/ciso/dashboard';
 }

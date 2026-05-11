@@ -476,6 +476,28 @@ class AuthNotifier extends Notifier<AuthState> {
       }
     }
   }
+  Future<void> simulateRoleSession(String role) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', 'simulated-token');
+    await prefs.setString('auth_role', role);
+    await prefs.setString('auth_username', 'Simulated $role');
+    await prefs.setString('auth_tenant_id', 'simulated-tenant');
+
+    state = state.copyWith(
+      isAuthenticated: true,
+      token: 'simulated-token',
+      role: role,
+      userName: 'Simulated $role',
+      tenantId: 'simulated-tenant',
+      preferredLanguage: 'en',
+    );
+    authListenable.value = true;
+
+    ref.read<ExecutionGateService>(executionGateProvider).passGate(
+      ExecutionGateCategory.auth,
+      'Architectural Parity Simulation active for role: $role',
+    );
+  }
 }
 
 final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {

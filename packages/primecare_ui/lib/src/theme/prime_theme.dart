@@ -229,6 +229,7 @@ class PrimeSpacing {
   final double lg;
   final double xl;
   final double xxl;
+  final double xxxl;
   final double containerPadding;
   final double cardGap;
 
@@ -239,6 +240,7 @@ class PrimeSpacing {
     this.lg = 24.0,
     this.xl = 32.0,
     this.xxl = 48.0,
+    this.xxxl = 64.0,
     this.containerPadding = 24.0,
     this.cardGap = 16.0,
   });

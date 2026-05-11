@@ -45,14 +45,29 @@ export async function main() {
 
   // 2. Roles Setup (38 Identities)
   const rolesList = [
-    'ceo', 'coo', 'cfo', 'cto', 'compliance_manager', 'training_director',
-    'regional_manager_ontario', 'regional_manager_usa', 'franchise_sales_manager',
-    'partnership_manager', 'territory_expansion_manager', 'general_manager',
-    'franchise_owner', 'operations_manager', 'scheduler', 'billing_admin', 'hr_manager',
-    'rn', 'rpn', 'rmt', 'psw', 'physiotherapist', 'chiropractor', 'occupational_therapist', 'speech_pathologist',
-    'customer_support', 'intake_coordinator', 'quality_assurance', 'training_coordinator',
-    'local_marketing', 'community_outreach', 'territory_sales',
-    'client', 'family_member', 'admin', 'receptionist', 'scrum_master', 'finance_director'
+    // Corporate Leadership
+    'ceo', 'coo', 'cfo', 'cto', 'compliance_manager', 'head_of_bus_dev', 'head_of_marketing',
+    'training_director', 'finance_director', 'scrum_master', 'hr_director', 'cx_director', 'shareholder',
+
+    // Business Development
+    'regional_manager_ontario', 'regional_manager_usa', 'regional_bdm', 'franchise_sales_manager',
+    'partnership_manager', 'territory_expansion_manager', 'territory_sales_manager', 'general_manager',
+    'local_marketing_manager', 'community_outreach',
+
+    // Franchise Tier
+    'franchise_owner', 'operations_manager', 'scheduler', 'billing_admin', 'hr_hiring', 'hr_manager', 'owner',
+
+    // Clinical & Support
+    'clinical_director', 'intake_coordinator', 'quality_assurance', 'training_coordinator',
+    'volunteer_coordinator', 'receptionist', 'psw', 'rn', 'rpn', 'rmt', 'chiropractor',
+    'physiotherapist', 'social_worker', 'clinic', 'patient', 'customer_support', 'intake', 'qa', 'support',
+
+    // Training & Architecture
+    'training_director_certificate', 'training_hub', 'course_architect', 'architecture_planning',
+    'system_verification', 'dynamic_screen',
+
+    // Infrastructure & Client
+    'admin', 'client', 'family_member'
   ];
 
   console.log('👥 Seeding Identities...');

@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import '../security/device_fingerprint.dart';
 
@@ -38,13 +38,19 @@ class DeviceManager {
     String? manufacturer;
     bool isPhysical = true;
 
-    if (Platform.isAndroid) {
+    if (kIsWeb) {
+      final webInfo = await _deviceInfo.webBrowserInfo;
+      model = webInfo.browserName.name;
+      osVersion = webInfo.userAgent ?? 'Web';
+      manufacturer = webInfo.vendor;
+      isPhysical = true;
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
       final androidInfo = await _deviceInfo.androidInfo;
       model = androidInfo.model;
       osVersion = 'Android ${androidInfo.version.release}';
       manufacturer = androidInfo.manufacturer;
       isPhysical = androidInfo.isPhysicalDevice;
-    } else if (Platform.isIOS) {
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       final iosInfo = await _deviceInfo.iosInfo;
       model = iosInfo.utsname.machine;
       osVersion = 'iOS ${iosInfo.systemVersion}';
@@ -64,6 +70,7 @@ class DeviceManager {
   String _generateUuid() {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final random = (1000 + (DateTime.now().microsecond % 9000));
-    return 'PC-${Platform.operatingSystem}-$timestamp-$random';
+    final os = kIsWeb ? 'web' : defaultTargetPlatform.name;
+    return 'PC-$os-$timestamp-$random';
   }
 }

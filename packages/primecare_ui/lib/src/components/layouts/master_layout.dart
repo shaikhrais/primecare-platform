@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 
 /// [Layout] - The master shell for all PrimeCare Dashboards.
 /// Provides a consistent structural foundation with automatic padding and
@@ -94,73 +95,21 @@ class MasterLayout extends ConsumerWidget {
   }
 
   Widget? _buildSidebar(BuildContext context, AuthState auth) {
-    if (shellType == null) return null;
+    final activeRole = PlatformRole.fromName(auth.role);
+    final govRole = GovernanceRole(activeRole);
+    
+    // Fetch the current route from GoRouter
+    final currentRoute = GoRouterState.of(context).uri.toString();
+
+    // Prioritize registry-driven menu items for "Real Programmer" consistency
+    final List<PrimeCareNavigationItem> items = govRole.menuItems;
 
     return PrimeCareSidebar(
-      userName: auth.userName ?? 'Alex Rivera',
-      userRole: auth.role ?? 'Senior Administrator',
-      items: _getNavigationItems(shellType!),
+      userName: auth.userName ?? 'System User',
+      userRole: govRole.name,
+      currentRoute: currentRoute,
+      items: items,
     );
-  }
-
-  List<NavigationItem> _getNavigationItems(AppShellType type) {
-    switch (type) {
-      case AppShellType.provider:
-        return [
-          const NavigationItem(
-            icon: LucideIcons.layoutDashboard,
-            label: 'Dashboard',
-            route: ClinicalRoutes.pswDashboard,
-            isSelected: true,
-          ),
-          const NavigationItem(
-            icon: LucideIcons.users,
-            label: 'Clients',
-            route: '/psw/clients',
-          ),
-          const NavigationItem(
-            icon: LucideIcons.listTodo,
-            label: 'Tasks',
-            route: '/psw/tasks',
-          ),
-          const NavigationItem(
-            icon: LucideIcons.calendar,
-            label: 'Schedule',
-            route: '/psw/schedule',
-          ),
-          const NavigationItem(
-            icon: LucideIcons.messageSquare,
-            label: 'Messages',
-            route: '/psw/messages',
-          ),
-        ];
-      case AppShellType.clinical:
-        return [
-          const NavigationItem(
-            icon: LucideIcons.activity,
-            label: 'Clinical Ops',
-            route: CommonRoutes.clinicDashboard,
-            isSelected: true,
-          ),
-          const NavigationItem(
-            icon: LucideIcons.userPlus,
-            label: 'Intake',
-            route: '/clinic/intake',
-          ),
-          const NavigationItem(
-            icon: LucideIcons.fileText,
-            label: 'Care Plans',
-            route: CommonRoutes.clinicCarePlan,
-          ),
-          const NavigationItem(
-            icon: LucideIcons.history,
-            label: 'History',
-            route: CommonRoutes.clinicHistoryLogs,
-          ),
-        ];
-      default:
-        return [];
-    }
   }
 }
 

@@ -104,8 +104,10 @@ r.openapi(osmCallbackRoute, async (c) => {
     }
 
     try {
+        const { apiClient } = await import('@primecare/infrastructure');
+
         // 1. Exchange Code for Token
-        const tokenRes = await fetch(OSM_TOKEN_URL, {
+        const tokenRes = await apiClient.fetch(OSM_TOKEN_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({
@@ -115,15 +117,15 @@ r.openapi(osmCallbackRoute, async (c) => {
                 redirect_uri: redirectUri,
                 grant_type: 'authorization_code',
             }),
-        });
+        }, c);
 
         const tokenData = await tokenRes.json() as any;
         if (!tokenRes.ok) throw new Error(tokenData.error_description || 'Token exchange failed');
 
         // 2. Fetch User Details
-        const userRes = await fetch(OSM_USER_URL, {
+        const userRes = await apiClient.fetch(OSM_USER_URL, {
             headers: { 'Authorization': `Bearer ${tokenData.access_token}` }
-        });
+        }, c);
         const userData = await userRes.json() as any;
         if (!userRes.ok) throw new Error('Failed to fetch OSM user details');
 

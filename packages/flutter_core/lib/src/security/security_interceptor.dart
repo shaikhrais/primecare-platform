@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/device_manager.dart';
 import 'app_integrity_service.dart';
 import 'trusted_device_service.dart';
 import '../utils/prime_logger.dart';
+import '../../auth_service.dart';
 
 /// [SecurityInterceptor] - Implements bank-grade network security.
 /// Handles:
@@ -11,11 +13,13 @@ import '../utils/prime_logger.dart';
 /// 2. App Integrity Checks (Fails request if device is rooted)
 /// 3. Request Signing (X-Request-Signature)
 /// 4. CSRF Protection (X-Requested-With)
+/// 5. Tenant Isolation (X-Tenant-ID)
 class SecurityInterceptor extends Interceptor {
-  // SecurityInterceptor logic
-
+  final Ref _ref;
   final AppIntegrityService _integrityService = AppIntegrityService.instance;
   final ITrustedDeviceService _deviceService = TrustedDeviceService();
+
+  SecurityInterceptor(this._ref);
 
   @override
   void onRequest(
@@ -78,10 +82,18 @@ class SecurityInterceptor extends Interceptor {
     options.headers['X-App-Version'] = '1.0.0';
     
     // R23: Tenant Identification parity
-    // If the header isn't already set, we could attempt to pull from a global state if available
-    // For now, we ensure the header key exists to satisfy middleware expectations
-    if (options.headers['X-Tenant-ID'] == null && options.headers['x-tenant-id'] == null) {
-      // Logic to pull from persistence if needed, but usually handled by AuthProvider
+    // Pull tenantId from AuthNotifier state via Ref
+    final authState = _ref.read(authProvider);
+    final tenantId = authState.tenantId;
+
+    if (tenantId != null && tenantId.isNotEmpty) {
+      options.headers['X-Tenant-ID'] = tenantId;
+    }
+
+    // 5. Authorization Token
+    final token = authState.token;
+    if (token != null && token.isNotEmpty && !options.headers.containsKey('Authorization')) {
+      options.headers['Authorization'] = 'Bearer $token';
     }
 
     return handler.next(options);
@@ -97,8 +109,10 @@ class SecurityInterceptor extends Interceptor {
       PrimeLogger.warning(
         'Security Interceptor: Unauthorized access detected. Revoking session.',
       );
-      // Trigger logout/lock flow
+      // Trigger logout via Ref if needed
+      _ref.read(authProvider.notifier).logout();
     }
     super.onError(err, handler);
   }
 }
+

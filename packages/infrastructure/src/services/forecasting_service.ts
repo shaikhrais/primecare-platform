@@ -1,5 +1,5 @@
 import { PrismaClient } from '@primecare/database';
-import { Decimal } from 'Decimal.js';
+import { Decimal } from 'decimal.js';
 
 export interface ForecastPoint {
     date: string;

@@ -1,8 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'core/routing/clinic_routes.dart';
 import 'core/routing/app_router.dart';
 
+
+
 void main() {
-  PrimeCareAppRunner.run(appWidget: const PrimeCareClinicApp());
+  PrimeCareAppRunner.run(
+    appWidget: const PrimeCareClinicApp(),
+    overrides: [
+      platformApplicationProvider.overrideWithValue(ClinicApplication()),
+    ],
+  );
 }
 
 class PrimeCareClinicApp extends ConsumerWidget {

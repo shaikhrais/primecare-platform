@@ -245,5 +245,46 @@ class BusinessDevelopmentApplication extends PlatformApplication {
   PlatformTenant get tenant => BusinessDevelopmentTenant();
 
   @override
-  List<PlatformModule> get modules => [BusinessDevelopmentOperationsModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.regionalManagerOntario,
+          dashboardRoute: BusinessDevelopmentRoutes.regionalManagerOntarioDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.regionalManagerUsa,
+          dashboardRoute: BusinessDevelopmentRoutes.regionalManagerUsaDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.franchiseSalesManager,
+          dashboardRoute: BusinessDevelopmentRoutes.franchiseSalesManagerDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.partnershipManager,
+          dashboardRoute: BusinessDevelopmentRoutes.partnershipManagerDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.territoryExpansionManager,
+          dashboardRoute: BusinessDevelopmentRoutes.territoryExpansionManagerDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.generalManager,
+          dashboardRoute: BusinessDevelopmentRoutes.generalManagerDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.regionalBdm,
+          dashboardRoute: BusinessDevelopmentRoutes.regionalBdmDashboard,
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.systemVerification,
+          dashboardRoute: '/offices/system-verification',
+          modules: [BusinessDevelopmentOperationsModule()],
+        ),
+      ];
 }

@@ -2,7 +2,7 @@
  * Financial Service - Core Class (Skeleton)
  * Reporting methods extracted to financial-reporting.ts
  */
-import { Decimal } from 'Decimal.js';
+import { Decimal } from 'decimal.js';
 import type { PrismaClient } from '@primecare/database';
 import { calculateBalance, getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport } from './financial_reporting_service';
 

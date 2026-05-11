@@ -96,7 +96,7 @@ void main() {
               .toList();
 
           if (missingComps.isNotEmpty) {
-            PrimeLogger.warning(
+            PrimeLogger.info(
               'DRIFT: Screen ${screen.id} is missing expected components from $blueprintId: $missingComps',
             );
             driftCount++;
@@ -110,13 +110,13 @@ void main() {
     }
 
     if (missingCount > 0) {
-      PrimeLogger.warning(
+      PrimeLogger.error(
         'FAILURE: $missingCount screens mapped in blueprints.yaml are missing from the registry.',
       );
     }
 
     if (driftCount > 0) {
-      PrimeLogger.warning(
+      PrimeLogger.error(
         'FAILURE: $driftCount screens have structural drift.',
       );
     }

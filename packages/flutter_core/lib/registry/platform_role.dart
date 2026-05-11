@@ -10,6 +10,7 @@ enum PlatformRole {
   cfo,
   cto,
   complianceManager,
+  governanceOfficer,
   headOfBusDev,
   headOfMarketing,
   trainingDirector,
@@ -18,6 +19,8 @@ enum PlatformRole {
   hrDirector,
   cxDirector,
   shareholder,
+  legal,
+  ciso,
 
   // Business Development
   regionalManagerOntario,
@@ -99,6 +102,24 @@ enum PlatformRole {
   String get displayName {
     final words = name.split(RegExp(r'(?=[A-Z])'));
     return words.map((w) => w[0].toUpperCase() + w.substring(1)).join(' ');
+  }
+
+  /// Returns the platform role from a name string (case-insensitive, handles snake_case).
+  static PlatformRole fromName(String? roleName) {
+    if (roleName == null || roleName.isEmpty) return PlatformRole.guest;
+
+    final normalized = roleName.toLowerCase().replaceAll('_', '').replaceAll(' ', '');
+
+    if (normalized == 'superadmin') return PlatformRole.admin;
+
+    for (final role in PlatformRole.values) {
+      if (role.name.toLowerCase() == normalized ||
+          role.nameSnake.replaceAll('_', '') == normalized) {
+        return role;
+      }
+    }
+
+    return PlatformRole.guest;
   }
 
   /// Derives a categorical platform role from a route string.

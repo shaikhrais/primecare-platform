@@ -2,7 +2,7 @@
  * Financial Service - Reporting Methods
  * Extracted from financial.service.ts (getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport, recordTaxRemittance)
  */
-import { Decimal } from 'Decimal.js';
+import { Decimal } from 'decimal.js';
 import type { PrismaClient } from '@primecare/database';
 
 export function calculateBalance(entries: any[], accountType: string): Decimal {

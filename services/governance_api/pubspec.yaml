@@ -10,8 +10,8 @@ dependencies:
   postgres: ^3.5.9
   shelf: ^1.4.2
   shelf_router: ^1.1.4
-
-  governance_service: any
+  analyzer: any
+  path: any
 dev_dependencies:
   http: ^1.2.2
   lints: ^6.0.0

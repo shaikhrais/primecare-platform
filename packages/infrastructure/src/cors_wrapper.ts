@@ -34,7 +34,7 @@ export function registerCorsMiddleware(app: AppType) {
         let allowedOrigins: string[] = [...CorsRegistry.ALLOWED_ORIGINS];
         let allowedMethods: string[] = [...CorsRegistry.ALLOWED_METHODS];
         let allowedHeaders: string[] = [...CorsRegistry.ALLOWED_HEADERS];
-        if (tenantId) { const prisma = c.get('prisma'); if (prisma) { let tenant = null;
+        if (tenantId) { const prisma = c.get('prisma'); if (prisma) { let tenant: any = null;
         try {
           tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } });
         } catch(e) {

@@ -13,24 +13,34 @@ class PlatformDatabase {
   Future<void> initialize() async {
     if (_connection != null) return;
 
-    final host = Platform.environment['DB_HOST'] ?? 'localhost';
-    final port = int.parse(Platform.environment['DB_PORT'] ?? '5432');
-    final database = Platform.environment['DB_NAME'] ?? 'primecare';
-    final username = Platform.environment['DB_USER'] ?? 'postgres';
-    final password = Platform.environment['DB_PASSWORD'] ?? 'postgres';
+    final dbUrl = Platform.environment['DATABASE_URL'];
+    Endpoint endpoint;
+
+    if (dbUrl != null && dbUrl.isNotEmpty) {
+      final uri = Uri.parse(dbUrl);
+      endpoint = Endpoint(
+        host: uri.host,
+        port: uri.port,
+        database: uri.pathSegments.isNotEmpty ? uri.pathSegments.first : 'postgres',
+        username: uri.userInfo.split(':').first,
+        password: uri.userInfo.contains(':') ? uri.userInfo.split(':').last : null,
+      );
+    } else {
+      endpoint = Endpoint(
+        host: Platform.environment['DB_HOST'] ?? 'localhost',
+        port: int.parse(Platform.environment['DB_PORT'] ?? '5432'),
+        database: Platform.environment['DB_NAME'] ?? 'primecare',
+        username: Platform.environment['DB_USER'] ?? 'postgres',
+        password: Platform.environment['DB_PASSWORD'] ?? 'postgres',
+      );
+    }
 
     try {
       _connection = await Connection.open(
-        Endpoint(
-          host: host,
-          port: port,
-          database: database,
-          username: username,
-          password: password,
-        ),
-        settings: const ConnectionSettings(sslMode: SslMode.disable),
+        endpoint,
+        settings: const ConnectionSettings(sslMode: SslMode.require),
       );
-      print('Connected to PostgreSQL at $host:$port');
+      print('Connected to PostgreSQL at ${endpoint.host}:${endpoint.port}');
     } catch (e) {
       print('Failed to connect to database: $e');
       rethrow;

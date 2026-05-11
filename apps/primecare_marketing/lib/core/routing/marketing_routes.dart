@@ -66,5 +66,26 @@ class MarketingApplication extends PlatformApplication {
   PlatformTenant get tenant => MarketingTenant();
 
   @override
-  List<PlatformModule> get modules => [MarketingOperationsModule()];
+  List<PlatformRoleDefinition> get roleDefinitions => [
+        PlatformRoleDefinition(
+          role: PlatformRole.localMarketingManager,
+          dashboardRoute: MarketingRoutes.localMarketingManagerDashboard,
+          modules: [MarketingOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.communityOutreach,
+          dashboardRoute: MarketingRoutes.communityOutreachDashboard,
+          modules: [MarketingOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.headOfMarketing,
+          dashboardRoute: MarketingRoutes.localMarketingManagerDashboard,
+          modules: [MarketingOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.systemVerification,
+          dashboardRoute: '/offices/system-verification',
+          modules: [MarketingOperationsModule()],
+        ),
+      ];
 }

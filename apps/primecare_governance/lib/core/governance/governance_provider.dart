@@ -730,19 +730,28 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           final office = item['office'] as String? ?? 'Clinical Governance';
 
           // Check if already registered
+          final blueprint = blueprintMap[blueprintId];
+          if (blueprint == null) continue;
+
+          final pendingFromBlueprint = (blueprint['required_components'] as YamlList)
+              .map((c) => c['id'] as String)
+              .toList();
+
           final existing = meta.PlatformScreenRegistry.getById(normalizedId);
           if (existing != null) {
+            // Reconcile: If existing has no components, or we need to enforce blueprint parity
             final updated = existing.copyWith(
               completionPercent: completionPercent,
               office: office,
+              // Merge components if they are missing
+              pendingComponents: existing.pendingComponents.isEmpty && existing.implementedComponents.isEmpty
+                  ? pendingFromBlueprint 
+                  : existing.pendingComponents,
             );
             meta.PlatformScreenRegistry.screens[normalizedId] = updated;
-            results['Skipped'] = (results['Skipped'] ?? 0) + 1; // Still counting as skipped injection, but updated metadata
+            results['Skipped'] = (results['Skipped'] ?? 0) + 1;
             continue;
           }
-
-          final blueprint = blueprintMap[blueprintId];
-          if (blueprint == null) continue;
 
           final category = parts[0].toUpperCase(); // CLINICAL, CORPORATE, etc.
           final displayCategory = category[0] + category.substring(1).toLowerCase();

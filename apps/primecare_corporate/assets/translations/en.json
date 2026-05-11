@@ -4491,5 +4491,13 @@
         "compliance_score": "Global Compliance Score"
       }
     }
+  },
+  "governance": {
+    "unauthorized_access": "Unauthorized access",
+    "access_denied": "Access Denied",
+    "unauthorized_route_message": "404 / Unauthorized or Unimplemented Route",
+    "role_label": "Role: {}",
+    "screen_not_implemented": "Screen is registered but not implemented yet.",
+    "route_label": "Route: {}"
   }
 }

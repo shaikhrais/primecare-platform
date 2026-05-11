@@ -170,7 +170,7 @@ export function registerPublicRoutes(app: AppType) {
                 'count' in (prisma as any)[k]
             );
 
-            const results = [];
+            const results: any[] = [];
             for (const model of models) {
                 try {
                     const count = await (prisma as any)[model].count();

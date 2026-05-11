@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   dio: ^5.9.2
+  lucide_icons: ^0.257.0
   drift: ^2.31.0
   file_picker: ^11.0.2
   fl_chart: ^1.2.0
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/screen_status.json
+    - assets/security_billboard.png
 
 dependency_overrides:
   win32: ^6.0.1
