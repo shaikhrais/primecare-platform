@@ -1,6 +1,7 @@
 /// <reference types="@cloudflare/workers-types" />
 export type Bindings = {
     DATABASE_URL: string;
+    PRISMA_DATABASE_URL?: string;
     JWT_SECRET: string;
     DOCS_BUCKET: R2Bucket;
     STRIPE_SECRET_KEY: string;
@@ -31,4 +32,6 @@ export type Variables = {
     prisma: any;
     can: (action: string, resource: string, resourceId?: string) => Promise<boolean>;
     deviceId?: string | null;
+    tenantId?: string;
+    requestId?: string;
 };

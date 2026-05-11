@@ -14,7 +14,7 @@ import { correlationId, requestLogger } from './observability';
 export const tenantIsolation = (): MiddlewareHandler<{ Bindings: Bindings; Variables: Variables }> => {
     return async (c, next) => {
         const headerTenantId = c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
-        const jwtPayload = c.get('jwtPayload' as any) as { tenantId?: string } | undefined;
+        const jwtPayload = c.get('jwtPayload');
         const jwtTenantId = jwtPayload?.tenantId;
 
         // If both exist, they must match (prevents cross-tenant token reuse)
@@ -28,7 +28,7 @@ export const tenantIsolation = (): MiddlewareHandler<{ Bindings: Bindings; Varia
         // Set resolved tenantId for downstream
         const tenantId = jwtTenantId || headerTenantId;
         if (tenantId) {
-            c.set('tenantId' as any, tenantId);
+            c.set('tenantId', tenantId);
         }
 
         // R23 (L25): Enforce tenantId for authenticated non-public requests

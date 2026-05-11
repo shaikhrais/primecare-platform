@@ -23,7 +23,7 @@ export const correlationId = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
     return async (c, next) => {
         // Accept client-provided correlation ID or generate one
         const reqId = c.req.header('X-Request-ID') || crypto.randomUUID();
-        c.set('requestId' as any, reqId);
+        c.set('requestId', reqId);
         c.header('X-Request-ID', reqId);
         await next();
     };
@@ -45,7 +45,7 @@ export const requestLogger = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
 
         const duration = Date.now() - start;
         const status = c.res.status;
-        const reqId = c.get('requestId' as any) || '-';
+        const reqId = c.get('requestId') || '-';
         const contentLength = c.res.headers.get('Content-Length');
         const isSlow = duration > SLOW_REQUEST_THRESHOLD_MS;
 
