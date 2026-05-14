@@ -1,0 +1,59 @@
+name: Deploy Web Apps to Cloudflare Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    # We use a matrix to parallelize the build and deployment of all 9 apps
+    strategy:
+      matrix:
+        app: 
+          - primecare_business_development
+          - primecare_client
+          - primecare_clinic
+          - primecare_corporate
+          - primecare_franchise
+          - primecare_marketing
+          - primecare_support
+          - primecare_governance
+          - primecare_enterprise_blueprint
+      
+      # Don't fail the entire pipeline if one app fails
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Build Web Release
+        run: |
+          cd apps/${{ matrix.app }}
+          flutter pub get
+          flutter build web --release --no-tree-shake-icons
+
+      - name: Format Project Name
+        id: format_name
+        run: |
+          # Cloudflare Pages requires hyphens instead of underscores
+          formatted_name="${{ matrix.app }}"
+          echo "project_name=${formatted_name//_/-}" >> $GITHUB_ENV
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ env.project_name }}
+          directory: apps/${{ matrix.app }}/build/web
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,48 @@
+name: Build macOS Distributions
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build_macos:
+    runs-on: macos-latest
+    
+    strategy:
+      matrix:
+        app: 
+          - primecare_business_development
+          - primecare_client
+          - primecare_clinic
+          - primecare_corporate
+          - primecare_franchise
+          - primecare_marketing
+          - primecare_support
+          - primecare_governance
+          - primecare_enterprise_blueprint
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Enable macOS Desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Build macOS Release
+        run: |
+          cd apps/${{ matrix.app }}
+          flutter pub get
+          flutter build macos --release
+
+      - name: Upload macOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-build-${{ matrix.app }}
+          path: apps/${{ matrix.app }}/build/macos/Build/Products/Release/

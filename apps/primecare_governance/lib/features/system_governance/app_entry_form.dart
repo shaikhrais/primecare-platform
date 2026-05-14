@@ -49,6 +49,23 @@ class _AppEntryFormState extends State<AppEntryForm> {
             onChanged: (val) => setState(() => _status = val!),
           ),
           const SizedBox(height: 24),
+          Text(
+            'Deployment Readiness',
+            style: theme.typography.h3.copyWith(color: theme.colors.primary),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: [
+              _buildDeploymentChip(theme, 'App Store (iOS)', Icons.apple),
+              _buildDeploymentChip(theme, 'Play Store (Android)', Icons.android),
+              _buildDeploymentChip(theme, 'Web App (PWA)', Icons.language),
+              _buildDeploymentChip(theme, 'Windows (MSIX)', Icons.window),
+              _buildDeploymentChip(theme, 'Linux (AppStream)', Icons.computer),
+            ],
+          ),
+          const SizedBox(height: 32),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
@@ -60,6 +77,21 @@ class _AppEntryFormState extends State<AppEntryForm> {
             child: const Text('Register Application', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDeploymentChip(dynamic theme, String label, IconData icon) {
+    return FilterChip(
+      label: Text(label),
+      avatar: Icon(icon, size: 18),
+      selected: false,
+      onSelected: (val) {},
+      backgroundColor: theme.colors.background,
+      selectedColor: theme.colors.primary.withValues(alpha: 0.2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: theme.colors.outline.withValues(alpha: 0.3)),
       ),
     );
   }
