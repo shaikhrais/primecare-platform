@@ -76,6 +76,7 @@ class LegalDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(legalDashboardProvider);
     final controller = ref.read(legalDashboardProvider.notifier);
     final theme = context.theme;
+    final roleBase = 'LegalDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -94,82 +95,56 @@ class LegalDashboardScreen extends GovernedConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Hero section with gradient
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    theme.colors.primary.withValues(alpha: 0.15),
-                    theme.colors.primary.withValues(alpha: 0.05),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: theme.colors.primary.withValues(alpha: 0.2)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(LucideIcons.shieldCheck, size: 28, color: theme.colors.primary),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Governed Portal',
-                        style: theme.typography.h4.copyWith(color: theme.colors.onBackground),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'This screen is managed by the PrimeCare Registry Engine. All operational workflows are role-governed for security compliance.',
-                    style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                  ),
-                ],
-              ),
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
             ),
             const SizedBox(height: 24),
-
-            // Performance Cards Grid
             Row(
               children: [
                 Expanded(
-                  child: _buildMetricCard(
-                    context,
-                    title: 'Access Level',
-                    value: 'LEGAL',
-                    icon: LucideIcons.userCheck,
-                    color: theme.colors.primary,
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 16),
                 Expanded(
-                  child: _buildMetricCard(
-                    context,
-                    title: 'Scan Status',
-                    value: '100% Secure',
-                    icon: LucideIcons.activity,
-                    color: Colors.green,
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 24),
-
-            // Interactive Scan Section
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(theme.radiusMd),
                 border: Border.all(color: theme.colors.border),
               ),
               child: Column(
@@ -181,7 +156,7 @@ class LegalDashboardScreen extends GovernedConsumerWidget {
                   ),
                   const SizedBox(height: 12),
                   ...state.logs.map((log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 6.0),
+                        padding: const EdgeInsets.only(bottom: 8.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -220,7 +195,7 @@ class LegalDashboardScreen extends GovernedConsumerWidget {
                               ),
                             )
                           : Text(
-                              'Execute Compliance Audit Scan',
+                              'Execute Operational Audit Scan',
                               style: theme.typography.button.copyWith(color: Colors.white),
                             ),
                     ),
@@ -230,40 +205,6 @@ class LegalDashboardScreen extends GovernedConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildMetricCard(
-    BuildContext context, {
-    required String title,
-    required String value,
-    required IconData icon,
-    required Color color,
-  }) {
-    final theme = context.theme;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: theme.colors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 24, color: color),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: theme.typography.labelSmall.copyWith(color: theme.colors.onSurfaceVariant),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
-        ],
       ),
     );
   }

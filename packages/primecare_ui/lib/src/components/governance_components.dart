@@ -612,3 +612,130 @@ class GovSettingsItem {
     this.initialValue = false,
   });
 }
+
+/// [Component] - GovTelemetryChart
+/// A premium, pure-canvas chart for rendering clean data points and trend lines.
+class GovTelemetryChart extends StatelessWidget {
+  final String title;
+  final List<double> dataPoints;
+  final List<String> labels;
+  final Color accentColor;
+
+  const GovTelemetryChart({
+    super.key,
+    required this.title,
+    required this.dataPoints,
+    required this.labels,
+    required this.accentColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final maxVal = dataPoints.isNotEmpty
+        ? dataPoints.reduce((a, b) => a > b ? a : b)
+        : 1.0;
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(theme.radiusMd),
+        border: Border.all(color: theme.colors.divider),
+        boxShadow: theme.shadowsSurface1,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: theme.typography.h3,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: accentColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LucideIcons.trendingUp,
+                      size: 14,
+                      color: accentColor,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Live Telemetry',
+                      style: theme.typography.bodySmall.copyWith(
+                        color: accentColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Chart Graphic
+          SizedBox(
+            height: 120,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: List.generate(dataPoints.length, (index) {
+                final val = dataPoints[index];
+                final normalizedHeight = maxVal > 0 ? (val / maxVal) : 0.0;
+                return Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FractionallySizedBox(
+                            heightFactor: normalizedHeight.clamp(0.05, 1.0),
+                            widthFactor: 0.6,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    accentColor,
+                                    accentColor.withValues(alpha: 0.5),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(6),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        labels[index],
+                        style: theme.typography.bodySmall.copyWith(
+                          fontSize: 10,
+                          color: theme.colors.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
