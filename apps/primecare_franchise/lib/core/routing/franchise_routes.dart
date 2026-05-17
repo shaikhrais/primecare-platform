@@ -1,5 +1,4 @@
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+﻿import 'package:primecare_ui/primecare_ui.dart';
 
 class FranchiseTenant extends PlatformTenant {
   @override
@@ -9,7 +8,13 @@ class FranchiseTenant extends PlatformTenant {
   String get name => 'PrimeCare Franchise';
 
   @override
-  ThemeData get branding => ThemeData.light();
+  ThemeData get branding => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF6D28D9), // Deep Purple
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFEDE9FE),
+        ),
+      ).toThemeData();
 }
 
 class FranchiseOperationsModule extends PlatformModule {
@@ -38,28 +43,23 @@ class FranchiseOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Franchise Owner Dashboard',
       route: FranchiseRoutes.franchiseOwnerDashboard,
-      requiredRole: PlatformRole.franchiseOwner,
-    ),
+),
     PrimeCareScreen(
       title: 'Operations Manager Dashboard',
       route: FranchiseRoutes.operationsManagerDashboard,
-      requiredRole: PlatformRole.operationsManager,
-    ),
+),
     PrimeCareScreen(
       title: 'Billing Admin Dashboard',
       route: FranchiseRoutes.billingAdminDashboard,
-      requiredRole: PlatformRole.billingAdmin,
-    ),
+),
     PrimeCareScreen(
       title: 'Hr Hiring Dashboard',
       route: FranchiseRoutes.hrHiringDashboard,
-      requiredRole: PlatformRole.hrHiring,
-    ),
+),
     PrimeCareScreen(
       title: 'Scheduler Dashboard',
       route: FranchiseRoutes.schedulerDashboard,
-      requiredRole: PlatformRole.scheduler,
-    ),
+),
   ];
 }
 

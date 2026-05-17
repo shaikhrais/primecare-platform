@@ -6,12 +6,16 @@ import 'package:flutter_core/routes/groups/common_routes.dart';
 class GuardResult {
   final bool isAllowed;
   final String? redirectRoute;
+  final String? externalRedirectUrl;
 
-  GuardResult(this.isAllowed, {this.redirectRoute});
+  GuardResult(this.isAllowed, {this.redirectRoute, this.externalRedirectUrl});
 }
 
 /// A centralized Guard Mechanism Layer that validates navigation BEFORE screen loads.
 class RouteGuard {
+  /// Base URL for the Centralized SSO Portal (e.g., https://auth.primecare.com)
+  /// If set, unauthenticated users will be redirected here via [externalRedirectUrl].
+  static String? ssoPortalUrl;
   /// Maps a user role to a list of allowed route prefixes.
   /// This acts as our centralized permissions map.
   static Map<String, List<String>> _rolePermissions = {
@@ -46,18 +50,22 @@ class RouteGuard {
     'coordinator': ['/offices/franchise', '/common'],
 
     // Clinical Execution
-    'clinical_director': ['/offices/clinic', '/common', '/dynamic'],
-    'rn': ['/offices/clinic', '/common', '/dynamic'],
-    'rpn': ['/offices/clinic', '/common', '/dynamic'],
-    'rmt': ['/offices/clinic', '/common', '/dynamic'],
-    'psw': ['/offices/clinic', '/common', '/dynamic', '/debug'],
-    'physio': ['/offices/clinic', '/common', '/dynamic'],
-    'chiro': ['/offices/clinic', '/common', '/dynamic'],
+    'clinical_director': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'clinicaldirector': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'rn': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'rpn': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'rmt': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'psw': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/debug'],
+    'physio': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'chiro': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'clinic': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
 
     // Support & Institutional
     'customer_support': ['/offices/support', '/dynamic', '/common'],
     'intake_coordinator': ['/offices/support', '/dynamic', '/common'],
+    'intakecoordinator': ['/offices/support', '/dynamic', '/common'],
     'quality_assurance': ['/offices/support', '/dynamic', '/common'],
+    'qualityassurance': ['/offices/support', '/dynamic', '/common'],
     'receptionist': ['/offices/support', '/dynamic', '/common'],
 
     // Marketing & Growth
@@ -110,15 +118,44 @@ class RouteGuard {
       return GuardResult(true);
     }
 
+    // Helper to get correct redirect URI based on platform
+    String getRedirectUri(String requestedRoute) {
+      if (kIsWeb) {
+        // If web, we want the current URL (base) + requestedRoute.
+        // For now, we assume the host handles relative paths correctly or we append a placeholder
+        // Since we don't have dart:html, we can just pass the path. The SSO portal should handle it.
+        // But to be robust, we'll prefix with a custom identifier for the host to parse if needed.
+        return requestedRoute;
+      } else {
+        // For Windows/APK, we must use the deep link custom scheme
+        return 'primecare://auth/callback?route=${Uri.encodeComponent(requestedRoute)}';
+      }
+    }
+
     // 2. Check if user is logged in
     if (!isLoggedIn) {
       _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Unauthenticated)');
+      
+      if (ssoPortalUrl != null) {
+        final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
+        return GuardResult(
+          false, 
+          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
+        );
+      }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
     }
 
     // If there is no specific specific role defined, deny access by default (Zero Trust).
     if (userRole == null || userRole.isEmpty) {
       _log(requestedRoute, userRole, isLoggedIn, 'Blocked (No Role Defined)');
+      if (ssoPortalUrl != null) {
+        final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
+        return GuardResult(
+          false, 
+          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
+        );
+      }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
     }
 
@@ -141,6 +178,13 @@ class RouteGuard {
     if (allowedPrefixes.isEmpty) {
       _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Role Unregistered)');
       // You can redirect to an "unauthorized" fallback screen.
+      if (ssoPortalUrl != null) {
+        final redirectUri = Uri.encodeComponent(requestedRoute);
+        return GuardResult(
+          false, 
+          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
+        );
+      }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
     }
 

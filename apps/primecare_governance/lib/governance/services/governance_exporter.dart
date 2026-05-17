@@ -280,13 +280,17 @@ class GovernanceExporter {
             cellAlignment: pw.Alignment.centerLeft,
           ),
 
-          pw.Footer(
-            trailing: pw.Text(
-              'Page ${context.pageNumber} of ${context.pagesCount}',
-              style: const pw.TextStyle(fontSize: 10),
-            ),
-          ),
         ],
+        footer: (pw.Context context) {
+          return pw.Container(
+            alignment: pw.Alignment.centerRight,
+            margin: const pw.EdgeInsets.only(top: 10),
+            child: pw.Text(
+              'Page ${context.pageNumber} of ${context.pagesCount}',
+              style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey),
+            ),
+          );
+        },
       ),
     );
 

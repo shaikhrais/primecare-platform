@@ -2,7 +2,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_core/flutter_core.dart';
-
+import 'package:flutter/foundation.dart';
 class AuthState {
   final bool isAuthenticated;
   final String? token;
@@ -69,6 +69,8 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('coo')) return CorporateRoutes.cooDashboard;
     if (r.contains('cfo')) return CorporateRoutes.cfoDashboard;
     if (r.contains('cto')) return CorporateRoutes.ctoDashboard;
+    if (r.contains('legal')) return CorporateRoutes.legalDashboard;
+    if (r.contains('ciso')) return CorporateRoutes.cisoDashboard;
     if (r.contains('compliance_manager')) {
       return CorporateRoutes.complianceManagerDashboard;
     }
@@ -185,6 +187,28 @@ class AuthNotifier extends Notifier<AuthState> {
     await Result.guardFuture<void>(
       () async {
         final prefs = await SharedPreferences.getInstance();
+
+        // 1. Try SSO Session Restoration
+        try {
+          final apiClient = ref.read(apiClientProvider);
+          final response = await apiClient.get(ApiConfig.endpoints['me']!);
+          if (response.isSuccess) {
+            final data = response.data as Map<String, dynamic>;
+            await prefs.setString('auth_token', 'sso-token');
+            await prefs.setString('auth_role', data['roles']?.toString() ?? 'psw');
+            await prefs.setString('auth_user_id', data['userId']?.toString() ?? '');
+            // keep existing username if any
+          } else {
+             if (prefs.getString('auth_token') != 'demo-token') {
+               await prefs.remove('auth_token');
+               await prefs.remove('auth_role');
+             }
+          }
+        } catch (e) {
+          // In case of network error, we might still want to clear or keep? 
+          // For true SSO, no cookie = no auth. But we'll leave it for now.
+        }
+
         final token = prefs.getString('auth_token');
         final role = prefs.getString('auth_role');
         final tenantId = prefs.getString('auth_tenant_id');
@@ -240,11 +264,39 @@ class AuthNotifier extends Notifier<AuthState> {
     );
   }
 
+  Future<void> handleDeepLinkAuth({
+    required String token,
+    required String role,
+    required String userId,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Save to SharedPreferences so session persists across app restarts
+    await prefs.setString('auth_token', token);
+    await prefs.setString('auth_role', role);
+    await prefs.setString('auth_user_id', userId);
+    
+    // Update State
+    state = state.copyWith(
+      isAuthenticated: true,
+      token: token,
+      role: role,
+      userId: userId,
+    );
+    authListenable.value = true;
+    
+    ref.read<ExecutionGateService>(executionGateProvider).passGate(
+      ExecutionGateCategory.auth,
+      'Session restored via Deep Link SSO for role: $role',
+      metadata: {'hasToken': true, 'userId': userId},
+    );
+  }
+
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
         // Debug Bypass for local verification
-        if (email.endsWith('@demo.primecare.com')) {
+        if (!kReleaseMode && (email.endsWith('@demo.primecare.com') || email.endsWith('@primecare.test'))) {
           final role = email.split('@')[0];
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('auth_token', 'demo-token');

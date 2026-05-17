@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// [GovernanceActionResponse] - Result of a remote governance action.
 class GovernanceActionResponse {
@@ -21,7 +21,7 @@ class GovernanceApiService {
   /// Fetches live telemetry data from the Cloudflare Edge Gateway.
   Future<Map<String, dynamic>> fetchLiveTelemetry() async {
     // Simulated live request
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future<void>.delayed(const Duration(milliseconds: 800));
     return {
       'api_uptime': 99.99,
       'db_connections': 42,
@@ -71,7 +71,7 @@ class GovernanceApiService {
     int tick = 0;
 
     while (true) {
-      await Future.delayed(const Duration(seconds: 4));
+      await Future<void>.delayed(const Duration(seconds: 4));
       tick++;
 
       final events = <Map<String, dynamic>>[];
@@ -102,7 +102,7 @@ class GovernanceApiService {
   /// Executes a remote governance command on the platform.
   Future<GovernanceActionResponse> executeAction(String command) async {
     // Simulated remote execution
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
 
     if (command.contains('sync')) {
       return GovernanceActionResponse(

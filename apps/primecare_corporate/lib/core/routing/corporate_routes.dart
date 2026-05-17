@@ -1,15 +1,20 @@
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+﻿import 'package:primecare_ui/primecare_ui.dart';
 
 class PrimeCareTenant extends PlatformTenant {
   @override
   String get tenantId => 'primecare_hq';
 
   @override
-  String get name => 'PrimeCare';
+  String get name => 'PrimeCare Corporate';
 
   @override
-  ThemeData get branding => ThemeData.light();
+  ThemeData get branding => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF1E3A8A), // Corporate Navy
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFDBEAFE),
+        ),
+      ).toThemeData();
 }
 
 class CEOModule extends PlatformModule {
@@ -26,32 +31,27 @@ class CEOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'CEO Overview',
           route: CorporateRoutes.ceoDashboard,
-          requiredRole: PlatformRole.ceo,
-          icon: LucideIcons.layoutDashboard,
+icon: LucideIcons.layoutDashboard,
         ),
         PrimeCareScreen(
           title: tr('corporate.ceo_enterprise_overview'),
           route: CorporateRoutes.ceoEnterpriseOverview,
-          requiredRole: PlatformRole.ceo,
-          icon: LucideIcons.building,
+icon: LucideIcons.building,
         ),
         PrimeCareScreen(
           title: tr('corporate.ceo_franchise_overview'),
           route: CorporateRoutes.ceoFranchiseOverview,
-          requiredRole: PlatformRole.ceo,
-          icon: LucideIcons.briefcase,
+icon: LucideIcons.briefcase,
         ),
         PrimeCareScreen(
           title: tr('corporate.ceo_strategic_kpis'),
           route: CorporateRoutes.ceoStrategicKpis,
-          requiredRole: PlatformRole.ceo,
-          icon: LucideIcons.trendingUp,
+icon: LucideIcons.trendingUp,
         ),
         PrimeCareScreen(
           title: tr('corporate.ceo_revenue_summary'),
           route: CorporateRoutes.ceoRevenueSummary,
-          requiredRole: PlatformRole.ceo,
-          icon: LucideIcons.dollarSign,
+icon: LucideIcons.dollarSign,
         ),
       ];
 }
@@ -70,8 +70,7 @@ class COOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'COO Dashboard',
           route: CorporateRoutes.cooDashboard,
-          requiredRole: PlatformRole.coo,
-          icon: LucideIcons.settings,
+icon: LucideIcons.settings,
         ),
       ];
 }
@@ -90,8 +89,7 @@ class CFOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'CFO Dashboard',
           route: CorporateRoutes.cfoDashboard,
-          requiredRole: PlatformRole.cfo,
-          icon: LucideIcons.wallet,
+icon: LucideIcons.wallet,
         ),
       ];
 }
@@ -110,14 +108,12 @@ class CTOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'CTO Dashboard',
           route: CorporateRoutes.ctoDashboard,
-          requiredRole: PlatformRole.cto,
-          icon: LucideIcons.cpu,
+icon: LucideIcons.cpu,
         ),
         PrimeCareScreen(
           title: 'Verification Hub',
           route: CorporateRoutes.ctoVerificationHub,
-          requiredRole: PlatformRole.cto,
-          icon: LucideIcons.clipboardCheck,
+icon: LucideIcons.clipboardCheck,
         ),
       ];
 }
@@ -136,8 +132,7 @@ class LegalModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Legal Dashboard',
           route: CorporateRoutes.legalDashboard,
-          requiredRole: PlatformRole.legal,
-          icon: LucideIcons.gavel,
+icon: LucideIcons.gavel,
         ),
       ];
 }
@@ -156,8 +151,7 @@ class CISOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'CISO Dashboard',
           route: CorporateRoutes.cisoDashboard,
-          requiredRole: PlatformRole.ciso,
-          icon: LucideIcons.shieldCheck,
+icon: LucideIcons.shieldCheck,
         ),
       ];
 }
@@ -167,7 +161,6 @@ class CorporateApplication extends PlatformApplication {
   String get appId => 'primecare_corporate';
   @override
   String get name => 'PrimeCare Corporate Portal';
-  @override
   String get homeRoute => CorporateRoutes.ceoDashboard;
   @override
   PlatformTenant get tenant => PrimeCareTenant();

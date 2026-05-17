@@ -25,10 +25,12 @@ class GovernanceFilterBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
       ),
-      child: Row(
+      child: Wrap(
+        spacing: 16,
+        runSpacing: 12,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           const Icon(Icons.filter_list_rounded, color: Colors.grey, size: 20),
-          const SizedBox(width: 16),
 
           // Severity Filter
           _buildFilterChip<AuditSeverity>(
@@ -44,8 +46,6 @@ class GovernanceFilterBar extends StatelessWidget {
             onSeverityChanged,
           ),
 
-          const SizedBox(width: 12),
-
           // Category Filter
           _buildFilterChip<GovernanceCategory>(
             context,
@@ -59,8 +59,6 @@ class GovernanceFilterBar extends StatelessWidget {
             selectedCategory,
             onCategoryChanged,
           ),
-
-          const Spacer(),
 
           if (selectedSeverity != null || selectedCategory != null)
             TextButton.icon(

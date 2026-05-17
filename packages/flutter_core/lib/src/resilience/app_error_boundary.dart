@@ -36,6 +36,72 @@ class AppErrorBoundary {
         return ErrorWidget(details.exception);
       }
 
+      final errorStr = details.exception.toString().toLowerCase();
+      final isOfflineError = errorStr.contains('connection refused') ||
+          errorStr.contains('network is unreachable') ||
+          errorStr.contains('socketexception') ||
+          errorStr.contains('dioexception') ||
+          errorStr.contains('xmlhttprequest error');
+
+      if (isOfflineError) {
+        return Container(
+          margin: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFEF2F2), // Light red/offline bg
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFFCA5A5)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Row(
+                children: [
+                  Icon(Icons.wifi_off_rounded, color: Color(0xFFEF4444), size: 24),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'System Unavailable',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF991B1B),
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Server is unreachable. Please check your connection.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF7F1D1D),
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              if (onReset != null) ...[
+                const SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: onReset,
+                    icon: const Icon(Icons.refresh, size: 16, color: Color(0xFF991B1B)),
+                    label: const Text('Retry', style: TextStyle(color: Color(0xFF991B1B))),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        );
+      }
+
       // 🛠️ MECHANICAL FIX ATTEMPT
       final didTriggerHeal = SystemRecoveryManager.attemptAutoHeal(onReset);
       if (didTriggerHeal) {

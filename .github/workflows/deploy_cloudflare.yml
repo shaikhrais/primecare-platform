@@ -22,6 +22,7 @@ jobs:
           - primecare_support
           - primecare_governance
           - primecare_enterprise_blueprint
+          - primecare_auth
       
       # Don't fail the entire pipeline if one app fails
       fail-fast: false
@@ -36,18 +37,18 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Build Web Release
-        run: |
-          cd apps/${{ matrix.app }}
-          flutter pub get
-          flutter build web --release --no-tree-shake-icons
-
       - name: Format Project Name
         id: format_name
         run: |
           # Cloudflare Pages requires hyphens instead of underscores
           formatted_name="${{ matrix.app }}"
           echo "project_name=${formatted_name//_/-}" >> $GITHUB_ENV
+
+      - name: Build Web Release
+        run: |
+          cd apps/${{ matrix.app }}
+          flutter pub get
+          flutter build web --release --no-tree-shake-icons --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev --dart-define=APP_BASE_URL=https://${{ env.project_name }}.pages.dev
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1

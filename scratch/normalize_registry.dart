@@ -1,8 +1,13 @@
 import 'dart:io';
 
 void main() {
-  final file = File('apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart');
-  if (!file.existsSync()) return;
+  final files = [
+    File('apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart'),
+    File('packages/flutter_core/lib/registry/platform_screen_registry.dart')
+  ];
+  
+  for (final file in files) {
+    if (!file.existsSync()) continue;
 
   final content = file.readAsStringSync();
   final List<String> outputLines = [];
@@ -55,7 +60,8 @@ void main() {
   }
 
   file.writeAsStringSync(outputLines.join('\n'));
-  print('Registry re-normalized with virtual flags.');
+  print('Registry re-normalized with virtual flags for ${file.path}.');
+  }
 }
 
 List<String> _normalizeBlock(String id, List<String> block) {

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter/foundation.dart';
 
 import 'corporate_routes.dart';
 
@@ -33,6 +34,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
 
+      // Ensure SSO Portal URL is configured
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');
+
+      final result = RouteGuard.verify(
+        requestedRoute: requestedRoute,
+        isLoggedIn: authState.isAuthenticated,
+        userRole: authState.role,
+      );
+
+      if (!result.isAllowed) {
+        if (result.externalRedirectUrl != null) {
+          return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(result.externalRedirectUrl!)}';
+        }
+        return result.redirectRoute;
+      }
+
       final isAtLanding =
           requestedRoute == '/' || requestedRoute == CommonRoutes.login;
 
@@ -42,12 +59,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return destination;
       }
 
-      if (!authState.isAuthenticated && !isAtLanding) {
-        // Enforce login for unauthorized users
-        return CommonRoutes.login;
-      }
-
       return null;
     },
+    publicRoutes: [
+      GoRoute(
+        path: CommonRoutes.ssoRedirect,
+        builder: (context, state) {
+          final url = state.uri.queryParameters['url'] ?? 'http://localhost:3000';
+          return SsoRedirectView(redirectUrl: url);
+        },
+      ),
+      GoRoute(
+        path: CommonRoutes.login,
+        redirect: (context, state) {
+          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');
+          final defaultRedirectUri = const String.fromEnvironment('APP_BASE_URL', defaultValue: 'http://localhost:3002');
+          final redirectUri = kIsWeb ? defaultRedirectUri : 'primecare://auth/callback';
+          final target = '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
+          return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(target)}';
+        },
+      ),
+    ],
   );
 });

@@ -8,6 +8,8 @@ class PrimeCareSidebar extends StatelessWidget {
   final List<PrimeCareNavigationItem> items;
   final String? currentRoute;
   final Widget? footer;
+  final String? tenantName;
+  final Color? tenantColor;
 
   const PrimeCareSidebar({
     super.key,
@@ -17,6 +19,8 @@ class PrimeCareSidebar extends StatelessWidget {
     required this.items,
     this.currentRoute,
     this.footer,
+    this.tenantName,
+    this.tenantColor,
   });
 
   @override
@@ -27,7 +31,8 @@ class PrimeCareSidebar extends StatelessWidget {
       width: context.s(320), // Responsive sidebar width
       child: Column(
         children: [
-          SizedBox(height: context.s(60)),
+          _buildTenantHeader(context, theme),
+          SizedBox(height: context.s(24)),
           _buildProfileSection(context, theme),
           Divider(color: theme.colors.divider),
           Expanded(
@@ -79,10 +84,10 @@ class PrimeCareSidebar extends StatelessWidget {
 
   Widget _buildNavItem(BuildContext context, PrimeCareNavigationItem item) {
     final theme = context.theme;
-    final isSelected = currentRoute == item.route || 
-                      ((currentRoute?.startsWith(item.route) ?? false) && item.route != '/');
+    final isSelected =
+        currentRoute == item.route ||
+        ((currentRoute?.startsWith(item.route) ?? false) && item.route != '/');
 
-    
     return ListTile(
       leading: Icon(
         item.icon,
@@ -109,6 +114,40 @@ class PrimeCareSidebar extends StatelessWidget {
       onTap: () {
         context.go(item.route);
       },
+    );
+  }
+
+  Widget _buildTenantHeader(BuildContext context, PrimeThemeData theme) {
+    if (tenantName == null) return SizedBox(height: context.s(60));
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        context.s(24),
+        context.s(60),
+        context.s(24),
+        context.s(16),
+      ),
+      color: (tenantColor ?? theme.colors.primary).withValues(alpha: 0.1),
+      child: Row(
+        children: [
+          Icon(
+            LucideIcons.shieldCheck,
+            color: tenantColor ?? theme.colors.primary,
+            size: context.s(28),
+          ),
+          SizedBox(width: context.s(12)),
+          Expanded(
+            child: Text(
+              tenantName!,
+              style: theme.typography.h3.copyWith(
+                color: tenantColor ?? theme.colors.primary,
+                fontSize: context.s(18),
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,10 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/screen_governance_reporter.dart';
+import 'package:primecare_governance/governance/models/governance_report.dart';
+import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
+import 'package:primecare_ui/primecare_ui.dart' as ui;
 
 void main() {
   group('Architectural Governance CI Gate', () {
-    final report = ScreenGovernanceReporter.scan(ScreenRegistry.screens);
+    late GovernanceReport report;
+
+    setUpAll(() {
+      CoreGovernanceRegistry.registerScreens();
+      ui.ScreenRegistry.bootstrap();
+      report = ScreenGovernanceReporter.scan(ScreenRegistry.screens);
+    });
 
     test('Zero Critical Issues', () {
       expect(

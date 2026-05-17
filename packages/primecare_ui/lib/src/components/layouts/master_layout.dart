@@ -28,15 +28,62 @@ class MasterLayout extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final authState = ref.watch(authProvider);
+    final app = ref.watch(platformApplicationProvider);
+    final tenant = app.tenant;
 
     return Scaffold(
       backgroundColor: theme.colors.background,
-      drawer: drawer ?? _buildSidebar(context, authState),
+      drawer: drawer ?? _buildSidebar(context, authState, tenant),
       endDrawer: endDrawer,
       appBar: AppBar(
-        title: Text(
-          title ?? _getDefaultTitle(shellType),
-          style: theme.typography.h3.copyWith(color: theme.colors.primary),
+        title: Row(
+          children: [
+            Icon(
+              LucideIcons.shieldCheck,
+              color: tenant.branding.primaryColor,
+              size: 28,
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  tenant.name,
+                  style: theme.typography.h3.copyWith(
+                    color: tenant.branding.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  _getDefaultTitle(shellType),
+                  style: theme.typography.bodyMedium.copyWith(
+                    color: theme.colors.onSurfaceVariant,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(width: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: theme.colors.primary.withValues(alpha: 0.1),
+                border: Border.all(
+                  color: theme.colors.primary.withValues(alpha: 0.3),
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                app.name.toUpperCase(),
+                style: theme.typography.labelBold.copyWith(
+                  color: theme.colors.primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
+              ),
+            ),
+          ],
         ),
         backgroundColor: theme.colors.surface,
         elevation: 0,
@@ -94,12 +141,19 @@ class MasterLayout extends ConsumerWidget {
     ];
   }
 
-  Widget? _buildSidebar(BuildContext context, AuthState auth) {
+  Widget? _buildSidebar(
+    BuildContext context,
+    AuthState auth,
+    PlatformTenant tenant,
+  ) {
     final activeRole = PlatformRole.fromName(auth.role);
     final govRole = GovernanceRole(activeRole);
-    
+
     // Fetch the current route from GoRouter
-    final currentRoute = GoRouterState.of(context).uri.toString();
+    String currentRoute = '';
+    try {
+      currentRoute = GoRouterState.of(context).uri.toString();
+    } catch (_) {}
 
     // Prioritize registry-driven menu items for "Real Programmer" consistency
     final List<PrimeCareNavigationItem> items = govRole.menuItems;
@@ -109,6 +163,8 @@ class MasterLayout extends ConsumerWidget {
       userRole: govRole.name,
       currentRoute: currentRoute,
       items: items,
+      tenantName: tenant.name,
+      tenantColor: tenant.branding.primaryColor,
     );
   }
 }

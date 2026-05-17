@@ -1,4 +1,3 @@
-import 'package:primecare_ui/primecare_ui.dart';
 
 enum TargetPlatform { ios, android, web, windows, linux }
 

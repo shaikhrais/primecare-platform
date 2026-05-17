@@ -97,7 +97,8 @@ class _GovernanceDashboardContentState
       return const Center(child: CircularProgressIndicator());
     }
 
-    final dashboardState = ref.watch(governanceDashboardControllerProvider);
+    final dashboardStateAsync = ref.watch(governanceDashboardControllerProvider);
+    final dashboardState = dashboardStateAsync.value ?? const GovernanceDashboardState();
 
     final filteredIssues = report.issues.where((issue) {
       final matchesSeverity =
@@ -170,8 +171,9 @@ class _GovernanceDashboardContentState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: 16,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,35 +188,34 @@ class _GovernanceDashboardContentState
                   ),
                 ],
               ),
-              Row(
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
                 children: [
                   if (governanceState.hasDrift ||
                       governanceState.brokenScreens > 0)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: OutlinedButton.icon(
-                        onPressed: governanceState.isSyncing
-                            ? null
-                            : () => ref
-                                  .read(
-                                    governanceDashboardControllerProvider
-                                        .notifier,
-                                  )
-                                  .remediate(),
-                        icon: governanceState.isSyncing
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const Icon(Icons.auto_fix_high_rounded, size: 20),
-                        label: Text('governance.dashboard.auto_remediate'.tr()),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.blue,
-                          side: const BorderSide(color: Colors.blue),
-                        ),
+                    OutlinedButton.icon(
+                      onPressed: governanceState.isSyncing
+                          ? null
+                          : () => ref
+                                .read(
+                                  governanceDashboardControllerProvider
+                                      .notifier,
+                                )
+                                .remediate(),
+                      icon: governanceState.isSyncing
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Icon(Icons.auto_fix_high_rounded, size: 20),
+                      label: Text('governance.dashboard.auto_remediate'.tr()),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        side: const BorderSide(color: Colors.blue),
                       ),
                     ),
                   PopupMenuButton<String>(
@@ -253,6 +254,7 @@ class _GovernanceDashboardContentState
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           if (dashboardState.isExporting)
                             const SizedBox(
@@ -278,7 +280,6 @@ class _GovernanceDashboardContentState
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
                   ElevatedButton.icon(
                     onPressed: _refreshReport,
                     icon: const Icon(Icons.refresh_rounded),
@@ -383,24 +384,24 @@ class _GovernanceDashboardContentState
           ),
           const SizedBox(height: 32),
 
-          Row(
+          Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Expanded(
-                child: GovernanceFilterBar(
-                  selectedSeverity: dashboardState.selectedSeverity,
-                  selectedCategory: dashboardState.selectedCategory,
-                  onSeverityChanged: (s) => ref
-                      .read(governanceDashboardControllerProvider.notifier)
-                      .setSeverity(s),
-                  onCategoryChanged: (c) => ref
-                      .read(governanceDashboardControllerProvider.notifier)
-                      .setCategory(c),
-                  onClear: () => ref
-                      .read(governanceDashboardControllerProvider.notifier)
-                      .clearFilters(),
-                ),
+              GovernanceFilterBar(
+                selectedSeverity: dashboardState.selectedSeverity,
+                selectedCategory: dashboardState.selectedCategory,
+                onSeverityChanged: (s) => ref
+                    .read(governanceDashboardControllerProvider.notifier)
+                    .setSeverity(s),
+                onCategoryChanged: (c) => ref
+                    .read(governanceDashboardControllerProvider.notifier)
+                    .setCategory(c),
+                onClear: () => ref
+                    .read(governanceDashboardControllerProvider.notifier)
+                    .clearFilters(),
               ),
-              const SizedBox(width: 16),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -431,8 +432,9 @@ class _GovernanceDashboardContentState
           ),
 
           const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: 8,
             children: [
               const Text(
                 'Detected Architectural Issues',
@@ -447,8 +449,9 @@ class _GovernanceDashboardContentState
           const SizedBox(height: 16),
           GovernanceIssueTable(issues: filteredIssues),
           const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: 8,
             children: [
               const Text(
                 'Network Parity & Backend Audit',
@@ -461,6 +464,7 @@ class _GovernanceDashboardContentState
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.security, size: 14, color: Colors.green),
                     SizedBox(width: 4),

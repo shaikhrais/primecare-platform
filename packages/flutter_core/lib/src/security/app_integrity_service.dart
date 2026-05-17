@@ -51,7 +51,7 @@ class AppIntegrityService {
       bool isEmulator = false;
       bool isDevMode = false;
 
-      if (!kIsWeb) {
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
         isEmulator = await SafeDevice.isRealDevice == false;
         isDevMode = await SafeDevice.isDevelopmentModeEnable;
       }

@@ -1,5 +1,4 @@
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+﻿import 'package:primecare_ui/primecare_ui.dart';
 
 class SupportRoutes {
   static const String helpDeskDashboard = '/helpdesk';
@@ -14,7 +13,13 @@ class SupportTenant extends PlatformTenant {
   String get name => 'PrimeCare Support';
 
   @override
-  ThemeData get branding => ThemeData.light();
+  ThemeData get branding => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFFEA580C), // Deep Orange
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFFFEDD5),
+        ),
+      ).toThemeData();
 }
 
 class SupportOperationsModule extends PlatformModule {
@@ -39,18 +44,15 @@ class SupportOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Help Desk Dashboard',
       route: SupportRoutes.helpDeskDashboard,
-      requiredRole: PlatformRole.support,
-    ),
+),
     PrimeCareScreen(
       title: 'Escalation Dashboard',
       route: SupportRoutes.escalationDashboard,
-      requiredRole: PlatformRole.support,
-    ),
+),
     PrimeCareScreen(
       title: 'System Verification',
       route: '/offices/system-verification',
-      requiredRole: PlatformRole.systemVerification,
-    ),
+),
   ];
 }
 

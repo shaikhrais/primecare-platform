@@ -4288,5 +4288,9 @@
     "footer": {
       "language": "Langue"
     }
+  },
+  "governance": {
+    "unauthorized_route_message": "Vous n'avez pas les autorisations requises pour accÃ©der Ã  cette route.",
+    "access_denied": "AccÃ¨s refusÃ©"
   }
 }

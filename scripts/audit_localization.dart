@@ -55,15 +55,21 @@ bool auditApp(Directory appDir) {
 
   // 1. Extract path from main.dart
   final mainContent = mainFile.readAsStringSync();
-  final pathRegex = RegExp(r'''path:\s*['"]([^'"]+)['"]''');
-  final match = pathRegex.firstMatch(mainContent);
+  String i18nPath;
+  
+  if (mainContent.contains('PrimeCareAppRunner.run')) {
+    i18nPath = 'assets/translations';
+  } else {
+    final pathRegex = RegExp(r'''path:\s*['"]([^'"]+)['"]''');
+    final match = pathRegex.firstMatch(mainContent);
 
-  if (match == null) {
-    print('❌ Error: Could not find EasyLocalization path in main.dart');
-    return false;
+    if (match == null) {
+      print('❌ Error: Could not find EasyLocalization path in main.dart');
+      return false;
+    }
+    i18nPath = match.group(1)!;
   }
 
-  final i18nPath = match.group(1)!;
   print('📍 i18n Path: $i18nPath');
 
   if (i18nPath.startsWith('packages/')) {

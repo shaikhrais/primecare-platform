@@ -1,5 +1,4 @@
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+﻿import 'package:primecare_ui/primecare_ui.dart';
 
 class ClientTenant extends PlatformTenant {
   @override
@@ -9,7 +8,13 @@ class ClientTenant extends PlatformTenant {
   String get name => 'PrimeCare Client Portal';
 
   @override
-  ThemeData get branding => ThemeData.light(); // Could be customized for patient view
+  ThemeData get branding => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF0EA5E9), // Soft Accessible Blue
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFE0F2FE),
+        ),
+      ).toThemeData();
 }
 
 class ClientOperationsModule extends PlatformModule {
@@ -35,14 +40,12 @@ class ClientOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Patient Dashboard',
       route: ClientRoutes.patientDashboard,
-      requiredRole:
-          PlatformRole.patient, // Assuming client also maps to patient
+// Assuming client also maps to patient
     ),
     PrimeCareScreen(
       title: 'Family Dashboard',
       route: ClientRoutes.familyMemberDashboard,
-      requiredRole: PlatformRole.familyMember,
-    ),
+),
   ];
 }
 

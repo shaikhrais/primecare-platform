@@ -40,6 +40,8 @@ dependencies:
     path: ../../packages/primecare_ui
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

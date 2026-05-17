@@ -35,6 +35,8 @@ class ClinicalRoutes {
   static const String pswPatientProfile =
       '/offices/clinical/roles/psw/patient-profile';
   static const String pswSchedule = '/offices/clinical/roles/psw/schedule';
+  static const String pswMessages = '/offices/clinical/roles/psw/messages';
+  static const String pswVisitNotes = '/offices/clinical/roles/psw/visit-notes';
   static const String careGiverDashboard =
       '/offices/clinical/roles/caregiver/dashboard';
   static const String therapistDashboard =

@@ -30,37 +30,46 @@ class LocalizationAuditor {
       }
     }
 
-    results.add(AuditResultItem(
-      check: 'Localization Parity Audit',
-      result: missingL10n == 0 ? 'PASSED' : 'FAILED',
-      isPass: missingL10n == 0,
-      meaning: missingL10n == 0
-          ? 'All screens have reached 100% translation parity.'
-          : '$missingL10n screens have missing translations in supported locales.',
-      fix: 'Run "primecare l10n sync" or manually update missing locale files.',
-    ));
+    results.add(
+      AuditResultItem(
+        check: 'Localization Parity Audit',
+        result: missingL10n == 0 ? 'PASSED' : 'FAILED',
+        isPass: missingL10n == 0,
+        meaning: missingL10n == 0
+            ? 'All screens have reached 100% translation parity.'
+            : '$missingL10n screens have missing translations in supported locales.',
+        fix:
+            'Run "primecare l10n sync" or manually update missing locale files.',
+      ),
+    );
 
-    results.add(AuditResultItem(
-      check: 'Translation Keys Definition',
-      result: missingKeys == 0 ? 'PASSED' : 'WARNING',
-      isPass: true,
-      isWarning: missingKeys > 0,
-      meaning: missingKeys == 0
-          ? 'All screens have explicitly defined translation namespaces.'
-          : '$missingKeys screens are missing translation key definitions in metadata.',
-      fix: 'Populate "translationKeys" attribute in ScreenMetadata for precise auditing.',
-    ));
+    results.add(
+      AuditResultItem(
+        check: 'Translation Keys Definition',
+        result: missingKeys == 0 ? 'PASSED' : 'WARNING',
+        isPass: true,
+        isWarning: missingKeys > 0,
+        meaning: missingKeys == 0
+            ? 'All screens have explicitly defined translation namespaces.'
+            : '$missingKeys screens are missing translation key definitions in metadata.',
+        fix:
+            'Populate "translationKeys" attribute in ScreenMetadata for precise auditing.',
+      ),
+    );
 
     if (localizationData != null) {
-      results.add(AuditResultItem(
-        check: 'Registry-Source Sync (L10N)',
-        result: missingKeysInFile == 0 ? 'PASSED' : 'FAILED',
-        isPass: missingKeysInFile == 0,
-        meaning: missingKeysInFile == 0
-            ? 'All defined translation keys exist in the primary locale file.'
-            : '$missingKeysInFile screens reference keys that are missing in en.json.',
-        fix: 'Add missing keys to "packages/flutter_core/lib/src/localization/en.json".',
-      ));
+      results.add(
+        AuditResultItem(
+          check: 'Registry-Source Sync (L10N)',
+          result: missingKeysInFile == 0 ? 'PASSED' : 'FAILED',
+          isPass: missingKeysInFile == 0,
+          meaning: missingKeysInFile == 0
+              ? 'All defined translation keys exist in the primary locale file.'
+              : '$missingKeysInFile screens reference keys that are missing in en.json.',
+          fix:
+              'Add missing keys to "packages/flutter_core/lib/src/localization/en.json".',
+        ),
+      );
     }
 
     return results;

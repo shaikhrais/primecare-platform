@@ -12,6 +12,9 @@ class PrimeCareMarketingApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
 
+    // Initialize Deep Link listener for Native SSO
+    ref.read(deepLinkServiceProvider);
+
     // Sync languageProvider with EasyLocalization
     final langCode = ref.watch(languageProvider);
     if (context.locale.languageCode != langCode) {

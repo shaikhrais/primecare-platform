@@ -1,19 +1,29 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
+import 'package:primecare_governance/governance/services/governance_history_service.dart';
+import 'package:primecare_governance/governance/services/history_provider.dart';
+import 'package:primecare_governance/governance/models/governance_report.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockGovernanceHistoryService extends Mock implements GovernanceHistoryService {}
+class FakeGovernanceReport extends Fake implements GovernanceReport {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue(FakeGovernanceReport());
+  });
   TestWidgetsFlutterBinding.ensureInitialized();
   test('Hydration Verification - CompletionPercent and Office propagation', () async {
-    // 1. Setup - Path to blueprints.yaml
+    final mockHistoryService = MockGovernanceHistoryService();
+    when(() => mockHistoryService.getHealthTrend()).thenAnswer((_) async => []);
+    when(() => mockHistoryService.captureSnapshot(any())).thenAnswer((_) async {});
 
-    
-    // We need to make sure the GovernanceNotifier uses this path.
-    // In governance_provider.dart, it uses Directory.current.path.
-    // If we run the test from the root, it works.
-    // If we run from apps/primecare_governance, we might need to adjust.
-    
-    final container = ProviderContainer();
+    final container = ProviderContainer(
+      overrides: [
+        governanceHistoryServiceProvider.overrideWithValue(mockHistoryService),
+      ],
+    );
     final notifier = container.read(governanceProvider.notifier);
     
     // 2. Run Hydration

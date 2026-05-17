@@ -5,8 +5,18 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:yaml/yaml.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
+import 'package:primecare_governance/governance/services/governance_history_service.dart';
+import 'package:primecare_governance/governance/services/history_provider.dart';
+import 'package:primecare_governance/governance/models/governance_report.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockGovernanceHistoryService extends Mock implements GovernanceHistoryService {}
+class FakeGovernanceReport extends Fake implements GovernanceReport {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue(FakeGovernanceReport());
+  });
   TestWidgetsFlutterBinding.ensureInitialized();
   test('Audit Screen Registry Parity', () async {
     final projectRoot =
@@ -39,8 +49,16 @@ void main() {
             .toList(),
     };
 
+    final mockHistoryService = MockGovernanceHistoryService();
+    when(() => mockHistoryService.getHealthTrend()).thenAnswer((_) async => []);
+    when(() => mockHistoryService.captureSnapshot(any())).thenAnswer((_) async {});
+
     // Initialize registry and hydrate from blueprints
-    final container = ProviderContainer();
+    final container = ProviderContainer(
+      overrides: [
+        governanceHistoryServiceProvider.overrideWithValue(mockHistoryService),
+      ],
+    );
     await container.read(governanceProvider.notifier).hydrateRegistries();
     
     // Fallback registration for hardcoded screens not in blueprints

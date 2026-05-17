@@ -1,5 +1,7 @@
 import 'package:flutter_core/flutter_core.dart';
 import '../screens/common/shared_screen_stubs.dart';
+import '../screens/psw/psw_messages_screen.dart';
+import '../screens/psw/psw_visit_notes_screen.dart';
 
 /// [ScreenRegistry] - UI-specific bridge for PlatformScreenRegistry.
 /// Maps architectural metadata to actual Flutter widgets.
@@ -19,12 +21,8 @@ class ScreenRegistry {
     'SCREEN_PSW_TASKS': const ScreenNotImplementedView(
       screenName: 'PSW Task List',
     ),
-    'SCREEN_PSW_MESSAGES': const ScreenNotImplementedView(
-      screenName: 'PSW Messages',
-    ),
-    'SCREEN_PSW_VISIT_NOTES': const ScreenNotImplementedView(
-      screenName: 'PSW Visit Notes',
-    ),
+    'SCREEN_PSW_MESSAGES': const PswMessagesScreen(),
+    'SCREEN_PSW_VISIT_NOTES': const PswVisitNotesScreen(),
 
     // RN Role
     'SCREEN_RN_DASHBOARD': const ScreenNotImplementedView(
@@ -72,10 +70,12 @@ class ScreenRegistry {
   };
 
   /// Source of truth for metadata
-  static Map<String, ScreenMetadata> get screens => PlatformScreenRegistry.screens;
+  static Map<String, ScreenMetadata> get screens =>
+      PlatformScreenRegistry.screens;
 
   /// Returns all registered screen metadata
-  static List<ScreenMetadata> getAllScreens() => PlatformScreenRegistry.allScreens;
+  static List<ScreenMetadata> getAllScreens() =>
+      PlatformScreenRegistry.allScreens;
 
   /// Retrieves the widget implementation for a given screen ID.
   static Widget getWidget(String id) {

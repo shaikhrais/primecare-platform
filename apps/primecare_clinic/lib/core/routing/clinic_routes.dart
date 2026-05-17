@@ -1,5 +1,4 @@
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -9,10 +8,13 @@ class ClinicTenant extends PlatformTenant {
   String get name => 'PrimeCare Clinic';
   
   @override
-  ThemeData get branding => ThemeData(
-    primaryColor: const Color(0xFF2E7D32), // Medical Green
-    useMaterial3: true,
-  );
+  ThemeData get branding => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF0F766E), // Medical Teal
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFCCFBF1),
+        ),
+      ).toThemeData();
 }
 
 
@@ -35,20 +37,17 @@ class ClinicCareModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Care Plan',
           route: CommonRoutes.clinicCarePlan,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.clipboardList,
         ),
         PrimeCareScreen(
           title: 'Daily Notes',
           route: CommonRoutes.clinicDailyNotes,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.pencil,
 
         ),
         PrimeCareScreen(
           title: 'Client Profile',
           route: CommonRoutes.clinicClientProfile,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.userCircle,
         ),
       ];
@@ -74,19 +73,16 @@ class ClinicOperationsModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Clinical Intelligence',
           route: CommonRoutes.clinicDashboard,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.barChart4,
         ),
         PrimeCareScreen(
           title: 'My Shifts',
           route: CommonRoutes.clinicMyShifts,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.calendarDays,
         ),
         PrimeCareScreen(
           title: 'Messaging',
           route: CommonRoutes.clinicMessaging,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.messageSquare,
         ),
       ];
@@ -110,14 +106,56 @@ class ClinicSafetyModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Incident Report',
           route: CommonRoutes.clinicIncidentReport,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.alertTriangle,
         ),
         PrimeCareScreen(
           title: 'History Logs',
           route: CommonRoutes.clinicHistoryLogs,
-          requiredRole: PlatformRole.clinic,
           icon: LucideIcons.history,
+        ),
+      ];
+}
+
+class ClinicPswModule extends PlatformModule {
+  @override
+  String get moduleId => 'clinic_psw';
+  @override
+  String get name => 'PSW Care';
+  @override
+  IconData get icon => LucideIcons.userPlus;
+  @override
+  List<PlatformRole> get allowedRoles => [PlatformRole.psw];
+  @override
+  List<PrimeCareScreen> get screens => [
+        PrimeCareScreen(
+          title: 'Care Dashboard',
+          route: ClinicalRoutes.pswDashboard,
+          icon: LucideIcons.home,
+        ),
+        PrimeCareScreen(
+          title: 'Shift Tracker',
+          route: ClinicalRoutes.pswSchedule,
+          icon: LucideIcons.clock,
+        ),
+        PrimeCareScreen(
+          title: 'My Clients',
+          route: ClinicalRoutes.pswPatientProfile,
+          icon: LucideIcons.users,
+        ),
+        PrimeCareScreen(
+          title: 'Task List',
+          route: ClinicalRoutes.pswVisitChecklist,
+          icon: LucideIcons.checkSquare,
+        ),
+        PrimeCareScreen(
+          title: 'Messages',
+          route: ClinicalRoutes.pswMessages,
+          icon: LucideIcons.messageSquare,
+        ),
+        PrimeCareScreen(
+          title: 'Visit Notes',
+          route: ClinicalRoutes.pswVisitNotes,
+          icon: LucideIcons.fileText,
         ),
       ];
 }
@@ -151,8 +189,8 @@ class ClinicApplication extends PlatformApplication {
         ),
         PlatformRoleDefinition(
           role: PlatformRole.psw,
-          dashboardRoute: CommonRoutes.clinicDashboard,
-          modules: [ClinicCareModule(), ClinicOperationsModule()],
+          dashboardRoute: ClinicalRoutes.pswDashboard,
+          modules: [ClinicPswModule(), ClinicCareModule(), ClinicOperationsModule()],
         ),
         PlatformRoleDefinition(
           role: PlatformRole.clinicalDirector,

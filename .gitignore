@@ -107,3 +107,9 @@ build/
 .flutter-plugins-dependencies
 .project
 .metadata
+
+# Large builds and executable packages
+artifacts/builds/
+*.apk
+*.exe
+*.ipa

@@ -15,7 +15,7 @@ class GovernanceKPIGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
-      childAspectRatio: 3.2,
+      mainAxisExtent: 110,
       children: [
         _buildKPI(
           context,
@@ -113,6 +113,7 @@ class GovernanceKPIGrid extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   label,

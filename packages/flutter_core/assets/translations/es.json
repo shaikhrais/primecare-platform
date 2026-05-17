@@ -4297,5 +4297,9 @@
     "footer": {
       "language": "Idioma"
     }
+  },
+  "governance": {
+    "unauthorized_route_message": "No tiene los permisos necesarios para acceder a esta ruta.",
+    "access_denied": "Acceso denegado"
   }
 }

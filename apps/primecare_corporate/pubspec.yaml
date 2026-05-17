@@ -24,6 +24,8 @@ dependencies:
     path: ../../packages/primecare_ui
   flutter_driver:
     sdk: flutter
+  app_links: ^7.0.0
+  url_launcher: ^6.3.2
 dev_dependencies:
   integration_test:
     sdk: flutter

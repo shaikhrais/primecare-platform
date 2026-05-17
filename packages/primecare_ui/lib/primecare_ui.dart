@@ -29,4 +29,16 @@ export 'src/governance/dashboard_infrastructure.dart';
 export 'src/governance/integrity_service.dart';
 
 export 'src/screens/common/shared_screen_stubs.dart';
+export 'src/screens/psw/psw_messages_screen.dart';
+export 'src/screens/psw/psw_visit_notes_screen.dart';
 export 'src/routes/shared_routes.dart';
+
+// Auth Shared Package
+export 'src/features/auth/login_view.dart';
+export 'src/features/auth/login_controller.dart';
+export 'src/features/auth/forgot_password_view.dart';
+export 'src/features/auth/forgot_password_controller.dart';
+export 'src/features/auth/mfa_view.dart';
+export 'src/features/auth/mfa_controller.dart';
+export 'src/features/auth/reset_password_view.dart';
+export 'src/features/auth/reset_password_controller.dart';

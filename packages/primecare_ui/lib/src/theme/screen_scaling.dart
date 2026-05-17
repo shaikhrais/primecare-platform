@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 /// Utility class to handle high-fidelity responsive scaling from a 4K design canvas (3840x2160).
-/// This ensures that 4K designs look premium on ultra-wide displays while remaining 
+/// This ensures that 4K designs look premium on ultra-wide displays while remaining
 /// perfectly responsive on 3K, 2K, 1K, Tablet, and Mobile viewports.
 class ScreenScaling {
   /// The base design width for high-fidelity assets (4K).
   static const double designWidth = 3840.0;
-  
+
   /// The base design height for high-fidelity assets (4K).
   static const double designHeight = 2160.0;
 
@@ -20,7 +20,7 @@ class ScreenScaling {
   /// Calculate the scale factor relative to the 4K design width.
   double get scaleFactor => screenSize.width / designWidth;
 
-  /// Scales a specific value (dimension, font size, etc.) from 4K design space 
+  /// Scales a specific value (dimension, font size, etc.) from 4K design space
   /// to the current viewport scale.
   double scale(double value) => value * scaleFactor;
 
@@ -29,7 +29,7 @@ class ScreenScaling {
   bool get is3K => screenSize.width >= 3000 && screenSize.width < 3840;
   bool get is2K => screenSize.width >= 2000 && screenSize.width < 3000;
   bool get is1K => screenSize.width >= 1000 && screenSize.width < 2000;
-  
+
   bool get isDesktop => screenSize.width >= 1200;
   bool get isTablet => screenSize.width >= 600 && screenSize.width < 1200;
   bool get isMobile => screenSize.width < 600;
@@ -51,7 +51,7 @@ class ScreenScaling {
 /// Extension to provide easy access to scaling from BuildContext.
 extension ScreenScalingExtension on BuildContext {
   ScreenScaling get scaling => ScreenScaling(this);
-  
+
   /// Quick scaling helper.
   double s(double value) => scaling.scale(value);
 }

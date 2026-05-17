@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
+
 import 'clinic_routes.dart';
 
 final clinicApplicationProvider = Provider<ClinicApplication>((ref) {
@@ -20,29 +20,52 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             PlatformRole.guest)
       : PlatformRole.guest;
 
+  final dashboardRoute = activeRole == PlatformRole.guest ? CommonRoutes.login : application.getDefinition(activeRole)?.dashboardRoute ?? CommonRoutes.login;
+
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
     activeRole: activeRole,
-    initialLocation: CommonRoutes.clinicDashboard, // Default starting location
+    initialLocation: dashboardRoute,
     refreshListenable: authListenable,
     redirect: (context, state) {
       final requestedRoute = state.uri.toString();
 
-      final isAtLanding =
-          requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+      // Ensure SSO Portal URL is configured (this normally goes in app initialization)
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');
 
-      if (authState.isAuthenticated && isAtLanding) {
-        final role = authState.role ?? '';
-        final destination = AuthNotifier.getDashboardRouteForRole(role);
-        return destination;
+      final result = RouteGuard.verify(
+        requestedRoute: requestedRoute,
+        isLoggedIn: authState.isAuthenticated,
+        userRole: authState.role,
+      );
+
+      if (!result.isAllowed) {
+        if (result.externalRedirectUrl != null) {
+          return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(result.externalRedirectUrl!)}';
+        }
+        return result.redirectRoute;
       }
 
-      if (!authState.isAuthenticated && !isAtLanding) {
-        // Enforce login for unauthorized users
-        return CommonRoutes.login;
+      // If allowed and trying to hit root/login while authenticated, go to dashboard
+      final isAtLanding = requestedRoute == '/' || requestedRoute == CommonRoutes.login;
+      if (authState.isAuthenticated && isAtLanding) {
+        return dashboardRoute;
       }
 
       return null;
     },
+    publicRoutes: [
+      GoRoute(
+        path: CommonRoutes.ssoRedirect,
+        builder: (context, state) {
+          final url = state.uri.queryParameters['url'] ?? 'http://localhost:3000';
+          return SsoRedirectView(redirectUrl: url);
+        },
+      ),
+      GoRoute(
+        path: CommonRoutes.login,
+        builder: (context, state) => const LoginView(),
+      ),
+    ],
   );
 });

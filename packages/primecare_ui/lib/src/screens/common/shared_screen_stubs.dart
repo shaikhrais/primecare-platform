@@ -1,26 +1,66 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SignInView extends ConsumerWidget {
+class SignInView extends ConsumerStatefulWidget {
   const SignInView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SignInView> createState() => _SignInViewState();
+}
+
+class _SignInViewState extends ConsumerState<SignInView> {
+  final _emailController = TextEditingController(text: 'admin@primecare.com');
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tenant = ref.watch(platformApplicationProvider).tenant;
+
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('PrimeCare', style: context.theme.typography.h1),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await ref
-                    .read(authProvider.notifier)
-                    .login('admin@primecare.com', 'password');
-              },
-              child: const Text('Sign In'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                LucideIcons.shieldCheck,
+                size: 64,
+                color: tenant.branding.primaryColor,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                tenant.name,
+                style: context.theme.typography.h1.copyWith(
+                  color: tenant.branding.primaryColor,
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email (use <role>@demo.primecare.com)',
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: tenant.branding.primaryColor,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  await ref
+                      .read(authProvider.notifier)
+                      .login(_emailController.text, 'password');
+                },
+                child: const Text('Sign In'),
+              ),
+            ],
+          ),
         ),
       ),
     );

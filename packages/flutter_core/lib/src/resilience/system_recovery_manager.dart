@@ -1,4 +1,4 @@
-// Layer: 01_INFRASTRUCTURE
+﻿// Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../../config/resilience_config.dart';
 
@@ -34,11 +34,11 @@ class SystemRecoveryManager {
       _lastHealAttempt = now;
 
       debugPrint(
-        'PRIMECARE_HEALER: 🛠️ Mechanical fix attempt #$_healCount initiated...',
+        'PRIMECARE_HEALER: ðŸ› ï¸ Mechanical fix attempt #$_healCount initiated...',
       );
 
       // We use a small delay to allow the stack to clear before triggering reset
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future<void>.delayed(const Duration(milliseconds: 500), () {
         if (onReset != null) {
           onReset();
         }
@@ -48,7 +48,7 @@ class SystemRecoveryManager {
     }
 
     debugPrint(
-      'PRIMECARE_HEALER: ⚠️ Max mechanical attempts reached. Requiring agent intervention.',
+      'PRIMECARE_HEALER: âš ï¸ Max mechanical attempts reached. Requiring agent intervention.',
     );
     return false;
   }
@@ -58,7 +58,7 @@ class SystemRecoveryManager {
   static void markStable() {
     if (_healCount > 0) {
       debugPrint(
-        'PRIMECARE_HEALER: ✅ System stable. Resetting mechanical fix counter.',
+        'PRIMECARE_HEALER: âœ… System stable. Resetting mechanical fix counter.',
       );
       _healCount = 0;
       _lastHealAttempt = null;

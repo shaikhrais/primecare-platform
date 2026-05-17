@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../models/domain_governance.dart';
 import '../../models/screen.dart';
+import '../../models/governance_role.dart';
 import '../platform_role.dart';
 import '../../aura_behavioral_telemetry.dart';
 import '../../auth_service.dart';
@@ -78,6 +79,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
             ],
           ),
           actions: [
+            // HUD: Role & Metrics
             Container(
               margin: const EdgeInsets.only(right: 16),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -98,6 +100,39 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       color: theme.primaryColor,
                       fontWeight: FontWeight.w600,
                     ),
+                  ),
+                  const SizedBox(width: 12),
+                  Container(
+                    width: 1,
+                    height: 14,
+                    color: theme.primaryColor.withValues(alpha: 0.2),
+                  ),
+                  const SizedBox(width: 12),
+                  Builder(
+                    builder: (context) {
+                      final govRole = GovernanceRole(activeRole);
+                      return Row(
+                        children: [
+                          Icon(LucideIcons.layers, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Role Items: ${govRole.totalSidebarItems}',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.primaryColor.withValues(alpha: 0.8),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Icon(LucideIcons.appWindow, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                          const SizedBox(width: 4),
+                          Text(
+                            'App Total: ${govRole.totalAppSidebarItems}',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.primaryColor.withValues(alpha: 0.8),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
                   ),
                 ],
               ),
@@ -160,7 +195,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
                               screen.requiredRole == null ||
                               screen.requiredRole == activeRole)
                           .map((screen) {
-                        final isSelected = GoRouterState.of(context).uri.toString() == screen.route;
+                        
+                        String currentRoute = '';
+                        try {
+                          currentRoute = GoRouterState.of(context).uri.toString();
+                        } catch (_) {
+                          currentRoute = '';
+                        }
+                        
+                        final isSelected = currentRoute == screen.route;
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                           child: ListTile(

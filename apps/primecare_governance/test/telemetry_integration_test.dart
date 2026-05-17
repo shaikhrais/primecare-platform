@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+﻿import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
 import 'package:primecare_governance/core/governance/governance_api_service.dart';
@@ -61,7 +61,7 @@ void main() {
         stream.listen((data) {});
 
         // Allow initialization
-        await Future.delayed(Duration.zero);
+        await Future<void>.delayed(Duration.zero);
 
         // Push target telemetry data
         final eventTime = DateTime.now();
@@ -80,7 +80,7 @@ void main() {
         });
 
         // Allow processing
-        await Future.delayed(const Duration(milliseconds: 50));
+        await Future<void>.delayed(const Duration(milliseconds: 50));
 
         final state = container.read(governanceProvider);
 

@@ -34,6 +34,49 @@ void main() async {
     }
 
     final user = results.first;
+    
+    // Set cookie for SSO across subdomains
+    // Domain=.primecare.com is crucial for primecare_clinic and primecare_corporate to share it.
+    final token = user[0]; // For demo, using ID as token. In reality, a JWT.
+    final cookie = 'session_token=$token; Domain=.primecare.com; Path=/; HttpOnly; SameSite=Lax';
+
+    return Response.ok(jsonEncode({
+      'userId': user[0],
+      'roles': user[1],
+      'token': token,
+      'status': 'authenticated',
+    }), headers: {
+      'Content-Type': 'application/json',
+      'Set-Cookie': cookie,
+    });
+  });
+
+  // /me route to restore session using cookie
+  router.get('/me', (Request request) async {
+    final cookieHeader = request.headers['cookie'];
+    if (cookieHeader == null || !cookieHeader.contains('session_token=')) {
+      return Response.forbidden('{"error": "No session"}', headers: {'Content-Type': 'application/json'});
+    }
+
+    // Extract token
+    final tokenMatch = RegExp(r'session_token=([^;]+)').firstMatch(cookieHeader);
+    final token = tokenMatch?.group(1);
+
+    if (token == null) {
+      return Response.forbidden('{"error": "Invalid session"}', headers: {'Content-Type': 'application/json'});
+    }
+
+    // Mock validation against DB (using token as userId for demo)
+    final results = await db.query(
+      'SELECT id, roles FROM users WHERE id = @id LIMIT 1',
+      substitutionValues: {'id': token},
+    );
+
+    if (results.isEmpty) {
+      return Response.forbidden('{"error": "User not found"}', headers: {'Content-Type': 'application/json'});
+    }
+
+    final user = results.first;
     return Response.ok(jsonEncode({
       'userId': user[0],
       'roles': user[1],
@@ -48,7 +91,11 @@ void main() async {
 
   final handler = const Pipeline()
       .addMiddleware(logRequests())
-      .addMiddleware(corsHeaders())
+      .addMiddleware(corsHeaders(headers: {
+        'Access-Control-Allow-Origin': 'https://auth.primecare.com', // Or dynamically read from origin
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
+      }))
       .addHandler(router.call);
 
   final port = int.parse(Platform.environment['PORT'] ?? '8080');

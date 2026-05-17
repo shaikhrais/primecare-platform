@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
 import '../services/governance_exporter.dart';
@@ -44,36 +45,40 @@ class GovernanceDashboardState {
   }
 }
 
-class GovernanceDashboardController extends Notifier<GovernanceDashboardState> {
+class GovernanceDashboardController extends AsyncNotifier<GovernanceDashboardState> {
   @override
-  GovernanceDashboardState build() {
+  FutureOr<GovernanceDashboardState> build() async {
     return const GovernanceDashboardState();
   }
 
   void setSeverity(AuditSeverity? severity) {
-    state = state.copyWith(
+    if (state.value == null) return;
+    state = AsyncData(state.value!.copyWith(
       selectedSeverity: severity,
       clearSeverity: severity == null,
-    );
+    ));
   }
 
   void setCategory(GovernanceCategory? category) {
-    state = state.copyWith(
+    if (state.value == null) return;
+    state = AsyncData(state.value!.copyWith(
       selectedCategory: category,
       clearCategory: category == null,
-    );
+    ));
   }
 
   void setSearchQuery(String query) {
-    state = state.copyWith(searchQuery: query);
+    if (state.value == null) return;
+    state = AsyncData(state.value!.copyWith(searchQuery: query));
   }
 
   void clearFilters() {
-    state = state.copyWith(
+    if (state.value == null) return;
+    state = AsyncData(state.value!.copyWith(
       clearSeverity: true,
       clearCategory: true,
       searchQuery: '',
-    );
+    ));
   }
 
   /// Business Logic: Rescan the platform
@@ -88,7 +93,8 @@ class GovernanceDashboardController extends Notifier<GovernanceDashboardState> {
 
   /// Business Logic: Export report
   Future<String?> exportReport(String format, GovernanceReport report) async {
-    state = state.copyWith(isExporting: true);
+    if (state.value == null) return null;
+    state = AsyncData(state.value!.copyWith(isExporting: true));
     try {
       String content = '';
       if (format == 'pdf') {
@@ -112,12 +118,14 @@ class GovernanceDashboardController extends Notifier<GovernanceDashboardState> {
       }
       return content;
     } finally {
-      state = state.copyWith(isExporting: false);
+      if (state.value != null) {
+        state = AsyncData(state.value!.copyWith(isExporting: false));
+      }
     }
   }
 }
 
 final governanceDashboardControllerProvider =
-    NotifierProvider<GovernanceDashboardController, GovernanceDashboardState>(
+    AsyncNotifierProvider<GovernanceDashboardController, GovernanceDashboardState>(
       () => GovernanceDashboardController(),
     );

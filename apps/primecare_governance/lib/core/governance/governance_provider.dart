@@ -387,6 +387,8 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
 
   void _startAutomationLoop() {
     _automationTimer?.cancel();
+    if (Platform.environment.containsKey('FLUTTER_TEST')) return;
+    
     // Run an audit/remediation check every 5 minutes in production,
     // but every 30 seconds for the current demonstration/verification phase.
     _automationTimer = Timer.periodic(const Duration(seconds: 30), (timer) {

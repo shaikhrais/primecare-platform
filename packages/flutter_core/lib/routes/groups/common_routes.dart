@@ -6,6 +6,7 @@ class CommonRoutes {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';
+  static const String ssoRedirect = '/sso-redirect';
   static const String globalSettings = '/common/settings';
   static const String globalProfile = '/common/profile';
   static const String notificationCenter = '/common/notifications';

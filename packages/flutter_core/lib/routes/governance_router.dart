@@ -17,6 +17,7 @@ class GovernanceRouter {
     required String initialLocation,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
+    List<GoRoute> publicRoutes = const [],
   }) {
     // 1. Determine authorized modules
     final authorizedModules = application.getAuthorizedModules(activeRole);
@@ -37,12 +38,24 @@ class GovernanceRouter {
       }
     }
 
+    if (authorizedRoutes.isEmpty) {
+      authorizedRoutes.add(
+        GoRoute(
+          path: initialLocation,
+          builder: (context, state) => Scaffold(
+            body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+          ),
+        ),
+      );
+    }
+
     // 3. Build GoRouter with strict shell
     return GoRouter(
       initialLocation: initialLocation,
       refreshListenable: refreshListenable,
       redirect: redirect,
       routes: [
+        ...publicRoutes,
         ShellRoute(
           builder: (context, state, child) => GovernanceMasterLayout(
             application: application,

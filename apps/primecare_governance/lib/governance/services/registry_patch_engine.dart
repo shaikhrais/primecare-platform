@@ -54,7 +54,7 @@ class RegistryPatchEngine {
 
       return false;
     } catch (e) {
-      // TODO: Replace with proper logging framework in next phase
+      PrimeLogger.error('Failed to apply registry patch for ${issue.screenId}', tag: 'RegistryPatchEngine', error: e);
       return false;
     }
   }

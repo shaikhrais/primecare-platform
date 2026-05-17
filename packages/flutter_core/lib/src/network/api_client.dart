@@ -21,6 +21,7 @@ class ApiClient {
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
           },
+          extra: {'withCredentials': true},
         ),
       ) {
     _dio.interceptors.add(SecurityInterceptor(_ref));
@@ -119,6 +120,7 @@ class ApiConfig {
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
     'register': '/v1/auth/register',
+    'me': '/v1/auth/me',
     'dashboard-metrics': '/v1/governance/dashboard',
     'providerDashboard': '/v1/provider/dashboard',
     'providerCheckin': '/v1/provider/checkin',

@@ -9,7 +9,7 @@ async function main() {
     }
   });
   console.log(`Found ${users.length} users in the database:`);
-  users.forEach(u => {
+  users.forEach((u: { email: string; roles: string[] }) => {
     console.log(`- ${u.email} | Roles: ${u.roles.join(', ')}`);
   });
 }

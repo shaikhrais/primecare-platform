@@ -44,7 +44,7 @@ class GovernanceApplication extends PlatformApplication {
         ),
         PlatformRoleDefinition(
           role: PlatformRole.psw,
-          dashboardRoute: '/generated/psw-dashboard',
+          dashboardRoute: ClinicalRoutes.pswDashboard,
           modules: [
             GovernancePSWDashboardModule(),
             GovernanceOperationsModule(),
@@ -84,19 +84,16 @@ class GovernanceCEOModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Growth Pipeline',
           route: '/generated${CorporateRoutes.ceoGrowthPipeline}',
-          requiredRole: PlatformRole.ceo,
           icon: LucideIcons.barChart3,
         ),
         PrimeCareScreen(
           title: 'Regional Performance',
           route: '/generated${CorporateRoutes.ceoRegionPerformance}',
-          requiredRole: PlatformRole.ceo,
           icon: LucideIcons.map,
         ),
         PrimeCareScreen(
           title: 'Leadership Reports',
           route: '/generated${CorporateRoutes.ceoLeadershipReports}',
-          requiredRole: PlatformRole.ceo,
           icon: LucideIcons.filePieChart,
         ),
       ];
@@ -115,38 +112,32 @@ class GovernancePSWDashboardModule extends PlatformModule {
   List<PrimeCareScreen> get screens => [
         PrimeCareScreen(
           title: 'Care Dashboard',
-          route: '/generated/psw-dashboard',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswDashboard,
           icon: LucideIcons.home,
         ),
         PrimeCareScreen(
           title: 'Shift Tracker',
-          route: '/generated/psw-shift-tracker',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswSchedule,
           icon: LucideIcons.clock,
         ),
         PrimeCareScreen(
           title: 'My Clients',
-          route: '/generated/psw-clients',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswPatientProfile,
           icon: LucideIcons.users,
         ),
         PrimeCareScreen(
           title: 'Task List',
-          route: '/generated/psw-tasks',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswVisitChecklist,
           icon: LucideIcons.checkSquare,
         ),
         PrimeCareScreen(
           title: 'Messages',
-          route: '/generated/psw-messages',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswMessages,
           icon: LucideIcons.messageSquare,
         ),
         PrimeCareScreen(
           title: 'Visit Notes',
-          route: '/generated/psw-visit-notes',
-          requiredRole: PlatformRole.psw,
+          route: ClinicalRoutes.pswVisitNotes,
           icon: LucideIcons.fileText,
         ),
       ];
@@ -166,25 +157,21 @@ class GovernanceQualityAssuranceModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Audit Dashboard',
           route: '/generated/audit-dashboard',
-          requiredRole: PlatformRole.qualityAssurance,
           icon: LucideIcons.barChart,
         ),
         PrimeCareScreen(
           title: 'Compliance Reviews',
           route: '/generated/compliance-reviews',
-          requiredRole: PlatformRole.qualityAssurance,
           icon: LucideIcons.searchCode,
         ),
         PrimeCareScreen(
           title: 'Incident Reports',
           route: '/generated/incident-reports',
-          requiredRole: PlatformRole.qualityAssurance,
           icon: LucideIcons.alertTriangle,
         ),
         PrimeCareScreen(
           title: 'Quality Metrics',
           route: '/generated/quality-metrics',
-          requiredRole: PlatformRole.qualityAssurance,
           icon: LucideIcons.gauge,
         ),
       ];
@@ -204,19 +191,16 @@ class GovernanceOperationsModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Governance HUD',
           route: '/governance/hud',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.radar,
         ),
         PrimeCareScreen(
           title: 'Control Center',
           route: '/governance/control-center',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.settings,
         ),
         PrimeCareScreen(
           title: 'Proposals',
           route: '/proposals',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.inbox,
         ),
       ];
@@ -236,19 +220,16 @@ class GovernanceSecurityModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Security Hub',
           route: '/governance/device-security',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.shield,
         ),
         PrimeCareScreen(
           title: 'Security Sentinel',
           route: '/governance/security',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.lock,
         ),
         PrimeCareScreen(
           title: 'Verification Center',
           route: '/verification',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.checkCircle,
         ),
       ];
@@ -268,25 +249,21 @@ class GovernanceAuditModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Audit Log',
           route: '/governance/audit',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.history,
         ),
         PrimeCareScreen(
           title: 'Monitoring',
           route: '/governance/monitoring',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.activity,
         ),
         PrimeCareScreen(
           title: 'Ticket Center',
           route: '/governance/tickets',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.ticket,
         ),
         PrimeCareScreen(
           title: 'Screen Status',
           route: '/governance/screen-status',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.listChecks,
         ),
       ];
@@ -306,7 +283,6 @@ class GovernanceReferenceModule extends PlatformModule {
         PrimeCareScreen(
           title: 'Clinical Reference',
           route: '/governance/clinical-reference',
-          requiredRole: PlatformRole.admin,
           icon: LucideIcons.bookOpen,
         ),
       ];

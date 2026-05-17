@@ -1,4 +1,4 @@
-import 'package:primecare_ui/primecare_ui.dart';
+﻿import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart';
 
 class MarketingRoutes {
@@ -40,18 +40,15 @@ class MarketingOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Marketing Dashboard',
       route: MarketingRoutes.localMarketingManagerDashboard,
-      requiredRole: PlatformRole.localMarketingManager,
-    ),
+),
     PrimeCareScreen(
       title: 'Outreach Dashboard',
       route: MarketingRoutes.communityOutreachDashboard,
-      requiredRole: PlatformRole.communityOutreach,
-    ),
+),
     PrimeCareScreen(
       title: 'System Verification',
       route: '/offices/system-verification',
-      requiredRole: PlatformRole.systemVerification,
-    ),
+),
   ];
 }
 

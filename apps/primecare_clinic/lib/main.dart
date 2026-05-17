@@ -16,6 +16,9 @@ class PrimeCareClinicApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Initialize Deep Link listener for Native SSO
+    ref.read(deepLinkServiceProvider);
+    
     final tenant = ClinicTenant();
 
     return MaterialApp.router(
