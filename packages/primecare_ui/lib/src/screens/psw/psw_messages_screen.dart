@@ -118,11 +118,11 @@ final pswMessagesProvider =
     });
 
 // --- UI ---
-class PswMessagesScreen extends ConsumerWidget {
+class PswMessagesScreen extends GovernedConsumerWidget {
   const PswMessagesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final messagesAsync = ref.watch(pswMessagesProvider);
     final theme = context.theme;
 

@@ -121,11 +121,11 @@ final pswVisitNotesProvider =
     });
 
 // --- UI ---
-class PswVisitNotesScreen extends ConsumerWidget {
+class PswVisitNotesScreen extends GovernedConsumerWidget {
   const PswVisitNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final notesAsync = ref.watch(pswVisitNotesProvider);
     final theme = context.theme;
 
