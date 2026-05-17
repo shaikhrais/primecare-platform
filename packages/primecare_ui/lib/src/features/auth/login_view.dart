@@ -22,59 +22,52 @@ class LoginView extends GovernedScreen {
 
     return Scaffold(
       backgroundColor: theme.colors.background,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // 1. Half Billboard (Left Side)
-                    if (isDesktop)
-                      const Expanded(flex: 1, child: _LoginBillboard()),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // 1. Half Billboard (Left Side)
+          if (isDesktop)
+            const Expanded(flex: 1, child: _LoginBillboard()),
 
-                    // 2. Login Form (Right Side)
-                    Expanded(
-                      flex: 1,
-                      child: Stack(
-                        children: [
-                          const _BackgroundVisuals(),
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: theme.spacing.xl,
-                                vertical: theme.spacing.xl,
-                              ),
-                              child: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 440,
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (!isDesktop) const _LoginBranding(),
-                                    if (!isDesktop) const SizedBox(height: 48),
-                                    _LoginCard(state: state),
-                                    const SizedBox(height: 48),
-                                    const _LoginFooter(),
-                                    const SizedBox(height: 24),
-                                    const _RoleSimulationCenter(),
-                                  ],
-                                ),
-                              ),
-                            ),
+          // 2. Login Form (Right Side)
+          Expanded(
+            flex: 1,
+            child: Stack(
+              children: [
+                const _BackgroundVisuals(),
+                SafeArea(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: theme.spacing.xl,
+                          vertical: theme.spacing.xl,
+                        ),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 440,
                           ),
-                        ],
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (!isDesktop) const _LoginBranding(),
+                              if (!isDesktop) const SizedBox(height: 48),
+                              _LoginCard(state: state),
+                              const SizedBox(height: 48),
+                              const _LoginFooter(),
+                              const SizedBox(height: 24),
+                              const _RoleSimulationCenter(),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

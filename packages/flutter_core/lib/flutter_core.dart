@@ -54,6 +54,7 @@ export 'verification_providers.dart'
 
 // Mission-critical symbols for standardized Notifiers and Resilience
 export 'package:flutter_riverpod/flutter_riverpod.dart';
+export 'package:flutter_riverpod/legacy.dart';
 export 'src/resilience/resilient_notifier_mixin.dart';
 
 export 'package:lucide_icons/lucide_icons.dart';

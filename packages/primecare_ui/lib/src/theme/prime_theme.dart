@@ -51,6 +51,8 @@ class PrimeCareColors {
   // Success
   static const Color success = Color(0xFF10B981);
   static const Color onSuccess = Color(0xFFFFFFFF);
+  static const Color successContainer = Color(0xFFD1FAE5);
+  static const Color onSuccessContainer = Color(0xFF065F46);
 
   // Fixed Variants
   static const Color primaryFixed = Color(0xFFDBE1FF);
@@ -99,6 +101,7 @@ class PrimeColors {
   final Color outlineVariant;
   final Color error;
   final Color errorContainer;
+  final Color successContainer;
   final Color warning;
   final Color success;
   final Color divider;
@@ -145,6 +148,7 @@ class PrimeColors {
     this.outlineVariant = PrimeCareColors.outlineVariant,
     this.error = PrimeCareColors.error,
     this.errorContainer = PrimeCareColors.errorContainer,
+    this.successContainer = PrimeCareColors.successContainer,
     this.warning = const Color(0xFFF59E0B),
     this.success = PrimeCareColors.success,
     this.divider = PrimeCareColors.outlineVariant,
@@ -166,6 +170,9 @@ class PrimeColors {
 
   final Color onErrorContainer;
 
+  Color get onBackground => onSurface;
+  Color get warningContainer => warning.withValues(alpha: 0.15);
+
   PrimeColors copyWith({
     Color? primary,
     Color? onPrimary,
@@ -186,6 +193,8 @@ class PrimeColors {
     Color? outline,
     Color? outlineVariant,
     Color? error,
+    Color? errorContainer,
+    Color? successContainer,
     Color? warning,
     Color? success,
     Color? divider,
@@ -212,6 +221,8 @@ class PrimeColors {
       outline: outline ?? this.outline,
       outlineVariant: outlineVariant ?? this.outlineVariant,
       error: error ?? this.error,
+      errorContainer: errorContainer ?? this.errorContainer,
+      successContainer: successContainer ?? this.successContainer,
       warning: warning ?? this.warning,
       success: success ?? this.success,
       divider: divider ?? this.divider,
@@ -264,6 +275,16 @@ class PrimeTypography {
   final TextStyle labelMedium;
 
   final TextStyle labelSmall;
+
+  TextStyle get h4 => const TextStyle(
+        fontFamily: 'Manrope',
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: PrimeCareColors.onSurface,
+        height: 24 / 18,
+      );
+
+  TextStyle get button => labelBold;
 
   const PrimeTypography({
     this.defaultColor = PrimeCareColors.onSurface,

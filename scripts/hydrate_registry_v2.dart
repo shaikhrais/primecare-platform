@@ -28,8 +28,8 @@ void main() async {
 
   final registryContent = File(registryPath).readAsStringSync();
   
-  // Extract existing screen IDs
-  final idRegex = RegExp(r"'(SCREEN_[A-Z0-9_]+)':");
+  // Extract existing screen IDs (supporting keys with or without SCREEN_ prefix)
+  final idRegex = RegExp(r"'\s*([A-Z0-9_]+)'\s*:");
   final existingIds = idRegex.allMatches(registryContent).map((m) => m.group(1)).toSet();
   print('Existing registered screens: ${existingIds.length}');
 
@@ -40,9 +40,10 @@ void main() async {
     final page = node as YamlMap;
     final id = page['id'] as String;
 
-    final normalizedId = 'SCREEN_${id.replaceAll('.', '_').toUpperCase()}';
+    final baseId = id.replaceAll('.', '_').toUpperCase();
+    final normalizedId = 'SCREEN_$baseId';
     
-    if (existingIds.contains(normalizedId)) continue;
+    if (existingIds.contains(normalizedId) || existingIds.contains(baseId)) continue;
     if (id == 'auth_layout') continue; // Skip layout-only entries if needed
 
     final name = page['name'] as String? ?? id;

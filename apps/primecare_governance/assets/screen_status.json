@@ -1,15 +1,15 @@
 {
   "summary": {
     "total": 290,
-    "implemented": 0,
-    "pending": 290,
-    "implementedPercentage": 0
+    "implemented": 19,
+    "pending": 271,
+    "implementedPercentage": 7
   },
   "byApp": {
     "primecare_corporate": {
       "total": 65,
-      "implemented": 0,
-      "pending": 65
+      "implemented": 4,
+      "pending": 61
     },
     "primecare_business_development": {
       "total": 50,
@@ -18,13 +18,13 @@
     },
     "primecare_franchise": {
       "total": 35,
-      "implemented": 0,
-      "pending": 35
+      "implemented": 2,
+      "pending": 33
     },
     "primecare_clinic": {
       "total": 95,
-      "implemented": 0,
-      "pending": 95
+      "implemented": 12,
+      "pending": 83
     },
     "primecare_governance": {
       "total": 30,
@@ -33,15 +33,15 @@
     },
     "primecare_client": {
       "total": 15,
-      "implemented": 0,
-      "pending": 15
+      "implemented": 1,
+      "pending": 14
     }
   },
   "byOffice": {
     "Corporate": {
       "total": 65,
-      "implemented": 0,
-      "pending": 65
+      "implemented": 4,
+      "pending": 61
     },
     "Business Development": {
       "total": 50,
@@ -50,13 +50,13 @@
     },
     "Franchise": {
       "total": 35,
-      "implemented": 0,
-      "pending": 35
+      "implemented": 2,
+      "pending": 33
     },
     "Clinical": {
       "total": 95,
-      "implemented": 0,
-      "pending": 95
+      "implemented": 12,
+      "pending": 83
     },
     "Training & Architecture": {
       "total": 30,
@@ -65,8 +65,8 @@
     },
     "Client Portal": {
       "total": 15,
-      "implemented": 0,
-      "pending": 15
+      "implemented": 1,
+      "pending": 14
     }
   },
   "byRole": {
@@ -81,22 +81,22 @@
       "office": "Corporate",
       "app": "primecare_corporate",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "cfo": {
       "office": "Corporate",
       "app": "primecare_corporate",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "cto": {
       "office": "Corporate",
       "app": "primecare_corporate",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "complianceManager": {
       "office": "Corporate",
@@ -158,8 +158,8 @@
       "office": "Corporate",
       "app": "primecare_corporate",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "regionalManagerOntario": {
       "office": "Business Development",
@@ -249,8 +249,8 @@
       "office": "Franchise",
       "app": "primecare_franchise",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "billingAdmin": {
       "office": "Franchise",
@@ -277,8 +277,8 @@
       "office": "Franchise",
       "app": "primecare_franchise",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "clinicalDirector": {
       "office": "Clinical",
@@ -319,50 +319,50 @@
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "psw": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "rn": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "rpn": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "rmt": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "chiropractor": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "physiotherapist": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "socialWorker": {
       "office": "Clinical",
@@ -375,15 +375,15 @@
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "patient": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "customerSupport": {
       "office": "Clinical",
@@ -396,22 +396,22 @@
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "qa": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "support": {
       "office": "Clinical",
       "app": "primecare_clinic",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     },
     "trainingDirectorCertificate": {
       "office": "Training & Architecture",
@@ -473,15 +473,15 @@
       "office": "Client Portal",
       "app": "primecare_client",
       "total": 5,
-      "implemented": 0,
-      "pending": 5
+      "implemented": 1,
+      "pending": 4
     }
   },
   "byCharter": {
     "Dashboard": {
       "total": 58,
-      "implemented": 0,
-      "pending": 58
+      "implemented": 19,
+      "pending": 39
     },
     "Forms": {
       "total": 58,
@@ -551,7 +551,7 @@
       "office": "Corporate",
       "role": "coo",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_COO_FORMS",
@@ -591,7 +591,7 @@
       "office": "Corporate",
       "role": "cfo",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_CFO_FORMS",
@@ -631,7 +631,7 @@
       "office": "Corporate",
       "role": "cto",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_CTO_FORMS",
@@ -991,7 +991,7 @@
       "office": "Corporate",
       "role": "shareholder",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_SHAREHOLDER_FORMS",
@@ -1511,7 +1511,7 @@
       "office": "Franchise",
       "role": "scheduler",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_SCHEDULER_FORMS",
@@ -1671,7 +1671,7 @@
       "office": "Franchise",
       "role": "owner",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_OWNER_FORMS",
@@ -1911,7 +1911,7 @@
       "office": "Clinical",
       "role": "receptionist",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_RECEPTIONIST_FORMS",
@@ -1951,7 +1951,7 @@
       "office": "Clinical",
       "role": "psw",
       "charter": "Dashboard",
-      "status": "placeholder"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_PSW_FORMS",
@@ -1991,7 +1991,7 @@
       "office": "Clinical",
       "role": "rn",
       "charter": "Dashboard",
-      "status": "placeholder"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_RN_FORMS",
@@ -2031,7 +2031,7 @@
       "office": "Clinical",
       "role": "rpn",
       "charter": "Dashboard",
-      "status": "placeholder"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_RPN_FORMS",
@@ -2071,7 +2071,7 @@
       "office": "Clinical",
       "role": "rmt",
       "charter": "Dashboard",
-      "status": "placeholder"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_RMT_FORMS",
@@ -2111,7 +2111,7 @@
       "office": "Clinical",
       "role": "chiropractor",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_CHIROPRACTOR_FORMS",
@@ -2151,7 +2151,7 @@
       "office": "Clinical",
       "role": "physiotherapist",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_PHYSIOTHERAPIST_FORMS",
@@ -2231,7 +2231,7 @@
       "office": "Clinical",
       "role": "clinic",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_CLINIC_FORMS",
@@ -2271,7 +2271,7 @@
       "office": "Clinical",
       "role": "patient",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_PATIENT_FORMS",
@@ -2351,7 +2351,7 @@
       "office": "Clinical",
       "role": "intake",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_INTAKE_FORMS",
@@ -2391,7 +2391,7 @@
       "office": "Clinical",
       "role": "qa",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_QA_FORMS",
@@ -2431,7 +2431,7 @@
       "office": "Clinical",
       "role": "support",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_SUPPORT_FORMS",
@@ -2791,7 +2791,7 @@
       "office": "Client Portal",
       "role": "guest",
       "charter": "Dashboard",
-      "status": "missing"
+      "status": "implemented"
     },
     {
       "id": "SCREEN_GUEST_FORMS",
@@ -2826,5 +2826,5 @@
       "status": "missing"
     }
   ],
-  "lastUpdated": "2026-05-06T20:01:06.665194"
+  "lastUpdated": "2026-05-17T11:46:46.582917"
 }
