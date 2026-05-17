@@ -295,9 +295,46 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        // Debug Bypass for local verification
-        if (!kReleaseMode && (email.endsWith('@demo.primecare.com') || email.endsWith('@primecare.test'))) {
-          final role = email.split('@')[0];
+        final emailLower = email.toLowerCase().trim();
+        TestCredential? matchedCred;
+        if (!kReleaseMode) {
+          try {
+            matchedCred = TestCredentialsRegistry.allCredentials.firstWhere(
+              (c) => c.email.toLowerCase().trim() == emailLower && c.password == password,
+            );
+          } catch (_) {}
+        }
+
+        if (matchedCred != null) {
+          final role = matchedCred.role.nameSnake;
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('auth_token', 'demo-token');
+          await prefs.setString('auth_role', role);
+          await prefs.setString('auth_username', matchedCred.role.displayName);
+          await prefs.setString('auth_user_id', 'mock-user-id-${matchedCred.role.name}');
+
+          state = state.copyWith(
+            isAuthenticated: true,
+            token: 'demo-token',
+            role: role,
+            userName: matchedCred.role.displayName,
+            userId: 'mock-user-id-${matchedCred.role.name}',
+            preferredLanguage: 'en',
+          );
+          authListenable.value = true;
+          ref
+              .read<ExecutionGateService>(executionGateProvider)
+              .passGate(
+                ExecutionGateCategory.auth,
+                'Offline Test Authentication successful. Role: $role',
+                metadata: {'email': email},
+              );
+          return true;
+        }
+
+        // Debug Bypass for local verification fallback
+        if (!kReleaseMode && (emailLower.endsWith('@demo.primecare.com') || emailLower.endsWith('@primecare.test'))) {
+          final role = emailLower.split('@')[0];
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('auth_token', 'demo-token');
           await prefs.setString('auth_role', role);
