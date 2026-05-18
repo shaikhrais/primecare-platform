@@ -129,9 +129,259 @@ import '../screens/common/infrastructure_dashboard_screen.dart';
 import '../screens/common/infrastructure_compliance_screen.dart';
 import '../screens/common/business_development_dashboard_screen.dart';
 import '../screens/common/business_development_compliance_screen.dart';
+import '../screens/premium/premium_feature_1_screen.dart';
+import '../screens/premium/premium_feature_2_screen.dart';
+import '../screens/premium/premium_feature_3_screen.dart';
+import '../screens/premium/premium_feature_4_screen.dart';
+import '../screens/premium/premium_feature_5_screen.dart';
+import '../screens/premium/premium_feature_6_screen.dart';
+import '../screens/premium/premium_feature_7_screen.dart';
+import '../screens/premium/premium_feature_8_screen.dart';
+import '../screens/premium/premium_feature_9_screen.dart';
+import '../screens/premium/premium_feature_10_screen.dart';
+import '../screens/premium/premium_feature_11_screen.dart';
+import '../screens/premium/premium_feature_12_screen.dart';
+import '../screens/premium/premium_feature_13_screen.dart';
+import '../screens/premium/premium_feature_14_screen.dart';
+import '../screens/premium/premium_feature_15_screen.dart';
+import '../screens/premium/premium_feature_16_screen.dart';
+import '../screens/premium/premium_feature_17_screen.dart';
+import '../screens/premium/premium_feature_18_screen.dart';
+import '../screens/premium/premium_feature_19_screen.dart';
+import '../screens/premium/premium_feature_20_screen.dart';
+import '../screens/premium/premium_feature_21_screen.dart';
+import '../screens/premium/premium_feature_22_screen.dart';
+import '../screens/premium/premium_feature_23_screen.dart';
+import '../screens/premium/premium_feature_24_screen.dart';
+import '../screens/premium/premium_feature_25_screen.dart';
+import '../screens/premium/premium_feature_26_screen.dart';
+import '../screens/premium/premium_feature_27_screen.dart';
+import '../screens/premium/premium_feature_28_screen.dart';
+import '../screens/premium/premium_feature_29_screen.dart';
+import '../screens/premium/premium_feature_30_screen.dart';
+import '../screens/premium/premium_feature_31_screen.dart';
+import '../screens/premium/premium_feature_32_screen.dart';
+import '../screens/premium/premium_feature_33_screen.dart';
+import '../screens/premium/premium_feature_34_screen.dart';
+import '../screens/premium/premium_feature_35_screen.dart';
+import '../screens/premium/premium_feature_36_screen.dart';
+import '../screens/premium/premium_feature_37_screen.dart';
+import '../screens/premium/premium_feature_38_screen.dart';
+import '../screens/premium/premium_feature_39_screen.dart';
+import '../screens/premium/premium_feature_40_screen.dart';
+import '../screens/premium/premium_feature_41_screen.dart';
+import '../screens/premium/premium_feature_42_screen.dart';
+import '../screens/premium/premium_feature_43_screen.dart';
+import '../screens/premium/premium_feature_44_screen.dart';
+import '../screens/premium/premium_feature_45_screen.dart';
+import '../screens/premium/premium_feature_46_screen.dart';
+import '../screens/premium/premium_feature_47_screen.dart';
+import '../screens/premium/premium_feature_48_screen.dart';
+import '../screens/premium/premium_feature_49_screen.dart';
+import '../screens/premium/premium_feature_50_screen.dart';
+import '../screens/premium/premium_feature_51_screen.dart';
+import '../screens/premium/premium_feature_52_screen.dart';
+import '../screens/premium/premium_feature_53_screen.dart';
+import '../screens/premium/premium_feature_54_screen.dart';
+import '../screens/premium/premium_feature_55_screen.dart';
+import '../screens/premium/premium_feature_56_screen.dart';
+import '../screens/premium/premium_feature_57_screen.dart';
+import '../screens/premium/premium_feature_58_screen.dart';
+import '../screens/premium/premium_feature_59_screen.dart';
+import '../screens/premium/premium_feature_60_screen.dart';
+import '../screens/premium/premium_feature_61_screen.dart';
+import '../screens/premium/premium_feature_62_screen.dart';
+import '../screens/premium/premium_feature_63_screen.dart';
+import '../screens/premium/premium_feature_64_screen.dart';
+import '../screens/premium/premium_feature_65_screen.dart';
+import '../screens/premium/premium_feature_66_screen.dart';
+import '../screens/premium/premium_feature_67_screen.dart';
+import '../screens/premium/premium_feature_68_screen.dart';
+import '../screens/premium/premium_feature_69_screen.dart';
+import '../screens/premium/premium_feature_70_screen.dart';
+import '../screens/premium/premium_feature_71_screen.dart';
+import '../screens/premium/premium_feature_72_screen.dart';
+import '../screens/premium/premium_feature_73_screen.dart';
+import '../screens/premium/premium_feature_74_screen.dart';
+import '../screens/premium/premium_feature_75_screen.dart';
+import '../screens/premium/premium_feature_76_screen.dart';
+import '../screens/premium/premium_feature_77_screen.dart';
+import '../screens/premium/premium_feature_78_screen.dart';
+import '../screens/premium/premium_feature_79_screen.dart';
+import '../screens/premium/premium_feature_80_screen.dart';
+import '../screens/premium/premium_feature_81_screen.dart';
+import '../screens/premium/premium_feature_82_screen.dart';
+import '../screens/premium/premium_feature_83_screen.dart';
+import '../screens/premium/premium_feature_84_screen.dart';
+import '../screens/premium/premium_feature_85_screen.dart';
+import '../screens/premium/premium_feature_86_screen.dart';
+import '../screens/premium/premium_feature_87_screen.dart';
+import '../screens/premium/premium_feature_88_screen.dart';
+import '../screens/premium/premium_feature_89_screen.dart';
+import '../screens/premium/premium_feature_90_screen.dart';
+import '../screens/premium/premium_feature_91_screen.dart';
+import '../screens/premium/premium_feature_92_screen.dart';
+import '../screens/premium/premium_feature_93_screen.dart';
+import '../screens/premium/premium_feature_94_screen.dart';
+import '../screens/premium/premium_feature_95_screen.dart';
+import '../screens/premium/premium_feature_96_screen.dart';
+import '../screens/premium/premium_feature_97_screen.dart';
+import '../screens/premium/premium_feature_98_screen.dart';
+import '../screens/premium/premium_feature_99_screen.dart';
+import '../screens/premium/premium_feature_100_screen.dart';
+import '../screens/premium/premium_feature_101_screen.dart';
+import '../screens/premium/premium_feature_102_screen.dart';
+import '../screens/premium/premium_feature_103_screen.dart';
+import '../screens/premium/premium_feature_104_screen.dart';
+import '../screens/premium/premium_feature_105_screen.dart';
+import '../screens/premium/premium_feature_106_screen.dart';
+import '../screens/premium/premium_feature_107_screen.dart';
+import '../screens/premium/premium_feature_108_screen.dart';
+import '../screens/premium/premium_feature_109_screen.dart';
+import '../screens/premium/premium_feature_110_screen.dart';
+import '../screens/premium/premium_feature_111_screen.dart';
+import '../screens/premium/premium_feature_112_screen.dart';
+import '../screens/premium/premium_feature_113_screen.dart';
+import '../screens/premium/premium_feature_114_screen.dart';
+import '../screens/premium/premium_feature_115_screen.dart';
+import '../screens/premium/premium_feature_116_screen.dart';
+import '../screens/premium/premium_feature_117_screen.dart';
+import '../screens/premium/premium_feature_118_screen.dart';
+import '../screens/premium/premium_feature_119_screen.dart';
+import '../screens/premium/premium_feature_120_screen.dart';
+import '../screens/premium/premium_feature_121_screen.dart';
+import '../screens/premium/premium_feature_122_screen.dart';
+import '../screens/premium/premium_feature_123_screen.dart';
+import '../screens/premium/premium_feature_124_screen.dart';
+import '../screens/premium/premium_feature_125_screen.dart';
 class ScreenRegistry {
   /// Local widget mapping for the UI layer.
   static final Map<String, Widget> _widgetRegistry = {
+    'SCREEN_PREMIUM_FEATURE_1': const PremiumFeature1Screen(),
+    'SCREEN_PREMIUM_FEATURE_2': const PremiumFeature2Screen(),
+    'SCREEN_PREMIUM_FEATURE_3': const PremiumFeature3Screen(),
+    'SCREEN_PREMIUM_FEATURE_4': const PremiumFeature4Screen(),
+    'SCREEN_PREMIUM_FEATURE_5': const PremiumFeature5Screen(),
+    'SCREEN_PREMIUM_FEATURE_6': const PremiumFeature6Screen(),
+    'SCREEN_PREMIUM_FEATURE_7': const PremiumFeature7Screen(),
+    'SCREEN_PREMIUM_FEATURE_8': const PremiumFeature8Screen(),
+    'SCREEN_PREMIUM_FEATURE_9': const PremiumFeature9Screen(),
+    'SCREEN_PREMIUM_FEATURE_10': const PremiumFeature10Screen(),
+    'SCREEN_PREMIUM_FEATURE_11': const PremiumFeature11Screen(),
+    'SCREEN_PREMIUM_FEATURE_12': const PremiumFeature12Screen(),
+    'SCREEN_PREMIUM_FEATURE_13': const PremiumFeature13Screen(),
+    'SCREEN_PREMIUM_FEATURE_14': const PremiumFeature14Screen(),
+    'SCREEN_PREMIUM_FEATURE_15': const PremiumFeature15Screen(),
+    'SCREEN_PREMIUM_FEATURE_16': const PremiumFeature16Screen(),
+    'SCREEN_PREMIUM_FEATURE_17': const PremiumFeature17Screen(),
+    'SCREEN_PREMIUM_FEATURE_18': const PremiumFeature18Screen(),
+    'SCREEN_PREMIUM_FEATURE_19': const PremiumFeature19Screen(),
+    'SCREEN_PREMIUM_FEATURE_20': const PremiumFeature20Screen(),
+    'SCREEN_PREMIUM_FEATURE_21': const PremiumFeature21Screen(),
+    'SCREEN_PREMIUM_FEATURE_22': const PremiumFeature22Screen(),
+    'SCREEN_PREMIUM_FEATURE_23': const PremiumFeature23Screen(),
+    'SCREEN_PREMIUM_FEATURE_24': const PremiumFeature24Screen(),
+    'SCREEN_PREMIUM_FEATURE_25': const PremiumFeature25Screen(),
+    'SCREEN_PREMIUM_FEATURE_26': const PremiumFeature26Screen(),
+    'SCREEN_PREMIUM_FEATURE_27': const PremiumFeature27Screen(),
+    'SCREEN_PREMIUM_FEATURE_28': const PremiumFeature28Screen(),
+    'SCREEN_PREMIUM_FEATURE_29': const PremiumFeature29Screen(),
+    'SCREEN_PREMIUM_FEATURE_30': const PremiumFeature30Screen(),
+    'SCREEN_PREMIUM_FEATURE_31': const PremiumFeature31Screen(),
+    'SCREEN_PREMIUM_FEATURE_32': const PremiumFeature32Screen(),
+    'SCREEN_PREMIUM_FEATURE_33': const PremiumFeature33Screen(),
+    'SCREEN_PREMIUM_FEATURE_34': const PremiumFeature34Screen(),
+    'SCREEN_PREMIUM_FEATURE_35': const PremiumFeature35Screen(),
+    'SCREEN_PREMIUM_FEATURE_36': const PremiumFeature36Screen(),
+    'SCREEN_PREMIUM_FEATURE_37': const PremiumFeature37Screen(),
+    'SCREEN_PREMIUM_FEATURE_38': const PremiumFeature38Screen(),
+    'SCREEN_PREMIUM_FEATURE_39': const PremiumFeature39Screen(),
+    'SCREEN_PREMIUM_FEATURE_40': const PremiumFeature40Screen(),
+    'SCREEN_PREMIUM_FEATURE_41': const PremiumFeature41Screen(),
+    'SCREEN_PREMIUM_FEATURE_42': const PremiumFeature42Screen(),
+    'SCREEN_PREMIUM_FEATURE_43': const PremiumFeature43Screen(),
+    'SCREEN_PREMIUM_FEATURE_44': const PremiumFeature44Screen(),
+    'SCREEN_PREMIUM_FEATURE_45': const PremiumFeature45Screen(),
+    'SCREEN_PREMIUM_FEATURE_46': const PremiumFeature46Screen(),
+    'SCREEN_PREMIUM_FEATURE_47': const PremiumFeature47Screen(),
+    'SCREEN_PREMIUM_FEATURE_48': const PremiumFeature48Screen(),
+    'SCREEN_PREMIUM_FEATURE_49': const PremiumFeature49Screen(),
+    'SCREEN_PREMIUM_FEATURE_50': const PremiumFeature50Screen(),
+    'SCREEN_PREMIUM_FEATURE_51': const PremiumFeature51Screen(),
+    'SCREEN_PREMIUM_FEATURE_52': const PremiumFeature52Screen(),
+    'SCREEN_PREMIUM_FEATURE_53': const PremiumFeature53Screen(),
+    'SCREEN_PREMIUM_FEATURE_54': const PremiumFeature54Screen(),
+    'SCREEN_PREMIUM_FEATURE_55': const PremiumFeature55Screen(),
+    'SCREEN_PREMIUM_FEATURE_56': const PremiumFeature56Screen(),
+    'SCREEN_PREMIUM_FEATURE_57': const PremiumFeature57Screen(),
+    'SCREEN_PREMIUM_FEATURE_58': const PremiumFeature58Screen(),
+    'SCREEN_PREMIUM_FEATURE_59': const PremiumFeature59Screen(),
+    'SCREEN_PREMIUM_FEATURE_60': const PremiumFeature60Screen(),
+    'SCREEN_PREMIUM_FEATURE_61': const PremiumFeature61Screen(),
+    'SCREEN_PREMIUM_FEATURE_62': const PremiumFeature62Screen(),
+    'SCREEN_PREMIUM_FEATURE_63': const PremiumFeature63Screen(),
+    'SCREEN_PREMIUM_FEATURE_64': const PremiumFeature64Screen(),
+    'SCREEN_PREMIUM_FEATURE_65': const PremiumFeature65Screen(),
+    'SCREEN_PREMIUM_FEATURE_66': const PremiumFeature66Screen(),
+    'SCREEN_PREMIUM_FEATURE_67': const PremiumFeature67Screen(),
+    'SCREEN_PREMIUM_FEATURE_68': const PremiumFeature68Screen(),
+    'SCREEN_PREMIUM_FEATURE_69': const PremiumFeature69Screen(),
+    'SCREEN_PREMIUM_FEATURE_70': const PremiumFeature70Screen(),
+    'SCREEN_PREMIUM_FEATURE_71': const PremiumFeature71Screen(),
+    'SCREEN_PREMIUM_FEATURE_72': const PremiumFeature72Screen(),
+    'SCREEN_PREMIUM_FEATURE_73': const PremiumFeature73Screen(),
+    'SCREEN_PREMIUM_FEATURE_74': const PremiumFeature74Screen(),
+    'SCREEN_PREMIUM_FEATURE_75': const PremiumFeature75Screen(),
+    'SCREEN_PREMIUM_FEATURE_76': const PremiumFeature76Screen(),
+    'SCREEN_PREMIUM_FEATURE_77': const PremiumFeature77Screen(),
+    'SCREEN_PREMIUM_FEATURE_78': const PremiumFeature78Screen(),
+    'SCREEN_PREMIUM_FEATURE_79': const PremiumFeature79Screen(),
+    'SCREEN_PREMIUM_FEATURE_80': const PremiumFeature80Screen(),
+    'SCREEN_PREMIUM_FEATURE_81': const PremiumFeature81Screen(),
+    'SCREEN_PREMIUM_FEATURE_82': const PremiumFeature82Screen(),
+    'SCREEN_PREMIUM_FEATURE_83': const PremiumFeature83Screen(),
+    'SCREEN_PREMIUM_FEATURE_84': const PremiumFeature84Screen(),
+    'SCREEN_PREMIUM_FEATURE_85': const PremiumFeature85Screen(),
+    'SCREEN_PREMIUM_FEATURE_86': const PremiumFeature86Screen(),
+    'SCREEN_PREMIUM_FEATURE_87': const PremiumFeature87Screen(),
+    'SCREEN_PREMIUM_FEATURE_88': const PremiumFeature88Screen(),
+    'SCREEN_PREMIUM_FEATURE_89': const PremiumFeature89Screen(),
+    'SCREEN_PREMIUM_FEATURE_90': const PremiumFeature90Screen(),
+    'SCREEN_PREMIUM_FEATURE_91': const PremiumFeature91Screen(),
+    'SCREEN_PREMIUM_FEATURE_92': const PremiumFeature92Screen(),
+    'SCREEN_PREMIUM_FEATURE_93': const PremiumFeature93Screen(),
+    'SCREEN_PREMIUM_FEATURE_94': const PremiumFeature94Screen(),
+    'SCREEN_PREMIUM_FEATURE_95': const PremiumFeature95Screen(),
+    'SCREEN_PREMIUM_FEATURE_96': const PremiumFeature96Screen(),
+    'SCREEN_PREMIUM_FEATURE_97': const PremiumFeature97Screen(),
+    'SCREEN_PREMIUM_FEATURE_98': const PremiumFeature98Screen(),
+    'SCREEN_PREMIUM_FEATURE_99': const PremiumFeature99Screen(),
+    'SCREEN_PREMIUM_FEATURE_100': const PremiumFeature100Screen(),
+    'SCREEN_PREMIUM_FEATURE_101': const PremiumFeature101Screen(),
+    'SCREEN_PREMIUM_FEATURE_102': const PremiumFeature102Screen(),
+    'SCREEN_PREMIUM_FEATURE_103': const PremiumFeature103Screen(),
+    'SCREEN_PREMIUM_FEATURE_104': const PremiumFeature104Screen(),
+    'SCREEN_PREMIUM_FEATURE_105': const PremiumFeature105Screen(),
+    'SCREEN_PREMIUM_FEATURE_106': const PremiumFeature106Screen(),
+    'SCREEN_PREMIUM_FEATURE_107': const PremiumFeature107Screen(),
+    'SCREEN_PREMIUM_FEATURE_108': const PremiumFeature108Screen(),
+    'SCREEN_PREMIUM_FEATURE_109': const PremiumFeature109Screen(),
+    'SCREEN_PREMIUM_FEATURE_110': const PremiumFeature110Screen(),
+    'SCREEN_PREMIUM_FEATURE_111': const PremiumFeature111Screen(),
+    'SCREEN_PREMIUM_FEATURE_112': const PremiumFeature112Screen(),
+    'SCREEN_PREMIUM_FEATURE_113': const PremiumFeature113Screen(),
+    'SCREEN_PREMIUM_FEATURE_114': const PremiumFeature114Screen(),
+    'SCREEN_PREMIUM_FEATURE_115': const PremiumFeature115Screen(),
+    'SCREEN_PREMIUM_FEATURE_116': const PremiumFeature116Screen(),
+    'SCREEN_PREMIUM_FEATURE_117': const PremiumFeature117Screen(),
+    'SCREEN_PREMIUM_FEATURE_118': const PremiumFeature118Screen(),
+    'SCREEN_PREMIUM_FEATURE_119': const PremiumFeature119Screen(),
+    'SCREEN_PREMIUM_FEATURE_120': const PremiumFeature120Screen(),
+    'SCREEN_PREMIUM_FEATURE_121': const PremiumFeature121Screen(),
+    'SCREEN_PREMIUM_FEATURE_122': const PremiumFeature122Screen(),
+    'SCREEN_PREMIUM_FEATURE_123': const PremiumFeature123Screen(),
+    'SCREEN_PREMIUM_FEATURE_124': const PremiumFeature124Screen(),
+    'SCREEN_PREMIUM_FEATURE_125': const PremiumFeature125Screen(),
     // PSW Role
     'SCREEN_PSW_DASHBOARD': const ScreenNotImplementedView(
       screenName: 'PSW Dashboard',

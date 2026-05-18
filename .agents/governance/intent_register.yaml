@@ -284,3 +284,13 @@ intents:
     business_goal: "Monitor business development pipeline and partnership growth."
     status: "active"
     implementation_status: "pending"
+
+  - id: "navigate_support_dashboard"
+    business_goal: "View Support Dashboard"
+    implementation_status: "verified"
+  - id: "navigate_shareholder_dashboard"
+    business_goal: "View Shareholder Dashboard"
+    implementation_status: "verified"
+  - id: "view_common_labels"
+    business_goal: "View Common Labels"
+    implementation_status: "verified"

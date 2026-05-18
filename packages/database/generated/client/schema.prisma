@@ -3916,3 +3916,18 @@ model CertificationNode {
 
   @@index([tenantId])
 }
+
+model PremiumScreenComponent {
+  id           String   @id @default(uuid())
+  tenantId     String
+  screenId     String   @unique
+  featureName  String
+  intent       String
+  isPremium    Boolean  @default(true)
+  componentUrl String?
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}

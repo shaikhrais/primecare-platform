@@ -167,9 +167,15 @@ void main() {
 
   // --- ZERO TRUST PHYSICAL FILE VERIFICATION ---
   final uiDir = Directory('packages/primecare_ui/lib');
-  final allDartFiles = uiDir.existsSync() 
-      ? uiDir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart')).map((f) => f.path.replaceAll('\\', '/').split('/').last).toSet() 
-      : <String>{};
+  final appsDir = Directory('apps');
+  final allDartFiles = <String>{};
+  
+  if (uiDir.existsSync()) {
+    allDartFiles.addAll(uiDir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart')).map((f) => f.path.replaceAll('\\', '/').split('/').last));
+  }
+  if (appsDir.existsSync()) {
+    allDartFiles.addAll(appsDir.listSync(recursive: true).whereType<File>().where((f) => f.path.endsWith('.dart')).map((f) => f.path.replaceAll('\\', '/').split('/').last));
+  }
 
   for (final page in pageIds) {
     if (!allDartFiles.contains('$page.dart') && pageStatuses[page] != 'pending') {
