@@ -82,63 +82,64 @@ model User {
 }
 
 model Tenant {
-  id                   String                 @id @default(uuid())
-  name                 String
-  slug                 String                 @unique
-  status               String                 @default("active")
-  createdAt            DateTime               @default(now()) @map("created_at")
-  updatedAt            DateTime               @updatedAt @map("updated_at")
-  auditLogs            AuditLog[]
-  bookings             Booking[]
-  clientProfiles       ClientProfile[]
-  dailyEntries         DailyEntry[]
-  incidents            Incident[]
-  invoices             Invoice[]
-  messageThreads       MessageThread[]
-  pswAvailability      ProviderAvailability[]
-  providerProfiles     ProviderProfile[]
-  services             Service[]
-  shiftAssignments     ShiftAssignment[]
-  timesheets           Timesheet[]
-  staffTasks           StaffTask[]
-  leads                Lead[]
-  users                User[]
-  checkEvents          VisitCheckEvent[]
-  visits               Visit[]
-  apiKeys              ApiKey[]
-  feedbacks            Feedback[]
-  carePlans            CarePlan[]
-  trainingModules      TrainingModule[]
-  surveys              Survey[]
-  regions              Region[]
-  clinicalRecords      ClinicalRecord[]
-  fhirSyncLogs         FhirSyncLog[]
-  aiRecommendations    AIRecommendation[]
-  sentimentAnalyses    SentimentAnalysis[]
-  securityThreats      SecurityThreat[]
-  slas                 TenantSLA[]
-  telehealthSessions   TelehealthSession[]
-  patientAlerts        PatientAlert[]
-  insuranceProviders   InsuranceProvider[]
-  visitMatches         VisitMatch[]
-  waitlistEntries      WaitlistEntry[]
-  claims               Claim[]
-  prescriptions        Prescription[]
-  branchStats          BranchStat[]
-  complianceRecords    ComplianceRecord[]
-  familyNotifications  FamilyNotification[]
-  careFeedbacks        CareFeedback[]
-  technicalAudits      TechnicalAudit[]
-  bookingRequests      BookingRequest[]
-  dailyAuditSignOffs   DailyAuditSignOff[]
-  wellnessPulses       WellnessPulse[]
-  systemTouchpoints    SystemTouchpoint[]
-  iotEvents            IoTEvent[]
-  appNotifications     AppNotification[]
-  gamificationProfiles GamificationProfile[]
-  aiInferences         AIInference[]
-  communicationLogs    CommunicationLog[]
-  transactionLedger    TransactionLedger[]
+  id                     String                 @id @default(uuid())
+  name                   String
+  slug                   String                 @unique
+  status                 String                 @default("active")
+  createdAt              DateTime               @default(now()) @map("created_at")
+  updatedAt              DateTime               @updatedAt @map("updated_at")
+  auditLogs              AuditLog[]
+  bookings               Booking[]
+  clientProfiles         ClientProfile[]
+  dailyEntries           DailyEntry[]
+  incidents              Incident[]
+  invoices               Invoice[]
+  messageThreads         MessageThread[]
+  pswAvailability        ProviderAvailability[]
+  providerProfiles       ProviderProfile[]
+  services               Service[]
+  shiftAssignments       ShiftAssignment[]
+  timesheets             Timesheet[]
+  staffTasks             StaffTask[]
+  leads                  Lead[]
+  users                  User[]
+  checkEvents            VisitCheckEvent[]
+  visits                 Visit[]
+  apiKeys                ApiKey[]
+  feedbacks              Feedback[]
+  carePlans              CarePlan[]
+  trainingModules        TrainingModule[]
+  surveys                Survey[]
+  regions                Region[]
+  clinicalRecords        ClinicalRecord[]
+  fhirSyncLogs           FhirSyncLog[]
+  aiRecommendations      AIRecommendation[]
+  sentimentAnalyses      SentimentAnalysis[]
+  securityThreats        SecurityThreat[]
+  slas                   TenantSLA[]
+  telehealthSessions     TelehealthSession[]
+  patientAlerts          PatientAlert[]
+  insuranceProviders     InsuranceProvider[]
+  visitMatches           VisitMatch[]
+  waitlistEntries        WaitlistEntry[]
+  claims                 Claim[]
+  prescriptions          Prescription[]
+  branchStats            BranchStat[]
+  complianceRecords      ComplianceRecord[]
+  familyNotifications    FamilyNotification[]
+  careFeedbacks          CareFeedback[]
+  technicalAudits        TechnicalAudit[]
+  bookingRequests        BookingRequest[]
+  dailyAuditSignOffs     DailyAuditSignOff[]
+  wellnessPulses         WellnessPulse[]
+  systemTouchpoints      SystemTouchpoint[]
+  premiumFeatureStatuses PremiumFeatureStatus[]
+  iotEvents              IoTEvent[]
+  appNotifications       AppNotification[]
+  gamificationProfiles   GamificationProfile[]
+  aiInferences           AIInference[]
+  communicationLogs      CommunicationLog[]
+  transactionLedger      TransactionLedger[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -3079,6 +3080,26 @@ model SupportTicket {
   @@index([tenantId, officeId])
 }
 
+// Premium Features Extensibility Schema
+
+model PremiumFeatureStatus {
+  id             String    @id @default(cuid())
+  tenantId       String
+  screenId       String
+  activationDate DateTime  @default(now())
+  expirationDate DateTime?
+  usageCount     Int       @default(0)
+  isActive       Boolean   @default(true)
+  metadata       Json?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, screenId])
+  @@index([tenantId])
+  @@index([screenId])
+  @@map("premium_feature_status")
+}
+
 // Domain: d_clients.prisma
 
 // 
@@ -3911,21 +3932,6 @@ model CertificationNode {
   certName     String
   expiresAt    DateTime
   status       String // Compliant, Expiring, Expired
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([tenantId])
-}
-
-model PremiumScreenComponent {
-  id           String   @id @default(uuid())
-  tenantId     String
-  screenId     String   @unique
-  featureName  String
-  intent       String
-  isPremium    Boolean  @default(true)
-  componentUrl String?
-  status       String   @default("active")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

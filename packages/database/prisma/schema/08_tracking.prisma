@@ -11,8 +11,8 @@ model PlatformScreen {
   description String? @db.Text
   orderIndex  Int     @default(0) @map("order_index")
 
-  role      PlatformRole          @relation(fields: [roleId], references: [id])
-  functions ScreenFunctionality[]
+  role              PlatformRole          @relation(fields: [roleId], references: [id])
+  functions         ScreenFunctionality[]
   componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -34,7 +34,7 @@ model ScreenFunctionality {
   notes           String?
   orderIndex      Int     @default(0) @map("order_index")
 
-  screen PlatformScreen @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  screen            PlatformScreen     @relation(fields: [screenId], references: [id], onDelete: Cascade)
   componentPurposes ComponentPurpose[]
 
   createdAt DateTime @default(now()) @map("created_at")

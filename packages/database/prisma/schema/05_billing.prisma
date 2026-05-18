@@ -143,18 +143,18 @@ model ChartOfAccount {
 }
 
 model FinancialTransaction {
-  id          String   @id @default(uuid())
-  type        String // INVOICE, PAYMENT, PAYROLL, EXPENSE
-  referenceId String?  @map("reference_id") // ID of linked document
-  amount      Decimal  @db.Decimal(20, 4)
+  id           String   @id @default(uuid())
+  type         String // INVOICE, PAYMENT, PAYROLL, EXPENSE
+  referenceId  String?  @map("reference_id") // ID of linked document
+  amount       Decimal  @db.Decimal(20, 4)
   currency     String   @default("CAD")
   exchangeRate Decimal? @map("exchange_rate") @db.Decimal(20, 4)
   baseAmount   Decimal? @map("base_amount") @db.Decimal(20, 4)
   status       String   @default("draft")
-  tenantId    String   @map("tenant_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  metadata    Json?    @map("metadata")
+  tenantId     String   @map("tenant_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  metadata     Json?    @map("metadata")
 
   tenant          Tenant                    @relation(fields: [tenantId], references: [id])
   journalEntries  JournalEntry[]

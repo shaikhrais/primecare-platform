@@ -9,19 +9,19 @@ model ImplementationEvent {
 }
 
 model VerificationLog {
-  id              String   @id @default(uuid())
+  id               String   @id @default(uuid())
   implementationId String
-  verifiedAt      DateTime @default(now())
-  status          String
-  anomalyCount    Int      @default(0)
-  details         Json?
+  verifiedAt       DateTime @default(now())
+  status           String
+  anomalyCount     Int      @default(0)
+  details          Json?
 }
 
 model AnomalyReport {
-  id         String   @id @default(uuid())
-  logId      String
-  type       String
-  severity   String
-  message    String
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  logId     String
+  type      String
+  severity  String
+  message   String
+  createdAt DateTime @default(now())
 }

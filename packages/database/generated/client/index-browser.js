@@ -2075,6 +2075,17 @@ exports.Prisma.SupportTicketScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PremiumFeatureStatusScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  screenId: 'screenId',
+  activationDate: 'activationDate',
+  expirationDate: 'expirationDate',
+  usageCount: 'usageCount',
+  isActive: 'isActive',
+  metadata: 'metadata'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2952,6 +2963,7 @@ exports.Prisma.ModelName = {
   BusinessDevelopmentMetric: 'BusinessDevelopmentMetric',
   ClinicMetric: 'ClinicMetric',
   SupportTicket: 'SupportTicket',
+  PremiumFeatureStatus: 'PremiumFeatureStatus',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

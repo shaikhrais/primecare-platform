@@ -799,6 +799,11 @@ export type ClinicMetric = $Result.DefaultSelection<Prisma.$ClinicMetricPayload>
  */
 export type SupportTicket = $Result.DefaultSelection<Prisma.$SupportTicketPayload>
 /**
+ * Model PremiumFeatureStatus
+ * 
+ */
+export type PremiumFeatureStatus = $Result.DefaultSelection<Prisma.$PremiumFeatureStatusPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2793,6 +2798,16 @@ export class PrismaClient<
   get supportTicket(): Prisma.SupportTicketDelegate<ExtArgs>;
 
   /**
+   * `prisma.premiumFeatureStatus`: Exposes CRUD operations for the **PremiumFeatureStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PremiumFeatureStatuses
+    * const premiumFeatureStatuses = await prisma.premiumFeatureStatus.findMany()
+    * ```
+    */
+  get premiumFeatureStatus(): Prisma.PremiumFeatureStatusDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3989,6 +4004,7 @@ export namespace Prisma {
     BusinessDevelopmentMetric: 'BusinessDevelopmentMetric',
     ClinicMetric: 'ClinicMetric',
     SupportTicket: 'SupportTicket',
+    PremiumFeatureStatus: 'PremiumFeatureStatus',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -4064,7 +4080,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "premiumFeatureStatus" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -15058,6 +15074,76 @@ export namespace Prisma {
           }
         }
       }
+      PremiumFeatureStatus: {
+        payload: Prisma.$PremiumFeatureStatusPayload<ExtArgs>
+        fields: Prisma.PremiumFeatureStatusFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PremiumFeatureStatusFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PremiumFeatureStatusFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          findFirst: {
+            args: Prisma.PremiumFeatureStatusFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PremiumFeatureStatusFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          findMany: {
+            args: Prisma.PremiumFeatureStatusFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>[]
+          }
+          create: {
+            args: Prisma.PremiumFeatureStatusCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          createMany: {
+            args: Prisma.PremiumFeatureStatusCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PremiumFeatureStatusCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>[]
+          }
+          delete: {
+            args: Prisma.PremiumFeatureStatusDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          update: {
+            args: Prisma.PremiumFeatureStatusUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          deleteMany: {
+            args: Prisma.PremiumFeatureStatusDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PremiumFeatureStatusUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PremiumFeatureStatusUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PremiumFeatureStatusPayload>
+          }
+          aggregate: {
+            args: Prisma.PremiumFeatureStatusAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePremiumFeatureStatus>
+          }
+          groupBy: {
+            args: Prisma.PremiumFeatureStatusGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PremiumFeatureStatusGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PremiumFeatureStatusCountArgs<ExtArgs>
+            result: $Utils.Optional<PremiumFeatureStatusCountAggregateOutputType> | number
+          }
+        }
+      }
       FamilyAppointment: {
         payload: Prisma.$FamilyAppointmentPayload<ExtArgs>
         fields: Prisma.FamilyAppointmentFieldRefs
@@ -19805,6 +19891,7 @@ export namespace Prisma {
     dailyAuditSignOffs: number
     wellnessPulses: number
     systemTouchpoints: number
+    premiumFeatureStatuses: number
     iotEvents: number
     appNotifications: number
     gamificationProfiles: number
@@ -19899,6 +19986,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | TenantCountOutputTypeCountDailyAuditSignOffsArgs
     wellnessPulses?: boolean | TenantCountOutputTypeCountWellnessPulsesArgs
     systemTouchpoints?: boolean | TenantCountOutputTypeCountSystemTouchpointsArgs
+    premiumFeatureStatuses?: boolean | TenantCountOutputTypeCountPremiumFeatureStatusesArgs
     iotEvents?: boolean | TenantCountOutputTypeCountIotEventsArgs
     appNotifications?: boolean | TenantCountOutputTypeCountAppNotificationsArgs
     gamificationProfiles?: boolean | TenantCountOutputTypeCountGamificationProfilesArgs
@@ -20271,6 +20359,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountSystemTouchpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SystemTouchpointWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPremiumFeatureStatusesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PremiumFeatureStatusWhereInput
   }
 
   /**
@@ -24583,6 +24678,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
     systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
+    premiumFeatureStatuses?: boolean | Tenant$premiumFeatureStatusesArgs<ExtArgs>
     iotEvents?: boolean | Tenant$iotEventsArgs<ExtArgs>
     appNotifications?: boolean | Tenant$appNotificationsArgs<ExtArgs>
     gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
@@ -24734,6 +24830,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: boolean | Tenant$dailyAuditSignOffsArgs<ExtArgs>
     wellnessPulses?: boolean | Tenant$wellnessPulsesArgs<ExtArgs>
     systemTouchpoints?: boolean | Tenant$systemTouchpointsArgs<ExtArgs>
+    premiumFeatureStatuses?: boolean | Tenant$premiumFeatureStatusesArgs<ExtArgs>
     iotEvents?: boolean | Tenant$iotEventsArgs<ExtArgs>
     appNotifications?: boolean | Tenant$appNotificationsArgs<ExtArgs>
     gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
@@ -24835,6 +24932,7 @@ export namespace Prisma {
       dailyAuditSignOffs: Prisma.$DailyAuditSignOffPayload<ExtArgs>[]
       wellnessPulses: Prisma.$WellnessPulsePayload<ExtArgs>[]
       systemTouchpoints: Prisma.$SystemTouchpointPayload<ExtArgs>[]
+      premiumFeatureStatuses: Prisma.$PremiumFeatureStatusPayload<ExtArgs>[]
       iotEvents: Prisma.$IoTEventPayload<ExtArgs>[]
       appNotifications: Prisma.$AppNotificationPayload<ExtArgs>[]
       gamificationProfiles: Prisma.$GamificationProfilePayload<ExtArgs>[]
@@ -25317,6 +25415,7 @@ export namespace Prisma {
     dailyAuditSignOffs<T extends Tenant$dailyAuditSignOffsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dailyAuditSignOffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyAuditSignOffPayload<ExtArgs>, T, "findMany"> | Null>
     wellnessPulses<T extends Tenant$wellnessPulsesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$wellnessPulsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WellnessPulsePayload<ExtArgs>, T, "findMany"> | Null>
     systemTouchpoints<T extends Tenant$systemTouchpointsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$systemTouchpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemTouchpointPayload<ExtArgs>, T, "findMany"> | Null>
+    premiumFeatureStatuses<T extends Tenant$premiumFeatureStatusesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$premiumFeatureStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findMany"> | Null>
     iotEvents<T extends Tenant$iotEventsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$iotEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IoTEventPayload<ExtArgs>, T, "findMany"> | Null>
     appNotifications<T extends Tenant$appNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$appNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     gamificationProfiles<T extends Tenant$gamificationProfilesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$gamificationProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findMany"> | Null>
@@ -26632,6 +26731,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SystemTouchpointScalarFieldEnum | SystemTouchpointScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.premiumFeatureStatuses
+   */
+  export type Tenant$premiumFeatureStatusesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    where?: PremiumFeatureStatusWhereInput
+    orderBy?: PremiumFeatureStatusOrderByWithRelationInput | PremiumFeatureStatusOrderByWithRelationInput[]
+    cursor?: PremiumFeatureStatusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PremiumFeatureStatusScalarFieldEnum | PremiumFeatureStatusScalarFieldEnum[]
   }
 
   /**
@@ -184908,6 +185027,1005 @@ export namespace Prisma {
 
 
   /**
+   * Model PremiumFeatureStatus
+   */
+
+  export type AggregatePremiumFeatureStatus = {
+    _count: PremiumFeatureStatusCountAggregateOutputType | null
+    _avg: PremiumFeatureStatusAvgAggregateOutputType | null
+    _sum: PremiumFeatureStatusSumAggregateOutputType | null
+    _min: PremiumFeatureStatusMinAggregateOutputType | null
+    _max: PremiumFeatureStatusMaxAggregateOutputType | null
+  }
+
+  export type PremiumFeatureStatusAvgAggregateOutputType = {
+    usageCount: number | null
+  }
+
+  export type PremiumFeatureStatusSumAggregateOutputType = {
+    usageCount: number | null
+  }
+
+  export type PremiumFeatureStatusMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    screenId: string | null
+    activationDate: Date | null
+    expirationDate: Date | null
+    usageCount: number | null
+    isActive: boolean | null
+  }
+
+  export type PremiumFeatureStatusMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    screenId: string | null
+    activationDate: Date | null
+    expirationDate: Date | null
+    usageCount: number | null
+    isActive: boolean | null
+  }
+
+  export type PremiumFeatureStatusCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    screenId: number
+    activationDate: number
+    expirationDate: number
+    usageCount: number
+    isActive: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type PremiumFeatureStatusAvgAggregateInputType = {
+    usageCount?: true
+  }
+
+  export type PremiumFeatureStatusSumAggregateInputType = {
+    usageCount?: true
+  }
+
+  export type PremiumFeatureStatusMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    screenId?: true
+    activationDate?: true
+    expirationDate?: true
+    usageCount?: true
+    isActive?: true
+  }
+
+  export type PremiumFeatureStatusMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    screenId?: true
+    activationDate?: true
+    expirationDate?: true
+    usageCount?: true
+    isActive?: true
+  }
+
+  export type PremiumFeatureStatusCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    screenId?: true
+    activationDate?: true
+    expirationDate?: true
+    usageCount?: true
+    isActive?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type PremiumFeatureStatusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PremiumFeatureStatus to aggregate.
+     */
+    where?: PremiumFeatureStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PremiumFeatureStatuses to fetch.
+     */
+    orderBy?: PremiumFeatureStatusOrderByWithRelationInput | PremiumFeatureStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PremiumFeatureStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PremiumFeatureStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PremiumFeatureStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PremiumFeatureStatuses
+    **/
+    _count?: true | PremiumFeatureStatusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PremiumFeatureStatusAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PremiumFeatureStatusSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PremiumFeatureStatusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PremiumFeatureStatusMaxAggregateInputType
+  }
+
+  export type GetPremiumFeatureStatusAggregateType<T extends PremiumFeatureStatusAggregateArgs> = {
+        [P in keyof T & keyof AggregatePremiumFeatureStatus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePremiumFeatureStatus[P]>
+      : GetScalarType<T[P], AggregatePremiumFeatureStatus[P]>
+  }
+
+
+
+
+  export type PremiumFeatureStatusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PremiumFeatureStatusWhereInput
+    orderBy?: PremiumFeatureStatusOrderByWithAggregationInput | PremiumFeatureStatusOrderByWithAggregationInput[]
+    by: PremiumFeatureStatusScalarFieldEnum[] | PremiumFeatureStatusScalarFieldEnum
+    having?: PremiumFeatureStatusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PremiumFeatureStatusCountAggregateInputType | true
+    _avg?: PremiumFeatureStatusAvgAggregateInputType
+    _sum?: PremiumFeatureStatusSumAggregateInputType
+    _min?: PremiumFeatureStatusMinAggregateInputType
+    _max?: PremiumFeatureStatusMaxAggregateInputType
+  }
+
+  export type PremiumFeatureStatusGroupByOutputType = {
+    id: string
+    tenantId: string
+    screenId: string
+    activationDate: Date
+    expirationDate: Date | null
+    usageCount: number
+    isActive: boolean
+    metadata: JsonValue | null
+    _count: PremiumFeatureStatusCountAggregateOutputType | null
+    _avg: PremiumFeatureStatusAvgAggregateOutputType | null
+    _sum: PremiumFeatureStatusSumAggregateOutputType | null
+    _min: PremiumFeatureStatusMinAggregateOutputType | null
+    _max: PremiumFeatureStatusMaxAggregateOutputType | null
+  }
+
+  type GetPremiumFeatureStatusGroupByPayload<T extends PremiumFeatureStatusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PremiumFeatureStatusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PremiumFeatureStatusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PremiumFeatureStatusGroupByOutputType[P]>
+            : GetScalarType<T[P], PremiumFeatureStatusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PremiumFeatureStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    screenId?: boolean
+    activationDate?: boolean
+    expirationDate?: boolean
+    usageCount?: boolean
+    isActive?: boolean
+    metadata?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["premiumFeatureStatus"]>
+
+  export type PremiumFeatureStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    screenId?: boolean
+    activationDate?: boolean
+    expirationDate?: boolean
+    usageCount?: boolean
+    isActive?: boolean
+    metadata?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["premiumFeatureStatus"]>
+
+  export type PremiumFeatureStatusSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    screenId?: boolean
+    activationDate?: boolean
+    expirationDate?: boolean
+    usageCount?: boolean
+    isActive?: boolean
+    metadata?: boolean
+  }
+
+  export type PremiumFeatureStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type PremiumFeatureStatusIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $PremiumFeatureStatusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PremiumFeatureStatus"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      screenId: string
+      activationDate: Date
+      expirationDate: Date | null
+      usageCount: number
+      isActive: boolean
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["premiumFeatureStatus"]>
+    composites: {}
+  }
+
+  type PremiumFeatureStatusGetPayload<S extends boolean | null | undefined | PremiumFeatureStatusDefaultArgs> = $Result.GetResult<Prisma.$PremiumFeatureStatusPayload, S>
+
+  type PremiumFeatureStatusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PremiumFeatureStatusFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PremiumFeatureStatusCountAggregateInputType | true
+    }
+
+  export interface PremiumFeatureStatusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PremiumFeatureStatus'], meta: { name: 'PremiumFeatureStatus' } }
+    /**
+     * Find zero or one PremiumFeatureStatus that matches the filter.
+     * @param {PremiumFeatureStatusFindUniqueArgs} args - Arguments to find a PremiumFeatureStatus
+     * @example
+     * // Get one PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PremiumFeatureStatusFindUniqueArgs>(args: SelectSubset<T, PremiumFeatureStatusFindUniqueArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PremiumFeatureStatus that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PremiumFeatureStatusFindUniqueOrThrowArgs} args - Arguments to find a PremiumFeatureStatus
+     * @example
+     * // Get one PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PremiumFeatureStatusFindUniqueOrThrowArgs>(args: SelectSubset<T, PremiumFeatureStatusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PremiumFeatureStatus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusFindFirstArgs} args - Arguments to find a PremiumFeatureStatus
+     * @example
+     * // Get one PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PremiumFeatureStatusFindFirstArgs>(args?: SelectSubset<T, PremiumFeatureStatusFindFirstArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PremiumFeatureStatus that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusFindFirstOrThrowArgs} args - Arguments to find a PremiumFeatureStatus
+     * @example
+     * // Get one PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PremiumFeatureStatusFindFirstOrThrowArgs>(args?: SelectSubset<T, PremiumFeatureStatusFindFirstOrThrowArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PremiumFeatureStatuses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PremiumFeatureStatuses
+     * const premiumFeatureStatuses = await prisma.premiumFeatureStatus.findMany()
+     * 
+     * // Get first 10 PremiumFeatureStatuses
+     * const premiumFeatureStatuses = await prisma.premiumFeatureStatus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const premiumFeatureStatusWithIdOnly = await prisma.premiumFeatureStatus.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PremiumFeatureStatusFindManyArgs>(args?: SelectSubset<T, PremiumFeatureStatusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PremiumFeatureStatus.
+     * @param {PremiumFeatureStatusCreateArgs} args - Arguments to create a PremiumFeatureStatus.
+     * @example
+     * // Create one PremiumFeatureStatus
+     * const PremiumFeatureStatus = await prisma.premiumFeatureStatus.create({
+     *   data: {
+     *     // ... data to create a PremiumFeatureStatus
+     *   }
+     * })
+     * 
+     */
+    create<T extends PremiumFeatureStatusCreateArgs>(args: SelectSubset<T, PremiumFeatureStatusCreateArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PremiumFeatureStatuses.
+     * @param {PremiumFeatureStatusCreateManyArgs} args - Arguments to create many PremiumFeatureStatuses.
+     * @example
+     * // Create many PremiumFeatureStatuses
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PremiumFeatureStatusCreateManyArgs>(args?: SelectSubset<T, PremiumFeatureStatusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PremiumFeatureStatuses and returns the data saved in the database.
+     * @param {PremiumFeatureStatusCreateManyAndReturnArgs} args - Arguments to create many PremiumFeatureStatuses.
+     * @example
+     * // Create many PremiumFeatureStatuses
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PremiumFeatureStatuses and only return the `id`
+     * const premiumFeatureStatusWithIdOnly = await prisma.premiumFeatureStatus.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PremiumFeatureStatusCreateManyAndReturnArgs>(args?: SelectSubset<T, PremiumFeatureStatusCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PremiumFeatureStatus.
+     * @param {PremiumFeatureStatusDeleteArgs} args - Arguments to delete one PremiumFeatureStatus.
+     * @example
+     * // Delete one PremiumFeatureStatus
+     * const PremiumFeatureStatus = await prisma.premiumFeatureStatus.delete({
+     *   where: {
+     *     // ... filter to delete one PremiumFeatureStatus
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PremiumFeatureStatusDeleteArgs>(args: SelectSubset<T, PremiumFeatureStatusDeleteArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PremiumFeatureStatus.
+     * @param {PremiumFeatureStatusUpdateArgs} args - Arguments to update one PremiumFeatureStatus.
+     * @example
+     * // Update one PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PremiumFeatureStatusUpdateArgs>(args: SelectSubset<T, PremiumFeatureStatusUpdateArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PremiumFeatureStatuses.
+     * @param {PremiumFeatureStatusDeleteManyArgs} args - Arguments to filter PremiumFeatureStatuses to delete.
+     * @example
+     * // Delete a few PremiumFeatureStatuses
+     * const { count } = await prisma.premiumFeatureStatus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PremiumFeatureStatusDeleteManyArgs>(args?: SelectSubset<T, PremiumFeatureStatusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PremiumFeatureStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PremiumFeatureStatuses
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PremiumFeatureStatusUpdateManyArgs>(args: SelectSubset<T, PremiumFeatureStatusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PremiumFeatureStatus.
+     * @param {PremiumFeatureStatusUpsertArgs} args - Arguments to update or create a PremiumFeatureStatus.
+     * @example
+     * // Update or create a PremiumFeatureStatus
+     * const premiumFeatureStatus = await prisma.premiumFeatureStatus.upsert({
+     *   create: {
+     *     // ... data to create a PremiumFeatureStatus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PremiumFeatureStatus we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PremiumFeatureStatusUpsertArgs>(args: SelectSubset<T, PremiumFeatureStatusUpsertArgs<ExtArgs>>): Prisma__PremiumFeatureStatusClient<$Result.GetResult<Prisma.$PremiumFeatureStatusPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PremiumFeatureStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusCountArgs} args - Arguments to filter PremiumFeatureStatuses to count.
+     * @example
+     * // Count the number of PremiumFeatureStatuses
+     * const count = await prisma.premiumFeatureStatus.count({
+     *   where: {
+     *     // ... the filter for the PremiumFeatureStatuses we want to count
+     *   }
+     * })
+    **/
+    count<T extends PremiumFeatureStatusCountArgs>(
+      args?: Subset<T, PremiumFeatureStatusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PremiumFeatureStatusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PremiumFeatureStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PremiumFeatureStatusAggregateArgs>(args: Subset<T, PremiumFeatureStatusAggregateArgs>): Prisma.PrismaPromise<GetPremiumFeatureStatusAggregateType<T>>
+
+    /**
+     * Group by PremiumFeatureStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PremiumFeatureStatusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PremiumFeatureStatusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PremiumFeatureStatusGroupByArgs['orderBy'] }
+        : { orderBy?: PremiumFeatureStatusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PremiumFeatureStatusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPremiumFeatureStatusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PremiumFeatureStatus model
+   */
+  readonly fields: PremiumFeatureStatusFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PremiumFeatureStatus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PremiumFeatureStatusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PremiumFeatureStatus model
+   */ 
+  interface PremiumFeatureStatusFieldRefs {
+    readonly id: FieldRef<"PremiumFeatureStatus", 'String'>
+    readonly tenantId: FieldRef<"PremiumFeatureStatus", 'String'>
+    readonly screenId: FieldRef<"PremiumFeatureStatus", 'String'>
+    readonly activationDate: FieldRef<"PremiumFeatureStatus", 'DateTime'>
+    readonly expirationDate: FieldRef<"PremiumFeatureStatus", 'DateTime'>
+    readonly usageCount: FieldRef<"PremiumFeatureStatus", 'Int'>
+    readonly isActive: FieldRef<"PremiumFeatureStatus", 'Boolean'>
+    readonly metadata: FieldRef<"PremiumFeatureStatus", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PremiumFeatureStatus findUnique
+   */
+  export type PremiumFeatureStatusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which PremiumFeatureStatus to fetch.
+     */
+    where: PremiumFeatureStatusWhereUniqueInput
+  }
+
+  /**
+   * PremiumFeatureStatus findUniqueOrThrow
+   */
+  export type PremiumFeatureStatusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which PremiumFeatureStatus to fetch.
+     */
+    where: PremiumFeatureStatusWhereUniqueInput
+  }
+
+  /**
+   * PremiumFeatureStatus findFirst
+   */
+  export type PremiumFeatureStatusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which PremiumFeatureStatus to fetch.
+     */
+    where?: PremiumFeatureStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PremiumFeatureStatuses to fetch.
+     */
+    orderBy?: PremiumFeatureStatusOrderByWithRelationInput | PremiumFeatureStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PremiumFeatureStatuses.
+     */
+    cursor?: PremiumFeatureStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PremiumFeatureStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PremiumFeatureStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PremiumFeatureStatuses.
+     */
+    distinct?: PremiumFeatureStatusScalarFieldEnum | PremiumFeatureStatusScalarFieldEnum[]
+  }
+
+  /**
+   * PremiumFeatureStatus findFirstOrThrow
+   */
+  export type PremiumFeatureStatusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which PremiumFeatureStatus to fetch.
+     */
+    where?: PremiumFeatureStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PremiumFeatureStatuses to fetch.
+     */
+    orderBy?: PremiumFeatureStatusOrderByWithRelationInput | PremiumFeatureStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PremiumFeatureStatuses.
+     */
+    cursor?: PremiumFeatureStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PremiumFeatureStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PremiumFeatureStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PremiumFeatureStatuses.
+     */
+    distinct?: PremiumFeatureStatusScalarFieldEnum | PremiumFeatureStatusScalarFieldEnum[]
+  }
+
+  /**
+   * PremiumFeatureStatus findMany
+   */
+  export type PremiumFeatureStatusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which PremiumFeatureStatuses to fetch.
+     */
+    where?: PremiumFeatureStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PremiumFeatureStatuses to fetch.
+     */
+    orderBy?: PremiumFeatureStatusOrderByWithRelationInput | PremiumFeatureStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PremiumFeatureStatuses.
+     */
+    cursor?: PremiumFeatureStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PremiumFeatureStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PremiumFeatureStatuses.
+     */
+    skip?: number
+    distinct?: PremiumFeatureStatusScalarFieldEnum | PremiumFeatureStatusScalarFieldEnum[]
+  }
+
+  /**
+   * PremiumFeatureStatus create
+   */
+  export type PremiumFeatureStatusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PremiumFeatureStatus.
+     */
+    data: XOR<PremiumFeatureStatusCreateInput, PremiumFeatureStatusUncheckedCreateInput>
+  }
+
+  /**
+   * PremiumFeatureStatus createMany
+   */
+  export type PremiumFeatureStatusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PremiumFeatureStatuses.
+     */
+    data: PremiumFeatureStatusCreateManyInput | PremiumFeatureStatusCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PremiumFeatureStatus createManyAndReturn
+   */
+  export type PremiumFeatureStatusCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PremiumFeatureStatuses.
+     */
+    data: PremiumFeatureStatusCreateManyInput | PremiumFeatureStatusCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PremiumFeatureStatus update
+   */
+  export type PremiumFeatureStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PremiumFeatureStatus.
+     */
+    data: XOR<PremiumFeatureStatusUpdateInput, PremiumFeatureStatusUncheckedUpdateInput>
+    /**
+     * Choose, which PremiumFeatureStatus to update.
+     */
+    where: PremiumFeatureStatusWhereUniqueInput
+  }
+
+  /**
+   * PremiumFeatureStatus updateMany
+   */
+  export type PremiumFeatureStatusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PremiumFeatureStatuses.
+     */
+    data: XOR<PremiumFeatureStatusUpdateManyMutationInput, PremiumFeatureStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which PremiumFeatureStatuses to update
+     */
+    where?: PremiumFeatureStatusWhereInput
+  }
+
+  /**
+   * PremiumFeatureStatus upsert
+   */
+  export type PremiumFeatureStatusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PremiumFeatureStatus to update in case it exists.
+     */
+    where: PremiumFeatureStatusWhereUniqueInput
+    /**
+     * In case the PremiumFeatureStatus found by the `where` argument doesn't exist, create a new PremiumFeatureStatus with this data.
+     */
+    create: XOR<PremiumFeatureStatusCreateInput, PremiumFeatureStatusUncheckedCreateInput>
+    /**
+     * In case the PremiumFeatureStatus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PremiumFeatureStatusUpdateInput, PremiumFeatureStatusUncheckedUpdateInput>
+  }
+
+  /**
+   * PremiumFeatureStatus delete
+   */
+  export type PremiumFeatureStatusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+    /**
+     * Filter which PremiumFeatureStatus to delete.
+     */
+    where: PremiumFeatureStatusWhereUniqueInput
+  }
+
+  /**
+   * PremiumFeatureStatus deleteMany
+   */
+  export type PremiumFeatureStatusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PremiumFeatureStatuses to delete
+     */
+    where?: PremiumFeatureStatusWhereInput
+  }
+
+  /**
+   * PremiumFeatureStatus without action
+   */
+  export type PremiumFeatureStatusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PremiumFeatureStatus
+     */
+    select?: PremiumFeatureStatusSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PremiumFeatureStatusInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -244222,6 +245340,20 @@ export namespace Prisma {
   export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
 
 
+  export const PremiumFeatureStatusScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    screenId: 'screenId',
+    activationDate: 'activationDate',
+    expirationDate: 'expirationDate',
+    usageCount: 'usageCount',
+    isActive: 'isActive',
+    metadata: 'metadata'
+  };
+
+  export type PremiumFeatureStatusScalarFieldEnum = (typeof PremiumFeatureStatusScalarFieldEnum)[keyof typeof PremiumFeatureStatusScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -245530,6 +246662,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     systemTouchpoints?: SystemTouchpointListRelationFilter
+    premiumFeatureStatuses?: PremiumFeatureStatusListRelationFilter
     iotEvents?: IoTEventListRelationFilter
     appNotifications?: AppNotificationListRelationFilter
     gamificationProfiles?: GamificationProfileListRelationFilter
@@ -245649,6 +246782,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffOrderByRelationAggregateInput
     wellnessPulses?: WellnessPulseOrderByRelationAggregateInput
     systemTouchpoints?: SystemTouchpointOrderByRelationAggregateInput
+    premiumFeatureStatuses?: PremiumFeatureStatusOrderByRelationAggregateInput
     iotEvents?: IoTEventOrderByRelationAggregateInput
     appNotifications?: AppNotificationOrderByRelationAggregateInput
     gamificationProfiles?: GamificationProfileOrderByRelationAggregateInput
@@ -245771,6 +246905,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffListRelationFilter
     wellnessPulses?: WellnessPulseListRelationFilter
     systemTouchpoints?: SystemTouchpointListRelationFilter
+    premiumFeatureStatuses?: PremiumFeatureStatusListRelationFilter
     iotEvents?: IoTEventListRelationFilter
     appNotifications?: AppNotificationListRelationFilter
     gamificationProfiles?: GamificationProfileListRelationFilter
@@ -258412,6 +259547,79 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SupportTicket"> | Date | string
   }
 
+  export type PremiumFeatureStatusWhereInput = {
+    AND?: PremiumFeatureStatusWhereInput | PremiumFeatureStatusWhereInput[]
+    OR?: PremiumFeatureStatusWhereInput[]
+    NOT?: PremiumFeatureStatusWhereInput | PremiumFeatureStatusWhereInput[]
+    id?: StringFilter<"PremiumFeatureStatus"> | string
+    tenantId?: StringFilter<"PremiumFeatureStatus"> | string
+    screenId?: StringFilter<"PremiumFeatureStatus"> | string
+    activationDate?: DateTimeFilter<"PremiumFeatureStatus"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"PremiumFeatureStatus"> | Date | string | null
+    usageCount?: IntFilter<"PremiumFeatureStatus"> | number
+    isActive?: BoolFilter<"PremiumFeatureStatus"> | boolean
+    metadata?: JsonNullableFilter<"PremiumFeatureStatus">
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type PremiumFeatureStatusOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    screenId?: SortOrder
+    activationDate?: SortOrder
+    expirationDate?: SortOrderInput | SortOrder
+    usageCount?: SortOrder
+    isActive?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type PremiumFeatureStatusWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_screenId?: PremiumFeatureStatusTenantIdScreenIdCompoundUniqueInput
+    AND?: PremiumFeatureStatusWhereInput | PremiumFeatureStatusWhereInput[]
+    OR?: PremiumFeatureStatusWhereInput[]
+    NOT?: PremiumFeatureStatusWhereInput | PremiumFeatureStatusWhereInput[]
+    tenantId?: StringFilter<"PremiumFeatureStatus"> | string
+    screenId?: StringFilter<"PremiumFeatureStatus"> | string
+    activationDate?: DateTimeFilter<"PremiumFeatureStatus"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"PremiumFeatureStatus"> | Date | string | null
+    usageCount?: IntFilter<"PremiumFeatureStatus"> | number
+    isActive?: BoolFilter<"PremiumFeatureStatus"> | boolean
+    metadata?: JsonNullableFilter<"PremiumFeatureStatus">
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id" | "tenantId_screenId">
+
+  export type PremiumFeatureStatusOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    screenId?: SortOrder
+    activationDate?: SortOrder
+    expirationDate?: SortOrderInput | SortOrder
+    usageCount?: SortOrder
+    isActive?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: PremiumFeatureStatusCountOrderByAggregateInput
+    _avg?: PremiumFeatureStatusAvgOrderByAggregateInput
+    _max?: PremiumFeatureStatusMaxOrderByAggregateInput
+    _min?: PremiumFeatureStatusMinOrderByAggregateInput
+    _sum?: PremiumFeatureStatusSumOrderByAggregateInput
+  }
+
+  export type PremiumFeatureStatusScalarWhereWithAggregatesInput = {
+    AND?: PremiumFeatureStatusScalarWhereWithAggregatesInput | PremiumFeatureStatusScalarWhereWithAggregatesInput[]
+    OR?: PremiumFeatureStatusScalarWhereWithAggregatesInput[]
+    NOT?: PremiumFeatureStatusScalarWhereWithAggregatesInput | PremiumFeatureStatusScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PremiumFeatureStatus"> | string
+    tenantId?: StringWithAggregatesFilter<"PremiumFeatureStatus"> | string
+    screenId?: StringWithAggregatesFilter<"PremiumFeatureStatus"> | string
+    activationDate?: DateTimeWithAggregatesFilter<"PremiumFeatureStatus"> | Date | string
+    expirationDate?: DateTimeNullableWithAggregatesFilter<"PremiumFeatureStatus"> | Date | string | null
+    usageCount?: IntWithAggregatesFilter<"PremiumFeatureStatus"> | number
+    isActive?: BoolWithAggregatesFilter<"PremiumFeatureStatus"> | boolean
+    metadata?: JsonNullableWithAggregatesFilter<"PremiumFeatureStatus">
+  }
+
   export type FamilyAppointmentWhereInput = {
     AND?: FamilyAppointmentWhereInput | FamilyAppointmentWhereInput[]
     OR?: FamilyAppointmentWhereInput[]
@@ -263019,6 +264227,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -263138,6 +264347,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -263255,6 +264465,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -263374,6 +264585,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -277023,6 +278235,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PremiumFeatureStatusCreateInput = {
+    id?: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    tenant: TenantCreateNestedOneWithoutPremiumFeatureStatusesInput
+  }
+
+  export type PremiumFeatureStatusUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    tenant?: TenantUpdateOneRequiredWithoutPremiumFeatureStatusesNestedInput
+  }
+
+  export type PremiumFeatureStatusUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusCreateManyInput = {
+    id?: string
+    tenantId: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -282660,6 +283948,12 @@ export namespace Prisma {
     none?: SystemTouchpointWhereInput
   }
 
+  export type PremiumFeatureStatusListRelationFilter = {
+    every?: PremiumFeatureStatusWhereInput
+    some?: PremiumFeatureStatusWhereInput
+    none?: PremiumFeatureStatusWhereInput
+  }
+
   export type GamificationProfileListRelationFilter = {
     every?: GamificationProfileWhereInput
     some?: GamificationProfileWhereInput
@@ -282966,6 +284260,10 @@ export namespace Prisma {
   }
 
   export type SystemTouchpointOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PremiumFeatureStatusOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -290250,6 +291548,50 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type PremiumFeatureStatusTenantIdScreenIdCompoundUniqueInput = {
+    tenantId: string
+    screenId: string
+  }
+
+  export type PremiumFeatureStatusCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    screenId?: SortOrder
+    activationDate?: SortOrder
+    expirationDate?: SortOrder
+    usageCount?: SortOrder
+    isActive?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type PremiumFeatureStatusAvgOrderByAggregateInput = {
+    usageCount?: SortOrder
+  }
+
+  export type PremiumFeatureStatusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    screenId?: SortOrder
+    activationDate?: SortOrder
+    expirationDate?: SortOrder
+    usageCount?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type PremiumFeatureStatusMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    screenId?: SortOrder
+    activationDate?: SortOrder
+    expirationDate?: SortOrder
+    usageCount?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type PremiumFeatureStatusSumOrderByAggregateInput = {
+    usageCount?: SortOrder
+  }
+
   export type FamilyAppointmentCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -294682,6 +296024,13 @@ export namespace Prisma {
     connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
   }
 
+  export type PremiumFeatureStatusCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput> | PremiumFeatureStatusCreateWithoutTenantInput[] | PremiumFeatureStatusUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PremiumFeatureStatusCreateOrConnectWithoutTenantInput | PremiumFeatureStatusCreateOrConnectWithoutTenantInput[]
+    createMany?: PremiumFeatureStatusCreateManyTenantInputEnvelope
+    connect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+  }
+
   export type IoTEventCreateNestedManyWithoutTenantInput = {
     create?: XOR<IoTEventCreateWithoutTenantInput, IoTEventUncheckedCreateWithoutTenantInput> | IoTEventCreateWithoutTenantInput[] | IoTEventUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: IoTEventCreateOrConnectWithoutTenantInput | IoTEventCreateOrConnectWithoutTenantInput[]
@@ -295323,6 +296672,13 @@ export namespace Prisma {
     connectOrCreate?: SystemTouchpointCreateOrConnectWithoutTenantInput | SystemTouchpointCreateOrConnectWithoutTenantInput[]
     createMany?: SystemTouchpointCreateManyTenantInputEnvelope
     connect?: SystemTouchpointWhereUniqueInput | SystemTouchpointWhereUniqueInput[]
+  }
+
+  export type PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput> | PremiumFeatureStatusCreateWithoutTenantInput[] | PremiumFeatureStatusUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PremiumFeatureStatusCreateOrConnectWithoutTenantInput | PremiumFeatureStatusCreateOrConnectWithoutTenantInput[]
+    createMany?: PremiumFeatureStatusCreateManyTenantInputEnvelope
+    connect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
   }
 
   export type IoTEventUncheckedCreateNestedManyWithoutTenantInput = {
@@ -296295,6 +297651,20 @@ export namespace Prisma {
     update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+  }
+
+  export type PremiumFeatureStatusUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput> | PremiumFeatureStatusCreateWithoutTenantInput[] | PremiumFeatureStatusUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PremiumFeatureStatusCreateOrConnectWithoutTenantInput | PremiumFeatureStatusCreateOrConnectWithoutTenantInput[]
+    upsert?: PremiumFeatureStatusUpsertWithWhereUniqueWithoutTenantInput | PremiumFeatureStatusUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PremiumFeatureStatusCreateManyTenantInputEnvelope
+    set?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    disconnect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    delete?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    connect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    update?: PremiumFeatureStatusUpdateWithWhereUniqueWithoutTenantInput | PremiumFeatureStatusUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PremiumFeatureStatusUpdateManyWithWhereWithoutTenantInput | PremiumFeatureStatusUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PremiumFeatureStatusScalarWhereInput | PremiumFeatureStatusScalarWhereInput[]
   }
 
   export type IoTEventUpdateManyWithoutTenantNestedInput = {
@@ -297579,6 +298949,20 @@ export namespace Prisma {
     update?: SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput | SystemTouchpointUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: SystemTouchpointUpdateManyWithWhereWithoutTenantInput | SystemTouchpointUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: SystemTouchpointScalarWhereInput | SystemTouchpointScalarWhereInput[]
+  }
+
+  export type PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput> | PremiumFeatureStatusCreateWithoutTenantInput[] | PremiumFeatureStatusUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PremiumFeatureStatusCreateOrConnectWithoutTenantInput | PremiumFeatureStatusCreateOrConnectWithoutTenantInput[]
+    upsert?: PremiumFeatureStatusUpsertWithWhereUniqueWithoutTenantInput | PremiumFeatureStatusUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PremiumFeatureStatusCreateManyTenantInputEnvelope
+    set?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    disconnect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    delete?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    connect?: PremiumFeatureStatusWhereUniqueInput | PremiumFeatureStatusWhereUniqueInput[]
+    update?: PremiumFeatureStatusUpdateWithWhereUniqueWithoutTenantInput | PremiumFeatureStatusUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PremiumFeatureStatusUpdateManyWithWhereWithoutTenantInput | PremiumFeatureStatusUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PremiumFeatureStatusScalarWhereInput | PremiumFeatureStatusScalarWhereInput[]
   }
 
   export type IoTEventUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -305715,6 +307099,20 @@ export namespace Prisma {
     update?: XOR<XOR<AgentScreenBlueprintUpdateToOneWithWhereWithoutRequiredComponentsInput, AgentScreenBlueprintUpdateWithoutRequiredComponentsInput>, AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput>
   }
 
+  export type TenantCreateNestedOneWithoutPremiumFeatureStatusesInput = {
+    create?: XOR<TenantCreateWithoutPremiumFeatureStatusesInput, TenantUncheckedCreateWithoutPremiumFeatureStatusesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPremiumFeatureStatusesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutPremiumFeatureStatusesNestedInput = {
+    create?: XOR<TenantCreateWithoutPremiumFeatureStatusesInput, TenantUncheckedCreateWithoutPremiumFeatureStatusesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPremiumFeatureStatusesInput
+    upsert?: TenantUpsertWithoutPremiumFeatureStatusesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPremiumFeatureStatusesInput, TenantUpdateWithoutPremiumFeatureStatusesInput>, TenantUncheckedUpdateWithoutPremiumFeatureStatusesInput>
+  }
+
   export type PatientCreateNestedManyWithoutClinicInput = {
     create?: XOR<PatientCreateWithoutClinicInput, PatientUncheckedCreateWithoutClinicInput> | PatientCreateWithoutClinicInput[] | PatientUncheckedCreateWithoutClinicInput[]
     connectOrCreate?: PatientCreateOrConnectWithoutClinicInput | PatientCreateOrConnectWithoutClinicInput[]
@@ -306690,6 +308088,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -306808,6 +308207,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -308413,6 +309813,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -308531,6 +309932,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -311281,6 +312683,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PremiumFeatureStatusCreateWithoutTenantInput = {
+    id?: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUncheckedCreateWithoutTenantInput = {
+    id?: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusCreateOrConnectWithoutTenantInput = {
+    where: PremiumFeatureStatusWhereUniqueInput
+    create: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PremiumFeatureStatusCreateManyTenantInputEnvelope = {
+    data: PremiumFeatureStatusCreateManyTenantInput | PremiumFeatureStatusCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type IoTEventCreateWithoutTenantInput = {
     id?: string
     deviceId: string
@@ -311560,6 +312992,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -311678,6 +313111,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -311799,6 +313233,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -311916,6 +313351,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -314590,6 +316026,36 @@ export namespace Prisma {
     tenantId?: StringFilter<"SystemTouchpoint"> | string
   }
 
+  export type PremiumFeatureStatusUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PremiumFeatureStatusWhereUniqueInput
+    update: XOR<PremiumFeatureStatusUpdateWithoutTenantInput, PremiumFeatureStatusUncheckedUpdateWithoutTenantInput>
+    create: XOR<PremiumFeatureStatusCreateWithoutTenantInput, PremiumFeatureStatusUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PremiumFeatureStatusUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PremiumFeatureStatusWhereUniqueInput
+    data: XOR<PremiumFeatureStatusUpdateWithoutTenantInput, PremiumFeatureStatusUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PremiumFeatureStatusUpdateManyWithWhereWithoutTenantInput = {
+    where: PremiumFeatureStatusScalarWhereInput
+    data: XOR<PremiumFeatureStatusUpdateManyMutationInput, PremiumFeatureStatusUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PremiumFeatureStatusScalarWhereInput = {
+    AND?: PremiumFeatureStatusScalarWhereInput | PremiumFeatureStatusScalarWhereInput[]
+    OR?: PremiumFeatureStatusScalarWhereInput[]
+    NOT?: PremiumFeatureStatusScalarWhereInput | PremiumFeatureStatusScalarWhereInput[]
+    id?: StringFilter<"PremiumFeatureStatus"> | string
+    tenantId?: StringFilter<"PremiumFeatureStatus"> | string
+    screenId?: StringFilter<"PremiumFeatureStatus"> | string
+    activationDate?: DateTimeFilter<"PremiumFeatureStatus"> | Date | string
+    expirationDate?: DateTimeNullableFilter<"PremiumFeatureStatus"> | Date | string | null
+    usageCount?: IntFilter<"PremiumFeatureStatus"> | number
+    isActive?: BoolFilter<"PremiumFeatureStatus"> | boolean
+    metadata?: JsonNullableFilter<"PremiumFeatureStatus">
+  }
+
   export type IoTEventUpsertWithWhereUniqueWithoutTenantInput = {
     where: IoTEventWhereUniqueInput
     update: XOR<IoTEventUpdateWithoutTenantInput, IoTEventUncheckedUpdateWithoutTenantInput>
@@ -314810,6 +316276,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -314928,6 +316395,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -316096,6 +317564,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -316214,6 +317683,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -316346,6 +317816,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -316464,6 +317935,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -316579,6 +318051,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -316697,6 +318170,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -316829,6 +318303,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -316947,6 +318422,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -317182,6 +318658,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -317300,6 +318777,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -317557,6 +319035,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -317675,6 +319154,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -317792,6 +319272,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -317910,6 +319391,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -318161,6 +319643,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -318279,6 +319762,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -318519,6 +320003,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -318637,6 +320122,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -318769,6 +320255,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -318887,6 +320374,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -319247,6 +320735,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -319365,6 +320854,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -319497,6 +320987,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -319615,6 +321106,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -319945,6 +321437,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -320063,6 +321556,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -320413,6 +321907,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -320531,6 +322026,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -320944,6 +322440,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -321062,6 +322559,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -321280,6 +322778,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -321398,6 +322897,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -322229,6 +323729,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -322347,6 +323848,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -322510,6 +324012,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -322628,6 +324131,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -322818,6 +324322,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -322936,6 +324441,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -324398,6 +325904,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -324516,6 +326023,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -325424,6 +326932,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -325542,6 +327051,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -326360,6 +327870,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -326478,6 +327989,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -327530,6 +329042,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -327648,6 +329161,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -328302,6 +329816,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -328420,6 +329935,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -328597,6 +330113,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -328715,6 +330232,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -328975,6 +330493,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -329093,6 +330612,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -329439,6 +330959,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -329557,6 +331078,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -329990,6 +331512,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -330108,6 +331631,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -331263,6 +332787,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -331381,6 +332906,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -331854,6 +333380,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -331972,6 +333499,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -332415,6 +333943,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -332533,6 +334062,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -332998,6 +334528,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -333116,6 +334647,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -333440,6 +334972,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -333558,6 +335091,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -333903,6 +335437,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -334021,6 +335556,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -334232,6 +335768,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -334350,6 +335887,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -334567,6 +336105,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -334685,6 +336224,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -335288,6 +336828,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -335406,6 +336947,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -335714,6 +337256,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -335832,6 +337375,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -336267,6 +337811,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -336385,6 +337930,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -336743,6 +338289,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -336861,6 +338408,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -337408,6 +338956,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -337526,6 +339075,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -337840,6 +339390,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -337958,6 +339509,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -338153,6 +339705,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -338271,6 +339824,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -338488,6 +340042,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -338606,6 +340161,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -338891,6 +340447,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -339009,6 +340566,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -339323,6 +340881,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -339441,6 +341000,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -339703,6 +341263,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -339821,6 +341382,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -340111,6 +341673,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -340229,6 +341792,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -340345,6 +341909,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -340463,6 +342028,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -340739,6 +342305,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -340857,6 +342424,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -341130,6 +342698,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -341248,6 +342817,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -341440,6 +343010,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -341558,6 +343129,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -342116,6 +343688,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -342234,6 +343807,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -342483,6 +344057,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -342601,6 +344176,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -342992,6 +344568,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -343110,6 +344687,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -343478,6 +345056,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -343596,6 +345175,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -343837,6 +345417,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -343955,6 +345536,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -344087,6 +345669,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -344205,6 +345788,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -344552,6 +346136,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -344670,6 +346255,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -345044,6 +346630,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -345162,6 +346749,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -345508,6 +347096,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -345626,6 +347215,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -346000,6 +347590,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -346118,6 +347709,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -346432,6 +348024,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -346550,6 +348143,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -346892,6 +348486,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -347010,6 +348605,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -347125,6 +348721,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -347243,6 +348840,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -347375,6 +348973,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -347493,6 +349092,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -347837,6 +349437,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -347955,6 +349556,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -348198,6 +349800,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -348316,6 +349919,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -348605,6 +350209,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -348723,6 +350328,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -349035,6 +350641,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -349153,6 +350760,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -349738,6 +351346,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -349856,6 +351465,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -349988,6 +351598,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -350106,6 +351717,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -350333,6 +351945,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -350451,6 +352064,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -350700,6 +352314,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -350818,6 +352433,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -351045,6 +352661,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -351163,6 +352780,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -351412,6 +353030,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -351530,6 +353149,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -351764,6 +353384,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -351882,6 +353503,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -352230,6 +353852,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -352348,6 +353971,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -352680,6 +354304,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -352798,6 +354423,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -353055,6 +354681,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -353173,6 +354800,7 @@ export namespace Prisma {
     bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -353400,6 +355028,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -353518,6 +355147,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -353795,6 +355425,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -353913,6 +355544,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -354130,6 +355762,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -354248,6 +355881,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -354412,6 +356046,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -354530,6 +356165,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -354662,6 +356298,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -354780,6 +356417,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -355048,6 +356686,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -355166,6 +356805,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -355510,6 +357150,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -355628,6 +357269,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -355845,6 +357487,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -355963,6 +357606,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -356158,6 +357802,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -356276,6 +357921,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -356493,6 +358139,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -356611,6 +358258,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -356727,6 +358375,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -356845,6 +358494,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -357015,6 +358665,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -357133,6 +358784,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -357265,6 +358917,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -357383,6 +359036,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -357579,6 +359233,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -357697,6 +359352,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -357911,6 +359567,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -358029,6 +359686,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -358239,6 +359897,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -358357,6 +360016,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -358539,6 +360199,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -358657,6 +360318,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -358867,6 +360529,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -358985,6 +360648,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -359101,6 +360765,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -359219,6 +360884,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -359377,6 +361043,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -359495,6 +361162,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -359627,6 +361295,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -359745,6 +361414,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -359996,6 +361666,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -360114,6 +361785,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -360709,6 +362381,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -360827,6 +362500,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -361167,6 +362841,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -361285,6 +362960,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -361498,6 +363174,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -361616,6 +363293,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -361778,6 +363456,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -361896,6 +363575,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -362102,6 +363782,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -362220,6 +363901,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -362376,6 +364058,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -362494,6 +364177,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -362693,6 +364377,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -362811,6 +364496,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -362973,6 +364659,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -363091,6 +364778,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -363297,6 +364985,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -363415,6 +365104,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -363547,6 +365237,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -363665,6 +365356,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -363781,6 +365473,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -363899,6 +365592,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -364031,6 +365725,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -364149,6 +365844,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -364266,6 +365962,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -364384,6 +366081,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -364660,6 +366358,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -364778,6 +366477,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -365045,6 +366745,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -365163,6 +366864,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -365406,6 +367108,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -365524,6 +367227,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -365784,6 +367488,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -365902,6 +367607,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -366178,6 +367884,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -366296,6 +368003,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -366528,6 +368236,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -366646,6 +368355,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -367008,6 +368718,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -367126,6 +368837,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -367485,6 +369197,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -367603,6 +369316,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -367735,6 +369449,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -367853,6 +369568,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -367968,6 +369684,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -368086,6 +369803,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -368218,6 +369936,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -368336,6 +370055,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -368452,6 +370172,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -368570,6 +370291,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -368702,6 +370424,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -368820,6 +370543,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -368936,6 +370660,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -369054,6 +370779,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -369186,6 +370912,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -369304,6 +371031,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -369420,6 +371148,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -369538,6 +371267,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -369670,6 +371400,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -369788,6 +371519,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -370023,6 +371755,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -370141,6 +371874,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -370398,6 +372132,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -370516,6 +372251,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -370743,6 +372479,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -370861,6 +372598,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -371110,6 +372848,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -371228,6 +372967,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -371546,6 +373286,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -371664,6 +373405,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -372010,6 +373752,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -372128,6 +373871,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -372245,6 +373989,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -372363,6 +374108,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -372495,6 +374241,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -372613,6 +374360,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -372840,6 +374588,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -372958,6 +374707,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -373207,6 +374957,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -373325,6 +375076,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -373639,6 +375391,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -373757,6 +375510,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -374099,6 +375853,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -374217,6 +375972,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -374363,6 +376119,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -374481,6 +376238,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -374643,6 +376401,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -374761,6 +376520,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -374945,6 +376705,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
@@ -375063,6 +376824,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
@@ -375314,6 +377076,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
@@ -375432,6 +377195,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
@@ -375673,6 +377437,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
@@ -375791,6 +377556,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
@@ -376042,6 +377808,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
@@ -376160,6 +377927,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
@@ -376401,6 +378169,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
@@ -376519,6 +378288,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
@@ -376770,6 +378540,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
@@ -376888,6 +378659,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
@@ -377129,6 +378901,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -377247,6 +379020,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -377379,6 +379153,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -377497,6 +379272,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -377613,6 +379389,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -377731,6 +379508,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -377863,6 +379641,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -377981,6 +379760,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -378097,6 +379877,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -378215,6 +379996,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -378466,6 +380248,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -378584,6 +380367,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -379377,6 +381161,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -379495,6 +381280,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -379869,6 +381655,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -379987,6 +381774,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -380333,6 +382121,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -380451,6 +382240,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -380825,6 +382615,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -380943,6 +382734,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -381289,6 +383081,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -381407,6 +383200,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -381781,6 +383575,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -381899,6 +383694,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -382245,6 +384041,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -382363,6 +384160,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -382737,6 +384535,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -382855,6 +384654,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -383201,6 +385001,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -383319,6 +385120,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -383693,6 +385495,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -383811,6 +385614,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -384157,6 +385961,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -384275,6 +386080,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -384649,6 +386455,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -384767,6 +386574,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -385113,6 +386921,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -385231,6 +387040,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -385605,6 +387415,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -385723,6 +387534,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -386069,6 +387881,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -386187,6 +388000,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -386561,6 +388375,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -386679,6 +388494,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -387025,6 +388841,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -387143,6 +388960,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -387517,6 +389335,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -387635,6 +389454,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -387751,6 +389571,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
@@ -387869,6 +389690,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
     wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
     systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedCreateNestedManyWithoutTenantInput
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
@@ -388001,6 +389823,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -388119,6 +389942,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -389149,6 +390973,494 @@ export namespace Prisma {
     reasoning?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCreateWithoutPremiumFeatureStatusesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
+    subscriptionTier?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPremiumFeatureStatusesInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: string
+    parentTenantId?: string | null
+    subscriptionTier?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: ProviderAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    providerProfiles?: ProviderProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
+    shiftCheckIns?: ProviderShiftLogUncheckedCreateNestedManyWithoutTenantInput
+    adlCareLogs?: AdlCareLogUncheckedCreateNestedManyWithoutTenantInput
+    providerVitals?: ProviderVitalSignUncheckedCreateNestedManyWithoutTenantInput
+    behaviorNotes?: BehaviorNoteUncheckedCreateNestedManyWithoutTenantInput
+    nutritionRecords?: NutritionRecordUncheckedCreateNestedManyWithoutTenantInput
+    mobilityLogs?: MobilityLogUncheckedCreateNestedManyWithoutTenantInput
+    infectionLogs?: InfectionControlChecklistUncheckedCreateNestedManyWithoutTenantInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedCreateNestedManyWithoutTenantInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedCreateNestedManyWithoutTenantInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPremiumFeatureStatusesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPremiumFeatureStatusesInput, TenantUncheckedCreateWithoutPremiumFeatureStatusesInput>
+  }
+
+  export type TenantUpsertWithoutPremiumFeatureStatusesInput = {
+    update: XOR<TenantUpdateWithoutPremiumFeatureStatusesInput, TenantUncheckedUpdateWithoutPremiumFeatureStatusesInput>
+    create: XOR<TenantCreateWithoutPremiumFeatureStatusesInput, TenantUncheckedCreateWithoutPremiumFeatureStatusesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutPremiumFeatureStatusesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutPremiumFeatureStatusesInput, TenantUncheckedUpdateWithoutPremiumFeatureStatusesInput>
+  }
+
+  export type TenantUpdateWithoutPremiumFeatureStatusesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPremiumFeatureStatusesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    baseCurrency?: StringFieldUpdateOperationsInput | string
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    subscriptionTier?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: ProviderAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    providerProfiles?: ProviderProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    subscriptionUpgrades?: SubscriptionUpgradeUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
+    shiftCheckIns?: ProviderShiftLogUncheckedUpdateManyWithoutTenantNestedInput
+    adlCareLogs?: AdlCareLogUncheckedUpdateManyWithoutTenantNestedInput
+    providerVitals?: ProviderVitalSignUncheckedUpdateManyWithoutTenantNestedInput
+    behaviorNotes?: BehaviorNoteUncheckedUpdateManyWithoutTenantNestedInput
+    nutritionRecords?: NutritionRecordUncheckedUpdateManyWithoutTenantNestedInput
+    mobilityLogs?: MobilityLogUncheckedUpdateManyWithoutTenantNestedInput
+    infectionLogs?: InfectionControlChecklistUncheckedUpdateManyWithoutTenantNestedInput
+    narrativeNotes?: NarrativeProgressNoteUncheckedUpdateManyWithoutTenantNestedInput
+    carePlanFollowUps?: CarePlanFollowUpUncheckedUpdateManyWithoutTenantNestedInput
+    dynamicFeatureRecords?: DynamicFeatureRecordUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PatientCreateWithoutClinicInput = {
@@ -391631,6 +393943,16 @@ export namespace Prisma {
     lastChecked?: Date | string
   }
 
+  export type PremiumFeatureStatusCreateManyTenantInput = {
+    id?: string
+    screenId: string
+    activationDate?: Date | string
+    expirationDate?: Date | string | null
+    usageCount?: number
+    isActive?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type IoTEventCreateManyTenantInput = {
     id?: string
     deviceId: string
@@ -394082,6 +396404,36 @@ export namespace Prisma {
     lastChecked?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PremiumFeatureStatusUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PremiumFeatureStatusUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    activationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usageCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type IoTEventUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     deviceId?: StringFieldUpdateOperationsInput | string
@@ -394376,6 +396728,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
@@ -394493,6 +396846,7 @@ export namespace Prisma {
     dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
     wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
     systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    premiumFeatureStatuses?: PremiumFeatureStatusUncheckedUpdateManyWithoutTenantNestedInput
     iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
@@ -401728,6 +404082,10 @@ export namespace Prisma {
      * @deprecated Use SupportTicketDefaultArgs instead
      */
     export type SupportTicketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupportTicketDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PremiumFeatureStatusDefaultArgs instead
+     */
+    export type PremiumFeatureStatusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PremiumFeatureStatusDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */
