@@ -784,6 +784,21 @@ export type FranchiseAlert = $Result.DefaultSelection<Prisma.$FranchiseAlertPayl
  */
 export type FranchiseStaffNode = $Result.DefaultSelection<Prisma.$FranchiseStaffNodePayload>
 /**
+ * Model BusinessDevelopmentMetric
+ * 
+ */
+export type BusinessDevelopmentMetric = $Result.DefaultSelection<Prisma.$BusinessDevelopmentMetricPayload>
+/**
+ * Model ClinicMetric
+ * 
+ */
+export type ClinicMetric = $Result.DefaultSelection<Prisma.$ClinicMetricPayload>
+/**
+ * Model SupportTicket
+ * 
+ */
+export type SupportTicket = $Result.DefaultSelection<Prisma.$SupportTicketPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2748,6 +2763,36 @@ export class PrismaClient<
   get franchiseStaffNode(): Prisma.FranchiseStaffNodeDelegate<ExtArgs>;
 
   /**
+   * `prisma.businessDevelopmentMetric`: Exposes CRUD operations for the **BusinessDevelopmentMetric** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BusinessDevelopmentMetrics
+    * const businessDevelopmentMetrics = await prisma.businessDevelopmentMetric.findMany()
+    * ```
+    */
+  get businessDevelopmentMetric(): Prisma.BusinessDevelopmentMetricDelegate<ExtArgs>;
+
+  /**
+   * `prisma.clinicMetric`: Exposes CRUD operations for the **ClinicMetric** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClinicMetrics
+    * const clinicMetrics = await prisma.clinicMetric.findMany()
+    * ```
+    */
+  get clinicMetric(): Prisma.ClinicMetricDelegate<ExtArgs>;
+
+  /**
+   * `prisma.supportTicket`: Exposes CRUD operations for the **SupportTicket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SupportTickets
+    * const supportTickets = await prisma.supportTicket.findMany()
+    * ```
+    */
+  get supportTicket(): Prisma.SupportTicketDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3941,6 +3986,9 @@ export namespace Prisma {
     FranchiseReport: 'FranchiseReport',
     FranchiseAlert: 'FranchiseAlert',
     FranchiseStaffNode: 'FranchiseStaffNode',
+    BusinessDevelopmentMetric: 'BusinessDevelopmentMetric',
+    ClinicMetric: 'ClinicMetric',
+    SupportTicket: 'SupportTicket',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -4016,7 +4064,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -14797,6 +14845,216 @@ export namespace Prisma {
           count: {
             args: Prisma.FranchiseStaffNodeCountArgs<ExtArgs>
             result: $Utils.Optional<FranchiseStaffNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      BusinessDevelopmentMetric: {
+        payload: Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>
+        fields: Prisma.BusinessDevelopmentMetricFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BusinessDevelopmentMetricFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BusinessDevelopmentMetricFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          findFirst: {
+            args: Prisma.BusinessDevelopmentMetricFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BusinessDevelopmentMetricFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          findMany: {
+            args: Prisma.BusinessDevelopmentMetricFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>[]
+          }
+          create: {
+            args: Prisma.BusinessDevelopmentMetricCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          createMany: {
+            args: Prisma.BusinessDevelopmentMetricCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BusinessDevelopmentMetricCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>[]
+          }
+          delete: {
+            args: Prisma.BusinessDevelopmentMetricDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          update: {
+            args: Prisma.BusinessDevelopmentMetricUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          deleteMany: {
+            args: Prisma.BusinessDevelopmentMetricDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BusinessDevelopmentMetricUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BusinessDevelopmentMetricUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessDevelopmentMetricPayload>
+          }
+          aggregate: {
+            args: Prisma.BusinessDevelopmentMetricAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBusinessDevelopmentMetric>
+          }
+          groupBy: {
+            args: Prisma.BusinessDevelopmentMetricGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BusinessDevelopmentMetricGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BusinessDevelopmentMetricCountArgs<ExtArgs>
+            result: $Utils.Optional<BusinessDevelopmentMetricCountAggregateOutputType> | number
+          }
+        }
+      }
+      ClinicMetric: {
+        payload: Prisma.$ClinicMetricPayload<ExtArgs>
+        fields: Prisma.ClinicMetricFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClinicMetricFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClinicMetricFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          findFirst: {
+            args: Prisma.ClinicMetricFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClinicMetricFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          findMany: {
+            args: Prisma.ClinicMetricFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>[]
+          }
+          create: {
+            args: Prisma.ClinicMetricCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          createMany: {
+            args: Prisma.ClinicMetricCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClinicMetricCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>[]
+          }
+          delete: {
+            args: Prisma.ClinicMetricDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          update: {
+            args: Prisma.ClinicMetricUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClinicMetricDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClinicMetricUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ClinicMetricUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClinicMetricPayload>
+          }
+          aggregate: {
+            args: Prisma.ClinicMetricAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClinicMetric>
+          }
+          groupBy: {
+            args: Prisma.ClinicMetricGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClinicMetricGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClinicMetricCountArgs<ExtArgs>
+            result: $Utils.Optional<ClinicMetricCountAggregateOutputType> | number
+          }
+        }
+      }
+      SupportTicket: {
+        payload: Prisma.$SupportTicketPayload<ExtArgs>
+        fields: Prisma.SupportTicketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SupportTicketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SupportTicketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          findFirst: {
+            args: Prisma.SupportTicketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SupportTicketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          findMany: {
+            args: Prisma.SupportTicketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
+          }
+          create: {
+            args: Prisma.SupportTicketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          createMany: {
+            args: Prisma.SupportTicketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SupportTicketCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
+          }
+          delete: {
+            args: Prisma.SupportTicketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          update: {
+            args: Prisma.SupportTicketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          deleteMany: {
+            args: Prisma.SupportTicketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SupportTicketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SupportTicketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          aggregate: {
+            args: Prisma.SupportTicketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSupportTicket>
+          }
+          groupBy: {
+            args: Prisma.SupportTicketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SupportTicketCountArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketCountAggregateOutputType> | number
           }
         }
       }
@@ -181868,6 +182126,2788 @@ export namespace Prisma {
 
 
   /**
+   * Model BusinessDevelopmentMetric
+   */
+
+  export type AggregateBusinessDevelopmentMetric = {
+    _count: BusinessDevelopmentMetricCountAggregateOutputType | null
+    _avg: BusinessDevelopmentMetricAvgAggregateOutputType | null
+    _sum: BusinessDevelopmentMetricSumAggregateOutputType | null
+    _min: BusinessDevelopmentMetricMinAggregateOutputType | null
+    _max: BusinessDevelopmentMetricMaxAggregateOutputType | null
+  }
+
+  export type BusinessDevelopmentMetricAvgAggregateOutputType = {
+    dealValue: number | null
+    leads: number | null
+  }
+
+  export type BusinessDevelopmentMetricSumAggregateOutputType = {
+    dealValue: number | null
+    leads: number | null
+  }
+
+  export type BusinessDevelopmentMetricMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    dealValue: number | null
+    leads: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BusinessDevelopmentMetricMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    dealValue: number | null
+    leads: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BusinessDevelopmentMetricCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    dealValue: number
+    leads: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BusinessDevelopmentMetricAvgAggregateInputType = {
+    dealValue?: true
+    leads?: true
+  }
+
+  export type BusinessDevelopmentMetricSumAggregateInputType = {
+    dealValue?: true
+    leads?: true
+  }
+
+  export type BusinessDevelopmentMetricMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    dealValue?: true
+    leads?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BusinessDevelopmentMetricMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    dealValue?: true
+    leads?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BusinessDevelopmentMetricCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    dealValue?: true
+    leads?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BusinessDevelopmentMetricAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BusinessDevelopmentMetric to aggregate.
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessDevelopmentMetrics to fetch.
+     */
+    orderBy?: BusinessDevelopmentMetricOrderByWithRelationInput | BusinessDevelopmentMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BusinessDevelopmentMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessDevelopmentMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessDevelopmentMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BusinessDevelopmentMetrics
+    **/
+    _count?: true | BusinessDevelopmentMetricCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BusinessDevelopmentMetricAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BusinessDevelopmentMetricSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BusinessDevelopmentMetricMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BusinessDevelopmentMetricMaxAggregateInputType
+  }
+
+  export type GetBusinessDevelopmentMetricAggregateType<T extends BusinessDevelopmentMetricAggregateArgs> = {
+        [P in keyof T & keyof AggregateBusinessDevelopmentMetric]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBusinessDevelopmentMetric[P]>
+      : GetScalarType<T[P], AggregateBusinessDevelopmentMetric[P]>
+  }
+
+
+
+
+  export type BusinessDevelopmentMetricGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BusinessDevelopmentMetricWhereInput
+    orderBy?: BusinessDevelopmentMetricOrderByWithAggregationInput | BusinessDevelopmentMetricOrderByWithAggregationInput[]
+    by: BusinessDevelopmentMetricScalarFieldEnum[] | BusinessDevelopmentMetricScalarFieldEnum
+    having?: BusinessDevelopmentMetricScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BusinessDevelopmentMetricCountAggregateInputType | true
+    _avg?: BusinessDevelopmentMetricAvgAggregateInputType
+    _sum?: BusinessDevelopmentMetricSumAggregateInputType
+    _min?: BusinessDevelopmentMetricMinAggregateInputType
+    _max?: BusinessDevelopmentMetricMaxAggregateInputType
+  }
+
+  export type BusinessDevelopmentMetricGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    dealValue: number
+    leads: number
+    createdAt: Date
+    updatedAt: Date
+    _count: BusinessDevelopmentMetricCountAggregateOutputType | null
+    _avg: BusinessDevelopmentMetricAvgAggregateOutputType | null
+    _sum: BusinessDevelopmentMetricSumAggregateOutputType | null
+    _min: BusinessDevelopmentMetricMinAggregateOutputType | null
+    _max: BusinessDevelopmentMetricMaxAggregateOutputType | null
+  }
+
+  type GetBusinessDevelopmentMetricGroupByPayload<T extends BusinessDevelopmentMetricGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BusinessDevelopmentMetricGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BusinessDevelopmentMetricGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BusinessDevelopmentMetricGroupByOutputType[P]>
+            : GetScalarType<T[P], BusinessDevelopmentMetricGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BusinessDevelopmentMetricSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    dealValue?: boolean
+    leads?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["businessDevelopmentMetric"]>
+
+  export type BusinessDevelopmentMetricSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    dealValue?: boolean
+    leads?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["businessDevelopmentMetric"]>
+
+  export type BusinessDevelopmentMetricSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    dealValue?: boolean
+    leads?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $BusinessDevelopmentMetricPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BusinessDevelopmentMetric"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      dealValue: number
+      leads: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["businessDevelopmentMetric"]>
+    composites: {}
+  }
+
+  type BusinessDevelopmentMetricGetPayload<S extends boolean | null | undefined | BusinessDevelopmentMetricDefaultArgs> = $Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload, S>
+
+  type BusinessDevelopmentMetricCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BusinessDevelopmentMetricFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BusinessDevelopmentMetricCountAggregateInputType | true
+    }
+
+  export interface BusinessDevelopmentMetricDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BusinessDevelopmentMetric'], meta: { name: 'BusinessDevelopmentMetric' } }
+    /**
+     * Find zero or one BusinessDevelopmentMetric that matches the filter.
+     * @param {BusinessDevelopmentMetricFindUniqueArgs} args - Arguments to find a BusinessDevelopmentMetric
+     * @example
+     * // Get one BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BusinessDevelopmentMetricFindUniqueArgs>(args: SelectSubset<T, BusinessDevelopmentMetricFindUniqueArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BusinessDevelopmentMetric that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BusinessDevelopmentMetricFindUniqueOrThrowArgs} args - Arguments to find a BusinessDevelopmentMetric
+     * @example
+     * // Get one BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BusinessDevelopmentMetricFindUniqueOrThrowArgs>(args: SelectSubset<T, BusinessDevelopmentMetricFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BusinessDevelopmentMetric that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricFindFirstArgs} args - Arguments to find a BusinessDevelopmentMetric
+     * @example
+     * // Get one BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BusinessDevelopmentMetricFindFirstArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricFindFirstArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BusinessDevelopmentMetric that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricFindFirstOrThrowArgs} args - Arguments to find a BusinessDevelopmentMetric
+     * @example
+     * // Get one BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BusinessDevelopmentMetricFindFirstOrThrowArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricFindFirstOrThrowArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BusinessDevelopmentMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BusinessDevelopmentMetrics
+     * const businessDevelopmentMetrics = await prisma.businessDevelopmentMetric.findMany()
+     * 
+     * // Get first 10 BusinessDevelopmentMetrics
+     * const businessDevelopmentMetrics = await prisma.businessDevelopmentMetric.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const businessDevelopmentMetricWithIdOnly = await prisma.businessDevelopmentMetric.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BusinessDevelopmentMetricFindManyArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BusinessDevelopmentMetric.
+     * @param {BusinessDevelopmentMetricCreateArgs} args - Arguments to create a BusinessDevelopmentMetric.
+     * @example
+     * // Create one BusinessDevelopmentMetric
+     * const BusinessDevelopmentMetric = await prisma.businessDevelopmentMetric.create({
+     *   data: {
+     *     // ... data to create a BusinessDevelopmentMetric
+     *   }
+     * })
+     * 
+     */
+    create<T extends BusinessDevelopmentMetricCreateArgs>(args: SelectSubset<T, BusinessDevelopmentMetricCreateArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BusinessDevelopmentMetrics.
+     * @param {BusinessDevelopmentMetricCreateManyArgs} args - Arguments to create many BusinessDevelopmentMetrics.
+     * @example
+     * // Create many BusinessDevelopmentMetrics
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BusinessDevelopmentMetricCreateManyArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BusinessDevelopmentMetrics and returns the data saved in the database.
+     * @param {BusinessDevelopmentMetricCreateManyAndReturnArgs} args - Arguments to create many BusinessDevelopmentMetrics.
+     * @example
+     * // Create many BusinessDevelopmentMetrics
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BusinessDevelopmentMetrics and only return the `id`
+     * const businessDevelopmentMetricWithIdOnly = await prisma.businessDevelopmentMetric.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BusinessDevelopmentMetricCreateManyAndReturnArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BusinessDevelopmentMetric.
+     * @param {BusinessDevelopmentMetricDeleteArgs} args - Arguments to delete one BusinessDevelopmentMetric.
+     * @example
+     * // Delete one BusinessDevelopmentMetric
+     * const BusinessDevelopmentMetric = await prisma.businessDevelopmentMetric.delete({
+     *   where: {
+     *     // ... filter to delete one BusinessDevelopmentMetric
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BusinessDevelopmentMetricDeleteArgs>(args: SelectSubset<T, BusinessDevelopmentMetricDeleteArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BusinessDevelopmentMetric.
+     * @param {BusinessDevelopmentMetricUpdateArgs} args - Arguments to update one BusinessDevelopmentMetric.
+     * @example
+     * // Update one BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BusinessDevelopmentMetricUpdateArgs>(args: SelectSubset<T, BusinessDevelopmentMetricUpdateArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BusinessDevelopmentMetrics.
+     * @param {BusinessDevelopmentMetricDeleteManyArgs} args - Arguments to filter BusinessDevelopmentMetrics to delete.
+     * @example
+     * // Delete a few BusinessDevelopmentMetrics
+     * const { count } = await prisma.businessDevelopmentMetric.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BusinessDevelopmentMetricDeleteManyArgs>(args?: SelectSubset<T, BusinessDevelopmentMetricDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BusinessDevelopmentMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BusinessDevelopmentMetrics
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BusinessDevelopmentMetricUpdateManyArgs>(args: SelectSubset<T, BusinessDevelopmentMetricUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BusinessDevelopmentMetric.
+     * @param {BusinessDevelopmentMetricUpsertArgs} args - Arguments to update or create a BusinessDevelopmentMetric.
+     * @example
+     * // Update or create a BusinessDevelopmentMetric
+     * const businessDevelopmentMetric = await prisma.businessDevelopmentMetric.upsert({
+     *   create: {
+     *     // ... data to create a BusinessDevelopmentMetric
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BusinessDevelopmentMetric we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BusinessDevelopmentMetricUpsertArgs>(args: SelectSubset<T, BusinessDevelopmentMetricUpsertArgs<ExtArgs>>): Prisma__BusinessDevelopmentMetricClient<$Result.GetResult<Prisma.$BusinessDevelopmentMetricPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BusinessDevelopmentMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricCountArgs} args - Arguments to filter BusinessDevelopmentMetrics to count.
+     * @example
+     * // Count the number of BusinessDevelopmentMetrics
+     * const count = await prisma.businessDevelopmentMetric.count({
+     *   where: {
+     *     // ... the filter for the BusinessDevelopmentMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends BusinessDevelopmentMetricCountArgs>(
+      args?: Subset<T, BusinessDevelopmentMetricCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BusinessDevelopmentMetricCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BusinessDevelopmentMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BusinessDevelopmentMetricAggregateArgs>(args: Subset<T, BusinessDevelopmentMetricAggregateArgs>): Prisma.PrismaPromise<GetBusinessDevelopmentMetricAggregateType<T>>
+
+    /**
+     * Group by BusinessDevelopmentMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessDevelopmentMetricGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BusinessDevelopmentMetricGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BusinessDevelopmentMetricGroupByArgs['orderBy'] }
+        : { orderBy?: BusinessDevelopmentMetricGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BusinessDevelopmentMetricGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBusinessDevelopmentMetricGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BusinessDevelopmentMetric model
+   */
+  readonly fields: BusinessDevelopmentMetricFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BusinessDevelopmentMetric.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BusinessDevelopmentMetricClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BusinessDevelopmentMetric model
+   */ 
+  interface BusinessDevelopmentMetricFieldRefs {
+    readonly id: FieldRef<"BusinessDevelopmentMetric", 'String'>
+    readonly tenantId: FieldRef<"BusinessDevelopmentMetric", 'String'>
+    readonly officeId: FieldRef<"BusinessDevelopmentMetric", 'String'>
+    readonly dealValue: FieldRef<"BusinessDevelopmentMetric", 'Float'>
+    readonly leads: FieldRef<"BusinessDevelopmentMetric", 'Int'>
+    readonly createdAt: FieldRef<"BusinessDevelopmentMetric", 'DateTime'>
+    readonly updatedAt: FieldRef<"BusinessDevelopmentMetric", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BusinessDevelopmentMetric findUnique
+   */
+  export type BusinessDevelopmentMetricFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which BusinessDevelopmentMetric to fetch.
+     */
+    where: BusinessDevelopmentMetricWhereUniqueInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric findUniqueOrThrow
+   */
+  export type BusinessDevelopmentMetricFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which BusinessDevelopmentMetric to fetch.
+     */
+    where: BusinessDevelopmentMetricWhereUniqueInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric findFirst
+   */
+  export type BusinessDevelopmentMetricFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which BusinessDevelopmentMetric to fetch.
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessDevelopmentMetrics to fetch.
+     */
+    orderBy?: BusinessDevelopmentMetricOrderByWithRelationInput | BusinessDevelopmentMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BusinessDevelopmentMetrics.
+     */
+    cursor?: BusinessDevelopmentMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessDevelopmentMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessDevelopmentMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BusinessDevelopmentMetrics.
+     */
+    distinct?: BusinessDevelopmentMetricScalarFieldEnum | BusinessDevelopmentMetricScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessDevelopmentMetric findFirstOrThrow
+   */
+  export type BusinessDevelopmentMetricFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which BusinessDevelopmentMetric to fetch.
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessDevelopmentMetrics to fetch.
+     */
+    orderBy?: BusinessDevelopmentMetricOrderByWithRelationInput | BusinessDevelopmentMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BusinessDevelopmentMetrics.
+     */
+    cursor?: BusinessDevelopmentMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessDevelopmentMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessDevelopmentMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BusinessDevelopmentMetrics.
+     */
+    distinct?: BusinessDevelopmentMetricScalarFieldEnum | BusinessDevelopmentMetricScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessDevelopmentMetric findMany
+   */
+  export type BusinessDevelopmentMetricFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which BusinessDevelopmentMetrics to fetch.
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessDevelopmentMetrics to fetch.
+     */
+    orderBy?: BusinessDevelopmentMetricOrderByWithRelationInput | BusinessDevelopmentMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BusinessDevelopmentMetrics.
+     */
+    cursor?: BusinessDevelopmentMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessDevelopmentMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessDevelopmentMetrics.
+     */
+    skip?: number
+    distinct?: BusinessDevelopmentMetricScalarFieldEnum | BusinessDevelopmentMetricScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessDevelopmentMetric create
+   */
+  export type BusinessDevelopmentMetricCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to create a BusinessDevelopmentMetric.
+     */
+    data: XOR<BusinessDevelopmentMetricCreateInput, BusinessDevelopmentMetricUncheckedCreateInput>
+  }
+
+  /**
+   * BusinessDevelopmentMetric createMany
+   */
+  export type BusinessDevelopmentMetricCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BusinessDevelopmentMetrics.
+     */
+    data: BusinessDevelopmentMetricCreateManyInput | BusinessDevelopmentMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BusinessDevelopmentMetric createManyAndReturn
+   */
+  export type BusinessDevelopmentMetricCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BusinessDevelopmentMetrics.
+     */
+    data: BusinessDevelopmentMetricCreateManyInput | BusinessDevelopmentMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BusinessDevelopmentMetric update
+   */
+  export type BusinessDevelopmentMetricUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to update a BusinessDevelopmentMetric.
+     */
+    data: XOR<BusinessDevelopmentMetricUpdateInput, BusinessDevelopmentMetricUncheckedUpdateInput>
+    /**
+     * Choose, which BusinessDevelopmentMetric to update.
+     */
+    where: BusinessDevelopmentMetricWhereUniqueInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric updateMany
+   */
+  export type BusinessDevelopmentMetricUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BusinessDevelopmentMetrics.
+     */
+    data: XOR<BusinessDevelopmentMetricUpdateManyMutationInput, BusinessDevelopmentMetricUncheckedUpdateManyInput>
+    /**
+     * Filter which BusinessDevelopmentMetrics to update
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric upsert
+   */
+  export type BusinessDevelopmentMetricUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * The filter to search for the BusinessDevelopmentMetric to update in case it exists.
+     */
+    where: BusinessDevelopmentMetricWhereUniqueInput
+    /**
+     * In case the BusinessDevelopmentMetric found by the `where` argument doesn't exist, create a new BusinessDevelopmentMetric with this data.
+     */
+    create: XOR<BusinessDevelopmentMetricCreateInput, BusinessDevelopmentMetricUncheckedCreateInput>
+    /**
+     * In case the BusinessDevelopmentMetric was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BusinessDevelopmentMetricUpdateInput, BusinessDevelopmentMetricUncheckedUpdateInput>
+  }
+
+  /**
+   * BusinessDevelopmentMetric delete
+   */
+  export type BusinessDevelopmentMetricDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+    /**
+     * Filter which BusinessDevelopmentMetric to delete.
+     */
+    where: BusinessDevelopmentMetricWhereUniqueInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric deleteMany
+   */
+  export type BusinessDevelopmentMetricDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BusinessDevelopmentMetrics to delete
+     */
+    where?: BusinessDevelopmentMetricWhereInput
+  }
+
+  /**
+   * BusinessDevelopmentMetric without action
+   */
+  export type BusinessDevelopmentMetricDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessDevelopmentMetric
+     */
+    select?: BusinessDevelopmentMetricSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClinicMetric
+   */
+
+  export type AggregateClinicMetric = {
+    _count: ClinicMetricCountAggregateOutputType | null
+    _avg: ClinicMetricAvgAggregateOutputType | null
+    _sum: ClinicMetricSumAggregateOutputType | null
+    _min: ClinicMetricMinAggregateOutputType | null
+    _max: ClinicMetricMaxAggregateOutputType | null
+  }
+
+  export type ClinicMetricAvgAggregateOutputType = {
+    patientCount: number | null
+    waitTimes: number | null
+  }
+
+  export type ClinicMetricSumAggregateOutputType = {
+    patientCount: number | null
+    waitTimes: number | null
+  }
+
+  export type ClinicMetricMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    patientCount: number | null
+    waitTimes: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClinicMetricMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    patientCount: number | null
+    waitTimes: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClinicMetricCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    patientCount: number
+    waitTimes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClinicMetricAvgAggregateInputType = {
+    patientCount?: true
+    waitTimes?: true
+  }
+
+  export type ClinicMetricSumAggregateInputType = {
+    patientCount?: true
+    waitTimes?: true
+  }
+
+  export type ClinicMetricMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    patientCount?: true
+    waitTimes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClinicMetricMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    patientCount?: true
+    waitTimes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClinicMetricCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    patientCount?: true
+    waitTimes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClinicMetricAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClinicMetric to aggregate.
+     */
+    where?: ClinicMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClinicMetrics to fetch.
+     */
+    orderBy?: ClinicMetricOrderByWithRelationInput | ClinicMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClinicMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClinicMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClinicMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClinicMetrics
+    **/
+    _count?: true | ClinicMetricCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClinicMetricAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClinicMetricSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClinicMetricMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClinicMetricMaxAggregateInputType
+  }
+
+  export type GetClinicMetricAggregateType<T extends ClinicMetricAggregateArgs> = {
+        [P in keyof T & keyof AggregateClinicMetric]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClinicMetric[P]>
+      : GetScalarType<T[P], AggregateClinicMetric[P]>
+  }
+
+
+
+
+  export type ClinicMetricGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClinicMetricWhereInput
+    orderBy?: ClinicMetricOrderByWithAggregationInput | ClinicMetricOrderByWithAggregationInput[]
+    by: ClinicMetricScalarFieldEnum[] | ClinicMetricScalarFieldEnum
+    having?: ClinicMetricScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClinicMetricCountAggregateInputType | true
+    _avg?: ClinicMetricAvgAggregateInputType
+    _sum?: ClinicMetricSumAggregateInputType
+    _min?: ClinicMetricMinAggregateInputType
+    _max?: ClinicMetricMaxAggregateInputType
+  }
+
+  export type ClinicMetricGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    patientCount: number
+    waitTimes: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ClinicMetricCountAggregateOutputType | null
+    _avg: ClinicMetricAvgAggregateOutputType | null
+    _sum: ClinicMetricSumAggregateOutputType | null
+    _min: ClinicMetricMinAggregateOutputType | null
+    _max: ClinicMetricMaxAggregateOutputType | null
+  }
+
+  type GetClinicMetricGroupByPayload<T extends ClinicMetricGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClinicMetricGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClinicMetricGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClinicMetricGroupByOutputType[P]>
+            : GetScalarType<T[P], ClinicMetricGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClinicMetricSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    patientCount?: boolean
+    waitTimes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["clinicMetric"]>
+
+  export type ClinicMetricSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    patientCount?: boolean
+    waitTimes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["clinicMetric"]>
+
+  export type ClinicMetricSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    patientCount?: boolean
+    waitTimes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $ClinicMetricPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClinicMetric"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      patientCount: number
+      waitTimes: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["clinicMetric"]>
+    composites: {}
+  }
+
+  type ClinicMetricGetPayload<S extends boolean | null | undefined | ClinicMetricDefaultArgs> = $Result.GetResult<Prisma.$ClinicMetricPayload, S>
+
+  type ClinicMetricCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ClinicMetricFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ClinicMetricCountAggregateInputType | true
+    }
+
+  export interface ClinicMetricDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClinicMetric'], meta: { name: 'ClinicMetric' } }
+    /**
+     * Find zero or one ClinicMetric that matches the filter.
+     * @param {ClinicMetricFindUniqueArgs} args - Arguments to find a ClinicMetric
+     * @example
+     * // Get one ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClinicMetricFindUniqueArgs>(args: SelectSubset<T, ClinicMetricFindUniqueArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ClinicMetric that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ClinicMetricFindUniqueOrThrowArgs} args - Arguments to find a ClinicMetric
+     * @example
+     * // Get one ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClinicMetricFindUniqueOrThrowArgs>(args: SelectSubset<T, ClinicMetricFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ClinicMetric that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricFindFirstArgs} args - Arguments to find a ClinicMetric
+     * @example
+     * // Get one ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClinicMetricFindFirstArgs>(args?: SelectSubset<T, ClinicMetricFindFirstArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ClinicMetric that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricFindFirstOrThrowArgs} args - Arguments to find a ClinicMetric
+     * @example
+     * // Get one ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClinicMetricFindFirstOrThrowArgs>(args?: SelectSubset<T, ClinicMetricFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ClinicMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClinicMetrics
+     * const clinicMetrics = await prisma.clinicMetric.findMany()
+     * 
+     * // Get first 10 ClinicMetrics
+     * const clinicMetrics = await prisma.clinicMetric.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clinicMetricWithIdOnly = await prisma.clinicMetric.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClinicMetricFindManyArgs>(args?: SelectSubset<T, ClinicMetricFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ClinicMetric.
+     * @param {ClinicMetricCreateArgs} args - Arguments to create a ClinicMetric.
+     * @example
+     * // Create one ClinicMetric
+     * const ClinicMetric = await prisma.clinicMetric.create({
+     *   data: {
+     *     // ... data to create a ClinicMetric
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClinicMetricCreateArgs>(args: SelectSubset<T, ClinicMetricCreateArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ClinicMetrics.
+     * @param {ClinicMetricCreateManyArgs} args - Arguments to create many ClinicMetrics.
+     * @example
+     * // Create many ClinicMetrics
+     * const clinicMetric = await prisma.clinicMetric.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClinicMetricCreateManyArgs>(args?: SelectSubset<T, ClinicMetricCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClinicMetrics and returns the data saved in the database.
+     * @param {ClinicMetricCreateManyAndReturnArgs} args - Arguments to create many ClinicMetrics.
+     * @example
+     * // Create many ClinicMetrics
+     * const clinicMetric = await prisma.clinicMetric.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClinicMetrics and only return the `id`
+     * const clinicMetricWithIdOnly = await prisma.clinicMetric.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClinicMetricCreateManyAndReturnArgs>(args?: SelectSubset<T, ClinicMetricCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ClinicMetric.
+     * @param {ClinicMetricDeleteArgs} args - Arguments to delete one ClinicMetric.
+     * @example
+     * // Delete one ClinicMetric
+     * const ClinicMetric = await prisma.clinicMetric.delete({
+     *   where: {
+     *     // ... filter to delete one ClinicMetric
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClinicMetricDeleteArgs>(args: SelectSubset<T, ClinicMetricDeleteArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ClinicMetric.
+     * @param {ClinicMetricUpdateArgs} args - Arguments to update one ClinicMetric.
+     * @example
+     * // Update one ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClinicMetricUpdateArgs>(args: SelectSubset<T, ClinicMetricUpdateArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ClinicMetrics.
+     * @param {ClinicMetricDeleteManyArgs} args - Arguments to filter ClinicMetrics to delete.
+     * @example
+     * // Delete a few ClinicMetrics
+     * const { count } = await prisma.clinicMetric.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClinicMetricDeleteManyArgs>(args?: SelectSubset<T, ClinicMetricDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClinicMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClinicMetrics
+     * const clinicMetric = await prisma.clinicMetric.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClinicMetricUpdateManyArgs>(args: SelectSubset<T, ClinicMetricUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ClinicMetric.
+     * @param {ClinicMetricUpsertArgs} args - Arguments to update or create a ClinicMetric.
+     * @example
+     * // Update or create a ClinicMetric
+     * const clinicMetric = await prisma.clinicMetric.upsert({
+     *   create: {
+     *     // ... data to create a ClinicMetric
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClinicMetric we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClinicMetricUpsertArgs>(args: SelectSubset<T, ClinicMetricUpsertArgs<ExtArgs>>): Prisma__ClinicMetricClient<$Result.GetResult<Prisma.$ClinicMetricPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ClinicMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricCountArgs} args - Arguments to filter ClinicMetrics to count.
+     * @example
+     * // Count the number of ClinicMetrics
+     * const count = await prisma.clinicMetric.count({
+     *   where: {
+     *     // ... the filter for the ClinicMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClinicMetricCountArgs>(
+      args?: Subset<T, ClinicMetricCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClinicMetricCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClinicMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClinicMetricAggregateArgs>(args: Subset<T, ClinicMetricAggregateArgs>): Prisma.PrismaPromise<GetClinicMetricAggregateType<T>>
+
+    /**
+     * Group by ClinicMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClinicMetricGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClinicMetricGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClinicMetricGroupByArgs['orderBy'] }
+        : { orderBy?: ClinicMetricGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClinicMetricGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClinicMetricGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClinicMetric model
+   */
+  readonly fields: ClinicMetricFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClinicMetric.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClinicMetricClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClinicMetric model
+   */ 
+  interface ClinicMetricFieldRefs {
+    readonly id: FieldRef<"ClinicMetric", 'String'>
+    readonly tenantId: FieldRef<"ClinicMetric", 'String'>
+    readonly officeId: FieldRef<"ClinicMetric", 'String'>
+    readonly patientCount: FieldRef<"ClinicMetric", 'Int'>
+    readonly waitTimes: FieldRef<"ClinicMetric", 'Int'>
+    readonly createdAt: FieldRef<"ClinicMetric", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClinicMetric", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClinicMetric findUnique
+   */
+  export type ClinicMetricFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which ClinicMetric to fetch.
+     */
+    where: ClinicMetricWhereUniqueInput
+  }
+
+  /**
+   * ClinicMetric findUniqueOrThrow
+   */
+  export type ClinicMetricFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which ClinicMetric to fetch.
+     */
+    where: ClinicMetricWhereUniqueInput
+  }
+
+  /**
+   * ClinicMetric findFirst
+   */
+  export type ClinicMetricFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which ClinicMetric to fetch.
+     */
+    where?: ClinicMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClinicMetrics to fetch.
+     */
+    orderBy?: ClinicMetricOrderByWithRelationInput | ClinicMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClinicMetrics.
+     */
+    cursor?: ClinicMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClinicMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClinicMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClinicMetrics.
+     */
+    distinct?: ClinicMetricScalarFieldEnum | ClinicMetricScalarFieldEnum[]
+  }
+
+  /**
+   * ClinicMetric findFirstOrThrow
+   */
+  export type ClinicMetricFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which ClinicMetric to fetch.
+     */
+    where?: ClinicMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClinicMetrics to fetch.
+     */
+    orderBy?: ClinicMetricOrderByWithRelationInput | ClinicMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClinicMetrics.
+     */
+    cursor?: ClinicMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClinicMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClinicMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClinicMetrics.
+     */
+    distinct?: ClinicMetricScalarFieldEnum | ClinicMetricScalarFieldEnum[]
+  }
+
+  /**
+   * ClinicMetric findMany
+   */
+  export type ClinicMetricFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which ClinicMetrics to fetch.
+     */
+    where?: ClinicMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClinicMetrics to fetch.
+     */
+    orderBy?: ClinicMetricOrderByWithRelationInput | ClinicMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClinicMetrics.
+     */
+    cursor?: ClinicMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClinicMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClinicMetrics.
+     */
+    skip?: number
+    distinct?: ClinicMetricScalarFieldEnum | ClinicMetricScalarFieldEnum[]
+  }
+
+  /**
+   * ClinicMetric create
+   */
+  export type ClinicMetricCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ClinicMetric.
+     */
+    data: XOR<ClinicMetricCreateInput, ClinicMetricUncheckedCreateInput>
+  }
+
+  /**
+   * ClinicMetric createMany
+   */
+  export type ClinicMetricCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClinicMetrics.
+     */
+    data: ClinicMetricCreateManyInput | ClinicMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClinicMetric createManyAndReturn
+   */
+  export type ClinicMetricCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ClinicMetrics.
+     */
+    data: ClinicMetricCreateManyInput | ClinicMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClinicMetric update
+   */
+  export type ClinicMetricUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ClinicMetric.
+     */
+    data: XOR<ClinicMetricUpdateInput, ClinicMetricUncheckedUpdateInput>
+    /**
+     * Choose, which ClinicMetric to update.
+     */
+    where: ClinicMetricWhereUniqueInput
+  }
+
+  /**
+   * ClinicMetric updateMany
+   */
+  export type ClinicMetricUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClinicMetrics.
+     */
+    data: XOR<ClinicMetricUpdateManyMutationInput, ClinicMetricUncheckedUpdateManyInput>
+    /**
+     * Filter which ClinicMetrics to update
+     */
+    where?: ClinicMetricWhereInput
+  }
+
+  /**
+   * ClinicMetric upsert
+   */
+  export type ClinicMetricUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ClinicMetric to update in case it exists.
+     */
+    where: ClinicMetricWhereUniqueInput
+    /**
+     * In case the ClinicMetric found by the `where` argument doesn't exist, create a new ClinicMetric with this data.
+     */
+    create: XOR<ClinicMetricCreateInput, ClinicMetricUncheckedCreateInput>
+    /**
+     * In case the ClinicMetric was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClinicMetricUpdateInput, ClinicMetricUncheckedUpdateInput>
+  }
+
+  /**
+   * ClinicMetric delete
+   */
+  export type ClinicMetricDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+    /**
+     * Filter which ClinicMetric to delete.
+     */
+    where: ClinicMetricWhereUniqueInput
+  }
+
+  /**
+   * ClinicMetric deleteMany
+   */
+  export type ClinicMetricDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClinicMetrics to delete
+     */
+    where?: ClinicMetricWhereInput
+  }
+
+  /**
+   * ClinicMetric without action
+   */
+  export type ClinicMetricDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClinicMetric
+     */
+    select?: ClinicMetricSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SupportTicket
+   */
+
+  export type AggregateSupportTicket = {
+    _count: SupportTicketCountAggregateOutputType | null
+    _min: SupportTicketMinAggregateOutputType | null
+    _max: SupportTicketMaxAggregateOutputType | null
+  }
+
+  export type SupportTicketMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    status: string | null
+    resolution: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SupportTicketMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    status: string | null
+    resolution: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SupportTicketCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    status: number
+    resolution: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SupportTicketMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    status?: true
+    resolution?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SupportTicketMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    status?: true
+    resolution?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SupportTicketCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    status?: true
+    resolution?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SupportTicketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTicket to aggregate.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SupportTickets
+    **/
+    _count?: true | SupportTicketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SupportTicketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SupportTicketMaxAggregateInputType
+  }
+
+  export type GetSupportTicketAggregateType<T extends SupportTicketAggregateArgs> = {
+        [P in keyof T & keyof AggregateSupportTicket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSupportTicket[P]>
+      : GetScalarType<T[P], AggregateSupportTicket[P]>
+  }
+
+
+
+
+  export type SupportTicketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketWhereInput
+    orderBy?: SupportTicketOrderByWithAggregationInput | SupportTicketOrderByWithAggregationInput[]
+    by: SupportTicketScalarFieldEnum[] | SupportTicketScalarFieldEnum
+    having?: SupportTicketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SupportTicketCountAggregateInputType | true
+    _min?: SupportTicketMinAggregateInputType
+    _max?: SupportTicketMaxAggregateInputType
+  }
+
+  export type SupportTicketGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    status: string
+    resolution: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SupportTicketCountAggregateOutputType | null
+    _min: SupportTicketMinAggregateOutputType | null
+    _max: SupportTicketMaxAggregateOutputType | null
+  }
+
+  type GetSupportTicketGroupByPayload<T extends SupportTicketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SupportTicketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SupportTicketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SupportTicketGroupByOutputType[P]>
+            : GetScalarType<T[P], SupportTicketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SupportTicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    status?: boolean
+    resolution?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["supportTicket"]>
+
+  export type SupportTicketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    status?: boolean
+    resolution?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["supportTicket"]>
+
+  export type SupportTicketSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    status?: boolean
+    resolution?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SupportTicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SupportTicket"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      status: string
+      resolution: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["supportTicket"]>
+    composites: {}
+  }
+
+  type SupportTicketGetPayload<S extends boolean | null | undefined | SupportTicketDefaultArgs> = $Result.GetResult<Prisma.$SupportTicketPayload, S>
+
+  type SupportTicketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SupportTicketFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SupportTicketCountAggregateInputType | true
+    }
+
+  export interface SupportTicketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SupportTicket'], meta: { name: 'SupportTicket' } }
+    /**
+     * Find zero or one SupportTicket that matches the filter.
+     * @param {SupportTicketFindUniqueArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SupportTicketFindUniqueArgs>(args: SelectSubset<T, SupportTicketFindUniqueArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SupportTicket that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SupportTicketFindUniqueOrThrowArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SupportTicketFindUniqueOrThrowArgs>(args: SelectSubset<T, SupportTicketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SupportTicket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindFirstArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SupportTicketFindFirstArgs>(args?: SelectSubset<T, SupportTicketFindFirstArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SupportTicket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindFirstOrThrowArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SupportTicketFindFirstOrThrowArgs>(args?: SelectSubset<T, SupportTicketFindFirstOrThrowArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SupportTickets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SupportTickets
+     * const supportTickets = await prisma.supportTicket.findMany()
+     * 
+     * // Get first 10 SupportTickets
+     * const supportTickets = await prisma.supportTicket.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const supportTicketWithIdOnly = await prisma.supportTicket.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SupportTicketFindManyArgs>(args?: SelectSubset<T, SupportTicketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SupportTicket.
+     * @param {SupportTicketCreateArgs} args - Arguments to create a SupportTicket.
+     * @example
+     * // Create one SupportTicket
+     * const SupportTicket = await prisma.supportTicket.create({
+     *   data: {
+     *     // ... data to create a SupportTicket
+     *   }
+     * })
+     * 
+     */
+    create<T extends SupportTicketCreateArgs>(args: SelectSubset<T, SupportTicketCreateArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SupportTickets.
+     * @param {SupportTicketCreateManyArgs} args - Arguments to create many SupportTickets.
+     * @example
+     * // Create many SupportTickets
+     * const supportTicket = await prisma.supportTicket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SupportTicketCreateManyArgs>(args?: SelectSubset<T, SupportTicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SupportTickets and returns the data saved in the database.
+     * @param {SupportTicketCreateManyAndReturnArgs} args - Arguments to create many SupportTickets.
+     * @example
+     * // Create many SupportTickets
+     * const supportTicket = await prisma.supportTicket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SupportTickets and only return the `id`
+     * const supportTicketWithIdOnly = await prisma.supportTicket.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SupportTicketCreateManyAndReturnArgs>(args?: SelectSubset<T, SupportTicketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SupportTicket.
+     * @param {SupportTicketDeleteArgs} args - Arguments to delete one SupportTicket.
+     * @example
+     * // Delete one SupportTicket
+     * const SupportTicket = await prisma.supportTicket.delete({
+     *   where: {
+     *     // ... filter to delete one SupportTicket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SupportTicketDeleteArgs>(args: SelectSubset<T, SupportTicketDeleteArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SupportTicket.
+     * @param {SupportTicketUpdateArgs} args - Arguments to update one SupportTicket.
+     * @example
+     * // Update one SupportTicket
+     * const supportTicket = await prisma.supportTicket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SupportTicketUpdateArgs>(args: SelectSubset<T, SupportTicketUpdateArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SupportTickets.
+     * @param {SupportTicketDeleteManyArgs} args - Arguments to filter SupportTickets to delete.
+     * @example
+     * // Delete a few SupportTickets
+     * const { count } = await prisma.supportTicket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SupportTicketDeleteManyArgs>(args?: SelectSubset<T, SupportTicketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SupportTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SupportTickets
+     * const supportTicket = await prisma.supportTicket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SupportTicketUpdateManyArgs>(args: SelectSubset<T, SupportTicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SupportTicket.
+     * @param {SupportTicketUpsertArgs} args - Arguments to update or create a SupportTicket.
+     * @example
+     * // Update or create a SupportTicket
+     * const supportTicket = await prisma.supportTicket.upsert({
+     *   create: {
+     *     // ... data to create a SupportTicket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SupportTicket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SupportTicketUpsertArgs>(args: SelectSubset<T, SupportTicketUpsertArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SupportTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCountArgs} args - Arguments to filter SupportTickets to count.
+     * @example
+     * // Count the number of SupportTickets
+     * const count = await prisma.supportTicket.count({
+     *   where: {
+     *     // ... the filter for the SupportTickets we want to count
+     *   }
+     * })
+    **/
+    count<T extends SupportTicketCountArgs>(
+      args?: Subset<T, SupportTicketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SupportTicketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SupportTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SupportTicketAggregateArgs>(args: Subset<T, SupportTicketAggregateArgs>): Prisma.PrismaPromise<GetSupportTicketAggregateType<T>>
+
+    /**
+     * Group by SupportTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SupportTicketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SupportTicketGroupByArgs['orderBy'] }
+        : { orderBy?: SupportTicketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SupportTicketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSupportTicketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SupportTicket model
+   */
+  readonly fields: SupportTicketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SupportTicket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SupportTicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SupportTicket model
+   */ 
+  interface SupportTicketFieldRefs {
+    readonly id: FieldRef<"SupportTicket", 'String'>
+    readonly tenantId: FieldRef<"SupportTicket", 'String'>
+    readonly officeId: FieldRef<"SupportTicket", 'String'>
+    readonly status: FieldRef<"SupportTicket", 'String'>
+    readonly resolution: FieldRef<"SupportTicket", 'String'>
+    readonly createdAt: FieldRef<"SupportTicket", 'DateTime'>
+    readonly updatedAt: FieldRef<"SupportTicket", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SupportTicket findUnique
+   */
+  export type SupportTicketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket findUniqueOrThrow
+   */
+  export type SupportTicketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket findFirst
+   */
+  export type SupportTicketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTickets.
+     */
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket findFirstOrThrow
+   */
+  export type SupportTicketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTickets.
+     */
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket findMany
+   */
+  export type SupportTicketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter, which SupportTickets to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket create
+   */
+  export type SupportTicketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SupportTicket.
+     */
+    data: XOR<SupportTicketCreateInput, SupportTicketUncheckedCreateInput>
+  }
+
+  /**
+   * SupportTicket createMany
+   */
+  export type SupportTicketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SupportTickets.
+     */
+    data: SupportTicketCreateManyInput | SupportTicketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupportTicket createManyAndReturn
+   */
+  export type SupportTicketCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SupportTickets.
+     */
+    data: SupportTicketCreateManyInput | SupportTicketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupportTicket update
+   */
+  export type SupportTicketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SupportTicket.
+     */
+    data: XOR<SupportTicketUpdateInput, SupportTicketUncheckedUpdateInput>
+    /**
+     * Choose, which SupportTicket to update.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket updateMany
+   */
+  export type SupportTicketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SupportTickets.
+     */
+    data: XOR<SupportTicketUpdateManyMutationInput, SupportTicketUncheckedUpdateManyInput>
+    /**
+     * Filter which SupportTickets to update
+     */
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * SupportTicket upsert
+   */
+  export type SupportTicketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SupportTicket to update in case it exists.
+     */
+    where: SupportTicketWhereUniqueInput
+    /**
+     * In case the SupportTicket found by the `where` argument doesn't exist, create a new SupportTicket with this data.
+     */
+    create: XOR<SupportTicketCreateInput, SupportTicketUncheckedCreateInput>
+    /**
+     * In case the SupportTicket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SupportTicketUpdateInput, SupportTicketUncheckedUpdateInput>
+  }
+
+  /**
+   * SupportTicket delete
+   */
+  export type SupportTicketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Filter which SupportTicket to delete.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket deleteMany
+   */
+  export type SupportTicketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTickets to delete
+     */
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * SupportTicket without action
+   */
+  export type SupportTicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -241143,6 +244183,45 @@ export namespace Prisma {
   export type FranchiseStaffNodeScalarFieldEnum = (typeof FranchiseStaffNodeScalarFieldEnum)[keyof typeof FranchiseStaffNodeScalarFieldEnum]
 
 
+  export const BusinessDevelopmentMetricScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    dealValue: 'dealValue',
+    leads: 'leads',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BusinessDevelopmentMetricScalarFieldEnum = (typeof BusinessDevelopmentMetricScalarFieldEnum)[keyof typeof BusinessDevelopmentMetricScalarFieldEnum]
+
+
+  export const ClinicMetricScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    patientCount: 'patientCount',
+    waitTimes: 'waitTimes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClinicMetricScalarFieldEnum = (typeof ClinicMetricScalarFieldEnum)[keyof typeof ClinicMetricScalarFieldEnum]
+
+
+  export const SupportTicketScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    status: 'status',
+    resolution: 'resolution',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -255141,6 +258220,196 @@ export namespace Prisma {
     reportsToId?: StringNullableWithAggregatesFilter<"FranchiseStaffNode"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"FranchiseStaffNode"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FranchiseStaffNode"> | Date | string
+  }
+
+  export type BusinessDevelopmentMetricWhereInput = {
+    AND?: BusinessDevelopmentMetricWhereInput | BusinessDevelopmentMetricWhereInput[]
+    OR?: BusinessDevelopmentMetricWhereInput[]
+    NOT?: BusinessDevelopmentMetricWhereInput | BusinessDevelopmentMetricWhereInput[]
+    id?: StringFilter<"BusinessDevelopmentMetric"> | string
+    tenantId?: StringFilter<"BusinessDevelopmentMetric"> | string
+    officeId?: StringFilter<"BusinessDevelopmentMetric"> | string
+    dealValue?: FloatFilter<"BusinessDevelopmentMetric"> | number
+    leads?: IntFilter<"BusinessDevelopmentMetric"> | number
+    createdAt?: DateTimeFilter<"BusinessDevelopmentMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"BusinessDevelopmentMetric"> | Date | string
+  }
+
+  export type BusinessDevelopmentMetricOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    dealValue?: SortOrder
+    leads?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BusinessDevelopmentMetricWhereInput | BusinessDevelopmentMetricWhereInput[]
+    OR?: BusinessDevelopmentMetricWhereInput[]
+    NOT?: BusinessDevelopmentMetricWhereInput | BusinessDevelopmentMetricWhereInput[]
+    tenantId?: StringFilter<"BusinessDevelopmentMetric"> | string
+    officeId?: StringFilter<"BusinessDevelopmentMetric"> | string
+    dealValue?: FloatFilter<"BusinessDevelopmentMetric"> | number
+    leads?: IntFilter<"BusinessDevelopmentMetric"> | number
+    createdAt?: DateTimeFilter<"BusinessDevelopmentMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"BusinessDevelopmentMetric"> | Date | string
+  }, "id">
+
+  export type BusinessDevelopmentMetricOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    dealValue?: SortOrder
+    leads?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BusinessDevelopmentMetricCountOrderByAggregateInput
+    _avg?: BusinessDevelopmentMetricAvgOrderByAggregateInput
+    _max?: BusinessDevelopmentMetricMaxOrderByAggregateInput
+    _min?: BusinessDevelopmentMetricMinOrderByAggregateInput
+    _sum?: BusinessDevelopmentMetricSumOrderByAggregateInput
+  }
+
+  export type BusinessDevelopmentMetricScalarWhereWithAggregatesInput = {
+    AND?: BusinessDevelopmentMetricScalarWhereWithAggregatesInput | BusinessDevelopmentMetricScalarWhereWithAggregatesInput[]
+    OR?: BusinessDevelopmentMetricScalarWhereWithAggregatesInput[]
+    NOT?: BusinessDevelopmentMetricScalarWhereWithAggregatesInput | BusinessDevelopmentMetricScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BusinessDevelopmentMetric"> | string
+    tenantId?: StringWithAggregatesFilter<"BusinessDevelopmentMetric"> | string
+    officeId?: StringWithAggregatesFilter<"BusinessDevelopmentMetric"> | string
+    dealValue?: FloatWithAggregatesFilter<"BusinessDevelopmentMetric"> | number
+    leads?: IntWithAggregatesFilter<"BusinessDevelopmentMetric"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BusinessDevelopmentMetric"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BusinessDevelopmentMetric"> | Date | string
+  }
+
+  export type ClinicMetricWhereInput = {
+    AND?: ClinicMetricWhereInput | ClinicMetricWhereInput[]
+    OR?: ClinicMetricWhereInput[]
+    NOT?: ClinicMetricWhereInput | ClinicMetricWhereInput[]
+    id?: StringFilter<"ClinicMetric"> | string
+    tenantId?: StringFilter<"ClinicMetric"> | string
+    officeId?: StringFilter<"ClinicMetric"> | string
+    patientCount?: IntFilter<"ClinicMetric"> | number
+    waitTimes?: IntFilter<"ClinicMetric"> | number
+    createdAt?: DateTimeFilter<"ClinicMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"ClinicMetric"> | Date | string
+  }
+
+  export type ClinicMetricOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClinicMetricWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ClinicMetricWhereInput | ClinicMetricWhereInput[]
+    OR?: ClinicMetricWhereInput[]
+    NOT?: ClinicMetricWhereInput | ClinicMetricWhereInput[]
+    tenantId?: StringFilter<"ClinicMetric"> | string
+    officeId?: StringFilter<"ClinicMetric"> | string
+    patientCount?: IntFilter<"ClinicMetric"> | number
+    waitTimes?: IntFilter<"ClinicMetric"> | number
+    createdAt?: DateTimeFilter<"ClinicMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"ClinicMetric"> | Date | string
+  }, "id">
+
+  export type ClinicMetricOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClinicMetricCountOrderByAggregateInput
+    _avg?: ClinicMetricAvgOrderByAggregateInput
+    _max?: ClinicMetricMaxOrderByAggregateInput
+    _min?: ClinicMetricMinOrderByAggregateInput
+    _sum?: ClinicMetricSumOrderByAggregateInput
+  }
+
+  export type ClinicMetricScalarWhereWithAggregatesInput = {
+    AND?: ClinicMetricScalarWhereWithAggregatesInput | ClinicMetricScalarWhereWithAggregatesInput[]
+    OR?: ClinicMetricScalarWhereWithAggregatesInput[]
+    NOT?: ClinicMetricScalarWhereWithAggregatesInput | ClinicMetricScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClinicMetric"> | string
+    tenantId?: StringWithAggregatesFilter<"ClinicMetric"> | string
+    officeId?: StringWithAggregatesFilter<"ClinicMetric"> | string
+    patientCount?: IntWithAggregatesFilter<"ClinicMetric"> | number
+    waitTimes?: IntWithAggregatesFilter<"ClinicMetric"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ClinicMetric"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClinicMetric"> | Date | string
+  }
+
+  export type SupportTicketWhereInput = {
+    AND?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    OR?: SupportTicketWhereInput[]
+    NOT?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    id?: StringFilter<"SupportTicket"> | string
+    tenantId?: StringFilter<"SupportTicket"> | string
+    officeId?: StringFilter<"SupportTicket"> | string
+    status?: StringFilter<"SupportTicket"> | string
+    resolution?: StringNullableFilter<"SupportTicket"> | string | null
+    createdAt?: DateTimeFilter<"SupportTicket"> | Date | string
+    updatedAt?: DateTimeFilter<"SupportTicket"> | Date | string
+  }
+
+  export type SupportTicketOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    status?: SortOrder
+    resolution?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupportTicketWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    OR?: SupportTicketWhereInput[]
+    NOT?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    tenantId?: StringFilter<"SupportTicket"> | string
+    officeId?: StringFilter<"SupportTicket"> | string
+    status?: StringFilter<"SupportTicket"> | string
+    resolution?: StringNullableFilter<"SupportTicket"> | string | null
+    createdAt?: DateTimeFilter<"SupportTicket"> | Date | string
+    updatedAt?: DateTimeFilter<"SupportTicket"> | Date | string
+  }, "id">
+
+  export type SupportTicketOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    status?: SortOrder
+    resolution?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SupportTicketCountOrderByAggregateInput
+    _max?: SupportTicketMaxOrderByAggregateInput
+    _min?: SupportTicketMinOrderByAggregateInput
+  }
+
+  export type SupportTicketScalarWhereWithAggregatesInput = {
+    AND?: SupportTicketScalarWhereWithAggregatesInput | SupportTicketScalarWhereWithAggregatesInput[]
+    OR?: SupportTicketScalarWhereWithAggregatesInput[]
+    NOT?: SupportTicketScalarWhereWithAggregatesInput | SupportTicketScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SupportTicket"> | string
+    tenantId?: StringWithAggregatesFilter<"SupportTicket"> | string
+    officeId?: StringWithAggregatesFilter<"SupportTicket"> | string
+    status?: StringWithAggregatesFilter<"SupportTicket"> | string
+    resolution?: StringNullableWithAggregatesFilter<"SupportTicket"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SupportTicket"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SupportTicket"> | Date | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -273544,6 +276813,216 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BusinessDevelopmentMetricCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    dealValue: number
+    leads: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BusinessDevelopmentMetricUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    dealValue: number
+    leads: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BusinessDevelopmentMetricUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    dealValue?: FloatFieldUpdateOperationsInput | number
+    leads?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BusinessDevelopmentMetricUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    dealValue?: FloatFieldUpdateOperationsInput | number
+    leads?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BusinessDevelopmentMetricCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    dealValue: number
+    leads: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BusinessDevelopmentMetricUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    dealValue?: FloatFieldUpdateOperationsInput | number
+    leads?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BusinessDevelopmentMetricUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    dealValue?: FloatFieldUpdateOperationsInput | number
+    leads?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClinicMetricCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    patientCount: number
+    waitTimes: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClinicMetricUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    patientCount: number
+    waitTimes: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClinicMetricUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    patientCount?: IntFieldUpdateOperationsInput | number
+    waitTimes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClinicMetricUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    patientCount?: IntFieldUpdateOperationsInput | number
+    waitTimes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClinicMetricCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    patientCount: number
+    waitTimes: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClinicMetricUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    patientCount?: IntFieldUpdateOperationsInput | number
+    waitTimes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClinicMetricUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    patientCount?: IntFieldUpdateOperationsInput | number
+    waitTimes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    status: string
+    resolution?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupportTicketUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    status: string
+    resolution?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupportTicketUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    status: string
+    resolution?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupportTicketUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -286657,6 +290136,116 @@ export namespace Prisma {
     title?: SortOrder
     department?: SortOrder
     reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    dealValue?: SortOrder
+    leads?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricAvgOrderByAggregateInput = {
+    dealValue?: SortOrder
+    leads?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    dealValue?: SortOrder
+    leads?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    dealValue?: SortOrder
+    leads?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BusinessDevelopmentMetricSumOrderByAggregateInput = {
+    dealValue?: SortOrder
+    leads?: SortOrder
+  }
+
+  export type ClinicMetricCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClinicMetricAvgOrderByAggregateInput = {
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+  }
+
+  export type ClinicMetricMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClinicMetricMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClinicMetricSumOrderByAggregateInput = {
+    patientCount?: SortOrder
+    waitTimes?: SortOrder
+  }
+
+  export type SupportTicketCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    status?: SortOrder
+    resolution?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupportTicketMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    status?: SortOrder
+    resolution?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupportTicketMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    status?: SortOrder
+    resolution?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -398127,6 +401716,18 @@ export namespace Prisma {
      * @deprecated Use FranchiseStaffNodeDefaultArgs instead
      */
     export type FranchiseStaffNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FranchiseStaffNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BusinessDevelopmentMetricDefaultArgs instead
+     */
+    export type BusinessDevelopmentMetricArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BusinessDevelopmentMetricDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ClinicMetricDefaultArgs instead
+     */
+    export type ClinicMetricArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClinicMetricDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SupportTicketDefaultArgs instead
+     */
+    export type SupportTicketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupportTicketDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

@@ -2045,6 +2045,36 @@ exports.Prisma.FranchiseStaffNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BusinessDevelopmentMetricScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  dealValue: 'dealValue',
+  leads: 'leads',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClinicMetricScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  patientCount: 'patientCount',
+  waitTimes: 'waitTimes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SupportTicketScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  status: 'status',
+  resolution: 'resolution',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2919,6 +2949,9 @@ exports.Prisma.ModelName = {
   FranchiseReport: 'FranchiseReport',
   FranchiseAlert: 'FranchiseAlert',
   FranchiseStaffNode: 'FranchiseStaffNode',
+  BusinessDevelopmentMetric: 'BusinessDevelopmentMetric',
+  ClinicMetric: 'ClinicMetric',
+  SupportTicket: 'SupportTicket',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',
