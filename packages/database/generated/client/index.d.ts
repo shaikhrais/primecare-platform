@@ -764,6 +764,26 @@ export type CorporateAlert = $Result.DefaultSelection<Prisma.$CorporateAlertPayl
  */
 export type OrganizationNode = $Result.DefaultSelection<Prisma.$OrganizationNodePayload>
 /**
+ * Model FranchiseKpi
+ * 
+ */
+export type FranchiseKpi = $Result.DefaultSelection<Prisma.$FranchiseKpiPayload>
+/**
+ * Model FranchiseReport
+ * 
+ */
+export type FranchiseReport = $Result.DefaultSelection<Prisma.$FranchiseReportPayload>
+/**
+ * Model FranchiseAlert
+ * 
+ */
+export type FranchiseAlert = $Result.DefaultSelection<Prisma.$FranchiseAlertPayload>
+/**
+ * Model FranchiseStaffNode
+ * 
+ */
+export type FranchiseStaffNode = $Result.DefaultSelection<Prisma.$FranchiseStaffNodePayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2688,6 +2708,46 @@ export class PrismaClient<
   get organizationNode(): Prisma.OrganizationNodeDelegate<ExtArgs>;
 
   /**
+   * `prisma.franchiseKpi`: Exposes CRUD operations for the **FranchiseKpi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FranchiseKpis
+    * const franchiseKpis = await prisma.franchiseKpi.findMany()
+    * ```
+    */
+  get franchiseKpi(): Prisma.FranchiseKpiDelegate<ExtArgs>;
+
+  /**
+   * `prisma.franchiseReport`: Exposes CRUD operations for the **FranchiseReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FranchiseReports
+    * const franchiseReports = await prisma.franchiseReport.findMany()
+    * ```
+    */
+  get franchiseReport(): Prisma.FranchiseReportDelegate<ExtArgs>;
+
+  /**
+   * `prisma.franchiseAlert`: Exposes CRUD operations for the **FranchiseAlert** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FranchiseAlerts
+    * const franchiseAlerts = await prisma.franchiseAlert.findMany()
+    * ```
+    */
+  get franchiseAlert(): Prisma.FranchiseAlertDelegate<ExtArgs>;
+
+  /**
+   * `prisma.franchiseStaffNode`: Exposes CRUD operations for the **FranchiseStaffNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FranchiseStaffNodes
+    * const franchiseStaffNodes = await prisma.franchiseStaffNode.findMany()
+    * ```
+    */
+  get franchiseStaffNode(): Prisma.FranchiseStaffNodeDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3877,6 +3937,10 @@ export namespace Prisma {
     CorporateReport: 'CorporateReport',
     CorporateAlert: 'CorporateAlert',
     OrganizationNode: 'OrganizationNode',
+    FranchiseKpi: 'FranchiseKpi',
+    FranchiseReport: 'FranchiseReport',
+    FranchiseAlert: 'FranchiseAlert',
+    FranchiseStaffNode: 'FranchiseStaffNode',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3952,7 +4016,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -14453,6 +14517,286 @@ export namespace Prisma {
           count: {
             args: Prisma.OrganizationNodeCountArgs<ExtArgs>
             result: $Utils.Optional<OrganizationNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      FranchiseKpi: {
+        payload: Prisma.$FranchiseKpiPayload<ExtArgs>
+        fields: Prisma.FranchiseKpiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FranchiseKpiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FranchiseKpiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          findFirst: {
+            args: Prisma.FranchiseKpiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FranchiseKpiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          findMany: {
+            args: Prisma.FranchiseKpiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>[]
+          }
+          create: {
+            args: Prisma.FranchiseKpiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          createMany: {
+            args: Prisma.FranchiseKpiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FranchiseKpiCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>[]
+          }
+          delete: {
+            args: Prisma.FranchiseKpiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          update: {
+            args: Prisma.FranchiseKpiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          deleteMany: {
+            args: Prisma.FranchiseKpiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FranchiseKpiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FranchiseKpiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseKpiPayload>
+          }
+          aggregate: {
+            args: Prisma.FranchiseKpiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFranchiseKpi>
+          }
+          groupBy: {
+            args: Prisma.FranchiseKpiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseKpiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FranchiseKpiCountArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseKpiCountAggregateOutputType> | number
+          }
+        }
+      }
+      FranchiseReport: {
+        payload: Prisma.$FranchiseReportPayload<ExtArgs>
+        fields: Prisma.FranchiseReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FranchiseReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FranchiseReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          findFirst: {
+            args: Prisma.FranchiseReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FranchiseReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          findMany: {
+            args: Prisma.FranchiseReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>[]
+          }
+          create: {
+            args: Prisma.FranchiseReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          createMany: {
+            args: Prisma.FranchiseReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FranchiseReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>[]
+          }
+          delete: {
+            args: Prisma.FranchiseReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          update: {
+            args: Prisma.FranchiseReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.FranchiseReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FranchiseReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FranchiseReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseReportPayload>
+          }
+          aggregate: {
+            args: Prisma.FranchiseReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFranchiseReport>
+          }
+          groupBy: {
+            args: Prisma.FranchiseReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FranchiseReportCountArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseReportCountAggregateOutputType> | number
+          }
+        }
+      }
+      FranchiseAlert: {
+        payload: Prisma.$FranchiseAlertPayload<ExtArgs>
+        fields: Prisma.FranchiseAlertFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FranchiseAlertFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FranchiseAlertFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          findFirst: {
+            args: Prisma.FranchiseAlertFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FranchiseAlertFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          findMany: {
+            args: Prisma.FranchiseAlertFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>[]
+          }
+          create: {
+            args: Prisma.FranchiseAlertCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          createMany: {
+            args: Prisma.FranchiseAlertCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FranchiseAlertCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>[]
+          }
+          delete: {
+            args: Prisma.FranchiseAlertDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          update: {
+            args: Prisma.FranchiseAlertUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          deleteMany: {
+            args: Prisma.FranchiseAlertDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FranchiseAlertUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FranchiseAlertUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseAlertPayload>
+          }
+          aggregate: {
+            args: Prisma.FranchiseAlertAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFranchiseAlert>
+          }
+          groupBy: {
+            args: Prisma.FranchiseAlertGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseAlertGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FranchiseAlertCountArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseAlertCountAggregateOutputType> | number
+          }
+        }
+      }
+      FranchiseStaffNode: {
+        payload: Prisma.$FranchiseStaffNodePayload<ExtArgs>
+        fields: Prisma.FranchiseStaffNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FranchiseStaffNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FranchiseStaffNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          findFirst: {
+            args: Prisma.FranchiseStaffNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FranchiseStaffNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          findMany: {
+            args: Prisma.FranchiseStaffNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>[]
+          }
+          create: {
+            args: Prisma.FranchiseStaffNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          createMany: {
+            args: Prisma.FranchiseStaffNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FranchiseStaffNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>[]
+          }
+          delete: {
+            args: Prisma.FranchiseStaffNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          update: {
+            args: Prisma.FranchiseStaffNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.FranchiseStaffNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FranchiseStaffNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FranchiseStaffNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FranchiseStaffNodePayload>
+          }
+          aggregate: {
+            args: Prisma.FranchiseStaffNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFranchiseStaffNode>
+          }
+          groupBy: {
+            args: Prisma.FranchiseStaffNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseStaffNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FranchiseStaffNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<FranchiseStaffNodeCountAggregateOutputType> | number
           }
         }
       }
@@ -177722,6 +178066,3808 @@ export namespace Prisma {
 
 
   /**
+   * Model FranchiseKpi
+   */
+
+  export type AggregateFranchiseKpi = {
+    _count: FranchiseKpiCountAggregateOutputType | null
+    _avg: FranchiseKpiAvgAggregateOutputType | null
+    _sum: FranchiseKpiSumAggregateOutputType | null
+    _min: FranchiseKpiMinAggregateOutputType | null
+    _max: FranchiseKpiMaxAggregateOutputType | null
+  }
+
+  export type FranchiseKpiAvgAggregateOutputType = {
+    metricValue: number | null
+    metricTarget: number | null
+  }
+
+  export type FranchiseKpiSumAggregateOutputType = {
+    metricValue: number | null
+    metricTarget: number | null
+  }
+
+  export type FranchiseKpiMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    metricName: string | null
+    metricValue: number | null
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date | null
+    roleFocus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseKpiMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    metricName: string | null
+    metricValue: number | null
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date | null
+    roleFocus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseKpiCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    metricName: number
+    metricValue: number
+    metricTarget: number
+    unit: number
+    recordedAt: number
+    roleFocus: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FranchiseKpiAvgAggregateInputType = {
+    metricValue?: true
+    metricTarget?: true
+  }
+
+  export type FranchiseKpiSumAggregateInputType = {
+    metricValue?: true
+    metricTarget?: true
+  }
+
+  export type FranchiseKpiMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseKpiMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseKpiCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FranchiseKpiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseKpi to aggregate.
+     */
+    where?: FranchiseKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseKpis to fetch.
+     */
+    orderBy?: FranchiseKpiOrderByWithRelationInput | FranchiseKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FranchiseKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FranchiseKpis
+    **/
+    _count?: true | FranchiseKpiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FranchiseKpiAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FranchiseKpiSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FranchiseKpiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FranchiseKpiMaxAggregateInputType
+  }
+
+  export type GetFranchiseKpiAggregateType<T extends FranchiseKpiAggregateArgs> = {
+        [P in keyof T & keyof AggregateFranchiseKpi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFranchiseKpi[P]>
+      : GetScalarType<T[P], AggregateFranchiseKpi[P]>
+  }
+
+
+
+
+  export type FranchiseKpiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FranchiseKpiWhereInput
+    orderBy?: FranchiseKpiOrderByWithAggregationInput | FranchiseKpiOrderByWithAggregationInput[]
+    by: FranchiseKpiScalarFieldEnum[] | FranchiseKpiScalarFieldEnum
+    having?: FranchiseKpiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FranchiseKpiCountAggregateInputType | true
+    _avg?: FranchiseKpiAvgAggregateInputType
+    _sum?: FranchiseKpiSumAggregateInputType
+    _min?: FranchiseKpiMinAggregateInputType
+    _max?: FranchiseKpiMaxAggregateInputType
+  }
+
+  export type FranchiseKpiGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    metricName: string
+    metricValue: number
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date
+    roleFocus: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FranchiseKpiCountAggregateOutputType | null
+    _avg: FranchiseKpiAvgAggregateOutputType | null
+    _sum: FranchiseKpiSumAggregateOutputType | null
+    _min: FranchiseKpiMinAggregateOutputType | null
+    _max: FranchiseKpiMaxAggregateOutputType | null
+  }
+
+  type GetFranchiseKpiGroupByPayload<T extends FranchiseKpiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FranchiseKpiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FranchiseKpiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FranchiseKpiGroupByOutputType[P]>
+            : GetScalarType<T[P], FranchiseKpiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FranchiseKpiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseKpi"]>
+
+  export type FranchiseKpiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseKpi"]>
+
+  export type FranchiseKpiSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $FranchiseKpiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FranchiseKpi"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      metricName: string
+      metricValue: number
+      metricTarget: number | null
+      unit: string | null
+      recordedAt: Date
+      roleFocus: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["franchiseKpi"]>
+    composites: {}
+  }
+
+  type FranchiseKpiGetPayload<S extends boolean | null | undefined | FranchiseKpiDefaultArgs> = $Result.GetResult<Prisma.$FranchiseKpiPayload, S>
+
+  type FranchiseKpiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FranchiseKpiFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FranchiseKpiCountAggregateInputType | true
+    }
+
+  export interface FranchiseKpiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FranchiseKpi'], meta: { name: 'FranchiseKpi' } }
+    /**
+     * Find zero or one FranchiseKpi that matches the filter.
+     * @param {FranchiseKpiFindUniqueArgs} args - Arguments to find a FranchiseKpi
+     * @example
+     * // Get one FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FranchiseKpiFindUniqueArgs>(args: SelectSubset<T, FranchiseKpiFindUniqueArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FranchiseKpi that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FranchiseKpiFindUniqueOrThrowArgs} args - Arguments to find a FranchiseKpi
+     * @example
+     * // Get one FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FranchiseKpiFindUniqueOrThrowArgs>(args: SelectSubset<T, FranchiseKpiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FranchiseKpi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiFindFirstArgs} args - Arguments to find a FranchiseKpi
+     * @example
+     * // Get one FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FranchiseKpiFindFirstArgs>(args?: SelectSubset<T, FranchiseKpiFindFirstArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FranchiseKpi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiFindFirstOrThrowArgs} args - Arguments to find a FranchiseKpi
+     * @example
+     * // Get one FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FranchiseKpiFindFirstOrThrowArgs>(args?: SelectSubset<T, FranchiseKpiFindFirstOrThrowArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FranchiseKpis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FranchiseKpis
+     * const franchiseKpis = await prisma.franchiseKpi.findMany()
+     * 
+     * // Get first 10 FranchiseKpis
+     * const franchiseKpis = await prisma.franchiseKpi.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const franchiseKpiWithIdOnly = await prisma.franchiseKpi.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FranchiseKpiFindManyArgs>(args?: SelectSubset<T, FranchiseKpiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FranchiseKpi.
+     * @param {FranchiseKpiCreateArgs} args - Arguments to create a FranchiseKpi.
+     * @example
+     * // Create one FranchiseKpi
+     * const FranchiseKpi = await prisma.franchiseKpi.create({
+     *   data: {
+     *     // ... data to create a FranchiseKpi
+     *   }
+     * })
+     * 
+     */
+    create<T extends FranchiseKpiCreateArgs>(args: SelectSubset<T, FranchiseKpiCreateArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FranchiseKpis.
+     * @param {FranchiseKpiCreateManyArgs} args - Arguments to create many FranchiseKpis.
+     * @example
+     * // Create many FranchiseKpis
+     * const franchiseKpi = await prisma.franchiseKpi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FranchiseKpiCreateManyArgs>(args?: SelectSubset<T, FranchiseKpiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FranchiseKpis and returns the data saved in the database.
+     * @param {FranchiseKpiCreateManyAndReturnArgs} args - Arguments to create many FranchiseKpis.
+     * @example
+     * // Create many FranchiseKpis
+     * const franchiseKpi = await prisma.franchiseKpi.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FranchiseKpis and only return the `id`
+     * const franchiseKpiWithIdOnly = await prisma.franchiseKpi.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FranchiseKpiCreateManyAndReturnArgs>(args?: SelectSubset<T, FranchiseKpiCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FranchiseKpi.
+     * @param {FranchiseKpiDeleteArgs} args - Arguments to delete one FranchiseKpi.
+     * @example
+     * // Delete one FranchiseKpi
+     * const FranchiseKpi = await prisma.franchiseKpi.delete({
+     *   where: {
+     *     // ... filter to delete one FranchiseKpi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FranchiseKpiDeleteArgs>(args: SelectSubset<T, FranchiseKpiDeleteArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FranchiseKpi.
+     * @param {FranchiseKpiUpdateArgs} args - Arguments to update one FranchiseKpi.
+     * @example
+     * // Update one FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FranchiseKpiUpdateArgs>(args: SelectSubset<T, FranchiseKpiUpdateArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FranchiseKpis.
+     * @param {FranchiseKpiDeleteManyArgs} args - Arguments to filter FranchiseKpis to delete.
+     * @example
+     * // Delete a few FranchiseKpis
+     * const { count } = await prisma.franchiseKpi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FranchiseKpiDeleteManyArgs>(args?: SelectSubset<T, FranchiseKpiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FranchiseKpis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FranchiseKpis
+     * const franchiseKpi = await prisma.franchiseKpi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FranchiseKpiUpdateManyArgs>(args: SelectSubset<T, FranchiseKpiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FranchiseKpi.
+     * @param {FranchiseKpiUpsertArgs} args - Arguments to update or create a FranchiseKpi.
+     * @example
+     * // Update or create a FranchiseKpi
+     * const franchiseKpi = await prisma.franchiseKpi.upsert({
+     *   create: {
+     *     // ... data to create a FranchiseKpi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FranchiseKpi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FranchiseKpiUpsertArgs>(args: SelectSubset<T, FranchiseKpiUpsertArgs<ExtArgs>>): Prisma__FranchiseKpiClient<$Result.GetResult<Prisma.$FranchiseKpiPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FranchiseKpis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiCountArgs} args - Arguments to filter FranchiseKpis to count.
+     * @example
+     * // Count the number of FranchiseKpis
+     * const count = await prisma.franchiseKpi.count({
+     *   where: {
+     *     // ... the filter for the FranchiseKpis we want to count
+     *   }
+     * })
+    **/
+    count<T extends FranchiseKpiCountArgs>(
+      args?: Subset<T, FranchiseKpiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FranchiseKpiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FranchiseKpi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FranchiseKpiAggregateArgs>(args: Subset<T, FranchiseKpiAggregateArgs>): Prisma.PrismaPromise<GetFranchiseKpiAggregateType<T>>
+
+    /**
+     * Group by FranchiseKpi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseKpiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FranchiseKpiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FranchiseKpiGroupByArgs['orderBy'] }
+        : { orderBy?: FranchiseKpiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FranchiseKpiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFranchiseKpiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FranchiseKpi model
+   */
+  readonly fields: FranchiseKpiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FranchiseKpi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FranchiseKpiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FranchiseKpi model
+   */ 
+  interface FranchiseKpiFieldRefs {
+    readonly id: FieldRef<"FranchiseKpi", 'String'>
+    readonly tenantId: FieldRef<"FranchiseKpi", 'String'>
+    readonly officeId: FieldRef<"FranchiseKpi", 'String'>
+    readonly metricName: FieldRef<"FranchiseKpi", 'String'>
+    readonly metricValue: FieldRef<"FranchiseKpi", 'Float'>
+    readonly metricTarget: FieldRef<"FranchiseKpi", 'Float'>
+    readonly unit: FieldRef<"FranchiseKpi", 'String'>
+    readonly recordedAt: FieldRef<"FranchiseKpi", 'DateTime'>
+    readonly roleFocus: FieldRef<"FranchiseKpi", 'String'>
+    readonly createdAt: FieldRef<"FranchiseKpi", 'DateTime'>
+    readonly updatedAt: FieldRef<"FranchiseKpi", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FranchiseKpi findUnique
+   */
+  export type FranchiseKpiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseKpi to fetch.
+     */
+    where: FranchiseKpiWhereUniqueInput
+  }
+
+  /**
+   * FranchiseKpi findUniqueOrThrow
+   */
+  export type FranchiseKpiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseKpi to fetch.
+     */
+    where: FranchiseKpiWhereUniqueInput
+  }
+
+  /**
+   * FranchiseKpi findFirst
+   */
+  export type FranchiseKpiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseKpi to fetch.
+     */
+    where?: FranchiseKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseKpis to fetch.
+     */
+    orderBy?: FranchiseKpiOrderByWithRelationInput | FranchiseKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseKpis.
+     */
+    cursor?: FranchiseKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseKpis.
+     */
+    distinct?: FranchiseKpiScalarFieldEnum | FranchiseKpiScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseKpi findFirstOrThrow
+   */
+  export type FranchiseKpiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseKpi to fetch.
+     */
+    where?: FranchiseKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseKpis to fetch.
+     */
+    orderBy?: FranchiseKpiOrderByWithRelationInput | FranchiseKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseKpis.
+     */
+    cursor?: FranchiseKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseKpis.
+     */
+    distinct?: FranchiseKpiScalarFieldEnum | FranchiseKpiScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseKpi findMany
+   */
+  export type FranchiseKpiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseKpis to fetch.
+     */
+    where?: FranchiseKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseKpis to fetch.
+     */
+    orderBy?: FranchiseKpiOrderByWithRelationInput | FranchiseKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FranchiseKpis.
+     */
+    cursor?: FranchiseKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseKpis.
+     */
+    skip?: number
+    distinct?: FranchiseKpiScalarFieldEnum | FranchiseKpiScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseKpi create
+   */
+  export type FranchiseKpiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * The data needed to create a FranchiseKpi.
+     */
+    data: XOR<FranchiseKpiCreateInput, FranchiseKpiUncheckedCreateInput>
+  }
+
+  /**
+   * FranchiseKpi createMany
+   */
+  export type FranchiseKpiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FranchiseKpis.
+     */
+    data: FranchiseKpiCreateManyInput | FranchiseKpiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseKpi createManyAndReturn
+   */
+  export type FranchiseKpiCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FranchiseKpis.
+     */
+    data: FranchiseKpiCreateManyInput | FranchiseKpiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseKpi update
+   */
+  export type FranchiseKpiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * The data needed to update a FranchiseKpi.
+     */
+    data: XOR<FranchiseKpiUpdateInput, FranchiseKpiUncheckedUpdateInput>
+    /**
+     * Choose, which FranchiseKpi to update.
+     */
+    where: FranchiseKpiWhereUniqueInput
+  }
+
+  /**
+   * FranchiseKpi updateMany
+   */
+  export type FranchiseKpiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FranchiseKpis.
+     */
+    data: XOR<FranchiseKpiUpdateManyMutationInput, FranchiseKpiUncheckedUpdateManyInput>
+    /**
+     * Filter which FranchiseKpis to update
+     */
+    where?: FranchiseKpiWhereInput
+  }
+
+  /**
+   * FranchiseKpi upsert
+   */
+  export type FranchiseKpiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * The filter to search for the FranchiseKpi to update in case it exists.
+     */
+    where: FranchiseKpiWhereUniqueInput
+    /**
+     * In case the FranchiseKpi found by the `where` argument doesn't exist, create a new FranchiseKpi with this data.
+     */
+    create: XOR<FranchiseKpiCreateInput, FranchiseKpiUncheckedCreateInput>
+    /**
+     * In case the FranchiseKpi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FranchiseKpiUpdateInput, FranchiseKpiUncheckedUpdateInput>
+  }
+
+  /**
+   * FranchiseKpi delete
+   */
+  export type FranchiseKpiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+    /**
+     * Filter which FranchiseKpi to delete.
+     */
+    where: FranchiseKpiWhereUniqueInput
+  }
+
+  /**
+   * FranchiseKpi deleteMany
+   */
+  export type FranchiseKpiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseKpis to delete
+     */
+    where?: FranchiseKpiWhereInput
+  }
+
+  /**
+   * FranchiseKpi without action
+   */
+  export type FranchiseKpiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseKpi
+     */
+    select?: FranchiseKpiSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FranchiseReport
+   */
+
+  export type AggregateFranchiseReport = {
+    _count: FranchiseReportCountAggregateOutputType | null
+    _min: FranchiseReportMinAggregateOutputType | null
+    _max: FranchiseReportMaxAggregateOutputType | null
+  }
+
+  export type FranchiseReportMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    title: string | null
+    description: string | null
+    reportType: string | null
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseReportMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    title: string | null
+    description: string | null
+    reportType: string | null
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseReportCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    title: number
+    description: number
+    reportType: number
+    fileUrl: number
+    generatedBy: number
+    generatedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FranchiseReportMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseReportMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseReportCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FranchiseReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseReport to aggregate.
+     */
+    where?: FranchiseReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseReports to fetch.
+     */
+    orderBy?: FranchiseReportOrderByWithRelationInput | FranchiseReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FranchiseReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FranchiseReports
+    **/
+    _count?: true | FranchiseReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FranchiseReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FranchiseReportMaxAggregateInputType
+  }
+
+  export type GetFranchiseReportAggregateType<T extends FranchiseReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateFranchiseReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFranchiseReport[P]>
+      : GetScalarType<T[P], AggregateFranchiseReport[P]>
+  }
+
+
+
+
+  export type FranchiseReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FranchiseReportWhereInput
+    orderBy?: FranchiseReportOrderByWithAggregationInput | FranchiseReportOrderByWithAggregationInput[]
+    by: FranchiseReportScalarFieldEnum[] | FranchiseReportScalarFieldEnum
+    having?: FranchiseReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FranchiseReportCountAggregateInputType | true
+    _min?: FranchiseReportMinAggregateInputType
+    _max?: FranchiseReportMaxAggregateInputType
+  }
+
+  export type FranchiseReportGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    title: string
+    description: string | null
+    reportType: string
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: FranchiseReportCountAggregateOutputType | null
+    _min: FranchiseReportMinAggregateOutputType | null
+    _max: FranchiseReportMaxAggregateOutputType | null
+  }
+
+  type GetFranchiseReportGroupByPayload<T extends FranchiseReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FranchiseReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FranchiseReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FranchiseReportGroupByOutputType[P]>
+            : GetScalarType<T[P], FranchiseReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FranchiseReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseReport"]>
+
+  export type FranchiseReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseReport"]>
+
+  export type FranchiseReportSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $FranchiseReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FranchiseReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      title: string
+      description: string | null
+      reportType: string
+      fileUrl: string | null
+      generatedBy: string | null
+      generatedAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["franchiseReport"]>
+    composites: {}
+  }
+
+  type FranchiseReportGetPayload<S extends boolean | null | undefined | FranchiseReportDefaultArgs> = $Result.GetResult<Prisma.$FranchiseReportPayload, S>
+
+  type FranchiseReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FranchiseReportFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FranchiseReportCountAggregateInputType | true
+    }
+
+  export interface FranchiseReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FranchiseReport'], meta: { name: 'FranchiseReport' } }
+    /**
+     * Find zero or one FranchiseReport that matches the filter.
+     * @param {FranchiseReportFindUniqueArgs} args - Arguments to find a FranchiseReport
+     * @example
+     * // Get one FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FranchiseReportFindUniqueArgs>(args: SelectSubset<T, FranchiseReportFindUniqueArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FranchiseReport that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FranchiseReportFindUniqueOrThrowArgs} args - Arguments to find a FranchiseReport
+     * @example
+     * // Get one FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FranchiseReportFindUniqueOrThrowArgs>(args: SelectSubset<T, FranchiseReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FranchiseReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportFindFirstArgs} args - Arguments to find a FranchiseReport
+     * @example
+     * // Get one FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FranchiseReportFindFirstArgs>(args?: SelectSubset<T, FranchiseReportFindFirstArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FranchiseReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportFindFirstOrThrowArgs} args - Arguments to find a FranchiseReport
+     * @example
+     * // Get one FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FranchiseReportFindFirstOrThrowArgs>(args?: SelectSubset<T, FranchiseReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FranchiseReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FranchiseReports
+     * const franchiseReports = await prisma.franchiseReport.findMany()
+     * 
+     * // Get first 10 FranchiseReports
+     * const franchiseReports = await prisma.franchiseReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const franchiseReportWithIdOnly = await prisma.franchiseReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FranchiseReportFindManyArgs>(args?: SelectSubset<T, FranchiseReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FranchiseReport.
+     * @param {FranchiseReportCreateArgs} args - Arguments to create a FranchiseReport.
+     * @example
+     * // Create one FranchiseReport
+     * const FranchiseReport = await prisma.franchiseReport.create({
+     *   data: {
+     *     // ... data to create a FranchiseReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends FranchiseReportCreateArgs>(args: SelectSubset<T, FranchiseReportCreateArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FranchiseReports.
+     * @param {FranchiseReportCreateManyArgs} args - Arguments to create many FranchiseReports.
+     * @example
+     * // Create many FranchiseReports
+     * const franchiseReport = await prisma.franchiseReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FranchiseReportCreateManyArgs>(args?: SelectSubset<T, FranchiseReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FranchiseReports and returns the data saved in the database.
+     * @param {FranchiseReportCreateManyAndReturnArgs} args - Arguments to create many FranchiseReports.
+     * @example
+     * // Create many FranchiseReports
+     * const franchiseReport = await prisma.franchiseReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FranchiseReports and only return the `id`
+     * const franchiseReportWithIdOnly = await prisma.franchiseReport.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FranchiseReportCreateManyAndReturnArgs>(args?: SelectSubset<T, FranchiseReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FranchiseReport.
+     * @param {FranchiseReportDeleteArgs} args - Arguments to delete one FranchiseReport.
+     * @example
+     * // Delete one FranchiseReport
+     * const FranchiseReport = await prisma.franchiseReport.delete({
+     *   where: {
+     *     // ... filter to delete one FranchiseReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FranchiseReportDeleteArgs>(args: SelectSubset<T, FranchiseReportDeleteArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FranchiseReport.
+     * @param {FranchiseReportUpdateArgs} args - Arguments to update one FranchiseReport.
+     * @example
+     * // Update one FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FranchiseReportUpdateArgs>(args: SelectSubset<T, FranchiseReportUpdateArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FranchiseReports.
+     * @param {FranchiseReportDeleteManyArgs} args - Arguments to filter FranchiseReports to delete.
+     * @example
+     * // Delete a few FranchiseReports
+     * const { count } = await prisma.franchiseReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FranchiseReportDeleteManyArgs>(args?: SelectSubset<T, FranchiseReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FranchiseReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FranchiseReports
+     * const franchiseReport = await prisma.franchiseReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FranchiseReportUpdateManyArgs>(args: SelectSubset<T, FranchiseReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FranchiseReport.
+     * @param {FranchiseReportUpsertArgs} args - Arguments to update or create a FranchiseReport.
+     * @example
+     * // Update or create a FranchiseReport
+     * const franchiseReport = await prisma.franchiseReport.upsert({
+     *   create: {
+     *     // ... data to create a FranchiseReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FranchiseReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FranchiseReportUpsertArgs>(args: SelectSubset<T, FranchiseReportUpsertArgs<ExtArgs>>): Prisma__FranchiseReportClient<$Result.GetResult<Prisma.$FranchiseReportPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FranchiseReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportCountArgs} args - Arguments to filter FranchiseReports to count.
+     * @example
+     * // Count the number of FranchiseReports
+     * const count = await prisma.franchiseReport.count({
+     *   where: {
+     *     // ... the filter for the FranchiseReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends FranchiseReportCountArgs>(
+      args?: Subset<T, FranchiseReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FranchiseReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FranchiseReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FranchiseReportAggregateArgs>(args: Subset<T, FranchiseReportAggregateArgs>): Prisma.PrismaPromise<GetFranchiseReportAggregateType<T>>
+
+    /**
+     * Group by FranchiseReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FranchiseReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FranchiseReportGroupByArgs['orderBy'] }
+        : { orderBy?: FranchiseReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FranchiseReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFranchiseReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FranchiseReport model
+   */
+  readonly fields: FranchiseReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FranchiseReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FranchiseReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FranchiseReport model
+   */ 
+  interface FranchiseReportFieldRefs {
+    readonly id: FieldRef<"FranchiseReport", 'String'>
+    readonly tenantId: FieldRef<"FranchiseReport", 'String'>
+    readonly officeId: FieldRef<"FranchiseReport", 'String'>
+    readonly title: FieldRef<"FranchiseReport", 'String'>
+    readonly description: FieldRef<"FranchiseReport", 'String'>
+    readonly reportType: FieldRef<"FranchiseReport", 'String'>
+    readonly fileUrl: FieldRef<"FranchiseReport", 'String'>
+    readonly generatedBy: FieldRef<"FranchiseReport", 'String'>
+    readonly generatedAt: FieldRef<"FranchiseReport", 'DateTime'>
+    readonly createdAt: FieldRef<"FranchiseReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"FranchiseReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FranchiseReport findUnique
+   */
+  export type FranchiseReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseReport to fetch.
+     */
+    where: FranchiseReportWhereUniqueInput
+  }
+
+  /**
+   * FranchiseReport findUniqueOrThrow
+   */
+  export type FranchiseReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseReport to fetch.
+     */
+    where: FranchiseReportWhereUniqueInput
+  }
+
+  /**
+   * FranchiseReport findFirst
+   */
+  export type FranchiseReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseReport to fetch.
+     */
+    where?: FranchiseReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseReports to fetch.
+     */
+    orderBy?: FranchiseReportOrderByWithRelationInput | FranchiseReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseReports.
+     */
+    cursor?: FranchiseReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseReports.
+     */
+    distinct?: FranchiseReportScalarFieldEnum | FranchiseReportScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseReport findFirstOrThrow
+   */
+  export type FranchiseReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseReport to fetch.
+     */
+    where?: FranchiseReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseReports to fetch.
+     */
+    orderBy?: FranchiseReportOrderByWithRelationInput | FranchiseReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseReports.
+     */
+    cursor?: FranchiseReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseReports.
+     */
+    distinct?: FranchiseReportScalarFieldEnum | FranchiseReportScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseReport findMany
+   */
+  export type FranchiseReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseReports to fetch.
+     */
+    where?: FranchiseReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseReports to fetch.
+     */
+    orderBy?: FranchiseReportOrderByWithRelationInput | FranchiseReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FranchiseReports.
+     */
+    cursor?: FranchiseReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseReports.
+     */
+    skip?: number
+    distinct?: FranchiseReportScalarFieldEnum | FranchiseReportScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseReport create
+   */
+  export type FranchiseReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * The data needed to create a FranchiseReport.
+     */
+    data: XOR<FranchiseReportCreateInput, FranchiseReportUncheckedCreateInput>
+  }
+
+  /**
+   * FranchiseReport createMany
+   */
+  export type FranchiseReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FranchiseReports.
+     */
+    data: FranchiseReportCreateManyInput | FranchiseReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseReport createManyAndReturn
+   */
+  export type FranchiseReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FranchiseReports.
+     */
+    data: FranchiseReportCreateManyInput | FranchiseReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseReport update
+   */
+  export type FranchiseReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * The data needed to update a FranchiseReport.
+     */
+    data: XOR<FranchiseReportUpdateInput, FranchiseReportUncheckedUpdateInput>
+    /**
+     * Choose, which FranchiseReport to update.
+     */
+    where: FranchiseReportWhereUniqueInput
+  }
+
+  /**
+   * FranchiseReport updateMany
+   */
+  export type FranchiseReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FranchiseReports.
+     */
+    data: XOR<FranchiseReportUpdateManyMutationInput, FranchiseReportUncheckedUpdateManyInput>
+    /**
+     * Filter which FranchiseReports to update
+     */
+    where?: FranchiseReportWhereInput
+  }
+
+  /**
+   * FranchiseReport upsert
+   */
+  export type FranchiseReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * The filter to search for the FranchiseReport to update in case it exists.
+     */
+    where: FranchiseReportWhereUniqueInput
+    /**
+     * In case the FranchiseReport found by the `where` argument doesn't exist, create a new FranchiseReport with this data.
+     */
+    create: XOR<FranchiseReportCreateInput, FranchiseReportUncheckedCreateInput>
+    /**
+     * In case the FranchiseReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FranchiseReportUpdateInput, FranchiseReportUncheckedUpdateInput>
+  }
+
+  /**
+   * FranchiseReport delete
+   */
+  export type FranchiseReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+    /**
+     * Filter which FranchiseReport to delete.
+     */
+    where: FranchiseReportWhereUniqueInput
+  }
+
+  /**
+   * FranchiseReport deleteMany
+   */
+  export type FranchiseReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseReports to delete
+     */
+    where?: FranchiseReportWhereInput
+  }
+
+  /**
+   * FranchiseReport without action
+   */
+  export type FranchiseReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseReport
+     */
+    select?: FranchiseReportSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FranchiseAlert
+   */
+
+  export type AggregateFranchiseAlert = {
+    _count: FranchiseAlertCountAggregateOutputType | null
+    _min: FranchiseAlertMinAggregateOutputType | null
+    _max: FranchiseAlertMaxAggregateOutputType | null
+  }
+
+  export type FranchiseAlertMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    title: string | null
+    severity: string | null
+    description: string | null
+    isResolved: boolean | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseAlertMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    title: string | null
+    severity: string | null
+    description: string | null
+    isResolved: boolean | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseAlertCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    title: number
+    severity: number
+    description: number
+    isResolved: number
+    resolvedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FranchiseAlertMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseAlertMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseAlertCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FranchiseAlertAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseAlert to aggregate.
+     */
+    where?: FranchiseAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseAlerts to fetch.
+     */
+    orderBy?: FranchiseAlertOrderByWithRelationInput | FranchiseAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FranchiseAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FranchiseAlerts
+    **/
+    _count?: true | FranchiseAlertCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FranchiseAlertMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FranchiseAlertMaxAggregateInputType
+  }
+
+  export type GetFranchiseAlertAggregateType<T extends FranchiseAlertAggregateArgs> = {
+        [P in keyof T & keyof AggregateFranchiseAlert]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFranchiseAlert[P]>
+      : GetScalarType<T[P], AggregateFranchiseAlert[P]>
+  }
+
+
+
+
+  export type FranchiseAlertGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FranchiseAlertWhereInput
+    orderBy?: FranchiseAlertOrderByWithAggregationInput | FranchiseAlertOrderByWithAggregationInput[]
+    by: FranchiseAlertScalarFieldEnum[] | FranchiseAlertScalarFieldEnum
+    having?: FranchiseAlertScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FranchiseAlertCountAggregateInputType | true
+    _min?: FranchiseAlertMinAggregateInputType
+    _max?: FranchiseAlertMaxAggregateInputType
+  }
+
+  export type FranchiseAlertGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    title: string
+    severity: string
+    description: string | null
+    isResolved: boolean
+    resolvedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FranchiseAlertCountAggregateOutputType | null
+    _min: FranchiseAlertMinAggregateOutputType | null
+    _max: FranchiseAlertMaxAggregateOutputType | null
+  }
+
+  type GetFranchiseAlertGroupByPayload<T extends FranchiseAlertGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FranchiseAlertGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FranchiseAlertGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FranchiseAlertGroupByOutputType[P]>
+            : GetScalarType<T[P], FranchiseAlertGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FranchiseAlertSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseAlert"]>
+
+  export type FranchiseAlertSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseAlert"]>
+
+  export type FranchiseAlertSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $FranchiseAlertPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FranchiseAlert"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      title: string
+      severity: string
+      description: string | null
+      isResolved: boolean
+      resolvedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["franchiseAlert"]>
+    composites: {}
+  }
+
+  type FranchiseAlertGetPayload<S extends boolean | null | undefined | FranchiseAlertDefaultArgs> = $Result.GetResult<Prisma.$FranchiseAlertPayload, S>
+
+  type FranchiseAlertCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FranchiseAlertFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FranchiseAlertCountAggregateInputType | true
+    }
+
+  export interface FranchiseAlertDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FranchiseAlert'], meta: { name: 'FranchiseAlert' } }
+    /**
+     * Find zero or one FranchiseAlert that matches the filter.
+     * @param {FranchiseAlertFindUniqueArgs} args - Arguments to find a FranchiseAlert
+     * @example
+     * // Get one FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FranchiseAlertFindUniqueArgs>(args: SelectSubset<T, FranchiseAlertFindUniqueArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FranchiseAlert that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FranchiseAlertFindUniqueOrThrowArgs} args - Arguments to find a FranchiseAlert
+     * @example
+     * // Get one FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FranchiseAlertFindUniqueOrThrowArgs>(args: SelectSubset<T, FranchiseAlertFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FranchiseAlert that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertFindFirstArgs} args - Arguments to find a FranchiseAlert
+     * @example
+     * // Get one FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FranchiseAlertFindFirstArgs>(args?: SelectSubset<T, FranchiseAlertFindFirstArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FranchiseAlert that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertFindFirstOrThrowArgs} args - Arguments to find a FranchiseAlert
+     * @example
+     * // Get one FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FranchiseAlertFindFirstOrThrowArgs>(args?: SelectSubset<T, FranchiseAlertFindFirstOrThrowArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FranchiseAlerts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FranchiseAlerts
+     * const franchiseAlerts = await prisma.franchiseAlert.findMany()
+     * 
+     * // Get first 10 FranchiseAlerts
+     * const franchiseAlerts = await prisma.franchiseAlert.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const franchiseAlertWithIdOnly = await prisma.franchiseAlert.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FranchiseAlertFindManyArgs>(args?: SelectSubset<T, FranchiseAlertFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FranchiseAlert.
+     * @param {FranchiseAlertCreateArgs} args - Arguments to create a FranchiseAlert.
+     * @example
+     * // Create one FranchiseAlert
+     * const FranchiseAlert = await prisma.franchiseAlert.create({
+     *   data: {
+     *     // ... data to create a FranchiseAlert
+     *   }
+     * })
+     * 
+     */
+    create<T extends FranchiseAlertCreateArgs>(args: SelectSubset<T, FranchiseAlertCreateArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FranchiseAlerts.
+     * @param {FranchiseAlertCreateManyArgs} args - Arguments to create many FranchiseAlerts.
+     * @example
+     * // Create many FranchiseAlerts
+     * const franchiseAlert = await prisma.franchiseAlert.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FranchiseAlertCreateManyArgs>(args?: SelectSubset<T, FranchiseAlertCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FranchiseAlerts and returns the data saved in the database.
+     * @param {FranchiseAlertCreateManyAndReturnArgs} args - Arguments to create many FranchiseAlerts.
+     * @example
+     * // Create many FranchiseAlerts
+     * const franchiseAlert = await prisma.franchiseAlert.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FranchiseAlerts and only return the `id`
+     * const franchiseAlertWithIdOnly = await prisma.franchiseAlert.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FranchiseAlertCreateManyAndReturnArgs>(args?: SelectSubset<T, FranchiseAlertCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FranchiseAlert.
+     * @param {FranchiseAlertDeleteArgs} args - Arguments to delete one FranchiseAlert.
+     * @example
+     * // Delete one FranchiseAlert
+     * const FranchiseAlert = await prisma.franchiseAlert.delete({
+     *   where: {
+     *     // ... filter to delete one FranchiseAlert
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FranchiseAlertDeleteArgs>(args: SelectSubset<T, FranchiseAlertDeleteArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FranchiseAlert.
+     * @param {FranchiseAlertUpdateArgs} args - Arguments to update one FranchiseAlert.
+     * @example
+     * // Update one FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FranchiseAlertUpdateArgs>(args: SelectSubset<T, FranchiseAlertUpdateArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FranchiseAlerts.
+     * @param {FranchiseAlertDeleteManyArgs} args - Arguments to filter FranchiseAlerts to delete.
+     * @example
+     * // Delete a few FranchiseAlerts
+     * const { count } = await prisma.franchiseAlert.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FranchiseAlertDeleteManyArgs>(args?: SelectSubset<T, FranchiseAlertDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FranchiseAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FranchiseAlerts
+     * const franchiseAlert = await prisma.franchiseAlert.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FranchiseAlertUpdateManyArgs>(args: SelectSubset<T, FranchiseAlertUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FranchiseAlert.
+     * @param {FranchiseAlertUpsertArgs} args - Arguments to update or create a FranchiseAlert.
+     * @example
+     * // Update or create a FranchiseAlert
+     * const franchiseAlert = await prisma.franchiseAlert.upsert({
+     *   create: {
+     *     // ... data to create a FranchiseAlert
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FranchiseAlert we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FranchiseAlertUpsertArgs>(args: SelectSubset<T, FranchiseAlertUpsertArgs<ExtArgs>>): Prisma__FranchiseAlertClient<$Result.GetResult<Prisma.$FranchiseAlertPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FranchiseAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertCountArgs} args - Arguments to filter FranchiseAlerts to count.
+     * @example
+     * // Count the number of FranchiseAlerts
+     * const count = await prisma.franchiseAlert.count({
+     *   where: {
+     *     // ... the filter for the FranchiseAlerts we want to count
+     *   }
+     * })
+    **/
+    count<T extends FranchiseAlertCountArgs>(
+      args?: Subset<T, FranchiseAlertCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FranchiseAlertCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FranchiseAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FranchiseAlertAggregateArgs>(args: Subset<T, FranchiseAlertAggregateArgs>): Prisma.PrismaPromise<GetFranchiseAlertAggregateType<T>>
+
+    /**
+     * Group by FranchiseAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseAlertGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FranchiseAlertGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FranchiseAlertGroupByArgs['orderBy'] }
+        : { orderBy?: FranchiseAlertGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FranchiseAlertGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFranchiseAlertGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FranchiseAlert model
+   */
+  readonly fields: FranchiseAlertFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FranchiseAlert.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FranchiseAlertClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FranchiseAlert model
+   */ 
+  interface FranchiseAlertFieldRefs {
+    readonly id: FieldRef<"FranchiseAlert", 'String'>
+    readonly tenantId: FieldRef<"FranchiseAlert", 'String'>
+    readonly officeId: FieldRef<"FranchiseAlert", 'String'>
+    readonly title: FieldRef<"FranchiseAlert", 'String'>
+    readonly severity: FieldRef<"FranchiseAlert", 'String'>
+    readonly description: FieldRef<"FranchiseAlert", 'String'>
+    readonly isResolved: FieldRef<"FranchiseAlert", 'Boolean'>
+    readonly resolvedAt: FieldRef<"FranchiseAlert", 'DateTime'>
+    readonly createdAt: FieldRef<"FranchiseAlert", 'DateTime'>
+    readonly updatedAt: FieldRef<"FranchiseAlert", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FranchiseAlert findUnique
+   */
+  export type FranchiseAlertFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseAlert to fetch.
+     */
+    where: FranchiseAlertWhereUniqueInput
+  }
+
+  /**
+   * FranchiseAlert findUniqueOrThrow
+   */
+  export type FranchiseAlertFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseAlert to fetch.
+     */
+    where: FranchiseAlertWhereUniqueInput
+  }
+
+  /**
+   * FranchiseAlert findFirst
+   */
+  export type FranchiseAlertFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseAlert to fetch.
+     */
+    where?: FranchiseAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseAlerts to fetch.
+     */
+    orderBy?: FranchiseAlertOrderByWithRelationInput | FranchiseAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseAlerts.
+     */
+    cursor?: FranchiseAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseAlerts.
+     */
+    distinct?: FranchiseAlertScalarFieldEnum | FranchiseAlertScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseAlert findFirstOrThrow
+   */
+  export type FranchiseAlertFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseAlert to fetch.
+     */
+    where?: FranchiseAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseAlerts to fetch.
+     */
+    orderBy?: FranchiseAlertOrderByWithRelationInput | FranchiseAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseAlerts.
+     */
+    cursor?: FranchiseAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseAlerts.
+     */
+    distinct?: FranchiseAlertScalarFieldEnum | FranchiseAlertScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseAlert findMany
+   */
+  export type FranchiseAlertFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseAlerts to fetch.
+     */
+    where?: FranchiseAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseAlerts to fetch.
+     */
+    orderBy?: FranchiseAlertOrderByWithRelationInput | FranchiseAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FranchiseAlerts.
+     */
+    cursor?: FranchiseAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseAlerts.
+     */
+    skip?: number
+    distinct?: FranchiseAlertScalarFieldEnum | FranchiseAlertScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseAlert create
+   */
+  export type FranchiseAlertCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * The data needed to create a FranchiseAlert.
+     */
+    data: XOR<FranchiseAlertCreateInput, FranchiseAlertUncheckedCreateInput>
+  }
+
+  /**
+   * FranchiseAlert createMany
+   */
+  export type FranchiseAlertCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FranchiseAlerts.
+     */
+    data: FranchiseAlertCreateManyInput | FranchiseAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseAlert createManyAndReturn
+   */
+  export type FranchiseAlertCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FranchiseAlerts.
+     */
+    data: FranchiseAlertCreateManyInput | FranchiseAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseAlert update
+   */
+  export type FranchiseAlertUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * The data needed to update a FranchiseAlert.
+     */
+    data: XOR<FranchiseAlertUpdateInput, FranchiseAlertUncheckedUpdateInput>
+    /**
+     * Choose, which FranchiseAlert to update.
+     */
+    where: FranchiseAlertWhereUniqueInput
+  }
+
+  /**
+   * FranchiseAlert updateMany
+   */
+  export type FranchiseAlertUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FranchiseAlerts.
+     */
+    data: XOR<FranchiseAlertUpdateManyMutationInput, FranchiseAlertUncheckedUpdateManyInput>
+    /**
+     * Filter which FranchiseAlerts to update
+     */
+    where?: FranchiseAlertWhereInput
+  }
+
+  /**
+   * FranchiseAlert upsert
+   */
+  export type FranchiseAlertUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * The filter to search for the FranchiseAlert to update in case it exists.
+     */
+    where: FranchiseAlertWhereUniqueInput
+    /**
+     * In case the FranchiseAlert found by the `where` argument doesn't exist, create a new FranchiseAlert with this data.
+     */
+    create: XOR<FranchiseAlertCreateInput, FranchiseAlertUncheckedCreateInput>
+    /**
+     * In case the FranchiseAlert was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FranchiseAlertUpdateInput, FranchiseAlertUncheckedUpdateInput>
+  }
+
+  /**
+   * FranchiseAlert delete
+   */
+  export type FranchiseAlertDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+    /**
+     * Filter which FranchiseAlert to delete.
+     */
+    where: FranchiseAlertWhereUniqueInput
+  }
+
+  /**
+   * FranchiseAlert deleteMany
+   */
+  export type FranchiseAlertDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseAlerts to delete
+     */
+    where?: FranchiseAlertWhereInput
+  }
+
+  /**
+   * FranchiseAlert without action
+   */
+  export type FranchiseAlertDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseAlert
+     */
+    select?: FranchiseAlertSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FranchiseStaffNode
+   */
+
+  export type AggregateFranchiseStaffNode = {
+    _count: FranchiseStaffNodeCountAggregateOutputType | null
+    _min: FranchiseStaffNodeMinAggregateOutputType | null
+    _max: FranchiseStaffNodeMaxAggregateOutputType | null
+  }
+
+  export type FranchiseStaffNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    name: string | null
+    title: string | null
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseStaffNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    officeId: string | null
+    name: string | null
+    title: string | null
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FranchiseStaffNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    officeId: number
+    name: number
+    title: number
+    department: number
+    reportsToId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FranchiseStaffNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseStaffNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FranchiseStaffNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    officeId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FranchiseStaffNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseStaffNode to aggregate.
+     */
+    where?: FranchiseStaffNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseStaffNodes to fetch.
+     */
+    orderBy?: FranchiseStaffNodeOrderByWithRelationInput | FranchiseStaffNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FranchiseStaffNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseStaffNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseStaffNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FranchiseStaffNodes
+    **/
+    _count?: true | FranchiseStaffNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FranchiseStaffNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FranchiseStaffNodeMaxAggregateInputType
+  }
+
+  export type GetFranchiseStaffNodeAggregateType<T extends FranchiseStaffNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateFranchiseStaffNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFranchiseStaffNode[P]>
+      : GetScalarType<T[P], AggregateFranchiseStaffNode[P]>
+  }
+
+
+
+
+  export type FranchiseStaffNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FranchiseStaffNodeWhereInput
+    orderBy?: FranchiseStaffNodeOrderByWithAggregationInput | FranchiseStaffNodeOrderByWithAggregationInput[]
+    by: FranchiseStaffNodeScalarFieldEnum[] | FranchiseStaffNodeScalarFieldEnum
+    having?: FranchiseStaffNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FranchiseStaffNodeCountAggregateInputType | true
+    _min?: FranchiseStaffNodeMinAggregateInputType
+    _max?: FranchiseStaffNodeMaxAggregateInputType
+  }
+
+  export type FranchiseStaffNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    officeId: string
+    name: string
+    title: string
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FranchiseStaffNodeCountAggregateOutputType | null
+    _min: FranchiseStaffNodeMinAggregateOutputType | null
+    _max: FranchiseStaffNodeMaxAggregateOutputType | null
+  }
+
+  type GetFranchiseStaffNodeGroupByPayload<T extends FranchiseStaffNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FranchiseStaffNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FranchiseStaffNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FranchiseStaffNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], FranchiseStaffNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FranchiseStaffNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseStaffNode"]>
+
+  export type FranchiseStaffNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["franchiseStaffNode"]>
+
+  export type FranchiseStaffNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    officeId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $FranchiseStaffNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FranchiseStaffNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      officeId: string
+      name: string
+      title: string
+      department: string | null
+      reportsToId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["franchiseStaffNode"]>
+    composites: {}
+  }
+
+  type FranchiseStaffNodeGetPayload<S extends boolean | null | undefined | FranchiseStaffNodeDefaultArgs> = $Result.GetResult<Prisma.$FranchiseStaffNodePayload, S>
+
+  type FranchiseStaffNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FranchiseStaffNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FranchiseStaffNodeCountAggregateInputType | true
+    }
+
+  export interface FranchiseStaffNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FranchiseStaffNode'], meta: { name: 'FranchiseStaffNode' } }
+    /**
+     * Find zero or one FranchiseStaffNode that matches the filter.
+     * @param {FranchiseStaffNodeFindUniqueArgs} args - Arguments to find a FranchiseStaffNode
+     * @example
+     * // Get one FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FranchiseStaffNodeFindUniqueArgs>(args: SelectSubset<T, FranchiseStaffNodeFindUniqueArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FranchiseStaffNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FranchiseStaffNodeFindUniqueOrThrowArgs} args - Arguments to find a FranchiseStaffNode
+     * @example
+     * // Get one FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FranchiseStaffNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, FranchiseStaffNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FranchiseStaffNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeFindFirstArgs} args - Arguments to find a FranchiseStaffNode
+     * @example
+     * // Get one FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FranchiseStaffNodeFindFirstArgs>(args?: SelectSubset<T, FranchiseStaffNodeFindFirstArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FranchiseStaffNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeFindFirstOrThrowArgs} args - Arguments to find a FranchiseStaffNode
+     * @example
+     * // Get one FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FranchiseStaffNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, FranchiseStaffNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FranchiseStaffNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FranchiseStaffNodes
+     * const franchiseStaffNodes = await prisma.franchiseStaffNode.findMany()
+     * 
+     * // Get first 10 FranchiseStaffNodes
+     * const franchiseStaffNodes = await prisma.franchiseStaffNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const franchiseStaffNodeWithIdOnly = await prisma.franchiseStaffNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FranchiseStaffNodeFindManyArgs>(args?: SelectSubset<T, FranchiseStaffNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FranchiseStaffNode.
+     * @param {FranchiseStaffNodeCreateArgs} args - Arguments to create a FranchiseStaffNode.
+     * @example
+     * // Create one FranchiseStaffNode
+     * const FranchiseStaffNode = await prisma.franchiseStaffNode.create({
+     *   data: {
+     *     // ... data to create a FranchiseStaffNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends FranchiseStaffNodeCreateArgs>(args: SelectSubset<T, FranchiseStaffNodeCreateArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FranchiseStaffNodes.
+     * @param {FranchiseStaffNodeCreateManyArgs} args - Arguments to create many FranchiseStaffNodes.
+     * @example
+     * // Create many FranchiseStaffNodes
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FranchiseStaffNodeCreateManyArgs>(args?: SelectSubset<T, FranchiseStaffNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FranchiseStaffNodes and returns the data saved in the database.
+     * @param {FranchiseStaffNodeCreateManyAndReturnArgs} args - Arguments to create many FranchiseStaffNodes.
+     * @example
+     * // Create many FranchiseStaffNodes
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FranchiseStaffNodes and only return the `id`
+     * const franchiseStaffNodeWithIdOnly = await prisma.franchiseStaffNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FranchiseStaffNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, FranchiseStaffNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FranchiseStaffNode.
+     * @param {FranchiseStaffNodeDeleteArgs} args - Arguments to delete one FranchiseStaffNode.
+     * @example
+     * // Delete one FranchiseStaffNode
+     * const FranchiseStaffNode = await prisma.franchiseStaffNode.delete({
+     *   where: {
+     *     // ... filter to delete one FranchiseStaffNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FranchiseStaffNodeDeleteArgs>(args: SelectSubset<T, FranchiseStaffNodeDeleteArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FranchiseStaffNode.
+     * @param {FranchiseStaffNodeUpdateArgs} args - Arguments to update one FranchiseStaffNode.
+     * @example
+     * // Update one FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FranchiseStaffNodeUpdateArgs>(args: SelectSubset<T, FranchiseStaffNodeUpdateArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FranchiseStaffNodes.
+     * @param {FranchiseStaffNodeDeleteManyArgs} args - Arguments to filter FranchiseStaffNodes to delete.
+     * @example
+     * // Delete a few FranchiseStaffNodes
+     * const { count } = await prisma.franchiseStaffNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FranchiseStaffNodeDeleteManyArgs>(args?: SelectSubset<T, FranchiseStaffNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FranchiseStaffNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FranchiseStaffNodes
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FranchiseStaffNodeUpdateManyArgs>(args: SelectSubset<T, FranchiseStaffNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FranchiseStaffNode.
+     * @param {FranchiseStaffNodeUpsertArgs} args - Arguments to update or create a FranchiseStaffNode.
+     * @example
+     * // Update or create a FranchiseStaffNode
+     * const franchiseStaffNode = await prisma.franchiseStaffNode.upsert({
+     *   create: {
+     *     // ... data to create a FranchiseStaffNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FranchiseStaffNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FranchiseStaffNodeUpsertArgs>(args: SelectSubset<T, FranchiseStaffNodeUpsertArgs<ExtArgs>>): Prisma__FranchiseStaffNodeClient<$Result.GetResult<Prisma.$FranchiseStaffNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FranchiseStaffNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeCountArgs} args - Arguments to filter FranchiseStaffNodes to count.
+     * @example
+     * // Count the number of FranchiseStaffNodes
+     * const count = await prisma.franchiseStaffNode.count({
+     *   where: {
+     *     // ... the filter for the FranchiseStaffNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends FranchiseStaffNodeCountArgs>(
+      args?: Subset<T, FranchiseStaffNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FranchiseStaffNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FranchiseStaffNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FranchiseStaffNodeAggregateArgs>(args: Subset<T, FranchiseStaffNodeAggregateArgs>): Prisma.PrismaPromise<GetFranchiseStaffNodeAggregateType<T>>
+
+    /**
+     * Group by FranchiseStaffNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FranchiseStaffNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FranchiseStaffNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FranchiseStaffNodeGroupByArgs['orderBy'] }
+        : { orderBy?: FranchiseStaffNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FranchiseStaffNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFranchiseStaffNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FranchiseStaffNode model
+   */
+  readonly fields: FranchiseStaffNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FranchiseStaffNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FranchiseStaffNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FranchiseStaffNode model
+   */ 
+  interface FranchiseStaffNodeFieldRefs {
+    readonly id: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly tenantId: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly officeId: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly name: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly title: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly department: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly reportsToId: FieldRef<"FranchiseStaffNode", 'String'>
+    readonly createdAt: FieldRef<"FranchiseStaffNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"FranchiseStaffNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FranchiseStaffNode findUnique
+   */
+  export type FranchiseStaffNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseStaffNode to fetch.
+     */
+    where: FranchiseStaffNodeWhereUniqueInput
+  }
+
+  /**
+   * FranchiseStaffNode findUniqueOrThrow
+   */
+  export type FranchiseStaffNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseStaffNode to fetch.
+     */
+    where: FranchiseStaffNodeWhereUniqueInput
+  }
+
+  /**
+   * FranchiseStaffNode findFirst
+   */
+  export type FranchiseStaffNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseStaffNode to fetch.
+     */
+    where?: FranchiseStaffNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseStaffNodes to fetch.
+     */
+    orderBy?: FranchiseStaffNodeOrderByWithRelationInput | FranchiseStaffNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseStaffNodes.
+     */
+    cursor?: FranchiseStaffNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseStaffNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseStaffNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseStaffNodes.
+     */
+    distinct?: FranchiseStaffNodeScalarFieldEnum | FranchiseStaffNodeScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseStaffNode findFirstOrThrow
+   */
+  export type FranchiseStaffNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseStaffNode to fetch.
+     */
+    where?: FranchiseStaffNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseStaffNodes to fetch.
+     */
+    orderBy?: FranchiseStaffNodeOrderByWithRelationInput | FranchiseStaffNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FranchiseStaffNodes.
+     */
+    cursor?: FranchiseStaffNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseStaffNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseStaffNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FranchiseStaffNodes.
+     */
+    distinct?: FranchiseStaffNodeScalarFieldEnum | FranchiseStaffNodeScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseStaffNode findMany
+   */
+  export type FranchiseStaffNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which FranchiseStaffNodes to fetch.
+     */
+    where?: FranchiseStaffNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FranchiseStaffNodes to fetch.
+     */
+    orderBy?: FranchiseStaffNodeOrderByWithRelationInput | FranchiseStaffNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FranchiseStaffNodes.
+     */
+    cursor?: FranchiseStaffNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FranchiseStaffNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FranchiseStaffNodes.
+     */
+    skip?: number
+    distinct?: FranchiseStaffNodeScalarFieldEnum | FranchiseStaffNodeScalarFieldEnum[]
+  }
+
+  /**
+   * FranchiseStaffNode create
+   */
+  export type FranchiseStaffNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a FranchiseStaffNode.
+     */
+    data: XOR<FranchiseStaffNodeCreateInput, FranchiseStaffNodeUncheckedCreateInput>
+  }
+
+  /**
+   * FranchiseStaffNode createMany
+   */
+  export type FranchiseStaffNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FranchiseStaffNodes.
+     */
+    data: FranchiseStaffNodeCreateManyInput | FranchiseStaffNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseStaffNode createManyAndReturn
+   */
+  export type FranchiseStaffNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FranchiseStaffNodes.
+     */
+    data: FranchiseStaffNodeCreateManyInput | FranchiseStaffNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FranchiseStaffNode update
+   */
+  export type FranchiseStaffNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a FranchiseStaffNode.
+     */
+    data: XOR<FranchiseStaffNodeUpdateInput, FranchiseStaffNodeUncheckedUpdateInput>
+    /**
+     * Choose, which FranchiseStaffNode to update.
+     */
+    where: FranchiseStaffNodeWhereUniqueInput
+  }
+
+  /**
+   * FranchiseStaffNode updateMany
+   */
+  export type FranchiseStaffNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FranchiseStaffNodes.
+     */
+    data: XOR<FranchiseStaffNodeUpdateManyMutationInput, FranchiseStaffNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which FranchiseStaffNodes to update
+     */
+    where?: FranchiseStaffNodeWhereInput
+  }
+
+  /**
+   * FranchiseStaffNode upsert
+   */
+  export type FranchiseStaffNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the FranchiseStaffNode to update in case it exists.
+     */
+    where: FranchiseStaffNodeWhereUniqueInput
+    /**
+     * In case the FranchiseStaffNode found by the `where` argument doesn't exist, create a new FranchiseStaffNode with this data.
+     */
+    create: XOR<FranchiseStaffNodeCreateInput, FranchiseStaffNodeUncheckedCreateInput>
+    /**
+     * In case the FranchiseStaffNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FranchiseStaffNodeUpdateInput, FranchiseStaffNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * FranchiseStaffNode delete
+   */
+  export type FranchiseStaffNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+    /**
+     * Filter which FranchiseStaffNode to delete.
+     */
+    where: FranchiseStaffNodeWhereUniqueInput
+  }
+
+  /**
+   * FranchiseStaffNode deleteMany
+   */
+  export type FranchiseStaffNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FranchiseStaffNodes to delete
+     */
+    where?: FranchiseStaffNodeWhereInput
+  }
+
+  /**
+   * FranchiseStaffNode without action
+   */
+  export type FranchiseStaffNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FranchiseStaffNode
+     */
+    select?: FranchiseStaffNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -236932,6 +241078,71 @@ export namespace Prisma {
   export type OrganizationNodeScalarFieldEnum = (typeof OrganizationNodeScalarFieldEnum)[keyof typeof OrganizationNodeScalarFieldEnum]
 
 
+  export const FranchiseKpiScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    metricName: 'metricName',
+    metricValue: 'metricValue',
+    metricTarget: 'metricTarget',
+    unit: 'unit',
+    recordedAt: 'recordedAt',
+    roleFocus: 'roleFocus',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FranchiseKpiScalarFieldEnum = (typeof FranchiseKpiScalarFieldEnum)[keyof typeof FranchiseKpiScalarFieldEnum]
+
+
+  export const FranchiseReportScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    title: 'title',
+    description: 'description',
+    reportType: 'reportType',
+    fileUrl: 'fileUrl',
+    generatedBy: 'generatedBy',
+    generatedAt: 'generatedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FranchiseReportScalarFieldEnum = (typeof FranchiseReportScalarFieldEnum)[keyof typeof FranchiseReportScalarFieldEnum]
+
+
+  export const FranchiseAlertScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    title: 'title',
+    severity: 'severity',
+    description: 'description',
+    isResolved: 'isResolved',
+    resolvedAt: 'resolvedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FranchiseAlertScalarFieldEnum = (typeof FranchiseAlertScalarFieldEnum)[keyof typeof FranchiseAlertScalarFieldEnum]
+
+
+  export const FranchiseStaffNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    officeId: 'officeId',
+    name: 'name',
+    title: 'title',
+    department: 'department',
+    reportsToId: 'reportsToId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FranchiseStaffNodeScalarFieldEnum = (typeof FranchiseStaffNodeScalarFieldEnum)[keyof typeof FranchiseStaffNodeScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -250615,6 +254826,321 @@ export namespace Prisma {
     reportsToId?: StringNullableWithAggregatesFilter<"OrganizationNode"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
+  }
+
+  export type FranchiseKpiWhereInput = {
+    AND?: FranchiseKpiWhereInput | FranchiseKpiWhereInput[]
+    OR?: FranchiseKpiWhereInput[]
+    NOT?: FranchiseKpiWhereInput | FranchiseKpiWhereInput[]
+    id?: StringFilter<"FranchiseKpi"> | string
+    tenantId?: StringFilter<"FranchiseKpi"> | string
+    officeId?: StringFilter<"FranchiseKpi"> | string
+    metricName?: StringFilter<"FranchiseKpi"> | string
+    metricValue?: FloatFilter<"FranchiseKpi"> | number
+    metricTarget?: FloatNullableFilter<"FranchiseKpi"> | number | null
+    unit?: StringNullableFilter<"FranchiseKpi"> | string | null
+    recordedAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+    roleFocus?: StringNullableFilter<"FranchiseKpi"> | string | null
+    createdAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+  }
+
+  export type FranchiseKpiOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseKpiWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FranchiseKpiWhereInput | FranchiseKpiWhereInput[]
+    OR?: FranchiseKpiWhereInput[]
+    NOT?: FranchiseKpiWhereInput | FranchiseKpiWhereInput[]
+    tenantId?: StringFilter<"FranchiseKpi"> | string
+    officeId?: StringFilter<"FranchiseKpi"> | string
+    metricName?: StringFilter<"FranchiseKpi"> | string
+    metricValue?: FloatFilter<"FranchiseKpi"> | number
+    metricTarget?: FloatNullableFilter<"FranchiseKpi"> | number | null
+    unit?: StringNullableFilter<"FranchiseKpi"> | string | null
+    recordedAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+    roleFocus?: StringNullableFilter<"FranchiseKpi"> | string | null
+    createdAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseKpi"> | Date | string
+  }, "id">
+
+  export type FranchiseKpiOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FranchiseKpiCountOrderByAggregateInput
+    _avg?: FranchiseKpiAvgOrderByAggregateInput
+    _max?: FranchiseKpiMaxOrderByAggregateInput
+    _min?: FranchiseKpiMinOrderByAggregateInput
+    _sum?: FranchiseKpiSumOrderByAggregateInput
+  }
+
+  export type FranchiseKpiScalarWhereWithAggregatesInput = {
+    AND?: FranchiseKpiScalarWhereWithAggregatesInput | FranchiseKpiScalarWhereWithAggregatesInput[]
+    OR?: FranchiseKpiScalarWhereWithAggregatesInput[]
+    NOT?: FranchiseKpiScalarWhereWithAggregatesInput | FranchiseKpiScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FranchiseKpi"> | string
+    tenantId?: StringWithAggregatesFilter<"FranchiseKpi"> | string
+    officeId?: StringWithAggregatesFilter<"FranchiseKpi"> | string
+    metricName?: StringWithAggregatesFilter<"FranchiseKpi"> | string
+    metricValue?: FloatWithAggregatesFilter<"FranchiseKpi"> | number
+    metricTarget?: FloatNullableWithAggregatesFilter<"FranchiseKpi"> | number | null
+    unit?: StringNullableWithAggregatesFilter<"FranchiseKpi"> | string | null
+    recordedAt?: DateTimeWithAggregatesFilter<"FranchiseKpi"> | Date | string
+    roleFocus?: StringNullableWithAggregatesFilter<"FranchiseKpi"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FranchiseKpi"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FranchiseKpi"> | Date | string
+  }
+
+  export type FranchiseReportWhereInput = {
+    AND?: FranchiseReportWhereInput | FranchiseReportWhereInput[]
+    OR?: FranchiseReportWhereInput[]
+    NOT?: FranchiseReportWhereInput | FranchiseReportWhereInput[]
+    id?: StringFilter<"FranchiseReport"> | string
+    tenantId?: StringFilter<"FranchiseReport"> | string
+    officeId?: StringFilter<"FranchiseReport"> | string
+    title?: StringFilter<"FranchiseReport"> | string
+    description?: StringNullableFilter<"FranchiseReport"> | string | null
+    reportType?: StringFilter<"FranchiseReport"> | string
+    fileUrl?: StringNullableFilter<"FranchiseReport"> | string | null
+    generatedBy?: StringNullableFilter<"FranchiseReport"> | string | null
+    generatedAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+    createdAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+  }
+
+  export type FranchiseReportOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FranchiseReportWhereInput | FranchiseReportWhereInput[]
+    OR?: FranchiseReportWhereInput[]
+    NOT?: FranchiseReportWhereInput | FranchiseReportWhereInput[]
+    tenantId?: StringFilter<"FranchiseReport"> | string
+    officeId?: StringFilter<"FranchiseReport"> | string
+    title?: StringFilter<"FranchiseReport"> | string
+    description?: StringNullableFilter<"FranchiseReport"> | string | null
+    reportType?: StringFilter<"FranchiseReport"> | string
+    fileUrl?: StringNullableFilter<"FranchiseReport"> | string | null
+    generatedBy?: StringNullableFilter<"FranchiseReport"> | string | null
+    generatedAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+    createdAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseReport"> | Date | string
+  }, "id">
+
+  export type FranchiseReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FranchiseReportCountOrderByAggregateInput
+    _max?: FranchiseReportMaxOrderByAggregateInput
+    _min?: FranchiseReportMinOrderByAggregateInput
+  }
+
+  export type FranchiseReportScalarWhereWithAggregatesInput = {
+    AND?: FranchiseReportScalarWhereWithAggregatesInput | FranchiseReportScalarWhereWithAggregatesInput[]
+    OR?: FranchiseReportScalarWhereWithAggregatesInput[]
+    NOT?: FranchiseReportScalarWhereWithAggregatesInput | FranchiseReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FranchiseReport"> | string
+    tenantId?: StringWithAggregatesFilter<"FranchiseReport"> | string
+    officeId?: StringWithAggregatesFilter<"FranchiseReport"> | string
+    title?: StringWithAggregatesFilter<"FranchiseReport"> | string
+    description?: StringNullableWithAggregatesFilter<"FranchiseReport"> | string | null
+    reportType?: StringWithAggregatesFilter<"FranchiseReport"> | string
+    fileUrl?: StringNullableWithAggregatesFilter<"FranchiseReport"> | string | null
+    generatedBy?: StringNullableWithAggregatesFilter<"FranchiseReport"> | string | null
+    generatedAt?: DateTimeWithAggregatesFilter<"FranchiseReport"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"FranchiseReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FranchiseReport"> | Date | string
+  }
+
+  export type FranchiseAlertWhereInput = {
+    AND?: FranchiseAlertWhereInput | FranchiseAlertWhereInput[]
+    OR?: FranchiseAlertWhereInput[]
+    NOT?: FranchiseAlertWhereInput | FranchiseAlertWhereInput[]
+    id?: StringFilter<"FranchiseAlert"> | string
+    tenantId?: StringFilter<"FranchiseAlert"> | string
+    officeId?: StringFilter<"FranchiseAlert"> | string
+    title?: StringFilter<"FranchiseAlert"> | string
+    severity?: StringFilter<"FranchiseAlert"> | string
+    description?: StringNullableFilter<"FranchiseAlert"> | string | null
+    isResolved?: BoolFilter<"FranchiseAlert"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"FranchiseAlert"> | Date | string | null
+    createdAt?: DateTimeFilter<"FranchiseAlert"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseAlert"> | Date | string
+  }
+
+  export type FranchiseAlertOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseAlertWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FranchiseAlertWhereInput | FranchiseAlertWhereInput[]
+    OR?: FranchiseAlertWhereInput[]
+    NOT?: FranchiseAlertWhereInput | FranchiseAlertWhereInput[]
+    tenantId?: StringFilter<"FranchiseAlert"> | string
+    officeId?: StringFilter<"FranchiseAlert"> | string
+    title?: StringFilter<"FranchiseAlert"> | string
+    severity?: StringFilter<"FranchiseAlert"> | string
+    description?: StringNullableFilter<"FranchiseAlert"> | string | null
+    isResolved?: BoolFilter<"FranchiseAlert"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"FranchiseAlert"> | Date | string | null
+    createdAt?: DateTimeFilter<"FranchiseAlert"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseAlert"> | Date | string
+  }, "id">
+
+  export type FranchiseAlertOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FranchiseAlertCountOrderByAggregateInput
+    _max?: FranchiseAlertMaxOrderByAggregateInput
+    _min?: FranchiseAlertMinOrderByAggregateInput
+  }
+
+  export type FranchiseAlertScalarWhereWithAggregatesInput = {
+    AND?: FranchiseAlertScalarWhereWithAggregatesInput | FranchiseAlertScalarWhereWithAggregatesInput[]
+    OR?: FranchiseAlertScalarWhereWithAggregatesInput[]
+    NOT?: FranchiseAlertScalarWhereWithAggregatesInput | FranchiseAlertScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FranchiseAlert"> | string
+    tenantId?: StringWithAggregatesFilter<"FranchiseAlert"> | string
+    officeId?: StringWithAggregatesFilter<"FranchiseAlert"> | string
+    title?: StringWithAggregatesFilter<"FranchiseAlert"> | string
+    severity?: StringWithAggregatesFilter<"FranchiseAlert"> | string
+    description?: StringNullableWithAggregatesFilter<"FranchiseAlert"> | string | null
+    isResolved?: BoolWithAggregatesFilter<"FranchiseAlert"> | boolean
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"FranchiseAlert"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FranchiseAlert"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FranchiseAlert"> | Date | string
+  }
+
+  export type FranchiseStaffNodeWhereInput = {
+    AND?: FranchiseStaffNodeWhereInput | FranchiseStaffNodeWhereInput[]
+    OR?: FranchiseStaffNodeWhereInput[]
+    NOT?: FranchiseStaffNodeWhereInput | FranchiseStaffNodeWhereInput[]
+    id?: StringFilter<"FranchiseStaffNode"> | string
+    tenantId?: StringFilter<"FranchiseStaffNode"> | string
+    officeId?: StringFilter<"FranchiseStaffNode"> | string
+    name?: StringFilter<"FranchiseStaffNode"> | string
+    title?: StringFilter<"FranchiseStaffNode"> | string
+    department?: StringNullableFilter<"FranchiseStaffNode"> | string | null
+    reportsToId?: StringNullableFilter<"FranchiseStaffNode"> | string | null
+    createdAt?: DateTimeFilter<"FranchiseStaffNode"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseStaffNode"> | Date | string
+  }
+
+  export type FranchiseStaffNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    reportsToId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseStaffNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FranchiseStaffNodeWhereInput | FranchiseStaffNodeWhereInput[]
+    OR?: FranchiseStaffNodeWhereInput[]
+    NOT?: FranchiseStaffNodeWhereInput | FranchiseStaffNodeWhereInput[]
+    tenantId?: StringFilter<"FranchiseStaffNode"> | string
+    officeId?: StringFilter<"FranchiseStaffNode"> | string
+    name?: StringFilter<"FranchiseStaffNode"> | string
+    title?: StringFilter<"FranchiseStaffNode"> | string
+    department?: StringNullableFilter<"FranchiseStaffNode"> | string | null
+    reportsToId?: StringNullableFilter<"FranchiseStaffNode"> | string | null
+    createdAt?: DateTimeFilter<"FranchiseStaffNode"> | Date | string
+    updatedAt?: DateTimeFilter<"FranchiseStaffNode"> | Date | string
+  }, "id">
+
+  export type FranchiseStaffNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    reportsToId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FranchiseStaffNodeCountOrderByAggregateInput
+    _max?: FranchiseStaffNodeMaxOrderByAggregateInput
+    _min?: FranchiseStaffNodeMinOrderByAggregateInput
+  }
+
+  export type FranchiseStaffNodeScalarWhereWithAggregatesInput = {
+    AND?: FranchiseStaffNodeScalarWhereWithAggregatesInput | FranchiseStaffNodeScalarWhereWithAggregatesInput[]
+    OR?: FranchiseStaffNodeScalarWhereWithAggregatesInput[]
+    NOT?: FranchiseStaffNodeScalarWhereWithAggregatesInput | FranchiseStaffNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FranchiseStaffNode"> | string
+    tenantId?: StringWithAggregatesFilter<"FranchiseStaffNode"> | string
+    officeId?: StringWithAggregatesFilter<"FranchiseStaffNode"> | string
+    name?: StringWithAggregatesFilter<"FranchiseStaffNode"> | string
+    title?: StringWithAggregatesFilter<"FranchiseStaffNode"> | string
+    department?: StringNullableWithAggregatesFilter<"FranchiseStaffNode"> | string | null
+    reportsToId?: StringNullableWithAggregatesFilter<"FranchiseStaffNode"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FranchiseStaffNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FranchiseStaffNode"> | Date | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -268647,6 +273173,377 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FranchiseKpiCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseKpiUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseKpiUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseKpiUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseKpiCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseKpiUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseKpiUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseReportCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseReportUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseReportCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseAlertCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseAlertUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseAlertUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseAlertUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseAlertCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseAlertUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseAlertUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseStaffNodeCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseStaffNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseStaffNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseStaffNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseStaffNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    officeId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FranchiseStaffNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FranchiseStaffNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    officeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -281587,6 +286484,175 @@ export namespace Prisma {
   export type OrganizationNodeMinOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseKpiCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseKpiAvgOrderByAggregateInput = {
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+  }
+
+  export type FranchiseKpiMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseKpiMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseKpiSumOrderByAggregateInput = {
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+  }
+
+  export type FranchiseReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseAlertCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseAlertMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseAlertMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseStaffNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseStaffNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FranchiseStaffNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    officeId?: SortOrder
     name?: SortOrder
     title?: SortOrder
     department?: SortOrder
@@ -393045,6 +398111,22 @@ export namespace Prisma {
      * @deprecated Use OrganizationNodeDefaultArgs instead
      */
     export type OrganizationNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FranchiseKpiDefaultArgs instead
+     */
+    export type FranchiseKpiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FranchiseKpiDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FranchiseReportDefaultArgs instead
+     */
+    export type FranchiseReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FranchiseReportDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FranchiseAlertDefaultArgs instead
+     */
+    export type FranchiseAlertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FranchiseAlertDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FranchiseStaffNodeDefaultArgs instead
+     */
+    export type FranchiseStaffNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FranchiseStaffNodeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

@@ -1992,6 +1992,59 @@ exports.Prisma.OrganizationNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FranchiseKpiScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  metricName: 'metricName',
+  metricValue: 'metricValue',
+  metricTarget: 'metricTarget',
+  unit: 'unit',
+  recordedAt: 'recordedAt',
+  roleFocus: 'roleFocus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FranchiseReportScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  title: 'title',
+  description: 'description',
+  reportType: 'reportType',
+  fileUrl: 'fileUrl',
+  generatedBy: 'generatedBy',
+  generatedAt: 'generatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FranchiseAlertScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  title: 'title',
+  severity: 'severity',
+  description: 'description',
+  isResolved: 'isResolved',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FranchiseStaffNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  officeId: 'officeId',
+  name: 'name',
+  title: 'title',
+  department: 'department',
+  reportsToId: 'reportsToId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2862,6 +2915,10 @@ exports.Prisma.ModelName = {
   CorporateReport: 'CorporateReport',
   CorporateAlert: 'CorporateAlert',
   OrganizationNode: 'OrganizationNode',
+  FranchiseKpi: 'FranchiseKpi',
+  FranchiseReport: 'FranchiseReport',
+  FranchiseAlert: 'FranchiseAlert',
+  FranchiseStaffNode: 'FranchiseStaffNode',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',
