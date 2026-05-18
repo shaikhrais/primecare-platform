@@ -1,70 +1,99 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-// --- MVC State Model ---
-class CooDashboardState {
-  final bool isLoading;
-  final String? error;
-  final String title;
+// --- Data Models ---
+class CooTelemetryData {
+  final int activeOperations;
+  final double operationalProductivity;
+  final int securityClearanceLevel;
+  final int clearanceExceptions;
+  final List<String> telemetryLabels;
+  final List<double> telemetryData;
   final List<String> logs;
 
-  const CooDashboardState({
-    required this.isLoading,
-    this.error,
-    required this.title,
+  const CooTelemetryData({
+    required this.activeOperations,
+    required this.operationalProductivity,
+    required this.securityClearanceLevel,
+    required this.clearanceExceptions,
+    required this.telemetryLabels,
+    required this.telemetryData,
     required this.logs,
   });
 
-  CooDashboardState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return CooDashboardState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
+  factory CooTelemetryData.fromJson(Map<String, dynamic> json) {
+    return CooTelemetryData(
+      activeOperations: json['activeOperations'] as int? ?? 0,
+      operationalProductivity: (json['operationalProductivity'] as num?)?.toDouble() ?? 0.0,
+      securityClearanceLevel: json['securityClearanceLevel'] as int? ?? 0,
+      clearanceExceptions: json['clearanceExceptions'] as int? ?? 0,
+      telemetryLabels: (json['telemetryLabels'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      telemetryData: (json['telemetryData'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      logs: (json['logs'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
     );
   }
 }
 
-// --- Controller (Notifier) ---
-class CooDashboardController extends StateNotifier<CooDashboardState> {
-  CooDashboardController()
-      : super(
-          const CooDashboardState(
-            isLoading: false,
-            title: 'Coo Control Center',
-            logs: [
-              'System initialized.',
-              'Security sync complete.',
-            ],
-          ),
-        );
+// --- Controller (AsyncNotifier) ---
+class CooDashboardNotifier extends AsyncNotifier<CooTelemetryData> {
+  @override
+  Future<CooTelemetryData> build() async {
+    final apiClient = ref.watch(apiClientProvider);
 
-  Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(seconds: 1));
-    state = state.copyWith(
-      isLoading: false,
-      logs: [
-        ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-        'All governance invariants validated.',
-      ],
-    );
+    try {
+      final response = await apiClient.get('/v1/executive/coo/telemetry');
+      if (response.isSuccess && response.data != null) {
+        return CooTelemetryData.fromJson(response.data as Map<String, dynamic>);
+      } else {
+        throw Exception(response.error ?? 'Failed to load COO telemetry');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch telemetry data: $e');
+    }
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
+  Future<void> runComplianceScan() async {
+    final currentState = state;
+    if (currentState is! AsyncData) return;
+    
+    // Optimistically update logs while "scanning"
+    final currentData = currentState.value!;
+    state = const AsyncValue.loading();
+    
+    await Future<void>.delayed(const Duration(seconds: 1));
+    
+    final updatedLogs = [
+      ...currentData.logs,
+      'Compliance audit executed at ${DateTime.now().toIso8601String()}',
+      'All governance invariants validated.'
+    ];
+    
+    state = AsyncValue.data(
+      CooTelemetryData(
+        activeOperations: currentData.activeOperations,
+        operationalProductivity: currentData.operationalProductivity,
+        securityClearanceLevel: currentData.securityClearanceLevel,
+        clearanceExceptions: currentData.clearanceExceptions,
+        telemetryLabels: currentData.telemetryLabels,
+        telemetryData: currentData.telemetryData,
+        logs: updatedLogs,
+      )
+    );
   }
 }
 
 // --- Provider ---
 final cooDashboardProvider =
-    StateNotifierProvider<CooDashboardController, CooDashboardState>((ref) {
-  return CooDashboardController();
+    AsyncNotifierProvider<CooDashboardNotifier, CooTelemetryData>(() {
+  return CooDashboardNotifier();
 });
 
 // --- View ---
@@ -73,10 +102,8 @@ class CooDashboardScreen extends GovernedConsumerWidget {
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(cooDashboardProvider);
-    final controller = ref.read(cooDashboardProvider.notifier);
+    final telemetryAsync = ref.watch(cooDashboardProvider);
     final theme = context.theme;
-    final roleBase = 'CooDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -84,126 +111,175 @@ class CooDashboardScreen extends GovernedConsumerWidget {
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
-          state.title,
+          'COO Control Center',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual refresh triggered.'),
+            onPressed: () => ref.invalidate(cooDashboardProvider),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GovDashboardHero(
-              title: state.title,
-              roleName: '$roleBase Dashboard',
-              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
-            ),
-            const SizedBox(height: 24),
-            Row(
+      body: telemetryAsync.when(
+        data: (data) => RefreshIndicator(
+          onRefresh: () async => ref.invalidate(cooDashboardProvider),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Operations',
-                    value: 'Active',
-                    trendLabel: 'Optimal productivity',
-                    progress: 0.92,
-                    icon: LucideIcons.activity,
-                    brandColor: theme.colors.primary,
-                  ),
+                GovDashboardHero(
+                  title: 'COO Control Center',
+                  roleName: 'COO Dashboard',
+                  description:
+                      'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+                  onRefresh: () => ref.invalidate(cooDashboardProvider),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Security Clearance',
-                    value: 'Level 4 Approved',
-                    trendLabel: 'Zero exceptions logged',
-                    progress: 1.0,
-                    icon: LucideIcons.shieldCheck,
-                    brandColor: Colors.green,
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Active Operations',
+                        value: '${data.activeOperations}',
+                        trendLabel: 'Optimal productivity',
+                        progress: data.operationalProductivity,
+                        icon: LucideIcons.activity,
+                        brandColor: theme.colors.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Security Clearance',
+                        value: 'Level ${data.securityClearanceLevel} Approved',
+                        trendLabel: data.clearanceExceptions == 0
+                            ? 'Zero exceptions logged'
+                            : '${data.clearanceExceptions} exceptions logged',
+                        progress: data.clearanceExceptions == 0 ? 1.0 : 0.8,
+                        icon: LucideIcons.shieldCheck,
+                        brandColor: data.clearanceExceptions == 0
+                            ? Colors.green
+                            : theme.colors.error,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                GovTelemetryChart(
+                  title: 'Hourly Core Telemetry',
+                  dataPoints: data.telemetryData,
+                  labels: data.telemetryLabels,
+                  accentColor: theme.colors.primary,
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Operational Audit Logs',
+                        style: theme.typography.h4
+                            .copyWith(color: theme.colors.onSurface),
+                      ),
+                      const SizedBox(height: 12),
+                      ...data.logs.map((log) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '• ',
+                                  style: TextStyle(
+                                    color: theme.colors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    log,
+                                    style: theme.typography.bodySmall.copyWith(
+                                      color: theme.colors.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: telemetryAsync.isLoading
+                              ? null
+                              : () => ref
+                                  .read(cooDashboardProvider.notifier)
+                                  .runComplianceScan(),
+                          child: telemetryAsync.isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor:
+                                        AlwaysStoppedAnimation(Colors.white),
+                                  ),
+                                )
+                              : Text(
+                                  'Execute Operational Audit Scan',
+                                  style: theme.typography.button
+                                      .copyWith(color: Colors.white),
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            GovTelemetryChart(
-              title: 'Hourly Core Telemetry',
-              dataPoints: const [75, 82, 80, 94, 91, 98],
-              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-              accentColor: theme.colors.primary,
-            ),
-            const SizedBox(height: 24),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
+          ),
+        ),
+        loading: () => Center(
+          child: CircularProgressIndicator(color: theme.colors.primary),
+        ),
+        error: (error, stack) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                LucideIcons.alertTriangle,
+                color: theme.colors.error,
+                size: 48,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Operational Audit Logs',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                  ),
-                  const SizedBox(height: 12),
-                  ...state.logs.map((log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log,
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Text(
-                              'Execute Operational Audit Scan',
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 16),
+              Text('Error loading dashboard', style: theme.typography.h3),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colors.primary,
+                  foregroundColor: theme.colors.onPrimary,
+                ),
+                onPressed: () => ref.invalidate(cooDashboardProvider),
+                child: const Text('Retry'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

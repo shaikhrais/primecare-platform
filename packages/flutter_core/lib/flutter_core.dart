@@ -86,6 +86,7 @@ export 'manifest/action_manifest.dart';
 
 export 'network/error_mapper.dart';
 export 'src/network/api_client.dart';
+export 'src/network/connectivity_provider.dart';
 export 'registry/file_registry.dart';
 export 'registry/screen_data_registry.dart';
 export 'registry/platform_screen_registry.dart';

@@ -729,6 +729,21 @@ export type AgentScreenBlueprint = $Result.DefaultSelection<Prisma.$AgentScreenB
  */
 export type BlueprintComponent = $Result.DefaultSelection<Prisma.$BlueprintComponentPayload>
 /**
+ * Model BdmLead
+ * 
+ */
+export type BdmLead = $Result.DefaultSelection<Prisma.$BdmLeadPayload>
+/**
+ * Model TerritoryExpansionPlan
+ * 
+ */
+export type TerritoryExpansionPlan = $Result.DefaultSelection<Prisma.$TerritoryExpansionPlanPayload>
+/**
+ * Model PartnershipDeal
+ * 
+ */
+export type PartnershipDeal = $Result.DefaultSelection<Prisma.$PartnershipDealPayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2583,6 +2598,36 @@ export class PrismaClient<
   get blueprintComponent(): Prisma.BlueprintComponentDelegate<ExtArgs>;
 
   /**
+   * `prisma.bdmLead`: Exposes CRUD operations for the **BdmLead** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BdmLeads
+    * const bdmLeads = await prisma.bdmLead.findMany()
+    * ```
+    */
+  get bdmLead(): Prisma.BdmLeadDelegate<ExtArgs>;
+
+  /**
+   * `prisma.territoryExpansionPlan`: Exposes CRUD operations for the **TerritoryExpansionPlan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TerritoryExpansionPlans
+    * const territoryExpansionPlans = await prisma.territoryExpansionPlan.findMany()
+    * ```
+    */
+  get territoryExpansionPlan(): Prisma.TerritoryExpansionPlanDelegate<ExtArgs>;
+
+  /**
+   * `prisma.partnershipDeal`: Exposes CRUD operations for the **PartnershipDeal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PartnershipDeals
+    * const partnershipDeals = await prisma.partnershipDeal.findMany()
+    * ```
+    */
+  get partnershipDeal(): Prisma.PartnershipDealDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3765,6 +3810,9 @@ export namespace Prisma {
     PlatformHealthHistory: 'PlatformHealthHistory',
     AgentScreenBlueprint: 'AgentScreenBlueprint',
     BlueprintComponent: 'BlueprintComponent',
+    BdmLead: 'BdmLead',
+    TerritoryExpansionPlan: 'TerritoryExpansionPlan',
+    PartnershipDeal: 'PartnershipDeal',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3840,7 +3888,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -13851,6 +13899,216 @@ export namespace Prisma {
           count: {
             args: Prisma.BlueprintComponentCountArgs<ExtArgs>
             result: $Utils.Optional<BlueprintComponentCountAggregateOutputType> | number
+          }
+        }
+      }
+      BdmLead: {
+        payload: Prisma.$BdmLeadPayload<ExtArgs>
+        fields: Prisma.BdmLeadFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BdmLeadFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BdmLeadFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          findFirst: {
+            args: Prisma.BdmLeadFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BdmLeadFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          findMany: {
+            args: Prisma.BdmLeadFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>[]
+          }
+          create: {
+            args: Prisma.BdmLeadCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          createMany: {
+            args: Prisma.BdmLeadCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BdmLeadCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>[]
+          }
+          delete: {
+            args: Prisma.BdmLeadDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          update: {
+            args: Prisma.BdmLeadUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          deleteMany: {
+            args: Prisma.BdmLeadDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BdmLeadUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BdmLeadUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BdmLeadPayload>
+          }
+          aggregate: {
+            args: Prisma.BdmLeadAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBdmLead>
+          }
+          groupBy: {
+            args: Prisma.BdmLeadGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BdmLeadGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BdmLeadCountArgs<ExtArgs>
+            result: $Utils.Optional<BdmLeadCountAggregateOutputType> | number
+          }
+        }
+      }
+      TerritoryExpansionPlan: {
+        payload: Prisma.$TerritoryExpansionPlanPayload<ExtArgs>
+        fields: Prisma.TerritoryExpansionPlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TerritoryExpansionPlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TerritoryExpansionPlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          findFirst: {
+            args: Prisma.TerritoryExpansionPlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TerritoryExpansionPlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          findMany: {
+            args: Prisma.TerritoryExpansionPlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>[]
+          }
+          create: {
+            args: Prisma.TerritoryExpansionPlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          createMany: {
+            args: Prisma.TerritoryExpansionPlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TerritoryExpansionPlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>[]
+          }
+          delete: {
+            args: Prisma.TerritoryExpansionPlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          update: {
+            args: Prisma.TerritoryExpansionPlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.TerritoryExpansionPlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TerritoryExpansionPlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TerritoryExpansionPlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerritoryExpansionPlanPayload>
+          }
+          aggregate: {
+            args: Prisma.TerritoryExpansionPlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTerritoryExpansionPlan>
+          }
+          groupBy: {
+            args: Prisma.TerritoryExpansionPlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TerritoryExpansionPlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TerritoryExpansionPlanCountArgs<ExtArgs>
+            result: $Utils.Optional<TerritoryExpansionPlanCountAggregateOutputType> | number
+          }
+        }
+      }
+      PartnershipDeal: {
+        payload: Prisma.$PartnershipDealPayload<ExtArgs>
+        fields: Prisma.PartnershipDealFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PartnershipDealFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PartnershipDealFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          findFirst: {
+            args: Prisma.PartnershipDealFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PartnershipDealFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          findMany: {
+            args: Prisma.PartnershipDealFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>[]
+          }
+          create: {
+            args: Prisma.PartnershipDealCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          createMany: {
+            args: Prisma.PartnershipDealCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PartnershipDealCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>[]
+          }
+          delete: {
+            args: Prisma.PartnershipDealDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          update: {
+            args: Prisma.PartnershipDealUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          deleteMany: {
+            args: Prisma.PartnershipDealDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PartnershipDealUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PartnershipDealUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnershipDealPayload>
+          }
+          aggregate: {
+            args: Prisma.PartnershipDealAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePartnershipDeal>
+          }
+          groupBy: {
+            args: Prisma.PartnershipDealGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PartnershipDealGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PartnershipDealCountArgs<ExtArgs>
+            result: $Utils.Optional<PartnershipDealCountAggregateOutputType> | number
           }
         }
       }
@@ -170414,6 +170672,2958 @@ export namespace Prisma {
 
 
   /**
+   * Model BdmLead
+   */
+
+  export type AggregateBdmLead = {
+    _count: BdmLeadCountAggregateOutputType | null
+    _avg: BdmLeadAvgAggregateOutputType | null
+    _sum: BdmLeadSumAggregateOutputType | null
+    _min: BdmLeadMinAggregateOutputType | null
+    _max: BdmLeadMaxAggregateOutputType | null
+  }
+
+  export type BdmLeadAvgAggregateOutputType = {
+    expectedValue: number | null
+  }
+
+  export type BdmLeadSumAggregateOutputType = {
+    expectedValue: number | null
+  }
+
+  export type BdmLeadMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    company: string | null
+    status: string | null
+    contactName: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    territory: string | null
+    expectedValue: number | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    assignedToUserId: string | null
+  }
+
+  export type BdmLeadMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    company: string | null
+    status: string | null
+    contactName: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    territory: string | null
+    expectedValue: number | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    assignedToUserId: string | null
+  }
+
+  export type BdmLeadCountAggregateOutputType = {
+    id: number
+    title: number
+    company: number
+    status: number
+    contactName: number
+    contactEmail: number
+    contactPhone: number
+    territory: number
+    expectedValue: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    assignedToUserId: number
+    _all: number
+  }
+
+
+  export type BdmLeadAvgAggregateInputType = {
+    expectedValue?: true
+  }
+
+  export type BdmLeadSumAggregateInputType = {
+    expectedValue?: true
+  }
+
+  export type BdmLeadMinAggregateInputType = {
+    id?: true
+    title?: true
+    company?: true
+    status?: true
+    contactName?: true
+    contactEmail?: true
+    contactPhone?: true
+    territory?: true
+    expectedValue?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    assignedToUserId?: true
+  }
+
+  export type BdmLeadMaxAggregateInputType = {
+    id?: true
+    title?: true
+    company?: true
+    status?: true
+    contactName?: true
+    contactEmail?: true
+    contactPhone?: true
+    territory?: true
+    expectedValue?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    assignedToUserId?: true
+  }
+
+  export type BdmLeadCountAggregateInputType = {
+    id?: true
+    title?: true
+    company?: true
+    status?: true
+    contactName?: true
+    contactEmail?: true
+    contactPhone?: true
+    territory?: true
+    expectedValue?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    assignedToUserId?: true
+    _all?: true
+  }
+
+  export type BdmLeadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BdmLead to aggregate.
+     */
+    where?: BdmLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BdmLeads to fetch.
+     */
+    orderBy?: BdmLeadOrderByWithRelationInput | BdmLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BdmLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BdmLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BdmLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BdmLeads
+    **/
+    _count?: true | BdmLeadCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BdmLeadAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BdmLeadSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BdmLeadMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BdmLeadMaxAggregateInputType
+  }
+
+  export type GetBdmLeadAggregateType<T extends BdmLeadAggregateArgs> = {
+        [P in keyof T & keyof AggregateBdmLead]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBdmLead[P]>
+      : GetScalarType<T[P], AggregateBdmLead[P]>
+  }
+
+
+
+
+  export type BdmLeadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BdmLeadWhereInput
+    orderBy?: BdmLeadOrderByWithAggregationInput | BdmLeadOrderByWithAggregationInput[]
+    by: BdmLeadScalarFieldEnum[] | BdmLeadScalarFieldEnum
+    having?: BdmLeadScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BdmLeadCountAggregateInputType | true
+    _avg?: BdmLeadAvgAggregateInputType
+    _sum?: BdmLeadSumAggregateInputType
+    _min?: BdmLeadMinAggregateInputType
+    _max?: BdmLeadMaxAggregateInputType
+  }
+
+  export type BdmLeadGroupByOutputType = {
+    id: string
+    title: string
+    company: string
+    status: string
+    contactName: string
+    contactEmail: string
+    contactPhone: string | null
+    territory: string
+    expectedValue: number | null
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    assignedToUserId: string
+    _count: BdmLeadCountAggregateOutputType | null
+    _avg: BdmLeadAvgAggregateOutputType | null
+    _sum: BdmLeadSumAggregateOutputType | null
+    _min: BdmLeadMinAggregateOutputType | null
+    _max: BdmLeadMaxAggregateOutputType | null
+  }
+
+  type GetBdmLeadGroupByPayload<T extends BdmLeadGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BdmLeadGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BdmLeadGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BdmLeadGroupByOutputType[P]>
+            : GetScalarType<T[P], BdmLeadGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BdmLeadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    company?: boolean
+    status?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    territory?: boolean
+    expectedValue?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    assignedToUserId?: boolean
+  }, ExtArgs["result"]["bdmLead"]>
+
+  export type BdmLeadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    company?: boolean
+    status?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    territory?: boolean
+    expectedValue?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    assignedToUserId?: boolean
+  }, ExtArgs["result"]["bdmLead"]>
+
+  export type BdmLeadSelectScalar = {
+    id?: boolean
+    title?: boolean
+    company?: boolean
+    status?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    territory?: boolean
+    expectedValue?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    assignedToUserId?: boolean
+  }
+
+
+  export type $BdmLeadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BdmLead"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      company: string
+      status: string
+      contactName: string
+      contactEmail: string
+      contactPhone: string | null
+      territory: string
+      expectedValue: number | null
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+      assignedToUserId: string
+    }, ExtArgs["result"]["bdmLead"]>
+    composites: {}
+  }
+
+  type BdmLeadGetPayload<S extends boolean | null | undefined | BdmLeadDefaultArgs> = $Result.GetResult<Prisma.$BdmLeadPayload, S>
+
+  type BdmLeadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BdmLeadFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BdmLeadCountAggregateInputType | true
+    }
+
+  export interface BdmLeadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BdmLead'], meta: { name: 'BdmLead' } }
+    /**
+     * Find zero or one BdmLead that matches the filter.
+     * @param {BdmLeadFindUniqueArgs} args - Arguments to find a BdmLead
+     * @example
+     * // Get one BdmLead
+     * const bdmLead = await prisma.bdmLead.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BdmLeadFindUniqueArgs>(args: SelectSubset<T, BdmLeadFindUniqueArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BdmLead that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BdmLeadFindUniqueOrThrowArgs} args - Arguments to find a BdmLead
+     * @example
+     * // Get one BdmLead
+     * const bdmLead = await prisma.bdmLead.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BdmLeadFindUniqueOrThrowArgs>(args: SelectSubset<T, BdmLeadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BdmLead that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadFindFirstArgs} args - Arguments to find a BdmLead
+     * @example
+     * // Get one BdmLead
+     * const bdmLead = await prisma.bdmLead.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BdmLeadFindFirstArgs>(args?: SelectSubset<T, BdmLeadFindFirstArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BdmLead that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadFindFirstOrThrowArgs} args - Arguments to find a BdmLead
+     * @example
+     * // Get one BdmLead
+     * const bdmLead = await prisma.bdmLead.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BdmLeadFindFirstOrThrowArgs>(args?: SelectSubset<T, BdmLeadFindFirstOrThrowArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BdmLeads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BdmLeads
+     * const bdmLeads = await prisma.bdmLead.findMany()
+     * 
+     * // Get first 10 BdmLeads
+     * const bdmLeads = await prisma.bdmLead.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bdmLeadWithIdOnly = await prisma.bdmLead.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BdmLeadFindManyArgs>(args?: SelectSubset<T, BdmLeadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BdmLead.
+     * @param {BdmLeadCreateArgs} args - Arguments to create a BdmLead.
+     * @example
+     * // Create one BdmLead
+     * const BdmLead = await prisma.bdmLead.create({
+     *   data: {
+     *     // ... data to create a BdmLead
+     *   }
+     * })
+     * 
+     */
+    create<T extends BdmLeadCreateArgs>(args: SelectSubset<T, BdmLeadCreateArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BdmLeads.
+     * @param {BdmLeadCreateManyArgs} args - Arguments to create many BdmLeads.
+     * @example
+     * // Create many BdmLeads
+     * const bdmLead = await prisma.bdmLead.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BdmLeadCreateManyArgs>(args?: SelectSubset<T, BdmLeadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BdmLeads and returns the data saved in the database.
+     * @param {BdmLeadCreateManyAndReturnArgs} args - Arguments to create many BdmLeads.
+     * @example
+     * // Create many BdmLeads
+     * const bdmLead = await prisma.bdmLead.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BdmLeads and only return the `id`
+     * const bdmLeadWithIdOnly = await prisma.bdmLead.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BdmLeadCreateManyAndReturnArgs>(args?: SelectSubset<T, BdmLeadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BdmLead.
+     * @param {BdmLeadDeleteArgs} args - Arguments to delete one BdmLead.
+     * @example
+     * // Delete one BdmLead
+     * const BdmLead = await prisma.bdmLead.delete({
+     *   where: {
+     *     // ... filter to delete one BdmLead
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BdmLeadDeleteArgs>(args: SelectSubset<T, BdmLeadDeleteArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BdmLead.
+     * @param {BdmLeadUpdateArgs} args - Arguments to update one BdmLead.
+     * @example
+     * // Update one BdmLead
+     * const bdmLead = await prisma.bdmLead.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BdmLeadUpdateArgs>(args: SelectSubset<T, BdmLeadUpdateArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BdmLeads.
+     * @param {BdmLeadDeleteManyArgs} args - Arguments to filter BdmLeads to delete.
+     * @example
+     * // Delete a few BdmLeads
+     * const { count } = await prisma.bdmLead.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BdmLeadDeleteManyArgs>(args?: SelectSubset<T, BdmLeadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BdmLeads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BdmLeads
+     * const bdmLead = await prisma.bdmLead.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BdmLeadUpdateManyArgs>(args: SelectSubset<T, BdmLeadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BdmLead.
+     * @param {BdmLeadUpsertArgs} args - Arguments to update or create a BdmLead.
+     * @example
+     * // Update or create a BdmLead
+     * const bdmLead = await prisma.bdmLead.upsert({
+     *   create: {
+     *     // ... data to create a BdmLead
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BdmLead we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BdmLeadUpsertArgs>(args: SelectSubset<T, BdmLeadUpsertArgs<ExtArgs>>): Prisma__BdmLeadClient<$Result.GetResult<Prisma.$BdmLeadPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BdmLeads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadCountArgs} args - Arguments to filter BdmLeads to count.
+     * @example
+     * // Count the number of BdmLeads
+     * const count = await prisma.bdmLead.count({
+     *   where: {
+     *     // ... the filter for the BdmLeads we want to count
+     *   }
+     * })
+    **/
+    count<T extends BdmLeadCountArgs>(
+      args?: Subset<T, BdmLeadCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BdmLeadCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BdmLead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BdmLeadAggregateArgs>(args: Subset<T, BdmLeadAggregateArgs>): Prisma.PrismaPromise<GetBdmLeadAggregateType<T>>
+
+    /**
+     * Group by BdmLead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BdmLeadGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BdmLeadGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BdmLeadGroupByArgs['orderBy'] }
+        : { orderBy?: BdmLeadGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BdmLeadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBdmLeadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BdmLead model
+   */
+  readonly fields: BdmLeadFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BdmLead.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BdmLeadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BdmLead model
+   */ 
+  interface BdmLeadFieldRefs {
+    readonly id: FieldRef<"BdmLead", 'String'>
+    readonly title: FieldRef<"BdmLead", 'String'>
+    readonly company: FieldRef<"BdmLead", 'String'>
+    readonly status: FieldRef<"BdmLead", 'String'>
+    readonly contactName: FieldRef<"BdmLead", 'String'>
+    readonly contactEmail: FieldRef<"BdmLead", 'String'>
+    readonly contactPhone: FieldRef<"BdmLead", 'String'>
+    readonly territory: FieldRef<"BdmLead", 'String'>
+    readonly expectedValue: FieldRef<"BdmLead", 'Float'>
+    readonly notes: FieldRef<"BdmLead", 'String'>
+    readonly createdAt: FieldRef<"BdmLead", 'DateTime'>
+    readonly updatedAt: FieldRef<"BdmLead", 'DateTime'>
+    readonly assignedToUserId: FieldRef<"BdmLead", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BdmLead findUnique
+   */
+  export type BdmLeadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter, which BdmLead to fetch.
+     */
+    where: BdmLeadWhereUniqueInput
+  }
+
+  /**
+   * BdmLead findUniqueOrThrow
+   */
+  export type BdmLeadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter, which BdmLead to fetch.
+     */
+    where: BdmLeadWhereUniqueInput
+  }
+
+  /**
+   * BdmLead findFirst
+   */
+  export type BdmLeadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter, which BdmLead to fetch.
+     */
+    where?: BdmLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BdmLeads to fetch.
+     */
+    orderBy?: BdmLeadOrderByWithRelationInput | BdmLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BdmLeads.
+     */
+    cursor?: BdmLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BdmLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BdmLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BdmLeads.
+     */
+    distinct?: BdmLeadScalarFieldEnum | BdmLeadScalarFieldEnum[]
+  }
+
+  /**
+   * BdmLead findFirstOrThrow
+   */
+  export type BdmLeadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter, which BdmLead to fetch.
+     */
+    where?: BdmLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BdmLeads to fetch.
+     */
+    orderBy?: BdmLeadOrderByWithRelationInput | BdmLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BdmLeads.
+     */
+    cursor?: BdmLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BdmLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BdmLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BdmLeads.
+     */
+    distinct?: BdmLeadScalarFieldEnum | BdmLeadScalarFieldEnum[]
+  }
+
+  /**
+   * BdmLead findMany
+   */
+  export type BdmLeadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter, which BdmLeads to fetch.
+     */
+    where?: BdmLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BdmLeads to fetch.
+     */
+    orderBy?: BdmLeadOrderByWithRelationInput | BdmLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BdmLeads.
+     */
+    cursor?: BdmLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BdmLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BdmLeads.
+     */
+    skip?: number
+    distinct?: BdmLeadScalarFieldEnum | BdmLeadScalarFieldEnum[]
+  }
+
+  /**
+   * BdmLead create
+   */
+  export type BdmLeadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * The data needed to create a BdmLead.
+     */
+    data: XOR<BdmLeadCreateInput, BdmLeadUncheckedCreateInput>
+  }
+
+  /**
+   * BdmLead createMany
+   */
+  export type BdmLeadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BdmLeads.
+     */
+    data: BdmLeadCreateManyInput | BdmLeadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BdmLead createManyAndReturn
+   */
+  export type BdmLeadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BdmLeads.
+     */
+    data: BdmLeadCreateManyInput | BdmLeadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BdmLead update
+   */
+  export type BdmLeadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * The data needed to update a BdmLead.
+     */
+    data: XOR<BdmLeadUpdateInput, BdmLeadUncheckedUpdateInput>
+    /**
+     * Choose, which BdmLead to update.
+     */
+    where: BdmLeadWhereUniqueInput
+  }
+
+  /**
+   * BdmLead updateMany
+   */
+  export type BdmLeadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BdmLeads.
+     */
+    data: XOR<BdmLeadUpdateManyMutationInput, BdmLeadUncheckedUpdateManyInput>
+    /**
+     * Filter which BdmLeads to update
+     */
+    where?: BdmLeadWhereInput
+  }
+
+  /**
+   * BdmLead upsert
+   */
+  export type BdmLeadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * The filter to search for the BdmLead to update in case it exists.
+     */
+    where: BdmLeadWhereUniqueInput
+    /**
+     * In case the BdmLead found by the `where` argument doesn't exist, create a new BdmLead with this data.
+     */
+    create: XOR<BdmLeadCreateInput, BdmLeadUncheckedCreateInput>
+    /**
+     * In case the BdmLead was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BdmLeadUpdateInput, BdmLeadUncheckedUpdateInput>
+  }
+
+  /**
+   * BdmLead delete
+   */
+  export type BdmLeadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+    /**
+     * Filter which BdmLead to delete.
+     */
+    where: BdmLeadWhereUniqueInput
+  }
+
+  /**
+   * BdmLead deleteMany
+   */
+  export type BdmLeadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BdmLeads to delete
+     */
+    where?: BdmLeadWhereInput
+  }
+
+  /**
+   * BdmLead without action
+   */
+  export type BdmLeadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BdmLead
+     */
+    select?: BdmLeadSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TerritoryExpansionPlan
+   */
+
+  export type AggregateTerritoryExpansionPlan = {
+    _count: TerritoryExpansionPlanCountAggregateOutputType | null
+    _avg: TerritoryExpansionPlanAvgAggregateOutputType | null
+    _sum: TerritoryExpansionPlanSumAggregateOutputType | null
+    _min: TerritoryExpansionPlanMinAggregateOutputType | null
+    _max: TerritoryExpansionPlanMaxAggregateOutputType | null
+  }
+
+  export type TerritoryExpansionPlanAvgAggregateOutputType = {
+    budget: number | null
+  }
+
+  export type TerritoryExpansionPlanSumAggregateOutputType = {
+    budget: number | null
+  }
+
+  export type TerritoryExpansionPlanMinAggregateOutputType = {
+    id: string | null
+    regionName: string | null
+    targetDate: Date | null
+    status: string | null
+    budget: number | null
+    demographicNotes: string | null
+    competitorNotes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TerritoryExpansionPlanMaxAggregateOutputType = {
+    id: string | null
+    regionName: string | null
+    targetDate: Date | null
+    status: string | null
+    budget: number | null
+    demographicNotes: string | null
+    competitorNotes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TerritoryExpansionPlanCountAggregateOutputType = {
+    id: number
+    regionName: number
+    targetDate: number
+    status: number
+    budget: number
+    demographicNotes: number
+    competitorNotes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TerritoryExpansionPlanAvgAggregateInputType = {
+    budget?: true
+  }
+
+  export type TerritoryExpansionPlanSumAggregateInputType = {
+    budget?: true
+  }
+
+  export type TerritoryExpansionPlanMinAggregateInputType = {
+    id?: true
+    regionName?: true
+    targetDate?: true
+    status?: true
+    budget?: true
+    demographicNotes?: true
+    competitorNotes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TerritoryExpansionPlanMaxAggregateInputType = {
+    id?: true
+    regionName?: true
+    targetDate?: true
+    status?: true
+    budget?: true
+    demographicNotes?: true
+    competitorNotes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TerritoryExpansionPlanCountAggregateInputType = {
+    id?: true
+    regionName?: true
+    targetDate?: true
+    status?: true
+    budget?: true
+    demographicNotes?: true
+    competitorNotes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TerritoryExpansionPlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TerritoryExpansionPlan to aggregate.
+     */
+    where?: TerritoryExpansionPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TerritoryExpansionPlans to fetch.
+     */
+    orderBy?: TerritoryExpansionPlanOrderByWithRelationInput | TerritoryExpansionPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TerritoryExpansionPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TerritoryExpansionPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TerritoryExpansionPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TerritoryExpansionPlans
+    **/
+    _count?: true | TerritoryExpansionPlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TerritoryExpansionPlanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TerritoryExpansionPlanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TerritoryExpansionPlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TerritoryExpansionPlanMaxAggregateInputType
+  }
+
+  export type GetTerritoryExpansionPlanAggregateType<T extends TerritoryExpansionPlanAggregateArgs> = {
+        [P in keyof T & keyof AggregateTerritoryExpansionPlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTerritoryExpansionPlan[P]>
+      : GetScalarType<T[P], AggregateTerritoryExpansionPlan[P]>
+  }
+
+
+
+
+  export type TerritoryExpansionPlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TerritoryExpansionPlanWhereInput
+    orderBy?: TerritoryExpansionPlanOrderByWithAggregationInput | TerritoryExpansionPlanOrderByWithAggregationInput[]
+    by: TerritoryExpansionPlanScalarFieldEnum[] | TerritoryExpansionPlanScalarFieldEnum
+    having?: TerritoryExpansionPlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TerritoryExpansionPlanCountAggregateInputType | true
+    _avg?: TerritoryExpansionPlanAvgAggregateInputType
+    _sum?: TerritoryExpansionPlanSumAggregateInputType
+    _min?: TerritoryExpansionPlanMinAggregateInputType
+    _max?: TerritoryExpansionPlanMaxAggregateInputType
+  }
+
+  export type TerritoryExpansionPlanGroupByOutputType = {
+    id: string
+    regionName: string
+    targetDate: Date
+    status: string
+    budget: number
+    demographicNotes: string | null
+    competitorNotes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TerritoryExpansionPlanCountAggregateOutputType | null
+    _avg: TerritoryExpansionPlanAvgAggregateOutputType | null
+    _sum: TerritoryExpansionPlanSumAggregateOutputType | null
+    _min: TerritoryExpansionPlanMinAggregateOutputType | null
+    _max: TerritoryExpansionPlanMaxAggregateOutputType | null
+  }
+
+  type GetTerritoryExpansionPlanGroupByPayload<T extends TerritoryExpansionPlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TerritoryExpansionPlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TerritoryExpansionPlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TerritoryExpansionPlanGroupByOutputType[P]>
+            : GetScalarType<T[P], TerritoryExpansionPlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TerritoryExpansionPlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    regionName?: boolean
+    targetDate?: boolean
+    status?: boolean
+    budget?: boolean
+    demographicNotes?: boolean
+    competitorNotes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["territoryExpansionPlan"]>
+
+  export type TerritoryExpansionPlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    regionName?: boolean
+    targetDate?: boolean
+    status?: boolean
+    budget?: boolean
+    demographicNotes?: boolean
+    competitorNotes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["territoryExpansionPlan"]>
+
+  export type TerritoryExpansionPlanSelectScalar = {
+    id?: boolean
+    regionName?: boolean
+    targetDate?: boolean
+    status?: boolean
+    budget?: boolean
+    demographicNotes?: boolean
+    competitorNotes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $TerritoryExpansionPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TerritoryExpansionPlan"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      regionName: string
+      targetDate: Date
+      status: string
+      budget: number
+      demographicNotes: string | null
+      competitorNotes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["territoryExpansionPlan"]>
+    composites: {}
+  }
+
+  type TerritoryExpansionPlanGetPayload<S extends boolean | null | undefined | TerritoryExpansionPlanDefaultArgs> = $Result.GetResult<Prisma.$TerritoryExpansionPlanPayload, S>
+
+  type TerritoryExpansionPlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TerritoryExpansionPlanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TerritoryExpansionPlanCountAggregateInputType | true
+    }
+
+  export interface TerritoryExpansionPlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TerritoryExpansionPlan'], meta: { name: 'TerritoryExpansionPlan' } }
+    /**
+     * Find zero or one TerritoryExpansionPlan that matches the filter.
+     * @param {TerritoryExpansionPlanFindUniqueArgs} args - Arguments to find a TerritoryExpansionPlan
+     * @example
+     * // Get one TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TerritoryExpansionPlanFindUniqueArgs>(args: SelectSubset<T, TerritoryExpansionPlanFindUniqueArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TerritoryExpansionPlan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TerritoryExpansionPlanFindUniqueOrThrowArgs} args - Arguments to find a TerritoryExpansionPlan
+     * @example
+     * // Get one TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TerritoryExpansionPlanFindUniqueOrThrowArgs>(args: SelectSubset<T, TerritoryExpansionPlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TerritoryExpansionPlan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanFindFirstArgs} args - Arguments to find a TerritoryExpansionPlan
+     * @example
+     * // Get one TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TerritoryExpansionPlanFindFirstArgs>(args?: SelectSubset<T, TerritoryExpansionPlanFindFirstArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TerritoryExpansionPlan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanFindFirstOrThrowArgs} args - Arguments to find a TerritoryExpansionPlan
+     * @example
+     * // Get one TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TerritoryExpansionPlanFindFirstOrThrowArgs>(args?: SelectSubset<T, TerritoryExpansionPlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TerritoryExpansionPlans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TerritoryExpansionPlans
+     * const territoryExpansionPlans = await prisma.territoryExpansionPlan.findMany()
+     * 
+     * // Get first 10 TerritoryExpansionPlans
+     * const territoryExpansionPlans = await prisma.territoryExpansionPlan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const territoryExpansionPlanWithIdOnly = await prisma.territoryExpansionPlan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TerritoryExpansionPlanFindManyArgs>(args?: SelectSubset<T, TerritoryExpansionPlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TerritoryExpansionPlan.
+     * @param {TerritoryExpansionPlanCreateArgs} args - Arguments to create a TerritoryExpansionPlan.
+     * @example
+     * // Create one TerritoryExpansionPlan
+     * const TerritoryExpansionPlan = await prisma.territoryExpansionPlan.create({
+     *   data: {
+     *     // ... data to create a TerritoryExpansionPlan
+     *   }
+     * })
+     * 
+     */
+    create<T extends TerritoryExpansionPlanCreateArgs>(args: SelectSubset<T, TerritoryExpansionPlanCreateArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TerritoryExpansionPlans.
+     * @param {TerritoryExpansionPlanCreateManyArgs} args - Arguments to create many TerritoryExpansionPlans.
+     * @example
+     * // Create many TerritoryExpansionPlans
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TerritoryExpansionPlanCreateManyArgs>(args?: SelectSubset<T, TerritoryExpansionPlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TerritoryExpansionPlans and returns the data saved in the database.
+     * @param {TerritoryExpansionPlanCreateManyAndReturnArgs} args - Arguments to create many TerritoryExpansionPlans.
+     * @example
+     * // Create many TerritoryExpansionPlans
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TerritoryExpansionPlans and only return the `id`
+     * const territoryExpansionPlanWithIdOnly = await prisma.territoryExpansionPlan.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TerritoryExpansionPlanCreateManyAndReturnArgs>(args?: SelectSubset<T, TerritoryExpansionPlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TerritoryExpansionPlan.
+     * @param {TerritoryExpansionPlanDeleteArgs} args - Arguments to delete one TerritoryExpansionPlan.
+     * @example
+     * // Delete one TerritoryExpansionPlan
+     * const TerritoryExpansionPlan = await prisma.territoryExpansionPlan.delete({
+     *   where: {
+     *     // ... filter to delete one TerritoryExpansionPlan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TerritoryExpansionPlanDeleteArgs>(args: SelectSubset<T, TerritoryExpansionPlanDeleteArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TerritoryExpansionPlan.
+     * @param {TerritoryExpansionPlanUpdateArgs} args - Arguments to update one TerritoryExpansionPlan.
+     * @example
+     * // Update one TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TerritoryExpansionPlanUpdateArgs>(args: SelectSubset<T, TerritoryExpansionPlanUpdateArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TerritoryExpansionPlans.
+     * @param {TerritoryExpansionPlanDeleteManyArgs} args - Arguments to filter TerritoryExpansionPlans to delete.
+     * @example
+     * // Delete a few TerritoryExpansionPlans
+     * const { count } = await prisma.territoryExpansionPlan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TerritoryExpansionPlanDeleteManyArgs>(args?: SelectSubset<T, TerritoryExpansionPlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TerritoryExpansionPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TerritoryExpansionPlans
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TerritoryExpansionPlanUpdateManyArgs>(args: SelectSubset<T, TerritoryExpansionPlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TerritoryExpansionPlan.
+     * @param {TerritoryExpansionPlanUpsertArgs} args - Arguments to update or create a TerritoryExpansionPlan.
+     * @example
+     * // Update or create a TerritoryExpansionPlan
+     * const territoryExpansionPlan = await prisma.territoryExpansionPlan.upsert({
+     *   create: {
+     *     // ... data to create a TerritoryExpansionPlan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TerritoryExpansionPlan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TerritoryExpansionPlanUpsertArgs>(args: SelectSubset<T, TerritoryExpansionPlanUpsertArgs<ExtArgs>>): Prisma__TerritoryExpansionPlanClient<$Result.GetResult<Prisma.$TerritoryExpansionPlanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TerritoryExpansionPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanCountArgs} args - Arguments to filter TerritoryExpansionPlans to count.
+     * @example
+     * // Count the number of TerritoryExpansionPlans
+     * const count = await prisma.territoryExpansionPlan.count({
+     *   where: {
+     *     // ... the filter for the TerritoryExpansionPlans we want to count
+     *   }
+     * })
+    **/
+    count<T extends TerritoryExpansionPlanCountArgs>(
+      args?: Subset<T, TerritoryExpansionPlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TerritoryExpansionPlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TerritoryExpansionPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TerritoryExpansionPlanAggregateArgs>(args: Subset<T, TerritoryExpansionPlanAggregateArgs>): Prisma.PrismaPromise<GetTerritoryExpansionPlanAggregateType<T>>
+
+    /**
+     * Group by TerritoryExpansionPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerritoryExpansionPlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TerritoryExpansionPlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TerritoryExpansionPlanGroupByArgs['orderBy'] }
+        : { orderBy?: TerritoryExpansionPlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TerritoryExpansionPlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTerritoryExpansionPlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TerritoryExpansionPlan model
+   */
+  readonly fields: TerritoryExpansionPlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TerritoryExpansionPlan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TerritoryExpansionPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TerritoryExpansionPlan model
+   */ 
+  interface TerritoryExpansionPlanFieldRefs {
+    readonly id: FieldRef<"TerritoryExpansionPlan", 'String'>
+    readonly regionName: FieldRef<"TerritoryExpansionPlan", 'String'>
+    readonly targetDate: FieldRef<"TerritoryExpansionPlan", 'DateTime'>
+    readonly status: FieldRef<"TerritoryExpansionPlan", 'String'>
+    readonly budget: FieldRef<"TerritoryExpansionPlan", 'Float'>
+    readonly demographicNotes: FieldRef<"TerritoryExpansionPlan", 'String'>
+    readonly competitorNotes: FieldRef<"TerritoryExpansionPlan", 'String'>
+    readonly createdAt: FieldRef<"TerritoryExpansionPlan", 'DateTime'>
+    readonly updatedAt: FieldRef<"TerritoryExpansionPlan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TerritoryExpansionPlan findUnique
+   */
+  export type TerritoryExpansionPlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which TerritoryExpansionPlan to fetch.
+     */
+    where: TerritoryExpansionPlanWhereUniqueInput
+  }
+
+  /**
+   * TerritoryExpansionPlan findUniqueOrThrow
+   */
+  export type TerritoryExpansionPlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which TerritoryExpansionPlan to fetch.
+     */
+    where: TerritoryExpansionPlanWhereUniqueInput
+  }
+
+  /**
+   * TerritoryExpansionPlan findFirst
+   */
+  export type TerritoryExpansionPlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which TerritoryExpansionPlan to fetch.
+     */
+    where?: TerritoryExpansionPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TerritoryExpansionPlans to fetch.
+     */
+    orderBy?: TerritoryExpansionPlanOrderByWithRelationInput | TerritoryExpansionPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TerritoryExpansionPlans.
+     */
+    cursor?: TerritoryExpansionPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TerritoryExpansionPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TerritoryExpansionPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TerritoryExpansionPlans.
+     */
+    distinct?: TerritoryExpansionPlanScalarFieldEnum | TerritoryExpansionPlanScalarFieldEnum[]
+  }
+
+  /**
+   * TerritoryExpansionPlan findFirstOrThrow
+   */
+  export type TerritoryExpansionPlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which TerritoryExpansionPlan to fetch.
+     */
+    where?: TerritoryExpansionPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TerritoryExpansionPlans to fetch.
+     */
+    orderBy?: TerritoryExpansionPlanOrderByWithRelationInput | TerritoryExpansionPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TerritoryExpansionPlans.
+     */
+    cursor?: TerritoryExpansionPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TerritoryExpansionPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TerritoryExpansionPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TerritoryExpansionPlans.
+     */
+    distinct?: TerritoryExpansionPlanScalarFieldEnum | TerritoryExpansionPlanScalarFieldEnum[]
+  }
+
+  /**
+   * TerritoryExpansionPlan findMany
+   */
+  export type TerritoryExpansionPlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which TerritoryExpansionPlans to fetch.
+     */
+    where?: TerritoryExpansionPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TerritoryExpansionPlans to fetch.
+     */
+    orderBy?: TerritoryExpansionPlanOrderByWithRelationInput | TerritoryExpansionPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TerritoryExpansionPlans.
+     */
+    cursor?: TerritoryExpansionPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TerritoryExpansionPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TerritoryExpansionPlans.
+     */
+    skip?: number
+    distinct?: TerritoryExpansionPlanScalarFieldEnum | TerritoryExpansionPlanScalarFieldEnum[]
+  }
+
+  /**
+   * TerritoryExpansionPlan create
+   */
+  export type TerritoryExpansionPlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * The data needed to create a TerritoryExpansionPlan.
+     */
+    data: XOR<TerritoryExpansionPlanCreateInput, TerritoryExpansionPlanUncheckedCreateInput>
+  }
+
+  /**
+   * TerritoryExpansionPlan createMany
+   */
+  export type TerritoryExpansionPlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TerritoryExpansionPlans.
+     */
+    data: TerritoryExpansionPlanCreateManyInput | TerritoryExpansionPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TerritoryExpansionPlan createManyAndReturn
+   */
+  export type TerritoryExpansionPlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TerritoryExpansionPlans.
+     */
+    data: TerritoryExpansionPlanCreateManyInput | TerritoryExpansionPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TerritoryExpansionPlan update
+   */
+  export type TerritoryExpansionPlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * The data needed to update a TerritoryExpansionPlan.
+     */
+    data: XOR<TerritoryExpansionPlanUpdateInput, TerritoryExpansionPlanUncheckedUpdateInput>
+    /**
+     * Choose, which TerritoryExpansionPlan to update.
+     */
+    where: TerritoryExpansionPlanWhereUniqueInput
+  }
+
+  /**
+   * TerritoryExpansionPlan updateMany
+   */
+  export type TerritoryExpansionPlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TerritoryExpansionPlans.
+     */
+    data: XOR<TerritoryExpansionPlanUpdateManyMutationInput, TerritoryExpansionPlanUncheckedUpdateManyInput>
+    /**
+     * Filter which TerritoryExpansionPlans to update
+     */
+    where?: TerritoryExpansionPlanWhereInput
+  }
+
+  /**
+   * TerritoryExpansionPlan upsert
+   */
+  export type TerritoryExpansionPlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * The filter to search for the TerritoryExpansionPlan to update in case it exists.
+     */
+    where: TerritoryExpansionPlanWhereUniqueInput
+    /**
+     * In case the TerritoryExpansionPlan found by the `where` argument doesn't exist, create a new TerritoryExpansionPlan with this data.
+     */
+    create: XOR<TerritoryExpansionPlanCreateInput, TerritoryExpansionPlanUncheckedCreateInput>
+    /**
+     * In case the TerritoryExpansionPlan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TerritoryExpansionPlanUpdateInput, TerritoryExpansionPlanUncheckedUpdateInput>
+  }
+
+  /**
+   * TerritoryExpansionPlan delete
+   */
+  export type TerritoryExpansionPlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+    /**
+     * Filter which TerritoryExpansionPlan to delete.
+     */
+    where: TerritoryExpansionPlanWhereUniqueInput
+  }
+
+  /**
+   * TerritoryExpansionPlan deleteMany
+   */
+  export type TerritoryExpansionPlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TerritoryExpansionPlans to delete
+     */
+    where?: TerritoryExpansionPlanWhereInput
+  }
+
+  /**
+   * TerritoryExpansionPlan without action
+   */
+  export type TerritoryExpansionPlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TerritoryExpansionPlan
+     */
+    select?: TerritoryExpansionPlanSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PartnershipDeal
+   */
+
+  export type AggregatePartnershipDeal = {
+    _count: PartnershipDealCountAggregateOutputType | null
+    _avg: PartnershipDealAvgAggregateOutputType | null
+    _sum: PartnershipDealSumAggregateOutputType | null
+    _min: PartnershipDealMinAggregateOutputType | null
+    _max: PartnershipDealMaxAggregateOutputType | null
+  }
+
+  export type PartnershipDealAvgAggregateOutputType = {
+    dealValue: number | null
+  }
+
+  export type PartnershipDealSumAggregateOutputType = {
+    dealValue: number | null
+  }
+
+  export type PartnershipDealMinAggregateOutputType = {
+    id: string | null
+    partnerName: string | null
+    partnerType: string | null
+    status: string | null
+    startDate: Date | null
+    endDate: Date | null
+    dealValue: number | null
+    terms: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    managedByUserId: string | null
+  }
+
+  export type PartnershipDealMaxAggregateOutputType = {
+    id: string | null
+    partnerName: string | null
+    partnerType: string | null
+    status: string | null
+    startDate: Date | null
+    endDate: Date | null
+    dealValue: number | null
+    terms: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    managedByUserId: string | null
+  }
+
+  export type PartnershipDealCountAggregateOutputType = {
+    id: number
+    partnerName: number
+    partnerType: number
+    status: number
+    startDate: number
+    endDate: number
+    dealValue: number
+    terms: number
+    createdAt: number
+    updatedAt: number
+    managedByUserId: number
+    _all: number
+  }
+
+
+  export type PartnershipDealAvgAggregateInputType = {
+    dealValue?: true
+  }
+
+  export type PartnershipDealSumAggregateInputType = {
+    dealValue?: true
+  }
+
+  export type PartnershipDealMinAggregateInputType = {
+    id?: true
+    partnerName?: true
+    partnerType?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    dealValue?: true
+    terms?: true
+    createdAt?: true
+    updatedAt?: true
+    managedByUserId?: true
+  }
+
+  export type PartnershipDealMaxAggregateInputType = {
+    id?: true
+    partnerName?: true
+    partnerType?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    dealValue?: true
+    terms?: true
+    createdAt?: true
+    updatedAt?: true
+    managedByUserId?: true
+  }
+
+  export type PartnershipDealCountAggregateInputType = {
+    id?: true
+    partnerName?: true
+    partnerType?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    dealValue?: true
+    terms?: true
+    createdAt?: true
+    updatedAt?: true
+    managedByUserId?: true
+    _all?: true
+  }
+
+  export type PartnershipDealAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnershipDeal to aggregate.
+     */
+    where?: PartnershipDealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnershipDeals to fetch.
+     */
+    orderBy?: PartnershipDealOrderByWithRelationInput | PartnershipDealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PartnershipDealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnershipDeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnershipDeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PartnershipDeals
+    **/
+    _count?: true | PartnershipDealCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PartnershipDealAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PartnershipDealSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PartnershipDealMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PartnershipDealMaxAggregateInputType
+  }
+
+  export type GetPartnershipDealAggregateType<T extends PartnershipDealAggregateArgs> = {
+        [P in keyof T & keyof AggregatePartnershipDeal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePartnershipDeal[P]>
+      : GetScalarType<T[P], AggregatePartnershipDeal[P]>
+  }
+
+
+
+
+  export type PartnershipDealGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnershipDealWhereInput
+    orderBy?: PartnershipDealOrderByWithAggregationInput | PartnershipDealOrderByWithAggregationInput[]
+    by: PartnershipDealScalarFieldEnum[] | PartnershipDealScalarFieldEnum
+    having?: PartnershipDealScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PartnershipDealCountAggregateInputType | true
+    _avg?: PartnershipDealAvgAggregateInputType
+    _sum?: PartnershipDealSumAggregateInputType
+    _min?: PartnershipDealMinAggregateInputType
+    _max?: PartnershipDealMaxAggregateInputType
+  }
+
+  export type PartnershipDealGroupByOutputType = {
+    id: string
+    partnerName: string
+    partnerType: string
+    status: string
+    startDate: Date | null
+    endDate: Date | null
+    dealValue: number | null
+    terms: string | null
+    createdAt: Date
+    updatedAt: Date
+    managedByUserId: string
+    _count: PartnershipDealCountAggregateOutputType | null
+    _avg: PartnershipDealAvgAggregateOutputType | null
+    _sum: PartnershipDealSumAggregateOutputType | null
+    _min: PartnershipDealMinAggregateOutputType | null
+    _max: PartnershipDealMaxAggregateOutputType | null
+  }
+
+  type GetPartnershipDealGroupByPayload<T extends PartnershipDealGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PartnershipDealGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PartnershipDealGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PartnershipDealGroupByOutputType[P]>
+            : GetScalarType<T[P], PartnershipDealGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PartnershipDealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    partnerName?: boolean
+    partnerType?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    dealValue?: boolean
+    terms?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    managedByUserId?: boolean
+  }, ExtArgs["result"]["partnershipDeal"]>
+
+  export type PartnershipDealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    partnerName?: boolean
+    partnerType?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    dealValue?: boolean
+    terms?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    managedByUserId?: boolean
+  }, ExtArgs["result"]["partnershipDeal"]>
+
+  export type PartnershipDealSelectScalar = {
+    id?: boolean
+    partnerName?: boolean
+    partnerType?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    dealValue?: boolean
+    terms?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    managedByUserId?: boolean
+  }
+
+
+  export type $PartnershipDealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PartnershipDeal"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      partnerName: string
+      partnerType: string
+      status: string
+      startDate: Date | null
+      endDate: Date | null
+      dealValue: number | null
+      terms: string | null
+      createdAt: Date
+      updatedAt: Date
+      managedByUserId: string
+    }, ExtArgs["result"]["partnershipDeal"]>
+    composites: {}
+  }
+
+  type PartnershipDealGetPayload<S extends boolean | null | undefined | PartnershipDealDefaultArgs> = $Result.GetResult<Prisma.$PartnershipDealPayload, S>
+
+  type PartnershipDealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PartnershipDealFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PartnershipDealCountAggregateInputType | true
+    }
+
+  export interface PartnershipDealDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnershipDeal'], meta: { name: 'PartnershipDeal' } }
+    /**
+     * Find zero or one PartnershipDeal that matches the filter.
+     * @param {PartnershipDealFindUniqueArgs} args - Arguments to find a PartnershipDeal
+     * @example
+     * // Get one PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PartnershipDealFindUniqueArgs>(args: SelectSubset<T, PartnershipDealFindUniqueArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PartnershipDeal that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PartnershipDealFindUniqueOrThrowArgs} args - Arguments to find a PartnershipDeal
+     * @example
+     * // Get one PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PartnershipDealFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnershipDealFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PartnershipDeal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealFindFirstArgs} args - Arguments to find a PartnershipDeal
+     * @example
+     * // Get one PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PartnershipDealFindFirstArgs>(args?: SelectSubset<T, PartnershipDealFindFirstArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PartnershipDeal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealFindFirstOrThrowArgs} args - Arguments to find a PartnershipDeal
+     * @example
+     * // Get one PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PartnershipDealFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnershipDealFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PartnershipDeals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PartnershipDeals
+     * const partnershipDeals = await prisma.partnershipDeal.findMany()
+     * 
+     * // Get first 10 PartnershipDeals
+     * const partnershipDeals = await prisma.partnershipDeal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const partnershipDealWithIdOnly = await prisma.partnershipDeal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PartnershipDealFindManyArgs>(args?: SelectSubset<T, PartnershipDealFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PartnershipDeal.
+     * @param {PartnershipDealCreateArgs} args - Arguments to create a PartnershipDeal.
+     * @example
+     * // Create one PartnershipDeal
+     * const PartnershipDeal = await prisma.partnershipDeal.create({
+     *   data: {
+     *     // ... data to create a PartnershipDeal
+     *   }
+     * })
+     * 
+     */
+    create<T extends PartnershipDealCreateArgs>(args: SelectSubset<T, PartnershipDealCreateArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PartnershipDeals.
+     * @param {PartnershipDealCreateManyArgs} args - Arguments to create many PartnershipDeals.
+     * @example
+     * // Create many PartnershipDeals
+     * const partnershipDeal = await prisma.partnershipDeal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PartnershipDealCreateManyArgs>(args?: SelectSubset<T, PartnershipDealCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PartnershipDeals and returns the data saved in the database.
+     * @param {PartnershipDealCreateManyAndReturnArgs} args - Arguments to create many PartnershipDeals.
+     * @example
+     * // Create many PartnershipDeals
+     * const partnershipDeal = await prisma.partnershipDeal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PartnershipDeals and only return the `id`
+     * const partnershipDealWithIdOnly = await prisma.partnershipDeal.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PartnershipDealCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnershipDealCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PartnershipDeal.
+     * @param {PartnershipDealDeleteArgs} args - Arguments to delete one PartnershipDeal.
+     * @example
+     * // Delete one PartnershipDeal
+     * const PartnershipDeal = await prisma.partnershipDeal.delete({
+     *   where: {
+     *     // ... filter to delete one PartnershipDeal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PartnershipDealDeleteArgs>(args: SelectSubset<T, PartnershipDealDeleteArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PartnershipDeal.
+     * @param {PartnershipDealUpdateArgs} args - Arguments to update one PartnershipDeal.
+     * @example
+     * // Update one PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PartnershipDealUpdateArgs>(args: SelectSubset<T, PartnershipDealUpdateArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PartnershipDeals.
+     * @param {PartnershipDealDeleteManyArgs} args - Arguments to filter PartnershipDeals to delete.
+     * @example
+     * // Delete a few PartnershipDeals
+     * const { count } = await prisma.partnershipDeal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PartnershipDealDeleteManyArgs>(args?: SelectSubset<T, PartnershipDealDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnershipDeals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PartnershipDeals
+     * const partnershipDeal = await prisma.partnershipDeal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PartnershipDealUpdateManyArgs>(args: SelectSubset<T, PartnershipDealUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PartnershipDeal.
+     * @param {PartnershipDealUpsertArgs} args - Arguments to update or create a PartnershipDeal.
+     * @example
+     * // Update or create a PartnershipDeal
+     * const partnershipDeal = await prisma.partnershipDeal.upsert({
+     *   create: {
+     *     // ... data to create a PartnershipDeal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PartnershipDeal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PartnershipDealUpsertArgs>(args: SelectSubset<T, PartnershipDealUpsertArgs<ExtArgs>>): Prisma__PartnershipDealClient<$Result.GetResult<Prisma.$PartnershipDealPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PartnershipDeals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealCountArgs} args - Arguments to filter PartnershipDeals to count.
+     * @example
+     * // Count the number of PartnershipDeals
+     * const count = await prisma.partnershipDeal.count({
+     *   where: {
+     *     // ... the filter for the PartnershipDeals we want to count
+     *   }
+     * })
+    **/
+    count<T extends PartnershipDealCountArgs>(
+      args?: Subset<T, PartnershipDealCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PartnershipDealCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PartnershipDeal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PartnershipDealAggregateArgs>(args: Subset<T, PartnershipDealAggregateArgs>): Prisma.PrismaPromise<GetPartnershipDealAggregateType<T>>
+
+    /**
+     * Group by PartnershipDeal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnershipDealGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PartnershipDealGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PartnershipDealGroupByArgs['orderBy'] }
+        : { orderBy?: PartnershipDealGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PartnershipDealGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnershipDealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PartnershipDeal model
+   */
+  readonly fields: PartnershipDealFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PartnershipDeal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PartnershipDealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PartnershipDeal model
+   */ 
+  interface PartnershipDealFieldRefs {
+    readonly id: FieldRef<"PartnershipDeal", 'String'>
+    readonly partnerName: FieldRef<"PartnershipDeal", 'String'>
+    readonly partnerType: FieldRef<"PartnershipDeal", 'String'>
+    readonly status: FieldRef<"PartnershipDeal", 'String'>
+    readonly startDate: FieldRef<"PartnershipDeal", 'DateTime'>
+    readonly endDate: FieldRef<"PartnershipDeal", 'DateTime'>
+    readonly dealValue: FieldRef<"PartnershipDeal", 'Float'>
+    readonly terms: FieldRef<"PartnershipDeal", 'String'>
+    readonly createdAt: FieldRef<"PartnershipDeal", 'DateTime'>
+    readonly updatedAt: FieldRef<"PartnershipDeal", 'DateTime'>
+    readonly managedByUserId: FieldRef<"PartnershipDeal", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PartnershipDeal findUnique
+   */
+  export type PartnershipDealFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter, which PartnershipDeal to fetch.
+     */
+    where: PartnershipDealWhereUniqueInput
+  }
+
+  /**
+   * PartnershipDeal findUniqueOrThrow
+   */
+  export type PartnershipDealFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter, which PartnershipDeal to fetch.
+     */
+    where: PartnershipDealWhereUniqueInput
+  }
+
+  /**
+   * PartnershipDeal findFirst
+   */
+  export type PartnershipDealFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter, which PartnershipDeal to fetch.
+     */
+    where?: PartnershipDealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnershipDeals to fetch.
+     */
+    orderBy?: PartnershipDealOrderByWithRelationInput | PartnershipDealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnershipDeals.
+     */
+    cursor?: PartnershipDealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnershipDeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnershipDeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnershipDeals.
+     */
+    distinct?: PartnershipDealScalarFieldEnum | PartnershipDealScalarFieldEnum[]
+  }
+
+  /**
+   * PartnershipDeal findFirstOrThrow
+   */
+  export type PartnershipDealFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter, which PartnershipDeal to fetch.
+     */
+    where?: PartnershipDealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnershipDeals to fetch.
+     */
+    orderBy?: PartnershipDealOrderByWithRelationInput | PartnershipDealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnershipDeals.
+     */
+    cursor?: PartnershipDealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnershipDeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnershipDeals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnershipDeals.
+     */
+    distinct?: PartnershipDealScalarFieldEnum | PartnershipDealScalarFieldEnum[]
+  }
+
+  /**
+   * PartnershipDeal findMany
+   */
+  export type PartnershipDealFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter, which PartnershipDeals to fetch.
+     */
+    where?: PartnershipDealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnershipDeals to fetch.
+     */
+    orderBy?: PartnershipDealOrderByWithRelationInput | PartnershipDealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PartnershipDeals.
+     */
+    cursor?: PartnershipDealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnershipDeals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnershipDeals.
+     */
+    skip?: number
+    distinct?: PartnershipDealScalarFieldEnum | PartnershipDealScalarFieldEnum[]
+  }
+
+  /**
+   * PartnershipDeal create
+   */
+  export type PartnershipDealCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * The data needed to create a PartnershipDeal.
+     */
+    data: XOR<PartnershipDealCreateInput, PartnershipDealUncheckedCreateInput>
+  }
+
+  /**
+   * PartnershipDeal createMany
+   */
+  export type PartnershipDealCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PartnershipDeals.
+     */
+    data: PartnershipDealCreateManyInput | PartnershipDealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PartnershipDeal createManyAndReturn
+   */
+  export type PartnershipDealCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PartnershipDeals.
+     */
+    data: PartnershipDealCreateManyInput | PartnershipDealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PartnershipDeal update
+   */
+  export type PartnershipDealUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * The data needed to update a PartnershipDeal.
+     */
+    data: XOR<PartnershipDealUpdateInput, PartnershipDealUncheckedUpdateInput>
+    /**
+     * Choose, which PartnershipDeal to update.
+     */
+    where: PartnershipDealWhereUniqueInput
+  }
+
+  /**
+   * PartnershipDeal updateMany
+   */
+  export type PartnershipDealUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PartnershipDeals.
+     */
+    data: XOR<PartnershipDealUpdateManyMutationInput, PartnershipDealUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnershipDeals to update
+     */
+    where?: PartnershipDealWhereInput
+  }
+
+  /**
+   * PartnershipDeal upsert
+   */
+  export type PartnershipDealUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * The filter to search for the PartnershipDeal to update in case it exists.
+     */
+    where: PartnershipDealWhereUniqueInput
+    /**
+     * In case the PartnershipDeal found by the `where` argument doesn't exist, create a new PartnershipDeal with this data.
+     */
+    create: XOR<PartnershipDealCreateInput, PartnershipDealUncheckedCreateInput>
+    /**
+     * In case the PartnershipDeal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PartnershipDealUpdateInput, PartnershipDealUncheckedUpdateInput>
+  }
+
+  /**
+   * PartnershipDeal delete
+   */
+  export type PartnershipDealDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+    /**
+     * Filter which PartnershipDeal to delete.
+     */
+    where: PartnershipDealWhereUniqueInput
+  }
+
+  /**
+   * PartnershipDeal deleteMany
+   */
+  export type PartnershipDealDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnershipDeals to delete
+     */
+    where?: PartnershipDealWhereInput
+  }
+
+  /**
+   * PartnershipDeal without action
+   */
+  export type PartnershipDealDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnershipDeal
+     */
+    select?: PartnershipDealSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -229512,6 +232722,57 @@ export namespace Prisma {
   export type BlueprintComponentScalarFieldEnum = (typeof BlueprintComponentScalarFieldEnum)[keyof typeof BlueprintComponentScalarFieldEnum]
 
 
+  export const BdmLeadScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    company: 'company',
+    status: 'status',
+    contactName: 'contactName',
+    contactEmail: 'contactEmail',
+    contactPhone: 'contactPhone',
+    territory: 'territory',
+    expectedValue: 'expectedValue',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    assignedToUserId: 'assignedToUserId'
+  };
+
+  export type BdmLeadScalarFieldEnum = (typeof BdmLeadScalarFieldEnum)[keyof typeof BdmLeadScalarFieldEnum]
+
+
+  export const TerritoryExpansionPlanScalarFieldEnum: {
+    id: 'id',
+    regionName: 'regionName',
+    targetDate: 'targetDate',
+    status: 'status',
+    budget: 'budget',
+    demographicNotes: 'demographicNotes',
+    competitorNotes: 'competitorNotes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TerritoryExpansionPlanScalarFieldEnum = (typeof TerritoryExpansionPlanScalarFieldEnum)[keyof typeof TerritoryExpansionPlanScalarFieldEnum]
+
+
+  export const PartnershipDealScalarFieldEnum: {
+    id: 'id',
+    partnerName: 'partnerName',
+    partnerType: 'partnerType',
+    status: 'status',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    dealValue: 'dealValue',
+    terms: 'terms',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    managedByUserId: 'managedByUserId'
+  };
+
+  export type PartnershipDealScalarFieldEnum = (typeof PartnershipDealScalarFieldEnum)[keyof typeof PartnershipDealScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -242648,6 +245909,258 @@ export namespace Prisma {
     importance?: StringWithAggregatesFilter<"BlueprintComponent"> | string
     createdAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
+  }
+
+  export type BdmLeadWhereInput = {
+    AND?: BdmLeadWhereInput | BdmLeadWhereInput[]
+    OR?: BdmLeadWhereInput[]
+    NOT?: BdmLeadWhereInput | BdmLeadWhereInput[]
+    id?: UuidFilter<"BdmLead"> | string
+    title?: StringFilter<"BdmLead"> | string
+    company?: StringFilter<"BdmLead"> | string
+    status?: StringFilter<"BdmLead"> | string
+    contactName?: StringFilter<"BdmLead"> | string
+    contactEmail?: StringFilter<"BdmLead"> | string
+    contactPhone?: StringNullableFilter<"BdmLead"> | string | null
+    territory?: StringFilter<"BdmLead"> | string
+    expectedValue?: FloatNullableFilter<"BdmLead"> | number | null
+    notes?: StringNullableFilter<"BdmLead"> | string | null
+    createdAt?: DateTimeFilter<"BdmLead"> | Date | string
+    updatedAt?: DateTimeFilter<"BdmLead"> | Date | string
+    assignedToUserId?: UuidFilter<"BdmLead"> | string
+  }
+
+  export type BdmLeadOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    company?: SortOrder
+    status?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    territory?: SortOrder
+    expectedValue?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignedToUserId?: SortOrder
+  }
+
+  export type BdmLeadWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BdmLeadWhereInput | BdmLeadWhereInput[]
+    OR?: BdmLeadWhereInput[]
+    NOT?: BdmLeadWhereInput | BdmLeadWhereInput[]
+    title?: StringFilter<"BdmLead"> | string
+    company?: StringFilter<"BdmLead"> | string
+    status?: StringFilter<"BdmLead"> | string
+    contactName?: StringFilter<"BdmLead"> | string
+    contactEmail?: StringFilter<"BdmLead"> | string
+    contactPhone?: StringNullableFilter<"BdmLead"> | string | null
+    territory?: StringFilter<"BdmLead"> | string
+    expectedValue?: FloatNullableFilter<"BdmLead"> | number | null
+    notes?: StringNullableFilter<"BdmLead"> | string | null
+    createdAt?: DateTimeFilter<"BdmLead"> | Date | string
+    updatedAt?: DateTimeFilter<"BdmLead"> | Date | string
+    assignedToUserId?: UuidFilter<"BdmLead"> | string
+  }, "id">
+
+  export type BdmLeadOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    company?: SortOrder
+    status?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    territory?: SortOrder
+    expectedValue?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignedToUserId?: SortOrder
+    _count?: BdmLeadCountOrderByAggregateInput
+    _avg?: BdmLeadAvgOrderByAggregateInput
+    _max?: BdmLeadMaxOrderByAggregateInput
+    _min?: BdmLeadMinOrderByAggregateInput
+    _sum?: BdmLeadSumOrderByAggregateInput
+  }
+
+  export type BdmLeadScalarWhereWithAggregatesInput = {
+    AND?: BdmLeadScalarWhereWithAggregatesInput | BdmLeadScalarWhereWithAggregatesInput[]
+    OR?: BdmLeadScalarWhereWithAggregatesInput[]
+    NOT?: BdmLeadScalarWhereWithAggregatesInput | BdmLeadScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BdmLead"> | string
+    title?: StringWithAggregatesFilter<"BdmLead"> | string
+    company?: StringWithAggregatesFilter<"BdmLead"> | string
+    status?: StringWithAggregatesFilter<"BdmLead"> | string
+    contactName?: StringWithAggregatesFilter<"BdmLead"> | string
+    contactEmail?: StringWithAggregatesFilter<"BdmLead"> | string
+    contactPhone?: StringNullableWithAggregatesFilter<"BdmLead"> | string | null
+    territory?: StringWithAggregatesFilter<"BdmLead"> | string
+    expectedValue?: FloatNullableWithAggregatesFilter<"BdmLead"> | number | null
+    notes?: StringNullableWithAggregatesFilter<"BdmLead"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BdmLead"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BdmLead"> | Date | string
+    assignedToUserId?: UuidWithAggregatesFilter<"BdmLead"> | string
+  }
+
+  export type TerritoryExpansionPlanWhereInput = {
+    AND?: TerritoryExpansionPlanWhereInput | TerritoryExpansionPlanWhereInput[]
+    OR?: TerritoryExpansionPlanWhereInput[]
+    NOT?: TerritoryExpansionPlanWhereInput | TerritoryExpansionPlanWhereInput[]
+    id?: UuidFilter<"TerritoryExpansionPlan"> | string
+    regionName?: StringFilter<"TerritoryExpansionPlan"> | string
+    targetDate?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+    status?: StringFilter<"TerritoryExpansionPlan"> | string
+    budget?: FloatFilter<"TerritoryExpansionPlan"> | number
+    demographicNotes?: StringNullableFilter<"TerritoryExpansionPlan"> | string | null
+    competitorNotes?: StringNullableFilter<"TerritoryExpansionPlan"> | string | null
+    createdAt?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+  }
+
+  export type TerritoryExpansionPlanOrderByWithRelationInput = {
+    id?: SortOrder
+    regionName?: SortOrder
+    targetDate?: SortOrder
+    status?: SortOrder
+    budget?: SortOrder
+    demographicNotes?: SortOrderInput | SortOrder
+    competitorNotes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TerritoryExpansionPlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TerritoryExpansionPlanWhereInput | TerritoryExpansionPlanWhereInput[]
+    OR?: TerritoryExpansionPlanWhereInput[]
+    NOT?: TerritoryExpansionPlanWhereInput | TerritoryExpansionPlanWhereInput[]
+    regionName?: StringFilter<"TerritoryExpansionPlan"> | string
+    targetDate?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+    status?: StringFilter<"TerritoryExpansionPlan"> | string
+    budget?: FloatFilter<"TerritoryExpansionPlan"> | number
+    demographicNotes?: StringNullableFilter<"TerritoryExpansionPlan"> | string | null
+    competitorNotes?: StringNullableFilter<"TerritoryExpansionPlan"> | string | null
+    createdAt?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"TerritoryExpansionPlan"> | Date | string
+  }, "id">
+
+  export type TerritoryExpansionPlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    regionName?: SortOrder
+    targetDate?: SortOrder
+    status?: SortOrder
+    budget?: SortOrder
+    demographicNotes?: SortOrderInput | SortOrder
+    competitorNotes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TerritoryExpansionPlanCountOrderByAggregateInput
+    _avg?: TerritoryExpansionPlanAvgOrderByAggregateInput
+    _max?: TerritoryExpansionPlanMaxOrderByAggregateInput
+    _min?: TerritoryExpansionPlanMinOrderByAggregateInput
+    _sum?: TerritoryExpansionPlanSumOrderByAggregateInput
+  }
+
+  export type TerritoryExpansionPlanScalarWhereWithAggregatesInput = {
+    AND?: TerritoryExpansionPlanScalarWhereWithAggregatesInput | TerritoryExpansionPlanScalarWhereWithAggregatesInput[]
+    OR?: TerritoryExpansionPlanScalarWhereWithAggregatesInput[]
+    NOT?: TerritoryExpansionPlanScalarWhereWithAggregatesInput | TerritoryExpansionPlanScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"TerritoryExpansionPlan"> | string
+    regionName?: StringWithAggregatesFilter<"TerritoryExpansionPlan"> | string
+    targetDate?: DateTimeWithAggregatesFilter<"TerritoryExpansionPlan"> | Date | string
+    status?: StringWithAggregatesFilter<"TerritoryExpansionPlan"> | string
+    budget?: FloatWithAggregatesFilter<"TerritoryExpansionPlan"> | number
+    demographicNotes?: StringNullableWithAggregatesFilter<"TerritoryExpansionPlan"> | string | null
+    competitorNotes?: StringNullableWithAggregatesFilter<"TerritoryExpansionPlan"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TerritoryExpansionPlan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TerritoryExpansionPlan"> | Date | string
+  }
+
+  export type PartnershipDealWhereInput = {
+    AND?: PartnershipDealWhereInput | PartnershipDealWhereInput[]
+    OR?: PartnershipDealWhereInput[]
+    NOT?: PartnershipDealWhereInput | PartnershipDealWhereInput[]
+    id?: UuidFilter<"PartnershipDeal"> | string
+    partnerName?: StringFilter<"PartnershipDeal"> | string
+    partnerType?: StringFilter<"PartnershipDeal"> | string
+    status?: StringFilter<"PartnershipDeal"> | string
+    startDate?: DateTimeNullableFilter<"PartnershipDeal"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"PartnershipDeal"> | Date | string | null
+    dealValue?: FloatNullableFilter<"PartnershipDeal"> | number | null
+    terms?: StringNullableFilter<"PartnershipDeal"> | string | null
+    createdAt?: DateTimeFilter<"PartnershipDeal"> | Date | string
+    updatedAt?: DateTimeFilter<"PartnershipDeal"> | Date | string
+    managedByUserId?: UuidFilter<"PartnershipDeal"> | string
+  }
+
+  export type PartnershipDealOrderByWithRelationInput = {
+    id?: SortOrder
+    partnerName?: SortOrder
+    partnerType?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    dealValue?: SortOrderInput | SortOrder
+    terms?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    managedByUserId?: SortOrder
+  }
+
+  export type PartnershipDealWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PartnershipDealWhereInput | PartnershipDealWhereInput[]
+    OR?: PartnershipDealWhereInput[]
+    NOT?: PartnershipDealWhereInput | PartnershipDealWhereInput[]
+    partnerName?: StringFilter<"PartnershipDeal"> | string
+    partnerType?: StringFilter<"PartnershipDeal"> | string
+    status?: StringFilter<"PartnershipDeal"> | string
+    startDate?: DateTimeNullableFilter<"PartnershipDeal"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"PartnershipDeal"> | Date | string | null
+    dealValue?: FloatNullableFilter<"PartnershipDeal"> | number | null
+    terms?: StringNullableFilter<"PartnershipDeal"> | string | null
+    createdAt?: DateTimeFilter<"PartnershipDeal"> | Date | string
+    updatedAt?: DateTimeFilter<"PartnershipDeal"> | Date | string
+    managedByUserId?: UuidFilter<"PartnershipDeal"> | string
+  }, "id">
+
+  export type PartnershipDealOrderByWithAggregationInput = {
+    id?: SortOrder
+    partnerName?: SortOrder
+    partnerType?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    dealValue?: SortOrderInput | SortOrder
+    terms?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    managedByUserId?: SortOrder
+    _count?: PartnershipDealCountOrderByAggregateInput
+    _avg?: PartnershipDealAvgOrderByAggregateInput
+    _max?: PartnershipDealMaxOrderByAggregateInput
+    _min?: PartnershipDealMinOrderByAggregateInput
+    _sum?: PartnershipDealSumOrderByAggregateInput
+  }
+
+  export type PartnershipDealScalarWhereWithAggregatesInput = {
+    AND?: PartnershipDealScalarWhereWithAggregatesInput | PartnershipDealScalarWhereWithAggregatesInput[]
+    OR?: PartnershipDealScalarWhereWithAggregatesInput[]
+    NOT?: PartnershipDealScalarWhereWithAggregatesInput | PartnershipDealScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"PartnershipDeal"> | string
+    partnerName?: StringWithAggregatesFilter<"PartnershipDeal"> | string
+    partnerType?: StringWithAggregatesFilter<"PartnershipDeal"> | string
+    status?: StringWithAggregatesFilter<"PartnershipDeal"> | string
+    startDate?: DateTimeNullableWithAggregatesFilter<"PartnershipDeal"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"PartnershipDeal"> | Date | string | null
+    dealValue?: FloatNullableWithAggregatesFilter<"PartnershipDeal"> | number | null
+    terms?: StringNullableWithAggregatesFilter<"PartnershipDeal"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PartnershipDeal"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PartnershipDeal"> | Date | string
+    managedByUserId?: UuidWithAggregatesFilter<"PartnershipDeal"> | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -260043,6 +263556,300 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BdmLeadCreateInput = {
+    id?: string
+    title: string
+    company: string
+    status?: string
+    contactName: string
+    contactEmail: string
+    contactPhone?: string | null
+    territory: string
+    expectedValue?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUserId: string
+  }
+
+  export type BdmLeadUncheckedCreateInput = {
+    id?: string
+    title: string
+    company: string
+    status?: string
+    contactName: string
+    contactEmail: string
+    contactPhone?: string | null
+    territory: string
+    expectedValue?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUserId: string
+  }
+
+  export type BdmLeadUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    contactName?: StringFieldUpdateOperationsInput | string
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    territory?: StringFieldUpdateOperationsInput | string
+    expectedValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BdmLeadUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    contactName?: StringFieldUpdateOperationsInput | string
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    territory?: StringFieldUpdateOperationsInput | string
+    expectedValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BdmLeadCreateManyInput = {
+    id?: string
+    title: string
+    company: string
+    status?: string
+    contactName: string
+    contactEmail: string
+    contactPhone?: string | null
+    territory: string
+    expectedValue?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUserId: string
+  }
+
+  export type BdmLeadUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    contactName?: StringFieldUpdateOperationsInput | string
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    territory?: StringFieldUpdateOperationsInput | string
+    expectedValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BdmLeadUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    contactName?: StringFieldUpdateOperationsInput | string
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    territory?: StringFieldUpdateOperationsInput | string
+    expectedValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TerritoryExpansionPlanCreateInput = {
+    id?: string
+    regionName: string
+    targetDate: Date | string
+    status?: string
+    budget: number
+    demographicNotes?: string | null
+    competitorNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TerritoryExpansionPlanUncheckedCreateInput = {
+    id?: string
+    regionName: string
+    targetDate: Date | string
+    status?: string
+    budget: number
+    demographicNotes?: string | null
+    competitorNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TerritoryExpansionPlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    budget?: FloatFieldUpdateOperationsInput | number
+    demographicNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    competitorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerritoryExpansionPlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    budget?: FloatFieldUpdateOperationsInput | number
+    demographicNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    competitorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerritoryExpansionPlanCreateManyInput = {
+    id?: string
+    regionName: string
+    targetDate: Date | string
+    status?: string
+    budget: number
+    demographicNotes?: string | null
+    competitorNotes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TerritoryExpansionPlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    budget?: FloatFieldUpdateOperationsInput | number
+    demographicNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    competitorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerritoryExpansionPlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    budget?: FloatFieldUpdateOperationsInput | number
+    demographicNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    competitorNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnershipDealCreateInput = {
+    id?: string
+    partnerName: string
+    partnerType?: string
+    status?: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    dealValue?: number | null
+    terms?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    managedByUserId: string
+  }
+
+  export type PartnershipDealUncheckedCreateInput = {
+    id?: string
+    partnerName: string
+    partnerType?: string
+    status?: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    dealValue?: number | null
+    terms?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    managedByUserId: string
+  }
+
+  export type PartnershipDealUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partnerName?: StringFieldUpdateOperationsInput | string
+    partnerType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dealValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    terms?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    managedByUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PartnershipDealUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partnerName?: StringFieldUpdateOperationsInput | string
+    partnerType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dealValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    terms?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    managedByUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PartnershipDealCreateManyInput = {
+    id?: string
+    partnerName: string
+    partnerType?: string
+    status?: string
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    dealValue?: number | null
+    terms?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    managedByUserId: string
+  }
+
+  export type PartnershipDealUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partnerName?: StringFieldUpdateOperationsInput | string
+    partnerType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dealValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    terms?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    managedByUserId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PartnershipDealUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partnerName?: StringFieldUpdateOperationsInput | string
+    partnerType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dealValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    terms?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    managedByUserId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -272655,6 +276462,183 @@ export namespace Prisma {
     importance?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type BdmLeadCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    company?: SortOrder
+    status?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    territory?: SortOrder
+    expectedValue?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignedToUserId?: SortOrder
+  }
+
+  export type BdmLeadAvgOrderByAggregateInput = {
+    expectedValue?: SortOrder
+  }
+
+  export type BdmLeadMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    company?: SortOrder
+    status?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    territory?: SortOrder
+    expectedValue?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignedToUserId?: SortOrder
+  }
+
+  export type BdmLeadMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    company?: SortOrder
+    status?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    territory?: SortOrder
+    expectedValue?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignedToUserId?: SortOrder
+  }
+
+  export type BdmLeadSumOrderByAggregateInput = {
+    expectedValue?: SortOrder
+  }
+
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type TerritoryExpansionPlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    regionName?: SortOrder
+    targetDate?: SortOrder
+    status?: SortOrder
+    budget?: SortOrder
+    demographicNotes?: SortOrder
+    competitorNotes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TerritoryExpansionPlanAvgOrderByAggregateInput = {
+    budget?: SortOrder
+  }
+
+  export type TerritoryExpansionPlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    regionName?: SortOrder
+    targetDate?: SortOrder
+    status?: SortOrder
+    budget?: SortOrder
+    demographicNotes?: SortOrder
+    competitorNotes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TerritoryExpansionPlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    regionName?: SortOrder
+    targetDate?: SortOrder
+    status?: SortOrder
+    budget?: SortOrder
+    demographicNotes?: SortOrder
+    competitorNotes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TerritoryExpansionPlanSumOrderByAggregateInput = {
+    budget?: SortOrder
+  }
+
+  export type PartnershipDealCountOrderByAggregateInput = {
+    id?: SortOrder
+    partnerName?: SortOrder
+    partnerType?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    dealValue?: SortOrder
+    terms?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    managedByUserId?: SortOrder
+  }
+
+  export type PartnershipDealAvgOrderByAggregateInput = {
+    dealValue?: SortOrder
+  }
+
+  export type PartnershipDealMaxOrderByAggregateInput = {
+    id?: SortOrder
+    partnerName?: SortOrder
+    partnerType?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    dealValue?: SortOrder
+    terms?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    managedByUserId?: SortOrder
+  }
+
+  export type PartnershipDealMinOrderByAggregateInput = {
+    id?: SortOrder
+    partnerName?: SortOrder
+    partnerType?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    dealValue?: SortOrder
+    terms?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    managedByUserId?: SortOrder
+  }
+
+  export type PartnershipDealSumOrderByAggregateInput = {
+    dealValue?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -288520,6 +292504,31 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedUuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type AuditLogCreateWithoutActorInput = {
@@ -384054,6 +388063,18 @@ export namespace Prisma {
      * @deprecated Use BlueprintComponentDefaultArgs instead
      */
     export type BlueprintComponentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BlueprintComponentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BdmLeadDefaultArgs instead
+     */
+    export type BdmLeadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BdmLeadDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TerritoryExpansionPlanDefaultArgs instead
+     */
+    export type TerritoryExpansionPlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TerritoryExpansionPlanDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PartnershipDealDefaultArgs instead
+     */
+    export type PartnershipDealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PartnershipDealDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

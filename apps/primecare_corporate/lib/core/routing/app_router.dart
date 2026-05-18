@@ -32,7 +32,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         : AuthNotifier.getDashboardRouteForRole(authState.role ?? ''),
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final requestedRoute = state.uri.toString();
+      final requestedRoute = state.uri.path;
 
       // Ensure SSO Portal URL is configured
       RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');

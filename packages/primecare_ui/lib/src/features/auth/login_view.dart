@@ -243,9 +243,26 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                     return null;
                   },
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => _showForgotPasswordDialog(context, controller),
+                    child: Text(
+                      'Forgot Password?',
+                      style: theme.typography.labelMedium.copyWith(
+                        color: theme.colors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
                 if (widget.state.errorMessage != null) ...[
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 12),
                   _ErrorDisplay(message: widget.state.errorMessage!),
+                ],
+                if (widget.state.successMessage != null) ...[
+                  const SizedBox(height: 12),
+                  _SuccessDisplay(message: widget.state.successMessage!),
                 ],
                 const SizedBox(height: 32),
                 if (widget.state.isLoading)
@@ -263,6 +280,67 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showForgotPasswordDialog(BuildContext context, LoginController controller) {
+    final theme = context.theme;
+    String email = widget.state.email;
+    
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.colors.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Text(
+          'Password Recovery',
+          style: theme.typography.h3,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Enter your email address to receive a secure password reset link.',
+              style: theme.typography.bodyMedium,
+            ),
+            const SizedBox(height: 24),
+            _InputField(
+              label: 'IDENTIFIER',
+              placeholder: 'admin@primecare.com',
+              icon: Icons.email_outlined,
+              initialValue: email,
+              onChanged: (v) => email = v,
+            ),
+          ],
+        ),
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'CANCEL',
+              style: theme.typography.labelMedium.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colors.onSurfaceVariant,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+               Navigator.of(context).pop();
+               await controller.forgotPassword(email);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              elevation: 0,
+            ),
+            child: const Text('SEND RECOVERY LINK', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
     );
   }
@@ -376,6 +454,43 @@ class _ErrorDisplay extends StatelessWidget {
               message,
               style: theme.typography.labelMedium.copyWith(
                 color: theme.colors.error,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SuccessDisplay extends StatelessWidget {
+  final String message;
+  const _SuccessDisplay({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.green.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.check_circle_outline_rounded,
+            size: 16,
+            color: Colors.green,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              message,
+              style: theme.typography.labelMedium.copyWith(
+                color: Colors.green,
                 fontWeight: FontWeight.w600,
               ),
             ),

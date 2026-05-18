@@ -37,6 +37,13 @@ class ClinicalRoutes {
   static const String pswSchedule = '/offices/clinical/roles/psw/schedule';
   static const String pswMessages = '/offices/clinical/roles/psw/messages';
   static const String pswVisitNotes = '/offices/clinical/roles/psw/visit-notes';
+  static const String pswProfile = '/offices/clinical/roles/psw/profile';
+  static const String pswReports = '/offices/clinical/roles/psw/reports';
+  static const String pswDocuments = '/offices/clinical/roles/psw/documents';
+  static const String pswCheckIn = '/offices/clinical/roles/psw/check-in';
+  static const String pswSystemLogs = '/offices/clinical/roles/psw/system-logs';
+  static const String pswNotifications = '/offices/clinical/roles/psw/notifications';
+  static const String pswHelpSupport = '/offices/clinical/roles/psw/help-support';
   static const String careGiverDashboard =
       '/offices/clinical/roles/caregiver/dashboard';
   static const String therapistDashboard =

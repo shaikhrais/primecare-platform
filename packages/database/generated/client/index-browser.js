@@ -1901,6 +1901,48 @@ exports.Prisma.BlueprintComponentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BdmLeadScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  company: 'company',
+  status: 'status',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  territory: 'territory',
+  expectedValue: 'expectedValue',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  assignedToUserId: 'assignedToUserId'
+};
+
+exports.Prisma.TerritoryExpansionPlanScalarFieldEnum = {
+  id: 'id',
+  regionName: 'regionName',
+  targetDate: 'targetDate',
+  status: 'status',
+  budget: 'budget',
+  demographicNotes: 'demographicNotes',
+  competitorNotes: 'competitorNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PartnershipDealScalarFieldEnum = {
+  id: 'id',
+  partnerName: 'partnerName',
+  partnerType: 'partnerType',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  dealValue: 'dealValue',
+  terms: 'terms',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  managedByUserId: 'managedByUserId'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2764,6 +2806,9 @@ exports.Prisma.ModelName = {
   PlatformHealthHistory: 'PlatformHealthHistory',
   AgentScreenBlueprint: 'AgentScreenBlueprint',
   BlueprintComponent: 'BlueprintComponent',
+  BdmLead: 'BdmLead',
+  TerritoryExpansionPlan: 'TerritoryExpansionPlan',
+  PartnershipDeal: 'PartnershipDeal',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

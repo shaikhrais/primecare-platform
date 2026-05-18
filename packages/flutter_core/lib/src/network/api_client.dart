@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import '../security/security_interceptor.dart';
-
+import 'local_cache_service.dart';
+import 'package:flutter/foundation.dart';
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(ref);
@@ -72,6 +73,16 @@ class ApiClient {
   static ApiResponse? _getMockResponse(String path, String method, {dynamic body}) {
     final cleanPath = path.split('?')[0];
 
+    if (cleanPath == '/v1/auth/forgot-password') {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'success': true,
+          'message': 'Password reset link sent to email.',
+        },
+      );
+    }
+
     if (cleanPath == '/v1/auth/me') {
       return ApiResponse(
         statusCode: 200,
@@ -127,6 +138,26 @@ class ApiClient {
       } else {
         return ApiResponse(statusCode: 200, data: _visitNotes);
       }
+    }
+
+    if (cleanPath == '/v1/executive/coo/telemetry') {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'activeOperations': 428,
+          'operationalProductivity': 0.94,
+          'securityClearanceLevel': 4,
+          'clearanceExceptions': 0,
+          'telemetryLabels': ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+          'telemetryData': [75, 82, 80, 94, 91, 98, 95],
+          'logs': [
+            'System initialized at 08:00 AM.',
+            'Facility A: Supply chain optimized.',
+            'Facility B: Shift handovers completed seamlessly.',
+            'Global operations running at 94% efficiency.'
+          ]
+        },
+      );
     }
 
     if (cleanPath == '/v1/psw/messages') {
@@ -237,6 +268,109 @@ class ApiClient {
       );
     }
 
+    if (cleanPath == '/v1/psw/profile') {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'id': 'prov-123',
+          'firstName': 'Jane',
+          'lastName': 'Doe',
+          'role': 'Senior Personal Support Worker',
+          'email': 'jane.doe@primecare.com',
+          'phone': '+1 (555) 123-4567',
+          'region': 'Downtown Clinic District',
+          'avatarUrl': 'https://ui-avatars.com/api/?name=Jane+Doe&background=random',
+        },
+      );
+    }
+
+    if (cleanPath == '/v1/psw/reports') {
+      return ApiResponse(
+        statusCode: 200,
+        data: [
+          {'id': 'rep-1', 'title': 'Shift Report - Week 42', 'date': '2026-10-20T10:00:00Z'},
+          {'id': 'rep-2', 'title': 'Shift Report - Week 41', 'date': '2026-10-13T10:00:00Z'},
+          {'id': 'rep-3', 'title': 'Shift Report - Week 40', 'date': '2026-10-06T10:00:00Z'},
+        ],
+      );
+    }
+
+    if (cleanPath == '/v1/psw/documents') {
+      return ApiResponse(
+        statusCode: 200,
+        data: [
+          {'id': 'doc-1', 'title': 'Care Policies', 'icon': 'book', 'type': 'PDF'},
+          {'id': 'doc-2', 'title': 'Emergency Protocols', 'icon': 'alert-triangle', 'type': 'PDF'},
+          {'id': 'doc-3', 'title': 'Infection Control', 'icon': 'shield', 'type': 'PDF'},
+          {'id': 'doc-4', 'title': 'Training Materials', 'icon': 'graduation-cap', 'type': 'Video'},
+        ],
+      );
+    }
+
+    if (cleanPath == '/v1/psw/check-in') {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'success': true,
+          'message': 'Successfully checked in.',
+          'timestamp': DateTime.now().toIso8601String(),
+        },
+      );
+    }
+
+    if (cleanPath == '/v1/psw/system-logs') {
+      return ApiResponse(
+        statusCode: 200,
+        data: [
+          {'id': 'log-1', 'action': 'Data Sync Completed', 'details': 'Synced with main server', 'timestamp': '10:45 AM'},
+          {'id': 'log-2', 'action': 'Location Verified', 'details': 'GPS ping successful', 'timestamp': '10:30 AM'},
+          {'id': 'log-3', 'action': 'Visit Note Uploaded', 'details': 'Note id: note-1 uploaded', 'timestamp': '09:15 AM'},
+        ],
+      );
+    }
+
+    if (cleanPath == '/v1/psw/notifications') {
+      return ApiResponse(
+        statusCode: 200,
+        data: [
+          {'id': 'notif-1', 'title': 'Schedule Update', 'message': 'Your afternoon shift has been updated.', 'timeAgo': '2m ago', 'isRead': false},
+          {'id': 'notif-2', 'title': 'New Document Available', 'message': 'Please review the updated Infection Control policy.', 'timeAgo': '1h ago', 'isRead': true},
+        ],
+      );
+    }
+
+    if (cleanPath == '/v1/psw/help-support') {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'supportNumber': '1-800-555-CARE',
+          'supportEmail': 'support@primecare.com',
+          'chatAvailable': true,
+          'faqUrl': 'https://help.primecare.com/psw',
+        },
+      );
+    }
+
+    if (cleanPath.startsWith('/v1/business-development')) {
+      return ApiResponse(
+        statusCode: 200,
+        data: {
+          'message': 'Business Development Data successfully fetched.',
+          'data': {
+            'metrics': {
+              'leadsGenerated': 120,
+              'dealsClosed': 15,
+              'pipelineValue': 5000000,
+            },
+            'recentActivities': [
+              {'type': 'MEETING', 'desc': 'Meeting with Hospital ABC'},
+              {'type': 'PROPOSAL', 'desc': 'Proposal sent to Region XYZ'},
+            ]
+          }
+        },
+      );
+    }
+
     // Generic fallbacks for any other endpoints to ensure they never crash
     return ApiResponse(
       statusCode: 200,
@@ -273,11 +407,35 @@ class ApiClient {
         path,
         queryParameters: queryParameters,
       );
+      
+      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+        try {
+          final cacheService = _ref.read(localCacheServiceProvider);
+          await cacheService.cacheResponse(path, response.data ?? {});
+        } catch (e) {
+          debugPrint('Failed to cache response for $path: $e');
+        }
+      }
+
       return ApiResponse(
         data: response.data,
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      try {
+        final cacheService = _ref.read(localCacheServiceProvider);
+        final cachedData = cacheService.getCachedResponse(path);
+        if (cachedData != null) {
+          debugPrint('Serving cached response for $path due to network error.');
+          return ApiResponse(
+            data: cachedData,
+            statusCode: 200,
+          );
+        }
+      } catch (cacheError) {
+        debugPrint('Cache read error for $path: $cacheError');
+      }
+
       final mock = _getMockResponse(path, 'GET');
       if (mock != null) return mock;
       return ApiResponse(
@@ -364,6 +522,7 @@ class ApiConfig {
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
     'register': '/v1/auth/register',
+    'forgotPassword': '/v1/auth/forgot-password',
     'me': '/v1/auth/me',
     'dashboard-metrics': '/v1/governance/dashboard',
     'providerDashboard': '/v1/provider/dashboard',

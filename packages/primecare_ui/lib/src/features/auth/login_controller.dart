@@ -1,4 +1,4 @@
-﻿import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// Immutable state for the Login feature.
 class LoginState {
@@ -6,12 +6,14 @@ class LoginState {
   final String password;
   final bool isLoading;
   final String? errorMessage;
+  final String? successMessage;
 
   const LoginState({
     this.email = '',
     this.password = '',
     this.isLoading = false,
     this.errorMessage,
+    this.successMessage,
   });
 
   LoginState copyWith({
@@ -19,13 +21,16 @@ class LoginState {
     String? password,
     bool? isLoading,
     String? errorMessage,
+    String? successMessage,
     bool clearError = false,
+    bool clearSuccess = false,
   }) {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
+      successMessage: clearSuccess ? null : (successMessage ?? this.successMessage),
     );
   }
 }
@@ -79,6 +84,44 @@ class LoginController extends Notifier<LoginState> {
         isLoading: false,
         errorMessage: 'A connection error occurred. Please try again.',
       );
+    }
+  }
+
+  /// Executes the forgot password sequence.
+  Future<bool> forgotPassword(String targetEmail) async {
+    final email = targetEmail.trim();
+
+    if (email.isEmpty) {
+      state = state.copyWith(errorMessage: 'Please enter your email.');
+      return false;
+    }
+
+    state = state.copyWith(isLoading: true, clearError: true, clearSuccess: true);
+
+    try {
+      final success = await ref
+          .read(authProvider.notifier)
+          .forgotPassword(email);
+
+      if (!success) {
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: 'Failed to send password reset link. Please verify your email.',
+        );
+        return false;
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          successMessage: 'Password reset link sent to $email.',
+        );
+        return true;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'A connection error occurred. Please try again.',
+      );
+      return false;
     }
   }
 

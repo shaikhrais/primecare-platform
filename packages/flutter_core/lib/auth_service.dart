@@ -508,6 +508,58 @@ class AuthNotifier extends Notifier<AuthState> {
     return result.fold((data) => data, (error) => false);
   }
 
+  Future<bool> forgotPassword(String email) async {
+    final result = await Result.guardFuture<bool>(
+      () async {
+        // Offline test mock bypass
+        if (!kReleaseMode && (email.toLowerCase().endsWith('@demo.primecare.com') || email.toLowerCase().endsWith('@primecare.test'))) {
+           ref.read<ExecutionGateService>(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'Offline Forgot Password mock successful.',
+            metadata: {'email': email},
+          );
+          return true;
+        }
+
+        final apiClient = ref.read(apiClientProvider);
+        final response = await apiClient.post(
+          ApiConfig.endpoints['forgotPassword']!,
+          body: {'email': email},
+        );
+
+        if (response.statusCode == 200) {
+          ref.read<ExecutionGateService>(executionGateProvider).passGate(
+            ExecutionGateCategory.auth,
+            'Forgot Password request successful.',
+            metadata: {'email': email},
+          );
+          return true;
+        } else {
+          ref.read<ExecutionGateService>(executionGateProvider).failGate(
+            ExecutionGateCategory.auth,
+            'Forgot Password request declined. Status: ${response.statusCode}',
+            metadata: {'email': email, 'statusCode': response.statusCode},
+          );
+          return false;
+        }
+      },
+      onError: (e, st) {
+        ref.read<ExecutionGateService>(executionGateProvider).failGate(
+          ExecutionGateCategory.auth,
+          'API Connection Exception during forgot password.',
+          error: e,
+          stackTrace: st,
+          metadata: {
+            'email': email,
+            'target': ApiConfig.endpoints['forgotPassword'],
+          },
+        );
+        return false;
+      },
+    );
+    return result.fold((data) => data, (error) => false);
+  }
+
   Future<void> logout() async {
     await Result.guardFuture<void>(
       () async {

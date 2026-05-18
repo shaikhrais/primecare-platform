@@ -129,6 +129,7 @@ class PrimeCareScreen extends AppScreenIntent {
 
   final String? _routeOverride;
   final IconData? icon;
+  final WidgetBuilder? builder;
 
   PrimeCareScreen({
     String? name,
@@ -139,6 +140,7 @@ class PrimeCareScreen extends AppScreenIntent {
     this.resiliencePolicy = const ResiliencePolicy(),
     this.primarySubsystem = PlatformSubsystem.metrics,
     this.icon,
+    this.builder,
     String? route,
   }) : name = name ?? (route ?? '').split('/').last,
        _routeOverride = route;
@@ -152,6 +154,10 @@ class PrimeCareScreen extends AppScreenIntent {
       AppShellBoundary.isActive(context),
       'Layout Invariant Violation: All screens must be rendered within a MasterLayout shell. Direct routing without the shell is prohibited.',
     );
+
+    if (builder != null) {
+      return builder!(context);
+    }
 
     return DefaultNotImplementedView(
       title: title,
