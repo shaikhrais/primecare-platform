@@ -744,6 +744,26 @@ export type TerritoryExpansionPlan = $Result.DefaultSelection<Prisma.$TerritoryE
  */
 export type PartnershipDeal = $Result.DefaultSelection<Prisma.$PartnershipDealPayload>
 /**
+ * Model CorporateKpi
+ * 
+ */
+export type CorporateKpi = $Result.DefaultSelection<Prisma.$CorporateKpiPayload>
+/**
+ * Model CorporateReport
+ * 
+ */
+export type CorporateReport = $Result.DefaultSelection<Prisma.$CorporateReportPayload>
+/**
+ * Model CorporateAlert
+ * 
+ */
+export type CorporateAlert = $Result.DefaultSelection<Prisma.$CorporateAlertPayload>
+/**
+ * Model OrganizationNode
+ * 
+ */
+export type OrganizationNode = $Result.DefaultSelection<Prisma.$OrganizationNodePayload>
+/**
  * Model FamilyAppointment
  * 
  */
@@ -2628,6 +2648,46 @@ export class PrismaClient<
   get partnershipDeal(): Prisma.PartnershipDealDelegate<ExtArgs>;
 
   /**
+   * `prisma.corporateKpi`: Exposes CRUD operations for the **CorporateKpi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CorporateKpis
+    * const corporateKpis = await prisma.corporateKpi.findMany()
+    * ```
+    */
+  get corporateKpi(): Prisma.CorporateKpiDelegate<ExtArgs>;
+
+  /**
+   * `prisma.corporateReport`: Exposes CRUD operations for the **CorporateReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CorporateReports
+    * const corporateReports = await prisma.corporateReport.findMany()
+    * ```
+    */
+  get corporateReport(): Prisma.CorporateReportDelegate<ExtArgs>;
+
+  /**
+   * `prisma.corporateAlert`: Exposes CRUD operations for the **CorporateAlert** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CorporateAlerts
+    * const corporateAlerts = await prisma.corporateAlert.findMany()
+    * ```
+    */
+  get corporateAlert(): Prisma.CorporateAlertDelegate<ExtArgs>;
+
+  /**
+   * `prisma.organizationNode`: Exposes CRUD operations for the **OrganizationNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrganizationNodes
+    * const organizationNodes = await prisma.organizationNode.findMany()
+    * ```
+    */
+  get organizationNode(): Prisma.OrganizationNodeDelegate<ExtArgs>;
+
+  /**
    * `prisma.familyAppointment`: Exposes CRUD operations for the **FamilyAppointment** model.
     * Example usage:
     * ```ts
@@ -3813,6 +3873,10 @@ export namespace Prisma {
     BdmLead: 'BdmLead',
     TerritoryExpansionPlan: 'TerritoryExpansionPlan',
     PartnershipDeal: 'PartnershipDeal',
+    CorporateKpi: 'CorporateKpi',
+    CorporateReport: 'CorporateReport',
+    CorporateAlert: 'CorporateAlert',
+    OrganizationNode: 'OrganizationNode',
     FamilyAppointment: 'FamilyAppointment',
     FamilyCarePlanTask: 'FamilyCarePlanTask',
     FamilyClinicalMessage: 'FamilyClinicalMessage',
@@ -3888,7 +3952,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -14109,6 +14173,286 @@ export namespace Prisma {
           count: {
             args: Prisma.PartnershipDealCountArgs<ExtArgs>
             result: $Utils.Optional<PartnershipDealCountAggregateOutputType> | number
+          }
+        }
+      }
+      CorporateKpi: {
+        payload: Prisma.$CorporateKpiPayload<ExtArgs>
+        fields: Prisma.CorporateKpiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CorporateKpiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CorporateKpiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          findFirst: {
+            args: Prisma.CorporateKpiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CorporateKpiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          findMany: {
+            args: Prisma.CorporateKpiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>[]
+          }
+          create: {
+            args: Prisma.CorporateKpiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          createMany: {
+            args: Prisma.CorporateKpiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CorporateKpiCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>[]
+          }
+          delete: {
+            args: Prisma.CorporateKpiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          update: {
+            args: Prisma.CorporateKpiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          deleteMany: {
+            args: Prisma.CorporateKpiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CorporateKpiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CorporateKpiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateKpiPayload>
+          }
+          aggregate: {
+            args: Prisma.CorporateKpiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCorporateKpi>
+          }
+          groupBy: {
+            args: Prisma.CorporateKpiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CorporateKpiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CorporateKpiCountArgs<ExtArgs>
+            result: $Utils.Optional<CorporateKpiCountAggregateOutputType> | number
+          }
+        }
+      }
+      CorporateReport: {
+        payload: Prisma.$CorporateReportPayload<ExtArgs>
+        fields: Prisma.CorporateReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CorporateReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CorporateReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          findFirst: {
+            args: Prisma.CorporateReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CorporateReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          findMany: {
+            args: Prisma.CorporateReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>[]
+          }
+          create: {
+            args: Prisma.CorporateReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          createMany: {
+            args: Prisma.CorporateReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CorporateReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>[]
+          }
+          delete: {
+            args: Prisma.CorporateReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          update: {
+            args: Prisma.CorporateReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.CorporateReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CorporateReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CorporateReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateReportPayload>
+          }
+          aggregate: {
+            args: Prisma.CorporateReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCorporateReport>
+          }
+          groupBy: {
+            args: Prisma.CorporateReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CorporateReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CorporateReportCountArgs<ExtArgs>
+            result: $Utils.Optional<CorporateReportCountAggregateOutputType> | number
+          }
+        }
+      }
+      CorporateAlert: {
+        payload: Prisma.$CorporateAlertPayload<ExtArgs>
+        fields: Prisma.CorporateAlertFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CorporateAlertFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CorporateAlertFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          findFirst: {
+            args: Prisma.CorporateAlertFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CorporateAlertFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          findMany: {
+            args: Prisma.CorporateAlertFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>[]
+          }
+          create: {
+            args: Prisma.CorporateAlertCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          createMany: {
+            args: Prisma.CorporateAlertCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CorporateAlertCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>[]
+          }
+          delete: {
+            args: Prisma.CorporateAlertDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          update: {
+            args: Prisma.CorporateAlertUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          deleteMany: {
+            args: Prisma.CorporateAlertDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CorporateAlertUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CorporateAlertUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CorporateAlertPayload>
+          }
+          aggregate: {
+            args: Prisma.CorporateAlertAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCorporateAlert>
+          }
+          groupBy: {
+            args: Prisma.CorporateAlertGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CorporateAlertGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CorporateAlertCountArgs<ExtArgs>
+            result: $Utils.Optional<CorporateAlertCountAggregateOutputType> | number
+          }
+        }
+      }
+      OrganizationNode: {
+        payload: Prisma.$OrganizationNodePayload<ExtArgs>
+        fields: Prisma.OrganizationNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          update: {
+            args: Prisma.OrganizationNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OrganizationNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationNodePayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganizationNode>
+          }
+          groupBy: {
+            args: Prisma.OrganizationNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationNodeCountAggregateOutputType> | number
           }
         }
       }
@@ -173624,6 +173968,3760 @@ export namespace Prisma {
 
 
   /**
+   * Model CorporateKpi
+   */
+
+  export type AggregateCorporateKpi = {
+    _count: CorporateKpiCountAggregateOutputType | null
+    _avg: CorporateKpiAvgAggregateOutputType | null
+    _sum: CorporateKpiSumAggregateOutputType | null
+    _min: CorporateKpiMinAggregateOutputType | null
+    _max: CorporateKpiMaxAggregateOutputType | null
+  }
+
+  export type CorporateKpiAvgAggregateOutputType = {
+    metricValue: number | null
+    metricTarget: number | null
+  }
+
+  export type CorporateKpiSumAggregateOutputType = {
+    metricValue: number | null
+    metricTarget: number | null
+  }
+
+  export type CorporateKpiMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    metricName: string | null
+    metricValue: number | null
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date | null
+    roleFocus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateKpiMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    metricName: string | null
+    metricValue: number | null
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date | null
+    roleFocus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateKpiCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    metricName: number
+    metricValue: number
+    metricTarget: number
+    unit: number
+    recordedAt: number
+    roleFocus: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CorporateKpiAvgAggregateInputType = {
+    metricValue?: true
+    metricTarget?: true
+  }
+
+  export type CorporateKpiSumAggregateInputType = {
+    metricValue?: true
+    metricTarget?: true
+  }
+
+  export type CorporateKpiMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateKpiMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateKpiCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricValue?: true
+    metricTarget?: true
+    unit?: true
+    recordedAt?: true
+    roleFocus?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CorporateKpiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateKpi to aggregate.
+     */
+    where?: CorporateKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateKpis to fetch.
+     */
+    orderBy?: CorporateKpiOrderByWithRelationInput | CorporateKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CorporateKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CorporateKpis
+    **/
+    _count?: true | CorporateKpiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CorporateKpiAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CorporateKpiSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CorporateKpiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CorporateKpiMaxAggregateInputType
+  }
+
+  export type GetCorporateKpiAggregateType<T extends CorporateKpiAggregateArgs> = {
+        [P in keyof T & keyof AggregateCorporateKpi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCorporateKpi[P]>
+      : GetScalarType<T[P], AggregateCorporateKpi[P]>
+  }
+
+
+
+
+  export type CorporateKpiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CorporateKpiWhereInput
+    orderBy?: CorporateKpiOrderByWithAggregationInput | CorporateKpiOrderByWithAggregationInput[]
+    by: CorporateKpiScalarFieldEnum[] | CorporateKpiScalarFieldEnum
+    having?: CorporateKpiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CorporateKpiCountAggregateInputType | true
+    _avg?: CorporateKpiAvgAggregateInputType
+    _sum?: CorporateKpiSumAggregateInputType
+    _min?: CorporateKpiMinAggregateInputType
+    _max?: CorporateKpiMaxAggregateInputType
+  }
+
+  export type CorporateKpiGroupByOutputType = {
+    id: string
+    tenantId: string
+    metricName: string
+    metricValue: number
+    metricTarget: number | null
+    unit: string | null
+    recordedAt: Date
+    roleFocus: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CorporateKpiCountAggregateOutputType | null
+    _avg: CorporateKpiAvgAggregateOutputType | null
+    _sum: CorporateKpiSumAggregateOutputType | null
+    _min: CorporateKpiMinAggregateOutputType | null
+    _max: CorporateKpiMaxAggregateOutputType | null
+  }
+
+  type GetCorporateKpiGroupByPayload<T extends CorporateKpiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CorporateKpiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CorporateKpiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CorporateKpiGroupByOutputType[P]>
+            : GetScalarType<T[P], CorporateKpiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CorporateKpiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateKpi"]>
+
+  export type CorporateKpiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateKpi"]>
+
+  export type CorporateKpiSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricValue?: boolean
+    metricTarget?: boolean
+    unit?: boolean
+    recordedAt?: boolean
+    roleFocus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $CorporateKpiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CorporateKpi"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      metricName: string
+      metricValue: number
+      metricTarget: number | null
+      unit: string | null
+      recordedAt: Date
+      roleFocus: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["corporateKpi"]>
+    composites: {}
+  }
+
+  type CorporateKpiGetPayload<S extends boolean | null | undefined | CorporateKpiDefaultArgs> = $Result.GetResult<Prisma.$CorporateKpiPayload, S>
+
+  type CorporateKpiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CorporateKpiFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CorporateKpiCountAggregateInputType | true
+    }
+
+  export interface CorporateKpiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CorporateKpi'], meta: { name: 'CorporateKpi' } }
+    /**
+     * Find zero or one CorporateKpi that matches the filter.
+     * @param {CorporateKpiFindUniqueArgs} args - Arguments to find a CorporateKpi
+     * @example
+     * // Get one CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CorporateKpiFindUniqueArgs>(args: SelectSubset<T, CorporateKpiFindUniqueArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CorporateKpi that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CorporateKpiFindUniqueOrThrowArgs} args - Arguments to find a CorporateKpi
+     * @example
+     * // Get one CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CorporateKpiFindUniqueOrThrowArgs>(args: SelectSubset<T, CorporateKpiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CorporateKpi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiFindFirstArgs} args - Arguments to find a CorporateKpi
+     * @example
+     * // Get one CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CorporateKpiFindFirstArgs>(args?: SelectSubset<T, CorporateKpiFindFirstArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CorporateKpi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiFindFirstOrThrowArgs} args - Arguments to find a CorporateKpi
+     * @example
+     * // Get one CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CorporateKpiFindFirstOrThrowArgs>(args?: SelectSubset<T, CorporateKpiFindFirstOrThrowArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CorporateKpis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CorporateKpis
+     * const corporateKpis = await prisma.corporateKpi.findMany()
+     * 
+     * // Get first 10 CorporateKpis
+     * const corporateKpis = await prisma.corporateKpi.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const corporateKpiWithIdOnly = await prisma.corporateKpi.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CorporateKpiFindManyArgs>(args?: SelectSubset<T, CorporateKpiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CorporateKpi.
+     * @param {CorporateKpiCreateArgs} args - Arguments to create a CorporateKpi.
+     * @example
+     * // Create one CorporateKpi
+     * const CorporateKpi = await prisma.corporateKpi.create({
+     *   data: {
+     *     // ... data to create a CorporateKpi
+     *   }
+     * })
+     * 
+     */
+    create<T extends CorporateKpiCreateArgs>(args: SelectSubset<T, CorporateKpiCreateArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CorporateKpis.
+     * @param {CorporateKpiCreateManyArgs} args - Arguments to create many CorporateKpis.
+     * @example
+     * // Create many CorporateKpis
+     * const corporateKpi = await prisma.corporateKpi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CorporateKpiCreateManyArgs>(args?: SelectSubset<T, CorporateKpiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CorporateKpis and returns the data saved in the database.
+     * @param {CorporateKpiCreateManyAndReturnArgs} args - Arguments to create many CorporateKpis.
+     * @example
+     * // Create many CorporateKpis
+     * const corporateKpi = await prisma.corporateKpi.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CorporateKpis and only return the `id`
+     * const corporateKpiWithIdOnly = await prisma.corporateKpi.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CorporateKpiCreateManyAndReturnArgs>(args?: SelectSubset<T, CorporateKpiCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CorporateKpi.
+     * @param {CorporateKpiDeleteArgs} args - Arguments to delete one CorporateKpi.
+     * @example
+     * // Delete one CorporateKpi
+     * const CorporateKpi = await prisma.corporateKpi.delete({
+     *   where: {
+     *     // ... filter to delete one CorporateKpi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CorporateKpiDeleteArgs>(args: SelectSubset<T, CorporateKpiDeleteArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CorporateKpi.
+     * @param {CorporateKpiUpdateArgs} args - Arguments to update one CorporateKpi.
+     * @example
+     * // Update one CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CorporateKpiUpdateArgs>(args: SelectSubset<T, CorporateKpiUpdateArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CorporateKpis.
+     * @param {CorporateKpiDeleteManyArgs} args - Arguments to filter CorporateKpis to delete.
+     * @example
+     * // Delete a few CorporateKpis
+     * const { count } = await prisma.corporateKpi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CorporateKpiDeleteManyArgs>(args?: SelectSubset<T, CorporateKpiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CorporateKpis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CorporateKpis
+     * const corporateKpi = await prisma.corporateKpi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CorporateKpiUpdateManyArgs>(args: SelectSubset<T, CorporateKpiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CorporateKpi.
+     * @param {CorporateKpiUpsertArgs} args - Arguments to update or create a CorporateKpi.
+     * @example
+     * // Update or create a CorporateKpi
+     * const corporateKpi = await prisma.corporateKpi.upsert({
+     *   create: {
+     *     // ... data to create a CorporateKpi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CorporateKpi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CorporateKpiUpsertArgs>(args: SelectSubset<T, CorporateKpiUpsertArgs<ExtArgs>>): Prisma__CorporateKpiClient<$Result.GetResult<Prisma.$CorporateKpiPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CorporateKpis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiCountArgs} args - Arguments to filter CorporateKpis to count.
+     * @example
+     * // Count the number of CorporateKpis
+     * const count = await prisma.corporateKpi.count({
+     *   where: {
+     *     // ... the filter for the CorporateKpis we want to count
+     *   }
+     * })
+    **/
+    count<T extends CorporateKpiCountArgs>(
+      args?: Subset<T, CorporateKpiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CorporateKpiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CorporateKpi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CorporateKpiAggregateArgs>(args: Subset<T, CorporateKpiAggregateArgs>): Prisma.PrismaPromise<GetCorporateKpiAggregateType<T>>
+
+    /**
+     * Group by CorporateKpi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateKpiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CorporateKpiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CorporateKpiGroupByArgs['orderBy'] }
+        : { orderBy?: CorporateKpiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CorporateKpiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCorporateKpiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CorporateKpi model
+   */
+  readonly fields: CorporateKpiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CorporateKpi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CorporateKpiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CorporateKpi model
+   */ 
+  interface CorporateKpiFieldRefs {
+    readonly id: FieldRef<"CorporateKpi", 'String'>
+    readonly tenantId: FieldRef<"CorporateKpi", 'String'>
+    readonly metricName: FieldRef<"CorporateKpi", 'String'>
+    readonly metricValue: FieldRef<"CorporateKpi", 'Float'>
+    readonly metricTarget: FieldRef<"CorporateKpi", 'Float'>
+    readonly unit: FieldRef<"CorporateKpi", 'String'>
+    readonly recordedAt: FieldRef<"CorporateKpi", 'DateTime'>
+    readonly roleFocus: FieldRef<"CorporateKpi", 'String'>
+    readonly createdAt: FieldRef<"CorporateKpi", 'DateTime'>
+    readonly updatedAt: FieldRef<"CorporateKpi", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CorporateKpi findUnique
+   */
+  export type CorporateKpiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateKpi to fetch.
+     */
+    where: CorporateKpiWhereUniqueInput
+  }
+
+  /**
+   * CorporateKpi findUniqueOrThrow
+   */
+  export type CorporateKpiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateKpi to fetch.
+     */
+    where: CorporateKpiWhereUniqueInput
+  }
+
+  /**
+   * CorporateKpi findFirst
+   */
+  export type CorporateKpiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateKpi to fetch.
+     */
+    where?: CorporateKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateKpis to fetch.
+     */
+    orderBy?: CorporateKpiOrderByWithRelationInput | CorporateKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateKpis.
+     */
+    cursor?: CorporateKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateKpis.
+     */
+    distinct?: CorporateKpiScalarFieldEnum | CorporateKpiScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateKpi findFirstOrThrow
+   */
+  export type CorporateKpiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateKpi to fetch.
+     */
+    where?: CorporateKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateKpis to fetch.
+     */
+    orderBy?: CorporateKpiOrderByWithRelationInput | CorporateKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateKpis.
+     */
+    cursor?: CorporateKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateKpis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateKpis.
+     */
+    distinct?: CorporateKpiScalarFieldEnum | CorporateKpiScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateKpi findMany
+   */
+  export type CorporateKpiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateKpis to fetch.
+     */
+    where?: CorporateKpiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateKpis to fetch.
+     */
+    orderBy?: CorporateKpiOrderByWithRelationInput | CorporateKpiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CorporateKpis.
+     */
+    cursor?: CorporateKpiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateKpis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateKpis.
+     */
+    skip?: number
+    distinct?: CorporateKpiScalarFieldEnum | CorporateKpiScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateKpi create
+   */
+  export type CorporateKpiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * The data needed to create a CorporateKpi.
+     */
+    data: XOR<CorporateKpiCreateInput, CorporateKpiUncheckedCreateInput>
+  }
+
+  /**
+   * CorporateKpi createMany
+   */
+  export type CorporateKpiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CorporateKpis.
+     */
+    data: CorporateKpiCreateManyInput | CorporateKpiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateKpi createManyAndReturn
+   */
+  export type CorporateKpiCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CorporateKpis.
+     */
+    data: CorporateKpiCreateManyInput | CorporateKpiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateKpi update
+   */
+  export type CorporateKpiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * The data needed to update a CorporateKpi.
+     */
+    data: XOR<CorporateKpiUpdateInput, CorporateKpiUncheckedUpdateInput>
+    /**
+     * Choose, which CorporateKpi to update.
+     */
+    where: CorporateKpiWhereUniqueInput
+  }
+
+  /**
+   * CorporateKpi updateMany
+   */
+  export type CorporateKpiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CorporateKpis.
+     */
+    data: XOR<CorporateKpiUpdateManyMutationInput, CorporateKpiUncheckedUpdateManyInput>
+    /**
+     * Filter which CorporateKpis to update
+     */
+    where?: CorporateKpiWhereInput
+  }
+
+  /**
+   * CorporateKpi upsert
+   */
+  export type CorporateKpiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * The filter to search for the CorporateKpi to update in case it exists.
+     */
+    where: CorporateKpiWhereUniqueInput
+    /**
+     * In case the CorporateKpi found by the `where` argument doesn't exist, create a new CorporateKpi with this data.
+     */
+    create: XOR<CorporateKpiCreateInput, CorporateKpiUncheckedCreateInput>
+    /**
+     * In case the CorporateKpi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CorporateKpiUpdateInput, CorporateKpiUncheckedUpdateInput>
+  }
+
+  /**
+   * CorporateKpi delete
+   */
+  export type CorporateKpiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+    /**
+     * Filter which CorporateKpi to delete.
+     */
+    where: CorporateKpiWhereUniqueInput
+  }
+
+  /**
+   * CorporateKpi deleteMany
+   */
+  export type CorporateKpiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateKpis to delete
+     */
+    where?: CorporateKpiWhereInput
+  }
+
+  /**
+   * CorporateKpi without action
+   */
+  export type CorporateKpiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateKpi
+     */
+    select?: CorporateKpiSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CorporateReport
+   */
+
+  export type AggregateCorporateReport = {
+    _count: CorporateReportCountAggregateOutputType | null
+    _min: CorporateReportMinAggregateOutputType | null
+    _max: CorporateReportMaxAggregateOutputType | null
+  }
+
+  export type CorporateReportMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    title: string | null
+    description: string | null
+    reportType: string | null
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateReportMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    title: string | null
+    description: string | null
+    reportType: string | null
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateReportCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    title: number
+    description: number
+    reportType: number
+    fileUrl: number
+    generatedBy: number
+    generatedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CorporateReportMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateReportMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateReportCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    description?: true
+    reportType?: true
+    fileUrl?: true
+    generatedBy?: true
+    generatedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CorporateReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateReport to aggregate.
+     */
+    where?: CorporateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateReports to fetch.
+     */
+    orderBy?: CorporateReportOrderByWithRelationInput | CorporateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CorporateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CorporateReports
+    **/
+    _count?: true | CorporateReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CorporateReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CorporateReportMaxAggregateInputType
+  }
+
+  export type GetCorporateReportAggregateType<T extends CorporateReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateCorporateReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCorporateReport[P]>
+      : GetScalarType<T[P], AggregateCorporateReport[P]>
+  }
+
+
+
+
+  export type CorporateReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CorporateReportWhereInput
+    orderBy?: CorporateReportOrderByWithAggregationInput | CorporateReportOrderByWithAggregationInput[]
+    by: CorporateReportScalarFieldEnum[] | CorporateReportScalarFieldEnum
+    having?: CorporateReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CorporateReportCountAggregateInputType | true
+    _min?: CorporateReportMinAggregateInputType
+    _max?: CorporateReportMaxAggregateInputType
+  }
+
+  export type CorporateReportGroupByOutputType = {
+    id: string
+    tenantId: string
+    title: string
+    description: string | null
+    reportType: string
+    fileUrl: string | null
+    generatedBy: string | null
+    generatedAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: CorporateReportCountAggregateOutputType | null
+    _min: CorporateReportMinAggregateOutputType | null
+    _max: CorporateReportMaxAggregateOutputType | null
+  }
+
+  type GetCorporateReportGroupByPayload<T extends CorporateReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CorporateReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CorporateReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CorporateReportGroupByOutputType[P]>
+            : GetScalarType<T[P], CorporateReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CorporateReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateReport"]>
+
+  export type CorporateReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateReport"]>
+
+  export type CorporateReportSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    description?: boolean
+    reportType?: boolean
+    fileUrl?: boolean
+    generatedBy?: boolean
+    generatedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $CorporateReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CorporateReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      title: string
+      description: string | null
+      reportType: string
+      fileUrl: string | null
+      generatedBy: string | null
+      generatedAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["corporateReport"]>
+    composites: {}
+  }
+
+  type CorporateReportGetPayload<S extends boolean | null | undefined | CorporateReportDefaultArgs> = $Result.GetResult<Prisma.$CorporateReportPayload, S>
+
+  type CorporateReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CorporateReportFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CorporateReportCountAggregateInputType | true
+    }
+
+  export interface CorporateReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CorporateReport'], meta: { name: 'CorporateReport' } }
+    /**
+     * Find zero or one CorporateReport that matches the filter.
+     * @param {CorporateReportFindUniqueArgs} args - Arguments to find a CorporateReport
+     * @example
+     * // Get one CorporateReport
+     * const corporateReport = await prisma.corporateReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CorporateReportFindUniqueArgs>(args: SelectSubset<T, CorporateReportFindUniqueArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CorporateReport that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CorporateReportFindUniqueOrThrowArgs} args - Arguments to find a CorporateReport
+     * @example
+     * // Get one CorporateReport
+     * const corporateReport = await prisma.corporateReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CorporateReportFindUniqueOrThrowArgs>(args: SelectSubset<T, CorporateReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CorporateReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportFindFirstArgs} args - Arguments to find a CorporateReport
+     * @example
+     * // Get one CorporateReport
+     * const corporateReport = await prisma.corporateReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CorporateReportFindFirstArgs>(args?: SelectSubset<T, CorporateReportFindFirstArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CorporateReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportFindFirstOrThrowArgs} args - Arguments to find a CorporateReport
+     * @example
+     * // Get one CorporateReport
+     * const corporateReport = await prisma.corporateReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CorporateReportFindFirstOrThrowArgs>(args?: SelectSubset<T, CorporateReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CorporateReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CorporateReports
+     * const corporateReports = await prisma.corporateReport.findMany()
+     * 
+     * // Get first 10 CorporateReports
+     * const corporateReports = await prisma.corporateReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const corporateReportWithIdOnly = await prisma.corporateReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CorporateReportFindManyArgs>(args?: SelectSubset<T, CorporateReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CorporateReport.
+     * @param {CorporateReportCreateArgs} args - Arguments to create a CorporateReport.
+     * @example
+     * // Create one CorporateReport
+     * const CorporateReport = await prisma.corporateReport.create({
+     *   data: {
+     *     // ... data to create a CorporateReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends CorporateReportCreateArgs>(args: SelectSubset<T, CorporateReportCreateArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CorporateReports.
+     * @param {CorporateReportCreateManyArgs} args - Arguments to create many CorporateReports.
+     * @example
+     * // Create many CorporateReports
+     * const corporateReport = await prisma.corporateReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CorporateReportCreateManyArgs>(args?: SelectSubset<T, CorporateReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CorporateReports and returns the data saved in the database.
+     * @param {CorporateReportCreateManyAndReturnArgs} args - Arguments to create many CorporateReports.
+     * @example
+     * // Create many CorporateReports
+     * const corporateReport = await prisma.corporateReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CorporateReports and only return the `id`
+     * const corporateReportWithIdOnly = await prisma.corporateReport.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CorporateReportCreateManyAndReturnArgs>(args?: SelectSubset<T, CorporateReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CorporateReport.
+     * @param {CorporateReportDeleteArgs} args - Arguments to delete one CorporateReport.
+     * @example
+     * // Delete one CorporateReport
+     * const CorporateReport = await prisma.corporateReport.delete({
+     *   where: {
+     *     // ... filter to delete one CorporateReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CorporateReportDeleteArgs>(args: SelectSubset<T, CorporateReportDeleteArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CorporateReport.
+     * @param {CorporateReportUpdateArgs} args - Arguments to update one CorporateReport.
+     * @example
+     * // Update one CorporateReport
+     * const corporateReport = await prisma.corporateReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CorporateReportUpdateArgs>(args: SelectSubset<T, CorporateReportUpdateArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CorporateReports.
+     * @param {CorporateReportDeleteManyArgs} args - Arguments to filter CorporateReports to delete.
+     * @example
+     * // Delete a few CorporateReports
+     * const { count } = await prisma.corporateReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CorporateReportDeleteManyArgs>(args?: SelectSubset<T, CorporateReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CorporateReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CorporateReports
+     * const corporateReport = await prisma.corporateReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CorporateReportUpdateManyArgs>(args: SelectSubset<T, CorporateReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CorporateReport.
+     * @param {CorporateReportUpsertArgs} args - Arguments to update or create a CorporateReport.
+     * @example
+     * // Update or create a CorporateReport
+     * const corporateReport = await prisma.corporateReport.upsert({
+     *   create: {
+     *     // ... data to create a CorporateReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CorporateReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CorporateReportUpsertArgs>(args: SelectSubset<T, CorporateReportUpsertArgs<ExtArgs>>): Prisma__CorporateReportClient<$Result.GetResult<Prisma.$CorporateReportPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CorporateReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportCountArgs} args - Arguments to filter CorporateReports to count.
+     * @example
+     * // Count the number of CorporateReports
+     * const count = await prisma.corporateReport.count({
+     *   where: {
+     *     // ... the filter for the CorporateReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends CorporateReportCountArgs>(
+      args?: Subset<T, CorporateReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CorporateReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CorporateReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CorporateReportAggregateArgs>(args: Subset<T, CorporateReportAggregateArgs>): Prisma.PrismaPromise<GetCorporateReportAggregateType<T>>
+
+    /**
+     * Group by CorporateReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CorporateReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CorporateReportGroupByArgs['orderBy'] }
+        : { orderBy?: CorporateReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CorporateReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCorporateReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CorporateReport model
+   */
+  readonly fields: CorporateReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CorporateReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CorporateReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CorporateReport model
+   */ 
+  interface CorporateReportFieldRefs {
+    readonly id: FieldRef<"CorporateReport", 'String'>
+    readonly tenantId: FieldRef<"CorporateReport", 'String'>
+    readonly title: FieldRef<"CorporateReport", 'String'>
+    readonly description: FieldRef<"CorporateReport", 'String'>
+    readonly reportType: FieldRef<"CorporateReport", 'String'>
+    readonly fileUrl: FieldRef<"CorporateReport", 'String'>
+    readonly generatedBy: FieldRef<"CorporateReport", 'String'>
+    readonly generatedAt: FieldRef<"CorporateReport", 'DateTime'>
+    readonly createdAt: FieldRef<"CorporateReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"CorporateReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CorporateReport findUnique
+   */
+  export type CorporateReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateReport to fetch.
+     */
+    where: CorporateReportWhereUniqueInput
+  }
+
+  /**
+   * CorporateReport findUniqueOrThrow
+   */
+  export type CorporateReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateReport to fetch.
+     */
+    where: CorporateReportWhereUniqueInput
+  }
+
+  /**
+   * CorporateReport findFirst
+   */
+  export type CorporateReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateReport to fetch.
+     */
+    where?: CorporateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateReports to fetch.
+     */
+    orderBy?: CorporateReportOrderByWithRelationInput | CorporateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateReports.
+     */
+    cursor?: CorporateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateReports.
+     */
+    distinct?: CorporateReportScalarFieldEnum | CorporateReportScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateReport findFirstOrThrow
+   */
+  export type CorporateReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateReport to fetch.
+     */
+    where?: CorporateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateReports to fetch.
+     */
+    orderBy?: CorporateReportOrderByWithRelationInput | CorporateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateReports.
+     */
+    cursor?: CorporateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateReports.
+     */
+    distinct?: CorporateReportScalarFieldEnum | CorporateReportScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateReport findMany
+   */
+  export type CorporateReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateReports to fetch.
+     */
+    where?: CorporateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateReports to fetch.
+     */
+    orderBy?: CorporateReportOrderByWithRelationInput | CorporateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CorporateReports.
+     */
+    cursor?: CorporateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateReports.
+     */
+    skip?: number
+    distinct?: CorporateReportScalarFieldEnum | CorporateReportScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateReport create
+   */
+  export type CorporateReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * The data needed to create a CorporateReport.
+     */
+    data: XOR<CorporateReportCreateInput, CorporateReportUncheckedCreateInput>
+  }
+
+  /**
+   * CorporateReport createMany
+   */
+  export type CorporateReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CorporateReports.
+     */
+    data: CorporateReportCreateManyInput | CorporateReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateReport createManyAndReturn
+   */
+  export type CorporateReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CorporateReports.
+     */
+    data: CorporateReportCreateManyInput | CorporateReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateReport update
+   */
+  export type CorporateReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * The data needed to update a CorporateReport.
+     */
+    data: XOR<CorporateReportUpdateInput, CorporateReportUncheckedUpdateInput>
+    /**
+     * Choose, which CorporateReport to update.
+     */
+    where: CorporateReportWhereUniqueInput
+  }
+
+  /**
+   * CorporateReport updateMany
+   */
+  export type CorporateReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CorporateReports.
+     */
+    data: XOR<CorporateReportUpdateManyMutationInput, CorporateReportUncheckedUpdateManyInput>
+    /**
+     * Filter which CorporateReports to update
+     */
+    where?: CorporateReportWhereInput
+  }
+
+  /**
+   * CorporateReport upsert
+   */
+  export type CorporateReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * The filter to search for the CorporateReport to update in case it exists.
+     */
+    where: CorporateReportWhereUniqueInput
+    /**
+     * In case the CorporateReport found by the `where` argument doesn't exist, create a new CorporateReport with this data.
+     */
+    create: XOR<CorporateReportCreateInput, CorporateReportUncheckedCreateInput>
+    /**
+     * In case the CorporateReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CorporateReportUpdateInput, CorporateReportUncheckedUpdateInput>
+  }
+
+  /**
+   * CorporateReport delete
+   */
+  export type CorporateReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+    /**
+     * Filter which CorporateReport to delete.
+     */
+    where: CorporateReportWhereUniqueInput
+  }
+
+  /**
+   * CorporateReport deleteMany
+   */
+  export type CorporateReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateReports to delete
+     */
+    where?: CorporateReportWhereInput
+  }
+
+  /**
+   * CorporateReport without action
+   */
+  export type CorporateReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateReport
+     */
+    select?: CorporateReportSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CorporateAlert
+   */
+
+  export type AggregateCorporateAlert = {
+    _count: CorporateAlertCountAggregateOutputType | null
+    _min: CorporateAlertMinAggregateOutputType | null
+    _max: CorporateAlertMaxAggregateOutputType | null
+  }
+
+  export type CorporateAlertMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    title: string | null
+    severity: string | null
+    description: string | null
+    isResolved: boolean | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateAlertMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    title: string | null
+    severity: string | null
+    description: string | null
+    isResolved: boolean | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CorporateAlertCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    title: number
+    severity: number
+    description: number
+    isResolved: number
+    resolvedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CorporateAlertMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateAlertMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CorporateAlertCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    title?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CorporateAlertAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateAlert to aggregate.
+     */
+    where?: CorporateAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateAlerts to fetch.
+     */
+    orderBy?: CorporateAlertOrderByWithRelationInput | CorporateAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CorporateAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CorporateAlerts
+    **/
+    _count?: true | CorporateAlertCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CorporateAlertMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CorporateAlertMaxAggregateInputType
+  }
+
+  export type GetCorporateAlertAggregateType<T extends CorporateAlertAggregateArgs> = {
+        [P in keyof T & keyof AggregateCorporateAlert]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCorporateAlert[P]>
+      : GetScalarType<T[P], AggregateCorporateAlert[P]>
+  }
+
+
+
+
+  export type CorporateAlertGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CorporateAlertWhereInput
+    orderBy?: CorporateAlertOrderByWithAggregationInput | CorporateAlertOrderByWithAggregationInput[]
+    by: CorporateAlertScalarFieldEnum[] | CorporateAlertScalarFieldEnum
+    having?: CorporateAlertScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CorporateAlertCountAggregateInputType | true
+    _min?: CorporateAlertMinAggregateInputType
+    _max?: CorporateAlertMaxAggregateInputType
+  }
+
+  export type CorporateAlertGroupByOutputType = {
+    id: string
+    tenantId: string
+    title: string
+    severity: string
+    description: string | null
+    isResolved: boolean
+    resolvedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CorporateAlertCountAggregateOutputType | null
+    _min: CorporateAlertMinAggregateOutputType | null
+    _max: CorporateAlertMaxAggregateOutputType | null
+  }
+
+  type GetCorporateAlertGroupByPayload<T extends CorporateAlertGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CorporateAlertGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CorporateAlertGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CorporateAlertGroupByOutputType[P]>
+            : GetScalarType<T[P], CorporateAlertGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CorporateAlertSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateAlert"]>
+
+  export type CorporateAlertSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["corporateAlert"]>
+
+  export type CorporateAlertSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    title?: boolean
+    severity?: boolean
+    description?: boolean
+    isResolved?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $CorporateAlertPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CorporateAlert"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      title: string
+      severity: string
+      description: string | null
+      isResolved: boolean
+      resolvedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["corporateAlert"]>
+    composites: {}
+  }
+
+  type CorporateAlertGetPayload<S extends boolean | null | undefined | CorporateAlertDefaultArgs> = $Result.GetResult<Prisma.$CorporateAlertPayload, S>
+
+  type CorporateAlertCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CorporateAlertFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CorporateAlertCountAggregateInputType | true
+    }
+
+  export interface CorporateAlertDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CorporateAlert'], meta: { name: 'CorporateAlert' } }
+    /**
+     * Find zero or one CorporateAlert that matches the filter.
+     * @param {CorporateAlertFindUniqueArgs} args - Arguments to find a CorporateAlert
+     * @example
+     * // Get one CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CorporateAlertFindUniqueArgs>(args: SelectSubset<T, CorporateAlertFindUniqueArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CorporateAlert that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CorporateAlertFindUniqueOrThrowArgs} args - Arguments to find a CorporateAlert
+     * @example
+     * // Get one CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CorporateAlertFindUniqueOrThrowArgs>(args: SelectSubset<T, CorporateAlertFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CorporateAlert that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertFindFirstArgs} args - Arguments to find a CorporateAlert
+     * @example
+     * // Get one CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CorporateAlertFindFirstArgs>(args?: SelectSubset<T, CorporateAlertFindFirstArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CorporateAlert that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertFindFirstOrThrowArgs} args - Arguments to find a CorporateAlert
+     * @example
+     * // Get one CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CorporateAlertFindFirstOrThrowArgs>(args?: SelectSubset<T, CorporateAlertFindFirstOrThrowArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CorporateAlerts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CorporateAlerts
+     * const corporateAlerts = await prisma.corporateAlert.findMany()
+     * 
+     * // Get first 10 CorporateAlerts
+     * const corporateAlerts = await prisma.corporateAlert.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const corporateAlertWithIdOnly = await prisma.corporateAlert.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CorporateAlertFindManyArgs>(args?: SelectSubset<T, CorporateAlertFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CorporateAlert.
+     * @param {CorporateAlertCreateArgs} args - Arguments to create a CorporateAlert.
+     * @example
+     * // Create one CorporateAlert
+     * const CorporateAlert = await prisma.corporateAlert.create({
+     *   data: {
+     *     // ... data to create a CorporateAlert
+     *   }
+     * })
+     * 
+     */
+    create<T extends CorporateAlertCreateArgs>(args: SelectSubset<T, CorporateAlertCreateArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CorporateAlerts.
+     * @param {CorporateAlertCreateManyArgs} args - Arguments to create many CorporateAlerts.
+     * @example
+     * // Create many CorporateAlerts
+     * const corporateAlert = await prisma.corporateAlert.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CorporateAlertCreateManyArgs>(args?: SelectSubset<T, CorporateAlertCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CorporateAlerts and returns the data saved in the database.
+     * @param {CorporateAlertCreateManyAndReturnArgs} args - Arguments to create many CorporateAlerts.
+     * @example
+     * // Create many CorporateAlerts
+     * const corporateAlert = await prisma.corporateAlert.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CorporateAlerts and only return the `id`
+     * const corporateAlertWithIdOnly = await prisma.corporateAlert.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CorporateAlertCreateManyAndReturnArgs>(args?: SelectSubset<T, CorporateAlertCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CorporateAlert.
+     * @param {CorporateAlertDeleteArgs} args - Arguments to delete one CorporateAlert.
+     * @example
+     * // Delete one CorporateAlert
+     * const CorporateAlert = await prisma.corporateAlert.delete({
+     *   where: {
+     *     // ... filter to delete one CorporateAlert
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CorporateAlertDeleteArgs>(args: SelectSubset<T, CorporateAlertDeleteArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CorporateAlert.
+     * @param {CorporateAlertUpdateArgs} args - Arguments to update one CorporateAlert.
+     * @example
+     * // Update one CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CorporateAlertUpdateArgs>(args: SelectSubset<T, CorporateAlertUpdateArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CorporateAlerts.
+     * @param {CorporateAlertDeleteManyArgs} args - Arguments to filter CorporateAlerts to delete.
+     * @example
+     * // Delete a few CorporateAlerts
+     * const { count } = await prisma.corporateAlert.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CorporateAlertDeleteManyArgs>(args?: SelectSubset<T, CorporateAlertDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CorporateAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CorporateAlerts
+     * const corporateAlert = await prisma.corporateAlert.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CorporateAlertUpdateManyArgs>(args: SelectSubset<T, CorporateAlertUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CorporateAlert.
+     * @param {CorporateAlertUpsertArgs} args - Arguments to update or create a CorporateAlert.
+     * @example
+     * // Update or create a CorporateAlert
+     * const corporateAlert = await prisma.corporateAlert.upsert({
+     *   create: {
+     *     // ... data to create a CorporateAlert
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CorporateAlert we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CorporateAlertUpsertArgs>(args: SelectSubset<T, CorporateAlertUpsertArgs<ExtArgs>>): Prisma__CorporateAlertClient<$Result.GetResult<Prisma.$CorporateAlertPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CorporateAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertCountArgs} args - Arguments to filter CorporateAlerts to count.
+     * @example
+     * // Count the number of CorporateAlerts
+     * const count = await prisma.corporateAlert.count({
+     *   where: {
+     *     // ... the filter for the CorporateAlerts we want to count
+     *   }
+     * })
+    **/
+    count<T extends CorporateAlertCountArgs>(
+      args?: Subset<T, CorporateAlertCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CorporateAlertCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CorporateAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CorporateAlertAggregateArgs>(args: Subset<T, CorporateAlertAggregateArgs>): Prisma.PrismaPromise<GetCorporateAlertAggregateType<T>>
+
+    /**
+     * Group by CorporateAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CorporateAlertGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CorporateAlertGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CorporateAlertGroupByArgs['orderBy'] }
+        : { orderBy?: CorporateAlertGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CorporateAlertGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCorporateAlertGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CorporateAlert model
+   */
+  readonly fields: CorporateAlertFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CorporateAlert.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CorporateAlertClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CorporateAlert model
+   */ 
+  interface CorporateAlertFieldRefs {
+    readonly id: FieldRef<"CorporateAlert", 'String'>
+    readonly tenantId: FieldRef<"CorporateAlert", 'String'>
+    readonly title: FieldRef<"CorporateAlert", 'String'>
+    readonly severity: FieldRef<"CorporateAlert", 'String'>
+    readonly description: FieldRef<"CorporateAlert", 'String'>
+    readonly isResolved: FieldRef<"CorporateAlert", 'Boolean'>
+    readonly resolvedAt: FieldRef<"CorporateAlert", 'DateTime'>
+    readonly createdAt: FieldRef<"CorporateAlert", 'DateTime'>
+    readonly updatedAt: FieldRef<"CorporateAlert", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CorporateAlert findUnique
+   */
+  export type CorporateAlertFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateAlert to fetch.
+     */
+    where: CorporateAlertWhereUniqueInput
+  }
+
+  /**
+   * CorporateAlert findUniqueOrThrow
+   */
+  export type CorporateAlertFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateAlert to fetch.
+     */
+    where: CorporateAlertWhereUniqueInput
+  }
+
+  /**
+   * CorporateAlert findFirst
+   */
+  export type CorporateAlertFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateAlert to fetch.
+     */
+    where?: CorporateAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateAlerts to fetch.
+     */
+    orderBy?: CorporateAlertOrderByWithRelationInput | CorporateAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateAlerts.
+     */
+    cursor?: CorporateAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateAlerts.
+     */
+    distinct?: CorporateAlertScalarFieldEnum | CorporateAlertScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateAlert findFirstOrThrow
+   */
+  export type CorporateAlertFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateAlert to fetch.
+     */
+    where?: CorporateAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateAlerts to fetch.
+     */
+    orderBy?: CorporateAlertOrderByWithRelationInput | CorporateAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CorporateAlerts.
+     */
+    cursor?: CorporateAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CorporateAlerts.
+     */
+    distinct?: CorporateAlertScalarFieldEnum | CorporateAlertScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateAlert findMany
+   */
+  export type CorporateAlertFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter, which CorporateAlerts to fetch.
+     */
+    where?: CorporateAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CorporateAlerts to fetch.
+     */
+    orderBy?: CorporateAlertOrderByWithRelationInput | CorporateAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CorporateAlerts.
+     */
+    cursor?: CorporateAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CorporateAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CorporateAlerts.
+     */
+    skip?: number
+    distinct?: CorporateAlertScalarFieldEnum | CorporateAlertScalarFieldEnum[]
+  }
+
+  /**
+   * CorporateAlert create
+   */
+  export type CorporateAlertCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * The data needed to create a CorporateAlert.
+     */
+    data: XOR<CorporateAlertCreateInput, CorporateAlertUncheckedCreateInput>
+  }
+
+  /**
+   * CorporateAlert createMany
+   */
+  export type CorporateAlertCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CorporateAlerts.
+     */
+    data: CorporateAlertCreateManyInput | CorporateAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateAlert createManyAndReturn
+   */
+  export type CorporateAlertCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CorporateAlerts.
+     */
+    data: CorporateAlertCreateManyInput | CorporateAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CorporateAlert update
+   */
+  export type CorporateAlertUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * The data needed to update a CorporateAlert.
+     */
+    data: XOR<CorporateAlertUpdateInput, CorporateAlertUncheckedUpdateInput>
+    /**
+     * Choose, which CorporateAlert to update.
+     */
+    where: CorporateAlertWhereUniqueInput
+  }
+
+  /**
+   * CorporateAlert updateMany
+   */
+  export type CorporateAlertUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CorporateAlerts.
+     */
+    data: XOR<CorporateAlertUpdateManyMutationInput, CorporateAlertUncheckedUpdateManyInput>
+    /**
+     * Filter which CorporateAlerts to update
+     */
+    where?: CorporateAlertWhereInput
+  }
+
+  /**
+   * CorporateAlert upsert
+   */
+  export type CorporateAlertUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * The filter to search for the CorporateAlert to update in case it exists.
+     */
+    where: CorporateAlertWhereUniqueInput
+    /**
+     * In case the CorporateAlert found by the `where` argument doesn't exist, create a new CorporateAlert with this data.
+     */
+    create: XOR<CorporateAlertCreateInput, CorporateAlertUncheckedCreateInput>
+    /**
+     * In case the CorporateAlert was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CorporateAlertUpdateInput, CorporateAlertUncheckedUpdateInput>
+  }
+
+  /**
+   * CorporateAlert delete
+   */
+  export type CorporateAlertDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+    /**
+     * Filter which CorporateAlert to delete.
+     */
+    where: CorporateAlertWhereUniqueInput
+  }
+
+  /**
+   * CorporateAlert deleteMany
+   */
+  export type CorporateAlertDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CorporateAlerts to delete
+     */
+    where?: CorporateAlertWhereInput
+  }
+
+  /**
+   * CorporateAlert without action
+   */
+  export type CorporateAlertDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CorporateAlert
+     */
+    select?: CorporateAlertSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OrganizationNode
+   */
+
+  export type AggregateOrganizationNode = {
+    _count: OrganizationNodeCountAggregateOutputType | null
+    _min: OrganizationNodeMinAggregateOutputType | null
+    _max: OrganizationNodeMaxAggregateOutputType | null
+  }
+
+  export type OrganizationNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    title: string | null
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OrganizationNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    title: string | null
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OrganizationNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    name: number
+    title: number
+    department: number
+    reportsToId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OrganizationNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OrganizationNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OrganizationNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    title?: true
+    department?: true
+    reportsToId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OrganizationNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationNode to aggregate.
+     */
+    where?: OrganizationNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationNodes to fetch.
+     */
+    orderBy?: OrganizationNodeOrderByWithRelationInput | OrganizationNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OrganizationNodes
+    **/
+    _count?: true | OrganizationNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationNodeMaxAggregateInputType
+  }
+
+  export type GetOrganizationNodeAggregateType<T extends OrganizationNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganizationNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganizationNode[P]>
+      : GetScalarType<T[P], AggregateOrganizationNode[P]>
+  }
+
+
+
+
+  export type OrganizationNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationNodeWhereInput
+    orderBy?: OrganizationNodeOrderByWithAggregationInput | OrganizationNodeOrderByWithAggregationInput[]
+    by: OrganizationNodeScalarFieldEnum[] | OrganizationNodeScalarFieldEnum
+    having?: OrganizationNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationNodeCountAggregateInputType | true
+    _min?: OrganizationNodeMinAggregateInputType
+    _max?: OrganizationNodeMaxAggregateInputType
+  }
+
+  export type OrganizationNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    name: string
+    title: string
+    department: string | null
+    reportsToId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: OrganizationNodeCountAggregateOutputType | null
+    _min: OrganizationNodeMinAggregateOutputType | null
+    _max: OrganizationNodeMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationNodeGroupByPayload<T extends OrganizationNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["organizationNode"]>
+
+  export type OrganizationNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["organizationNode"]>
+
+  export type OrganizationNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    title?: boolean
+    department?: boolean
+    reportsToId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $OrganizationNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OrganizationNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      name: string
+      title: string
+      department: string | null
+      reportsToId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["organizationNode"]>
+    composites: {}
+  }
+
+  type OrganizationNodeGetPayload<S extends boolean | null | undefined | OrganizationNodeDefaultArgs> = $Result.GetResult<Prisma.$OrganizationNodePayload, S>
+
+  type OrganizationNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OrganizationNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OrganizationNodeCountAggregateInputType | true
+    }
+
+  export interface OrganizationNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrganizationNode'], meta: { name: 'OrganizationNode' } }
+    /**
+     * Find zero or one OrganizationNode that matches the filter.
+     * @param {OrganizationNodeFindUniqueArgs} args - Arguments to find a OrganizationNode
+     * @example
+     * // Get one OrganizationNode
+     * const organizationNode = await prisma.organizationNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationNodeFindUniqueArgs>(args: SelectSubset<T, OrganizationNodeFindUniqueArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OrganizationNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OrganizationNodeFindUniqueOrThrowArgs} args - Arguments to find a OrganizationNode
+     * @example
+     * // Get one OrganizationNode
+     * const organizationNode = await prisma.organizationNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OrganizationNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeFindFirstArgs} args - Arguments to find a OrganizationNode
+     * @example
+     * // Get one OrganizationNode
+     * const organizationNode = await prisma.organizationNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationNodeFindFirstArgs>(args?: SelectSubset<T, OrganizationNodeFindFirstArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OrganizationNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeFindFirstOrThrowArgs} args - Arguments to find a OrganizationNode
+     * @example
+     * // Get one OrganizationNode
+     * const organizationNode = await prisma.organizationNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OrganizationNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OrganizationNodes
+     * const organizationNodes = await prisma.organizationNode.findMany()
+     * 
+     * // Get first 10 OrganizationNodes
+     * const organizationNodes = await prisma.organizationNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationNodeWithIdOnly = await prisma.organizationNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationNodeFindManyArgs>(args?: SelectSubset<T, OrganizationNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OrganizationNode.
+     * @param {OrganizationNodeCreateArgs} args - Arguments to create a OrganizationNode.
+     * @example
+     * // Create one OrganizationNode
+     * const OrganizationNode = await prisma.organizationNode.create({
+     *   data: {
+     *     // ... data to create a OrganizationNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationNodeCreateArgs>(args: SelectSubset<T, OrganizationNodeCreateArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OrganizationNodes.
+     * @param {OrganizationNodeCreateManyArgs} args - Arguments to create many OrganizationNodes.
+     * @example
+     * // Create many OrganizationNodes
+     * const organizationNode = await prisma.organizationNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationNodeCreateManyArgs>(args?: SelectSubset<T, OrganizationNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OrganizationNodes and returns the data saved in the database.
+     * @param {OrganizationNodeCreateManyAndReturnArgs} args - Arguments to create many OrganizationNodes.
+     * @example
+     * // Create many OrganizationNodes
+     * const organizationNode = await prisma.organizationNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OrganizationNodes and only return the `id`
+     * const organizationNodeWithIdOnly = await prisma.organizationNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OrganizationNode.
+     * @param {OrganizationNodeDeleteArgs} args - Arguments to delete one OrganizationNode.
+     * @example
+     * // Delete one OrganizationNode
+     * const OrganizationNode = await prisma.organizationNode.delete({
+     *   where: {
+     *     // ... filter to delete one OrganizationNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationNodeDeleteArgs>(args: SelectSubset<T, OrganizationNodeDeleteArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OrganizationNode.
+     * @param {OrganizationNodeUpdateArgs} args - Arguments to update one OrganizationNode.
+     * @example
+     * // Update one OrganizationNode
+     * const organizationNode = await prisma.organizationNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationNodeUpdateArgs>(args: SelectSubset<T, OrganizationNodeUpdateArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OrganizationNodes.
+     * @param {OrganizationNodeDeleteManyArgs} args - Arguments to filter OrganizationNodes to delete.
+     * @example
+     * // Delete a few OrganizationNodes
+     * const { count } = await prisma.organizationNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationNodeDeleteManyArgs>(args?: SelectSubset<T, OrganizationNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OrganizationNodes
+     * const organizationNode = await prisma.organizationNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationNodeUpdateManyArgs>(args: SelectSubset<T, OrganizationNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OrganizationNode.
+     * @param {OrganizationNodeUpsertArgs} args - Arguments to update or create a OrganizationNode.
+     * @example
+     * // Update or create a OrganizationNode
+     * const organizationNode = await prisma.organizationNode.upsert({
+     *   create: {
+     *     // ... data to create a OrganizationNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OrganizationNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationNodeUpsertArgs>(args: SelectSubset<T, OrganizationNodeUpsertArgs<ExtArgs>>): Prisma__OrganizationNodeClient<$Result.GetResult<Prisma.$OrganizationNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OrganizationNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeCountArgs} args - Arguments to filter OrganizationNodes to count.
+     * @example
+     * // Count the number of OrganizationNodes
+     * const count = await prisma.organizationNode.count({
+     *   where: {
+     *     // ... the filter for the OrganizationNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationNodeCountArgs>(
+      args?: Subset<T, OrganizationNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OrganizationNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationNodeAggregateArgs>(args: Subset<T, OrganizationNodeAggregateArgs>): Prisma.PrismaPromise<GetOrganizationNodeAggregateType<T>>
+
+    /**
+     * Group by OrganizationNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationNodeGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OrganizationNode model
+   */
+  readonly fields: OrganizationNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OrganizationNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OrganizationNode model
+   */ 
+  interface OrganizationNodeFieldRefs {
+    readonly id: FieldRef<"OrganizationNode", 'String'>
+    readonly tenantId: FieldRef<"OrganizationNode", 'String'>
+    readonly name: FieldRef<"OrganizationNode", 'String'>
+    readonly title: FieldRef<"OrganizationNode", 'String'>
+    readonly department: FieldRef<"OrganizationNode", 'String'>
+    readonly reportsToId: FieldRef<"OrganizationNode", 'String'>
+    readonly createdAt: FieldRef<"OrganizationNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"OrganizationNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OrganizationNode findUnique
+   */
+  export type OrganizationNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which OrganizationNode to fetch.
+     */
+    where: OrganizationNodeWhereUniqueInput
+  }
+
+  /**
+   * OrganizationNode findUniqueOrThrow
+   */
+  export type OrganizationNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which OrganizationNode to fetch.
+     */
+    where: OrganizationNodeWhereUniqueInput
+  }
+
+  /**
+   * OrganizationNode findFirst
+   */
+  export type OrganizationNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which OrganizationNode to fetch.
+     */
+    where?: OrganizationNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationNodes to fetch.
+     */
+    orderBy?: OrganizationNodeOrderByWithRelationInput | OrganizationNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationNodes.
+     */
+    cursor?: OrganizationNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationNodes.
+     */
+    distinct?: OrganizationNodeScalarFieldEnum | OrganizationNodeScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationNode findFirstOrThrow
+   */
+  export type OrganizationNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which OrganizationNode to fetch.
+     */
+    where?: OrganizationNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationNodes to fetch.
+     */
+    orderBy?: OrganizationNodeOrderByWithRelationInput | OrganizationNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationNodes.
+     */
+    cursor?: OrganizationNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationNodes.
+     */
+    distinct?: OrganizationNodeScalarFieldEnum | OrganizationNodeScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationNode findMany
+   */
+  export type OrganizationNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which OrganizationNodes to fetch.
+     */
+    where?: OrganizationNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationNodes to fetch.
+     */
+    orderBy?: OrganizationNodeOrderByWithRelationInput | OrganizationNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OrganizationNodes.
+     */
+    cursor?: OrganizationNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationNodes.
+     */
+    skip?: number
+    distinct?: OrganizationNodeScalarFieldEnum | OrganizationNodeScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationNode create
+   */
+  export type OrganizationNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a OrganizationNode.
+     */
+    data: XOR<OrganizationNodeCreateInput, OrganizationNodeUncheckedCreateInput>
+  }
+
+  /**
+   * OrganizationNode createMany
+   */
+  export type OrganizationNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OrganizationNodes.
+     */
+    data: OrganizationNodeCreateManyInput | OrganizationNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationNode createManyAndReturn
+   */
+  export type OrganizationNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OrganizationNodes.
+     */
+    data: OrganizationNodeCreateManyInput | OrganizationNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationNode update
+   */
+  export type OrganizationNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a OrganizationNode.
+     */
+    data: XOR<OrganizationNodeUpdateInput, OrganizationNodeUncheckedUpdateInput>
+    /**
+     * Choose, which OrganizationNode to update.
+     */
+    where: OrganizationNodeWhereUniqueInput
+  }
+
+  /**
+   * OrganizationNode updateMany
+   */
+  export type OrganizationNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OrganizationNodes.
+     */
+    data: XOR<OrganizationNodeUpdateManyMutationInput, OrganizationNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationNodes to update
+     */
+    where?: OrganizationNodeWhereInput
+  }
+
+  /**
+   * OrganizationNode upsert
+   */
+  export type OrganizationNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the OrganizationNode to update in case it exists.
+     */
+    where: OrganizationNodeWhereUniqueInput
+    /**
+     * In case the OrganizationNode found by the `where` argument doesn't exist, create a new OrganizationNode with this data.
+     */
+    create: XOR<OrganizationNodeCreateInput, OrganizationNodeUncheckedCreateInput>
+    /**
+     * In case the OrganizationNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationNodeUpdateInput, OrganizationNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * OrganizationNode delete
+   */
+  export type OrganizationNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+    /**
+     * Filter which OrganizationNode to delete.
+     */
+    where: OrganizationNodeWhereUniqueInput
+  }
+
+  /**
+   * OrganizationNode deleteMany
+   */
+  export type OrganizationNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationNodes to delete
+     */
+    where?: OrganizationNodeWhereInput
+  }
+
+  /**
+   * OrganizationNode without action
+   */
+  export type OrganizationNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationNode
+     */
+    select?: OrganizationNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FamilyAppointment
    */
 
@@ -232773,6 +236871,67 @@ export namespace Prisma {
   export type PartnershipDealScalarFieldEnum = (typeof PartnershipDealScalarFieldEnum)[keyof typeof PartnershipDealScalarFieldEnum]
 
 
+  export const CorporateKpiScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    metricName: 'metricName',
+    metricValue: 'metricValue',
+    metricTarget: 'metricTarget',
+    unit: 'unit',
+    recordedAt: 'recordedAt',
+    roleFocus: 'roleFocus',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CorporateKpiScalarFieldEnum = (typeof CorporateKpiScalarFieldEnum)[keyof typeof CorporateKpiScalarFieldEnum]
+
+
+  export const CorporateReportScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    title: 'title',
+    description: 'description',
+    reportType: 'reportType',
+    fileUrl: 'fileUrl',
+    generatedBy: 'generatedBy',
+    generatedAt: 'generatedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CorporateReportScalarFieldEnum = (typeof CorporateReportScalarFieldEnum)[keyof typeof CorporateReportScalarFieldEnum]
+
+
+  export const CorporateAlertScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    title: 'title',
+    severity: 'severity',
+    description: 'description',
+    isResolved: 'isResolved',
+    resolvedAt: 'resolvedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CorporateAlertScalarFieldEnum = (typeof CorporateAlertScalarFieldEnum)[keyof typeof CorporateAlertScalarFieldEnum]
+
+
+  export const OrganizationNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    name: 'name',
+    title: 'title',
+    department: 'department',
+    reportsToId: 'reportsToId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OrganizationNodeScalarFieldEnum = (typeof OrganizationNodeScalarFieldEnum)[keyof typeof OrganizationNodeScalarFieldEnum]
+
+
   export const FamilyAppointmentScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -246161,6 +250320,301 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PartnershipDeal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PartnershipDeal"> | Date | string
     managedByUserId?: UuidWithAggregatesFilter<"PartnershipDeal"> | string
+  }
+
+  export type CorporateKpiWhereInput = {
+    AND?: CorporateKpiWhereInput | CorporateKpiWhereInput[]
+    OR?: CorporateKpiWhereInput[]
+    NOT?: CorporateKpiWhereInput | CorporateKpiWhereInput[]
+    id?: StringFilter<"CorporateKpi"> | string
+    tenantId?: StringFilter<"CorporateKpi"> | string
+    metricName?: StringFilter<"CorporateKpi"> | string
+    metricValue?: FloatFilter<"CorporateKpi"> | number
+    metricTarget?: FloatNullableFilter<"CorporateKpi"> | number | null
+    unit?: StringNullableFilter<"CorporateKpi"> | string | null
+    recordedAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+    roleFocus?: StringNullableFilter<"CorporateKpi"> | string | null
+    createdAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+  }
+
+  export type CorporateKpiOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateKpiWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CorporateKpiWhereInput | CorporateKpiWhereInput[]
+    OR?: CorporateKpiWhereInput[]
+    NOT?: CorporateKpiWhereInput | CorporateKpiWhereInput[]
+    tenantId?: StringFilter<"CorporateKpi"> | string
+    metricName?: StringFilter<"CorporateKpi"> | string
+    metricValue?: FloatFilter<"CorporateKpi"> | number
+    metricTarget?: FloatNullableFilter<"CorporateKpi"> | number | null
+    unit?: StringNullableFilter<"CorporateKpi"> | string | null
+    recordedAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+    roleFocus?: StringNullableFilter<"CorporateKpi"> | string | null
+    createdAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateKpi"> | Date | string
+  }, "id">
+
+  export type CorporateKpiOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CorporateKpiCountOrderByAggregateInput
+    _avg?: CorporateKpiAvgOrderByAggregateInput
+    _max?: CorporateKpiMaxOrderByAggregateInput
+    _min?: CorporateKpiMinOrderByAggregateInput
+    _sum?: CorporateKpiSumOrderByAggregateInput
+  }
+
+  export type CorporateKpiScalarWhereWithAggregatesInput = {
+    AND?: CorporateKpiScalarWhereWithAggregatesInput | CorporateKpiScalarWhereWithAggregatesInput[]
+    OR?: CorporateKpiScalarWhereWithAggregatesInput[]
+    NOT?: CorporateKpiScalarWhereWithAggregatesInput | CorporateKpiScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CorporateKpi"> | string
+    tenantId?: StringWithAggregatesFilter<"CorporateKpi"> | string
+    metricName?: StringWithAggregatesFilter<"CorporateKpi"> | string
+    metricValue?: FloatWithAggregatesFilter<"CorporateKpi"> | number
+    metricTarget?: FloatNullableWithAggregatesFilter<"CorporateKpi"> | number | null
+    unit?: StringNullableWithAggregatesFilter<"CorporateKpi"> | string | null
+    recordedAt?: DateTimeWithAggregatesFilter<"CorporateKpi"> | Date | string
+    roleFocus?: StringNullableWithAggregatesFilter<"CorporateKpi"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CorporateKpi"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CorporateKpi"> | Date | string
+  }
+
+  export type CorporateReportWhereInput = {
+    AND?: CorporateReportWhereInput | CorporateReportWhereInput[]
+    OR?: CorporateReportWhereInput[]
+    NOT?: CorporateReportWhereInput | CorporateReportWhereInput[]
+    id?: StringFilter<"CorporateReport"> | string
+    tenantId?: StringFilter<"CorporateReport"> | string
+    title?: StringFilter<"CorporateReport"> | string
+    description?: StringNullableFilter<"CorporateReport"> | string | null
+    reportType?: StringFilter<"CorporateReport"> | string
+    fileUrl?: StringNullableFilter<"CorporateReport"> | string | null
+    generatedBy?: StringNullableFilter<"CorporateReport"> | string | null
+    generatedAt?: DateTimeFilter<"CorporateReport"> | Date | string
+    createdAt?: DateTimeFilter<"CorporateReport"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateReport"> | Date | string
+  }
+
+  export type CorporateReportOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CorporateReportWhereInput | CorporateReportWhereInput[]
+    OR?: CorporateReportWhereInput[]
+    NOT?: CorporateReportWhereInput | CorporateReportWhereInput[]
+    tenantId?: StringFilter<"CorporateReport"> | string
+    title?: StringFilter<"CorporateReport"> | string
+    description?: StringNullableFilter<"CorporateReport"> | string | null
+    reportType?: StringFilter<"CorporateReport"> | string
+    fileUrl?: StringNullableFilter<"CorporateReport"> | string | null
+    generatedBy?: StringNullableFilter<"CorporateReport"> | string | null
+    generatedAt?: DateTimeFilter<"CorporateReport"> | Date | string
+    createdAt?: DateTimeFilter<"CorporateReport"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateReport"> | Date | string
+  }, "id">
+
+  export type CorporateReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CorporateReportCountOrderByAggregateInput
+    _max?: CorporateReportMaxOrderByAggregateInput
+    _min?: CorporateReportMinOrderByAggregateInput
+  }
+
+  export type CorporateReportScalarWhereWithAggregatesInput = {
+    AND?: CorporateReportScalarWhereWithAggregatesInput | CorporateReportScalarWhereWithAggregatesInput[]
+    OR?: CorporateReportScalarWhereWithAggregatesInput[]
+    NOT?: CorporateReportScalarWhereWithAggregatesInput | CorporateReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CorporateReport"> | string
+    tenantId?: StringWithAggregatesFilter<"CorporateReport"> | string
+    title?: StringWithAggregatesFilter<"CorporateReport"> | string
+    description?: StringNullableWithAggregatesFilter<"CorporateReport"> | string | null
+    reportType?: StringWithAggregatesFilter<"CorporateReport"> | string
+    fileUrl?: StringNullableWithAggregatesFilter<"CorporateReport"> | string | null
+    generatedBy?: StringNullableWithAggregatesFilter<"CorporateReport"> | string | null
+    generatedAt?: DateTimeWithAggregatesFilter<"CorporateReport"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"CorporateReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CorporateReport"> | Date | string
+  }
+
+  export type CorporateAlertWhereInput = {
+    AND?: CorporateAlertWhereInput | CorporateAlertWhereInput[]
+    OR?: CorporateAlertWhereInput[]
+    NOT?: CorporateAlertWhereInput | CorporateAlertWhereInput[]
+    id?: StringFilter<"CorporateAlert"> | string
+    tenantId?: StringFilter<"CorporateAlert"> | string
+    title?: StringFilter<"CorporateAlert"> | string
+    severity?: StringFilter<"CorporateAlert"> | string
+    description?: StringNullableFilter<"CorporateAlert"> | string | null
+    isResolved?: BoolFilter<"CorporateAlert"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"CorporateAlert"> | Date | string | null
+    createdAt?: DateTimeFilter<"CorporateAlert"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateAlert"> | Date | string
+  }
+
+  export type CorporateAlertOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateAlertWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CorporateAlertWhereInput | CorporateAlertWhereInput[]
+    OR?: CorporateAlertWhereInput[]
+    NOT?: CorporateAlertWhereInput | CorporateAlertWhereInput[]
+    tenantId?: StringFilter<"CorporateAlert"> | string
+    title?: StringFilter<"CorporateAlert"> | string
+    severity?: StringFilter<"CorporateAlert"> | string
+    description?: StringNullableFilter<"CorporateAlert"> | string | null
+    isResolved?: BoolFilter<"CorporateAlert"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"CorporateAlert"> | Date | string | null
+    createdAt?: DateTimeFilter<"CorporateAlert"> | Date | string
+    updatedAt?: DateTimeFilter<"CorporateAlert"> | Date | string
+  }, "id">
+
+  export type CorporateAlertOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CorporateAlertCountOrderByAggregateInput
+    _max?: CorporateAlertMaxOrderByAggregateInput
+    _min?: CorporateAlertMinOrderByAggregateInput
+  }
+
+  export type CorporateAlertScalarWhereWithAggregatesInput = {
+    AND?: CorporateAlertScalarWhereWithAggregatesInput | CorporateAlertScalarWhereWithAggregatesInput[]
+    OR?: CorporateAlertScalarWhereWithAggregatesInput[]
+    NOT?: CorporateAlertScalarWhereWithAggregatesInput | CorporateAlertScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CorporateAlert"> | string
+    tenantId?: StringWithAggregatesFilter<"CorporateAlert"> | string
+    title?: StringWithAggregatesFilter<"CorporateAlert"> | string
+    severity?: StringWithAggregatesFilter<"CorporateAlert"> | string
+    description?: StringNullableWithAggregatesFilter<"CorporateAlert"> | string | null
+    isResolved?: BoolWithAggregatesFilter<"CorporateAlert"> | boolean
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"CorporateAlert"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CorporateAlert"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CorporateAlert"> | Date | string
+  }
+
+  export type OrganizationNodeWhereInput = {
+    AND?: OrganizationNodeWhereInput | OrganizationNodeWhereInput[]
+    OR?: OrganizationNodeWhereInput[]
+    NOT?: OrganizationNodeWhereInput | OrganizationNodeWhereInput[]
+    id?: StringFilter<"OrganizationNode"> | string
+    tenantId?: StringFilter<"OrganizationNode"> | string
+    name?: StringFilter<"OrganizationNode"> | string
+    title?: StringFilter<"OrganizationNode"> | string
+    department?: StringNullableFilter<"OrganizationNode"> | string | null
+    reportsToId?: StringNullableFilter<"OrganizationNode"> | string | null
+    createdAt?: DateTimeFilter<"OrganizationNode"> | Date | string
+    updatedAt?: DateTimeFilter<"OrganizationNode"> | Date | string
+  }
+
+  export type OrganizationNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    reportsToId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OrganizationNodeWhereInput | OrganizationNodeWhereInput[]
+    OR?: OrganizationNodeWhereInput[]
+    NOT?: OrganizationNodeWhereInput | OrganizationNodeWhereInput[]
+    tenantId?: StringFilter<"OrganizationNode"> | string
+    name?: StringFilter<"OrganizationNode"> | string
+    title?: StringFilter<"OrganizationNode"> | string
+    department?: StringNullableFilter<"OrganizationNode"> | string | null
+    reportsToId?: StringNullableFilter<"OrganizationNode"> | string | null
+    createdAt?: DateTimeFilter<"OrganizationNode"> | Date | string
+    updatedAt?: DateTimeFilter<"OrganizationNode"> | Date | string
+  }, "id">
+
+  export type OrganizationNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    reportsToId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OrganizationNodeCountOrderByAggregateInput
+    _max?: OrganizationNodeMaxOrderByAggregateInput
+    _min?: OrganizationNodeMinOrderByAggregateInput
+  }
+
+  export type OrganizationNodeScalarWhereWithAggregatesInput = {
+    AND?: OrganizationNodeScalarWhereWithAggregatesInput | OrganizationNodeScalarWhereWithAggregatesInput[]
+    OR?: OrganizationNodeScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationNodeScalarWhereWithAggregatesInput | OrganizationNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OrganizationNode"> | string
+    tenantId?: StringWithAggregatesFilter<"OrganizationNode"> | string
+    name?: StringWithAggregatesFilter<"OrganizationNode"> | string
+    title?: StringWithAggregatesFilter<"OrganizationNode"> | string
+    department?: StringNullableWithAggregatesFilter<"OrganizationNode"> | string | null
+    reportsToId?: StringNullableWithAggregatesFilter<"OrganizationNode"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
   }
 
   export type FamilyAppointmentWhereInput = {
@@ -263850,6 +268304,349 @@ export namespace Prisma {
     managedByUserId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type CorporateKpiCreateInput = {
+    id?: string
+    tenantId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateKpiUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateKpiUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateKpiUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateKpiCreateManyInput = {
+    id?: string
+    tenantId: string
+    metricName: string
+    metricValue: number
+    metricTarget?: number | null
+    unit?: string | null
+    recordedAt?: Date | string
+    roleFocus?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateKpiUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateKpiUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricValue?: FloatFieldUpdateOperationsInput | number
+    metricTarget?: NullableFloatFieldUpdateOperationsInput | number | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleFocus?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateReportCreateInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateReportUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateReportCreateManyInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    reportType: string
+    fileUrl?: string | null
+    generatedBy?: string | null
+    generatedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    reportType?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateAlertCreateInput = {
+    id?: string
+    tenantId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateAlertUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateAlertUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateAlertUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateAlertCreateManyInput = {
+    id?: string
+    tenantId: string
+    title: string
+    severity: string
+    description?: string | null
+    isResolved?: boolean
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CorporateAlertUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CorporateAlertUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationNodeCreateInput = {
+    id?: string
+    tenantId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    name: string
+    title: string
+    department?: string | null
+    reportsToId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FamilyAppointmentCreateInput = {
     id?: string
     title: string
@@ -276639,6 +281436,163 @@ export namespace Prisma {
 
   export type PartnershipDealSumOrderByAggregateInput = {
     dealValue?: SortOrder
+  }
+
+  export type CorporateKpiCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateKpiAvgOrderByAggregateInput = {
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+  }
+
+  export type CorporateKpiMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateKpiMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+    unit?: SortOrder
+    recordedAt?: SortOrder
+    roleFocus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateKpiSumOrderByAggregateInput = {
+    metricValue?: SortOrder
+    metricTarget?: SortOrder
+  }
+
+  export type CorporateReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    reportType?: SortOrder
+    fileUrl?: SortOrder
+    generatedBy?: SortOrder
+    generatedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateAlertCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateAlertMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CorporateAlertMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    title?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type FamilyAppointmentCountOrderByAggregateInput = {
@@ -388075,6 +393029,22 @@ export namespace Prisma {
      * @deprecated Use PartnershipDealDefaultArgs instead
      */
     export type PartnershipDealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PartnershipDealDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CorporateKpiDefaultArgs instead
+     */
+    export type CorporateKpiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CorporateKpiDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CorporateReportDefaultArgs instead
+     */
+    export type CorporateReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CorporateReportDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CorporateAlertDefaultArgs instead
+     */
+    export type CorporateAlertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CorporateAlertDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OrganizationNodeDefaultArgs instead
+     */
+    export type OrganizationNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationNodeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FamilyAppointmentDefaultArgs instead
      */

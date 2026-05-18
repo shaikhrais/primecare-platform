@@ -21,6 +21,7 @@ enum PlatformRole {
   shareholder,
   legal,
   ciso,
+  itAdmin,
 
   // Business Development
   regionalManagerOntario,

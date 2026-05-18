@@ -1943,6 +1943,55 @@ exports.Prisma.PartnershipDealScalarFieldEnum = {
   managedByUserId: 'managedByUserId'
 };
 
+exports.Prisma.CorporateKpiScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  metricName: 'metricName',
+  metricValue: 'metricValue',
+  metricTarget: 'metricTarget',
+  unit: 'unit',
+  recordedAt: 'recordedAt',
+  roleFocus: 'roleFocus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CorporateReportScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  reportType: 'reportType',
+  fileUrl: 'fileUrl',
+  generatedBy: 'generatedBy',
+  generatedAt: 'generatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CorporateAlertScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  severity: 'severity',
+  description: 'description',
+  isResolved: 'isResolved',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrganizationNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  title: 'title',
+  department: 'department',
+  reportsToId: 'reportsToId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FamilyAppointmentScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2809,6 +2858,10 @@ exports.Prisma.ModelName = {
   BdmLead: 'BdmLead',
   TerritoryExpansionPlan: 'TerritoryExpansionPlan',
   PartnershipDeal: 'PartnershipDeal',
+  CorporateKpi: 'CorporateKpi',
+  CorporateReport: 'CorporateReport',
+  CorporateAlert: 'CorporateAlert',
+  OrganizationNode: 'OrganizationNode',
   FamilyAppointment: 'FamilyAppointment',
   FamilyCarePlanTask: 'FamilyCarePlanTask',
   FamilyClinicalMessage: 'FamilyClinicalMessage',

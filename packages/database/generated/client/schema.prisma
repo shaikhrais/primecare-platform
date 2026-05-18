@@ -2925,6 +2925,63 @@ model PartnershipDeal {
   @@index([partnerType])
 }
 
+model CorporateKpi {
+  id           String   @id @default(cuid())
+  tenantId     String
+  metricName   String
+  metricValue  Float
+  metricTarget Float?
+  unit         String? // e.g., 'CAD', '%', 'Count'
+  recordedAt   DateTime @default(now())
+  roleFocus    String? // e.g., 'CEO', 'CFO', 'COO'
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId, metricName, recordedAt])
+}
+
+model CorporateReport {
+  id          String   @id @default(cuid())
+  tenantId    String
+  title       String
+  description String?
+  reportType  String // e.g., 'Financial', 'Operational', 'Compliance'
+  fileUrl     String?
+  generatedBy String? // User ID
+  generatedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId, reportType])
+}
+
+model CorporateAlert {
+  id          String    @id @default(cuid())
+  tenantId    String
+  title       String
+  severity    String // 'Low', 'Medium', 'High', 'Critical'
+  description String?
+  isResolved  Boolean   @default(false)
+  resolvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([tenantId, isResolved, severity])
+}
+
+model OrganizationNode {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  title       String
+  department  String?
+  reportsToId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId, department])
+}
+
 // Domain: d_clients.prisma
 
 // 
