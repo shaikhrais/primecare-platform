@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'premium_feature_47_controller.dart';
 
 class PremiumFeature47View extends StatelessWidget {
   const PremiumFeature47View({super.key});
