@@ -27,6 +27,7 @@ import { executiveRouter } from './routes/executive'
 import { usersRouter } from './routes/users'
 import { authRouter } from './routes/auth'
 import { shiftsRouter } from './routes/shifts'
+import { premiumRouter } from './routes/premium'
 
 app.route('/api/v1/franchise', franchiseRouter)
 app.route('/api/v1/clinical', clinicalRouter)
@@ -37,5 +38,6 @@ app.route('/api/v1/executive', executiveRouter)
 app.route('/api/v1/users', usersRouter)
 app.route('/api/v1/auth', authRouter)
 app.route('/api/v1/shifts', shiftsRouter)
+app.route('/api/v1/premium', premiumRouter)
 
 export default app

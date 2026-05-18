@@ -5,6 +5,8 @@ import 'shortcut_model.dart';
 import 'shortcut_registry.dart';
 import 'shortcut_permission_engine.dart';
 import '../../models/governance_role.dart';
+import '../../aura_behavioral_telemetry.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class QuickAccessManager {
   static final QuickAccessManager instance = QuickAccessManager._internal();
@@ -25,6 +27,7 @@ class QuickAccessManager {
     required void Function(String featureId) onAccessGranted,
     void Function(ShortcutRule rule)? onAccessDenied,
     void Function()? onLockout,
+    AuraBehavioralTelemetry? telemetry,
   }) {
     final rule = PrimeCareShortcutRegistry.findByKeys(pressedKeys);
     if (rule == null) {
@@ -46,14 +49,14 @@ class QuickAccessManager {
     );
 
     if (isAllowed) {
-      _logAccess(rule, true, currentUserRole.role.name);
+      _logAccess(rule, true, currentUserRole.role.name, telemetry);
       onAccessGranted(rule.featureId);
       return true;
     } else {
       _failedAttempts++;
       _lastAttemptTime = DateTime.now();
       _sessionRiskScore += 15.0; // Increase risk score
-      _logAccess(rule, false, currentUserRole.role.name);
+      _logAccess(rule, false, currentUserRole.role.name, telemetry);
       
       if (_failedAttempts >= _maxFailedAttemptsBeforeLockout) {
         print('[SECURITY CRITICAL] Repeated unauthorized shortcut attempts. Risk Score: $_sessionRiskScore');
@@ -75,14 +78,23 @@ class QuickAccessManager {
     }
   }
 
-  void _logAccess(ShortcutRule rule, bool granted, String roleName) {
+  void _logAccess(ShortcutRule rule, bool granted, String roleName, AuraBehavioralTelemetry? telemetry) {
     final status = granted ? 'GRANTED' : 'DENIED';
-    // Integrate with AuraBehavioralTelemetry in production
+    // Integrate with AuraBehavioralTelemetry
+    if (telemetry != null) {
+      telemetry.logQuickAccessAttempt(
+        shortcutId: rule.id,
+        featureId: rule.featureId,
+        granted: granted,
+        roleName: roleName,
+        riskScore: _sessionRiskScore,
+      );
+    }
     print('[SECURITY AUDIT] Quick Access $status for shortcut ${rule.id} (Feature: ${rule.featureId}) by role $roleName. Current Risk Score: $_sessionRiskScore');
   }
 }
 
-class QuickAccessBoundary extends StatefulWidget {
+class QuickAccessBoundary extends ConsumerStatefulWidget {
   final Widget child;
   final GovernanceRole userRole;
   final String currentOffice;
@@ -95,10 +107,10 @@ class QuickAccessBoundary extends StatefulWidget {
   });
 
   @override
-  State<QuickAccessBoundary> createState() => _QuickAccessBoundaryState();
+  ConsumerState<QuickAccessBoundary> createState() => _QuickAccessBoundaryState();
 }
 
-class _QuickAccessBoundaryState extends State<QuickAccessBoundary> {
+class _QuickAccessBoundaryState extends ConsumerState<QuickAccessBoundary> {
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -116,10 +128,12 @@ class _QuickAccessBoundaryState extends State<QuickAccessBoundary> {
   KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
     if (event is KeyDownEvent) {
       final pressedKeys = HardwareKeyboard.instance.logicalKeysPressed;
+      final telemetry = ref.read(auraBehavioralTelemetryProvider);
       final handled = QuickAccessManager.instance.handleKeyEvent(
         pressedKeys: pressedKeys,
         currentUserRole: widget.userRole,
         currentOffice: widget.currentOffice,
+        telemetry: telemetry,
         onAccessGranted: (featureId) {
           // Find route for featureId or trigger global action
           _routeToFeature(featureId);

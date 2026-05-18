@@ -104,6 +104,35 @@ class AuraBehavioralTelemetry {
     );
   }
 
+  /// Logs a Quick Access / Shortcut attempt.
+  void logQuickAccessAttempt({
+    required String shortcutId,
+    required String featureId,
+    required bool granted,
+    required String roleName,
+    required double riskScore,
+  }) {
+    final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
+
+    final log = {
+      'shortcutId': shortcutId,
+      'featureId': featureId,
+      'granted': granted,
+      'roleName': roleName,
+      'riskScore': riskScore,
+      'timestamp': DateTime.now().toIso8601String(),
+      ..._governanceContext,
+    };
+
+    _interactionLogs.add(log);
+
+    telemetry.passGate(
+      ExecutionGateCategory.governance,
+      granted ? 'Quick Access Granted' : 'Quick Access Denied',
+      metadata: log,
+    );
+  }
+
   /// Logs an interaction with a contextual suggestion.
   void logSuggestionClick(String suggestion, String? context) {
     final telemetry = _ref.read<ExecutionGateService>(executionGateProvider);
