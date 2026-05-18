@@ -9,6 +9,9 @@ import '../../models/governance_role.dart';
 import '../platform_role.dart';
 import '../../aura_behavioral_telemetry.dart';
 import '../../auth_service.dart';
+import '../../security/shortcuts/index.dart';
+import '../../config/screen_breakpoints.dart';
+import '../../config/adaptive_scaling_config.dart';
 
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -31,6 +34,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final modules = application.getAuthorizedModules(activeRole);
     final tenant = application.tenant;
+    final tier = ScreenBreakpoints.getTier(MediaQuery.of(context).size.width);
+    final isHandheld = ScreenBreakpoints.isHandheld(context);
 
     // Sync Governance Context to Telemetry
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -43,8 +48,12 @@ class GovernanceMasterLayout extends ConsumerWidget {
 
     return Theme(
       data: tenant.branding,
-      child: Scaffold(
-        appBar: AppBar(
+      child: QuickAccessBoundary(
+        userRole: GovernanceRole(activeRole),
+        currentOffice: 'CORPORATE', // Or retrieve this dynamically
+        child: Scaffold(
+          drawer: isHandheld ? _buildSidebar(context, ref, theme, modules, tenant, tier) : null,
+          appBar: AppBar(
           elevation: 0,
           backgroundColor: theme.scaffoldBackgroundColor,
           surfaceTintColor: Colors.transparent,
@@ -149,113 +158,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
         body: Row(
           children: [
             // Premium Governance Sidebar
-            Container(
-              width: 280,
-              decoration: BoxDecoration(
-                border: Border(
-                  right: BorderSide(
-                    color: theme.dividerColor.withValues(alpha: 0.05),
-                  ),
-                ),
-              ),
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: modules.length,
-              itemBuilder: (context, index) {
-                  final module = modules[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              module.icon,
-                              size: 18,
-                              color: theme.primaryColor.withValues(alpha: 0.7),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              module.name.toUpperCase(),
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.bold,
-                                color: theme.hintColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ...module.screens
-                          .where((screen) =>
-                              screen.requiredRole == null ||
-                              screen.requiredRole == activeRole)
-                          .map((screen) {
-                        
-                        String currentRoute = '';
-                        try {
-                          currentRoute = GoRouterState.of(context).uri.toString();
-                        } catch (_) {
-                          currentRoute = '';
-                        }
-                        
-                        final isSelected = currentRoute == screen.route;
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                          child: ListTile(
-                            dense: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            selected: isSelected,
-                            selectedTileColor: theme.primaryColor.withValues(alpha: 0.05),
-                            leading: Icon(
-                              screen.icon ?? LucideIcons.circle,
-                              size: 18,
-                              color: isSelected ? theme.primaryColor : theme.iconTheme.color?.withValues(alpha: 0.6),
-                            ),
-                            title: Text(
-                              screen.title,
-                              style: TextStyle(
-                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                                color: isSelected ? theme.primaryColor : theme.textTheme.bodyMedium?.color,
-                              ),
-                            ),
-                            onTap: () {
-                              ref
-                                  .read(auraBehavioralTelemetryProvider)
-                                  .updateGovernanceContext(
-                                    tenant: tenant,
-                                    role: activeRole,
-                                    module: module,
-                                  );
-
-                              if (screen.requiredRole == null ||
-                                  screen.requiredRole == activeRole) {
-                                context.go(screen.route);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      tr('governance.unauthorized_access'),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        );
-                      }),
-                      const SizedBox(height: 16),
-                    ],
-                  );
-                },
-              ),
-            ),
+            if (!isHandheld)
+              _buildSidebar(context, ref, theme, modules, tenant, tier),
             // Main Content Area
             Expanded(
               child: Container(
@@ -264,6 +168,127 @@ class GovernanceMasterLayout extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      ),
+      ),
+    );
+  }
+
+  Widget _buildSidebar(BuildContext context, WidgetRef ref, ThemeData theme, List<PlatformModule> modules, PlatformTenant tenant, ResolutionTier tier) {
+    return Drawer(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      surfaceTintColor: Colors.transparent,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: Container(
+        width: AdaptiveScalingConfig.getSidebarWidth(tier),
+        decoration: BoxDecoration(
+          color: theme.scaffoldBackgroundColor,
+          border: Border(
+            right: BorderSide(
+              color: theme.dividerColor.withValues(alpha: 0.05),
+            ),
+          ),
+        ),
+        child: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          itemCount: modules.length,
+          itemBuilder: (context, index) {
+            final module = modules[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        module.icon,
+                        size: 18,
+                        color: theme.primaryColor.withValues(alpha: 0.7),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        module.name.toUpperCase(),
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          letterSpacing: 1.2,
+                          fontWeight: FontWeight.bold,
+                          color: theme.hintColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ...module.screens
+                    .where((screen) =>
+                        screen.requiredRole == null ||
+                        screen.requiredRole == activeRole)
+                    .map((screen) {
+                  
+                  String currentRoute = '';
+                  try {
+                    currentRoute = GoRouterState.of(context).uri.toString();
+                  } catch (_) {
+                    currentRoute = '';
+                  }
+                  
+                  final isSelected = currentRoute == screen.route;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                    child: ListTile(
+                      dense: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      selected: isSelected,
+                      selectedTileColor: theme.primaryColor.withValues(alpha: 0.05),
+                      leading: Icon(
+                        screen.icon ?? LucideIcons.circle,
+                        size: 18,
+                        color: isSelected ? theme.primaryColor : theme.iconTheme.color?.withValues(alpha: 0.6),
+                      ),
+                      title: Text(
+                        screen.title,
+                        style: TextStyle(
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color: isSelected ? theme.primaryColor : theme.textTheme.bodyMedium?.color,
+                        ),
+                      ),
+                      onTap: () {
+                        ref
+                            .read(auraBehavioralTelemetryProvider)
+                            .updateGovernanceContext(
+                              tenant: tenant,
+                              role: activeRole,
+                              module: module,
+                            );
+
+                        if (ScreenBreakpoints.isHandheld(context)) {
+                          Navigator.of(context).pop();
+                        }
+
+                        if (screen.requiredRole == null ||
+                            screen.requiredRole == activeRole) {
+                          context.go(screen.route);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                tr('governance.unauthorized_access'),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  );
+                }),
+                const SizedBox(height: 16),
+              ],
+            );
+          },
         ),
       ),
     );

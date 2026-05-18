@@ -136,6 +136,7 @@ export 'src/security/screen_shield_service.dart';
 export 'src/security/sensitive_action_guard.dart';
 export 'src/security/security_event.dart';
 export 'src/security/security_sentinel_service.dart';
+export 'security/shortcuts/index.dart';
 export 'aura_behavioral_telemetry.dart';
 
 // PSW Layer

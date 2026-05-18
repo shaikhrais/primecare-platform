@@ -8,11 +8,11 @@ class AdaptiveScalingConfig {
       case ResolutionTier.mega:
         return 3.0; // Extreme scaling for wall displays
       case ResolutionTier.fourK:
-        return 1.5;
+        return 1.1; // Reduced from 1.5 to prevent oversized cards; prefer flow
       case ResolutionTier.threeK:
-        return 1.25;
+        return 1.05; // Reduced from 1.25
       case ResolutionTier.twoK:
-        return 1.1;
+        return 1.0; // Reduced from 1.1
       default:
         return 1.0;
     }
@@ -24,9 +24,9 @@ class AdaptiveScalingConfig {
       case ResolutionTier.mega:
         return 2.5;
       case ResolutionTier.fourK:
-        return 1.4;
+        return 1.15; // Adjusted down to favor data density
       case ResolutionTier.threeK:
-        return 1.2;
+        return 1.1; // Adjusted down
       default:
         return 1.0;
     }

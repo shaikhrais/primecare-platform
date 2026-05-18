@@ -10,6 +10,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:go_router/go_router.dart';
 
+import '../registry/widgets/responsive_screen_wrapper.dart';
+
 /// Base class for governed consumer widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
 abstract class GovernedConsumerWidget extends ConsumerWidget {
@@ -28,7 +30,7 @@ abstract class GovernedConsumerWidget extends ConsumerWidget {
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
     }
-    return buildScreen(context, ref);
+    return ResponsiveScreenWrapper(child: buildScreen(context, ref));
   }
 
   /// Override this instead of [build] to implement the screen UI.
@@ -53,7 +55,7 @@ abstract class GovernedStatelessWidget extends StatelessWidget {
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
     }
-    return buildScreen(context);
+    return ResponsiveScreenWrapper(child: buildScreen(context));
   }
 
   /// Override this instead of [build] to implement the screen UI.
@@ -82,7 +84,7 @@ abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
     }
-    return buildScreen(context);
+    return ResponsiveScreenWrapper(child: buildScreen(context));
   }
 
   /// Override this instead of [build] to implement the screen UI.

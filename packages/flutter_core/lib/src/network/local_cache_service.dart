@@ -21,13 +21,13 @@ class LocalCacheService {
     if (_prefs == null) return;
     final key = _getKey(path);
     final jsonString = jsonEncode(data);
-    await _prefs!.setString(key, jsonString);
+    await _prefs.setString(key, jsonString);
   }
 
   Map<String, dynamic>? getCachedResponse(String path) {
     if (_prefs == null) return null;
     final key = _getKey(path);
-    final jsonString = _prefs!.getString(key);
+    final jsonString = _prefs.getString(key);
     
     if (jsonString != null) {
       try {
@@ -42,9 +42,9 @@ class LocalCacheService {
   
   Future<void> clearCache() async {
     if (_prefs == null) return;
-    final keys = _prefs!.getKeys().where((k) => k.startsWith(_cachePrefix));
+    final keys = _prefs.getKeys().where((k) => k.startsWith(_cachePrefix));
     for (final key in keys) {
-      await _prefs!.remove(key);
+      await _prefs.remove(key);
     }
   }
 }
