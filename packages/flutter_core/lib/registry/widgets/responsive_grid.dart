@@ -10,12 +10,16 @@ class ResponsiveGrid extends StatelessWidget {
   final List<Widget> children;
   final double spacing;
   final double runSpacing;
+  final double minItemWidth;
+  final double maxItemWidth;
 
   const ResponsiveGrid({
     super.key,
     required this.children,
     this.spacing = 16.0,
     this.runSpacing = 16.0,
+    this.minItemWidth = 280.0,
+    this.maxItemWidth = 450.0,
   });
 
   @override
@@ -23,30 +27,40 @@ class ResponsiveGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final tier = ScreenBreakpoints.getTier(MediaQuery.of(context).size.width);
-        final gridColumns = AdaptiveScalingConfig.getGridColumns(tier);
         final spacingMultiplier = AdaptiveScalingConfig.getSpacingMultiplier(tier);
 
         final adjustedSpacing = spacing * spacingMultiplier;
         final adjustedRunSpacing = runSpacing * spacingMultiplier;
 
-        // Calculate item width based on grid columns
-        // Assuming 4 columns is the base standard (1 unit) for Mobile,
-        // so a standard card might want to span 4 columns out of the available.
-        // For example, on 4K (20 columns), we can fit 5 cards of 4-column span.
+        // "Flow Over Scaling" - calculate how many items fit naturally
+        // based on the minItemWidth, and distribute remaining space equally
+        // but capping at maxItemWidth to avoid 'oversized cards'.
         
-        // This is a simplified wrap flow: we let children define their max bounds,
-        // but typically a responsive grid card would use 1/N of the width.
-        // If we treat "1 card" as "4 columns wide":
-        final int cardsPerRow = (gridColumns / 4).floor().clamp(1, 10);
-        final double itemWidth = (constraints.maxWidth - (adjustedSpacing * (cardsPerRow - 1))) / cardsPerRow;
+        // Calculate max possible items per row
+        int cardsPerRow = (constraints.maxWidth + adjustedSpacing) ~/ (minItemWidth + adjustedSpacing);
+        if (cardsPerRow == 0) cardsPerRow = 1;
+
+        // Calculate actual item width to fill the row evenly
+        double calculatedWidth = (constraints.maxWidth - (adjustedSpacing * (cardsPerRow - 1))) / cardsPerRow;
+        
+        // Clamp to avoid oversizing on very wide screens or when there are few items
+        // For example on 4K, instead of stretching 2 cards to 1500px each, they will stop at maxItemWidth
+        final double itemWidth = calculatedWidth.clamp(minItemWidth, maxItemWidth);
 
         return Wrap(
           spacing: adjustedSpacing,
           runSpacing: adjustedRunSpacing,
+          alignment: WrapAlignment.start,
           children: children.map((child) {
-            return SizedBox(
-              width: itemWidth,
-              child: child,
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: minItemWidth,
+                maxWidth: itemWidth,
+              ),
+              child: SizedBox(
+                width: itemWidth,
+                child: child,
+              ),
             );
           }).toList(),
         );
