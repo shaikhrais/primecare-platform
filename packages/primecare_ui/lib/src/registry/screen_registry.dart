@@ -1,4 +1,257 @@
-import '../features/generated_screens/premium_feature_1.dart';\nimport '../features/generated_screens/premium_feature_2.dart';\nimport '../features/generated_screens/premium_feature_3.dart';\nimport '../features/generated_screens/premium_feature_4.dart';\nimport '../features/generated_screens/premium_feature_5.dart';\nimport '../features/generated_screens/premium_feature_6.dart';\nimport '../features/generated_screens/premium_feature_7.dart';\nimport '../features/generated_screens/premium_feature_8.dart';\nimport '../features/generated_screens/premium_feature_9.dart';\nimport '../features/generated_screens/premium_feature_10.dart';\nimport '../features/generated_screens/premium_feature_11.dart';\nimport '../features/generated_screens/premium_feature_12.dart';\nimport '../features/generated_screens/premium_feature_13.dart';\nimport '../features/generated_screens/premium_feature_14.dart';\nimport '../features/generated_screens/premium_feature_15.dart';\nimport '../features/generated_screens/premium_feature_16.dart';\nimport '../features/generated_screens/premium_feature_17.dart';\nimport '../features/generated_screens/premium_feature_18.dart';\nimport '../features/generated_screens/premium_feature_19.dart';\nimport '../features/generated_screens/premium_feature_20.dart';\nimport '../features/generated_screens/premium_feature_21.dart';\nimport '../features/generated_screens/premium_feature_22.dart';\nimport '../features/generated_screens/premium_feature_23.dart';\nimport '../features/generated_screens/premium_feature_24.dart';\nimport '../features/generated_screens/premium_feature_25.dart';\nimport '../features/generated_screens/premium_feature_26.dart';\nimport '../features/generated_screens/premium_feature_27.dart';\nimport '../features/generated_screens/premium_feature_28.dart';\nimport '../features/generated_screens/premium_feature_29.dart';\nimport '../features/generated_screens/premium_feature_30.dart';\nimport '../features/generated_screens/premium_feature_31.dart';\nimport '../features/generated_screens/premium_feature_32.dart';\nimport '../features/generated_screens/premium_feature_33.dart';\nimport '../features/generated_screens/premium_feature_34.dart';\nimport '../features/generated_screens/premium_feature_35.dart';\nimport '../features/generated_screens/premium_feature_36.dart';\nimport '../features/generated_screens/premium_feature_37.dart';\nimport '../features/generated_screens/premium_feature_38.dart';\nimport '../features/generated_screens/premium_feature_39.dart';\nimport '../features/generated_screens/premium_feature_40.dart';\nimport '../features/generated_screens/premium_feature_41.dart';\nimport '../features/generated_screens/premium_feature_42.dart';\nimport '../features/generated_screens/premium_feature_43.dart';\nimport '../features/generated_screens/premium_feature_44.dart';\nimport '../features/generated_screens/premium_feature_45.dart';\nimport '../features/generated_screens/premium_feature_46.dart';\nimport '../features/generated_screens/premium_feature_47.dart';\nimport '../features/generated_screens/premium_feature_48.dart';\nimport '../features/generated_screens/premium_feature_49.dart';\nimport '../features/generated_screens/premium_feature_50.dart';\nimport '../features/generated_screens/premium_feature_51.dart';\nimport '../features/generated_screens/premium_feature_52.dart';\nimport '../features/generated_screens/premium_feature_53.dart';\nimport '../features/generated_screens/premium_feature_54.dart';\nimport '../features/generated_screens/premium_feature_55.dart';\nimport '../features/generated_screens/premium_feature_56.dart';\nimport '../features/generated_screens/premium_feature_57.dart';\nimport '../features/generated_screens/premium_feature_58.dart';\nimport '../features/generated_screens/premium_feature_59.dart';\nimport '../features/generated_screens/premium_feature_60.dart';\nimport '../features/generated_screens/premium_feature_61.dart';\nimport '../features/generated_screens/premium_feature_62.dart';\nimport '../features/generated_screens/premium_feature_63.dart';\nimport '../features/generated_screens/premium_feature_64.dart';\nimport '../features/generated_screens/premium_feature_65.dart';\nimport '../features/generated_screens/premium_feature_66.dart';\nimport '../features/generated_screens/premium_feature_67.dart';\nimport '../features/generated_screens/premium_feature_68.dart';\nimport '../features/generated_screens/premium_feature_69.dart';\nimport '../features/generated_screens/premium_feature_70.dart';\nimport '../features/generated_screens/premium_feature_71.dart';\nimport '../features/generated_screens/premium_feature_72.dart';\nimport '../features/generated_screens/premium_feature_73.dart';\nimport '../features/generated_screens/premium_feature_74.dart';\nimport '../features/generated_screens/premium_feature_75.dart';\nimport '../features/generated_screens/premium_feature_76.dart';\nimport '../features/generated_screens/premium_feature_77.dart';\nimport '../features/generated_screens/premium_feature_78.dart';\nimport '../features/generated_screens/premium_feature_79.dart';\nimport '../features/generated_screens/premium_feature_80.dart';\nimport '../features/generated_screens/premium_feature_81.dart';\nimport '../features/generated_screens/premium_feature_82.dart';\nimport '../features/generated_screens/premium_feature_83.dart';\nimport '../features/generated_screens/premium_feature_84.dart';\nimport '../features/generated_screens/premium_feature_85.dart';\nimport '../features/generated_screens/premium_feature_86.dart';\nimport '../features/generated_screens/premium_feature_87.dart';\nimport '../features/generated_screens/premium_feature_88.dart';\nimport '../features/generated_screens/premium_feature_89.dart';\nimport '../features/generated_screens/premium_feature_90.dart';\nimport '../features/generated_screens/premium_feature_91.dart';\nimport '../features/generated_screens/premium_feature_92.dart';\nimport '../features/generated_screens/premium_feature_93.dart';\nimport '../features/generated_screens/premium_feature_94.dart';\nimport '../features/generated_screens/premium_feature_95.dart';\nimport '../features/generated_screens/premium_feature_96.dart';\nimport '../features/generated_screens/premium_feature_97.dart';\nimport '../features/generated_screens/premium_feature_98.dart';\nimport '../features/generated_screens/premium_feature_99.dart';\nimport '../features/generated_screens/premium_feature_100.dart';\nimport '../features/generated_screens/premium_feature_101.dart';\nimport '../features/generated_screens/premium_feature_102.dart';\nimport '../features/generated_screens/premium_feature_103.dart';\nimport '../features/generated_screens/premium_feature_104.dart';\nimport '../features/generated_screens/premium_feature_105.dart';\nimport '../features/generated_screens/premium_feature_106.dart';\nimport '../features/generated_screens/premium_feature_107.dart';\nimport '../features/generated_screens/premium_feature_108.dart';\nimport '../features/generated_screens/premium_feature_109.dart';\nimport '../features/generated_screens/premium_feature_110.dart';\nimport '../features/generated_screens/premium_feature_111.dart';\nimport '../features/generated_screens/premium_feature_112.dart';\nimport '../features/generated_screens/premium_feature_113.dart';\nimport '../features/generated_screens/premium_feature_114.dart';\nimport '../features/generated_screens/premium_feature_115.dart';\nimport '../features/generated_screens/premium_feature_116.dart';\nimport '../features/generated_screens/premium_feature_117.dart';\nimport '../features/generated_screens/premium_feature_118.dart';\nimport '../features/generated_screens/premium_feature_119.dart';\nimport '../features/generated_screens/premium_feature_120.dart';\nimport '../features/generated_screens/premium_feature_121.dart';\nimport '../features/generated_screens/premium_feature_122.dart';\nimport '../features/generated_screens/premium_feature_123.dart';\nimport '../features/generated_screens/premium_feature_124.dart';\nimport '../features/generated_screens/premium_feature_125.dart';\nimport '../features/generated_screens/premium_feature_126.dart';\nimport '../features/generated_screens/premium_feature_127.dart';\nimport '../features/generated_screens/premium_feature_128.dart';\nimport '../features/generated_screens/premium_feature_129.dart';\nimport '../features/generated_screens/premium_feature_130.dart';\nimport '../features/generated_screens/premium_feature_131.dart';\nimport '../features/generated_screens/premium_feature_132.dart';\nimport '../features/generated_screens/premium_feature_133.dart';\nimport '../features/generated_screens/premium_feature_134.dart';\nimport '../features/generated_screens/premium_feature_135.dart';\nimport '../features/generated_screens/premium_feature_136.dart';\nimport '../features/generated_screens/premium_feature_137.dart';\nimport '../features/generated_screens/premium_feature_138.dart';\nimport '../features/generated_screens/premium_feature_139.dart';\nimport '../features/generated_screens/premium_feature_140.dart';\nimport '../features/generated_screens/premium_feature_141.dart';\nimport '../features/generated_screens/premium_feature_142.dart';\nimport '../features/generated_screens/premium_feature_143.dart';\nimport '../features/generated_screens/premium_feature_144.dart';\nimport '../features/generated_screens/premium_feature_145.dart';\nimport '../features/generated_screens/premium_feature_146.dart';\nimport '../features/generated_screens/premium_feature_147.dart';\nimport '../features/generated_screens/premium_feature_148.dart';\nimport '../features/generated_screens/premium_feature_149.dart';\nimport '../features/generated_screens/premium_feature_150.dart';\nimport '../features/generated_screens/premium_feature_151.dart';\nimport '../features/generated_screens/premium_feature_152.dart';\nimport '../features/generated_screens/premium_feature_153.dart';\nimport '../features/generated_screens/premium_feature_154.dart';\nimport '../features/generated_screens/premium_feature_155.dart';\nimport '../features/generated_screens/premium_feature_156.dart';\nimport '../features/generated_screens/premium_feature_157.dart';\nimport '../features/generated_screens/premium_feature_158.dart';\nimport '../features/generated_screens/premium_feature_159.dart';\nimport '../features/generated_screens/premium_feature_160.dart';\nimport '../features/generated_screens/premium_feature_161.dart';\nimport '../features/generated_screens/premium_feature_162.dart';\nimport '../features/generated_screens/premium_feature_163.dart';\nimport '../features/generated_screens/premium_feature_164.dart';\nimport '../features/generated_screens/premium_feature_165.dart';\nimport '../features/generated_screens/premium_feature_166.dart';\nimport '../features/generated_screens/premium_feature_167.dart';\nimport '../features/generated_screens/premium_feature_168.dart';\nimport '../features/generated_screens/premium_feature_169.dart';\nimport '../features/generated_screens/premium_feature_170.dart';\nimport '../features/generated_screens/premium_feature_171.dart';\nimport '../features/generated_screens/premium_feature_172.dart';\nimport '../features/generated_screens/premium_feature_173.dart';\nimport '../features/generated_screens/premium_feature_174.dart';\nimport '../features/generated_screens/premium_feature_175.dart';\nimport '../features/generated_screens/premium_feature_176.dart';\nimport '../features/generated_screens/premium_feature_177.dart';\nimport '../features/generated_screens/premium_feature_178.dart';\nimport '../features/generated_screens/premium_feature_179.dart';\nimport '../features/generated_screens/premium_feature_180.dart';\nimport '../features/generated_screens/premium_feature_181.dart';\nimport '../features/generated_screens/premium_feature_182.dart';\nimport '../features/generated_screens/premium_feature_183.dart';\nimport '../features/generated_screens/premium_feature_184.dart';\nimport '../features/generated_screens/premium_feature_185.dart';\nimport '../features/generated_screens/premium_feature_186.dart';\nimport '../features/generated_screens/premium_feature_187.dart';\nimport '../features/generated_screens/premium_feature_188.dart';\nimport '../features/generated_screens/premium_feature_189.dart';\nimport '../features/generated_screens/premium_feature_190.dart';\nimport '../features/generated_screens/premium_feature_191.dart';\nimport '../features/generated_screens/premium_feature_192.dart';\nimport '../features/generated_screens/premium_feature_193.dart';\nimport '../features/generated_screens/premium_feature_194.dart';\nimport '../features/generated_screens/premium_feature_195.dart';\nimport '../features/generated_screens/premium_feature_196.dart';\nimport '../features/generated_screens/premium_feature_197.dart';\nimport '../features/generated_screens/premium_feature_198.dart';\nimport '../features/generated_screens/premium_feature_199.dart';\nimport '../features/generated_screens/premium_feature_200.dart';\nimport '../features/generated_screens/premium_feature_201.dart';\nimport '../features/generated_screens/premium_feature_202.dart';\nimport '../features/generated_screens/premium_feature_203.dart';\nimport '../features/generated_screens/premium_feature_204.dart';\nimport '../features/generated_screens/premium_feature_205.dart';\nimport '../features/generated_screens/premium_feature_206.dart';\nimport '../features/generated_screens/premium_feature_207.dart';\nimport '../features/generated_screens/premium_feature_208.dart';\nimport '../features/generated_screens/premium_feature_209.dart';\nimport '../features/generated_screens/premium_feature_210.dart';\nimport '../features/generated_screens/premium_feature_211.dart';\nimport '../features/generated_screens/premium_feature_212.dart';\nimport '../features/generated_screens/premium_feature_213.dart';\nimport '../features/generated_screens/premium_feature_214.dart';\nimport '../features/generated_screens/premium_feature_215.dart';\nimport '../features/generated_screens/premium_feature_216.dart';\nimport '../features/generated_screens/premium_feature_217.dart';\nimport '../features/generated_screens/premium_feature_218.dart';\nimport '../features/generated_screens/premium_feature_219.dart';\nimport '../features/generated_screens/premium_feature_220.dart';\nimport '../features/generated_screens/premium_feature_221.dart';\nimport '../features/generated_screens/premium_feature_222.dart';\nimport '../features/generated_screens/premium_feature_223.dart';\nimport '../features/generated_screens/premium_feature_224.dart';\nimport '../features/generated_screens/premium_feature_225.dart';\nimport '../features/generated_screens/premium_feature_226.dart';\nimport '../features/generated_screens/premium_feature_227.dart';\nimport '../features/generated_screens/premium_feature_228.dart';\nimport '../features/generated_screens/premium_feature_229.dart';\nimport '../features/generated_screens/premium_feature_230.dart';\nimport '../features/generated_screens/premium_feature_231.dart';\nimport '../features/generated_screens/premium_feature_232.dart';\nimport '../features/generated_screens/premium_feature_233.dart';\nimport '../features/generated_screens/premium_feature_234.dart';\nimport '../features/generated_screens/premium_feature_235.dart';\nimport '../features/generated_screens/premium_feature_236.dart';\nimport '../features/generated_screens/premium_feature_237.dart';\nimport '../features/generated_screens/premium_feature_238.dart';\nimport '../features/generated_screens/premium_feature_239.dart';\nimport '../features/generated_screens/premium_feature_240.dart';\nimport '../features/generated_screens/premium_feature_241.dart';\nimport '../features/generated_screens/premium_feature_242.dart';\nimport '../features/generated_screens/premium_feature_243.dart';\nimport '../features/generated_screens/premium_feature_244.dart';\nimport '../features/generated_screens/premium_feature_245.dart';\nimport '../features/generated_screens/premium_feature_246.dart';\nimport '../features/generated_screens/premium_feature_247.dart';\nimport '../features/generated_screens/premium_feature_248.dart';\nimport '../features/generated_screens/premium_feature_249.dart';\nimport '../features/generated_screens/premium_feature_250.dart';\nimport '../features/generated_screens/premium_feature_251.dart';\nimport 'package:flutter_core/flutter_core.dart';
+import '../features/admin/user_management_screen.dart';
+import '../features/admin/tenant_configuration_screen.dart';
+import '../features/admin/system_registry_dashboard.dart';
+import '../features/admin/api_key_manager_screen.dart';
+import '../features/admin/audit_log_viewer.dart';
+import '../features/admin/system_event_monitor.dart';
+import '../features/admin/lead_pipeline_screen.dart';
+import '../features/admin/faq_manager_screen.dart';
+import '../features/admin/device_fleet_manager.dart';
+import '../features/admin/system_policy_editor.dart';
+import '../features/admin/response_bot_audit_screen.dart';
+import '../features/admin/touchpoint_analyzer_screen.dart';
+import '../features/admin/registry_entry_editor.dart';
+import '../features/admin/secure_message_center.dart';
+import '../features/admin/message_archive_viewer.dart';
+import '../features/admin/role_access_matrix_screen.dart';
+import '../features/admin/role_screen_access_screen.dart';
+import '../features/admin/crisis_protocol_trigger_screen.dart';
+import '../features/admin/protocol_resolution_log_screen.dart';
+import '../features/admin/ecosystem_state_board.dart';
+import '../features/admin/provider_performance_dashboard.dart';
+import '../features/admin/resource_allocation_map.dart';
+import '../features/admin/quality_assurance_metrics.dart';
+import '../features/admin/integration_health_monitor.dart';
+import '../features/admin/feature_flag_controller.dart';
+import '../features/admin/configuration_version_control.dart';
+import '../features/admin/service_mesh_topology.dart';
+import '../features/admin/incident_response_hub.dart';
+import '../features/admin/system_capacity_planner.dart';
+import '../features/admin/admin_user_management.dart';
+import '../features/admin/hipaa_audit_dashboard.dart';
+import '../features/admin/data_privacy_monitor.dart';
+import '../features/admin/security_incident_logger.dart';
+import '../features/admin/consent_management_console.dart';
+import '../features/admin/vendor_risk_assessor.dart';
+import '../features/admin/policy_exception_tracker.dart';
+import '../features/admin/regulatory_change_radar.dart';
+import '../features/admin/access_review_certifier.dart';
+import '../features/admin/compliance_training_tracker.dart';
+import '../features/admin/osha_incident_reporter.dart';
+import '../features/analytics/predictive_analytics_dashboard.dart';
+import '../features/analytics/clinical_outcomes_report.dart';
+import '../features/analytics/financial_forecasting_model.dart';
+import '../features/analytics/operational_efficiency_metrics.dart';
+import '../features/analytics/population_health_analyzer.dart';
+import '../features/analytics/marketing_roi_report.dart';
+import '../features/analytics/patient_retention_analytics.dart';
+import '../features/analytics/staff_utilization_heatmap.dart';
+import '../features/analytics/supply_chain_cost_analyzer.dart';
+import '../features/analytics/board_of_directors_summary.dart';
+import '../features/marketing/campaign_performance_dashboard.dart';
+import '../features/marketing/lead_conversion_funnel.dart';
+import '../features/marketing/social_media_sentiment_analyzer.dart';
+import '../features/marketing/patient_acquisition_cost_tracker.dart';
+import '../features/marketing/referral_network_manager.dart';
+import '../features/marketing/email_marketing_automator.dart';
+import '../features/marketing/competitor_analysis_board.dart';
+import '../features/marketing/event_and_webinar_manager.dart';
+import '../features/marketing/brand_asset_library.dart';
+import '../features/marketing/territory_sales_mapping.dart';
+import '../features/education/cme_tracking_dashboard.dart';
+import '../features/education/clinical_guideline_library.dart';
+import '../features/education/surgical_video_archive.dart';
+import '../features/education/peer_review_conference_room.dart';
+import '../features/education/residency_program_tracker.dart';
+import '../features/education/simulation_lab_scheduler.dart';
+import '../features/education/journal_club_discussion_board.dart';
+import '../features/education/patient_case_study_repository.dart';
+import '../features/education/certification_renewal_alerts.dart';
+import '../features/education/medical_library_access_portal.dart';
+import '../features/telehealth/telehealth_consultation_room.dart';
+import '../features/telehealth/remote_patient_monitoring_dashboard.dart';
+import '../features/telehealth/virtual_waiting_room.dart';
+import '../features/telehealth/telemedicine_prescription_pad.dart';
+import '../features/telehealth/asynchronous_consultation_inbox.dart';
+import '../features/telehealth/device_integration_hub.dart';
+import '../features/telehealth/telehealth_quality_metrics.dart';
+import '../features/telehealth/remote_diagnostics_viewer.dart';
+import '../features/telehealth/digital_symptom_checker.dart';
+import '../features/telehealth/chronic_care_management_tracker.dart';
+import '../features/pharmacy/pharmacy_dispensing_dashboard.dart';
+import '../features/pharmacy/medication_reconciliation_tool.dart';
+import '../features/pharmacy/drug_interaction_alert_center.dart';
+import '../features/pharmacy/formulary_compliance_manager.dart';
+import '../features/pharmacy/controlled_substance_log.dart';
+import '../features/pharmacy/inpatient_pharmacy_queue.dart';
+import '../features/pharmacy/outpatient_prescription_tracker.dart';
+import '../features/pharmacy/chemotherapy_protocol_builder.dart';
+import '../features/pharmacy/pharmacy_inventory_management.dart';
+import '../features/pharmacy/patient_medication_adherence.dart';
+
+import '../features/research/clinical_trial_recruitment_dashboard.dart';
+import '../features/research/research_protocol_manager.dart';
+import '../features/research/informed_consent_tracker.dart';
+import '../features/research/adverse_event_reporting_portal.dart';
+import '../features/research/trial_data_collection_crf.dart';
+import '../features/research/biospecimen_inventory_tracker.dart';
+import '../features/research/grant_funding_allocation.dart';
+import '../features/research/multi_center_trial_collaboration.dart';
+import '../features/research/research_publication_drafting.dart';
+import '../features/research/patient_trial_outcomes_viewer.dart';
+
+import '../features/public_health/epidemiological_surveillance_dashboard.dart';
+import '../features/public_health/vaccination_campaign_manager.dart';
+import '../features/public_health/public_health_alert_broadcaster.dart';
+import '../features/public_health/community_health_needs_assessment.dart';
+import '../features/public_health/environmental_health_hazards.dart';
+import '../features/public_health/vulnerable_population_registry.dart';
+import '../features/public_health/mobile_clinic_dispatch.dart';
+import '../features/public_health/school_health_program_dashboard.dart';
+import '../features/public_health/social_determinants_of_health_tracker.dart';
+import '../features/public_health/substance_abuse_prevention_tracker.dart';
+import '../features/generated_screens/premium_feature_111.dart';
+import '../features/generated_screens/premium_feature_112.dart';
+import '../features/generated_screens/premium_feature_113.dart';
+import '../features/generated_screens/premium_feature_114.dart';
+import '../features/generated_screens/premium_feature_115.dart';
+import '../features/generated_screens/premium_feature_116.dart';
+import '../features/generated_screens/premium_feature_117.dart';
+import '../features/generated_screens/premium_feature_118.dart';
+import '../features/generated_screens/premium_feature_119.dart';
+import '../features/generated_screens/premium_feature_120.dart';
+import '../features/generated_screens/premium_feature_121.dart';
+import '../features/generated_screens/premium_feature_122.dart';
+import '../features/generated_screens/premium_feature_123.dart';
+import '../features/generated_screens/premium_feature_124.dart';
+import '../features/generated_screens/premium_feature_125.dart';
+import '../features/generated_screens/premium_feature_126.dart';
+import '../features/generated_screens/premium_feature_127.dart';
+import '../features/generated_screens/premium_feature_128.dart';
+import '../features/generated_screens/premium_feature_129.dart';
+import '../features/generated_screens/premium_feature_130.dart';
+import '../features/generated_screens/premium_feature_131.dart';
+import '../features/generated_screens/premium_feature_132.dart';
+import '../features/generated_screens/premium_feature_133.dart';
+import '../features/generated_screens/premium_feature_134.dart';
+import '../features/generated_screens/premium_feature_135.dart';
+import '../features/generated_screens/premium_feature_136.dart';
+import '../features/generated_screens/premium_feature_137.dart';
+import '../features/generated_screens/premium_feature_138.dart';
+import '../features/generated_screens/premium_feature_139.dart';
+import '../features/generated_screens/premium_feature_140.dart';
+import '../features/generated_screens/premium_feature_141.dart';
+import '../features/generated_screens/premium_feature_142.dart';
+import '../features/generated_screens/premium_feature_143.dart';
+import '../features/generated_screens/premium_feature_144.dart';
+import '../features/generated_screens/premium_feature_145.dart';
+import '../features/generated_screens/premium_feature_146.dart';
+import '../features/generated_screens/premium_feature_147.dart';
+import '../features/generated_screens/premium_feature_148.dart';
+import '../features/generated_screens/premium_feature_149.dart';
+import '../features/generated_screens/premium_feature_150.dart';
+import '../features/generated_screens/premium_feature_151.dart';
+import '../features/generated_screens/premium_feature_152.dart';
+import '../features/generated_screens/premium_feature_153.dart';
+import '../features/generated_screens/premium_feature_154.dart';
+import '../features/generated_screens/premium_feature_155.dart';
+import '../features/generated_screens/premium_feature_156.dart';
+import '../features/generated_screens/premium_feature_157.dart';
+import '../features/generated_screens/premium_feature_158.dart';
+import '../features/generated_screens/premium_feature_159.dart';
+import '../features/generated_screens/premium_feature_160.dart';
+import '../features/generated_screens/premium_feature_161.dart';
+import '../features/generated_screens/premium_feature_162.dart';
+import '../features/generated_screens/premium_feature_163.dart';
+import '../features/generated_screens/premium_feature_164.dart';
+import '../features/generated_screens/premium_feature_165.dart';
+import '../features/generated_screens/premium_feature_166.dart';
+import '../features/generated_screens/premium_feature_167.dart';
+import '../features/generated_screens/premium_feature_168.dart';
+import '../features/generated_screens/premium_feature_169.dart';
+import '../features/generated_screens/premium_feature_170.dart';
+import '../features/generated_screens/premium_feature_171.dart';
+import '../features/generated_screens/premium_feature_172.dart';
+import '../features/generated_screens/premium_feature_173.dart';
+import '../features/generated_screens/premium_feature_174.dart';
+import '../features/generated_screens/premium_feature_175.dart';
+import '../features/generated_screens/premium_feature_176.dart';
+import '../features/generated_screens/premium_feature_177.dart';
+import '../features/generated_screens/premium_feature_178.dart';
+import '../features/generated_screens/premium_feature_179.dart';
+import '../features/generated_screens/premium_feature_180.dart';
+import '../features/generated_screens/premium_feature_181.dart';
+import '../features/generated_screens/premium_feature_182.dart';
+import '../features/generated_screens/premium_feature_183.dart';
+import '../features/generated_screens/premium_feature_184.dart';
+import '../features/generated_screens/premium_feature_185.dart';
+import '../features/generated_screens/premium_feature_186.dart';
+import '../features/generated_screens/premium_feature_187.dart';
+import '../features/generated_screens/premium_feature_188.dart';
+import '../features/generated_screens/premium_feature_189.dart';
+import '../features/generated_screens/premium_feature_190.dart';
+import '../features/generated_screens/premium_feature_191.dart';
+import '../features/generated_screens/premium_feature_192.dart';
+import '../features/generated_screens/premium_feature_193.dart';
+import '../features/generated_screens/premium_feature_194.dart';
+import '../features/generated_screens/premium_feature_195.dart';
+import '../features/generated_screens/premium_feature_196.dart';
+import '../features/generated_screens/premium_feature_197.dart';
+import '../features/generated_screens/premium_feature_198.dart';
+import '../features/generated_screens/premium_feature_199.dart';
+import '../features/generated_screens/premium_feature_200.dart';
+import '../features/generated_screens/premium_feature_201.dart';
+import '../features/generated_screens/premium_feature_202.dart';
+import '../features/generated_screens/premium_feature_203.dart';
+import '../features/generated_screens/premium_feature_204.dart';
+import '../features/generated_screens/premium_feature_205.dart';
+import '../features/generated_screens/premium_feature_206.dart';
+import '../features/generated_screens/premium_feature_207.dart';
+import '../features/generated_screens/premium_feature_208.dart';
+import '../features/generated_screens/premium_feature_209.dart';
+import '../features/generated_screens/premium_feature_210.dart';
+import '../features/generated_screens/premium_feature_211.dart';
+import '../features/generated_screens/premium_feature_212.dart';
+import '../features/generated_screens/premium_feature_213.dart';
+import '../features/generated_screens/premium_feature_214.dart';
+import '../features/generated_screens/premium_feature_215.dart';
+import '../features/generated_screens/premium_feature_216.dart';
+import '../features/generated_screens/premium_feature_217.dart';
+import '../features/generated_screens/premium_feature_218.dart';
+import '../features/generated_screens/premium_feature_219.dart';
+import '../features/generated_screens/premium_feature_220.dart';
+import '../features/generated_screens/premium_feature_221.dart';
+import '../features/generated_screens/premium_feature_222.dart';
+import '../features/generated_screens/premium_feature_223.dart';
+import '../features/generated_screens/premium_feature_224.dart';
+import '../features/generated_screens/premium_feature_225.dart';
+import '../features/generated_screens/premium_feature_226.dart';
+import '../features/generated_screens/premium_feature_227.dart';
+import '../features/generated_screens/premium_feature_228.dart';
+import '../features/generated_screens/premium_feature_229.dart';
+import '../features/generated_screens/premium_feature_230.dart';
+import '../features/generated_screens/premium_feature_231.dart';
+import '../features/generated_screens/premium_feature_232.dart';
+import '../features/generated_screens/premium_feature_233.dart';
+import '../features/generated_screens/premium_feature_234.dart';
+import '../features/generated_screens/premium_feature_235.dart';
+import '../features/generated_screens/premium_feature_236.dart';
+import '../features/generated_screens/premium_feature_237.dart';
+import '../features/generated_screens/premium_feature_238.dart';
+import '../features/generated_screens/premium_feature_239.dart';
+import '../features/generated_screens/premium_feature_240.dart';
+import '../features/generated_screens/premium_feature_241.dart';
+import '../features/generated_screens/premium_feature_242.dart';
+import '../features/generated_screens/premium_feature_243.dart';
+import '../features/generated_screens/premium_feature_244.dart';
+import '../features/generated_screens/premium_feature_245.dart';
+import '../features/generated_screens/premium_feature_246.dart';
+import '../features/generated_screens/premium_feature_247.dart';
+import '../features/generated_screens/premium_feature_248.dart';
+import '../features/generated_screens/premium_feature_249.dart';
+import '../features/generated_screens/premium_feature_250.dart';
+import '../features/generated_screens/premium_feature_251.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../screens/common/shared_screen_stubs.dart';
 import '../screens/psw/psw_messages_screen.dart';
 import '../screens/psw/psw_visit_notes_screen.dart';
@@ -129,121 +382,120 @@ import '../screens/common/infrastructure_dashboard_screen.dart';
 import '../screens/common/infrastructure_compliance_screen.dart';
 import '../screens/common/business_development_dashboard_screen.dart';
 import '../screens/common/business_development_compliance_screen.dart';
-import '../screens/premium/premium_feature_125/premium_feature_125_view.dart';
 
 class ScreenRegistry {
   /// Local widget mapping for the UI layer.
   static final Map<String, Widget> _widgetRegistry = {
-    'SCREEN_PREMIUM_FEATURE_1': const PremiumFeature1(),
-    'SCREEN_PREMIUM_FEATURE_2': const PremiumFeature2(),
-    'SCREEN_PREMIUM_FEATURE_3': const PremiumFeature3(),
-    'SCREEN_PREMIUM_FEATURE_4': const PremiumFeature4(),
-    'SCREEN_PREMIUM_FEATURE_5': const PremiumFeature5(),
-    'SCREEN_PREMIUM_FEATURE_6': const PremiumFeature6(),
-    'SCREEN_PREMIUM_FEATURE_7': const PremiumFeature7(),
-    'SCREEN_PREMIUM_FEATURE_8': const PremiumFeature8(),
-    'SCREEN_PREMIUM_FEATURE_9': const PremiumFeature9(),
-    'SCREEN_PREMIUM_FEATURE_10': const PremiumFeature10(),
-    'SCREEN_PREMIUM_FEATURE_11': const PremiumFeature11(),
-    'SCREEN_PREMIUM_FEATURE_12': const PremiumFeature12(),
-    'SCREEN_PREMIUM_FEATURE_13': const PremiumFeature13(),
-    'SCREEN_PREMIUM_FEATURE_14': const PremiumFeature14(),
-    'SCREEN_PREMIUM_FEATURE_15': const PremiumFeature15(),
-    'SCREEN_PREMIUM_FEATURE_16': const PremiumFeature16(),
-    'SCREEN_PREMIUM_FEATURE_17': const PremiumFeature17(),
-    'SCREEN_PREMIUM_FEATURE_18': const PremiumFeature18(),
-    'SCREEN_PREMIUM_FEATURE_19': const PremiumFeature19(),
-    'SCREEN_PREMIUM_FEATURE_20': const PremiumFeature20(),
-    'SCREEN_PREMIUM_FEATURE_21': const PremiumFeature21(),
-    'SCREEN_PREMIUM_FEATURE_22': const PremiumFeature22(),
-    'SCREEN_PREMIUM_FEATURE_23': const PremiumFeature23(),
-    'SCREEN_PREMIUM_FEATURE_24': const PremiumFeature24(),
-    'SCREEN_PREMIUM_FEATURE_25': const PremiumFeature25(),
-    'SCREEN_PREMIUM_FEATURE_26': const PremiumFeature26(),
-    'SCREEN_PREMIUM_FEATURE_27': const PremiumFeature27(),
-    'SCREEN_PREMIUM_FEATURE_28': const PremiumFeature28(),
-    'SCREEN_PREMIUM_FEATURE_29': const PremiumFeature29(),
-    'SCREEN_PREMIUM_FEATURE_30': const PremiumFeature30(),
-    'SCREEN_PREMIUM_FEATURE_31': const PremiumFeature31(),
-    'SCREEN_PREMIUM_FEATURE_32': const PremiumFeature32(),
-    'SCREEN_PREMIUM_FEATURE_33': const PremiumFeature33(),
-    'SCREEN_PREMIUM_FEATURE_34': const PremiumFeature34(),
-    'SCREEN_PREMIUM_FEATURE_35': const PremiumFeature35(),
-    'SCREEN_PREMIUM_FEATURE_36': const PremiumFeature36(),
-    'SCREEN_PREMIUM_FEATURE_37': const PremiumFeature37(),
-    'SCREEN_PREMIUM_FEATURE_38': const PremiumFeature38(),
-    'SCREEN_PREMIUM_FEATURE_39': const PremiumFeature39(),
-    'SCREEN_PREMIUM_FEATURE_40': const PremiumFeature40(),
-    'SCREEN_PREMIUM_FEATURE_41': const PremiumFeature41(),
-    'SCREEN_PREMIUM_FEATURE_42': const PremiumFeature42(),
-    'SCREEN_PREMIUM_FEATURE_43': const PremiumFeature43(),
-    'SCREEN_PREMIUM_FEATURE_44': const PremiumFeature44(),
-    'SCREEN_PREMIUM_FEATURE_45': const PremiumFeature45(),
-    'SCREEN_PREMIUM_FEATURE_46': const PremiumFeature46(),
-    'SCREEN_PREMIUM_FEATURE_47': const PremiumFeature47(),
-    'SCREEN_PREMIUM_FEATURE_48': const PremiumFeature48(),
-    'SCREEN_PREMIUM_FEATURE_49': const PremiumFeature49(),
-    'SCREEN_PREMIUM_FEATURE_50': const PremiumFeature50(),
-    'SCREEN_PREMIUM_FEATURE_51': const PremiumFeature51(),
-    'SCREEN_PREMIUM_FEATURE_52': const PremiumFeature52(),
-    'SCREEN_PREMIUM_FEATURE_53': const PremiumFeature53(),
-    'SCREEN_PREMIUM_FEATURE_54': const PremiumFeature54(),
-    'SCREEN_PREMIUM_FEATURE_55': const PremiumFeature55(),
-    'SCREEN_PREMIUM_FEATURE_56': const PremiumFeature56(),
-    'SCREEN_PREMIUM_FEATURE_57': const PremiumFeature57(),
-    'SCREEN_PREMIUM_FEATURE_58': const PremiumFeature58(),
-    'SCREEN_PREMIUM_FEATURE_59': const PremiumFeature59(),
-    'SCREEN_PREMIUM_FEATURE_60': const PremiumFeature60(),
-    'SCREEN_PREMIUM_FEATURE_61': const PremiumFeature61(),
-    'SCREEN_PREMIUM_FEATURE_62': const PremiumFeature62(),
-    'SCREEN_PREMIUM_FEATURE_63': const PremiumFeature63(),
-    'SCREEN_PREMIUM_FEATURE_64': const PremiumFeature64(),
-    'SCREEN_PREMIUM_FEATURE_65': const PremiumFeature65(),
-    'SCREEN_PREMIUM_FEATURE_66': const PremiumFeature66(),
-    'SCREEN_PREMIUM_FEATURE_67': const PremiumFeature67(),
-    'SCREEN_PREMIUM_FEATURE_68': const PremiumFeature68(),
-    'SCREEN_PREMIUM_FEATURE_69': const PremiumFeature69(),
-    'SCREEN_PREMIUM_FEATURE_70': const PremiumFeature70(),
-    'SCREEN_PREMIUM_FEATURE_71': const PremiumFeature71(),
-    'SCREEN_PREMIUM_FEATURE_72': const PremiumFeature72(),
-    'SCREEN_PREMIUM_FEATURE_73': const PremiumFeature73(),
-    'SCREEN_PREMIUM_FEATURE_74': const PremiumFeature74(),
-    'SCREEN_PREMIUM_FEATURE_75': const PremiumFeature75(),
-    'SCREEN_PREMIUM_FEATURE_76': const PremiumFeature76(),
-    'SCREEN_PREMIUM_FEATURE_77': const PremiumFeature77(),
-    'SCREEN_PREMIUM_FEATURE_78': const PremiumFeature78(),
-    'SCREEN_PREMIUM_FEATURE_79': const PremiumFeature79(),
-    'SCREEN_PREMIUM_FEATURE_80': const PremiumFeature80(),
-    'SCREEN_PREMIUM_FEATURE_81': const PremiumFeature81(),
-    'SCREEN_PREMIUM_FEATURE_82': const PremiumFeature82(),
-    'SCREEN_PREMIUM_FEATURE_83': const PremiumFeature83(),
-    'SCREEN_PREMIUM_FEATURE_84': const PremiumFeature84(),
-    'SCREEN_PREMIUM_FEATURE_85': const PremiumFeature85(),
-    'SCREEN_PREMIUM_FEATURE_86': const PremiumFeature86(),
-    'SCREEN_PREMIUM_FEATURE_87': const PremiumFeature87(),
-    'SCREEN_PREMIUM_FEATURE_88': const PremiumFeature88(),
-    'SCREEN_PREMIUM_FEATURE_89': const PremiumFeature89(),
-    'SCREEN_PREMIUM_FEATURE_90': const PremiumFeature90(),
-    'SCREEN_PREMIUM_FEATURE_91': const PremiumFeature91(),
-    'SCREEN_PREMIUM_FEATURE_92': const PremiumFeature92(),
-    'SCREEN_PREMIUM_FEATURE_93': const PremiumFeature93(),
-    'SCREEN_PREMIUM_FEATURE_94': const PremiumFeature94(),
-    'SCREEN_PREMIUM_FEATURE_95': const PremiumFeature95(),
-    'SCREEN_PREMIUM_FEATURE_96': const PremiumFeature96(),
-    'SCREEN_PREMIUM_FEATURE_97': const PremiumFeature97(),
-    'SCREEN_PREMIUM_FEATURE_98': const PremiumFeature98(),
-    'SCREEN_PREMIUM_FEATURE_99': const PremiumFeature99(),
-    'SCREEN_PREMIUM_FEATURE_100': const PremiumFeature100(),
-    'SCREEN_PREMIUM_FEATURE_101': const PremiumFeature101(),
-    'SCREEN_PREMIUM_FEATURE_102': const PremiumFeature102(),
-    'SCREEN_PREMIUM_FEATURE_103': const PremiumFeature103(),
-    'SCREEN_PREMIUM_FEATURE_104': const PremiumFeature104(),
-    'SCREEN_PREMIUM_FEATURE_105': const PremiumFeature105(),
-    'SCREEN_PREMIUM_FEATURE_106': const PremiumFeature106(),
-    'SCREEN_PREMIUM_FEATURE_107': const PremiumFeature107(),
-    'SCREEN_PREMIUM_FEATURE_108': const PremiumFeature108(),
-    'SCREEN_PREMIUM_FEATURE_109': const PremiumFeature109(),
-    'SCREEN_PREMIUM_FEATURE_110': const PremiumFeature110(),
+    'SCREEN_PREMIUM_FEATURE_1': const UserManagementScreen(),
+    'SCREEN_PREMIUM_FEATURE_2': const TenantConfigurationScreen(),
+    'SCREEN_PREMIUM_FEATURE_3': const SystemRegistryDashboard(),
+    'SCREEN_PREMIUM_FEATURE_4': const ApiKeyManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_5': const AuditLogViewer(),
+    'SCREEN_PREMIUM_FEATURE_6': const SystemEventMonitor(),
+    'SCREEN_PREMIUM_FEATURE_7': const LeadPipelineScreen(),
+    'SCREEN_PREMIUM_FEATURE_8': const FAQManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_9': const DeviceFleetManager(),
+    'SCREEN_PREMIUM_FEATURE_10': const SystemPolicyEditor(),
+    'SCREEN_PREMIUM_FEATURE_11': const ResponseBotAuditScreen(),
+    'SCREEN_PREMIUM_FEATURE_12': const TouchpointAnalyzerScreen(),
+    'SCREEN_PREMIUM_FEATURE_13': const RegistryEntryEditorScreen(),
+    'SCREEN_PREMIUM_FEATURE_14': const SecureMessageCenterScreen(),
+    'SCREEN_PREMIUM_FEATURE_15': const MessageArchiveViewerScreen(),
+    'SCREEN_PREMIUM_FEATURE_16': const RoleAccessMatrixScreen(),
+    'SCREEN_PREMIUM_FEATURE_17': const RoleScreenAccessScreen(),
+    'SCREEN_PREMIUM_FEATURE_18': const CrisisProtocolTriggerScreen(),
+    'SCREEN_PREMIUM_FEATURE_19': const ProtocolResolutionLogScreen(),
+    'SCREEN_PREMIUM_FEATURE_20': const EcosystemStateBoardScreen(),
+    'SCREEN_PREMIUM_FEATURE_21': const ProviderPerformanceDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_22': const ResourceAllocationMapScreen(),
+    'SCREEN_PREMIUM_FEATURE_23': const QualityAssuranceMetricsScreen(),
+    'SCREEN_PREMIUM_FEATURE_24': const IntegrationHealthMonitorScreen(),
+    'SCREEN_PREMIUM_FEATURE_25': const FeatureFlagControllerScreen(),
+    'SCREEN_PREMIUM_FEATURE_26': const ConfigurationVersionControlScreen(),
+    'SCREEN_PREMIUM_FEATURE_27': const ServiceMeshTopologyScreen(),
+    'SCREEN_PREMIUM_FEATURE_28': const IncidentResponseHubScreen(),
+    'SCREEN_PREMIUM_FEATURE_29': const SystemCapacityPlannerScreen(),
+    'SCREEN_PREMIUM_FEATURE_30': const AdminUserManagementScreen(),
+    'SCREEN_PREMIUM_FEATURE_31': const HipaaAuditDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_32': const DataPrivacyMonitorScreen(),
+    'SCREEN_PREMIUM_FEATURE_33': const SecurityIncidentLoggerScreen(),
+    'SCREEN_PREMIUM_FEATURE_34': const ConsentManagementConsoleScreen(),
+    'SCREEN_PREMIUM_FEATURE_35': const VendorRiskAssessorScreen(),
+    'SCREEN_PREMIUM_FEATURE_36': const PolicyExceptionTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_37': const RegulatoryChangeRadarScreen(),
+    'SCREEN_PREMIUM_FEATURE_38': const AccessReviewCertifierScreen(),
+    'SCREEN_PREMIUM_FEATURE_39': const ComplianceTrainingTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_40': const OshaIncidentReporterScreen(),
+    'SCREEN_PREMIUM_FEATURE_41': const PredictiveAnalyticsDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_42': const ClinicalOutcomesReportScreen(),
+    'SCREEN_PREMIUM_FEATURE_43': const FinancialForecastingModelScreen(),
+    'SCREEN_PREMIUM_FEATURE_44': const OperationalEfficiencyMetricsScreen(),
+    'SCREEN_PREMIUM_FEATURE_45': const PopulationHealthAnalyzerScreen(),
+    'SCREEN_PREMIUM_FEATURE_46': const MarketingROIReportScreen(),
+    'SCREEN_PREMIUM_FEATURE_47': const PatientRetentionAnalyticsScreen(),
+    'SCREEN_PREMIUM_FEATURE_48': const StaffUtilizationHeatmapScreen(),
+    'SCREEN_PREMIUM_FEATURE_49': const SupplyChainCostAnalyzerScreen(),
+    'SCREEN_PREMIUM_FEATURE_50': const BoardOfDirectorsSummaryScreen(),
+    'SCREEN_PREMIUM_FEATURE_51': const CampaignPerformanceDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_52': const LeadConversionFunnelScreen(),
+    'SCREEN_PREMIUM_FEATURE_53': const SocialMediaSentimentAnalyzerScreen(),
+    'SCREEN_PREMIUM_FEATURE_54': const PatientAcquisitionCostTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_55': const ReferralNetworkManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_56': const EmailMarketingAutomatorScreen(),
+    'SCREEN_PREMIUM_FEATURE_57': const CompetitorAnalysisBoardScreen(),
+    'SCREEN_PREMIUM_FEATURE_58': const EventAndWebinarManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_59': const BrandAssetLibraryScreen(),
+    'SCREEN_PREMIUM_FEATURE_60': const TerritorySalesMappingScreen(),
+    'SCREEN_PREMIUM_FEATURE_61': const CMETrackingDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_62': const ClinicalGuidelineLibraryScreen(),
+    'SCREEN_PREMIUM_FEATURE_63': const SurgicalVideoArchiveScreen(),
+    'SCREEN_PREMIUM_FEATURE_64': const PeerReviewConferenceRoomScreen(),
+    'SCREEN_PREMIUM_FEATURE_65': const ResidencyProgramTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_66': const SimulationLabSchedulerScreen(),
+    'SCREEN_PREMIUM_FEATURE_67': const JournalClubDiscussionBoardScreen(),
+    'SCREEN_PREMIUM_FEATURE_68': const PatientCaseStudyRepositoryScreen(),
+    'SCREEN_PREMIUM_FEATURE_69': const CertificationRenewalAlertsScreen(),
+    'SCREEN_PREMIUM_FEATURE_70': const MedicalLibraryAccessPortalScreen(),
+    'SCREEN_PREMIUM_FEATURE_71': const TelehealthConsultationRoomScreen(),
+    'SCREEN_PREMIUM_FEATURE_72': const RemotePatientMonitoringDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_73': const VirtualWaitingRoomScreen(),
+    'SCREEN_PREMIUM_FEATURE_74': const TelemedicinePrescriptionPadScreen(),
+    'SCREEN_PREMIUM_FEATURE_75': const AsynchronousConsultationInboxScreen(),
+    'SCREEN_PREMIUM_FEATURE_76': const DeviceIntegrationHubScreen(),
+    'SCREEN_PREMIUM_FEATURE_77': const TelehealthQualityMetricsScreen(),
+    'SCREEN_PREMIUM_FEATURE_78': const RemoteDiagnosticsViewerScreen(),
+    'SCREEN_PREMIUM_FEATURE_79': const DigitalSymptomCheckerScreen(),
+    'SCREEN_PREMIUM_FEATURE_80': const ChronicCareManagementTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_81': const PharmacyDispensingDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_82': const MedicationReconciliationToolScreen(),
+    'SCREEN_PREMIUM_FEATURE_83': const DrugInteractionAlertCenterScreen(),
+    'SCREEN_PREMIUM_FEATURE_84': const FormularyComplianceManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_85': const ControlledSubstanceLogScreen(),
+    'SCREEN_PREMIUM_FEATURE_86': const InpatientPharmacyQueueScreen(),
+    'SCREEN_PREMIUM_FEATURE_87': const OutpatientPrescriptionTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_88': const ChemotherapyProtocolBuilderScreen(),
+    'SCREEN_PREMIUM_FEATURE_89': const PharmacyInventoryManagementScreen(),
+    'SCREEN_PREMIUM_FEATURE_90': const PatientMedicationAdherenceScreen(),
+    'SCREEN_PREMIUM_FEATURE_91': const ClinicalTrialRecruitmentDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_92': const ResearchProtocolManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_93': const InformedConsentTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_94': const AdverseEventReportingPortalScreen(),
+    'SCREEN_PREMIUM_FEATURE_95': const TrialDataCollectionCRFScreen(),
+    'SCREEN_PREMIUM_FEATURE_96': const BiospecimenInventoryTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_97': const GrantFundingAllocationScreen(),
+    'SCREEN_PREMIUM_FEATURE_98': const MultiCenterTrialCollaborationScreen(),
+    'SCREEN_PREMIUM_FEATURE_99': const ResearchPublicationDraftingScreen(),
+    'SCREEN_PREMIUM_FEATURE_100': const PatientTrialOutcomesViewerScreen(),
+    'SCREEN_PREMIUM_FEATURE_101': const EpidemiologicalSurveillanceDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_102': const VaccinationCampaignManagerScreen(),
+    'SCREEN_PREMIUM_FEATURE_103': const PublicHealthAlertBroadcasterScreen(),
+    'SCREEN_PREMIUM_FEATURE_104': const CommunityHealthNeedsAssessmentScreen(),
+    'SCREEN_PREMIUM_FEATURE_105': const EnvironmentalHealthHazardsScreen(),
+    'SCREEN_PREMIUM_FEATURE_106': const VulnerablePopulationRegistryScreen(),
+    'SCREEN_PREMIUM_FEATURE_107': const MobileClinicDispatchScreen(),
+    'SCREEN_PREMIUM_FEATURE_108': const SchoolHealthProgramDashboardScreen(),
+    'SCREEN_PREMIUM_FEATURE_109': const SocialDeterminantsOfHealthTrackerScreen(),
+    'SCREEN_PREMIUM_FEATURE_110': const SubstanceAbusePreventionTrackerScreen(),
     'SCREEN_PREMIUM_FEATURE_111': const PremiumFeature111(),
     'SCREEN_PREMIUM_FEATURE_112': const PremiumFeature112(),
     'SCREEN_PREMIUM_FEATURE_113': const PremiumFeature113(),
@@ -458,13 +710,17 @@ class ScreenRegistry {
     'CTO_COMPLIANCE': const CtoComplianceScreen(),
     'SCREEN_CTO_COMPLIANCE': const CtoComplianceScreen(),
     'COMPLIANCEMANAGER_DASHBOARD': const ComplianceManagerDashboardScreen(),
-    'SCREEN_COMPLIANCEMANAGER_DASHBOARD': const ComplianceManagerDashboardScreen(),
+    'SCREEN_COMPLIANCEMANAGER_DASHBOARD':
+        const ComplianceManagerDashboardScreen(),
     'COMPLIANCEMANAGER_COMPLIANCE': const ComplianceManagerComplianceScreen(),
-    'SCREEN_COMPLIANCEMANAGER_COMPLIANCE': const ComplianceManagerComplianceScreen(),
+    'SCREEN_COMPLIANCEMANAGER_COMPLIANCE':
+        const ComplianceManagerComplianceScreen(),
     'GOVERNANCEOFFICER_DASHBOARD': const GovernanceOfficerDashboardScreen(),
-    'SCREEN_GOVERNANCEOFFICER_DASHBOARD': const GovernanceOfficerDashboardScreen(),
+    'SCREEN_GOVERNANCEOFFICER_DASHBOARD':
+        const GovernanceOfficerDashboardScreen(),
     'GOVERNANCEOFFICER_COMPLIANCE': const GovernanceOfficerComplianceScreen(),
-    'SCREEN_GOVERNANCEOFFICER_COMPLIANCE': const GovernanceOfficerComplianceScreen(),
+    'SCREEN_GOVERNANCEOFFICER_COMPLIANCE':
+        const GovernanceOfficerComplianceScreen(),
     'HEADOFBUSDEV_DASHBOARD': const HeadOfBusDevDashboardScreen(),
     'SCREEN_HEADOFBUSDEV_DASHBOARD': const HeadOfBusDevDashboardScreen(),
     'HEADOFBUSDEV_COMPLIANCE': const HeadOfBusDevComplianceScreen(),
@@ -472,15 +728,19 @@ class ScreenRegistry {
     'HEADOFMARKETING_DASHBOARD': const HeadOfMarketingDashboardScreen(),
     'SCREEN_HEADOFMARKETING_DASHBOARD': const HeadOfMarketingDashboardScreen(),
     'HEADOFMARKETING_COMPLIANCE': const HeadOfMarketingComplianceScreen(),
-    'SCREEN_HEADOFMARKETING_COMPLIANCE': const HeadOfMarketingComplianceScreen(),
+    'SCREEN_HEADOFMARKETING_COMPLIANCE':
+        const HeadOfMarketingComplianceScreen(),
     'TRAININGDIRECTOR_DASHBOARD': const TrainingDirectorDashboardScreen(),
-    'SCREEN_TRAININGDIRECTOR_DASHBOARD': const TrainingDirectorDashboardScreen(),
+    'SCREEN_TRAININGDIRECTOR_DASHBOARD':
+        const TrainingDirectorDashboardScreen(),
     'TRAININGDIRECTOR_COMPLIANCE': const TrainingDirectorComplianceScreen(),
-    'SCREEN_TRAININGDIRECTOR_COMPLIANCE': const TrainingDirectorComplianceScreen(),
+    'SCREEN_TRAININGDIRECTOR_COMPLIANCE':
+        const TrainingDirectorComplianceScreen(),
     'FINANCEDIRECTOR_DASHBOARD': const FinanceDirectorDashboardScreen(),
     'SCREEN_FINANCEDIRECTOR_DASHBOARD': const FinanceDirectorDashboardScreen(),
     'FINANCEDIRECTOR_COMPLIANCE': const FinanceDirectorComplianceScreen(),
-    'SCREEN_FINANCEDIRECTOR_COMPLIANCE': const FinanceDirectorComplianceScreen(),
+    'SCREEN_FINANCEDIRECTOR_COMPLIANCE':
+        const FinanceDirectorComplianceScreen(),
     'SCRUMMASTER_DASHBOARD': const ScrumMasterDashboardScreen(),
     'SCREEN_SCRUMMASTER_DASHBOARD': const ScrumMasterDashboardScreen(),
     'SCRUMMASTER_COMPLIANCE': const ScrumMasterComplianceScreen(),
@@ -506,45 +766,69 @@ class ScreenRegistry {
     'CISO_COMPLIANCE': const CisoComplianceScreen(),
     'SCREEN_CISO_COMPLIANCE': const CisoComplianceScreen(),
     'REGIONALMANAGERUSA_DASHBOARD': const RegionalManagerUsaDashboardScreen(),
-    'SCREEN_REGIONALMANAGERUSA_DASHBOARD': const RegionalManagerUsaDashboardScreen(),
+    'SCREEN_REGIONALMANAGERUSA_DASHBOARD':
+        const RegionalManagerUsaDashboardScreen(),
     'REGIONALMANAGERUSA_COMPLIANCE': const RegionalManagerUsaComplianceScreen(),
-    'SCREEN_REGIONALMANAGERUSA_COMPLIANCE': const RegionalManagerUsaComplianceScreen(),
+    'SCREEN_REGIONALMANAGERUSA_COMPLIANCE':
+        const RegionalManagerUsaComplianceScreen(),
     'REGIONALBDM_DASHBOARD': const RegionalBdmDashboardScreen(),
     'SCREEN_REGIONALBDM_DASHBOARD': const RegionalBdmDashboardScreen(),
     'REGIONALBDM_COMPLIANCE': const RegionalBdmComplianceScreen(),
     'SCREEN_REGIONALBDM_COMPLIANCE': const RegionalBdmComplianceScreen(),
-    'FRANCHISESALESMANAGER_DASHBOARD': const FranchiseSalesManagerDashboardScreen(),
-    'SCREEN_FRANCHISESALESMANAGER_DASHBOARD': const FranchiseSalesManagerDashboardScreen(),
-    'FRANCHISESALESMANAGER_COMPLIANCE': const FranchiseSalesManagerComplianceScreen(),
-    'SCREEN_FRANCHISESALESMANAGER_COMPLIANCE': const FranchiseSalesManagerComplianceScreen(),
+    'FRANCHISESALESMANAGER_DASHBOARD':
+        const FranchiseSalesManagerDashboardScreen(),
+    'SCREEN_FRANCHISESALESMANAGER_DASHBOARD':
+        const FranchiseSalesManagerDashboardScreen(),
+    'FRANCHISESALESMANAGER_COMPLIANCE':
+        const FranchiseSalesManagerComplianceScreen(),
+    'SCREEN_FRANCHISESALESMANAGER_COMPLIANCE':
+        const FranchiseSalesManagerComplianceScreen(),
     'PARTNERSHIPMANAGER_DASHBOARD': const PartnershipManagerDashboardScreen(),
-    'SCREEN_PARTNERSHIPMANAGER_DASHBOARD': const PartnershipManagerDashboardScreen(),
+    'SCREEN_PARTNERSHIPMANAGER_DASHBOARD':
+        const PartnershipManagerDashboardScreen(),
     'PARTNERSHIPMANAGER_COMPLIANCE': const PartnershipManagerComplianceScreen(),
-    'SCREEN_PARTNERSHIPMANAGER_COMPLIANCE': const PartnershipManagerComplianceScreen(),
-    'TERRITORYEXPANSIONMANAGER_DASHBOARD': const TerritoryExpansionManagerDashboardScreen(),
-    'SCREEN_TERRITORYEXPANSIONMANAGER_DASHBOARD': const TerritoryExpansionManagerDashboardScreen(),
-    'TERRITORYEXPANSIONMANAGER_COMPLIANCE': const TerritoryExpansionManagerComplianceScreen(),
-    'SCREEN_TERRITORYEXPANSIONMANAGER_COMPLIANCE': const TerritoryExpansionManagerComplianceScreen(),
-    'TERRITORYSALESMANAGER_DASHBOARD': const TerritorySalesManagerDashboardScreen(),
-    'SCREEN_TERRITORYSALESMANAGER_DASHBOARD': const TerritorySalesManagerDashboardScreen(),
-    'TERRITORYSALESMANAGER_COMPLIANCE': const TerritorySalesManagerComplianceScreen(),
-    'SCREEN_TERRITORYSALESMANAGER_COMPLIANCE': const TerritorySalesManagerComplianceScreen(),
+    'SCREEN_PARTNERSHIPMANAGER_COMPLIANCE':
+        const PartnershipManagerComplianceScreen(),
+    'TERRITORYEXPANSIONMANAGER_DASHBOARD':
+        const TerritoryExpansionManagerDashboardScreen(),
+    'SCREEN_TERRITORYEXPANSIONMANAGER_DASHBOARD':
+        const TerritoryExpansionManagerDashboardScreen(),
+    'TERRITORYEXPANSIONMANAGER_COMPLIANCE':
+        const TerritoryExpansionManagerComplianceScreen(),
+    'SCREEN_TERRITORYEXPANSIONMANAGER_COMPLIANCE':
+        const TerritoryExpansionManagerComplianceScreen(),
+    'TERRITORYSALESMANAGER_DASHBOARD':
+        const TerritorySalesManagerDashboardScreen(),
+    'SCREEN_TERRITORYSALESMANAGER_DASHBOARD':
+        const TerritorySalesManagerDashboardScreen(),
+    'TERRITORYSALESMANAGER_COMPLIANCE':
+        const TerritorySalesManagerComplianceScreen(),
+    'SCREEN_TERRITORYSALESMANAGER_COMPLIANCE':
+        const TerritorySalesManagerComplianceScreen(),
     'GENERALMANAGER_DASHBOARD': const GeneralManagerDashboardScreen(),
     'SCREEN_GENERALMANAGER_DASHBOARD': const GeneralManagerDashboardScreen(),
     'GENERALMANAGER_COMPLIANCE': const GeneralManagerComplianceScreen(),
     'SCREEN_GENERALMANAGER_COMPLIANCE': const GeneralManagerComplianceScreen(),
-    'LOCALMARKETINGMANAGER_DASHBOARD': const LocalMarketingManagerDashboardScreen(),
-    'SCREEN_LOCALMARKETINGMANAGER_DASHBOARD': const LocalMarketingManagerDashboardScreen(),
-    'LOCALMARKETINGMANAGER_COMPLIANCE': const LocalMarketingManagerComplianceScreen(),
-    'SCREEN_LOCALMARKETINGMANAGER_COMPLIANCE': const LocalMarketingManagerComplianceScreen(),
+    'LOCALMARKETINGMANAGER_DASHBOARD':
+        const LocalMarketingManagerDashboardScreen(),
+    'SCREEN_LOCALMARKETINGMANAGER_DASHBOARD':
+        const LocalMarketingManagerDashboardScreen(),
+    'LOCALMARKETINGMANAGER_COMPLIANCE':
+        const LocalMarketingManagerComplianceScreen(),
+    'SCREEN_LOCALMARKETINGMANAGER_COMPLIANCE':
+        const LocalMarketingManagerComplianceScreen(),
     'COMMUNITYOUTREACH_DASHBOARD': const CommunityOutreachDashboardScreen(),
-    'SCREEN_COMMUNITYOUTREACH_DASHBOARD': const CommunityOutreachDashboardScreen(),
+    'SCREEN_COMMUNITYOUTREACH_DASHBOARD':
+        const CommunityOutreachDashboardScreen(),
     'COMMUNITYOUTREACH_COMPLIANCE': const CommunityOutreachComplianceScreen(),
-    'SCREEN_COMMUNITYOUTREACH_COMPLIANCE': const CommunityOutreachComplianceScreen(),
+    'SCREEN_COMMUNITYOUTREACH_COMPLIANCE':
+        const CommunityOutreachComplianceScreen(),
     'OPERATIONSMANAGER_DASHBOARD': const OperationsManagerDashboardScreen(),
-    'SCREEN_OPERATIONSMANAGER_DASHBOARD': const OperationsManagerDashboardScreen(),
+    'SCREEN_OPERATIONSMANAGER_DASHBOARD':
+        const OperationsManagerDashboardScreen(),
     'OPERATIONSMANAGER_COMPLIANCE': const OperationsManagerComplianceScreen(),
-    'SCREEN_OPERATIONSMANAGER_COMPLIANCE': const OperationsManagerComplianceScreen(),
+    'SCREEN_OPERATIONSMANAGER_COMPLIANCE':
+        const OperationsManagerComplianceScreen(),
     'SCHEDULER_DASHBOARD': const SchedulerDashboardScreen(),
     'SCREEN_SCHEDULER_DASHBOARD': const SchedulerDashboardScreen(),
     'SCHEDULER_COMPLIANCE': const SchedulerComplianceScreen(),
@@ -566,21 +850,32 @@ class ScreenRegistry {
     'OWNER_COMPLIANCE': const OwnerComplianceScreen(),
     'SCREEN_OWNER_COMPLIANCE': const OwnerComplianceScreen(),
     'INTAKECOORDINATOR_DASHBOARD': const IntakeCoordinatorDashboardScreen(),
-    'SCREEN_INTAKECOORDINATOR_DASHBOARD': const IntakeCoordinatorDashboardScreen(),
+    'SCREEN_INTAKECOORDINATOR_DASHBOARD':
+        const IntakeCoordinatorDashboardScreen(),
     'INTAKECOORDINATOR_COMPLIANCE': const IntakeCoordinatorComplianceScreen(),
-    'SCREEN_INTAKECOORDINATOR_COMPLIANCE': const IntakeCoordinatorComplianceScreen(),
+    'SCREEN_INTAKECOORDINATOR_COMPLIANCE':
+        const IntakeCoordinatorComplianceScreen(),
     'QUALITYASSURANCE_DASHBOARD': const QualityAssuranceDashboardScreen(),
-    'SCREEN_QUALITYASSURANCE_DASHBOARD': const QualityAssuranceDashboardScreen(),
+    'SCREEN_QUALITYASSURANCE_DASHBOARD':
+        const QualityAssuranceDashboardScreen(),
     'QUALITYASSURANCE_COMPLIANCE': const QualityAssuranceComplianceScreen(),
-    'SCREEN_QUALITYASSURANCE_COMPLIANCE': const QualityAssuranceComplianceScreen(),
+    'SCREEN_QUALITYASSURANCE_COMPLIANCE':
+        const QualityAssuranceComplianceScreen(),
     'TRAININGCOORDINATOR_DASHBOARD': const TrainingCoordinatorDashboardScreen(),
-    'SCREEN_TRAININGCOORDINATOR_DASHBOARD': const TrainingCoordinatorDashboardScreen(),
-    'TRAININGCOORDINATOR_COMPLIANCE': const TrainingCoordinatorComplianceScreen(),
-    'SCREEN_TRAININGCOORDINATOR_COMPLIANCE': const TrainingCoordinatorComplianceScreen(),
-    'VOLUNTEERCOORDINATOR_DASHBOARD': const VolunteerCoordinatorDashboardScreen(),
-    'SCREEN_VOLUNTEERCOORDINATOR_DASHBOARD': const VolunteerCoordinatorDashboardScreen(),
-    'VOLUNTEERCOORDINATOR_COMPLIANCE': const VolunteerCoordinatorComplianceScreen(),
-    'SCREEN_VOLUNTEERCOORDINATOR_COMPLIANCE': const VolunteerCoordinatorComplianceScreen(),
+    'SCREEN_TRAININGCOORDINATOR_DASHBOARD':
+        const TrainingCoordinatorDashboardScreen(),
+    'TRAININGCOORDINATOR_COMPLIANCE':
+        const TrainingCoordinatorComplianceScreen(),
+    'SCREEN_TRAININGCOORDINATOR_COMPLIANCE':
+        const TrainingCoordinatorComplianceScreen(),
+    'VOLUNTEERCOORDINATOR_DASHBOARD':
+        const VolunteerCoordinatorDashboardScreen(),
+    'SCREEN_VOLUNTEERCOORDINATOR_DASHBOARD':
+        const VolunteerCoordinatorDashboardScreen(),
+    'VOLUNTEERCOORDINATOR_COMPLIANCE':
+        const VolunteerCoordinatorComplianceScreen(),
+    'SCREEN_VOLUNTEERCOORDINATOR_COMPLIANCE':
+        const VolunteerCoordinatorComplianceScreen(),
     'RECEPTIONIST_DASHBOARD': const ReceptionistDashboardScreen(),
     'SCREEN_RECEPTIONIST_DASHBOARD': const ReceptionistDashboardScreen(),
     'RECEPTIONIST_COMPLIANCE': const ReceptionistComplianceScreen(),
@@ -604,7 +899,8 @@ class ScreenRegistry {
     'PHYSIOTHERAPIST_DASHBOARD': const PhysiotherapistDashboardScreen(),
     'SCREEN_PHYSIOTHERAPIST_DASHBOARD': const PhysiotherapistDashboardScreen(),
     'PHYSIOTHERAPIST_COMPLIANCE': const PhysiotherapistComplianceScreen(),
-    'SCREEN_PHYSIOTHERAPIST_COMPLIANCE': const PhysiotherapistComplianceScreen(),
+    'SCREEN_PHYSIOTHERAPIST_COMPLIANCE':
+        const PhysiotherapistComplianceScreen(),
     'SOCIALWORKER_DASHBOARD': const SocialWorkerDashboardScreen(),
     'SCREEN_SOCIALWORKER_DASHBOARD': const SocialWorkerDashboardScreen(),
     'SOCIALWORKER_COMPLIANCE': const SocialWorkerComplianceScreen(),
@@ -620,7 +916,8 @@ class ScreenRegistry {
     'CUSTOMERSUPPORT_DASHBOARD': const CustomerSupportDashboardScreen(),
     'SCREEN_CUSTOMERSUPPORT_DASHBOARD': const CustomerSupportDashboardScreen(),
     'CUSTOMERSUPPORT_COMPLIANCE': const CustomerSupportComplianceScreen(),
-    'SCREEN_CUSTOMERSUPPORT_COMPLIANCE': const CustomerSupportComplianceScreen(),
+    'SCREEN_CUSTOMERSUPPORT_COMPLIANCE':
+        const CustomerSupportComplianceScreen(),
     'INTAKE_DASHBOARD': const IntakeDashboardScreen(),
     'SCREEN_INTAKE_DASHBOARD': const IntakeDashboardScreen(),
     'INTAKE_COMPLIANCE': const IntakeComplianceScreen(),
@@ -640,15 +937,22 @@ class ScreenRegistry {
     'COURSEARCHITECT_DASHBOARD': const CourseArchitectDashboardScreen(),
     'SCREEN_COURSEARCHITECT_DASHBOARD': const CourseArchitectDashboardScreen(),
     'COURSEARCHITECT_COMPLIANCE': const CourseArchitectComplianceScreen(),
-    'SCREEN_COURSEARCHITECT_COMPLIANCE': const CourseArchitectComplianceScreen(),
-    'ARCHITECTUREPLANNING_DASHBOARD': const ArchitecturePlanningDashboardScreen(),
-    'SCREEN_ARCHITECTUREPLANNING_DASHBOARD': const ArchitecturePlanningDashboardScreen(),
-    'ARCHITECTUREPLANNING_COMPLIANCE': const ArchitecturePlanningComplianceScreen(),
-    'SCREEN_ARCHITECTUREPLANNING_COMPLIANCE': const ArchitecturePlanningComplianceScreen(),
+    'SCREEN_COURSEARCHITECT_COMPLIANCE':
+        const CourseArchitectComplianceScreen(),
+    'ARCHITECTUREPLANNING_DASHBOARD':
+        const ArchitecturePlanningDashboardScreen(),
+    'SCREEN_ARCHITECTUREPLANNING_DASHBOARD':
+        const ArchitecturePlanningDashboardScreen(),
+    'ARCHITECTUREPLANNING_COMPLIANCE':
+        const ArchitecturePlanningComplianceScreen(),
+    'SCREEN_ARCHITECTUREPLANNING_COMPLIANCE':
+        const ArchitecturePlanningComplianceScreen(),
     'SYSTEMVERIFICATION_DASHBOARD': const SystemVerificationDashboardScreen(),
-    'SCREEN_SYSTEMVERIFICATION_DASHBOARD': const SystemVerificationDashboardScreen(),
+    'SCREEN_SYSTEMVERIFICATION_DASHBOARD':
+        const SystemVerificationDashboardScreen(),
     'SYSTEMVERIFICATION_COMPLIANCE': const SystemVerificationComplianceScreen(),
-    'SCREEN_SYSTEMVERIFICATION_COMPLIANCE': const SystemVerificationComplianceScreen(),
+    'SCREEN_SYSTEMVERIFICATION_COMPLIANCE':
+        const SystemVerificationComplianceScreen(),
     'DYNAMICSCREEN_DASHBOARD': const DynamicScreenDashboardScreen(),
     'SCREEN_DYNAMICSCREEN_DASHBOARD': const DynamicScreenDashboardScreen(),
     'DYNAMICSCREEN_COMPLIANCE': const DynamicScreenComplianceScreen(),
@@ -686,9 +990,12 @@ class ScreenRegistry {
     'INFRASTRUCTURE_COMPLIANCE': const InfrastructureComplianceScreen(),
     'SCREEN_INFRASTRUCTURE_COMPLIANCE': const InfrastructureComplianceScreen(),
     'BUSINESSDEVELOPMENT_DASHBOARD': const BusinessDevelopmentDashboardScreen(),
-    'SCREEN_BUSINESSDEVELOPMENT_DASHBOARD': const BusinessDevelopmentDashboardScreen(),
-    'BUSINESSDEVELOPMENT_COMPLIANCE': const BusinessDevelopmentComplianceScreen(),
-    'SCREEN_BUSINESSDEVELOPMENT_COMPLIANCE': const BusinessDevelopmentComplianceScreen(),
+    'SCREEN_BUSINESSDEVELOPMENT_DASHBOARD':
+        const BusinessDevelopmentDashboardScreen(),
+    'BUSINESSDEVELOPMENT_COMPLIANCE':
+        const BusinessDevelopmentComplianceScreen(),
+    'SCREEN_BUSINESSDEVELOPMENT_COMPLIANCE':
+        const BusinessDevelopmentComplianceScreen(),
   };
 
   /// Source of truth for metadata
@@ -701,7 +1008,12 @@ class ScreenRegistry {
 
   /// Retrieves the widget implementation for a given screen ID.
   static Widget getWidget(String id) {
-    return _widgetRegistry[id] ?? ScreenNotImplementedView(screenName: id);
+    final normalizedId = id.startsWith('SCREEN_') ? id.substring(7) : id;
+    final prefixedId = id.startsWith('SCREEN_') ? id : 'SCREEN_$id';
+    return _widgetRegistry[normalizedId] ??
+        _widgetRegistry[prefixedId] ??
+        _widgetRegistry[id] ??
+        ScreenNotImplementedView(screenName: id);
   }
 
   /// Audits the registry for health and implementation status.
@@ -736,4 +1048,3 @@ class ScreenAuditReport {
     required this.message,
   });
 }
-

@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class GrowthPipeline extends StatelessWidget {
+class GrowthPipeline extends GovernedStatelessWidget {
   const GrowthPipeline({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'GrowthPipeline',

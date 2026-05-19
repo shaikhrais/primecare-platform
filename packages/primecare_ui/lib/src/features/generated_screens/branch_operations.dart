@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class BranchOperations extends StatelessWidget {
+class BranchOperations extends GovernedStatelessWidget {
   const BranchOperations({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'BranchOperations',

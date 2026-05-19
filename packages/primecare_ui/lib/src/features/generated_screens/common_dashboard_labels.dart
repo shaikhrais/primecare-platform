@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CommonDashboardLabels extends StatelessWidget {
+class CommonDashboardLabels extends GovernedStatelessWidget {
   const CommonDashboardLabels({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'CommonDashboardLabels',

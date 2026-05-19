@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SchedulerCalendarScreen extends StatelessWidget {
+class SchedulerCalendarScreen extends GovernedStatelessWidget {
   const SchedulerCalendarScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'SchedulerCalendarScreen',

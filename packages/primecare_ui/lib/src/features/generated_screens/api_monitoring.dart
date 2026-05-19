@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ApiMonitoring extends StatelessWidget {
+class ApiMonitoring extends GovernedStatelessWidget {
   const ApiMonitoring({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'ApiMonitoring',

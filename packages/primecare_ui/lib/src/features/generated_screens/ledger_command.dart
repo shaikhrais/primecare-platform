@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class LedgerCommand extends StatelessWidget {
+class LedgerCommand extends GovernedStatelessWidget {
   const LedgerCommand({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'LedgerCommand',

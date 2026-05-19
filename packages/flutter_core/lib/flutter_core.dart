@@ -28,6 +28,7 @@ export 'routes/governance_router.dart';
 export 'routes/sso_redirect_view.dart';
 export 'registry/governance_registry.dart';
 export 'registry/platform_role.dart';
+export 'registry/role_registry.dart';
 export 'registry/intents/app_screen_intent.dart';
 export 'registry/platform_application_registry.dart';
 export 'registry/widgets/governance_skeleton.dart';

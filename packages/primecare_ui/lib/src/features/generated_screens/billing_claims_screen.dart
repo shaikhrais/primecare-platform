@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class BillingClaimsScreen extends StatelessWidget {
+class BillingClaimsScreen extends GovernedStatelessWidget {
   const BillingClaimsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'BillingClaimsScreen',

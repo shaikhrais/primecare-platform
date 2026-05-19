@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ShareholderDashboard extends StatelessWidget {
+class ShareholderDashboard extends GovernedStatelessWidget {
   const ShareholderDashboard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'ShareholderDashboard',

@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ScrumMasterDashboardScreen extends StatelessWidget {
+class ScrumMasterDashboardScreen extends GovernedStatelessWidget {
   const ScrumMasterDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'ScrumMasterDashboardScreen',

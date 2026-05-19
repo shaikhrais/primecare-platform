@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SystemHealth extends StatelessWidget {
+class SystemHealth extends GovernedStatelessWidget {
   const SystemHealth({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'SystemHealth',

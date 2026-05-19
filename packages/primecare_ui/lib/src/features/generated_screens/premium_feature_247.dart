@@ -3,7 +3,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 final premiumFeature247Provider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   final response = await api.get('/v1/premium/model247');
-  return response.data is Map ? Map<String, dynamic>.from(response.data) : {};
+  return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
 });
 
 class PremiumFeature247 extends GovernedConsumerWidget {

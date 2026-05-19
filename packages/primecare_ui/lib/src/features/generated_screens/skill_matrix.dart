@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SkillMatrix extends StatelessWidget {
+class SkillMatrix extends GovernedStatelessWidget {
   const SkillMatrix({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'SkillMatrix',

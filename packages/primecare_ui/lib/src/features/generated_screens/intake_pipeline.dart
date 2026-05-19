@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class IntakePipeline extends StatelessWidget {
+class IntakePipeline extends GovernedStatelessWidget {
   const IntakePipeline({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'IntakePipeline',

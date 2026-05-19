@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class DocumentVault extends StatelessWidget {
+class DocumentVault extends GovernedStatelessWidget {
   const DocumentVault({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'DocumentVault',

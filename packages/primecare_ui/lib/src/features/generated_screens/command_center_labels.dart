@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CommandCenterLabels extends StatelessWidget {
+class CommandCenterLabels extends GovernedStatelessWidget {
   const CommandCenterLabels({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'CommandCenterLabels',

@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class HeadOfMarketingDashboard extends StatelessWidget {
+class HeadOfMarketingDashboard extends GovernedStatelessWidget {
   const HeadOfMarketingDashboard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'HeadOfMarketingDashboard',

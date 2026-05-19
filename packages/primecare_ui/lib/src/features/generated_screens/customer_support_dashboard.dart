@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CustomerSupportDashboard extends StatelessWidget {
+class CustomerSupportDashboard extends GovernedStatelessWidget {
   const CustomerSupportDashboard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'CustomerSupportDashboard',

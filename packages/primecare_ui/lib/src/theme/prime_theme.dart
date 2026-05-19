@@ -171,6 +171,7 @@ class PrimeColors {
   final Color onErrorContainer;
 
   Color get onBackground => onSurface;
+  Color get textSecondary => onSurfaceVariant;
   Color get warningContainer => warning.withValues(alpha: 0.15);
 
   PrimeColors copyWith({
@@ -282,6 +283,30 @@ class PrimeTypography {
         fontWeight: FontWeight.w600,
         color: PrimeCareColors.onSurface,
         height: 24 / 18,
+      );
+
+  TextStyle get h5 => const TextStyle(
+        fontFamily: 'Manrope',
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: PrimeCareColors.onSurface,
+        height: 22 / 16,
+      );
+
+  TextStyle get subtitle1 => const TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: PrimeCareColors.onSurface,
+        height: 24 / 16,
+      );
+
+  TextStyle get subtitle2 => const TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: PrimeCareColors.onSurface,
+        height: 20 / 14,
       );
 
   TextStyle get button => labelBold;

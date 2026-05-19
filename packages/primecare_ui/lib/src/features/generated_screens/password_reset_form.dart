@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PasswordResetForm extends StatelessWidget {
+class PasswordResetForm extends GovernedStatelessWidget {
   const PasswordResetForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'PasswordResetForm',

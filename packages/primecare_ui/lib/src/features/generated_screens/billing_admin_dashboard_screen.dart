@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class BillingAdminDashboardScreen extends StatelessWidget {
+class BillingAdminDashboardScreen extends GovernedStatelessWidget {
   const BillingAdminDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'BillingAdminDashboardScreen',

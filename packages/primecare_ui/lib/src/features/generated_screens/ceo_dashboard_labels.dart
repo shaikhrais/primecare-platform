@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CeoDashboardLabels extends StatelessWidget {
+class CeoDashboardLabels extends GovernedStatelessWidget {
   const CeoDashboardLabels({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'CeoDashboardLabels',

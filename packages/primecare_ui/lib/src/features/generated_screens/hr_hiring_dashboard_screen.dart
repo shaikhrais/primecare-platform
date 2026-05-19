@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class HrHiringDashboardScreen extends StatelessWidget {
+class HrHiringDashboardScreen extends GovernedStatelessWidget {
   const HrHiringDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'HrHiringDashboardScreen',

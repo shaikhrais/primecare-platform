@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CreateUserForm extends StatelessWidget {
+class CreateUserForm extends GovernedStatelessWidget {
   const CreateUserForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'CreateUserForm',

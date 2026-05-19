@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class RiskRegister extends StatelessWidget {
+class RiskRegister extends GovernedStatelessWidget {
   const RiskRegister({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'RiskRegister',

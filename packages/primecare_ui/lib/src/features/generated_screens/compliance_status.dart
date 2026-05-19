@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ComplianceStatus extends StatelessWidget {
+class ComplianceStatus extends GovernedStatelessWidget {
   const ComplianceStatus({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'ComplianceStatus',

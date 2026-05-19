@@ -1,0 +1,93 @@
+import 'package:primecare_ui/primecare_ui.dart';
+
+final protocolLogsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {
+  final api = ref.read(apiClientProvider);
+  final response = await api.get('/v1/admin/protocols/logs');
+  return (response.data as List).cast<Map<String, dynamic>>();
+});
+
+class ProtocolResolutionLogScreen extends GovernedConsumerWidget {
+  const ProtocolResolutionLogScreen({super.key});
+
+  @override
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final logState = ref.watch(protocolLogsProvider);
+
+    return Scaffold(
+      backgroundColor: theme.colors.background,
+      appBar: AppBar(
+        backgroundColor: theme.colors.surface,
+        title: Text(
+          'Protocol Resolution & Post-Mortem Log',
+          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh, color: theme.colors.primary),
+            onPressed: () => ref.invalidate(protocolLogsProvider),
+          ),
+        ],
+      ),
+      body: logState.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(
+          child: Text('Failed to load logs: $error', style: TextStyle(color: theme.colors.error)),
+        ),
+        data: (logs) => Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Incident Timeline & After Action Reports', style: theme.typography.h2),
+              const SizedBox(height: 24),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: logs.length,
+                  itemBuilder: (context, index) {
+                    final log = logs[index];
+                    return Card(
+                      color: theme.colors.surface,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      child: ExpansionTile(
+                        leading: Icon(Icons.history, color: theme.colors.primary),
+                        title: Text((log['protocolName'] as String?) ?? 'Unknown Protocol'),
+                        subtitle: Text('Resolved: ${(log['resolutionDate'] as String?) ?? 'N/A'}'),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Incident Summary', style: theme.typography.h5),
+                                const SizedBox(height: 8),
+                                Text((log['summary'] as String?) ?? 'No summary provided.'),
+                                const SizedBox(height: 16),
+                                Text('After Action Items', style: theme.typography.h5),
+                                const SizedBox(height: 8),
+                                if (log['actionItems'] != null)
+                                  ...(log['actionItems'] as List).map((item) => ListTile(
+                                    leading: const Icon(Icons.check_box_outline_blank),
+                                    title: Text(item as String),
+                                  )),
+                                const SizedBox(height: 16),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('Download Full Report PDF'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

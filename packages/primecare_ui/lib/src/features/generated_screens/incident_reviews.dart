@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class IncidentReviews extends StatelessWidget {
+class IncidentReviews extends GovernedStatelessWidget {
   const IncidentReviews({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'IncidentReviews',

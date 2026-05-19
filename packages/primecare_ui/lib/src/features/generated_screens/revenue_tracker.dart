@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class RevenueTracker extends StatelessWidget {
+class RevenueTracker extends GovernedStatelessWidget {
   const RevenueTracker({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'RevenueTracker',

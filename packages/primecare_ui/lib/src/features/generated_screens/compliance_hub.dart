@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ComplianceHub extends StatelessWidget {
+class ComplianceHub extends GovernedStatelessWidget {
   const ComplianceHub({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'ComplianceHub',

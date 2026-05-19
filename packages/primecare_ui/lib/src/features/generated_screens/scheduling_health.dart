@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SchedulingHealth extends StatelessWidget {
+class SchedulingHealth extends GovernedStatelessWidget {
   const SchedulingHealth({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'SchedulingHealth',

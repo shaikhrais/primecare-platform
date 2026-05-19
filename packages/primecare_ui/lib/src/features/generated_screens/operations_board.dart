@@ -1,10 +1,10 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class OperationsBoard extends StatelessWidget {
+class OperationsBoard extends GovernedStatelessWidget {
   const OperationsBoard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return EmptyState(
       icon: LucideIcons.layoutTemplate,
       title: 'OperationsBoard',
