@@ -64,6 +64,7 @@ export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';
 export 'providers/persistence_providers.dart';
 export 'providers/platform_providers.dart';
+export 'providers/zoom_provider.dart';
 
 export 'config/data_source_mode.dart';
 export 'config/feature_flags.dart';

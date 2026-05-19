@@ -32,6 +32,7 @@ class MasterLayout extends ConsumerWidget {
     final tenant = app.tenant;
     final connectivityState = ref.watch(connectivityProvider);
     final isOffline = connectivityState.value == false;
+    final zoomFactor = ref.watch(contentZoomProvider);
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -90,7 +91,7 @@ class MasterLayout extends ConsumerWidget {
         backgroundColor: theme.colors.surface,
         elevation: 0,
         scrolledUnderElevation: 0,
-        actions: actions ?? _getDefaultActions(context, authState),
+        actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(LucideIcons.menu, color: theme.colors.primary),
@@ -151,9 +152,68 @@ class MasterLayout extends ConsumerWidget {
     }
   }
 
-  List<Widget> _getDefaultActions(BuildContext context, AuthState auth) {
+  List<Widget> _getDefaultActions(
+    BuildContext context,
+    WidgetRef ref,
+    AuthState auth,
+    double zoomFactor,
+  ) {
     final theme = context.theme;
     return [
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            tooltip: 'Zoom Out',
+            onPressed: () {
+              ref.read(contentZoomProvider.notifier).zoomOut();
+            },
+            icon: Icon(
+              LucideIcons.zoomOut,
+              color: theme.colors.onSurfaceVariant,
+              size: 20,
+            ),
+          ),
+          Tooltip(
+            message: 'Reset Zoom (Double tap)',
+            child: GestureDetector(
+              onDoubleTap: () {
+                ref.read(contentZoomProvider.notifier).resetZoom();
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: theme.colors.primary.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: theme.colors.primary.withValues(alpha: 0.15),
+                  ),
+                ),
+                child: Text(
+                  '${(zoomFactor * 100).toInt()}%',
+                  style: theme.typography.labelBold.copyWith(
+                    color: theme.colors.primary,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            tooltip: 'Zoom In',
+            onPressed: () {
+              ref.read(contentZoomProvider.notifier).zoomIn();
+            },
+            icon: Icon(
+              LucideIcons.zoomIn,
+              color: theme.colors.onSurfaceVariant,
+              size: 20,
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(width: 8),
       IconButton(
         onPressed: () {},
         icon: Icon(LucideIcons.search, color: theme.colors.onSurfaceVariant),
