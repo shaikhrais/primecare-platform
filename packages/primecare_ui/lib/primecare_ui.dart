@@ -16,9 +16,11 @@ export 'src/components/governance_components.dart';
 export 'src/components/telemetry_hud.dart';
 export 'src/components/empty_state.dart';
 export 'src/shared/omni_responsive.dart';
+export 'src/shared/platform_messaging_provider.dart';
 
 export 'src/components/layouts/master_layout.dart';
 export 'src/components/navigation/primecare_sidebar.dart';
+export 'src/components/navigation/aura_nexus_console.dart';
 
 export 'src/governance_bootstrapper.dart';
 export 'src/governance/automated_audit_engine.dart';

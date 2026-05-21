@@ -351,96 +351,71 @@ class CfoDashboardScreen extends GovernedConsumerWidget {
           IconButton(
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () {
-              controller.addLog('Manual ledger synchronization executed.');
+              controller.addLog('Manual ledger synchronization executed.'); // .tr() LocaleKeys.
             },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GovDashboardHero(
-              title: state.title,
-              roleName: 'CFO Strategic Finance',
-              description: 'Executive command console for balanced multi-ledger bookkeeping, real-time corporate tax compliance, and cash forecasting.',
-              onRefresh: () => controller.addLog('Telemetry status verified.'),
-            ),
-            const SizedBox(height: 24),
-            
-            // --- Custom Premium KPI Grid ---
-            Row(
-              children: [
-                Expanded(
-                  child: _CfoMetricCard(
-                    title: 'Active Cash Balance',
-                    value: '\$${state.currentCashBalance.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
-                    subtitle: 'Real-time ledger value',
-                    icon: LucideIcons.banknote,
-                    color: theme.colors.primary,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _CfoMetricCard(
-                    title: 'Ledger Audit Standing',
-                    value: '${compliancePercentage.toStringAsFixed(1)}%',
-                    subtitle: '$reconciledCount of $totalTransactionsCount entries verified',
-                    icon: LucideIcons.checkSquare,
-                    color: compliancePercentage > 80 ? const Color(0xFF10B981) : theme.colors.warning,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _CfoMetricCard(
-                    title: 'Upcoming Tax Remittance',
-                    value: state.taxLiability.isRemitted 
-                        ? 'FULLY REMITTED' 
-                        : '\$${state.taxLiability.netRemittance.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
-                    subtitle: state.taxLiability.isRemitted ? 'HST Q2 Settled' : 'GST/HST Q2 Remittance due',
-                    icon: LucideIcons.calculator,
-                    color: state.taxLiability.isRemitted ? Colors.teal : theme.colors.tertiary,
-                  ),
-                ),
-              ],
-            ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, curve: Curves.easeOutCubic),
-            
-            const SizedBox(height: 24),
-
-            Row(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1800),
+          child: ResponsiveSplitDashboard(
+            metrics: [
+              GovMetricCard(
+                title: 'Active Cash Balance', // .tr() LocaleKeys.
+                value: '\$${state.currentCashBalance.toStringAsFixed(2).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (Match m) => "${m[1]},")}', // .tr() LocaleKeys.
+                trendLabel: 'Real-time ledger value', // .tr() LocaleKeys.
+                progress: 0.85,
+                icon: LucideIcons.banknote,
+                brandColor: theme.colors.primary,
+              ),
+              GovMetricCard(
+                title: 'Ledger Audit Standing', // .tr() LocaleKeys.
+                value: '${compliancePercentage.toStringAsFixed(1)}%', // .tr() LocaleKeys.
+                trendLabel: '$reconciledCount of $totalTransactionsCount entries verified', // .tr() LocaleKeys.
+                progress: compliancePercentage / 100.0,
+                icon: LucideIcons.checkSquare,
+                brandColor: compliancePercentage > 80 ? const Color(0xFF10B981) : theme.colors.warning,
+              ),
+              GovMetricCard(
+                title: 'Upcoming Tax Remittance', // .tr() LocaleKeys.
+                value: state.taxLiability.isRemitted 
+                    ? 'FULLY REMITTED' // .tr() LocaleKeys.
+                    : '\$${state.taxLiability.netRemittance.toStringAsFixed(2).replaceAllMapped(RegExp(r"(\d{1,3})(?=(\d{3})+(?!\d))"), (Match m) => "${m[1]},")}', // .tr() LocaleKeys.
+                trendLabel: state.taxLiability.isRemitted ? 'HST Q2 Settled' : 'GST/HST Q2 Remittance due', // .tr() LocaleKeys.
+                progress: state.taxLiability.isRemitted ? 1.0 : 0.4,
+                icon: LucideIcons.calculator,
+                brandColor: state.taxLiability.isRemitted ? Colors.teal : theme.colors.tertiary,
+              ),
+            ],
+            mainContent: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // --- Left Column (Interactive ledger + Tax Remittance Hub) ---
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    children: [
-                      // Ledger Control card
-                      _buildLedgerCard(context, ref, state, controller),
-                      const SizedBox(height: 24),
-                      // Tax Remittance Hub
-                      _buildTaxHub(context, ref, state, controller),
-                    ],
-                  ),
+                GovDashboardHero(
+                  title: state.title,
+                  roleName: 'CFO Strategic Finance', // .tr() LocaleKeys.
+                  description: 'Executive command console for balanced multi-ledger bookkeeping, real-time corporate tax compliance, and cash forecasting.', // .tr() LocaleKeys.
+                  onRefresh: () => controller.addLog('Telemetry status verified.'), // .tr() LocaleKeys.
                 ),
-                const SizedBox(width: 24),
-                // --- Right Column (Simulation Tool + Telemetry Terminal) ---
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      // Forecast Simulator
-                      _buildForecastSimulator(context, ref, state, controller),
-                      const SizedBox(height: 24),
-                      // Terminal Logs card
-                      _buildTerminalCard(context, ref, state, controller),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 24),
+                _buildLedgerCard(context, ref, state, controller),
+                const SizedBox(height: 24),
+                _buildTaxHub(context, ref, state, controller),
               ],
-            ).animate().fadeIn(delay: 150.ms, duration: 450.ms),
-          ],
+            ),
+            defaultSidebarWidgets: [
+              _buildForecastSimulator(context, ref, state, controller),
+              _buildTerminalCard(context, ref, state, controller),
+              const AiInsightsCard(
+                heading: 'Financial AI Assistant', // .tr() LocaleKeys.
+                suggestions: [
+                  'Optimize GST/HST input tax credits prior to secure wire.', // .tr() LocaleKeys.
+                  'Analyze ledger discrepancy logs to ensure zero audit variance.', // .tr() LocaleKeys.
+                  'Adjust growth simulator rate to forecast cash runway metrics.', // .tr() LocaleKeys.
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

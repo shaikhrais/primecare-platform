@@ -1,89 +1,77 @@
-import 'package:flutter_core/flutter_core.dart';
-import '../models/governance_report.dart';
-import '../../core/governance/screen_registry.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'screen_governance_reporter_controller.dart';
 
-import 'registry_integrity_service.dart';
-import 'route_audit_service.dart';
-import 'rbac_audit_service.dart';
-import 'lifecycle_audit_service.dart';
-import 'component_audit_service.dart';
-import 'test_quality_audit_service.dart';
-import 'production_readiness_service.dart';
-import 'security_audit_service.dart';
+class ScreenGovernanceReporter extends ConsumerWidget {
+  const ScreenGovernanceReporter({super.key});
 
-class ScreenGovernanceReporter {
-  static GovernanceReport generateReport() {
-    return scan(ScreenRegistry.screens);
-  }
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(ScreenGovernanceReporterControllerProvider);
 
-  static GovernanceReport scan(Map<String, ScreenMetadata> screens) {
-    final issues = <PlatformAuditIssue>[];
-
-    // 1. Structural Registry Audit
-    issues.addAll(RegistryIntegrityService.inspect(screens));
-
-    // 2. Individual Screen Content Audit
-    for (final s in screens.values) {
-      issues.addAll(RouteAuditService.scan(s));
-      issues.addAll(RbacAuditService.scan(s));
-      issues.addAll(LifecycleAuditService.scan(s));
-      issues.addAll(ComponentAuditService.scan(s));
-      issues.addAll(TestQualityAuditService.scan(s));
-      issues.addAll(ProductionReadinessService.scan(s));
-      issues.addAll(SecurityAuditService.scan(s));
-    }
-
-    final total = screens.length;
-    final productionReady = screens.values
-        .where(ProductionReadinessService.isReady)
-        .length;
-    final blocked = screens.values
-        .where((s) => !ProductionReadinessService.isReady(s))
-        .length;
-
-    final avgTest = total == 0
-        ? 0.0
-        : screens.values.map((s) => s.testPassRate).reduce((a, b) => a + b) /
-              total;
-
-    final renderOk = _percent(
-      screens.values.where((s) => s.isRenderOk).length,
-      total,
-    );
-
-    final accessOk = _percent(
-      screens.values.where((s) => s.isAccessibilityVerified).length,
-      total,
-    );
-
-    final performanceOk = _percent(
-      screens.values.where((s) => s.isPerformanceVerified).length,
-      total,
-    );
-
-    return GovernanceReport(
-      totalScreens: total,
-      totalIssues: issues.length,
-      criticalIssues: _count(issues, AuditSeverity.critical),
-      highIssues: _count(issues, AuditSeverity.high),
-      mediumIssues: _count(issues, AuditSeverity.medium),
-      lowIssues: _count(issues, AuditSeverity.low),
-      productionReadyScreens: productionReady,
-      blockedScreens: blocked,
-      averageTestPassRate: avgTest,
-      renderOkPercent: renderOk,
-      accessibilityPercent: accessOk,
-      performancePercent: performanceOk,
-      issues: issues,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ScreenGovernanceReporter'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(ScreenGovernanceReporterControllerProvider),
+          ),
+        ],
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(ScreenGovernanceReporterControllerProvider.notifier).performAction(),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  static int _count(List<PlatformAuditIssue> issues, AuditSeverity severity) {
-    return issues.where((i) => i.severity == severity).length;
-  }
 
-  static double _percent(int value, int total) {
-    if (total == 0) return 0.0;
-    return (value / total) * 100;
+  Widget _buildContent(BuildContext context, dynamic data) {
+    final items = data['items'] as List;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Search / Filter',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  child: Text(item['id'].toString()),
+                ),
+                title: Text(item['title']),
+                subtitle: Text(item['status']),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text('View Details')),
+                    const PopupMenuItem(child: Text('Edit')),
+                    const PopupMenuItem(child: Text('Delete')),
+                  ],
+                ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

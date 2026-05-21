@@ -1,148 +1,77 @@
-import 'screen_work_item.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'screen_work_registry_controller.dart';
 
-class ScreenWorkRegistry {
-  static final List<ScreenWorkItem> pendingList = [
-    ScreenWorkItem(
-      serialNo: 'PC-PEN-0001',
-      screenCode: 'GOV-KNB-001',
-      title: 'Kanban board UI Refinement',
-      office: 'Corporate Governance',
-      module: 'HUD',
-      action: 'create',
-      status: 'pending',
-      priority: 1,
-      assignedTo: 'Agent',
-      notes: 'Implement drag-and-drop and glassmorphism styling.',
-      targetApp: 'primecare_governance',
-    ),
-    ScreenWorkItem(
-      serialNo: 'PC-PEN-0002',
-      screenCode: 'GOV-KNB-002',
-      title: 'Audit Trigger Integration',
-      office: 'Corporate Governance',
-      module: 'HUD',
-      action: 'update',
-      status: 'pending',
-      priority: 2,
-      assignedTo: 'Agent',
-      notes: 'Sync Kanban movements with architectural audits.',
-      targetApp: 'primecare_governance',
-    ),
-  ];
+class ScreenWorkRegistry extends ConsumerWidget {
+  const ScreenWorkRegistry({super.key});
 
-  static final List<ScreenWorkItem> implementationList = [
-    ScreenWorkItem(
-      serialNo: 'PC-IMP-0001',
-      screenCode: 'ONT-FIN-001',
-      title: 'Ontario Financial Overview',
-      office: 'Regional Finance',
-      module: 'Dashboard',
-      action: 'update',
-      status: 'verified',
-      priority: 1,
-      assignedTo: 'Developer',
-      notes:
-          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      routePath: '/regional/finance/overview',
-      targetApp: 'primecare_admin',
-    ),
-    ScreenWorkItem(
-      serialNo: 'PC-IMP-0002',
-      screenCode: 'ONT-FIN-002',
-      title: 'Pending Approvals Queue',
-      office: 'Regional Finance',
-      module: 'Dashboard',
-      action: 'update',
-      status: 'implemented',
-      priority: 1,
-      assignedTo: 'Developer',
-      notes:
-          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      routePath: '/regional/finance/approvals',
-      targetApp: 'primecare_admin',
-    ),
-    ScreenWorkItem(
-      serialNo: 'PC-IMP-0003',
-      screenCode: 'ONT-FIN-003',
-      title: 'Regional Implementation Roadmap',
-      office: 'Regional Finance',
-      module: 'Roadmap',
-      action: 'update',
-      status: 'implemented',
-      priority: 2,
-      assignedTo: 'Developer',
-      notes:
-          'Connected route, sidebar, RBAC, API mapping, and responsive layout.',
-      routePath: '/regional/finance/roadmap',
-      targetApp: 'primecare_admin',
-    ),
-  ];
-  static final List<ScreenChangeLog> changeLog = [];
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(ScreenWorkRegistryControllerProvider);
 
-  static void updateStatus(String serialNo, String newStatus, {String? notes}) {
-    // Check pending list
-    final pendingIndex = pendingList.indexWhere(
-      (item) => item.serialNo == serialNo,
-    );
-    if (pendingIndex != -1) {
-      if (newStatus == 'implemented' || newStatus == 'verified') {
-        final removed = pendingList.removeAt(pendingIndex);
-        implementationList.add(
-          ScreenWorkItem(
-            serialNo: removed.serialNo.replaceFirst('PC-PEN', 'PC-IMP'),
-            screenCode: removed.screenCode,
-            title: removed.title,
-            office: removed.office,
-            module: removed.module,
-            action: 'update',
-            status: newStatus,
-            priority: removed.priority,
-            assignedTo: 'Agent',
-            notes: notes ?? removed.notes,
-            routePath: removed.routePath,
-            targetApp: removed.targetApp,
-            category: removed.category,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ScreenWorkRegistry'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(ScreenWorkRegistryControllerProvider),
           ),
-        );
-      } else {
-        // Just update status in place (though it's already pending)
-        // pendingList[pendingIndex] = ... (not needed if it stays in pending)
-      }
-      return;
-    }
-
-    // Check implementation list
-    final implIndex = implementationList.indexWhere(
-      (item) => item.serialNo == serialNo,
+        ],
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(ScreenWorkRegistryControllerProvider.notifier).performAction(),
+        child: const Icon(Icons.add),
+      ),
     );
-    if (implIndex != -1) {
-      final item = implementationList[implIndex];
-      implementationList[implIndex] = ScreenWorkItem(
-        serialNo: item.serialNo,
-        screenCode: item.screenCode,
-        title: item.title,
-        office: item.office,
-        module: item.module,
-        action: item.action,
-        status: newStatus,
-        priority: item.priority,
-        assignedTo: item.assignedTo,
-        notes: notes ?? item.notes,
-        routePath: item.routePath,
-        targetApp: item.targetApp,
-        category: item.category,
-        completedAt: newStatus == 'verified'
-            ? DateTime.now()
-            : item.completedAt,
-      );
-    }
   }
 
-  static void moveToImplementation(String serialNo, {String? notes}) {
-    updateStatus(serialNo, 'implemented', notes: notes);
-  }
 
-  static void addItem(ScreenWorkItem item) {
-    pendingList.add(item);
+  Widget _buildContent(BuildContext context, dynamic data) {
+    final items = data['items'] as List;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Search / Filter',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  child: Text(item['id'].toString()),
+                ),
+                title: Text(item['title']),
+                subtitle: Text(item['status']),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text('View Details')),
+                    const PopupMenuItem(child: Text('Edit')),
+                    const PopupMenuItem(child: Text('Delete')),
+                  ],
+                ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

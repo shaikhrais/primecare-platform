@@ -354,6 +354,16 @@ export type DailyAuditSignOff = $Result.DefaultSelection<Prisma.$DailyAuditSignO
  */
 export type WellnessPulse = $Result.DefaultSelection<Prisma.$WellnessPulsePayload>
 /**
+ * Model IntakeAssessment
+ * 
+ */
+export type IntakeAssessment = $Result.DefaultSelection<Prisma.$IntakeAssessmentPayload>
+/**
+ * Model ChatSession
+ * 
+ */
+export type ChatSession = $Result.DefaultSelection<Prisma.$ChatSessionPayload>
+/**
  * Model Invoice
  * 
  */
@@ -763,6 +773,11 @@ export type CorporateAlert = $Result.DefaultSelection<Prisma.$CorporateAlertPayl
  * 
  */
 export type OrganizationNode = $Result.DefaultSelection<Prisma.$OrganizationNodePayload>
+/**
+ * Model KpiMetric
+ * 
+ */
+export type KpiMetric = $Result.DefaultSelection<Prisma.$KpiMetricPayload>
 /**
  * Model FranchiseKpi
  * 
@@ -1908,6 +1923,26 @@ export class PrismaClient<
   get wellnessPulse(): Prisma.WellnessPulseDelegate<ExtArgs>;
 
   /**
+   * `prisma.intakeAssessment`: Exposes CRUD operations for the **IntakeAssessment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IntakeAssessments
+    * const intakeAssessments = await prisma.intakeAssessment.findMany()
+    * ```
+    */
+  get intakeAssessment(): Prisma.IntakeAssessmentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.chatSession`: Exposes CRUD operations for the **ChatSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChatSessions
+    * const chatSessions = await prisma.chatSession.findMany()
+    * ```
+    */
+  get chatSession(): Prisma.ChatSessionDelegate<ExtArgs>;
+
+  /**
    * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
     * Example usage:
     * ```ts
@@ -2726,6 +2761,16 @@ export class PrismaClient<
     * ```
     */
   get organizationNode(): Prisma.OrganizationNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.kpiMetric`: Exposes CRUD operations for the **KpiMetric** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KpiMetrics
+    * const kpiMetrics = await prisma.kpiMetric.findMany()
+    * ```
+    */
+  get kpiMetric(): Prisma.KpiMetricDelegate<ExtArgs>;
 
   /**
    * `prisma.franchiseKpi`: Exposes CRUD operations for the **FranchiseKpi** model.
@@ -3915,6 +3960,8 @@ export namespace Prisma {
     ConsentForm: 'ConsentForm',
     DailyAuditSignOff: 'DailyAuditSignOff',
     WellnessPulse: 'WellnessPulse',
+    IntakeAssessment: 'IntakeAssessment',
+    ChatSession: 'ChatSession',
     Invoice: 'Invoice',
     Payment: 'Payment',
     InsuranceProvider: 'InsuranceProvider',
@@ -3997,6 +4044,7 @@ export namespace Prisma {
     CorporateReport: 'CorporateReport',
     CorporateAlert: 'CorporateAlert',
     OrganizationNode: 'OrganizationNode',
+    KpiMetric: 'KpiMetric',
     FranchiseKpi: 'FranchiseKpi',
     FranchiseReport: 'FranchiseReport',
     FranchiseAlert: 'FranchiseAlert',
@@ -4080,7 +4128,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "premiumFeatureStatus" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "intakeAssessment" | "chatSession" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "kpiMetric" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "premiumFeatureStatus" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -8841,6 +8889,146 @@ export namespace Prisma {
           count: {
             args: Prisma.WellnessPulseCountArgs<ExtArgs>
             result: $Utils.Optional<WellnessPulseCountAggregateOutputType> | number
+          }
+        }
+      }
+      IntakeAssessment: {
+        payload: Prisma.$IntakeAssessmentPayload<ExtArgs>
+        fields: Prisma.IntakeAssessmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IntakeAssessmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IntakeAssessmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          findFirst: {
+            args: Prisma.IntakeAssessmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IntakeAssessmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          findMany: {
+            args: Prisma.IntakeAssessmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>[]
+          }
+          create: {
+            args: Prisma.IntakeAssessmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          createMany: {
+            args: Prisma.IntakeAssessmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IntakeAssessmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>[]
+          }
+          delete: {
+            args: Prisma.IntakeAssessmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          update: {
+            args: Prisma.IntakeAssessmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.IntakeAssessmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IntakeAssessmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IntakeAssessmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IntakeAssessmentPayload>
+          }
+          aggregate: {
+            args: Prisma.IntakeAssessmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIntakeAssessment>
+          }
+          groupBy: {
+            args: Prisma.IntakeAssessmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IntakeAssessmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IntakeAssessmentCountArgs<ExtArgs>
+            result: $Utils.Optional<IntakeAssessmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChatSession: {
+        payload: Prisma.$ChatSessionPayload<ExtArgs>
+        fields: Prisma.ChatSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChatSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChatSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.ChatSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChatSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          findMany: {
+            args: Prisma.ChatSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>[]
+          }
+          create: {
+            args: Prisma.ChatSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          createMany: {
+            args: Prisma.ChatSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChatSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>[]
+          }
+          delete: {
+            args: Prisma.ChatSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          update: {
+            args: Prisma.ChatSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChatSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChatSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ChatSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.ChatSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChatSession>
+          }
+          groupBy: {
+            args: Prisma.ChatSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChatSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChatSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<ChatSessionCountAggregateOutputType> | number
           }
         }
       }
@@ -14581,6 +14769,76 @@ export namespace Prisma {
           count: {
             args: Prisma.OrganizationNodeCountArgs<ExtArgs>
             result: $Utils.Optional<OrganizationNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      KpiMetric: {
+        payload: Prisma.$KpiMetricPayload<ExtArgs>
+        fields: Prisma.KpiMetricFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KpiMetricFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KpiMetricFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          findFirst: {
+            args: Prisma.KpiMetricFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KpiMetricFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          findMany: {
+            args: Prisma.KpiMetricFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>[]
+          }
+          create: {
+            args: Prisma.KpiMetricCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          createMany: {
+            args: Prisma.KpiMetricCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KpiMetricCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>[]
+          }
+          delete: {
+            args: Prisma.KpiMetricDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          update: {
+            args: Prisma.KpiMetricUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          deleteMany: {
+            args: Prisma.KpiMetricDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KpiMetricUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.KpiMetricUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KpiMetricPayload>
+          }
+          aggregate: {
+            args: Prisma.KpiMetricAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKpiMetric>
+          }
+          groupBy: {
+            args: Prisma.KpiMetricGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KpiMetricGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KpiMetricCountArgs<ExtArgs>
+            result: $Utils.Optional<KpiMetricCountAggregateOutputType> | number
           }
         }
       }
@@ -96107,6 +96365,1766 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: WellnessPulseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IntakeAssessment
+   */
+
+  export type AggregateIntakeAssessment = {
+    _count: IntakeAssessmentCountAggregateOutputType | null
+    _min: IntakeAssessmentMinAggregateOutputType | null
+    _max: IntakeAssessmentMaxAggregateOutputType | null
+  }
+
+  export type IntakeAssessmentMinAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    providerId: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IntakeAssessmentMaxAggregateOutputType = {
+    id: string | null
+    patientId: string | null
+    providerId: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IntakeAssessmentCountAggregateOutputType = {
+    id: number
+    patientId: number
+    providerId: number
+    assessmentData: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IntakeAssessmentMinAggregateInputType = {
+    id?: true
+    patientId?: true
+    providerId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IntakeAssessmentMaxAggregateInputType = {
+    id?: true
+    patientId?: true
+    providerId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IntakeAssessmentCountAggregateInputType = {
+    id?: true
+    patientId?: true
+    providerId?: true
+    assessmentData?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IntakeAssessmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IntakeAssessment to aggregate.
+     */
+    where?: IntakeAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IntakeAssessments to fetch.
+     */
+    orderBy?: IntakeAssessmentOrderByWithRelationInput | IntakeAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IntakeAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IntakeAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IntakeAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IntakeAssessments
+    **/
+    _count?: true | IntakeAssessmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IntakeAssessmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IntakeAssessmentMaxAggregateInputType
+  }
+
+  export type GetIntakeAssessmentAggregateType<T extends IntakeAssessmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateIntakeAssessment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIntakeAssessment[P]>
+      : GetScalarType<T[P], AggregateIntakeAssessment[P]>
+  }
+
+
+
+
+  export type IntakeAssessmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IntakeAssessmentWhereInput
+    orderBy?: IntakeAssessmentOrderByWithAggregationInput | IntakeAssessmentOrderByWithAggregationInput[]
+    by: IntakeAssessmentScalarFieldEnum[] | IntakeAssessmentScalarFieldEnum
+    having?: IntakeAssessmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IntakeAssessmentCountAggregateInputType | true
+    _min?: IntakeAssessmentMinAggregateInputType
+    _max?: IntakeAssessmentMaxAggregateInputType
+  }
+
+  export type IntakeAssessmentGroupByOutputType = {
+    id: string
+    patientId: string
+    providerId: string
+    assessmentData: JsonValue
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: IntakeAssessmentCountAggregateOutputType | null
+    _min: IntakeAssessmentMinAggregateOutputType | null
+    _max: IntakeAssessmentMaxAggregateOutputType | null
+  }
+
+  type GetIntakeAssessmentGroupByPayload<T extends IntakeAssessmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IntakeAssessmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IntakeAssessmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IntakeAssessmentGroupByOutputType[P]>
+            : GetScalarType<T[P], IntakeAssessmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IntakeAssessmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    providerId?: boolean
+    assessmentData?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["intakeAssessment"]>
+
+  export type IntakeAssessmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patientId?: boolean
+    providerId?: boolean
+    assessmentData?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["intakeAssessment"]>
+
+  export type IntakeAssessmentSelectScalar = {
+    id?: boolean
+    patientId?: boolean
+    providerId?: boolean
+    assessmentData?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $IntakeAssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IntakeAssessment"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patientId: string
+      providerId: string
+      assessmentData: Prisma.JsonValue
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["intakeAssessment"]>
+    composites: {}
+  }
+
+  type IntakeAssessmentGetPayload<S extends boolean | null | undefined | IntakeAssessmentDefaultArgs> = $Result.GetResult<Prisma.$IntakeAssessmentPayload, S>
+
+  type IntakeAssessmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<IntakeAssessmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: IntakeAssessmentCountAggregateInputType | true
+    }
+
+  export interface IntakeAssessmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IntakeAssessment'], meta: { name: 'IntakeAssessment' } }
+    /**
+     * Find zero or one IntakeAssessment that matches the filter.
+     * @param {IntakeAssessmentFindUniqueArgs} args - Arguments to find a IntakeAssessment
+     * @example
+     * // Get one IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IntakeAssessmentFindUniqueArgs>(args: SelectSubset<T, IntakeAssessmentFindUniqueArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one IntakeAssessment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {IntakeAssessmentFindUniqueOrThrowArgs} args - Arguments to find a IntakeAssessment
+     * @example
+     * // Get one IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IntakeAssessmentFindUniqueOrThrowArgs>(args: SelectSubset<T, IntakeAssessmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first IntakeAssessment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentFindFirstArgs} args - Arguments to find a IntakeAssessment
+     * @example
+     * // Get one IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IntakeAssessmentFindFirstArgs>(args?: SelectSubset<T, IntakeAssessmentFindFirstArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first IntakeAssessment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentFindFirstOrThrowArgs} args - Arguments to find a IntakeAssessment
+     * @example
+     * // Get one IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IntakeAssessmentFindFirstOrThrowArgs>(args?: SelectSubset<T, IntakeAssessmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more IntakeAssessments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IntakeAssessments
+     * const intakeAssessments = await prisma.intakeAssessment.findMany()
+     * 
+     * // Get first 10 IntakeAssessments
+     * const intakeAssessments = await prisma.intakeAssessment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const intakeAssessmentWithIdOnly = await prisma.intakeAssessment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IntakeAssessmentFindManyArgs>(args?: SelectSubset<T, IntakeAssessmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a IntakeAssessment.
+     * @param {IntakeAssessmentCreateArgs} args - Arguments to create a IntakeAssessment.
+     * @example
+     * // Create one IntakeAssessment
+     * const IntakeAssessment = await prisma.intakeAssessment.create({
+     *   data: {
+     *     // ... data to create a IntakeAssessment
+     *   }
+     * })
+     * 
+     */
+    create<T extends IntakeAssessmentCreateArgs>(args: SelectSubset<T, IntakeAssessmentCreateArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many IntakeAssessments.
+     * @param {IntakeAssessmentCreateManyArgs} args - Arguments to create many IntakeAssessments.
+     * @example
+     * // Create many IntakeAssessments
+     * const intakeAssessment = await prisma.intakeAssessment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IntakeAssessmentCreateManyArgs>(args?: SelectSubset<T, IntakeAssessmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IntakeAssessments and returns the data saved in the database.
+     * @param {IntakeAssessmentCreateManyAndReturnArgs} args - Arguments to create many IntakeAssessments.
+     * @example
+     * // Create many IntakeAssessments
+     * const intakeAssessment = await prisma.intakeAssessment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IntakeAssessments and only return the `id`
+     * const intakeAssessmentWithIdOnly = await prisma.intakeAssessment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IntakeAssessmentCreateManyAndReturnArgs>(args?: SelectSubset<T, IntakeAssessmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a IntakeAssessment.
+     * @param {IntakeAssessmentDeleteArgs} args - Arguments to delete one IntakeAssessment.
+     * @example
+     * // Delete one IntakeAssessment
+     * const IntakeAssessment = await prisma.intakeAssessment.delete({
+     *   where: {
+     *     // ... filter to delete one IntakeAssessment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IntakeAssessmentDeleteArgs>(args: SelectSubset<T, IntakeAssessmentDeleteArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one IntakeAssessment.
+     * @param {IntakeAssessmentUpdateArgs} args - Arguments to update one IntakeAssessment.
+     * @example
+     * // Update one IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IntakeAssessmentUpdateArgs>(args: SelectSubset<T, IntakeAssessmentUpdateArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more IntakeAssessments.
+     * @param {IntakeAssessmentDeleteManyArgs} args - Arguments to filter IntakeAssessments to delete.
+     * @example
+     * // Delete a few IntakeAssessments
+     * const { count } = await prisma.intakeAssessment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IntakeAssessmentDeleteManyArgs>(args?: SelectSubset<T, IntakeAssessmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IntakeAssessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IntakeAssessments
+     * const intakeAssessment = await prisma.intakeAssessment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IntakeAssessmentUpdateManyArgs>(args: SelectSubset<T, IntakeAssessmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IntakeAssessment.
+     * @param {IntakeAssessmentUpsertArgs} args - Arguments to update or create a IntakeAssessment.
+     * @example
+     * // Update or create a IntakeAssessment
+     * const intakeAssessment = await prisma.intakeAssessment.upsert({
+     *   create: {
+     *     // ... data to create a IntakeAssessment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IntakeAssessment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IntakeAssessmentUpsertArgs>(args: SelectSubset<T, IntakeAssessmentUpsertArgs<ExtArgs>>): Prisma__IntakeAssessmentClient<$Result.GetResult<Prisma.$IntakeAssessmentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of IntakeAssessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentCountArgs} args - Arguments to filter IntakeAssessments to count.
+     * @example
+     * // Count the number of IntakeAssessments
+     * const count = await prisma.intakeAssessment.count({
+     *   where: {
+     *     // ... the filter for the IntakeAssessments we want to count
+     *   }
+     * })
+    **/
+    count<T extends IntakeAssessmentCountArgs>(
+      args?: Subset<T, IntakeAssessmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IntakeAssessmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IntakeAssessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IntakeAssessmentAggregateArgs>(args: Subset<T, IntakeAssessmentAggregateArgs>): Prisma.PrismaPromise<GetIntakeAssessmentAggregateType<T>>
+
+    /**
+     * Group by IntakeAssessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IntakeAssessmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IntakeAssessmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IntakeAssessmentGroupByArgs['orderBy'] }
+        : { orderBy?: IntakeAssessmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IntakeAssessmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIntakeAssessmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IntakeAssessment model
+   */
+  readonly fields: IntakeAssessmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IntakeAssessment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IntakeAssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IntakeAssessment model
+   */ 
+  interface IntakeAssessmentFieldRefs {
+    readonly id: FieldRef<"IntakeAssessment", 'String'>
+    readonly patientId: FieldRef<"IntakeAssessment", 'String'>
+    readonly providerId: FieldRef<"IntakeAssessment", 'String'>
+    readonly assessmentData: FieldRef<"IntakeAssessment", 'Json'>
+    readonly status: FieldRef<"IntakeAssessment", 'String'>
+    readonly createdAt: FieldRef<"IntakeAssessment", 'DateTime'>
+    readonly updatedAt: FieldRef<"IntakeAssessment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IntakeAssessment findUnique
+   */
+  export type IntakeAssessmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which IntakeAssessment to fetch.
+     */
+    where: IntakeAssessmentWhereUniqueInput
+  }
+
+  /**
+   * IntakeAssessment findUniqueOrThrow
+   */
+  export type IntakeAssessmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which IntakeAssessment to fetch.
+     */
+    where: IntakeAssessmentWhereUniqueInput
+  }
+
+  /**
+   * IntakeAssessment findFirst
+   */
+  export type IntakeAssessmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which IntakeAssessment to fetch.
+     */
+    where?: IntakeAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IntakeAssessments to fetch.
+     */
+    orderBy?: IntakeAssessmentOrderByWithRelationInput | IntakeAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IntakeAssessments.
+     */
+    cursor?: IntakeAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IntakeAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IntakeAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IntakeAssessments.
+     */
+    distinct?: IntakeAssessmentScalarFieldEnum | IntakeAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * IntakeAssessment findFirstOrThrow
+   */
+  export type IntakeAssessmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which IntakeAssessment to fetch.
+     */
+    where?: IntakeAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IntakeAssessments to fetch.
+     */
+    orderBy?: IntakeAssessmentOrderByWithRelationInput | IntakeAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IntakeAssessments.
+     */
+    cursor?: IntakeAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IntakeAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IntakeAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IntakeAssessments.
+     */
+    distinct?: IntakeAssessmentScalarFieldEnum | IntakeAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * IntakeAssessment findMany
+   */
+  export type IntakeAssessmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which IntakeAssessments to fetch.
+     */
+    where?: IntakeAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IntakeAssessments to fetch.
+     */
+    orderBy?: IntakeAssessmentOrderByWithRelationInput | IntakeAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IntakeAssessments.
+     */
+    cursor?: IntakeAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IntakeAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IntakeAssessments.
+     */
+    skip?: number
+    distinct?: IntakeAssessmentScalarFieldEnum | IntakeAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * IntakeAssessment create
+   */
+  export type IntakeAssessmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * The data needed to create a IntakeAssessment.
+     */
+    data: XOR<IntakeAssessmentCreateInput, IntakeAssessmentUncheckedCreateInput>
+  }
+
+  /**
+   * IntakeAssessment createMany
+   */
+  export type IntakeAssessmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IntakeAssessments.
+     */
+    data: IntakeAssessmentCreateManyInput | IntakeAssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IntakeAssessment createManyAndReturn
+   */
+  export type IntakeAssessmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many IntakeAssessments.
+     */
+    data: IntakeAssessmentCreateManyInput | IntakeAssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IntakeAssessment update
+   */
+  export type IntakeAssessmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * The data needed to update a IntakeAssessment.
+     */
+    data: XOR<IntakeAssessmentUpdateInput, IntakeAssessmentUncheckedUpdateInput>
+    /**
+     * Choose, which IntakeAssessment to update.
+     */
+    where: IntakeAssessmentWhereUniqueInput
+  }
+
+  /**
+   * IntakeAssessment updateMany
+   */
+  export type IntakeAssessmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IntakeAssessments.
+     */
+    data: XOR<IntakeAssessmentUpdateManyMutationInput, IntakeAssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which IntakeAssessments to update
+     */
+    where?: IntakeAssessmentWhereInput
+  }
+
+  /**
+   * IntakeAssessment upsert
+   */
+  export type IntakeAssessmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * The filter to search for the IntakeAssessment to update in case it exists.
+     */
+    where: IntakeAssessmentWhereUniqueInput
+    /**
+     * In case the IntakeAssessment found by the `where` argument doesn't exist, create a new IntakeAssessment with this data.
+     */
+    create: XOR<IntakeAssessmentCreateInput, IntakeAssessmentUncheckedCreateInput>
+    /**
+     * In case the IntakeAssessment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IntakeAssessmentUpdateInput, IntakeAssessmentUncheckedUpdateInput>
+  }
+
+  /**
+   * IntakeAssessment delete
+   */
+  export type IntakeAssessmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+    /**
+     * Filter which IntakeAssessment to delete.
+     */
+    where: IntakeAssessmentWhereUniqueInput
+  }
+
+  /**
+   * IntakeAssessment deleteMany
+   */
+  export type IntakeAssessmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IntakeAssessments to delete
+     */
+    where?: IntakeAssessmentWhereInput
+  }
+
+  /**
+   * IntakeAssessment without action
+   */
+  export type IntakeAssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IntakeAssessment
+     */
+    select?: IntakeAssessmentSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChatSession
+   */
+
+  export type AggregateChatSession = {
+    _count: ChatSessionCountAggregateOutputType | null
+    _min: ChatSessionMinAggregateOutputType | null
+    _max: ChatSessionMaxAggregateOutputType | null
+  }
+
+  export type ChatSessionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type ChatSessionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type ChatSessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    messages: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChatSessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type ChatSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type ChatSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    messages?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChatSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChatSession to aggregate.
+     */
+    where?: ChatSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatSessions to fetch.
+     */
+    orderBy?: ChatSessionOrderByWithRelationInput | ChatSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChatSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChatSessions
+    **/
+    _count?: true | ChatSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChatSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChatSessionMaxAggregateInputType
+  }
+
+  export type GetChatSessionAggregateType<T extends ChatSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateChatSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChatSession[P]>
+      : GetScalarType<T[P], AggregateChatSession[P]>
+  }
+
+
+
+
+  export type ChatSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChatSessionWhereInput
+    orderBy?: ChatSessionOrderByWithAggregationInput | ChatSessionOrderByWithAggregationInput[]
+    by: ChatSessionScalarFieldEnum[] | ChatSessionScalarFieldEnum
+    having?: ChatSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChatSessionCountAggregateInputType | true
+    _min?: ChatSessionMinAggregateInputType
+    _max?: ChatSessionMaxAggregateInputType
+  }
+
+  export type ChatSessionGroupByOutputType = {
+    id: string
+    userId: string
+    messages: JsonValue
+    createdAt: Date
+    _count: ChatSessionCountAggregateOutputType | null
+    _min: ChatSessionMinAggregateOutputType | null
+    _max: ChatSessionMaxAggregateOutputType | null
+  }
+
+  type GetChatSessionGroupByPayload<T extends ChatSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChatSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChatSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChatSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], ChatSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChatSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    messages?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["chatSession"]>
+
+  export type ChatSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    messages?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["chatSession"]>
+
+  export type ChatSessionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    messages?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $ChatSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChatSession"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      messages: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["chatSession"]>
+    composites: {}
+  }
+
+  type ChatSessionGetPayload<S extends boolean | null | undefined | ChatSessionDefaultArgs> = $Result.GetResult<Prisma.$ChatSessionPayload, S>
+
+  type ChatSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ChatSessionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ChatSessionCountAggregateInputType | true
+    }
+
+  export interface ChatSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChatSession'], meta: { name: 'ChatSession' } }
+    /**
+     * Find zero or one ChatSession that matches the filter.
+     * @param {ChatSessionFindUniqueArgs} args - Arguments to find a ChatSession
+     * @example
+     * // Get one ChatSession
+     * const chatSession = await prisma.chatSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChatSessionFindUniqueArgs>(args: SelectSubset<T, ChatSessionFindUniqueArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ChatSession that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ChatSessionFindUniqueOrThrowArgs} args - Arguments to find a ChatSession
+     * @example
+     * // Get one ChatSession
+     * const chatSession = await prisma.chatSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChatSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, ChatSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ChatSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionFindFirstArgs} args - Arguments to find a ChatSession
+     * @example
+     * // Get one ChatSession
+     * const chatSession = await prisma.chatSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChatSessionFindFirstArgs>(args?: SelectSubset<T, ChatSessionFindFirstArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ChatSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionFindFirstOrThrowArgs} args - Arguments to find a ChatSession
+     * @example
+     * // Get one ChatSession
+     * const chatSession = await prisma.chatSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChatSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, ChatSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ChatSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChatSessions
+     * const chatSessions = await prisma.chatSession.findMany()
+     * 
+     * // Get first 10 ChatSessions
+     * const chatSessions = await prisma.chatSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chatSessionWithIdOnly = await prisma.chatSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChatSessionFindManyArgs>(args?: SelectSubset<T, ChatSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ChatSession.
+     * @param {ChatSessionCreateArgs} args - Arguments to create a ChatSession.
+     * @example
+     * // Create one ChatSession
+     * const ChatSession = await prisma.chatSession.create({
+     *   data: {
+     *     // ... data to create a ChatSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChatSessionCreateArgs>(args: SelectSubset<T, ChatSessionCreateArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ChatSessions.
+     * @param {ChatSessionCreateManyArgs} args - Arguments to create many ChatSessions.
+     * @example
+     * // Create many ChatSessions
+     * const chatSession = await prisma.chatSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChatSessionCreateManyArgs>(args?: SelectSubset<T, ChatSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChatSessions and returns the data saved in the database.
+     * @param {ChatSessionCreateManyAndReturnArgs} args - Arguments to create many ChatSessions.
+     * @example
+     * // Create many ChatSessions
+     * const chatSession = await prisma.chatSession.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChatSessions and only return the `id`
+     * const chatSessionWithIdOnly = await prisma.chatSession.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChatSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, ChatSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ChatSession.
+     * @param {ChatSessionDeleteArgs} args - Arguments to delete one ChatSession.
+     * @example
+     * // Delete one ChatSession
+     * const ChatSession = await prisma.chatSession.delete({
+     *   where: {
+     *     // ... filter to delete one ChatSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChatSessionDeleteArgs>(args: SelectSubset<T, ChatSessionDeleteArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ChatSession.
+     * @param {ChatSessionUpdateArgs} args - Arguments to update one ChatSession.
+     * @example
+     * // Update one ChatSession
+     * const chatSession = await prisma.chatSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChatSessionUpdateArgs>(args: SelectSubset<T, ChatSessionUpdateArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ChatSessions.
+     * @param {ChatSessionDeleteManyArgs} args - Arguments to filter ChatSessions to delete.
+     * @example
+     * // Delete a few ChatSessions
+     * const { count } = await prisma.chatSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChatSessionDeleteManyArgs>(args?: SelectSubset<T, ChatSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChatSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChatSessions
+     * const chatSession = await prisma.chatSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChatSessionUpdateManyArgs>(args: SelectSubset<T, ChatSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChatSession.
+     * @param {ChatSessionUpsertArgs} args - Arguments to update or create a ChatSession.
+     * @example
+     * // Update or create a ChatSession
+     * const chatSession = await prisma.chatSession.upsert({
+     *   create: {
+     *     // ... data to create a ChatSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChatSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChatSessionUpsertArgs>(args: SelectSubset<T, ChatSessionUpsertArgs<ExtArgs>>): Prisma__ChatSessionClient<$Result.GetResult<Prisma.$ChatSessionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ChatSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionCountArgs} args - Arguments to filter ChatSessions to count.
+     * @example
+     * // Count the number of ChatSessions
+     * const count = await prisma.chatSession.count({
+     *   where: {
+     *     // ... the filter for the ChatSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChatSessionCountArgs>(
+      args?: Subset<T, ChatSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChatSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChatSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChatSessionAggregateArgs>(args: Subset<T, ChatSessionAggregateArgs>): Prisma.PrismaPromise<GetChatSessionAggregateType<T>>
+
+    /**
+     * Group by ChatSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChatSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChatSessionGroupByArgs['orderBy'] }
+        : { orderBy?: ChatSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChatSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChatSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChatSession model
+   */
+  readonly fields: ChatSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChatSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChatSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChatSession model
+   */ 
+  interface ChatSessionFieldRefs {
+    readonly id: FieldRef<"ChatSession", 'String'>
+    readonly userId: FieldRef<"ChatSession", 'String'>
+    readonly messages: FieldRef<"ChatSession", 'Json'>
+    readonly createdAt: FieldRef<"ChatSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChatSession findUnique
+   */
+  export type ChatSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter, which ChatSession to fetch.
+     */
+    where: ChatSessionWhereUniqueInput
+  }
+
+  /**
+   * ChatSession findUniqueOrThrow
+   */
+  export type ChatSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter, which ChatSession to fetch.
+     */
+    where: ChatSessionWhereUniqueInput
+  }
+
+  /**
+   * ChatSession findFirst
+   */
+  export type ChatSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter, which ChatSession to fetch.
+     */
+    where?: ChatSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatSessions to fetch.
+     */
+    orderBy?: ChatSessionOrderByWithRelationInput | ChatSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatSessions.
+     */
+    cursor?: ChatSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatSessions.
+     */
+    distinct?: ChatSessionScalarFieldEnum | ChatSessionScalarFieldEnum[]
+  }
+
+  /**
+   * ChatSession findFirstOrThrow
+   */
+  export type ChatSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter, which ChatSession to fetch.
+     */
+    where?: ChatSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatSessions to fetch.
+     */
+    orderBy?: ChatSessionOrderByWithRelationInput | ChatSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatSessions.
+     */
+    cursor?: ChatSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatSessions.
+     */
+    distinct?: ChatSessionScalarFieldEnum | ChatSessionScalarFieldEnum[]
+  }
+
+  /**
+   * ChatSession findMany
+   */
+  export type ChatSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter, which ChatSessions to fetch.
+     */
+    where?: ChatSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatSessions to fetch.
+     */
+    orderBy?: ChatSessionOrderByWithRelationInput | ChatSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChatSessions.
+     */
+    cursor?: ChatSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatSessions.
+     */
+    skip?: number
+    distinct?: ChatSessionScalarFieldEnum | ChatSessionScalarFieldEnum[]
+  }
+
+  /**
+   * ChatSession create
+   */
+  export type ChatSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ChatSession.
+     */
+    data: XOR<ChatSessionCreateInput, ChatSessionUncheckedCreateInput>
+  }
+
+  /**
+   * ChatSession createMany
+   */
+  export type ChatSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChatSessions.
+     */
+    data: ChatSessionCreateManyInput | ChatSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChatSession createManyAndReturn
+   */
+  export type ChatSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ChatSessions.
+     */
+    data: ChatSessionCreateManyInput | ChatSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChatSession update
+   */
+  export type ChatSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ChatSession.
+     */
+    data: XOR<ChatSessionUpdateInput, ChatSessionUncheckedUpdateInput>
+    /**
+     * Choose, which ChatSession to update.
+     */
+    where: ChatSessionWhereUniqueInput
+  }
+
+  /**
+   * ChatSession updateMany
+   */
+  export type ChatSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChatSessions.
+     */
+    data: XOR<ChatSessionUpdateManyMutationInput, ChatSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which ChatSessions to update
+     */
+    where?: ChatSessionWhereInput
+  }
+
+  /**
+   * ChatSession upsert
+   */
+  export type ChatSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ChatSession to update in case it exists.
+     */
+    where: ChatSessionWhereUniqueInput
+    /**
+     * In case the ChatSession found by the `where` argument doesn't exist, create a new ChatSession with this data.
+     */
+    create: XOR<ChatSessionCreateInput, ChatSessionUncheckedCreateInput>
+    /**
+     * In case the ChatSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChatSessionUpdateInput, ChatSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * ChatSession delete
+   */
+  export type ChatSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
+    /**
+     * Filter which ChatSession to delete.
+     */
+    where: ChatSessionWhereUniqueInput
+  }
+
+  /**
+   * ChatSession deleteMany
+   */
+  export type ChatSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChatSessions to delete
+     */
+    where?: ChatSessionWhereInput
+  }
+
+  /**
+   * ChatSession without action
+   */
+  export type ChatSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatSession
+     */
+    select?: ChatSessionSelect<ExtArgs> | null
   }
 
 
@@ -178443,6 +180461,908 @@ export namespace Prisma {
 
 
   /**
+   * Model KpiMetric
+   */
+
+  export type AggregateKpiMetric = {
+    _count: KpiMetricCountAggregateOutputType | null
+    _min: KpiMetricMinAggregateOutputType | null
+    _max: KpiMetricMaxAggregateOutputType | null
+  }
+
+  export type KpiMetricMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    value: string | null
+    category: string | null
+    measuredAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KpiMetricMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    value: string | null
+    category: string | null
+    measuredAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KpiMetricCountAggregateOutputType = {
+    id: number
+    label: number
+    value: number
+    category: number
+    measuredAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type KpiMetricMinAggregateInputType = {
+    id?: true
+    label?: true
+    value?: true
+    category?: true
+    measuredAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KpiMetricMaxAggregateInputType = {
+    id?: true
+    label?: true
+    value?: true
+    category?: true
+    measuredAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KpiMetricCountAggregateInputType = {
+    id?: true
+    label?: true
+    value?: true
+    category?: true
+    measuredAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type KpiMetricAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KpiMetric to aggregate.
+     */
+    where?: KpiMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KpiMetrics to fetch.
+     */
+    orderBy?: KpiMetricOrderByWithRelationInput | KpiMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KpiMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KpiMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KpiMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KpiMetrics
+    **/
+    _count?: true | KpiMetricCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KpiMetricMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KpiMetricMaxAggregateInputType
+  }
+
+  export type GetKpiMetricAggregateType<T extends KpiMetricAggregateArgs> = {
+        [P in keyof T & keyof AggregateKpiMetric]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKpiMetric[P]>
+      : GetScalarType<T[P], AggregateKpiMetric[P]>
+  }
+
+
+
+
+  export type KpiMetricGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KpiMetricWhereInput
+    orderBy?: KpiMetricOrderByWithAggregationInput | KpiMetricOrderByWithAggregationInput[]
+    by: KpiMetricScalarFieldEnum[] | KpiMetricScalarFieldEnum
+    having?: KpiMetricScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KpiMetricCountAggregateInputType | true
+    _min?: KpiMetricMinAggregateInputType
+    _max?: KpiMetricMaxAggregateInputType
+  }
+
+  export type KpiMetricGroupByOutputType = {
+    id: string
+    label: string
+    value: string
+    category: string
+    measuredAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: KpiMetricCountAggregateOutputType | null
+    _min: KpiMetricMinAggregateOutputType | null
+    _max: KpiMetricMaxAggregateOutputType | null
+  }
+
+  type GetKpiMetricGroupByPayload<T extends KpiMetricGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KpiMetricGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KpiMetricGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KpiMetricGroupByOutputType[P]>
+            : GetScalarType<T[P], KpiMetricGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KpiMetricSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    value?: boolean
+    category?: boolean
+    measuredAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["kpiMetric"]>
+
+  export type KpiMetricSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    value?: boolean
+    category?: boolean
+    measuredAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["kpiMetric"]>
+
+  export type KpiMetricSelectScalar = {
+    id?: boolean
+    label?: boolean
+    value?: boolean
+    category?: boolean
+    measuredAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $KpiMetricPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KpiMetric"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      value: string
+      category: string
+      measuredAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["kpiMetric"]>
+    composites: {}
+  }
+
+  type KpiMetricGetPayload<S extends boolean | null | undefined | KpiMetricDefaultArgs> = $Result.GetResult<Prisma.$KpiMetricPayload, S>
+
+  type KpiMetricCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<KpiMetricFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: KpiMetricCountAggregateInputType | true
+    }
+
+  export interface KpiMetricDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KpiMetric'], meta: { name: 'KpiMetric' } }
+    /**
+     * Find zero or one KpiMetric that matches the filter.
+     * @param {KpiMetricFindUniqueArgs} args - Arguments to find a KpiMetric
+     * @example
+     * // Get one KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KpiMetricFindUniqueArgs>(args: SelectSubset<T, KpiMetricFindUniqueArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one KpiMetric that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {KpiMetricFindUniqueOrThrowArgs} args - Arguments to find a KpiMetric
+     * @example
+     * // Get one KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KpiMetricFindUniqueOrThrowArgs>(args: SelectSubset<T, KpiMetricFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first KpiMetric that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricFindFirstArgs} args - Arguments to find a KpiMetric
+     * @example
+     * // Get one KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KpiMetricFindFirstArgs>(args?: SelectSubset<T, KpiMetricFindFirstArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first KpiMetric that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricFindFirstOrThrowArgs} args - Arguments to find a KpiMetric
+     * @example
+     * // Get one KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KpiMetricFindFirstOrThrowArgs>(args?: SelectSubset<T, KpiMetricFindFirstOrThrowArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more KpiMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KpiMetrics
+     * const kpiMetrics = await prisma.kpiMetric.findMany()
+     * 
+     * // Get first 10 KpiMetrics
+     * const kpiMetrics = await prisma.kpiMetric.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const kpiMetricWithIdOnly = await prisma.kpiMetric.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KpiMetricFindManyArgs>(args?: SelectSubset<T, KpiMetricFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a KpiMetric.
+     * @param {KpiMetricCreateArgs} args - Arguments to create a KpiMetric.
+     * @example
+     * // Create one KpiMetric
+     * const KpiMetric = await prisma.kpiMetric.create({
+     *   data: {
+     *     // ... data to create a KpiMetric
+     *   }
+     * })
+     * 
+     */
+    create<T extends KpiMetricCreateArgs>(args: SelectSubset<T, KpiMetricCreateArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many KpiMetrics.
+     * @param {KpiMetricCreateManyArgs} args - Arguments to create many KpiMetrics.
+     * @example
+     * // Create many KpiMetrics
+     * const kpiMetric = await prisma.kpiMetric.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KpiMetricCreateManyArgs>(args?: SelectSubset<T, KpiMetricCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KpiMetrics and returns the data saved in the database.
+     * @param {KpiMetricCreateManyAndReturnArgs} args - Arguments to create many KpiMetrics.
+     * @example
+     * // Create many KpiMetrics
+     * const kpiMetric = await prisma.kpiMetric.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KpiMetrics and only return the `id`
+     * const kpiMetricWithIdOnly = await prisma.kpiMetric.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KpiMetricCreateManyAndReturnArgs>(args?: SelectSubset<T, KpiMetricCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a KpiMetric.
+     * @param {KpiMetricDeleteArgs} args - Arguments to delete one KpiMetric.
+     * @example
+     * // Delete one KpiMetric
+     * const KpiMetric = await prisma.kpiMetric.delete({
+     *   where: {
+     *     // ... filter to delete one KpiMetric
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KpiMetricDeleteArgs>(args: SelectSubset<T, KpiMetricDeleteArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one KpiMetric.
+     * @param {KpiMetricUpdateArgs} args - Arguments to update one KpiMetric.
+     * @example
+     * // Update one KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KpiMetricUpdateArgs>(args: SelectSubset<T, KpiMetricUpdateArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more KpiMetrics.
+     * @param {KpiMetricDeleteManyArgs} args - Arguments to filter KpiMetrics to delete.
+     * @example
+     * // Delete a few KpiMetrics
+     * const { count } = await prisma.kpiMetric.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KpiMetricDeleteManyArgs>(args?: SelectSubset<T, KpiMetricDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KpiMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KpiMetrics
+     * const kpiMetric = await prisma.kpiMetric.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KpiMetricUpdateManyArgs>(args: SelectSubset<T, KpiMetricUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one KpiMetric.
+     * @param {KpiMetricUpsertArgs} args - Arguments to update or create a KpiMetric.
+     * @example
+     * // Update or create a KpiMetric
+     * const kpiMetric = await prisma.kpiMetric.upsert({
+     *   create: {
+     *     // ... data to create a KpiMetric
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KpiMetric we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KpiMetricUpsertArgs>(args: SelectSubset<T, KpiMetricUpsertArgs<ExtArgs>>): Prisma__KpiMetricClient<$Result.GetResult<Prisma.$KpiMetricPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of KpiMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricCountArgs} args - Arguments to filter KpiMetrics to count.
+     * @example
+     * // Count the number of KpiMetrics
+     * const count = await prisma.kpiMetric.count({
+     *   where: {
+     *     // ... the filter for the KpiMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends KpiMetricCountArgs>(
+      args?: Subset<T, KpiMetricCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KpiMetricCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KpiMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KpiMetricAggregateArgs>(args: Subset<T, KpiMetricAggregateArgs>): Prisma.PrismaPromise<GetKpiMetricAggregateType<T>>
+
+    /**
+     * Group by KpiMetric.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KpiMetricGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KpiMetricGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KpiMetricGroupByArgs['orderBy'] }
+        : { orderBy?: KpiMetricGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KpiMetricGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKpiMetricGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KpiMetric model
+   */
+  readonly fields: KpiMetricFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KpiMetric.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KpiMetricClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KpiMetric model
+   */ 
+  interface KpiMetricFieldRefs {
+    readonly id: FieldRef<"KpiMetric", 'String'>
+    readonly label: FieldRef<"KpiMetric", 'String'>
+    readonly value: FieldRef<"KpiMetric", 'String'>
+    readonly category: FieldRef<"KpiMetric", 'String'>
+    readonly measuredAt: FieldRef<"KpiMetric", 'DateTime'>
+    readonly createdAt: FieldRef<"KpiMetric", 'DateTime'>
+    readonly updatedAt: FieldRef<"KpiMetric", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KpiMetric findUnique
+   */
+  export type KpiMetricFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which KpiMetric to fetch.
+     */
+    where: KpiMetricWhereUniqueInput
+  }
+
+  /**
+   * KpiMetric findUniqueOrThrow
+   */
+  export type KpiMetricFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which KpiMetric to fetch.
+     */
+    where: KpiMetricWhereUniqueInput
+  }
+
+  /**
+   * KpiMetric findFirst
+   */
+  export type KpiMetricFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which KpiMetric to fetch.
+     */
+    where?: KpiMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KpiMetrics to fetch.
+     */
+    orderBy?: KpiMetricOrderByWithRelationInput | KpiMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KpiMetrics.
+     */
+    cursor?: KpiMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KpiMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KpiMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KpiMetrics.
+     */
+    distinct?: KpiMetricScalarFieldEnum | KpiMetricScalarFieldEnum[]
+  }
+
+  /**
+   * KpiMetric findFirstOrThrow
+   */
+  export type KpiMetricFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which KpiMetric to fetch.
+     */
+    where?: KpiMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KpiMetrics to fetch.
+     */
+    orderBy?: KpiMetricOrderByWithRelationInput | KpiMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KpiMetrics.
+     */
+    cursor?: KpiMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KpiMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KpiMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KpiMetrics.
+     */
+    distinct?: KpiMetricScalarFieldEnum | KpiMetricScalarFieldEnum[]
+  }
+
+  /**
+   * KpiMetric findMany
+   */
+  export type KpiMetricFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter, which KpiMetrics to fetch.
+     */
+    where?: KpiMetricWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KpiMetrics to fetch.
+     */
+    orderBy?: KpiMetricOrderByWithRelationInput | KpiMetricOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KpiMetrics.
+     */
+    cursor?: KpiMetricWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KpiMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KpiMetrics.
+     */
+    skip?: number
+    distinct?: KpiMetricScalarFieldEnum | KpiMetricScalarFieldEnum[]
+  }
+
+  /**
+   * KpiMetric create
+   */
+  export type KpiMetricCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to create a KpiMetric.
+     */
+    data: XOR<KpiMetricCreateInput, KpiMetricUncheckedCreateInput>
+  }
+
+  /**
+   * KpiMetric createMany
+   */
+  export type KpiMetricCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KpiMetrics.
+     */
+    data: KpiMetricCreateManyInput | KpiMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KpiMetric createManyAndReturn
+   */
+  export type KpiMetricCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many KpiMetrics.
+     */
+    data: KpiMetricCreateManyInput | KpiMetricCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KpiMetric update
+   */
+  export type KpiMetricUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * The data needed to update a KpiMetric.
+     */
+    data: XOR<KpiMetricUpdateInput, KpiMetricUncheckedUpdateInput>
+    /**
+     * Choose, which KpiMetric to update.
+     */
+    where: KpiMetricWhereUniqueInput
+  }
+
+  /**
+   * KpiMetric updateMany
+   */
+  export type KpiMetricUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KpiMetrics.
+     */
+    data: XOR<KpiMetricUpdateManyMutationInput, KpiMetricUncheckedUpdateManyInput>
+    /**
+     * Filter which KpiMetrics to update
+     */
+    where?: KpiMetricWhereInput
+  }
+
+  /**
+   * KpiMetric upsert
+   */
+  export type KpiMetricUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * The filter to search for the KpiMetric to update in case it exists.
+     */
+    where: KpiMetricWhereUniqueInput
+    /**
+     * In case the KpiMetric found by the `where` argument doesn't exist, create a new KpiMetric with this data.
+     */
+    create: XOR<KpiMetricCreateInput, KpiMetricUncheckedCreateInput>
+    /**
+     * In case the KpiMetric was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KpiMetricUpdateInput, KpiMetricUncheckedUpdateInput>
+  }
+
+  /**
+   * KpiMetric delete
+   */
+  export type KpiMetricDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+    /**
+     * Filter which KpiMetric to delete.
+     */
+    where: KpiMetricWhereUniqueInput
+  }
+
+  /**
+   * KpiMetric deleteMany
+   */
+  export type KpiMetricDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KpiMetrics to delete
+     */
+    where?: KpiMetricWhereInput
+  }
+
+  /**
+   * KpiMetric without action
+   */
+  export type KpiMetricDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KpiMetric
+     */
+    select?: KpiMetricSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model FranchiseKpi
    */
 
@@ -244000,6 +246920,29 @@ export namespace Prisma {
   export type WellnessPulseScalarFieldEnum = (typeof WellnessPulseScalarFieldEnum)[keyof typeof WellnessPulseScalarFieldEnum]
 
 
+  export const IntakeAssessmentScalarFieldEnum: {
+    id: 'id',
+    patientId: 'patientId',
+    providerId: 'providerId',
+    assessmentData: 'assessmentData',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IntakeAssessmentScalarFieldEnum = (typeof IntakeAssessmentScalarFieldEnum)[keyof typeof IntakeAssessmentScalarFieldEnum]
+
+
+  export const ChatSessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    messages: 'messages',
+    createdAt: 'createdAt'
+  };
+
+  export type ChatSessionScalarFieldEnum = (typeof ChatSessionScalarFieldEnum)[keyof typeof ChatSessionScalarFieldEnum]
+
+
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     clientId: 'clientId',
@@ -245234,6 +248177,19 @@ export namespace Prisma {
   };
 
   export type OrganizationNodeScalarFieldEnum = (typeof OrganizationNodeScalarFieldEnum)[keyof typeof OrganizationNodeScalarFieldEnum]
+
+
+  export const KpiMetricScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    value: 'value',
+    category: 'category',
+    measuredAt: 'measuredAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type KpiMetricScalarFieldEnum = (typeof KpiMetricScalarFieldEnum)[keyof typeof KpiMetricScalarFieldEnum]
 
 
   export const FranchiseKpiScalarFieldEnum: {
@@ -252619,6 +255575,115 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"WellnessPulse"> | Date | string
   }
 
+  export type IntakeAssessmentWhereInput = {
+    AND?: IntakeAssessmentWhereInput | IntakeAssessmentWhereInput[]
+    OR?: IntakeAssessmentWhereInput[]
+    NOT?: IntakeAssessmentWhereInput | IntakeAssessmentWhereInput[]
+    id?: StringFilter<"IntakeAssessment"> | string
+    patientId?: StringFilter<"IntakeAssessment"> | string
+    providerId?: StringFilter<"IntakeAssessment"> | string
+    assessmentData?: JsonFilter<"IntakeAssessment">
+    status?: StringFilter<"IntakeAssessment"> | string
+    createdAt?: DateTimeFilter<"IntakeAssessment"> | Date | string
+    updatedAt?: DateTimeFilter<"IntakeAssessment"> | Date | string
+  }
+
+  export type IntakeAssessmentOrderByWithRelationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    providerId?: SortOrder
+    assessmentData?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IntakeAssessmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: IntakeAssessmentWhereInput | IntakeAssessmentWhereInput[]
+    OR?: IntakeAssessmentWhereInput[]
+    NOT?: IntakeAssessmentWhereInput | IntakeAssessmentWhereInput[]
+    patientId?: StringFilter<"IntakeAssessment"> | string
+    providerId?: StringFilter<"IntakeAssessment"> | string
+    assessmentData?: JsonFilter<"IntakeAssessment">
+    status?: StringFilter<"IntakeAssessment"> | string
+    createdAt?: DateTimeFilter<"IntakeAssessment"> | Date | string
+    updatedAt?: DateTimeFilter<"IntakeAssessment"> | Date | string
+  }, "id">
+
+  export type IntakeAssessmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    providerId?: SortOrder
+    assessmentData?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IntakeAssessmentCountOrderByAggregateInput
+    _max?: IntakeAssessmentMaxOrderByAggregateInput
+    _min?: IntakeAssessmentMinOrderByAggregateInput
+  }
+
+  export type IntakeAssessmentScalarWhereWithAggregatesInput = {
+    AND?: IntakeAssessmentScalarWhereWithAggregatesInput | IntakeAssessmentScalarWhereWithAggregatesInput[]
+    OR?: IntakeAssessmentScalarWhereWithAggregatesInput[]
+    NOT?: IntakeAssessmentScalarWhereWithAggregatesInput | IntakeAssessmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IntakeAssessment"> | string
+    patientId?: StringWithAggregatesFilter<"IntakeAssessment"> | string
+    providerId?: StringWithAggregatesFilter<"IntakeAssessment"> | string
+    assessmentData?: JsonWithAggregatesFilter<"IntakeAssessment">
+    status?: StringWithAggregatesFilter<"IntakeAssessment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"IntakeAssessment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"IntakeAssessment"> | Date | string
+  }
+
+  export type ChatSessionWhereInput = {
+    AND?: ChatSessionWhereInput | ChatSessionWhereInput[]
+    OR?: ChatSessionWhereInput[]
+    NOT?: ChatSessionWhereInput | ChatSessionWhereInput[]
+    id?: StringFilter<"ChatSession"> | string
+    userId?: StringFilter<"ChatSession"> | string
+    messages?: JsonFilter<"ChatSession">
+    createdAt?: DateTimeFilter<"ChatSession"> | Date | string
+  }
+
+  export type ChatSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    messages?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChatSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ChatSessionWhereInput | ChatSessionWhereInput[]
+    OR?: ChatSessionWhereInput[]
+    NOT?: ChatSessionWhereInput | ChatSessionWhereInput[]
+    userId?: StringFilter<"ChatSession"> | string
+    messages?: JsonFilter<"ChatSession">
+    createdAt?: DateTimeFilter<"ChatSession"> | Date | string
+  }, "id">
+
+  export type ChatSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    messages?: SortOrder
+    createdAt?: SortOrder
+    _count?: ChatSessionCountOrderByAggregateInput
+    _max?: ChatSessionMaxOrderByAggregateInput
+    _min?: ChatSessionMinOrderByAggregateInput
+  }
+
+  export type ChatSessionScalarWhereWithAggregatesInput = {
+    AND?: ChatSessionScalarWhereWithAggregatesInput | ChatSessionScalarWhereWithAggregatesInput[]
+    OR?: ChatSessionScalarWhereWithAggregatesInput[]
+    NOT?: ChatSessionScalarWhereWithAggregatesInput | ChatSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChatSession"> | string
+    userId?: StringWithAggregatesFilter<"ChatSession"> | string
+    messages?: JsonWithAggregatesFilter<"ChatSession">
+    createdAt?: DateTimeWithAggregatesFilter<"ChatSession"> | Date | string
+  }
+
   export type InvoiceWhereInput = {
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
@@ -259040,6 +262105,68 @@ export namespace Prisma {
     reportsToId?: StringNullableWithAggregatesFilter<"OrganizationNode"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationNode"> | Date | string
+  }
+
+  export type KpiMetricWhereInput = {
+    AND?: KpiMetricWhereInput | KpiMetricWhereInput[]
+    OR?: KpiMetricWhereInput[]
+    NOT?: KpiMetricWhereInput | KpiMetricWhereInput[]
+    id?: StringFilter<"KpiMetric"> | string
+    label?: StringFilter<"KpiMetric"> | string
+    value?: StringFilter<"KpiMetric"> | string
+    category?: StringFilter<"KpiMetric"> | string
+    measuredAt?: DateTimeFilter<"KpiMetric"> | Date | string
+    createdAt?: DateTimeFilter<"KpiMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"KpiMetric"> | Date | string
+  }
+
+  export type KpiMetricOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    value?: SortOrder
+    category?: SortOrder
+    measuredAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KpiMetricWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: KpiMetricWhereInput | KpiMetricWhereInput[]
+    OR?: KpiMetricWhereInput[]
+    NOT?: KpiMetricWhereInput | KpiMetricWhereInput[]
+    label?: StringFilter<"KpiMetric"> | string
+    value?: StringFilter<"KpiMetric"> | string
+    category?: StringFilter<"KpiMetric"> | string
+    measuredAt?: DateTimeFilter<"KpiMetric"> | Date | string
+    createdAt?: DateTimeFilter<"KpiMetric"> | Date | string
+    updatedAt?: DateTimeFilter<"KpiMetric"> | Date | string
+  }, "id">
+
+  export type KpiMetricOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    value?: SortOrder
+    category?: SortOrder
+    measuredAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: KpiMetricCountOrderByAggregateInput
+    _max?: KpiMetricMaxOrderByAggregateInput
+    _min?: KpiMetricMinOrderByAggregateInput
+  }
+
+  export type KpiMetricScalarWhereWithAggregatesInput = {
+    AND?: KpiMetricScalarWhereWithAggregatesInput | KpiMetricScalarWhereWithAggregatesInput[]
+    OR?: KpiMetricScalarWhereWithAggregatesInput[]
+    NOT?: KpiMetricScalarWhereWithAggregatesInput | KpiMetricScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"KpiMetric"> | string
+    label?: StringWithAggregatesFilter<"KpiMetric"> | string
+    value?: StringWithAggregatesFilter<"KpiMetric"> | string
+    category?: StringWithAggregatesFilter<"KpiMetric"> | string
+    measuredAt?: DateTimeWithAggregatesFilter<"KpiMetric"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"KpiMetric"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"KpiMetric"> | Date | string
   }
 
   export type FranchiseKpiWhereInput = {
@@ -270745,6 +273872,125 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IntakeAssessmentCreateInput = {
+    id?: string
+    patientId: string
+    providerId: string
+    assessmentData: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IntakeAssessmentUncheckedCreateInput = {
+    id?: string
+    patientId: string
+    providerId: string
+    assessmentData: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IntakeAssessmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    assessmentData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IntakeAssessmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    assessmentData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IntakeAssessmentCreateManyInput = {
+    id?: string
+    patientId: string
+    providerId: string
+    assessmentData: JsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IntakeAssessmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    assessmentData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IntakeAssessmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    assessmentData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatSessionCreateInput = {
+    id?: string
+    userId: string
+    messages: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ChatSessionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    messages: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ChatSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    messages?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    messages?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatSessionCreateManyInput = {
+    id?: string
+    userId: string
+    messages: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ChatSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    messages?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    messages?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InvoiceCreateInput = {
     id?: string
     status?: string | null
@@ -277650,6 +280896,76 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     department?: NullableStringFieldUpdateOperationsInput | string | null
     reportsToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KpiMetricCreateInput = {
+    id?: string
+    label: string
+    value: string
+    category: string
+    measuredAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KpiMetricUncheckedCreateInput = {
+    id?: string
+    label: string
+    value: string
+    category: string
+    measuredAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KpiMetricUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    measuredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KpiMetricUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    measuredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KpiMetricCreateManyInput = {
+    id?: string
+    label: string
+    value: string
+    category: string
+    measuredAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KpiMetricUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    measuredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KpiMetricUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    measuredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -287657,6 +290973,53 @@ export namespace Prisma {
     score?: SortOrder
   }
 
+  export type IntakeAssessmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    providerId?: SortOrder
+    assessmentData?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IntakeAssessmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    providerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IntakeAssessmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    patientId?: SortOrder
+    providerId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChatSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    messages?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChatSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChatSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type PaymentListRelationFilter = {
     every?: PaymentWhereInput
     some?: PaymentWhereInput
@@ -291265,6 +294628,36 @@ export namespace Prisma {
     title?: SortOrder
     department?: SortOrder
     reportsToId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KpiMetricCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    value?: SortOrder
+    category?: SortOrder
+    measuredAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KpiMetricMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    value?: SortOrder
+    category?: SortOrder
+    measuredAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KpiMetricMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    value?: SortOrder
+    category?: SortOrder
+    measuredAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -403727,6 +407120,14 @@ export namespace Prisma {
      */
     export type WellnessPulseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WellnessPulseDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use IntakeAssessmentDefaultArgs instead
+     */
+    export type IntakeAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IntakeAssessmentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ChatSessionDefaultArgs instead
+     */
+    export type ChatSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ChatSessionDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use InvoiceDefaultArgs instead
      */
     export type InvoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InvoiceDefaultArgs<ExtArgs>
@@ -404054,6 +407455,10 @@ export namespace Prisma {
      * @deprecated Use OrganizationNodeDefaultArgs instead
      */
     export type OrganizationNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use KpiMetricDefaultArgs instead
+     */
+    export type KpiMetricArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = KpiMetricDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FranchiseKpiDefaultArgs instead
      */

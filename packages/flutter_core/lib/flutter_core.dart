@@ -155,3 +155,5 @@ export 'widgets/clinical_term_highlighter.dart';
 export 'src/services/deep_link_service.dart';
 
 export 'registry/widgets/responsive_grid.dart';
+export 'registry/widgets/responsive_split_dashboard.dart';
+

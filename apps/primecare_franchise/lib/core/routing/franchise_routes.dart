@@ -20,47 +20,47 @@ class FranchiseOwnerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.franchiseOwnerDashboard,
-      builder: (context) => const FranchiseOwnerDashboardScreen(),
+      builder: (context) => FranchiseOwnerDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Branch Overview',
       route: FranchiseRoutes.franchiseOwnerBranchOverview,
-      builder: (context) => const FranchiseOwnerBranchOverviewScreen(),
+      builder: (context) => FranchiseOwnerBranchOverviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Financial Snapshot',
       route: FranchiseRoutes.franchiseOwnerFinancialSnapshot,
-      builder: (context) => const FranchiseOwnerFinancialSnapshotScreen(),
+      builder: (context) => FranchiseOwnerFinancialSnapshotScreen(),
     ),
     PrimeCareScreen(
       title: 'Staff',
       route: FranchiseRoutes.franchiseOwnerStaff,
-      builder: (context) => const FranchiseOwnerStaffScreen(),
+      builder: (context) => FranchiseOwnerStaffScreen(),
     ),
     PrimeCareScreen(
       title: 'Appointments',
       route: FranchiseRoutes.franchiseOwnerAppointments,
-      builder: (context) => const FranchiseOwnerAppointmentsScreen(),
+      builder: (context) => FranchiseOwnerAppointmentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Clients',
       route: FranchiseRoutes.franchiseOwnerClients,
-      builder: (context) => const FranchiseOwnerClientsScreen(),
+      builder: (context) => FranchiseOwnerClientsScreen(),
     ),
     PrimeCareScreen(
       title: 'Compliance',
       route: FranchiseRoutes.franchiseOwnerCompliance,
-      builder: (context) => const FranchiseOwnerComplianceScreen(),
+      builder: (context) => FranchiseOwnerComplianceScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: FranchiseRoutes.franchiseOwnerReports,
-      builder: (context) => const FranchiseOwnerReportsScreen(),
+      builder: (context) => FranchiseOwnerReportsScreen(),
     ),
     PrimeCareScreen(
       title: 'Hiring',
       route: FranchiseRoutes.franchiseOwnerHiring,
-      builder: (context) => const FranchiseOwnerHiringScreen(),
+      builder: (context) => FranchiseOwnerHiringScreen(),
     ),
   ];
 }
@@ -83,47 +83,47 @@ class OperationsManagerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.operationsManagerDashboard,
-      builder: (context) => const OperationsManagerDashboardScreen(),
+      builder: (context) => OperationsManagerDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Daily Operations',
       route: FranchiseRoutes.operationsManagerDailyOperations,
-      builder: (context) => const OperationsManagerDailyOperationsScreen(),
+      builder: (context) => OperationsManagerDailyOperationsScreen(),
     ),
     PrimeCareScreen(
       title: 'Schedule',
       route: FranchiseRoutes.operationsManagerSchedule,
-      builder: (context) => const OperationsManagerScheduleScreen(),
+      builder: (context) => OperationsManagerScheduleScreen(),
     ),
     PrimeCareScreen(
       title: 'Shifts',
       route: FranchiseRoutes.operationsManagerShifts,
-      builder: (context) => const OperationsManagerShiftsScreen(),
+      builder: (context) => OperationsManagerShiftsScreen(),
     ),
     PrimeCareScreen(
       title: 'Issues',
       route: FranchiseRoutes.operationsManagerIssues,
-      builder: (context) => const OperationsManagerIssuesScreen(),
+      builder: (context) => OperationsManagerIssuesScreen(),
     ),
     PrimeCareScreen(
       title: 'Service Quality',
       route: FranchiseRoutes.operationsManagerServiceQuality,
-      builder: (context) => const OperationsManagerServiceQualityScreen(),
+      builder: (context) => OperationsManagerServiceQualityScreen(),
     ),
     PrimeCareScreen(
       title: 'Staff Coordination',
       route: FranchiseRoutes.operationsManagerStaffCoordination,
-      builder: (context) => const OperationsManagerStaffCoordinationScreen(),
+      builder: (context) => OperationsManagerStaffCoordinationScreen(),
     ),
     PrimeCareScreen(
       title: 'Attendance',
       route: FranchiseRoutes.operationsManagerAttendance,
-      builder: (context) => const OperationsManagerAttendanceScreen(),
+      builder: (context) => OperationsManagerAttendanceScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: FranchiseRoutes.operationsManagerReports,
-      builder: (context) => const OperationsManagerReportsScreen(),
+      builder: (context) => OperationsManagerReportsScreen(),
     ),
   ];
 }
@@ -146,7 +146,7 @@ class SchedulerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.schedulerDashboard,
-      builder: (context) => const SchedulerDashboardScreen(),
+      builder: (context) => SchedulerDashboardScreen(),
     ),
   ];
 }
@@ -169,12 +169,12 @@ class BillingAdminModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.billingAdminDashboard,
-      builder: (context) => const BillingAdminDashboardScreen(),
+      builder: (context) => BillingAdminDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Invoices',
       route: FranchiseRoutes.billingAdminInvoices,
-      builder: (context) => const BillingAdminInvoicesScreen(),
+      builder: (context) => BillingAdminInvoicesScreen(),
     ),
   ];
 }
@@ -197,47 +197,47 @@ class HrHiringModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.hrHiringDashboard,
-      builder: (context) => const HrHiringDashboardScreen(),
+      builder: (context) => HrHiringDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Applicants',
       route: FranchiseRoutes.hrHiringApplicants,
-      builder: (context) => const HrHiringApplicantsScreen(),
+      builder: (context) => HrHiringApplicantsScreen(),
     ),
     PrimeCareScreen(
       title: 'Interviews',
       route: FranchiseRoutes.hrHiringInterviews,
-      builder: (context) => const HrHiringInterviewsScreen(),
+      builder: (context) => HrHiringInterviewsScreen(),
     ),
     PrimeCareScreen(
       title: 'Offers',
       route: FranchiseRoutes.hrHiringOffers,
-      builder: (context) => const HrHiringOffersScreen(),
+      builder: (context) => HrHiringOffersScreen(),
     ),
     PrimeCareScreen(
       title: 'Onboarding',
       route: FranchiseRoutes.hrHiringOnboarding,
-      builder: (context) => const HrHiringOnboardingScreen(),
+      builder: (context) => HrHiringOnboardingScreen(),
     ),
     PrimeCareScreen(
       title: 'Staff Documents',
       route: FranchiseRoutes.hrHiringStaffDocuments,
-      builder: (context) => const HrHiringStaffDocumentsScreen(),
+      builder: (context) => HrHiringStaffDocumentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Credentials',
       route: FranchiseRoutes.hrHiringCredentials,
-      builder: (context) => const HrHiringCredentialsScreen(),
+      builder: (context) => HrHiringCredentialsScreen(),
     ),
     PrimeCareScreen(
       title: 'Training Status',
       route: FranchiseRoutes.hrHiringTrainingStatus,
-      builder: (context) => const HrHiringTrainingStatusScreen(),
+      builder: (context) => HrHiringTrainingStatusScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: FranchiseRoutes.hrHiringReports,
-      builder: (context) => const HrHiringReportsScreen(),
+      builder: (context) => HrHiringReportsScreen(),
     ),
   ];
 }
@@ -260,42 +260,42 @@ class SchedulerCoordinatorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Appointment Calendar',
       route: FranchiseRoutes.schedulerCoordinatorAppointmentCalendar,
-      builder: (context) => const SchedulerCoordinatorAppointmentCalendarScreen(),
+      builder: (context) => SchedulerCoordinatorAppointmentCalendarScreen(),
     ),
     PrimeCareScreen(
       title: 'Shift Calendar',
       route: FranchiseRoutes.schedulerCoordinatorShiftCalendar,
-      builder: (context) => const SchedulerCoordinatorShiftCalendarScreen(),
+      builder: (context) => SchedulerCoordinatorShiftCalendarScreen(),
     ),
     PrimeCareScreen(
       title: 'Provider Availability',
       route: FranchiseRoutes.schedulerCoordinatorProviderAvailability,
-      builder: (context) => const SchedulerCoordinatorProviderAvailabilityScreen(),
+      builder: (context) => SchedulerCoordinatorProviderAvailabilityScreen(),
     ),
     PrimeCareScreen(
       title: 'Booking Requests',
       route: FranchiseRoutes.schedulerCoordinatorBookingRequests,
-      builder: (context) => const SchedulerCoordinatorBookingRequestsScreen(),
+      builder: (context) => SchedulerCoordinatorBookingRequestsScreen(),
     ),
     PrimeCareScreen(
       title: 'Open Shifts',
       route: FranchiseRoutes.schedulerCoordinatorOpenShifts,
-      builder: (context) => const SchedulerCoordinatorOpenShiftsScreen(),
+      builder: (context) => SchedulerCoordinatorOpenShiftsScreen(),
     ),
     PrimeCareScreen(
       title: 'Assignments',
       route: FranchiseRoutes.schedulerCoordinatorAssignments,
-      builder: (context) => const SchedulerCoordinatorAssignmentsScreen(),
+      builder: (context) => SchedulerCoordinatorAssignmentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Conflicts',
       route: FranchiseRoutes.schedulerCoordinatorConflicts,
-      builder: (context) => const SchedulerCoordinatorConflictsScreen(),
+      builder: (context) => SchedulerCoordinatorConflictsScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: FranchiseRoutes.schedulerCoordinatorReports,
-      builder: (context) => const SchedulerCoordinatorReportsScreen(),
+      builder: (context) => SchedulerCoordinatorReportsScreen(),
     ),
   ];
 }
@@ -318,42 +318,42 @@ class AdminModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.adminDashboard,
-      builder: (context) => const AdminDashboardScreen(),
+      builder: (context) => AdminDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Invoices',
       route: FranchiseRoutes.adminInvoices,
-      builder: (context) => const AdminInvoicesScreen(),
+      builder: (context) => AdminInvoicesScreen(),
     ),
     PrimeCareScreen(
       title: 'Payments',
       route: FranchiseRoutes.adminPayments,
-      builder: (context) => const AdminPaymentsScreen(),
+      builder: (context) => AdminPaymentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Claims',
       route: FranchiseRoutes.adminClaims,
-      builder: (context) => const AdminClaimsScreen(),
+      builder: (context) => AdminClaimsScreen(),
     ),
     PrimeCareScreen(
       title: 'Reconciliation',
       route: FranchiseRoutes.adminReconciliation,
-      builder: (context) => const AdminReconciliationScreen(),
+      builder: (context) => AdminReconciliationScreen(),
     ),
     PrimeCareScreen(
       title: 'Outstanding Balances',
       route: FranchiseRoutes.adminOutstandingBalances,
-      builder: (context) => const AdminOutstandingBalancesScreen(),
+      builder: (context) => AdminOutstandingBalancesScreen(),
     ),
     PrimeCareScreen(
       title: 'Refunds',
       route: FranchiseRoutes.adminRefunds,
-      builder: (context) => const AdminRefundsScreen(),
+      builder: (context) => AdminRefundsScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: FranchiseRoutes.adminReports,
-      builder: (context) => const AdminReportsScreen(),
+      builder: (context) => AdminReportsScreen(),
     ),
   ];
 }
@@ -376,12 +376,12 @@ class RegionalManagerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.regionalManagerDashboard,
-      builder: (context) => const RegionalManagerDashboardScreen(),
+      builder: (context) => RegionalManagerDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Branch Comparison',
       route: FranchiseRoutes.regionalManagerBranchComparison,
-      builder: (context) => const RegionalManagerBranchComparisonScreen(),
+      builder: (context) => RegionalManagerBranchComparisonScreen(),
     ),
   ];
 }
@@ -404,12 +404,12 @@ class MarketingManagerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: FranchiseRoutes.marketingManagerDashboard,
-      builder: (context) => const MarketingManagerDashboardScreen(),
+      builder: (context) => MarketingManagerDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Campaigns',
       route: FranchiseRoutes.marketingManagerCampaigns,
-      builder: (context) => const MarketingManagerCampaignsScreen(),
+      builder: (context) => MarketingManagerCampaignsScreen(),
     ),
   ];
 }

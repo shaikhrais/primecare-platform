@@ -1,10 +1,11 @@
-﻿import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide
+    LocalMarketingManagerDashboardScreen,
+    CommunityOutreachDashboardScreen,
+    TerritorySalesManagerDashboardScreen;
 import 'package:flutter_core/flutter_core.dart';
-
-class MarketingRoutes {
-  static const String localMarketingManagerDashboard = '/local-marketing';
-  static const String communityOutreachDashboard = '/outreach';
-}
+import '../../features/marketing/screens/local_marketing_manager_dashboard_screen.dart';
+import '../../features/marketing/screens/community_outreach_dashboard_screen.dart';
+import '../../features/marketing/screens/territory_sales_manager_dashboard_screen.dart';
 
 class MarketingTenant extends PlatformTenant {
   @override
@@ -32,6 +33,7 @@ class MarketingOperationsModule extends PlatformModule {
     PlatformRole.headOfMarketing,
     PlatformRole.localMarketingManager,
     PlatformRole.communityOutreach,
+    PlatformRole.territorySalesManager,
     PlatformRole.systemVerification,
   ];
 
@@ -40,15 +42,22 @@ class MarketingOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Marketing Dashboard',
       route: MarketingRoutes.localMarketingManagerDashboard,
-),
+      builder: (context) => const LocalMarketingManagerDashboardScreen(),
+    ),
     PrimeCareScreen(
       title: 'Outreach Dashboard',
       route: MarketingRoutes.communityOutreachDashboard,
-),
+      builder: (context) => const CommunityOutreachDashboardScreen(),
+    ),
+    PrimeCareScreen(
+      title: 'Territory Sales Dashboard',
+      route: MarketingRoutes.territorySalesManagerDashboard,
+      builder: (context) => const TerritorySalesManagerDashboardScreen(),
+    ),
     PrimeCareScreen(
       title: 'System Verification',
       route: '/offices/system-verification',
-),
+    ),
   ];
 }
 
@@ -72,6 +81,11 @@ class MarketingApplication extends PlatformApplication {
         PlatformRoleDefinition(
           role: PlatformRole.communityOutreach,
           dashboardRoute: MarketingRoutes.communityOutreachDashboard,
+          modules: [MarketingOperationsModule()],
+        ),
+        PlatformRoleDefinition(
+          role: PlatformRole.territorySalesManager,
+          dashboardRoute: MarketingRoutes.territorySalesManagerDashboard,
           modules: [MarketingOperationsModule()],
         ),
         PlatformRoleDefinition(

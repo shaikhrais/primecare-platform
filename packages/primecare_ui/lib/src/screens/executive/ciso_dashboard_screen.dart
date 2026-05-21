@@ -213,6 +213,18 @@ class CisoDashboardController extends StateNotifier<CisoDashboardState> {
     state = state.copyWith(logs: []);
   }
 
+  Future<void> syncPosture() async {
+    state = state.copyWith(isLoading: true);
+    await Future<void>.delayed(const Duration(milliseconds: 1000));
+    state = state.copyWith(
+      isLoading: false,
+      logs: [
+        ...state.logs,
+        '[TELEMETRY] Manual synchronization sweep completed by security administrator.',
+      ],
+    );
+  }
+
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
@@ -302,547 +314,560 @@ class CisoDashboardScreen extends GovernedConsumerWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // --- CISO Title Hero Section ---
-            GovDashboardHero(
-              title: 'Chief Information Security Officer',
-              roleName: 'CISO Command HUD',
-              description: 'Configure and enforce enterprise-grade security policies, quarantine suspicious assets, and rotate master cryptography credentials.',
-              onRefresh: () => controller.addLog('[HUD-SYNC] Refreshing global vulnerability scorecards.'),
-            ),
-            const SizedBox(height: 24),
-
-            // --- DEFCON Interactive Control Panel ---
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1800),
+          child: ResponsiveSplitDashboard(
+            metrics: [
+              GovMetricCard(
+                title: 'Active Cyber Threats', // .tr() LocaleKeys.
+                value: '$activeAlertCount Anomalies', // .tr() LocaleKeys.
+                trendLabel: activeAlertCount == 0 ? 'Optimal Status' : 'Threats pending isolation', // .tr() LocaleKeys.
+                progress: mitigationScore,
+                icon: LucideIcons.shieldAlert,
+                brandColor: defconColor,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Threat Posture Advisory Level',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+              GovMetricCard(
+                title: 'Firewall Efficacy', // .tr() LocaleKeys.
+                value: state.blockTls ? '99.98% Secured' : '96.42% Weak Cipher', // .tr() LocaleKeys.
+                trendLabel: state.blockTls ? 'TLS legacy traffic blocked' : 'Legacy fallback active', // .tr() LocaleKeys.
+                progress: state.blockTls ? 0.99 : 0.85,
+                icon: LucideIcons.activity,
+                brandColor: state.blockTls ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
+              ),
+            ],
+            mainContent: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // --- CISO Title Hero Section ---
+                GovDashboardHero(
+                  title: 'Chief Information Security Officer', // .tr() LocaleKeys.
+                  roleName: 'CISO Command HUD', // .tr() LocaleKeys.
+                  description: 'Configure and enforce enterprise-grade security policies, quarantine suspicious assets, and rotate master cryptography credentials.', // .tr() LocaleKeys.
+                  onRefresh: () => controller.addLog('[HUD-SYNC] Refreshing global vulnerability scorecards.'), // .tr() LocaleKeys.
+                ),
+                const SizedBox(height: 24),
+
+                // --- DEFCON Interactive Control Panel ---
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: DefconLevel.values.map((level) {
-                      final isSelected = state.defconLevel == level;
-                      Color btnColor;
-                      String btnLabel;
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Threat Posture Advisory Level', // .tr() LocaleKeys.
+                        style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: DefconLevel.values.map((level) {
+                          final isSelected = state.defconLevel == level;
+                          Color btnColor;
+                          String btnLabel;
 
-                      switch (level) {
-                        case DefconLevel.normal:
-                          btnColor = const Color(0xFF10B981);
-                          btnLabel = 'DEFCON 4';
-                          break;
-                        case DefconLevel.vigilance:
-                          btnColor = const Color(0xFF6366F1);
-                          btnLabel = 'DEFCON 3';
-                          break;
-                        case DefconLevel.triage:
-                          btnColor = const Color(0xFFF59E0B);
-                          btnLabel = 'DEFCON 2';
-                          break;
-                        case DefconLevel.lockdown:
-                          btnColor = const Color(0xFFEF4444);
-                          btnLabel = 'DEFCON 1';
-                          break;
-                      }
+                          switch (level) {
+                            case DefconLevel.normal:
+                              btnColor = const Color(0xFF10B981);
+                              btnLabel = 'DEFCON 4'; // .tr() LocaleKeys.
+                              break;
+                            case DefconLevel.vigilance:
+                              btnColor = const Color(0xFF6366F1);
+                              btnLabel = 'DEFCON 3'; // .tr() LocaleKeys.
+                              break;
+                            case DefconLevel.triage:
+                              btnColor = const Color(0xFFF59E0B);
+                              btnLabel = 'DEFCON 2'; // .tr() LocaleKeys.
+                              break;
+                            case DefconLevel.lockdown:
+                              btnColor = const Color(0xFFEF4444);
+                              btnLabel = 'DEFCON 1'; // .tr() LocaleKeys.
+                              break;
+                          }
 
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: InkWell(
-                            onTap: () => controller.changeDefcon(level),
-                            borderRadius: BorderRadius.circular(8),
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              decoration: BoxDecoration(
-                                color: isSelected ? btnColor : theme.colors.surface,
+                          return Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                              child: InkWell(
+                                onTap: () => controller.changeDefcon(level),
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: isSelected ? btnColor : theme.colors.border,
-                                  width: 1.5,
-                                ),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                btnLabel,
-                                style: theme.typography.button.copyWith(
-                                  color: isSelected ? Colors.white : theme.colors.onSurfaceVariant,
-                                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? btnColor : theme.colors.surface,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: isSelected ? btnColor : theme.colors.border,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    btnLabel,
+                                    style: theme.typography.button.copyWith(
+                                      color: isSelected ? Colors.white : theme.colors.onSurfaceVariant,
+                                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 20),
+                      // Render Dynamic Security Status HUD based on level
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: defconBg,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: defconColor.withValues(alpha: 0.3)),
                         ),
-                      );
-                    }).toList(),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(defconIcon, color: defconColor, size: 28),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    defconTitle,
+                                    style: theme.typography.h4.copyWith(color: defconColor, fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    defconDescription,
+                                    style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurface),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  // Render Dynamic Security Status HUD based on level
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: defconBg,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: defconColor.withValues(alpha: 0.3)),
+                ),
+                const SizedBox(height: 24),
+
+                // --- Real-time Security Invariant Triage Panel ---
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Live Ingress Threat Mitigation Panel', // .tr() LocaleKeys.
+                            style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: activeAlertCount == 0
+                                  ? const Color(0xFF065F46).withValues(alpha: 0.1)
+                                  : const Color(0xFF991B1B).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              activeAlertCount == 0 ? 'SECURE' : '$activeAlertCount PENDING', // .tr() LocaleKeys.
+                              style: theme.typography.bodySmall.copyWith(
+                                color: activeAlertCount == 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      if (state.alerts.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 24.0),
+                          child: Center(
+                            child: Text(
+                              'No anomalies detected in the network firewall.', // .tr() LocaleKeys.
+                              style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant),
+                            ),
+                          ),
+                        )
+                      else
+                        ...state.alerts.map((alert) {
+                          final isMitigated = alert.status == 'Mitigated';
+                          final isMitigating = alert.status == 'Mitigating...';
+
+                          Color alertColor;
+                          switch (alert.risk) {
+                            case 'High':
+                              alertColor = const Color(0xFFEF4444);
+                              break;
+                            case 'Medium':
+                              alertColor = const Color(0xFFF59E0B);
+                              break;
+                            default:
+                              alertColor = const Color(0xFF6366F1);
+                          }
+
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: theme.colors.background,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: isMitigated ? theme.colors.border : alertColor.withValues(alpha: 0.3),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: alertColor.withValues(alpha: 0.1),
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              '${alert.risk} Risk', // .tr() LocaleKeys.
+                                              style: theme.typography.bodySmall.copyWith(
+                                                color: alertColor,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            alert.id,
+                                            style: theme.typography.bodySmall.copyWith(
+                                              color: theme.colors.onSurfaceVariant,
+                                              fontFamily: 'monospace',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        alert.title,
+                                        style: theme.typography.bodyLarge.copyWith(
+                                          color: isMitigated ? theme.colors.onSurfaceVariant : theme.colors.onSurface,
+                                          decoration: isMitigated ? TextDecoration.lineThrough : null,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Origin Address: ${alert.sourceIp}', // .tr() LocaleKeys.
+                                        style: theme.typography.bodySmall.copyWith(
+                                          color: theme.colors.onSurfaceVariant,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                SizedBox(
+                                  height: 36,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: isMitigated
+                                          ? theme.colors.surface
+                                          : isMitigating
+                                              ? theme.colors.border
+                                              : alertColor,
+                                      foregroundColor: isMitigated ? theme.colors.onSurfaceVariant : Colors.white,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                        side: isMitigated ? BorderSide(color: theme.colors.border) : BorderSide.none,
+                                      ),
+                                    ),
+                                    onPressed: (isMitigated || isMitigating)
+                                        ? null
+                                        : () => controller.mitigateAlert(alert.id),
+                                    child: isMitigating
+                                        ? const SizedBox(
+                                            height: 14,
+                                            width: 14,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              valueColor: AlwaysStoppedAnimation(Colors.grey),
+                                            ),
+                                          )
+                                        : Text(
+                                            isMitigated ? 'Quarantined' : 'Mitigate', // .tr() LocaleKeys.
+                                            style: theme.typography.button.copyWith(
+                                              color: isMitigated ? theme.colors.onSurfaceVariant : Colors.white,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            defaultSidebarWidgets: [
+              QuickActionsPanel(
+                title: 'Quick Actions', // .tr() LocaleKeys.
+                actions: [
+                  QuickActionItem(
+                    label: 'Sync Posture', // .tr() LocaleKeys.
+                    icon: LucideIcons.refreshCw,
+                    color: theme.colors.primary,
+                    onTap: state.isLoading ? () {} : () => controller.syncPosture(),
+                  ),
+                  QuickActionItem(
+                    label: 'Clear Log Consoles', // .tr() LocaleKeys.
+                    icon: LucideIcons.trash2,
+                    color: Colors.red,
+                    onTap: () => controller.clearLogs(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              // --- Cryptographic Key Rotation Hub ---
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: theme.colors.surface,
+                  borderRadius: BorderRadius.circular(theme.radiusMd),
+                  border: Border.all(color: theme.colors.border),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Cryptographic Key Management Hub', // .tr() LocaleKeys.
+                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    const SizedBox(height: 6),
+                    Text(
+                      'Rotate operational signing keys and adjust automated credential lifetimes.', // .tr() LocaleKeys.
+                      style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(defconIcon, color: defconColor, size: 28),
-                        const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                defconTitle,
-                                style: theme.typography.h4.copyWith(color: defconColor, fontWeight: FontWeight.bold),
+                                'Enforce hardware key (FIDO2) authorization', // .tr() LocaleKeys.
+                                style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
                               ),
-                              const SizedBox(height: 4),
                               Text(
-                                defconDescription,
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurface),
+                                'Revoke access for software-based authenticators.', // .tr() LocaleKeys.
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                               ),
                             ],
                           ),
                         ),
+                        Switch(
+                          activeThumbColor: theme.colors.primary,
+                          value: state.forceMfa,
+                          onChanged: (val) => controller.toggleForceMfa(val),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // --- Key Metric Cards ---
-            Row(
-              children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Cyber Threats',
-                    value: '$activeAlertCount Anomalies',
-                    trendLabel: activeAlertCount == 0 ? 'Optimal Status' : 'Threats pending isolation',
-                    progress: mitigationScore,
-                    icon: LucideIcons.shieldAlert,
-                    brandColor: defconColor,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Firewall Efficacy',
-                    value: state.blockTls ? '99.98% Secured' : '96.42% Weak Cipher',
-                    trendLabel: state.blockTls ? 'TLS legacy traffic blocked' : 'Legacy fallback active',
-                    progress: state.blockTls ? 0.99 : 0.85,
-                    icon: LucideIcons.activity,
-                    brandColor: state.blockTls ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // --- Real-time Security Invariant Triage Panel ---
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Live Ingress Threat Mitigation Panel',
-                        style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: activeAlertCount == 0
-                              ? const Color(0xFF065F46).withValues(alpha: 0.1)
-                              : const Color(0xFF991B1B).withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          activeAlertCount == 0 ? 'SECURE' : '$activeAlertCount PENDING',
-                          style: theme.typography.bodySmall.copyWith(
-                            color: activeAlertCount == 0 ? const Color(0xFF10B981) : const Color(0xFFEF4444),
-                            fontWeight: FontWeight.bold,
+                    const Divider(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Restrict legacy TLS versions', // .tr() LocaleKeys.
+                                style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
+                              ),
+                              Text(
+                                'Block handshake downgrades below TLS 1.2.', // .tr() LocaleKeys.
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  if (state.alerts.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 24.0),
-                      child: Center(
-                        child: Text(
-                          'No anomalies detected in the network firewall.',
-                          style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant),
+                        Switch(
+                          activeThumbColor: theme.colors.primary,
+                          value: state.blockTls,
+                          onChanged: (val) => controller.toggleBlockTls(val),
                         ),
-                      ),
-                    )
-                  else
-                    ...state.alerts.map((alert) {
-                      final isMitigated = alert.status == 'Mitigated';
-                      final isMitigating = alert.status == 'Mitigating...';
-
-                      Color alertColor;
-                      switch (alert.risk) {
-                        case 'High':
-                          alertColor = const Color(0xFFEF4444);
-                          break;
-                        case 'Medium':
-                          alertColor = const Color(0xFFF59E0B);
-                          break;
-                        default:
-                          alertColor = const Color(0xFF6366F1);
-                      }
-
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: theme.colors.background,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: isMitigated ? theme.colors.border : alertColor.withValues(alpha: 0.3),
+                      ],
+                    ),
+                    const Divider(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Credential Lifetime Duration:', // .tr() LocaleKeys.
+                          style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
+                        ),
+                        Text(
+                          '${state.keyRotationHours.toInt()} Hours', // .tr() LocaleKeys.
+                          style: theme.typography.h4.copyWith(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      activeColor: theme.colors.primary,
+                      inactiveColor: theme.colors.border,
+                      min: 4,
+                      max: 168,
+                      divisions: 41,
+                      value: state.keyRotationHours,
+                      onChanged: (val) => controller.updateRotationHours(val),
+                      onChangeEnd: (val) {
+                        controller.addLog('[POLICY] Rotation cycle set to ${val.toInt()} hours.');
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        onPressed: state.isLoading ? null : () => controller.rotateKeys(),
+                        child: state.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: alertColor.withValues(alpha: 0.1),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          '${alert.risk} Risk',
-                                          style: theme.typography.bodySmall.copyWith(
-                                            color: alertColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        alert.id,
-                                        style: theme.typography.bodySmall.copyWith(
-                                          color: theme.colors.onSurfaceVariant,
-                                          fontFamily: 'monospace',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 6),
+                                  const Icon(LucideIcons.lock, color: Colors.white, size: 18),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    alert.title,
-                                    style: theme.typography.bodyLarge.copyWith(
-                                      color: isMitigated ? theme.colors.onSurfaceVariant : theme.colors.onSurface,
-                                      decoration: isMitigated ? TextDecoration.lineThrough : null,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Origin Address: ${alert.sourceIp}',
-                                    style: theme.typography.bodySmall.copyWith(
-                                      color: theme.colors.onSurfaceVariant,
-                                      fontSize: 11,
-                                    ),
+                                    'Rotate Active Master Secrets Now', // .tr() LocaleKeys.
+                                    style: theme.typography.button.copyWith(color: Colors.white),
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 12),
-                            SizedBox(
-                              height: 36,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: isMitigated
-                                      ? theme.colors.surface
-                                      : isMitigating
-                                          ? theme.colors.border
-                                          : alertColor,
-                                  foregroundColor: isMitigated ? theme.colors.onSurfaceVariant : Colors.white,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                    side: isMitigated ? BorderSide(color: theme.colors.border) : BorderSide.none,
-                                  ),
-                                ),
-                                onPressed: (isMitigated || isMitigating)
-                                    ? null
-                                    : () => controller.mitigateAlert(alert.id),
-                                child: isMitigating
-                                    ? const SizedBox(
-                                        height: 14,
-                                        width: 14,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          valueColor: AlwaysStoppedAnimation(Colors.grey),
-                                        ),
-                                      )
-                                    : Text(
-                                        isMitigated ? 'Quarantined' : 'Mitigate',
-                                        style: theme.typography.button.copyWith(
-                                          color: isMitigated ? theme.colors.onSurfaceVariant : Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // --- Cryptographic Key Rotation Hub ---
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Cryptographic Key Management Hub',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Rotate operational signing keys and adjust automated credential lifetimes.',
-                    style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              // --- Monospace Retro Security Log Console ---
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0F172A), // Premium Dark Slate
+                  borderRadius: BorderRadius.circular(theme.radiusMd),
+                  border: Border.all(color: const Color(0xFF1E293B)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
+                            const Icon(LucideIcons.terminal, color: Color(0xFF38BDF8), size: 20),
+                            const SizedBox(width: 8),
                             Text(
-                              'Enforce hardware key (FIDO2) authorization',
-                              style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
-                            ),
-                            Text(
-                              'Revoke access for software-based authenticators.',
-                              style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              'Cryptographic & Ingress Audit Trails', // .tr() LocaleKeys.
+                              style: theme.typography.h4.copyWith(color: const Color(0xFFF8FAFC)),
                             ),
                           ],
                         ),
-                      ),
-                      Switch(
-                        activeThumbColor: theme.colors.primary,
-                        value: state.forceMfa,
-                        onChanged: (val) => controller.toggleForceMfa(val),
-                      ),
-                    ],
-                  ),
-                  const Divider(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Restrict legacy TLS versions',
-                              style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
-                            ),
-                            Text(
-                              'Block handshake downgrades below TLS 1.2.',
-                              style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                            ),
-                          ],
+                        IconButton(
+                          icon: const Icon(LucideIcons.trash2, color: Color(0xFF64748B), size: 18),
+                          onPressed: () => controller.clearLogs(),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      height: 180,
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF020617),
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      Switch(
-                        activeThumbColor: theme.colors.primary,
-                        value: state.blockTls,
-                        onChanged: (val) => controller.toggleBlockTls(val),
-                      ),
-                    ],
-                  ),
-                  const Divider(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Credential Lifetime Duration:',
-                        style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
-                      ),
-                      Text(
-                        '${state.keyRotationHours.toInt()} Hours',
-                        style: theme.typography.h4.copyWith(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Slider(
-                    activeColor: theme.colors.primary,
-                    inactiveColor: theme.colors.border,
-                    min: 4,
-                    max: 168,
-                    divisions: 41,
-                    value: state.keyRotationHours,
-                    onChanged: (val) => controller.updateRotationHours(val),
-                    onChangeEnd: (val) {
-                      controller.addLog('[POLICY] Rotation cycle set to ${val.toInt()} hours.');
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.rotateKeys(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(LucideIcons.lock, color: Colors.white, size: 18),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Rotate Active Master Secrets Now',
-                                  style: theme.typography.button.copyWith(color: Colors.white),
-                                ),
-                              ],
+                      child: ListView.builder(
+                        itemCount: state.logs.length,
+                        itemBuilder: (context, idx) {
+                          final log = state.logs[idx];
+                          Color logColor = const Color(0xFFCBD5E1); // slate-300
+                          if (log.contains('[POSTURE-SHIFT]')) {
+                            logColor = const Color(0xFFF472B6); // pink-400
+                          } else if (log.contains('[MITIGATION-START]')) {
+                            logColor = const Color(0xFFFBBF24); // amber-400
+                          } else if (log.contains('[MITIGATION-COMPLETE]')) {
+                            logColor = const Color(0xFF34D399); // emerald-400
+                          } else if (log.contains('[KEY-ROTATE]')) {
+                            logColor = const Color(0xFF60A5FA); // blue-400
+                          } else if (log.contains('[CYPHER-WARN]')) {
+                            logColor = const Color(0xFFFB923C); // orange-400
+                          }
+
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 6.0),
+                            child: Text(
+                              log,
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 12,
+                                color: Color(0xFFCBD5E1),
+                              ).copyWith(color: logColor),
                             ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // --- Monospace Retro Security Log Console ---
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0F172A), // Premium Dark Slate
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: const Color(0xFF1E293B)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(LucideIcons.terminal, color: Color(0xFF38BDF8), size: 20),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Cryptographic & Ingress Audit Trails',
-                            style: theme.typography.h4.copyWith(color: const Color(0xFFF8FAFC)),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                      IconButton(
-                        icon: const Icon(LucideIcons.trash2, color: Color(0xFF64748B), size: 18),
-                        onPressed: () => controller.clearLogs(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 180,
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF020617),
-                      borderRadius: BorderRadius.circular(6),
                     ),
-                    child: ListView.builder(
-                      itemCount: state.logs.length,
-                      itemBuilder: (context, idx) {
-                        final log = state.logs[idx];
-                        Color logColor = const Color(0xFFCBD5E1); // slate-300
-                        if (log.contains('[POSTURE-SHIFT]')) {
-                          logColor = const Color(0xFFF472B6); // pink-400
-                        } else if (log.contains('[MITIGATION-START]')) {
-                          logColor = const Color(0xFFFBBF24); // amber-400
-                        } else if (log.contains('[MITIGATION-COMPLETE]')) {
-                          logColor = const Color(0xFF34D399); // emerald-400
-                        } else if (log.contains('[KEY-ROTATE]')) {
-                          logColor = const Color(0xFF60A5FA); // blue-400
-                        } else if (log.contains('[CYPHER-WARN]')) {
-                          logColor = const Color(0xFFFB923C); // orange-400
-                        }
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 6.0),
-                          child: Text(
-                            log,
-                            style: const TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 12,
-                              color: Color(0xFFCBD5E1),
-                            ).copyWith(color: logColor),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

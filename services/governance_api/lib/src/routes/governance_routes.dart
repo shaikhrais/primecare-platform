@@ -1,9 +1,14 @@
+import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import '../controllers/governance_controller.dart';
 
 class GovernanceRoutes {
   static Router get router {
     final router = Router();
+
+    // Sanity / Test routes
+    router.get('/', (Request request) => Response.ok('Hello, World!\n'));
+    router.get('/echo/<message>', (Request request, String message) => Response.ok('$message\n'));
 
     // Apps
     router.get('/api/apps', GovernanceController.getApps);

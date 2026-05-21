@@ -1,0 +1,73 @@
+{
+  "primecare_business_development": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\regional\\screens\\regional_manager_ontario_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\regional\\screens\\regional_manager_usa_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\general\\screens\\general_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\bdm\\screens\\regional_bdm_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\sales\\screens\\franchise_sales_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\partnership\\screens\\partnership_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_business_development\\lib\\features\\expansion\\screens\\territory_expansion_manager_dashboard_screen.dart"
+  ],
+  "primecare_client": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_client\\lib\\features\\patient\\screens\\patient_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_client\\lib\\features\\family\\screens\\family_dashboard_screen.dart"
+  ],
+  "primecare_clinic": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\psw\\screens\\psw_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\rn\\screens\\rn_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\psw\\screens\\psw_care_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\clinical_director_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\physician\\screens\\physician_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\intake_coordinator_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\qa_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\training_coordinator_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\receptionist_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\rmt_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\chiropractor_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\physiotherapist_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_clinic\\lib\\features\\shared\\screens\\social_worker_dashboard_screen.dart"
+  ],
+  "primecare_corporate": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\ceo\\screens\\ceo_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\owner\\screens\\owner_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\coo\\screens\\coo_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\busdev\\screens\\head_of_bus_dev_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\marketing\\screens\\head_of_marketing_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\shareholder\\screens\\shareholder_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\finance\\screens\\finance_director_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\volunteer\\screens\\volunteer_coordinator_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\hr\\screens\\hr_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\hr\\screens\\hr_hiring_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\hr\\screens\\hr_director_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\cx\\screens\\cx_director_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\itadmin\\screens\\it_admin_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\legal\\screens\\legal_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\ciso\\screens\\ciso_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\compliance\\screens\\compliance_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\training\\screens\\training_director_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\cfo\\screens\\cfo_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_corporate\\lib\\features\\cto\\screens\\cto_dashboard_screen.dart"
+  ],
+  "primecare_franchise": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\owner\\screens\\franchise_owner_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\ops\\screens\\operations_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\scheduler\\screens\\scheduler_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\billing\\screens\\billing_admin_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\hr_hiring\\screens\\hr_hiring_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\admin\\screens\\admin_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\regional_manager\\screens\\regional_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_franchise\\lib\\features\\marketing_manager\\screens\\marketing_manager_dashboard_screen.dart"
+  ],
+  "primecare_marketing": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_marketing\\lib\\features\\marketing\\screens\\local_marketing_manager_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_marketing\\lib\\features\\marketing\\screens\\community_outreach_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_marketing\\lib\\features\\marketing\\screens\\territory_sales_manager_dashboard_screen.dart"
+  ],
+  "primecare_support": [
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_support\\lib\\features\\support\\screens\\help_desk_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_support\\lib\\features\\support\\screens\\escalation_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_support\\lib\\features\\support\\screens\\it_administrator_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_support\\lib\\features\\support\\screens\\quality_assurance_dashboard_screen.dart",
+    "c:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\primecare_support\\lib\\features\\support\\screens\\training_coordinator_dashboard_screen.dart"
+  ]
+}

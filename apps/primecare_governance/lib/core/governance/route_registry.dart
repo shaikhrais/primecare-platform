@@ -1,8 +1,26 @@
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
-import 'screen_registry.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
+import '../../features/qa/screens/audit_dashboard_screen.dart';
+import '../../features/qa/screens/compliance_reviews_screen.dart';
+import '../../features/qa/screens/incident_reports_screen.dart';
+import '../../features/qa/screens/quality_metrics_screen.dart';
+import '../../features/audit/screens/audit_log_screen.dart';
+import '../../features/audit/screens/monitoring_screen.dart';
+import '../../features/audit/screens/ticket_center_screen.dart';
+import '../../features/audit/screens/screen_status_screen.dart';
+import '../../features/security/screens/security_hub_screen.dart';
+import '../../features/security/screens/security_sentinel_screen.dart';
+import '../../features/security/screens/verification_center_screen.dart';
+import '../../features/reference/screens/clinical_reference_screen.dart';
+import '../../features/executive/screens/growth_pipeline_screen.dart';
+import '../../features/executive/screens/regional_performance_screen.dart';
+import '../../features/executive/screens/leadership_reports_screen.dart';
+import '../../features/executive/screens/governance_hud_screen.dart';
+import '../../features/executive/screens/control_center_screen.dart';
+import '../../features/executive/screens/proposals_screen.dart';
+
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -57,19 +75,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(
-        path: ScreenRegistry.getById('LOGIN')?.routePath ?? '/login',
+        path: ScreenRegistry.screens['LOGIN']?.routePath ?? '/login',
         builder: (context, state) => const LoginView(),
       ),
       GoRoute(
-        path: ScreenRegistry.getById('FORGOT_PASSWORD')?.routePath ?? '/forgot-password',
+        path: ScreenRegistry.screens['FORGOT_PASSWORD']?.routePath ?? '/forgot-password',
         builder: (context, state) => const ForgotPasswordView(),
       ),
       GoRoute(
-        path: ScreenRegistry.getById('MFA')?.routePath ?? '/mfa',
+        path: ScreenRegistry.screens['MFA']?.routePath ?? '/mfa',
         builder: (context, state) => const MfaView(),
       ),
       GoRoute(
-        path: ScreenRegistry.getById('RESET_PASSWORD')?.routePath ?? '/reset-password',
+        path: ScreenRegistry.screens['RESET_PASSWORD']?.routePath ?? '/reset-password',
         builder: (context, state) => const ResetPasswordView(),
       ),
       ShellRoute(
@@ -82,10 +100,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 orElse: () => null,
               );
           final title = screen?.title ?? 'Platform Governance';
+          final screenId = screen?.id ?? 'UNKNOWN';
 
           return MasterLayout(
             title: title,
             shellType: AppShellType.admin,
+            endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
             actions: [
               const LanguageSelector(),
               const SizedBox(width: 8),
@@ -107,6 +127,28 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
+          // Native QA & Compliance Routes
+          GoRoute(path: '/generated/audit-dashboard', builder: (context, state) => const AuditDashboardScreen()),
+          GoRoute(path: '/generated/compliance-reviews', builder: (context, state) => const ComplianceReviewsScreen()),
+          GoRoute(path: '/generated/incident-reports', builder: (context, state) => const IncidentReportsScreen()),
+          GoRoute(path: '/generated/quality-metrics', builder: (context, state) => const QualityMetricsScreen()),
+          GoRoute(path: '/governance/audit', builder: (context, state) => const AuditLogScreen()),
+          GoRoute(path: '/governance/monitoring', builder: (context, state) => const MonitoringScreen()),
+          GoRoute(path: '/governance/tickets', builder: (context, state) => const TicketCenterScreen()),
+          GoRoute(path: '/governance/screen-status', builder: (context, state) => const ScreenStatusScreen()),
+          GoRoute(path: '/governance/device-security', builder: (context, state) => const SecurityHubScreen()),
+          GoRoute(path: '/governance/security', builder: (context, state) => const SecuritySentinelScreen()),
+          GoRoute(path: '/verification', builder: (context, state) => const VerificationCenterScreen()),
+          GoRoute(path: '/governance/clinical-reference', builder: (context, state) => const ClinicalReferenceScreen()),
+
+          // Native Executive Routes
+          GoRoute(path: '/generated/corporate/ceo/growth-pipeline', builder: (context, state) => const GrowthPipelineScreen()),
+          GoRoute(path: '/generated/corporate/ceo/region-performance', builder: (context, state) => const RegionalPerformanceScreen()),
+          GoRoute(path: '/generated/corporate/ceo/leadership-reports', builder: (context, state) => const LeadershipReportsScreen()),
+          GoRoute(path: '/governance/hud', builder: (context, state) => const GovernanceHudScreen()),
+          GoRoute(path: '/governance/control-center', builder: (context, state) => const ControlCenterScreen()),
+          GoRoute(path: '/proposals', builder: (context, state) => const ProposalsScreen()),
+
           // Dynamic Registry-Driven Routes
           ...ScreenRegistry.screens.values
               .where((screen) => !['LOGIN', 'FORGOT_PASSWORD', 'MFA', 'RESET_PASSWORD'].contains(screen.id))

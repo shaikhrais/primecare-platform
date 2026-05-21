@@ -1490,6 +1490,23 @@ model WellnessPulse {
   @@map("wellness_pulses")
 }
 
+model IntakeAssessment {
+  id             String   @id @default(cuid())
+  patientId      String
+  providerId     String
+  assessmentData Json
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  userId    String
+  messages  Json
+  createdAt DateTime @default(now())
+}
+
 // ==========================================
 // FINANCIAL ENGINE MODELS (Bank-Level)
 // ==========================================
@@ -2981,6 +2998,16 @@ model OrganizationNode {
   updatedAt   DateTime @updatedAt
 
   @@index([tenantId, department])
+}
+
+model KpiMetric {
+  id         String   @id @default(cuid())
+  label      String
+  value      String
+  category   String
+  measuredAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model FranchiseKpi {

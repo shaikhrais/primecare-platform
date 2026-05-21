@@ -92,7 +92,7 @@ void main() {
               registeredScreens[screenId.toUpperCase().replaceAll('.', '_')];
 
           if (screen == null) {
-            PrimeLogger.warning(
+            print(
               'MISSING: Screen $screenId (mapped to $blueprintId) not found in registry (tried $normalizedId).',
             );
             missingCount++;
@@ -101,7 +101,7 @@ void main() {
 
           final required = blueprintMap[blueprintId];
           if (required == null) {
-            PrimeLogger.warning('ERROR: Blueprint $blueprintId not found.');
+            print('ERROR: Blueprint $blueprintId not found.');
             continue;
           }
 
@@ -114,12 +114,12 @@ void main() {
               .toList();
 
           if (missingComps.isNotEmpty) {
-            PrimeLogger.info(
+            print(
               'DRIFT: Screen ${screen.id} is missing expected components from $blueprintId: $missingComps',
             );
             driftCount++;
           } else {
-            PrimeLogger.info(
+            print(
               'PARITY OK: Screen ${screen.id} matches $blueprintId',
             );
           }
@@ -128,13 +128,13 @@ void main() {
     }
 
     if (missingCount > 0) {
-      PrimeLogger.error(
+      print(
         'FAILURE: $missingCount screens mapped in blueprints.yaml are missing from the registry.',
       );
     }
 
     if (driftCount > 0) {
-      PrimeLogger.error(
+      print(
         'FAILURE: $driftCount screens have structural drift.',
       );
     }

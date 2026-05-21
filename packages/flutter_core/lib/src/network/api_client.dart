@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import '../security/security_interceptor.dart';
+import '../services/device_manager.dart';
 import 'local_cache_service.dart';
 import 'package:flutter/foundation.dart';
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
@@ -389,6 +390,7 @@ class ApiClient {
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
           headers: {
+            'X-Device-ID': DeviceManager.instance.deviceId,
             'X-Requested-With': 'XMLHttpRequest',
           },
           extra: {'withCredentials': true},
@@ -422,6 +424,16 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        final status = e.response!.statusCode;
+        if (status == 401 || status == 403) {
+          return ApiResponse(
+            data: e.response!.data ?? <String, dynamic>{},
+            statusCode: status!,
+            error: 'Authentication failed: ${status}',
+          );
+        }
+      }
       try {
         final cacheService = _ref.read(localCacheServiceProvider);
         final cachedData = cacheService.getCachedResponse(path);
@@ -455,6 +467,16 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        final status = e.response!.statusCode;
+        if (status == 401 || status == 403) {
+          return ApiResponse(
+            data: e.response!.data ?? <String, dynamic>{},
+            statusCode: status!,
+            error: 'Authentication failed: ${status}',
+          );
+        }
+      }
       final mock = _getMockResponse(path, 'POST', body: body);
       if (mock != null) return mock;
       return ApiResponse(
@@ -474,6 +496,16 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        final status = e.response!.statusCode;
+        if (status == 401 || status == 403) {
+          return ApiResponse(
+            data: e.response!.data ?? <String, dynamic>{},
+            statusCode: status!,
+            error: 'Authentication failed: ${status}',
+          );
+        }
+      }
       final mock = _getMockResponse(path, 'PUT', body: body);
       if (mock != null) return mock;
       return ApiResponse(
@@ -493,6 +525,16 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        final status = e.response!.statusCode;
+        if (status == 401 || status == 403) {
+          return ApiResponse(
+            data: e.response!.data ?? <String, dynamic>{},
+            statusCode: status!,
+            error: 'Authentication failed: ${status}',
+          );
+        }
+      }
       final mock = _getMockResponse(path, 'DELETE');
       if (mock != null) return mock;
       return ApiResponse(

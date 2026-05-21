@@ -24,7 +24,7 @@ foreach ($app in $apps) {
     Set-Location -Path "apps\$app"
     
     if ($Target -eq "web") {
-        flutter build web --release --no-tree-shake-icons
+        flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api
     } elseif ($Target -eq "appbundle") {
         flutter build appbundle --release
     } elseif ($Target -eq "apk") {

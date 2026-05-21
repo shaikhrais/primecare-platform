@@ -1,10 +1,10 @@
-export 'regional_manager_ontario_dashboard_screen.dart';
-export 'regional_manager_usa_dashboard_screen.dart';
-export 'franchise_sales_manager_dashboard_screen.dart';
-export 'partnership_manager_dashboard_screen.dart';
-export 'territory_expansion_manager_dashboard_screen.dart';
-export 'general_manager_dashboard_screen.dart';
-export 'regional_bdm_dashboard_screen.dart';
+export '../../../regional/screens/regional_manager_ontario_dashboard_screen.dart';
+export '../../../regional/screens/regional_manager_usa_dashboard_screen.dart';
+export '../../../sales/screens/franchise_sales_manager_dashboard_screen.dart';
+export '../../../partnership/screens/partnership_manager_dashboard_screen.dart';
+export '../../../expansion/screens/territory_expansion_manager_dashboard_screen.dart';
+export '../../../general/screens/general_manager_dashboard_screen.dart';
+export '../../../bdm/screens/regional_bdm_dashboard_screen.dart';
 export 'regional_bdm_leads_screen.dart';
 export 'regional_bdm_franchise_pipeline_screen.dart';
 export 'regional_bdm_territory_growth_screen.dart';

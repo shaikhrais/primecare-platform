@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
+import 'package:billing_api/routes.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:database_client/database_client.dart';
 
@@ -11,6 +12,10 @@ void main() async {
   await db.initialize();
 
   final router = Router();
+
+  // Mount the 456 AI-generated routes
+  final apiRoutes = ApiRoutes();
+  router.mount('/', apiRoutes.router.call);
 
   router.get('/', (Request request) {
     return Response.ok('Hello from billing-api (Hydrated with Dart DB Client)');

@@ -1,0 +1,7 @@
+name = "primecare-client"
+compatibility_date = "2024-05-20"
+pages_build_output_dir = "build/web"
+
+[env.production]
+# Add custom domain mappings or proxies here
+# We can proxy the Docker backend if deployed to a cloud run instance

@@ -9,7 +9,38 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.use('*', cors())
+app.use(
+  '*',
+  cors({
+    origin: (origin) => origin || '*',
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: [
+      'Content-Type',
+      'Authorization',
+      'authorization',
+      'X-Requested-With',
+      'x-requested-with',
+      'X-Request-ID',
+      'x-request-id',
+      'X-Correlation-ID',
+      'x-correlation-id',
+      'X-Device-ID',
+      'x-device-id',
+      'X-Device-Fingerprint',
+      'x-device-fingerprint',
+      'X-Request-Signature',
+      'x-request-signature',
+      'X-App-Version',
+      'x-app-version',
+      'X-Tenant-ID',
+      'x-tenant-id',
+    ],
+    exposeHeaders: ['Content-Length', 'X-JSON'],
+    maxAge: 86400,
+  })
+)
+
 
 app.get('/', (c) => {
   return c.text('PrimeCare Worker API is running!')
@@ -40,4 +71,20 @@ app.route('/api/v1/auth', authRouter)
 app.route('/api/v1/shifts', shiftsRouter)
 app.route('/api/v1/premium', premiumRouter)
 
+export class ChatServer {
+  constructor(private state: any, private env: any) {}
+  async fetch(request: Request) {
+    return new Response('ChatServer DO Placeholder')
+  }
+}
+
+export class RealtimeSync {
+  constructor(private state: any, private env: any) {}
+  async fetch(request: Request) {
+    return new Response('RealtimeSync DO Placeholder')
+  }
+}
+
 export default app
+
+

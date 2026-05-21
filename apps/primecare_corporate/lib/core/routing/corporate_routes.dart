@@ -36,62 +36,62 @@ class CeoModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.ceoDashboard,
-      builder: (context) => const CeoDashboardScreen(),
+      builder: (context) => CeoDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Enterprise Overview',
       route: CorporateRoutes.ceoEnterpriseOverview,
-      builder: (context) => const CeoEnterpriseOverviewScreen(),
+      builder: (context) => CeoEnterpriseOverviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Franchise Overview',
       route: CorporateRoutes.ceoFranchiseOverview,
-      builder: (context) => const CeoFranchiseOverviewScreen(),
+      builder: (context) => CeoFranchiseOverviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Region Performance',
       route: CorporateRoutes.ceoRegionPerformance,
-      builder: (context) => const CeoRegionPerformanceScreen(),
+      builder: (context) => CeoRegionPerformanceScreen(),
     ),
     PrimeCareScreen(
       title: 'Revenue Summary',
       route: CorporateRoutes.ceoRevenueSummary,
-      builder: (context) => const CeoRevenueSummaryScreen(),
+      builder: (context) => CeoRevenueSummaryScreen(),
     ),
     PrimeCareScreen(
       title: 'Strategic Kpis',
       route: CorporateRoutes.ceoStrategicKpis,
-      builder: (context) => const CeoStrategicKpisScreen(),
+      builder: (context) => CeoStrategicKpisScreen(),
     ),
     PrimeCareScreen(
       title: 'Growth Pipeline',
       route: CorporateRoutes.ceoGrowthPipeline,
-      builder: (context) => const CeoGrowthPipelineScreen(),
+      builder: (context) => CeoGrowthPipelineScreen(),
     ),
     PrimeCareScreen(
       title: 'Leadership Reports',
       route: CorporateRoutes.ceoLeadershipReports,
-      builder: (context) => const CeoLeadershipReportsScreen(),
+      builder: (context) => CeoLeadershipReportsScreen(),
     ),
     PrimeCareScreen(
       title: 'Alerts And Risks',
       route: CorporateRoutes.ceoAlertsAndRisks,
-      builder: (context) => const CeoAlertsAndRisksScreen(),
+      builder: (context) => CeoAlertsAndRisksScreen(),
     ),
     PrimeCareScreen(
       title: 'Organization Map',
       route: CorporateRoutes.ceoOrganizationMap,
-      builder: (context) => const CeoOrganizationMapScreen(),
+      builder: (context) => CeoOrganizationMapScreen(),
     ),
     PrimeCareScreen(
       title: 'Approvals',
       route: CorporateRoutes.ceoApprovals,
-      builder: (context) => const CeoApprovalsScreen(),
+      builder: (context) => CeoApprovalsScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.ceoReports,
-      builder: (context) => const CeoReportsScreen(),
+      builder: (context) => CeoReportsScreen(),
     ),
   ];
 }
@@ -113,7 +113,7 @@ class OwnerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.ownerDashboard,
-      builder: (context) => const OwnerDashboardScreen(),
+      builder: (context) => OwnerDashboardScreen(),
     ),
   ];
 }
@@ -135,57 +135,57 @@ class CooModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.cooDashboard,
-      builder: (context) => const CooDashboardScreen(),
+      builder: (context) => CooDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Operations Overview',
       route: CorporateRoutes.cooOperationsOverview,
-      builder: (context) => const CooOperationsOverviewScreen(),
+      builder: (context) => CooOperationsOverviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Branch Operations',
       route: CorporateRoutes.cooBranchOperations,
-      builder: (context) => const CooBranchOperationsScreen(),
+      builder: (context) => CooBranchOperationsScreen(),
     ),
     PrimeCareScreen(
       title: 'Staffing Efficiency',
       route: CorporateRoutes.cooStaffingEfficiency,
-      builder: (context) => const CooStaffingEfficiencyScreen(),
+      builder: (context) => CooStaffingEfficiencyScreen(),
     ),
     PrimeCareScreen(
       title: 'Scheduling Health',
       route: CorporateRoutes.cooSchedulingHealth,
-      builder: (context) => const CooSchedulingHealthScreen(),
+      builder: (context) => CooSchedulingHealthScreen(),
     ),
     PrimeCareScreen(
       title: 'Service Delivery',
       route: CorporateRoutes.cooServiceDelivery,
-      builder: (context) => const CooServiceDeliveryScreen(),
+      builder: (context) => CooServiceDeliveryScreen(),
     ),
     PrimeCareScreen(
       title: 'Issue Escalations',
       route: CorporateRoutes.cooIssueEscalations,
-      builder: (context) => const CooIssueEscalationsScreen(),
+      builder: (context) => CooIssueEscalationsScreen(),
     ),
     PrimeCareScreen(
       title: 'Compliance View',
       route: CorporateRoutes.cooComplianceView,
-      builder: (context) => const CooComplianceViewScreen(),
+      builder: (context) => CooComplianceViewScreen(),
     ),
     PrimeCareScreen(
       title: 'Workflow Performance',
       route: CorporateRoutes.cooWorkflowPerformance,
-      builder: (context) => const CooWorkflowPerformanceScreen(),
+      builder: (context) => CooWorkflowPerformanceScreen(),
     ),
     PrimeCareScreen(
       title: 'Branch Comparison',
       route: CorporateRoutes.cooBranchComparison,
-      builder: (context) => const CooBranchComparisonScreen(),
+      builder: (context) => CooBranchComparisonScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.cooReports,
-      builder: (context) => const CooReportsScreen(),
+      builder: (context) => CooReportsScreen(),
     ),
   ];
 }
@@ -207,62 +207,62 @@ class CfoModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.cfoDashboard,
-      builder: (context) => const CfoDashboardScreen(),
+      builder: (context) => CfoDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Financial Overview',
       route: CorporateRoutes.cfoFinancialOverview,
-      builder: (context) => const CfoFinancialOverviewScreen(),
+      builder: (context) => CfoFinancialOverviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Revenue',
       route: CorporateRoutes.cfoRevenue,
-      builder: (context) => const CfoRevenueScreen(),
+      builder: (context) => CfoRevenueScreen(),
     ),
     PrimeCareScreen(
       title: 'Expenses',
       route: CorporateRoutes.cfoExpenses,
-      builder: (context) => const CfoExpensesScreen(),
+      builder: (context) => CfoExpensesScreen(),
     ),
     PrimeCareScreen(
       title: 'Franchise Financials',
       route: CorporateRoutes.cfoFranchiseFinancials,
-      builder: (context) => const CfoFranchiseFinancialsScreen(),
+      builder: (context) => CfoFranchiseFinancialsScreen(),
     ),
     PrimeCareScreen(
       title: 'Payroll',
       route: CorporateRoutes.cfoPayroll,
-      builder: (context) => const CfoPayrollScreen(),
+      builder: (context) => CfoPayrollScreen(),
     ),
     PrimeCareScreen(
       title: 'Accounts Receivable',
       route: CorporateRoutes.cfoAccountsReceivable,
-      builder: (context) => const CfoAccountsReceivableScreen(),
+      builder: (context) => CfoAccountsReceivableScreen(),
     ),
     PrimeCareScreen(
       title: 'Accounts Payable',
       route: CorporateRoutes.cfoAccountsPayable,
-      builder: (context) => const CfoAccountsPayableScreen(),
+      builder: (context) => CfoAccountsPayableScreen(),
     ),
     PrimeCareScreen(
       title: 'Invoices',
       route: CorporateRoutes.cfoInvoices,
-      builder: (context) => const CfoInvoicesScreen(),
+      builder: (context) => CfoInvoicesScreen(),
     ),
     PrimeCareScreen(
       title: 'Profitability',
       route: CorporateRoutes.cfoProfitability,
-      builder: (context) => const CfoProfitabilityScreen(),
+      builder: (context) => CfoProfitabilityScreen(),
     ),
     PrimeCareScreen(
       title: 'Tax And Remittance',
       route: CorporateRoutes.cfoTaxAndRemittance,
-      builder: (context) => const CfoTaxAndRemittanceScreen(),
+      builder: (context) => CfoTaxAndRemittanceScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.cfoReports,
-      builder: (context) => const CfoReportsScreen(),
+      builder: (context) => CfoReportsScreen(),
     ),
   ];
 }
@@ -284,72 +284,72 @@ class CtoModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.ctoDashboard,
-      builder: (context) => const CtoDashboardScreen(),
+      builder: (context) => CtoDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'System Health',
       route: CorporateRoutes.ctoSystemHealth,
-      builder: (context) => const CtoSystemHealthScreen(),
+      builder: (context) => CtoSystemHealthScreen(),
     ),
     PrimeCareScreen(
       title: 'Platform Usage',
       route: CorporateRoutes.ctoPlatformUsage,
-      builder: (context) => const CtoPlatformUsageScreen(),
+      builder: (context) => CtoPlatformUsageScreen(),
     ),
     PrimeCareScreen(
       title: 'Feature Adoption',
       route: CorporateRoutes.ctoFeatureAdoption,
-      builder: (context) => const CtoFeatureAdoptionScreen(),
+      builder: (context) => CtoFeatureAdoptionScreen(),
     ),
     PrimeCareScreen(
       title: 'Api Monitoring',
       route: CorporateRoutes.ctoApiMonitoring,
-      builder: (context) => const CtoApiMonitoringScreen(),
+      builder: (context) => CtoApiMonitoringScreen(),
     ),
     PrimeCareScreen(
       title: 'Integrations',
       route: CorporateRoutes.ctoIntegrations,
-      builder: (context) => const CtoIntegrationsScreen(),
+      builder: (context) => CtoIntegrationsScreen(),
     ),
     PrimeCareScreen(
       title: 'Audit Logs',
       route: CorporateRoutes.ctoAuditLogs,
-      builder: (context) => const CtoAuditLogsScreen(),
+      builder: (context) => CtoAuditLogsScreen(),
     ),
     PrimeCareScreen(
       title: 'Access Control',
       route: CorporateRoutes.ctoAccessControl,
-      builder: (context) => const CtoAccessControlScreen(),
+      builder: (context) => CtoAccessControlScreen(),
     ),
     PrimeCareScreen(
       title: 'Release Management',
       route: CorporateRoutes.ctoReleaseManagement,
-      builder: (context) => const CtoReleaseManagementScreen(),
+      builder: (context) => CtoReleaseManagementScreen(),
     ),
     PrimeCareScreen(
       title: 'Issue Tracking',
       route: CorporateRoutes.ctoIssueTracking,
-      builder: (context) => const CtoIssueTrackingScreen(),
+      builder: (context) => CtoIssueTrackingScreen(),
     ),
     PrimeCareScreen(
       title: 'Infrastructure',
       route: CorporateRoutes.ctoInfrastructure,
-      builder: (context) => const CtoInfrastructureScreen(),
+      builder: (context) => CtoInfrastructureScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.ctoReports,
-      builder: (context) => const CtoReportsScreen(),
+      builder: (context) => CtoReportsScreen(),
     ),
     PrimeCareScreen(
       title: 'Verification Hub',
       route: CorporateRoutes.ctoVerificationHub,
-      builder: (context) => const CtoVerificationHubScreen(),
+      builder: (context) => CtoVerificationHubScreen(),
     ),
     PrimeCareScreen(
       title: 'System Verification',
       route: CorporateRoutes.systemVerificationDashboard,
-      builder: (context) => const CtoSystemVerificationScreen(),
+      builder: (context) => CtoSystemVerificationScreen(),
     ),
   ];
 }
@@ -371,57 +371,57 @@ class ComplianceManagerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.complianceManagerDashboard,
-      builder: (context) => const ComplianceManagerDashboardScreen(),
+      builder: (context) => ComplianceManagerDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Compliance Cases',
       route: CorporateRoutes.complianceManagerComplianceCases,
-      builder: (context) => const ComplianceManagerComplianceCasesScreen(),
+      builder: (context) => ComplianceManagerComplianceCasesScreen(),
     ),
     PrimeCareScreen(
       title: 'Policies',
       route: CorporateRoutes.complianceManagerPolicies,
-      builder: (context) => const ComplianceManagerPoliciesScreen(),
+      builder: (context) => ComplianceManagerPoliciesScreen(),
     ),
     PrimeCareScreen(
       title: 'Audits',
       route: CorporateRoutes.complianceManagerAudits,
-      builder: (context) => const ComplianceManagerAuditsScreen(),
+      builder: (context) => ComplianceManagerAuditsScreen(),
     ),
     PrimeCareScreen(
       title: 'Incident Review',
       route: CorporateRoutes.complianceManagerIncidentReview,
-      builder: (context) => const ComplianceManagerIncidentReviewScreen(),
+      builder: (context) => ComplianceManagerIncidentReviewScreen(),
     ),
     PrimeCareScreen(
       title: 'Credential Tracking',
       route: CorporateRoutes.complianceManagerCredentialTracking,
-      builder: (context) => const ComplianceManagerCredentialTrackingScreen(),
+      builder: (context) => ComplianceManagerCredentialTrackingScreen(),
     ),
     PrimeCareScreen(
       title: 'Document Expiry',
       route: CorporateRoutes.complianceManagerDocumentExpiry,
-      builder: (context) => const ComplianceManagerDocumentExpiryScreen(),
+      builder: (context) => ComplianceManagerDocumentExpiryScreen(),
     ),
     PrimeCareScreen(
       title: 'Risk Register',
       route: CorporateRoutes.complianceManagerRiskRegister,
-      builder: (context) => const ComplianceManagerRiskRegisterScreen(),
+      builder: (context) => ComplianceManagerRiskRegisterScreen(),
     ),
     PrimeCareScreen(
       title: 'Corrective Actions',
       route: CorporateRoutes.complianceManagerCorrectiveActions,
-      builder: (context) => const ComplianceManagerCorrectiveActionsScreen(),
+      builder: (context) => ComplianceManagerCorrectiveActionsScreen(),
     ),
     PrimeCareScreen(
       title: 'Training Compliance',
       route: CorporateRoutes.complianceManagerTrainingCompliance,
-      builder: (context) => const ComplianceManagerTrainingComplianceScreen(),
+      builder: (context) => ComplianceManagerTrainingComplianceScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.complianceManagerReports,
-      builder: (context) => const ComplianceManagerReportsScreen(),
+      builder: (context) => ComplianceManagerReportsScreen(),
     ),
   ];
 }
@@ -443,7 +443,7 @@ class HeadOfBusDevModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.headOfBusDevDashboard,
-      builder: (context) => const HeadOfBusDevDashboardScreen(),
+      builder: (context) => HeadOfBusDevDashboardScreen(),
     ),
   ];
 }
@@ -465,7 +465,7 @@ class HeadOfMarketingModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.headOfMarketingDashboard,
-      builder: (context) => const HeadOfMarketingDashboardScreen(),
+      builder: (context) => HeadOfMarketingDashboardScreen(),
     ),
   ];
 }
@@ -487,67 +487,67 @@ class TrainingDirectorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.trainingDirectorDashboard,
-      builder: (context) => const TrainingDirectorDashboardScreen(),
+      builder: (context) => TrainingDirectorDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Training Programs',
       route: CorporateRoutes.trainingDirectorTrainingPrograms,
-      builder: (context) => const TrainingDirectorTrainingProgramsScreen(),
+      builder: (context) => TrainingDirectorTrainingProgramsScreen(),
     ),
     PrimeCareScreen(
       title: 'Staff Training Matrix',
       route: CorporateRoutes.trainingDirectorStaffTrainingMatrix,
-      builder: (context) => const TrainingDirectorStaffTrainingMatrixScreen(),
+      builder: (context) => TrainingDirectorStaffTrainingMatrixScreen(),
     ),
     PrimeCareScreen(
       title: 'Compliance Training',
       route: CorporateRoutes.trainingDirectorComplianceTraining,
-      builder: (context) => const TrainingDirectorComplianceTrainingScreen(),
+      builder: (context) => TrainingDirectorComplianceTrainingScreen(),
     ),
     PrimeCareScreen(
       title: 'Course Library',
       route: CorporateRoutes.trainingDirectorCourseLibrary,
-      builder: (context) => const TrainingDirectorCourseLibraryScreen(),
+      builder: (context) => TrainingDirectorCourseLibraryScreen(),
     ),
     PrimeCareScreen(
       title: 'Assessments',
       route: CorporateRoutes.trainingDirectorAssessments,
-      builder: (context) => const TrainingDirectorAssessmentsScreen(),
+      builder: (context) => TrainingDirectorAssessmentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Certifications',
       route: CorporateRoutes.trainingDirectorCertifications,
-      builder: (context) => const TrainingDirectorCertificationsScreen(),
+      builder: (context) => TrainingDirectorCertificationsScreen(),
     ),
     PrimeCareScreen(
       title: 'Trainer Assignments',
       route: CorporateRoutes.trainingDirectorTrainerAssignments,
-      builder: (context) => const TrainingDirectorTrainerAssignmentsScreen(),
+      builder: (context) => TrainingDirectorTrainerAssignmentsScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: CorporateRoutes.trainingDirectorReports,
-      builder: (context) => const TrainingDirectorReportsScreen(),
+      builder: (context) => TrainingDirectorReportsScreen(),
     ),
     PrimeCareScreen(
       title: 'Analytics',
       route: CorporateRoutes.trainingDirectorAnalytics,
-      builder: (context) => const TrainingDirectorAnalyticsScreen(),
+      builder: (context) => TrainingDirectorAnalyticsScreen(),
     ),
     PrimeCareScreen(
       title: 'Course Architect',
       route: CorporateRoutes.courseArchitectDashboard,
-      builder: (context) => const TrainingDirectorCourseArchitectScreen(),
+      builder: (context) => TrainingDirectorCourseArchitectScreen(),
     ),
     PrimeCareScreen(
       title: 'Hub',
       route: CorporateRoutes.trainingHubDashboard,
-      builder: (context) => const TrainingDirectorHubScreen(),
+      builder: (context) => TrainingDirectorHubScreen(),
     ),
     PrimeCareScreen(
       title: 'Certificates',
       route: CorporateRoutes.trainingDirectorCertificates,
-      builder: (context) => const TrainingDirectorCertificatesScreen(),
+      builder: (context) => TrainingDirectorCertificatesScreen(),
     ),
   ];
 }
@@ -569,7 +569,7 @@ class ShareholderModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.shareholderIntelligenceDashboard,
-      builder: (context) => const ShareholderDashboardScreen(),
+      builder: (context) => ShareholderDashboardScreen(),
     ),
   ];
 }
@@ -591,12 +591,12 @@ class FinanceDirectorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.financeDirectorDashboard,
-      builder: (context) => const FinanceDirectorDashboardScreen(),
+      builder: (context) => FinanceDirectorDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Cashflow',
       route: CorporateRoutes.financeDirectorCashFlow,
-      builder: (context) => const FinanceDirectorCashflowScreen(),
+      builder: (context) => FinanceDirectorCashflowScreen(),
     ),
   ];
 }
@@ -618,7 +618,7 @@ class VolunteerCoordinatorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.volunteerCoordinatorDashboard,
-      builder: (context) => const VolunteerCoordinatorDashboardScreen(),
+      builder: (context) => VolunteerCoordinatorDashboardScreen(),
     ),
   ];
 }
@@ -640,7 +640,7 @@ class HrManagerModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.hrManagerDashboard,
-      builder: (context) => const HrManagerDashboardScreen(),
+      builder: (context) => HrManagerDashboardScreen(),
     ),
   ];
 }
@@ -662,7 +662,7 @@ class HrHiringModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.hrHiringDashboard,
-      builder: (context) => const HrHiringDashboardScreen(),
+      builder: (context) => HrHiringDashboardScreen(),
     ),
   ];
 }
@@ -684,7 +684,7 @@ class HrDirectorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.hrDirectorDashboard,
-      builder: (context) => const HrDirectorDashboardScreen(),
+      builder: (context) => HrDirectorDashboardScreen(),
     ),
   ];
 }
@@ -706,7 +706,7 @@ class CxDirectorModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.cxDirectorDashboard,
-      builder: (context) => const CxDirectorDashboardScreen(),
+      builder: (context) => CxDirectorDashboardScreen(),
     ),
   ];
 }
@@ -728,7 +728,7 @@ class ItAdminModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.itAdminDashboard,
-      builder: (context) => const ItAdminDashboardScreen(),
+      builder: (context) => ItAdminDashboardScreen(),
     ),
   ];
 }
@@ -750,7 +750,7 @@ class LegalModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.legalDashboard,
-      builder: (context) => const LegalDashboardScreen(),
+      builder: (context) => LegalDashboardScreen(),
     ),
   ];
 }
@@ -772,7 +772,7 @@ class CisoModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Dashboard',
       route: CorporateRoutes.cisoDashboard,
-      builder: (context) => const CisoDashboardScreen(),
+      builder: (context) => CisoDashboardScreen(),
     ),
   ];
 }

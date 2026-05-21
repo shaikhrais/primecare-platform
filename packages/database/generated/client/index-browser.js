@@ -1002,6 +1002,23 @@ exports.Prisma.WellnessPulseScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.IntakeAssessmentScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  providerId: 'providerId',
+  assessmentData: 'assessmentData',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChatSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  messages: 'messages',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   clientId: 'clientId',
@@ -1992,6 +2009,16 @@ exports.Prisma.OrganizationNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.KpiMetricScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  value: 'value',
+  category: 'category',
+  measuredAt: 'measuredAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FranchiseKpiScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2874,6 +2901,8 @@ exports.Prisma.ModelName = {
   ConsentForm: 'ConsentForm',
   DailyAuditSignOff: 'DailyAuditSignOff',
   WellnessPulse: 'WellnessPulse',
+  IntakeAssessment: 'IntakeAssessment',
+  ChatSession: 'ChatSession',
   Invoice: 'Invoice',
   Payment: 'Payment',
   InsuranceProvider: 'InsuranceProvider',
@@ -2956,6 +2985,7 @@ exports.Prisma.ModelName = {
   CorporateReport: 'CorporateReport',
   CorporateAlert: 'CorporateAlert',
   OrganizationNode: 'OrganizationNode',
+  KpiMetric: 'KpiMetric',
   FranchiseKpi: 'FranchiseKpi',
   FranchiseReport: 'FranchiseReport',
   FranchiseAlert: 'FranchiseAlert',

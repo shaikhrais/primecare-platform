@@ -1,18 +1,4 @@
 import 'package:primecare_ui/primecare_ui.dart' hide PswDashboardScreen, PswMessagesScreen, PswVisitNotesScreen;
-import '../../features/psw/presentation/widgets/psw_profile_screen.dart';
-import '../../features/psw/presentation/widgets/psw_reports_screen.dart';
-import '../../features/psw/presentation/widgets/psw_documents_screen.dart';
-import '../../features/psw/presentation/widgets/psw_check_in_screen.dart';
-import '../../features/psw/presentation/widgets/psw_system_logs_screen.dart';
-import '../../features/psw/presentation/widgets/psw_notifications_screen.dart';
-import '../../features/psw/presentation/widgets/psw_help_support_screen.dart';
-import '../../features/psw/presentation/widgets/psw_dashboard_screen.dart';
-import '../../features/psw/presentation/widgets/psw_schedule_screen.dart';
-import '../../features/psw/presentation/widgets/psw_patient_profile_screen.dart';
-import '../../features/psw/presentation/widgets/psw_visit_checklist_screen.dart';
-import '../../features/psw/presentation/widgets/psw_messages_screen.dart';
-import '../../features/psw/presentation/widgets/psw_visit_notes_screen.dart';
-
 class ClinicTenant extends PlatformTenant {
   @override
   String get tenantId => 'primecare_clinic';
@@ -144,79 +130,79 @@ class ClinicPswModule extends PlatformModule {
           title: 'Care Dashboard',
           route: ClinicalRoutes.pswDashboard,
           icon: LucideIcons.home,
-          builder: (context) => const PswDashboardScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Shift Tracker',
           route: ClinicalRoutes.pswSchedule,
           icon: LucideIcons.clock,
-          builder: (context) => const PswScheduleScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'My Clients',
           route: ClinicalRoutes.pswPatientProfile,
           icon: LucideIcons.users,
-          builder: (context) => const PswPatientProfileScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Task List',
           route: ClinicalRoutes.pswVisitChecklist,
           icon: LucideIcons.checkSquare,
-          builder: (context) => const PswVisitChecklistScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Messages',
           route: ClinicalRoutes.pswMessages,
           icon: LucideIcons.messageSquare,
-          builder: (context) => const PswMessagesScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Visit Notes',
           route: ClinicalRoutes.pswVisitNotes,
           icon: LucideIcons.fileText,
-          builder: (context) => const PswVisitNotesScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Profile',
           route: ClinicalRoutes.pswProfile,
           icon: LucideIcons.user,
-          builder: (context) => const PswProfileScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Reports',
           route: ClinicalRoutes.pswReports,
           icon: LucideIcons.fileBarChart,
-          builder: (context) => const PswReportsScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Documents',
           route: ClinicalRoutes.pswDocuments,
           icon: LucideIcons.folder,
-          builder: (context) => const PswDocumentsScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Check-In',
           route: ClinicalRoutes.pswCheckIn,
           icon: LucideIcons.mapPin,
-          builder: (context) => const PswCheckInScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'System Logs',
           route: ClinicalRoutes.pswSystemLogs,
           icon: LucideIcons.terminal,
-          builder: (context) => const PswSystemLogsScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Notifications',
           route: ClinicalRoutes.pswNotifications,
           icon: LucideIcons.bell,
-          builder: (context) => const PswNotificationsScreen(),
+          
         ),
         PrimeCareScreen(
           title: 'Help & Support',
           route: ClinicalRoutes.pswHelpSupport,
           icon: LucideIcons.helpCircle,
-          builder: (context) => const PswHelpSupportScreen(),
+          
         ),
       ];
 }

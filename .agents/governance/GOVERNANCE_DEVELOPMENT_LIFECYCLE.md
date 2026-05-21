@@ -8,8 +8,8 @@ This document defines the mandatory architectural workflow for adding new featur
 Every new screen or major code change must involve these four systems in order. Bypassing any step will trigger a **Governance Violation** in the UI.
 
 ### Pillar 1: Registry Definition
-*   **Location**: `.agents/governance/page_inventory.yaml`
-*   **Action**: Define the route name, role permissions, and the **Primary Title Key**.
+*   **Location**: Relational SQLite Database (`.agents/governance/governance.db` -> `pages` table)
+*   **Action**: Register the screen using `dart run .agents/governance/feature_cli.dart` to define the route name, role permissions, and localization labels.
 *   **Rule**: Titles must be written as keys (e.g., `clinical.patient_intake.title`), never as raw text.
 
 ### Pillar 2: Architectural Layout (Blueprints)
@@ -47,7 +47,7 @@ To ensure high performance, we use an **Incremental Verification Engine**.
 
 To convert the remaining "Loose Text" from older parts of the system:
 1.  **Identify**: Run `python .agents/governance/lint_loose_text.py --full-scan`.
-2.  **Register**: Move identified raw text into `page_inventory.yaml`.
+2.  **Register**: Insert identified raw text into the SQLite pages table (using `feature_cli.dart`).
 3.  **Sync**: Run the translation engine.
 4.  **Replace**: Update the code to use `LocaleKeys.[key].tr()`.
 

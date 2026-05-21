@@ -1,4 +1,6 @@
-﻿import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide HelpDeskDashboardScreen, EscalationDashboardScreen;
+import '../../features/support/screens/help_desk_dashboard_screen.dart';
+import '../../features/support/screens/escalation_dashboard_screen.dart';
 
 class SupportRoutes {
   static const String helpDeskDashboard = '/helpdesk';
@@ -44,10 +46,12 @@ class SupportOperationsModule extends PlatformModule {
     PrimeCareScreen(
       title: 'Help Desk Dashboard',
       route: SupportRoutes.helpDeskDashboard,
+      builder: (context) => const HelpDeskDashboardScreen(),
 ),
     PrimeCareScreen(
       title: 'Escalation Dashboard',
       route: SupportRoutes.escalationDashboard,
+      builder: (context) => const EscalationDashboardScreen(),
 ),
     PrimeCareScreen(
       title: 'System Verification',

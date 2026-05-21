@@ -5,7 +5,7 @@ final tenantConfigurationProvider = FutureProvider.autoDispose<Map<String, dynam
   final response = await api.get('/v1/admin/tenants');
   return response.data is Map
       ? Map<String, dynamic>.from(response.data as Map) 
-      : {'tenants': []};
+      : {'tenants': <dynamic>[]};
 });
 
 class TenantConfigurationScreen extends GovernedConsumerWidget {

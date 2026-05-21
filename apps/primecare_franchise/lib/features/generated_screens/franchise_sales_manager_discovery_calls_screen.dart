@@ -1,17 +1,78 @@
+// UPGRADED_BY_AI
 import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'franchise_sales_manager_discovery_calls_screen_controller.dart';
 
-class FranchiseSalesManagerDiscoveryCallsScreen extends StatelessWidget {
+class FranchiseSalesManagerDiscoveryCallsScreen extends ConsumerWidget {
   const FranchiseSalesManagerDiscoveryCallsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return EmptyState(
-      icon: LucideIcons.layoutTemplate,
-      title: 'FranchiseSalesManagerDiscoveryCallsScreen',
-      subtitle: 'Premium feature module pending hydration.',
-      actionLabel: 'Refresh',
-      onAction: () {},
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(FranchiseSalesManagerDiscoveryCallsScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('FranchiseSalesManagerDiscoveryCalls'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(FranchiseSalesManagerDiscoveryCallsScreenControllerProvider),
+          ),
+        ],
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(FranchiseSalesManagerDiscoveryCallsScreenControllerProvider.notifier).performAction(),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    final items = data['items'] as List;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Search / Filter',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  child: Text(item['id'].toString()),
+                ),
+                title: Text(item['title']),
+                subtitle: Text(item['status']),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text('View Details')),
+                    const PopupMenuItem(child: Text('Edit')),
+                    const PopupMenuItem(child: Text('Delete')),
+                  ],
+                ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

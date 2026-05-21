@@ -34,14 +34,16 @@ void main() {
   final uiLines = uiFile.readAsLinesSync();
   final Map<String, String> mappedScreens = {};
   
-  for (final line in uiLines) {
-    if (line.trim().startsWith("'") && (line.contains("': ") || line.contains("':\t"))) {
+  for (int i = 0; i < uiLines.length; i++) {
+    final line = uiLines[i].trim();
+    if (line.startsWith("'") && line.contains("':")) {
       final parts = line.split("':");
-      if (parts.length >= 2) {
-        final screenId = parts[0].trim().replaceAll("'", "").replaceAll('"', '');
-        final impl = parts.sublist(1).join("':").trim().replaceAll(',', '');
-        mappedScreens[screenId] = impl;
+      final screenId = parts[0].trim().replaceAll("'", "").replaceAll('"', '');
+      var impl = parts.sublist(1).join("':").trim().replaceAll(',', '');
+      if (impl.isEmpty && i + 1 < uiLines.length) {
+        impl = uiLines[i + 1].trim().replaceAll(',', '');
       }
+      mappedScreens[screenId] = impl;
     }
   }
 

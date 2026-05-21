@@ -1,7 +1,12 @@
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide
+    RegionalManagerUsaDashboardScreen,
+    FranchiseSalesManagerDashboardScreen,
+    PartnershipManagerDashboardScreen,
+    TerritoryExpansionManagerDashboardScreen,
+    GeneralManagerDashboardScreen,
+    RegionalBdmDashboardScreen;
 import 'package:flutter_core/flutter_core.dart';
 import '../../features/business_development/presentation/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 class BusinessDevelopmentTenant extends PlatformTenant {
   @override

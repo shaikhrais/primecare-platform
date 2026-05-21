@@ -1,67 +1,77 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'screen_work_item_controller.dart';
 
-part 'screen_work_item.g.dart';
+class ScreenWorkItem extends ConsumerWidget {
+  const ScreenWorkItem({super.key});
 
-@JsonSerializable()
-class ScreenWorkItem {
-  final String serialNo; // PC-SCR-XXXX, PC-PEN-XXXX, etc.
-  final String screenCode; // e.g., PSW-101
-  final String title;
-  final String office;
-  final String module;
-  final String action; // create, update, delete
-  final String status; // pending, implemented, verified
-  final int priority; // 1 high, 2 medium, 3 low
-  final String assignedTo;
-  final String notes;
-  final String? routePath;
-  final String targetApp;
-  final String? category;
-  final DateTime createdAt;
-  final DateTime? completedAt;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(ScreenWorkItemControllerProvider);
 
-  ScreenWorkItem({
-    required this.serialNo,
-    required this.screenCode,
-    required this.title,
-    required this.office,
-    required this.module,
-    required this.action,
-    required this.status,
-    required this.priority,
-    required this.assignedTo,
-    required this.notes,
-    this.routePath,
-    required this.targetApp,
-    this.category,
-    DateTime? createdAt,
-    this.completedAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ScreenWorkItem'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(ScreenWorkItemControllerProvider),
+          ),
+        ],
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(ScreenWorkItemControllerProvider.notifier).performAction(),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
 
-  factory ScreenWorkItem.fromJson(Map<String, dynamic> json) =>
-      _$ScreenWorkItemFromJson(json);
-  Map<String, dynamic> toJson() => _$ScreenWorkItemToJson(this);
-}
 
-@JsonSerializable()
-class ScreenChangeLog {
-  final String serialNo; // PC-CHG-XXXX
-  final String workItemSerial;
-  final String description;
-  final String author;
-  final DateTime timestamp;
-  final Map<String, dynamic>? metadata;
-
-  ScreenChangeLog({
-    required this.serialNo,
-    required this.workItemSerial,
-    required this.description,
-    required this.author,
-    DateTime? timestamp,
-    this.metadata,
-  }) : timestamp = timestamp ?? DateTime.now();
-
-  factory ScreenChangeLog.fromJson(Map<String, dynamic> json) =>
-      _$ScreenChangeLogFromJson(json);
-  Map<String, dynamic> toJson() => _$ScreenChangeLogToJson(this);
+  Widget _buildContent(BuildContext context, dynamic data) {
+    final items = data['items'] as List;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Search / Filter',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  child: Text(item['id'].toString()),
+                ),
+                title: Text(item['title']),
+                subtitle: Text(item['status']),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text('View Details')),
+                    const PopupMenuItem(child: Text('Edit')),
+                    const PopupMenuItem(child: Text('Delete')),
+                  ],
+                ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

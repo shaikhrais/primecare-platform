@@ -2,8 +2,42 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:web/web.dart' as web;
 
+class AuthTenant extends PlatformTenant {
+  @override
+  String get tenantId => 'primecare_hq';
+
+  @override
+  String get name => 'PrimeCare';
+
+  @override
+  ThemeData get branding => ThemeData.light().copyWith(
+        primaryColor: const Color(0xFF0F172A), // Slate 900
+      );
+}
+
+class AuthApplication extends PlatformApplication {
+  @override
+  String get appId => 'primecare_auth';
+
+  @override
+  String get name => 'PrimeCare Identity Portal';
+
+  @override
+  PlatformTenant get tenant => AuthTenant();
+
+  @override
+  List<PlatformRoleDefinition> get roleDefinitions => [];
+}
+
 void main() {
-  runApp(const ProviderScope(child: PrimeCareAuthApp()));
+  runApp(
+    ProviderScope(
+      overrides: [
+        platformApplicationProvider.overrideWithValue(AuthApplication()),
+      ],
+      child: const PrimeCareAuthApp(),
+    ),
+  );
 }
 
 class PrimeCareAuthApp extends ConsumerWidget {

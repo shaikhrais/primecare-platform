@@ -1,71 +1,77 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'screen_work_item.g_controller.dart';
 
-part of 'screen_work_item.dart';
+class ScreenWorkItem.g extends ConsumerWidget {
+  const ScreenWorkItem.g({super.key});
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(ScreenWorkItem.gControllerProvider);
 
-ScreenWorkItem _$ScreenWorkItemFromJson(Map<String, dynamic> json) =>
-    ScreenWorkItem(
-      serialNo: json['serialNo'] as String,
-      screenCode: json['screenCode'] as String,
-      title: json['title'] as String,
-      office: json['office'] as String,
-      module: json['module'] as String,
-      action: json['action'] as String,
-      status: json['status'] as String,
-      priority: (json['priority'] as num).toInt(),
-      assignedTo: json['assignedTo'] as String,
-      notes: json['notes'] as String,
-      routePath: json['routePath'] as String?,
-      targetApp: json['targetApp'] as String,
-      category: json['category'] as String?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      completedAt: json['completedAt'] == null
-          ? null
-          : DateTime.parse(json['completedAt'] as String),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ScreenWorkItem.g'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(ScreenWorkItem.gControllerProvider),
+          ),
+        ],
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(ScreenWorkItem.gControllerProvider.notifier).performAction(),
+        child: const Icon(Icons.add),
+      ),
     );
+  }
 
-Map<String, dynamic> _$ScreenWorkItemToJson(ScreenWorkItem instance) =>
-    <String, dynamic>{
-      'serialNo': instance.serialNo,
-      'screenCode': instance.screenCode,
-      'title': instance.title,
-      'office': instance.office,
-      'module': instance.module,
-      'action': instance.action,
-      'status': instance.status,
-      'priority': instance.priority,
-      'assignedTo': instance.assignedTo,
-      'notes': instance.notes,
-      'routePath': instance.routePath,
-      'targetApp': instance.targetApp,
-      'category': instance.category,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'completedAt': instance.completedAt?.toIso8601String(),
-    };
 
-ScreenChangeLog _$ScreenChangeLogFromJson(Map<String, dynamic> json) =>
-    ScreenChangeLog(
-      serialNo: json['serialNo'] as String,
-      workItemSerial: json['workItemSerial'] as String,
-      description: json['description'] as String,
-      author: json['author'] as String,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
-      metadata: json['metadata'] as Map<String, dynamic>?,
+  Widget _buildContent(BuildContext context, dynamic data) {
+    final items = data['items'] as List;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Search / Filter',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue.withOpacity(0.1),
+                  child: Text(item['id'].toString()),
+                ),
+                title: Text(item['title']),
+                subtitle: Text(item['status']),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text('View Details')),
+                    const PopupMenuItem(child: Text('Edit')),
+                    const PopupMenuItem(child: Text('Delete')),
+                  ],
+                ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ],
     );
-
-Map<String, dynamic> _$ScreenChangeLogToJson(ScreenChangeLog instance) =>
-    <String, dynamic>{
-      'serialNo': instance.serialNo,
-      'workItemSerial': instance.workItemSerial,
-      'description': instance.description,
-      'author': instance.author,
-      'timestamp': instance.timestamp.toIso8601String(),
-      'metadata': instance.metadata,
-    };
+  }
+}

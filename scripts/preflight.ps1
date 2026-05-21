@@ -19,7 +19,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Running Backend Tests (Services)..." -ForegroundColor Yellow
 $services = Get-ChildItem -Path "services" -Directory
 foreach ($service in $services) {
-    if (Test-Path "$($service.FullName)\pubspec.yaml") {
+    if ((Test-Path "$($service.FullName)\pubspec.yaml") -and (Test-Path "$($service.FullName)\test")) {
         Write-Host "Testing $($service.Name)..." -ForegroundColor Gray
         cd $service.FullName
         dart test
@@ -34,7 +34,7 @@ foreach ($service in $services) {
 Write-Host "Running Frontend Tests (Apps)..." -ForegroundColor Yellow
 $apps = Get-ChildItem -Path "apps" -Directory
 foreach ($app in $apps) {
-    if (Test-Path "$($app.FullName)\pubspec.yaml") {
+    if ((Test-Path "$($app.FullName)\pubspec.yaml") -and (Test-Path "$($app.FullName)\test")) {
         Write-Host "Testing $($app.Name)..." -ForegroundColor Gray
         cd $app.FullName
         flutter test

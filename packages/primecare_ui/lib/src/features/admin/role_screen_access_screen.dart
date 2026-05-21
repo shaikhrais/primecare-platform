@@ -72,7 +72,6 @@ class RoleScreenAccessScreen extends GovernedConsumerWidget {
                               itemCount: 20,
                               itemBuilder: (context, index) {
                                 return CheckboxListTile(
-                                  title: Text('SCREEN_PREMIUM_FEATURE_${index + 1}'),
                                   subtitle: const Text('View Access'),
                                   value: index % 2 == 0,
                                   onChanged: (v) {},

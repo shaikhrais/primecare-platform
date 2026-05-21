@@ -122,57 +122,71 @@ class CooDashboardScreen extends GovernedConsumerWidget {
         ],
       ),
       body: telemetryAsync.when(
-        data: (data) => RefreshIndicator(
-          onRefresh: () async => ref.invalidate(cooDashboardProvider),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GovDashboardHero(
-                  title: 'COO Control Center',
-                  roleName: 'COO Dashboard',
-                  description:
-                      'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-                  onRefresh: () => ref.invalidate(cooDashboardProvider),
+        data: (data) => Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1800),
+            child: ResponsiveSplitDashboard(
+              metrics: [
+                GovMetricCard(
+                  title: 'Active Operations', // .tr() LocaleKeys.
+                  value: '${data.activeOperations}', // .tr() LocaleKeys.
+                  trendLabel: 'Optimal productivity', // .tr() LocaleKeys.
+                  progress: data.operationalProductivity,
+                  icon: LucideIcons.activity,
+                  brandColor: theme.colors.primary,
                 ),
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GovMetricCard(
-                        title: 'Active Operations',
-                        value: '${data.activeOperations}',
-                        trendLabel: 'Optimal productivity',
-                        progress: data.operationalProductivity,
-                        icon: LucideIcons.activity,
-                        brandColor: theme.colors.primary,
-                      ),
+                GovMetricCard(
+                  title: 'Security Clearance', // .tr() LocaleKeys.
+                  value: 'Level ${data.securityClearanceLevel} Approved', // .tr() LocaleKeys.
+                  trendLabel: data.clearanceExceptions == 0
+                      ? 'Zero exceptions logged' // .tr() LocaleKeys.
+                      : '${data.clearanceExceptions} exceptions logged', // .tr() LocaleKeys.
+                  progress: data.clearanceExceptions == 0 ? 1.0 : 0.8,
+                  icon: LucideIcons.shieldCheck,
+                  brandColor: data.clearanceExceptions == 0
+                      ? Colors.green
+                      : theme.colors.error,
+                ),
+              ],
+              mainContent: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GovDashboardHero(
+                    title: 'COO Control Center', // .tr() LocaleKeys.
+                    roleName: 'COO Dashboard', // .tr() LocaleKeys.
+                    description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.', // .tr() LocaleKeys.
+                    onRefresh: () => ref.invalidate(cooDashboardProvider),
+                  ),
+                  const SizedBox(height: 24),
+                  GovTelemetryChart(
+                    title: 'Hourly Core Telemetry', // .tr() LocaleKeys.
+                    dataPoints: data.telemetryData,
+                    labels: data.telemetryLabels,
+                    accentColor: theme.colors.primary,
+                  ),
+                ],
+              ),
+              defaultSidebarWidgets: [
+                QuickActionsPanel(
+                  title: 'Quick Actions', // .tr() LocaleKeys.
+                  actions: [
+                    QuickActionItem(
+                      label: 'Run Audit Scan', // .tr() LocaleKeys.
+                      icon: LucideIcons.scan,
+                      color: theme.colors.primary,
+                      onTap: telemetryAsync.isLoading
+                          ? () {}
+                          : () => ref
+                              .read(cooDashboardProvider.notifier)
+                              .runComplianceScan(),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: GovMetricCard(
-                        title: 'Security Clearance',
-                        value: 'Level ${data.securityClearanceLevel} Approved',
-                        trendLabel: data.clearanceExceptions == 0
-                            ? 'Zero exceptions logged'
-                            : '${data.clearanceExceptions} exceptions logged',
-                        progress: data.clearanceExceptions == 0 ? 1.0 : 0.8,
-                        icon: LucideIcons.shieldCheck,
-                        brandColor: data.clearanceExceptions == 0
-                            ? Colors.green
-                            : theme.colors.error,
-                      ),
+                    QuickActionItem(
+                      label: 'Sync Posture', // .tr() LocaleKeys.
+                      icon: LucideIcons.refreshCw,
+                      color: Colors.green,
+                      onTap: () => ref.invalidate(cooDashboardProvider),
                     ),
                   ],
-                ),
-                const SizedBox(height: 24),
-                GovTelemetryChart(
-                  title: 'Hourly Core Telemetry',
-                  dataPoints: data.telemetryData,
-                  labels: data.telemetryLabels,
-                  accentColor: theme.colors.primary,
                 ),
                 const SizedBox(height: 24),
                 Container(
@@ -187,9 +201,8 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Operational Audit Logs',
-                        style: theme.typography.h4
-                            .copyWith(color: theme.colors.onSurface),
+                        'Operational Audit Logs', // .tr() LocaleKeys.
+                        style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                       ),
                       const SizedBox(height: 12),
                       ...data.logs.map((log) => Padding(
@@ -242,7 +255,7 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                                   ),
                                 )
                               : Text(
-                                  'Execute Operational Audit Scan',
+                                  'Execute Operational Audit Scan', // .tr() LocaleKeys.
                                   style: theme.typography.button
                                       .copyWith(color: Colors.white),
                                 ),
@@ -250,6 +263,14 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 24),
+                const AiInsightsCard(
+                  heading: 'System & Policy Insights', // .tr() LocaleKeys.
+                  suggestions: [
+                    'Ensure all operational hubs maintain active sync.', // .tr() LocaleKeys.
+                    'Review branch dispatch performance indicators.', // .tr() LocaleKeys.
+                  ],
                 ),
               ],
             ),

@@ -104,7 +104,7 @@ def scan_files(full_scan=False):
         return True
     else:
         print("\nCOMPLIANCE FAILURE: Hardcoded strings detected.")
-        print("Solution: Register these strings in 'page_inventory.yaml' and use 'LocaleKeys.key.tr()'")
+        print("Solution: Register these strings in SQLite 'pages' table (using feature_cli) and use 'LocaleKeys.key.tr()'")
         return False
 
 if __name__ == "__main__":

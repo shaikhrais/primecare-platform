@@ -54,3 +54,13 @@ model OrganizationNode {
 
   @@index([tenantId, department])
 }
+
+model KpiMetric {
+  id         String   @id @default(cuid())
+  label      String
+  value      String
+  category   String
+  measuredAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

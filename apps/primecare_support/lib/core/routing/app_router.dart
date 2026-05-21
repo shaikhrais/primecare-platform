@@ -1,5 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide HelpDeskDashboardScreen, EscalationDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen;
+import '../../features/support/screens/help_desk_dashboard_screen.dart';
+import '../../features/support/screens/escalation_dashboard_screen.dart';
+import '../../features/support/screens/it_administrator_dashboard_screen.dart';
+import '../../features/support/screens/quality_assurance_dashboard_screen.dart';
+import '../../features/support/screens/training_coordinator_dashboard_screen.dart';
+
 import 'package:flutter_core/flutter_core.dart';
 import 'support_routes.dart';
 import 'package:flutter/foundation.dart';
@@ -56,6 +62,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     publicRoutes: [
+      GoRoute(path: '/support/it-admin/dashboard', builder: (context, state) => const ItAdministratorDashboardScreen()),
+      GoRoute(path: '/support/qa/dashboard', builder: (context, state) => const QualityAssuranceDashboardScreen()),
+      GoRoute(path: '/support/training/dashboard', builder: (context, state) => const TrainingCoordinatorDashboardScreen()),
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {

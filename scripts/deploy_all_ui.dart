@@ -35,6 +35,7 @@ DateTime getLatestModifiedTime(String appPath) {
 
 void main() async {
   final apps = [
+    'primecare_auth',
     'primecare_governance',
     'primecare_client',
     'primecare_clinic',
@@ -97,11 +98,34 @@ void main() async {
       continue;
     }
 
+    final appUrls = {
+      'primecare_auth': 'https://primecare-auth.pages.dev',
+      'primecare_governance': 'https://primecare-governance.pages.dev',
+      'primecare_corporate': 'https://primecare-corporate.pages.dev',
+      'primecare_franchise': 'https://primecare-franchise.pages.dev',
+      'primecare_clinic': 'https://primecare-clinic.pages.dev',
+      'primecare_client': 'https://primecare-client.pages.dev',
+      'primecare_business_development': 'https://primecare-business-development.pages.dev',
+      'primecare_marketing': 'https://primecare-marketing.pages.dev',
+      'primecare_support': 'https://primecare-support.pages.dev',
+      'primecare_enterprise_blueprint': 'https://primecare-enterprise-blueprint.pages.dev',
+    };
+
+    final ssoUrl = appUrls['primecare_auth']!;
+    final appUrl = appUrls[app]!;
+
     // 2. Build web
     print('   - Building for web...');
     final buildResult = await Process.run(
       'flutter',
-      ['build', 'web', '--release'],
+      [
+        'build',
+        'web',
+        '--release',
+        '--dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api',
+        '--dart-define=SSO_PORTAL_URL=$ssoUrl',
+        '--dart-define=APP_BASE_URL=$appUrl',
+      ],
       workingDirectory: appPath,
       runInShell: true,
     );
@@ -112,7 +136,7 @@ void main() async {
     }
 
     // 3. Deploy to Cloudflare
-    final projectName = 'primecare-${app.replaceAll("_", "-")}';
+    final projectName = app.replaceAll("_", "-");
     print('   - Deploying to Cloudflare Pages as $projectName...');
     final deployResult = await Process.run(
       'npx',

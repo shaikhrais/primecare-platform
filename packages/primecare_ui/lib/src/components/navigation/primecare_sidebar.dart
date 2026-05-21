@@ -38,8 +38,11 @@ class PrimeCareSidebar extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: context.s(12)),
-              itemCount: items.length,
+              itemCount: items.length + 1,
               itemBuilder: (context, index) {
+                if (index == items.length) {
+                  return _buildNexusTriggerItem(context);
+                }
                 final item = items[index];
                 return _buildNavItem(context, item);
               },
@@ -48,6 +51,57 @@ class PrimeCareSidebar extends StatelessWidget {
           if (footer != null) footer!,
           SizedBox(height: context.s(24)),
         ],
+      ),
+    );
+  }
+
+  Widget _buildNexusTriggerItem(BuildContext context) {
+    final theme = context.theme;
+    return Padding(
+      padding: EdgeInsets.only(top: context.s(12), bottom: context.s(12)),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(context.s(12)),
+          gradient: LinearGradient(
+            colors: [
+              theme.colors.primary.withValues(alpha: 0.15),
+              theme.colors.primary.withValues(alpha: 0.03),
+            ],
+          ),
+          border: Border.all(
+            color: theme.colors.primary.withValues(alpha: 0.3),
+            width: context.s(1),
+          ),
+        ),
+        child: ListTile(
+          leading: Icon(
+            LucideIcons.pocket,
+            size: context.s(20),
+            color: theme.colors.primary,
+          ),
+          title: Text(
+            'Aura Nexus Center',
+            style: theme.typography.bodyMedium.copyWith(
+              color: theme.colors.primary,
+              fontSize: context.s(14),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: Text(
+            'Global AI Chat & HUD Console',
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.onSurfaceVariant.withValues(alpha: 0.7),
+              fontSize: context.s(11),
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(context.s(12)),
+          ),
+          onTap: () {
+            Navigator.of(context).pop(); // Close sidebar
+            Scaffold.of(context).openEndDrawer(); // Open console
+          },
+        ),
       ),
     );
   }
