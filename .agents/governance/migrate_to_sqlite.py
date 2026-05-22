@@ -523,12 +523,14 @@ def migrate():
             role_code = resolve_role_id(screen_code)
             role_db_id = roles_mapping.get(role_code, roles_mapping.get('guest'))
             
-            # Determine premium layout_key based on category
-            layout_key = 'masterLayout'
-            if category in ('clinical', 'rn', 'rpn', 'allied', 'psw'):
-                layout_key = 'clinicalLayout'
-            elif category in ('executive', 'management'):
-                layout_key = 'adminLayout'
+            # Determine premium layout_key based on category and physical sidebar requirements
+            if requires_sidebar:
+                if category in ('clinical', 'rn', 'rpn', 'allied', 'psw'):
+                    layout_key = 'clinicalLayout'
+                else:
+                    layout_key = 'adminLayout'
+            else:
+                layout_key = 'masterLayout'
 
             # 6a. Insert Screen
             cursor.execute("""
@@ -656,14 +658,14 @@ def migrate():
                     cursor.execute("""
                     INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
                     VALUES (?, ?, 'renderLogs', 'api_action', 'state.logs', 'active')
-                    """, (screen_db_id, f"FUN_{screen_code}_audit_logs"))
+                    """, (screen_db_id, f"FUN_{screen_code}_audit_logs_terminal"))
                     func_db_id = cursor.lastrowid
                     funcs_seeded += 1
 
                     cursor.execute("""
                     INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-                    VALUES (?, ?, 'Live Auditing timeline Console', 'card', 'data-cy-audit-logs', 20, 0)
-                    """, (screen_db_id, f"CMP_{screen_code}_audit_logs"))
+                    VALUES (?, ?, 'Live Auditing timeline Console', 'card', 'data-cy-audit-logs-terminal', 20, 0)
+                    """, (screen_db_id, f"CMP_{screen_code}_audit_logs_terminal"))
                     comp_db_id = cursor.lastrowid
                     comps_seeded += 1
 
