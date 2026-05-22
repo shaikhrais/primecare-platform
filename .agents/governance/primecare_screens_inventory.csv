@@ -1,63 +1,63 @@
-﻿S.No.,Screen Class Name,Module / Screen Group,File Path,Associated Controller,Requires Sidebar
-1,RmtDashboardController,allied,packages/primecare_ui/lib/src/screens/allied/rmt_dashboard_screen.dart,RmtDashboardController,Yes
-2,ClinicalDashboardController,clinical,packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart,ClinicalDashboardController,Yes
-3,ArchitecturePlanningDashboardController,common,packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart,ArchitecturePlanningDashboardController,Yes
-4,BusinessDevelopmentDashboardController,common,packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart,BusinessDevelopmentDashboardController,Yes
-5,ChiropractorDashboardController,common,packages/primecare_ui/lib/src/screens/common/chiropractor_dashboard_screen.dart,ChiropractorDashboardController,Yes
-6,ClinicDashboardController,common,packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart,ClinicDashboardController,Yes
-7,CourseArchitectDashboardController,common,packages/primecare_ui/lib/src/screens/common/course_architect_dashboard_screen.dart,CourseArchitectDashboardController,Yes
-8,CustomerSupportDashboardController,common,packages/primecare_ui/lib/src/screens/common/customer_support_dashboard_screen.dart,CustomerSupportDashboardController,Yes
-9,DynamicScreenDashboardController,common,packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart,DynamicScreenDashboardController,Yes
-10,FamilyMemberDashboardController,common,packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart,FamilyMemberDashboardController,Yes
-11,FranchiseDashboardController,common,packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart,FranchiseDashboardController,Yes
-12,GuestDashboardController,common,packages/primecare_ui/lib/src/screens/common/guest_dashboard_screen.dart,GuestDashboardController,Yes
-13,InfrastructureDashboardController,common,packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard_screen.dart,InfrastructureDashboardController,Yes
-14,IntakeDashboardController,common,packages/primecare_ui/lib/src/screens/common/intake_dashboard_screen.dart,IntakeDashboardController,Yes
-15,OfficeDashboardController,common,packages/primecare_ui/lib/src/screens/common/office_dashboard_screen.dart,OfficeDashboardController,Yes
-16,PatientDashboardController,common,packages/primecare_ui/lib/src/screens/common/patient_dashboard_screen.dart,PatientDashboardController,Yes
-17,PhysiotherapistDashboardController,common,packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart,PhysiotherapistDashboardController,Yes
-18,PortalDashboardController,common,packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart,PortalDashboardController,Yes
-19,QaDashboardController,common,packages/primecare_ui/lib/src/screens/common/qa_dashboard_screen.dart,QaDashboardController,Yes
-20,SocialWorkerDashboardController,common,packages/primecare_ui/lib/src/screens/common/social_worker_dashboard_screen.dart,SocialWorkerDashboardController,Yes
-21,SupportDashboardController,common,packages/primecare_ui/lib/src/screens/common/support_dashboard_screen.dart,SupportDashboardController,Yes
-22,SystemDashboardController,common,packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart,SystemDashboardController,Yes
-23,SystemVerificationDashboardController,common,packages/primecare_ui/lib/src/screens/common/system_verification_dashboard_screen.dart,SystemVerificationDashboardController,Yes
-24,TrainingHubDashboardController,common,packages/primecare_ui/lib/src/screens/common/training_hub_dashboard_screen.dart,TrainingHubDashboardController,Yes
-25,CfoDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/cfo_dashboard_screen.dart,CfoDashboardController,Yes
-26,CisoDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/ciso_dashboard_screen.dart,CisoDashboardController,Yes
-27,CooDashboardNotifier,executive,packages/primecare_ui/lib/src/screens/executive/coo_dashboard_screen.dart,CooDashboardNotifierController,Yes
-28,CtoDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/cto_dashboard_screen.dart,CtoDashboardController,Yes
-29,CxDirectorDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/cx_director_dashboard_screen.dart,CxDirectorDashboardController,Yes
-30,FinanceDirectorDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/finance_director_dashboard_screen.dart,FinanceDirectorDashboardController,Yes
-31,HrDirectorDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/hr_director_dashboard_screen.dart,HrDirectorDashboardController,Yes
-32,LegalDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/legal_dashboard_screen.dart,LegalDashboardController,Yes
-33,OwnerDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/owner_dashboard_screen.dart,OwnerDashboardController,Yes
-34,ShareholderDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/shareholder_dashboard_screen.dart,ShareholderDashboardController,Yes
-35,TrainingDirectorDashboardController,executive,packages/primecare_ui/lib/src/screens/executive/training_director_dashboard_screen.dart,TrainingDirectorDashboardController,Yes
-36,CommunityOutreachDashboardController,management,packages/primecare_ui/lib/src/screens/management/community_outreach_dashboard_screen.dart,CommunityOutreachDashboardController,Yes
-37,ComplianceManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart,ComplianceManagerDashboardController,Yes
-38,FranchiseSalesManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart,FranchiseSalesManagerDashboardController,Yes
-39,GeneralManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/general_manager_dashboard_screen.dart,GeneralManagerDashboardController,Yes
-40,GovernanceOfficerDashboardController,management,packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart,GovernanceOfficerDashboardController,Yes
-41,HeadOfBusDevDashboardController,management,packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart,HeadOfBusDevDashboardController,Yes
-42,HeadOfMarketingDashboardController,management,packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart,HeadOfMarketingDashboardController,Yes
-43,LocalMarketingManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart,LocalMarketingManagerDashboardController,Yes
-44,OperationsManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/operations_manager_dashboard_screen.dart,OperationsManagerDashboardController,Yes
-45,PartnershipManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/partnership_manager_dashboard_screen.dart,PartnershipManagerDashboardController,Yes
-46,RegionalBdmDashboardController,management,packages/primecare_ui/lib/src/screens/management/regional_bdm_dashboard_screen.dart,RegionalBdmDashboardController,Yes
-47,RegionalManagerUsaDashboardController,management,packages/primecare_ui/lib/src/screens/management/regional_manager_usa_dashboard_screen.dart,RegionalManagerUsaDashboardController,Yes
-48,ScrumMasterDashboardController,management,packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard_screen.dart,ScrumMasterDashboardController,Yes
-49,TerritoryExpansionManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_dashboard_screen.dart,TerritoryExpansionManagerDashboardController,Yes
-50,TerritorySalesManagerDashboardController,management,packages/primecare_ui/lib/src/screens/management/territory_sales_manager_dashboard_screen.dart,TerritorySalesManagerDashboardController,Yes
-51,PswDashboardController,psw,packages/primecare_ui/lib/src/screens/psw/psw_dashboard_screen.dart,PswDashboardController,Yes
-52,RnDashboardController,rn,packages/primecare_ui/lib/src/screens/rn/rn_dashboard_screen.dart,RnDashboardController,Yes
-53,RpnDashboardController,rpn,packages/primecare_ui/lib/src/screens/rpn/rpn_dashboard_screen.dart,RpnDashboardController,Yes
-54,BillingAdminDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/billing_admin_dashboard_screen.dart,BillingAdminDashboardController,Yes
-55,HrHiringDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/hr_hiring_dashboard_screen.dart,HrHiringDashboardController,Yes
-56,HrManagerDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart,HrManagerDashboardController,Yes
-57,IntakeCoordinatorDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart,IntakeCoordinatorDashboardController,Yes
-58,QualityAssuranceDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard_screen.dart,QualityAssuranceDashboardController,Yes
-59,ReceptionistDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart,ReceptionistDashboardController,Yes
-60,SchedulerDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/scheduler_dashboard_screen.dart,SchedulerDashboardController,Yes
-61,TrainingCoordinatorDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/training_coordinator_dashboard_screen.dart,TrainingCoordinatorDashboardController,Yes
-62,VolunteerCoordinatorDashboardController,staff,packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_dashboard_screen.dart,VolunteerCoordinatorDashboardController,Yes
+﻿S.No.,Screen Code,Screen Name,File Path,Screen Type,Layout Key,Status,Assigned View Roles
+1,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController,packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart,dashboard,masterLayout,active,"cto, ceo, admin"
+2,billing_admin_dashboard_controller,BillingAdminDashboardController,packages/primecare_ui/lib/src/screens/staff/billing_admin_dashboard_screen.dart,dashboard,masterLayout,active,"admin, ceo, cto"
+3,business_development_dashboard_controller,BusinessDevelopmentDashboardController,packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart,dashboard,masterLayout,active,"bus_dev, ceo, cto, admin"
+4,cfo_dashboard_controller,CfoDashboardController,packages/primecare_ui/lib/src/screens/executive/cfo_dashboard_screen.dart,dashboard,adminLayout,active,"cfo, ceo, cto, admin"
+5,chiropractor_dashboard_controller,ChiropractorDashboardController,packages/primecare_ui/lib/src/screens/common/chiropractor_dashboard_screen.dart,dashboard,masterLayout,active,"chiropractor, ceo, cto, admin"
+6,ciso_dashboard_controller,CisoDashboardController,packages/primecare_ui/lib/src/screens/executive/ciso_dashboard_screen.dart,dashboard,adminLayout,active,"ciso, ceo, cto, admin"
+7,clinic_dashboard_controller,ClinicDashboardController,packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart,dashboard,masterLayout,active,"clinical_director, ceo, cto, admin"
+8,clinical_dashboard_controller,ClinicalDashboardController,packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart,dashboard,clinicalLayout,active,"clinical_director, ceo, cto, admin"
+9,community_outreach_dashboard_controller,CommunityOutreachDashboardController,packages/primecare_ui/lib/src/screens/management/community_outreach_dashboard_screen.dart,dashboard,adminLayout,active,"community_outreach, ceo, cto, admin"
+10,compliance_manager_dashboard_controller,ComplianceManagerDashboardController,packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart,dashboard,adminLayout,active,"compliance, ceo, cto, admin"
+11,coo_dashboard_notifier,CooDashboardNotifier,packages/primecare_ui/lib/src/screens/executive/coo_dashboard_screen.dart,dashboard,adminLayout,active,"coo, ceo, cto, admin"
+12,course_architect_dashboard_controller,CourseArchitectDashboardController,packages/primecare_ui/lib/src/screens/common/course_architect_dashboard_screen.dart,dashboard,masterLayout,active,"training_director, ceo, cto, admin"
+13,cto_dashboard_controller,CtoDashboardController,packages/primecare_ui/lib/src/screens/executive/cto_dashboard_screen.dart,dashboard,adminLayout,active,"cto, ceo, admin"
+14,customer_support_dashboard_controller,CustomerSupportDashboardController,packages/primecare_ui/lib/src/screens/common/customer_support_dashboard_screen.dart,dashboard,masterLayout,active,"dynamic, ceo, cto, admin"
+15,cx_director_dashboard_controller,CxDirectorDashboardController,packages/primecare_ui/lib/src/screens/executive/cx_director_dashboard_screen.dart,dashboard,adminLayout,active,"cx_director, ceo, cto, admin"
+16,dynamic_dashboard_controller,DynamicScreenDashboardController,packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart,dashboard,masterLayout,active,"dynamic, ceo, cto, admin"
+17,family_member_dashboard_controller,FamilyMemberDashboardController,packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart,dashboard,masterLayout,active,"patient, ceo, cto, admin"
+18,finance_director_dashboard_controller,FinanceDirectorDashboardController,packages/primecare_ui/lib/src/screens/executive/finance_director_dashboard_screen.dart,dashboard,adminLayout,active,"finance_director, ceo, cto, admin"
+19,franchise_dashboard_controller,FranchiseDashboardController,packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart,dashboard,masterLayout,active,"owner, ceo, cto, admin"
+20,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController,packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart,dashboard,adminLayout,active,"franchise_sales, ceo, cto, admin"
+21,general_manager_dashboard_controller,GeneralManagerDashboardController,packages/primecare_ui/lib/src/screens/management/general_manager_dashboard_screen.dart,dashboard,adminLayout,active,"gm, ceo, cto, admin"
+22,governance_officer_dashboard_controller,GovernanceOfficerDashboardController,packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart,dashboard,adminLayout,active,"governance, ceo, cto, admin"
+23,guest_dashboard_controller,GuestDashboardController,packages/primecare_ui/lib/src/screens/common/guest_dashboard_screen.dart,dashboard,masterLayout,active,"guest, ceo, cto, admin"
+24,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController,packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart,dashboard,adminLayout,active,"bus_dev, ceo, cto, admin"
+25,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController,packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart,dashboard,adminLayout,active,"marketing, ceo, cto, admin"
+26,hr_director_dashboard_controller,HrDirectorDashboardController,packages/primecare_ui/lib/src/screens/executive/hr_director_dashboard_screen.dart,dashboard,adminLayout,active,"hr_director, ceo, cto, admin"
+27,hr_hiring_dashboard_controller,HrHiringDashboardController,packages/primecare_ui/lib/src/screens/staff/hr_hiring_dashboard_screen.dart,dashboard,masterLayout,active,"hr_hiring, ceo, cto, admin"
+28,hr_manager_dashboard_controller,HrManagerDashboardController,packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart,dashboard,masterLayout,active,"hr_director, ceo, cto, admin"
+29,infrastructure_dashboard_controller,InfrastructureDashboardController,packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard_screen.dart,dashboard,masterLayout,active,"infrastructure, ceo, cto, admin"
+30,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController,packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart,dashboard,masterLayout,active,"intake, ceo, cto, admin"
+31,intake_dashboard_controller,IntakeDashboardController,packages/primecare_ui/lib/src/screens/common/intake_dashboard_screen.dart,dashboard,masterLayout,active,"intake, ceo, cto, admin"
+32,legal_dashboard_controller,LegalDashboardController,packages/primecare_ui/lib/src/screens/executive/legal_dashboard_screen.dart,dashboard,adminLayout,active,"legal, ceo, cto, admin"
+33,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController,packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart,dashboard,adminLayout,active,"local_marketing, ceo, cto, admin"
+34,office_dashboard_controller,OfficeDashboardController,packages/primecare_ui/lib/src/screens/common/office_dashboard_screen.dart,dashboard,masterLayout,active,"admin, ceo, cto"
+35,operations_manager_dashboard_controller,OperationsManagerDashboardController,packages/primecare_ui/lib/src/screens/management/operations_manager_dashboard_screen.dart,dashboard,adminLayout,active,"ops_manager, ceo, cto, admin"
+36,owner_dashboard_controller,OwnerDashboardController,packages/primecare_ui/lib/src/screens/executive/owner_dashboard_screen.dart,dashboard,adminLayout,active,"owner, ceo, cto, admin"
+37,partnership_manager_dashboard_controller,PartnershipManagerDashboardController,packages/primecare_ui/lib/src/screens/management/partnership_manager_dashboard_screen.dart,dashboard,adminLayout,active,"partnership, ceo, cto, admin"
+38,patient_dashboard_controller,PatientDashboardController,packages/primecare_ui/lib/src/screens/common/patient_dashboard_screen.dart,dashboard,masterLayout,active,"patient, ceo, cto, admin"
+39,physiotherapist_dashboard_controller,PhysiotherapistDashboardController,packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart,dashboard,masterLayout,active,"physio, ceo, cto, admin"
+40,portal_dashboard_controller,PortalDashboardController,packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart,dashboard,masterLayout,active,"portal, ceo, cto, admin"
+41,psw_dashboard_controller,PswDashboardController,packages/primecare_ui/lib/src/screens/psw/psw_dashboard_screen.dart,dashboard,clinicalLayout,active,"psw, ceo, cto, admin"
+42,qa_dashboard_controller,QaDashboardController,packages/primecare_ui/lib/src/screens/common/qa_dashboard_screen.dart,dashboard,masterLayout,active,"system_verification, ceo, cto, admin"
+43,quality_assurance_dashboard_controller,QualityAssuranceDashboardController,packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard_screen.dart,dashboard,masterLayout,active,"system_verification, ceo, cto, admin"
+44,receptionist_dashboard_controller,ReceptionistDashboardController,packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart,dashboard,masterLayout,active,"admin, ceo, cto"
+45,regional_bdm_dashboard_controller,RegionalBdmDashboardController,packages/primecare_ui/lib/src/screens/management/regional_bdm_dashboard_screen.dart,dashboard,adminLayout,active,"regional_bdm, ceo, cto, admin"
+46,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController,packages/primecare_ui/lib/src/screens/management/regional_manager_usa_dashboard_screen.dart,dashboard,adminLayout,active,"regional_manager_usa, ceo, cto, admin"
+47,rmt_dashboard_controller,RmtDashboardController,packages/primecare_ui/lib/src/screens/allied/rmt_dashboard_screen.dart,dashboard,clinicalLayout,active,"rmt, ceo, cto, admin"
+48,rn_dashboard_controller,RnDashboardController,packages/primecare_ui/lib/src/screens/rn/rn_dashboard_screen.dart,dashboard,clinicalLayout,active,"rn, ceo, cto, admin"
+49,rpn_dashboard_controller,RpnDashboardController,packages/primecare_ui/lib/src/screens/rpn/rpn_dashboard_screen.dart,dashboard,clinicalLayout,active,"rpn, ceo, cto, admin"
+50,scheduler_dashboard_controller,SchedulerDashboardController,packages/primecare_ui/lib/src/screens/staff/scheduler_dashboard_screen.dart,dashboard,masterLayout,active,"scheduler, ceo, cto, admin"
+51,scrum_master_dashboard_controller,ScrumMasterDashboardController,packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard_screen.dart,dashboard,adminLayout,active,"scrum_master, ceo, cto, admin"
+52,shareholder_dashboard_controller,ShareholderDashboardController,packages/primecare_ui/lib/src/screens/executive/shareholder_dashboard_screen.dart,dashboard,adminLayout,active,"shareholder, ceo, cto, admin"
+53,social_worker_dashboard_controller,SocialWorkerDashboardController,packages/primecare_ui/lib/src/screens/common/social_worker_dashboard_screen.dart,dashboard,masterLayout,active,"social_worker, ceo, cto, admin"
+54,support_dashboard_controller,SupportDashboardController,packages/primecare_ui/lib/src/screens/common/support_dashboard_screen.dart,dashboard,masterLayout,active,"dynamic, ceo, cto, admin"
+55,system_dashboard_controller,SystemDashboardController,packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart,dashboard,masterLayout,active,"governance, ceo, cto, admin"
+56,system_verification_dashboard_controller,SystemVerificationDashboardController,packages/primecare_ui/lib/src/screens/common/system_verification_dashboard_screen.dart,dashboard,masterLayout,active,"system_verification, ceo, cto, admin"
+57,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController,packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_dashboard_screen.dart,dashboard,adminLayout,active,"territory_expansion, ceo, cto, admin"
+58,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController,packages/primecare_ui/lib/src/screens/management/territory_sales_manager_dashboard_screen.dart,dashboard,adminLayout,active,"territory_sales, ceo, cto, admin"
+59,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController,packages/primecare_ui/lib/src/screens/staff/training_coordinator_dashboard_screen.dart,dashboard,masterLayout,active,"training, ceo, cto, admin"
+60,training_director_dashboard_controller,TrainingDirectorDashboardController,packages/primecare_ui/lib/src/screens/executive/training_director_dashboard_screen.dart,dashboard,adminLayout,active,"training_director, ceo, cto, admin"
+61,training_hub_dashboard_controller,TrainingHubDashboardController,packages/primecare_ui/lib/src/screens/common/training_hub_dashboard_screen.dart,dashboard,masterLayout,active,"training, ceo, cto, admin"
+62,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController,packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_dashboard_screen.dart,dashboard,masterLayout,active,"volunteer_coordinator, ceo, cto, admin"

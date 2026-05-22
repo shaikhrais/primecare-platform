@@ -1,0 +1,36 @@
+﻿S.No.,App Code,App Name,Platform,Status,Allowed Access Roles
+1,at,Auth Api,worker,active,None
+2,au,Primecare Auth,mobile,active,None
+3,bd,Primecare Business Development,mobile,active,None
+4,bi,Billing Api,worker,active,None
+5,ca,Client Api,worker,active,None
+6,ci,Primecare Clinic,mobile,active,None
+7,cl,Primecare Client,mobile,active,None
+8,cn,Contracts,worker,active,None
+9,co,Primecare Corporate,mobile,active,None
+10,cp,Compliance Api,worker,active,None
+11,db,Database,worker,active,None
+12,dc,Database Client,worker,active,None
+13,dm,Domain,worker,active,None
+14,eb,Primecare Enterprise Blueprint,mobile,active,None
+15,fa,Franchise Reporting Api,worker,active,None
+16,fc,Flutter Core,worker,active,None
+17,fr,Primecare Franchise,mobile,active,None
+18,fs,Factory System,worker,active,None
+19,go,Primecare Governance,mobile,active,None
+20,gv,Governance Api,worker,active,None
+21,gw,Api Gateway,worker,active,None
+22,if,Infrastructure,worker,active,None
+23,ma,Primecare Marketing,mobile,active,None
+24,me,Messaging,worker,active,None
+25,no,Notes Api,worker,active,None
+26,nt,Notification Api,worker,active,None
+27,pr,Provider Api,worker,active,None
+28,sc,Scheduling Api,worker,active,None
+29,su,Primecare Support,mobile,active,None
+30,sy,Security,worker,active,None
+31,ui,PrimeCare UI Client,mobile,active,"chiropractor, physio, rmt, social_worker, therapist, clinical_director, intake, rn, physician, cns, pediatric, caregiver, guest, portal, patient, dynamic, infrastructure, system_verification, training, ceo, cfo, ciso, coo, cto, cx_director, finance_director, hr_director, legal, owner, shareholder, training_director, community_outreach, compliance, franchise_sales, gm, governance, bus_dev, marketing, local_marketing, ops_manager, partnership, regional_bdm, regional_manager_usa, scrum_master, hr_hiring, territory_expansion, territory_sales, volunteer_coordinator, premium_concierge, vip_manager, psw, hsw, rn_field_supervisor, np, rpn, lpn, employee, volunteer, admin, scheduler"
+32,ve,Verification Api,worker,active,None
+33,vi,Visit Api,worker,active,None
+34,wa,Web Admin Console,admin,active,"ceo, cfo, ciso, coo, cto, compliance, governance, ops_manager, regional_manager_usa, admin"
+35,wo,Worker Api,worker,active,None

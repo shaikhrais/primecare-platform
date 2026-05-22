@@ -113,3 +113,9 @@ artifacts/builds/
 *.apk
 *.exe
 *.ipa
+
+# Agent internal directories and indexes
+.agents/brain/
+.agents/scratch/
+.agents/primecare_index.db
+

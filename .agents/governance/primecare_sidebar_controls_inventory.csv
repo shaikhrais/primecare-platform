@@ -1,295 +1,357 @@
-﻿S.No.,Dashboard / Screen,Module,Sidebar Item Label,Item ID,Control Type,Action Callback / Expected Handler,API Status
-1,RmtDashboardController,allied,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-2,RmtDashboardController,allied,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-3,RmtDashboardController,allied,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-4,RmtDashboardController,allied,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-5,RmtDashboardController,allied,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-6,ClinicalDashboardController,clinical,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-7,ClinicalDashboardController,clinical,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-8,ClinicalDashboardController,clinical,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-9,ClinicalDashboardController,clinical,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-10,ClinicalDashboardController,clinical,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-11,ArchitecturePlanningDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-12,ArchitecturePlanningDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-13,ArchitecturePlanningDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-14,ArchitecturePlanningDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-15,ArchitecturePlanningDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-16,BusinessDevelopmentDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-17,BusinessDevelopmentDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-18,BusinessDevelopmentDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-19,BusinessDevelopmentDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-20,BusinessDevelopmentDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-21,ChiropractorDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-22,ChiropractorDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-23,ChiropractorDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-24,ChiropractorDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-25,ChiropractorDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-26,ClinicDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-27,ClinicDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-28,ClinicDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-29,ClinicDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-30,ClinicDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-31,CourseArchitectDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-32,CourseArchitectDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-33,CourseArchitectDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-34,CourseArchitectDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-35,CourseArchitectDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-36,CustomerSupportDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-37,CustomerSupportDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-38,CustomerSupportDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-39,CustomerSupportDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-40,CustomerSupportDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-41,DynamicScreenDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-42,DynamicScreenDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-43,DynamicScreenDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-44,DynamicScreenDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-45,DynamicScreenDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-46,FamilyMemberDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-47,FamilyMemberDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-48,FamilyMemberDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-49,FamilyMemberDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-50,FamilyMemberDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-51,FranchiseDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-52,FranchiseDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-53,FranchiseDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-54,FranchiseDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-55,FranchiseDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-56,GuestDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-57,GuestDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-58,GuestDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-59,GuestDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-60,GuestDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-61,InfrastructureDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-62,InfrastructureDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-63,InfrastructureDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-64,InfrastructureDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-65,InfrastructureDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-66,IntakeDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-67,IntakeDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-68,IntakeDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-69,IntakeDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-70,IntakeDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-71,OfficeDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-72,OfficeDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-73,OfficeDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-74,OfficeDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-75,OfficeDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-76,PatientDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-77,PatientDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-78,PatientDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-79,PatientDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-80,PatientDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-81,PhysiotherapistDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-82,PhysiotherapistDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-83,PhysiotherapistDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-84,PhysiotherapistDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-85,PhysiotherapistDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-86,PortalDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-87,PortalDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-88,PortalDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-89,PortalDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-90,PortalDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-91,QaDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-92,QaDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-93,QaDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-94,QaDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-95,QaDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-96,SocialWorkerDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-97,SocialWorkerDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-98,SocialWorkerDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-99,SocialWorkerDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-100,SocialWorkerDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-101,SupportDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-102,SupportDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-103,SupportDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-104,SupportDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-105,SupportDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-106,SystemDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-107,SystemDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-108,SystemDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-109,SystemDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-110,SystemDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-111,SystemVerificationDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-112,SystemVerificationDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-113,SystemVerificationDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-114,SystemVerificationDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-115,SystemVerificationDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-116,TrainingHubDashboardController,common,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-117,TrainingHubDashboardController,common,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-118,TrainingHubDashboardController,common,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-119,TrainingHubDashboardController,common,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-120,TrainingHubDashboardController,common,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-121,CfoDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-122,CfoDashboardController,executive,Threshold Capacity Adjuster,capacity_slider,interactive_slider,onChanged: (val) { controller.updateThreshold(...) },Mock/Stub
-123,CisoDashboardController,executive,Clear Log Consoles,clear_log_consoles,quick_action,() => controller.clearLogs(),Mock/Stub
-124,CisoDashboardController,executive,Sync Posture,sync_posture,quick_action,state.isLoading ? () {} : () => controller.syncPosture(),Mock/Stub
-125,CisoDashboardController,executive,Threshold Capacity Adjuster,capacity_slider,interactive_slider,onChanged: (val) { controller.updateThreshold(...) },Mock/Stub
-126,CooDashboardNotifier,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Connected
-127,CooDashboardNotifier,executive,Run Audit Scan,run_audit_scan,quick_action,() => ref.invalidate(cooDashboardProvider),Connected
-128,CtoDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-129,CtoDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-130,CtoDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-131,CtoDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-132,CtoDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-133,CxDirectorDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-134,CxDirectorDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-135,CxDirectorDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-136,CxDirectorDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-137,CxDirectorDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-138,FinanceDirectorDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-139,FinanceDirectorDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-140,FinanceDirectorDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-141,FinanceDirectorDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-142,FinanceDirectorDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-143,HrDirectorDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-144,HrDirectorDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-145,HrDirectorDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-146,HrDirectorDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-147,HrDirectorDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-148,LegalDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-149,LegalDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-150,LegalDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-151,LegalDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-152,LegalDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-153,OwnerDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-154,OwnerDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-155,OwnerDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-156,OwnerDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-157,OwnerDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-158,ShareholderDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-159,ShareholderDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-160,ShareholderDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-161,ShareholderDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-162,ShareholderDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-163,TrainingDirectorDashboardController,executive,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-164,TrainingDirectorDashboardController,executive,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-165,TrainingDirectorDashboardController,executive,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-166,TrainingDirectorDashboardController,executive,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-167,TrainingDirectorDashboardController,executive,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-168,CommunityOutreachDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-169,CommunityOutreachDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-170,CommunityOutreachDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-171,CommunityOutreachDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-172,CommunityOutreachDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-173,ComplianceManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-174,ComplianceManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-175,ComplianceManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-176,ComplianceManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-177,ComplianceManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-178,FranchiseSalesManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-179,FranchiseSalesManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-180,FranchiseSalesManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-181,FranchiseSalesManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-182,FranchiseSalesManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-183,GeneralManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-184,GeneralManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-185,GeneralManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-186,GeneralManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-187,GeneralManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-188,GovernanceOfficerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-189,GovernanceOfficerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-190,GovernanceOfficerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-191,GovernanceOfficerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-192,GovernanceOfficerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-193,HeadOfBusDevDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-194,HeadOfBusDevDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-195,HeadOfBusDevDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-196,HeadOfBusDevDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-197,HeadOfBusDevDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-198,HeadOfMarketingDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-199,HeadOfMarketingDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-200,HeadOfMarketingDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-201,HeadOfMarketingDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-202,HeadOfMarketingDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-203,LocalMarketingManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-204,LocalMarketingManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-205,LocalMarketingManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-206,LocalMarketingManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-207,LocalMarketingManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-208,OperationsManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-209,OperationsManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-210,OperationsManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-211,OperationsManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-212,OperationsManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-213,PartnershipManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-214,PartnershipManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-215,PartnershipManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-216,PartnershipManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-217,PartnershipManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-218,RegionalBdmDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-219,RegionalBdmDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-220,RegionalBdmDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-221,RegionalBdmDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-222,RegionalBdmDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-223,RegionalManagerUsaDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-224,RegionalManagerUsaDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-225,RegionalManagerUsaDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-226,RegionalManagerUsaDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-227,RegionalManagerUsaDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-228,ScrumMasterDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-229,ScrumMasterDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-230,ScrumMasterDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-231,ScrumMasterDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-232,ScrumMasterDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-233,TerritoryExpansionManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-234,TerritoryExpansionManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-235,TerritoryExpansionManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-236,TerritoryExpansionManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-237,TerritoryExpansionManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-238,TerritorySalesManagerDashboardController,management,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-239,TerritorySalesManagerDashboardController,management,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-240,TerritorySalesManagerDashboardController,management,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-241,TerritorySalesManagerDashboardController,management,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-242,TerritorySalesManagerDashboardController,management,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-243,PswDashboardController,psw,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-244,PswDashboardController,psw,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-245,PswDashboardController,psw,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-246,PswDashboardController,psw,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-247,PswDashboardController,psw,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-248,RnDashboardController,rn,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-249,RnDashboardController,rn,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-250,RnDashboardController,rn,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-251,RnDashboardController,rn,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-252,RnDashboardController,rn,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-253,RpnDashboardController,rpn,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-254,RpnDashboardController,rpn,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-255,RpnDashboardController,rpn,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-256,RpnDashboardController,rpn,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-257,RpnDashboardController,rpn,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-258,BillingAdminDashboardController,staff,Threshold Capacity Adjuster,capacity_slider,interactive_slider,onChanged: (val) { controller.updateThreshold(...) },Mock/Stub
-259,HrHiringDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-260,HrHiringDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-261,HrHiringDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-262,HrHiringDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-263,HrHiringDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-264,HrManagerDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-265,HrManagerDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-266,HrManagerDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-267,HrManagerDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-268,HrManagerDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-269,IntakeCoordinatorDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-270,IntakeCoordinatorDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-271,IntakeCoordinatorDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-272,IntakeCoordinatorDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-273,IntakeCoordinatorDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-274,QualityAssuranceDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-275,QualityAssuranceDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-276,QualityAssuranceDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-277,QualityAssuranceDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-278,QualityAssuranceDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-279,ReceptionistDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-280,ReceptionistDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-281,ReceptionistDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-282,ReceptionistDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-283,ReceptionistDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-284,SchedulerDashboardController,staff,Threshold Capacity Adjuster,capacity_slider,interactive_slider,onChanged: (val) { controller.updateThreshold(...) },Mock/Stub
-285,TrainingCoordinatorDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-286,TrainingCoordinatorDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-287,TrainingCoordinatorDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-288,TrainingCoordinatorDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-289,TrainingCoordinatorDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
-290,VolunteerCoordinatorDashboardController,staff,Export Logs,export_logs,quick_action,() => controller.exportLogs(),Mock/Stub
-291,VolunteerCoordinatorDashboardController,staff,Live Auditing timeline Console,audit_logs_terminal,log_timeline,state.logs,Mock/Stub
-292,VolunteerCoordinatorDashboardController,staff,Policy Update,policy_update,quick_action,() => controller.updatePolicy(),Mock/Stub
-293,VolunteerCoordinatorDashboardController,staff,Run Audit Scan,run_audit_scan,quick_action,state.isLoading ? () {} : () => controller.runComplianceScan(),Mock/Stub
-294,VolunteerCoordinatorDashboardController,staff,Sync Posture,sync_posture,quick_action,() => controller.syncPosture(),Mock/Stub
+﻿S.No.,Sidebar ID,Label,Icon,Sort Order,Visible,Parent Section,Associated Screen Code,Associated Screen Class
+1,1,navigation.items.rmt_dashboard_controller,stethoscope,0,Yes,Root Level Menu,rmt_dashboard_controller,RmtDashboardController
+2,7,navigation.items.clinical_dashboard_controller,stethoscope,0,Yes,Root Level Menu,clinical_dashboard_controller,ClinicalDashboardController
+3,13,navigation.items.architecture_planning_dashboard_controller,home,0,Yes,Root Level Menu,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+4,19,navigation.items.business_development_dashboard_controller,home,0,Yes,Root Level Menu,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+5,25,navigation.items.chiropractor_dashboard_controller,home,0,Yes,Root Level Menu,chiropractor_dashboard_controller,ChiropractorDashboardController
+6,31,navigation.items.clinic_dashboard_controller,home,0,Yes,Root Level Menu,clinic_dashboard_controller,ClinicDashboardController
+7,37,navigation.items.course_architect_dashboard_controller,home,0,Yes,Root Level Menu,course_architect_dashboard_controller,CourseArchitectDashboardController
+8,43,navigation.items.customer_support_dashboard_controller,home,0,Yes,Root Level Menu,customer_support_dashboard_controller,CustomerSupportDashboardController
+9,49,navigation.items.dynamic_dashboard_controller,home,0,Yes,Root Level Menu,dynamic_dashboard_controller,DynamicScreenDashboardController
+10,55,navigation.items.family_member_dashboard_controller,home,0,Yes,Root Level Menu,family_member_dashboard_controller,FamilyMemberDashboardController
+11,61,navigation.items.franchise_dashboard_controller,home,0,Yes,Root Level Menu,franchise_dashboard_controller,FranchiseDashboardController
+12,67,navigation.items.guest_dashboard_controller,home,0,Yes,Root Level Menu,guest_dashboard_controller,GuestDashboardController
+13,73,navigation.items.infrastructure_dashboard_controller,home,0,Yes,Root Level Menu,infrastructure_dashboard_controller,InfrastructureDashboardController
+14,79,navigation.items.intake_dashboard_controller,home,0,Yes,Root Level Menu,intake_dashboard_controller,IntakeDashboardController
+15,85,navigation.items.office_dashboard_controller,home,0,Yes,Root Level Menu,office_dashboard_controller,OfficeDashboardController
+16,91,navigation.items.patient_dashboard_controller,home,0,Yes,Root Level Menu,patient_dashboard_controller,PatientDashboardController
+17,97,navigation.items.physiotherapist_dashboard_controller,home,0,Yes,Root Level Menu,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+18,103,navigation.items.portal_dashboard_controller,home,0,Yes,Root Level Menu,portal_dashboard_controller,PortalDashboardController
+19,109,navigation.items.qa_dashboard_controller,home,0,Yes,Root Level Menu,qa_dashboard_controller,QaDashboardController
+20,115,navigation.items.social_worker_dashboard_controller,home,0,Yes,Root Level Menu,social_worker_dashboard_controller,SocialWorkerDashboardController
+21,121,navigation.items.support_dashboard_controller,home,0,Yes,Root Level Menu,support_dashboard_controller,SupportDashboardController
+22,127,navigation.items.system_dashboard_controller,home,0,Yes,Root Level Menu,system_dashboard_controller,SystemDashboardController
+23,133,navigation.items.system_verification_dashboard_controller,home,0,Yes,Root Level Menu,system_verification_dashboard_controller,SystemVerificationDashboardController
+24,139,navigation.items.training_hub_dashboard_controller,home,0,Yes,Root Level Menu,training_hub_dashboard_controller,TrainingHubDashboardController
+25,145,navigation.items.cfo_dashboard_controller,shield,0,Yes,Root Level Menu,cfo_dashboard_controller,CfoDashboardController
+26,148,navigation.items.ciso_dashboard_controller,shield,0,Yes,Root Level Menu,ciso_dashboard_controller,CisoDashboardController
+27,152,navigation.items.coo_dashboard_notifier,shield,0,Yes,Root Level Menu,coo_dashboard_notifier,CooDashboardNotifier
+28,155,navigation.items.cto_dashboard_controller,shield,0,Yes,Root Level Menu,cto_dashboard_controller,CtoDashboardController
+29,161,navigation.items.cx_director_dashboard_controller,shield,0,Yes,Root Level Menu,cx_director_dashboard_controller,CxDirectorDashboardController
+30,167,navigation.items.finance_director_dashboard_controller,shield,0,Yes,Root Level Menu,finance_director_dashboard_controller,FinanceDirectorDashboardController
+31,173,navigation.items.hr_director_dashboard_controller,shield,0,Yes,Root Level Menu,hr_director_dashboard_controller,HrDirectorDashboardController
+32,179,navigation.items.legal_dashboard_controller,shield,0,Yes,Root Level Menu,legal_dashboard_controller,LegalDashboardController
+33,185,navigation.items.owner_dashboard_controller,shield,0,Yes,Root Level Menu,owner_dashboard_controller,OwnerDashboardController
+34,191,navigation.items.shareholder_dashboard_controller,shield,0,Yes,Root Level Menu,shareholder_dashboard_controller,ShareholderDashboardController
+35,197,navigation.items.training_director_dashboard_controller,shield,0,Yes,Root Level Menu,training_director_dashboard_controller,TrainingDirectorDashboardController
+36,203,navigation.items.community_outreach_dashboard_controller,shield,0,Yes,Root Level Menu,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+37,209,navigation.items.compliance_manager_dashboard_controller,shield,0,Yes,Root Level Menu,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+38,215,navigation.items.franchise_sales_manager_dashboard_controller,shield,0,Yes,Root Level Menu,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+39,221,navigation.items.general_manager_dashboard_controller,shield,0,Yes,Root Level Menu,general_manager_dashboard_controller,GeneralManagerDashboardController
+40,227,navigation.items.governance_officer_dashboard_controller,shield,0,Yes,Root Level Menu,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+41,233,navigation.items.head_of_bus_dev_dashboard_controller,shield,0,Yes,Root Level Menu,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+42,239,navigation.items.head_of_marketing_dashboard_controller,shield,0,Yes,Root Level Menu,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+43,245,navigation.items.local_marketing_manager_dashboard_controller,shield,0,Yes,Root Level Menu,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+44,251,navigation.items.operations_manager_dashboard_controller,shield,0,Yes,Root Level Menu,operations_manager_dashboard_controller,OperationsManagerDashboardController
+45,257,navigation.items.partnership_manager_dashboard_controller,shield,0,Yes,Root Level Menu,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+46,263,navigation.items.regional_bdm_dashboard_controller,shield,0,Yes,Root Level Menu,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+47,269,navigation.items.regional_manager_usa_dashboard_controller,shield,0,Yes,Root Level Menu,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+48,275,navigation.items.scrum_master_dashboard_controller,shield,0,Yes,Root Level Menu,scrum_master_dashboard_controller,ScrumMasterDashboardController
+49,281,navigation.items.territory_expansion_manager_dashboard_controller,shield,0,Yes,Root Level Menu,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+50,287,navigation.items.territory_sales_manager_dashboard_controller,shield,0,Yes,Root Level Menu,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+51,293,navigation.items.psw_dashboard_controller,stethoscope,0,Yes,Root Level Menu,psw_dashboard_controller,PswDashboardController
+52,299,navigation.items.rn_dashboard_controller,stethoscope,0,Yes,Root Level Menu,rn_dashboard_controller,RnDashboardController
+53,305,navigation.items.rpn_dashboard_controller,stethoscope,0,Yes,Root Level Menu,rpn_dashboard_controller,RpnDashboardController
+54,311,navigation.items.billing_admin_dashboard_controller,home,0,Yes,Root Level Menu,billing_admin_dashboard_controller,BillingAdminDashboardController
+55,313,navigation.items.hr_hiring_dashboard_controller,home,0,Yes,Root Level Menu,hr_hiring_dashboard_controller,HrHiringDashboardController
+56,319,navigation.items.hr_manager_dashboard_controller,home,0,Yes,Root Level Menu,hr_manager_dashboard_controller,HrManagerDashboardController
+57,325,navigation.items.intake_coordinator_dashboard_controller,home,0,Yes,Root Level Menu,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+58,331,navigation.items.quality_assurance_dashboard_controller,home,0,Yes,Root Level Menu,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+59,337,navigation.items.receptionist_dashboard_controller,home,0,Yes,Root Level Menu,receptionist_dashboard_controller,ReceptionistDashboardController
+60,343,navigation.items.scheduler_dashboard_controller,home,0,Yes,Root Level Menu,scheduler_dashboard_controller,SchedulerDashboardController
+61,345,navigation.items.training_coordinator_dashboard_controller,home,0,Yes,Root Level Menu,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+62,351,navigation.items.volunteer_coordinator_dashboard_controller,home,0,Yes,Root Level Menu,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController
+63,2,Run Audit Scan,play,1,Yes,navigation.items.rmt_dashboard_controller,rmt_dashboard_controller,RmtDashboardController
+64,8,Run Audit Scan,play,1,Yes,navigation.items.clinical_dashboard_controller,clinical_dashboard_controller,ClinicalDashboardController
+65,14,Run Audit Scan,play,1,Yes,navigation.items.architecture_planning_dashboard_controller,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+66,20,Run Audit Scan,play,1,Yes,navigation.items.business_development_dashboard_controller,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+67,26,Run Audit Scan,play,1,Yes,navigation.items.chiropractor_dashboard_controller,chiropractor_dashboard_controller,ChiropractorDashboardController
+68,32,Run Audit Scan,play,1,Yes,navigation.items.clinic_dashboard_controller,clinic_dashboard_controller,ClinicDashboardController
+69,38,Run Audit Scan,play,1,Yes,navigation.items.course_architect_dashboard_controller,course_architect_dashboard_controller,CourseArchitectDashboardController
+70,44,Run Audit Scan,play,1,Yes,navigation.items.customer_support_dashboard_controller,customer_support_dashboard_controller,CustomerSupportDashboardController
+71,50,Run Audit Scan,play,1,Yes,navigation.items.dynamic_dashboard_controller,dynamic_dashboard_controller,DynamicScreenDashboardController
+72,56,Run Audit Scan,play,1,Yes,navigation.items.family_member_dashboard_controller,family_member_dashboard_controller,FamilyMemberDashboardController
+73,62,Run Audit Scan,play,1,Yes,navigation.items.franchise_dashboard_controller,franchise_dashboard_controller,FranchiseDashboardController
+74,68,Run Audit Scan,play,1,Yes,navigation.items.guest_dashboard_controller,guest_dashboard_controller,GuestDashboardController
+75,74,Run Audit Scan,play,1,Yes,navigation.items.infrastructure_dashboard_controller,infrastructure_dashboard_controller,InfrastructureDashboardController
+76,80,Run Audit Scan,play,1,Yes,navigation.items.intake_dashboard_controller,intake_dashboard_controller,IntakeDashboardController
+77,86,Run Audit Scan,play,1,Yes,navigation.items.office_dashboard_controller,office_dashboard_controller,OfficeDashboardController
+78,92,Run Audit Scan,play,1,Yes,navigation.items.patient_dashboard_controller,patient_dashboard_controller,PatientDashboardController
+79,98,Run Audit Scan,play,1,Yes,navigation.items.physiotherapist_dashboard_controller,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+80,104,Run Audit Scan,play,1,Yes,navigation.items.portal_dashboard_controller,portal_dashboard_controller,PortalDashboardController
+81,110,Run Audit Scan,play,1,Yes,navigation.items.qa_dashboard_controller,qa_dashboard_controller,QaDashboardController
+82,116,Run Audit Scan,play,1,Yes,navigation.items.social_worker_dashboard_controller,social_worker_dashboard_controller,SocialWorkerDashboardController
+83,122,Run Audit Scan,play,1,Yes,navigation.items.support_dashboard_controller,support_dashboard_controller,SupportDashboardController
+84,128,Run Audit Scan,play,1,Yes,navigation.items.system_dashboard_controller,system_dashboard_controller,SystemDashboardController
+85,134,Run Audit Scan,play,1,Yes,navigation.items.system_verification_dashboard_controller,system_verification_dashboard_controller,SystemVerificationDashboardController
+86,140,Run Audit Scan,play,1,Yes,navigation.items.training_hub_dashboard_controller,training_hub_dashboard_controller,TrainingHubDashboardController
+87,149,Sync Posture,play,1,Yes,navigation.items.ciso_dashboard_controller,ciso_dashboard_controller,CisoDashboardController
+88,153,Run Audit Scan,play,1,Yes,navigation.items.coo_dashboard_notifier,coo_dashboard_notifier,CooDashboardNotifier
+89,156,Run Audit Scan,play,1,Yes,navigation.items.cto_dashboard_controller,cto_dashboard_controller,CtoDashboardController
+90,162,Run Audit Scan,play,1,Yes,navigation.items.cx_director_dashboard_controller,cx_director_dashboard_controller,CxDirectorDashboardController
+91,168,Run Audit Scan,play,1,Yes,navigation.items.finance_director_dashboard_controller,finance_director_dashboard_controller,FinanceDirectorDashboardController
+92,174,Run Audit Scan,play,1,Yes,navigation.items.hr_director_dashboard_controller,hr_director_dashboard_controller,HrDirectorDashboardController
+93,180,Run Audit Scan,play,1,Yes,navigation.items.legal_dashboard_controller,legal_dashboard_controller,LegalDashboardController
+94,186,Run Audit Scan,play,1,Yes,navigation.items.owner_dashboard_controller,owner_dashboard_controller,OwnerDashboardController
+95,192,Run Audit Scan,play,1,Yes,navigation.items.shareholder_dashboard_controller,shareholder_dashboard_controller,ShareholderDashboardController
+96,198,Run Audit Scan,play,1,Yes,navigation.items.training_director_dashboard_controller,training_director_dashboard_controller,TrainingDirectorDashboardController
+97,204,Run Audit Scan,play,1,Yes,navigation.items.community_outreach_dashboard_controller,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+98,210,Run Audit Scan,play,1,Yes,navigation.items.compliance_manager_dashboard_controller,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+99,216,Run Audit Scan,play,1,Yes,navigation.items.franchise_sales_manager_dashboard_controller,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+100,222,Run Audit Scan,play,1,Yes,navigation.items.general_manager_dashboard_controller,general_manager_dashboard_controller,GeneralManagerDashboardController
+101,228,Run Audit Scan,play,1,Yes,navigation.items.governance_officer_dashboard_controller,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+102,234,Run Audit Scan,play,1,Yes,navigation.items.head_of_bus_dev_dashboard_controller,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+103,240,Run Audit Scan,play,1,Yes,navigation.items.head_of_marketing_dashboard_controller,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+104,246,Run Audit Scan,play,1,Yes,navigation.items.local_marketing_manager_dashboard_controller,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+105,252,Run Audit Scan,play,1,Yes,navigation.items.operations_manager_dashboard_controller,operations_manager_dashboard_controller,OperationsManagerDashboardController
+106,258,Run Audit Scan,play,1,Yes,navigation.items.partnership_manager_dashboard_controller,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+107,264,Run Audit Scan,play,1,Yes,navigation.items.regional_bdm_dashboard_controller,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+108,270,Run Audit Scan,play,1,Yes,navigation.items.regional_manager_usa_dashboard_controller,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+109,276,Run Audit Scan,play,1,Yes,navigation.items.scrum_master_dashboard_controller,scrum_master_dashboard_controller,ScrumMasterDashboardController
+110,282,Run Audit Scan,play,1,Yes,navigation.items.territory_expansion_manager_dashboard_controller,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+111,288,Run Audit Scan,play,1,Yes,navigation.items.territory_sales_manager_dashboard_controller,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+112,294,Run Audit Scan,play,1,Yes,navigation.items.psw_dashboard_controller,psw_dashboard_controller,PswDashboardController
+113,300,Run Audit Scan,play,1,Yes,navigation.items.rn_dashboard_controller,rn_dashboard_controller,RnDashboardController
+114,306,Run Audit Scan,play,1,Yes,navigation.items.rpn_dashboard_controller,rpn_dashboard_controller,RpnDashboardController
+115,314,Run Audit Scan,play,1,Yes,navigation.items.hr_hiring_dashboard_controller,hr_hiring_dashboard_controller,HrHiringDashboardController
+116,320,Run Audit Scan,play,1,Yes,navigation.items.hr_manager_dashboard_controller,hr_manager_dashboard_controller,HrManagerDashboardController
+117,326,Run Audit Scan,play,1,Yes,navigation.items.intake_coordinator_dashboard_controller,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+118,332,Run Audit Scan,play,1,Yes,navigation.items.quality_assurance_dashboard_controller,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+119,338,Run Audit Scan,play,1,Yes,navigation.items.receptionist_dashboard_controller,receptionist_dashboard_controller,ReceptionistDashboardController
+120,346,Run Audit Scan,play,1,Yes,navigation.items.training_coordinator_dashboard_controller,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+121,352,Run Audit Scan,play,1,Yes,navigation.items.volunteer_coordinator_dashboard_controller,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController
+122,3,Sync Posture,play,2,Yes,navigation.items.rmt_dashboard_controller,rmt_dashboard_controller,RmtDashboardController
+123,9,Sync Posture,play,2,Yes,navigation.items.clinical_dashboard_controller,clinical_dashboard_controller,ClinicalDashboardController
+124,15,Sync Posture,play,2,Yes,navigation.items.architecture_planning_dashboard_controller,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+125,21,Sync Posture,play,2,Yes,navigation.items.business_development_dashboard_controller,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+126,27,Sync Posture,play,2,Yes,navigation.items.chiropractor_dashboard_controller,chiropractor_dashboard_controller,ChiropractorDashboardController
+127,33,Sync Posture,play,2,Yes,navigation.items.clinic_dashboard_controller,clinic_dashboard_controller,ClinicDashboardController
+128,39,Sync Posture,play,2,Yes,navigation.items.course_architect_dashboard_controller,course_architect_dashboard_controller,CourseArchitectDashboardController
+129,45,Sync Posture,play,2,Yes,navigation.items.customer_support_dashboard_controller,customer_support_dashboard_controller,CustomerSupportDashboardController
+130,51,Sync Posture,play,2,Yes,navigation.items.dynamic_dashboard_controller,dynamic_dashboard_controller,DynamicScreenDashboardController
+131,57,Sync Posture,play,2,Yes,navigation.items.family_member_dashboard_controller,family_member_dashboard_controller,FamilyMemberDashboardController
+132,63,Sync Posture,play,2,Yes,navigation.items.franchise_dashboard_controller,franchise_dashboard_controller,FranchiseDashboardController
+133,69,Sync Posture,play,2,Yes,navigation.items.guest_dashboard_controller,guest_dashboard_controller,GuestDashboardController
+134,75,Sync Posture,play,2,Yes,navigation.items.infrastructure_dashboard_controller,infrastructure_dashboard_controller,InfrastructureDashboardController
+135,81,Sync Posture,play,2,Yes,navigation.items.intake_dashboard_controller,intake_dashboard_controller,IntakeDashboardController
+136,87,Sync Posture,play,2,Yes,navigation.items.office_dashboard_controller,office_dashboard_controller,OfficeDashboardController
+137,93,Sync Posture,play,2,Yes,navigation.items.patient_dashboard_controller,patient_dashboard_controller,PatientDashboardController
+138,99,Sync Posture,play,2,Yes,navigation.items.physiotherapist_dashboard_controller,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+139,105,Sync Posture,play,2,Yes,navigation.items.portal_dashboard_controller,portal_dashboard_controller,PortalDashboardController
+140,111,Sync Posture,play,2,Yes,navigation.items.qa_dashboard_controller,qa_dashboard_controller,QaDashboardController
+141,117,Sync Posture,play,2,Yes,navigation.items.social_worker_dashboard_controller,social_worker_dashboard_controller,SocialWorkerDashboardController
+142,123,Sync Posture,play,2,Yes,navigation.items.support_dashboard_controller,support_dashboard_controller,SupportDashboardController
+143,129,Sync Posture,play,2,Yes,navigation.items.system_dashboard_controller,system_dashboard_controller,SystemDashboardController
+144,135,Sync Posture,play,2,Yes,navigation.items.system_verification_dashboard_controller,system_verification_dashboard_controller,SystemVerificationDashboardController
+145,141,Sync Posture,play,2,Yes,navigation.items.training_hub_dashboard_controller,training_hub_dashboard_controller,TrainingHubDashboardController
+146,150,Clear Log Consoles,play,2,Yes,navigation.items.ciso_dashboard_controller,ciso_dashboard_controller,CisoDashboardController
+147,157,Sync Posture,play,2,Yes,navigation.items.cto_dashboard_controller,cto_dashboard_controller,CtoDashboardController
+148,163,Sync Posture,play,2,Yes,navigation.items.cx_director_dashboard_controller,cx_director_dashboard_controller,CxDirectorDashboardController
+149,169,Sync Posture,play,2,Yes,navigation.items.finance_director_dashboard_controller,finance_director_dashboard_controller,FinanceDirectorDashboardController
+150,175,Sync Posture,play,2,Yes,navigation.items.hr_director_dashboard_controller,hr_director_dashboard_controller,HrDirectorDashboardController
+151,181,Sync Posture,play,2,Yes,navigation.items.legal_dashboard_controller,legal_dashboard_controller,LegalDashboardController
+152,187,Sync Posture,play,2,Yes,navigation.items.owner_dashboard_controller,owner_dashboard_controller,OwnerDashboardController
+153,193,Sync Posture,play,2,Yes,navigation.items.shareholder_dashboard_controller,shareholder_dashboard_controller,ShareholderDashboardController
+154,199,Sync Posture,play,2,Yes,navigation.items.training_director_dashboard_controller,training_director_dashboard_controller,TrainingDirectorDashboardController
+155,205,Sync Posture,play,2,Yes,navigation.items.community_outreach_dashboard_controller,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+156,211,Sync Posture,play,2,Yes,navigation.items.compliance_manager_dashboard_controller,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+157,217,Sync Posture,play,2,Yes,navigation.items.franchise_sales_manager_dashboard_controller,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+158,223,Sync Posture,play,2,Yes,navigation.items.general_manager_dashboard_controller,general_manager_dashboard_controller,GeneralManagerDashboardController
+159,229,Sync Posture,play,2,Yes,navigation.items.governance_officer_dashboard_controller,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+160,235,Sync Posture,play,2,Yes,navigation.items.head_of_bus_dev_dashboard_controller,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+161,241,Sync Posture,play,2,Yes,navigation.items.head_of_marketing_dashboard_controller,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+162,247,Sync Posture,play,2,Yes,navigation.items.local_marketing_manager_dashboard_controller,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+163,253,Sync Posture,play,2,Yes,navigation.items.operations_manager_dashboard_controller,operations_manager_dashboard_controller,OperationsManagerDashboardController
+164,259,Sync Posture,play,2,Yes,navigation.items.partnership_manager_dashboard_controller,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+165,265,Sync Posture,play,2,Yes,navigation.items.regional_bdm_dashboard_controller,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+166,271,Sync Posture,play,2,Yes,navigation.items.regional_manager_usa_dashboard_controller,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+167,277,Sync Posture,play,2,Yes,navigation.items.scrum_master_dashboard_controller,scrum_master_dashboard_controller,ScrumMasterDashboardController
+168,283,Sync Posture,play,2,Yes,navigation.items.territory_expansion_manager_dashboard_controller,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+169,289,Sync Posture,play,2,Yes,navigation.items.territory_sales_manager_dashboard_controller,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+170,295,Sync Posture,play,2,Yes,navigation.items.psw_dashboard_controller,psw_dashboard_controller,PswDashboardController
+171,301,Sync Posture,play,2,Yes,navigation.items.rn_dashboard_controller,rn_dashboard_controller,RnDashboardController
+172,307,Sync Posture,play,2,Yes,navigation.items.rpn_dashboard_controller,rpn_dashboard_controller,RpnDashboardController
+173,315,Sync Posture,play,2,Yes,navigation.items.hr_hiring_dashboard_controller,hr_hiring_dashboard_controller,HrHiringDashboardController
+174,321,Sync Posture,play,2,Yes,navigation.items.hr_manager_dashboard_controller,hr_manager_dashboard_controller,HrManagerDashboardController
+175,327,Sync Posture,play,2,Yes,navigation.items.intake_coordinator_dashboard_controller,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+176,333,Sync Posture,play,2,Yes,navigation.items.quality_assurance_dashboard_controller,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+177,339,Sync Posture,play,2,Yes,navigation.items.receptionist_dashboard_controller,receptionist_dashboard_controller,ReceptionistDashboardController
+178,347,Sync Posture,play,2,Yes,navigation.items.training_coordinator_dashboard_controller,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+179,353,Sync Posture,play,2,Yes,navigation.items.volunteer_coordinator_dashboard_controller,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController
+180,4,Policy Update,play,3,Yes,navigation.items.rmt_dashboard_controller,rmt_dashboard_controller,RmtDashboardController
+181,10,Policy Update,play,3,Yes,navigation.items.clinical_dashboard_controller,clinical_dashboard_controller,ClinicalDashboardController
+182,16,Policy Update,play,3,Yes,navigation.items.architecture_planning_dashboard_controller,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+183,22,Policy Update,play,3,Yes,navigation.items.business_development_dashboard_controller,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+184,28,Policy Update,play,3,Yes,navigation.items.chiropractor_dashboard_controller,chiropractor_dashboard_controller,ChiropractorDashboardController
+185,34,Policy Update,play,3,Yes,navigation.items.clinic_dashboard_controller,clinic_dashboard_controller,ClinicDashboardController
+186,40,Policy Update,play,3,Yes,navigation.items.course_architect_dashboard_controller,course_architect_dashboard_controller,CourseArchitectDashboardController
+187,46,Policy Update,play,3,Yes,navigation.items.customer_support_dashboard_controller,customer_support_dashboard_controller,CustomerSupportDashboardController
+188,52,Policy Update,play,3,Yes,navigation.items.dynamic_dashboard_controller,dynamic_dashboard_controller,DynamicScreenDashboardController
+189,58,Policy Update,play,3,Yes,navigation.items.family_member_dashboard_controller,family_member_dashboard_controller,FamilyMemberDashboardController
+190,64,Policy Update,play,3,Yes,navigation.items.franchise_dashboard_controller,franchise_dashboard_controller,FranchiseDashboardController
+191,70,Policy Update,play,3,Yes,navigation.items.guest_dashboard_controller,guest_dashboard_controller,GuestDashboardController
+192,76,Policy Update,play,3,Yes,navigation.items.infrastructure_dashboard_controller,infrastructure_dashboard_controller,InfrastructureDashboardController
+193,82,Policy Update,play,3,Yes,navigation.items.intake_dashboard_controller,intake_dashboard_controller,IntakeDashboardController
+194,88,Policy Update,play,3,Yes,navigation.items.office_dashboard_controller,office_dashboard_controller,OfficeDashboardController
+195,94,Policy Update,play,3,Yes,navigation.items.patient_dashboard_controller,patient_dashboard_controller,PatientDashboardController
+196,100,Policy Update,play,3,Yes,navigation.items.physiotherapist_dashboard_controller,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+197,106,Policy Update,play,3,Yes,navigation.items.portal_dashboard_controller,portal_dashboard_controller,PortalDashboardController
+198,112,Policy Update,play,3,Yes,navigation.items.qa_dashboard_controller,qa_dashboard_controller,QaDashboardController
+199,118,Policy Update,play,3,Yes,navigation.items.social_worker_dashboard_controller,social_worker_dashboard_controller,SocialWorkerDashboardController
+200,124,Policy Update,play,3,Yes,navigation.items.support_dashboard_controller,support_dashboard_controller,SupportDashboardController
+201,130,Policy Update,play,3,Yes,navigation.items.system_dashboard_controller,system_dashboard_controller,SystemDashboardController
+202,136,Policy Update,play,3,Yes,navigation.items.system_verification_dashboard_controller,system_verification_dashboard_controller,SystemVerificationDashboardController
+203,142,Policy Update,play,3,Yes,navigation.items.training_hub_dashboard_controller,training_hub_dashboard_controller,TrainingHubDashboardController
+204,158,Policy Update,play,3,Yes,navigation.items.cto_dashboard_controller,cto_dashboard_controller,CtoDashboardController
+205,164,Policy Update,play,3,Yes,navigation.items.cx_director_dashboard_controller,cx_director_dashboard_controller,CxDirectorDashboardController
+206,170,Policy Update,play,3,Yes,navigation.items.finance_director_dashboard_controller,finance_director_dashboard_controller,FinanceDirectorDashboardController
+207,176,Policy Update,play,3,Yes,navigation.items.hr_director_dashboard_controller,hr_director_dashboard_controller,HrDirectorDashboardController
+208,182,Policy Update,play,3,Yes,navigation.items.legal_dashboard_controller,legal_dashboard_controller,LegalDashboardController
+209,188,Policy Update,play,3,Yes,navigation.items.owner_dashboard_controller,owner_dashboard_controller,OwnerDashboardController
+210,194,Policy Update,play,3,Yes,navigation.items.shareholder_dashboard_controller,shareholder_dashboard_controller,ShareholderDashboardController
+211,200,Policy Update,play,3,Yes,navigation.items.training_director_dashboard_controller,training_director_dashboard_controller,TrainingDirectorDashboardController
+212,206,Policy Update,play,3,Yes,navigation.items.community_outreach_dashboard_controller,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+213,212,Policy Update,play,3,Yes,navigation.items.compliance_manager_dashboard_controller,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+214,218,Policy Update,play,3,Yes,navigation.items.franchise_sales_manager_dashboard_controller,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+215,224,Policy Update,play,3,Yes,navigation.items.general_manager_dashboard_controller,general_manager_dashboard_controller,GeneralManagerDashboardController
+216,230,Policy Update,play,3,Yes,navigation.items.governance_officer_dashboard_controller,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+217,236,Policy Update,play,3,Yes,navigation.items.head_of_bus_dev_dashboard_controller,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+218,242,Policy Update,play,3,Yes,navigation.items.head_of_marketing_dashboard_controller,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+219,248,Policy Update,play,3,Yes,navigation.items.local_marketing_manager_dashboard_controller,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+220,254,Policy Update,play,3,Yes,navigation.items.operations_manager_dashboard_controller,operations_manager_dashboard_controller,OperationsManagerDashboardController
+221,260,Policy Update,play,3,Yes,navigation.items.partnership_manager_dashboard_controller,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+222,266,Policy Update,play,3,Yes,navigation.items.regional_bdm_dashboard_controller,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+223,272,Policy Update,play,3,Yes,navigation.items.regional_manager_usa_dashboard_controller,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+224,278,Policy Update,play,3,Yes,navigation.items.scrum_master_dashboard_controller,scrum_master_dashboard_controller,ScrumMasterDashboardController
+225,284,Policy Update,play,3,Yes,navigation.items.territory_expansion_manager_dashboard_controller,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+226,290,Policy Update,play,3,Yes,navigation.items.territory_sales_manager_dashboard_controller,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+227,296,Policy Update,play,3,Yes,navigation.items.psw_dashboard_controller,psw_dashboard_controller,PswDashboardController
+228,302,Policy Update,play,3,Yes,navigation.items.rn_dashboard_controller,rn_dashboard_controller,RnDashboardController
+229,308,Policy Update,play,3,Yes,navigation.items.rpn_dashboard_controller,rpn_dashboard_controller,RpnDashboardController
+230,316,Policy Update,play,3,Yes,navigation.items.hr_hiring_dashboard_controller,hr_hiring_dashboard_controller,HrHiringDashboardController
+231,322,Policy Update,play,3,Yes,navigation.items.hr_manager_dashboard_controller,hr_manager_dashboard_controller,HrManagerDashboardController
+232,328,Policy Update,play,3,Yes,navigation.items.intake_coordinator_dashboard_controller,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+233,334,Policy Update,play,3,Yes,navigation.items.quality_assurance_dashboard_controller,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+234,340,Policy Update,play,3,Yes,navigation.items.receptionist_dashboard_controller,receptionist_dashboard_controller,ReceptionistDashboardController
+235,348,Policy Update,play,3,Yes,navigation.items.training_coordinator_dashboard_controller,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+236,354,Policy Update,play,3,Yes,navigation.items.volunteer_coordinator_dashboard_controller,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController
+237,5,Export Logs,play,4,Yes,navigation.items.rmt_dashboard_controller,rmt_dashboard_controller,RmtDashboardController
+238,11,Export Logs,play,4,Yes,navigation.items.clinical_dashboard_controller,clinical_dashboard_controller,ClinicalDashboardController
+239,17,Export Logs,play,4,Yes,navigation.items.architecture_planning_dashboard_controller,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+240,23,Export Logs,play,4,Yes,navigation.items.business_development_dashboard_controller,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+241,29,Export Logs,play,4,Yes,navigation.items.chiropractor_dashboard_controller,chiropractor_dashboard_controller,ChiropractorDashboardController
+242,35,Export Logs,play,4,Yes,navigation.items.clinic_dashboard_controller,clinic_dashboard_controller,ClinicDashboardController
+243,41,Export Logs,play,4,Yes,navigation.items.course_architect_dashboard_controller,course_architect_dashboard_controller,CourseArchitectDashboardController
+244,47,Export Logs,play,4,Yes,navigation.items.customer_support_dashboard_controller,customer_support_dashboard_controller,CustomerSupportDashboardController
+245,53,Export Logs,play,4,Yes,navigation.items.dynamic_dashboard_controller,dynamic_dashboard_controller,DynamicScreenDashboardController
+246,59,Export Logs,play,4,Yes,navigation.items.family_member_dashboard_controller,family_member_dashboard_controller,FamilyMemberDashboardController
+247,65,Export Logs,play,4,Yes,navigation.items.franchise_dashboard_controller,franchise_dashboard_controller,FranchiseDashboardController
+248,71,Export Logs,play,4,Yes,navigation.items.guest_dashboard_controller,guest_dashboard_controller,GuestDashboardController
+249,77,Export Logs,play,4,Yes,navigation.items.infrastructure_dashboard_controller,infrastructure_dashboard_controller,InfrastructureDashboardController
+250,83,Export Logs,play,4,Yes,navigation.items.intake_dashboard_controller,intake_dashboard_controller,IntakeDashboardController
+251,89,Export Logs,play,4,Yes,navigation.items.office_dashboard_controller,office_dashboard_controller,OfficeDashboardController
+252,95,Export Logs,play,4,Yes,navigation.items.patient_dashboard_controller,patient_dashboard_controller,PatientDashboardController
+253,101,Export Logs,play,4,Yes,navigation.items.physiotherapist_dashboard_controller,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+254,107,Export Logs,play,4,Yes,navigation.items.portal_dashboard_controller,portal_dashboard_controller,PortalDashboardController
+255,113,Export Logs,play,4,Yes,navigation.items.qa_dashboard_controller,qa_dashboard_controller,QaDashboardController
+256,119,Export Logs,play,4,Yes,navigation.items.social_worker_dashboard_controller,social_worker_dashboard_controller,SocialWorkerDashboardController
+257,125,Export Logs,play,4,Yes,navigation.items.support_dashboard_controller,support_dashboard_controller,SupportDashboardController
+258,131,Export Logs,play,4,Yes,navigation.items.system_dashboard_controller,system_dashboard_controller,SystemDashboardController
+259,137,Export Logs,play,4,Yes,navigation.items.system_verification_dashboard_controller,system_verification_dashboard_controller,SystemVerificationDashboardController
+260,143,Export Logs,play,4,Yes,navigation.items.training_hub_dashboard_controller,training_hub_dashboard_controller,TrainingHubDashboardController
+261,159,Export Logs,play,4,Yes,navigation.items.cto_dashboard_controller,cto_dashboard_controller,CtoDashboardController
+262,165,Export Logs,play,4,Yes,navigation.items.cx_director_dashboard_controller,cx_director_dashboard_controller,CxDirectorDashboardController
+263,171,Export Logs,play,4,Yes,navigation.items.finance_director_dashboard_controller,finance_director_dashboard_controller,FinanceDirectorDashboardController
+264,177,Export Logs,play,4,Yes,navigation.items.hr_director_dashboard_controller,hr_director_dashboard_controller,HrDirectorDashboardController
+265,183,Export Logs,play,4,Yes,navigation.items.legal_dashboard_controller,legal_dashboard_controller,LegalDashboardController
+266,189,Export Logs,play,4,Yes,navigation.items.owner_dashboard_controller,owner_dashboard_controller,OwnerDashboardController
+267,195,Export Logs,play,4,Yes,navigation.items.shareholder_dashboard_controller,shareholder_dashboard_controller,ShareholderDashboardController
+268,201,Export Logs,play,4,Yes,navigation.items.training_director_dashboard_controller,training_director_dashboard_controller,TrainingDirectorDashboardController
+269,207,Export Logs,play,4,Yes,navigation.items.community_outreach_dashboard_controller,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+270,213,Export Logs,play,4,Yes,navigation.items.compliance_manager_dashboard_controller,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+271,219,Export Logs,play,4,Yes,navigation.items.franchise_sales_manager_dashboard_controller,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+272,225,Export Logs,play,4,Yes,navigation.items.general_manager_dashboard_controller,general_manager_dashboard_controller,GeneralManagerDashboardController
+273,231,Export Logs,play,4,Yes,navigation.items.governance_officer_dashboard_controller,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+274,237,Export Logs,play,4,Yes,navigation.items.head_of_bus_dev_dashboard_controller,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+275,243,Export Logs,play,4,Yes,navigation.items.head_of_marketing_dashboard_controller,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+276,249,Export Logs,play,4,Yes,navigation.items.local_marketing_manager_dashboard_controller,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+277,255,Export Logs,play,4,Yes,navigation.items.operations_manager_dashboard_controller,operations_manager_dashboard_controller,OperationsManagerDashboardController
+278,261,Export Logs,play,4,Yes,navigation.items.partnership_manager_dashboard_controller,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+279,267,Export Logs,play,4,Yes,navigation.items.regional_bdm_dashboard_controller,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+280,273,Export Logs,play,4,Yes,navigation.items.regional_manager_usa_dashboard_controller,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+281,279,Export Logs,play,4,Yes,navigation.items.scrum_master_dashboard_controller,scrum_master_dashboard_controller,ScrumMasterDashboardController
+282,285,Export Logs,play,4,Yes,navigation.items.territory_expansion_manager_dashboard_controller,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+283,291,Export Logs,play,4,Yes,navigation.items.territory_sales_manager_dashboard_controller,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+284,297,Export Logs,play,4,Yes,navigation.items.psw_dashboard_controller,psw_dashboard_controller,PswDashboardController
+285,303,Export Logs,play,4,Yes,navigation.items.rn_dashboard_controller,rn_dashboard_controller,RnDashboardController
+286,309,Export Logs,play,4,Yes,navigation.items.rpn_dashboard_controller,rpn_dashboard_controller,RpnDashboardController
+287,317,Export Logs,play,4,Yes,navigation.items.hr_hiring_dashboard_controller,hr_hiring_dashboard_controller,HrHiringDashboardController
+288,323,Export Logs,play,4,Yes,navigation.items.hr_manager_dashboard_controller,hr_manager_dashboard_controller,HrManagerDashboardController
+289,329,Export Logs,play,4,Yes,navigation.items.intake_coordinator_dashboard_controller,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+290,335,Export Logs,play,4,Yes,navigation.items.quality_assurance_dashboard_controller,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+291,341,Export Logs,play,4,Yes,navigation.items.receptionist_dashboard_controller,receptionist_dashboard_controller,ReceptionistDashboardController
+292,349,Export Logs,play,4,Yes,navigation.items.training_coordinator_dashboard_controller,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+293,355,Export Logs,play,4,Yes,navigation.items.volunteer_coordinator_dashboard_controller,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController
+294,146,Threshold Capacity Adjuster,activity,10,Yes,navigation.items.cfo_dashboard_controller,cfo_dashboard_controller,CfoDashboardController
+295,151,Threshold Capacity Adjuster,activity,10,Yes,navigation.items.ciso_dashboard_controller,ciso_dashboard_controller,CisoDashboardController
+296,312,Threshold Capacity Adjuster,activity,10,Yes,navigation.items.billing_admin_dashboard_controller,billing_admin_dashboard_controller,BillingAdminDashboardController
+297,344,Threshold Capacity Adjuster,activity,10,Yes,navigation.items.scheduler_dashboard_controller,scheduler_dashboard_controller,SchedulerDashboardController
+298,6,Live Auditing timeline Console,terminal,20,Yes,navigation.items.rmt_dashboard_controller,rmt_dashboard_controller,RmtDashboardController
+299,12,Live Auditing timeline Console,terminal,20,Yes,navigation.items.clinical_dashboard_controller,clinical_dashboard_controller,ClinicalDashboardController
+300,18,Live Auditing timeline Console,terminal,20,Yes,navigation.items.architecture_planning_dashboard_controller,architecture_planning_dashboard_controller,ArchitecturePlanningDashboardController
+301,24,Live Auditing timeline Console,terminal,20,Yes,navigation.items.business_development_dashboard_controller,business_development_dashboard_controller,BusinessDevelopmentDashboardController
+302,30,Live Auditing timeline Console,terminal,20,Yes,navigation.items.chiropractor_dashboard_controller,chiropractor_dashboard_controller,ChiropractorDashboardController
+303,36,Live Auditing timeline Console,terminal,20,Yes,navigation.items.clinic_dashboard_controller,clinic_dashboard_controller,ClinicDashboardController
+304,42,Live Auditing timeline Console,terminal,20,Yes,navigation.items.course_architect_dashboard_controller,course_architect_dashboard_controller,CourseArchitectDashboardController
+305,48,Live Auditing timeline Console,terminal,20,Yes,navigation.items.customer_support_dashboard_controller,customer_support_dashboard_controller,CustomerSupportDashboardController
+306,54,Live Auditing timeline Console,terminal,20,Yes,navigation.items.dynamic_dashboard_controller,dynamic_dashboard_controller,DynamicScreenDashboardController
+307,60,Live Auditing timeline Console,terminal,20,Yes,navigation.items.family_member_dashboard_controller,family_member_dashboard_controller,FamilyMemberDashboardController
+308,66,Live Auditing timeline Console,terminal,20,Yes,navigation.items.franchise_dashboard_controller,franchise_dashboard_controller,FranchiseDashboardController
+309,72,Live Auditing timeline Console,terminal,20,Yes,navigation.items.guest_dashboard_controller,guest_dashboard_controller,GuestDashboardController
+310,78,Live Auditing timeline Console,terminal,20,Yes,navigation.items.infrastructure_dashboard_controller,infrastructure_dashboard_controller,InfrastructureDashboardController
+311,84,Live Auditing timeline Console,terminal,20,Yes,navigation.items.intake_dashboard_controller,intake_dashboard_controller,IntakeDashboardController
+312,90,Live Auditing timeline Console,terminal,20,Yes,navigation.items.office_dashboard_controller,office_dashboard_controller,OfficeDashboardController
+313,96,Live Auditing timeline Console,terminal,20,Yes,navigation.items.patient_dashboard_controller,patient_dashboard_controller,PatientDashboardController
+314,102,Live Auditing timeline Console,terminal,20,Yes,navigation.items.physiotherapist_dashboard_controller,physiotherapist_dashboard_controller,PhysiotherapistDashboardController
+315,108,Live Auditing timeline Console,terminal,20,Yes,navigation.items.portal_dashboard_controller,portal_dashboard_controller,PortalDashboardController
+316,114,Live Auditing timeline Console,terminal,20,Yes,navigation.items.qa_dashboard_controller,qa_dashboard_controller,QaDashboardController
+317,120,Live Auditing timeline Console,terminal,20,Yes,navigation.items.social_worker_dashboard_controller,social_worker_dashboard_controller,SocialWorkerDashboardController
+318,126,Live Auditing timeline Console,terminal,20,Yes,navigation.items.support_dashboard_controller,support_dashboard_controller,SupportDashboardController
+319,132,Live Auditing timeline Console,terminal,20,Yes,navigation.items.system_dashboard_controller,system_dashboard_controller,SystemDashboardController
+320,138,Live Auditing timeline Console,terminal,20,Yes,navigation.items.system_verification_dashboard_controller,system_verification_dashboard_controller,SystemVerificationDashboardController
+321,144,Live Auditing timeline Console,terminal,20,Yes,navigation.items.training_hub_dashboard_controller,training_hub_dashboard_controller,TrainingHubDashboardController
+322,147,Live Auditing timeline Console,terminal,20,Yes,navigation.items.cfo_dashboard_controller,cfo_dashboard_controller,CfoDashboardController
+323,154,Live Auditing timeline Console,terminal,20,Yes,navigation.items.coo_dashboard_notifier,coo_dashboard_notifier,CooDashboardNotifier
+324,160,Live Auditing timeline Console,terminal,20,Yes,navigation.items.cto_dashboard_controller,cto_dashboard_controller,CtoDashboardController
+325,166,Live Auditing timeline Console,terminal,20,Yes,navigation.items.cx_director_dashboard_controller,cx_director_dashboard_controller,CxDirectorDashboardController
+326,172,Live Auditing timeline Console,terminal,20,Yes,navigation.items.finance_director_dashboard_controller,finance_director_dashboard_controller,FinanceDirectorDashboardController
+327,178,Live Auditing timeline Console,terminal,20,Yes,navigation.items.hr_director_dashboard_controller,hr_director_dashboard_controller,HrDirectorDashboardController
+328,184,Live Auditing timeline Console,terminal,20,Yes,navigation.items.legal_dashboard_controller,legal_dashboard_controller,LegalDashboardController
+329,190,Live Auditing timeline Console,terminal,20,Yes,navigation.items.owner_dashboard_controller,owner_dashboard_controller,OwnerDashboardController
+330,196,Live Auditing timeline Console,terminal,20,Yes,navigation.items.shareholder_dashboard_controller,shareholder_dashboard_controller,ShareholderDashboardController
+331,202,Live Auditing timeline Console,terminal,20,Yes,navigation.items.training_director_dashboard_controller,training_director_dashboard_controller,TrainingDirectorDashboardController
+332,208,Live Auditing timeline Console,terminal,20,Yes,navigation.items.community_outreach_dashboard_controller,community_outreach_dashboard_controller,CommunityOutreachDashboardController
+333,214,Live Auditing timeline Console,terminal,20,Yes,navigation.items.compliance_manager_dashboard_controller,compliance_manager_dashboard_controller,ComplianceManagerDashboardController
+334,220,Live Auditing timeline Console,terminal,20,Yes,navigation.items.franchise_sales_manager_dashboard_controller,franchise_sales_manager_dashboard_controller,FranchiseSalesManagerDashboardController
+335,226,Live Auditing timeline Console,terminal,20,Yes,navigation.items.general_manager_dashboard_controller,general_manager_dashboard_controller,GeneralManagerDashboardController
+336,232,Live Auditing timeline Console,terminal,20,Yes,navigation.items.governance_officer_dashboard_controller,governance_officer_dashboard_controller,GovernanceOfficerDashboardController
+337,238,Live Auditing timeline Console,terminal,20,Yes,navigation.items.head_of_bus_dev_dashboard_controller,head_of_bus_dev_dashboard_controller,HeadOfBusDevDashboardController
+338,244,Live Auditing timeline Console,terminal,20,Yes,navigation.items.head_of_marketing_dashboard_controller,head_of_marketing_dashboard_controller,HeadOfMarketingDashboardController
+339,250,Live Auditing timeline Console,terminal,20,Yes,navigation.items.local_marketing_manager_dashboard_controller,local_marketing_manager_dashboard_controller,LocalMarketingManagerDashboardController
+340,256,Live Auditing timeline Console,terminal,20,Yes,navigation.items.operations_manager_dashboard_controller,operations_manager_dashboard_controller,OperationsManagerDashboardController
+341,262,Live Auditing timeline Console,terminal,20,Yes,navigation.items.partnership_manager_dashboard_controller,partnership_manager_dashboard_controller,PartnershipManagerDashboardController
+342,268,Live Auditing timeline Console,terminal,20,Yes,navigation.items.regional_bdm_dashboard_controller,regional_bdm_dashboard_controller,RegionalBdmDashboardController
+343,274,Live Auditing timeline Console,terminal,20,Yes,navigation.items.regional_manager_usa_dashboard_controller,regional_manager_usa_dashboard_controller,RegionalManagerUsaDashboardController
+344,280,Live Auditing timeline Console,terminal,20,Yes,navigation.items.scrum_master_dashboard_controller,scrum_master_dashboard_controller,ScrumMasterDashboardController
+345,286,Live Auditing timeline Console,terminal,20,Yes,navigation.items.territory_expansion_manager_dashboard_controller,territory_expansion_manager_dashboard_controller,TerritoryExpansionManagerDashboardController
+346,292,Live Auditing timeline Console,terminal,20,Yes,navigation.items.territory_sales_manager_dashboard_controller,territory_sales_manager_dashboard_controller,TerritorySalesManagerDashboardController
+347,298,Live Auditing timeline Console,terminal,20,Yes,navigation.items.psw_dashboard_controller,psw_dashboard_controller,PswDashboardController
+348,304,Live Auditing timeline Console,terminal,20,Yes,navigation.items.rn_dashboard_controller,rn_dashboard_controller,RnDashboardController
+349,310,Live Auditing timeline Console,terminal,20,Yes,navigation.items.rpn_dashboard_controller,rpn_dashboard_controller,RpnDashboardController
+350,318,Live Auditing timeline Console,terminal,20,Yes,navigation.items.hr_hiring_dashboard_controller,hr_hiring_dashboard_controller,HrHiringDashboardController
+351,324,Live Auditing timeline Console,terminal,20,Yes,navigation.items.hr_manager_dashboard_controller,hr_manager_dashboard_controller,HrManagerDashboardController
+352,330,Live Auditing timeline Console,terminal,20,Yes,navigation.items.intake_coordinator_dashboard_controller,intake_coordinator_dashboard_controller,IntakeCoordinatorDashboardController
+353,336,Live Auditing timeline Console,terminal,20,Yes,navigation.items.quality_assurance_dashboard_controller,quality_assurance_dashboard_controller,QualityAssuranceDashboardController
+354,342,Live Auditing timeline Console,terminal,20,Yes,navigation.items.receptionist_dashboard_controller,receptionist_dashboard_controller,ReceptionistDashboardController
+355,350,Live Auditing timeline Console,terminal,20,Yes,navigation.items.training_coordinator_dashboard_controller,training_coordinator_dashboard_controller,TrainingCoordinatorDashboardController
+356,356,Live Auditing timeline Console,terminal,20,Yes,navigation.items.volunteer_coordinator_dashboard_controller,volunteer_coordinator_dashboard_controller,VolunteerCoordinatorDashboardController

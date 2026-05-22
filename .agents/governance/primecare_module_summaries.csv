@@ -1,10 +1,10 @@
-﻿Module,Total Dashboards,Requires Sidebar,Total Controls,API Connected,Mock/Stub (Pending),API Connectivity %
-ALLIED,1,1,5,0,5,0.0%
-CLINICAL,1,1,5,0,5,0.0%
-COMMON,22,22,110,0,110,0.0%
-EXECUTIVE,11,11,47,2,45,4.3%
-MANAGEMENT,15,15,75,0,75,0.0%
-PSW,1,1,5,0,5,0.0%
-RN,1,1,5,0,5,0.0%
-RPN,1,1,5,0,5,0.0%
-STAFF,9,9,37,0,37,0.0%
+﻿Module,Total Screens,Sidebar Menu Items,UI Components,Callbacks & Functions
+ALLIED,1,6,5,5
+CLINICAL,1,6,5,5
+COMMON,22,132,110,110
+EXECUTIVE,11,58,47,47
+MANAGEMENT,15,90,75,75
+PSW,1,6,5,5
+RN,1,6,5,5
+RPN,1,6,5,5
+STAFF,9,46,37,37

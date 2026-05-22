@@ -11,128 +11,190 @@ def _camel_to_snake(input_str):
     return re.sub(r'(?<=[a-z])[A-Z]', lambda m: '_' + m.group(0), input_str).lower()
 
 def main():
-    print("--- PrimeCare Feature Generator (SQL-Backed) ---")
+    print("--- PrimeCare Feature & Screen Generator (SQL-Relational) ---")
 
-    intent_id = ''
-    intent_goal = ''
-    page_route = ''
-    page_name = ''
-    page_role = ''
-    db_table = ''
-    field_name = ''
+    screen_code = ''
+    screen_name = ''
+    route_path = ''
+    category = ''
+    role_code = ''
+    comp_name = ''
+    func_name = ''
 
     args = sys.argv[1:]
     if len(args) >= 7:
-        intent_id = args[0]
-        intent_goal = args[1]
-        page_route = args[2]
-        page_name = args[3]
-        page_role = args[4]
-        db_table = args[5]
-        field_name = args[6]
+        screen_code = args[0]
+        screen_name = args[1]
+        route_path = args[2]
+        category = args[3]
+        role_code = args[4]
+        comp_name = args[5]
+        func_name = args[6]
     else:
         try:
-            intent_id = input('What is the Intent ID? (e.g. create_shift): ').strip()
-            intent_goal = input('What is the Business Goal? (e.g. Allow managers to create shifts): ').strip()
-            page_route = input('What is the Route / Page Name path? (e.g. /manager/create-shift): ').strip()
-            page_name = input('What is the Flutter UI Component Name? (e.g. CreateShiftForm): ').strip()
-            page_role = input('What role is allowed? (e.g. manager_portal): ').strip()
-            db_table = input('Which Prisma Database Table does this modify? (e.g. Shift): ').strip()
-            field_name = input('Enter one primary field ID to track (e.g. shift_date_input): ').strip()
+            screen_code = input('Enter unique Screen Code (e.g. shift_management): ').strip()
+            screen_name = input('Enter Screen Class Name (e.g. ShiftManagementDashboardScreen): ').strip()
+            route_path = input('Enter relative File Path (e.g. packages/primecare_ui/lib/src/screens/management/shift_management_dashboard_screen.dart): ').strip()
+            category = input('Enter Screen Category/Folder (e.g. management, clinical, psw): ').strip()
+            role_code = input('Enter primary allowed Role Code (e.g. ops_manager, psw, rn): ').strip()
+            comp_name = input('Enter one primary Component Label (e.g. Shift Capacity Adjuster): ').strip()
+            func_name = input('Enter click handler function name (e.g. updateCapacityThreshold): ').strip()
         except KeyboardInterrupt:
             print("\nAborted.")
             sys.exit(0)
 
-    if not intent_id or not page_name:
-        print("Error: Invalid inputs.")
+    if not screen_code or not screen_name or not route_path or not role_code:
+        print("Error: Invalid or missing inputs.")
         sys.exit(1)
 
     print("\nGenerating feature mapping in SQL database...")
 
     conn = governance_db.get_connection()
     cursor = conn.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON;")
 
-    # 1. Add Intent
-    cursor.execute("SELECT 1 FROM intents WHERE intent_id = ?;", (intent_id,))
-    if not cursor.fetchone():
-        cursor.execute("""
-        INSERT INTO intents (intent_id, business_goal, status)
-        VALUES (?, ?, 'pending');
-        """, (intent_id, intent_goal))
-        print(f"[OK] Added intent '{intent_id}' to SQLite database.")
-    else:
-        print(f"[WARN] Intent '{intent_id}' already exists in database.")
+    # 1. Resolve UI application ID
+    cursor.execute("SELECT id FROM apps WHERE app_code = 'ui' LIMIT 1;")
+    app_row = cursor.fetchone()
+    ui_app_id = app_row['id'] if app_row else None
+    
+    if not ui_app_id:
+        cursor.execute("SELECT id FROM apps LIMIT 1;")
+        first_app = cursor.fetchone()
+        ui_app_id = first_app['id'] if first_app else 1
 
-    # 2. Add Page
-    page_id_str = _camel_to_snake(page_name)
-    cursor.execute("SELECT 1 FROM pages WHERE page_id = ?;", (page_id_str,))
-    if not cursor.fetchone():
-        cursor.execute("""
-        INSERT INTO pages (page_id, route, name, role_allowed, actions, linked_intent, implementation_status)
-        VALUES (?, ?, ?, ?, ?, ?, 'pending');
-        """, (page_id_str, page_route, page_name, json.dumps([page_role]), json.dumps(["submit"]), intent_id))
-        print(f"[OK] Added page '{page_id_str}' to SQLite database.")
-    else:
-        print(f"[WARN] Page '{page_id_str}' already exists in database.")
+    # 2. Resolve Role ID
+    cursor.execute("SELECT id FROM roles WHERE role_code = ? LIMIT 1;", (role_code,))
+    role_row = cursor.fetchone()
+    role_id = role_row['id'] if role_row else None
+    
+    if not role_id:
+        print(f"[WARN] Role '{role_code}' was not found in roles table. Falling back to 'guest' role.")
+        cursor.execute("SELECT id FROM roles WHERE role_code = 'guest' LIMIT 1;")
+        guest_row = cursor.fetchone()
+        role_id = guest_row['id'] if guest_row else 1
 
-    # 3. Add Data Map Field
-    cursor.execute("SELECT 1 FROM fields WHERE field_id = ? AND page_id = ?;", (field_name, page_id_str))
-    if not cursor.fetchone():
+    # 3. Determine Layout Key based on category
+    layout_key = 'masterLayout'
+    if category in ('clinical', 'rn', 'rpn', 'allied', 'psw'):
+        layout_key = 'clinicalLayout'
+    elif category in ('executive', 'management'):
+        layout_key = 'adminLayout'
+
+    # 4. Insert Screen
+    cursor.execute("SELECT id FROM screens WHERE screen_code = ?;", (screen_code,))
+    screen_row = cursor.fetchone()
+    if not screen_row:
         cursor.execute("""
-        INSERT INTO fields (
-            field_id, page_id, linked_intent, validation, api_endpoint, 
-            service_method, database_table, database_column, status
-        ) VALUES (?, ?, ?, 'required', ?, ?, ?, ?, 'pending');
-        """, (
-            field_name, 
-            page_id_str, 
-            intent_id, 
-            f"POST /api/v1/{db_table.lower()}s", 
-            f"{db_table}Service.create", 
-            db_table, 
-            field_name.replace("_input", "")
-        ))
-        print(f"[OK] Added field '{field_name}' to SQLite database.")
+        INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, status)
+        VALUES (?, ?, ?, ?, 'dashboard', ?, 'active');
+        """, (ui_app_id, screen_code, screen_name, route_path, layout_key))
+        screen_id = cursor.lastrowid
+        print(f"[OK] Added screen '{screen_code}' (ID: {screen_id}) to database.")
     else:
-        print(f"[WARN] Field '{field_name}' already mapped to page '{page_id_str}' in database.")
+        screen_id = screen_row['id']
+        print(f"[WARN] Screen '{screen_code}' already exists in database.")
+
+    # 5. Insert Role Screen View Permission (Zero-Trust)
+    cursor.execute("""
+    INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
+    VALUES (?, ?, 1, 1, 1, 1, 1);
+    """, (role_id, screen_id))
+    print(f"[OK] Granted full route view/write permissions for role ID {role_id} on screen ID {screen_id}.")
+
+    # Super privilege access for administrators
+    for super_role in ('ceo', 'cto', 'admin'):
+        cursor.execute("SELECT id FROM roles WHERE role_code = ? LIMIT 1;", (super_role,))
+        s_row = cursor.fetchone()
+        if s_row:
+            s_role_id = s_row['id']
+            cursor.execute("""
+            INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
+            VALUES (?, ?, 1, 0, 0, 0, 1);
+            """, (s_role_id, screen_id))
+
+    # 6. Insert Sidebar Menu Items (Parent)
+    icon_name = 'stethoscope' if layout_key == 'clinicalLayout' else ('shield' if layout_key == 'adminLayout' else 'home')
+    cursor.execute("""
+    INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
+    VALUES (?, NULL, ?, ?, ?, 0, 1);
+    """, (ui_app_id, screen_id, f"navigation.items.{screen_code}", icon_name))
+    parent_sidebar_id = cursor.lastrowid
+    print(f"[OK] Added parent sidebar navigation item: navigation.items.{screen_code}")
+
+    # 7. Add Child Sub-Menu Action Button
+    cursor.execute("""
+    INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
+    VALUES (?, ?, ?, ?, 'play', 1, 1);
+    """, (ui_app_id, parent_sidebar_id, screen_id, comp_name))
+    print(f"[OK] Added child sidebar action menu: {comp_name}")
+
+    # 8. Insert Screen Component
+    comp_code = f"CMP_{screen_code}_{_camel_to_snake(comp_name.replace(' ', ''))}"
+    cy_id = f"data-cy-{_camel_to_snake(comp_name.replace(' ', ''))}"
+    cursor.execute("""
+    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
+    VALUES (?, ?, ?, 'button', ?, 1, 0);
+    """, (screen_id, comp_code, comp_name, cy_id))
+    comp_id = cursor.lastrowid
+    print(f"[OK] Added component '{comp_code}' with Cypress ID '{cy_id}'.")
+
+    # 9. Insert Screen Function (Click handler action)
+    func_code = f"FUN_{screen_code}_{_camel_to_snake(func_name)}"
+    func_name_val = f"onTap_{_camel_to_snake(func_name)}"
+    callback_desc = f"controller.{func_name}();"
+    cursor.execute("""
+    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
+    VALUES (?, ?, ?, 'shortcut', ?, 'active');
+    """, (screen_id, func_code, func_name_val, callback_desc))
+    func_id = cursor.lastrowid
+    print(f"[OK] Added interactive callback '{func_code}' ({func_name_val}).")
+
+    # 10. Link Component and Function
+    cursor.execute("""
+    INSERT OR IGNORE INTO function_components (function_id, component_id)
+    VALUES (?, ?);
+    """, (func_id, comp_id))
+    print(f"[OK] Linkage completed: Component ID {comp_id} -> Callback Function ID {func_id}.")
 
     conn.commit()
     conn.close()
 
-    # 4. Scaffold UI Form File
-    file_name = f"{page_id_str}.dart"
-    form_dir_path = 'packages/primecare_ui/lib/src/components/forms/generated'
-    os.makedirs(form_dir_path, exist_ok=True)
-    scaffold_path = os.path.join(form_dir_path, file_name)
+    # 11. Scaffold UI Form File
+    # Ensure directory path exists
+    normal_route = route_path.replace('\\', '/')
+    scaffold_dir = os.path.dirname(os.path.join(os.getcwd(), normal_route))
+    os.makedirs(scaffold_dir, exist_ok=True)
+    scaffold_path = os.path.join(os.getcwd(), normal_route)
 
     if os.path.exists(scaffold_path):
-        print(f"[WARN] Scaffold file already exists at {scaffold_path}. Skipping.")
+        print(f"[WARN] Physical screen file already exists at {scaffold_path}. Skipping file scaffold.")
     else:
         form_content = f'''import 'package:flutter/material.dart';
 
-class {page_name} extends StatelessWidget {{
-  const {page_name}({{super.key}});
+class {screen_name} extends StatelessWidget {{
+  const {screen_name}({{super.key}});
 
   @override
   Widget build(BuildContext context) {{
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('{page_name} Planned View', style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: 16),
-          // Scaffolded field
-          TextFormField(
-            key: const Key('{field_name}'),
-            decoration: const InputDecoration(labelText: '{field_name} Field'),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {{}},
-            child: const Text('Submit'),
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(title: Text('{screen_name}')),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('{screen_name} Active View', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              key: const Key('{cy_id}'),
+              onPressed: () {{
+                // {callback_desc}
+              }},
+              child: const Text('{comp_name}'),
+            ),
+          ],
+        ),
       ),
     );
   }}
@@ -140,9 +202,9 @@ class {page_name} extends StatelessWidget {{
 '''
         with open(scaffold_path, 'w', encoding='utf-8') as sf:
             sf.write(form_content)
-        print(f"[OK] Scaffolded UI code at {scaffold_path}")
+        print(f"[OK] Successfully scaffolded Flutter UI code at {scaffold_path}")
 
-    print("\nSuccess! Feature defined as pending in SQLite. Run the reconciliation engine later to verify.")
+    print("\nSUCCESS! New relational screen, permissions, menus, components, and functions registered in governance database!")
 
 if __name__ == '__main__':
     main()

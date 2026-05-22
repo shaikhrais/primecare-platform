@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import sqlite3
+from datetime import datetime
 
 # Add current folder to path to import governance_db
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -106,6 +107,169 @@ def _analyze_callback(callback, file_content):
         
     return 'api_connected'
 
+valid_roles = {
+    'chiropractor', 'physio', 'rmt', 'social_worker', 'therapist',
+    'clinical_director', 'intake', 'rn', 'physician', 'cns', 'pediatric',
+    'caregiver', 'guest', 'portal', 'patient', 'dynamic', 'infrastructure',
+    'system_verification', 'training', 'ceo', 'cfo', 'ciso', 'coo', 'cto',
+    'cx_director', 'finance_director', 'hr_director', 'legal', 'owner',
+    'shareholder', 'training_director', 'community_outreach', 'compliance',
+    'franchise_sales', 'gm', 'governance', 'bus_dev', 'marketing',
+    'local_marketing', 'ops_manager', 'partnership', 'regional_bdm',
+    'regional_manager_usa', 'scrum_master', 'hr_hiring', 'territory_expansion',
+    'territory_sales', 'volunteer_coordinator', 'premium_concierge',
+    'vip_manager', 'psw', 'hsw', 'rn_field_supervisor', 'np', 'rpn', 'lpn',
+    'employee', 'volunteer', 'admin', 'scheduler'
+}
+
+def get_short_role_id(role_name):
+    short_map = {
+        'Chiropractor': 'chiropractor',
+        'Physiotherapist': 'physio',
+        'Registered Massage Therapist (RMT)': 'rmt',
+        'Social Worker': 'social_worker',
+        'Therapist': 'therapist',
+        'Clinical Director': 'clinical_director',
+        'Intake Coordinator': 'intake',
+        'Registered Nurse (RN)': 'rn',
+        'Physician': 'physician',
+        'Clinical Nurse Specialist': 'cns',
+        'Pediatric Specialist': 'pediatric',
+        'Caregiver': 'caregiver',
+        'Guest': 'guest',
+        'Portal User': 'portal',
+        'Patient': 'patient',
+        'Dynamic Screen Viewer': 'dynamic',
+        'Infrastructure Auditor': 'infrastructure',
+        'System Verification Officer': 'system_verification',
+        'Training Candidate': 'training',
+        'Chief Executive Officer (CEO)': 'ceo',
+        'Chief Financial Officer (CFO)': 'cfo',
+        'Chief Information Security Officer (CISO)': 'ciso',
+        'Chief Operating Officer (COO)': 'coo',
+        'Chief Technology Officer (CTO)': 'cto',
+        'CX Director': 'cx_director',
+        'Finance Director': 'finance_director',
+        'HR Director': 'hr_director',
+        'Legal Counsel': 'legal',
+        'Franchise Owner': 'owner',
+        'Shareholder': 'shareholder',
+        'Training Director': 'training_director',
+        'Community Outreach Lead': 'community_outreach',
+        'Compliance Manager': 'compliance',
+        'Franchise Sales Manager': 'franchise_sales',
+        'General Manager': 'gm',
+        'Governance Officer': 'governance',
+        'Head of Business Development': 'bus_dev',
+        'Head of Marketing': 'marketing',
+        'Local Marketing Manager': 'local_marketing',
+        'Operations Manager': 'ops_manager',
+        'Partnership Manager': 'partnership',
+        'Regional BDM': 'regional_bdm',
+        'Regional Manager USA': 'regional_manager_usa',
+        'Scrum Master': 'scrum_master',
+        'Talent Acquisition Manager': 'hr_hiring',
+        'Territory Expansion Manager': 'territory_expansion',
+        'Territory Sales Manager': 'territory_sales',
+        'Volunteer Coordinator': 'volunteer_coordinator',
+        'Premium Concierge Care Coordinator': 'premium_concierge',
+        'VIP Client Manager': 'vip_manager',
+        'Personal Support Worker (PSW)': 'psw',
+        'Home Support Worker': 'hsw',
+        'Registered Nurse (RN) Field Supervisor': 'rn_field_supervisor',
+        'Nurse Practitioner (NP)': 'np',
+        'Registered Practical Nurse (RPN)': 'rpn',
+        'Licensed Practical Nurse (LPN)': 'lpn',
+        'Employee': 'employee',
+        'Volunteer': 'volunteer',
+        'Administrative Assistant': 'admin',
+        'Shift Supervisor': 'scheduler'
+    }
+    return short_map.get(role_name, role_name.lower().replace(' ', '_'))
+
+def resolve_role_id(screen_id):
+    mapping = {
+        'architecture_planning_dashboard_controller': 'cto',
+        'billing_admin_dashboard_controller': 'admin',
+        'business_development_dashboard_controller': 'bus_dev',
+        'cfo_dashboard_controller': 'cfo',
+        'chiropractor_dashboard_controller': 'chiropractor',
+        'ciso_dashboard_controller': 'ciso',
+        'clinic_dashboard_controller': 'clinical_director',
+        'clinical_dashboard_controller': 'clinical_director',
+        'community_outreach_dashboard_controller': 'community_outreach',
+        'compliance_manager_dashboard_controller': 'compliance',
+        'coo_dashboard_notifier': 'coo',
+        'course_architect_dashboard_controller': 'training_director',
+        'cto_dashboard_controller': 'cto',
+        'customer_support_dashboard_controller': 'dynamic',
+        'cx_director_dashboard_controller': 'cx_director',
+        'dynamic_dashboard_controller': 'dynamic',
+        'family_member_dashboard_controller': 'patient',
+        'finance_director_dashboard_controller': 'finance_director',
+        'franchise_dashboard_controller': 'owner',
+        'franchise_sales_manager_dashboard_controller': 'franchise_sales',
+        'general_manager_dashboard_controller': 'gm',
+        'governance_officer_dashboard_controller': 'governance',
+        'guest_dashboard_controller': 'guest',
+        'head_of_bus_dev_dashboard_controller': 'bus_dev',
+        'head_of_marketing_dashboard_controller': 'marketing',
+        'hr_director_dashboard_controller': 'hr_director',
+        'hr_hiring_dashboard_controller': 'hr_hiring',
+        'hr_manager_dashboard_controller': 'hr_director',
+        'infrastructure_dashboard_controller': 'infrastructure',
+        'intake_coordinator_dashboard_controller': 'intake',
+        'intake_dashboard_controller': 'intake',
+        'legal_dashboard_controller': 'legal',
+        'local_marketing_manager_dashboard_controller': 'local_marketing',
+        'office_dashboard_controller': 'admin',
+        'operations_manager_dashboard_controller': 'ops_manager',
+        'owner_dashboard_controller': 'owner',
+        'partnership_manager_dashboard_controller': 'partnership',
+        'patient_dashboard_controller': 'patient',
+        'physiotherapist_dashboard_controller': 'physio',
+        'portal_dashboard_controller': 'portal',
+        'psw_dashboard_controller': 'psw',
+        'qa_dashboard_controller': 'system_verification',
+        'quality_assurance_dashboard_controller': 'system_verification',
+        'receptionist_dashboard_controller': 'admin',
+        'regional_bdm_dashboard_controller': 'regional_bdm',
+        'regional_manager_usa_dashboard_controller': 'regional_manager_usa',
+        'rmt_dashboard_controller': 'rmt',
+        'rn_dashboard_controller': 'rn',
+        'rpn_dashboard_controller': 'rpn',
+        'scheduler_dashboard_controller': 'scheduler',
+        'scrum_master_dashboard_controller': 'scrum_master',
+        'shareholder_dashboard_controller': 'shareholder',
+        'social_worker_dashboard_controller': 'social_worker',
+        'support_dashboard_controller': 'dynamic',
+        'system_dashboard_controller': 'governance',
+        'system_verification_dashboard_controller': 'system_verification',
+        'territory_expansion_manager_dashboard_controller': 'territory_expansion',
+        'territory_sales_manager_dashboard_controller': 'territory_sales',
+        'training_coordinator_dashboard_controller': 'training',
+        'training_director_dashboard_controller': 'training_director',
+        'training_hub_dashboard_controller': 'training',
+        'volunteer_coordinator_dashboard_controller': 'volunteer_coordinator'
+    }
+    
+    if screen_id in mapping:
+        return mapping[screen_id]
+        
+    clean_id = screen_id.replace('_dashboard_controller', '').replace('_dashboard_screen', '').replace('_dashboard_notifier', '').replace('_dashboard', '')
+    if clean_id in valid_roles:
+        return clean_id
+        
+    return 'guest'
+
+def get_screen_category(route_path):
+    parts = route_path.replace('\\', '/').split('/')
+    if 'screens' in parts:
+        idx = parts.index('screens')
+        if idx + 1 < len(parts):
+            return parts[idx + 1]
+    return 'common'
+
 def find_dashboard_files(screens_dir):
     files = []
     for root, _, filenames in os.walk(screens_dir):
@@ -117,7 +281,7 @@ def find_dashboard_files(screens_dir):
 
 def reconcile():
     print("=====================================================")
-    print("Starting SQL-Backed Sidebar Reconciliation Engine")
+    print("Starting SQL-Backed Relational 15-Table Reconciler")
     print("=====================================================")
 
     screens_dir = r"packages\primecare_ui\lib\src\screens"
@@ -127,33 +291,51 @@ def reconcile():
         print(f"[ERROR] Screen directory not found: {screens_dir}")
         sys.exit(1)
 
-    # Discover files
     files = find_dashboard_files(screens_dir)
     print(f"Discovered {len(files)} physical dashboard screen files on disk.")
 
     conn = governance_db.get_connection()
     cursor = conn.cursor()
 
-    # Load master expected configuration from the SQLite DB
-    cursor.execute("SELECT screen_id, screen_name, path, requires_sidebar, category FROM dashboards;")
-    db_dashboards = {row['screen_id']: dict(row) for row in cursor.fetchall()}
+    # Clear previous reconciler drift logs from the database
+    cursor.execute("""
+    DELETE FROM governance_logs 
+    WHERE log_type IN ('drift', 'missing_route', 'layout_mismatch', 'missing_widget', 'undocumented_widget')
+    """)
+    conn.commit()
+
+    # Query master organization ID and primary UI application ID
+    cursor.execute("SELECT id FROM orgs WHERE org_code = 'primecare' LIMIT 1;")
+    org_row = cursor.fetchone()
+    org_id = org_row['id'] if org_row else 1
+
+    cursor.execute("SELECT id FROM apps WHERE app_code = 'primecare_ui' LIMIT 1;")
+    app_row = cursor.fetchone()
+    ui_app_db_id = app_row['id'] if app_row else 1
+
+    # Load master expected configuration from screens
+    cursor.execute("SELECT id, screen_code, screen_name, route_path, layout_key FROM screens WHERE screen_type = 'dashboard';")
+    db_dashboards = {row['screen_code']: dict(row) for row in cursor.fetchall()}
+
+    # Resolve roles mapping for default permissions
+    cursor.execute("SELECT id, role_code FROM roles;")
+    roles_mapping = {row['role_code']: row['id'] for row in cursor.fetchall()}
 
     anomalies = []
     parsed_screens = {}
+    layout_mismatch_count = 0
 
     for file_path in files:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Windows/Linux normalization
         relative_path = os.path.relpath(file_path, os.getcwd()).replace('\\', '/')
 
-        # Extract class name
         class_match = re.search(r'class (\w+) extends', content)
         if not class_match:
             continue
         class_name = class_match.group(1)
-        screen_id = _camel_to_snake(class_name.replace('Screen', ''))
+        screen_code = _camel_to_snake(class_name.replace('Screen', ''))
 
         has_physical_sidebar = ('ResponsiveSplitDashboard' in content) or ('defaultSidebarWidgets:' in content)
 
@@ -164,17 +346,16 @@ def reconcile():
             if start_idx != -1:
                 sidebar_block_content = _extract_matching_block(content, start_idx)
 
-            # Parse QuickActionItems
             action_regex = r'''QuickActionItem\(\s*label:\s*["']([^"']+)["'][\s\S]*?onTap:\s*(.*?)(?:,|\n\s*\))'''
             action_matches = re.finditer(action_regex, sidebar_block_content, re.IGNORECASE)
             for match in action_matches:
                 label = match.group(1)
                 raw_callback = match.group(2).strip()
-                item_id = _camel_to_snake(label.replace(' ', ''))
+                item_code = _camel_to_snake(label.replace(' ', ''))
                 status = _analyze_callback(raw_callback, content)
                 
                 physical_items.append({
-                    'id': item_id,
+                    'code': item_code,
                     'label': label,
                     'type': 'quick_action',
                     'callback': raw_callback,
@@ -188,7 +369,7 @@ def reconcile():
 
             if 'Slider(' in content or 'Slider.adaptive(' in content:
                 physical_items.append({
-                    'id': 'capacity_slider',
+                    'code': 'capacity_slider',
                     'label': 'Threshold Capacity Adjuster',
                     'type': 'interactive_slider',
                     'callback': 'onChanged: (val) { controller.updateThreshold(...) }',
@@ -196,149 +377,240 @@ def reconcile():
                 })
             if 'AuditLogConsole' in content or 'Operational Audit Logs' in content:
                 physical_items.append({
-                    'id': 'audit_logs_terminal',
+                    'code': 'audit_logs_terminal',
                     'label': 'Live Auditing timeline Console',
                     'type': 'log_timeline',
                     'callback': 'state.logs',
                     'status': 'api_connected' if file_has_real_api else 'mock_stub'
                 })
 
-        # Category mapping
-        path_parts = relative_path.split('/')
-        category = 'common'
-        if 'screens' in path_parts:
-            screens_idx = path_parts.index('screens')
-            if screens_idx + 1 < len(path_parts):
-                category = path_parts[screens_idx + 1]
+        category = get_screen_category(relative_path)
 
-        parsed_screens[screen_id] = {
+        parsed_screens[screen_code] = {
             'screen_name': class_name,
             'path': relative_path,
             'has_physical_sidebar': has_physical_sidebar,
             'sidebar_items': physical_items,
-            'category': category
+            'category': category,
+            'content': content
         }
 
     # ==========================================
-    # DATABASE & ZERO-TRUST RECONCILIATION AUDIT
+    # AUDITING: UNDOCUMENTED SCREENS (On Disk, Not in DB)
     # ==========================================
-
-    # 1. Check for Undocumented Screens (On Disk but not in SQLite DB)
-    for screen_id, parsed in parsed_screens.items():
-        if screen_id not in db_dashboards:
-            anomalies.append(f"- **[ERROR]** Undocumented Screen: Physical dashboard screen `{parsed['screen_name']}` has no corresponding configuration block in database.")
-            # Insert stub undocumented screen so it doesn't crash the database lookup
-            cursor.execute("""
-            INSERT OR REPLACE INTO dashboards (screen_id, screen_name, path, requires_sidebar, category, layout_compliant)
-            VALUES (?, ?, ?, ?, ?, 0)
-            """, (screen_id, parsed['screen_name'], parsed['path'], 1 if parsed['has_physical_sidebar'] else 0, parsed['category']))
+    for screen_code, parsed in parsed_screens.items():
+        if screen_code not in db_dashboards:
+            msg = f"Undocumented Screen: Physical dashboard screen '{parsed['screen_name']}' is missing in the database registry."
+            anomalies.append(f"- **[ERROR]** {msg}")
             
-            for item in parsed['sidebar_items']:
+            # Log as a critical drift warning
+            cursor.execute("""
+            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
+            VALUES (?, ?, NULL, 'missing_route', ?, 'high')
+            """, (org_id, ui_app_db_id, msg))
+            
+            # Auto-reconcile: insert stub screen and permissions
+            layout_key = 'clinicalLayout' if parsed['has_physical_sidebar'] else 'masterLayout'
+            cursor.execute("""
+            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, status)
+            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
+            """, (ui_app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
+            screen_db_id = cursor.lastrowid
+            
+            role_code = resolve_role_id(screen_code)
+            role_db_id = roles_mapping.get(role_code, roles_mapping.get('guest'))
+            
+            cursor.execute("""
+            INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
+            VALUES (?, ?, 1, 0, 0, 0, 1)
+            """, (role_db_id, screen_db_id))
+            
+            # Insert parent sidebar menu item
+            cursor.execute("""
+            INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
+            VALUES (?, NULL, ?, ?, 'home', 0, 1)
+            """, (ui_app_db_id, screen_db_id, parsed['screen_name']))
+            parent_sidebar_id = cursor.lastrowid
+            
+            # Seed children components
+            for idx, item in enumerate(parsed['sidebar_items'], 1):
                 cursor.execute("""
-                INSERT OR REPLACE INTO sidebar_items (screen_id, item_id, label, type, expected_handler, status)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """, (screen_id, item['id'], item['label'], item['type'], item['callback'], 'mock_stub' if item['status'] == 'mock_stub' else 'api_connected'))
+                INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
+                VALUES (?, ?, ?, ?, 'play', ?, 1)
+                """, (ui_app_db_id, parent_sidebar_id, screen_db_id, item['label'], idx))
+                
+                cursor.execute("""
+                INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
+                VALUES (?, ?, ?, 'shortcut', ?, 'active')
+                """, (screen_db_id, f"FUN_{screen_code}_{item['code']}", f"onTap_{item['code']}", item['callback']))
+                func_db_id = cursor.lastrowid
+                
+                cursor.execute("""
+                INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
+                VALUES (?, ?, ?, 'button', ?, ?, 0)
+                """, (screen_db_id, f"CMP_{screen_code}_{item['code']}", item['label'], f"data-cy-{item['code']}", idx))
+                comp_db_id = cursor.lastrowid
+                
+                cursor.execute("""
+                INSERT INTO function_components (function_id, component_id)
+                VALUES (?, ?)
+                """, (func_db_id, comp_db_id))
+                
             conn.commit()
 
-    # Refresh DB dashboards list
-    cursor.execute("SELECT screen_id, screen_name, path, requires_sidebar, category FROM dashboards;")
-    db_dashboards = {row['screen_id']: dict(row) for row in cursor.fetchall()}
+    # Re-fetch database configuration to ensure synchronization
+    cursor.execute("SELECT id, screen_code, screen_name, route_path, layout_key FROM screens WHERE screen_type = 'dashboard';")
+    db_dashboards = {row['screen_code']: dict(row) for row in cursor.fetchall()}
 
-    # 2. Check for Mismatched Registry (Registered in SQLite DB but missing on Disk)
-    for screen_id, db_sb in db_dashboards.items():
-        if screen_id not in parsed_screens:
-            anomalies.append(f"- **[ERROR]** Mismatched Registry: Sidebar registry expects screen `{screen_id}` at `{db_sb['path']}`, but the file does not exist on disk.")
+    # ==========================================
+    # AUDITING: MISMATCHED REGISTRY (In DB, Not on Disk)
+    # ==========================================
+    for screen_code, db_screen in db_dashboards.items():
+        if screen_code not in parsed_screens:
+            msg = f"Mismatched Registry: Expected dashboard screen '{screen_code}' at path '{db_screen['route_path']}' is missing on disk."
+            anomalies.append(f"- **[ERROR]** {msg}")
+            
+            cursor.execute("""
+            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
+            VALUES (?, ?, ?, 'missing_route', ?, 'critical')
+            """, (org_id, ui_app_db_id, db_screen['id'], msg))
+            conn.commit()
 
-    # 3. Perform Layout compliance & Sidebar item validation
-    for screen_id, db_sb in db_dashboards.items():
-        if screen_id not in parsed_screens:
+    # ==========================================
+    # AUDITING: LAYOUT CONFORMITY & WIDGET DRIFTS
+    # ==========================================
+    for screen_code, db_screen in db_dashboards.items():
+        if screen_code not in parsed_screens:
             continue
+            
+        parsed = parsed_screens[screen_code]
+        screen_db_id = db_screen['id']
         
-        parsed = parsed_screens[screen_id]
-        requires_sidebar = db_sb['requires_sidebar'] == 1
+        # 1. Verify split dashboard sidebar layout mismatch
+        expected_sidebar = db_screen['layout_key'] in ('clinicalLayout', 'adminLayout')
         has_physical = parsed['has_physical_sidebar']
         
-        # Update layout conformity in DB
-        is_layout_compliant = 1 if (has_physical == requires_sidebar) else 0
-        cursor.execute("UPDATE dashboards SET layout_compliant = ? WHERE screen_id = ?", (is_layout_compliant, screen_id))
-        
-        if not is_layout_compliant:
-            anomalies.append(f"- **[ERROR]** Layout Mismatch: Dashboard `{parsed['screen_name']}` layout is {'Split Dual-Panel' if has_physical else 'Single-Column'} in code, but database expects {'Split Dual-Panel' if requires_sidebar else 'Single-Column'}.")
+        if expected_sidebar != has_physical:
+            layout_mismatch_count += 1
+            msg = f"Layout Mismatch: Dashboard '{parsed['screen_name']}' is '{'Split Dual-Panel' if has_physical else 'Single-Column'}' in code, but database expects '{'Split Dual-Panel' if expected_sidebar else 'Single-Column'}'"
+            anomalies.append(f"- **[ERROR]** {msg}")
+            
+            cursor.execute("""
+            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
+            VALUES (?, ?, ?, 'layout_mismatch', ?, 'high')
+            """, (org_id, ui_app_db_id, screen_db_id, msg))
+            conn.commit()
 
-        # Retrieve expected items from the SQLite DB
-        cursor.execute("SELECT item_id, label, type, expected_handler, status FROM sidebar_items WHERE screen_id = ?", (screen_id,))
-        expected_items = {row['item_id']: dict(row) for row in cursor.fetchall()}
+        # 2. Check for missing widgets registered in DB but absent in code
+        cursor.execute("SELECT id, function_code, function_name, description FROM screen_functions WHERE screen_id = ?;", (screen_db_id,))
+        db_functions = {row['function_code']: dict(row) for row in cursor.fetchall()}
         
-        physical_item_map = {item['id']: item for item in parsed['sidebar_items']}
-
-        # Loop through expected items and check physical presence
-        for item_id, exp_item in expected_items.items():
-            phys = physical_item_map.get(item_id)
+        physical_item_map = {item['code']: item for item in parsed['sidebar_items']}
+        
+        for func_code, db_func in db_functions.items():
+            # Extract basic action code (e.g. FUN_chiropractor_dashboard_add_appointment -> add_appointment)
+            item_code = func_code.replace(f"FUN_{screen_code}_", "")
+            phys = physical_item_map.get(item_code)
+            
             if not phys:
-                anomalies.append(f"- **[WARNING]** Missing Widget: expected sidebar item `{exp_item['label']}` (ID: `{item_id}`) in `{parsed['screen_name']}` is missing in the physical code.")
-                cursor.execute("UPDATE sidebar_items SET status = 'pending', expected_handler = 'N/A (Missing in Code)' WHERE screen_id = ? AND item_id = ?", (screen_id, item_id))
-            else:
-                # Update with actual found callback and zero-trust analyzed status
-                status_to_write = 'api_connected' if phys['status'] == 'api_connected' else 'mock_stub'
+                msg = f"Missing Widget Action: Expected action handler '{db_func['function_name']}' (Code: '{func_code}') in dashboard '{parsed['screen_name']}' is missing in the code."
+                anomalies.append(f"- **[WARNING]** {msg}")
+                
                 cursor.execute("""
-                UPDATE sidebar_items 
-                SET status = ?, expected_handler = ? 
-                WHERE screen_id = ? AND item_id = ?
-                """, (status_to_write, phys['callback'], screen_id, item_id))
+                INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
+                VALUES (?, ?, ?, 'missing_widget', ?, 'medium')
+                """, (org_id, ui_app_db_id, screen_db_id, msg))
+                
+                # Update status to pending
+                cursor.execute("UPDATE screen_functions SET status = 'pending' WHERE id = ?;", (db_func['id'],))
+                conn.commit()
+            else:
+                # Update actual connection status dynamically from code scan
+                new_status = 'api_connected' if phys['status'] == 'api_connected' else 'mock_stub'
+                db_status = 'active' if new_status == 'api_connected' else 'pending'
+                
+                cursor.execute("""
+                UPDATE screen_functions 
+                SET status = ?, description = ? 
+                WHERE id = ?;
+                """, (db_status, phys['callback'], db_func['id']))
+                conn.commit()
 
-        # Check for undocumented physical items (exist in code but not in SQLite spec)
-        for phys_id, phys in physical_item_map.items():
-            if phys_id not in expected_items:
-                anomalies.append(f"- **[WARNING]** Mismatched Action: Undocumented sidebar item `{phys['label']}` (ID: `{phys_id}`) found in `{parsed['screen_name']}` code but not declared in database registry.")
-
-    conn.commit()
+        # 3. Check for undocumented widgets in code but missing from DB registry
+        for phys_code, phys in physical_item_map.items():
+            expected_func_code = f"FUN_{screen_code}_{phys_code}"
+            if expected_func_code not in db_functions:
+                msg = f"Undocumented Widget: Sidebar item '{phys['label']}' (ID: '{phys_code}') in screen '{parsed['screen_name']}' exists in code but is not declared in the database spec."
+                anomalies.append(f"- **[WARNING]** {msg}")
+                
+                cursor.execute("""
+                INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
+                VALUES (?, ?, ?, 'undocumented_widget', ?, 'low')
+                """, (org_id, ui_app_db_id, screen_db_id, msg))
+                conn.commit()
 
     # ==========================================
-    # STATISTICS COMPILATION FROM DATABASE
+    # STATISTICS CALCULATIONS (Query DB)
     # ==========================================
-
-    # Global Quality Scores
-    cursor.execute("SELECT COUNT(*) FROM dashboards;")
+    
+    # 1. Layout Conformity Score
+    cursor.execute("SELECT COUNT(*) FROM screens WHERE screen_type = 'dashboard';")
     total_dashboards = cursor.fetchone()[0] or 1
-    cursor.execute("SELECT COUNT(*) FROM dashboards WHERE layout_compliant = 1;")
-    compliant_dashboards = cursor.fetchone()[0] or 0
-    layout_compliance_score = (compliant_dashboards / total_dashboards) * 100.0
+    
+    cursor.execute("SELECT COUNT(DISTINCT screen_id) FROM governance_logs WHERE log_type = 'layout_mismatch';")
+    mismatched_db_count = cursor.fetchone()[0] or 0
+    layout_compliance_score = ((total_dashboards - mismatched_db_count) / total_dashboards) * 100.0
 
-    cursor.execute("SELECT COUNT(*) FROM sidebar_items;")
-    total_expected_items = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM sidebar_items WHERE status = 'api_connected';")
-    api_connected_items = cursor.fetchone()[0] or 0
-    api_connectivity_score = (api_connected_items / total_expected_items) * 100.0 if total_expected_items > 0 else 100.0
+    # 2. API Connectivity Score
+    cursor.execute("SELECT COUNT(*) FROM screen_functions;")
+    total_functions = cursor.fetchone()[0] or 1
+    
+    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE status = 'active';")
+    active_functions = cursor.fetchone()[0] or 0
+    api_connectivity_score = (active_functions / total_functions) * 100.0
 
-    cursor.execute("SELECT COUNT(*) FROM sidebar_items WHERE status != 'pending';")
-    functional_items = cursor.fetchone()[0] or 0
-    functional_score = (functional_items / total_expected_items) * 100.0 if total_expected_items > 0 else 100.0
+    # 3. Functional Readiness Score
+    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE description IS NOT NULL AND description != '';")
+    non_empty_functions = cursor.fetchone()[0] or 0
+    functional_score = (non_empty_functions / total_functions) * 100.0
 
-    # Module break-down categories
+    # Retrieve Category breakdowns dynamically
     known_categories = ['allied', 'clinical', 'common', 'executive', 'management', 'psw', 'rn', 'rpn', 'staff']
     category_stats = {}
+    
     for cat in known_categories:
-        cursor.execute("SELECT COUNT(*) FROM dashboards WHERE category = ?", (cat,))
-        cat_total = cursor.fetchone()[0] or 0
-        cursor.execute("SELECT COUNT(*) FROM dashboards WHERE category = ? AND requires_sidebar = 1;", (cat,))
-        cat_requires = cursor.fetchone()[0] or 0
-        cursor.execute("SELECT COUNT(*) FROM dashboards WHERE category = ? AND layout_compliant = 1;", (cat,))
-        cat_compliant = cursor.fetchone()[0] or 0
+        cursor.execute("SELECT id FROM screens WHERE route_path LIKE ? AND screen_type = 'dashboard';", (f"%/{cat}/%",))
+        cat_ids = [row['id'] for row in cursor.fetchall()]
+        cat_total = len(cat_ids)
         
-        cursor.execute("SELECT COUNT(*) FROM sidebar_items WHERE screen_id IN (SELECT screen_id FROM dashboards WHERE category = ?);", (cat,))
-        cat_items = cursor.fetchone()[0] or 0
-        cursor.execute("SELECT COUNT(*) FROM sidebar_items WHERE status = 'api_connected' AND screen_id IN (SELECT screen_id FROM dashboards WHERE category = ?);", (cat,))
-        cat_api = cursor.fetchone()[0] or 0
-        cursor.execute("SELECT COUNT(*) FROM sidebar_items WHERE status != 'pending' AND screen_id IN (SELECT screen_id FROM dashboards WHERE category = ?);", (cat,))
-        cat_func = cursor.fetchone()[0] or 0
+        if cat_total == 0:
+            continue
+            
+        cursor.execute("SELECT COUNT(DISTINCT screen_id) FROM governance_logs WHERE log_type = 'layout_mismatch' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cat_mismatches = cursor.fetchone()[0] or 0
+        cat_compliant = cat_total - cat_mismatches
+        
+        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cat_funcs = cursor.fetchone()[0] or 0
+        
+        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE status = 'active' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cat_active_funcs = cursor.fetchone()[0] or 0
+        
+        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE description IS NOT NULL AND description != '' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cat_non_empty = cursor.fetchone()[0] or 0
+
+        # Mapped roles in this category
+        cursor.execute("SELECT layout_key FROM screens WHERE id IN ({}) LIMIT 1;".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 'masterLayout';")
+        layout_row = cursor.fetchone()
+        has_sidebar_required = 1 if layout_row and layout_row['layout_key'] != 'masterLayout' else 0
 
         category_stats[cat] = {
             'total_dashboards': cat_total,
-            'requires_sidebar': cat_requires,
+            'requires_sidebar': has_sidebar_required,
             'layout_compliant': cat_compliant,
-            'total_items': cat_items,
-            'api_connected': cat_api,
-            'functional': cat_func
+            'total_items': cat_funcs,
+            'api_connected': cat_active_funcs,
+            'functional': cat_non_empty
         }
 
     # Map roles to directories for summary dashboard
@@ -355,7 +627,7 @@ def reconcile():
         'staff': ['Employee', 'Volunteer', 'Administrative Assistant', 'Shift Supervisor'],
     }
 
-    # Compile the report
+    # Compile the Report Markup
     rep = []
     rep.append('# PrimeCare Sidebar Governance & Quality Dashboard\n')
     rep.append('> [!NOTE]')
@@ -373,11 +645,11 @@ def reconcile():
     rep.append('| Screen Group | Total Dashboards | Dual-Column | Layout Conformity | API Connectivity | Functional Readiness | Outstanding Fixes |')
     rep.append('|--------------|:----------------:|:-----------:|:-----------------:|:----------------:|:--------------------:|:-----------------:|')
     for cat in known_categories:
-        stats = category_stats[cat]
-        if stats['total_dashboards'] == 0:
+        stats = category_stats.get(cat)
+        if not stats or stats['total_dashboards'] == 0:
             continue
         
-        l_score = (stats['layout_compliant'] / stats['total_dashboards']) * 100.0 if stats['total_dashboards'] > 0 else 100.0
+        l_score = (stats['layout_compliant'] / stats['total_dashboards']) * 100.0
         a_score = (stats['api_connected'] / stats['total_items']) * 100.0 if stats['total_items'] > 0 else 100.0
         f_score = (stats['functional'] / stats['total_items']) * 100.0 if stats['total_items'] > 0 else 100.0
         fixes = stats['total_items'] - stats['api_connected']
@@ -388,8 +660,8 @@ def reconcile():
     rep.append('## 👥 Complete Apps & User Roles Directory')
     rep.append('Here is the directory of all 55+ user roles within the PrimeCare platform, categorized by their corresponding Screen Groups on disk:\n')
     for cat in known_categories:
-        roles = role_directory.get(cat, [])
-        total = category_stats[cat]['total_dashboards']
+        roles = [f"{r} (`{get_short_role_id(r)}`)" for r in role_directory.get(cat, [])]
+        total = category_stats.get(cat, {}).get('total_dashboards', 0)
         rep.append(f"### 📂 `{cat.upper()}` Screen Group")
         rep.append(f"* **Corresponding Roles:** {', '.join(roles)}")
         rep.append(f"* **Dashboard Count:** {total} physical dashboard screens built.\n")
@@ -405,62 +677,56 @@ def reconcile():
     rep.append('## 🛠️ Master Sidebar Fix Checklist')
     rep.append('This actionable checklist lists all mock/stub or pending sidebar items. To resolve an item, edit the screen file, remove the `controller.addLog(...)` call, implement a real controller method call, and run this script to update statistics.\n')
     
-    # Query outstanding mock/stub items
+    # Query outstanding mock/stub/pending items
     cursor.execute("""
-    SELECT s.screen_name, s.path, s.category, i.item_id, i.label, i.expected_handler, i.status 
-    FROM sidebar_items i
-    JOIN dashboards s ON i.screen_id = s.screen_id
-    WHERE i.status IN ('mock_stub', 'pending')
-    ORDER BY s.category, s.screen_name, i.label;
+    SELECT s.screen_name, s.route_path, f.function_name, f.description, f.status
+    FROM screen_functions f
+    JOIN screens s ON f.screen_id = s.id
+    WHERE f.status = 'pending'
+    ORDER BY s.screen_name, f.function_name;
     """)
     outstanding_items = cursor.fetchall()
 
     if not outstanding_items:
         rep.append('✅ **All sidebar controls are 100% connected to real APIs! No outstanding fixes required.**')
     else:
-        current_cat = None
         current_screen = None
         for row in outstanding_items:
-            cat = row['category']
             screen = row['screen_name']
-            path = row['path']
-            label = row['label']
-            item_id = row['item_id']
-            handler = row['expected_handler'] or ''
+            path = row['route_path']
+            func_name = row['function_name']
+            handler = row['description'] or ''
             
-            if cat != current_cat:
-                current_cat = cat
-                rep.append(f"### 📁 Module: `{cat}`")
-                current_screen = None
-                
             if screen != current_screen:
                 current_screen = screen
                 rep.append(f"- [ ] **{screen}** (`{path}`):")
                 
             clean_handler = handler.replace('\n', ' ').strip()
             display_handler = f"{clean_handler[:67]}..." if len(clean_handler) > 70 else clean_handler
-            rep.append(f"  - [ ] Wire `{label}` (`ID: {item_id}`) to active API/controller method instead of mock: `{display_handler}`")
+            rep.append(f"  - [ ] Wire action handler `{func_name}` to active API/controller method instead of mock: `{display_handler}`")
         rep.append('')
 
     rep.append('## 📋 Full Master Sidebar Item Catalog\n')
-    rep.append('| Screen | Sidebar Item | Callback / Action Callback | Integration Status | Connected to API |')
-    rep.append('|--------|--------------|----------------------------|--------------------|------------------|')
+    rep.append('| Screen | Component Widget | Callback / Action Callback | Integration Status | Connected to API |')
+    rep.append('|--------|------------------|----------------------------|--------------------|------------------|')
     
     cursor.execute("""
-    SELECT s.screen_name, i.label, i.expected_handler, i.status 
-    FROM sidebar_items i
-    JOIN dashboards s ON i.screen_id = s.screen_id
-    ORDER BY s.screen_name, i.label;
+    SELECT s.screen_name, c.component_name, f.description, f.status
+    FROM screen_functions f
+    JOIN screens s ON f.screen_id = s.id
+    JOIN function_components fc ON f.id = fc.function_id
+    JOIN screen_components c ON fc.component_id = c.id
+    ORDER BY s.screen_name, c.component_name;
     """)
     all_catalog_items = cursor.fetchall()
     
     for row in all_catalog_items:
-        clean_handler = (row['expected_handler'] or '').replace('\n', ' ').strip()
+        clean_handler = (row['description'] or '').replace('\n', ' ').strip()
         display_handler = f"{clean_handler[:47]}..." if len(clean_handler) > 50 else clean_handler
-        status_str = '🟢 Connected' if row['status'] == 'api_connected' else '🔴 Mock/Stub'
-        rep.append(f"| `{row['screen_name']}` | `{row['label']}` | `{display_handler}` | `{row['status']}` | {status_str} |")
+        status_str = '🟢 Connected' if row['status'] == 'active' else '🔴 Mock/Stub'
+        rep.append(f"| `{row['screen_name']}` | `{row['component_name']}` | `{display_handler}` | `{row['status']}` | {status_str} |")
 
-    # Write report
+    # Write report to disk
     with open(report_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(rep))
 
@@ -470,7 +736,7 @@ def reconcile():
     print(f"Governance Report compiled: {report_path}")
     print("=====================================================")
 
-    # Enforce strict audit compliance
+    # Enforce strict audit compliance on layout mismatches or missing routes
     has_critical_errors = any('[ERROR]' in anomaly for anomaly in anomalies)
     if has_critical_errors:
         print("[ERROR] GOVERNANCE CRITICAL AUDIT FAILURE: Mismatched structures detected! Please review sidebar_governance_report.md")

@@ -1,7 +1,6 @@
 import sys
 import os
 import sqlite3
-import json
 
 # Add current folder to path to import governance_db
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -11,43 +10,52 @@ def generate_summary():
     conn = governance_db.get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT page_id, role_allowed, labels FROM pages;")
-    rows = cursor.fetchall()
-    
-    pages = [dict(row) for row in rows]
-    
-    # Exclude stubs like UNMAPPED_SYNC
-    filtered_pages = [p for p in pages if p['page_id'] != 'UNMAPPED_SYNC']
-    
-    # Actual functional/dashboard screens (not localized label blocks)
-    screens = [p for p in filtered_pages if not p['page_id'].endswith('_labels')]
-    total_screens = len(screens)
-    
-    role_coverage = {}
-    for page in screens:
-        roles_str = page.get('role_allowed')
-        roles = json.loads(roles_str) if roles_str else []
-        for role in roles:
-            role_coverage[role] = role_coverage.get(role, 0) + 1
+    # 1. Total Apps
+    cursor.execute("SELECT COUNT(*) FROM apps;")
+    total_apps = cursor.fetchone()[0] or 0
 
+    # 2. Total Screens
+    cursor.execute("SELECT COUNT(*) FROM screens;")
+    total_screens = cursor.fetchone()[0] or 0
+
+    # 3. Total Components and Functions
+    cursor.execute("SELECT COUNT(*) FROM screen_components;")
+    total_components = cursor.fetchone()[0] or 0
+    cursor.execute("SELECT COUNT(*) FROM screen_functions;")
+    total_functions = cursor.fetchone()[0] or 0
+
+    # 4. Active drifts and compliance alerts
+    cursor.execute("SELECT COUNT(*) FROM governance_logs WHERE log_type != 'info';")
+    total_drifts = cursor.fetchone()[0] or 0
+
+    # 5. Role-based view screen counts
+    cursor.execute("""
+    SELECT r.role_name, r.role_code, COUNT(rsp.screen_id) AS screen_count
+    FROM roles r
+    LEFT JOIN role_screen_permissions rsp ON r.id = rsp.role_id AND rsp.can_view = 1
+    GROUP BY r.id
+    HAVING screen_count > 0
+    ORDER BY screen_count DESC, r.role_code;
+    """)
+    role_rows = cursor.fetchall()
+
+    print("=====================================================")
     print("PrimeCare Platform Governance Summary")
-    print("==========================================")
-    print(f"Total Registered Screens: {total_screens}")
-    print("\nRole-Based Access Coverage:")
-    for role, count in sorted(role_coverage.items(), key=lambda x: x[1], reverse=True):
-        print(f"  - {role:25}: {count} screens")
+    print("=====================================================")
+    print(f"Total Registered Applications : {total_apps:3}")
+    print(f"Total Registered Screens      : {total_screens:3}")
+    print(f"Total UI Layout Components    : {total_components:3}")
+    print(f"Total Interactive Callbacks   : {total_functions:3}")
+    print(f"Active Governance Drifts      : {total_drifts:3}")
+    print("=====================================================")
     
-    # Check for localization labels
-    labels_blocks = [p for p in filtered_pages if p['page_id'].endswith('_labels')]
-    print(f"\nLocalized Component Blocks: {len(labels_blocks)}")
-    for block in labels_blocks:
-        labels_str = block.get('labels')
-        labels_dict = json.loads(labels_str) if labels_str else {}
-        label_count = len(labels_dict)
-        print(f"  - {block['page_id']:25}: {label_count} keys")
+    print("\nRole-Based Access Coverage (Screens can view):")
+    for row in role_rows:
+        print(f"  - {row['role_name']} ({row['role_code']}): {row['screen_count']} screens")
 
-    print("\n==========================================")
-    print("All screens listed above are governed by the Registry-First architecture.")
+    print("\n=====================================================")
+    print("All entities are synchronized under the Relational 15-Table Schema.")
+    print("=====================================================")
     
     conn.close()
 
