@@ -117,6 +117,44 @@ class DatabaseController {
         name TEXT NOT NULL
       );
     ''');
+
+    await _connection.execute('''
+      CREATE TABLE IF NOT EXISTS test_runs (
+        id SERIAL PRIMARY KEY,
+        app_id INTEGER NOT NULL,
+        run_name TEXT,
+        run_type TEXT,
+        status TEXT DEFAULT 'running',
+        started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        completed_at TIMESTAMP,
+        summary_json TEXT,
+        FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+      );
+    ''');
+
+    await _connection.execute('''
+      CREATE TABLE IF NOT EXISTS test_results (
+        id SERIAL PRIMARY KEY,
+        test_run_id INTEGER NOT NULL,
+        test_case_id INTEGER,
+        status TEXT NOT NULL,
+        error_message TEXT,
+        duration_ms INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (test_run_id) REFERENCES test_runs(id) ON DELETE CASCADE
+      );
+    ''');
+
+    await _connection.execute('''
+      CREATE TABLE IF NOT EXISTS task_completion_checks (
+        id SERIAL PRIMARY KEY,
+        task_id INTEGER NOT NULL,
+        check_name TEXT NOT NULL,
+        check_status TEXT DEFAULT 'pending',
+        evidence TEXT,
+        checked_at TIMESTAMP
+      );
+    ''');
   }
 }
 

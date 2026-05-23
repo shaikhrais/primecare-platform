@@ -62,3 +62,6 @@ class PlatformDatabase {
     _connection = null;
   }
 }
+
+/// Stub class to satisfy legacy upgraded routes that declare a prisma instance.
+class PrismaClient {}

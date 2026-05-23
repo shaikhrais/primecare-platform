@@ -1,4 +1,5 @@
 name: governance_api
+publish_to: 'none'
 description: A server app using the shelf package and Docker.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
@@ -12,6 +13,8 @@ dependencies:
   shelf_router: ^1.1.4
   analyzer: any
   path: any
+  database_client:
+    path: ../../packages/database_client
 dev_dependencies:
   http: ^1.2.2
   lints: ^6.0.0

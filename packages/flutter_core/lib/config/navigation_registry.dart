@@ -244,12 +244,6 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
-        label: 'navigation.items.governance_officer',
-        icon: LucideIcons.layoutDashboard,
-        route: '/offices/common/roles/admin/governance-officer',
-        section: 'navigation.sections.navigation.sections.main',
-      ),
-      const PrimeCareNavigationItem(
         label: 'navigation.items.head_of_bus_dev_dashboard',
         icon: LucideIcons.trendingUp,
         route: CorporateRoutes.headOfBusDevDashboard,
@@ -641,12 +635,6 @@ class NavigationRegistry {
         label: 'navigation.items.general_manager',
         icon: LucideIcons.layoutDashboard,
         route: '/offices/common/roles/ceo/general-manager',
-        section: 'navigation.sections.navigation.sections.main',
-      ),
-      const PrimeCareNavigationItem(
-        label: 'navigation.items.governance_officer',
-        icon: LucideIcons.layoutDashboard,
-        route: '/offices/common/roles/ceo/governance-officer',
         section: 'navigation.sections.navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
@@ -1079,12 +1067,6 @@ class NavigationRegistry {
         label: 'navigation.items.general_manager',
         icon: LucideIcons.layoutDashboard,
         route: '/offices/common/roles/cto/general-manager',
-        section: 'navigation.sections.navigation.sections.main',
-      ),
-      const PrimeCareNavigationItem(
-        label: 'navigation.items.governance_officer',
-        icon: LucideIcons.layoutDashboard,
-        route: '/offices/common/roles/cto/governance-officer',
         section: 'navigation.sections.navigation.sections.main',
       ),
       const PrimeCareNavigationItem(
