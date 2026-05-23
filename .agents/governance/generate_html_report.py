@@ -8,9 +8,11 @@ def generate_report():
     print("Generating Relational 34-Table HTML Governance Report")
     print("=====================================================")
 
-    db_path = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
-    template_path = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\reports\governance\primecare_governance_audit_2026-05-22_20-57-21.html"
-    reports_dir = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\reports\governance"
+    gov_dir = os.path.dirname(os.path.abspath(__file__))
+    project_dir = os.path.dirname(os.path.dirname(gov_dir))
+    db_path = os.path.join(gov_dir, "governance.db")
+    template_path = os.path.join(project_dir, "reports", "governance", "primecare_governance_audit_2026-05-22_20-57-21.html")
+    reports_dir = os.path.join(project_dir, "reports", "governance")
 
     if not os.path.exists(db_path):
         print(f"Error: governance.db not found at {db_path}")
@@ -46,6 +48,17 @@ def generate_report():
     # Read original report as the template
     with open(template_path, 'r', encoding='utf-8') as f:
         html = f.read()
+
+    # Dynamic Cleanup: Hide absolute file paths from the report and show relative paths instead
+    # Use case-insensitive regex substitutions to catch any mix-cased path variations
+    escaped_windows = re.escape(project_dir)
+    escaped_slash = re.escape(project_dir.replace('\\', '/'))
+    html = re.sub(escaped_windows, ".", html, flags=re.IGNORECASE)
+    html = re.sub(escaped_slash, ".", html, flags=re.IGNORECASE)
+    
+    # Ensure any double dots or trailing slashes resulting from cleanup are cleaned
+    html = html.replace("./.agents", ".agents").replace(".\\.agents", ".agents")
+    html = html.replace("file:///.", "")
 
     # 1. Update datetime stamps throughout the report
     now = datetime.datetime.now()

@@ -20,7 +20,7 @@ def generate_reports():
     print("Generating Ultimate Excel Governance Reports (34 Relational Tables)")
     print("=====================================================")
 
-    repo_gov_dir = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance"
+    repo_gov_dir = os.path.dirname(os.path.abspath(__file__))
     xlsx_out_path = os.path.join(repo_gov_dir, "primecare_governance_audit.xlsx")
     
     conn = governance_db.get_connection()

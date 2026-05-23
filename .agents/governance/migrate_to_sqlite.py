@@ -386,10 +386,11 @@ def migrate():
 
     # 1. Seed orgs
     print("Seeding Organization...")
+    project_root = os.getcwd().replace('\\', '/')
     cursor.execute("""
-    INSERT INTO orgs (org_code, org_name, status)
-    VALUES ('primecare', 'PrimeCare Platform', 'active')
-    """)
+    INSERT INTO orgs (org_code, org_name, projects_path, status)
+    VALUES ('primecare', 'PrimeCare Platform', ?, 'active')
+    """, (project_root,))
     org_id = cursor.lastrowid
 
     # 2. Seed apps

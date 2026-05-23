@@ -1,7 +1,8 @@
 import sqlite3
 import os
 
-DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
+# Dynamically resolve DB_PATH relative to this file to allow portability and relative path sweeps
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "governance.db")
 
 def get_connection():
     """Returns a connection to the SQLite database with Foreign Keys enabled."""
@@ -78,6 +79,7 @@ def init_db(force_reset=False):
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       org_code TEXT UNIQUE NOT NULL,
       org_name TEXT NOT NULL,
+      projects_path TEXT,
       status TEXT DEFAULT 'active',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
