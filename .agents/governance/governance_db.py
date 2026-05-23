@@ -144,6 +144,7 @@ def init_db(force_reset=False):
       folder_path TEXT,
       is_generated INTEGER DEFAULT 0,
       status TEXT DEFAULT 'active',
+      purpose TEXT,
       last_scanned_at TEXT,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
     );
@@ -485,6 +486,7 @@ def init_db(force_reset=False):
       file_name TEXT NOT NULL,
       artifact_type TEXT,
       checksum TEXT,
+      purpose TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (package_id) REFERENCES physical_packages(id) ON DELETE CASCADE
     );

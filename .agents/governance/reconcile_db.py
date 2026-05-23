@@ -11,6 +11,69 @@ import governance_db
 def _camel_to_snake(input_str):
     return re.sub(r'(?<=[a-z])[A-Z]', lambda m: '_' + m.group(0), input_str).lower()
 
+def guess_file_purpose(file_path, file_content, file_type):
+    # Try to extract the first docstring / comment block at the top of the file
+    purpose_lines = []
+    lines = file_content.split('\n')
+    
+    # 1. Look for docstrings/comments in the first 25 lines
+    for line in lines[:25]:
+        stripped = line.strip()
+        if stripped.startswith('///') or stripped.startswith('//'):
+            comment = stripped.lstrip('/ ').strip()
+            # Exclude license headers, copyright warnings, standard dart imports
+            if comment and not any(term in comment.lower() for term in ['copyright', 'license', 'http://', 'import ']):
+                purpose_lines.append(comment)
+        elif stripped.startswith('#'):
+            comment = stripped.lstrip('# ').strip()
+            if comment and not any(term in comment.lower() for term in ['copyright', 'license', 'usr/bin']):
+                purpose_lines.append(comment)
+        elif stripped.startswith('*') and not stripped.startswith('*/') and not stripped.startswith('/*'):
+            comment = stripped.lstrip('* ').strip()
+            if comment and not any(term in comment.lower() for term in ['copyright', 'license']):
+                purpose_lines.append(comment)
+                
+    if purpose_lines:
+        purpose_text = " ".join(purpose_lines)[:250].strip()
+        if len(purpose_text) > 10:
+            return purpose_text
+            
+    # 2. Heuristics based on name, path, and structure if no clear top comment is found
+    name = os.path.basename(file_path).lower()
+    path_lower = file_path.lower()
+    
+    # UI Screens
+    if 'screen' in name or 'dashboard' in name:
+        clean_name = os.path.splitext(os.path.basename(file_path))[0].replace('_', ' ').replace('-', ' ').title()
+        return f"UI Screen component rendering the {clean_name} workspace interface."
+        
+    # Controller / Notifier
+    if 'controller' in name or 'notifier' in name:
+        return f"Controller layer orchestrating business logic and state management for the corresponding module."
+        
+    # Router / Mounts
+    if 'router' in name or 'route' in name:
+        return f"Routing definition mapping client endpoints, paths, layouts, and access guards."
+        
+    # API endpoints
+    if 'services/' in path_lower:
+        if 'server.dart' in name or 'worker.dart' in name:
+            return f"Edge API service engine running request listeners and background worker micro-tasks."
+        if 'routes.dart' in name or 'routes.js' in name:
+            return f"Endpoint router registering API gateways and routing logic for the subsystem."
+            
+    # Database
+    if 'database' in name or 'prisma' in name or 'schema.prisma' in name:
+        return f"Database data model, schema migrations, and client persistence interfaces."
+        
+    # Models / Contracts
+    if 'packages/contracts' in path_lower or 'model' in name:
+        return f"Enterprise data transfer object (DTO) schema contract ensuring payload validity."
+        
+    # Standard fallback based on file type
+    clean_name = os.path.splitext(os.path.basename(file_path))[0].replace('_', ' ').replace('-', ' ').title()
+    return f"Core implementation file for the {clean_name} platform logic."
+
 def _extract_matching_block(content, start_index):
     open_brackets = 0
     i = start_index
@@ -422,11 +485,14 @@ def scan_software_governance(conn, parsed_screens, anomalies):
                             short_code = get_short_app_id(sub_dir)
                             file_app_db_id = apps_mapping.get(short_code, 1)
 
+                    # Guess purpose of this file
+                    f_purpose = guess_file_purpose(rel_path, content, f_type)
+
                     # Insert file
                     cursor.execute("""
-                    INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, last_scanned_at)
-                    VALUES (?, ?, ?, ?, 'dart', ?, 0, 'active', ?);
-                    """, (file_app_db_id, name, rel_path, f_type, os.path.dirname(rel_path), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                    INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, purpose, last_scanned_at)
+                    VALUES (?, ?, ?, ?, 'dart', ?, 0, 'active', ?, ?);
+                    """, (file_app_db_id, name, rel_path, f_type, os.path.dirname(rel_path), f_purpose, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
                     cursor.execute("SELECT id FROM code_files WHERE file_path = ?;", (rel_path,))
                     f_row = cursor.fetchone()
                     f_id = f_row[0] if f_row else 1
@@ -591,11 +657,19 @@ def scan_deep_code_structures(conn):
                     f_path = os.path.join(root, name)
                     rel_path = os.path.relpath(f_path, os.getcwd()).replace('\\', '/')
                     
+                    try:
+                        with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
+                            p_content = f.read()
+                    except Exception:
+                        p_content = ""
+
+                    p_purpose = guess_file_purpose(rel_path, p_content, 'package_file')
+
                     # Insert into package_files
                     cursor.execute("""
-                    INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum)
-                    VALUES (?, ?, ?, 'code', 'MD5-CHECKSUM-STUB')
-                    """, (pkg_id, rel_path, name))
+                    INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum, purpose)
+                    VALUES (?, ?, ?, 'code', 'MD5-CHECKSUM-STUB', ?)
+                    """, (pkg_id, rel_path, name, p_purpose))
                     
                     cursor.execute("SELECT id FROM package_files WHERE file_path = ?;", (rel_path,))
                     pf_row = cursor.fetchone()
