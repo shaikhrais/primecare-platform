@@ -508,9 +508,9 @@ def scan_software_governance(conn, parsed_screens, anomalies):
 
                     # Insert file
                     cursor.execute("""
-                    INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, purpose, last_scanned_at)
-                    VALUES (?, ?, ?, ?, 'dart', ?, 0, 'active', ?, ?);
-                    """, (file_app_db_id, name, rel_path, f_type, os.path.dirname(rel_path), f_purpose, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                    INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, purpose, lines_of_code, last_scanned_at)
+                    VALUES (?, ?, ?, ?, 'dart', ?, 0, 'active', ?, ?, ?);
+                    """, (file_app_db_id, name, rel_path, f_type, os.path.dirname(rel_path), f_purpose, loc, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
                     cursor.execute("SELECT id FROM code_files WHERE file_path = ?;", (rel_path,))
                     f_row = cursor.fetchone()
                     f_id = f_row[0] if f_row else 1
@@ -705,12 +705,13 @@ def scan_deep_code_structures(conn):
                         p_type = 'service'
 
                     p_purpose = guess_file_purpose(rel_path, p_content, p_type)
+                    p_loc = len(p_content.split('\n')) if p_content else 0
 
                     # Insert into package_files
                     cursor.execute("""
-                    INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum, purpose)
-                    VALUES (?, ?, ?, ?, 'MD5-CHECKSUM-STUB', ?)
-                    """, (pkg_id, rel_path, name, p_type, p_purpose))
+                    INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum, purpose, lines_of_code)
+                    VALUES (?, ?, ?, ?, 'MD5-CHECKSUM-STUB', ?, ?)
+                    """, (pkg_id, rel_path, name, p_type, p_purpose, p_loc))
                     
                     cursor.execute("SELECT id FROM package_files WHERE file_path = ?;", (rel_path,))
                     pf_row = cursor.fetchone()
