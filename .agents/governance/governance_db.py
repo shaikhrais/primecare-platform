@@ -96,6 +96,9 @@ def init_db(force_reset=False):
       framework TEXT,
       repo_name TEXT,
       root_path TEXT,
+      publish_url TEXT,
+      api_url TEXT,
+      logo_url TEXT,
       status TEXT DEFAULT 'active',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE
@@ -127,6 +130,8 @@ def init_db(force_reset=False):
       screen_type TEXT,
       implementation_status TEXT DEFAULT 'planned',
       file_path TEXT,
+      deep_link_url TEXT,
+      icon_key TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
       UNIQUE(app_id, screen_code),
@@ -178,6 +183,8 @@ def init_db(force_reset=False):
       service_name TEXT,
       auth_required INTEGER DEFAULT 1,
       implementation_status TEXT DEFAULT 'planned',
+      gateway_url TEXT,
+      icon_key TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
       UNIQUE(app_id, route_path, http_method)

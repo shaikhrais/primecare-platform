@@ -550,8 +550,20 @@ def scan_software_governance(conn, parsed_screens, anomalies):
                             elif f"put('{api_route}'" in content.lower():
                                 method = "PUT"
                                 
-                            cursor.execute("INSERT OR IGNORE INTO api_endpoints (app_id, endpoint_code, route_path, http_method, controller_name, service_name, auth_required, implementation_status) VALUES (1, ?, ?, ?, ?, 'PRISMA', 1, 'active');",
-                                           (f"API_{api_route.replace('/', '_').upper()}", api_route, method, ''))
+                            gateway_url = f"https://api.primecare.io{api_route}"
+                            icon_key = method.lower()
+                            
+                            cursor.execute("""
+                            INSERT OR IGNORE INTO api_endpoints (app_id, endpoint_code, route_path, http_method, controller_name, service_name, auth_required, implementation_status, gateway_url, icon_key) 
+                            VALUES (1, ?, ?, ?, ?, 'PRISMA', 1, 'active', ?, ?);
+                            """, (f"API_{api_route.replace('/', '_').upper()}", api_route, method, '', gateway_url, icon_key))
+                            
+                            cursor.execute("""
+                            UPDATE api_endpoints 
+                            SET gateway_url = ?, icon_key = ? 
+                            WHERE http_method = ? AND route_path = ?
+                            """, (gateway_url, icon_key, method, api_route))
+                            
                             cursor.execute("SELECT id FROM api_endpoints WHERE http_method = ? AND route_path = ?;", (method, api_route))
                             api_row = cursor.fetchone()
                             api_id = api_row[0] if api_row else 1

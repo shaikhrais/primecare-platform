@@ -408,14 +408,42 @@ def migrate():
     
     apps_mapping = {}  # short_code -> DB ID
     
+    def _seed_app(app_code, name, platform):
+        logo = f"/assets/logos/{app_code}.png"
+        pub_url = f"https://{app_code}.primecare.io"
+        api_url = f"https://api.primecare.io/v1/{app_code}"
+        
+        if app_code == 'ui':
+            pub_url = "https://play.google.com/store/apps/details?id=io.primecare.client"
+            api_url = "https://api.primecare.io/v1"
+            logo = "/assets/logos/primecare_ui.png"
+        elif app_code == 'wa':
+            pub_url = "https://admin.primecare.io"
+            api_url = "https://api.primecare.io/v1/admin"
+            logo = "/assets/logos/web_admin.png"
+        elif app_code == 'wo':
+            pub_url = "https://api.primecare.io"
+            api_url = "https://api.primecare.io/v1/health"
+            logo = "/assets/logos/worker_api.png"
+            
+        cursor.execute("""
+        INSERT OR IGNORE INTO apps (org_id, app_code, app_name, platform, publish_url, api_url, logo_url, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'active')
+        """, (org_id, app_code, name, platform, pub_url, api_url, logo))
+        
+        cursor.execute("""
+        UPDATE apps 
+        SET publish_url = ?, api_url = ?, logo_url = ?
+        WHERE app_code = ?
+        """, (pub_url, api_url, logo, app_code))
+        
+        cursor.execute("SELECT id FROM apps WHERE app_code = ?;", (app_code,))
+        return cursor.fetchone()[0]
+
     for app_id, name, type_val, desc in core_apps:
         short_app_id = get_short_app_id(app_id)
         platform = get_app_platform(app_id, type_val)
-        cursor.execute("""
-        INSERT INTO apps (org_id, app_code, app_name, platform, status)
-        VALUES (?, ?, ?, ?, 'active')
-        """, (org_id, short_app_id, name, platform))
-        apps_mapping[short_app_id] = cursor.lastrowid
+        apps_mapping[short_app_id] = _seed_app(short_app_id, name, platform)
 
     # Discover additional UI Apps in apps/
     apps_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "apps")
@@ -428,12 +456,7 @@ def migrate():
                 name = entry.replace('_', ' ').replace('-', ' ').title()
                 type_val = 'service' if app_id == 'worker-api' else 'app'
                 platform = get_app_platform(app_id, type_val)
-                cursor.execute("""
-                INSERT OR IGNORE INTO apps (org_id, app_code, app_name, platform, status)
-                VALUES (?, ?, ?, ?, 'active')
-                """, (org_id, short_app_id, name, platform))
-                if short_app_id not in apps_mapping:
-                    apps_mapping[short_app_id] = cursor.lastrowid
+                apps_mapping[short_app_id] = _seed_app(short_app_id, name, platform)
 
     # Discover shared packages in packages/
     packages_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "packages")
@@ -446,12 +469,7 @@ def migrate():
                 name = entry.replace('_', ' ').replace('-', ' ').title()
                 type_val = 'service' if app_id == 'worker-api' else 'package'
                 platform = get_app_platform(app_id, type_val)
-                cursor.execute("""
-                INSERT OR IGNORE INTO apps (org_id, app_code, app_name, platform, status)
-                VALUES (?, ?, ?, ?, 'active')
-                """, (org_id, short_app_id, name, platform))
-                if short_app_id not in apps_mapping:
-                    apps_mapping[short_app_id] = cursor.lastrowid
+                apps_mapping[short_app_id] = _seed_app(short_app_id, name, platform)
 
     # Discover API services in services/
     services_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "services")
@@ -465,12 +483,7 @@ def migrate():
                 if "Api" not in name:
                     name = f"{name} API"
                 platform = 'worker'
-                cursor.execute("""
-                INSERT OR IGNORE INTO apps (org_id, app_code, app_name, platform, status)
-                VALUES (?, ?, ?, ?, 'active')
-                """, (org_id, short_app_id, name, platform))
-                if short_app_id not in apps_mapping:
-                    apps_mapping[short_app_id] = cursor.lastrowid
+                apps_mapping[short_app_id] = _seed_app(short_app_id, name, platform)
 
     # 2a. Seed physical_packages & logical_apps
     print("Seeding Physical Packages & Logical Apps registries...")
@@ -667,10 +680,13 @@ def migrate():
             app_db_id = apps_mapping.get(app_code_for_screen, ui_app_db_id)
 
             # 4a. Insert Screen
+            deep_link = f"https://{app_code_for_screen}.primecare.io/dashboard/{screen_code}"
+            icon_name = 'stethoscope' if layout_key == 'clinicalLayout' else ('shield' if layout_key == 'adminLayout' else 'home')
+            
             cursor.execute("""
-            INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status, file_path)
-            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active', ?)
-            """, (app_db_id, screen_code, class_name, relative_path, layout_key, relative_path))
+            INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status, file_path, deep_link_url, icon_key)
+            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active', ?, ?, ?)
+            """, (app_db_id, screen_code, class_name, relative_path, layout_key, relative_path, deep_link, icon_name))
             screen_db_id = cursor.lastrowid
             screens_seeded += 1
 

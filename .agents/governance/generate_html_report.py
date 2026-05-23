@@ -156,17 +156,26 @@ def generate_report():
 
     # 5.5. Add dynamic Application Use-Case & Screen Map table and sidebar link
     cursor.execute("""
-        SELECT a.app_code, a.app_name, a.platform, COUNT(s.id) as screen_count
+        SELECT a.id, a.app_code, a.app_name, a.platform, a.publish_url, a.api_url, a.logo_url
         FROM apps a
-        LEFT JOIN screens s ON a.id = s.app_id
-        GROUP BY a.id
-        ORDER BY screen_count DESC, a.app_code;
+        ORDER BY a.app_name;
     """)
     app_rows = cursor.fetchall()
     
     app_screens_rows = []
     for row in app_rows:
+        app_id = row['id']
+        app_code = row['app_code']
+        app_name = row['app_name']
         platform_val = row['platform']
+        publish_url = row['publish_url'] or '#'
+        api_url = row['api_url'] or '#'
+        logo_url = row['logo_url'] or ''
+        
+        # Count screens for this app
+        cursor.execute("SELECT COUNT(*) FROM screens WHERE app_id = ?;", (app_id,))
+        screen_count = cursor.fetchone()[0] or 0
+        
         if platform_val == 'mobile':
             badge_html = '<span class="badge badge-green">Mobile App Client</span>'
         elif platform_val == 'admin':
@@ -174,11 +183,30 @@ def generate_report():
         else:
             badge_html = '<span class="badge badge-orange">Edge Worker Service / API</span>'
             
+        # Logo rendering with custom inline styling and fallback placeholder if missing
+        logo_img = ""
+        if logo_url:
+            logo_img = f'<img src="{logo_url}" alt="{app_name} logo" style="width: 24px; height: 24px; border-radius: 4px; vertical-align: middle; margin-right: 8px; border: 1px solid #e2e8f0; background: white;" onerror="this.style.display=\'none\'" />'
+        
         app_screens_rows.append(f"""
         <tr>
-            <td><strong>{row['app_name']}</strong> <code style="margin-left: 8px; color: #0284c7;">({row['app_code']})</code></td>
-            <td style="text-align: center; font-weight: 700; color: #0f172a;">{row['screen_count']} screens</td>
-            <td>{badge_html}</td>
+            <td style="vertical-align: middle;">
+                <div style="display: flex; align-items: center;">
+                    {logo_img}
+                    <div>
+                        <a href="{publish_url}" target="_blank" style="font-weight: 700; color: #1e3a8a; text-decoration: none; hover: underline;">{app_name}</a> 
+                        <code style="margin-left: 8px; color: #0284c7; font-size: 11px;">({app_code})</code>
+                    </div>
+                </div>
+            </td>
+            <td style="text-align: center; font-weight: 700; color: #0f172a; vertical-align: middle;">{screen_count} screens</td>
+            <td style="vertical-align: middle;">{badge_html}</td>
+            <td style="vertical-align: middle;">
+                <div style="display: flex; gap: 6px;">
+                    <a href="{publish_url}" target="_blank" class="badge badge-blue" style="text-decoration: none; font-size: 10px;">➔ Launch App</a>
+                    <a href="{api_url}" target="_blank" class="badge badge-green" style="text-decoration: none; font-size: 10px;">➔ Test API</a>
+                </div>
+            </td>
         </tr>""")
 
     charts_section_marker = '<!-- 4. CSS-Based Static Charts Section -->'
@@ -194,8 +222,9 @@ def generate_report():
                     <thead>
                         <tr>
                             <th>Application</th>
-                            <th style="text-align: center; width: 180px;">Screens Count</th>
-                            <th style="width: 250px;">App For (Platform Environment)</th>
+                            <th style="text-align: center; width: 150px;">Screens Count</th>
+                            <th style="width: 220px;">App For (Platform)</th>
+                            <th style="width: 240px;">Actions &amp; Pathways</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -209,10 +238,10 @@ def generate_report():
     
     html = html.replace(charts_section_marker, new_card_html)
     
-    # Add sidebar link
+    # Add sidebar links
     html = html.replace(
         '<a href="#data-analysis">Data Analysis &amp; Health</a>',
-        '<a href="#app-usecase-map">App Screen Map</a>\n            <a href="#data-analysis">Data Analysis &amp; Health</a>'
+        '<a href="#app-usecase-map">App Screen Map</a>\n            <a href="#screen-hypermedia-directory">Screen Deep-Link Index</a>\n            <a href="#api-gateway-explorer">API Gateway Explorer</a>\n            <a href="#roadmap-next-steps">Hardened Governance Roadmap</a>\n            <a href="#data-analysis">Data Analysis &amp; Health</a>'
     )
 
     # 6. Update Stats Summary tiles dynamically
@@ -576,11 +605,240 @@ def generate_report():
         </div>
     """
 
+    # Compile screens deep-link directory
+    cursor.execute("""
+        SELECT s.screen_code, s.screen_name, s.route_path, s.layout_key, s.deep_link_url, s.icon_key, a.app_name, a.app_code
+        FROM screens s
+        JOIN apps a ON s.app_id = a.id
+        WHERE s.screen_type = 'dashboard'
+        ORDER BY a.app_code, s.screen_name;
+    """)
+    screen_rows = cursor.fetchall()
+    
+    screen_directory_rows = []
+    for s in screen_rows:
+        icon_name = s['icon_key'] or 'desktop'
+        icon_emoji = "🏥" if icon_name == 'stethoscope' else ("🛡️" if icon_name == 'shield' else "🏠")
+        deep_link = s['deep_link_url'] or '#'
+        
+        screen_directory_rows.append(f"""
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+            <td style="padding: 10px 8px; font-weight: 600; color: #0f172a; text-align: left; vertical-align: middle;">
+                <span style="margin-right: 6px; font-size: 14px;">{icon_emoji}</span>
+                <strong>{s['screen_name']}</strong>
+            </td>
+            <td style="padding: 10px 8px; font-family: monospace; font-size: 11px; color: #64748b; text-align: left; vertical-align: middle;"><code>{s['screen_code']}</code></td>
+            <td style="padding: 10px 8px; font-size: 12px; color: #475569; text-align: left; vertical-align: middle;">
+                <span style="font-weight: 500;">{s['app_name']}</span> <code style="font-size: 10px; color: #0284c7;">({s['app_code']})</code>
+            </td>
+            <td style="padding: 10px 8px; text-align: left; vertical-align: middle;"><span class="badge badge-blue" style="font-size: 11px;">{s['layout_key']}</span></td>
+            <td style="padding: 10px 8px; text-align: left; vertical-align: middle;">
+                <a href="{deep_link}" target="_blank" class="badge badge-green" style="text-decoration: none; font-size: 11px; font-weight: 600;">➔ Open Emulator Link</a>
+            </td>
+        </tr>""")
+        
+    screen_directory_html = f"""
+        <!-- Interactive Screen Deep-Link Directory -->
+        <div class="card" id="screen-hypermedia-directory" style="margin-bottom: 30px;">
+            <h2>Interactive Screen Deep-Link Directory</h2>
+            <div style="margin-bottom: 15px; font-size: 13px; color: #475569;">
+                Comprehensive hyperlinked index of all role-based dashboard screens built in PrimeCare, mapped to zero-trust layout keys and one-click emulator URLs.
+            </div>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 10px 8px;">Screen View Name</th>
+                            <th style="text-align: left; padding: 10px 8px;">Screen Code</th>
+                            <th style="text-align: left; padding: 10px 8px;">Target Host Application</th>
+                            <th style="text-align: left; padding: 10px 8px;">Layout Key</th>
+                            <th style="text-align: left; padding: 10px 8px;">Emulator Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {"".join(screen_directory_rows)}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    """
+
+    # Compile searchable API gateway explorer
+    cursor.execute("""
+        SELECT e.endpoint_code, e.route_path, e.http_method, e.controller_name, e.service_name, e.gateway_url, e.icon_key, a.app_name, a.app_code
+        FROM api_endpoints e
+        JOIN apps a ON e.app_id = a.id
+        ORDER BY a.app_code, e.route_path;
+    """)
+    all_endpoints = cursor.fetchall()
+    
+    json_endpoints = []
+    for e in all_endpoints:
+        json_endpoints.append({
+            "endpoint_code": e['endpoint_code'],
+            "route_path": e['route_path'],
+            "http_method": e['http_method'],
+            "controller_name": e['controller_name'] or 'N/A',
+            "service_name": e['service_name'] or 'N/A',
+            "gateway_url": e['gateway_url'] or '#',
+            "app_name": e['app_name'],
+            "app_code": e['app_code']
+        })
+        
+    import json
+    endpoints_json_str = json.dumps(json_endpoints)
+    
+    api_gateway_explorer_html = f"""
+        <!-- API Gateway Explorer Card -->
+        <div class="card" id="api-gateway-explorer" style="margin-bottom: 30px;">
+            <h2>Active API Route Gateway Directory Explorer</h2>
+            <div style="margin-bottom: 20px; font-size: 13px; color: #475569;">
+                Interactive explorer mapping all {len(json_endpoints)} active HTTP API endpoints, gateway pathways, controller methods, and live gateway URLs.
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="api-search-input" placeholder="Search by route pathway, method, controller, app, or endpoint code..." 
+                       style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;" onkeyup="searchAPIs()" />
+                <button onclick="searchAPIs()" style="padding: 10px 20px; background: #1F497D; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Search</button>
+            </div>
+            
+            <div class="table-container" style="max-height: 450px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%; padding: 10px 8px; text-align: left;">Method</th>
+                            <th style="width: 30%; padding: 10px 8px; text-align: left;">Route Pathway</th>
+                            <th style="width: 20%; padding: 10px 8px; text-align: left;">Host App</th>
+                            <th style="width: 25%; padding: 10px 8px; text-align: left;">Controller &amp; Service</th>
+                            <th style="width: 15%; padding: 10px 8px; text-align: left;">Gateway Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="api-results-body">
+                        <!-- Initial items loaded via JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <script>
+                const apisData = {endpoints_json_str};
+                
+                function getMethodBadge(method) {{
+                    const m = method.toUpperCase();
+                    if (m === \'GET\') return \'<span class="badge badge-green">GET</span>\';
+                    if (m === \'POST\') return \'<span class="badge badge-blue">POST</span>\';
+                    if (m === \'PUT\') return \'<span class="badge badge-yellow">PUT</span>\';
+                    if (m === \'DELETE\') return \'<span class="badge badge-red">DELETE</span>\';
+                    return `<span class="badge badge-orange">\${{m}}</span>`;
+                }}
+                
+                function searchAPIs() {{
+                    const query = document.getElementById(\'api-search-input\').value.toLowerCase();
+                    const tbody = document.getElementById(\'api-results-body\');
+                    tbody.innerHTML = \'\';
+                    
+                    let filtered = apisData;
+                    if (query) {{
+                        filtered = apisData.filter(e => 
+                            e.route_path.toLowerCase().includes(query) || 
+                            e.endpoint_code.toLowerCase().includes(query) ||
+                            e.http_method.toLowerCase().includes(query) ||
+                            e.controller_name.toLowerCase().includes(query) ||
+                            e.service_name.toLowerCase().includes(query) ||
+                            e.app_name.toLowerCase().includes(query)
+                        );
+                    }} else {{
+                        // Default view: show first 30 entries
+                        filtered = apisData.slice(0, 30);
+                    }}
+                    
+                    if (filtered.length === 0) {{
+                        tbody.innerHTML = \'<tr><td colspan="5" style="text-align: center; color: #64748b; padding: 10px 8px;">No matching API endpoints found.</td></tr>\';
+                        return;
+                    }}
+                    
+                    filtered.forEach(e => {{
+                        const tr = document.createElement(\'tr\');
+                        tr.style.borderBottom = \'1px solid #f1f5f9\';
+                        tr.innerHTML = `
+                            <td style="vertical-align: middle; padding: 10px 8px;">\${{getMethodBadge(e.http_method)}}</td>
+                            <td style="vertical-align: middle; padding: 10px 8px;"><strong style="font-family: monospace;">\${{e.route_path}}</strong><br><span style="font-size: 10px; color: #64748b; font-family: monospace;">\${{e.endpoint_code}}</span></td>
+                            <td style="vertical-align: middle; padding: 10px 8px;">\${{e.app_name}} <code style="font-size: 10px; color: #0284c7;">(\${{e.app_code}})</code></td>
+                            <td style="vertical-align: middle; padding: 10px 8px; font-size: 11px; color: #475569;">
+                                <strong>C:</strong> <code>\${{e.controller_name}}</code><br>
+                                <strong>S:</strong> <code>\${{e.service_name}}</code>
+                            </td>
+                            <td style="vertical-align: middle; padding: 10px 8px;">
+                                <a href="\${{e.gateway_url}}" target="_blank" class="badge badge-orange" style="text-decoration: none; font-size: 10px; font-weight: 600;">➔ Call Gateway</a>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    }});
+                }}
+                
+                // Initialize default view
+                window.addEventListener(\'DOMContentLoaded\', (event) => {{
+                    searchAPIs();
+                }});
+            </script>
+        </div>
+    """
+
+    roadmap_html = """
+        <!-- Roadmap & Next Steps Card -->
+        <div class="card" id="roadmap-next-steps" style="margin-bottom: 30px; border-left: 5px solid #0284c7; background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);">
+            <h2>🗺️ Architectural Governance Roadmap &amp; Next Steps</h2>
+            <div style="margin-bottom: 20px; font-size: 13px; color: #475569;">
+                Strategic milestones for the PrimeCare zero-trust relational software governance ecosystem. Tracks implementation history, active hardening, and future bidirectional sync engines.
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 10px;">
+                <!-- Step 1 -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">✓</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0284c7; margin-bottom: 4px;">Milestone 01</div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">34-Table Relational Schema</h4>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Constructed advanced SQLite database mapping orgs, apps, screens, components, APIs, dependencies, and test runs.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">✓</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0284c7; margin-bottom: 4px;">Milestone 02</div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Clean Arch Compliance</h4>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Classified physical codebase into MVC / Clean Architecture categories: view, model, controller, adapter, middleware.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">✓</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0284c7; margin-bottom: 4px;">Milestone 03</div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Hypermedia Integration</h4>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Enabled interactive deep-linking and logo branding. Connected screens to emulator URLs and APIs to active routing gateways.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">⏳</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #ea580c; margin-bottom: 4px;">Milestone 04</div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Bidirectional Enforcement</h4>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Hardening continuous integration verification gates to prevent file-system drift, registry anomalies, and header violations in CI/CD.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 12px; background: #ffffff; border-radius: 6px; border: 1px dashed #cbd5e1; font-size: 12.5px; color: #334155; line-height: 1.5;">
+                <strong>💡 Next Operational Step:</strong> To execute bidirectional drift enforcement, integrate the newly synthesized CI/CD compliance scripts <code>verify_registry.py</code> and <code>verify_headers.py</code> directly into pre-push git hooks. This guarantees 100% database registry conformity before any code release.
+            </div>
+        </div>
+    """
+
     # 8. Add three extra sections at the end for test_runs, test_results, and task_completion_checks summary detail tables!
     extra_sections = f"""
         {db_schema_explorer_html}
         {ui_components_actions_html}
         {dependency_explorer_html}
+        {screen_directory_html}
+        {api_gateway_explorer_html}
+        {roadmap_html}
 
         <!-- Test Runs Detail Card -->
         <div class="card" id="test-runs">
