@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Competitor Notes Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_competitor_notes_screen_controller.dart';

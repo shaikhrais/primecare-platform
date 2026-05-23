@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Master Score platform logic.
 import 'package:flutter/material.dart';
 import '../models/governance_report.dart';
 

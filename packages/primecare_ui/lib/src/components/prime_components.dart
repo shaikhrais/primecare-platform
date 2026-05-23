@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: [Component] - Standardized Card for PrimeCare Platform.
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// [Component] - Standardized Card for PrimeCare Platform.

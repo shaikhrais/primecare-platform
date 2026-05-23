@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Wizards Reports platform logic.
 import type { WizardEntry, ReportEntry } from '../page_registry';
 
 export const WizardRegistry: WizardEntry[] = [

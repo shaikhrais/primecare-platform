@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: final result = await FilePicker.platform.pickFiles(); if (result != null && result.files.single.path != null) { retur...
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:open_filex/open_filex.dart';

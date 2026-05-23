@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Trigger Hydration platform logic.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/features/proposal_governance/services/blueprint_hydration_service.dart';
 

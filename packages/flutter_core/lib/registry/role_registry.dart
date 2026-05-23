@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Represents high-fidelity metadata for a specific platform role. Centralizes access level con...
 // Layer: 01_INFRASTRUCTURE
 import 'platform_role.dart';
 

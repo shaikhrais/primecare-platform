@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO
 import 'package:primecare_ui/primecare_ui.dart';
 import 'core/routing/corporate_routes.dart' as corporate;
 import 'core/routing/app_router.dart';

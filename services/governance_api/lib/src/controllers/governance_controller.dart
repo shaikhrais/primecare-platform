@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
 import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:postgres/postgres.dart';

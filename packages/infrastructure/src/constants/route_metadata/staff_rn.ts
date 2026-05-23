@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Staff Rn platform logic.
 export const STAFF_METADATA = {
     SUPPORT_LIST: {
         summary: 'List Support Tickets',

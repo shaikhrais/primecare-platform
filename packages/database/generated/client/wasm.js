@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Wasm platform logic.
 
 Object.defineProperty(exports, "__esModule", { value: true });
 

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Operations Manager Daily Operations Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class OperationsManagerDailyOperationsScreen extends StatelessWidget {

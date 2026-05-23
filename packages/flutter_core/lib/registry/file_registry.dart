@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE
 // Layer: 01_INFRASTRUCTURE
 class PrimeCareFileRegistry {
   static const String glb101_SplashScreen =

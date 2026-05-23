@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Verification Center Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class VerificationCenterScreen extends StatelessWidget {

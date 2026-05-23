@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 00_MODELS
 // Layer: 00_MODELS
 
 class PswDashboardData {

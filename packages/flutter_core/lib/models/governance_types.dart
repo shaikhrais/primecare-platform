@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 01_INFRASTRUCTURE [LifecycleStatus] - Tracks the stage of a feature (Screen or API) in the development lifecyc...
 // Layer: 01_INFRASTRUCTURE
 
 /// [LifecycleStatus] - Tracks the stage of a feature (Screen or API) in the development lifecycle.

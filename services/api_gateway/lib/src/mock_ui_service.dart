@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Dynamically intercepts and generates valid JSON structures for unhandled UI endpoints. Ported from TypeScript to Dart.
 import 'dart:convert';
 import 'dart:math';
 import 'package:shelf/shelf.dart';

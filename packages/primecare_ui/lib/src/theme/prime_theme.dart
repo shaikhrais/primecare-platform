@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
 
 /// Static utility class for PrimeCare colors used across the platform.

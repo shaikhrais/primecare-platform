@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Extract all screen IDs and route paths
 import 'dart:io';
 
 void main() {

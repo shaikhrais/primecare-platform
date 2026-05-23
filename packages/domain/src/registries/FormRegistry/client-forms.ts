@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Core implementation file for the Client Forms platform logic.
 import type { FormEntry } from '../form_registry';
 
 export const CLIENT_FORMS: FormEntry[] = [

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Tracks device connectivity state to prevent pointless API calls when offline. Usage in provi...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: UPGRADED_BY_AI Automatically querying the synced Prisma models const data = await prisma.clientpaymentsscreen.findMan...
 // UPGRADED_BY_AI
 import 'dart:convert';
 import 'package:shelf/shelf.dart';

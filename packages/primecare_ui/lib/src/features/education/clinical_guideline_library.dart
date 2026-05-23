@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Clinical Guideline Library platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final clinicalGuidelinesProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

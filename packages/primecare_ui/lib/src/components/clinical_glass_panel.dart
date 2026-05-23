@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: A premium glassmorphism container for clinical and governance dashboards.
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// A premium glassmorphism container for clinical and governance dashboards.

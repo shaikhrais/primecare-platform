@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Screen Registry workspace interface.
 import '../features/generated_screens/premium_feature_1.dart';
 import '../features/generated_screens/premium_feature_2.dart';
 import '../features/generated_screens/premium_feature_3.dart';

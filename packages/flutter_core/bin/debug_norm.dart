@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Debug Norm platform logic.
 void main() {
   String normalize(String fileName, String suffix) {
     return fileName

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Admin platform logic.
 export const opsAdminContent = {
     ADMISSION: {
         TITLE: 'Client Admission',

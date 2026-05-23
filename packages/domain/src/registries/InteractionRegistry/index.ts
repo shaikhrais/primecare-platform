@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Index platform logic.
 export * from './types';
 import { CLINICAL } from './clinical';
 import { FINANCE_DOMAINS } from './finance';

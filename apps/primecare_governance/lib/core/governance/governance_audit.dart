@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ignore_for_file: avoid_print Master Governance Audit Script This script validates the platform's architectural integr...
 // ignore_for_file: avoid_print
 import 'dart:io';
 

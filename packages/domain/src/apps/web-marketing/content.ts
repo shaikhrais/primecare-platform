@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Content platform logic.
 export const ContentRegistry = {
     APP: {
         NAME: 'PrimeCare Health Services',

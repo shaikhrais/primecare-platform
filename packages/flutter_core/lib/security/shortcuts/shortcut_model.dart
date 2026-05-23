@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Enterprise data transfer object (DTO) schema contract ensuring payload validity.
 import 'package:flutter/widgets.dart';
 
 enum SecurityLevel {

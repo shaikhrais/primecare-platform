@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Approvals Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CeoApprovalsScreen extends StatelessWidget {

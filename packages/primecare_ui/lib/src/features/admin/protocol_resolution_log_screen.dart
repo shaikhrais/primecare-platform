@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Protocol Resolution Log Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final protocolLogsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

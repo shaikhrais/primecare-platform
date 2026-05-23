@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: State representation of a regional clinic's compliance audit status. Provider for site readiness compliance logs.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

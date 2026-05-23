@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Territory Map Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_territory_map_screen_controller.dart';

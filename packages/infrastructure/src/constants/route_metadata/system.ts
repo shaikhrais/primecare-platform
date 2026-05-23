@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the System platform logic.
 export const SYSTEM_METADATA = {
     VOICE: {
         summary: 'Upload Voice Note',

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ────────────────────────────────────────────────────────────────────────────── ButtonRegistry — UNIFIED interactive e...
 // ──────────────────────────────────────────────────────────────────────────────
 // ButtonRegistry — UNIFIED interactive element registry.
 // Consolidates: Buttons, Links, Interactions, and Interactive Elements.

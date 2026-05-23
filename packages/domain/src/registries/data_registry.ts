@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Data Registry platform logic.
 export enum Role {
     CLIENT = 'client',
     PSW = 'psw',

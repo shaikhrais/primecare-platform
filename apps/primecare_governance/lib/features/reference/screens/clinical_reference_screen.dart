@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Clinical Reference Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ClinicalReferenceScreen extends StatelessWidget {

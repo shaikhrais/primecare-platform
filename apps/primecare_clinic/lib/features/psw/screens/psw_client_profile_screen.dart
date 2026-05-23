@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Client Profile Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PswClientProfileScreen extends StatelessWidget {

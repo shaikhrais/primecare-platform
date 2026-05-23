@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Financial Service - Core Class (Skeleton) Reporting methods extracted to financial-reporting.ts
 /**
  * Financial Service - Core Class (Skeleton)
  * Reporting methods extracted to financial-reporting.ts

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: State representation of a logged security incident. Provider for security incident entries.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Geocoding Utility using OpenStreetMap (Nominatim) Converts an address string into latitude and longitude coordinates....
 /**
  * Geocoding Utility using OpenStreetMap (Nominatim)
  */

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Domains 2. Systems
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Core implementation file for the Client platform logic.
 export const CLIENT_METADATA = {
     INVOICES: {
         summary: 'List Client Invoices',

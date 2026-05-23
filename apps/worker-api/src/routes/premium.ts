@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Extract index, e.g., feature-1 -> 1 Extract tenantId from jwtPayload or fallback
 import { Hono } from 'hono';
 
 export const premiumRouter = new Hono();

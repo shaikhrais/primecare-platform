@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Setup Tenant (using standard ID to ensure FK compatibility)
 import { describe, it, expect, beforeAll } from 'vitest';
 import { IdentityService } from '../IdentityService';
 import { PrismaClient } from '@primecare/database';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [SecurityInterceptor] - Implements bank-grade network security. Handles: 1. Device Fingerprinting (X-Device-Fingerpri...
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

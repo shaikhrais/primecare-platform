@@ -1,3 +1,4 @@
+// Governance - Category: config | Purpose: Layer: 01_INFRASTRUCTURE Configuration for the platform's resilience and recovery behavior. If true, catastrophic fai...
 // Layer: 01_INFRASTRUCTURE
 
 /// Configuration for the platform's resilience and recovery behavior.

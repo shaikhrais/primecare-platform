@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Training Director Button Definitions Reusable action buttons for the Training & Compliance module.
 import { ButtonDef } from '../button_registry';
 
 /**

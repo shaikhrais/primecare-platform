@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE A wrapper widget that allows the entire application tree to be destroyed and recreated with ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 

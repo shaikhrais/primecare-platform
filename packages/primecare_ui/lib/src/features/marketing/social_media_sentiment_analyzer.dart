@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Social Media Sentiment Analyzer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final socialSentimentProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

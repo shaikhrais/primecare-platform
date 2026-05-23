@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Leads Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RegionalBdmLeadsScreen extends StatelessWidget {

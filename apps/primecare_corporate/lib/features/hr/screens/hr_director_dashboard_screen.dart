@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Hr Director Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class HrDirectorDashboardScreen extends StatefulWidget {

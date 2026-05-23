@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: AppMode defines the current operational state of the PrimeCare platform. A rigid credential structure representing a ...
 import 'package:flutter/foundation.dart';
 import '../registry/platform_role.dart';
 

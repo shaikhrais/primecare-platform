@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Patient Book Appointment Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 

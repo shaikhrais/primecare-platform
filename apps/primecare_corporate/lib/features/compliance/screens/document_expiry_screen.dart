@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Document Expiry Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ComplianceManagerDocumentExpiryScreen extends StatelessWidget {

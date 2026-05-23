@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Seed Helpers — extracted from seed.ts Helper functions + domain entity seeding logic ── Helper query functions ── ── ...
 /**
  * Seed Helpers — extracted from seed.ts
  * Helper functions + domain entity seeding logic

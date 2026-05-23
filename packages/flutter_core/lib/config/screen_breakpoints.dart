@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Mobile (< 600px) Tablet (600px - 1024px) Full HD / Industry Standard Desktop (1024px - 1440p...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 

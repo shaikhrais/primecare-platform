@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Web Admin Specific Content Overrides This registry inherits from the Master ContentRegistry and applies portal-specif...
 import { ContentRegistry as MasterContentRegistry } from '../../registries/content_registry';
 
 /**

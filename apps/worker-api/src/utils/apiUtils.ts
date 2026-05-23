@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Apiutils platform logic.
 export function successResponse<T>(data: T, message: string = 'Success') {
   return {
     status: 'success',

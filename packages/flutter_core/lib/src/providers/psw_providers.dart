@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Section 9: Provider TTL - Auto-invalidate after 5 minutes to prevent stale data Section 8: Connectivity Awareness - F...
 import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 

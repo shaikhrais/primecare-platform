@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: The omnipresent platform command center drawer, offering glassmorphic real-time controls, compliance auto-patchers, a...
 import 'dart:ui';
 import 'package:primecare_ui/primecare_ui.dart';
 

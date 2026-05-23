@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: A service that bootstraps the platform governance engine and ensures all registries are synchronized and audited at s...
 import 'package:flutter/material.dart';
 
 /// A service that bootstraps the platform governance engine and ensures

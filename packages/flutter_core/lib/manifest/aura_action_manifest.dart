@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_core/flutter_core.dart';

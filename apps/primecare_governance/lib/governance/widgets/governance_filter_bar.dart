@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
 import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceFilterBar extends StatelessWidget {

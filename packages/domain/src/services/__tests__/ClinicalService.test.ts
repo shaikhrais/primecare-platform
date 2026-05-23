@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Ensure test tenant exists
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { PrismaClient } from '@primecare/database';
 import { ClinicalService } from '../ClinicalService';

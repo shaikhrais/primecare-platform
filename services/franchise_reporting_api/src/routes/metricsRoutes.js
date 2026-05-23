@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Franchise metrics endpoints categorized by usage frequency
 
 const express = require('express');
 const router = express.Router();

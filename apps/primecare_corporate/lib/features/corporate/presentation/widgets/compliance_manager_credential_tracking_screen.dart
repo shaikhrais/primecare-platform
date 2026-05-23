@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Compliance Manager Credential Tracking Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ComplianceManagerCredentialTrackingScreen extends StatelessWidget {

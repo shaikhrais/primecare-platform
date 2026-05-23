@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: The [PlatformParityEngine] is the central intelligence unit that validates the interaction between Screen classes and...
 import '../models/api_metadata.dart';
 import '../models/screen_metadata.dart';
 

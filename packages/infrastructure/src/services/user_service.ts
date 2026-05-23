@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Retrieves all users. Provisions a new user in the system. Handles linking a generic profile if needed.
 import { PrismaClient, PlatformRole } from '@primecare/database';
 
 export class UserService {

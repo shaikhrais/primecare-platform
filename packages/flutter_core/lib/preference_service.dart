@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Enterprise Preference Engine for Role-Based Personalization. Handles persistent state for Fa...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';

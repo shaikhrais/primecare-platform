@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Api platform logic.
 export const ApiRegistry = {
     AUTH: {
         LOGIN: '/v1/auth/login',

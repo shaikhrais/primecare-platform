@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Region Performance Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CeoRegionPerformanceScreen extends StatelessWidget {

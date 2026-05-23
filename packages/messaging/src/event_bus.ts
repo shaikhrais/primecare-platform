@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Defines the core structure for inter-domain events in the Modular Monolith Architecture. This class abstracts away ph...
 /**
  * Defines the core structure for inter-domain events in the Modular Monolith Architecture.
  * This class abstracts away physical Event Pub/Sub mechanisms (e.g. Cloudflare Queues, Redis Streams)

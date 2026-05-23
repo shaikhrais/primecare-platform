@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Patient Acquisition Cost Tracker platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final acquisitionCostProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

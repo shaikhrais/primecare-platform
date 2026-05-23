@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Hardened Verification Service for PrimeCare Infrastructure audits. Handles architectural pur...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
 

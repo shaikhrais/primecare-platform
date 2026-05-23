@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Role Access Matrix Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final roleAccessProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

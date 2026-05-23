@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Compliance Cases Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ComplianceManagerComplianceCasesScreen extends StatelessWidget {

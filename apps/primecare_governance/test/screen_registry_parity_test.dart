@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: UI Screen component rendering the Screen Registry Parity Test workspace interface.
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:flutter_test/flutter_test.dart';

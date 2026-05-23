@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Placeholder for shift creation Mock logic to handle create_shift_form
 import { Hono } from 'hono'
 
 export const shiftsRouter = new Hono()

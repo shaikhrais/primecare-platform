@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Logger platform logic.
 import 'package:flutter/foundation.dart';
 
 class AppLogger {

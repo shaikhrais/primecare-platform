@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 01_INFRASTRUCTURE [ApiMetadata] - Comprehensive governance model for a single platform API endpoint. This clas...
 // Layer: 01_INFRASTRUCTURE
 import 'governance_types.dart';
 import 'platform_geometry.dart';

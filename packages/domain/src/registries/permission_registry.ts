@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: PermissionRegistry — Granular RBAC Permission System Auto-derived from the platform's domain structure. Maps permissi...
 /**
  * PermissionRegistry — Granular RBAC Permission System
  *

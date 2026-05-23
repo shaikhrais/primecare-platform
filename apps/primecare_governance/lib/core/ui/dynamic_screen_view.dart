@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: DynamicScreenView - Fully governed visual sandbox branching responsive layouts across LIVE, HDL, GRID, and AUDIT modes.
 import 'dart:ui';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/ui/app_components.dart';

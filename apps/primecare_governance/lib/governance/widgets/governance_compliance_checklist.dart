@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Compliance Checklist platform logic.
 // unnecessary import removed
 import '../models/governance_report.dart';
 import 'package:flutter_core/flutter_core.dart';

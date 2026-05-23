@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Wraps individual screens to enforce platform-wide typography scaling and padding based on th...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

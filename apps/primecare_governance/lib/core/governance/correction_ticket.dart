@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Correction Ticket platform logic.
 import 'package:json_annotation/json_annotation.dart';
 
 part 'correction_ticket.g.dart';

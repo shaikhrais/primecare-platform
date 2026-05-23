@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: [BaseRepository] - Abstract data access layer for Max OOP MVC. Handles raw SQL execution and mapping to domain models...
 import 'package:postgres/postgres.dart';
 
 /// [BaseRepository] - Abstract data access layer for Max OOP MVC.

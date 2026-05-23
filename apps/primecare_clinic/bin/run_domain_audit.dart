@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Register all intents manually as per the latest GovernanceRegistry pattern
 import 'package:flutter_core/registry/governance_registry.dart';
 import 'package:primecare_clinic/core/routing/clinic_routes.dart';
 

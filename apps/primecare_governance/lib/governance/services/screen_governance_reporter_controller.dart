@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Simulating robust REST API network call Fallback gracefully on 404 per user preference
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dio/dio.dart';
 

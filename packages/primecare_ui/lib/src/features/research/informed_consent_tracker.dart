@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Informed Consent Tracker platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class InformedConsentTrackerScreen extends GovernedConsumerWidget {

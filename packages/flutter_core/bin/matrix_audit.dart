@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE 1. Get all ViewModels from Domain 2. Get all Adapters from Domain 3. Get all Intents from Core
 // Layer: 01_INFRASTRUCTURE
 import 'dart:io';
 

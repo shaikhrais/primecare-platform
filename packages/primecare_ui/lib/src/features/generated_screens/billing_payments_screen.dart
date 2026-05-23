@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Billing Payments Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BillingPaymentsScreen extends GovernedStatelessWidget {

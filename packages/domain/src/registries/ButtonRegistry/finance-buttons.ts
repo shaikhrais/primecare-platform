@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Specialized Financial & Ledger Buttons for the PrimeCare Platform. These buttons trigger core financial actions via t...
 import type { ButtonDef } from '../button_registry';
 
 /**

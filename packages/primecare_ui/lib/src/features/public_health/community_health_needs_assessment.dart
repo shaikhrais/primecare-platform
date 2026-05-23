@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Community Health Needs Assessment platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CommunityHealthNeedsAssessmentScreen extends GovernedConsumerWidget {

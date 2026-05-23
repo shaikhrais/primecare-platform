@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Layer: 01_INFRASTRUCTURE
 // Layer: 01_INFRASTRUCTURE
 class ErrorMapper {
   static String mapApiErrorToUiMessage(dynamic error) {

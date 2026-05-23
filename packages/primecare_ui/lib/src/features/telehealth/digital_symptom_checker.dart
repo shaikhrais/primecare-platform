@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Digital Symptom Checker platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class DigitalSymptomCheckerScreen extends GovernedConsumerWidget {

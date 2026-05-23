@@ -1,3 +1,4 @@
+// Governance - Category: config | Purpose: Core implementation file for the Env Config platform logic.
 enum Environment { dev, demo, staging, prod }
 
 class EnvConfig {

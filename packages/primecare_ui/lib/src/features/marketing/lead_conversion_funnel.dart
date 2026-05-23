@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Lead Conversion Funnel platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final leadConversionProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

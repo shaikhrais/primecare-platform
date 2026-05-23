@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Core Services Initialization 2. Route Registration (OOP Pattern) 3. UI Compatibility Layer
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';

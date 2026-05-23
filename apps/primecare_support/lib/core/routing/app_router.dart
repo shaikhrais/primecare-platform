@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Provide a safe fallback role for public/unauthenticated access
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide HelpDeskDashboardScreen, EscalationDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen;
 import '../../features/support/screens/help_desk_dashboard_screen.dart';

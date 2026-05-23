@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Service responsible for bank-grade screen protection. Prevents screenshots, screen recording, and secures the app swi...
 import 'package:screen_protector/screen_protector.dart';
 import 'package:flutter_core/flutter_core.dart';
 

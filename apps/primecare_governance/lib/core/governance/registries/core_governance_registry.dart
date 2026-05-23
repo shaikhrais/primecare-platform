@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Generated Registry - Do Not Edit Manually
 // Generated Registry - Do Not Edit Manually
 import 'package:flutter_core/flutter_core.dart';
 

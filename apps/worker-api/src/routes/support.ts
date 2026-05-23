@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Core implementation file for the Support platform logic.
 import { Hono } from 'hono'
 
 export const supportRouter = new Hono()

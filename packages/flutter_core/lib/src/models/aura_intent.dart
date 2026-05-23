@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 02_MODELS_FOUNDATION
 // Layer: 02_MODELS_FOUNDATION
 enum AuraActionType { navigate, filter, summarize, snooze, reassign, unknown }
 

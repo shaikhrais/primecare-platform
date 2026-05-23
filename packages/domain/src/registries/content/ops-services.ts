@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Services platform logic.
 export const opsServicesContent = {
     SERVICES: {
         TITLE: 'Services & Pricing',

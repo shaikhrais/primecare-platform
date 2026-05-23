@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: [Layout] - The master shell for all PrimeCare Dashboards. Provides a consistent structural foundation with automatic ...
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Layer: 01_CORE Language Provider Manages the currently selected language for the application. Watch AuthProvider for ...
 // Layer: 01_CORE
 import 'package:flutter_core/flutter_core.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Rate Limiter Middleware for Cloudflare Workers Uses in-memory sliding window counters (per-isolate). Workers restart ...
 /**
  * Rate Limiter Middleware for Cloudflare Workers
  *

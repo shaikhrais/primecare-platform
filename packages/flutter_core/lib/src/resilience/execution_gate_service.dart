@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Level of impact for an institutional insight or anomaly. Types of events that the Aura Pulse...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

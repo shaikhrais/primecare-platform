@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE Track the current institutional context (e.g., active office or feature). This allows Aura t...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
 

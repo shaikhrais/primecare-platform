@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Social Determinants Of Health Tracker platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SocialDeterminantsOfHealthTrackerScreen extends GovernedConsumerWidget {

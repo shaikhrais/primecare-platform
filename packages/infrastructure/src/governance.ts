@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Middleware to enforce Network (VPN) and Device Governance. 1. Fetch Tenant Security Config
 import { MiddlewareHandler } from 'hono';
 import { Bindings, Variables } from '@primecare/contracts';
 

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Ensures that if the user is a PSW, they are only accessing resources for a client assigned to them. Only enforce for ...
 import { Context, Next } from 'hono';
 import { Bindings, Variables } from '@primecare/contracts';
 

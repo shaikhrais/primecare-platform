@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Admin Wizard Forms ───────────────────────────────────────────────────────
 import type { FormEntry } from '../form_registry';
 
 // ── Admin Wizard Forms ───────────────────────────────────────────────────────

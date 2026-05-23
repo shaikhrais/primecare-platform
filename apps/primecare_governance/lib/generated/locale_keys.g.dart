@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: DO NOT EDIT. This is code generated via package:easy_localization/generate.dart ignore_for_file: constant_identifier_...
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 // ignore_for_file: constant_identifier_names

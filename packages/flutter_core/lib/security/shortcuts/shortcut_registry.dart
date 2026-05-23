@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Shortcut Registry platform logic.
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'shortcut_model.dart';

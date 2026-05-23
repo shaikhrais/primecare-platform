@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Core implementation file for the Language Provider platform logic.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LanguageProvider extends Notifier<String> {

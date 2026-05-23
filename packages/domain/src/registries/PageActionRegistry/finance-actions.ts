@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Finance-Specific Page Action Mappings Maps page IDs to allowed financial orchestration buttons.
 import type { PageActions } from '../page_action_registry';
 
 /**

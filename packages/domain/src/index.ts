@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Registries Existing - Standardized Role-Based Portals
 // Registries
 export * from './contracts';
 export * from './registries/content_registry';

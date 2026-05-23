@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: 1. Target the correct tenant for data integrity Clear existing dynamic feature records to prevent duplication Generat...
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

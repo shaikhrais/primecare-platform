@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Core implementation file for the Governance Repository platform logic.
 import '../core/base_repository.dart';
 
 class GovernanceRepository extends BaseRepository {

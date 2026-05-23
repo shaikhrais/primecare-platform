@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Organization Map Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CeoOrganizationMapScreen extends StatelessWidget {

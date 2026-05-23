@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: --- Domain Entities ---
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- Domain Entities ---

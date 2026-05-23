@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Global provider for SharedPreferences. This provider must be overridden in the [ProviderScope] with the actual instan...
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

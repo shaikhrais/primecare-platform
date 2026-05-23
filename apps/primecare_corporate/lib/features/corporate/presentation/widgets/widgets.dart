@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Widgets platform logic.
 export 'ceo_dashboard_screen.dart';
 export 'owner_dashboard_screen.dart';
 export 'coo_dashboard_screen.dart';

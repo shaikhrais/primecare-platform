@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Represents different MFA methods. Status of an MFA challenge. Data object for an MFA Challenge.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';

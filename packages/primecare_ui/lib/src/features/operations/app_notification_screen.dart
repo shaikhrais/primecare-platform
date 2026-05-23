@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: State class representing an IoT event broadcast record. Provider for IoT Events, fetching data from the API gateway o...
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

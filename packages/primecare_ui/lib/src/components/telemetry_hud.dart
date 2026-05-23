@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Telemetry Hud platform logic.
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

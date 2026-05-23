@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Generates a "Remediation Script" that can be copy-pasted into the registry. For now, it returns a formatted string wi...
 import 'package:flutter_core/flutter_core.dart';
 
 class GovernancePatchService {

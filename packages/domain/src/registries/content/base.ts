@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Base platform logic.
 import { baseAdminContent } from './base-admin';
 import { baseGrowthContent } from './base-growth';
 

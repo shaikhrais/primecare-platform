@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Event And Webinar Manager platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final eventsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

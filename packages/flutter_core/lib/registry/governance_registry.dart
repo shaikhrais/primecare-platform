@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Central Governance Registry for the PrimeCare Platform. This system manages the lifecycle and "Intent" of all platfor...
 import 'intents/app_screen_intent.dart';
 import 'platform_role.dart';
 

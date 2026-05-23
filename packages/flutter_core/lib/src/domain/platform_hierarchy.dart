@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Represents a global business policy enforced at the Organization level. Validates if a specific component or action c...
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../aura_behavioral_telemetry.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Territory Growth Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RegionalBdmTerritoryGrowthScreen extends StatelessWidget {

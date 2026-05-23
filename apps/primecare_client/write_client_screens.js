@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Write Client Screens workspace interface.
 const fs = require('fs');
 
 const patientDashboard = `import 'package:flutter/material.dart';

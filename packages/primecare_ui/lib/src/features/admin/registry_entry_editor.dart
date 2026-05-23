@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Registry Entry Editor platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegistryEntryEditorScreen extends GovernedConsumerWidget {

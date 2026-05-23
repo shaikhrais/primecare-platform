@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Client / PSW lists
 import type { ListEntry } from '../page_registry';
 
 export const ListRegistry: ListEntry[] = [

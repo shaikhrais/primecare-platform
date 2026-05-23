@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 01_INFRASTRUCTURE Primary subsystems across the PrimeCare Platform. Defines the type of shell layout to use fo...
 // Layer: 01_INFRASTRUCTURE
 import '../src/models/scheduler_models.dart';
 import '../src/models/dashboard_models.dart';

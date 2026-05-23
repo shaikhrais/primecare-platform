@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A high-fidelity navigator that enforces platform governance policies. Instead of navigating ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

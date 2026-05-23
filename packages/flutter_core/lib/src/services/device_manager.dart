@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [DeviceManager] - Manages unique device identity and tracking for the PrimeCare platform. Returns the unique device I...
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:device_info_plus/device_info_plus.dart';

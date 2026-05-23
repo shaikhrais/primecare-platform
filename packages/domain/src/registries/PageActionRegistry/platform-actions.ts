@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Admin Pages
 import type { PageActions } from '../page_action_registry';
 
 export const PLATFORM_ACTIONS: Record<string, PageActions> = {

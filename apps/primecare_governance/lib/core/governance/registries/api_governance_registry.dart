@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [ApiGovernanceRegistry] - Central registry for all platform API endpoints. Defines the architectural intent and compl...
 import 'package:flutter_core/models/platform_geometry.dart';
 import 'package:flutter_core/models/api_metadata.dart';
 import 'package:flutter_core/models/governance_types.dart';

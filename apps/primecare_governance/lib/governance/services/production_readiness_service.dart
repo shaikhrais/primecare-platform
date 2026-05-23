@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Production Readiness Service platform logic.
 import 'package:flutter_core/flutter_core.dart';
 
 class ProductionReadinessService {

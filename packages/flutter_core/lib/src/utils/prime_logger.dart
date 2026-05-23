@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE A structured logging utility for PrimeCare and Clinical Intelligence. Specialized logging fo...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:developer' as dev;
 import 'package:flutter/foundation.dart';

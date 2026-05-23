@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Governance Ci Test platform logic.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/screen_governance_reporter.dart';

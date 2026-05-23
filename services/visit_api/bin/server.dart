@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Fetch all clinical visits
 import 'dart:io';
 import 'dart:convert';
 import 'package:shelf/shelf.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: A pure-Dart replacement for [ui.Size] to enable shared models between UI (Flutter) and Backend (Shelf/Workers) subsys...
 /// A pure-Dart replacement for [ui.Size] to enable shared models 
 /// between UI (Flutter) and Backend (Shelf/Workers) subsystems.
 class PlatformSize {

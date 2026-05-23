@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Forgot Password View platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 

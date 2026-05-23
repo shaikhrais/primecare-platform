@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart' hide
     RegionalManagerUsaDashboardScreen,
     FranchiseSalesManagerDashboardScreen,

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Theme Registry platform logic.
 export const ThemeRegistry = {
     COLORS: {
         PRIMARY: '--pc-primary',

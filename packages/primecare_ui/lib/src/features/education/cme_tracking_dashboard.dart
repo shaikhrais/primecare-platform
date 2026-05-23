@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cme Tracking Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final cmeTrackingProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Surgical Video Archive platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final surgicalVideosProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

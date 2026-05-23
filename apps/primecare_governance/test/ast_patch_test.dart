@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Create a mock ScreenRegistry file
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';

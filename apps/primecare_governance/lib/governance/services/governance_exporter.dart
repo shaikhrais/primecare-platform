@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Generates a Markdown representation of the governance report
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';

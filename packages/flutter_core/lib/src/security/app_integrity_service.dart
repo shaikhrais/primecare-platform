@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Defines the integrity status of the application environment.
 import 'package:flutter/foundation.dart';
 import 'package:safe_device/safe_device.dart';
 import 'package:root_checker_plus/root_checker_plus.dart';

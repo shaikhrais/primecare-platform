@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: --- State Model ---
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- State Model ---

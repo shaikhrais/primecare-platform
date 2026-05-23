@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: CFO Route COO Route
 import { Hono } from 'hono'
 import { successResponse } from '../utils/apiUtils'
 

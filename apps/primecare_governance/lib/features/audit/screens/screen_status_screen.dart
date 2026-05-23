@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Screen Status Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ScreenStatusScreen extends StatelessWidget {

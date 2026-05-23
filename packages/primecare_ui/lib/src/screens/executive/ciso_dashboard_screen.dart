@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: --- DEFCON Level enum --- --- MVC Security Alert Model ---
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- DEFCON Level enum ---

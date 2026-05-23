@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE A high-fidelity skeleton widget for governed screens. This widget throws an [UnimplementedGo...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../intents/app_screen_intent.dart';

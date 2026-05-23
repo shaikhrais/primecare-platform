@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Sales Manager Discovery Calls Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseSalesManagerDiscoveryCallsScreen extends StatelessWidget {

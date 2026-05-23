@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
 const fs = require('fs');
 const path = require('path');
 

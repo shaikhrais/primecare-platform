@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Partnership Manager Active Deals Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_active_deals_screen_controller.dart';

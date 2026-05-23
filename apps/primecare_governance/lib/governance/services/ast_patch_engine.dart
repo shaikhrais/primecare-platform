@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [ASTPatchEngine] - A high-fidelity remediation engine that uses AST parsing to safely modify architectural registries...
 import 'dart:io';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';

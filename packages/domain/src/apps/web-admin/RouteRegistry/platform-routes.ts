@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 export const PLATFORM_ROUTES = {
     ADMIN: {
         HOME: '/platform/admin',

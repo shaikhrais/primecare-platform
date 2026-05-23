@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Marketing Manager Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class MarketingManagerDashboardScreen extends StatelessWidget {

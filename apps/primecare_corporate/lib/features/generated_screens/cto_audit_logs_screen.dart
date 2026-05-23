@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cto Audit Logs Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

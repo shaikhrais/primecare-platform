@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Check Dmmf Fk platform logic.
 import { PrismaClient, Prisma } from './generated/client';
 const prisma = new PrismaClient();
 

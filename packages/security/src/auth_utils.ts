@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Standard Auth Middleware using HttpOnly Secure Cookies. R22: Cookie-only JWT authentication — NO header fallback Head...
 import { Context, Next } from 'hono';
 import { jwt } from 'hono/jwt';
 

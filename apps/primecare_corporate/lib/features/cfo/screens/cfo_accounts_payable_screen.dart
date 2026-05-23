@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cfo Accounts Payable Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CfoAccountsPayableScreen extends StatelessWidget {

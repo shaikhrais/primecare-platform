@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 0. AI Agent Blueprints (Governance First) 1. Core Tenants
 import { PrismaClient } from '../generated/client';
 import { faker } from '@faker-js/faker';
 import { seedAgentBlueprints } from './seed_agent_blueprints';

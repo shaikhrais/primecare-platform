@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Database data model, schema migrations, and client persistence interfaces.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'governance_database.dart';
 import '../connection/connection_stub.dart'

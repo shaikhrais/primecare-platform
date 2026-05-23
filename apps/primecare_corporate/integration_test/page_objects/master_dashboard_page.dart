@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Structural UI Theme and Styles layout binding Core Template Elements High-Level KPIs Advanced Sections
 // Structural UI Theme and Styles layout binding
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

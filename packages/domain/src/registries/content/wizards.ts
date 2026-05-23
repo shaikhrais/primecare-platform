@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Wizards platform logic.
 export const wizardsContent = {
     SETUP_WIZARD: {
         TITLE: 'Business Setup Wizard',

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Credential Tracking Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ComplianceManagerCredentialTrackingScreen extends StatelessWidget {

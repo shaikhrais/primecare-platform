@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Sales Manager Sales Pipeline Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_sales_pipeline_screen_controller.dart';

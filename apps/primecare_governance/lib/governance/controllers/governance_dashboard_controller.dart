@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard Controller workspace interface.
 import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';

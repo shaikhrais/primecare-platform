@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Daily platform logic.
 export const opsDailyContent = {
     DAILY_ENTRY: {
         TITLE: 'Daily Care Entry',

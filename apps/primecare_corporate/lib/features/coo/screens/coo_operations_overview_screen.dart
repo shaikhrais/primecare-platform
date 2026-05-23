@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Operations Overview Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooOperationsOverviewScreen extends StatelessWidget {

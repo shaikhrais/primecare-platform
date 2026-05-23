@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Get Tenants SHA-256 legacy hash for 'password123' (auto-upgrades to PBKDF2 on first login via the backend auth interc...
 import { PrismaClient } from '../generated/client';
 
 const prisma = new PrismaClient();

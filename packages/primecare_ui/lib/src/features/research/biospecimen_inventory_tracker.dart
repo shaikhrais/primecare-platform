@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Biospecimen Inventory Tracker platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BiospecimenInventoryTrackerScreen extends GovernedConsumerWidget {

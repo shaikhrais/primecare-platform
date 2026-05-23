@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Clinical Outcomes Report platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final clinicalOutcomesProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

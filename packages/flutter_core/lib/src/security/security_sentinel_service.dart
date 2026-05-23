@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [SecuritySentinelService] - The watchful guardian of the platform. Collects and dispatches security events to the Gov...
 import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 

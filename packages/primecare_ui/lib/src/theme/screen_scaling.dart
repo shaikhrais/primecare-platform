@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Utility class to handle high-fidelity responsive scaling from a 4K design canvas (3840x2160). This ensures that 4K de...
 import 'package:flutter/material.dart';
 
 /// Utility class to handle high-fidelity responsive scaling from a 4K design canvas (3840x2160).

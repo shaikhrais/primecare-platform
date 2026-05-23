@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Pharmacy Inventory Management platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PharmacyInventoryManagementScreen extends GovernedConsumerWidget {

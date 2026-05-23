@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Write Support Screens workspace interface.
 const fs = require('fs');
 
 const itAdmin = `import 'package:flutter/material.dart';

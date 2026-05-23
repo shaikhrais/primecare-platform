@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Layer: 03_DATA_DOMAIN_LOGIC Provider that supplies the navigation menu items for the current user's role. Diagnostic ...
 // Layer: 03_DATA_DOMAIN_LOGIC
 import 'package:flutter_core/flutter_core.dart';
 

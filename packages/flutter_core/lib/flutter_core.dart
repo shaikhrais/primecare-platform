@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 00_ENTRY_POINT Master export file for flutter_core. export 'package:flutter_core/flutter_core.dart' hide archi...
 // Layer: 00_ENTRY_POINT
 // Master export file for flutter_core.
 export 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Vitest.Config platform logic.
 import { defineConfig } from 'vitest/config';
 import path from 'path';
 

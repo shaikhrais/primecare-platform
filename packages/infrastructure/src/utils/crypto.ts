@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: #R3-1: Upgraded password hashing from plain SHA-256 to PBKDF2 with random salt. SHA-256 (unsalted) is vulnerable to r...
 /**
  * #R3-1: Upgraded password hashing from plain SHA-256 to PBKDF2 with random salt.
  *

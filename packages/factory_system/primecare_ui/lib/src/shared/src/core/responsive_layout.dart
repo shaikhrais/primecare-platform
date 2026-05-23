@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 02_COMPONENTS Standard breakpoints for the PrimeCare platform. A responsive layout widget that selects the app...
 // Layer: 02_COMPONENTS
 import 'package:flutter/material.dart';
 

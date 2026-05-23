@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Write Busdev Screens workspace interface.
 const fs = require('fs');
 
 const franchise = `import 'package:flutter/material.dart';

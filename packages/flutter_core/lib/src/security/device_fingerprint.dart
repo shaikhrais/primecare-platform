@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Represents a multi-dimensional identifier for a device to prevent spoofing.
 import 'package:equatable/equatable.dart';
 
 /// Represents a multi-dimensional identifier for a device to prevent spoofing.

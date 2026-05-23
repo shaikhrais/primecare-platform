@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Defines the depth and scope of the test execution. Basic verification of login and dashboard rendering. Very fast. In...
 ﻿import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';

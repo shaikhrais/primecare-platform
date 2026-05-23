@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Flags a screen for architectural review. This persists the issue to the local audit log for synchronization.
 import 'package:flutter_core/flutter_core.dart';
 import 'audit_service.dart';
 

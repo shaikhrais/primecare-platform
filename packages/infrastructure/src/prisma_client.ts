@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Skip for OPTIONS Check if this is a light route BEFORE attempting Prisma WASM init Don't load WASM for light routes —...
 import { createMiddleware } from 'hono/factory';
 import { Bindings, Variables } from '@primecare/contracts';
 // import { tenantExtension } from '@primecare/database';

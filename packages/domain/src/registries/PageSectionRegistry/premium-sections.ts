@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── H25: Gamification Hub ──────────────────────────────────────────────── ── H26: IoT Monitoring ────────────────────...
 import type { PageSections } from '../page_section_registry';
 
 export const PREMIUM_SECTIONS: Record<string, PageSections> = {

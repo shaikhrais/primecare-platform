@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE A premium, high-density dashboard split layout designed for large displays. On desktop and w...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../../config/screen_breakpoints.dart';

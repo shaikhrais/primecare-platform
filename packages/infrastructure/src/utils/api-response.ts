@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: API Response Envelope Utility Standardizes all API responses with a consistent shape: { data, meta, error } Usage in ...
 /**
  * API Response Envelope Utility
  * Standardizes all API responses with a consistent shape:

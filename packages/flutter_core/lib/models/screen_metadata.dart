@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: [ScreenMetadata] - Comprehensive governance model for a single platform screen. Centralizes the architectural intent,...
 import 'package:flutter/material.dart';
 import 'governance_types.dart';
 import 'platform_geometry.dart';

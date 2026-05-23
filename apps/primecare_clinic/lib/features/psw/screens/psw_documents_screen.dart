@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Documents Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PswDocumentsScreen extends StatelessWidget {

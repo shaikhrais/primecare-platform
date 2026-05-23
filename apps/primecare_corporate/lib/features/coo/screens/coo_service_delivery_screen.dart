@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Service Delivery Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooServiceDeliveryScreen extends StatelessWidget {

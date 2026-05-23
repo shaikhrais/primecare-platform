@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Language Selector platform logic.
 import 'package:primecare_governance/core/i18n/language_provider.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 

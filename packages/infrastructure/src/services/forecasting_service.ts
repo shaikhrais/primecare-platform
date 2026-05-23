@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Forecasting Service platform logic.
 import { PrismaClient } from '@primecare/database';
 import { Decimal } from 'decimal.js';
 

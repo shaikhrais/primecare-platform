@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Zod Schemas platform logic.
 import { z } from 'zod';
 
 export const LeadSchema = z.object({

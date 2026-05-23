@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 05_USER_INTERFACE A reusable recovery screen for handling domain logistics failures. This widget provides a co...
 // Layer: 05_USER_INTERFACE
 import 'package:flutter/material.dart';
 

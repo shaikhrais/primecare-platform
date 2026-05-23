@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Attempts to automatically apply a fix to the registry file. This is a high-risk operation and should ideally be done ...
 import 'dart:io';
 import 'package:flutter_core/flutter_core.dart';
 

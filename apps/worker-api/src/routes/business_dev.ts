@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Core implementation file for the Business Dev platform logic.
 import { Hono } from 'hono'
 
 export const businessDevRouter = new Hono()

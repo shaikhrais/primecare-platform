@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Screen Work Item workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screen_work_item_controller.dart';

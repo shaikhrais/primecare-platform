@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Dynamic Form Builder platform logic.
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'app_components.dart';

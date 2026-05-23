@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE Represents the decision of the RouteGuard for a given navigation event. A centralized Guard ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/foundation.dart';
 import 'package:flutter_core/routes/groups/common_routes.dart';

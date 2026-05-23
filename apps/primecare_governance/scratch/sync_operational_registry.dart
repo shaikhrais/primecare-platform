@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Sync Operational Registry platform logic.
 import 'dart:io';
 
 void main() {

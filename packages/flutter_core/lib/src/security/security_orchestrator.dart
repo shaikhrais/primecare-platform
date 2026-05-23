@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Represents the current security posture of the application. Bank-grade security check: Must be authenticated, trusted...
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'mfa_service.dart';
 import 'trusted_device_service.dart';

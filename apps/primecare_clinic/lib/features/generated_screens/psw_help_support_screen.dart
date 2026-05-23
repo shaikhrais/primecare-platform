@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UPGRADED_BY_AI
 // UPGRADED_BY_AI
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

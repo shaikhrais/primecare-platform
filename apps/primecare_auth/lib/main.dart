@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Main platform logic.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:web/web.dart' as web;

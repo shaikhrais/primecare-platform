@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Sentry Middleware for Cloudflare Workers Wraps the Hono app's fetch handler with Sentry error tracking. Uses @sentry/...
 /**
  * Sentry Middleware for Cloudflare Workers
  *

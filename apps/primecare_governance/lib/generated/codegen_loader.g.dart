@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: DO NOT EDIT. This is code generated via package:easy_localization/generate.dart ignore_for_file: prefer_single_quotes...
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 // ignore_for_file: prefer_single_quotes, avoid_renaming_method_parameters, constant_identifier_names

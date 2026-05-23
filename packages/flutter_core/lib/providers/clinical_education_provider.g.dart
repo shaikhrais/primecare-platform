@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: GENERATED CODE - DO NOT MODIFY BY HAND ************************************************************************** Riv...
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'clinical_education_provider.dart';

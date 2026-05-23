@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Public Routes — extracted from index.ts Health, branding, stats, marketing leads, public registries, telemetry
 /**
  * Public Routes — extracted from index.ts
  * Health, branding, stats, marketing leads, public registries, telemetry

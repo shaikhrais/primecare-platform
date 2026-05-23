@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: CORS + Fetch Wrapper — extracted from index.ts Ensures CORS headers on ALL responses including errors
 /**
  * CORS + Fetch Wrapper — extracted from index.ts
  * Ensures CORS headers on ALL responses including errors

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Patient My Appointments Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PatientMyAppointmentsScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Billing Service platform logic.
 import { FinancialService } from './financial_service';
 
 /** Lightweight Decimal for Cloudflare Workers (replaces @prisma/client Decimal) */

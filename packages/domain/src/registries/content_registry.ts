@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Content Registry platform logic.
 import { baseContent } from './content/base';
 import { homesContent } from './content/homes';
 import { operationsContent } from './content/operations';

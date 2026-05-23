@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Scratch Check Ledger platform logic.
 import { LedgerService } from './src/services/LedgerService';
 import { PrismaClient } from '@primecare/database';
 

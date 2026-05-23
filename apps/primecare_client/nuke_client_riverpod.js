@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Core implementation file for the Nuke Client Riverpod platform logic.
 const fs = require('fs');
 const path = require('path');
 

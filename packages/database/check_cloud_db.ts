@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Sample the first 3 to verify data consistency
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

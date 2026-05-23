@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Branch Comparison Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooBranchComparisonScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Core implementation file for the Governance Provider platform logic.
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

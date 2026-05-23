@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Sales Manager Proposals Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_proposals_screen_controller.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: [GovernanceEventFeed] - A high-fidelity real-time telemetry feed showing architectural and security events as they ha...
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../core/governance/governance_provider.dart';

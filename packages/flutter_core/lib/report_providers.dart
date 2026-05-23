@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Provider for the ReportService instance. Resilient provider for report data. Utilizes Result.guardFuture with DataLog...
 import 'package:flutter_core/flutter_core.dart';
 
 /// Provider for the ReportService instance.

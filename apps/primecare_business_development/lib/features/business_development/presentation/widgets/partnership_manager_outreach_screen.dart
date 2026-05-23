@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Partnership Manager Outreach Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_outreach_screen_controller.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Scheduler Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class SchedulerDashboardScreen extends StatefulWidget {

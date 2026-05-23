@@ -1,3 +1,4 @@
+// Governance - Category: config | Purpose: Core implementation file for the Configuration Version Control platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final configVersionsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

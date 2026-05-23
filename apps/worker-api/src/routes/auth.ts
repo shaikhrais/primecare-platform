@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Dynamic helper to resolve user details from email or role token
 import { Hono } from 'hono'
 
 export const authRouter = new Hono()

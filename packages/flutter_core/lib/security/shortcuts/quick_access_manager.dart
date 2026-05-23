@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Processes a keyboard event and checks if it matches a registered shortcut.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Automated Governance Manifest Generator for PrimeCare Platform. Scans the workspace to calculate LOC, file counts, an...
 import 'dart:io';
 import 'package:path/path.dart' as p;
 

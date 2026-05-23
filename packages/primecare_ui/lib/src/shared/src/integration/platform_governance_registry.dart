@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 00_GOVERNANCE_MANIFEST Architecture: Immutable Platform Master Registry
 // Layer: 00_GOVERNANCE_MANIFEST
 // Architecture: Immutable Platform Master Registry
 

@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Core implementation file for the Billing platform logic.
 import { Hono } from 'hono'
 
 export const billingRouter = new Hono()

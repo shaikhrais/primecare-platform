@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Controller for Franchise Daily Metrics Logic to calculate daily revenue, patient visits, and compliance metrics Contr...
 
 // Controller for Franchise Daily Metrics
 exports.getDailyMetrics = async (req, res) => {

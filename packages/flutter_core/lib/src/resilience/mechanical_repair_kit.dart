@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE as ComponentWarehouse is in primecare_ui which depends on flutter_core. A centralized utilit...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/foundation.dart';
 import '../../registry/governance_registry.dart';

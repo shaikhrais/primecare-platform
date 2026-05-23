@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import { ADMIN_METADATA } from './route_metadata/admin';
 import { AUTH_METADATA } from './route_metadata/auth';
 import { USER_METADATA, MANAGER_METADATA } from './route_metadata/user_manager';

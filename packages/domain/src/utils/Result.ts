@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: A standard wrapper for operation results in the PrimeCare domain layer. Ensures consistent error handling and resilie...
 /**
  * A standard wrapper for operation results in the PrimeCare domain layer.
  * Ensures consistent error handling and resilience patterns across all services.

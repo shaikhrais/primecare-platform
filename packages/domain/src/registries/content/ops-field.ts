@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Field platform logic.
 export const opsFieldContent = {
     PSW_LIVE_VISIT: {
         TITLE: 'Live Visit Tracker',

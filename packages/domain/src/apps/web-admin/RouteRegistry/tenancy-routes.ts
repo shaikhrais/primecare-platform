@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Premium features
 export const TENANCY_ROUTES = {
     MANAGER: {
         HOME: '/tenancy/manager',

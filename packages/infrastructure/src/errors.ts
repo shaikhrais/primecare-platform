@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Classify an error into a category for structured logging. Categories: 'validation' (Zod), 'database' (Prisma), 'auth'...
 import { Context, Next } from 'hono';
 
 /**

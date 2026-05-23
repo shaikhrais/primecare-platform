@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: RBAC Middleware — Permission and Role guards for API endpoints Uses the centralized PermissionRegistry from the share...
 /**
  * RBAC Middleware — Permission and Role guards for API endpoints
  *

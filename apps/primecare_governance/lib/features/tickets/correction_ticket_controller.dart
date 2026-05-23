@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'correction_ticket_model.dart';
 import 'package:flutter_core/flutter_core.dart';

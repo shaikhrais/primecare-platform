@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Resolves the tax rate based on the region code. Defaulting to Canadian rules for Phase 11.
 import { Prisma } from '@primecare/database';
 import { Result } from '../utils/Result';
 

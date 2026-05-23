@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Platform Homes ── ── Tenancy Homes ──
 import type { HomeEntry } from '../page_registry';
 
 export const HomeRegistry: HomeEntry[] = [

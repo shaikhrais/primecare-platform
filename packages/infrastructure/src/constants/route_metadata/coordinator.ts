@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Coordinator platform logic.
 export const COORDINATOR_METADATA = {
     MATCH_OVERRIDE: {
         summary: 'Override PSW Match',

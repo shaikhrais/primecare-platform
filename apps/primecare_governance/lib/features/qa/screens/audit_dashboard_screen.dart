@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Audit Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class AuditDashboardScreen extends StatelessWidget {

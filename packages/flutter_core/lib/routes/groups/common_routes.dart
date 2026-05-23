@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE
 // Layer: 01_INFRASTRUCTURE
 class CommonRoutes {
   const CommonRoutes._();

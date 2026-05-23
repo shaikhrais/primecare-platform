@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Staff Training Matrix Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TrainingDirectorStaffTrainingMatrixScreen extends StatelessWidget {

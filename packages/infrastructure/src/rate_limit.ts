@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: R23 (L22): Distributed rate limiter using Cloudflare KV. Falls back to in-memory Map for local development. In produc...
 import { MiddlewareHandler } from 'hono';
 import { Bindings, Variables } from '@primecare/contracts';
 

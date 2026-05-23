@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: --- MVC State Model ---
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---

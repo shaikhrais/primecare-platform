@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Get all models from the prisma object (skipping internal ones)
 import { PrismaClient } from '../generated/client';
 
 const prisma = new PrismaClient();

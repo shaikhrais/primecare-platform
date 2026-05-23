@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Nav platform logic.
 import { scrumMasterContent } from './scrum-master';
 
 export const navContent = {

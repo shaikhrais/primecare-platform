@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Manager Branch Comparison Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RegionalManagerBranchComparisonScreen extends StatelessWidget {

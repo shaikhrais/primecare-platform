@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Evaluates whether the user is permitted to use the specified shortcut rule.
 import 'shortcut_model.dart';
 import '../../models/governance_role.dart';
 import '../../registry/platform_screen_registry.dart';

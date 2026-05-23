@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Database data model, schema migrations, and client persistence interfaces.
 const fs = require('fs');
 const path = require('path');
 

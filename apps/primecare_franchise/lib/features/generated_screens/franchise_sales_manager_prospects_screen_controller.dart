@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: UPGRADED_BY_AI Simulating robust REST API network call Fallback gracefully on 404 per user preference
 // UPGRADED_BY_AI
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dio/dio.dart';

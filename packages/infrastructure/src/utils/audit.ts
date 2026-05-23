@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Logs a standard audit action to the database.
 import { PrismaClient } from '@primecare/database';
 
 /**

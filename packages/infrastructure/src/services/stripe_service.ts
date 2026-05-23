@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Creates a Stripe Connect Express account for a new Tenant.
 import Stripe from 'stripe';
 
 export class StripeService {

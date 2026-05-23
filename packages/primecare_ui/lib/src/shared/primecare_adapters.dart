@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Base class for all ViewModels in the PrimeCare UI Factory. Provides standardized properties for state management and ...
 import 'package:equatable/equatable.dart';
 import 'package:flutter_core/flutter_core.dart';
 

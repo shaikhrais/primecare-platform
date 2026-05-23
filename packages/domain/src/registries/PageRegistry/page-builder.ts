@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: ── Raw Page Type (before serial numbering) ────────────────────────────────── ── Static Pages ───────────────────────...
 import type { PageEntry, PageType } from '../page_registry';
 import { CATEGORY_PREFIXES } from '../page_registry';
 import { HomeRegistry } from './homes';

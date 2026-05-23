@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Setup Tenant 2. Create Clients (3)
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE
 // Layer: 01_INFRASTRUCTURE
 enum DataSourceType { mock, api, hybrid }
 

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 02_PRESENTATION_INFRASTRUCTURE [FamilyManager] - Parameterized manager for role-based dashboards. Entry point ...
 // Layer: 02_PRESENTATION_INFRASTRUCTURE
 import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:async';

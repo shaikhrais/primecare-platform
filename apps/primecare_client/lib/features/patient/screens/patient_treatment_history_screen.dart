@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Patient Treatment History Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PatientTreatmentHistoryScreen extends StatelessWidget {

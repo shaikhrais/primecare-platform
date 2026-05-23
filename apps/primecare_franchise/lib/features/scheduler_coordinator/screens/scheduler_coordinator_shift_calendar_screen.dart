@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Scheduler Coordinator Shift Calendar Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class SchedulerCoordinatorShiftCalendarScreen extends StatelessWidget {

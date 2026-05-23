@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Hierarchical Governance Roles for PrimeCare Platform Synchronized with packages/flutter_core/lib/models/governance_ro...
 /**
  * Hierarchical Governance Roles for PrimeCare Platform
  * Synchronized with packages/flutter_core/lib/models/governance_role.dart

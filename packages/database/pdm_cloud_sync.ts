@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Attempting to find the correct model property dynamically or using common camelCase patterns
 import { PrismaClient } from './generated/client';
 import * as fs from 'fs';
 import * as path from 'path';

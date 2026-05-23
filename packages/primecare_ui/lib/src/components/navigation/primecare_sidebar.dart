@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Primecare Sidebar platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 

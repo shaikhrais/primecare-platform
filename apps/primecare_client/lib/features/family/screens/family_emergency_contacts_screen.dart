@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Family Emergency Contacts Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FamilyEmergencyContactsScreen extends StatelessWidget {

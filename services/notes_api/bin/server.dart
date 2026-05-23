@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Edge API service engine running request listeners and background worker micro-tasks.
 import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';

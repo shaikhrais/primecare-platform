@@ -1,3 +1,4 @@
+// Governance - Category: config | Purpose: Core implementation file for the Theme Config platform logic.
 export const theme = {
     colors: {
         primary: '#00897b',      // PrimeCare Light Green (Standard)

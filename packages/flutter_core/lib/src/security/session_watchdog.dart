@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [SessionWatchdog] - Monitors user activity and app lifecycle. Enforces biometric re-authentication on resume and auto...
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';

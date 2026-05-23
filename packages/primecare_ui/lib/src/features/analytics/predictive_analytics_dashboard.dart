@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Predictive Analytics Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final predictiveAnalyticsProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

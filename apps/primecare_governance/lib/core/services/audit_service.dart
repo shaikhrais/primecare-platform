@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: In a real app, attempt to sync here if connectivity is available
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../database/app_database.dart';
 import 'package:drift/drift.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Database data model, schema migrations, and client persistence interfaces.
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../connection/connection_stub.dart'

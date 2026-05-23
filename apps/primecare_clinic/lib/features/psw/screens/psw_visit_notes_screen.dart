@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Visit Notes Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PswVisitNotesScreenView extends StatelessWidget {

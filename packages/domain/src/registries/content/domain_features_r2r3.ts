@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Round 2 (G1-G15) + Round 3 (G16-G27) domain feature content strings ──── Round 2 Domain Features (G1–G15) ──── G1 — N...
 // Round 2 (G1-G15) + Round 3 (G16-G27) domain feature content strings
 
 export const domainFeaturesContentR2R3 = {

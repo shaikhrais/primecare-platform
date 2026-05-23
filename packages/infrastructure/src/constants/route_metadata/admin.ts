@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Admin platform logic.
 export const ADMIN_METADATA = {
     VISITS: {
         LIST: {

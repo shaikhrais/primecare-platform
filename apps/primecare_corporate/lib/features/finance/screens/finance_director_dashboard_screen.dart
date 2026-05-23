@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Finance Director Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FinanceDirectorDashboardScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Round 1 domain feature content (F1-F18) F1 — EVV F2 — RAI-HC / OASIS F3 — Authorizations
 import { domainFeaturesContentR2R3 } from './domain_features_r2r3';
 
 // Round 1 domain feature content (F1-F18)

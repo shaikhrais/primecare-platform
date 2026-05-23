@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Screen Governance Reporter workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screen_governance_reporter_controller.dart';

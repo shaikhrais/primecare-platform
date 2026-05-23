@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Clinical Term Highlighter platform logic.
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

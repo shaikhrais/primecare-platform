@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Use vi.hoisted to ensure the mock object is available during vi.mock execution
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { LedgerService } from '../LedgerService';
 import { Prisma } from '@primecare/database';

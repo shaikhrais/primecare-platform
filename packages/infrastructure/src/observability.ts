@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: #R3: Observability Middleware Adds correlation IDs and request logging for tracing + debugging. Phase 3C upgrades: - ...
 import { MiddlewareHandler } from 'hono';
 import { Bindings, Variables } from '@primecare/contracts';
 

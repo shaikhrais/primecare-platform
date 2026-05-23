@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Training Director Form Definitions Standardized high-fidelity forms for the Training & Compliance module.
 import { FormEntry } from '../form_registry';
 
 /**

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Open Territories Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TerritoryExpansionManagerOpenTerritoriesScreen extends StatelessWidget {

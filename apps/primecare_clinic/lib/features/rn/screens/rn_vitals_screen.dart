@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Rn Vitals Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RnVitalsScreen extends StatefulWidget {

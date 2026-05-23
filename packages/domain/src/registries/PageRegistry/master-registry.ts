@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Auth Forms (F1–F5) ── ── Admin Homes (D1–D6) ── ── Admin Forms (F6–F12) ──
 import type { PageType, PageEntry, MasterEntry } from '../page_registry';
 
 export const MASTER_REGISTRY: Record<string, MasterEntry> = {

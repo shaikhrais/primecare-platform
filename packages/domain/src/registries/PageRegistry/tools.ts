@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Security tools Scrum Master tools
 import type { ToolEntry } from '../page_registry';
 
 export const ToolRegistry: ToolEntry[] = [

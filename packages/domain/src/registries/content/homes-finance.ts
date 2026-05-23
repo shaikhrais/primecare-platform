@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Homes Finance platform logic.
 export const homesFinanceContent = {
     ACCOUNTING_HOME: {
         TITLE: 'Accounting Intelligence',

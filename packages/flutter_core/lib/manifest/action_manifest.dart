@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE 1. Log to centralized telemetry (placeholder) 2. Show user feedback
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Notifier to manage global content zoom scale factor. Persists the value to SharedPreferences so that user zoom settin...
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'persistence_providers.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cto Feature Adoption Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CtoFeatureAdoptionScreen extends StatelessWidget {

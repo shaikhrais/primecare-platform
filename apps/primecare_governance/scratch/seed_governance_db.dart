@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Simulate gradual improvement
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:primecare_governance/core/database/governance_database.dart';

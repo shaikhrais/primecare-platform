@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: If the list is empty or only contains ConnectivityResult.none, we are offline. ConnectivityResult.none means no conne...
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

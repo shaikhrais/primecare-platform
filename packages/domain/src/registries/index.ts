@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Index platform logic.
 export * from './ApiRegistry';
 export * from './content_registry';
 export * from './data_registry';

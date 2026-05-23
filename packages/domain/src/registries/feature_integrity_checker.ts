@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ────────────────────────────────────────────────────────────────────────────── FeatureIntegrityChecker — Cross-valida...
 // ──────────────────────────────────────────────────────────────────────────────
 // FeatureIntegrityChecker — Cross-validates all registries to detect
 // incomplete feature implementations (missing routes, APIs, buttons, forms).

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Add factory-specific exports here as needed
 library primecare_ui;
 
 export 'package:flutter_core/flutter_core.dart';

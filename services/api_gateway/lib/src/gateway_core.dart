@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [GatewayController] - Handles system-level gateway operations.
 import 'dart:io';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_router/shelf_router.dart';

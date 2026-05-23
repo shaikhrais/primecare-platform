@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Peer Review Conference Room platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final peerReviewProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

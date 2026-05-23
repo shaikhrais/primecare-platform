@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Owner Compliance Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseOwnerComplianceScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: The maximum width UI content should ever expand to before centering. Prevents the "half screen ridiculous" card stret...
 import 'package:flutter/material.dart';
 
 class OmniBreakpoints {

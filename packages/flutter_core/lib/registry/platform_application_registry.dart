@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Central registry of all applications in the PrimeCare ecosystem. Used for cross-portal gover...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/domain_governance.dart';

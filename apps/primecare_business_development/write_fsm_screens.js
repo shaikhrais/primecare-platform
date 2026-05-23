@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Write Fsm Screens workspace interface.
 const fs = require('fs');
 
 const leadsScreenContent = `import 'package:flutter/material.dart';

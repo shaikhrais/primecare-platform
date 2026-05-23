@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Sales Manager Sales Pipeline Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseSalesManagerSalesPipelineScreen extends StatelessWidget {

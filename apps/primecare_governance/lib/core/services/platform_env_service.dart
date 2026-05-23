@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: The root directory of the PrimeCare platform repository. This can be injected via --dart-define=PROJECT_ROOT=/path/to...
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

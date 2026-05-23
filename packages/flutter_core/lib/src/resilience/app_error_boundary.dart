@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Production-grade error boundary that captures all unhandled exceptions across three vectors:...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:flutter/foundation.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Indicates whether the current state object was generated from mock/fallback data due to the ...
 // Layer: 01_INFRASTRUCTURE
 abstract class OfflineFallbackState {
   /// Indicates whether the current state object was generated from

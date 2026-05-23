@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Strategic Layer 2. Infrastructure Layer
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

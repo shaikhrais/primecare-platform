@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Owner Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class OwnerDashboardScreen extends StatelessWidget {

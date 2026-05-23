@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Aggregates audit logs and associated meta-data for institutional reporting
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';

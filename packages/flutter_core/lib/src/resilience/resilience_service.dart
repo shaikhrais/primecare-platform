@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE A service dedicated to ensuring platform resilience through state snapshotting and Last Know...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

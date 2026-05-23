@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Patient Trial Outcomes Viewer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PatientTrialOutcomesViewerScreen extends GovernedConsumerWidget {

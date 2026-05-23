@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Admin Operations Forms (admission, onboarding, locations, timesheet, reseller, resolution) ──
 import type { FormEntry } from '../form_registry';
 
 // ── Admin Operations Forms (admission, onboarding, locations, timesheet, reseller, resolution) ──

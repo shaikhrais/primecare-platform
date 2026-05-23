@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
 import 'package:flutter_core/flutter_core.dart';
 
 void main() {

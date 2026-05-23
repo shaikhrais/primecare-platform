@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Widgets platform logic.
 export '../../../regional/screens/regional_manager_ontario_dashboard_screen.dart';
 export '../../../regional/screens/regional_manager_usa_dashboard_screen.dart';
 export '../../../sales/screens/franchise_sales_manager_dashboard_screen.dart';

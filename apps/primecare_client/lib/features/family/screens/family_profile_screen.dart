@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Family Profile Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FamilyProfileScreen extends StatelessWidget {

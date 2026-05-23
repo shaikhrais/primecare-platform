@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: The architectural counterpart to [PrimeCareScreen]. This class represents a governed API service or endpoint within t...
 import 'api_metadata.dart';
 
 /// The architectural counterpart to [PrimeCareScreen].

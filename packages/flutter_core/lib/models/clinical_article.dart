@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Returns a truncated version of the content for display in lists.
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'clinical_article.freezed.dart';

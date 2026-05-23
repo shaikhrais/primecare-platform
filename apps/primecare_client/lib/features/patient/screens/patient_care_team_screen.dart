@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Patient Care Team Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PatientCareTeamScreen extends StatelessWidget {

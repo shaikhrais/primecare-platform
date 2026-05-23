@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Scrum Master platform logic.
 export const scrumMasterContent = {
     API_HUB: {
         TITLE: 'API Integrity Hub',

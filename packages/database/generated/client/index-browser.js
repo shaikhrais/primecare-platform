@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Prisma Client JS version: 5.22.0 Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
 
 Object.defineProperty(exports, "__esModule", { value: true });
 

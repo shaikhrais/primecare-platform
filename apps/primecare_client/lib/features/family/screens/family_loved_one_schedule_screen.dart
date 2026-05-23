@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Family Loved One Schedule Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FamilyLovedOneScheduleScreen extends StatelessWidget {

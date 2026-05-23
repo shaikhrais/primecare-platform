@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Clinical platform logic.
 export const opsClinicalContent = {
     RN_SUPERVISION: {
         TITLE: 'Clinical Supervision Hub',

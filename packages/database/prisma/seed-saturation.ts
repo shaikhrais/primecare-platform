@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Step 1: Pre-load common FK caches to guarantee referential integrity Common aliases
 import { PrismaClient, Prisma } from '../generated/client';
 import { faker } from '@faker-js/faker';
 

@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Return placeholder metrics matching FranchiseKpi Prisma model
 import { Hono } from 'hono'
 
 export const franchiseRouter = new Hono()

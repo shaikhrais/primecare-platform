@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Demographics Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TerritoryExpansionManagerDemographicsScreen extends StatelessWidget {

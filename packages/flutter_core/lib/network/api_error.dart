@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE api_error.dart Converts complex low-level Backend/Dio exceptions into user-friendly UI strings.
 // Layer: 01_INFRASTRUCTURE
 // api_error.dart
 import 'package:dio/dio.dart';

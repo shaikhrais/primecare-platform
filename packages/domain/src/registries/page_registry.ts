@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: ────────────────────────────────────────────────────────────────────────────── PageRegistry — Master catalogue of EVE...
 // ──────────────────────────────────────────────────────────────────────────────
 // PageRegistry — Master catalogue of EVERY page in the platform, classified
 // by type. This skeleton contains types, re-exports, and lookup helpers only.

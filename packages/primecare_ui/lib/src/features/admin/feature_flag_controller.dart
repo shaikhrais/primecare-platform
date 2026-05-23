@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Controller layer orchestrating business logic and state management for the corresponding module.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final featureFlagsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

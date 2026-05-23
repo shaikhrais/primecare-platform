@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Billing Admin Invoices Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class BillingAdminInvoicesScreen extends StatelessWidget {

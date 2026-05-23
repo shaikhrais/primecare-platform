@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE High-fidelity enum representing all supported primary roles across the PrimeCare Platform. T...
 // Layer: 01_INFRASTRUCTURE
 library;
 

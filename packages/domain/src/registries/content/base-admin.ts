@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Base Admin platform logic.
 export const baseAdminContent = {
     USERS: {
         TITLE: 'Users & PSWs',

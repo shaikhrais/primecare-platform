@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Training-Specific Page Action Mappings Maps page IDs to allowed training orchestration buttons.
 import type { PageActions } from '../page_action_registry';
 
 /**

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Types platform logic.
 import { RouteRegistry } from '../../apps/web-admin/RouteRegistry';
 import { ApiRegistry } from '../ApiRegistry';
 

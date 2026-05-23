@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Clinicalservice platform logic.
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';

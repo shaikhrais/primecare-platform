@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Competitor Notes Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RegionalBdmCompetitorNotesScreen extends StatelessWidget {

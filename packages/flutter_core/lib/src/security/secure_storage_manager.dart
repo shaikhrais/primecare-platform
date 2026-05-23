@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [SecureStorageManager] - Provides hardware-backed encrypted storage. Essential for storing tokens, fingerprints, and ...
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// [SecureStorageManager] - Provides hardware-backed encrypted storage.

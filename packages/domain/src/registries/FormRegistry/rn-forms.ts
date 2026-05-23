@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Rn Forms platform logic.
 import type { FormEntry } from '../form_registry';
 
 export const RN_FORMS: FormEntry[] = [

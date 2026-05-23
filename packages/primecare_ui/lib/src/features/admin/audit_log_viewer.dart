@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Audit Log Viewer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final auditLogsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

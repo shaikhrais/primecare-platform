@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Course Library Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TrainingDirectorCourseLibraryScreen extends StatelessWidget {

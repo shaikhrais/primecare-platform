@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Offline Queue platform logic.
 import 'dart:async';
 
 enum OfflineActionType { create, update, delete }

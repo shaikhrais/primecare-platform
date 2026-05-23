@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Faq Manager Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final faqManagerProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Psw platform logic.
 export const PSW_METADATA = {
     SCHEDULE: {
         CHECK_IN: {

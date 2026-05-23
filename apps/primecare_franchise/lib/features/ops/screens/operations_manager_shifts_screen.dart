@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Operations Manager Shifts Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class OperationsManagerShiftsScreen extends StatelessWidget {

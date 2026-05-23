@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Mock exchange rates for Phase 10 implementation. In production, these should be fetched from an external API or a rat...
 import { PrismaClient } from '@primecare/database';
 import { Prisma } from '@primecare/database';
 import { Result } from '../utils/Result';

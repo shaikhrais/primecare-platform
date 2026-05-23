@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: ── Incident Schemas ───────────────────────────────────────────────────── ── Derived Types ──────────────────────────...
 import { z } from 'zod';
 
 // ── Incident Schemas ─────────────────────────────────────────────────────

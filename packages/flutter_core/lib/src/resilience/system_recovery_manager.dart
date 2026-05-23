@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Mechanical problem solver that attempts to clear application errors by resetting state in a loop before giving up. Th...
 ﻿// Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../../config/resilience_config.dart';

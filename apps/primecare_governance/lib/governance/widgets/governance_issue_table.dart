@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/services/platform_env_service.dart';

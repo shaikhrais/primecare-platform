@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Domain Chart platform logic.
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';

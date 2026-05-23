@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Common Meta Platform Specific
 
 enum TargetPlatform { ios, android, web, windows, linux }
 

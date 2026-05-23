@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the State Widgets platform logic.
 import 'package:getwidget/getwidget.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

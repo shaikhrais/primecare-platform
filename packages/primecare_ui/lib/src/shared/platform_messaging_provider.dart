@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Represents a single chat message inside the platform.
 import 'dart:async';
 import 'package:flutter_core/flutter_core.dart';
 

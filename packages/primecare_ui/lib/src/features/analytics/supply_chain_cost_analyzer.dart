@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Supply Chain Cost Analyzer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final supplyChainCostProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

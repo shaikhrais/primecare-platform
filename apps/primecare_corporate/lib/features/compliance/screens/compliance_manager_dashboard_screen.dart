@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Compliance Manager Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ComplianceManagerDashboardScreen extends StatefulWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the User Manager platform logic.
 export const USER_METADATA = {
     GET_PROFILE: {
         summary: 'Get User Profile',

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Staffing Efficiency Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooStaffingEfficiencyScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: PrimeCare Registry Sync Verifier This tool enforces a "Zero-Error" state by ensuring that every form defined in the F...
 import * as fs from 'fs';
 import * as path from 'path';
 import { FormRegistry } from '../src/registries/form_registry';

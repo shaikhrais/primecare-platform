@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Population Health Analyzer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final populationHealthProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

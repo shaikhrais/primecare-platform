@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Count All platform logic.
 const { PrismaClient, Prisma } = require('./generated/client');
 const prisma = new PrismaClient();
 

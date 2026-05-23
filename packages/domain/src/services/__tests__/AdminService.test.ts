@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Setup Tenant
 import { describe, it, expect, beforeAll } from 'vitest';
 import { AdminService } from '../AdminService';
 import { PrismaClient } from '@primecare/database';

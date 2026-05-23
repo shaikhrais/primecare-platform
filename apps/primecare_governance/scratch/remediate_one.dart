@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Remediate One platform logic.
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 
 void main() async {

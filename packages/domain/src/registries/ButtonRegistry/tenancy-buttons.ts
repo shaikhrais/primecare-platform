@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Tenancy Buttons platform logic.
 import type { ButtonDef } from '../button_registry';
 import { ApiRegistry } from '../ApiRegistry';
 

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Workflow Performance Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooWorkflowPerformanceScreen extends StatelessWidget {

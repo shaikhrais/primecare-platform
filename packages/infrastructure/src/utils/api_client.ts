@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: PrimeCare Standardized API Client Provides a shielded fetch wrapper that automatically injects mandatory headers requ...
 import { Context } from 'hono';
 
 /**

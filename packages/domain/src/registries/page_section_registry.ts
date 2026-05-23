@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: ────────────────────────────────────────────────────────────────────────────── PageSectionRegistry — Catalogue of sec...
 // ──────────────────────────────────────────────────────────────────────────────
 // PageSectionRegistry — Catalogue of sections within every page.
 // Enables: content administration, development verification, mock tracking.

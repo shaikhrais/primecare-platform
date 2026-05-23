@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Create Manager platform logic.
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 

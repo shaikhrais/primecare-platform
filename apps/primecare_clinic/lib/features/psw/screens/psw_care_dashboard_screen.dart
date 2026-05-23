@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Care Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PswCareDashboardScreen extends StatelessWidget {

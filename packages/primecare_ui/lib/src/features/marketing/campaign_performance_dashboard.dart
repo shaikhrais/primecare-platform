@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Campaign Performance Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final campaignPerformanceProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

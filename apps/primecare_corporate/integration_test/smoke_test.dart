@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Start the app Wait for the app to finish its initial animations and rendering Verify that we haven't thrown any rende...
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:primecare_corporate/main.dart' as app;

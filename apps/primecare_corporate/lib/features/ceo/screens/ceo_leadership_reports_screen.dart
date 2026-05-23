@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Leadership Reports Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CeoLeadershipReportsScreen extends StatelessWidget {

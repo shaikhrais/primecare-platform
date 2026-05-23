@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Connection Native platform logic.
 import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';

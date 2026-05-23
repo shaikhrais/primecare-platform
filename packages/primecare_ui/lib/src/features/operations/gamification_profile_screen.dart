@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: State class representing a clinician's gamified profile in the platform. Provider for Gamification profiles, retrievi...
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

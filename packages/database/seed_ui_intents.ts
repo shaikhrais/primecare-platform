@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Seed Ui Intents platform logic.
 import { PrismaClient } from './generated/client';
 import * as fs from 'fs';
 import * as path from 'path';

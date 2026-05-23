@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Delete all ScreenFunctionality that are unimplemented or pending Delete all PlatformScreen that are unimplemented or ...
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: DOMAIN 1: Carrier & Logistics (Operations) DOMAIN 2: Agency & Franchise Management
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

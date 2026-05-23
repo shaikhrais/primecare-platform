@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Type-Safe BTN Constants ────────────────────────────────────────────────── Auto-generated from ButtonRegistry. Use...
 // ── Type-Safe BTN Constants ──────────────────────────────────────────────────
 // Auto-generated from ButtonRegistry. Use for compile-time safety + IDE autocomplete.
 // Usage: getButtonById(BTN.PSW_CHECK_IN) instead of getButtonById('btn-psw-check-in')

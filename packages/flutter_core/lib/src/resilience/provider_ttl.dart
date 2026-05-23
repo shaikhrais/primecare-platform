@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE A time-to-live (TTL) auto-invalidation utility for FutureProviders. Prevents stale cached da...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ticket Registry platform logic.
 import 'correction_ticket.dart';
 
 class TicketRegistry {

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Role Verification
 import 'package:flutter_core/flutter_core.dart';
 
 class SecurityAuditService {

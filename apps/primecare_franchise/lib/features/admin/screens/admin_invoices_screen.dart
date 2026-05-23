@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Admin Invoices Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class AdminInvoicesScreen extends StatelessWidget {

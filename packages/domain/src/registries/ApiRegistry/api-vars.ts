@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Auto-extracted API string variables
 // Auto-extracted API string variables
 export const API_VARS: Record<string, string> = {
     "API_V1_ADMIN_EVV": "/v1/admin/evv",

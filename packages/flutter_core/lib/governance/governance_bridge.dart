@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Base interface for platform registries to ensure architectural parity between UI and API subsystems. The "Max Conveni...
 import '../models/api_metadata.dart';
 
 /// Base interface for platform registries to ensure architectural parity 

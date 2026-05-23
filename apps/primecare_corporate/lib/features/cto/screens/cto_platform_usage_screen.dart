@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cto Platform Usage Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CtoPlatformUsageScreen extends StatelessWidget {

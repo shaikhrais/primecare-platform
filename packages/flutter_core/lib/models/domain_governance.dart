@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: The root business entity. Controls global configurations, branding variables, and subscription limits. A logical coll...
 import 'navigation_item.dart';
 import 'package:flutter/material.dart';
 import '../registry/platform_role.dart';

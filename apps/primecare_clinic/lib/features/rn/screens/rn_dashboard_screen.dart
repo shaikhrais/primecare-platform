@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Rn Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide RnDashboardScreen;
 import 'package:lucide_icons/lucide_icons.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: The migrated Auth API with DB Hydration Mount the 456 AI-generated routes Root route
 import 'dart:io';
 import 'dart:convert';
 import 'package:shelf/shelf.dart';

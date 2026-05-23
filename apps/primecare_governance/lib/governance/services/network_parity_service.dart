@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [NetworkParityService] - Bridges the UI with the Backend Governance API. This service consumes the Max OOP MVC audit ...
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'cross_subsystem_auditor.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Base Growth platform logic.
 export const baseGrowthContent = {
     MARKETPLACE: {
         TITLE: 'Integration Marketplace',

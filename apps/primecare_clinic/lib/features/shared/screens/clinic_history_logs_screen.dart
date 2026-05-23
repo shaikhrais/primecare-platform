@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Clinic History Logs Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ClinicHistoryLogsScreen extends StatelessWidget {

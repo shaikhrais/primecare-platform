@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Test Users platform logic.
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 

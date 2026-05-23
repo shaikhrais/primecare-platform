@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── D7: Manager Home ──────────────────────────────────────────────── ── D9: Branch P&L ──────────────────────────────...
 import type { PageSections } from '../page_section_registry';
 
 export const TENANCY_SECTIONS: Record<string, PageSections> = {

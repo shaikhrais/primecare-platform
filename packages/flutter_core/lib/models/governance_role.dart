@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: [GovernanceRole] - Centralizes governance, navigation, and screen access for a platform role. This fulfills the "Real...
 
 import '../registry/platform_role.dart';
 import '../registry/platform_screen_registry.dart';

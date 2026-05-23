@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE An extension type that enforces strictly-defined routes at compile time. This prevents raw s...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Volunteer Coordinator Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class VolunteerCoordinatorDashboardScreen extends StatelessWidget {

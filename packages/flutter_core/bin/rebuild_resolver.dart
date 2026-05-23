@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Find all adapters and extract provider names
 import 'dart:io';
 
 void main() {

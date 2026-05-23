@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Full Audit platform logic.
 import 'package:primecare_governance/governance/services/cross_subsystem_auditor.dart';
 
 void main() async {

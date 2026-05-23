@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Core implementation file for the History Provider platform logic.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/database/database_provider.dart';
 import 'governance_history_service.dart';

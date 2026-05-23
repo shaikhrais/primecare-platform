@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: A self-contained hydration script that uses the analyzer to inject screen constants without importing any Flutter or ...
 import 'dart:convert';
 import 'dart:io';
 import 'package:analyzer/dart/analysis/utilities.dart';

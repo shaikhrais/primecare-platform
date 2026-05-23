@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Defines the required security level for a sensitive action. Basic authentication is sufficient. Device must be truste...
 import 'package:flutter_core/flutter_core.dart';
 
 /// Defines the required security level for a sensitive action.

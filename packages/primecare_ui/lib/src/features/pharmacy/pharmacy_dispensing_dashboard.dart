@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Pharmacy Dispensing Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PharmacyDispensingDashboardScreen extends GovernedConsumerWidget {

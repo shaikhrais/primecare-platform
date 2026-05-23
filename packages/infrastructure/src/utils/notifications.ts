@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: R4: Notification utility — derives tenantId from caller context. Includes channel support for future email/push/in-ap...
 /**
  * R4: Notification utility — derives tenantId from caller context.
  * Includes channel support for future email/push/in-app routing.

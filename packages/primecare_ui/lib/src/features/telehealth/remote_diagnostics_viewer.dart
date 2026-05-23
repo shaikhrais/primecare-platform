@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Remote Diagnostics Viewer platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RemoteDiagnosticsViewerScreen extends GovernedConsumerWidget {

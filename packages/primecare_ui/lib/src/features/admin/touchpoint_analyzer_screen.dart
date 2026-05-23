@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Touchpoint Analyzer Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final touchpointProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

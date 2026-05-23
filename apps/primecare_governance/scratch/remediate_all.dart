@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Remediate All platform logic.
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';
 import 'package:primecare_governance/governance/services/cross_subsystem_auditor.dart';
 

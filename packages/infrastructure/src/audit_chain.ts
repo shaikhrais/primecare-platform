@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: audit-chain.ts — Immutable Transaction Chain Security Implements SHA-256 cryptographic hash chaining for the SystemEv...
 /**
  * audit-chain.ts — Immutable Transaction Chain Security
  * Implements SHA-256 cryptographic hash chaining for the SystemEvent model.

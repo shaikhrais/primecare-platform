@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: UI Screen component rendering the Franchise Sales Manager Prospects Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseSalesManagerProspectsScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Clinic Incident Report Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class ClinicIncidentReportScreen extends StatelessWidget {

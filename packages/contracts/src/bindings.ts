@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: <reference types="@cloudflare/workers-types" />
 /// <reference types="@cloudflare/workers-types" />
 export type Bindings = {
     DATABASE_URL: string;

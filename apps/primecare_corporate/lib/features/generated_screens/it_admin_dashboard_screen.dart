@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the It Admin Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

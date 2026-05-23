@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Owner Financial Snapshot Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseOwnerFinancialSnapshotScreen extends StatelessWidget {

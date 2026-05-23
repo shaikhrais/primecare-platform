@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [RegistryHydrationService] - Synchronizes ScreenRegistry metadata with implementation-level attributes (translationKe...
 import 'dart:io';
 import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/ast_patch_engine.dart';

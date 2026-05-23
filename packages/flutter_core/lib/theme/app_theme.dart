@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Classic Institutional Palette
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

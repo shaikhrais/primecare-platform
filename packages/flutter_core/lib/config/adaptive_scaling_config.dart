@@ -1,3 +1,4 @@
+// Governance - Category: config | Purpose: Layer: 01_INFRASTRUCTURE Returns the text scale factor based on the resolution tier. Returns the relative spacing mul...
 // Layer: 01_INFRASTRUCTURE
 import 'screen_breakpoints.dart';
 

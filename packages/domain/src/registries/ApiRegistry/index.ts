@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Index platform logic.
 import { API_VARS } from './api-vars';
 import { TENANCY } from './tenancy';
 import { PLATFORM } from './platform';

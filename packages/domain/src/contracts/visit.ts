@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: ── Create / Update Schemas ────────────────────────────────────────────── ── Derived Types ──────────────────────────...
 import { z } from 'zod';
 
 // ── Create / Update Schemas ──────────────────────────────────────────────

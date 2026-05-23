@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Franchise Sales Manager Contracts Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class FranchiseSalesManagerContractsScreen extends StatelessWidget {

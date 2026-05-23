@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE A wrapper component that arranges its children in a responsive grid. Instead of artificially...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../../config/screen_breakpoints.dart';

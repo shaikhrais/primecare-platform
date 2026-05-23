@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Growth Pipeline Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class GrowthPipelineScreen extends StatelessWidget {

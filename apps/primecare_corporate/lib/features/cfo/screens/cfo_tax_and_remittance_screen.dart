@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Cfo Tax And Remittance Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CfoTaxAndRemittanceScreen extends StatelessWidget {

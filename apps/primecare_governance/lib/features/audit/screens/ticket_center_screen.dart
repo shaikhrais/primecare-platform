@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ticket Center Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TicketCenterScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Hr Hiring Reports Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class HrHiringReportsScreen extends StatelessWidget {

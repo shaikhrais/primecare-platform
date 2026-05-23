@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Check Logs platform logic.
 import { PrismaClient } from './generated/client';
 
 const prisma = new PrismaClient();

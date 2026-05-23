@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Lists audit logs for a tenant with filtering and pagination
 import { PrismaClient } from '@primecare/database';
 import { Result } from '../utils/Result';
 

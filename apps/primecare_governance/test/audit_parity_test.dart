@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Audit Parity Test platform logic.
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:analyzer/dart/analysis/utilities.dart';

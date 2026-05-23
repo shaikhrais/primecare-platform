@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── D1: Admin Home ────────────────────────────────────────────────── ── D2: Registry Summary ────────────────────────...
 import type { PageSections } from '../page_section_registry';
 
 export const ADMIN_SECTIONS: Record<string, PageSections> = {

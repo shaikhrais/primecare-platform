@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Represents a specific issue found during testing.
 
 /// Represents a specific issue found during testing.
 class BugGovernance {

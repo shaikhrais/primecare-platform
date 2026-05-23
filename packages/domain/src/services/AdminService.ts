@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Provisions a new staff member by creating a user record and assigning a role. Atomically records the creation in the ...
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';

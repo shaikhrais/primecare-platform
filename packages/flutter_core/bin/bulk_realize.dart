@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: 1. Find all adapters to determine possible roles Pre-scan adapters to find provider names
 import 'dart:io';
 
 void main() {

@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Enterprise data transfer object (DTO) schema contract ensuring payload validity.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final financialForecastProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

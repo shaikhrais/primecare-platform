@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Forecast Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_forecast_screen_controller.dart';

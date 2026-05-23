@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Bootstraps the application with full resilience: BoundaryTelemetryDrain, RestartWrapper, EasyLocalization, and Provid...
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

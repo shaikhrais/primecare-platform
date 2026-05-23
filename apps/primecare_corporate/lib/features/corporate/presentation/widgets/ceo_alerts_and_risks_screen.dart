@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Alerts And Risks Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CeoAlertsAndRisksScreen extends StatelessWidget {

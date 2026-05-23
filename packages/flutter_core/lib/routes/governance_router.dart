@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A factory class to construct strict "Zero-Trust" routing configurations. Builds a strictly-g...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

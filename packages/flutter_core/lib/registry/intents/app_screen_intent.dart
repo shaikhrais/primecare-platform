@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Defines the recovery strategy for a screen when a critical failure occurs. Simple soft reset...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
 import '../platform_role.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Placeholder for user creation Mock logic to handle create_user_form Prisma hydration would happen here using D1 bindi...
 import { Hono } from 'hono'
 
 export const usersRouter = new Hono()

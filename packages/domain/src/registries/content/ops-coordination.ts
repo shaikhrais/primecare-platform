@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ops Coordination platform logic.
 export const opsCoordinationContent = {
     MANAGER_OPERATIONS: {
         TITLE: 'Regional Operations Hub',

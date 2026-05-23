@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Compliance Training Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TrainingDirectorComplianceTrainingScreen extends StatelessWidget {

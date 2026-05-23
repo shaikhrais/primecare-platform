@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: ────────────────────────────────────────────────────────────────────────────── RouteRegistry — Central route map for ...
 // ──────────────────────────────────────────────────────────────────────────────
 // RouteRegistry — Central route map for the web-admin app.
 // Data split into sub-files under ./RouteRegistry/

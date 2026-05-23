@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: [BaseController] - The foundational class for the Max OOP MVC architecture. Provides standardized utilities for respo...
 import 'dart:convert';
 import 'package:shelf/shelf.dart';
 

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Logging Interceptor platform logic.
 import 'package:dio/dio.dart';
 import 'dart:developer' as dev;
 

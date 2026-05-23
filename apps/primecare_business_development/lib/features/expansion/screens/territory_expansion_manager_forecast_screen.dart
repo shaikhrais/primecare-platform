@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Forecast Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class TerritoryExpansionManagerForecastScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: ────────────────────────────────────────────────────────────────────────────── PageActionRegistry — Maps each page to...
 // ──────────────────────────────────────────────────────────────────────────────
 // PageActionRegistry — Maps each page to its action buttons.
 // Single source of truth: "which buttons appear on which page?"

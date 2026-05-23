@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Api platform logic.
 export const ApiRegistry = {
     PUBLIC: {
         LEADS: '/v1/public/leads',

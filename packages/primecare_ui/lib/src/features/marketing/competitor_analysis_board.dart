@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Competitor Analysis Board platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final competitorAnalysisProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: ── Lead Schemas ─────────────────────────────────────────────────────────
 import { z } from 'zod';
 
 // ── Lead Schemas ─────────────────────────────────────────────────────────

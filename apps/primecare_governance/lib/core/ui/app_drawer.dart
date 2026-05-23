@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Group screens by primary Role (as defined in ScreenMetadata.role)
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
 import 'package:primecare_governance/core/governance/screen_registry.dart';

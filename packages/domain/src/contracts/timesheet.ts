@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: ── Timesheet Schemas ──────────────────────────────────────────────────── ── Derived Types ──────────────────────────...
 import { z } from 'zod';
 
 // ── Timesheet Schemas ────────────────────────────────────────────────────

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Base class for governed consumer widgets. Enforces layout invariants by making it impossible...
 // Layer: 01_INFRASTRUCTURE
 import '../registry/platform_role.dart';
 import '../registry/intents/app_screen_intent.dart';

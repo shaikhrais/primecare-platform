@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Feature Flags System Controls feature availability per tenant via database config. Defaults to enabled for all featur...
 /**
  * Feature Flags System
  * Controls feature availability per tenant via database config.

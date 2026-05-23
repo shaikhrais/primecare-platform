@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 05_REGISTRY_GOVERNANCE Path: apps/primecare_governance/lib/governance/services/cross_subsystem_auditor.dart Or...
 // Layer: 05_REGISTRY_GOVERNANCE
 // Path: apps/primecare_governance/lib/governance/services/cross_subsystem_auditor.dart
 

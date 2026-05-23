@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Layer: 02_MODELS_FOUNDATION
 import 'package:primecare_ui/src/shared/primecare_adapters.dart';
 
 // Layer: 02_MODELS_FOUNDATION

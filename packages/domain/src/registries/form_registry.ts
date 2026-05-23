@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ────────────────────────────────────────────────────────────────────────────── FormRegistry — Centralized catalogue o...
 // ──────────────────────────────────────────────────────────────────────────────
 // FormRegistry — Centralized catalogue of every form across the platform.
 // Each entry declares its route, API endpoints, required fields, dependent

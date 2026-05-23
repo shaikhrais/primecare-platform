@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Define the Cloudflare Environment Bindings Add other bindings here
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 

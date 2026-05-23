@@ -1,3 +1,4 @@
+// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 export const RouteRegistry = {
     HOME: '/',
     SERVICES: '/services',

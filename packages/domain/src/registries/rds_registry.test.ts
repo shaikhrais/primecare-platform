@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Rds Registry.Test platform logic.
 import { describe, it, expect } from 'vitest';
 import { FormRegistry, getFormById } from './form_registry';
 import { PageRegistry } from './page_registry';

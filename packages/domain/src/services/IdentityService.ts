@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Lists all platform roles
 import { PrismaClient } from '@primecare/database';
 import { AuditService } from './AuditService';
 import { Result } from '../utils/Result';

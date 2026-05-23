@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Immutable state for the Login feature.
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// Immutable state for the Login feature.

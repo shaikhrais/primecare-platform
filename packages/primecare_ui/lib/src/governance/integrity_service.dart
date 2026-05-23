@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Mock implementation for health score calculation
 class IntegrityService {
   static double calculateHealthScore(dynamic project) {
     // Mock implementation for health score calculation

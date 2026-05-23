@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Governance Remediation Engine platform logic.
 import 'ast_patch_engine.dart';
 import 'registry_integrity_service.dart';
 import 'cross_subsystem_auditor.dart';

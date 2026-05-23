@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Auth platform logic.
 export const AUTH_METADATA = {
     REGISTER: {
         summary: 'Register User',

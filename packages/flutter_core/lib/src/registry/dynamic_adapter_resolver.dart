@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Layer: 01_INFRASTRUCTURE Helper provider for generic dashboard adapters. Adapter for dynamically binding forms to vie...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
 

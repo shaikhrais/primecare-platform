@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Debug Auditor platform logic.
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:primecare_governance/governance/services/cross_subsystem_auditor.dart';

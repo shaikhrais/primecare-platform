@@ -1,3 +1,4 @@
+// Governance - Category: controller | Purpose: Layer: 01_INFRASTRUCTURE Provider for the base IntelligenceService. Resilient provider for Aura Insights. Watches met...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter_core/flutter_core.dart';
 import 'dashboard_providers.dart';

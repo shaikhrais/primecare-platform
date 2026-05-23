@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the App Boot Test platform logic.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

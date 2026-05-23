@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [RegistryScanner] - Detects "Rogue" endpoints by comparing implementation against registry. This ensures 100% of the ...
 import '../models/api_metadata.dart';
 
 /// [RegistryScanner] - Detects "Rogue" endpoints by comparing implementation against registry.

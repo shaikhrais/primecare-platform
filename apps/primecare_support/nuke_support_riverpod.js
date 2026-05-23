@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Ignore if generated_screens doesn't exist
 const fs = require('fs');
 const path = require('path');
 

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Coo Issue Escalations Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class CooIssueEscalationsScreen extends StatelessWidget {

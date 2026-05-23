@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Re-export central registries as the new standard
 // Re-export central registries as the new standard
 export { ApiRegistry, DataRegistry, ThemeRegistry } from '../../registries/index';
 export { ContentRegistry } from './content';

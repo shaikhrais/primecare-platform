@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Tenancy platform logic.
 import { API_VARS } from './api-vars';
 export const TENANCY = {
     MANAGER: {

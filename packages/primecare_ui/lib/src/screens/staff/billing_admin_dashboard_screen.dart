@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: --- MVC Invoicing Model ---
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC Invoicing Model ---

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: ── Shared Constants ─────────────────────────────────────────────────────────
 import type { ButtonDef } from '../button_registry';
 import { ApiRegistry } from '../ApiRegistry';
 

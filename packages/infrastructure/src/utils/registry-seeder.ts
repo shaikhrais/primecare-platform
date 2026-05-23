@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Registry Seed Script — Reads ContentRegistry and seeds the `registries` table. Run via: POST /v1/debug/seed-registrie...
 /**
  * Registry Seed Script — Reads ContentRegistry and seeds the `registries` table.
  * Run via: POST /v1/debug/seed-registries (deployed endpoint)

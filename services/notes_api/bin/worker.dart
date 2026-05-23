@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: A primitive Dart to Cloudflare Worker fetch binding Since dart:io and shelf are removed, we respond with a basic JSON...
 import 'dart:js_interop';
 
 @JS()

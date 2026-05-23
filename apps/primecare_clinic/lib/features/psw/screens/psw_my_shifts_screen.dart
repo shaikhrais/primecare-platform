@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw My Shifts Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class PswMyShiftsScreen extends StatefulWidget {

@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Daily Notes Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

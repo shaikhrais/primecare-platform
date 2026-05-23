@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Manager Coordinator PSW RN
 import type { PageActions } from '../page_action_registry';
 
 export const TENANCY_ACTIONS: Record<string, PageActions> = {

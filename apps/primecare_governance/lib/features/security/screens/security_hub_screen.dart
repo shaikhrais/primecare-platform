@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Security Hub Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class SecurityHubScreen extends StatelessWidget {

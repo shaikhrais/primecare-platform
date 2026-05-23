@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Operations platform logic.
 import { opsAdminContent } from './ops-admin';
 import { opsServicesContent } from './ops-services';
 import { opsDailyContent } from './ops-daily';

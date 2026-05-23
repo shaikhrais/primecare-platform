@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: A provider for the [ApiClient], ensuring a single instance is used across the app. A standardized API client for the ...
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import '../security/security_interceptor.dart';

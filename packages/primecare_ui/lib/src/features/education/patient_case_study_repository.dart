@@ -1,3 +1,4 @@
+// Governance - Category: adapter | Purpose: Core implementation file for the Patient Case Study Repository platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final caseStudyProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

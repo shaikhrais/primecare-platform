@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: [PlatformAuditResult] - Model representing the findings of a platform-wide audit.
 import 'dart:io';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';

@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Security Auditor platform logic.
 import 'package:flutter_core/flutter_core.dart';
 import '../automated_audit_engine.dart';
 

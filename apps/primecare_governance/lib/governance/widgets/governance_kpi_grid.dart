@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Kpi Grid platform logic.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../models/governance_report.dart';

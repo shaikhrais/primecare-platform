@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Ledgerservice platform logic.
 import { PrismaClient } from '@primecare/database';
 import { randomBytes, createHash } from 'node:crypto';
 import { CurrencyService } from './CurrencyService';

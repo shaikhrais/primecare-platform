@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: An enterprise-grade, governed login screen. Follows 'No-Logic UI' policy by delegating all authentication logic to [L...
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/foundation.dart';
 

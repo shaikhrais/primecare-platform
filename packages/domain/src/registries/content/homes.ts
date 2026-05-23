@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Homes platform logic.
 import { homesFinanceContent } from './homes-finance';
 
 export const homesContent = {

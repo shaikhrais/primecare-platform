@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Network Parity Audit Table platform logic.
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
 

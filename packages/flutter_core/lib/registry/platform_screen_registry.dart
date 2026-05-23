@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: [PlatformScreenRegistry] - Centralized single source of truth for all platform screens. This registry serves both the...
 import '../models/screen_metadata.dart';
 
 /// [PlatformScreenRegistry] - Centralized single source of truth for all platform screens.

@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Using a seeded tenant to satisfy foreign key constraints Setup dummy user for auditing
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { LedgerService } from '../LedgerService';
 import { PrismaClient } from '@primecare/database';

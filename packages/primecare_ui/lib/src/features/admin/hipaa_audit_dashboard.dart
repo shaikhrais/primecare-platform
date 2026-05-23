@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Hipaa Audit Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final hipaaAuditProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {

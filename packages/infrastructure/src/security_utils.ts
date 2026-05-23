@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: #16: Tenant Isolation Middleware Ensures all authenticated requests have tenantId extracted and validated. Sets c.get...
 import { MiddlewareHandler } from 'hono';
 import { Bindings, Variables } from '@primecare/contracts';
 import { OpenAPIHono } from '@hono/zod-openapi';

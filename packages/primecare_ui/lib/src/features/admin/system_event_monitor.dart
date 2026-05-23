@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the System Event Monitor platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 final systemEventsProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {

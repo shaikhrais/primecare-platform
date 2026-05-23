@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Quality Assurance Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 

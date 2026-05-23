@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Monitoring Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class MonitoringScreen extends StatelessWidget {

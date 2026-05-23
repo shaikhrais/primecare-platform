@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Deal Tracker Screen workspace interface.
 import 'package:flutter/material.dart';
 
 class RegionalBdmDealTrackerScreen extends StatelessWidget {

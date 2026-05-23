@@ -1,3 +1,4 @@
+// Governance - Category: test | Purpose: Core implementation file for the Currencyservice.Test platform logic.
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CurrencyService } from '../CurrencyService';
 import { Prisma } from '@primecare/database';

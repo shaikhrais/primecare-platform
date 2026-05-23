@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Financial Service - Reporting Methods Extracted from financial.service.ts (getTradingAccount, getIncomeStatement, get...
 /**
  * Financial Service - Reporting Methods
  * Extracted from financial.service.ts (getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport, recordTaxRemittance)

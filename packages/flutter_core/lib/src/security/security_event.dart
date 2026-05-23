@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Security Event platform logic.
 import 'package:equatable/equatable.dart';
 
 enum SecurityEventSeverity { info, warning, critical }

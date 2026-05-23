@@ -1,3 +1,4 @@
+// Governance - Category: model | Purpose: Layer: 02_MODELS_FOUNDATION
 // Layer: 02_MODELS_FOUNDATION
 class DomainResponse {
   final Map<String, dynamic> data;

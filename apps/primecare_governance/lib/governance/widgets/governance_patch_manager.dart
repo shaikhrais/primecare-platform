@@ -1,3 +1,4 @@
+// Governance - Category: view | Purpose: Core implementation file for the Governance Patch Manager platform logic.
 import 'package:flutter/services.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../services/governance_patch_service.dart';

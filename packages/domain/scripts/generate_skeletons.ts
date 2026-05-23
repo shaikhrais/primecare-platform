@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Generate Skeletons platform logic.
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';

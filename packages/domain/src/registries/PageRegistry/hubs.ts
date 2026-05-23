@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Hubs platform logic.
 import type { HubEntry } from '../page_registry';
 
 export const HubRegistry: HubEntry[] = [

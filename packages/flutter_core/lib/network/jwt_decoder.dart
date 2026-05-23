@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE A robust utility for decoding JSON Web Tokens (JWT) locally without relying on heavy cryptog...
 // Layer: 01_INFRASTRUCTURE
 import 'dart:convert';
 

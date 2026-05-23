@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Verify Registry platform logic.
 import { ContentRegistry } from './src/registries/ContentRegistry';
 
 console.log('Master ContentRegistry Keys:', Object.keys(ContentRegistry));

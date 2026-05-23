@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Attempt to connect to live DB first
 import { PrismaClient } from '../generated/client';
 import * as fs from 'fs';
 import * as path from 'path';

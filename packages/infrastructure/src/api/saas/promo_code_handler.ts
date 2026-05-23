@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Core implementation file for the Promo Code Handler platform logic.
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '@primecare/contracts';
 

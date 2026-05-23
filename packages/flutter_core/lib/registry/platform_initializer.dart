@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Central hub for initializing all platform application registries. This is typically called once at the app entry point.
 import '../flutter_core.dart';
 
 /// Central hub for initializing all platform application registries.

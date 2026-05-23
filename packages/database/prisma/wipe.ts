@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: Get all model names from the prisma client Prisma doesn't expose a clean list of models easily without a helper But w...
 import { PrismaClient } from '../generated/client';
 
 const prisma = new PrismaClient();

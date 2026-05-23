@@ -1,3 +1,4 @@
+// Governance - Category: service | Purpose: TrainingService Centralized business logic for staff training, module management, and compliance assignments. Lists a...
 import { PrismaClient } from '@primecare/database';
 import { Result } from '../utils/Result';
 
