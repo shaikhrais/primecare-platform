@@ -4,10 +4,17 @@ import sys
 import hashlib
 import json
 
+# Reconfigure stdout to support unicode printing on Windows terminals
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass
+
 # Paths to scan
 SCAN_PATHS = [
-    'packages/factory_system/primecare_ui/lib',
-    'packages/primecare_adapters/lib'
+    'packages/primecare_ui/lib',
+    'packages/flutter_core/lib'
 ]
 
 CACHE_FILE = '.agents/governance/.lint_cache'
