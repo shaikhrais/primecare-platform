@@ -477,7 +477,10 @@ def migrate():
         ('sy', 'security', 'packages/security', 'package'),
         ('me', 'messaging', 'packages/messaging', 'package'),
         ('co', 'contracts', 'packages/contracts', 'package'),
-        ('if', 'infrastructure', 'packages/infrastructure', 'package')
+        ('if', 'infrastructure', 'packages/infrastructure', 'package'),
+        ('dc', 'database_client', 'packages/database_client', 'package'),
+        ('fs', 'factory_system', 'packages/factory_system', 'package'),
+        ('wo', 'worker-api', 'packages/worker-api', 'package')
     ]
     pkg_db_ids = {}
     for p_code, p_name, r_path, p_type in packages_to_seed:

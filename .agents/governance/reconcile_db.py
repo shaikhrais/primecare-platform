@@ -336,6 +336,10 @@ def find_dashboard_files(screens_dir):
 def scan_software_governance(conn, parsed_screens, anomalies):
     cursor = conn.cursor()
     
+    # Load apps mapping for dynamic app_id resolution
+    cursor.execute("SELECT id, app_code FROM apps;")
+    apps_mapping = {row['app_code']: row['id'] for row in cursor.fetchall()}
+    
     # 1. Database Schema Scan
     print("Performing relational database schema dynamic sweep...")
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -372,9 +376,9 @@ def scan_software_governance(conn, parsed_screens, anomalies):
     # 2. FileSystem Sweep & screen_file_links
     print("Performing filesystems dynamic sweep (code_files)...")
     search_dirs = [
-        (r"packages\primecare_ui\lib\src\screens", "screen"),
-        (r"packages\primecare_ui\lib\src\components", "component"),
-        (r"apps", "app_file")
+        (r"packages", "package_file"),
+        (r"apps", "app_file"),
+        (r"services", "service_file")
     ]
     
     for s_dir, default_type in search_dirs:
@@ -384,7 +388,7 @@ def scan_software_governance(conn, parsed_screens, anomalies):
             # Exclude heavy dependency, build, and cache directories from recursive walk
             dirs[:] = [d for d in dirs if d not in ('node_modules', 'build', '.dart_tool', '.git', '.gradle', 'ios', 'android', 'dist', 'tmp', '.next', 'out', 'web')]
             for name in filenames:
-                if name.endswith('.dart') or name.endswith('.ts') or name.endswith('.js'):
+                if name.endswith('.dart') or name.endswith('.ts') or name.endswith('.tsx') or name.endswith('.js') or name.endswith('.jsx'):
                     full_path = os.path.join(root, name)
                     rel_path = os.path.relpath(full_path, os.getcwd()).replace('\\', '/')
                     sz = os.path.getsize(full_path)
@@ -407,11 +411,22 @@ def scan_software_governance(conn, parsed_screens, anomalies):
                     elif 'test' in name.lower() or 'spec' in name.lower():
                         f_type = 'test'
                         
+                    # Resolve dynamic app_id based on file path
+                    file_app_db_id = 1
+                    parts = rel_path.split('/')
+                    if len(parts) >= 2:
+                        top_dir = parts[0]
+                        sub_dir = parts[1]
+                        
+                        if top_dir in ('apps', 'packages', 'services'):
+                            short_code = get_short_app_id(sub_dir)
+                            file_app_db_id = apps_mapping.get(short_code, 1)
+
                     # Insert file
                     cursor.execute("""
                     INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, last_scanned_at)
-                    VALUES (1, ?, ?, ?, 'dart', ?, 0, 'active', ?);
-                    """, (name, rel_path, f_type, os.path.dirname(rel_path), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                    VALUES (?, ?, ?, ?, 'dart', ?, 0, 'active', ?);
+                    """, (file_app_db_id, name, rel_path, f_type, os.path.dirname(rel_path), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
                     cursor.execute("SELECT id FROM code_files WHERE file_path = ?;", (rel_path,))
                     f_row = cursor.fetchone()
                     f_id = f_row[0] if f_row else 1
