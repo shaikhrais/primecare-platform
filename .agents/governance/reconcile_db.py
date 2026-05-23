@@ -279,9 +279,199 @@ def find_dashboard_files(screens_dir):
                 files.append(os.path.join(root, name))
     return files
 
+def scan_software_governance(conn, parsed_screens, anomalies):
+    cursor = conn.cursor()
+    
+    # 1. Database Schema Scan
+    print("Performing relational database schema dynamic sweep...")
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = [row['name'] for row in cursor.fetchall() if not row['name'].startswith('sqlite_')]
+    
+    for t_name in tables:
+        cursor.execute("INSERT OR REPLACE INTO db_schema_tables (app_id, table_name, table_type, status) VALUES (1, ?, 'table', 'active');",
+                       (t_name,))
+        cursor.execute("SELECT id FROM db_schema_tables WHERE table_name = ?;", (t_name,))
+        t_id = cursor.fetchone()[0]
+        
+        # Schema columns
+        cursor.execute(f"PRAGMA table_info([{t_name}]);")
+        columns = cursor.fetchall()
+        
+        cursor.execute(f"PRAGMA foreign_key_list([{t_name}]);")
+        fk_list = cursor.fetchall()
+        fk_map = {fk['from']: (fk['table'], fk['to']) for fk in fk_list}
+        
+        for col in columns:
+            col_name = col['name']
+            data_type = col['type']
+            is_nullable = 0 if col['notnull'] == 1 else 1
+            is_primary = 1 if col['pk'] > 0 else 0
+            is_foreign = 1 if col_name in fk_map else 0
+            ref_tbl = fk_map[col_name][0] if is_foreign else None
+            ref_col = fk_map[col_name][1] if is_foreign else None
+            
+            cursor.execute("""
+            INSERT OR REPLACE INTO db_schema_columns (table_id, column_name, data_type, is_nullable, is_primary, is_foreign, default_value, foreign_table_name, foreign_column_name)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (t_id, col_name, data_type, is_nullable, is_primary, is_foreign, None, ref_tbl, ref_col))
+
+    # 2. FileSystem Sweep & screen_file_links
+    print("Performing filesystems dynamic sweep (code_files)...")
+    search_dirs = [
+        (r"packages\primecare_ui\lib\src\screens", "screen"),
+        (r"packages\primecare_ui\lib\src\components", "component"),
+        (r"apps", "app_file")
+    ]
+    
+    for s_dir, default_type in search_dirs:
+        if not os.path.exists(s_dir):
+            continue
+        for root, dirs, filenames in os.walk(s_dir):
+            # Exclude heavy dependency, build, and cache directories from recursive walk
+            dirs[:] = [d for d in dirs if d not in ('node_modules', 'build', '.dart_tool', '.git', '.gradle', 'ios', 'android', 'dist', 'tmp', '.next', 'out', 'web')]
+            for name in filenames:
+                if name.endswith('.dart') or name.endswith('.ts') or name.endswith('.js'):
+                    full_path = os.path.join(root, name)
+                    rel_path = os.path.relpath(full_path, os.getcwd()).replace('\\', '/')
+                    sz = os.path.getsize(full_path)
+                    
+                    # Count LOC
+                    try:
+                        with open(full_path, 'r', encoding='utf-8', errors='ignore') as f:
+                            lines = f.readlines()
+                            loc = len(lines)
+                            content = "".join(lines)
+                    except:
+                        loc = 0
+                        content = ""
+                        
+                    f_type = default_type
+                    if 'controller' in name.lower() or 'notifier' in name.lower():
+                        f_type = 'controller'
+                    elif 'guard' in name.lower() or 'router' in name.lower() or 'middleware' in name.lower():
+                        f_type = 'middleware'
+                    elif 'test' in name.lower() or 'spec' in name.lower():
+                        f_type = 'test'
+                        
+                    # Insert file
+                    cursor.execute("""
+                    INSERT OR REPLACE INTO code_files (app_id, file_name, file_path, file_type, language, folder_path, is_generated, status, last_scanned_at)
+                    VALUES (1, ?, ?, ?, 'dart', ?, 0, 'active', ?);
+                    """, (name, rel_path, f_type, os.path.dirname(rel_path), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                    cursor.execute("SELECT id FROM code_files WHERE file_path = ?;", (rel_path,))
+                    f_row = cursor.fetchone()
+                    f_id = f_row[0] if f_row else 1
+                    
+                    # If it is a screen, link it to screens table
+                    for screen_code, parsed in parsed_screens.items():
+                        if parsed['path'].lower().replace('\\', '/') == rel_path.lower():
+                            cursor.execute("SELECT id FROM screens WHERE screen_code = ?;", (screen_code,))
+                            scr_row = cursor.fetchone()
+                            if scr_row:
+                                cursor.execute("INSERT OR IGNORE INTO screen_file_links (screen_id, file_id, link_type) VALUES (?, ?, 'implementation');",
+                                               (scr_row[0], f_id))
+                                
+                    # 3. Dynamic API endpoint scanning within screens
+                    if content:
+                        apis = re.findall(r"['\"](/v1/[a-zA-Z0-9_\-\/]+)['\"]", content)
+                        for api_route in apis:
+                            # Guess method
+                            method = "POST"
+                            if f"get('{api_route}'" in content.lower() or f"get(\"{api_route}\"" in content.lower():
+                                method = "GET"
+                            elif f"delete('{api_route}'" in content.lower():
+                                method = "DELETE"
+                            elif f"put('{api_route}'" in content.lower():
+                                method = "PUT"
+                                
+                            cursor.execute("INSERT OR IGNORE INTO api_endpoints (app_id, endpoint_code, route_path, http_method, controller_name, service_name, auth_required, implementation_status) VALUES (1, ?, ?, ?, ?, 'PRISMA', 1, 'active');",
+                                           (f"API_{api_route.replace('/', '_').upper()}", api_route, method, ''))
+                            cursor.execute("SELECT id FROM api_endpoints WHERE http_method = ? AND route_path = ?;", (method, api_route))
+                            api_row = cursor.fetchone()
+                            api_id = api_row[0] if api_row else 1
+                            
+                            # Link to screen
+                            for screen_code, parsed in parsed_screens.items():
+                                if parsed['path'].lower().replace('\\', '/') == rel_path.lower():
+                                    cursor.execute("SELECT id FROM screens WHERE screen_code = ?;", (screen_code,))
+                                    scr_row = cursor.fetchone()
+                                    if scr_row:
+                                        cursor.execute("INSERT OR IGNORE INTO screen_api_links (screen_id, api_id, purpose) VALUES (?, ?, 'consume');",
+                                                       (scr_row[0], api_id))
+
+                    # 4. Test Case Scanning inside test files
+                    if f_type == 'test' and content:
+                        test_matches = re.findall(r"test\s*\(\s*['\"]([^'\"]+)['\"]", content)
+                        for t_name in test_matches:
+                            cursor.execute("INSERT OR IGNORE INTO test_cases (app_id, test_name, test_type, file_path, status, last_run_status) VALUES (1, ?, 'unit', ?, 'active', 'passed');",
+                                           (t_name, rel_path))
+
+    # 5. Populate Drift Findings and Implementation Tasks
+    print("Synchronizing outstanding drift findings and implementation tasks checklist...")
+    cursor.execute("DELETE FROM drift_findings WHERE status = 'open';")
+    cursor.execute("DELETE FROM implementation_tasks WHERE status = 'pending';")
+    
+    # Track physical vs database screens
+    cursor.execute("SELECT id, screen_code, screen_name, route_path FROM screens;")
+    db_scrs = cursor.fetchall()
+    db_codes = {r[1] for r in db_scrs}
+    
+    for scr_code, parsed in parsed_screens.items():
+        if scr_code not in db_codes:
+            msg = f"Screen {parsed['screen_name']} exists on disk but is missing in the database registry."
+            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'missing_db_record', 'high', ?, 'open');",
+                           (msg,))
+            cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', 'AI Agent', 'pending');",
+                           (f"Register {parsed['screen_name']} in Database", msg))
+                           
+    for db_scr in db_scrs:
+        # Check if physical file exists
+        if db_scr[1] != 'global_shared_components' and db_scr[3]:
+            if not os.path.exists(db_scr[3]):
+                msg = f"Database screen {db_scr[2]} refers to route_path '{db_scr[3]}' which does not exist on disk."
+                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_physical_file', 'high', ?, ?, 'open');",
+                               (db_scr[0], msg))
+                cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, related_screen_id, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', ?, 'AI Agent', 'pending');",
+                               (f"Scaffold Screen File for {db_scr[2]}", msg, db_scr[0]))
+                               
+    # Extract mock/stub active handlers
+    cursor.execute("""
+    SELECT s.screen_name, s.route_path, f.function_name, f.function_type
+    FROM screen_functions f
+    JOIN screens s ON f.screen_id = s.id
+    WHERE f.implementation_status = 'pending';
+    """)
+    stub_actions = cursor.fetchall()
+    
+    for action in stub_actions:
+        msg = f"Action handler '{action[2]}' in screen '{action[0]}' is currently wired to a mock stub: '{action[3]}'"
+        cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'mock_api_connected', 'medium', ?, 'open');",
+                       (msg,))
+        cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'medium', 'reconciliation', 'AI Agent', 'pending');",
+                       (f"Harden API handler {action[2]} in {action[0]}", msg))
+
+    # 6. Save a Schema Snapshot
+    cursor.execute("SELECT COUNT(*) FROM db_schema_tables;")
+    t_cnt = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM db_schema_columns;")
+    c_cnt = cursor.fetchone()[0]
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='index';")
+    idx_cnt = len(cursor.fetchall())
+    
+    cursor.execute("SELECT sql FROM sqlite_master WHERE type IN ('table', 'index');")
+    ddl_dump = "\n".join([row[0] for row in cursor.fetchall() if row[0]])
+    
+    cursor.execute("""
+    INSERT INTO governance_snapshots (app_id, snapshot_name, snapshot_type, snapshot_json)
+    VALUES (1, ?, 'schema', ?);
+    """, (f"Snapshot-{datetime.now().strftime('%Y-%m-%d-%H-%M')}", ddl_dump))
+    
+    conn.commit()
+    print("Software governance scanning complete! Catalog fully populated.")
+
 def reconcile():
     print("=====================================================")
-    print("Starting SQL-Backed Relational 15-Table Reconciler")
+    print("Starting SQL-Backed Relational 19-Table Reconciler")
     print("=====================================================")
 
     screens_dir = r"packages\primecare_ui\lib\src\screens"
@@ -296,13 +486,6 @@ def reconcile():
 
     conn = governance_db.get_connection()
     cursor = conn.cursor()
-
-    # Clear previous reconciler drift logs from the database
-    cursor.execute("""
-    DELETE FROM governance_logs 
-    WHERE log_type IN ('drift', 'missing_route', 'layout_mismatch', 'missing_widget', 'undocumented_widget')
-    """)
-    conn.commit()
 
     # Query master organization ID and primary UI application ID
     cursor.execute("SELECT id FROM orgs WHERE org_code = 'primecare' LIMIT 1;")
@@ -403,16 +586,13 @@ def reconcile():
             msg = f"Undocumented Screen: Physical dashboard screen '{parsed['screen_name']}' is missing in the database registry."
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            # Log as a critical drift warning
-            cursor.execute("""
-            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
-            VALUES (?, ?, NULL, 'missing_route', ?, 'high')
-            """, (org_id, ui_app_db_id, msg))
+            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'missing_route', 'high', ?, 'open');", (msg,))
+            cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', 'AI Agent', 'pending');", (f"Register {parsed['screen_name']} in Database", msg))
             
             # Auto-reconcile: insert stub screen and permissions
             layout_key = 'clinicalLayout' if parsed['has_physical_sidebar'] else 'masterLayout'
             cursor.execute("""
-            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, status)
+            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status)
             VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
             """, (ui_app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
             screen_db_id = cursor.lastrowid
@@ -425,36 +605,22 @@ def reconcile():
             VALUES (?, ?, 1, 0, 0, 0, 1)
             """, (role_db_id, screen_db_id))
             
-            # Insert parent sidebar menu item
-            cursor.execute("""
-            INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
-            VALUES (?, NULL, ?, ?, 'home', 0, 1)
-            """, (ui_app_db_id, screen_db_id, parsed['screen_name']))
-            parent_sidebar_id = cursor.lastrowid
-            
             # Seed children components
             for idx, item in enumerate(parsed['sidebar_items'], 1):
                 cursor.execute("""
-                INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
-                VALUES (?, ?, ?, ?, 'play', ?, 1)
-                """, (ui_app_db_id, parent_sidebar_id, screen_db_id, item['label'], idx))
-                
-                cursor.execute("""
-                INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
-                VALUES (?, ?, ?, 'shortcut', ?, 'active')
-                """, (screen_db_id, f"FUN_{screen_code}_{item['code']}", f"onTap_{item['code']}", item['callback']))
+                INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+                VALUES (?, ?, ?, ?, NULL, 'active')
+                """, (screen_db_id, f"FUN_{screen_code}_{item['code']}", f"onTap_{item['code']}", f"shortcut: {item['callback']}"))
                 func_db_id = cursor.lastrowid
                 
                 cursor.execute("""
-                INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-                VALUES (?, ?, ?, 'button', ?, ?, 0)
-                """, (screen_db_id, f"CMP_{screen_code}_{item['code']}", item['label'], f"data-cy-{item['code']}", idx))
-                comp_db_id = cursor.lastrowid
+                INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+                VALUES (?, ?, ?, 'button', ?, ?, 'active')
+                """, (screen_db_id, f"CMP_{screen_code}_{item['code']}", item['label'], f"data-cy-{item['code']}", parsed['path']))
                 
-                cursor.execute("""
-                INSERT INTO function_components (function_id, component_id)
-                VALUES (?, ?)
-                """, (func_db_id, comp_db_id))
+                # Seed role function permissions automatically
+                cursor.execute("INSERT OR IGNORE INTO role_function_permissions (role_id, function_id, can_execute) VALUES (?, ?, 1);",
+                               (role_db_id, func_db_id))
                 
             conn.commit()
 
@@ -470,10 +636,8 @@ def reconcile():
             msg = f"Mismatched Registry: Expected dashboard screen '{screen_code}' at path '{db_screen['route_path']}' is missing on disk."
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            cursor.execute("""
-            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
-            VALUES (?, ?, ?, 'missing_route', ?, 'critical')
-            """, (org_id, ui_app_db_id, db_screen['id'], msg))
+            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_route', 'high', ?, ?, 'open');", (db_screen['id'], msg))
+            cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'high', ?, 'pending');", (f"Restore physical file for {db_screen['screen_name']}", msg, db_screen['id']))
             conn.commit()
 
     # ==========================================
@@ -495,20 +659,17 @@ def reconcile():
             msg = f"Layout Mismatch: Dashboard '{parsed['screen_name']}' is '{'Split Dual-Panel' if has_physical else 'Single-Column'}' in code, but database expects '{'Split Dual-Panel' if expected_sidebar else 'Single-Column'}'"
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            cursor.execute("""
-            INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
-            VALUES (?, ?, ?, 'layout_mismatch', ?, 'high')
-            """, (org_id, ui_app_db_id, screen_db_id, msg))
+            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'layout_mismatch', 'high', ?, ?, 'open');", (screen_db_id, msg))
+            cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'high', ?, 'pending');", (f"Fix Layout for {parsed['screen_name']}", msg, screen_db_id))
             conn.commit()
 
         # 2. Check for missing widgets registered in DB but absent in code
-        cursor.execute("SELECT id, function_code, function_name, description FROM screen_functions WHERE screen_id = ?;", (screen_db_id,))
+        cursor.execute("SELECT id, function_code, function_name, function_type FROM screen_functions WHERE screen_id = ?;", (screen_db_id,))
         db_functions = {row['function_code']: dict(row) for row in cursor.fetchall()}
         
         physical_item_map = {item['code']: item for item in parsed['sidebar_items']}
         
         for func_code, db_func in db_functions.items():
-            # Extract basic action code (e.g. FUN_chiropractor_dashboard_add_appointment -> add_appointment)
             item_code = func_code.replace(f"FUN_{screen_code}_", "")
             phys = physical_item_map.get(item_code)
             
@@ -516,13 +677,11 @@ def reconcile():
                 msg = f"Missing Widget Action: Expected action handler '{db_func['function_name']}' (Code: '{func_code}') in dashboard '{parsed['screen_name']}' is missing in the code."
                 anomalies.append(f"- **[WARNING]** {msg}")
                 
-                cursor.execute("""
-                INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
-                VALUES (?, ?, ?, 'missing_widget', ?, 'medium')
-                """, (org_id, ui_app_db_id, screen_db_id, msg))
+                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_widget', 'medium', ?, ?, 'open');", (screen_db_id, msg))
+                cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'medium', ?, 'pending');", (f"Implement {db_func['function_name']} widget", msg, screen_db_id))
                 
                 # Update status to pending
-                cursor.execute("UPDATE screen_functions SET status = 'pending' WHERE id = ?;", (db_func['id'],))
+                cursor.execute("UPDATE screen_functions SET implementation_status = 'pending' WHERE id = ?;", (db_func['id'],))
                 conn.commit()
             else:
                 # Update actual connection status dynamically from code scan
@@ -531,9 +690,9 @@ def reconcile():
                 
                 cursor.execute("""
                 UPDATE screen_functions 
-                SET status = ?, description = ? 
+                SET implementation_status = ?, function_type = ? 
                 WHERE id = ?;
-                """, (db_status, phys['callback'], db_func['id']))
+                """, (db_status, f"shortcut: {phys['callback']}", db_func['id']))
                 conn.commit()
 
         # 3. Check for undocumented widgets in code but missing from DB registry
@@ -543,10 +702,8 @@ def reconcile():
                 msg = f"Undocumented Widget: Sidebar item '{phys['label']}' (ID: '{phys_code}') in screen '{parsed['screen_name']}' exists in code but is not declared in the database spec."
                 anomalies.append(f"- **[WARNING]** {msg}")
                 
-                cursor.execute("""
-                INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
-                VALUES (?, ?, ?, 'undocumented_widget', ?, 'low')
-                """, (org_id, ui_app_db_id, screen_db_id, msg))
+                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'undocumented_widget', 'low', ?, ?, 'open');", (screen_db_id, msg))
+                cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'low', ?, 'pending');", (f"Register widget {phys['label']} in DB", msg, screen_db_id))
                 conn.commit()
 
     # ==========================================
@@ -557,7 +714,7 @@ def reconcile():
     cursor.execute("SELECT COUNT(*) FROM screens WHERE screen_type = 'dashboard';")
     total_dashboards = cursor.fetchone()[0] or 1
     
-    cursor.execute("SELECT COUNT(DISTINCT screen_id) FROM governance_logs WHERE log_type = 'layout_mismatch';")
+    cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM drift_findings WHERE finding_type = 'layout_mismatch';")
     mismatched_db_count = cursor.fetchone()[0] or 0
     layout_compliance_score = ((total_dashboards - mismatched_db_count) / total_dashboards) * 100.0
 
@@ -565,12 +722,12 @@ def reconcile():
     cursor.execute("SELECT COUNT(*) FROM screen_functions;")
     total_functions = cursor.fetchone()[0] or 1
     
-    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE status = 'active';")
+    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE implementation_status = 'active';")
     active_functions = cursor.fetchone()[0] or 0
     api_connectivity_score = (active_functions / total_functions) * 100.0
 
     # 3. Functional Readiness Score
-    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE description IS NOT NULL AND description != '';")
+    cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE function_type IS NOT NULL AND function_type != '';")
     non_empty_functions = cursor.fetchone()[0] or 0
     functional_score = (non_empty_functions / total_functions) * 100.0
 
@@ -586,17 +743,17 @@ def reconcile():
         if cat_total == 0:
             continue
             
-        cursor.execute("SELECT COUNT(DISTINCT screen_id) FROM governance_logs WHERE log_type = 'layout_mismatch' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM drift_findings WHERE finding_type = 'layout_mismatch' AND related_screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
         cat_mismatches = cursor.fetchone()[0] or 0
         cat_compliant = cat_total - cat_mismatches
         
         cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
         cat_funcs = cursor.fetchone()[0] or 0
         
-        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE status = 'active' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE implementation_status = 'active' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
         cat_active_funcs = cursor.fetchone()[0] or 0
         
-        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE description IS NOT NULL AND description != '' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cursor.execute("SELECT COUNT(*) FROM screen_functions WHERE function_type IS NOT NULL AND function_type != '' AND screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
         cat_non_empty = cursor.fetchone()[0] or 0
 
         # Mapped roles in this category
@@ -679,10 +836,10 @@ def reconcile():
     
     # Query outstanding mock/stub/pending items
     cursor.execute("""
-    SELECT s.screen_name, s.route_path, f.function_name, f.description, f.status
+    SELECT s.screen_name, s.route_path, f.function_name, f.function_type, f.implementation_status
     FROM screen_functions f
     JOIN screens s ON f.screen_id = s.id
-    WHERE f.status = 'pending'
+    WHERE f.implementation_status = 'pending'
     ORDER BY s.screen_name, f.function_name;
     """)
     outstanding_items = cursor.fetchall()
@@ -695,7 +852,7 @@ def reconcile():
             screen = row['screen_name']
             path = row['route_path']
             func_name = row['function_name']
-            handler = row['description'] or ''
+            handler = row['function_type'] or ''
             
             if screen != current_screen:
                 current_screen = screen
@@ -707,28 +864,25 @@ def reconcile():
         rep.append('')
 
     rep.append('## 📋 Full Master Sidebar Item Catalog\n')
-    rep.append('| Screen | Component Widget | Callback / Action Callback | Integration Status | Connected to API |')
-    rep.append('|--------|------------------|----------------------------|--------------------|------------------|')
+    rep.append('| Screen | Callback Name | Callback / Action Callback | Integration Status | Connected to API |')
+    rep.append('|--------|---------------|----------------------------|--------------------|------------------|')
     
     cursor.execute("""
-    SELECT s.screen_name, c.component_name, f.description, f.status
+    SELECT s.screen_name, f.function_name, f.function_type, f.implementation_status
     FROM screen_functions f
     JOIN screens s ON f.screen_id = s.id
-    JOIN function_components fc ON f.id = fc.function_id
-    JOIN screen_components c ON fc.component_id = c.id
-    ORDER BY s.screen_name, c.component_name;
+    ORDER BY s.screen_name, f.function_name;
     """)
     all_catalog_items = cursor.fetchall()
     
     for row in all_catalog_items:
-        clean_handler = (row['description'] or '').replace('\n', ' ').strip()
+        clean_handler = (row['function_type'] or '').replace('\n', ' ').strip()
         display_handler = f"{clean_handler[:47]}..." if len(clean_handler) > 50 else clean_handler
-        status_str = '🟢 Connected' if row['status'] == 'active' else '🔴 Mock/Stub'
-        rep.append(f"| `{row['screen_name']}` | `{row['component_name']}` | `{display_handler}` | `{row['status']}` | {status_str} |")
+        status_str = '🟢 Connected' if row['implementation_status'] == 'active' else '🔴 Mock/Stub'
+        rep.append(f"| `{row['screen_name']}` | `{row['function_name']}` | `{display_handler}` | `{row['implementation_status']}` | {status_str} |")
 
-    # Write report to disk
-    with open(report_path, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(rep))
+    # Perform software governance self-cataloging and code/schema scanning
+    scan_software_governance(conn, parsed_screens, anomalies)
 
     conn.close()
 

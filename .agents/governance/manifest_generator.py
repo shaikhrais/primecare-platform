@@ -72,6 +72,19 @@ def generate():
         'HR Hiring': 'hr_hiring',
         'Clinical Director': 'clinical_director',
         'Shareholder': 'shareholder',
+        'Therapist': 'therapist',
+        'Physician': 'physician',
+        'Clinical Nurse Specialist': 'cns',
+        'Pediatric Specialist': 'pediatric',
+        'Caregiver': 'caregiver',
+        'Premium Concierge': 'premium_concierge',
+        'VIP Client Manager': 'vip_manager',
+        'RN Field Supervisor': 'rn_field_supervisor',
+        'Nurse Practitioner': 'np',
+        'LPN': 'lpn',
+        'Employee': 'employee',
+        'Volunteer': 'volunteer',
+        'HSW': 'hsw',
     }
     
     # Direct mapping from screen_code to translatable label key

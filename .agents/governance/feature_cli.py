@@ -54,7 +54,7 @@ def main():
     cursor.execute("PRAGMA foreign_keys = ON;")
 
     # 1. Resolve UI application ID
-    cursor.execute("SELECT id FROM apps WHERE app_code = 'ui' LIMIT 1;")
+    cursor.execute("SELECT id FROM apps WHERE app_code = 'primecare_ui' LIMIT 1;")
     app_row = cursor.fetchone()
     ui_app_id = app_row['id'] if app_row else None
     
@@ -86,9 +86,9 @@ def main():
     screen_row = cursor.fetchone()
     if not screen_row:
         cursor.execute("""
-        INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, status)
-        VALUES (?, ?, ?, ?, 'dashboard', ?, 'active');
-        """, (ui_app_id, screen_code, screen_name, route_path, layout_key))
+        INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status, file_path)
+        VALUES (?, ?, ?, ?, 'dashboard', ?, 'active', ?);
+        """, (ui_app_id, screen_code, screen_name, route_path, layout_key, route_path))
         screen_id = cursor.lastrowid
         print(f"[OK] Added screen '{screen_code}' (ID: {screen_id}) to database.")
     else:
@@ -113,49 +113,33 @@ def main():
             VALUES (?, ?, 1, 0, 0, 0, 1);
             """, (s_role_id, screen_id))
 
-    # 6. Insert Sidebar Menu Items (Parent)
-    icon_name = 'stethoscope' if layout_key == 'clinicalLayout' else ('shield' if layout_key == 'adminLayout' else 'home')
-    cursor.execute("""
-    INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
-    VALUES (?, NULL, ?, ?, ?, 0, 1);
-    """, (ui_app_id, screen_id, f"navigation.items.{screen_code}", icon_name))
-    parent_sidebar_id = cursor.lastrowid
-    print(f"[OK] Added parent sidebar navigation item: navigation.items.{screen_code}")
-
-    # 7. Add Child Sub-Menu Action Button
-    cursor.execute("""
-    INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
-    VALUES (?, ?, ?, ?, 'play', 1, 1);
-    """, (ui_app_id, parent_sidebar_id, screen_id, comp_name))
-    print(f"[OK] Added child sidebar action menu: {comp_name}")
-
-    # 8. Insert Screen Component
+    # 6. Insert Screen Component
     comp_code = f"CMP_{screen_code}_{_camel_to_snake(comp_name.replace(' ', ''))}"
     cy_id = f"data-cy-{_camel_to_snake(comp_name.replace(' ', ''))}"
     cursor.execute("""
-    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-    VALUES (?, ?, ?, 'button', ?, 1, 0);
-    """, (screen_id, comp_code, comp_name, cy_id))
+    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+    VALUES (?, ?, ?, 'button', ?, ?, 'active');
+    """, (screen_id, comp_code, comp_name, cy_id, route_path))
     comp_id = cursor.lastrowid
     print(f"[OK] Added component '{comp_code}' with Cypress ID '{cy_id}'.")
 
-    # 9. Insert Screen Function (Click handler action)
+    # 7. Insert Screen Function (Click handler action)
     func_code = f"FUN_{screen_code}_{_camel_to_snake(func_name)}"
     func_name_val = f"onTap_{_camel_to_snake(func_name)}"
-    callback_desc = f"controller.{func_name}();"
+    callback_desc = f"shortcut: controller.{func_name}();"
     cursor.execute("""
-    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
-    VALUES (?, ?, ?, 'shortcut', ?, 'active');
+    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+    VALUES (?, ?, ?, ?, NULL, 'active');
     """, (screen_id, func_code, func_name_val, callback_desc))
     func_id = cursor.lastrowid
     print(f"[OK] Added interactive callback '{func_code}' ({func_name_val}).")
 
-    # 10. Link Component and Function
+    # 8. Grant Function execution permission (Zero-Trust)
     cursor.execute("""
-    INSERT OR IGNORE INTO function_components (function_id, component_id)
-    VALUES (?, ?);
-    """, (func_id, comp_id))
-    print(f"[OK] Linkage completed: Component ID {comp_id} -> Callback Function ID {func_id}.")
+    INSERT OR IGNORE INTO role_function_permissions (role_id, function_id, can_execute)
+    VALUES (?, ?, 1);
+    """, (role_id, func_id))
+    print(f"[OK] Granted function execution permissions for role ID {role_id} on function ID {func_id}.")
 
     conn.commit()
     conn.close()

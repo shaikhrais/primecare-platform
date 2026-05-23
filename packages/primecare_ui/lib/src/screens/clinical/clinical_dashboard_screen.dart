@@ -31,7 +31,9 @@ class ClinicalDashboardState {
 
 // --- Controller (Notifier) ---
 class ClinicalDashboardController extends StateNotifier<ClinicalDashboardState> {
-  ClinicalDashboardController()
+  final Ref ref;
+
+  ClinicalDashboardController(this.ref)
       : super(
           const ClinicalDashboardState(
             isLoading: false,
@@ -45,42 +47,159 @@ class ClinicalDashboardController extends StateNotifier<ClinicalDashboardState> 
 
   Future<void> runComplianceScan() async {
     state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(seconds: 1));
-    state = state.copyWith(
-      isLoading: false,
-      logs: [
-        ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-        'All governance invariants validated.',
-      ],
-    );
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/clinical/compliance/scan',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'run_compliance_scan',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Compliance audit executed at ${DateTime.now().toIso8601String()}',
+            'All governance invariants validated via API.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'API Error running scan: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error: $e',
+        ],
+      );
+    }
   }
 
-  void syncPosture() {
-    state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Manual synchronization sweep completed.',
-      ],
-    );
+  Future<void> syncPosture() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/clinical/compliance/sync',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'sync_posture',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Manual synchronization sweep completed via API.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'API Error syncing posture: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error: $e',
+        ],
+      );
+    }
   }
 
-  void updatePolicy() {
-    state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Security posture updated and validated.',
-      ],
-    );
+  Future<void> updatePolicy() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/clinical/policy/update',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'update_policy',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Security posture updated and validated via API.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'API Error updating policy: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error: $e',
+        ],
+      );
+    }
   }
 
-  void exportLogs() {
-    state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Audit logs successfully compiled and exported.',
-      ],
-    );
+  Future<void> exportLogs() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/clinical/logs/export',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'export_logs',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Audit logs successfully compiled and exported via API.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'API Error exporting logs: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error: $e',
+        ],
+      );
+    }
   }
 
   void addLog(String entry) {
@@ -91,7 +210,7 @@ class ClinicalDashboardController extends StateNotifier<ClinicalDashboardState> 
 // --- Provider ---
 final clinicalDashboardProvider =
     StateNotifierProvider<ClinicalDashboardController, ClinicalDashboardState>((ref) {
-  return ClinicalDashboardController();
+  return ClinicalDashboardController(ref);
 });
 
 // --- View ---

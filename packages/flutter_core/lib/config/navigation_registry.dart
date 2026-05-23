@@ -1214,6 +1214,20 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
+    'Caregiver': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.caregiver',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/caregiver/caregiver',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.coordinator_sos',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/caregiver/coordinator-sos',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
     'Client': [
       const PrimeCareNavigationItem(
         label: 'navigation.items.family_home',
@@ -1275,6 +1289,20 @@ class NavigationRegistry {
         label: 'navigation.items.clinical_dashboard',
         icon: LucideIcons.stethoscope,
         route: CommonRoutes.clinicDashboard,
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'Clinical Nurse Specialist': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.cns',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/cns/cns',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.rpn_workflow',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/cns/rpn-workflow',
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
@@ -1386,6 +1414,20 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
+    'Employee': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.employee',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/employee/employee',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hr_hiring_workflow_screen',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/employee/hr-hiring-workflow-screen',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
     'Finance Director': [
       const PrimeCareNavigationItem(
         label: 'navigation.items.ledger_command',
@@ -1479,6 +1521,44 @@ class NavigationRegistry {
         label: 'navigation.items.hr_hiring',
         icon: LucideIcons.layoutDashboard,
         route: '/offices/common/roles/hr_hiring/hr-hiring',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'HSW': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hsw',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/hsw',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hsw_schedule',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/hsw-schedule',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hsw_care_plans',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/hsw-care-plans',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hsw_adl_logger',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/hsw-adl-logger',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hsw_incident_reports',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/hsw-incident-reports',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.billing_admin_analytics_screen',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/hsw/billing-admin-analytics-screen',
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
@@ -1590,6 +1670,20 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
+    'LPN': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.lpn',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/lpn/lpn',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.billing_admin_compliance',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/lpn/billing-admin-compliance',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
     'Marketing Manager': [
       const PrimeCareNavigationItem(
         label: 'navigation.items.marketing_hub',
@@ -1620,6 +1714,20 @@ class NavigationRegistry {
         icon: LucideIcons.bell,
         route: CommonRoutes.notificationCenter,
         section: 'navigation.sections.navigation.sections.common_tools',
+      ),
+    ],
+    'Nurse Practitioner': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.np',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/np/np',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.billing_admin_workflow_screen',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/np/billing-admin-workflow-screen',
+        section: 'navigation.sections.navigation.sections.main',
       ),
     ],
     'Operations Manager': [
@@ -1692,6 +1800,62 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
+    'Pediatric Specialist': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.pediatric',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/pediatric/pediatric',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.coordinator_dispatch_map',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/pediatric/coordinator-dispatch-map',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'Physician': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.physician',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/physician/physician',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.coordinator_hub',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/physician/coordinator-hub',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'Premium Concierge': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.premium_concierge',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/premium_concierge/premium-concierge',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.coordinator_waitlist',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/premium_concierge/coordinator-waitlist',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'RN Field Supervisor': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.rn_field_supervisor',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/rn_field_supervisor/rn-field-supervisor',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hr_hiring_compliance',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/rn_field_supervisor/hr-hiring-compliance',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
     'Regional Manager': [
       const PrimeCareNavigationItem(
         label: 'navigation.items.global_settings',
@@ -1756,6 +1920,20 @@ class NavigationRegistry {
         section: 'navigation.sections.navigation.sections.main',
       ),
     ],
+    'Therapist': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.therapist',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/therapist/therapist',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.rpn_compliance',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/therapist/rpn-compliance',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
     'Training Director': [
       const PrimeCareNavigationItem(
         label: 'navigation.items.curriculum_hub',
@@ -1786,6 +1964,34 @@ class NavigationRegistry {
         icon: LucideIcons.bell,
         route: CommonRoutes.notificationCenter,
         section: 'navigation.sections.navigation.sections.common_tools',
+      ),
+    ],
+    'VIP Client Manager': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.vip_manager',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/vip_manager/vip-manager',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hr_hiring_analytics_screen',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/vip_manager/hr-hiring-analytics-screen',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+    ],
+    'Volunteer': [
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.volunteer',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/volunteer/volunteer',
+        section: 'navigation.sections.navigation.sections.main',
+      ),
+      const PrimeCareNavigationItem(
+        label: 'navigation.items.hr_manager_analytics_screen',
+        icon: LucideIcons.layoutDashboard,
+        route: '/offices/common/roles/volunteer/hr-manager-analytics-screen',
+        section: 'navigation.sections.navigation.sections.main',
       ),
     ],
   };

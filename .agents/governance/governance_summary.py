@@ -25,7 +25,7 @@ def generate_summary():
     total_functions = cursor.fetchone()[0] or 0
 
     # 4. Active drifts and compliance alerts
-    cursor.execute("SELECT COUNT(*) FROM governance_logs WHERE log_type != 'info';")
+    cursor.execute("SELECT COUNT(*) FROM drift_findings WHERE status = 'open';")
     total_drifts = cursor.fetchone()[0] or 0
 
     # 5. Role-based view screen counts
@@ -54,7 +54,7 @@ def generate_summary():
         print(f"  - {row['role_name']} ({row['role_code']}): {row['screen_count']} screens")
 
     print("\n=====================================================")
-    print("All entities are synchronized under the Relational 15-Table Schema.")
+    print("All entities are synchronized under the Relational 19-Table Schema.")
     print("=====================================================")
     
     conn.close()

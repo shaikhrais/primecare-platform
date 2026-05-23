@@ -10,37 +10,37 @@ This automated governance report compiles split dual-column dashboard structures
 | Dimension | Score | Description |
 |-----------|:-----:|-------------|
 | **Layout Conformity** | `100.0%` | Code layout matches specifications inside relational SQLite database. |
-| **API Connectivity** | `0.7%` | Sidebar items bound to active backend/controller workflows (not mock logs/stubs). |
+| **API Connectivity** | `14.1%` | Sidebar items bound to active backend/controller workflows (not mock logs/stubs). |
 | **Functional Readiness** | `100.0%` | Total actionable sidebar buttons implemented with non-empty handlers. |
 
 ## 📁 Module Directory Quality Breakdowns
 
 | Screen Group | Total Dashboards | Dual-Column | Layout Conformity | API Connectivity | Functional Readiness | Outstanding Fixes |
 |--------------|:----------------:|:-----------:|:-----------------:|:----------------:|:--------------------:|:-----------------:|
-| **allied** | 1 | 1 | `100.0%` | `0.0%` | `100.0%` | **5** |
-| **clinical** | 1 | 1 | `100.0%` | `0.0%` | `100.0%` | **5** |
-| **common** | 22 | 1 | `100.0%` | `0.0%` | `100.0%` | **110** |
+| **allied** | 2 | 1 | `100.0%` | `37.5%` | `100.0%` | **5** |
+| **clinical** | 7 | 1 | `100.0%` | `79.2%` | `100.0%` | **5** |
+| **common** | 23 | 1 | `100.0%` | `2.7%` | `100.0%` | **110** |
 | **executive** | 11 | 1 | `100.0%` | `4.3%` | `100.0%` | **45** |
-| **management** | 15 | 1 | `100.0%` | `0.0%` | `100.0%` | **75** |
+| **management** | 17 | 1 | `100.0%` | `7.4%` | `100.0%` | **75** |
 | **psw** | 1 | 1 | `100.0%` | `0.0%` | `100.0%` | **5** |
-| **rn** | 1 | 1 | `100.0%` | `0.0%` | `100.0%` | **5** |
+| **rn** | 2 | 1 | `100.0%` | `37.5%` | `100.0%` | **5** |
 | **rpn** | 1 | 1 | `100.0%` | `0.0%` | `100.0%` | **5** |
-| **staff** | 9 | 1 | `100.0%` | `0.0%` | `100.0%` | **37** |
+| **staff** | 11 | 1 | `100.0%` | `14.0%` | `100.0%` | **37** |
 
 ## 👥 Complete Apps & User Roles Directory
 Here is the directory of all 55+ user roles within the PrimeCare platform, categorized by their corresponding Screen Groups on disk:
 
 ### 📂 `ALLIED` Screen Group
 * **Corresponding Roles:** Chiropractor (`chiropractor`), Physiotherapist (`physio`), Registered Massage Therapist (RMT) (`rmt`), Social Worker (`social_worker`), Therapist (`therapist`)
-* **Dashboard Count:** 1 physical dashboard screens built.
+* **Dashboard Count:** 2 physical dashboard screens built.
 
 ### 📂 `CLINICAL` Screen Group
 * **Corresponding Roles:** Clinical Director (`clinical_director`), Intake Coordinator (`intake`), Registered Nurse (RN) (`rn`), Physician (`physician`), Clinical Nurse Specialist (`cns`), Pediatric Specialist (`pediatric`)
-* **Dashboard Count:** 1 physical dashboard screens built.
+* **Dashboard Count:** 7 physical dashboard screens built.
 
 ### 📂 `COMMON` Screen Group
 * **Corresponding Roles:** Caregiver (`caregiver`), Guest (`guest`), Portal User (`portal`), Patient (`patient`), Dynamic Screen Viewer (`dynamic`), Infrastructure Auditor (`infrastructure`), System Verification Officer (`system_verification`), Training Candidate (`training`)
-* **Dashboard Count:** 22 physical dashboard screens built.
+* **Dashboard Count:** 23 physical dashboard screens built.
 
 ### 📂 `EXECUTIVE` Screen Group
 * **Corresponding Roles:** Chief Executive Officer (CEO) (`ceo`), Chief Financial Officer (CFO) (`cfo`), Chief Information Security Officer (CISO) (`ciso`), Chief Operating Officer (COO) (`coo`), Chief Technology Officer (CTO) (`cto`), CX Director (`cx_director`), Finance Director (`finance_director`), HR Director (`hr_director`), Legal Counsel (`legal`), Franchise Owner (`owner`), Shareholder (`shareholder`), Training Director (`training_director`)
@@ -48,7 +48,7 @@ Here is the directory of all 55+ user roles within the PrimeCare platform, categ
 
 ### 📂 `MANAGEMENT` Screen Group
 * **Corresponding Roles:** Community Outreach Lead (`community_outreach`), Compliance Manager (`compliance`), Franchise Sales Manager (`franchise_sales`), General Manager (`gm`), Governance Officer (`governance`), Head of Business Development (`bus_dev`), Head of Marketing (`marketing`), Local Marketing Manager (`local_marketing`), Operations Manager (`ops_manager`), Partnership Manager (`partnership`), Regional BDM (`regional_bdm`), Regional Manager USA (`regional_manager_usa`), Scrum Master (`scrum_master`), Talent Acquisition Manager (`hr_hiring`), Territory Expansion Manager (`territory_expansion`), Territory Sales Manager (`territory_sales`), Volunteer Coordinator (`volunteer_coordinator`)
-* **Dashboard Count:** 15 physical dashboard screens built.
+* **Dashboard Count:** 17 physical dashboard screens built.
 
 ### 📂 `PSW` Screen Group
 * **Corresponding Roles:** Personal Support Worker (PSW) (`psw`), Home Support Worker (`hsw`)
@@ -56,7 +56,7 @@ Here is the directory of all 55+ user roles within the PrimeCare platform, categ
 
 ### 📂 `RN` Screen Group
 * **Corresponding Roles:** Registered Nurse (RN) Field Supervisor (`rn_field_supervisor`), Nurse Practitioner (NP) (`np`)
-* **Dashboard Count:** 1 physical dashboard screens built.
+* **Dashboard Count:** 2 physical dashboard screens built.
 
 ### 📂 `RPN` Screen Group
 * **Corresponding Roles:** Registered Practical Nurse (RPN) (`rpn`), Licensed Practical Nurse (LPN) (`lpn`)
@@ -64,7 +64,7 @@ Here is the directory of all 55+ user roles within the PrimeCare platform, categ
 
 ### 📂 `STAFF` Screen Group
 * **Corresponding Roles:** Employee (`employee`), Volunteer (`volunteer`), Administrative Assistant (`admin`), Shift Supervisor (`scheduler`)
-* **Dashboard Count:** 9 physical dashboard screens built.
+* **Dashboard Count:** 11 physical dashboard screens built.
 
 ## 🚨 Anomalies & Architectural Violations
 ✅ **Zero architectural deviations detected.** Relational SQLite database registry is in perfect alignment with implementation code.
@@ -441,6 +441,8 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `BusinessDevelopmentDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `BusinessDevelopmentDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `BusinessDevelopmentDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `CNS Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
+| `Caregiver Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `CfoDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `CfoDashboardController` | `Threshold Capacity Adjuster` | `onChanged: (val) { controller.updateThreshold(....` | `pending` | 🔴 Mock/Stub |
 | `ChiropractorDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
@@ -498,6 +500,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `DynamicScreenDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `DynamicScreenDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `DynamicScreenDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `Employee Self-Service Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `FamilyMemberDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `FamilyMemberDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `FamilyMemberDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -533,6 +536,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `GuestDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `GuestDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `GuestDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `HSW Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `HeadOfBusDevDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `HeadOfBusDevDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `HeadOfBusDevDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -573,6 +577,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `IntakeDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `IntakeDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `IntakeDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `LPN Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `LegalDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `LegalDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `LegalDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -583,6 +588,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `LocalMarketingManagerDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `LocalMarketingManagerDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `LocalMarketingManagerDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `Nurse Practitioner Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `OfficeDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `OfficeDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `OfficeDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -608,6 +614,8 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `PatientDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `PatientDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `PatientDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `Pediatric Specialist Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
+| `Physician Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `PhysiotherapistDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `PhysiotherapistDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `PhysiotherapistDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -618,6 +626,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `PortalDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `PortalDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `PortalDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `Premium Concierge Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `PswDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `PswDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `PswDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -633,6 +642,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `QualityAssuranceDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `QualityAssuranceDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `QualityAssuranceDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `RN Field Supervisor Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `ReceptionistDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `ReceptionistDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `ReceptionistDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -704,6 +714,7 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `TerritorySalesManagerDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `TerritorySalesManagerDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `TerritorySalesManagerDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `Therapist Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `TrainingCoordinatorDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `TrainingCoordinatorDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `TrainingCoordinatorDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
@@ -719,6 +730,8 @@ This actionable checklist lists all mock/stub or pending sidebar items. To resol
 | `TrainingHubDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
 | `TrainingHubDashboardController` | `Run Audit Scan` | `state.isLoading ? () {} : () => controller.runC...` | `pending` | 🔴 Mock/Stub |
 | `TrainingHubDashboardController` | `Sync Posture` | `() => controller.syncPosture()` | `pending` | 🔴 Mock/Stub |
+| `VIP Client Manager Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
+| `Volunteer Portal Dashboard` | `Live Auditing timeline Console` | `state.logs` | `active` | 🟢 Connected |
 | `VolunteerCoordinatorDashboardController` | `Export Logs` | `() => controller.exportLogs()` | `pending` | 🔴 Mock/Stub |
 | `VolunteerCoordinatorDashboardController` | `Live Auditing timeline Console` | `state.logs` | `pending` | 🔴 Mock/Stub |
 | `VolunteerCoordinatorDashboardController` | `Policy Update` | `() => controller.updatePolicy()` | `pending` | 🔴 Mock/Stub |
