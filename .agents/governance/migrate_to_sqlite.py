@@ -611,12 +611,33 @@ def migrate():
             # Windows/Linux normalization
             relative_path = os.path.relpath(file_path, os.getcwd()).replace('\\', '/')
             
-            # Extract class name
-            class_match = re.search(r'class (\w+) extends', content)
-            if not class_match:
+            # Extract class name - specifically find the class ending with "Screen" or extending "GovernedConsumerWidget"
+            class_name = None
+            screen_match = re.search(r'class (\w+Screen) extends', content)
+            if screen_match:
+                class_name = screen_match.group(1)
+            else:
+                widget_match = re.search(r'class (\w+) extends GovernedConsumerWidget', content)
+                if widget_match:
+                    class_name = widget_match.group(1)
+                else:
+                    class_match = re.search(r'class (\w+) extends', content)
+                    if class_match:
+                        class_name = class_match.group(1)
+                        
+            if not class_name:
                 continue
-            class_name = class_match.group(1)
-            screen_code = _camel_to_snake(class_name.replace('Screen', ''))
+                
+            # Clean up the screen code (e.g. RmtDashboardScreen -> rmt_dashboard)
+            clean_class_name = class_name
+            if clean_class_name.endswith('Screen'):
+                screen_code = _camel_to_snake(clean_class_name[:-6]) # strip "Screen"
+            elif clean_class_name.endswith('Controller'):
+                screen_code = _camel_to_snake(clean_class_name[:-10]) # strip "Controller"
+            elif clean_class_name.endswith('Notifier'):
+                screen_code = _camel_to_snake(clean_class_name[:-8]) # strip "Notifier"
+            else:
+                screen_code = _camel_to_snake(clean_class_name)
             
             requires_sidebar = 1 if ('ResponsiveSplitDashboard' in content) or ('defaultSidebarWidgets:' in content) else 0
             

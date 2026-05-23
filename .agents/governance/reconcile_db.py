@@ -723,10 +723,29 @@ def scan_deep_code_structures(conn):
                             try:
                                 with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
                                     content = f.read()
-                                class_match = re.search(r'class (\w+) extends', content)
-                                if class_match:
-                                    class_name = class_match.group(1)
-                                    screen_code = _camel_to_snake(class_name.replace('Screen', ''))
+                                class_name = None
+                                screen_match = re.search(r'class (\w+Screen) extends', content)
+                                if screen_match:
+                                    class_name = screen_match.group(1)
+                                else:
+                                    widget_match = re.search(r'class (\w+) extends GovernedConsumerWidget', content)
+                                    if widget_match:
+                                        class_name = widget_match.group(1)
+                                    else:
+                                        class_match = re.search(r'class (\w+) extends', content)
+                                        if class_match:
+                                            class_name = class_match.group(1)
+                                            
+                                if class_name:
+                                    clean_class_name = class_name
+                                    if clean_class_name.endswith('Screen'):
+                                        screen_code = _camel_to_snake(clean_class_name[:-6])
+                                    elif clean_class_name.endswith('Controller'):
+                                        screen_code = _camel_to_snake(clean_class_name[:-10])
+                                    elif clean_class_name.endswith('Notifier'):
+                                        screen_code = _camel_to_snake(clean_class_name[:-8])
+                                    else:
+                                        screen_code = _camel_to_snake(clean_class_name)
                                     
                                     # Fetch screens
                                     cursor.execute("SELECT app_id FROM screens WHERE screen_code = ?;", (screen_code,))
@@ -935,11 +954,31 @@ def reconcile():
         
         relative_path = os.path.relpath(file_path, os.getcwd()).replace('\\', '/')
 
-        class_match = re.search(r'class (\w+) extends', content)
-        if not class_match:
+        class_name = None
+        screen_match = re.search(r'class (\w+Screen) extends', content)
+        if screen_match:
+            class_name = screen_match.group(1)
+        else:
+            widget_match = re.search(r'class (\w+) extends GovernedConsumerWidget', content)
+            if widget_match:
+                class_name = widget_match.group(1)
+            else:
+                class_match = re.search(r'class (\w+) extends', content)
+                if class_match:
+                    class_name = class_match.group(1)
+                    
+        if not class_name:
             continue
-        class_name = class_match.group(1)
-        screen_code = _camel_to_snake(class_name.replace('Screen', ''))
+            
+        clean_class_name = class_name
+        if clean_class_name.endswith('Screen'):
+            screen_code = _camel_to_snake(clean_class_name[:-6])
+        elif clean_class_name.endswith('Controller'):
+            screen_code = _camel_to_snake(clean_class_name[:-10])
+        elif clean_class_name.endswith('Notifier'):
+            screen_code = _camel_to_snake(clean_class_name[:-8])
+        else:
+            screen_code = _camel_to_snake(clean_class_name)
 
         has_physical_sidebar = ('ResponsiveSplitDashboard' in content) or ('defaultSidebarWidgets:' in content)
 
