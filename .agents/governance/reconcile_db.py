@@ -908,7 +908,7 @@ def compile_dependency_graph(conn):
 
 def reconcile():
     print("=====================================================")
-    print("Starting SQL-Backed Relational 19-Table Reconciler")
+    print("Starting SQL-Backed Relational 34-Table Reconciler")
     print("=====================================================")
 
     screens_dir = r"packages\primecare_ui\lib\src\screens"

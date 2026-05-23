@@ -139,7 +139,7 @@ def generate_report():
         </tr>""")
 
     # 4. Replace Master Index Table Body
-    master_index_pattern = r'<h2>Relational 24-Table Master Index &amp; Health Diagnostics</h2>[\s\S]*?<tbody>([\s\S]*?)</tbody>'
+    master_index_pattern = r'<h2>Relational 34-Table Master Index &amp; Health Diagnostics</h2>[\s\S]*?<tbody>([\s\S]*?)</tbody>'
     master_match = re.search(master_index_pattern, html)
     if master_match:
         old_body = master_match.group(1)
@@ -563,11 +563,11 @@ def generate_report():
                     filtered.forEach(d => {{
                         const tr = document.createElement(\'tr\');
                         tr.innerHTML = `
-                            <td><strong><code>\${{d.source_type}}</code></strong></td>
-                            <td><code>\${{d.source_name}}</code></td>
-                            <td><strong><code>\${{d.target_type}}</code></strong></td>
-                            <td><code>\${{d.target_name}}</code></td>
-                            <td><span class="badge badge-blue">\${{d.dependency_type}}</span></td>
+                            <td><strong><code>${{d.source_type}}</code></strong></td>
+                            <td><code>${{d.source_name}}</code></td>
+                            <td><strong><code>${{d.target_type}}</code></strong></td>
+                            <td><code>${{d.target_name}}</code></td>
+                            <td><span class="badge badge-blue">${{d.dependency_type}}</span></td>
                         `;
                         tbody.appendChild(tr);
                     }});

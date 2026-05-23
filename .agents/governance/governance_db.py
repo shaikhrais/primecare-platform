@@ -12,7 +12,7 @@ def get_connection():
     return conn
 
 def init_db(force_reset=False):
-    """Initializes the SQLite database schemas for the Ultimate 24-Table Software Governance Engine."""
+    """Initializes the SQLite database schemas for the Ultimate 34-Table Software Governance Engine."""
     conn = get_connection()
     cursor = conn.cursor()
     

@@ -381,7 +381,7 @@ def resolve_app_code_for_role(role_code):
 
 def migrate():
     print("=====================================================")
-    print("Starting PrimeCare Registries to 24-Table SQLite Seeding")
+    print("Starting PrimeCare Registries to 34-Table SQLite Seeding")
     print("=====================================================")
 
     # Initialize SQLite schemas
@@ -834,7 +834,7 @@ def migrate():
 
     conn.commit()
     
-    # Run verification counts for all 24 active tables
+    # Run verification counts for the 24 seeded tables
     active_24 = [
         "orgs", "apps", "roles", "screens", "code_files", "screen_file_links", "api_endpoints",
         "screen_api_links", "db_schema_tables", "db_schema_columns", "screen_components",
@@ -852,12 +852,12 @@ def migrate():
     conn.close()
 
     print("=====================================================")
-    print("Relational 24-Table Seeding Verification:")
+    print("Relational 34-Table Seeding Verification (24 seeded tables):")
     print("=====================================================")
     for table in sorted(active_24):
         print(f"  - {table:<30} {counts[table]} rows")
     print("=====================================================")
-    print("[OK] SUCCESS: 24-Table Relational Schema is fully seeded!")
+    print("[OK] SUCCESS: 34-Table Relational Schema is fully initialized and seeded (24 core tables)!")
     print("=====================================================")
 
 if __name__ == "__main__":
