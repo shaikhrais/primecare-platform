@@ -466,13 +466,31 @@ def scan_software_governance(conn, parsed_screens, anomalies):
                         loc = 0
                         content = ""
                         
-                    f_type = default_type
-                    if 'controller' in name.lower() or 'notifier' in name.lower():
-                        f_type = 'controller'
-                    elif 'guard' in name.lower() or 'router' in name.lower() or 'middleware' in name.lower():
-                        f_type = 'middleware'
-                    elif 'test' in name.lower() or 'spec' in name.lower():
+                    # Determine standard Clean Architecture / MVC categories for code files
+                    name_lower = name.lower()
+                    path_lower = rel_path.lower()
+                    
+                    if 'test' in name_lower or 'spec' in name_lower or '/test/' in path_lower or '/specs/' in path_lower:
                         f_type = 'test'
+                    elif name_lower.endswith('.prisma') or 'schema.prisma' in name_lower:
+                        f_type = 'model'
+                    elif 'pubspec.yaml' in name_lower or 'package.json' in name_lower or 'config' in name_lower or name_lower.endswith('.config.js') or name_lower.endswith('.config.ts') or 'options.yaml' in name_lower:
+                        f_type = 'config'
+                    elif 'guard' in name_lower or 'router' in name_lower or 'route' in name_lower or 'middleware' in name_lower or '/routes/' in path_lower or '/routing/' in path_lower or '/guards/' in path_lower:
+                        f_type = 'middleware'
+                    elif 'screen' in name_lower or 'dashboard' in name_lower or 'view' in name_lower or 'widget' in name_lower or 'page' in name_lower or name_lower.endswith('.tsx') or name_lower.endswith('.jsx') or '/screens/' in path_lower or '/widgets/' in path_lower or '/components/' in path_lower or '/pages/' in path_lower:
+                        f_type = 'view'
+                    elif 'controller' in name_lower or 'notifier' in name_lower or 'provider' in name_lower or 'cubit' in name_lower or 'bloc' in name_lower or '/controllers/' in path_lower or '/notifiers/' in path_lower:
+                        f_type = 'controller'
+                    elif 'model' in name_lower or 'dto' in name_lower or 'entity' in name_lower or 'contract' in name_lower or '/models/' in path_lower or '/dtos/' in path_lower or '/entities/' in path_lower or '/contracts/' in path_lower:
+                        f_type = 'model'
+                    elif 'adapter' in name_lower or 'repository' in name_lower or 'mapper' in name_lower or 'client' in name_lower or '/adapters/' in path_lower or '/repositories/' in path_lower or '/mappers/' in path_lower:
+                        f_type = 'adapter'
+                    else:
+                        if 'services/' in path_lower or 'service' in name_lower or 'util' in name_lower or 'helper' in name_lower:
+                            f_type = 'service'
+                        else:
+                            f_type = 'service'
                         
                     # Resolve dynamic app_id based on file path
                     file_app_db_id = 1
@@ -663,13 +681,36 @@ def scan_deep_code_structures(conn):
                     except Exception:
                         p_content = ""
 
-                    p_purpose = guess_file_purpose(rel_path, p_content, 'package_file')
+                    # Determine standard Clean Architecture / MVC categories for package files
+                    name_lower = name.lower()
+                    path_lower = rel_path.lower()
+                    
+                    if 'test' in name_lower or 'spec' in name_lower or '/test/' in path_lower or '/specs/' in path_lower:
+                        p_type = 'test'
+                    elif name_lower.endswith('.prisma') or 'schema.prisma' in name_lower:
+                        p_type = 'model'
+                    elif 'pubspec.yaml' in name_lower or 'package.json' in name_lower or 'config' in name_lower or name_lower.endswith('.config.js') or name_lower.endswith('.config.ts') or 'options.yaml' in name_lower:
+                        p_type = 'config'
+                    elif 'guard' in name_lower or 'router' in name_lower or 'route' in name_lower or 'middleware' in name_lower or '/routes/' in path_lower or '/routing/' in path_lower or '/guards/' in path_lower:
+                        p_type = 'middleware'
+                    elif 'screen' in name_lower or 'dashboard' in name_lower or 'view' in name_lower or 'widget' in name_lower or 'page' in name_lower or name_lower.endswith('.tsx') or name_lower.endswith('.jsx') or '/screens/' in path_lower or '/widgets/' in path_lower or '/components/' in path_lower or '/pages/' in path_lower:
+                        p_type = 'view'
+                    elif 'controller' in name_lower or 'notifier' in name_lower or 'provider' in name_lower or 'cubit' in name_lower or 'bloc' in name_lower or '/controllers/' in path_lower or '/notifiers/' in path_lower:
+                        p_type = 'controller'
+                    elif 'model' in name_lower or 'dto' in name_lower or 'entity' in name_lower or 'contract' in name_lower or '/models/' in path_lower or '/dtos/' in path_lower or '/entities/' in path_lower or '/contracts/' in path_lower:
+                        p_type = 'model'
+                    elif 'adapter' in name_lower or 'repository' in name_lower or 'mapper' in name_lower or 'client' in name_lower or '/adapters/' in path_lower or '/repositories/' in path_lower or '/mappers/' in path_lower:
+                        p_type = 'adapter'
+                    else:
+                        p_type = 'service'
+
+                    p_purpose = guess_file_purpose(rel_path, p_content, p_type)
 
                     # Insert into package_files
                     cursor.execute("""
                     INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum, purpose)
-                    VALUES (?, ?, ?, 'code', 'MD5-CHECKSUM-STUB', ?)
-                    """, (pkg_id, rel_path, name, p_purpose))
+                    VALUES (?, ?, ?, ?, 'MD5-CHECKSUM-STUB', ?)
+                    """, (pkg_id, rel_path, name, p_type, p_purpose))
                     
                     cursor.execute("SELECT id FROM package_files WHERE file_path = ?;", (rel_path,))
                     pf_row = cursor.fetchone()
