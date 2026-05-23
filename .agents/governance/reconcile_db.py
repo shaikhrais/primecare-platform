@@ -262,6 +262,60 @@ def resolve_role_id(screen_id):
         
     return 'guest'
 
+def resolve_app_code_for_role(role_code):
+    role_to_app = {
+        'chiropractor': 'ci',
+        'physio': 'ci',
+        'rmt': 'ci',
+        'social_worker': 'ci',
+        'therapist': 'ci',
+        'clinical_director': 'ci',
+        'intake': 'ci',
+        'rn': 'ci',
+        'physician': 'ci',
+        'cns': 'ci',
+        'pediatric': 'ci',
+        'psw': 'ci',
+        'hsw': 'ci',
+        'rn_field_supervisor': 'ci',
+        'np': 'ci',
+        'rpn': 'ci',
+        'lpn': 'ci',
+        
+        'ceo': 'co',
+        'cfo': 'co',
+        'coo': 'co',
+        'cto': 'co',
+        'ciso': 'co',
+        'finance_director': 'co',
+        'hr_director': 'co',
+        'owner': 'fr',
+        
+        'caregiver': 'cl',
+        'guest': 'cl',
+        'portal': 'cl',
+        'patient': 'cl',
+        
+        'support': 'su',
+        'customer_support': 'su',
+        
+        'marketing': 'ma',
+        'local_marketing': 'ma',
+        
+        'governance': 'go',
+        'compliance': 'go',
+        
+        'bus_dev': 'bd',
+        'business_development': 'bd',
+        
+        'franchise': 'fr',
+        'franchise_sales': 'fr',
+        
+        'auth': 'au'
+    }
+    return role_to_app.get(role_code, 'cl')
+
+
 def get_screen_category(route_path):
     parts = route_path.replace('\\', '/').split('/')
     if 'screens' in parts:
@@ -469,6 +523,239 @@ def scan_software_governance(conn, parsed_screens, anomalies):
     conn.commit()
     print("Software governance scanning complete! Catalog fully populated.")
 
+def get_short_app_id(app_id):
+    mapping = {
+        'primecare_ui': 'ui',
+        'web-admin': 'wa',
+        'primecare_auth': 'au',
+        'primecare_business_development': 'bd',
+        'primecare_client': 'cl',
+        'primecare_clinic': 'ci',
+        'primecare_corporate': 'co',
+        'primecare_enterprise_blueprint': 'eb',
+        'primecare_franchise': 'fr',
+        'primecare_governance': 'go',
+        'primecare_marketing': 'ma',
+        'primecare_support': 'su',
+        'worker-api': 'wo'
+    }
+    return mapping.get(app_id, app_id[:2].lower())
+
+def scan_deep_code_structures(conn):
+    print("Performing deep code sweep of Physical Packages (package_files & artifact_ownership)...")
+    cursor = conn.cursor()
+    
+    # 1. Fetch package IDs
+    cursor.execute("SELECT id, package_code, root_path FROM physical_packages;")
+    pkgs = cursor.fetchall()
+    pkg_id_map = {r['package_code']: r['id'] for r in pkgs}
+    pkg_path_map = {r['package_code']: r['root_path'] for r in pkgs}
+    
+    # 2. Fetch logical app IDs
+    cursor.execute("SELECT id, app_code FROM logical_apps;")
+    logical_apps = cursor.fetchall()
+    log_app_map = {r['app_code']: r['id'] for r in logical_apps}
+    
+    # Clear old entries to prevent stale duplicates
+    cursor.execute("DELETE FROM package_files;")
+    cursor.execute("DELETE FROM artifact_ownership;")
+    cursor.execute("DELETE FROM router_mounts;")
+    cursor.execute("DELETE FROM layout_bindings;")
+    
+    # Get standard package codes and walk them
+    for pkg_code, pkg_id in pkg_id_map.items():
+        root_dir = pkg_path_map.get(pkg_code)
+        if not root_dir or not os.path.exists(root_dir):
+            continue
+            
+        print(f"  Deep scanning physical package '{pkg_code}' under {root_dir}...")
+        for root, dirs, filenames in os.walk(root_dir):
+            dirs[:] = [d for d in dirs if d not in ('node_modules', 'build', '.dart_tool', '.git', '.gradle', 'ios', 'android', 'dist', 'tmp', '.next', 'out', 'web')]
+            for name in filenames:
+                if name.endswith('.dart') or name.endswith('.ts') or name.endswith('.js'):
+                    f_path = os.path.join(root, name)
+                    rel_path = os.path.relpath(f_path, os.getcwd()).replace('\\', '/')
+                    
+                    # Insert into package_files
+                    cursor.execute("""
+                    INSERT OR REPLACE INTO package_files (package_id, file_path, file_name, artifact_type, checksum)
+                    VALUES (?, ?, ?, 'code', 'MD5-CHECKSUM-STUB')
+                    """, (pkg_id, rel_path, name))
+                    
+                    cursor.execute("SELECT id FROM package_files WHERE file_path = ?;", (rel_path,))
+                    pf_row = cursor.fetchone()
+                    if pf_row:
+                        pf_id = pf_row['id']
+                        
+                        # Determine if this file is a screen to map ownership
+                        if name.endswith('_screen.dart') or name.endswith('_dashboard.dart') or name.endswith('.tsx') or 'screens/' in rel_path.lower():
+                            try:
+                                with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
+                                    content = f.read()
+                                class_match = re.search(r'class (\w+) extends', content)
+                                if class_match:
+                                    class_name = class_match.group(1)
+                                    screen_code = _camel_to_snake(class_name.replace('Screen', ''))
+                                    
+                                    # Fetch screens
+                                    cursor.execute("SELECT app_id FROM screens WHERE screen_code = ?;", (screen_code,))
+                                    scr_res = cursor.fetchone()
+                                    if scr_res:
+                                        scr_app_id = scr_res['app_id']
+                                        
+                                        cursor.execute("SELECT app_code FROM apps WHERE id = ?;", (scr_app_id,))
+                                        app_code_res = cursor.fetchone()
+                                        if app_code_res:
+                                            app_code = app_code_res['app_code']
+                                            log_app_id = log_app_map.get(app_code)
+                                            if log_app_id:
+                                                # Artifact ownership
+                                                cursor.execute("""
+                                                INSERT OR REPLACE INTO artifact_ownership (logical_app_id, package_file_id, ownership_type, mounted_route, authorization_policy, branding_override)
+                                                VALUES (?, ?, 'mounted', ?, ?, ?)
+                                                """, (log_app_id, pf_id, rel_path, 'Role: default', f"Branding: {app_code}"))
+                            except Exception:
+                                pass
+
+    print("Performing deep code sweep of GoRouter mounts (router_mounts & layout_bindings)...")
+    
+    # Iterate all logical apps and scan their directories in apps/
+    for app_code, log_app_id in log_app_map.items():
+        app_folder = None
+        # Map app_code to folder in apps
+        if os.path.exists('apps'):
+            for folder in os.listdir('apps'):
+                if get_short_app_id(folder) == app_code:
+                    app_folder = os.path.join('apps', folder)
+                    break
+                
+        if not app_folder or not os.path.exists(app_folder):
+            continue
+            
+        print(f"  Deep scanning app '{app_code}' under {app_folder}...")
+        for root, dirs, filenames in os.walk(app_folder):
+            dirs[:] = [d for d in dirs if d not in ('node_modules', 'build', '.dart_tool', '.git', '.gradle', 'ios', 'android', 'dist', 'tmp', '.next', 'out', 'web')]
+            for name in filenames:
+                if name.endswith('router.dart') or name.endswith('routes.dart'):
+                    f_path = os.path.join(root, name)
+                    try:
+                        with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
+                            content = f.read()
+                            
+                        # Search for GoRoute paths and builder names
+                        # GoRoute(path: '/clinic/dashboard', builder: (context, state) => const PswDashboardScreen())
+                        route_regex = r'''GoRoute\(\s*path:\s*(?:CommonRoutes\.\w+|ClinicalRoutes\.\w+|['"]([^'"]+)['"])[\s\S]*?builder:\s*\(context,\s*state\)\s*=>\s*(?:const\s+)?(\w+Screen)\b'''
+                        for match in re.finditer(route_regex, content):
+                            route_val = match.group(1) or "CommonRoute"
+                            screen_class = match.group(2)
+                            screen_code = _camel_to_snake(screen_class.replace('Screen', ''))
+                            
+                            # Fetch screen_id
+                            cursor.execute("SELECT id, layout_key FROM screens WHERE screen_code = ?;", (screen_code,))
+                            scr_row = cursor.fetchone()
+                            if scr_row:
+                                scr_id = scr_row['id']
+                                layout_key = scr_row['layout_key'] or 'masterLayout'
+                                
+                                # Insert router mount
+                                cursor.execute("""
+                                INSERT OR REPLACE INTO router_mounts (logical_app_id, screen_id, route_path, router_name, is_active)
+                                VALUES (?, ?, ?, 'GoRouter', 1)
+                                """, (log_app_id, scr_id, route_val))
+                                
+                                # Insert layout binding
+                                cursor.execute("""
+                                INSERT OR REPLACE INTO layout_bindings (logical_app_id, screen_id, layout_name, binding_type)
+                                VALUES (?, ?, ?, 'ShellRoute')
+                                """, (log_app_id, scr_id, layout_key))
+                    except Exception:
+                        pass
+    conn.commit()
+    print("Deep code sweeps complete! Ownership, layouts, and mounts tables fully synced.")
+
+def compile_dependency_graph(conn):
+    print("Compiling universal platform dependency graph (artifact_dependencies)...")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM artifact_dependencies;")
+    
+    def add_dep(src_type, src_id, tgt_type, tgt_id, dep_type):
+        if src_id is not None and tgt_id is not None:
+            cursor.execute("""
+            INSERT OR IGNORE INTO artifact_dependencies (source_type, source_id, target_type, target_id, dependency_type)
+            VALUES (?, ?, ?, ?, ?)
+            """, (src_type, src_id, tgt_type, tgt_id, dep_type))
+
+    # 1. Package Files -> Physical Packages
+    cursor.execute("SELECT id, package_id FROM package_files;")
+    for pf in cursor.fetchall():
+        add_dep('package_file', pf['id'], 'physical_package', pf['package_id'], 'belongs_to_package')
+
+    # 2. Logical Apps -> Package Files (Ownership)
+    cursor.execute("SELECT logical_app_id, package_file_id, ownership_type FROM artifact_ownership;")
+    for ao in cursor.fetchall():
+        add_dep('logical_app', ao['logical_app_id'], 'package_file', ao['package_file_id'], ao['ownership_type'] or 'owns_artifact')
+
+    # 3. Logical Apps -> Screens (Router Mounts)
+    cursor.execute("SELECT logical_app_id, screen_id, route_path FROM router_mounts;")
+    for rm in cursor.fetchall():
+        add_dep('logical_app', rm['logical_app_id'], 'screen', rm['screen_id'], 'mounts_route')
+
+    # 4. Screens -> Layouts (Layout Bindings)
+    cursor.execute("SELECT logical_app_id, screen_id, layout_name FROM layout_bindings;")
+    for lb in cursor.fetchall():
+        add_dep('screen', lb['screen_id'], 'layout', lb['logical_app_id'], f"binds_{lb['layout_name']}")
+
+    # 5. Screens -> Components
+    cursor.execute("SELECT id, screen_id FROM screen_components;")
+    for sc in cursor.fetchall():
+        add_dep('screen', sc['screen_id'], 'component', sc['id'], 'renders_component')
+
+    # 6. Screens -> Functions
+    cursor.execute("SELECT id, screen_id, api_id FROM screen_functions;")
+    for sf in cursor.fetchall():
+        add_dep('screen', sf['screen_id'], 'screen_function', sf['id'], 'contains_function')
+        if sf['api_id']:
+            add_dep('screen_function', sf['id'], 'api_endpoint', sf['api_id'], 'calls_api')
+
+    # 7. Screens -> API Endpoints
+    cursor.execute("SELECT screen_id, api_id, purpose FROM screen_api_links;")
+    for sal in cursor.fetchall():
+        add_dep('screen', sal['screen_id'], 'api_endpoint', sal['api_id'], sal['purpose'] or 'triggers_endpoint')
+
+    # 8. Screens -> Code Files
+    cursor.execute("SELECT screen_id, file_id, link_type FROM screen_file_links;")
+    for sfl in cursor.fetchall():
+        add_dep('screen', sfl['screen_id'], 'code_file', sfl['file_id'], sfl['link_type'] or 'associated_file')
+
+    # 9. Roles -> Screens
+    cursor.execute("SELECT role_id, screen_id FROM role_screen_permissions;")
+    for rsp in cursor.fetchall():
+        add_dep('role', rsp['role_id'], 'screen', rsp['screen_id'], 'authorized_for_screen')
+
+    # 10. Roles -> Functions
+    cursor.execute("SELECT role_id, function_id FROM role_function_permissions;")
+    for rfp in cursor.fetchall():
+        add_dep('role', rfp['role_id'], 'screen_function', rfp['function_id'], 'authorized_for_function')
+
+    # 11. Test Cases -> Screens & APIs
+    cursor.execute("SELECT id, related_screen_id, related_api_id FROM test_cases;")
+    for tc in cursor.fetchall():
+        if tc['related_screen_id']:
+            add_dep('test_case', tc['id'], 'screen', tc['related_screen_id'], 'tests_screen')
+        if tc['related_api_id']:
+            add_dep('test_case', tc['id'], 'api_endpoint', tc['related_api_id'], 'tests_api')
+
+    # 12. Logical Apps -> Environment Configs & Feature Flags
+    cursor.execute("SELECT id, logical_app_id FROM environment_configs;")
+    for ec in cursor.fetchall():
+        add_dep('logical_app', ec['logical_app_id'], 'environment_config', ec['id'], 'injects_config')
+    cursor.execute("SELECT id, logical_app_id FROM feature_flags;")
+    for ff in cursor.fetchall():
+        add_dep('logical_app', ff['logical_app_id'], 'feature_flag', ff['id'], 'toggles_flag')
+
+    conn.commit()
+    print("Platform dependency graph compiled! Universal dependencies ledger populated successfully.")
+
 def reconcile():
     print("=====================================================")
     print("Starting SQL-Backed Relational 19-Table Reconciler")
@@ -495,6 +782,9 @@ def reconcile():
     cursor.execute("SELECT id FROM apps WHERE app_code = 'primecare_ui' LIMIT 1;")
     app_row = cursor.fetchone()
     ui_app_db_id = app_row['id'] if app_row else 1
+
+    cursor.execute("SELECT id, app_code FROM apps;")
+    apps_mapping = {row['app_code']: row['id'] for row in cursor.fetchall()}
 
     # Load master expected configuration from screens
     cursor.execute("SELECT id, screen_code, screen_name, route_path, layout_key FROM screens WHERE screen_type = 'dashboard';")
@@ -589,15 +879,17 @@ def reconcile():
             cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'missing_route', 'high', ?, 'open');", (msg,))
             cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', 'AI Agent', 'pending');", (f"Register {parsed['screen_name']} in Database", msg))
             
+            role_code = resolve_role_id(screen_code)
+            app_code_for_screen = resolve_app_code_for_role(role_code)
+            app_db_id = apps_mapping.get(app_code_for_screen, ui_app_db_id)
+
             # Auto-reconcile: insert stub screen and permissions
             layout_key = 'clinicalLayout' if parsed['has_physical_sidebar'] else 'masterLayout'
             cursor.execute("""
             INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status)
             VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
-            """, (ui_app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
+            """, (app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
             screen_db_id = cursor.lastrowid
-            
-            role_code = resolve_role_id(screen_code)
             role_db_id = roles_mapping.get(role_code, roles_mapping.get('guest'))
             
             cursor.execute("""
@@ -883,6 +1175,12 @@ def reconcile():
 
     # Perform software governance self-cataloging and code/schema scanning
     scan_software_governance(conn, parsed_screens, anomalies)
+    
+    # Perform the dynamic deep sweeps of code structures
+    scan_deep_code_structures(conn)
+    
+    # Compile the new dependency graph
+    compile_dependency_graph(conn)
 
     conn.close()
 

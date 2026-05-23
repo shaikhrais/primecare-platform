@@ -320,9 +320,62 @@ def resolve_role_id(screen_id):
         
     return 'guest'
 
+def resolve_app_code_for_role(role_code):
+    role_to_app = {
+        'chiropractor': 'ci',
+        'physio': 'ci',
+        'rmt': 'ci',
+        'social_worker': 'ci',
+        'therapist': 'ci',
+        'clinical_director': 'ci',
+        'intake': 'ci',
+        'rn': 'ci',
+        'physician': 'ci',
+        'cns': 'ci',
+        'pediatric': 'ci',
+        'psw': 'ci',
+        'hsw': 'ci',
+        'rn_field_supervisor': 'ci',
+        'np': 'ci',
+        'rpn': 'ci',
+        'lpn': 'ci',
+        
+        'ceo': 'co',
+        'cfo': 'co',
+        'coo': 'co',
+        'cto': 'co',
+        'ciso': 'co',
+        'finance_director': 'co',
+        'hr_director': 'co',
+        'owner': 'fr',
+        
+        'caregiver': 'cl',
+        'guest': 'cl',
+        'portal': 'cl',
+        'patient': 'cl',
+        
+        'support': 'su',
+        'customer_support': 'su',
+        
+        'marketing': 'ma',
+        'local_marketing': 'ma',
+        
+        'governance': 'go',
+        'compliance': 'go',
+        
+        'bus_dev': 'bd',
+        'business_development': 'bd',
+        
+        'franchise': 'fr',
+        'franchise_sales': 'fr',
+        
+        'auth': 'au'
+    }
+    return role_to_app.get(role_code, 'cl')
+
 def migrate():
     print("=====================================================")
-    print("Starting PrimeCare Registries to 12-Table SQLite Seeding")
+    print("Starting PrimeCare Registries to 24-Table SQLite Seeding")
     print("=====================================================")
 
     # Initialize SQLite schemas
@@ -339,21 +392,7 @@ def migrate():
     """)
     org_id = cursor.lastrowid
 
-    # 2. Seed offices
-    print("Seeding Offices...")
-    offices_list = [
-        ('corp', 'PrimeCare Corporate HQ', 'corporate'),
-        ('franchise', 'Franchise Partner Network', 'franchise'),
-        ('clinic', 'Core Multi-Disciplinary Clinic', 'clinic'),
-        ('support', 'Operations & Support Hub', 'support')
-    ]
-    for code, name, type_val in offices_list:
-        cursor.execute("""
-        INSERT INTO offices (org_id, office_code, office_name, office_type, status)
-        VALUES (?, ?, ?, ?, 'active')
-        """, (org_id, code, name, type_val))
-
-    # 3. Discover and seed apps
+    # 2. Seed apps
     print("Seeding Apps...")
     core_apps = [
         ('primecare_ui', 'PrimeCare UI Client', 'package', 'Flutter role-based client app.'),
@@ -426,7 +465,86 @@ def migrate():
                 if short_app_id not in apps_mapping:
                     apps_mapping[short_app_id] = cursor.lastrowid
 
-    # 4. Seed roles
+    # 2a. Seed physical_packages & logical_apps
+    print("Seeding Physical Packages & Logical Apps registries...")
+    
+    # physical_packages data
+    packages_to_seed = [
+        ('ui', 'primecare_ui', 'packages/primecare_ui', 'package'),
+        ('fc', 'flutter_core', 'packages/flutter_core', 'package'),
+        ('dm', 'domain', 'packages/domain', 'package'),
+        ('db', 'database', 'packages/database', 'package'),
+        ('sy', 'security', 'packages/security', 'package'),
+        ('me', 'messaging', 'packages/messaging', 'package'),
+        ('co', 'contracts', 'packages/contracts', 'package'),
+        ('if', 'infrastructure', 'packages/infrastructure', 'package')
+    ]
+    pkg_db_ids = {}
+    for p_code, p_name, r_path, p_type in packages_to_seed:
+        cursor.execute("""
+        INSERT OR IGNORE INTO physical_packages (package_code, package_name, root_path, package_type)
+        VALUES (?, ?, ?, ?)
+        """, (p_code, p_name, r_path, p_type))
+        pkg_db_ids[p_code] = cursor.lastrowid
+
+    # logical_apps data
+    logical_apps_to_seed = [
+        ('ci', 'PrimeCare Clinic Portal', 'mobile', 'teal', 'production'),
+        ('cl', 'PrimeCare Client Portal', 'mobile', 'blue', 'production'),
+        ('co', 'PrimeCare Corporate Portal', 'mobile', 'gold', 'production'),
+        ('wa', 'Web Admin Console', 'web', 'dark', 'production'),
+        ('su', 'PrimeCare Support Portal', 'mobile', 'indigo', 'production'),
+        ('au', 'PrimeCare Auth Service', 'mobile', 'purple', 'production'),
+        ('go', 'PrimeCare Governance Portal', 'mobile', 'slate', 'production'),
+        ('bd', 'PrimeCare Business Development Portal', 'mobile', 'cyan', 'production'),
+        ('fr', 'PrimeCare Franchise Portal', 'mobile', 'orange', 'production'),
+        ('ma', 'PrimeCare Marketing Portal', 'mobile', 'pink', 'production')
+    ]
+    log_app_db_ids = {}
+    for a_code, a_name, d_type, b_key, env in logical_apps_to_seed:
+        cursor.execute("""
+        INSERT OR IGNORE INTO logical_apps (org_id, app_code, app_name, deployment_type, branding_key, environment)
+        VALUES (?, ?, ?, ?, ?, ?)
+        """, (org_id, a_code, a_name, d_type, b_key, env))
+        app_db_id = cursor.lastrowid
+        log_app_db_ids[a_code] = app_db_id
+
+        # Seed branding_profile for this app
+        cursor.execute("""
+        INSERT OR IGNORE INTO branding_profiles (logical_app_id, theme_mode, primary_color, secondary_color, font_family, logo_url)
+        VALUES (?, 'dark', ?, '#FFFFFF', 'Outfit', ?)
+        """, (app_db_id, f'#{b_key}', f'/assets/logos/{a_code}.png'))
+
+        # Seed environment_configs for this app (development, staging, production)
+        envs = ['development', 'staging', 'production']
+        for idx, e in enumerate(envs):
+            api_sub = 'dev-api' if e == 'development' else ('staging-api' if e == 'staging' else 'api')
+            cursor.execute("""
+            INSERT OR IGNORE INTO environment_configs (logical_app_id, env_key, env_value, environment_name, is_sensitive)
+            VALUES (?, 'API_URL', ?, ?, 0)
+            """, (app_db_id, f'https://{api_sub}.primecare.io/v1', e))
+            cursor.execute("""
+            INSERT OR IGNORE INTO environment_configs (logical_app_id, env_key, env_value, environment_name, is_sensitive)
+            VALUES (?, 'ENABLE_TELEMETRY', '1', ?, 0)
+            """, (app_db_id, e))
+            cursor.execute("""
+            INSERT OR IGNORE INTO environment_configs (logical_app_id, env_key, env_value, environment_name, is_sensitive)
+            VALUES (?, 'JWT_SECRET', ?, ?, 1)
+            """, (app_db_id, f'super-secret-{e}-key-{a_code}', e))
+
+        # Seed feature_flags for this app
+        flags = [
+            ('enable_ai_notes', 'AI Notes Assistant', 1, 'Enable AI-powered medical notes auto-completion'),
+            ('enable_sso', 'Native SSO', 1, 'Enable single-sign-on authentications'),
+            ('enable_offline_mode', 'Offline Sync', 0, 'Enable offline sync data backup buffers')
+        ]
+        for f_key, f_name, f_enabled, f_desc in flags:
+            cursor.execute("""
+            INSERT OR IGNORE INTO feature_flags (logical_app_id, flag_key, flag_name, is_enabled, description)
+            VALUES (?, ?, ?, ?, ?)
+            """, (app_db_id, f_key, f_name, f_enabled, f_desc))
+
+    # 3. Seed roles
     print("Seeding Roles...")
     role_directory = {
         'allied': ['Chiropractor', 'Physiotherapist', 'Registered Massage Therapist (RMT)', 'Social Worker', 'Therapist'],
@@ -467,34 +585,15 @@ def migrate():
             """, (org_id, role_code, role_name, role_lvl))
             roles_mapping[role_code] = cursor.lastrowid
 
-    # 5. Seed App Role Access (app_roles)
-    print("Seeding App Roles Matrix...")
-    ui_app_db_id = apps_mapping.get('ui')
-    wa_app_db_id = apps_mapping.get('wa')
-    
-    for role_code, role_db_id in roles_mapping.items():
-        # Allow access to UI Client App
-        if ui_app_db_id:
-            cursor.execute("""
-            INSERT INTO app_roles (app_id, role_id, can_access)
-            VALUES (?, ?, 1)
-            """, (ui_app_db_id, role_db_id))
-        # Allow access to Web Admin App for executive/management/clinical/staff groups
-        if wa_app_db_id:
-            can_admin = 1 if role_code in ('ceo', 'cto', 'cfo', 'coo', 'ciso', 'governance', 'admin', 'compliance', 'ops_manager', 'regional_manager_usa') else 0
-            cursor.execute("""
-            INSERT INTO app_roles (app_id, role_id, can_access)
-            VALUES (?, ?, ?)
-            """, (wa_app_db_id, role_db_id, can_admin))
-
-    # 6. Dynamically parse and seed Screens & Sidebar Items
+    # 4. Dynamically parse and seed Screens & Sidebar Items
     screens_dir = r"packages\primecare_ui\lib\src\screens"
     
     screens_seeded = 0
     sidebars_seeded = 0
     funcs_seeded = 0
     comps_seeded = 0
-    links_seeded = 0
+
+    ui_app_db_id = apps_mapping.get('ui')
 
     if os.path.exists(screens_dir):
         print(f"Dynamically parsing sidebar dashboards from disk: {screens_dir}...")
@@ -532,15 +631,46 @@ def migrate():
             else:
                 layout_key = 'masterLayout'
 
-            # 6a. Insert Screen
+            # Resolve actual application ID for screen
+            app_code_for_screen = resolve_app_code_for_role(role_code)
+            app_db_id = apps_mapping.get(app_code_for_screen, ui_app_db_id)
+
+            # 4a. Insert Screen
             cursor.execute("""
-            INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, status)
-            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
-            """, (ui_app_db_id, screen_code, class_name, relative_path, layout_key))
+            INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status, file_path)
+            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active', ?)
+            """, (app_db_id, screen_code, class_name, relative_path, layout_key, relative_path))
             screen_db_id = cursor.lastrowid
             screens_seeded += 1
 
-            # 6b. Seed Zero-Trust Role Route Permission
+            # 4aa. Seed Package Files, Ownership, Layout bindings & Router mounts
+            cursor.execute("""
+            INSERT OR IGNORE INTO package_files (package_id, file_path, file_name, artifact_type, checksum)
+            VALUES (?, ?, ?, 'screen', 'MD5-CHECKSUM-STUB')
+            """, (pkg_db_ids.get('ui', 1), relative_path, class_name))
+            pf_db_id = cursor.lastrowid
+            
+            log_app_db_id = log_app_db_ids.get(app_code_for_screen)
+            if log_app_db_id:
+                # Artifact ownership
+                cursor.execute("""
+                INSERT OR IGNORE INTO artifact_ownership (logical_app_id, package_file_id, ownership_type, mounted_route, authorization_policy, branding_override)
+                VALUES (?, ?, 'mounted', ?, ?, ?)
+                """, (log_app_db_id, pf_db_id, relative_path, f"Role: {role_code}", f"Branding: {app_code_for_screen}"))
+                
+                # Router Mount
+                cursor.execute("""
+                INSERT OR IGNORE INTO router_mounts (logical_app_id, screen_id, route_path, router_name, is_active)
+                VALUES (?, ?, ?, 'GoRouter', 1)
+                """, (log_app_db_id, screen_db_id, relative_path))
+                
+                # Layout Binding
+                cursor.execute("""
+                INSERT OR IGNORE INTO layout_bindings (logical_app_id, screen_id, layout_name, binding_type)
+                VALUES (?, ?, ?, 'ShellRoute')
+                """, (log_app_db_id, screen_db_id, layout_key))
+
+            # 4b. Seed Zero-Trust Role Permission
             cursor.execute("""
             INSERT INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
             VALUES (?, ?, 1, 1, 1, 1, 1)
@@ -550,17 +680,17 @@ def migrate():
             for super_role in ('ceo', 'cto', 'admin'):
                 super_role_db_id = roles_mapping.get(super_role)
                 if super_role_db_id and super_role_db_id != role_db_id:
-                    cursor.execute("""
-                    INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
-                    VALUES (?, ?, 1, 0, 0, 0, 1)
-                    """, (super_role_db_id, screen_db_id))
+                     cursor.execute("""
+                     INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
+                     VALUES (?, ?, 1, 0, 0, 0, 1)
+                     """, (super_role_db_id, screen_db_id))
 
-            # 6c. Seed Parent Sidebar Menu Item
+            # 4c. Seed Parent Sidebar Menu Item
             icon_name = 'stethoscope' if layout_key == 'clinicalLayout' else ('shield' if layout_key == 'adminLayout' else 'home')
             cursor.execute("""
             INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
             VALUES (?, NULL, ?, ?, ?, 0, 1)
-            """, (ui_app_db_id, screen_db_id, f"navigation.items.{screen_code}", icon_name))
+            """, (app_db_id, screen_db_id, class_name, icon_name))
             parent_sidebar_id = cursor.lastrowid
             sidebars_seeded += 1
             
@@ -578,37 +708,27 @@ def migrate():
                     label = match.group(1)
                     raw_callback = match.group(2).strip()
                     item_code = _camel_to_snake(label.replace(' ', ''))
-                    status_val = _analyze_callback(raw_callback, content)
                     
                     # Insert child sidebar menu button
                     cursor.execute("""
                     INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
                     VALUES (?, ?, ?, ?, 'play', ?, 1)
-                    """, (ui_app_db_id, parent_sidebar_id, screen_db_id, label, idx))
+                    """, (app_db_id, parent_sidebar_id, screen_db_id, label, idx))
                     sidebars_seeded += 1
 
                     # Insert Function
                     cursor.execute("""
-                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
-                    VALUES (?, ?, ?, 'shortcut', ?, 'active')
-                    """, (screen_db_id, f"FUN_{screen_code}_{item_code}", f"onTap_{item_code}", raw_callback))
-                    func_db_id = cursor.lastrowid
+                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+                    VALUES (?, ?, ?, 'shortcut', NULL, 'active')
+                    """, (screen_db_id, f"FUN_{screen_code}_{item_code}", f"onTap_{item_code}"))
                     funcs_seeded += 1
 
                     # Insert Component
                     cursor.execute("""
-                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-                    VALUES (?, ?, ?, 'button', ?, ?, 0)
-                    """, (screen_db_id, f"CMP_{screen_code}_{item_code}", label, f"data-cy-{item_code}", idx))
-                    comp_db_id = cursor.lastrowid
+                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+                    VALUES (?, ?, ?, 'button', ?, ?, 'active')
+                    """, (screen_db_id, f"CMP_{screen_code}_{item_code}", label, f"data-cy-{item_code}", relative_path))
                     comps_seeded += 1
-
-                    # Link Function and Component
-                    cursor.execute("""
-                    INSERT INTO function_components (function_id, component_id)
-                    VALUES (?, ?)
-                    """, (func_db_id, comp_db_id))
-                    links_seeded += 1
                     
                 file_has_real_api = any(item in content for item in [
                     'apiClientProvider', 'apiClient.', 'Dio ', 'prisma', 'dbClient',
@@ -617,160 +737,65 @@ def migrate():
                 
                 # Parse Capacity Slider
                 if 'Slider(' in content or 'Slider.adaptive(' in content:
-                    status_str = 'api_connected' if file_has_real_api else 'mock_stub'
-                    
                     cursor.execute("""
                     INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
                     VALUES (?, ?, ?, 'Threshold Capacity Adjuster', 'activity', 10, 1)
-                    """, (ui_app_db_id, parent_sidebar_id, screen_db_id))
+                    """, (app_db_id, parent_sidebar_id, screen_db_id))
                     sidebars_seeded += 1
 
                     cursor.execute("""
-                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
-                    VALUES (?, ?, 'onChanged', 'shortcut', 'onChanged: (val) { controller.updateThreshold(...) }', 'active')
+                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+                    VALUES (?, ?, 'onChanged', 'shortcut', NULL, 'active')
                     """, (screen_db_id, f"FUN_{screen_code}_capacity_slider"))
-                    func_db_id = cursor.lastrowid
                     funcs_seeded += 1
 
                     cursor.execute("""
-                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-                    VALUES (?, ?, 'Threshold Capacity Adjuster', 'form', 'data-cy-capacity-slider', 10, 1)
-                    """, (screen_db_id, f"CMP_{screen_code}_capacity_slider"))
-                    comp_db_id = cursor.lastrowid
+                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+                    VALUES (?, ?, 'Threshold Capacity Adjuster', 'form', 'data-cy-capacity-slider', ?, 'active')
+                    """, (screen_db_id, f"CMP_{screen_code}_capacity_slider", relative_path))
                     comps_seeded += 1
-
-                    cursor.execute("""
-                    INSERT INTO function_components (function_id, component_id)
-                    VALUES (?, ?)
-                    """, (func_db_id, comp_db_id))
-                    links_seeded += 1
                     
                 # Parse Audit Logs Console
                 if 'AuditLogConsole' in content or 'Operational Audit Logs' in content:
-                    status_str = 'api_connected' if file_has_real_api else 'mock_stub'
-                    
                     cursor.execute("""
                     INSERT INTO sidebar_items (app_id, parent_id, screen_id, label, icon, sort_order, is_visible)
                     VALUES (?, ?, ?, 'Live Auditing timeline Console', 'terminal', 20, 1)
-                    """, (ui_app_db_id, parent_sidebar_id, screen_db_id))
+                    """, (app_db_id, parent_sidebar_id, screen_db_id))
                     sidebars_seeded += 1
 
                     cursor.execute("""
-                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, description, status)
-                    VALUES (?, ?, 'renderLogs', 'api_action', 'state.logs', 'active')
+                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+                    VALUES (?, ?, 'renderLogs', 'api_action', NULL, 'active')
                     """, (screen_db_id, f"FUN_{screen_code}_audit_logs_terminal"))
-                    func_db_id = cursor.lastrowid
                     funcs_seeded += 1
 
                     cursor.execute("""
-                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, sort_order, is_required)
-                    VALUES (?, ?, 'Live Auditing timeline Console', 'card', 'data-cy-audit-logs-terminal', 20, 0)
-                    """, (screen_db_id, f"CMP_{screen_code}_audit_logs_terminal"))
-                    comp_db_id = cursor.lastrowid
+                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+                    VALUES (?, ?, 'Live Auditing timeline Console', 'card', 'data-cy-audit-logs-terminal', ?, 'active')
+                    """, (screen_db_id, f"CMP_{screen_code}_audit_logs_terminal", relative_path))
                     comps_seeded += 1
-
-                    cursor.execute("""
-                    INSERT INTO function_components (function_id, component_id)
-                    VALUES (?, ?)
-                    """, (func_db_id, comp_db_id))
-                    links_seeded += 1
 
         print(f"[OK] Dynamically parsed and mapped screen hierarchies:")
         print(f"  - Screens: {screens_seeded}")
         print(f"  - Sidebar Menus: {sidebars_seeded}")
         print(f"  - Action Functions: {funcs_seeded}")
         print(f"  - UI Components: {comps_seeded}")
-        print(f"  - Function Component Links: {links_seeded}")
     else:
         print("[WARN] packages/primecare_ui/lib/src/screens directory not found, skipping sidebars migration.")
 
-    # 7. Seed Data Entries (Data Governance Memory)
-    print("Seeding Data Entries Governance Memory...")
-    cursor.execute("SELECT id, screen_code FROM screens WHERE screen_code LIKE '%psw_dashboard%' LIMIT 1;")
-    psw_screen = cursor.fetchone()
-    psw_screen_id = psw_screen['id'] if psw_screen else 1
-
-    cursor.execute("SELECT id, screen_code FROM screens WHERE screen_code LIKE '%chiropractor_dashboard%' LIMIT 1;")
-    chiro_screen = cursor.fetchone()
-    chiro_screen_id = chiro_screen['id'] if chiro_screen else 1
-
-    cursor.execute("SELECT id, screen_code FROM screens WHERE screen_code LIKE '%finance_director_dashboard%' LIMIT 1;")
-    finance_screen = cursor.fetchone()
-    finance_screen_id = finance_screen['id'] if finance_screen else 1
-
-    cursor.execute("SELECT id, role_code FROM roles WHERE role_code = 'psw' LIMIT 1;")
-    psw_role = cursor.fetchone()
-    psw_role_id = psw_role['id'] if psw_role else None
-
-    cursor.execute("SELECT id, role_code FROM roles WHERE role_code = 'chiropractor' LIMIT 1;")
-    chiro_role = cursor.fetchone()
-    chiro_role_id = chiro_role['id'] if chiro_role else None
-
-    cursor.execute("SELECT id, role_code FROM roles WHERE role_code = 'finance_director' LIMIT 1;")
-    finance_role = cursor.fetchone()
-    finance_role_id = finance_role['id'] if finance_role else None
-
-    # Insert Data Entry 1: Visit Note
-    cursor.execute("""
-    INSERT INTO data_entries (org_id, app_id, screen_id, role_id, user_id, entry_type, record_ref, status, data_json)
-    VALUES (?, ?, ?, ?, 'user_psw_john', 'visit_note', 'REC-VN-98213', 'submitted', 
-    '{"client_id": "CL-8871", "client_name": "Mildred Adams", "visit_date": "2026-05-21", "care_provided": ["bathing", "meal_prep", "mobility_assistance"], "notes": "Client was in good spirits."}')
-    """, (org_id, ui_app_db_id, psw_screen_id, psw_role_id))
-
-    # Insert Data Entry 2: Intake assessment
-    cursor.execute("""
-    INSERT INTO data_entries (org_id, app_id, screen_id, role_id, user_id, entry_type, record_ref, status, data_json)
-    VALUES (?, ?, ?, ?, 'user_chiro_dr_sarah', 'client_intake', 'REC-IN-55412', 'approved', 
-    '{"client_name": "Robert Henderson", "dob": "1964-11-12", "primary_complaint": "Lower back stiffness", "session_type": "Chiro Initial Assessment"}')
-    """, (org_id, ui_app_db_id, chiro_screen_id, chiro_role_id))
-
-    # Insert Data Entry 3: Invoice/Booking Draft
-    cursor.execute("""
-    INSERT INTO data_entries (org_id, app_id, screen_id, role_id, user_id, entry_type, record_ref, status, data_json)
-    VALUES (?, ?, ?, ?, 'user_patient_robert', 'booking', 'REC-BK-33921', 'draft', 
-    '{"service_id": "SRV-CHIRO", "requested_date": "2026-05-25T10:00:00", "notes": "Prefer morning slot."}')
-    """, (org_id, ui_app_db_id, chiro_screen_id, chiro_role_id))
-
-
-    # 8. Seed Audit Transactions (Action history)
-    print("Seeding Audit Transactions Ledger...")
-    # Transaction 1: User Login
-    cursor.execute("""
-    INSERT INTO transactions (org_id, app_id, screen_id, user_id, role_id, transaction_type, entity_type, entity_id, note)
-    VALUES (?, ?, ?, 'user_psw_john', ?, 'login', 'user', 'user_psw_john', 'Successful login from mobile app (iOS)')
-    """, (org_id, ui_app_db_id, psw_screen_id, psw_role_id))
-
-    # Transaction 2: Visit note submission
-    cursor.execute("""
-    INSERT INTO transactions (org_id, app_id, screen_id, user_id, role_id, transaction_type, entity_type, entity_id, before_json, after_json, note)
-    VALUES (?, ?, ?, 'user_psw_john', ?, 'create', 'note', 'REC-VN-98213', NULL, '{"client_id": "CL-8871", "status": "submitted"}', 'Visit note created and sent for clinical review')
-    """, (org_id, ui_app_db_id, psw_screen_id, psw_role_id))
-
-    # Transaction 3: Approve clinical intake
-    cursor.execute("""
-    INSERT INTO transactions (org_id, app_id, screen_id, user_id, role_id, transaction_type, entity_type, entity_id, before_json, after_json, note)
-    VALUES (?, ?, ?, 'user_director_clinical', ?, 'approve', 'client', 'REC-IN-55412', '{"status": "pending_approval"}', '{"status": "approved"}', 'Clinical assessment approved by Clinical Director.')
-    """, (org_id, ui_app_db_id, chiro_screen_id, chiro_role_id))
-
-
-    # 9. Seed Saved Reports (Aggregate reports)
+    # 5. Seed Saved Reports (Aggregate reports)
     print("Seeding Saved Business Reports...")
-    # Report 1: Daily Revenue Summary
     cursor.execute("""
-    INSERT INTO saved_reports (org_id, app_id, report_name, report_type, filters_json, result_json, created_by)
-    VALUES (?, ?, 'Daily Billing & Cash Flow Digest', 'revenue', '{"date": "2026-05-21", "currency": "CAD"}', 
-    '{"total_invoices": 18, "total_value": 2450.00, "paid_invoices": 12, "pending_invoices": 6}', 'finance_director_bot')
-    """, (org_id, ui_app_db_id))
-
-    # Report 2: Weekly Clinical Audit
+    INSERT INTO governance_reports (app_id, report_name, report_type, html_report_path, generated_by)
+    VALUES (?, 'Daily Billing & Cash Flow Digest', 'revenue', 'reports/governance/primecare_governance_audit_daily.html', 'finance_director_bot')
+    """, (ui_app_db_id,))
+    
     cursor.execute("""
-    INSERT INTO saved_reports (org_id, app_id, report_name, report_type, filters_json, result_json, created_by)
-    VALUES (?, ?, 'Weekly Care Plan Compliance & Drift Audit', 'audit', '{"week_start": "2026-05-14", "week_end": "2026-05-21"}', 
-    '{"screens_scanned": 62, "layout_conformity": 100.0, "drifts_detected": 0}', 'governance_engine')
-    """, (org_id, ui_app_db_id))
+    INSERT INTO governance_reports (app_id, report_name, report_type, html_report_path, generated_by)
+    VALUES (?, 'Weekly Care Plan Compliance & Drift Audit', 'audit', 'reports/governance/primecare_governance_audit_weekly.html', 'governance_engine')
+    """, (ui_app_db_id,))
 
-
-    # 10. Seed Governance Logs Info Row
+    # 6. Seed Governance Logs Info Row
     cursor.execute("""
     INSERT INTO governance_logs (org_id, app_id, screen_id, log_type, message, severity)
     VALUES (?, ?, NULL, 'info', 'Relational database initialized and dynamically seeded successfully.', 'low')
@@ -778,60 +803,30 @@ def migrate():
 
     conn.commit()
     
-    # Run verification counts for all 15 tables
-    cursor.execute("SELECT COUNT(*) FROM orgs;")
-    o_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM offices;")
-    of_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM apps;")
-    app_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM roles;")
-    role_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM app_roles;")
-    ar_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM screens;")
-    s_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM sidebar_items;")
-    sb_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM role_screen_permissions;")
-    rsp_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM screen_functions;")
-    sf_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM screen_components;")
-    sc_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM function_components;")
-    fc_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM governance_logs;")
-    gl_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM data_entries;")
-    de_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM transactions;")
-    tx_count = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(*) FROM saved_reports;")
-    sr_count = cursor.fetchone()[0]
+    # Run verification counts for all 24 active tables
+    active_24 = [
+        "orgs", "apps", "roles", "screens", "code_files", "screen_file_links", "api_endpoints",
+        "screen_api_links", "db_schema_tables", "db_schema_columns", "screen_components",
+        "screen_functions", "role_screen_permissions", "role_function_permissions", "test_cases",
+        "test_runs", "test_results", "drift_findings", "implementation_tasks", "task_completion_checks",
+        "governance_snapshots", "governance_reports", "sidebar_items", "governance_logs"
+    ]
+    
+    counts = {}
+    for table in active_24:
+        cursor.execute(f"SELECT COUNT(*) FROM [{table}];")
+        counts[table] = cursor.fetchone()[0]
 
     cursor.execute("PRAGMA foreign_keys = ON;")
     conn.close()
 
     print("=====================================================")
-    print("Relational 15-Table Seeding Verification:")
-    print(f"  - Orgs:                       {o_count}")
-    print(f"  - Offices:                    {of_count}")
-    print(f"  - Apps:                       {app_count}")
-    print(f"  - Roles:                      {role_count}")
-    print(f"  - App Roles:                  {ar_count}")
-    print(f"  - Screens:                    {s_count}")
-    print(f"  - Sidebar Items:              {sb_count}")
-    print(f"  - Role Screen Permissions:    {rsp_count}")
-    print(f"  - Screen Functions:           {sf_count}")
-    print(f"  - Screen Components:          {sc_count}")
-    print(f"  - Function Component Links:   {fc_count}")
-    print(f"  - Governance Logs:            {gl_count}")
-    print(f"  - Data Entries:               {de_count}")
-    print(f"  - Transactions:               {tx_count}")
-    print(f"  - Saved Reports:              {sr_count}")
+    print("Relational 24-Table Seeding Verification:")
     print("=====================================================")
-    print("[OK] SUCCESS: 15-Table Relational Schema is fully seeded!")
+    for table in sorted(active_24):
+        print(f"  - {table:<30} {counts[table]} rows")
+    print("=====================================================")
+    print("[OK] SUCCESS: 24-Table Relational Schema is fully seeded!")
     print("=====================================================")
 
 if __name__ == "__main__":

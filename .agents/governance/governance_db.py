@@ -11,7 +11,7 @@ def get_connection():
     return conn
 
 def init_db(force_reset=False):
-    """Initializes the SQLite database schemas for the Ultimate Software Governance Engine (19 Tables)."""
+    """Initializes the SQLite database schemas for the Ultimate 24-Table Software Governance Engine."""
     conn = get_connection()
     cursor = conn.cursor()
     
@@ -20,6 +20,19 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "artifact_dependencies",
+            "feature_flags",
+            "environment_configs",
+            "branding_profiles",
+            "layout_bindings",
+            "router_mounts",
+            "artifact_ownership",
+            "package_files",
+            "logical_apps",
+            "physical_packages",
+            "task_completion_checks",
+            "test_results",
+            "test_runs",
             "governance_reports",
             "governance_snapshots",
             "implementation_tasks",
@@ -38,7 +51,20 @@ def init_db(force_reset=False):
             "screens",
             "roles",
             "apps",
-            "orgs"
+            "orgs",
+            "sidebar_items",
+            "governance_logs",
+            # Legacy/Obsolete tables to drop during transition
+            "offices",
+            "app_roles",
+            "function_components",
+            "data_entries",
+            "transactions",
+            "saved_reports",
+            "dev_artifact_snapshots",
+            "dev_change_logs",
+            "schema_snapshots",
+            "L1_apps"
         ]
         for t in tables_to_drop:
             cursor.execute(f"DROP TABLE IF EXISTS [{t}];")
@@ -46,7 +72,7 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = ON;")
         conn.commit()
 
-    # 1. Orgs
+    # 1. orgs
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS orgs (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,12 +83,12 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 2. Apps
+    # 2. apps
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS apps (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       org_id INTEGER NOT NULL,
-      app_code TEXT NOT NULL,
+      app_code TEXT UNIQUE NOT NULL,
       app_name TEXT NOT NULL,
       platform TEXT,
       framework TEXT,
@@ -70,26 +96,24 @@ def init_db(force_reset=False):
       root_path TEXT,
       status TEXT DEFAULT 'active',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE,
-      UNIQUE(org_id, app_code)
+      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE
     );
     """)
 
-    # 3. Roles
+    # 3. roles
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS roles (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       org_id INTEGER NOT NULL,
-      role_code TEXT NOT NULL,
+      role_code TEXT UNIQUE NOT NULL,
       role_name TEXT NOT NULL,
       role_level INTEGER DEFAULT 1,
       status TEXT DEFAULT 'active',
-      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE,
-      UNIQUE(org_id, role_code)
+      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE
     );
     """)
 
-    # 4. Screens
+    # 4. screens
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS screens (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -108,25 +132,24 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 5. Code Files
+    # 5. code_files
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS code_files (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
       file_name TEXT NOT NULL,
-      file_path TEXT NOT NULL,
+      file_path TEXT UNIQUE NOT NULL,
       file_type TEXT,
       language TEXT,
       folder_path TEXT,
       is_generated INTEGER DEFAULT 0,
       status TEXT DEFAULT 'active',
       last_scanned_at TEXT,
-      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
-      UNIQUE(app_id, file_path)
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
     );
     """)
 
-    # 6. Screen File Links
+    # 6. screen_file_links
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS screen_file_links (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -139,7 +162,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 7. API Endpoints
+    # 7. api_endpoints
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS api_endpoints (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -157,7 +180,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 8. Screen API Links
+    # 8. screen_api_links
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS screen_api_links (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -170,20 +193,19 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 9. DB Tables Registry
+    # 9. db_schema_tables
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS db_schema_tables (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
-      table_name TEXT NOT NULL,
+      table_name TEXT UNIQUE NOT NULL,
       table_type TEXT,
       status TEXT DEFAULT 'active',
-      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
-      UNIQUE(app_id, table_name)
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
     );
     """)
 
-    # 10. DB Columns Registry
+    # 10. db_schema_columns
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS db_schema_columns (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -201,7 +223,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 11. Components
+    # 11. screen_components
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS screen_components (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -217,7 +239,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 12. Functions / Actions
+    # 12. screen_functions
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS screen_functions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -233,7 +255,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 13. Role Screen Permissions
+    # 13. role_screen_permissions
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS role_screen_permissions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -250,7 +272,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 14. Function Permissions
+    # 14. role_function_permissions
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS role_function_permissions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -263,7 +285,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 15. Test Cases
+    # 15. test_cases
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS test_cases (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -281,7 +303,37 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 16. Drift Findings
+    # 16. test_runs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS test_runs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      run_name TEXT,
+      run_type TEXT,
+      status TEXT DEFAULT 'running',
+      started_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      completed_at TEXT,
+      summary_json TEXT,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 17. test_results
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS test_results (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      test_run_id INTEGER NOT NULL,
+      test_case_id INTEGER,
+      status TEXT NOT NULL,
+      error_message TEXT,
+      duration_ms INTEGER,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (test_run_id) REFERENCES test_runs(id) ON DELETE CASCADE,
+      FOREIGN KEY (test_case_id) REFERENCES test_cases(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 18. drift_findings
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS drift_findings (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -301,7 +353,7 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 17. AI Agent Tasks
+    # 19. implementation_tasks
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS implementation_tasks (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -323,7 +375,20 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 18. Governance Snapshots
+    # 20. task_completion_checks
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS task_completion_checks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      task_id INTEGER NOT NULL,
+      check_name TEXT NOT NULL,
+      check_status TEXT DEFAULT 'pending',
+      evidence TEXT,
+      checked_at TEXT,
+      FOREIGN KEY (task_id) REFERENCES implementation_tasks(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 21. governance_snapshots
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS governance_snapshots (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -336,17 +401,198 @@ def init_db(force_reset=False):
     );
     """)
 
-    # 19. Governance Reports
+    # 22. governance_reports
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS governance_reports (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
-      report_name TEXT,
+      report_name TEXT NOT NULL,
       report_type TEXT,
       html_report_path TEXT,
       generated_by TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 23. sidebar_items
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS sidebar_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      parent_id INTEGER,
+      screen_id INTEGER,
+      label TEXT NOT NULL,
+      icon TEXT,
+      sort_order INTEGER DEFAULT 0,
+      is_visible INTEGER DEFAULT 1,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (parent_id) REFERENCES sidebar_items(id) ON DELETE CASCADE,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 24. governance_logs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS governance_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      org_id INTEGER NOT NULL,
+      app_id INTEGER,
+      screen_id INTEGER,
+      log_type TEXT,
+      message TEXT NOT NULL,
+      severity TEXT DEFAULT 'medium',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE SET NULL,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 25. physical_packages
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS physical_packages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      package_code TEXT UNIQUE NOT NULL,
+      package_name TEXT NOT NULL,
+      root_path TEXT NOT NULL,
+      package_type TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+    """)
+
+    # 26. logical_apps
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS logical_apps (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      org_id INTEGER NOT NULL,
+      app_code TEXT UNIQUE NOT NULL,
+      app_name TEXT NOT NULL,
+      deployment_type TEXT,
+      branding_key TEXT,
+      environment TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (org_id) REFERENCES orgs(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 27. package_files
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS package_files (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      package_id INTEGER NOT NULL,
+      file_path TEXT UNIQUE NOT NULL,
+      file_name TEXT NOT NULL,
+      artifact_type TEXT,
+      checksum TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (package_id) REFERENCES physical_packages(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 28. artifact_ownership
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS artifact_ownership (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      package_file_id INTEGER NOT NULL,
+      ownership_type TEXT,
+      mounted_route TEXT,
+      authorization_policy TEXT,
+      branding_override TEXT,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (package_file_id) REFERENCES package_files(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, package_file_id)
+    );
+    """)
+
+    # 29. router_mounts
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS router_mounts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      screen_id INTEGER NOT NULL,
+      route_path TEXT NOT NULL,
+      router_name TEXT,
+      is_active INTEGER DEFAULT 1,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, route_path)
+    );
+    """)
+
+    # 30. layout_bindings
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS layout_bindings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      screen_id INTEGER NOT NULL,
+      layout_name TEXT NOT NULL,
+      binding_type TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, screen_id)
+    );
+    """)
+
+    # 31. branding_profiles
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS branding_profiles (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER UNIQUE NOT NULL,
+      theme_mode TEXT DEFAULT 'dark',
+      primary_color TEXT,
+      secondary_color TEXT,
+      font_family TEXT,
+      logo_url TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 32. environment_configs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS environment_configs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      env_key TEXT NOT NULL,
+      env_value TEXT,
+      environment_name TEXT NOT NULL,
+      is_sensitive INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, env_key, environment_name)
+    );
+    """)
+
+    # 33. feature_flags
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS feature_flags (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      flag_key TEXT NOT NULL,
+      flag_name TEXT NOT NULL,
+      is_enabled INTEGER DEFAULT 0,
+      description TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, flag_key)
+    );
+    """)
+
+    # 34. artifact_dependencies
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS artifact_dependencies (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      source_type TEXT NOT NULL,
+      source_id INTEGER NOT NULL,
+      target_type TEXT NOT NULL,
+      target_id INTEGER NOT NULL,
+      dependency_type TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(source_type, source_id, target_type, target_id, dependency_type)
     );
     """)
 
@@ -365,10 +611,28 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_tasks_app ON implementation_tasks(app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_snapshots_app ON governance_snapshots(app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_reports_app ON governance_reports(app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_test_runs_app ON test_runs(app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_test_results_run ON test_results(test_run_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_test_results_case ON test_results(test_case_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_completion_checks_task ON task_completion_checks(task_id);")
+    
+    # 10 New Indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_pp_code ON physical_packages(package_code);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_la_org ON logical_apps(org_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_pf_pkg ON package_files(package_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ao_app ON artifact_ownership(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ao_file ON artifact_ownership(package_file_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_rm_app ON router_mounts(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_lb_app ON layout_bindings(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_bp_app ON branding_profiles(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ec_app ON environment_configs(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ff_app ON feature_flags(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ad_source ON artifact_dependencies(source_type, source_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ad_target ON artifact_dependencies(target_type, target_id);")
 
     conn.commit()
     conn.close()
-    print("PrimeCare 19-Table Relational Ultimate SQLite Database schemas initialized.")
+    print("PrimeCare 34-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()
