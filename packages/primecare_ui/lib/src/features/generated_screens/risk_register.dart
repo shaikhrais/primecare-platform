@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: --- Domain Entity ---
+// Governance - Category: service | Purpose: Core implementation file for the Risk Register platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- Domain Entity ---

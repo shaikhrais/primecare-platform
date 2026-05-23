@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Emit a stable heartbeat every 15 seconds
+// Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE
 // Layer: 01_INFRASTRUCTURE
 import 'dart:async';
 import 'dart:math' as math;

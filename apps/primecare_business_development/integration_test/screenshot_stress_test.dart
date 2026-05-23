@@ -1,4 +1,4 @@
-// Governance - Category: test | Purpose: ------------------------------------------------------------- CUSTOM INTEGRATION TEST LOGIC GOES HERE ---------------...
+// Governance - Category: test | Purpose: CUSTOM INTEGRATION TEST LOGIC GOES HERE
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_core/testing/governance_stress_tester.dart';

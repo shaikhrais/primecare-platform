@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: Group files by their parent directory to find duplicates within a feature Check for Intents
+// Governance - Category: service | Purpose: Group files by their parent directory to find duplicates within a feature
 import 'dart:io';
 
 void main() {

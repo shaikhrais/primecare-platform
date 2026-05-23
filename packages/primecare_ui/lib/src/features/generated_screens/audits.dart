@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: --- Domain Entities ---
+// Governance - Category: service | Purpose: Core implementation file for the Audits platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- Domain Entities ---

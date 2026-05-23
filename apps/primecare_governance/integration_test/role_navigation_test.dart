@@ -1,4 +1,4 @@
-// Governance - Category: test | Purpose: The roles from the simulation chips we saw in the widget tree Scroll to the chip if needed Ignore if already visible ...
+// Governance - Category: test | Purpose: The roles from the simulation chips we saw in the widget tree Scroll to the chip if needed
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:primecare_governance/main.dart' as app;

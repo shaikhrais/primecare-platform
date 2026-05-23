@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: Client / Model User Model Tenant
+// Governance - Category: service | Purpose: Client Model User Model Tenant
 
 /**
  * Client

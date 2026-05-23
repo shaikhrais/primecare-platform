@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- State Model ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Coordinator Waitlist Screen workspace interface.
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

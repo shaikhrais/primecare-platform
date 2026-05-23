@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: ========================================== CI/CD Architectural Governance Gate ======================================...
+// Governance - Category: service | Purpose: CI/CD Architectural Governance Gate
 import https from "https";
 import http from "http";
 

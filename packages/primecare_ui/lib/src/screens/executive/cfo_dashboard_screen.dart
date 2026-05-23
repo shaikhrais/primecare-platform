@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- Data Models ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Cfo Dashboard Screen workspace interface.
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

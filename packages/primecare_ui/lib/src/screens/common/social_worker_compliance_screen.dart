@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- MVC State Model ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Social Worker Compliance Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---

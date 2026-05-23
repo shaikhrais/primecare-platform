@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- MVC Invoicing Model ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Billing Admin Dashboard Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC Invoicing Model ---

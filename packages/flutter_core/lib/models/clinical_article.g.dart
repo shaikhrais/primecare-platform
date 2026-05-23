@@ -1,4 +1,4 @@
-// Governance - Category: model | Purpose: GENERATED CODE - DO NOT MODIFY BY HAND ************************************************************************** Jso...
+// Governance - Category: model | Purpose: GENERATED CODE - DO NOT MODIFY BY HAND JsonSerializableGenerator
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'clinical_article.dart';

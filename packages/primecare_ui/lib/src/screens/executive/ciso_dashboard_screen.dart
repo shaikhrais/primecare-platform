@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- DEFCON Level enum --- --- MVC Security Alert Model ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Ciso Dashboard Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- DEFCON Level enum ---

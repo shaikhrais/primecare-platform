@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- MVC State Model ---
+// Governance - Category: view | Purpose: Core implementation file for the Incident Reviews platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---

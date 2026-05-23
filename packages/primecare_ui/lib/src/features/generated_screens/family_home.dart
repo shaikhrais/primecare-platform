@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: --- MVC State Model ---
+// Governance - Category: service | Purpose: Core implementation file for the Family Home platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---

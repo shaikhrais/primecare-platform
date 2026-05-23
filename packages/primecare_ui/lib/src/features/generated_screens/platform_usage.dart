@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: --- MVC State Model ---
+// Governance - Category: service | Purpose: Core implementation file for the Platform Usage platform logic.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 

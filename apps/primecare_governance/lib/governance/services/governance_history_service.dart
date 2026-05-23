@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: Captures a snapshot of the current governance report and persists it. Retrieves the history of health scores for tren...
+// Governance - Category: service | Purpose: Captures a snapshot of the current governance report and persists it.
 import 'package:drift/drift.dart';
 import '../models/governance_report.dart';
 import '../../core/database/governance_database.dart';

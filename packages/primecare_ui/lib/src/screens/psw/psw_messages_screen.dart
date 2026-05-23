@@ -1,4 +1,4 @@
-// Governance - Category: view | Purpose: --- Data Models ---
+// Governance - Category: view | Purpose: UI Screen component rendering the Psw Messages Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- Data Models ---

@@ -1,4 +1,4 @@
-// Governance - Category: model | Purpose: @primecare/contracts — Shared Zod schemas & TypeScript types Import from both worker-api and web-admin to ensure requ...
+// Governance - Category: model | Purpose: @primecare/contracts — Shared Zod schemas & TypeScript types request/response contracts stay in sync.
 /**
  * @primecare/contracts — Shared Zod schemas & TypeScript types
  *

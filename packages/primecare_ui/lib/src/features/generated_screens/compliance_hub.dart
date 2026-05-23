@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: --- State Model ---
+// Governance - Category: service | Purpose: Core implementation file for the Compliance Hub platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- State Model ---

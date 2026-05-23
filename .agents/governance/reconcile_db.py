@@ -16,21 +16,34 @@ def guess_file_purpose(file_path, file_content, file_type):
     purpose_lines = []
     lines = file_content.split('\n')
     
+    def is_invalid_comment(comment):
+        if not comment:
+            return True
+        lower = comment.lower()
+        if any(term in lower for term in ['copyright', 'license', 'http://', 'import ', 'governance - category:', 'purpose:']):
+            return True
+        stripped = comment.strip()
+        if stripped.startswith('---') or stripped.endswith('---') or stripped.startswith('***') or stripped.endswith('***') or stripped.startswith('===') or stripped.endswith('==='):
+            return True
+        clean_c = stripped.replace('-', '').replace('*', '').replace('=', '').replace('_', '').replace('/', '').strip()
+        if not clean_c or len(clean_c) < 3 or clean_c.lower() in ('mvc state model', 'mvc invoicing model', 'mvc shift entry model', 'state model', 'controller (notifier)', 'controller', 'notifier', 'view', 'state model', 'data models', 'state'):
+            return True
+        return False
+    
     # 1. Look for docstrings/comments in the first 25 lines
     for line in lines[:25]:
         stripped = line.strip()
         if stripped.startswith('///') or stripped.startswith('//'):
             comment = stripped.lstrip('/ ').strip()
-            # Exclude license headers, copyright warnings, standard dart imports
-            if comment and not any(term in comment.lower() for term in ['copyright', 'license', 'http://', 'import ']):
+            if not is_invalid_comment(comment):
                 purpose_lines.append(comment)
         elif stripped.startswith('#'):
             comment = stripped.lstrip('# ').strip()
-            if comment and not any(term in comment.lower() for term in ['copyright', 'license', 'usr/bin']):
+            if not is_invalid_comment(comment):
                 purpose_lines.append(comment)
         elif stripped.startswith('*') and not stripped.startswith('*/') and not stripped.startswith('/*'):
             comment = stripped.lstrip('* ').strip()
-            if comment and not any(term in comment.lower() for term in ['copyright', 'license']):
+            if not is_invalid_comment(comment):
                 purpose_lines.append(comment)
                 
     if purpose_lines:
