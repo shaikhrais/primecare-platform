@@ -7,7 +7,7 @@ class SecurityHubScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SecurityHubScreenControllerControllerProvider);
+    final state = ref.watch(securityHubScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

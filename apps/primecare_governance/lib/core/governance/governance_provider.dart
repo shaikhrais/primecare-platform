@@ -351,7 +351,7 @@ class GovernanceState {
   }
 }
 
-/// [GovernanceProvider] - Riverpod provider for the Governance HUD data.
+/// [governanceProvider] - Riverpod provider for the Governance HUD data.
 class GovernanceNotifier extends Notifier<GovernanceState> {
   StreamSubscription? _telemetrySubscription;
   Timer? _automationTimer;

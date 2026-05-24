@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'monitoring_screen_controller.dart';
+import 'monitoring_screen_controller_controller.dart';
 
 class MonitoringScreen extends ConsumerWidget {
   const MonitoringScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(MonitoringScreenControllerProvider);
+    final state = ref.watch(monitoringScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

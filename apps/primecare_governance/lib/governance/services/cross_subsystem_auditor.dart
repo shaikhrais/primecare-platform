@@ -42,7 +42,7 @@ class CrossSubsystemAuditor {
     return allIssues;
   }
 
-  /// Audits the parity between PrimeCareForm enum and PrimeCareFormProvider switch-cases.
+  /// Audits the parity between PrimeCareForm enum and primeCareFormProvider switch-cases.
   Future<List<PlatformAuditIssue>> auditFormProviderParity() async {
     final List<PlatformAuditIssue> issues = [];
 
@@ -60,7 +60,7 @@ class CrossSubsystemAuditor {
         PlatformAuditIssue(
           id: 'parity_files_missing',
           subsystem: 'primecare_ui',
-          registry: 'FormProvider',
+          registry: 'formProvider',
           issue: 'Registry files missing',
           suggestion:
               'Ensure the primecare_ui package is correctly structured.',
@@ -95,7 +95,7 @@ class CrossSubsystemAuditor {
             PlatformAuditIssue(
               id: 'missing_binding_$value',
               subsystem: 'primecare_ui',
-              registry: 'PrimeCareFormProvider',
+              registry: 'primeCareFormProvider',
               issue: 'Missing binding for Form: $value',
               suggestion: 'Run ASTPatchEngine to inject missing switch-case.',
               autoRemediable: true,

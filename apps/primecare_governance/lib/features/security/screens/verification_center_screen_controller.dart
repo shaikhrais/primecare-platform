@@ -7,7 +7,7 @@ class VerificationCenterScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(VerificationCenterScreenControllerControllerProvider);
+    final state = ref.watch(verificationCenterScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

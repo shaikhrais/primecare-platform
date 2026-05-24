@@ -254,7 +254,7 @@ class CisoDashboardScreen extends GovernedConsumerWidget {
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
-          state.title,
+          'CISO Security Posture',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
@@ -270,7 +270,7 @@ class CisoDashboardScreen extends GovernedConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GovDashboardHero(
-              title: state.title,
+              title: 'CISO Security Posture',
               roleName: '$roleBase Dashboard',
               description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
               onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
@@ -354,7 +354,7 @@ class CisoDashboardScreen extends GovernedConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      onPressed: state.isLoading ? null : () => controller.syncPosture(),
                       child: state.isLoading
                           ? const SizedBox(
                               height: 20,

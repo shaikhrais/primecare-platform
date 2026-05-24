@@ -15,6 +15,6 @@ This report summarizes the automated deployment cycle of the PrimeCare Flutter W
 | **primecare_business_development** | `primecare-business-development` | **Failed** | flutter build web failed | [N/A](N/A) |
 | **primecare_marketing** | `primecare-marketing` | **Failed** | flutter build web failed | [N/A](N/A) |
 | **primecare_support** | `primecare-support` | **Failed** | flutter build web failed | [N/A](N/A) |
-| **primecare_enterprise_blueprint** | `primecare-enterprise-blueprint` | **Failed** | flutter build web failed | [N/A](N/A) |
+| **primecare_enterprise_blueprint** | `primecare-enterprise-blueprint` | **Deployed** | Success | [https://a3982057.primecare-enterprise-blueprint.pages.dev](https://a3982057.primecare-enterprise-blueprint.pages.dev) |
 
-*Report generated on 2026-05-23 15:32:32*
+*Report generated on 2026-05-23 20:40:43*

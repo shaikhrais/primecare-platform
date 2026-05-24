@@ -7,7 +7,7 @@ class TicketCenterScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TicketCenterScreenControllerControllerProvider);
+    final state = ref.watch(ticketCenterScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class PlatformDiscoveryViewerController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PlatformDiscoveryViewerControllerControllerProvider);
+    final state = ref.watch(platformDiscoveryViewerControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

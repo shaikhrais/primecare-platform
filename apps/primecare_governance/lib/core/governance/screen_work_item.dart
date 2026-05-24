@@ -7,7 +7,7 @@ class ScreenWorkItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ScreenWorkItemControllerProvider);
+    final state = ref.watch(screenWorkItemControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

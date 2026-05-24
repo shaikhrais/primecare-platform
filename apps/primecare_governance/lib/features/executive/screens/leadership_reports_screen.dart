@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'leadership_reports_screen_controller.dart';
+import 'leadership_reports_screen_controller_controller.dart';
 
 class LeadershipReportsScreen extends ConsumerWidget {
   const LeadershipReportsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LeadershipReportsScreenControllerProvider);
+    final state = ref.watch(leadershipReportsScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

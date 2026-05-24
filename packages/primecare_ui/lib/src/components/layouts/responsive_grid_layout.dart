@@ -132,7 +132,7 @@ class DenseHighResTable extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: DataTable(
-                  headingRowColor: WidgetStateProperty.all(theme.colors.surfaceVariant.withValues(alpha: 0.3)),
+                  headingRowColor: WidgetStateProperty.all(theme.colors.surfaceContainer.withValues(alpha: 0.3)),
                   dataRowMinHeight: rowHeight,
                   dataRowMaxHeight: rowHeight,
                   columnSpacing: 40.0,

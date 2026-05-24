@@ -7,7 +7,7 @@ class QualityMetricsScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(QualityMetricsScreenControllerControllerProvider);
+    final state = ref.watch(qualityMetricsScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

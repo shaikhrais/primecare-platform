@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'platform_readiness_viewer_controller.dart';
+import 'platform_readiness_viewer_controller_controller.dart';
 
 class PlatformReadinessViewer extends ConsumerWidget {
   const PlatformReadinessViewer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PlatformReadinessViewerControllerProvider);
+    final state = ref.watch(platformReadinessViewerControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

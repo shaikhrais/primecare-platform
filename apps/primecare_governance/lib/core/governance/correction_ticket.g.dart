@@ -1,4 +1,3 @@
-// Governance - Category: service | Purpose: GENERATED CODE - DO NOT MODIFY BY HAND JsonSerializableGenerator
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'correction_ticket.dart';

@@ -247,7 +247,7 @@ class BillingAdminDashboardScreen extends GovernedConsumerWidget {
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
-          state.title,
+          'Billing Admin Dashboard',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
@@ -263,7 +263,7 @@ class BillingAdminDashboardScreen extends GovernedConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GovDashboardHero(
-              title: state.title,
+              title: 'Billing Admin Dashboard',
               roleName: '$roleBase Dashboard',
               description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
               onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
@@ -347,7 +347,7 @@ class BillingAdminDashboardScreen extends GovernedConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      onPressed: state.isLoading ? null : () => controller.bulkReconcile(),
                       child: state.isLoading
                           ? const SizedBox(
                               height: 20,

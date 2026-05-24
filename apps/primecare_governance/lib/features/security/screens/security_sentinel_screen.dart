@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'security_sentinel_screen_controller.dart';
+import 'security_sentinel_screen_controller_controller.dart';
 
 class SecuritySentinelScreen extends ConsumerWidget {
   const SecuritySentinelScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SecuritySentinelScreenControllerProvider);
+    final state = ref.watch(securitySentinelScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

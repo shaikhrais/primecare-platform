@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'governance_hud_screen_controller.dart';
+import 'governance_hud_screen_controller_controller.dart';
 
 class GovernanceHudScreen extends ConsumerWidget {
   const GovernanceHudScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(GovernanceHudScreenControllerProvider);
+    final state = ref.watch(governanceHudScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

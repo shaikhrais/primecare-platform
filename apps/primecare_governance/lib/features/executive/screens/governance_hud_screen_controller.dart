@@ -7,7 +7,7 @@ class GovernanceHudScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(GovernanceHudScreenControllerControllerProvider);
+    final state = ref.watch(governanceHudScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

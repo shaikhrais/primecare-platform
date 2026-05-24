@@ -7,7 +7,7 @@ class GrowthPipelineScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(GrowthPipelineScreenControllerControllerProvider);
+    final state = ref.watch(growthPipelineScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

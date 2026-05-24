@@ -7,7 +7,7 @@ class ScreenWorkRegistry extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ScreenWorkRegistryControllerProvider);
+    final state = ref.watch(screenWorkRegistryControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

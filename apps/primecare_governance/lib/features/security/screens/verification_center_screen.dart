@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'verification_center_screen_controller.dart';
+import 'verification_center_screen_controller_controller.dart';
 
 class VerificationCenterScreen extends ConsumerWidget {
   const VerificationCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(VerificationCenterScreenControllerProvider);
+    final state = ref.watch(verificationCenterScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

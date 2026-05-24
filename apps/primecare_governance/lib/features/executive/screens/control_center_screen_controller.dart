@@ -7,7 +7,7 @@ class ControlCenterScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ControlCenterScreenControllerControllerProvider);
+    final state = ref.watch(controlCenterScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

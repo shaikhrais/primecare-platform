@@ -7,7 +7,7 @@ class AuditLogScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AuditLogScreenControllerControllerProvider);
+    final state = ref.watch(auditLogScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

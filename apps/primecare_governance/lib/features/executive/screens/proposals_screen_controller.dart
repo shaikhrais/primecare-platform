@@ -7,7 +7,7 @@ class ProposalsScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ProposalsScreenControllerControllerProvider);
+    final state = ref.watch(proposalsScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

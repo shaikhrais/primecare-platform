@@ -7,7 +7,7 @@ class MonitoringScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(MonitoringScreenControllerControllerProvider);
+    final state = ref.watch(monitoringScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

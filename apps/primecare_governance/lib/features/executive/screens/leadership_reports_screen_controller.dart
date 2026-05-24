@@ -7,7 +7,7 @@ class LeadershipReportsScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LeadershipReportsScreenControllerControllerProvider);
+    final state = ref.watch(leadershipReportsScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

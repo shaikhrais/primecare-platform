@@ -244,7 +244,7 @@ class SchedulerDashboardScreen extends GovernedConsumerWidget {
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
-          state.title,
+          'Scheduler Operations Grid',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
@@ -260,7 +260,7 @@ class SchedulerDashboardScreen extends GovernedConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GovDashboardHero(
-              title: state.title,
+              title: 'Scheduler Operations Grid',
               roleName: '$roleBase Dashboard',
               description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
               onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
@@ -344,7 +344,7 @@ class SchedulerDashboardScreen extends GovernedConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      onPressed: state.isLoading ? null : () => controller.autoOptimizeSchedules(),
                       child: state.isLoading
                           ? const SizedBox(
                               height: 20,

@@ -7,7 +7,7 @@ class ScreenStatusScreenController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ScreenStatusScreenControllerControllerProvider);
+    final state = ref.watch(screenStatusScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

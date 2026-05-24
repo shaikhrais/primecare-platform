@@ -7,7 +7,7 @@ class PlatformReadinessViewerController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PlatformReadinessViewerControllerControllerProvider);
+    final state = ref.watch(platformReadinessViewerControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

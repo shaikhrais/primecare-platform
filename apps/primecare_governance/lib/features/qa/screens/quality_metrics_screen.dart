@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'quality_metrics_screen_controller.dart';
+import 'quality_metrics_screen_controller_controller.dart';
 
 class QualityMetricsScreen extends ConsumerWidget {
   const QualityMetricsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(QualityMetricsScreenControllerProvider);
+    final state = ref.watch(qualityMetricsScreenControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

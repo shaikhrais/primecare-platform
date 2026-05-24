@@ -7,7 +7,7 @@ class GovernanceRoleViewerController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(GovernanceRoleViewerControllerControllerProvider);
+    final state = ref.watch(governanceRoleViewerControllerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
