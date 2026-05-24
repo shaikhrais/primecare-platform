@@ -78,38 +78,46 @@ def export_sqlite_to_xlsx():
                 cell.alignment = center_align
                 cell.border = cell_border
                 
-            # Format Data Rows
-            for row_idx in range(2, worksheet.max_row + 1):
-                worksheet.row_dimensions[row_idx].height = 20
-                is_even = (row_idx % 2 == 0)
-                
-                for col_idx in range(1, worksheet.max_column + 1):
-                    cell = worksheet.cell(row=row_idx, column=col_idx)
-                    cell.font = data_font
-                    cell.border = cell_border
+            # Format Data Rows (optimized for extremely large tables)
+            if len(df) < 3000:
+                for row_idx in range(2, worksheet.max_row + 1):
+                    worksheet.row_dimensions[row_idx].height = 20
+                    is_even = (row_idx % 2 == 0)
                     
-                    if is_even:
-                        cell.fill = zebra_fill
+                    for col_idx in range(1, worksheet.max_column + 1):
+                        cell = worksheet.cell(row=row_idx, column=col_idx)
+                        cell.font = data_font
+                        cell.border = cell_border
                         
-                    # Deduce alignment based on data type
-                    val = cell.value
-                    if isinstance(val, (int, float)):
-                        cell.alignment = right_align
-                    elif str(val).lower() in ('true', 'false'):
-                        cell.alignment = center_align
-                    else:
-                        cell.alignment = left_align
+                        if is_even:
+                            cell.fill = zebra_fill
+                            
+                        # Deduce alignment based on data type
+                        val = cell.value
+                        if isinstance(val, (int, float)):
+                            cell.alignment = right_align
+                        elif str(val).lower() in ('true', 'false'):
+                            cell.alignment = center_align
+                        else:
+                            cell.alignment = left_align
+            else:
+                print(f"  Skipping cell-by-cell styling for large table '{table}' ({len(df)} rows) to speed up compilation...")
             
-            # Auto-fit columns
-            for col in worksheet.columns:
-                max_len = 0
-                col_letter = get_column_letter(col[0].column)
-                for cell in col:
-                    val_str = str(cell.value or '')
-                    if len(val_str) > max_len:
-                        max_len = len(val_str)
-                # Pad for readability and filter out huge values
-                worksheet.column_dimensions[col_letter].width = min(max(max_len + 4, 12), 50)
+            # Auto-fit columns (optimized for extremely large tables)
+            if len(df) < 3000:
+                for col in worksheet.columns:
+                    max_len = 0
+                    col_letter = get_column_letter(col[0].column)
+                    for cell in col:
+                        val_str = str(cell.value or '')
+                        if len(val_str) > max_len:
+                            max_len = len(val_str)
+                    # Pad for readability and filter out huge values
+                    worksheet.column_dimensions[col_letter].width = min(max(max_len + 4, 12), 50)
+            else:
+                for col_idx, col_name in enumerate(df.columns, 1):
+                    col_letter = get_column_letter(col_idx)
+                    worksheet.column_dimensions[col_letter].width = 20
                 
     conn.close()
     print(f"[SUCCESS] Generated beautiful stylized workbook at: {xlsx_path}")

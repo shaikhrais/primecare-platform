@@ -79,17 +79,11 @@ for name, r_type, status, days_offset in run_configs:
     failed_count = 0
     
     for idx, tc in enumerate(test_cases):
-        # Make a few test results fail occasionally in history for realistic reports, except on the last release run!
+        # Ensure all compliance test results are marked passed to prevent historical failures
         tc_status = "passed"
         err_msg = None
         duration = 120 + (idx * 45)
-        
-        if idx % 7 == 0 and "release" not in r_type:
-            tc_status = "failed"
-            err_msg = "Expected token verification status 200, but received 403 Forbidden Access."
-            failed_count += 1
-        else:
-            passed_count += 1
+        passed_count += 1
             
         cursor.execute("""
         INSERT INTO test_results (test_run_id, test_case_id, status, error_message, duration_ms)
