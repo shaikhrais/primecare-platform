@@ -283,7 +283,7 @@ class ScreenStatusScreen extends ConsumerWidget {
 
   Widget _buildSearchField(BuildContext context, WidgetRef ref, String query) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, bottom: 12),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 12),
       child: TextFormField(
         key: const ValueKey('data-cy-screen-search-input'),
         initialValue: query,
@@ -339,7 +339,7 @@ class ScreenStatusScreen extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: dep.verified
-                        ? Colors.emerald.withOpacity(0.12)
+                        ? Colors.green.withOpacity(0.12)
                         : Colors.orange.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -348,14 +348,14 @@ class ScreenStatusScreen extends ConsumerWidget {
                     children: [
                       Icon(
                         dep.verified ? LucideIcons.checkCircle : LucideIcons.alertTriangle,
-                        color: dep.verified ? Colors.emerald : Colors.orange,
+                        color: dep.verified ? Colors.green : Colors.orange,
                         size: 14,
                       ),
                       const SizedBox(width: 6),
                       Text(
                         dep.verified ? 'VERIFIED' : 'PENDING',
                         style: TextStyle(
-                          color: dep.verified ? Colors.emerald : Colors.orange,
+                          color: dep.verified ? Colors.green : Colors.orange,
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
                         ),
@@ -574,12 +574,12 @@ class ScreenStatusScreen extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                       side: BorderSide(
                         color: isLocalized
-                            ? Colors.emerald.withOpacity(0.2)
+                            ? Colors.green.withOpacity(0.2)
                             : Colors.orange.withOpacity(0.2),
                       ),
                     ),
                     color: isLocalized
-                        ? Colors.emerald.withOpacity(0.02)
+                        ? Colors.green.withOpacity(0.02)
                         : Colors.orange.withOpacity(0.02),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -587,7 +587,7 @@ class ScreenStatusScreen extends ConsumerWidget {
                         children: [
                           Icon(
                             isLocalized ? LucideIcons.checkCircle : LucideIcons.alertCircle,
-                            color: isLocalized ? Colors.emerald : Colors.orange,
+                            color: isLocalized ? Colors.green : Colors.orange,
                             size: 16,
                           ),
                           const SizedBox(width: 12),
@@ -606,7 +606,7 @@ class ScreenStatusScreen extends ConsumerWidget {
                                       : '⚠️ Literal Text: Hardcoded string detected. Add to translations.',
                                   style: TextStyle(
                                     fontSize: 10,
-                                    color: isLocalized ? Colors.emerald : Colors.orange,
+                                    color: isLocalized ? Colors.green : Colors.orange,
                                   ),
                                 ),
                               ],

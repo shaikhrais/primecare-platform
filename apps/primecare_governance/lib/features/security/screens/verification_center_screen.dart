@@ -64,7 +64,7 @@ class VerificationCenterScreen extends ConsumerWidget {
                                     '$successCount',
                                     'Deployments Online',
                                     LucideIcons.checkCircle2,
-                                    Colors.emerald,
+                                    Colors.green,
                                   ),
                                   const SizedBox(width: 16),
                                   _buildSummaryCard(
@@ -129,7 +129,7 @@ class VerificationCenterScreen extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const Icon(LucideIcons.activity, color: Colors.emerald, size: 28),
+            const Icon(LucideIcons.activity, color: Colors.green, size: 28),
             const SizedBox(width: 8),
             Text(
               'Deployment & Verification Center',
@@ -212,12 +212,12 @@ class VerificationCenterScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: (isSuccess ? Colors.emerald : Colors.red).withOpacity(0.08),
+                color: (isSuccess ? Colors.green : Colors.red).withOpacity(0.08),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 isSuccess ? LucideIcons.globe : LucideIcons.alertOctagon,
-                color: isSuccess ? Colors.emerald : Colors.red,
+                color: isSuccess ? Colors.green : Colors.red,
                 size: 20,
               ),
             ),
@@ -274,13 +274,13 @@ class VerificationCenterScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: d.verified ? Colors.emerald.withOpacity(0.1) : Colors.amber.withOpacity(0.1),
+                color: d.verified ? Colors.green.withOpacity(0.1) : Colors.amber.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
                 d.verified ? 'Verified ✅' : 'Crawler Unchecked',
                 style: TextStyle(
-                  color: d.verified ? Colors.emerald : Colors.amber.shade800,
+                  color: d.verified ? Colors.green : Colors.amber.shade800,
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
                 ),
