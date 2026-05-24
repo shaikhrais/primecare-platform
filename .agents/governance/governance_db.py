@@ -21,6 +21,10 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "build_artifacts",
+            "migration_history",
+            "ci_pipeline_runs",
+            "deployments",
             "artifact_dependencies",
             "feature_flags",
             "environment_configs",
@@ -269,6 +273,7 @@ def init_db(force_reset=False):
       function_name TEXT NOT NULL,
       function_type TEXT,
       api_id INTEGER,
+      component_id INTEGER,
       implementation_status TEXT DEFAULT 'planned',
       permission_key TEXT,
       button_label TEXT,
@@ -276,6 +281,7 @@ def init_db(force_reset=False):
       test_required INTEGER DEFAULT 1,
       FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
       FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL,
+      FOREIGN KEY (component_id) REFERENCES screen_components(id) ON DELETE SET NULL,
       UNIQUE(screen_id, function_code)
     );
     """)
@@ -320,6 +326,8 @@ def init_db(force_reset=False):
       file_path TEXT,
       related_screen_id INTEGER,
       related_api_id INTEGER,
+      related_function_id INTEGER,
+      related_component_id INTEGER,
       status TEXT DEFAULT 'active',
       last_run_status TEXT,
       priority TEXT DEFAULT 'medium',
@@ -328,7 +336,9 @@ def init_db(force_reset=False):
       coverage_type TEXT,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
       FOREIGN KEY (related_screen_id) REFERENCES screens(id) ON DELETE SET NULL,
-      FOREIGN KEY (related_api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL
+      FOREIGN KEY (related_api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL,
+      FOREIGN KEY (related_function_id) REFERENCES screen_functions(id) ON DELETE SET NULL,
+      FOREIGN KEY (related_component_id) REFERENCES screen_components(id) ON DELETE SET NULL
     );
     """)
 
@@ -649,6 +659,64 @@ def init_db(force_reset=False):
     );
     """)
 
+    # 35. deployments
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS deployments (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      environment TEXT NOT NULL,
+      deployment_status TEXT NOT NULL,
+      deployed_at TEXT NOT NULL,
+      version TEXT,
+      changelog TEXT,
+      deployed_by TEXT,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 36. ci_pipeline_runs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS ci_pipeline_runs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      run_number INTEGER NOT NULL,
+      commit_sha TEXT NOT NULL,
+      branch TEXT NOT NULL,
+      pipeline_status TEXT NOT NULL,
+      triggered_by TEXT NOT NULL,
+      started_at TEXT NOT NULL,
+      completed_at TEXT,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 37. migration_history
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS migration_history (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      migration_name TEXT UNIQUE NOT NULL,
+      batch_number INTEGER NOT NULL,
+      applied_at TEXT NOT NULL,
+      schema_snapshot TEXT,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 38. build_artifacts
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS build_artifacts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      pipeline_run_id INTEGER NOT NULL,
+      artifact_name TEXT NOT NULL,
+      file_path TEXT NOT NULL,
+      file_size INTEGER NOT NULL,
+      checksum TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (pipeline_run_id) REFERENCES ci_pipeline_runs(id) ON DELETE CASCADE
+    );
+    """)
+
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_roles_org ON roles(org_id);")
@@ -682,10 +750,14 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_ff_app ON feature_flags(logical_app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_ad_source ON artifact_dependencies(source_type, source_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_ad_target ON artifact_dependencies(target_type, target_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_deployments_la ON deployments(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ci_pipeline_runs_la ON ci_pipeline_runs(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_migration_history_app ON migration_history(app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_build_artifacts_run ON build_artifacts(pipeline_run_id);")
 
     conn.commit()
     conn.close()
-    print("PrimeCare 34-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 38-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()

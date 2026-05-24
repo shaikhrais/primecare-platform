@@ -113,6 +113,13 @@ def export_sqlite_to_xlsx():
                 
     conn.close()
     print(f"[SUCCESS] Generated beautiful stylized workbook at: {xlsx_path}")
+    
+    # Duplicate to .agents/governance/primecare_governance_audit.xlsx
+    import shutil
+    audit_path = os.path.join(".agents", "governance", "primecare_governance_audit.xlsx")
+    os.makedirs(os.path.dirname(audit_path), exist_ok=True)
+    shutil.copyfile(xlsx_path, audit_path)
+    print(f"[SUCCESS] Duplicated stylized workbook to: {audit_path}")
 
 if __name__ == "__main__":
     export_sqlite_to_xlsx()
