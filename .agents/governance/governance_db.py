@@ -302,6 +302,7 @@ def init_db(force_reset=False):
       rate_limit_key TEXT,
       api_version TEXT DEFAULT 'v1',
       deprecated_at TEXT,
+      is_backend_only INTEGER DEFAULT 0,
       last_tested_at TEXT,
       health_status TEXT DEFAULT 'healthy',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -805,6 +806,7 @@ def init_db(force_reset=False):
       FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
       FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
       FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      FOREIGN KEY (layout_file_id) REFERENCES package_files(id) ON DELETE SET NULL,
       UNIQUE(logical_app_id, screen_id)
     );
     """)
@@ -1147,7 +1149,17 @@ def init_db(force_reset=False):
       status TEXT NOT NULL,
       rollback_supported INTEGER DEFAULT 0,
       error_log TEXT,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      task_id INTEGER,
+      artifact_id INTEGER,
+      before_snapshot_id INTEGER,
+      after_snapshot_id INTEGER,
+      verified_by_test_run_id INTEGER,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (task_id) REFERENCES implementation_tasks(id) ON DELETE SET NULL,
+      FOREIGN KEY (artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      FOREIGN KEY (before_snapshot_id) REFERENCES rollback_snapshots(id) ON DELETE SET NULL,
+      FOREIGN KEY (after_snapshot_id) REFERENCES rollback_snapshots(id) ON DELETE SET NULL,
+      FOREIGN KEY (verified_by_test_run_id) REFERENCES test_runs(id) ON DELETE SET NULL
     );
     """)
 
@@ -1248,8 +1260,20 @@ def init_db(force_reset=False):
       is_passed INTEGER DEFAULT 0,
       evidence TEXT,
       evaluated_at TEXT,
+      test_run_id INTEGER,
+      security_finding_id INTEGER,
+      drift_finding_id INTEGER,
+      build_artifact_id INTEGER,
+      migration_history_id INTEGER,
+      performance_metric_id INTEGER,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (release_version_id) REFERENCES release_versions(id) ON DELETE CASCADE,
+      FOREIGN KEY (test_run_id) REFERENCES test_runs(id) ON DELETE SET NULL,
+      FOREIGN KEY (security_finding_id) REFERENCES security_findings(id) ON DELETE SET NULL,
+      FOREIGN KEY (drift_finding_id) REFERENCES drift_findings(id) ON DELETE SET NULL,
+      FOREIGN KEY (build_artifact_id) REFERENCES build_artifacts(id) ON DELETE SET NULL,
+      FOREIGN KEY (migration_history_id) REFERENCES migration_history(id) ON DELETE SET NULL,
+      FOREIGN KEY (performance_metric_id) REFERENCES performance_metrics(id) ON DELETE SET NULL,
       UNIQUE(release_version_id, gate_name)
     );
     """)
@@ -1326,6 +1350,17 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_error_codes_api ON api_error_codes(api_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_test_cases_api ON api_test_cases(api_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_versions_api ON api_versions(api_id);")
+
+    # Phase 10 New Indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_test_run ON release_gates(test_run_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_security ON release_gates(security_finding_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_drift ON release_gates(drift_finding_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_build ON release_gates(build_artifact_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_mig ON release_gates(migration_history_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_perf ON release_gates(performance_metric_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_task ON agent_execution_runs(task_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_artifact ON agent_execution_runs(artifact_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_test_run ON agent_execution_runs(verified_by_test_run_id);")
 
     conn.commit()
     conn.close()
