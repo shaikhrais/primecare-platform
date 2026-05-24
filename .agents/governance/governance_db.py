@@ -21,6 +21,20 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "release_gates",
+            "api_failures",
+            "user_sessions",
+            "crash_reports",
+            "runtime_logs",
+            "rollback_operations",
+            "rollback_snapshots",
+            "agent_execution_runs",
+            "field_dependencies",
+            "field_validations",
+            "form_fields",
+            "forms",
+            "dependency_impacts",
+            "artifact_types",
             "dependency_versions",
             "security_findings",
             "performance_metrics",
@@ -134,6 +148,7 @@ def init_db(force_reset=False):
     CREATE TABLE IF NOT EXISTS screens (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       screen_code TEXT NOT NULL,
       screen_name TEXT NOT NULL,
       route_path TEXT NOT NULL,
@@ -150,6 +165,7 @@ def init_db(force_reset=False):
       last_verified_at TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
       UNIQUE(app_id, screen_code),
       UNIQUE(app_id, route_path)
     );
@@ -160,6 +176,7 @@ def init_db(force_reset=False):
     CREATE TABLE IF NOT EXISTS code_files (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       file_name TEXT NOT NULL,
       file_path TEXT UNIQUE NOT NULL,
       file_type TEXT,
@@ -170,7 +187,8 @@ def init_db(force_reset=False):
       purpose TEXT,
       lines_of_code INTEGER DEFAULT 0,
       last_scanned_at TEXT,
-      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL
     );
     """)
 
@@ -192,6 +210,7 @@ def init_db(force_reset=False):
     CREATE TABLE IF NOT EXISTS api_endpoints (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       endpoint_code TEXT,
       route_path TEXT NOT NULL,
       http_method TEXT NOT NULL,
@@ -208,6 +227,7 @@ def init_db(force_reset=False):
       health_status TEXT DEFAULT 'healthy',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
       UNIQUE(app_id, route_path, http_method)
     );
     """)
@@ -328,6 +348,7 @@ def init_db(force_reset=False):
     CREATE TABLE IF NOT EXISTS test_cases (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       test_name TEXT NOT NULL,
       test_type TEXT,
       file_path TEXT,
@@ -342,6 +363,7 @@ def init_db(force_reset=False):
       last_run_at TEXT,
       coverage_type TEXT,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
       FOREIGN KEY (related_screen_id) REFERENCES screens(id) ON DELETE SET NULL,
       FOREIGN KEY (related_api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL,
       FOREIGN KEY (related_function_id) REFERENCES screen_functions(id) ON DELETE SET NULL,
@@ -571,6 +593,7 @@ def init_db(force_reset=False):
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       logical_app_id INTEGER NOT NULL,
       screen_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       route_path TEXT NOT NULL,
       router_name TEXT,
       is_active INTEGER DEFAULT 1,
@@ -581,6 +604,7 @@ def init_db(force_reset=False):
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
       FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
       UNIQUE(logical_app_id, route_path)
     );
     """)
@@ -591,6 +615,7 @@ def init_db(force_reset=False):
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       logical_app_id INTEGER NOT NULL,
       screen_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       layout_name TEXT NOT NULL,
       binding_type TEXT,
       layout_file_id INTEGER,
@@ -599,6 +624,7 @@ def init_db(force_reset=False):
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
       FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
       UNIQUE(logical_app_id, screen_id)
     );
     """)
@@ -715,12 +741,14 @@ def init_db(force_reset=False):
     CREATE TABLE IF NOT EXISTS build_artifacts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       pipeline_run_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
       artifact_name TEXT NOT NULL,
       file_path TEXT NOT NULL,
       file_size INTEGER NOT NULL,
       checksum TEXT NOT NULL,
       created_at TEXT NOT NULL,
-      FOREIGN KEY (pipeline_run_id) REFERENCES ci_pipeline_runs(id) ON DELETE CASCADE
+      FOREIGN KEY (pipeline_run_id) REFERENCES ci_pipeline_runs(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL
     );
     """)
 
@@ -845,6 +873,207 @@ def init_db(force_reset=False):
     );
     """)
 
+    # 46. artifact_types
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS artifact_types (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      type_code TEXT UNIQUE NOT NULL,
+      type_name TEXT NOT NULL,
+      parent_type TEXT,
+      validation_rules TEXT
+    );
+    """)
+
+    # 47. dependency_impacts
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS dependency_impacts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      source_artifact_id INTEGER NOT NULL,
+      target_artifact_id INTEGER NOT NULL,
+      impact_depth INTEGER NOT NULL,
+      impact_type TEXT,
+      criticality TEXT,
+      description TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (source_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE CASCADE,
+      FOREIGN KEY (target_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 48. forms
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS forms (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      screen_id INTEGER NOT NULL,
+      form_code TEXT UNIQUE NOT NULL,
+      form_name TEXT NOT NULL,
+      submit_method TEXT DEFAULT 'POST',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 49. form_fields
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS form_fields (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      form_id INTEGER NOT NULL,
+      field_code TEXT NOT NULL,
+      field_name TEXT NOT NULL,
+      field_type TEXT NOT NULL,
+      is_required INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (form_id) REFERENCES forms(id) ON DELETE CASCADE,
+      UNIQUE(form_id, field_code)
+    );
+    """)
+
+    # 50. field_validations
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS field_validations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      field_id INTEGER NOT NULL,
+      validation_type TEXT NOT NULL,
+      validation_rule TEXT NOT NULL,
+      error_message TEXT NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (field_id) REFERENCES form_fields(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 51. field_dependencies
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS field_dependencies (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      field_id INTEGER NOT NULL,
+      depends_on_field_id INTEGER NOT NULL,
+      dependency_type TEXT NOT NULL,
+      trigger_value TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (field_id) REFERENCES form_fields(id) ON DELETE CASCADE,
+      FOREIGN KEY (depends_on_field_id) REFERENCES form_fields(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 52. agent_execution_runs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS agent_execution_runs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      run_code TEXT UNIQUE NOT NULL,
+      agent_name TEXT NOT NULL,
+      action_taken TEXT NOT NULL,
+      before_snapshot TEXT,
+      after_snapshot TEXT,
+      status TEXT NOT NULL,
+      rollback_supported INTEGER DEFAULT 0,
+      error_log TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+    """)
+
+    # 53. rollback_snapshots
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS rollback_snapshots (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      snapshot_code TEXT UNIQUE NOT NULL,
+      logical_app_id INTEGER NOT NULL,
+      schema_snapshot TEXT,
+      data_snapshot TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 54. rollback_operations
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS rollback_operations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      snapshot_id INTEGER NOT NULL,
+      operation_type TEXT NOT NULL,
+      execution_status TEXT DEFAULT 'pending',
+      executed_by TEXT,
+      started_at TEXT,
+      completed_at TEXT,
+      error_message TEXT,
+      FOREIGN KEY (snapshot_id) REFERENCES rollback_snapshots(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 55. runtime_logs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS runtime_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      log_level TEXT NOT NULL,
+      message TEXT NOT NULL,
+      trace_id TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 56. crash_reports
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS crash_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      crash_code TEXT UNIQUE NOT NULL,
+      error_type TEXT NOT NULL,
+      stack_trace TEXT NOT NULL,
+      device_info TEXT,
+      session_id TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 57. user_sessions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS user_sessions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      session_token TEXT UNIQUE NOT NULL,
+      role_id INTEGER,
+      device_platform TEXT,
+      ip_address TEXT,
+      started_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      ended_at TEXT,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 58. api_failures
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_failures (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      api_id INTEGER,
+      error_code INTEGER NOT NULL,
+      latency_ms INTEGER,
+      request_payload TEXT,
+      response_payload TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 59. release_gates
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS release_gates (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      release_version_id INTEGER NOT NULL,
+      gate_name TEXT NOT NULL,
+      is_passed INTEGER DEFAULT 0,
+      evidence TEXT,
+      evaluated_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (release_version_id) REFERENCES release_versions(id) ON DELETE CASCADE,
+      UNIQUE(release_version_id, gate_name)
+    );
+    """)
+
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_roles_org ON roles(org_id);")
@@ -891,9 +1120,24 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_security_findings_la ON security_findings(logical_app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_dependency_versions_pkg ON dependency_versions(package_id);")
 
+    # Phase 7 New Indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dependency_impacts_src ON dependency_impacts(source_artifact_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dependency_impacts_tgt ON dependency_impacts(target_artifact_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_forms_screen ON forms(screen_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_form_fields_form ON form_fields(form_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_field_validations_field ON field_validations(field_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_field_dependencies_field ON field_dependencies(field_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_rollback_snapshots_la ON rollback_snapshots(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_rollback_operations_snap ON rollback_operations(snapshot_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_logs_la ON runtime_logs(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_crash_reports_la ON crash_reports(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_sessions_la ON user_sessions(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_failures_la ON api_failures(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_ver ON release_gates(release_version_id);")
+
     conn.commit()
     conn.close()
-    print("PrimeCare 45-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 59-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()

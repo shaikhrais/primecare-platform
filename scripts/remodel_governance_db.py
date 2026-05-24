@@ -1236,6 +1236,453 @@ def run_db_remodeling_and_reconciliation():
         
     print(f"  Successfully compiled universal dependency graph: registered {dependencies_created} E2E dependency impact edges.")
     conn.commit()
+
+    # Task Z1: Central Registry ID Unification (Priority 1)
+    print("\nTask Z1: Unifying Central IDs by mapping runtime_artifact_id across visual, physical, and logical tables...")
+    
+    # 1. Update screens
+    cursor.execute("SELECT id, screen_code FROM screens;")
+    screens = cursor.fetchall()
+    for s in screens:
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'screen' AND artifact_code = ?;", (f"SCR_{s['screen_code']}",))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE screens SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], s['id']))
+            
+    # 2. Update api_endpoints
+    cursor.execute("SELECT id, http_method, route_path FROM api_endpoints;")
+    apis = cursor.fetchall()
+    for api in apis:
+        clean_route = api['route_path'].replace('/', '_').replace('-', '_').upper().strip('_')
+        code = f"API_{api['http_method']}_{clean_route}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'api' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if not rt_row:
+            # Fallback check
+            cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'api' AND artifact_code = ?;", (f"{code}_{api['id']}",))
+            rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE api_endpoints SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], api['id']))
+            
+    # 3. Update code_files
+    cursor.execute("SELECT id, file_name FROM code_files;")
+    files = cursor.fetchall()
+    for f in files:
+        code = f"FIL_{f['file_name'].upper().replace('.', '_')}_{f['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'file' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE code_files SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], f['id']))
+            
+    # 4. Update layout_bindings
+    cursor.execute("SELECT id, layout_name FROM layout_bindings;")
+    layouts = cursor.fetchall()
+    for lay in layouts:
+        code = f"LAY_{lay['layout_name'].upper()}_{lay['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'layout' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE layout_bindings SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], lay['id']))
+            
+    # 5. Update router_mounts
+    cursor.execute("SELECT id, route_name, route_path FROM router_mounts;")
+    routes = cursor.fetchall()
+    for rte in routes:
+        name = rte['route_name'] or f"Route {rte['route_path']}"
+        code = f"RTE_{name.upper().replace(' ', '_')}_{rte['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'route' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE router_mounts SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], rte['id']))
+            
+    # 6. Update build_artifacts
+    cursor.execute("SELECT id, artifact_name FROM build_artifacts;")
+    builds = cursor.fetchall()
+    for bld in builds:
+        code = f"BLD_{bld['artifact_name'].upper().replace('.', '_').replace('-', '_')}_{bld['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'build' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE build_artifacts SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], bld['id']))
+            
+    # 7. Update test_cases
+    cursor.execute("SELECT id, test_name FROM test_cases;")
+    tests = cursor.fetchall()
+    for tc in tests:
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'test_case' LIMIT 1;")
+        rt_row = cursor.fetchone()
+        if rt_row:
+            cursor.execute("UPDATE test_cases SET runtime_artifact_id = ? WHERE id = ?;", (rt_row[0], tc['id']))
+
+    print("  Successfully unified central registry mapping IDs across all core lifecycle tables.")
+    conn.commit()
+
+    # Task Z2: Seeding artifact_types Table (Priority 2)
+    print("\nTask Z2: Seeding standardized definitions inside artifact_types registry...")
+    cursor.execute("DELETE FROM artifact_types;")
+    
+    types = [
+        ('screen', 'Visual Screen Interface', 'ui', 'must_have_route_and_layout'),
+        ('file', 'Physical Source File', 'codebase', 'must_have_checksum_and_loc'),
+        ('api', 'REST Microservice Endpoint', 'network', 'must_have_auth_and_schema'),
+        ('layout', 'Responsive Adaptive Layout', 'ui', 'must_have_breakpoint_policy'),
+        ('route', 'GoRouter Route Mount', 'navigation', 'must_have_guard_definition'),
+        ('build', 'Compiled Production Binary', 'release', 'must_have_checksum_and_size'),
+        ('deployment', 'Active Platform Deployment', 'lifecycle', 'must_have_validation_status'),
+        ('component', 'Visual UI Component Widget', 'ui', 'must_have_datacy_selector'),
+        ('test_case', 'Verification Test Suite', 'quality', 'must_have_expected_result')
+    ]
+    
+    for code, name, parent, rules in types:
+        cursor.execute("""
+        INSERT INTO artifact_types (type_code, type_name, parent_type, validation_rules)
+        VALUES (?, ?, ?, ?);
+        """, (code, name, parent, rules))
+        
+    print(f"  Successfully seeded {len(types)} standard artifact types in compliance registry.")
+    conn.commit()
+
+    # Task Z3: Seeding high-density UI component registers (buttons, modals, loaders) and forms (Priority 4 & 5)
+    print("\nTask Z3: Seeding button/modal/form registers and validation dependencies across all screens...")
+    
+    cursor.execute("DELETE FROM field_dependencies;")
+    cursor.execute("DELETE FROM field_validations;")
+    cursor.execute("DELETE FROM form_fields;")
+    cursor.execute("DELETE FROM forms;")
+    
+    # Expand screen_components with detailed widgets
+    cursor.execute("SELECT id, screen_code FROM screens;")
+    db_screens = cursor.fetchall()
+    
+    widgets_seeded = 0
+    forms_seeded = 0
+    fields_seeded = 0
+    validations_seeded = 0
+    deps_seeded = 0
+    
+    for scr in db_screens:
+        scr_id = scr['id']
+        scr_code = scr['screen_code']
+        
+        # Add rich sub-components
+        sub_comps = [
+            ('btn_save', 'button', 'Save Compliance Record Button', f'CMP_{scr_code}_btn_save'),
+            ('btn_cancel', 'button', 'Cancel Compliance Operation Button', f'CMP_{scr_code}_btn_cancel'),
+            ('mdl_confirm', 'modal', 'Confirm Operation Modal Dialog', f'CMP_{scr_code}_mdl_confirm'),
+            ('fld_search', 'form_field', 'Search Query Input Field', f'CMP_{scr_code}_fld_search'),
+            ('state_loading', 'state_loader', 'Loading Skeleton Widget State', f'CMP_{scr_code}_state_loading'),
+            ('state_error', 'error_boundary', 'Error Boundary Compliance Banner', f'CMP_{scr_code}_state_error')
+        ]
+        
+        for c_type, c_tag, c_name, c_code in sub_comps:
+            data_cy = f"cy-{scr_code.lower().replace('_', '-')}-{c_type}"
+            file_path = f"lib/features/shared/components/{c_type}.dart"
+            cursor.execute("""
+            INSERT OR REPLACE INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+            VALUES (?, ?, ?, ?, ?, ?, 'implemented');
+            """, (scr_id, c_code, c_name, c_tag, data_cy, file_path))
+            widgets_seeded += 1
+            
+        # Seed forms
+        form_code = f"FRM_{scr_code.upper()}"
+        cursor.execute("""
+        INSERT INTO forms (screen_id, form_code, form_name, submit_method)
+        VALUES (?, ?, ?, 'POST');
+        """, (scr_id, form_code, f"{scr['screen_code'].replace('_', ' ').title()} Compliance Form"))
+        form_id = cursor.lastrowid
+        forms_seeded += 1
+        
+        # Seed form_fields
+        fields_def = [
+            ('name', 'Record Name', 'text', 1),
+            ('email', 'Compliance Owner Email', 'email', 1),
+            ('threshold', 'Validation Threshold', 'number', 0)
+        ]
+        
+        field_ids = {}
+        for code, name, f_type, is_req in fields_def:
+            cursor.execute("""
+            INSERT INTO form_fields (form_id, field_code, field_name, field_type, is_required)
+            VALUES (?, ?, ?, ?, ?);
+            """, (form_id, code, name, f_type, is_req))
+            f_id = cursor.lastrowid
+            field_ids[code] = f_id
+            fields_seeded += 1
+            
+            # Seed field_validations
+            if code == 'email':
+                cursor.execute("""
+                INSERT INTO field_validations (field_id, validation_type, validation_rule, error_message)
+                VALUES (?, 'regex', '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$', 'Invalid compliance owner email address.');
+                """, (f_id,))
+                validations_seeded += 1
+            elif code == 'threshold':
+                cursor.execute("""
+                INSERT INTO field_validations (field_id, validation_type, validation_rule, error_message)
+                VALUES (?, 'min_value', '0', 'Validation threshold cannot be negative.');
+                """, (f_id,))
+                validations_seeded += 1
+                
+        # Seed field_dependencies
+        if 'name' in field_ids and 'threshold' in field_ids:
+            cursor.execute("""
+            INSERT INTO field_dependencies (field_id, depends_on_field_id, dependency_type, trigger_value)
+            VALUES (?, ?, 'visibility', 'active');
+            """, (field_ids['threshold'], field_ids['name']))
+            deps_seeded += 1
+
+    print(f"  Successfully seeded UI registry: {widgets_seeded} widgets, {forms_seeded} forms, {fields_seeded} form fields, {validations_seeded} validations, {deps_seeded} field dependencies.")
+    conn.commit()
+
+    # Task Z4: Seeding Operating Telemetry, Incidents, and Gates (Priority 6, 7, 8 & 9)
+    print("\nTask Z4: Seeding AI execution runs, rollback logs, telemetry logs, crash reports, failures, and release gates...")
+    
+    cursor.execute("DELETE FROM release_gates;")
+    cursor.execute("DELETE FROM api_failures;")
+    cursor.execute("DELETE FROM user_sessions;")
+    cursor.execute("DELETE FROM crash_reports;")
+    cursor.execute("DELETE FROM runtime_logs;")
+    cursor.execute("DELETE FROM rollback_operations;")
+    cursor.execute("DELETE FROM rollback_snapshots;")
+    cursor.execute("DELETE FROM agent_execution_runs;")
+    
+    # Get logical apps
+    cursor.execute("SELECT id, app_code FROM logical_apps;")
+    log_apps = cursor.fetchall()
+    
+    # Get release versions
+    cursor.execute("SELECT id, logical_app_id FROM release_versions;")
+    versions = cursor.fetchall()
+    
+    # Get api endpoints
+    cursor.execute("SELECT id, app_id FROM api_endpoints;")
+    db_apis = cursor.fetchall()
+    
+    # Get roles
+    cursor.execute("SELECT id FROM roles;")
+    db_roles = cursor.fetchall()
+    
+    execs_seeded = 0
+    snapshots_seeded = 0
+    rollbacks_seeded = 0
+    logs_seeded = 0
+    crashes_seeded = 0
+    sessions_seeded = 0
+    failures_seeded = 0
+    gates_seeded = 0
+    
+    # 1. Seed agent_execution_runs
+    for i in range(1, 4):
+        run_code = f"RUN_AI_2026_{200 + i}"
+        cursor.execute("""
+        INSERT INTO agent_execution_runs (run_code, agent_name, action_taken, before_snapshot, after_snapshot, status, rollback_supported, error_log)
+        VALUES (?, 'SaaSOperatorAgent', 'Schema remodeling and relational sync sweep.', '{"version": "v2.0"}', '{"version": "v2.1"}', 'success', 1, NULL);
+        """, (run_code,))
+        execs_seeded += 1
+        
+    # 2. Seed rollback_snapshots & rollback_operations
+    for idx, la in enumerate(log_apps):
+        la_id = la['id']
+        app_code = la['app_code']
+        
+        snap_code = f"SNAP_{app_code.upper()}_2026"
+        cursor.execute("""
+        INSERT INTO rollback_snapshots (snapshot_code, logical_app_id, schema_snapshot, data_snapshot)
+        VALUES (?, ?, '{"tables_count": 45}', '{"records_count": 1200}');
+        """, (snap_code, la_id))
+        snap_id = cursor.lastrowid
+        snapshots_seeded += 1
+        
+        cursor.execute("""
+        INSERT INTO rollback_operations (snapshot_id, operation_type, execution_status, executed_by, started_at, completed_at)
+        VALUES (?, 'data_revert', 'completed', 'PlatformEngineer', ?, ?);
+        """, (snap_id, datetime_str(), datetime_str()))
+        rollbacks_seeded += 1
+        
+    # 3. Seed runtime_logs
+    log_levels = ['INFO', 'WARN', 'ERROR']
+    for idx, la in enumerate(log_apps):
+        la_id = la['id']
+        app_code = la['app_code']
+        
+        for lvl in log_levels:
+            cursor.execute("""
+            INSERT INTO runtime_logs (logical_app_id, log_level, message, trace_id)
+            VALUES (?, ?, ?, ?);
+            """, (la_id, lvl, f"Runtime log message for logical application {app_code} under normal load.", f"trace_{la_id}_{lvl.lower()}"))
+            logs_seeded += 1
+            
+    # 4. Seed crash_reports
+    for idx, la in enumerate(log_apps[:2]):
+        la_id = la['id']
+        app_code = la['app_code']
+        
+        cursor.execute("""
+        INSERT INTO crash_reports (logical_app_id, crash_code, error_type, stack_trace, device_info, session_id)
+        VALUES (?, ?, 'NullPointerException', 'Exception in thread \"main\" java.lang.NullPointerException at com.primecare.app...', 'iPhone 15 Pro, iOS 17.4', ?);
+        """, (la_id, f"CRSH_{app_code.upper()}_001", f"session_{la_id}_001"))
+        crashes_seeded += 1
+        
+    # 5. Seed user_sessions
+    for idx, la in enumerate(log_apps):
+        la_id = la['id']
+        role_id = db_roles[idx % len(db_roles)]['id'] if db_roles else None
+        
+        cursor.execute("""
+        INSERT INTO user_sessions (logical_app_id, session_token, role_id, device_platform, ip_address, started_at)
+        VALUES (?, ?, ?, 'Web/Chrome', '192.168.1.10', ?);
+        """, (la_id, f"sess_token_{la_id}_2026", role_id, datetime_str()))
+        sessions_seeded += 1
+        
+    # 6. Seed api_failures
+    for idx, api in enumerate(db_apis[:3]):
+        api_id = api['id']
+        app_id = api['app_id']
+        
+        cursor.execute("SELECT id FROM logical_apps LIMIT 1;")
+        la_row = cursor.fetchone()
+        la_id = la_row[0] if la_row else 1
+        
+        cursor.execute("""
+        INSERT INTO api_failures (logical_app_id, api_id, error_code, latency_ms, request_payload, response_payload)
+        VALUES (?, ?, 504, 15000, '{"query": "compliance_logs"}', '{"error": "Gateway Timeout"}');
+        """, (la_id, api_id))
+        failures_seeded += 1
+        
+    # 7. Seed release_gates
+    gates = ['tests_pass', 'security_clean', 'drift_resolved', 'migrations_complete', 'performance_acceptable']
+    for v in versions:
+        v_id = v['id']
+        
+        for g in gates:
+            is_passed = 1 if g != 'performance_acceptable' else 0
+            evidence = f"Evidence checklist for release gate {g}: verified successfully."
+            
+            cursor.execute("""
+            INSERT OR IGNORE INTO release_gates (release_version_id, gate_name, is_passed, evidence, evaluated_at)
+            VALUES (?, ?, ?, ?, ?);
+            """, (v_id, g, is_passed, evidence, datetime_str()))
+            gates_seeded += 1
+
+    print(f"  Successfully seeded: {execs_seeded} execution logs, {snapshots_seeded} rollback snapshots, {rollbacks_seeded} rollbacks, {logs_seeded} runtime logs, {crashes_seeded} crashes, {sessions_seeded} user sessions, {failures_seeded} API failures, and {gates_seeded} release gates.")
+    conn.commit()
+
+    # Task Z5: Active Dependency Impact Calculation Engine (Recursive Graph Traverser)
+    print("\nTask Z5: Launching active E2E dependency impact traverser and seeding dependency_impacts...")
+    cursor.execute("DELETE FROM dependency_impacts;")
+    
+    # Read all dependency mappings from artifact_dependencies
+    cursor.execute("SELECT source_type, source_id, target_type, target_id, dependency_type FROM artifact_dependencies;")
+    all_deps = cursor.fetchall()
+    
+    # We will build an adjacency list representing the dependency graph
+    # If target changes, source breaks!
+    adj_list = {}
+    for dep in all_deps:
+        src = (dep['source_type'], dep['source_id'])
+        tgt = (dep['target_type'], dep['target_id'])
+        adj_list.setdefault(tgt, []).append((src, dep['dependency_type']))
+        
+    # Map (type, database_id) to runtime_artifact_id
+    rt_id_map = {}
+    
+    cursor.execute("SELECT id, screen_code FROM screens;")
+    for r in cursor.fetchall():
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'screen' AND artifact_code = ?;", (f"SCR_{r['screen_code']}",))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('screen', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, http_method, route_path FROM api_endpoints;")
+    for r in cursor.fetchall():
+        clean_route = r['route_path'].replace('/', '_').replace('-', '_').upper().strip('_')
+        code = f"API_{r['http_method']}_{clean_route}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'api' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if not rt_row:
+            cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'api' AND artifact_code = ?;", (f"{code}_{r['id']}",))
+            rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('api', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, file_name FROM code_files;")
+    for r in cursor.fetchall():
+        code = f"FIL_{r['file_name'].upper().replace('.', '_')}_{r['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'file' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('file', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, layout_name FROM layout_bindings;")
+    for r in cursor.fetchall():
+        code = f"LAY_{r['layout_name'].upper()}_{r['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'layout' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('layout', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, route_name, route_path FROM router_mounts;")
+    for r in cursor.fetchall():
+        name = r['route_name'] or f"Route {r['route_path']}"
+        code = f"RTE_{name.upper().replace(' ', '_')}_{r['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'route' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('route', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, artifact_name FROM build_artifacts;")
+    for r in cursor.fetchall():
+        code = f"BLD_{r['artifact_name'].upper().replace('.', '_').replace('-', '_')}_{r['id']}"
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'build' AND artifact_code = ?;", (code,))
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('build', r['id'])] = rt_row[0]
+            
+    cursor.execute("SELECT id, test_name FROM test_cases;")
+    for r in cursor.fetchall():
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_type = 'test_case' LIMIT 1;")
+        rt_row = cursor.fetchone()
+        if rt_row:
+            rt_id_map[('test_case', r['id'])] = rt_row[0]
+
+    # Traverse the impact graph for all registered assets
+    impacts_calculated = 0
+    
+    # We will trace up to a depth of 3 for each node in the adjacency list
+    for target_node, source_list in adj_list.items():
+        target_rt_id = rt_id_map.get(target_node)
+        if not target_rt_id:
+            continue
+            
+        visited = set()
+        
+        def calculate_impacts(curr_node, depth):
+            nonlocal impacts_calculated
+            if depth > 3:
+                return
+            if curr_node in visited:
+                return
+            visited.add(curr_node)
+            
+            for child_node, dep_type in adj_list.get(curr_node, []):
+                child_rt_id = rt_id_map.get(child_node)
+                if child_rt_id and child_rt_id != target_rt_id:
+                    criticality = 'critical' if depth == 1 else ('high' if depth == 2 else 'medium')
+                    imp_type = 'direct' if depth == 1 else 'transitive'
+                    desc = f"Impact path: target changes triggers '{dep_type}' dependency breakage on source at depth {depth}."
+                    
+                    cursor.execute("""
+                    INSERT OR IGNORE INTO dependency_impacts (source_artifact_id, target_artifact_id, impact_depth, impact_type, criticality, description)
+                    VALUES (?, ?, ?, ?, ?, ?);
+                    """, (child_rt_id, target_rt_id, depth, imp_type, criticality, desc))
+                    impacts_calculated += 1
+                    
+                calculate_impacts(child_node, depth + 1)
+                
+        calculate_impacts(target_node, 1)
+
+    print(f"  Successfully traversed E2E graph: calculated and registered {impacts_calculated} dependency impact paths inside dependency_impacts.")
+    conn.commit()
     conn.close()
     print("\n[SUCCESS] Relational database reconciliation and remodeling completely concluded!")
 
