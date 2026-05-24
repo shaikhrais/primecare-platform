@@ -195,6 +195,7 @@ class VerificationCenterScreen extends ConsumerWidget {
     final Uri? targetUrl = d.buildUrl != null ? Uri.parse(d.buildUrl!) : null;
 
     return Card(
+      key: ValueKey('data-cy-deploy-card-${d.appName}'),
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(
@@ -253,6 +254,7 @@ class VerificationCenterScreen extends ConsumerWidget {
             // Target URL Link Badge
             if (targetUrl != null)
               OutlinedButton.icon(
+                key: ValueKey('data-cy-live-link-${d.appName}'),
                 onPressed: () async {
                   if (await canLaunchUrl(targetUrl)) {
                     await launchUrl(targetUrl);
@@ -288,6 +290,7 @@ class VerificationCenterScreen extends ConsumerWidget {
 
             // Logs Button
             ElevatedButton(
+              key: ValueKey('data-cy-logs-btn-${d.appName}'),
               onPressed: () {
                 ref.read(activeLogViewProvider.notifier).state = d;
               },
@@ -319,6 +322,7 @@ class VerificationCenterScreen extends ConsumerWidget {
       color: Colors.black.withOpacity(0.6),
       alignment: Alignment.center,
       child: Card(
+        key: const ValueKey('data-cy-logs-viewer-card'),
         margin: const EdgeInsets.all(32),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: const Color(0xFF1E1E1E), // Premium terminal dark
@@ -346,6 +350,7 @@ class VerificationCenterScreen extends ConsumerWidget {
                     ],
                   ),
                   IconButton(
+                    key: const ValueKey('data-cy-logs-close-btn'),
                     onPressed: () => ref.read(activeLogViewProvider.notifier).state = null,
                     icon: const Icon(LucideIcons.x, color: Colors.white70),
                   ),
@@ -381,6 +386,7 @@ class VerificationCenterScreen extends ConsumerWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
+                  key: const ValueKey('data-cy-logs-close-text-btn'),
                   onPressed: () => ref.read(activeLogViewProvider.notifier).state = null,
                   child: const Text('Close Log Viewer', style: TextStyle(color: Colors.white)),
                 ),

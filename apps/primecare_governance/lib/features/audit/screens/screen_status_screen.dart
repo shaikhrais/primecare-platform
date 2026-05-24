@@ -144,6 +144,7 @@ class ScreenStatusScreen extends ConsumerWidget {
                                               ),
                                             ),
                                             child: ListTile(
+                                              key: ValueKey('data-cy-screen-item-${screen.screenName}'),
                                               selected: isSelected,
                                               onTap: () {
                                                 ref.read(selectedScreenIndexProvider.notifier).state = index;
@@ -257,6 +258,7 @@ class ScreenStatusScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           DropdownButtonFormField<String>(
+            key: const ValueKey('data-cy-app-dropdown'),
             value: selectedDepId,
             decoration: InputDecoration(
               labelText: 'Target Application Module',
@@ -283,6 +285,7 @@ class ScreenStatusScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, bottom: 12),
       child: TextFormField(
+        key: const ValueKey('data-cy-screen-search-input'),
         initialValue: query,
         onChanged: (val) => ref.read(screenSearchQueryProvider.notifier).state = val,
         decoration: InputDecoration(
@@ -390,13 +393,14 @@ class ScreenStatusScreen extends ConsumerWidget {
 
             // Tab bar
             const TabBar(
+              key: ValueKey('data-cy-tabs-bar'),
               isScrollable: true,
               tabAlignment: TabAlignment.start,
               tabs: [
-                Tab(text: 'Buttons & Labels'),
-                Tab(text: 'Text Strings'),
-                Tab(text: 'Child Components'),
-                Tab(text: 'i18n Compliance'),
+                Tab(key: ValueKey('data-cy-tab-buttons'), text: 'Buttons & Labels'),
+                Tab(key: ValueKey('data-cy-tab-strings'), text: 'Text Strings'),
+                Tab(key: ValueKey('data-cy-tab-components'), text: 'Child Components'),
+                Tab(key: ValueKey('data-cy-tab-compliance'), text: 'i18n Compliance'),
               ],
             ),
             const SizedBox(height: 16),
@@ -626,6 +630,7 @@ class ScreenStatusScreen extends ConsumerWidget {
   Widget _buildLangButton(WidgetRef ref, String langCode, String label, String active) {
     final bool isSelected = active == langCode;
     return ChoiceChip(
+      key: ValueKey('data-cy-lang-chip-$langCode'),
       label: Text(label),
       selected: isSelected,
       onSelected: (selected) {
