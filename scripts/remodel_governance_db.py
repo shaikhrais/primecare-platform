@@ -903,7 +903,338 @@ def run_db_remodeling_and_reconciliation():
             migrations_seeded += 1
             
     print(f"  Successfully seeded operational data: {deployments_seeded} deployments, {pipelines_seeded} pipeline runs, {migrations_seeded} migrations, and {artifacts_seeded} build artifacts.")
+    conn.commit()
 
+    # Task W: Central Registry (runtime_artifacts) Seeding
+    print("\nTask W: Seeding Central Registry (runtime_artifacts) with visual, physical, and logical assets...")
+    cursor.execute("DELETE FROM runtime_artifacts;")
+    
+    rt_seeded = 0
+    
+    # 1. Register visual screens
+    cursor.execute("SELECT s.id, s.screen_code, s.screen_name, s.file_path, s.logical_app_id, pf.checksum FROM screens s LEFT JOIN package_files pf ON s.physical_file_id = pf.id;")
+    screens_for_registry = cursor.fetchall()
+    for s in screens_for_registry:
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, physical_path, logical_app_id, status, health_status, deployment_status, checksum)
+        VALUES ('screen', ?, ?, ?, ?, 'active', 'healthy', 'deployed', ?);
+        """, (f"SCR_{s['screen_code']}", s['screen_name'], s['file_path'], s['logical_app_id'], s['checksum']))
+        rt_seeded += 1
+        
+    # 2. Register code files
+    cursor.execute("SELECT id, file_name, file_path, app_id FROM code_files;")
+    code_files_for_registry = cursor.fetchall()
+    for f in code_files_for_registry:
+        cursor.execute("SELECT id FROM logical_apps LIMIT 1;") # fallback
+        la_row = cursor.fetchone()
+        la_id = la_row[0] if la_row else None
+        
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, physical_path, logical_app_id, status)
+        VALUES ('file', ?, ?, ?, ?, 'active');
+        """, (f"FIL_{f['file_name'].upper().replace('.', '_')}_{f['id']}", f['file_name'], f['file_path'], la_id))
+        rt_seeded += 1
+        
+    # 3. Register API endpoints
+    cursor.execute("SELECT id, endpoint_code, http_method, route_path, app_id, health_status, implementation_status FROM api_endpoints;")
+    apis_for_registry = cursor.fetchall()
+    for api in apis_for_registry:
+        cursor.execute("SELECT id FROM logical_apps LIMIT 1;") # fallback
+        la_row = cursor.fetchone()
+        la_id = la_row[0] if la_row else None
+        
+        clean_route = api['route_path'].replace('/', '_').replace('-', '_').upper().strip('_')
+        code = f"API_{api['http_method']}_{clean_route}"
+        # Ensure unique
+        cursor.execute("SELECT id FROM runtime_artifacts WHERE artifact_code = ?;", (code,))
+        if cursor.fetchone():
+            code = f"API_{api['http_method']}_{clean_route}_{api['id']}"
+            
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, logical_app_id, status, health_status, deployment_status)
+        VALUES ('api', ?, ?, ?, 'active', ?, ?);
+        """, (code, f"{api['http_method']} {api['route_path']}", la_id, api['health_status'], api['implementation_status']))
+        rt_seeded += 1
+        
+    # 4. Register layouts
+    cursor.execute("SELECT id, layout_name, logical_app_id FROM layout_bindings;")
+    layouts_for_registry = cursor.fetchall()
+    for lay in layouts_for_registry:
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, logical_app_id, status)
+        VALUES ('layout', ?, ?, ?, 'active');
+        """, (f"LAY_{lay['layout_name'].upper()}_{lay['id']}", lay['layout_name'], lay['logical_app_id']))
+        rt_seeded += 1
+        
+    # 5. Register routes
+    cursor.execute("SELECT id, route_name, logical_app_id, route_path FROM router_mounts;")
+    routes_for_registry = cursor.fetchall()
+    for rte in routes_for_registry:
+        name = rte['route_name'] or f"Route {rte['route_path']}"
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, logical_app_id, status)
+        VALUES ('route', ?, ?, ?, 'active');
+        """, (f"RTE_{name.upper().replace(' ', '_')}_{rte['id']}", name, rte['logical_app_id']))
+        rt_seeded += 1
+        
+    # 6. Register deployments
+    cursor.execute("SELECT id, environment, logical_app_id, deployment_status, version FROM deployments;")
+    deps_for_registry = cursor.fetchall()
+    for dep in deps_for_registry:
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, logical_app_id, status, deployment_status, version)
+        VALUES ('deployment', ?, ?, ?, 'active', ?, ?);
+        """, (f"DEP_{dep['environment'].upper()}_{dep['id']}", f"Deployment to {dep['environment']} v{dep['version']}", dep['logical_app_id'], dep['deployment_status'], dep['version']))
+        rt_seeded += 1
+        
+    # 7. Register builds
+    cursor.execute("SELECT id, artifact_name, file_path, checksum FROM build_artifacts;")
+    builds_for_registry = cursor.fetchall()
+    for bld in builds_for_registry:
+        cursor.execute("""
+        INSERT INTO runtime_artifacts (artifact_type, artifact_code, artifact_name, physical_path, status, checksum)
+        VALUES ('build', ?, ?, ?, 'active', ?);
+        """, (f"BLD_{bld['artifact_name'].upper().replace('.', '_').replace('-', '_')}_{bld['id']}", bld['artifact_name'], bld['file_path'], bld['checksum']))
+        rt_seeded += 1
+
+    print(f"  Successfully seeded {rt_seeded} runtime artifacts into universal central registry.")
+    conn.commit()
+
+    # Task X: Seeding Expanded SaaS Governance Records (Priority 5, 6, 7 & 8)
+    print("\nTask X: Seeding mock records for expanded governance tables (releases, incidents, checks, perf, security, dependencies)...")
+    
+    cursor.execute("DELETE FROM dependency_versions;")
+    cursor.execute("DELETE FROM security_findings;")
+    cursor.execute("DELETE FROM performance_metrics;")
+    cursor.execute("DELETE FROM health_checks;")
+    cursor.execute("DELETE FROM incident_reports;")
+    cursor.execute("DELETE FROM release_versions;")
+    
+    # Get logical apps
+    cursor.execute("SELECT id, app_code FROM logical_apps;")
+    log_apps = cursor.fetchall()
+    
+    # Get physical packages
+    cursor.execute("SELECT id, package_code FROM physical_packages;")
+    phys_pkgs = cursor.fetchall()
+    
+    # Get runtime artifacts for linking
+    cursor.execute("SELECT id, artifact_type, logical_app_id FROM runtime_artifacts;")
+    all_rt_artifacts = cursor.fetchall()
+    
+    screens_rt = [a for a in all_rt_artifacts if a['artifact_type'] == 'screen']
+    apis_rt = [a for a in all_rt_artifacts if a['artifact_type'] == 'api']
+    
+    import random
+    from datetime import datetime, timedelta
+    
+    releases_seeded = 0
+    incidents_seeded = 0
+    checks_seeded = 0
+    perf_seeded = 0
+    security_seeded = 0
+    deps_seeded = 0
+    
+    # 1. Seed release_versions
+    for la in log_apps:
+        la_id = la['id']
+        app_code = la['app_code']
+        
+        # Create a couple of versions
+        for v in ['v2.0.0', 'v2.1.0']:
+            released_at = (datetime.now() - timedelta(days=10)).strftime("%Y-%m-%d %H:%M:%S") if v == 'v2.0.0' else datetime_str()
+            status = 'released' if v == 'v2.0.0' else 'staged'
+            
+            cursor.execute("""
+            INSERT INTO release_versions (logical_app_id, version_code, release_status, changelog, released_at)
+            VALUES (?, ?, ?, ?, ?);
+            """, (la_id, v, status, f"Compliance update for {app_code} - added trace pathways and secured secrets.", released_at))
+            releases_seeded += 1
+            
+    # 2. Seed incident_reports
+    incidents_def = [
+        ('critical', 'High memory usage leak', 'Incident causing intermittent dashboard slow-downs.'),
+        ('high', 'API Gateway timeout', 'Gateway experienced 504 Gateway Timeout during peak hours.'),
+        ('medium', 'Slow image lazy load', 'Images in dashboard load slowly under slow connections.')
+    ]
+    for idx, (severity, summary, desc) in enumerate(incidents_def):
+        la_id = log_apps[idx % len(log_apps)]['id']
+        art_id = screens_rt[idx % len(screens_rt)]['id'] if screens_rt else None
+        code = f"INC_2026_{100 + idx}"
+        
+        cursor.execute("""
+        INSERT INTO incident_reports (logical_app_id, incident_code, severity, summary, description, affected_artifact_id, status)
+        VALUES (?, ?, ?, ?, ?, ?, 'open');
+        """, (la_id, code, severity, summary, desc, art_id))
+        incidents_seeded += 1
+        
+    # 3. Seed health_checks
+    check_names = ['Ping Endpoint', 'API Response Health', 'CPU Monitoring', 'Memory Threshold Checker']
+    for la in log_apps:
+        la_id = la['id']
+        app_code = la['app_code']
+        
+        for name in check_names:
+            status = 'healthy' if random.random() > 0.05 else 'unhealthy'
+            resp_time = random.randint(10, 300)
+            c_type = 'http' if 'Endpoint' in name or 'API' in name else 'system'
+            target = f"https://api.primecare.io/{app_code}/health"
+            
+            cursor.execute("""
+            INSERT INTO health_checks (logical_app_id, check_name, target_url, check_type, status, response_time_ms, last_checked_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+            """, (la_id, name, target, c_type, status, resp_time, datetime_str()))
+            checks_seeded += 1
+            
+    # 4. Seed performance_metrics
+    for la in log_apps:
+        la_id = la['id']
+        
+        # Link some to screens and some to apis
+        for idx, scr in enumerate(screens_rt[:3]):
+            lat = random.randint(120, 480)
+            cursor.execute("""
+            INSERT INTO performance_metrics (logical_app_id, metric_name, target_artifact_id, latency_ms, percentile, recorded_at)
+            VALUES (?, 'screen_load_time', ?, ?, 0.95, ?);
+            """, (la_id, scr['id'], lat, datetime_str()))
+            perf_seeded += 1
+            
+        for idx, api in enumerate(apis_rt[:3]):
+            lat = random.randint(45, 180)
+            cursor.execute("""
+            INSERT INTO performance_metrics (logical_app_id, metric_name, target_artifact_id, latency_ms, percentile, recorded_at)
+            VALUES (?, 'api_latency', ?, ?, 0.90, ?);
+            """, (la_id, api['id'], lat, datetime_str()))
+            perf_seeded += 1
+            
+    # 5. Seed security_findings
+    vulns = [
+        ('SEC_VULN_001', 'Outdated Riverpod Dependency', 'High vulnerability due to outdated riverpod library in packages/flutter_core.', 'high'),
+        ('SEC_VULN_002', 'Plaintext Auth Gateway config', 'Potential key leak if fallback credential configs are not properly redacted.', 'critical'),
+        ('SEC_VULN_003', 'Missing permission guard', 'Router route lacks complete zero-trust guard validator.', 'medium')
+    ]
+    for idx, (code, title, desc, sev) in enumerate(vulns):
+        la_id = log_apps[idx % len(log_apps)]['id']
+        art_id = apis_rt[idx % len(apis_rt)]['id'] if apis_rt else None
+        
+        cursor.execute("""
+        INSERT INTO security_findings (logical_app_id, vulnerability_code, title, severity, description, affected_artifact_id, remediation_status, discovered_at)
+        VALUES (?, ?, ?, ?, ?, ?, 'unresolved', ?);
+        """, (la_id, code, title, sev, desc, art_id, datetime_str()))
+        security_seeded += 1
+        
+    # 6. Seed dependency_versions
+    deps = [
+        ('flutter', '3.19.0', '3.19.6', 'BSD-3-Clause', 0),
+        ('riverpod', '2.5.1', '2.5.3', 'MIT', 0),
+        ('prisma', '5.10.0', '5.12.0', 'Apache-2.0', 0),
+        ('sqlite3', '3.45.0', '3.45.2', 'Public Domain', 0),
+        ('openpyxl', '3.1.2', '3.1.2', 'MIT', 0)
+    ]
+    for pkg in phys_pkgs:
+        pkg_id = pkg['id']
+        
+        for name, dec_v, res_v, lic, vul_cnt in deps:
+            cursor.execute("""
+            INSERT OR IGNORE INTO dependency_versions (package_id, dependency_name, declared_version, resolved_version, license_type, vulnerability_count)
+            VALUES (?, ?, ?, ?, ?, ?);
+            """, (pkg_id, name, dec_v, res_v, lic, vul_cnt))
+            deps_seeded += 1
+
+    print(f"  Successfully seeded: {releases_seeded} releases, {incidents_seeded} incidents, {checks_seeded} checks, {perf_seeded} performance logs, {security_seeded} security findings, and {deps_seeded} dependency versions.")
+    conn.commit()
+
+    # Task Y: universal Dependency Mapping & Impact Analysis
+    print("\nTask Y: Compiling universal E2E dependency graph into artifact_dependencies...")
+    cursor.execute("DELETE FROM artifact_dependencies;")
+    
+    dependencies_created = 0
+    
+    # Helper to insert unique dependencies
+    def add_dep(src_type, src_id, tgt_type, tgt_id, dep_type):
+        nonlocal dependencies_created
+        if src_id is None or tgt_id is None:
+            return
+        cursor.execute("""
+        INSERT OR IGNORE INTO artifact_dependencies (source_type, source_id, target_type, target_id, dependency_type)
+        VALUES (?, ?, ?, ?, ?);
+        """, (src_type, src_id, tgt_type, tgt_id, dep_type))
+        dependencies_created += 1
+
+    # 1. Link Screens to Code Files
+    cursor.execute("SELECT screen_id, file_id FROM screen_file_links;")
+    for link in cursor.fetchall():
+        add_dep('screen', link['screen_id'], 'file', link['file_id'], 'file_source')
+        
+    # 2. Link Screens to Components
+    cursor.execute("SELECT id, screen_id FROM screen_components;")
+    for comp in cursor.fetchall():
+        add_dep('screen', comp['screen_id'], 'component', comp['id'], 'layout_component')
+        
+    # 3. Link Components to Functions
+    cursor.execute("SELECT id, component_id FROM screen_functions WHERE component_id IS NOT NULL;")
+    for func in cursor.fetchall():
+        add_dep('component', func['component_id'], 'function', func['id'], 'component_action')
+        
+    # 4. Link Functions to APIs
+    cursor.execute("SELECT id, api_id FROM screen_functions WHERE api_id IS NOT NULL;")
+    for func in cursor.fetchall():
+        add_dep('function', func['id'], 'api', func['api_id'], 'api_consumer')
+        
+    # 5. Link Screens to APIs (Direct dependencies)
+    cursor.execute("SELECT screen_id, api_id FROM screen_api_links;")
+    for link in cursor.fetchall():
+        add_dep('screen', link['screen_id'], 'api', link['api_id'], 'api_dependency')
+        
+    # 6. Link APIs to Database Schema Tables (via fuzzy route keyword matching)
+    cursor.execute("SELECT id, table_name FROM db_schema_tables;")
+    db_tables = cursor.fetchall()
+    
+    cursor.execute("SELECT id, route_path FROM api_endpoints;")
+    db_apis = cursor.fetchall()
+    
+    for api in db_apis:
+        api_id = api['id']
+        route = api['route_path'].lower()
+        
+        matched_table_id = None
+        for t in db_tables:
+            tbl_name = t['table_name'].lower()
+            if tbl_name in route or route in tbl_name or tbl_name.rstrip('s') in route:
+                matched_table_id = t['id']
+                break
+                
+        if not matched_table_id and db_tables:
+            matched_table_id = db_tables[0]['id']
+            
+        if matched_table_id:
+            add_dep('api', api_id, 'db_table', matched_table_id, 'database_query')
+            
+    # 7. Link Router Mounts to Screens
+    cursor.execute("SELECT id, screen_id FROM router_mounts;")
+    for rm in cursor.fetchall():
+        add_dep('route', rm['id'], 'screen', rm['screen_id'], 'navigation_target')
+        
+    # 8. Link Layout Bindings to Screens
+    cursor.execute("SELECT id, screen_id FROM layout_bindings;")
+    for lb in cursor.fetchall():
+        add_dep('layout', lb['id'], 'screen', lb['screen_id'], 'layout_binding')
+        
+    # 9. Link Test Cases to Screens, APIs, Functions, and Components
+    cursor.execute("SELECT id, related_screen_id, related_api_id, related_function_id, related_component_id FROM test_cases;")
+    for tc in cursor.fetchall():
+        tc_id = tc['id']
+        add_dep('test_case', tc_id, 'screen', tc['related_screen_id'], 'screen_verification')
+        add_dep('test_case', tc_id, 'api', tc['related_api_id'], 'api_verification')
+        add_dep('test_case', tc_id, 'function', tc['related_function_id'], 'function_verification')
+        add_dep('test_case', tc_id, 'component', tc['related_component_id'], 'component_verification')
+
+    # 10. Link Deployments to Logical Apps
+    cursor.execute("SELECT id, logical_app_id FROM deployments;")
+    for dep in cursor.fetchall():
+        add_dep('deployment', dep['id'], 'logical_app', dep['logical_app_id'], 'app_target')
+        
+    print(f"  Successfully compiled universal dependency graph: registered {dependencies_created} E2E dependency impact edges.")
     conn.commit()
     conn.close()
     print("\n[SUCCESS] Relational database reconciliation and remodeling completely concluded!")

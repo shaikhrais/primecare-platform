@@ -21,6 +21,13 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "dependency_versions",
+            "security_findings",
+            "performance_metrics",
+            "health_checks",
+            "incident_reports",
+            "release_versions",
+            "runtime_artifacts",
             "build_artifacts",
             "migration_history",
             "ci_pipeline_runs",
@@ -717,6 +724,127 @@ def init_db(force_reset=False):
     );
     """)
 
+    # 39. runtime_artifacts
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS runtime_artifacts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      artifact_type TEXT NOT NULL,
+      artifact_code TEXT UNIQUE NOT NULL,
+      artifact_name TEXT NOT NULL,
+      physical_path TEXT,
+      logical_app_id INTEGER,
+      package_id INTEGER,
+      status TEXT DEFAULT 'active',
+      health_status TEXT DEFAULT 'healthy',
+      deployment_status TEXT DEFAULT 'deployed',
+      version TEXT,
+      checksum TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE SET NULL,
+      FOREIGN KEY (package_id) REFERENCES physical_packages(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 40. release_versions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS release_versions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      version_code TEXT NOT NULL,
+      release_status TEXT DEFAULT 'draft',
+      changelog TEXT,
+      released_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      UNIQUE(logical_app_id, version_code)
+    );
+    """)
+
+    # 41. incident_reports
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS incident_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      incident_code TEXT UNIQUE NOT NULL,
+      severity TEXT NOT NULL,
+      summary TEXT NOT NULL,
+      description TEXT,
+      affected_artifact_id INTEGER,
+      status TEXT DEFAULT 'open',
+      resolved_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (affected_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 42. health_checks
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS health_checks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      check_name TEXT NOT NULL,
+      target_url TEXT,
+      check_type TEXT,
+      status TEXT DEFAULT 'healthy',
+      response_time_ms INTEGER,
+      last_checked_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 43. performance_metrics
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS performance_metrics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      metric_name TEXT NOT NULL,
+      target_artifact_id INTEGER,
+      latency_ms INTEGER NOT NULL,
+      percentile REAL,
+      recorded_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (target_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 44. security_findings
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS security_findings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      logical_app_id INTEGER NOT NULL,
+      vulnerability_code TEXT UNIQUE NOT NULL,
+      title TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      description TEXT,
+      affected_artifact_id INTEGER,
+      remediation_status TEXT DEFAULT 'unresolved',
+      discovered_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (affected_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 45. dependency_versions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS dependency_versions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      package_id INTEGER NOT NULL,
+      dependency_name TEXT NOT NULL,
+      declared_version TEXT NOT NULL,
+      resolved_version TEXT,
+      license_type TEXT,
+      vulnerability_count INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (package_id) REFERENCES physical_packages(id) ON DELETE CASCADE,
+      UNIQUE(package_id, dependency_name)
+    );
+    """)
+
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_roles_org ON roles(org_id);")
@@ -754,10 +882,18 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_ci_pipeline_runs_la ON ci_pipeline_runs(logical_app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_migration_history_app ON migration_history(app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_build_artifacts_run ON build_artifacts(pipeline_run_id);")
+    
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_artifacts_la ON runtime_artifacts(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_versions_la ON release_versions(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_incident_reports_la ON incident_reports(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_health_checks_la ON health_checks(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_performance_metrics_la ON performance_metrics(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_security_findings_la ON security_findings(logical_app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dependency_versions_pkg ON dependency_versions(package_id);")
 
     conn.commit()
     conn.close()
-    print("PrimeCare 38-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 45-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()
