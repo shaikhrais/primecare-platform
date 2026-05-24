@@ -1,6 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide PhysicianDashboardScreen, RnDashboardScreen, RnMedicationsScreen, RnVitalsScreen, RnChartingScreen, RnMessagingScreen, PswDashboardScreen, PswCarePlanScreen, PswDailyNotesScreen, PswClientProfileScreen, PswMyShiftsScreen, PswMessagingScreen, IntakeCoordinatorDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen, ReceptionistDashboardScreen, RmtDashboardScreen, ChiropractorDashboardScreen, PhysiotherapistDashboardScreen, SocialWorkerDashboardScreen, ClinicalDirectorDashboardScreen;
+import 'package:primecare_ui/primecare_ui.dart' hide PhysicianDashboardScreen, RnDashboardScreen, RnMedicationsScreen, RnVitalsScreen, RnChartingScreen, RnMessagingScreen, PswDashboardScreen, PswCarePlanScreen, PswDailyNotesScreen, PswClientProfileScreen, PswMyShiftsScreen, PswMessagingScreen, IntakeCoordinatorDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen, ReceptionistDashboardScreen, RmtDashboardScreen, ChiropractorDashboardScreen, PhysiotherapistDashboardScreen, SocialWorkerDashboardScreen, ClinicalDirectorDashboardScreen, PswMessagesScreen, PswVisitNotesScreen, QaDashboardScreen;
 
 import 'clinic_routes.dart';
 
@@ -119,8 +119,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/offices/clinical/roles/psw/schedule', builder: (context, state) => const PswShiftTrackerScreen()),
       GoRoute(path: '/offices/clinical/roles/psw/patient-profile', builder: (context, state) => const PswMyClientsScreen()),
       GoRoute(path: '/offices/clinical/roles/psw/visit-checklist', builder: (context, state) => const PswTaskListScreen()),
-      GoRoute(path: '/offices/clinical/roles/psw/messages', builder: (context, state) => const PswMessagesScreenView()),
-      GoRoute(path: '/offices/clinical/roles/psw/visit-notes', builder: (context, state) => const PswVisitNotesScreenView()),
+      GoRoute(path: '/offices/clinical/roles/psw/messages', builder: (context, state) => const PswMessagesScreen()),
+      GoRoute(path: '/offices/clinical/roles/psw/visit-notes', builder: (context, state) => const PswVisitNotesScreen()),
       GoRoute(path: '/offices/clinical/roles/psw/profile', builder: (context, state) => const PswProfileScreen()),
       GoRoute(path: '/offices/clinical/roles/psw/reports', builder: (context, state) => const PswReportsScreen()),
       GoRoute(path: '/offices/clinical/roles/psw/documents', builder: (context, state) => const PswDocumentsScreen()),
@@ -131,7 +131,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/offices/clinical/roles/physician/dashboard', builder: (context, state) => const PhysicianDashboardScreen()),
       GoRoute(path: '/offices/clinical/roles/clinical_director/dashboard', builder: (context, state) => const ClinicalDirectorDashboardScreen()),
       GoRoute(path: '/offices/clinical/roles/intake_coordinator/dashboard', builder: (context, state) => const IntakeCoordinatorDashboardScreen()),
-      GoRoute(path: '/offices/support/roles/quality_assurance/dashboard', builder: (context, state) => const QualityAssuranceDashboardScreen()),
+      GoRoute(path: '/offices/support/roles/quality_assurance/dashboard', builder: (context, state) => const QaDashboardScreen()),
       GoRoute(path: '/offices/support/roles/training_coordinator/dashboard', builder: (context, state) => const TrainingCoordinatorDashboardScreen()),
       GoRoute(path: '/dynamic/receptionistDashboard', builder: (context, state) => const ReceptionistDashboardScreen()),
       GoRoute(path: '/offices/clinical/roles/rmt/dashboard', builder: (context, state) => const RmtDashboardScreen()),
