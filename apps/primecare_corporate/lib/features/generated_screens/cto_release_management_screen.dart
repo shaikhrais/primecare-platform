@@ -7,7 +7,7 @@ class CtoReleaseManagementScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoReleaseManagementScreenControllerProvider);
+    final state = ref.watch(ctoReleaseManagementScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

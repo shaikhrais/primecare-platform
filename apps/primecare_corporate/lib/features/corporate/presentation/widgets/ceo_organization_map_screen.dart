@@ -7,7 +7,7 @@ class CeoOrganizationMapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoOrganizationMapScreenControllerProvider);
+    final state = ref.watch(ceoOrganizationMapScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

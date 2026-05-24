@@ -7,7 +7,7 @@ class RegionalBdmCompetitorNotesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmCompetitorNotesScreenControllerProvider);
+    final state = ref.watch(regionalBdmCompetitorNotesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class RegionalBdmLeadsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmLeadsScreenControllerProvider);
+    final state = ref.watch(regionalBdmLeadsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

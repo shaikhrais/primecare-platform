@@ -7,7 +7,7 @@ class CtoIssueTrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoIssueTrackingScreenControllerProvider);
+    final state = ref.watch(ctoIssueTrackingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

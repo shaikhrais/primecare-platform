@@ -7,7 +7,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritorySalesManagerAreaPerformanceScreenControllerProvider);
+    final state = ref.watch(territorySalesManagerAreaPerformanceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class PartnershipManagerRenewalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PartnershipManagerRenewalsScreenControllerProvider);
+    final state = ref.watch(partnershipManagerRenewalsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

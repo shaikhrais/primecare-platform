@@ -7,7 +7,7 @@ class CooReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooReportsScreenControllerProvider);
+    final state = ref.watch(cooReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

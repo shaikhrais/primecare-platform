@@ -7,7 +7,7 @@ class OperationsManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OperationsManagerDashboardScreenControllerProvider);
+    final state = ref.watch(operationsManagerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class PswTaskListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswTaskListScreenControllerProvider);
+    final state = ref.watch(pswTaskListScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

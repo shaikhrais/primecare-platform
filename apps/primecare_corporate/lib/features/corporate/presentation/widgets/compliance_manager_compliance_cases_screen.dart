@@ -7,7 +7,7 @@ class ComplianceManagerComplianceCasesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ComplianceManagerComplianceCasesScreenControllerProvider);
+    final state = ref.watch(complianceManagerComplianceCasesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

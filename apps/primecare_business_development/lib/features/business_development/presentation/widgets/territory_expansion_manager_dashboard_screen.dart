@@ -7,7 +7,7 @@ class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritoryExpansionManagerDashboardScreenControllerProvider);
+    final state = ref.watch(territoryExpansionManagerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

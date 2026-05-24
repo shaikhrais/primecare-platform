@@ -7,7 +7,7 @@ class IntakeCoordinatorReferralsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(IntakeCoordinatorReferralsScreenControllerProvider);
+    final state = ref.watch(intakeCoordinatorReferralsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

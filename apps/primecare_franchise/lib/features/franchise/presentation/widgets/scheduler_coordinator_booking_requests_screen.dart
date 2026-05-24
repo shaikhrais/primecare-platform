@@ -7,7 +7,7 @@ class SchedulerCoordinatorBookingRequestsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerCoordinatorBookingRequestsScreenControllerProvider);
+    final state = ref.watch(schedulerCoordinatorBookingRequestsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CeoRegionPerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoRegionPerformanceScreenControllerProvider);
+    final state = ref.watch(ceoRegionPerformanceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

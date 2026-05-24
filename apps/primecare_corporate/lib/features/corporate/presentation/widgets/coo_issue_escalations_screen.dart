@@ -7,7 +7,7 @@ class CooIssueEscalationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooIssueEscalationsScreenControllerProvider);
+    final state = ref.watch(cooIssueEscalationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

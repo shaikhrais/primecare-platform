@@ -7,7 +7,7 @@ class FamilyMemberLovedOneScheduleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FamilyMemberLovedOneScheduleScreenControllerProvider);
+    final state = ref.watch(familyMemberLovedOneScheduleScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

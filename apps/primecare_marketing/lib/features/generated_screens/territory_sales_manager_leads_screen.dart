@@ -7,7 +7,7 @@ class TerritorySalesManagerLeadsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritorySalesManagerLeadsScreenControllerProvider);
+    final state = ref.watch(territorySalesManagerLeadsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class RegionalManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalManagerDashboardScreenControllerProvider);
+    final state = ref.watch(regionalManagerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

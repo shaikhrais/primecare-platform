@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'screen_status_screen_controller_controller.dart';
+import 'screen_status_screen_controller.dart';
 
 class ScreenStatusScreen extends ConsumerWidget {
   const ScreenStatusScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(screenStatusScreenControllerControllerProvider);
+    final state = ref.watch(screenStatusScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

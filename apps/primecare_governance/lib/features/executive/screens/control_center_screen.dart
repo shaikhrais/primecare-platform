@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'control_center_screen_controller_controller.dart';
+import 'control_center_screen_controller.dart';
 
 class ControlCenterScreen extends ConsumerWidget {
   const ControlCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(controlCenterScreenControllerControllerProvider);
+    final state = ref.watch(controlCenterScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

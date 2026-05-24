@@ -7,7 +7,7 @@ class PswScheduleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswScheduleScreenControllerProvider);
+    final state = ref.watch(pswScheduleScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

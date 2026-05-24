@@ -7,7 +7,7 @@ class ClinicIncidentReportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ClinicIncidentReportScreenControllerProvider);
+    final state = ref.watch(clinicIncidentReportScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

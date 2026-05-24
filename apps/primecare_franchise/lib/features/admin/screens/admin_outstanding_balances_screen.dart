@@ -7,7 +7,7 @@ class AdminOutstandingBalancesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AdminOutstandingBalancesScreenControllerProvider);
+    final state = ref.watch(adminOutstandingBalancesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

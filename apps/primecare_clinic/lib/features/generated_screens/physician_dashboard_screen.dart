@@ -7,7 +7,7 @@ class PhysicianDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PhysicianDashboardScreenControllerProvider);
+    final state = ref.watch(physicianDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

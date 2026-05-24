@@ -7,7 +7,7 @@ class PswProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswProfileScreenControllerProvider);
+    final state = ref.watch(pswProfileScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

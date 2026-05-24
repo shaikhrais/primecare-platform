@@ -7,7 +7,7 @@ class UnknownDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(UnknownDashboardScreenControllerProvider);
+    final state = ref.watch(unknownDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

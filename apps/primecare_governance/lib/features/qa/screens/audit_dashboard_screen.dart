@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'audit_dashboard_screen_controller_controller.dart';
+import 'audit_dashboard_screen_controller.dart';
 
 class AuditDashboardScreen extends ConsumerWidget {
   const AuditDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(auditDashboardScreenControllerControllerProvider);
+    final state = ref.watch(auditDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

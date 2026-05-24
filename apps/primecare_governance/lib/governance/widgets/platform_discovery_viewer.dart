@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'platform_discovery_viewer_controller_controller.dart';
+import 'platform_discovery_viewer_controller.dart';
 
 class PlatformDiscoveryViewer extends ConsumerWidget {
   final String? baseUrl;
@@ -8,7 +8,7 @@ class PlatformDiscoveryViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(platformDiscoveryViewerControllerControllerProvider);
+    final state = ref.watch(platformDiscoveryViewerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

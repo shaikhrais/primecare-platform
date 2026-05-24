@@ -7,7 +7,7 @@ class ClientPaymentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ClientPaymentsScreenControllerProvider);
+    final state = ref.watch(clientPaymentsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'compliance_reviews_screen_controller_controller.dart';
+import 'compliance_reviews_screen_controller.dart';
 
 class ComplianceReviewsScreen extends ConsumerWidget {
   const ComplianceReviewsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(complianceReviewsScreenControllerControllerProvider);
+    final state = ref.watch(complianceReviewsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

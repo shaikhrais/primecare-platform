@@ -7,7 +7,7 @@ class CisoDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CisoDashboardScreenControllerProvider);
+    final state = ref.watch(cisoDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

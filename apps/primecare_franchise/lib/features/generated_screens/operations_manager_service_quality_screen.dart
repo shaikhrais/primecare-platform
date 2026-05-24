@@ -7,7 +7,7 @@ class OperationsManagerServiceQualityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OperationsManagerServiceQualityScreenControllerProvider);
+    final state = ref.watch(operationsManagerServiceQualityScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

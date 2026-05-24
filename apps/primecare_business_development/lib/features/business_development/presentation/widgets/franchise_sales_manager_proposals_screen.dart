@@ -7,7 +7,7 @@ class FranchiseSalesManagerProposalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FranchiseSalesManagerProposalsScreenControllerProvider);
+    final state = ref.watch(franchiseSalesManagerProposalsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class IntakeCoordinatorClientAssignmentScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(IntakeCoordinatorClientAssignmentScreenControllerProvider);
+    final state = ref.watch(intakeCoordinatorClientAssignmentScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

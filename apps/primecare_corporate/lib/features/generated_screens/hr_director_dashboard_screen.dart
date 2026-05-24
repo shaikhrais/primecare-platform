@@ -7,7 +7,7 @@ class HrDirectorDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HrDirectorDashboardScreenControllerProvider);
+    final state = ref.watch(hrDirectorDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class LocalMarketingManagerLeadsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LocalMarketingManagerLeadsScreenControllerProvider);
+    final state = ref.watch(localMarketingManagerLeadsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

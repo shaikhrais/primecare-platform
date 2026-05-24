@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'proposals_screen_controller_controller.dart';
+import 'proposals_screen_controller.dart';
 
 class ProposalsScreen extends ConsumerWidget {
   const ProposalsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(proposalsScreenControllerControllerProvider);
+    final state = ref.watch(proposalsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

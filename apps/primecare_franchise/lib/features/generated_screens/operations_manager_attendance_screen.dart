@@ -7,7 +7,7 @@ class OperationsManagerAttendanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OperationsManagerAttendanceScreenControllerProvider);
+    final state = ref.watch(operationsManagerAttendanceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

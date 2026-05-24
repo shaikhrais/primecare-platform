@@ -7,7 +7,7 @@ class RnDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RnDashboardScreenControllerProvider);
+    final state = ref.watch(rnDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class ComplianceManagerCredentialTrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ComplianceManagerCredentialTrackingScreenControllerProvider);
+    final state = ref.watch(complianceManagerCredentialTrackingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

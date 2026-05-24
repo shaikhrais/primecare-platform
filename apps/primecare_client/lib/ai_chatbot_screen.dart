@@ -7,7 +7,7 @@ class AiChatbotScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AiChatbotScreenControllerProvider);
+    final state = ref.watch(aiChatbotScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

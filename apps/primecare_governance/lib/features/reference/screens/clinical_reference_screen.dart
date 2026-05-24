@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'clinical_reference_screen_controller_controller.dart';
+import 'clinical_reference_screen_controller.dart';
 
 class ClinicalReferenceScreen extends ConsumerWidget {
   const ClinicalReferenceScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(clinicalReferenceScreenControllerControllerProvider);
+    final state = ref.watch(clinicalReferenceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

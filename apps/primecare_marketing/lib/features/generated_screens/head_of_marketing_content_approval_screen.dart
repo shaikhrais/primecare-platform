@@ -7,7 +7,7 @@ class HeadOfMarketingContentApprovalScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HeadOfMarketingContentApprovalScreenControllerProvider);
+    final state = ref.watch(headOfMarketingContentApprovalScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

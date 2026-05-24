@@ -7,7 +7,7 @@ class CeoAlertsAndRisksScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoAlertsAndRisksScreenControllerProvider);
+    final state = ref.watch(ceoAlertsAndRisksScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

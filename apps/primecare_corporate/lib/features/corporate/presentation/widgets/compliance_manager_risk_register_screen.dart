@@ -7,7 +7,7 @@ class ComplianceManagerRiskRegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ComplianceManagerRiskRegisterScreenControllerProvider);
+    final state = ref.watch(complianceManagerRiskRegisterScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

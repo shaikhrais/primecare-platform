@@ -7,7 +7,7 @@ class GeneralManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(GeneralManagerDashboardScreenControllerProvider);
+    final state = ref.watch(generalManagerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

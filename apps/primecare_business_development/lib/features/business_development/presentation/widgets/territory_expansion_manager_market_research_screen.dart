@@ -7,7 +7,7 @@ class TerritoryExpansionManagerMarketResearchScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritoryExpansionManagerMarketResearchScreenControllerProvider);
+    final state = ref.watch(territoryExpansionManagerMarketResearchScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

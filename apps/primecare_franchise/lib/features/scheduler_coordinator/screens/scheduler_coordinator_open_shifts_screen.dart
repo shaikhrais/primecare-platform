@@ -7,7 +7,7 @@ class SchedulerCoordinatorOpenShiftsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerCoordinatorOpenShiftsScreenControllerProvider);
+    final state = ref.watch(schedulerCoordinatorOpenShiftsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

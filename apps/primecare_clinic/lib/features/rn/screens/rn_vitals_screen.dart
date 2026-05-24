@@ -7,7 +7,7 @@ class RnVitalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RnVitalsScreenControllerProvider);
+    final state = ref.watch(rnVitalsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

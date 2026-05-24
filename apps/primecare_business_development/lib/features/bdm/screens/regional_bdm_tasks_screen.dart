@@ -7,7 +7,7 @@ class RegionalBdmTasksScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmTasksScreenControllerProvider);
+    final state = ref.watch(regionalBdmTasksScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

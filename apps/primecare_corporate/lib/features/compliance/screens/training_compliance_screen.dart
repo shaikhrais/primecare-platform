@@ -7,7 +7,7 @@ class TrainingComplianceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TrainingComplianceScreenControllerProvider);
+    final state = ref.watch(trainingComplianceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CtoApiMonitoringScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoApiMonitoringScreenControllerProvider);
+    final state = ref.watch(ctoApiMonitoringScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class QualityAssuranceDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(QualityAssuranceDashboardScreenControllerProvider);
+    final state = ref.watch(qualityAssuranceDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

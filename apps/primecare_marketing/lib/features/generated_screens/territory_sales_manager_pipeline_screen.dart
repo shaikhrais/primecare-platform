@@ -7,7 +7,7 @@ class TerritorySalesManagerPipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritorySalesManagerPipelineScreenControllerProvider);
+    final state = ref.watch(territorySalesManagerPipelineScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

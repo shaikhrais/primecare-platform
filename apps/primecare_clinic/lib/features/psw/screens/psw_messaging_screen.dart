@@ -7,7 +7,7 @@ class PswMessagingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswMessagingScreenControllerProvider);
+    final state = ref.watch(pswMessagingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

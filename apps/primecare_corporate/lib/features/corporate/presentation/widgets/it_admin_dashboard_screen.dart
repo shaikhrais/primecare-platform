@@ -7,7 +7,7 @@ class ItAdminDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ItAdminDashboardScreenControllerProvider);
+    final state = ref.watch(itAdminDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

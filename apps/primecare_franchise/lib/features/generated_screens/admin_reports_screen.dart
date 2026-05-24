@@ -7,7 +7,7 @@ class AdminReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AdminReportsScreenControllerProvider);
+    final state = ref.watch(adminReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

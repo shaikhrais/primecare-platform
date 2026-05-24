@@ -7,7 +7,7 @@ class CfoProfitabilityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CfoProfitabilityScreenControllerProvider);
+    final state = ref.watch(cfoProfitabilityScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

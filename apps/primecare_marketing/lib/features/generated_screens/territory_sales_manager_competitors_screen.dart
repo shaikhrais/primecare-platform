@@ -7,7 +7,7 @@ class TerritorySalesManagerCompetitorsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritorySalesManagerCompetitorsScreenControllerProvider);
+    final state = ref.watch(territorySalesManagerCompetitorsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

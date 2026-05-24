@@ -7,7 +7,7 @@ class LocalMarketingManagerContentCalendarScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LocalMarketingManagerContentCalendarScreenControllerProvider);
+    final state = ref.watch(localMarketingManagerContentCalendarScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CtoAccessControlScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoAccessControlScreenControllerProvider);
+    final state = ref.watch(ctoAccessControlScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

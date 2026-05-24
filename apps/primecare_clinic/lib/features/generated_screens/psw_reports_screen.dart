@@ -7,7 +7,7 @@ class PswReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswReportsScreenControllerProvider);
+    final state = ref.watch(pswReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

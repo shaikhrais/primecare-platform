@@ -7,7 +7,7 @@ class CeoStrategicKpisScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoStrategicKpisScreenControllerProvider);
+    final state = ref.watch(ceoStrategicKpisScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

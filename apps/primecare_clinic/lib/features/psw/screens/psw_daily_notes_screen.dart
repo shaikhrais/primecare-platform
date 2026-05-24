@@ -7,7 +7,7 @@ class PswDailyNotesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswDailyNotesScreenControllerProvider);
+    final state = ref.watch(pswDailyNotesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

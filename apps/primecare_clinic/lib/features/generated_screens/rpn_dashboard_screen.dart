@@ -7,7 +7,7 @@ class RpnDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RpnDashboardScreenControllerProvider);
+    final state = ref.watch(rpnDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

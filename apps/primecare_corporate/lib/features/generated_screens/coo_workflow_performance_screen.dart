@@ -7,7 +7,7 @@ class CooWorkflowPerformanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooWorkflowPerformanceScreenControllerProvider);
+    final state = ref.watch(cooWorkflowPerformanceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

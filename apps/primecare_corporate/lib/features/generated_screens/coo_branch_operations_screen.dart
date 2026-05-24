@@ -7,7 +7,7 @@ class CooBranchOperationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooBranchOperationsScreenControllerProvider);
+    final state = ref.watch(cooBranchOperationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

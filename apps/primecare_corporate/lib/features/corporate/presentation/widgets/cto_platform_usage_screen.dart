@@ -7,7 +7,7 @@ class CtoPlatformUsageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoPlatformUsageScreenControllerProvider);
+    final state = ref.watch(ctoPlatformUsageScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

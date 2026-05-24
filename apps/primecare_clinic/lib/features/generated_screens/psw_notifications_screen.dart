@@ -7,7 +7,7 @@ class PswNotificationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswNotificationsScreenControllerProvider);
+    final state = ref.watch(pswNotificationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

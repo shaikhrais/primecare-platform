@@ -7,7 +7,7 @@ class FamilyMemberProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FamilyMemberProfileScreenControllerProvider);
+    final state = ref.watch(familyMemberProfileScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

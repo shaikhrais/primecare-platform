@@ -7,7 +7,7 @@ class PswVisitNotesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswVisitNotesScreenControllerProvider);
+    final state = ref.watch(pswVisitNotesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class RegionalBdmFranchisePipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmFranchisePipelineScreenControllerProvider);
+    final state = ref.watch(regionalBdmFranchisePipelineScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

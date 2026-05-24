@@ -7,7 +7,7 @@ class CooServiceDeliveryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooServiceDeliveryScreenControllerProvider);
+    final state = ref.watch(cooServiceDeliveryScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

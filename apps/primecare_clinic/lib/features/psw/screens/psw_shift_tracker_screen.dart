@@ -7,7 +7,7 @@ class PswShiftTrackerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswShiftTrackerScreenControllerProvider);
+    final state = ref.watch(pswShiftTrackerScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

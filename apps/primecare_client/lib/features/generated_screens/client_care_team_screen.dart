@@ -7,7 +7,7 @@ class ClientCareTeamScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ClientCareTeamScreenControllerProvider);
+    final state = ref.watch(clientCareTeamScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

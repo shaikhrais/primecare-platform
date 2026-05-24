@@ -7,7 +7,7 @@ class ReceptionistDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ReceptionistDashboardScreenControllerProvider);
+    final state = ref.watch(receptionistDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

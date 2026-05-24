@@ -7,7 +7,7 @@ class PswPatientProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswPatientProfileScreenControllerProvider);
+    final state = ref.watch(pswPatientProfileScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

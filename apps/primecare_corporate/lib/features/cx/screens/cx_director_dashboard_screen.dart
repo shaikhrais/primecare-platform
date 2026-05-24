@@ -7,7 +7,7 @@ class CxDirectorDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CxDirectorDashboardScreenControllerProvider);
+    final state = ref.watch(cxDirectorDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

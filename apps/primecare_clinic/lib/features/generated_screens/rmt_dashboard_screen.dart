@@ -7,7 +7,7 @@ class RmtDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RmtDashboardScreenControllerProvider);
+    final state = ref.watch(rmtDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

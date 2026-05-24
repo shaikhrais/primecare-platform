@@ -7,7 +7,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerCoordinatorProviderAvailabilityScreenControllerProvider);
+    final state = ref.watch(schedulerCoordinatorProviderAvailabilityScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

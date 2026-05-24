@@ -7,7 +7,7 @@ class RegionalBdmDealTrackerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmDealTrackerScreenControllerProvider);
+    final state = ref.watch(regionalBdmDealTrackerScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

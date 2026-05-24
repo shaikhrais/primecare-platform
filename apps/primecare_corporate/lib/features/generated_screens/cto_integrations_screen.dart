@@ -7,7 +7,7 @@ class CtoIntegrationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoIntegrationsScreenControllerProvider);
+    final state = ref.watch(ctoIntegrationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

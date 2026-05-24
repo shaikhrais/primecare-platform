@@ -7,7 +7,7 @@ class AdminInvoicesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AdminInvoicesScreenControllerProvider);
+    final state = ref.watch(adminInvoicesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

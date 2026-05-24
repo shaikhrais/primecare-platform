@@ -7,7 +7,7 @@ class HelpDeskDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HelpDeskDashboardScreenControllerProvider);
+    final state = ref.watch(helpDeskDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

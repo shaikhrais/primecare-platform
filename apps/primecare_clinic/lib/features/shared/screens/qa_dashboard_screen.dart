@@ -7,7 +7,7 @@ class QaDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(QaDashboardScreenControllerProvider);
+    final state = ref.watch(qaDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

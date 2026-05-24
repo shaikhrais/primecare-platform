@@ -7,7 +7,7 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PhysiotherapistDashboardScreenControllerProvider);
+    final state = ref.watch(physiotherapistDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class FamilyMemberBillingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FamilyMemberBillingScreenControllerProvider);
+    final state = ref.watch(familyMemberBillingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

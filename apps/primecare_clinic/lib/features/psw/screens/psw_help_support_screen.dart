@@ -7,7 +7,7 @@ class PswHelpSupportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswHelpSupportScreenControllerProvider);
+    final state = ref.watch(pswHelpSupportScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

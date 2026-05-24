@@ -7,7 +7,7 @@ class PartnershipManagerActiveDealsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PartnershipManagerActiveDealsScreenControllerProvider);
+    final state = ref.watch(partnershipManagerActiveDealsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

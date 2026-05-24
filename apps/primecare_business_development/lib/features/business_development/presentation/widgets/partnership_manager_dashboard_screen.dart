@@ -7,7 +7,7 @@ class PartnershipManagerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PartnershipManagerDashboardScreenControllerProvider);
+    final state = ref.watch(partnershipManagerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

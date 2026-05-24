@@ -7,7 +7,7 @@ class OperationsManagerStaffCoordinationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OperationsManagerStaffCoordinationScreenControllerProvider);
+    final state = ref.watch(operationsManagerStaffCoordinationScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

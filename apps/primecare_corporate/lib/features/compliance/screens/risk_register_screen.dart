@@ -7,7 +7,7 @@ class RiskRegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RiskRegisterScreenControllerProvider);
+    final state = ref.watch(riskRegisterScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CourseLibraryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CourseLibraryScreenControllerProvider);
+    final state = ref.watch(courseLibraryScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

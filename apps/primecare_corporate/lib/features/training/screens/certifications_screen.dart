@@ -7,7 +7,7 @@ class CertificationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CertificationsScreenControllerProvider);
+    final state = ref.watch(certificationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

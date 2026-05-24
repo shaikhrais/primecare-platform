@@ -7,7 +7,7 @@ class HeadOfMarketingFunnelAnalyticsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HeadOfMarketingFunnelAnalyticsScreenControllerProvider);
+    final state = ref.watch(headOfMarketingFunnelAnalyticsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

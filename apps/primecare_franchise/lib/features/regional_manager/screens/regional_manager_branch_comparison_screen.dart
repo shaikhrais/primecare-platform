@@ -7,7 +7,7 @@ class RegionalManagerBranchComparisonScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalManagerBranchComparisonScreenControllerProvider);
+    final state = ref.watch(regionalManagerBranchComparisonScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

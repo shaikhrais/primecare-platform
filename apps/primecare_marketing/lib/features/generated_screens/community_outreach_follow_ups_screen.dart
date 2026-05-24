@@ -7,7 +7,7 @@ class CommunityOutreachFollowUpsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CommunityOutreachFollowUpsScreenControllerProvider);
+    final state = ref.watch(communityOutreachFollowUpsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

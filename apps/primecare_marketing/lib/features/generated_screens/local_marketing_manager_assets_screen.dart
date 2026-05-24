@@ -7,7 +7,7 @@ class LocalMarketingManagerAssetsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LocalMarketingManagerAssetsScreenControllerProvider);
+    final state = ref.watch(localMarketingManagerAssetsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CeoDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoDashboardScreenControllerProvider);
+    final state = ref.watch(ceoDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

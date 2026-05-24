@@ -7,7 +7,7 @@ class PswDocumentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswDocumentsScreenControllerProvider);
+    final state = ref.watch(pswDocumentsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

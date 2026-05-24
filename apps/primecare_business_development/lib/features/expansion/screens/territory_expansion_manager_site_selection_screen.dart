@@ -7,7 +7,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritoryExpansionManagerSiteSelectionScreenControllerProvider);
+    final state = ref.watch(territoryExpansionManagerSiteSelectionScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

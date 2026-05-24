@@ -7,7 +7,7 @@ class IncidentReviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(IncidentReviewScreenControllerProvider);
+    final state = ref.watch(incidentReviewScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

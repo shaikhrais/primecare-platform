@@ -7,7 +7,7 @@ class RnMessagingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RnMessagingScreenControllerProvider);
+    final state = ref.watch(rnMessagingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

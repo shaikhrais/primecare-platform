@@ -7,7 +7,7 @@ class TerritorySalesManagerFieldActivityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritorySalesManagerFieldActivityScreenControllerProvider);
+    final state = ref.watch(territorySalesManagerFieldActivityScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

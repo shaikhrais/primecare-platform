@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'unknown_dashboard_screen_controller_controller.dart';
+import 'unknown_dashboard_screen_controller.dart';
 
 class UnknownDashboardScreen extends ConsumerWidget {
   const UnknownDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(unknownDashboardScreenControllerControllerProvider);
+    final state = ref.watch(unknownDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class HrHiringOnboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HrHiringOnboardingScreenControllerProvider);
+    final state = ref.watch(hrHiringOnboardingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

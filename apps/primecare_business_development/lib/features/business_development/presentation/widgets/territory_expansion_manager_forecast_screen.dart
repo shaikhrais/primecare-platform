@@ -7,7 +7,7 @@ class TerritoryExpansionManagerForecastScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(TerritoryExpansionManagerForecastScreenControllerProvider);
+    final state = ref.watch(territoryExpansionManagerForecastScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class IntakeCoordinatorSchedulingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(IntakeCoordinatorSchedulingScreenControllerProvider);
+    final state = ref.watch(intakeCoordinatorSchedulingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

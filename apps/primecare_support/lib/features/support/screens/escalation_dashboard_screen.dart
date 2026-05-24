@@ -7,7 +7,7 @@ class EscalationDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(EscalationDashboardScreenControllerProvider);
+    final state = ref.watch(escalationDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

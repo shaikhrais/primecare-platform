@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'governance_role_viewer_controller_controller.dart';
+import 'governance_role_viewer_controller.dart';
 
 class GovernanceRoleViewer extends ConsumerWidget {
   const GovernanceRoleViewer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(governanceRoleViewerControllerControllerProvider);
+    final state = ref.watch(governanceRoleViewerControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

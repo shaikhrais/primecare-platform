@@ -7,7 +7,7 @@ class OwnerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OwnerDashboardScreenControllerProvider);
+    final state = ref.watch(ownerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

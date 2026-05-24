@@ -7,7 +7,7 @@ class CooOperationsOverviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooOperationsOverviewScreenControllerProvider);
+    final state = ref.watch(cooOperationsOverviewScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

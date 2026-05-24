@@ -7,7 +7,7 @@ class FamilyDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FamilyDashboardScreenControllerProvider);
+    final state = ref.watch(familyDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

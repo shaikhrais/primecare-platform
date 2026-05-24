@@ -7,7 +7,7 @@ class ComplianceManagerDocumentExpiryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ComplianceManagerDocumentExpiryScreenControllerProvider);
+    final state = ref.watch(complianceManagerDocumentExpiryScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

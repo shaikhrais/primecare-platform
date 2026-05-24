@@ -7,7 +7,7 @@ class CeoGrowthPipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoGrowthPipelineScreenControllerProvider);
+    final state = ref.watch(ceoGrowthPipelineScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

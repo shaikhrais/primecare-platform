@@ -7,7 +7,7 @@ class CtoDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoDashboardScreenControllerProvider);
+    final state = ref.watch(ctoDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

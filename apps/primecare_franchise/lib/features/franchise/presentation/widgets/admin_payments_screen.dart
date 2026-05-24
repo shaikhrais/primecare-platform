@@ -7,7 +7,7 @@ class AdminPaymentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AdminPaymentsScreenControllerProvider);
+    final state = ref.watch(adminPaymentsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

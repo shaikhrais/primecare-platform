@@ -7,7 +7,7 @@ class DocumentExpiryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(DocumentExpiryScreenControllerProvider);
+    final state = ref.watch(documentExpiryScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

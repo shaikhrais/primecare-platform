@@ -7,7 +7,7 @@ class SchedulerCoordinatorAssignmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerCoordinatorAssignmentsScreenControllerProvider);
+    final state = ref.watch(schedulerCoordinatorAssignmentsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

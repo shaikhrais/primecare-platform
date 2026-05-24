@@ -7,7 +7,7 @@ class RnChartingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RnChartingScreenControllerProvider);
+    final state = ref.watch(rnChartingScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

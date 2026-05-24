@@ -7,7 +7,7 @@ class SchedulerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerDashboardScreenControllerProvider);
+    final state = ref.watch(schedulerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

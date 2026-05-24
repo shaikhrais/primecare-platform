@@ -7,7 +7,7 @@ class CooComplianceViewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooComplianceViewScreenControllerProvider);
+    final state = ref.watch(cooComplianceViewScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

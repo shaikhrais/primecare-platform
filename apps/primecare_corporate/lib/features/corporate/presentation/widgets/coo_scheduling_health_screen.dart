@@ -7,7 +7,7 @@ class CooSchedulingHealthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooSchedulingHealthScreenControllerProvider);
+    final state = ref.watch(cooSchedulingHealthScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

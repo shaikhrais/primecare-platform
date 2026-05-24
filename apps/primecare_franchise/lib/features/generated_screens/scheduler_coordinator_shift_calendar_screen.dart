@@ -7,7 +7,7 @@ class SchedulerCoordinatorShiftCalendarScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SchedulerCoordinatorShiftCalendarScreenControllerProvider);
+    final state = ref.watch(schedulerCoordinatorShiftCalendarScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

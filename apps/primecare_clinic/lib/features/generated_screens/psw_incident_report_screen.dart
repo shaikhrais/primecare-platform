@@ -7,7 +7,7 @@ class PswIncidentReportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswIncidentReportScreenControllerProvider);
+    final state = ref.watch(pswIncidentReportScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

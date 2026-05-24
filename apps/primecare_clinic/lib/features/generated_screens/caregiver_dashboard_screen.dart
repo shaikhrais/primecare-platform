@@ -7,7 +7,7 @@ class CaregiverDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CaregiverDashboardScreenControllerProvider);
+    final state = ref.watch(caregiverDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

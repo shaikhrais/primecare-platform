@@ -7,7 +7,7 @@ class CooBranchComparisonScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooBranchComparisonScreenControllerProvider);
+    final state = ref.watch(cooBranchComparisonScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

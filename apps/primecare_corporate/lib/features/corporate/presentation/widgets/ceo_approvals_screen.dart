@@ -7,7 +7,7 @@ class CeoApprovalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CeoApprovalsScreenControllerProvider);
+    final state = ref.watch(ceoApprovalsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CtoVerificationHubScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoVerificationHubScreenControllerProvider);
+    final state = ref.watch(ctoVerificationHubScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

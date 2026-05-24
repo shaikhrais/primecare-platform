@@ -7,7 +7,7 @@ class PswCheckInScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswCheckInScreenControllerProvider);
+    final state = ref.watch(pswCheckInScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

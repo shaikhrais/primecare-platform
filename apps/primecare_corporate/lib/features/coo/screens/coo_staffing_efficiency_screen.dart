@@ -7,7 +7,7 @@ class CooStaffingEfficiencyScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CooStaffingEfficiencyScreenControllerProvider);
+    final state = ref.watch(cooStaffingEfficiencyScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

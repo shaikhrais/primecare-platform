@@ -7,7 +7,7 @@ class CtoFeatureAdoptionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoFeatureAdoptionScreenControllerProvider);
+    final state = ref.watch(ctoFeatureAdoptionScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

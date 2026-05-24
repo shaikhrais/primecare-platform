@@ -7,7 +7,7 @@ class RnMedicationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RnMedicationsScreenControllerProvider);
+    final state = ref.watch(rnMedicationsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

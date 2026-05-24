@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'growth_pipeline_screen_controller_controller.dart';
+import 'growth_pipeline_screen_controller.dart';
 
 class GrowthPipelineScreen extends ConsumerWidget {
   const GrowthPipelineScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(growthPipelineScreenControllerControllerProvider);
+    final state = ref.watch(growthPipelineScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class AdminReconciliationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(AdminReconciliationScreenControllerProvider);
+    final state = ref.watch(adminReconciliationScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

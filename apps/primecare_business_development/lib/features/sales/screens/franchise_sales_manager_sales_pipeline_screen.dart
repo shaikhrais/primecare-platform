@@ -7,7 +7,7 @@ class FranchiseSalesManagerSalesPipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FranchiseSalesManagerSalesPipelineScreenControllerProvider);
+    final state = ref.watch(franchiseSalesManagerSalesPipelineScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

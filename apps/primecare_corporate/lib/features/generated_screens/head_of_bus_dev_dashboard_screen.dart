@@ -7,7 +7,7 @@ class HeadOfBusDevDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HeadOfBusDevDashboardScreenControllerProvider);
+    final state = ref.watch(headOfBusDevDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

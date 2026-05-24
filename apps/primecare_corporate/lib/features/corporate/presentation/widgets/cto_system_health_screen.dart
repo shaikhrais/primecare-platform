@@ -7,7 +7,7 @@ class CtoSystemHealthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoSystemHealthScreenControllerProvider);
+    final state = ref.watch(ctoSystemHealthScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

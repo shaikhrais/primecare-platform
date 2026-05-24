@@ -7,7 +7,7 @@ class LocalMarketingManagerEventsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(LocalMarketingManagerEventsScreenControllerProvider);
+    final state = ref.watch(localMarketingManagerEventsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

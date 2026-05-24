@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'security_hub_screen_controller_controller.dart';
+import 'security_hub_screen_controller.dart';
 
 class SecurityHubScreen extends ConsumerWidget {
   const SecurityHubScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(securityHubScreenControllerControllerProvider);
+    final state = ref.watch(securityHubScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

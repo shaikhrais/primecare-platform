@@ -1,39 +1,31 @@
-import 'package:flutter/material.dart';
+// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for HeadOfBusDevDashboardScreenController
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'head_of_bus_dev_dashboard_screen_controller_controller.dart';
 
-class HeadOfBusDevDashboardScreenController extends ConsumerWidget {
-  const HeadOfBusDevDashboardScreenController({super.key});
+final headOfBusDevDashboardScreenControllerProvider = NotifierProvider<HeadOfBusDevDashboardScreenController, AsyncValue<Map<String, dynamic>>>(() {
+  return HeadOfBusDevDashboardScreenController();
+});
 
+class HeadOfBusDevDashboardScreenController extends Notifier<AsyncValue<Map<String, dynamic>>> {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(HeadOfBusDevDashboardScreenControllerControllerProvider);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('HeadOfBusDevDashboardScreenController'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    );
+  AsyncValue<Map<String, dynamic>> build() {
+    _init();
+    return const AsyncValue.data({});
   }
 
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'HeadOfBusDevDashboardScreenController is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ],
-      ),
-    );
+  Future<void> _init() async {
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    state = const AsyncValue.data({
+      'status': 'success',
+      'featuresEnabled': true,
+      'dataLoaded': true,
+    });
+  }
+
+  Future<void> performAction() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return {'status': 'action_completed'};
+    });
   }
 }

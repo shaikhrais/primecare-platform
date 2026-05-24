@@ -7,7 +7,7 @@ class PswObservationVitalsLogScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswObservationVitalsLogScreenControllerProvider);
+    final state = ref.watch(pswObservationVitalsLogScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

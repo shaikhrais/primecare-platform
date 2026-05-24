@@ -7,7 +7,7 @@ class ClientMyAppointmentsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ClientMyAppointmentsScreenControllerProvider);
+    final state = ref.watch(clientMyAppointmentsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

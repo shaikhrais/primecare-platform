@@ -7,7 +7,7 @@ class PswSystemLogsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswSystemLogsScreenControllerProvider);
+    final state = ref.watch(pswSystemLogsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

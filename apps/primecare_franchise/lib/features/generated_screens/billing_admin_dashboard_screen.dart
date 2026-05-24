@@ -7,7 +7,7 @@ class BillingAdminDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(BillingAdminDashboardScreenControllerProvider);
+    final state = ref.watch(billingAdminDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

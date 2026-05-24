@@ -7,7 +7,7 @@ class PswMyShiftsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(PswMyShiftsScreenControllerProvider);
+    final state = ref.watch(pswMyShiftsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

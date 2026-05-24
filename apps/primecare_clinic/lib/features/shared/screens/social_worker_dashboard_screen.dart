@@ -7,7 +7,7 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(SocialWorkerDashboardScreenControllerProvider);
+    final state = ref.watch(socialWorkerDashboardScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

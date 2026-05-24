@@ -7,7 +7,7 @@ class RegionalBdmTerritoryGrowthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(RegionalBdmTerritoryGrowthScreenControllerProvider);
+    final state = ref.watch(regionalBdmTerritoryGrowthScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

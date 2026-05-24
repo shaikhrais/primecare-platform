@@ -7,7 +7,7 @@ class CtoSystemVerificationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoSystemVerificationScreenControllerProvider);
+    final state = ref.watch(ctoSystemVerificationScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

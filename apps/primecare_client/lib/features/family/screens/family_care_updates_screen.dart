@@ -7,7 +7,7 @@ class FamilyCareUpdatesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FamilyCareUpdatesScreenControllerProvider);
+    final state = ref.watch(familyCareUpdatesScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

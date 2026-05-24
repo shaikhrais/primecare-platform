@@ -7,7 +7,7 @@ class FranchiseOwnerReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(FranchiseOwnerReportsScreenControllerProvider);
+    final state = ref.watch(franchiseOwnerReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

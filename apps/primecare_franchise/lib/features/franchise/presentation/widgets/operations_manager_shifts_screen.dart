@@ -7,7 +7,7 @@ class OperationsManagerShiftsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(OperationsManagerShiftsScreenControllerProvider);
+    final state = ref.watch(operationsManagerShiftsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

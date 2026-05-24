@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'ticket_center_screen_controller_controller.dart';
+import 'ticket_center_screen_controller.dart';
 
 class TicketCenterScreen extends ConsumerWidget {
   const TicketCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ticketCenterScreenControllerControllerProvider);
+    final state = ref.watch(ticketCenterScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

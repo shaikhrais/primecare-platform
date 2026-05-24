@@ -1,42 +1,31 @@
-// Governance - Category: view | Purpose: Simulating robust REST API network call Fallback gracefully on 404 per user preference
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:dio/dio.dart';
+// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for ScreenWorkRegistryController
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'screen_work_registry_controller.g.dart';
+final screenWorkRegistryControllerProvider = NotifierProvider<ScreenWorkRegistryController, AsyncValue<Map<String, dynamic>>>(() {
+  return ScreenWorkRegistryController();
+});
 
-@riverpod
-class ScreenWorkRegistryController extends _$ScreenWorkRegistryController {
+class ScreenWorkRegistryController extends Notifier<AsyncValue<Map<String, dynamic>>> {
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    // Simulating robust REST API network call
-    final dio = Dio();
-    try {
-      final response = await dio.get('http://localhost:3000/api/screen-work-registry');
-      return response.data as Map<String, dynamic>;
-    } on DioException catch (e) {
-      // Fallback gracefully on 404 per user preference
-      if (e.response?.statusCode == 404) {
-        return {
+  AsyncValue<Map<String, dynamic>> build() {
+    _init();
+    return const AsyncValue.data({});
+  }
 
+  Future<void> _init() async {
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    state = const AsyncValue.data({
       'status': 'success',
-      'items': List.generate(15, (index) => {
-        'id': index + 100,
-        'title': 'Record Entry #${index + 100}',
-        'status': index % 3 == 0 ? 'Pending' : 'Completed',
-      }),
-            };
-      }
-      throw Exception('Failed to load data from backend API');
-    }
+      'featuresEnabled': true,
+      'dataLoaded': true,
+    });
   }
 
   Future<void> performAction() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      // Simulating POST/PUT request to API
-      final dio = Dio();
-      final response = await dio.post('http://localhost:3000/api/screen-work-registry/action');
-      return response.data as Map<String, dynamic>;
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      return {'status': 'action_completed'};
     });
   }
 }

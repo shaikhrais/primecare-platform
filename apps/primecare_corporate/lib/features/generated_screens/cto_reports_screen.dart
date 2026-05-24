@@ -7,7 +7,7 @@ class CtoReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CtoReportsScreenControllerProvider);
+    final state = ref.watch(ctoReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,7 @@ class CfoTaxAndRemittanceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(CfoTaxAndRemittanceScreenControllerProvider);
+    final state = ref.watch(cfoTaxAndRemittanceScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
