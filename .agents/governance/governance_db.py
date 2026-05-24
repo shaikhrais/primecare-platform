@@ -21,6 +21,16 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "api_versions",
+            "api_test_cases",
+            "api_error_codes",
+            "api_health_checks",
+            "api_rate_limits",
+            "api_permissions",
+            "api_response_schemas",
+            "api_request_schemas",
+            "api_controllers",
+            "api_services",
             "release_gates",
             "api_failures",
             "user_sessions",
@@ -205,12 +215,78 @@ def init_db(force_reset=False):
     );
     """)
 
+    # 6B. api_controllers
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_controllers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      controller_name TEXT NOT NULL,
+      file_path TEXT,
+      status TEXT DEFAULT 'active',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(app_id, controller_name)
+    );
+    """)
+
+    # 6C. api_services
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_services (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      service_name TEXT NOT NULL,
+      file_path TEXT,
+      status TEXT DEFAULT 'active',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(app_id, service_name)
+    );
+    """)
+
+    # 6D. api_request_schemas
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_request_schemas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER,
+      runtime_artifact_id INTEGER,
+      schema_name TEXT NOT NULL,
+      schema_json TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(schema_name)
+    );
+    """)
+
+    # 6E. api_response_schemas
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_response_schemas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER,
+      runtime_artifact_id INTEGER,
+      schema_name TEXT NOT NULL,
+      schema_json TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(schema_name)
+    );
+    """)
+
     # 7. api_endpoints
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS api_endpoints (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       app_id INTEGER NOT NULL,
       runtime_artifact_id INTEGER,
+      controller_id INTEGER,
+      service_id INTEGER,
+      request_schema_id INTEGER,
+      response_schema_id INTEGER,
       endpoint_code TEXT,
       route_path TEXT NOT NULL,
       http_method TEXT NOT NULL,
@@ -223,12 +299,116 @@ def init_db(force_reset=False):
       request_schema TEXT,
       response_schema TEXT,
       permission_key TEXT,
+      rate_limit_key TEXT,
+      api_version TEXT DEFAULT 'v1',
+      deprecated_at TEXT,
       last_tested_at TEXT,
       health_status TEXT DEFAULT 'healthy',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
       FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      FOREIGN KEY (controller_id) REFERENCES api_controllers(id) ON DELETE SET NULL,
+      FOREIGN KEY (service_id) REFERENCES api_services(id) ON DELETE SET NULL,
+      FOREIGN KEY (request_schema_id) REFERENCES api_request_schemas(id) ON DELETE SET NULL,
+      FOREIGN KEY (response_schema_id) REFERENCES api_response_schemas(id) ON DELETE SET NULL,
       UNIQUE(app_id, route_path, http_method)
+    );
+    """)
+
+    # 7B. api_permissions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_permissions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      role_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      permission_key TEXT NOT NULL,
+      can_access INTEGER DEFAULT 1,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, role_id)
+    );
+    """)
+
+    # 7C. api_rate_limits
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_rate_limits (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      limit_key TEXT NOT NULL,
+      max_requests INTEGER DEFAULT 100,
+      time_window INTEGER DEFAULT 60,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, limit_key)
+    );
+    """)
+
+    # 7D. api_health_checks
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_health_checks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      check_name TEXT NOT NULL,
+      status TEXT DEFAULT 'healthy',
+      last_checked_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, check_name)
+    );
+    """)
+
+    # 7E. api_error_codes
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_error_codes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      error_code TEXT NOT NULL,
+      message TEXT,
+      http_status INTEGER DEFAULT 400,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, error_code)
+    );
+    """)
+
+    # 7F. api_test_cases
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_test_cases (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      test_name TEXT NOT NULL,
+      expected_status INTEGER DEFAULT 200,
+      status TEXT DEFAULT 'passed',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, test_name)
+    );
+    """)
+
+    # 7G. api_versions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS api_versions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      api_id INTEGER NOT NULL,
+      runtime_artifact_id INTEGER,
+      version TEXT NOT NULL,
+      status TEXT DEFAULT 'active',
+      deprecated_at TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,
+      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
+      UNIQUE(api_id, version)
     );
     """)
 
@@ -1135,9 +1315,21 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_failures_la ON api_failures(logical_app_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_release_gates_ver ON release_gates(release_version_id);")
 
+    # Phase 9 New Indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_endpoints_ctrl ON api_endpoints(controller_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_endpoints_srv ON api_endpoints(service_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_controllers_app ON api_controllers(app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_services_app ON api_services(app_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_permissions_api ON api_permissions(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_rate_limits_api ON api_rate_limits(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_health_checks_api ON api_health_checks(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_error_codes_api ON api_error_codes(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_test_cases_api ON api_test_cases(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_api_versions_api ON api_versions(api_id);")
+
     conn.commit()
     conn.close()
-    print("PrimeCare 59-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 69-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()
