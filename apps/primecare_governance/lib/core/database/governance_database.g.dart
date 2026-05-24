@@ -2152,12 +2152,1350 @@ class ProposalsCompanion extends UpdateCompanion<Proposal> {
   }
 }
 
+class $PlatformDeploymentsTable extends PlatformDeployments
+    with TableInfo<$PlatformDeploymentsTable, PlatformDeployment> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PlatformDeploymentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _appNameMeta = const VerificationMeta(
+    'appName',
+  );
+  @override
+  late final GeneratedColumn<String> appName = GeneratedColumn<String>(
+    'app_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _platformMeta = const VerificationMeta(
+    'platform',
+  );
+  @override
+  late final GeneratedColumn<String> platform = GeneratedColumn<String>(
+    'platform',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pending'),
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<String> version = GeneratedColumn<String>(
+    'version',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _commitHashMeta = const VerificationMeta(
+    'commitHash',
+  );
+  @override
+  late final GeneratedColumn<String> commitHash = GeneratedColumn<String>(
+    'commit_hash',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _buildUrlMeta = const VerificationMeta(
+    'buildUrl',
+  );
+  @override
+  late final GeneratedColumn<String> buildUrl = GeneratedColumn<String>(
+    'build_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _detailsMeta = const VerificationMeta(
+    'details',
+  );
+  @override
+  late final GeneratedColumn<String> details = GeneratedColumn<String>(
+    'details',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _verifiedMeta = const VerificationMeta(
+    'verified',
+  );
+  @override
+  late final GeneratedColumn<bool> verified = GeneratedColumn<bool>(
+    'verified',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("verified" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _verificationLogMeta = const VerificationMeta(
+    'verificationLog',
+  );
+  @override
+  late final GeneratedColumn<String> verificationLog = GeneratedColumn<String>(
+    'verification_log',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    appName,
+    platform,
+    status,
+    version,
+    commitHash,
+    buildUrl,
+    details,
+    verified,
+    verificationLog,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'platform_deployments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PlatformDeployment> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('app_name')) {
+      context.handle(
+        _appNameMeta,
+        appName.isAcceptableOrUnknown(data['app_name']!, _appNameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_appNameMeta);
+    }
+    if (data.containsKey('platform')) {
+      context.handle(
+        _platformMeta,
+        platform.isAcceptableOrUnknown(data['platform']!, _platformMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_platformMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('commit_hash')) {
+      context.handle(
+        _commitHashMeta,
+        commitHash.isAcceptableOrUnknown(data['commit_hash']!, _commitHashMeta),
+      );
+    }
+    if (data.containsKey('build_url')) {
+      context.handle(
+        _buildUrlMeta,
+        buildUrl.isAcceptableOrUnknown(data['build_url']!, _buildUrlMeta),
+      );
+    }
+    if (data.containsKey('details')) {
+      context.handle(
+        _detailsMeta,
+        details.isAcceptableOrUnknown(data['details']!, _detailsMeta),
+      );
+    }
+    if (data.containsKey('verified')) {
+      context.handle(
+        _verifiedMeta,
+        verified.isAcceptableOrUnknown(data['verified']!, _verifiedMeta),
+      );
+    }
+    if (data.containsKey('verification_log')) {
+      context.handle(
+        _verificationLogMeta,
+        verificationLog.isAcceptableOrUnknown(
+          data['verification_log']!,
+          _verificationLogMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PlatformDeployment map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PlatformDeployment(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      appName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}app_name'],
+      )!,
+      platform: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}platform'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}version'],
+      ),
+      commitHash: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}commit_hash'],
+      ),
+      buildUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}build_url'],
+      ),
+      details: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}details'],
+      ),
+      verified: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}verified'],
+      )!,
+      verificationLog: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}verification_log'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $PlatformDeploymentsTable createAlias(String alias) {
+    return $PlatformDeploymentsTable(attachedDatabase, alias);
+  }
+}
+
+class PlatformDeployment extends DataClass
+    implements Insertable<PlatformDeployment> {
+  final String id;
+  final String appName;
+  final String platform;
+  final String status;
+  final String? version;
+  final String? commitHash;
+  final String? buildUrl;
+  final String? details;
+  final bool verified;
+  final String? verificationLog;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const PlatformDeployment({
+    required this.id,
+    required this.appName,
+    required this.platform,
+    required this.status,
+    this.version,
+    this.commitHash,
+    this.buildUrl,
+    this.details,
+    required this.verified,
+    this.verificationLog,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['app_name'] = Variable<String>(appName);
+    map['platform'] = Variable<String>(platform);
+    map['status'] = Variable<String>(status);
+    if (!nullToAbsent || version != null) {
+      map['version'] = Variable<String>(version);
+    }
+    if (!nullToAbsent || commitHash != null) {
+      map['commit_hash'] = Variable<String>(commitHash);
+    }
+    if (!nullToAbsent || buildUrl != null) {
+      map['build_url'] = Variable<String>(buildUrl);
+    }
+    if (!nullToAbsent || details != null) {
+      map['details'] = Variable<String>(details);
+    }
+    map['verified'] = Variable<bool>(verified);
+    if (!nullToAbsent || verificationLog != null) {
+      map['verification_log'] = Variable<String>(verificationLog);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  PlatformDeploymentsCompanion toCompanion(bool nullToAbsent) {
+    return PlatformDeploymentsCompanion(
+      id: Value(id),
+      appName: Value(appName),
+      platform: Value(platform),
+      status: Value(status),
+      version: version == null && nullToAbsent
+          ? const Value.absent()
+          : Value(version),
+      commitHash: commitHash == null && nullToAbsent
+          ? const Value.absent()
+          : Value(commitHash),
+      buildUrl: buildUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(buildUrl),
+      details: details == null && nullToAbsent
+          ? const Value.absent()
+          : Value(details),
+      verified: Value(verified),
+      verificationLog: verificationLog == null && nullToAbsent
+          ? const Value.absent()
+          : Value(verificationLog),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory PlatformDeployment.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PlatformDeployment(
+      id: serializer.fromJson<String>(json['id']),
+      appName: serializer.fromJson<String>(json['appName']),
+      platform: serializer.fromJson<String>(json['platform']),
+      status: serializer.fromJson<String>(json['status']),
+      version: serializer.fromJson<String?>(json['version']),
+      commitHash: serializer.fromJson<String?>(json['commitHash']),
+      buildUrl: serializer.fromJson<String?>(json['buildUrl']),
+      details: serializer.fromJson<String?>(json['details']),
+      verified: serializer.fromJson<bool>(json['verified']),
+      verificationLog: serializer.fromJson<String?>(json['verificationLog']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'appName': serializer.toJson<String>(appName),
+      'platform': serializer.toJson<String>(platform),
+      'status': serializer.toJson<String>(status),
+      'version': serializer.toJson<String?>(version),
+      'commitHash': serializer.toJson<String?>(commitHash),
+      'buildUrl': serializer.toJson<String?>(buildUrl),
+      'details': serializer.toJson<String?>(details),
+      'verified': serializer.toJson<bool>(verified),
+      'verificationLog': serializer.toJson<String?>(verificationLog),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  PlatformDeployment copyWith({
+    String? id,
+    String? appName,
+    String? platform,
+    String? status,
+    Value<String?> version = const Value.absent(),
+    Value<String?> commitHash = const Value.absent(),
+    Value<String?> buildUrl = const Value.absent(),
+    Value<String?> details = const Value.absent(),
+    bool? verified,
+    Value<String?> verificationLog = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => PlatformDeployment(
+    id: id ?? this.id,
+    appName: appName ?? this.appName,
+    platform: platform ?? this.platform,
+    status: status ?? this.status,
+    version: version.present ? version.value : this.version,
+    commitHash: commitHash.present ? commitHash.value : this.commitHash,
+    buildUrl: buildUrl.present ? buildUrl.value : this.buildUrl,
+    details: details.present ? details.value : this.details,
+    verified: verified ?? this.verified,
+    verificationLog: verificationLog.present
+        ? verificationLog.value
+        : this.verificationLog,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  PlatformDeployment copyWithCompanion(PlatformDeploymentsCompanion data) {
+    return PlatformDeployment(
+      id: data.id.present ? data.id.value : this.id,
+      appName: data.appName.present ? data.appName.value : this.appName,
+      platform: data.platform.present ? data.platform.value : this.platform,
+      status: data.status.present ? data.status.value : this.status,
+      version: data.version.present ? data.version.value : this.version,
+      commitHash: data.commitHash.present
+          ? data.commitHash.value
+          : this.commitHash,
+      buildUrl: data.buildUrl.present ? data.buildUrl.value : this.buildUrl,
+      details: data.details.present ? data.details.value : this.details,
+      verified: data.verified.present ? data.verified.value : this.verified,
+      verificationLog: data.verificationLog.present
+          ? data.verificationLog.value
+          : this.verificationLog,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlatformDeployment(')
+          ..write('id: $id, ')
+          ..write('appName: $appName, ')
+          ..write('platform: $platform, ')
+          ..write('status: $status, ')
+          ..write('version: $version, ')
+          ..write('commitHash: $commitHash, ')
+          ..write('buildUrl: $buildUrl, ')
+          ..write('details: $details, ')
+          ..write('verified: $verified, ')
+          ..write('verificationLog: $verificationLog, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    appName,
+    platform,
+    status,
+    version,
+    commitHash,
+    buildUrl,
+    details,
+    verified,
+    verificationLog,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PlatformDeployment &&
+          other.id == this.id &&
+          other.appName == this.appName &&
+          other.platform == this.platform &&
+          other.status == this.status &&
+          other.version == this.version &&
+          other.commitHash == this.commitHash &&
+          other.buildUrl == this.buildUrl &&
+          other.details == this.details &&
+          other.verified == this.verified &&
+          other.verificationLog == this.verificationLog &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class PlatformDeploymentsCompanion extends UpdateCompanion<PlatformDeployment> {
+  final Value<String> id;
+  final Value<String> appName;
+  final Value<String> platform;
+  final Value<String> status;
+  final Value<String?> version;
+  final Value<String?> commitHash;
+  final Value<String?> buildUrl;
+  final Value<String?> details;
+  final Value<bool> verified;
+  final Value<String?> verificationLog;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const PlatformDeploymentsCompanion({
+    this.id = const Value.absent(),
+    this.appName = const Value.absent(),
+    this.platform = const Value.absent(),
+    this.status = const Value.absent(),
+    this.version = const Value.absent(),
+    this.commitHash = const Value.absent(),
+    this.buildUrl = const Value.absent(),
+    this.details = const Value.absent(),
+    this.verified = const Value.absent(),
+    this.verificationLog = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PlatformDeploymentsCompanion.insert({
+    required String id,
+    required String appName,
+    required String platform,
+    this.status = const Value.absent(),
+    this.version = const Value.absent(),
+    this.commitHash = const Value.absent(),
+    this.buildUrl = const Value.absent(),
+    this.details = const Value.absent(),
+    this.verified = const Value.absent(),
+    this.verificationLog = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       appName = Value(appName),
+       platform = Value(platform);
+  static Insertable<PlatformDeployment> custom({
+    Expression<String>? id,
+    Expression<String>? appName,
+    Expression<String>? platform,
+    Expression<String>? status,
+    Expression<String>? version,
+    Expression<String>? commitHash,
+    Expression<String>? buildUrl,
+    Expression<String>? details,
+    Expression<bool>? verified,
+    Expression<String>? verificationLog,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (appName != null) 'app_name': appName,
+      if (platform != null) 'platform': platform,
+      if (status != null) 'status': status,
+      if (version != null) 'version': version,
+      if (commitHash != null) 'commit_hash': commitHash,
+      if (buildUrl != null) 'build_url': buildUrl,
+      if (details != null) 'details': details,
+      if (verified != null) 'verified': verified,
+      if (verificationLog != null) 'verification_log': verificationLog,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PlatformDeploymentsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? appName,
+    Value<String>? platform,
+    Value<String>? status,
+    Value<String?>? version,
+    Value<String?>? commitHash,
+    Value<String?>? buildUrl,
+    Value<String?>? details,
+    Value<bool>? verified,
+    Value<String?>? verificationLog,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return PlatformDeploymentsCompanion(
+      id: id ?? this.id,
+      appName: appName ?? this.appName,
+      platform: platform ?? this.platform,
+      status: status ?? this.status,
+      version: version ?? this.version,
+      commitHash: commitHash ?? this.commitHash,
+      buildUrl: buildUrl ?? this.buildUrl,
+      details: details ?? this.details,
+      verified: verified ?? this.verified,
+      verificationLog: verificationLog ?? this.verificationLog,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (appName.present) {
+      map['app_name'] = Variable<String>(appName.value);
+    }
+    if (platform.present) {
+      map['platform'] = Variable<String>(platform.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<String>(version.value);
+    }
+    if (commitHash.present) {
+      map['commit_hash'] = Variable<String>(commitHash.value);
+    }
+    if (buildUrl.present) {
+      map['build_url'] = Variable<String>(buildUrl.value);
+    }
+    if (details.present) {
+      map['details'] = Variable<String>(details.value);
+    }
+    if (verified.present) {
+      map['verified'] = Variable<bool>(verified.value);
+    }
+    if (verificationLog.present) {
+      map['verification_log'] = Variable<String>(verificationLog.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlatformDeploymentsCompanion(')
+          ..write('id: $id, ')
+          ..write('appName: $appName, ')
+          ..write('platform: $platform, ')
+          ..write('status: $status, ')
+          ..write('version: $version, ')
+          ..write('commitHash: $commitHash, ')
+          ..write('buildUrl: $buildUrl, ')
+          ..write('details: $details, ')
+          ..write('verified: $verified, ')
+          ..write('verificationLog: $verificationLog, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PlatformScreenDetailsTable extends PlatformScreenDetails
+    with TableInfo<$PlatformScreenDetailsTable, PlatformScreenDetail> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PlatformScreenDetailsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deploymentIdMeta = const VerificationMeta(
+    'deploymentId',
+  );
+  @override
+  late final GeneratedColumn<String> deploymentId = GeneratedColumn<String>(
+    'deployment_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _screenNameMeta = const VerificationMeta(
+    'screenName',
+  );
+  @override
+  late final GeneratedColumn<String> screenName = GeneratedColumn<String>(
+    'screen_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _languageMeta = const VerificationMeta(
+    'language',
+  );
+  @override
+  late final GeneratedColumn<String> language = GeneratedColumn<String>(
+    'language',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('dart'),
+  );
+  static const VerificationMeta _labelsMeta = const VerificationMeta('labels');
+  @override
+  late final GeneratedColumn<String> labels = GeneratedColumn<String>(
+    'labels',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _textElementsMeta = const VerificationMeta(
+    'textElements',
+  );
+  @override
+  late final GeneratedColumn<String> textElements = GeneratedColumn<String>(
+    'text_elements',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _componentsMeta = const VerificationMeta(
+    'components',
+  );
+  @override
+  late final GeneratedColumn<String> components = GeneratedColumn<String>(
+    'components',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _rawMetricsMeta = const VerificationMeta(
+    'rawMetrics',
+  );
+  @override
+  late final GeneratedColumn<String> rawMetrics = GeneratedColumn<String>(
+    'raw_metrics',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    deploymentId,
+    screenName,
+    language,
+    labels,
+    textElements,
+    components,
+    rawMetrics,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'platform_screen_details';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PlatformScreenDetail> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('deployment_id')) {
+      context.handle(
+        _deploymentIdMeta,
+        deploymentId.isAcceptableOrUnknown(
+          data['deployment_id']!,
+          _deploymentIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_deploymentIdMeta);
+    }
+    if (data.containsKey('screen_name')) {
+      context.handle(
+        _screenNameMeta,
+        screenName.isAcceptableOrUnknown(data['screen_name']!, _screenNameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_screenNameMeta);
+    }
+    if (data.containsKey('language')) {
+      context.handle(
+        _languageMeta,
+        language.isAcceptableOrUnknown(data['language']!, _languageMeta),
+      );
+    }
+    if (data.containsKey('labels')) {
+      context.handle(
+        _labelsMeta,
+        labels.isAcceptableOrUnknown(data['labels']!, _labelsMeta),
+      );
+    }
+    if (data.containsKey('text_elements')) {
+      context.handle(
+        _textElementsMeta,
+        textElements.isAcceptableOrUnknown(
+          data['text_elements']!,
+          _textElementsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('components')) {
+      context.handle(
+        _componentsMeta,
+        components.isAcceptableOrUnknown(data['components']!, _componentsMeta),
+      );
+    }
+    if (data.containsKey('raw_metrics')) {
+      context.handle(
+        _rawMetricsMeta,
+        rawMetrics.isAcceptableOrUnknown(data['raw_metrics']!, _rawMetricsMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PlatformScreenDetail map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PlatformScreenDetail(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      deploymentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}deployment_id'],
+      )!,
+      screenName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}screen_name'],
+      )!,
+      language: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}language'],
+      )!,
+      labels: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}labels'],
+      ),
+      textElements: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_elements'],
+      ),
+      components: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}components'],
+      ),
+      rawMetrics: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}raw_metrics'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $PlatformScreenDetailsTable createAlias(String alias) {
+    return $PlatformScreenDetailsTable(attachedDatabase, alias);
+  }
+}
+
+class PlatformScreenDetail extends DataClass
+    implements Insertable<PlatformScreenDetail> {
+  final String id;
+  final String deploymentId;
+  final String screenName;
+  final String language;
+  final String? labels;
+  final String? textElements;
+  final String? components;
+  final String? rawMetrics;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const PlatformScreenDetail({
+    required this.id,
+    required this.deploymentId,
+    required this.screenName,
+    required this.language,
+    this.labels,
+    this.textElements,
+    this.components,
+    this.rawMetrics,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['deployment_id'] = Variable<String>(deploymentId);
+    map['screen_name'] = Variable<String>(screenName);
+    map['language'] = Variable<String>(language);
+    if (!nullToAbsent || labels != null) {
+      map['labels'] = Variable<String>(labels);
+    }
+    if (!nullToAbsent || textElements != null) {
+      map['text_elements'] = Variable<String>(textElements);
+    }
+    if (!nullToAbsent || components != null) {
+      map['components'] = Variable<String>(components);
+    }
+    if (!nullToAbsent || rawMetrics != null) {
+      map['raw_metrics'] = Variable<String>(rawMetrics);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  PlatformScreenDetailsCompanion toCompanion(bool nullToAbsent) {
+    return PlatformScreenDetailsCompanion(
+      id: Value(id),
+      deploymentId: Value(deploymentId),
+      screenName: Value(screenName),
+      language: Value(language),
+      labels: labels == null && nullToAbsent
+          ? const Value.absent()
+          : Value(labels),
+      textElements: textElements == null && nullToAbsent
+          ? const Value.absent()
+          : Value(textElements),
+      components: components == null && nullToAbsent
+          ? const Value.absent()
+          : Value(components),
+      rawMetrics: rawMetrics == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rawMetrics),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory PlatformScreenDetail.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PlatformScreenDetail(
+      id: serializer.fromJson<String>(json['id']),
+      deploymentId: serializer.fromJson<String>(json['deploymentId']),
+      screenName: serializer.fromJson<String>(json['screenName']),
+      language: serializer.fromJson<String>(json['language']),
+      labels: serializer.fromJson<String?>(json['labels']),
+      textElements: serializer.fromJson<String?>(json['textElements']),
+      components: serializer.fromJson<String?>(json['components']),
+      rawMetrics: serializer.fromJson<String?>(json['rawMetrics']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'deploymentId': serializer.toJson<String>(deploymentId),
+      'screenName': serializer.toJson<String>(screenName),
+      'language': serializer.toJson<String>(language),
+      'labels': serializer.toJson<String?>(labels),
+      'textElements': serializer.toJson<String?>(textElements),
+      'components': serializer.toJson<String?>(components),
+      'rawMetrics': serializer.toJson<String?>(rawMetrics),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  PlatformScreenDetail copyWith({
+    String? id,
+    String? deploymentId,
+    String? screenName,
+    String? language,
+    Value<String?> labels = const Value.absent(),
+    Value<String?> textElements = const Value.absent(),
+    Value<String?> components = const Value.absent(),
+    Value<String?> rawMetrics = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => PlatformScreenDetail(
+    id: id ?? this.id,
+    deploymentId: deploymentId ?? this.deploymentId,
+    screenName: screenName ?? this.screenName,
+    language: language ?? this.language,
+    labels: labels.present ? labels.value : this.labels,
+    textElements: textElements.present ? textElements.value : this.textElements,
+    components: components.present ? components.value : this.components,
+    rawMetrics: rawMetrics.present ? rawMetrics.value : this.rawMetrics,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  PlatformScreenDetail copyWithCompanion(PlatformScreenDetailsCompanion data) {
+    return PlatformScreenDetail(
+      id: data.id.present ? data.id.value : this.id,
+      deploymentId: data.deploymentId.present
+          ? data.deploymentId.value
+          : this.deploymentId,
+      screenName: data.screenName.present
+          ? data.screenName.value
+          : this.screenName,
+      language: data.language.present ? data.language.value : this.language,
+      labels: data.labels.present ? data.labels.value : this.labels,
+      textElements: data.textElements.present
+          ? data.textElements.value
+          : this.textElements,
+      components: data.components.present
+          ? data.components.value
+          : this.components,
+      rawMetrics: data.rawMetrics.present
+          ? data.rawMetrics.value
+          : this.rawMetrics,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlatformScreenDetail(')
+          ..write('id: $id, ')
+          ..write('deploymentId: $deploymentId, ')
+          ..write('screenName: $screenName, ')
+          ..write('language: $language, ')
+          ..write('labels: $labels, ')
+          ..write('textElements: $textElements, ')
+          ..write('components: $components, ')
+          ..write('rawMetrics: $rawMetrics, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    deploymentId,
+    screenName,
+    language,
+    labels,
+    textElements,
+    components,
+    rawMetrics,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PlatformScreenDetail &&
+          other.id == this.id &&
+          other.deploymentId == this.deploymentId &&
+          other.screenName == this.screenName &&
+          other.language == this.language &&
+          other.labels == this.labels &&
+          other.textElements == this.textElements &&
+          other.components == this.components &&
+          other.rawMetrics == this.rawMetrics &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class PlatformScreenDetailsCompanion
+    extends UpdateCompanion<PlatformScreenDetail> {
+  final Value<String> id;
+  final Value<String> deploymentId;
+  final Value<String> screenName;
+  final Value<String> language;
+  final Value<String?> labels;
+  final Value<String?> textElements;
+  final Value<String?> components;
+  final Value<String?> rawMetrics;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const PlatformScreenDetailsCompanion({
+    this.id = const Value.absent(),
+    this.deploymentId = const Value.absent(),
+    this.screenName = const Value.absent(),
+    this.language = const Value.absent(),
+    this.labels = const Value.absent(),
+    this.textElements = const Value.absent(),
+    this.components = const Value.absent(),
+    this.rawMetrics = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PlatformScreenDetailsCompanion.insert({
+    required String id,
+    required String deploymentId,
+    required String screenName,
+    this.language = const Value.absent(),
+    this.labels = const Value.absent(),
+    this.textElements = const Value.absent(),
+    this.components = const Value.absent(),
+    this.rawMetrics = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       deploymentId = Value(deploymentId),
+       screenName = Value(screenName);
+  static Insertable<PlatformScreenDetail> custom({
+    Expression<String>? id,
+    Expression<String>? deploymentId,
+    Expression<String>? screenName,
+    Expression<String>? language,
+    Expression<String>? labels,
+    Expression<String>? textElements,
+    Expression<String>? components,
+    Expression<String>? rawMetrics,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (deploymentId != null) 'deployment_id': deploymentId,
+      if (screenName != null) 'screen_name': screenName,
+      if (language != null) 'language': language,
+      if (labels != null) 'labels': labels,
+      if (textElements != null) 'text_elements': textElements,
+      if (components != null) 'components': components,
+      if (rawMetrics != null) 'raw_metrics': rawMetrics,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PlatformScreenDetailsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? deploymentId,
+    Value<String>? screenName,
+    Value<String>? language,
+    Value<String?>? labels,
+    Value<String?>? textElements,
+    Value<String?>? components,
+    Value<String?>? rawMetrics,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return PlatformScreenDetailsCompanion(
+      id: id ?? this.id,
+      deploymentId: deploymentId ?? this.deploymentId,
+      screenName: screenName ?? this.screenName,
+      language: language ?? this.language,
+      labels: labels ?? this.labels,
+      textElements: textElements ?? this.textElements,
+      components: components ?? this.components,
+      rawMetrics: rawMetrics ?? this.rawMetrics,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (deploymentId.present) {
+      map['deployment_id'] = Variable<String>(deploymentId.value);
+    }
+    if (screenName.present) {
+      map['screen_name'] = Variable<String>(screenName.value);
+    }
+    if (language.present) {
+      map['language'] = Variable<String>(language.value);
+    }
+    if (labels.present) {
+      map['labels'] = Variable<String>(labels.value);
+    }
+    if (textElements.present) {
+      map['text_elements'] = Variable<String>(textElements.value);
+    }
+    if (components.present) {
+      map['components'] = Variable<String>(components.value);
+    }
+    if (rawMetrics.present) {
+      map['raw_metrics'] = Variable<String>(rawMetrics.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlatformScreenDetailsCompanion(')
+          ..write('id: $id, ')
+          ..write('deploymentId: $deploymentId, ')
+          ..write('screenName: $screenName, ')
+          ..write('language: $language, ')
+          ..write('labels: $labels, ')
+          ..write('textElements: $textElements, ')
+          ..write('components: $components, ')
+          ..write('rawMetrics: $rawMetrics, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$GovernanceDatabase extends GeneratedDatabase {
   _$GovernanceDatabase(QueryExecutor e) : super(e);
   $GovernanceDatabaseManager get managers => $GovernanceDatabaseManager(this);
   late final $GovernanceSnapshotsTable governanceSnapshots =
       $GovernanceSnapshotsTable(this);
   late final $ProposalsTable proposals = $ProposalsTable(this);
+  late final $PlatformDeploymentsTable platformDeployments =
+      $PlatformDeploymentsTable(this);
+  late final $PlatformScreenDetailsTable platformScreenDetails =
+      $PlatformScreenDetailsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2165,6 +3503,8 @@ abstract class _$GovernanceDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     governanceSnapshots,
     proposals,
+    platformDeployments,
+    platformScreenDetails,
   ];
 }
 
@@ -3139,6 +4479,683 @@ typedef $$ProposalsTableProcessedTableManager =
       Proposal,
       PrefetchHooks Function()
     >;
+typedef $$PlatformDeploymentsTableCreateCompanionBuilder =
+    PlatformDeploymentsCompanion Function({
+      required String id,
+      required String appName,
+      required String platform,
+      Value<String> status,
+      Value<String?> version,
+      Value<String?> commitHash,
+      Value<String?> buildUrl,
+      Value<String?> details,
+      Value<bool> verified,
+      Value<String?> verificationLog,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+typedef $$PlatformDeploymentsTableUpdateCompanionBuilder =
+    PlatformDeploymentsCompanion Function({
+      Value<String> id,
+      Value<String> appName,
+      Value<String> platform,
+      Value<String> status,
+      Value<String?> version,
+      Value<String?> commitHash,
+      Value<String?> buildUrl,
+      Value<String?> details,
+      Value<bool> verified,
+      Value<String?> verificationLog,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$PlatformDeploymentsTableFilterComposer
+    extends Composer<_$GovernanceDatabase, $PlatformDeploymentsTable> {
+  $$PlatformDeploymentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get appName => $composableBuilder(
+    column: $table.appName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get platform => $composableBuilder(
+    column: $table.platform,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get commitHash => $composableBuilder(
+    column: $table.commitHash,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get buildUrl => $composableBuilder(
+    column: $table.buildUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get details => $composableBuilder(
+    column: $table.details,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get verified => $composableBuilder(
+    column: $table.verified,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get verificationLog => $composableBuilder(
+    column: $table.verificationLog,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PlatformDeploymentsTableOrderingComposer
+    extends Composer<_$GovernanceDatabase, $PlatformDeploymentsTable> {
+  $$PlatformDeploymentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get appName => $composableBuilder(
+    column: $table.appName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get platform => $composableBuilder(
+    column: $table.platform,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get commitHash => $composableBuilder(
+    column: $table.commitHash,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get buildUrl => $composableBuilder(
+    column: $table.buildUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get details => $composableBuilder(
+    column: $table.details,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get verified => $composableBuilder(
+    column: $table.verified,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get verificationLog => $composableBuilder(
+    column: $table.verificationLog,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PlatformDeploymentsTableAnnotationComposer
+    extends Composer<_$GovernanceDatabase, $PlatformDeploymentsTable> {
+  $$PlatformDeploymentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get appName =>
+      $composableBuilder(column: $table.appName, builder: (column) => column);
+
+  GeneratedColumn<String> get platform =>
+      $composableBuilder(column: $table.platform, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get commitHash => $composableBuilder(
+    column: $table.commitHash,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get buildUrl =>
+      $composableBuilder(column: $table.buildUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get details =>
+      $composableBuilder(column: $table.details, builder: (column) => column);
+
+  GeneratedColumn<bool> get verified =>
+      $composableBuilder(column: $table.verified, builder: (column) => column);
+
+  GeneratedColumn<String> get verificationLog => $composableBuilder(
+    column: $table.verificationLog,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$PlatformDeploymentsTableTableManager
+    extends
+        RootTableManager<
+          _$GovernanceDatabase,
+          $PlatformDeploymentsTable,
+          PlatformDeployment,
+          $$PlatformDeploymentsTableFilterComposer,
+          $$PlatformDeploymentsTableOrderingComposer,
+          $$PlatformDeploymentsTableAnnotationComposer,
+          $$PlatformDeploymentsTableCreateCompanionBuilder,
+          $$PlatformDeploymentsTableUpdateCompanionBuilder,
+          (
+            PlatformDeployment,
+            BaseReferences<
+              _$GovernanceDatabase,
+              $PlatformDeploymentsTable,
+              PlatformDeployment
+            >,
+          ),
+          PlatformDeployment,
+          PrefetchHooks Function()
+        > {
+  $$PlatformDeploymentsTableTableManager(
+    _$GovernanceDatabase db,
+    $PlatformDeploymentsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlatformDeploymentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlatformDeploymentsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$PlatformDeploymentsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> appName = const Value.absent(),
+                Value<String> platform = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String?> version = const Value.absent(),
+                Value<String?> commitHash = const Value.absent(),
+                Value<String?> buildUrl = const Value.absent(),
+                Value<String?> details = const Value.absent(),
+                Value<bool> verified = const Value.absent(),
+                Value<String?> verificationLog = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlatformDeploymentsCompanion(
+                id: id,
+                appName: appName,
+                platform: platform,
+                status: status,
+                version: version,
+                commitHash: commitHash,
+                buildUrl: buildUrl,
+                details: details,
+                verified: verified,
+                verificationLog: verificationLog,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String appName,
+                required String platform,
+                Value<String> status = const Value.absent(),
+                Value<String?> version = const Value.absent(),
+                Value<String?> commitHash = const Value.absent(),
+                Value<String?> buildUrl = const Value.absent(),
+                Value<String?> details = const Value.absent(),
+                Value<bool> verified = const Value.absent(),
+                Value<String?> verificationLog = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlatformDeploymentsCompanion.insert(
+                id: id,
+                appName: appName,
+                platform: platform,
+                status: status,
+                version: version,
+                commitHash: commitHash,
+                buildUrl: buildUrl,
+                details: details,
+                verified: verified,
+                verificationLog: verificationLog,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PlatformDeploymentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$GovernanceDatabase,
+      $PlatformDeploymentsTable,
+      PlatformDeployment,
+      $$PlatformDeploymentsTableFilterComposer,
+      $$PlatformDeploymentsTableOrderingComposer,
+      $$PlatformDeploymentsTableAnnotationComposer,
+      $$PlatformDeploymentsTableCreateCompanionBuilder,
+      $$PlatformDeploymentsTableUpdateCompanionBuilder,
+      (
+        PlatformDeployment,
+        BaseReferences<
+          _$GovernanceDatabase,
+          $PlatformDeploymentsTable,
+          PlatformDeployment
+        >,
+      ),
+      PlatformDeployment,
+      PrefetchHooks Function()
+    >;
+typedef $$PlatformScreenDetailsTableCreateCompanionBuilder =
+    PlatformScreenDetailsCompanion Function({
+      required String id,
+      required String deploymentId,
+      required String screenName,
+      Value<String> language,
+      Value<String?> labels,
+      Value<String?> textElements,
+      Value<String?> components,
+      Value<String?> rawMetrics,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+typedef $$PlatformScreenDetailsTableUpdateCompanionBuilder =
+    PlatformScreenDetailsCompanion Function({
+      Value<String> id,
+      Value<String> deploymentId,
+      Value<String> screenName,
+      Value<String> language,
+      Value<String?> labels,
+      Value<String?> textElements,
+      Value<String?> components,
+      Value<String?> rawMetrics,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$PlatformScreenDetailsTableFilterComposer
+    extends Composer<_$GovernanceDatabase, $PlatformScreenDetailsTable> {
+  $$PlatformScreenDetailsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get deploymentId => $composableBuilder(
+    column: $table.deploymentId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get screenName => $composableBuilder(
+    column: $table.screenName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get language => $composableBuilder(
+    column: $table.language,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get labels => $composableBuilder(
+    column: $table.labels,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textElements => $composableBuilder(
+    column: $table.textElements,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get components => $composableBuilder(
+    column: $table.components,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get rawMetrics => $composableBuilder(
+    column: $table.rawMetrics,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PlatformScreenDetailsTableOrderingComposer
+    extends Composer<_$GovernanceDatabase, $PlatformScreenDetailsTable> {
+  $$PlatformScreenDetailsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get deploymentId => $composableBuilder(
+    column: $table.deploymentId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get screenName => $composableBuilder(
+    column: $table.screenName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get language => $composableBuilder(
+    column: $table.language,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get labels => $composableBuilder(
+    column: $table.labels,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textElements => $composableBuilder(
+    column: $table.textElements,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get components => $composableBuilder(
+    column: $table.components,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get rawMetrics => $composableBuilder(
+    column: $table.rawMetrics,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PlatformScreenDetailsTableAnnotationComposer
+    extends Composer<_$GovernanceDatabase, $PlatformScreenDetailsTable> {
+  $$PlatformScreenDetailsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get deploymentId => $composableBuilder(
+    column: $table.deploymentId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get screenName => $composableBuilder(
+    column: $table.screenName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get language =>
+      $composableBuilder(column: $table.language, builder: (column) => column);
+
+  GeneratedColumn<String> get labels =>
+      $composableBuilder(column: $table.labels, builder: (column) => column);
+
+  GeneratedColumn<String> get textElements => $composableBuilder(
+    column: $table.textElements,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get components => $composableBuilder(
+    column: $table.components,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get rawMetrics => $composableBuilder(
+    column: $table.rawMetrics,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$PlatformScreenDetailsTableTableManager
+    extends
+        RootTableManager<
+          _$GovernanceDatabase,
+          $PlatformScreenDetailsTable,
+          PlatformScreenDetail,
+          $$PlatformScreenDetailsTableFilterComposer,
+          $$PlatformScreenDetailsTableOrderingComposer,
+          $$PlatformScreenDetailsTableAnnotationComposer,
+          $$PlatformScreenDetailsTableCreateCompanionBuilder,
+          $$PlatformScreenDetailsTableUpdateCompanionBuilder,
+          (
+            PlatformScreenDetail,
+            BaseReferences<
+              _$GovernanceDatabase,
+              $PlatformScreenDetailsTable,
+              PlatformScreenDetail
+            >,
+          ),
+          PlatformScreenDetail,
+          PrefetchHooks Function()
+        > {
+  $$PlatformScreenDetailsTableTableManager(
+    _$GovernanceDatabase db,
+    $PlatformScreenDetailsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlatformScreenDetailsTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$PlatformScreenDetailsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$PlatformScreenDetailsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> deploymentId = const Value.absent(),
+                Value<String> screenName = const Value.absent(),
+                Value<String> language = const Value.absent(),
+                Value<String?> labels = const Value.absent(),
+                Value<String?> textElements = const Value.absent(),
+                Value<String?> components = const Value.absent(),
+                Value<String?> rawMetrics = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlatformScreenDetailsCompanion(
+                id: id,
+                deploymentId: deploymentId,
+                screenName: screenName,
+                language: language,
+                labels: labels,
+                textElements: textElements,
+                components: components,
+                rawMetrics: rawMetrics,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String deploymentId,
+                required String screenName,
+                Value<String> language = const Value.absent(),
+                Value<String?> labels = const Value.absent(),
+                Value<String?> textElements = const Value.absent(),
+                Value<String?> components = const Value.absent(),
+                Value<String?> rawMetrics = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlatformScreenDetailsCompanion.insert(
+                id: id,
+                deploymentId: deploymentId,
+                screenName: screenName,
+                language: language,
+                labels: labels,
+                textElements: textElements,
+                components: components,
+                rawMetrics: rawMetrics,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PlatformScreenDetailsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$GovernanceDatabase,
+      $PlatformScreenDetailsTable,
+      PlatformScreenDetail,
+      $$PlatformScreenDetailsTableFilterComposer,
+      $$PlatformScreenDetailsTableOrderingComposer,
+      $$PlatformScreenDetailsTableAnnotationComposer,
+      $$PlatformScreenDetailsTableCreateCompanionBuilder,
+      $$PlatformScreenDetailsTableUpdateCompanionBuilder,
+      (
+        PlatformScreenDetail,
+        BaseReferences<
+          _$GovernanceDatabase,
+          $PlatformScreenDetailsTable,
+          PlatformScreenDetail
+        >,
+      ),
+      PlatformScreenDetail,
+      PrefetchHooks Function()
+    >;
 
 class $GovernanceDatabaseManager {
   final _$GovernanceDatabase _db;
@@ -3147,4 +5164,8 @@ class $GovernanceDatabaseManager {
       $$GovernanceSnapshotsTableTableManager(_db, _db.governanceSnapshots);
   $$ProposalsTableTableManager get proposals =>
       $$ProposalsTableTableManager(_db, _db.proposals);
+  $$PlatformDeploymentsTableTableManager get platformDeployments =>
+      $$PlatformDeploymentsTableTableManager(_db, _db.platformDeployments);
+  $$PlatformScreenDetailsTableTableManager get platformScreenDetails =>
+      $$PlatformScreenDetailsTableTableManager(_db, _db.platformScreenDetails);
 }

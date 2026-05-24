@@ -739,6 +739,16 @@ export type AgentScreenBlueprint = $Result.DefaultSelection<Prisma.$AgentScreenB
  */
 export type BlueprintComponent = $Result.DefaultSelection<Prisma.$BlueprintComponentPayload>
 /**
+ * Model PlatformDeployment
+ * 
+ */
+export type PlatformDeployment = $Result.DefaultSelection<Prisma.$PlatformDeploymentPayload>
+/**
+ * Model PlatformScreenDetail
+ * 
+ */
+export type PlatformScreenDetail = $Result.DefaultSelection<Prisma.$PlatformScreenDetailPayload>
+/**
  * Model BdmLead
  * 
  */
@@ -2693,6 +2703,26 @@ export class PrismaClient<
   get blueprintComponent(): Prisma.BlueprintComponentDelegate<ExtArgs>;
 
   /**
+   * `prisma.platformDeployment`: Exposes CRUD operations for the **PlatformDeployment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlatformDeployments
+    * const platformDeployments = await prisma.platformDeployment.findMany()
+    * ```
+    */
+  get platformDeployment(): Prisma.PlatformDeploymentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.platformScreenDetail`: Exposes CRUD operations for the **PlatformScreenDetail** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlatformScreenDetails
+    * const platformScreenDetails = await prisma.platformScreenDetail.findMany()
+    * ```
+    */
+  get platformScreenDetail(): Prisma.PlatformScreenDetailDelegate<ExtArgs>;
+
+  /**
    * `prisma.bdmLead`: Exposes CRUD operations for the **BdmLead** model.
     * Example usage:
     * ```ts
@@ -4037,6 +4067,8 @@ export namespace Prisma {
     PlatformHealthHistory: 'PlatformHealthHistory',
     AgentScreenBlueprint: 'AgentScreenBlueprint',
     BlueprintComponent: 'BlueprintComponent',
+    PlatformDeployment: 'PlatformDeployment',
+    PlatformScreenDetail: 'PlatformScreenDetail',
     BdmLead: 'BdmLead',
     TerritoryExpansionPlan: 'TerritoryExpansionPlan',
     PartnershipDeal: 'PartnershipDeal',
@@ -4128,7 +4160,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "intakeAssessment" | "chatSession" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "kpiMetric" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "premiumFeatureStatus" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "promoCode" | "subscriptionUpgrade" | "clientProfile" | "providerProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "providerAvailability" | "providerDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "intakeAssessment" | "chatSession" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "providerShiftLog" | "adlCareLog" | "providerVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "dynamicFeatureRecord" | "screenConfiguration" | "implementationEvent" | "verificationLog" | "anomalyReport" | "architecturalLayer" | "componentPurpose" | "systemDomain" | "softwareSystem" | "sysComponent" | "apiContract" | "uIIntent" | "dataResource" | "platformHealthHistory" | "agentScreenBlueprint" | "blueprintComponent" | "platformDeployment" | "platformScreenDetail" | "bdmLead" | "territoryExpansionPlan" | "partnershipDeal" | "corporateKpi" | "corporateReport" | "corporateAlert" | "organizationNode" | "kpiMetric" | "franchiseKpi" | "franchiseReport" | "franchiseAlert" | "franchiseStaffNode" | "businessDevelopmentMetric" | "clinicMetric" | "supportTicket" | "premiumFeatureStatus" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "clinic" | "patient" | "financialRecord" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "jobOpening" | "jobCandidate" | "interviewEvent" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "patientIntake" | "intakeReferralMetric" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode" | "systemEventLog" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "curriculumNode" | "instructorNode" | "certificationNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -14282,6 +14314,146 @@ export namespace Prisma {
           }
         }
       }
+      PlatformDeployment: {
+        payload: Prisma.$PlatformDeploymentPayload<ExtArgs>
+        fields: Prisma.PlatformDeploymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlatformDeploymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlatformDeploymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          findFirst: {
+            args: Prisma.PlatformDeploymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlatformDeploymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          findMany: {
+            args: Prisma.PlatformDeploymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>[]
+          }
+          create: {
+            args: Prisma.PlatformDeploymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          createMany: {
+            args: Prisma.PlatformDeploymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlatformDeploymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>[]
+          }
+          delete: {
+            args: Prisma.PlatformDeploymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          update: {
+            args: Prisma.PlatformDeploymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlatformDeploymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlatformDeploymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlatformDeploymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformDeploymentPayload>
+          }
+          aggregate: {
+            args: Prisma.PlatformDeploymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlatformDeployment>
+          }
+          groupBy: {
+            args: Prisma.PlatformDeploymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlatformDeploymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlatformDeploymentCountArgs<ExtArgs>
+            result: $Utils.Optional<PlatformDeploymentCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlatformScreenDetail: {
+        payload: Prisma.$PlatformScreenDetailPayload<ExtArgs>
+        fields: Prisma.PlatformScreenDetailFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlatformScreenDetailFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlatformScreenDetailFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          findFirst: {
+            args: Prisma.PlatformScreenDetailFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlatformScreenDetailFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          findMany: {
+            args: Prisma.PlatformScreenDetailFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>[]
+          }
+          create: {
+            args: Prisma.PlatformScreenDetailCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          createMany: {
+            args: Prisma.PlatformScreenDetailCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlatformScreenDetailCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>[]
+          }
+          delete: {
+            args: Prisma.PlatformScreenDetailDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          update: {
+            args: Prisma.PlatformScreenDetailUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlatformScreenDetailDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlatformScreenDetailUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlatformScreenDetailUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenDetailPayload>
+          }
+          aggregate: {
+            args: Prisma.PlatformScreenDetailAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlatformScreenDetail>
+          }
+          groupBy: {
+            args: Prisma.PlatformScreenDetailGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlatformScreenDetailGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlatformScreenDetailCountArgs<ExtArgs>
+            result: $Utils.Optional<PlatformScreenDetailCountAggregateOutputType> | number
+          }
+        }
+      }
       BdmLead: {
         payload: Prisma.$BdmLeadPayload<ExtArgs>
         fields: Prisma.BdmLeadFieldRefs
@@ -22532,6 +22704,37 @@ export namespace Prisma {
    */
   export type AgentScreenBlueprintCountOutputTypeCountRequiredComponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BlueprintComponentWhereInput
+  }
+
+
+  /**
+   * Count Type PlatformDeploymentCountOutputType
+   */
+
+  export type PlatformDeploymentCountOutputType = {
+    screenDetails: number
+  }
+
+  export type PlatformDeploymentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenDetails?: boolean | PlatformDeploymentCountOutputTypeCountScreenDetailsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlatformDeploymentCountOutputType without action
+   */
+  export type PlatformDeploymentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeploymentCountOutputType
+     */
+    select?: PlatformDeploymentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlatformDeploymentCountOutputType without action
+   */
+  export type PlatformDeploymentCountOutputTypeCountScreenDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformScreenDetailWhereInput
   }
 
 
@@ -173779,6 +173982,2015 @@ export namespace Prisma {
 
 
   /**
+   * Model PlatformDeployment
+   */
+
+  export type AggregatePlatformDeployment = {
+    _count: PlatformDeploymentCountAggregateOutputType | null
+    _min: PlatformDeploymentMinAggregateOutputType | null
+    _max: PlatformDeploymentMaxAggregateOutputType | null
+  }
+
+  export type PlatformDeploymentMinAggregateOutputType = {
+    id: string | null
+    appName: string | null
+    platform: string | null
+    status: string | null
+    version: string | null
+    commitHash: string | null
+    buildUrl: string | null
+    details: string | null
+    verified: boolean | null
+    verificationLog: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformDeploymentMaxAggregateOutputType = {
+    id: string | null
+    appName: string | null
+    platform: string | null
+    status: string | null
+    version: string | null
+    commitHash: string | null
+    buildUrl: string | null
+    details: string | null
+    verified: boolean | null
+    verificationLog: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformDeploymentCountAggregateOutputType = {
+    id: number
+    appName: number
+    platform: number
+    status: number
+    version: number
+    commitHash: number
+    buildUrl: number
+    details: number
+    verified: number
+    verificationLog: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PlatformDeploymentMinAggregateInputType = {
+    id?: true
+    appName?: true
+    platform?: true
+    status?: true
+    version?: true
+    commitHash?: true
+    buildUrl?: true
+    details?: true
+    verified?: true
+    verificationLog?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformDeploymentMaxAggregateInputType = {
+    id?: true
+    appName?: true
+    platform?: true
+    status?: true
+    version?: true
+    commitHash?: true
+    buildUrl?: true
+    details?: true
+    verified?: true
+    verificationLog?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformDeploymentCountAggregateInputType = {
+    id?: true
+    appName?: true
+    platform?: true
+    status?: true
+    version?: true
+    commitHash?: true
+    buildUrl?: true
+    details?: true
+    verified?: true
+    verificationLog?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PlatformDeploymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformDeployment to aggregate.
+     */
+    where?: PlatformDeploymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformDeployments to fetch.
+     */
+    orderBy?: PlatformDeploymentOrderByWithRelationInput | PlatformDeploymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlatformDeploymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformDeployments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformDeployments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlatformDeployments
+    **/
+    _count?: true | PlatformDeploymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlatformDeploymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlatformDeploymentMaxAggregateInputType
+  }
+
+  export type GetPlatformDeploymentAggregateType<T extends PlatformDeploymentAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlatformDeployment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlatformDeployment[P]>
+      : GetScalarType<T[P], AggregatePlatformDeployment[P]>
+  }
+
+
+
+
+  export type PlatformDeploymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformDeploymentWhereInput
+    orderBy?: PlatformDeploymentOrderByWithAggregationInput | PlatformDeploymentOrderByWithAggregationInput[]
+    by: PlatformDeploymentScalarFieldEnum[] | PlatformDeploymentScalarFieldEnum
+    having?: PlatformDeploymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlatformDeploymentCountAggregateInputType | true
+    _min?: PlatformDeploymentMinAggregateInputType
+    _max?: PlatformDeploymentMaxAggregateInputType
+  }
+
+  export type PlatformDeploymentGroupByOutputType = {
+    id: string
+    appName: string
+    platform: string
+    status: string
+    version: string | null
+    commitHash: string | null
+    buildUrl: string | null
+    details: string | null
+    verified: boolean
+    verificationLog: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PlatformDeploymentCountAggregateOutputType | null
+    _min: PlatformDeploymentMinAggregateOutputType | null
+    _max: PlatformDeploymentMaxAggregateOutputType | null
+  }
+
+  type GetPlatformDeploymentGroupByPayload<T extends PlatformDeploymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlatformDeploymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlatformDeploymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlatformDeploymentGroupByOutputType[P]>
+            : GetScalarType<T[P], PlatformDeploymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlatformDeploymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    appName?: boolean
+    platform?: boolean
+    status?: boolean
+    version?: boolean
+    commitHash?: boolean
+    buildUrl?: boolean
+    details?: boolean
+    verified?: boolean
+    verificationLog?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    screenDetails?: boolean | PlatformDeployment$screenDetailsArgs<ExtArgs>
+    _count?: boolean | PlatformDeploymentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["platformDeployment"]>
+
+  export type PlatformDeploymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    appName?: boolean
+    platform?: boolean
+    status?: boolean
+    version?: boolean
+    commitHash?: boolean
+    buildUrl?: boolean
+    details?: boolean
+    verified?: boolean
+    verificationLog?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["platformDeployment"]>
+
+  export type PlatformDeploymentSelectScalar = {
+    id?: boolean
+    appName?: boolean
+    platform?: boolean
+    status?: boolean
+    version?: boolean
+    commitHash?: boolean
+    buildUrl?: boolean
+    details?: boolean
+    verified?: boolean
+    verificationLog?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PlatformDeploymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screenDetails?: boolean | PlatformDeployment$screenDetailsArgs<ExtArgs>
+    _count?: boolean | PlatformDeploymentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlatformDeploymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PlatformDeploymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlatformDeployment"
+    objects: {
+      screenDetails: Prisma.$PlatformScreenDetailPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      appName: string
+      platform: string
+      status: string
+      version: string | null
+      commitHash: string | null
+      buildUrl: string | null
+      details: string | null
+      verified: boolean
+      verificationLog: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["platformDeployment"]>
+    composites: {}
+  }
+
+  type PlatformDeploymentGetPayload<S extends boolean | null | undefined | PlatformDeploymentDefaultArgs> = $Result.GetResult<Prisma.$PlatformDeploymentPayload, S>
+
+  type PlatformDeploymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlatformDeploymentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlatformDeploymentCountAggregateInputType | true
+    }
+
+  export interface PlatformDeploymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlatformDeployment'], meta: { name: 'PlatformDeployment' } }
+    /**
+     * Find zero or one PlatformDeployment that matches the filter.
+     * @param {PlatformDeploymentFindUniqueArgs} args - Arguments to find a PlatformDeployment
+     * @example
+     * // Get one PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlatformDeploymentFindUniqueArgs>(args: SelectSubset<T, PlatformDeploymentFindUniqueArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlatformDeployment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlatformDeploymentFindUniqueOrThrowArgs} args - Arguments to find a PlatformDeployment
+     * @example
+     * // Get one PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlatformDeploymentFindUniqueOrThrowArgs>(args: SelectSubset<T, PlatformDeploymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlatformDeployment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentFindFirstArgs} args - Arguments to find a PlatformDeployment
+     * @example
+     * // Get one PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlatformDeploymentFindFirstArgs>(args?: SelectSubset<T, PlatformDeploymentFindFirstArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlatformDeployment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentFindFirstOrThrowArgs} args - Arguments to find a PlatformDeployment
+     * @example
+     * // Get one PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlatformDeploymentFindFirstOrThrowArgs>(args?: SelectSubset<T, PlatformDeploymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlatformDeployments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlatformDeployments
+     * const platformDeployments = await prisma.platformDeployment.findMany()
+     * 
+     * // Get first 10 PlatformDeployments
+     * const platformDeployments = await prisma.platformDeployment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const platformDeploymentWithIdOnly = await prisma.platformDeployment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlatformDeploymentFindManyArgs>(args?: SelectSubset<T, PlatformDeploymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlatformDeployment.
+     * @param {PlatformDeploymentCreateArgs} args - Arguments to create a PlatformDeployment.
+     * @example
+     * // Create one PlatformDeployment
+     * const PlatformDeployment = await prisma.platformDeployment.create({
+     *   data: {
+     *     // ... data to create a PlatformDeployment
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlatformDeploymentCreateArgs>(args: SelectSubset<T, PlatformDeploymentCreateArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlatformDeployments.
+     * @param {PlatformDeploymentCreateManyArgs} args - Arguments to create many PlatformDeployments.
+     * @example
+     * // Create many PlatformDeployments
+     * const platformDeployment = await prisma.platformDeployment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlatformDeploymentCreateManyArgs>(args?: SelectSubset<T, PlatformDeploymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlatformDeployments and returns the data saved in the database.
+     * @param {PlatformDeploymentCreateManyAndReturnArgs} args - Arguments to create many PlatformDeployments.
+     * @example
+     * // Create many PlatformDeployments
+     * const platformDeployment = await prisma.platformDeployment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlatformDeployments and only return the `id`
+     * const platformDeploymentWithIdOnly = await prisma.platformDeployment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlatformDeploymentCreateManyAndReturnArgs>(args?: SelectSubset<T, PlatformDeploymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlatformDeployment.
+     * @param {PlatformDeploymentDeleteArgs} args - Arguments to delete one PlatformDeployment.
+     * @example
+     * // Delete one PlatformDeployment
+     * const PlatformDeployment = await prisma.platformDeployment.delete({
+     *   where: {
+     *     // ... filter to delete one PlatformDeployment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlatformDeploymentDeleteArgs>(args: SelectSubset<T, PlatformDeploymentDeleteArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlatformDeployment.
+     * @param {PlatformDeploymentUpdateArgs} args - Arguments to update one PlatformDeployment.
+     * @example
+     * // Update one PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlatformDeploymentUpdateArgs>(args: SelectSubset<T, PlatformDeploymentUpdateArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlatformDeployments.
+     * @param {PlatformDeploymentDeleteManyArgs} args - Arguments to filter PlatformDeployments to delete.
+     * @example
+     * // Delete a few PlatformDeployments
+     * const { count } = await prisma.platformDeployment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlatformDeploymentDeleteManyArgs>(args?: SelectSubset<T, PlatformDeploymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlatformDeployments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlatformDeployments
+     * const platformDeployment = await prisma.platformDeployment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlatformDeploymentUpdateManyArgs>(args: SelectSubset<T, PlatformDeploymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlatformDeployment.
+     * @param {PlatformDeploymentUpsertArgs} args - Arguments to update or create a PlatformDeployment.
+     * @example
+     * // Update or create a PlatformDeployment
+     * const platformDeployment = await prisma.platformDeployment.upsert({
+     *   create: {
+     *     // ... data to create a PlatformDeployment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlatformDeployment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlatformDeploymentUpsertArgs>(args: SelectSubset<T, PlatformDeploymentUpsertArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlatformDeployments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentCountArgs} args - Arguments to filter PlatformDeployments to count.
+     * @example
+     * // Count the number of PlatformDeployments
+     * const count = await prisma.platformDeployment.count({
+     *   where: {
+     *     // ... the filter for the PlatformDeployments we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlatformDeploymentCountArgs>(
+      args?: Subset<T, PlatformDeploymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlatformDeploymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlatformDeployment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlatformDeploymentAggregateArgs>(args: Subset<T, PlatformDeploymentAggregateArgs>): Prisma.PrismaPromise<GetPlatformDeploymentAggregateType<T>>
+
+    /**
+     * Group by PlatformDeployment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformDeploymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlatformDeploymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlatformDeploymentGroupByArgs['orderBy'] }
+        : { orderBy?: PlatformDeploymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlatformDeploymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlatformDeploymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlatformDeployment model
+   */
+  readonly fields: PlatformDeploymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlatformDeployment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlatformDeploymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    screenDetails<T extends PlatformDeployment$screenDetailsArgs<ExtArgs> = {}>(args?: Subset<T, PlatformDeployment$screenDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlatformDeployment model
+   */ 
+  interface PlatformDeploymentFieldRefs {
+    readonly id: FieldRef<"PlatformDeployment", 'String'>
+    readonly appName: FieldRef<"PlatformDeployment", 'String'>
+    readonly platform: FieldRef<"PlatformDeployment", 'String'>
+    readonly status: FieldRef<"PlatformDeployment", 'String'>
+    readonly version: FieldRef<"PlatformDeployment", 'String'>
+    readonly commitHash: FieldRef<"PlatformDeployment", 'String'>
+    readonly buildUrl: FieldRef<"PlatformDeployment", 'String'>
+    readonly details: FieldRef<"PlatformDeployment", 'String'>
+    readonly verified: FieldRef<"PlatformDeployment", 'Boolean'>
+    readonly verificationLog: FieldRef<"PlatformDeployment", 'String'>
+    readonly createdAt: FieldRef<"PlatformDeployment", 'DateTime'>
+    readonly updatedAt: FieldRef<"PlatformDeployment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlatformDeployment findUnique
+   */
+  export type PlatformDeploymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformDeployment to fetch.
+     */
+    where: PlatformDeploymentWhereUniqueInput
+  }
+
+  /**
+   * PlatformDeployment findUniqueOrThrow
+   */
+  export type PlatformDeploymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformDeployment to fetch.
+     */
+    where: PlatformDeploymentWhereUniqueInput
+  }
+
+  /**
+   * PlatformDeployment findFirst
+   */
+  export type PlatformDeploymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformDeployment to fetch.
+     */
+    where?: PlatformDeploymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformDeployments to fetch.
+     */
+    orderBy?: PlatformDeploymentOrderByWithRelationInput | PlatformDeploymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformDeployments.
+     */
+    cursor?: PlatformDeploymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformDeployments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformDeployments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformDeployments.
+     */
+    distinct?: PlatformDeploymentScalarFieldEnum | PlatformDeploymentScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformDeployment findFirstOrThrow
+   */
+  export type PlatformDeploymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformDeployment to fetch.
+     */
+    where?: PlatformDeploymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformDeployments to fetch.
+     */
+    orderBy?: PlatformDeploymentOrderByWithRelationInput | PlatformDeploymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformDeployments.
+     */
+    cursor?: PlatformDeploymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformDeployments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformDeployments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformDeployments.
+     */
+    distinct?: PlatformDeploymentScalarFieldEnum | PlatformDeploymentScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformDeployment findMany
+   */
+  export type PlatformDeploymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformDeployments to fetch.
+     */
+    where?: PlatformDeploymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformDeployments to fetch.
+     */
+    orderBy?: PlatformDeploymentOrderByWithRelationInput | PlatformDeploymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlatformDeployments.
+     */
+    cursor?: PlatformDeploymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformDeployments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformDeployments.
+     */
+    skip?: number
+    distinct?: PlatformDeploymentScalarFieldEnum | PlatformDeploymentScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformDeployment create
+   */
+  export type PlatformDeploymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlatformDeployment.
+     */
+    data: XOR<PlatformDeploymentCreateInput, PlatformDeploymentUncheckedCreateInput>
+  }
+
+  /**
+   * PlatformDeployment createMany
+   */
+  export type PlatformDeploymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlatformDeployments.
+     */
+    data: PlatformDeploymentCreateManyInput | PlatformDeploymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformDeployment createManyAndReturn
+   */
+  export type PlatformDeploymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlatformDeployments.
+     */
+    data: PlatformDeploymentCreateManyInput | PlatformDeploymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformDeployment update
+   */
+  export type PlatformDeploymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlatformDeployment.
+     */
+    data: XOR<PlatformDeploymentUpdateInput, PlatformDeploymentUncheckedUpdateInput>
+    /**
+     * Choose, which PlatformDeployment to update.
+     */
+    where: PlatformDeploymentWhereUniqueInput
+  }
+
+  /**
+   * PlatformDeployment updateMany
+   */
+  export type PlatformDeploymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlatformDeployments.
+     */
+    data: XOR<PlatformDeploymentUpdateManyMutationInput, PlatformDeploymentUncheckedUpdateManyInput>
+    /**
+     * Filter which PlatformDeployments to update
+     */
+    where?: PlatformDeploymentWhereInput
+  }
+
+  /**
+   * PlatformDeployment upsert
+   */
+  export type PlatformDeploymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlatformDeployment to update in case it exists.
+     */
+    where: PlatformDeploymentWhereUniqueInput
+    /**
+     * In case the PlatformDeployment found by the `where` argument doesn't exist, create a new PlatformDeployment with this data.
+     */
+    create: XOR<PlatformDeploymentCreateInput, PlatformDeploymentUncheckedCreateInput>
+    /**
+     * In case the PlatformDeployment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlatformDeploymentUpdateInput, PlatformDeploymentUncheckedUpdateInput>
+  }
+
+  /**
+   * PlatformDeployment delete
+   */
+  export type PlatformDeploymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+    /**
+     * Filter which PlatformDeployment to delete.
+     */
+    where: PlatformDeploymentWhereUniqueInput
+  }
+
+  /**
+   * PlatformDeployment deleteMany
+   */
+  export type PlatformDeploymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformDeployments to delete
+     */
+    where?: PlatformDeploymentWhereInput
+  }
+
+  /**
+   * PlatformDeployment.screenDetails
+   */
+  export type PlatformDeployment$screenDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    where?: PlatformScreenDetailWhereInput
+    orderBy?: PlatformScreenDetailOrderByWithRelationInput | PlatformScreenDetailOrderByWithRelationInput[]
+    cursor?: PlatformScreenDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlatformScreenDetailScalarFieldEnum | PlatformScreenDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformDeployment without action
+   */
+  export type PlatformDeploymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformDeployment
+     */
+    select?: PlatformDeploymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformDeploymentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlatformScreenDetail
+   */
+
+  export type AggregatePlatformScreenDetail = {
+    _count: PlatformScreenDetailCountAggregateOutputType | null
+    _min: PlatformScreenDetailMinAggregateOutputType | null
+    _max: PlatformScreenDetailMaxAggregateOutputType | null
+  }
+
+  export type PlatformScreenDetailMinAggregateOutputType = {
+    id: string | null
+    deploymentId: string | null
+    screenName: string | null
+    language: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformScreenDetailMaxAggregateOutputType = {
+    id: string | null
+    deploymentId: string | null
+    screenName: string | null
+    language: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformScreenDetailCountAggregateOutputType = {
+    id: number
+    deploymentId: number
+    screenName: number
+    language: number
+    labels: number
+    textElements: number
+    components: number
+    rawMetrics: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PlatformScreenDetailMinAggregateInputType = {
+    id?: true
+    deploymentId?: true
+    screenName?: true
+    language?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformScreenDetailMaxAggregateInputType = {
+    id?: true
+    deploymentId?: true
+    screenName?: true
+    language?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformScreenDetailCountAggregateInputType = {
+    id?: true
+    deploymentId?: true
+    screenName?: true
+    language?: true
+    labels?: true
+    textElements?: true
+    components?: true
+    rawMetrics?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PlatformScreenDetailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformScreenDetail to aggregate.
+     */
+    where?: PlatformScreenDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreenDetails to fetch.
+     */
+    orderBy?: PlatformScreenDetailOrderByWithRelationInput | PlatformScreenDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlatformScreenDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreenDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreenDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlatformScreenDetails
+    **/
+    _count?: true | PlatformScreenDetailCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlatformScreenDetailMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlatformScreenDetailMaxAggregateInputType
+  }
+
+  export type GetPlatformScreenDetailAggregateType<T extends PlatformScreenDetailAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlatformScreenDetail]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlatformScreenDetail[P]>
+      : GetScalarType<T[P], AggregatePlatformScreenDetail[P]>
+  }
+
+
+
+
+  export type PlatformScreenDetailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformScreenDetailWhereInput
+    orderBy?: PlatformScreenDetailOrderByWithAggregationInput | PlatformScreenDetailOrderByWithAggregationInput[]
+    by: PlatformScreenDetailScalarFieldEnum[] | PlatformScreenDetailScalarFieldEnum
+    having?: PlatformScreenDetailScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlatformScreenDetailCountAggregateInputType | true
+    _min?: PlatformScreenDetailMinAggregateInputType
+    _max?: PlatformScreenDetailMaxAggregateInputType
+  }
+
+  export type PlatformScreenDetailGroupByOutputType = {
+    id: string
+    deploymentId: string
+    screenName: string
+    language: string
+    labels: JsonValue | null
+    textElements: JsonValue | null
+    components: JsonValue | null
+    rawMetrics: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PlatformScreenDetailCountAggregateOutputType | null
+    _min: PlatformScreenDetailMinAggregateOutputType | null
+    _max: PlatformScreenDetailMaxAggregateOutputType | null
+  }
+
+  type GetPlatformScreenDetailGroupByPayload<T extends PlatformScreenDetailGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlatformScreenDetailGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlatformScreenDetailGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlatformScreenDetailGroupByOutputType[P]>
+            : GetScalarType<T[P], PlatformScreenDetailGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlatformScreenDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deploymentId?: boolean
+    screenName?: boolean
+    language?: boolean
+    labels?: boolean
+    textElements?: boolean
+    components?: boolean
+    rawMetrics?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deployment?: boolean | PlatformDeploymentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["platformScreenDetail"]>
+
+  export type PlatformScreenDetailSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deploymentId?: boolean
+    screenName?: boolean
+    language?: boolean
+    labels?: boolean
+    textElements?: boolean
+    components?: boolean
+    rawMetrics?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deployment?: boolean | PlatformDeploymentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["platformScreenDetail"]>
+
+  export type PlatformScreenDetailSelectScalar = {
+    id?: boolean
+    deploymentId?: boolean
+    screenName?: boolean
+    language?: boolean
+    labels?: boolean
+    textElements?: boolean
+    components?: boolean
+    rawMetrics?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PlatformScreenDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deployment?: boolean | PlatformDeploymentDefaultArgs<ExtArgs>
+  }
+  export type PlatformScreenDetailIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deployment?: boolean | PlatformDeploymentDefaultArgs<ExtArgs>
+  }
+
+  export type $PlatformScreenDetailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlatformScreenDetail"
+    objects: {
+      deployment: Prisma.$PlatformDeploymentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deploymentId: string
+      screenName: string
+      language: string
+      labels: Prisma.JsonValue | null
+      textElements: Prisma.JsonValue | null
+      components: Prisma.JsonValue | null
+      rawMetrics: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["platformScreenDetail"]>
+    composites: {}
+  }
+
+  type PlatformScreenDetailGetPayload<S extends boolean | null | undefined | PlatformScreenDetailDefaultArgs> = $Result.GetResult<Prisma.$PlatformScreenDetailPayload, S>
+
+  type PlatformScreenDetailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlatformScreenDetailFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlatformScreenDetailCountAggregateInputType | true
+    }
+
+  export interface PlatformScreenDetailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlatformScreenDetail'], meta: { name: 'PlatformScreenDetail' } }
+    /**
+     * Find zero or one PlatformScreenDetail that matches the filter.
+     * @param {PlatformScreenDetailFindUniqueArgs} args - Arguments to find a PlatformScreenDetail
+     * @example
+     * // Get one PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlatformScreenDetailFindUniqueArgs>(args: SelectSubset<T, PlatformScreenDetailFindUniqueArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlatformScreenDetail that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlatformScreenDetailFindUniqueOrThrowArgs} args - Arguments to find a PlatformScreenDetail
+     * @example
+     * // Get one PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlatformScreenDetailFindUniqueOrThrowArgs>(args: SelectSubset<T, PlatformScreenDetailFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlatformScreenDetail that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailFindFirstArgs} args - Arguments to find a PlatformScreenDetail
+     * @example
+     * // Get one PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlatformScreenDetailFindFirstArgs>(args?: SelectSubset<T, PlatformScreenDetailFindFirstArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlatformScreenDetail that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailFindFirstOrThrowArgs} args - Arguments to find a PlatformScreenDetail
+     * @example
+     * // Get one PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlatformScreenDetailFindFirstOrThrowArgs>(args?: SelectSubset<T, PlatformScreenDetailFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlatformScreenDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlatformScreenDetails
+     * const platformScreenDetails = await prisma.platformScreenDetail.findMany()
+     * 
+     * // Get first 10 PlatformScreenDetails
+     * const platformScreenDetails = await prisma.platformScreenDetail.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const platformScreenDetailWithIdOnly = await prisma.platformScreenDetail.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlatformScreenDetailFindManyArgs>(args?: SelectSubset<T, PlatformScreenDetailFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlatformScreenDetail.
+     * @param {PlatformScreenDetailCreateArgs} args - Arguments to create a PlatformScreenDetail.
+     * @example
+     * // Create one PlatformScreenDetail
+     * const PlatformScreenDetail = await prisma.platformScreenDetail.create({
+     *   data: {
+     *     // ... data to create a PlatformScreenDetail
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlatformScreenDetailCreateArgs>(args: SelectSubset<T, PlatformScreenDetailCreateArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlatformScreenDetails.
+     * @param {PlatformScreenDetailCreateManyArgs} args - Arguments to create many PlatformScreenDetails.
+     * @example
+     * // Create many PlatformScreenDetails
+     * const platformScreenDetail = await prisma.platformScreenDetail.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlatformScreenDetailCreateManyArgs>(args?: SelectSubset<T, PlatformScreenDetailCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlatformScreenDetails and returns the data saved in the database.
+     * @param {PlatformScreenDetailCreateManyAndReturnArgs} args - Arguments to create many PlatformScreenDetails.
+     * @example
+     * // Create many PlatformScreenDetails
+     * const platformScreenDetail = await prisma.platformScreenDetail.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlatformScreenDetails and only return the `id`
+     * const platformScreenDetailWithIdOnly = await prisma.platformScreenDetail.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlatformScreenDetailCreateManyAndReturnArgs>(args?: SelectSubset<T, PlatformScreenDetailCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlatformScreenDetail.
+     * @param {PlatformScreenDetailDeleteArgs} args - Arguments to delete one PlatformScreenDetail.
+     * @example
+     * // Delete one PlatformScreenDetail
+     * const PlatformScreenDetail = await prisma.platformScreenDetail.delete({
+     *   where: {
+     *     // ... filter to delete one PlatformScreenDetail
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlatformScreenDetailDeleteArgs>(args: SelectSubset<T, PlatformScreenDetailDeleteArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlatformScreenDetail.
+     * @param {PlatformScreenDetailUpdateArgs} args - Arguments to update one PlatformScreenDetail.
+     * @example
+     * // Update one PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlatformScreenDetailUpdateArgs>(args: SelectSubset<T, PlatformScreenDetailUpdateArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlatformScreenDetails.
+     * @param {PlatformScreenDetailDeleteManyArgs} args - Arguments to filter PlatformScreenDetails to delete.
+     * @example
+     * // Delete a few PlatformScreenDetails
+     * const { count } = await prisma.platformScreenDetail.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlatformScreenDetailDeleteManyArgs>(args?: SelectSubset<T, PlatformScreenDetailDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlatformScreenDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlatformScreenDetails
+     * const platformScreenDetail = await prisma.platformScreenDetail.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlatformScreenDetailUpdateManyArgs>(args: SelectSubset<T, PlatformScreenDetailUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlatformScreenDetail.
+     * @param {PlatformScreenDetailUpsertArgs} args - Arguments to update or create a PlatformScreenDetail.
+     * @example
+     * // Update or create a PlatformScreenDetail
+     * const platformScreenDetail = await prisma.platformScreenDetail.upsert({
+     *   create: {
+     *     // ... data to create a PlatformScreenDetail
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlatformScreenDetail we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlatformScreenDetailUpsertArgs>(args: SelectSubset<T, PlatformScreenDetailUpsertArgs<ExtArgs>>): Prisma__PlatformScreenDetailClient<$Result.GetResult<Prisma.$PlatformScreenDetailPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlatformScreenDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailCountArgs} args - Arguments to filter PlatformScreenDetails to count.
+     * @example
+     * // Count the number of PlatformScreenDetails
+     * const count = await prisma.platformScreenDetail.count({
+     *   where: {
+     *     // ... the filter for the PlatformScreenDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlatformScreenDetailCountArgs>(
+      args?: Subset<T, PlatformScreenDetailCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlatformScreenDetailCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlatformScreenDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlatformScreenDetailAggregateArgs>(args: Subset<T, PlatformScreenDetailAggregateArgs>): Prisma.PrismaPromise<GetPlatformScreenDetailAggregateType<T>>
+
+    /**
+     * Group by PlatformScreenDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenDetailGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlatformScreenDetailGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlatformScreenDetailGroupByArgs['orderBy'] }
+        : { orderBy?: PlatformScreenDetailGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlatformScreenDetailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlatformScreenDetailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlatformScreenDetail model
+   */
+  readonly fields: PlatformScreenDetailFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlatformScreenDetail.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlatformScreenDetailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deployment<T extends PlatformDeploymentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlatformDeploymentDefaultArgs<ExtArgs>>): Prisma__PlatformDeploymentClient<$Result.GetResult<Prisma.$PlatformDeploymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlatformScreenDetail model
+   */ 
+  interface PlatformScreenDetailFieldRefs {
+    readonly id: FieldRef<"PlatformScreenDetail", 'String'>
+    readonly deploymentId: FieldRef<"PlatformScreenDetail", 'String'>
+    readonly screenName: FieldRef<"PlatformScreenDetail", 'String'>
+    readonly language: FieldRef<"PlatformScreenDetail", 'String'>
+    readonly labels: FieldRef<"PlatformScreenDetail", 'Json'>
+    readonly textElements: FieldRef<"PlatformScreenDetail", 'Json'>
+    readonly components: FieldRef<"PlatformScreenDetail", 'Json'>
+    readonly rawMetrics: FieldRef<"PlatformScreenDetail", 'Json'>
+    readonly createdAt: FieldRef<"PlatformScreenDetail", 'DateTime'>
+    readonly updatedAt: FieldRef<"PlatformScreenDetail", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlatformScreenDetail findUnique
+   */
+  export type PlatformScreenDetailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreenDetail to fetch.
+     */
+    where: PlatformScreenDetailWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreenDetail findUniqueOrThrow
+   */
+  export type PlatformScreenDetailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreenDetail to fetch.
+     */
+    where: PlatformScreenDetailWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreenDetail findFirst
+   */
+  export type PlatformScreenDetailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreenDetail to fetch.
+     */
+    where?: PlatformScreenDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreenDetails to fetch.
+     */
+    orderBy?: PlatformScreenDetailOrderByWithRelationInput | PlatformScreenDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformScreenDetails.
+     */
+    cursor?: PlatformScreenDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreenDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreenDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformScreenDetails.
+     */
+    distinct?: PlatformScreenDetailScalarFieldEnum | PlatformScreenDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreenDetail findFirstOrThrow
+   */
+  export type PlatformScreenDetailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreenDetail to fetch.
+     */
+    where?: PlatformScreenDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreenDetails to fetch.
+     */
+    orderBy?: PlatformScreenDetailOrderByWithRelationInput | PlatformScreenDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformScreenDetails.
+     */
+    cursor?: PlatformScreenDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreenDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreenDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformScreenDetails.
+     */
+    distinct?: PlatformScreenDetailScalarFieldEnum | PlatformScreenDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreenDetail findMany
+   */
+  export type PlatformScreenDetailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreenDetails to fetch.
+     */
+    where?: PlatformScreenDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreenDetails to fetch.
+     */
+    orderBy?: PlatformScreenDetailOrderByWithRelationInput | PlatformScreenDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlatformScreenDetails.
+     */
+    cursor?: PlatformScreenDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreenDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreenDetails.
+     */
+    skip?: number
+    distinct?: PlatformScreenDetailScalarFieldEnum | PlatformScreenDetailScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreenDetail create
+   */
+  export type PlatformScreenDetailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlatformScreenDetail.
+     */
+    data: XOR<PlatformScreenDetailCreateInput, PlatformScreenDetailUncheckedCreateInput>
+  }
+
+  /**
+   * PlatformScreenDetail createMany
+   */
+  export type PlatformScreenDetailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlatformScreenDetails.
+     */
+    data: PlatformScreenDetailCreateManyInput | PlatformScreenDetailCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformScreenDetail createManyAndReturn
+   */
+  export type PlatformScreenDetailCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlatformScreenDetails.
+     */
+    data: PlatformScreenDetailCreateManyInput | PlatformScreenDetailCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlatformScreenDetail update
+   */
+  export type PlatformScreenDetailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlatformScreenDetail.
+     */
+    data: XOR<PlatformScreenDetailUpdateInput, PlatformScreenDetailUncheckedUpdateInput>
+    /**
+     * Choose, which PlatformScreenDetail to update.
+     */
+    where: PlatformScreenDetailWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreenDetail updateMany
+   */
+  export type PlatformScreenDetailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlatformScreenDetails.
+     */
+    data: XOR<PlatformScreenDetailUpdateManyMutationInput, PlatformScreenDetailUncheckedUpdateManyInput>
+    /**
+     * Filter which PlatformScreenDetails to update
+     */
+    where?: PlatformScreenDetailWhereInput
+  }
+
+  /**
+   * PlatformScreenDetail upsert
+   */
+  export type PlatformScreenDetailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlatformScreenDetail to update in case it exists.
+     */
+    where: PlatformScreenDetailWhereUniqueInput
+    /**
+     * In case the PlatformScreenDetail found by the `where` argument doesn't exist, create a new PlatformScreenDetail with this data.
+     */
+    create: XOR<PlatformScreenDetailCreateInput, PlatformScreenDetailUncheckedCreateInput>
+    /**
+     * In case the PlatformScreenDetail was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlatformScreenDetailUpdateInput, PlatformScreenDetailUncheckedUpdateInput>
+  }
+
+  /**
+   * PlatformScreenDetail delete
+   */
+  export type PlatformScreenDetailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+    /**
+     * Filter which PlatformScreenDetail to delete.
+     */
+    where: PlatformScreenDetailWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreenDetail deleteMany
+   */
+  export type PlatformScreenDetailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformScreenDetails to delete
+     */
+    where?: PlatformScreenDetailWhereInput
+  }
+
+  /**
+   * PlatformScreenDetail without action
+   */
+  export type PlatformScreenDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenDetail
+     */
+    select?: PlatformScreenDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenDetailInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model BdmLead
    */
 
@@ -248093,6 +250305,40 @@ export namespace Prisma {
   export type BlueprintComponentScalarFieldEnum = (typeof BlueprintComponentScalarFieldEnum)[keyof typeof BlueprintComponentScalarFieldEnum]
 
 
+  export const PlatformDeploymentScalarFieldEnum: {
+    id: 'id',
+    appName: 'appName',
+    platform: 'platform',
+    status: 'status',
+    version: 'version',
+    commitHash: 'commitHash',
+    buildUrl: 'buildUrl',
+    details: 'details',
+    verified: 'verified',
+    verificationLog: 'verificationLog',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PlatformDeploymentScalarFieldEnum = (typeof PlatformDeploymentScalarFieldEnum)[keyof typeof PlatformDeploymentScalarFieldEnum]
+
+
+  export const PlatformScreenDetailScalarFieldEnum: {
+    id: 'id',
+    deploymentId: 'deploymentId',
+    screenName: 'screenName',
+    language: 'language',
+    labels: 'labels',
+    textElements: 'textElements',
+    components: 'components',
+    rawMetrics: 'rawMetrics',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PlatformScreenDetailScalarFieldEnum = (typeof PlatformScreenDetailScalarFieldEnum)[keyof typeof PlatformScreenDetailScalarFieldEnum]
+
+
   export const BdmLeadScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -261594,6 +263840,176 @@ export namespace Prisma {
     importance?: StringWithAggregatesFilter<"BlueprintComponent"> | string
     createdAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BlueprintComponent"> | Date | string
+  }
+
+  export type PlatformDeploymentWhereInput = {
+    AND?: PlatformDeploymentWhereInput | PlatformDeploymentWhereInput[]
+    OR?: PlatformDeploymentWhereInput[]
+    NOT?: PlatformDeploymentWhereInput | PlatformDeploymentWhereInput[]
+    id?: StringFilter<"PlatformDeployment"> | string
+    appName?: StringFilter<"PlatformDeployment"> | string
+    platform?: StringFilter<"PlatformDeployment"> | string
+    status?: StringFilter<"PlatformDeployment"> | string
+    version?: StringNullableFilter<"PlatformDeployment"> | string | null
+    commitHash?: StringNullableFilter<"PlatformDeployment"> | string | null
+    buildUrl?: StringNullableFilter<"PlatformDeployment"> | string | null
+    details?: StringNullableFilter<"PlatformDeployment"> | string | null
+    verified?: BoolFilter<"PlatformDeployment"> | boolean
+    verificationLog?: StringNullableFilter<"PlatformDeployment"> | string | null
+    createdAt?: DateTimeFilter<"PlatformDeployment"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformDeployment"> | Date | string
+    screenDetails?: PlatformScreenDetailListRelationFilter
+  }
+
+  export type PlatformDeploymentOrderByWithRelationInput = {
+    id?: SortOrder
+    appName?: SortOrder
+    platform?: SortOrder
+    status?: SortOrder
+    version?: SortOrderInput | SortOrder
+    commitHash?: SortOrderInput | SortOrder
+    buildUrl?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
+    verified?: SortOrder
+    verificationLog?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    screenDetails?: PlatformScreenDetailOrderByRelationAggregateInput
+  }
+
+  export type PlatformDeploymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlatformDeploymentWhereInput | PlatformDeploymentWhereInput[]
+    OR?: PlatformDeploymentWhereInput[]
+    NOT?: PlatformDeploymentWhereInput | PlatformDeploymentWhereInput[]
+    appName?: StringFilter<"PlatformDeployment"> | string
+    platform?: StringFilter<"PlatformDeployment"> | string
+    status?: StringFilter<"PlatformDeployment"> | string
+    version?: StringNullableFilter<"PlatformDeployment"> | string | null
+    commitHash?: StringNullableFilter<"PlatformDeployment"> | string | null
+    buildUrl?: StringNullableFilter<"PlatformDeployment"> | string | null
+    details?: StringNullableFilter<"PlatformDeployment"> | string | null
+    verified?: BoolFilter<"PlatformDeployment"> | boolean
+    verificationLog?: StringNullableFilter<"PlatformDeployment"> | string | null
+    createdAt?: DateTimeFilter<"PlatformDeployment"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformDeployment"> | Date | string
+    screenDetails?: PlatformScreenDetailListRelationFilter
+  }, "id">
+
+  export type PlatformDeploymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    appName?: SortOrder
+    platform?: SortOrder
+    status?: SortOrder
+    version?: SortOrderInput | SortOrder
+    commitHash?: SortOrderInput | SortOrder
+    buildUrl?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
+    verified?: SortOrder
+    verificationLog?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PlatformDeploymentCountOrderByAggregateInput
+    _max?: PlatformDeploymentMaxOrderByAggregateInput
+    _min?: PlatformDeploymentMinOrderByAggregateInput
+  }
+
+  export type PlatformDeploymentScalarWhereWithAggregatesInput = {
+    AND?: PlatformDeploymentScalarWhereWithAggregatesInput | PlatformDeploymentScalarWhereWithAggregatesInput[]
+    OR?: PlatformDeploymentScalarWhereWithAggregatesInput[]
+    NOT?: PlatformDeploymentScalarWhereWithAggregatesInput | PlatformDeploymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlatformDeployment"> | string
+    appName?: StringWithAggregatesFilter<"PlatformDeployment"> | string
+    platform?: StringWithAggregatesFilter<"PlatformDeployment"> | string
+    status?: StringWithAggregatesFilter<"PlatformDeployment"> | string
+    version?: StringNullableWithAggregatesFilter<"PlatformDeployment"> | string | null
+    commitHash?: StringNullableWithAggregatesFilter<"PlatformDeployment"> | string | null
+    buildUrl?: StringNullableWithAggregatesFilter<"PlatformDeployment"> | string | null
+    details?: StringNullableWithAggregatesFilter<"PlatformDeployment"> | string | null
+    verified?: BoolWithAggregatesFilter<"PlatformDeployment"> | boolean
+    verificationLog?: StringNullableWithAggregatesFilter<"PlatformDeployment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PlatformDeployment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PlatformDeployment"> | Date | string
+  }
+
+  export type PlatformScreenDetailWhereInput = {
+    AND?: PlatformScreenDetailWhereInput | PlatformScreenDetailWhereInput[]
+    OR?: PlatformScreenDetailWhereInput[]
+    NOT?: PlatformScreenDetailWhereInput | PlatformScreenDetailWhereInput[]
+    id?: StringFilter<"PlatformScreenDetail"> | string
+    deploymentId?: StringFilter<"PlatformScreenDetail"> | string
+    screenName?: StringFilter<"PlatformScreenDetail"> | string
+    language?: StringFilter<"PlatformScreenDetail"> | string
+    labels?: JsonNullableFilter<"PlatformScreenDetail">
+    textElements?: JsonNullableFilter<"PlatformScreenDetail">
+    components?: JsonNullableFilter<"PlatformScreenDetail">
+    rawMetrics?: JsonNullableFilter<"PlatformScreenDetail">
+    createdAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+    deployment?: XOR<PlatformDeploymentRelationFilter, PlatformDeploymentWhereInput>
+  }
+
+  export type PlatformScreenDetailOrderByWithRelationInput = {
+    id?: SortOrder
+    deploymentId?: SortOrder
+    screenName?: SortOrder
+    language?: SortOrder
+    labels?: SortOrderInput | SortOrder
+    textElements?: SortOrderInput | SortOrder
+    components?: SortOrderInput | SortOrder
+    rawMetrics?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deployment?: PlatformDeploymentOrderByWithRelationInput
+  }
+
+  export type PlatformScreenDetailWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlatformScreenDetailWhereInput | PlatformScreenDetailWhereInput[]
+    OR?: PlatformScreenDetailWhereInput[]
+    NOT?: PlatformScreenDetailWhereInput | PlatformScreenDetailWhereInput[]
+    deploymentId?: StringFilter<"PlatformScreenDetail"> | string
+    screenName?: StringFilter<"PlatformScreenDetail"> | string
+    language?: StringFilter<"PlatformScreenDetail"> | string
+    labels?: JsonNullableFilter<"PlatformScreenDetail">
+    textElements?: JsonNullableFilter<"PlatformScreenDetail">
+    components?: JsonNullableFilter<"PlatformScreenDetail">
+    rawMetrics?: JsonNullableFilter<"PlatformScreenDetail">
+    createdAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+    deployment?: XOR<PlatformDeploymentRelationFilter, PlatformDeploymentWhereInput>
+  }, "id">
+
+  export type PlatformScreenDetailOrderByWithAggregationInput = {
+    id?: SortOrder
+    deploymentId?: SortOrder
+    screenName?: SortOrder
+    language?: SortOrder
+    labels?: SortOrderInput | SortOrder
+    textElements?: SortOrderInput | SortOrder
+    components?: SortOrderInput | SortOrder
+    rawMetrics?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PlatformScreenDetailCountOrderByAggregateInput
+    _max?: PlatformScreenDetailMaxOrderByAggregateInput
+    _min?: PlatformScreenDetailMinOrderByAggregateInput
+  }
+
+  export type PlatformScreenDetailScalarWhereWithAggregatesInput = {
+    AND?: PlatformScreenDetailScalarWhereWithAggregatesInput | PlatformScreenDetailScalarWhereWithAggregatesInput[]
+    OR?: PlatformScreenDetailScalarWhereWithAggregatesInput[]
+    NOT?: PlatformScreenDetailScalarWhereWithAggregatesInput | PlatformScreenDetailScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlatformScreenDetail"> | string
+    deploymentId?: StringWithAggregatesFilter<"PlatformScreenDetail"> | string
+    screenName?: StringWithAggregatesFilter<"PlatformScreenDetail"> | string
+    language?: StringWithAggregatesFilter<"PlatformScreenDetail"> | string
+    labels?: JsonNullableWithAggregatesFilter<"PlatformScreenDetail">
+    textElements?: JsonNullableWithAggregatesFilter<"PlatformScreenDetail">
+    components?: JsonNullableWithAggregatesFilter<"PlatformScreenDetail">
+    rawMetrics?: JsonNullableWithAggregatesFilter<"PlatformScreenDetail">
+    createdAt?: DateTimeWithAggregatesFilter<"PlatformScreenDetail"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PlatformScreenDetail"> | Date | string
   }
 
   export type BdmLeadWhereInput = {
@@ -280313,6 +282729,205 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlatformDeploymentCreateInput = {
+    id?: string
+    appName: string
+    platform: string
+    status?: string
+    version?: string | null
+    commitHash?: string | null
+    buildUrl?: string | null
+    details?: string | null
+    verified?: boolean
+    verificationLog?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screenDetails?: PlatformScreenDetailCreateNestedManyWithoutDeploymentInput
+  }
+
+  export type PlatformDeploymentUncheckedCreateInput = {
+    id?: string
+    appName: string
+    platform: string
+    status?: string
+    version?: string | null
+    commitHash?: string | null
+    buildUrl?: string | null
+    details?: string | null
+    verified?: boolean
+    verificationLog?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screenDetails?: PlatformScreenDetailUncheckedCreateNestedManyWithoutDeploymentInput
+  }
+
+  export type PlatformDeploymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screenDetails?: PlatformScreenDetailUpdateManyWithoutDeploymentNestedInput
+  }
+
+  export type PlatformDeploymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screenDetails?: PlatformScreenDetailUncheckedUpdateManyWithoutDeploymentNestedInput
+  }
+
+  export type PlatformDeploymentCreateManyInput = {
+    id?: string
+    appName: string
+    platform: string
+    status?: string
+    version?: string | null
+    commitHash?: string | null
+    buildUrl?: string | null
+    details?: string | null
+    verified?: boolean
+    verificationLog?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformDeploymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformDeploymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenDetailCreateInput = {
+    id?: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deployment: PlatformDeploymentCreateNestedOneWithoutScreenDetailsInput
+  }
+
+  export type PlatformScreenDetailUncheckedCreateInput = {
+    id?: string
+    deploymentId: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenDetailUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deployment?: PlatformDeploymentUpdateOneRequiredWithoutScreenDetailsNestedInput
+  }
+
+  export type PlatformScreenDetailUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deploymentId?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenDetailCreateManyInput = {
+    id?: string
+    deploymentId: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenDetailUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenDetailUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deploymentId?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BdmLeadCreateInput = {
     id?: string
     title: string
@@ -294350,6 +296965,97 @@ export namespace Prisma {
     label?: SortOrder
     intent?: SortOrder
     importance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenDetailListRelationFilter = {
+    every?: PlatformScreenDetailWhereInput
+    some?: PlatformScreenDetailWhereInput
+    none?: PlatformScreenDetailWhereInput
+  }
+
+  export type PlatformScreenDetailOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlatformDeploymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    appName?: SortOrder
+    platform?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    commitHash?: SortOrder
+    buildUrl?: SortOrder
+    details?: SortOrder
+    verified?: SortOrder
+    verificationLog?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformDeploymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    appName?: SortOrder
+    platform?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    commitHash?: SortOrder
+    buildUrl?: SortOrder
+    details?: SortOrder
+    verified?: SortOrder
+    verificationLog?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformDeploymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    appName?: SortOrder
+    platform?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    commitHash?: SortOrder
+    buildUrl?: SortOrder
+    details?: SortOrder
+    verified?: SortOrder
+    verificationLog?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformDeploymentRelationFilter = {
+    is?: PlatformDeploymentWhereInput
+    isNot?: PlatformDeploymentWhereInput
+  }
+
+  export type PlatformScreenDetailCountOrderByAggregateInput = {
+    id?: SortOrder
+    deploymentId?: SortOrder
+    screenName?: SortOrder
+    language?: SortOrder
+    labels?: SortOrder
+    textElements?: SortOrder
+    components?: SortOrder
+    rawMetrics?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenDetailMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deploymentId?: SortOrder
+    screenName?: SortOrder
+    language?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenDetailMinOrderByAggregateInput = {
+    id?: SortOrder
+    deploymentId?: SortOrder
+    screenName?: SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -310546,6 +313252,62 @@ export namespace Prisma {
     upsert?: AgentScreenBlueprintUpsertWithoutRequiredComponentsInput
     connect?: AgentScreenBlueprintWhereUniqueInput
     update?: XOR<XOR<AgentScreenBlueprintUpdateToOneWithWhereWithoutRequiredComponentsInput, AgentScreenBlueprintUpdateWithoutRequiredComponentsInput>, AgentScreenBlueprintUncheckedUpdateWithoutRequiredComponentsInput>
+  }
+
+  export type PlatformScreenDetailCreateNestedManyWithoutDeploymentInput = {
+    create?: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput> | PlatformScreenDetailCreateWithoutDeploymentInput[] | PlatformScreenDetailUncheckedCreateWithoutDeploymentInput[]
+    connectOrCreate?: PlatformScreenDetailCreateOrConnectWithoutDeploymentInput | PlatformScreenDetailCreateOrConnectWithoutDeploymentInput[]
+    createMany?: PlatformScreenDetailCreateManyDeploymentInputEnvelope
+    connect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+  }
+
+  export type PlatformScreenDetailUncheckedCreateNestedManyWithoutDeploymentInput = {
+    create?: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput> | PlatformScreenDetailCreateWithoutDeploymentInput[] | PlatformScreenDetailUncheckedCreateWithoutDeploymentInput[]
+    connectOrCreate?: PlatformScreenDetailCreateOrConnectWithoutDeploymentInput | PlatformScreenDetailCreateOrConnectWithoutDeploymentInput[]
+    createMany?: PlatformScreenDetailCreateManyDeploymentInputEnvelope
+    connect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+  }
+
+  export type PlatformScreenDetailUpdateManyWithoutDeploymentNestedInput = {
+    create?: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput> | PlatformScreenDetailCreateWithoutDeploymentInput[] | PlatformScreenDetailUncheckedCreateWithoutDeploymentInput[]
+    connectOrCreate?: PlatformScreenDetailCreateOrConnectWithoutDeploymentInput | PlatformScreenDetailCreateOrConnectWithoutDeploymentInput[]
+    upsert?: PlatformScreenDetailUpsertWithWhereUniqueWithoutDeploymentInput | PlatformScreenDetailUpsertWithWhereUniqueWithoutDeploymentInput[]
+    createMany?: PlatformScreenDetailCreateManyDeploymentInputEnvelope
+    set?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    disconnect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    delete?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    connect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    update?: PlatformScreenDetailUpdateWithWhereUniqueWithoutDeploymentInput | PlatformScreenDetailUpdateWithWhereUniqueWithoutDeploymentInput[]
+    updateMany?: PlatformScreenDetailUpdateManyWithWhereWithoutDeploymentInput | PlatformScreenDetailUpdateManyWithWhereWithoutDeploymentInput[]
+    deleteMany?: PlatformScreenDetailScalarWhereInput | PlatformScreenDetailScalarWhereInput[]
+  }
+
+  export type PlatformScreenDetailUncheckedUpdateManyWithoutDeploymentNestedInput = {
+    create?: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput> | PlatformScreenDetailCreateWithoutDeploymentInput[] | PlatformScreenDetailUncheckedCreateWithoutDeploymentInput[]
+    connectOrCreate?: PlatformScreenDetailCreateOrConnectWithoutDeploymentInput | PlatformScreenDetailCreateOrConnectWithoutDeploymentInput[]
+    upsert?: PlatformScreenDetailUpsertWithWhereUniqueWithoutDeploymentInput | PlatformScreenDetailUpsertWithWhereUniqueWithoutDeploymentInput[]
+    createMany?: PlatformScreenDetailCreateManyDeploymentInputEnvelope
+    set?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    disconnect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    delete?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    connect?: PlatformScreenDetailWhereUniqueInput | PlatformScreenDetailWhereUniqueInput[]
+    update?: PlatformScreenDetailUpdateWithWhereUniqueWithoutDeploymentInput | PlatformScreenDetailUpdateWithWhereUniqueWithoutDeploymentInput[]
+    updateMany?: PlatformScreenDetailUpdateManyWithWhereWithoutDeploymentInput | PlatformScreenDetailUpdateManyWithWhereWithoutDeploymentInput[]
+    deleteMany?: PlatformScreenDetailScalarWhereInput | PlatformScreenDetailScalarWhereInput[]
+  }
+
+  export type PlatformDeploymentCreateNestedOneWithoutScreenDetailsInput = {
+    create?: XOR<PlatformDeploymentCreateWithoutScreenDetailsInput, PlatformDeploymentUncheckedCreateWithoutScreenDetailsInput>
+    connectOrCreate?: PlatformDeploymentCreateOrConnectWithoutScreenDetailsInput
+    connect?: PlatformDeploymentWhereUniqueInput
+  }
+
+  export type PlatformDeploymentUpdateOneRequiredWithoutScreenDetailsNestedInput = {
+    create?: XOR<PlatformDeploymentCreateWithoutScreenDetailsInput, PlatformDeploymentUncheckedCreateWithoutScreenDetailsInput>
+    connectOrCreate?: PlatformDeploymentCreateOrConnectWithoutScreenDetailsInput
+    upsert?: PlatformDeploymentUpsertWithoutScreenDetailsInput
+    connect?: PlatformDeploymentWhereUniqueInput
+    update?: XOR<XOR<PlatformDeploymentUpdateToOneWithWhereWithoutScreenDetailsInput, PlatformDeploymentUpdateWithoutScreenDetailsInput>, PlatformDeploymentUncheckedUpdateWithoutScreenDetailsInput>
   }
 
   export type TenantCreateNestedOneWithoutPremiumFeatureStatusesInput = {
@@ -394446,6 +397208,148 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlatformScreenDetailCreateWithoutDeploymentInput = {
+    id?: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenDetailUncheckedCreateWithoutDeploymentInput = {
+    id?: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenDetailCreateOrConnectWithoutDeploymentInput = {
+    where: PlatformScreenDetailWhereUniqueInput
+    create: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput>
+  }
+
+  export type PlatformScreenDetailCreateManyDeploymentInputEnvelope = {
+    data: PlatformScreenDetailCreateManyDeploymentInput | PlatformScreenDetailCreateManyDeploymentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlatformScreenDetailUpsertWithWhereUniqueWithoutDeploymentInput = {
+    where: PlatformScreenDetailWhereUniqueInput
+    update: XOR<PlatformScreenDetailUpdateWithoutDeploymentInput, PlatformScreenDetailUncheckedUpdateWithoutDeploymentInput>
+    create: XOR<PlatformScreenDetailCreateWithoutDeploymentInput, PlatformScreenDetailUncheckedCreateWithoutDeploymentInput>
+  }
+
+  export type PlatformScreenDetailUpdateWithWhereUniqueWithoutDeploymentInput = {
+    where: PlatformScreenDetailWhereUniqueInput
+    data: XOR<PlatformScreenDetailUpdateWithoutDeploymentInput, PlatformScreenDetailUncheckedUpdateWithoutDeploymentInput>
+  }
+
+  export type PlatformScreenDetailUpdateManyWithWhereWithoutDeploymentInput = {
+    where: PlatformScreenDetailScalarWhereInput
+    data: XOR<PlatformScreenDetailUpdateManyMutationInput, PlatformScreenDetailUncheckedUpdateManyWithoutDeploymentInput>
+  }
+
+  export type PlatformScreenDetailScalarWhereInput = {
+    AND?: PlatformScreenDetailScalarWhereInput | PlatformScreenDetailScalarWhereInput[]
+    OR?: PlatformScreenDetailScalarWhereInput[]
+    NOT?: PlatformScreenDetailScalarWhereInput | PlatformScreenDetailScalarWhereInput[]
+    id?: StringFilter<"PlatformScreenDetail"> | string
+    deploymentId?: StringFilter<"PlatformScreenDetail"> | string
+    screenName?: StringFilter<"PlatformScreenDetail"> | string
+    language?: StringFilter<"PlatformScreenDetail"> | string
+    labels?: JsonNullableFilter<"PlatformScreenDetail">
+    textElements?: JsonNullableFilter<"PlatformScreenDetail">
+    components?: JsonNullableFilter<"PlatformScreenDetail">
+    rawMetrics?: JsonNullableFilter<"PlatformScreenDetail">
+    createdAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreenDetail"> | Date | string
+  }
+
+  export type PlatformDeploymentCreateWithoutScreenDetailsInput = {
+    id?: string
+    appName: string
+    platform: string
+    status?: string
+    version?: string | null
+    commitHash?: string | null
+    buildUrl?: string | null
+    details?: string | null
+    verified?: boolean
+    verificationLog?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformDeploymentUncheckedCreateWithoutScreenDetailsInput = {
+    id?: string
+    appName: string
+    platform: string
+    status?: string
+    version?: string | null
+    commitHash?: string | null
+    buildUrl?: string | null
+    details?: string | null
+    verified?: boolean
+    verificationLog?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformDeploymentCreateOrConnectWithoutScreenDetailsInput = {
+    where: PlatformDeploymentWhereUniqueInput
+    create: XOR<PlatformDeploymentCreateWithoutScreenDetailsInput, PlatformDeploymentUncheckedCreateWithoutScreenDetailsInput>
+  }
+
+  export type PlatformDeploymentUpsertWithoutScreenDetailsInput = {
+    update: XOR<PlatformDeploymentUpdateWithoutScreenDetailsInput, PlatformDeploymentUncheckedUpdateWithoutScreenDetailsInput>
+    create: XOR<PlatformDeploymentCreateWithoutScreenDetailsInput, PlatformDeploymentUncheckedCreateWithoutScreenDetailsInput>
+    where?: PlatformDeploymentWhereInput
+  }
+
+  export type PlatformDeploymentUpdateToOneWithWhereWithoutScreenDetailsInput = {
+    where?: PlatformDeploymentWhereInput
+    data: XOR<PlatformDeploymentUpdateWithoutScreenDetailsInput, PlatformDeploymentUncheckedUpdateWithoutScreenDetailsInput>
+  }
+
+  export type PlatformDeploymentUpdateWithoutScreenDetailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformDeploymentUncheckedUpdateWithoutScreenDetailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    commitHash?: NullableStringFieldUpdateOperationsInput | string | null
+    buildUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    verificationLog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantCreateWithoutPremiumFeatureStatusesInput = {
     id?: string
     name: string
@@ -406740,6 +409644,54 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlatformScreenDetailCreateManyDeploymentInput = {
+    id?: string
+    screenName: string
+    language?: string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenDetailUpdateWithoutDeploymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenDetailUncheckedUpdateWithoutDeploymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenDetailUncheckedUpdateManyWithoutDeploymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    labels?: NullableJsonNullValueInput | InputJsonValue
+    textElements?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
+    rawMetrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PatientCreateManyClinicInput = {
     id?: string
     firstName: string
@@ -406929,6 +409881,10 @@ export namespace Prisma {
      * @deprecated Use AgentScreenBlueprintCountOutputTypeDefaultArgs instead
      */
     export type AgentScreenBlueprintCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AgentScreenBlueprintCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformDeploymentCountOutputTypeDefaultArgs instead
+     */
+    export type PlatformDeploymentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformDeploymentCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClinicCountOutputTypeDefaultArgs instead
      */
@@ -407513,6 +410469,14 @@ export namespace Prisma {
      * @deprecated Use BlueprintComponentDefaultArgs instead
      */
     export type BlueprintComponentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BlueprintComponentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformDeploymentDefaultArgs instead
+     */
+    export type PlatformDeploymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformDeploymentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformScreenDetailDefaultArgs instead
+     */
+    export type PlatformScreenDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformScreenDetailDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BdmLeadDefaultArgs instead
      */

@@ -49,12 +49,59 @@ class Proposals extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [GovernanceSnapshots, Proposals])
+class PlatformDeployments extends Table {
+  TextColumn get id => text()();
+  TextColumn get appName => text()();
+  TextColumn get platform => text()();
+  TextColumn get status => text().withDefault(const Constant('pending'))();
+  TextColumn get version => text().nullable()();
+  TextColumn get commitHash => text().nullable()();
+  TextColumn get buildUrl => text().nullable()();
+  TextColumn get details => text().nullable()();
+  BoolColumn get verified => boolean().withDefault(const Constant(false))();
+  TextColumn get verificationLog => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class PlatformScreenDetails extends Table {
+  TextColumn get id => text()();
+  TextColumn get deploymentId => text()();
+  TextColumn get screenName => text()();
+  TextColumn get language => text().withDefault(const Constant('dart'))();
+  TextColumn get labels => text().nullable()(); // JSON string
+  TextColumn get textElements => text().nullable()(); // JSON string
+  TextColumn get components => text().nullable()(); // JSON string
+  TextColumn get rawMetrics => text().nullable()(); // JSON string
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [GovernanceSnapshots, Proposals, PlatformDeployments, PlatformScreenDetails])
 class GovernanceDatabase extends _$GovernanceDatabase {
   GovernanceDatabase(super.executor);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (m) async {
+          await m.createAll();
+        },
+        onUpgrade: (m, from, to) async {
+          if (from < 3) {
+            await m.create(platformDeployments);
+            await m.create(platformScreenDetails);
+          }
+        },
+      );
 
   // Snapshot Operations
   Future<int> saveSnapshot(GovernanceSnapshotsCompanion entry) =>
@@ -81,4 +128,23 @@ class GovernanceDatabase extends _$GovernanceDatabase {
       (delete(proposals)..where((t) => t.id.equals(id))).go();
 
   Future<void> clearHistory() => delete(governanceSnapshots).go();
+
+  // Platform Deployment Operations
+  Future<int> upsertDeployment(PlatformDeploymentsCompanion entry) =>
+      into(platformDeployments).insertOnConflictUpdate(entry);
+
+  Future<List<PlatformDeployment>> getAllDeployments() => select(platformDeployments).get();
+
+  Future<void> deleteDeployment(String id) =>
+      (delete(platformDeployments)..where((t) => t.id.equals(id))).go();
+
+  // Platform Screen Detail Operations
+  Future<int> upsertScreenDetail(PlatformScreenDetailsCompanion entry) =>
+      into(platformScreenDetails).insertOnConflictUpdate(entry);
+
+  Future<List<PlatformScreenDetail>> getScreenDetailsForDeployment(String deploymentId) =>
+      (select(platformScreenDetails)..where((t) => t.deploymentId.equals(deploymentId))).get();
+
+  Future<void> deleteScreenDetailsForDeployment(String deploymentId) =>
+      (delete(platformScreenDetails)..where((t) => t.deploymentId.equals(deploymentId))).go();
 }

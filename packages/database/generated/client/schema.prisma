@@ -2894,6 +2894,49 @@ model BlueprintComponent {
   @@map("blueprint_components")
 }
 
+// ==========================================
+// PLATFORM DEPLOYMENTS & VERIFICATION REGISTRY
+// ==========================================
+
+model PlatformDeployment {
+  id              String  @id @default(uuid())
+  appName         String  @map("app_name") // e.g., 'primecare_auth', 'primecare_clinic'
+  platform        String  @map("platform") // 'web', 'android_apk', 'windows', 'linux', 'ios', 'macos'
+  status          String  @default("pending") // 'pending', 'success', 'failed'
+  version         String? @map("version") // e.g., '1.0.0'
+  commitHash      String? @map("commit_hash")
+  buildUrl        String? @map("build_url") // Cloudflare Pages URL or artifact path
+  details         String? @db.Text // Build console traces or error summaries
+  verified        Boolean @default(false) // Whether automated E2E post-deploy validation passed
+  verificationLog String? @map("verification_log") @db.Text // Crawling, button click and component audit traces
+
+  screenDetails PlatformScreenDetail[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("platform_deployments")
+}
+
+model PlatformScreenDetail {
+  id           String @id @default(uuid())
+  deploymentId String @map("deployment_id")
+  screenName   String @map("screen_name") // e.g., 'CisoDashboardScreen'
+  language     String @default("dart") // 'dart', 'typescript', etc.
+  labels       Json? // Array of parsed button/component labels
+  textElements Json?  @map("text_elements") // Array of general text/content strings
+  components   Json? // Array of nested components/widgets found
+  rawMetrics   Json?  @map("raw_metrics") // Count metrics, riverpod state metadata
+
+  deployment PlatformDeployment @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([deploymentId])
+  @@map("platform_screen_details")
+}
+
 model BdmLead {
   id               String   @id @default(uuid()) @db.Uuid
   title            String

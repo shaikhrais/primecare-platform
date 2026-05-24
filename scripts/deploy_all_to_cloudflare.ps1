@@ -126,9 +126,14 @@ foreach ($app in $apps) {
 }
 
 Write-Host ''
+Write-Host '🤖 Triggering Automated Post-Deployment Verification & Screen Details Audit Scan...' -ForegroundColor Cyan
+npx tsx scripts/post_deploy_tester.ts
+
+Write-Host ''
 Write-Host '=========================================================' -ForegroundColor Green
 Write-Host '📊 DEPLOYMENT CYCLE SUMMARY' -ForegroundColor Green
 Write-Host '=========================================================' -ForegroundColor Green
+
 
 $results | Format-Table -AutoSize
 

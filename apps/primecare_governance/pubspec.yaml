@@ -69,4 +69,5 @@ flutter:
   assets:
     - assets/translations/
     - assets/screen_status.json
+    - assets/screen_details_scan.json
     - assets/security_billboard.png

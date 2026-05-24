@@ -1920,6 +1920,34 @@ exports.Prisma.BlueprintComponentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PlatformDeploymentScalarFieldEnum = {
+  id: 'id',
+  appName: 'appName',
+  platform: 'platform',
+  status: 'status',
+  version: 'version',
+  commitHash: 'commitHash',
+  buildUrl: 'buildUrl',
+  details: 'details',
+  verified: 'verified',
+  verificationLog: 'verificationLog',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PlatformScreenDetailScalarFieldEnum = {
+  id: 'id',
+  deploymentId: 'deploymentId',
+  screenName: 'screenName',
+  language: 'language',
+  labels: 'labels',
+  textElements: 'textElements',
+  components: 'components',
+  rawMetrics: 'rawMetrics',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.BdmLeadScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2980,6 +3008,8 @@ exports.Prisma.ModelName = {
   PlatformHealthHistory: 'PlatformHealthHistory',
   AgentScreenBlueprint: 'AgentScreenBlueprint',
   BlueprintComponent: 'BlueprintComponent',
+  PlatformDeployment: 'PlatformDeployment',
+  PlatformScreenDetail: 'PlatformScreenDetail',
   BdmLead: 'BdmLead',
   TerritoryExpansionPlan: 'TerritoryExpansionPlan',
   PartnershipDeal: 'PartnershipDeal',
