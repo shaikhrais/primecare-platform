@@ -1157,8 +1157,8 @@ def init_db(force_reset=False):
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (task_id) REFERENCES implementation_tasks(id) ON DELETE SET NULL,
       FOREIGN KEY (artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,
-      FOREIGN KEY (before_snapshot_id) REFERENCES rollback_snapshots(id) ON DELETE SET NULL,
-      FOREIGN KEY (after_snapshot_id) REFERENCES rollback_snapshots(id) ON DELETE SET NULL,
+      FOREIGN KEY (before_snapshot_id) REFERENCES governance_snapshots(id) ON DELETE SET NULL,
+      FOREIGN KEY (after_snapshot_id) REFERENCES governance_snapshots(id) ON DELETE SET NULL,
       FOREIGN KEY (verified_by_test_run_id) REFERENCES test_runs(id) ON DELETE SET NULL
     );
     """)
