@@ -102,7 +102,7 @@ final localDeploymentsProvider = FutureProvider<List<PlatformDeployment>>((ref) 
   return service.getDeployments();
 });
 
-final localScreenDetailsProvider = FutureProviderFamily<List<PlatformScreenDetail>, String>((ref, deploymentId) async {
+final localScreenDetailsProvider = FutureProvider.family<List<PlatformScreenDetail>, String>((ref, deploymentId) async {
   final service = ref.watch(deploymentSyncServiceProvider);
   return service.getScreenDetails(deploymentId);
 });
