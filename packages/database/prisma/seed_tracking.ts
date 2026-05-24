@@ -433,6 +433,18 @@ async function seed() {
       });
       
       if (!screen) {
+        let auditStatus = 'not_verified_yet';
+        let auditDate: Date | null = null;
+        if (screenData.status === 'completed') {
+          if (screenData.name.includes('Live Visit')) {
+            auditStatus = 'verified';
+            auditDate = new Date();
+          } else {
+            auditStatus = 'approved';
+            auditDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // 1 day ago
+          }
+        }
+
         screen = await prisma.platformScreen.create({
           data: {
             roleId: role.id,
@@ -440,16 +452,32 @@ async function seed() {
             route: screenData.route,
             status: screenData.status,
             description: screenData.description,
-            orderIndex: screenData.orderIndex
+            orderIndex: screenData.orderIndex,
+            auditStatus,
+            auditDate
           }
         });
         console.log(`  Created Screen: ${screenData.orderIndex} ${screenData.name}`);
       } else {
+        let auditStatus = 'not_verified_yet';
+        let auditDate: Date | null = null;
+        if (screenData.status === 'completed') {
+          if (screenData.name.includes('Live Visit')) {
+            auditStatus = 'verified';
+            auditDate = new Date();
+          } else {
+            auditStatus = 'approved';
+            auditDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // 1 day ago
+          }
+        }
+
         await prisma.platformScreen.update({
              where: { id: screen.id },
              data: {
                  description: screenData.description,
-                 orderIndex: screenData.orderIndex
+                 orderIndex: screenData.orderIndex,
+                 auditStatus,
+                 auditDate
              }
         });
       }

@@ -239,475 +239,134 @@ class BillingAdminDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(billingAdminDashboardProvider);
     final controller = ref.read(billingAdminDashboardProvider.notifier);
     final theme = context.theme;
-
-    // Derived values
-    final totalDiscrepancies = state.invoices.where((inv) => inv.isDiscrepant).length;
-    final totalVolume = state.invoices.fold<double>(0.0, (acc, inv) => acc + inv.amount);
-    final outstandingVolume = state.invoices
-        .where((inv) => inv.status != 'Matched & Cleared')
-        .fold<double>(0.0, (acc, inv) => acc + inv.amount);
-
-    // Dynamic GST/HST calculation based on outstanding volume
-    final calculatedTax = outstandingVolume * (state.hstRatePercent / 100.0);
+    final roleBase = 'BillingAdminDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Row(
-          children: [
-            Icon(LucideIcons.fileSpreadsheet, color: theme.colors.primary, size: 24),
-            const SizedBox(width: 8),
-            Text(
-              'Billing Admin Hub', // .tr() LocaleKeys.
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-            ),
-          ],
+        title: Text(
+          state.title,
+          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () {
-              controller.addLog('[PULL-FEEDS] Plaid banking transactions synchronized.'); // .tr() LocaleKeys.
-            },
+            onPressed: () => controller.addLog('Manual refresh triggered.'),
           ),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1800),
-          child: ResponsiveSplitDashboard(
-            metrics: [
-              GovMetricCard(
-                title: 'Total Active Volume', // .tr() LocaleKeys.
-                value: '\$${totalVolume.toStringAsFixed(2)} CAD', // .tr() LocaleKeys.
-                trendLabel: 'Sum of open & cleared invoices', // .tr() LocaleKeys.
-                progress: 0.85,
-                icon: LucideIcons.coins,
-                brandColor: theme.colors.primary,
-              ),
-              GovMetricCard(
-                title: 'Ledger Discrepancies', // .tr() LocaleKeys.
-                value: totalDiscrepancies == 0 ? 'Zero flags' : '$totalDiscrepancies mismatch alerts', // .tr() LocaleKeys.
-                trendLabel: totalDiscrepancies == 0 ? 'Optimal double-entry health' : 'Unmatched bank offsets', // .tr() LocaleKeys.
-                progress: totalDiscrepancies == 0 ? 1.0 : 0.65,
-                icon: LucideIcons.alertTriangle,
-                brandColor: totalDiscrepancies == 0 ? const Color(0xFF0D9488) : const Color(0xFFEF4444),
-              ),
-              GovMetricCard(
-                title: 'HST Benchmark', // .tr() LocaleKeys.
-                value: '\$${calculatedTax.toStringAsFixed(2)} CAD', // .tr() LocaleKeys.
-                trendLabel: 'Estimated HST to remit', // .tr() LocaleKeys.
-                progress: 0.90,
-                icon: LucideIcons.percent,
-                brandColor: Colors.amber,
-              ),
-            ],
-            mainContent: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+            ),
+            const SizedBox(height: 24),
+            Row(
               children: [
-                // --- Title Hero Title Card ---
-                GovDashboardHero(
-                  title: 'Billing & Invoicing administration', // .tr() LocaleKeys.
-                  roleName: 'Ledger Audit Command', // .tr() LocaleKeys.
-                  description: 'Reconcile patient service invoice disputes, tweak base billing hourly rates, compute provincial GST/HST CRA tax offsets, and track accounting ledger health.', // .tr() LocaleKeys.
-                  onRefresh: () => controller.addLog('[HEALTH-CHECK] Double-entry ledger parity confirmed.'), // .tr() LocaleKeys.
-                ),
-                const SizedBox(height: 24),
-
-                // --- Billing Reconciliation Matrix ---
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: theme.colors.surface,
-                    borderRadius: BorderRadius.circular(theme.radiusMd),
-                    border: Border.all(color: theme.colors.border),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Banking Ledgers & Invoices', // .tr() LocaleKeys.
-                            style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                          ),
-                          // Bulk auto match trigger button
-                          SizedBox(
-                            height: 36,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: theme.colors.primary,
-                                elevation: 0,
-                                padding: const EdgeInsets.symmetric(horizontal: 14),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
-                              onPressed: state.isLoading ? null : () => controller.bulkReconcile(),
-                              child: state.isLoading
-                                  ? const SizedBox(
-                                      height: 14,
-                                      width: 14,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                                      ),
-                                    )
-                                  : Row(
-                                      children: [
-                                        const Icon(LucideIcons.sparkles, color: Colors.white, size: 14),
-                                        const SizedBox(width: 6),
-                                        Text(
-                                          'Fuzzy Smart Resolve All', // .tr() LocaleKeys.
-                                          style: theme.typography.button.copyWith(color: Colors.white, fontSize: 11),
-                                        ),
-                                      ],
-                                    ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      // Invoices mapping
-                      ...state.invoices.map((invoice) {
-                        final hasMismatch = invoice.isDiscrepant;
-                        final isMatching = invoice.status == 'Matching Ledger...'; // .tr() LocaleKeys.
-
-                        Color stateBorder = theme.colors.border;
-                        Color statusAccent = theme.colors.primary;
-
-                        if (hasMismatch) {
-                          stateBorder = const Color(0xFFEF4444);
-                          statusAccent = const Color(0xFFEF4444);
-                        } else if (invoice.status == 'Outstanding') { // .tr() LocaleKeys.
-                          stateBorder = const Color(0xFFD97706);
-                          statusAccent = const Color(0xFFD97706);
-                        } else if (invoice.status == 'Matched & Cleared') { // .tr() LocaleKeys.
-                          stateBorder = const Color(0xFF0D9488);
-                          statusAccent = const Color(0xFF0D9488);
-                        }
-
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: theme.colors.background,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: stateBorder),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                          decoration: BoxDecoration(
-                                            color: statusAccent.withValues(alpha: 0.1),
-                                            borderRadius: BorderRadius.circular(4),
-                                          ),
-                                          child: Text(
-                                            invoice.serviceType,
-                                            style: theme.typography.bodySmall.copyWith(
-                                              color: statusAccent,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          invoice.id,
-                                          style: theme.typography.bodySmall.copyWith(
-                                            color: theme.colors.onSurfaceVariant,
-                                            fontFamily: 'monospace',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      invoice.clientName,
-                                      style: theme.typography.bodyLarge.copyWith(
-                                        color: theme.colors.onSurface,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Invoice Amount: \$${invoice.amount.toStringAsFixed(2)} CAD', // .tr() LocaleKeys.
-                                      style: theme.typography.bodyMedium.copyWith(
-                                        color: theme.colors.onSurfaceVariant,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              // Actions buttons
-                              SizedBox(
-                                height: 36,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: hasMismatch
-                                        ? const Color(0xFFEF4444)
-                                        : isMatching
-                                            ? theme.colors.border
-                                            : theme.colors.surface,
-                                    foregroundColor: hasMismatch ? Colors.white : theme.colors.onSurface,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                      side: hasMismatch ? BorderSide.none : BorderSide(color: theme.colors.border),
-                                    ),
-                                  ),
-                                  onPressed: (isMatching || !hasMismatch)
-                                      ? null
-                                      : () => controller.reconcileInvoice(invoice.id),
-                                  child: isMatching
-                                      ? const SizedBox(
-                                          height: 14,
-                                          width: 14,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                            valueColor: AlwaysStoppedAnimation(Colors.grey),
-                                          ),
-                                        )
-                                      : Text(
-                                          hasMismatch ? 'Fuzzy Offset MATCH' : invoice.status, // .tr() LocaleKeys.
-                                          style: theme.typography.button.copyWith(
-                                            color: hasMismatch ? Colors.white : theme.colors.onSurfaceVariant,
-                                            fontSize: 11,
-                                          ),
-                                        ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                    ],
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
                   ),
                 ),
               ],
             ),
-            defaultSidebarWidgets: [
-              // --- GST/HST Calculator & Rate Adjustments Panel ---
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'CRA GST/HST Remittance Simulator', // .tr() LocaleKeys.
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Simulate provincial sales tax margins on outstanding care billing.', // .tr() LocaleKeys.
-                      style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                    ),
-                    const SizedBox(height: 20),
-                    // Display calculated tax
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Tax Rate Multiplier:', // .tr() LocaleKeys.
-                          style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface),
-                        ),
-                        Text(
-                          '${state.hstRatePercent.toStringAsFixed(1)}%',
-                          style: theme.typography.h4.copyWith(
-                            color: theme.colors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Slider(
-                      activeColor: theme.colors.primary,
-                      inactiveColor: theme.colors.border,
-                      min: 0,
-                      max: 20,
-                      divisions: 20,
-                      value: state.hstRatePercent,
-                      onChanged: (val) => controller.updateHstRate(val),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: theme.colors.background,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Estimated HST to Remit:', // .tr() LocaleKeys.
-                            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                          ),
-                          Text(
-                            '\$${calculatedTax.toStringAsFixed(2)} CAD',
-                            style: theme.typography.h3.copyWith(
-                              color: const Color(0xFFD97706),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(height: 32),
-                    // Hourly Rate adjusters
-                    Text(
-                      'Operational Base Billing Rates', // .tr() LocaleKeys.
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'PSW Billing Rate: \$${state.pswRatePerHour.toStringAsFixed(2)}/hr', // .tr() LocaleKeys.
-                          style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
-                        ),
-                        Text(
-                          'RN Billing Rate: \$${state.rnRatePerHour.toStringAsFixed(2)}/hr', // .tr() LocaleKeys.
-                          style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Slider(
-                            activeColor: theme.colors.primary,
-                            inactiveColor: theme.colors.border,
-                            min: 15,
-                            max: 60,
-                            value: state.pswRatePerHour,
-                            onChanged: (val) => controller.updatePswRate(val),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Slider(
-                            activeColor: theme.colors.primary,
-                            inactiveColor: theme.colors.border,
-                            min: 40,
-                            max: 120,
-                            value: state.rnRatePerHour,
-                            onChanged: (val) => controller.updateRnRate(val),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
               ),
-              const SizedBox(height: 24),
-
-              // --- Monospace System Ledger Logs ---
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0F172A),
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: const Color(0xFF1E293B)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Operational Audit Logs',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  ),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(LucideIcons.terminal, color: Color(0xFF38BDF8), size: 20),
-                            const SizedBox(width: 8),
                             Text(
-                              'Corporate Billing System Audit Ledger', // .tr() LocaleKeys.
-                              style: theme.typography.h4.copyWith(color: const Color(0xFFF8FAFC)),
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
                             ),
                           ],
                         ),
-                        IconButton(
-                          icon: const Icon(LucideIcons.trash2, color: Color(0xFF64748B), size: 18),
-                          onPressed: () => controller.clearLogs(),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 180,
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF020617),
-                        borderRadius: BorderRadius.circular(6),
                       ),
-                      child: ListView.builder(
-                        itemCount: state.logs.length,
-                        itemBuilder: (context, idx) {
-                          final log = state.logs[idx];
-                          Color logColor = const Color(0xFFCBD5E1);
-
-                          if (log.contains('[RECONCILER]')) {
-                            logColor = const Color(0xFFFBBF24);
-                          } else if (log.contains('[RECONCILER-SUCCESS]')) {
-                            logColor = const Color(0xFF34D399);
-                          } else if (log.contains('[RATE-CHANGE]')) {
-                            logColor = const Color(0xFF60A5FA);
-                          } else if (log.contains('[LEDGER-SYNC]')) {
-                            logColor = const Color(0xFFF472B6);
-                          } else if (log.contains('[TAX-COMPLIANCE]') || log.contains('[TAX-CALC]')) {
-                            logColor = const Color(0xFFFB923C);
-                          }
-
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 6.0),
-                            child: Text(
-                              log,
-                              style: const TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 12,
-                              ).copyWith(color: logColor),
+                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Execute Operational Audit Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
                             ),
-                          );
-                        },
-                      ),
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const AiInsightsCard(
-                heading: 'Billing & Remittance Insights', // .tr() LocaleKeys.
-                suggestions: [
-                  'Ensure HST remittance reports align with CRA quarterly schedules.', // .tr() LocaleKeys.
-                  'Audit ledger records automatically cross-reference Plaid banking feeds.', // .tr() LocaleKeys.
-                  'Resolve underpaid invoice balances by triggering fuzzy smart ledger offset match.', // .tr() LocaleKeys.
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

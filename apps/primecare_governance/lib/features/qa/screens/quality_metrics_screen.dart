@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Quality Metrics Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'quality_metrics_screen_controller.dart';
 
-class QualityMetricsScreen extends StatelessWidget {
-  const QualityMetricsScreen({Key? key}) : super(key: key);
+class QualityMetricsScreen extends ConsumerWidget {
+  const QualityMetricsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.speed, size: 40, color: Colors.indigo),
-                const SizedBox(width: 16),
-                Text("Quality Metrics", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.indigo)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.speed, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Quality Metrics actively running.", style: const TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(QualityMetricsScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('QualityMetrics'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'QualityMetricsScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

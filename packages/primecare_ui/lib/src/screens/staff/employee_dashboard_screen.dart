@@ -169,6 +169,7 @@ class EmployeeDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(employeeDashboardControllerProvider);
     final controller = ref.read(employeeDashboardControllerProvider.notifier);
     final theme = context.theme;
+    final roleBase = 'EmployeeDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -179,239 +180,123 @@ class EmployeeDashboardScreen extends GovernedConsumerWidget {
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+            onPressed: () => controller.addLog('Manual refresh triggered.'),
+          ),
+        ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 3840),
-          child: ResponsiveSplitDashboard(
-            metrics: [
-              GovMetricCard(
-                title: 'Active Operations',
-                value: 'Active',
-                trendLabel: 'Optimal status',
-                progress: 0.95,
-                icon: LucideIcons.activity,
-                brandColor: theme.colors.primary,
-              ),
-              GovMetricCard(
-                title: 'Clearance Status',
-                value: 'Authorized',
-                trendLabel: 'Zero issues flagged',
-                progress: 1.0,
-                icon: LucideIcons.shieldCheck,
-                brandColor: Colors.green,
-              ),
-              GovMetricCard(
-                title: 'Telemetry Sync',
-                value: '100% In Sync',
-                trendLabel: 'Real API connected',
-                progress: 1.0,
-                icon: LucideIcons.network,
-                brandColor: Colors.blue,
-              ),
-              GovMetricCard(
-                title: 'API Latency',
-                value: '24ms',
-                trendLabel: 'Ultra low latency',
-                progress: 0.98,
-                icon: LucideIcons.database,
-                brandColor: Colors.amber,
-              ),
-            ],
-            mainContent: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+            ),
+            const SizedBox(height: 24),
+            Row(
               children: [
-                GovDashboardHero(
-                  title: state.title,
-                  roleName: 'Employee Hub',
-                  description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-                  onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
+                  ),
                 ),
-                const SizedBox(height: 24),
-                ResponsiveGrid(
-                  spacing: 24,
-                  runSpacing: 24,
-                  minItemWidth: 320,
-                  maxItemWidth: 500,
-                  children: [
-                    // Employee Payslips & Pay stub Card component
-                    Container(
-                      key: const ValueKey('data-cy-employee-payslips-card'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee Payslips & Pay stub Card", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee Payslips & Pay stub Card.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Employee Benefits Summary Card component
-                    Container(
-                      key: const ValueKey('data-cy-employee-benefits-widget'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee Benefits Summary Card", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee Benefits Summary Card.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Employee PTO Accrual Widget component
-                    Container(
-                      key: const ValueKey('data-cy-employee-pto-tracker'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee PTO Accrual Widget", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee PTO Accrual Widget.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Employee Performance Review Records component
-                    Container(
-                      key: const ValueKey('data-cy-employee-performance-reviews'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee Performance Review Records", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee Performance Review Records.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Employee Tax Deductions & Contributions Hub component
-                    Container(
-                      key: const ValueKey('data-cy-employee-tax-deductions-hub'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee Tax Deductions & Contributions Hub", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee Tax Deductions & Contributions Hub.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Employee Internal Announcement Feed component
-                    Container(
-                      key: const ValueKey('data-cy-employee-company-news-board'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Employee Internal Announcement Feed", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Employee Internal Announcement Feed.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                  ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
+                  ),
                 ),
               ],
             ),
-            defaultSidebarWidgets: [
-              QuickActionsPanel(
-                title: 'Quick Actions',
-                actions: [
-                  QuickActionItem(
-                    label: 'Submit PTO Time-Off Request',
-                    icon: LucideIcons.shieldCheck,
-                    color: theme.colors.primary,
-                    onTap: () => controller.requestPtoDays(),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Operational Audit Logs',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                   ),
-                  QuickActionItem(
-                    label: 'Download Tax Slip/W2 Document',
-                    icon: LucideIcons.download,
-                    color: Colors.green,
-                    onTap: () => controller.downloadTaxT4(),
-                  )
-                ],
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Operational Audit Logs',
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Execute Operational Audit Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
+                            ),
                     ),
-                    const SizedBox(height: 12),
-                    ...state.logs.map((log) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '• ',
-                                style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  log,
-                                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const AiInsightsCard(
-                heading: 'System & Policy Insights',
-                suggestions: [
-                  'All active endpoints enforce dynamic credential verification.',
-                  'Last automated compliance sweep checked out successfully.',
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

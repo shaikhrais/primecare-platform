@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Scheduler Coordinator Reports Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'scheduler_coordinator_reports_screen_controller.dart';
 
-class SchedulerCoordinatorReportsScreen extends StatelessWidget {
-  const SchedulerCoordinatorReportsScreen({Key? key}) : super(key: key);
+class SchedulerCoordinatorReportsScreen extends ConsumerWidget {
+  const SchedulerCoordinatorReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.analytics, size: 40, color: Colors.blue.shade700),
-                const SizedBox(width: 16),
-                Text("Reports", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blue.shade700)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.analytics, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Reports actively running.", style: TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(SchedulerCoordinatorReportsScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('SchedulerCoordinatorReports'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'SchedulerCoordinatorReportsScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

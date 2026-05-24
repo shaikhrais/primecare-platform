@@ -1,5 +1,5 @@
 // Governance - Category: test | Purpose: Core implementation file for the Telemetry Integration Test platform logic.
-﻿import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_governance/core/governance/governance_provider.dart';
 import 'package:primecare_governance/core/governance/governance_api_service.dart';

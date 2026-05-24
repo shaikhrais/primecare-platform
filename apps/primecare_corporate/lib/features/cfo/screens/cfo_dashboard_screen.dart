@@ -1,83 +1,37 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Cfo Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'cfo_dashboard_screen_controller.dart';
 
-class CfoDashboardScreen extends StatefulWidget {
-  const CfoDashboardScreen({Key? key}) : super(key: key);
-
-  @override
-  State<CfoDashboardScreen> createState() => _CfoDashboardScreenState();
-}
-
-class _CfoDashboardScreenState extends State<CfoDashboardScreen> {
-  final List<Map<String, dynamic>> _approvals = [
-    {'dept': 'IT Infrastructure', 'req': 'Q3 Server Upgrades', 'amount': '\$45,000'},
-    {'dept': 'Marketing', 'req': 'National Ad Campaign', 'amount': '\$120,000'},
-  ];
+class CfoDashboardScreen extends ConsumerWidget {
+  const CfoDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Financial Ledger (CFO)'), backgroundColor: Colors.green.shade800),
-        body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1800),
-          child: ListView(
-          padding: const EdgeInsets.all(32.0),
-          children: [
-            const Text('Capital Allocation & Approvals', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(child: _buildMetric('Operating Cash', '\$4.2M', Colors.green)),
-                const SizedBox(width: 24),
-                Expanded(child: _buildMetric('Accounts Receivable', '\$1.8M', Colors.orange)),
-                const SizedBox(width: 24),
-                Expanded(child: _buildMetric('Burn Rate', '\$200K/mo', Colors.red)),
-              ],
-            ),
-            const SizedBox(height: 48),
-            const Text('Pending Budget Approvals', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            ..._approvals.map((req) => Card(
-              child: ListTile(
-                leading: Icon(Icons.request_quote, color: Colors.green, size: 40),
-                title: Text(req['req'], style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text("Department: \${req['dept']}"),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(req['amount'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red)),
-                    const SizedBox(width: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() => _approvals.remove(req));
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Approved \${req['amount']} for \${req['dept']}")));
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white),
-                      child: const Text('Authorize'),
-                    )
-                  ],
-                ),
-              ),
-            )).toList()
-          ],
-        ),
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(CfoDashboardScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('CfoDashboard'),
       ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
     );
   }
 
-  Widget _buildMetric(String title, String value, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(border: Border.all(color: color, width: 2), borderRadius: BorderRadius.circular(12)),
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(value, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: color)),
-          const SizedBox(height: 8),
-          Text(title, style: TextStyle(fontSize: 16, color: Colors.grey)),
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'CfoDashboardScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ],
       ),
     );

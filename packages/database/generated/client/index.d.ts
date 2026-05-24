@@ -1,4 +1,3 @@
-// Governance - Category: service | Purpose: Client Model User Model Tenant
 
 /**
  * Client
@@ -147088,6 +147087,8 @@ export namespace Prisma {
     status: string | null
     description: string | null
     orderIndex: number | null
+    auditStatus: string | null
+    auditDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -147100,6 +147101,8 @@ export namespace Prisma {
     status: string | null
     description: string | null
     orderIndex: number | null
+    auditStatus: string | null
+    auditDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -147112,6 +147115,8 @@ export namespace Prisma {
     status: number
     description: number
     orderIndex: number
+    auditStatus: number
+    auditDate: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -147134,6 +147139,8 @@ export namespace Prisma {
     status?: true
     description?: true
     orderIndex?: true
+    auditStatus?: true
+    auditDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -147146,6 +147153,8 @@ export namespace Prisma {
     status?: true
     description?: true
     orderIndex?: true
+    auditStatus?: true
+    auditDate?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -147158,6 +147167,8 @@ export namespace Prisma {
     status?: true
     description?: true
     orderIndex?: true
+    auditStatus?: true
+    auditDate?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -147257,6 +147268,8 @@ export namespace Prisma {
     status: string
     description: string | null
     orderIndex: number
+    auditStatus: string
+    auditDate: Date | null
     createdAt: Date
     updatedAt: Date
     _count: PlatformScreenCountAggregateOutputType | null
@@ -147288,6 +147301,8 @@ export namespace Prisma {
     status?: boolean
     description?: boolean
     orderIndex?: boolean
+    auditStatus?: boolean
+    auditDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
@@ -147304,6 +147319,8 @@ export namespace Prisma {
     status?: boolean
     description?: boolean
     orderIndex?: boolean
+    auditStatus?: boolean
+    auditDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
@@ -147317,6 +147334,8 @@ export namespace Prisma {
     status?: boolean
     description?: boolean
     orderIndex?: boolean
+    auditStatus?: boolean
+    auditDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -147346,6 +147365,8 @@ export namespace Prisma {
       status: string
       description: string | null
       orderIndex: number
+      auditStatus: string
+      auditDate: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["platformScreen"]>
@@ -147751,6 +147772,8 @@ export namespace Prisma {
     readonly status: FieldRef<"PlatformScreen", 'String'>
     readonly description: FieldRef<"PlatformScreen", 'String'>
     readonly orderIndex: FieldRef<"PlatformScreen", 'Int'>
+    readonly auditStatus: FieldRef<"PlatformScreen", 'String'>
+    readonly auditDate: FieldRef<"PlatformScreen", 'DateTime'>
     readonly createdAt: FieldRef<"PlatformScreen", 'DateTime'>
     readonly updatedAt: FieldRef<"PlatformScreen", 'DateTime'>
   }
@@ -247686,6 +247709,8 @@ export namespace Prisma {
     status: 'status',
     description: 'description',
     orderIndex: 'orderIndex',
+    auditStatus: 'auditStatus',
+    auditDate: 'auditDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -259538,6 +259563,8 @@ export namespace Prisma {
     status?: StringFilter<"PlatformScreen"> | string
     description?: StringNullableFilter<"PlatformScreen"> | string | null
     orderIndex?: IntFilter<"PlatformScreen"> | number
+    auditStatus?: StringFilter<"PlatformScreen"> | string
+    auditDate?: DateTimeNullableFilter<"PlatformScreen"> | Date | string | null
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
@@ -259553,6 +259580,8 @@ export namespace Prisma {
     status?: SortOrder
     description?: SortOrderInput | SortOrder
     orderIndex?: SortOrder
+    auditStatus?: SortOrder
+    auditDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: PlatformRoleOrderByWithRelationInput
@@ -259571,6 +259600,8 @@ export namespace Prisma {
     status?: StringFilter<"PlatformScreen"> | string
     description?: StringNullableFilter<"PlatformScreen"> | string | null
     orderIndex?: IntFilter<"PlatformScreen"> | number
+    auditStatus?: StringFilter<"PlatformScreen"> | string
+    auditDate?: DateTimeNullableFilter<"PlatformScreen"> | Date | string | null
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
@@ -259586,6 +259617,8 @@ export namespace Prisma {
     status?: SortOrder
     description?: SortOrderInput | SortOrder
     orderIndex?: SortOrder
+    auditStatus?: SortOrder
+    auditDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PlatformScreenCountOrderByAggregateInput
@@ -259606,6 +259639,8 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"PlatformScreen"> | string
     description?: StringNullableWithAggregatesFilter<"PlatformScreen"> | string | null
     orderIndex?: IntWithAggregatesFilter<"PlatformScreen"> | number
+    auditStatus?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    auditDate?: DateTimeNullableWithAggregatesFilter<"PlatformScreen"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
   }
@@ -278107,6 +278142,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
@@ -278122,6 +278159,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
@@ -278135,6 +278174,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
@@ -278150,6 +278191,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
@@ -278164,6 +278207,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -278175,6 +278220,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -278187,6 +278234,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -293203,6 +293252,8 @@ export namespace Prisma {
     status?: SortOrder
     description?: SortOrder
     orderIndex?: SortOrder
+    auditStatus?: SortOrder
+    auditDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -293219,6 +293270,8 @@ export namespace Prisma {
     status?: SortOrder
     description?: SortOrder
     orderIndex?: SortOrder
+    auditStatus?: SortOrder
+    auditDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -293231,6 +293284,8 @@ export namespace Prisma {
     status?: SortOrder
     description?: SortOrder
     orderIndex?: SortOrder
+    auditStatus?: SortOrder
+    auditDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -326063,6 +326118,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
@@ -326076,6 +326133,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
@@ -326421,6 +326480,8 @@ export namespace Prisma {
     status?: StringFilter<"PlatformScreen"> | string
     description?: StringNullableFilter<"PlatformScreen"> | string | null
     orderIndex?: IntFilter<"PlatformScreen"> | number
+    auditStatus?: StringFilter<"PlatformScreen"> | string
+    auditDate?: DateTimeNullableFilter<"PlatformScreen"> | Date | string | null
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
   }
@@ -384145,6 +384206,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
@@ -384159,6 +384222,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     componentPurposes?: ComponentPurposeUncheckedCreateNestedManyWithoutScreenInput
@@ -384221,6 +384286,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
@@ -384235,6 +384302,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     componentPurposes?: ComponentPurposeUncheckedUpdateManyWithoutScreenNestedInput
@@ -393464,6 +393533,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
@@ -393478,6 +393549,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
@@ -393570,6 +393643,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
@@ -393584,6 +393659,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
@@ -401799,6 +401876,8 @@ export namespace Prisma {
     status?: string
     description?: string | null
     orderIndex?: number
+    auditStatus?: string
+    auditDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -401855,6 +401934,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
@@ -401868,6 +401949,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
@@ -401881,6 +401964,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+    auditStatus?: StringFieldUpdateOperationsInput | string
+    auditDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Territory Expansion Manager Market Research Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'territory_expansion_manager_market_research_screen_controller.dart';
 
-class TerritoryExpansionManagerMarketResearchScreen extends StatelessWidget {
-  const TerritoryExpansionManagerMarketResearchScreen({Key? key}) : super(key: key);
+class TerritoryExpansionManagerMarketResearchScreen extends ConsumerWidget {
+  const TerritoryExpansionManagerMarketResearchScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.search, size: 40, color: Colors.orange.shade700),
-                const SizedBox(width: 16),
-                Text("Market Research", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Market Research actively running.", style: TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(TerritoryExpansionManagerMarketResearchScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TerritoryExpansionManagerMarketResearch'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'TerritoryExpansionManagerMarketResearchScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

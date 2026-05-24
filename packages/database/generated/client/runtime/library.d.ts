@@ -1,4 +1,3 @@
-// Governance - Category: service | Purpose: @param this
 /**
  * @param this
  */

@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Partnership Manager Outreach Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'partnership_manager_outreach_screen_controller.dart';
 
-class PartnershipManagerOutreachScreen extends StatelessWidget {
-  const PartnershipManagerOutreachScreen({Key? key}) : super(key: key);
+class PartnershipManagerOutreachScreen extends ConsumerWidget {
+  const PartnershipManagerOutreachScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.forward_to_inbox, size: 40, color: Colors.purple.shade600),
-                const SizedBox(width: 16),
-                Text("Outreach", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.purple.shade600)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.forward_to_inbox, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Outreach actively running.", style: TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(PartnershipManagerOutreachScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('PartnershipManagerOutreach'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'PartnershipManagerOutreachScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

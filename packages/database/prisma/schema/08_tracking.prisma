@@ -10,6 +10,9 @@ model PlatformScreen {
   status      String  @default("pending") // pending, in-progress, completed
   description String? @db.Text
   orderIndex  Int     @default(0) @map("order_index")
+  
+  auditStatus String    @default("not_verified_yet") @map("audit_status") // approved, not_verified_yet, verified
+  auditDate   DateTime? @map("audit_date")
 
   role              PlatformRole          @relation(fields: [roleId], references: [id])
   functions         ScreenFunctionality[]

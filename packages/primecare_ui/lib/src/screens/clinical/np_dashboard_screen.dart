@@ -169,6 +169,7 @@ class NpDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(npDashboardControllerProvider);
     final controller = ref.read(npDashboardControllerProvider.notifier);
     final theme = context.theme;
+    final roleBase = 'NpDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -179,239 +180,123 @@ class NpDashboardScreen extends GovernedConsumerWidget {
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+            onPressed: () => controller.addLog('Manual refresh triggered.'),
+          ),
+        ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 3840),
-          child: ResponsiveSplitDashboard(
-            metrics: [
-              GovMetricCard(
-                title: 'Active Operations',
-                value: 'Active',
-                trendLabel: 'Optimal status',
-                progress: 0.95,
-                icon: LucideIcons.activity,
-                brandColor: theme.colors.primary,
-              ),
-              GovMetricCard(
-                title: 'Clearance Status',
-                value: 'Authorized',
-                trendLabel: 'Zero issues flagged',
-                progress: 1.0,
-                icon: LucideIcons.shieldCheck,
-                brandColor: Colors.green,
-              ),
-              GovMetricCard(
-                title: 'Telemetry Sync',
-                value: '100% In Sync',
-                trendLabel: 'Real API connected',
-                progress: 1.0,
-                icon: LucideIcons.network,
-                brandColor: Colors.blue,
-              ),
-              GovMetricCard(
-                title: 'API Latency',
-                value: '24ms',
-                trendLabel: 'Ultra low latency',
-                progress: 0.98,
-                icon: LucideIcons.database,
-                brandColor: Colors.amber,
-              ),
-            ],
-            mainContent: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+            ),
+            const SizedBox(height: 24),
+            Row(
               children: [
-                GovDashboardHero(
-                  title: state.title,
-                  roleName: 'Nurse Practitioner (NP) Hub',
-                  description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-                  onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
+                  ),
                 ),
-                const SizedBox(height: 24),
-                ResponsiveGrid(
-                  spacing: 24,
-                  runSpacing: 24,
-                  minItemWidth: 320,
-                  maxItemWidth: 500,
-                  children: [
-                    // NP Diagnostics & Orders Card component
-                    Container(
-                      key: const ValueKey('data-cy-np-diagnostics-panel'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Diagnostics & Orders Card", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Diagnostics & Orders Card.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // NP Collaboration Hub component
-                    Container(
-                      key: const ValueKey('data-cy-np-collaborative-agreements'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Collaboration Hub", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Collaboration Hub.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // NP Acute Care Clinical Log component
-                    Container(
-                      key: const ValueKey('data-cy-np-acute-care-log'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Acute Care Clinical Log", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Acute Care Clinical Log.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // NP Independent Authority Agreements Card component
-                    Container(
-                      key: const ValueKey('data-cy-np-collaborative-agreements-hub'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Independent Authority Agreements Card", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Independent Authority Agreements Card.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // NP Controlled Substance Refill Portal component
-                    Container(
-                      key: const ValueKey('data-cy-np-prescription-refills-panel'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Controlled Substance Refill Portal", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Controlled Substance Refill Portal.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // NP Health Promotion & Screening Panel component
-                    Container(
-                      key: const ValueKey('data-cy-np-health-promotion-tracker'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("NP Health Promotion & Screening Panel", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for NP Health Promotion & Screening Panel.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                  ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
+                  ),
                 ),
               ],
             ),
-            defaultSidebarWidgets: [
-              QuickActionsPanel(
-                title: 'Quick Actions',
-                actions: [
-                  QuickActionItem(
-                    label: 'Sign NP Diagnostic Order',
-                    icon: LucideIcons.play,
-                    color: theme.colors.primary,
-                    onTap: () => controller.signDiagnosticOrder(),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Operational Audit Logs',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                   ),
-                  QuickActionItem(
-                    label: 'Refer NP Case to Physician',
-                    icon: LucideIcons.download,
-                    color: Colors.green,
-                    onTap: () => controller.referToPhysician(),
-                  )
-                ],
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Operational Audit Logs',
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Execute Operational Audit Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
+                            ),
                     ),
-                    const SizedBox(height: 12),
-                    ...state.logs.map((log) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '• ',
-                                style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  log,
-                                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const AiInsightsCard(
-                heading: 'System & Policy Insights',
-                suggestions: [
-                  'All active endpoints enforce dynamic credential verification.',
-                  'Last automated compliance sweep checked out successfully.',
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

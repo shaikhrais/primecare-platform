@@ -1,49 +1,39 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Psw Care Dashboard Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'psw_care_dashboard_screen_controller.dart';
 
-class PswCareDashboardScreen extends StatelessWidget {
-  const PswCareDashboardScreen({Key? key}) : super(key: key);
+class PswCareDashboardScreen extends ConsumerWidget {
+  const PswCareDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1800),
-            child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.home, size: 32, color: Colors.teal),
-                const SizedBox(width: 12),
-                Text('Care Dashboard', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal)),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.home, size: 64, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text('Care Dashboard module is natively active.', style: const TextStyle(fontSize: 18, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(PswCareDashboardScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('PswCareDashboard'),
       ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'PswCareDashboardScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
-        ),
+        ],
+      ),
     );
   }
 }

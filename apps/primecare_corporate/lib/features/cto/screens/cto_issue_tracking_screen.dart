@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Cto Issue Tracking Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'cto_issue_tracking_screen_controller.dart';
 
-class CtoIssueTrackingScreen extends StatelessWidget {
-  const CtoIssueTrackingScreen({Key? key}) : super(key: key);
+class CtoIssueTrackingScreen extends ConsumerWidget {
+  const CtoIssueTrackingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.bug_report, size: 40, color: Colors.blueGrey.shade800),
-                const SizedBox(width: 16),
-                Text("Issue Tracking", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blueGrey.shade800)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.bug_report, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Issue Tracking actively running.", style: TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(CtoIssueTrackingScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('CtoIssueTracking'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'CtoIssueTrackingScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

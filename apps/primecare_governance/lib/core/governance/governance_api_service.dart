@@ -1,5 +1,5 @@
 // Governance - Category: service | Purpose: [GovernanceActionResponse] - Result of a remote governance action. [GovernanceApiService] - Service to interact with ...
-﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// [GovernanceActionResponse] - Result of a remote governance action.
 class GovernanceActionResponse {

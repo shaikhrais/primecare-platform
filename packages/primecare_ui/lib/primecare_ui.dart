@@ -21,6 +21,7 @@ export 'src/shared/platform_messaging_provider.dart';
 
 export 'src/components/layouts/master_layout.dart';
 export 'src/components/navigation/primecare_sidebar.dart';
+export 'src/components/layouts/responsive_grid_layout.dart';
 export 'src/components/navigation/aura_nexus_console.dart';
 
 export 'src/governance_bootstrapper.dart';

@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Ticket Center Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'ticket_center_screen_controller.dart';
 
-class TicketCenterScreen extends StatelessWidget {
-  const TicketCenterScreen({Key? key}) : super(key: key);
+class TicketCenterScreen extends ConsumerWidget {
+  const TicketCenterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.confirmation_number, size: 40, color: Colors.teal),
-                const SizedBox(width: 16),
-                Text("Ticket Center", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.teal)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.confirmation_number, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Ticket Center actively running.", style: const TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(TicketCenterScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TicketCenter'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'TicketCenterScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

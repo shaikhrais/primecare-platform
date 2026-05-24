@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Psw Reports Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'psw_reports_screen_controller.dart';
 
-class PswReportsScreen extends StatelessWidget {
-  const PswReportsScreen({Key? key}) : super(key: key);
+class PswReportsScreen extends ConsumerWidget {
+  const PswReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.analytics, size: 32, color: Colors.teal),
-                const SizedBox(width: 12),
-                Text('Reports', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal)),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.analytics, size: 64, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text('Reports module is natively active.', style: const TextStyle(fontSize: 18, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(PswReportsScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('PswReports'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'PswReportsScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

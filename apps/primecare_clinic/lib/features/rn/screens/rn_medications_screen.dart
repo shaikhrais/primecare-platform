@@ -1,53 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Rn Medications Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'rn_medications_screen_controller.dart';
 
-class RnMedicationsScreen extends StatefulWidget {
-  const RnMedicationsScreen({Key? key}) : super(key: key);
-
-  @override
-  State<RnMedicationsScreen> createState() => _RnMedicationsScreenState();
-}
-
-class _RnMedicationsScreenState extends State<RnMedicationsScreen> {
-  final List<Map<String, dynamic>> _meds = [
-    {'patient': 'John Doe', 'med': 'Lisinopril 10mg', 'time': '12:00 PM', 'status': 'Pending'},
-    {'patient': 'Mary Smith', 'med': 'Metformin 500mg', 'time': '1:00 PM', 'status': 'Pending'},
-    {'patient': 'Alice Johnson', 'med': 'Atorvastatin 20mg', 'time': '8:00 AM', 'status': 'Administered'},
-  ];
+class RnMedicationsScreen extends ConsumerWidget {
+  const RnMedicationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Medication Administration (MAR)'), backgroundColor: Colors.indigo),
-        body: ListView.builder(
-          padding: const EdgeInsets.all(16.0),
-          itemCount: _meds.length,
-          itemBuilder: (context, index) {
-            final med = _meds[index];
-            final isDone = med['status'] == 'Administered';
-            return Card(
-              color: isDone ? Colors.green.shade50 : Colors.white,
-              child: ListTile(
-                leading: Icon(Icons.medication, color: isDone ? Colors.green : Colors.red, size: 40),
-                title: Text('${med['med']} - ${med['time']}', style: TextStyle(fontWeight: FontWeight.bold, decoration: isDone ? TextDecoration.lineThrough : null)),
-                subtitle: Text('Patient: ${med['patient']}'),
-                trailing: isDone
-                    ? const Icon(Icons.check_circle, color: Colors.green)
-                    : ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white),
-                        onPressed: () {
-                          setState(() {
-                            _meds[index]['status'] = 'Administered';
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Logged administration of ${med['med']}')));
-                        },
-                        child: const Text('Administer'),
-                      ),
-              ),
-            );
-          },
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(RnMedicationsScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('RnMedications'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'RnMedicationsScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

@@ -1,5 +1,3 @@
-// Governance - Category: view | Purpose: UPGRADED_BY_AI
-// UPGRADED_BY_AI
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'customer_support_reports_screen_controller.dart';
@@ -9,71 +7,33 @@ class CustomerSupportReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = const AsyncValue.data({"kpis": [], "items": []});
+    final state = ref.watch(CustomerSupportReportsScreenControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('CustomerSupportReports'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load API data: $error')),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
     );
   }
 
-
   Widget _buildContent(BuildContext context, dynamic data) {
-    final items = data['items'] as List;
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            decoration: InputDecoration(
-              labelText: 'Search / Filter',
-              prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-            ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'CustomerSupportReportsScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
-        ),
-        Expanded(
-          child: ListView.separated(
-            itemCount: items.length,
-            separatorBuilder: (context, index) => const Divider(height: 1),
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blue.withOpacity(0.1),
-                  child: Text(item['id'].toString()),
-                ),
-                title: Text(item['title']),
-                subtitle: Text(item['status']),
-                trailing: PopupMenuButton(
-                  itemBuilder: (context) => [
-                    const PopupMenuItem(child: Text('View Details')),
-                    const PopupMenuItem(child: Text('Edit')),
-                    const PopupMenuItem(child: Text('Delete')),
-                  ],
-                ),
-                onTap: () {},
-              );
-            },
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

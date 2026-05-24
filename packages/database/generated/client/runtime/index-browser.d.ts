@@ -1,4 +1,3 @@
-// Governance - Category: service | Purpose: Core implementation file for the Index Browser.D platform logic.
 declare class AnyNull extends NullTypesEnumValue {
 }
 

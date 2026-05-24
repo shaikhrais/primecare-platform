@@ -169,6 +169,7 @@ class VolunteerDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(volunteerDashboardControllerProvider);
     final controller = ref.read(volunteerDashboardControllerProvider.notifier);
     final theme = context.theme;
+    final roleBase = 'VolunteerDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -179,239 +180,123 @@ class VolunteerDashboardScreen extends GovernedConsumerWidget {
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+            onPressed: () => controller.addLog('Manual refresh triggered.'),
+          ),
+        ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 3840),
-          child: ResponsiveSplitDashboard(
-            metrics: [
-              GovMetricCard(
-                title: 'Active Operations',
-                value: 'Active',
-                trendLabel: 'Optimal status',
-                progress: 0.95,
-                icon: LucideIcons.activity,
-                brandColor: theme.colors.primary,
-              ),
-              GovMetricCard(
-                title: 'Clearance Status',
-                value: 'Authorized',
-                trendLabel: 'Zero issues flagged',
-                progress: 1.0,
-                icon: LucideIcons.shieldCheck,
-                brandColor: Colors.green,
-              ),
-              GovMetricCard(
-                title: 'Telemetry Sync',
-                value: '100% In Sync',
-                trendLabel: 'Real API connected',
-                progress: 1.0,
-                icon: LucideIcons.network,
-                brandColor: Colors.blue,
-              ),
-              GovMetricCard(
-                title: 'API Latency',
-                value: '24ms',
-                trendLabel: 'Ultra low latency',
-                progress: 0.98,
-                icon: LucideIcons.database,
-                brandColor: Colors.amber,
-              ),
-            ],
-            mainContent: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+            ),
+            const SizedBox(height: 24),
+            Row(
               children: [
-                GovDashboardHero(
-                  title: state.title,
-                  roleName: 'Volunteer Hub',
-                  description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-                  onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
+                  ),
                 ),
-                const SizedBox(height: 24),
-                ResponsiveGrid(
-                  spacing: 24,
-                  runSpacing: 24,
-                  minItemWidth: 320,
-                  maxItemWidth: 500,
-                  children: [
-                    // Volunteer Time Tracker Card component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-hours-logged'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Time Tracker Card", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Time Tracker Card.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Volunteer Task Assignments Feed component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-assigned-tasks'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Task Assignments Feed", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Task Assignments Feed.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Volunteer Social Hub Widget component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-community-board'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Social Hub Widget", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Social Hub Widget.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Volunteer Shift Check-in Analytics component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-hours-history'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Shift Check-in Analytics", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Shift Check-in Analytics.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Volunteer Competency Training Progress component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-training-progress'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Competency Training Progress", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Competency Training Progress.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                    // Volunteer Feedback & Outreach Surveys component
-                    Container(
-                      key: const ValueKey('data-cy-volunteer-feedback-surveys'),
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: theme.colors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Volunteer Feedback & Outreach Surveys", style: theme.typography.h4),
-                          const SizedBox(height: 12),
-                          Text("Operational sandbox control for Volunteer Feedback & Outreach Surveys.", style: theme.typography.bodyMedium),
-                        ],
-                      ),
-                    ),
-                  ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
+                  ),
                 ),
               ],
             ),
-            defaultSidebarWidgets: [
-              QuickActionsPanel(
-                title: 'Quick Actions',
-                actions: [
-                  QuickActionItem(
-                    label: 'Check-In Volunteer Shift',
-                    icon: LucideIcons.play,
-                    color: theme.colors.primary,
-                    onTap: () => controller.checkinVolunteerShift(),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Operational Audit Logs',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                   ),
-                  QuickActionItem(
-                    label: 'Log Social Interaction Visit',
-                    icon: LucideIcons.play,
-                    color: Colors.green,
-                    onTap: () => controller.recordSocialVisit(),
-                  )
-                ],
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Operational Audit Logs',
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Execute Operational Audit Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
+                            ),
                     ),
-                    const SizedBox(height: 12),
-                    ...state.logs.map((log) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '• ',
-                                style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  log,
-                                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              const AiInsightsCard(
-                heading: 'System & Policy Insights',
-                suggestions: [
-                  'All active endpoints enforce dynamic credential verification.',
-                  'Last automated compliance sweep checked out successfully.',
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

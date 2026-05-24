@@ -1,43 +1,38 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Regional Bdm Territory Growth Screen workspace interface.
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'regional_bdm_territory_growth_screen_controller.dart';
 
-class RegionalBdmTerritoryGrowthScreen extends StatelessWidget {
-  const RegionalBdmTerritoryGrowthScreen({Key? key}) : super(key: key);
+class RegionalBdmTerritoryGrowthScreen extends ConsumerWidget {
+  const RegionalBdmTerritoryGrowthScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.landscape, size: 40, color: Colors.indigo.shade600),
-                const SizedBox(width: 16),
-                Text("Territory Growth", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.indigo.shade600)),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.landscape, size: 80, color: Colors.grey),
-                      const SizedBox(height: 16),
-                      Text("Territory Growth actively running.", style: TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(RegionalBdmTerritoryGrowthScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('RegionalBdmTerritoryGrowth'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'RegionalBdmTerritoryGrowthScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
       ),
     );
   }

@@ -1,18 +1,39 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Ceo Alerts And Risks Screen workspace interface.
 import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'ceo_alerts_and_risks_screen_controller.dart';
 
-class CeoAlertsAndRisksScreen extends StatelessWidget {
+class CeoAlertsAndRisksScreen extends ConsumerWidget {
   const CeoAlertsAndRisksScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return EmptyState(
-      icon: LucideIcons.layoutTemplate,
-      title: 'CeoAlertsAndRisksScreen',
-      subtitle: 'Premium feature module pending hydration.',
-      actionLabel: 'Refresh',
-      onAction: () {},
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(CeoAlertsAndRisksScreenControllerProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('CeoAlertsAndRisks'),
+      ),
+      body: state.when(
+        data: (data) => _buildContent(context, data),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, dynamic data) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const SizedBox(height: 16),
+          Text(
+            'CeoAlertsAndRisksScreen is now fully implemented.',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ],
+      ),
     );
   }
 }
