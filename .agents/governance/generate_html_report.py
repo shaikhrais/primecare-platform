@@ -597,6 +597,13 @@ def generate_report():
                 Interactive trace analyzer querying all physical and logical dependencies across screens, components, APIs, tests, and permissions.
             </div>
             
+            <div style="margin-top: 15px; padding: 12px; border-left: 4px solid #10b981; background: #f0fdf4; border-radius: 6px; font-size: 12.5px; color: #1e3a8a; line-height: 1.5; margin-bottom: 20px; border: 1px solid #d1fae5;">
+                <strong>🚀 Auto Dependency Impact Engine CLI Active:</strong><br>
+                You can immediately calculate downstream visual and logical impacts for any API, screen, file, or component by running:
+                <code style="display: block; margin: 8px 0; padding: 8px; background: #f8fafc; border-radius: 4px; font-family: monospace; font-size: 12px; color: #0f172a; border: 1px solid #e2e8f0; font-weight: bold;">python scripts/query_dependency_impact.py --screen clinic_dashboard</code>
+                This CLI traverses the entire transitive dependency graph, calculates a weighted <strong>Impact Risk Score</strong>, and compiles a comprehensive QA regression checklist inside <code>reports/governance/impact_reports/</code>.
+            </div>
+            
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <input type="text" id="dependency-search-input" placeholder="Search by screen, API, component, database table or relationship..." 
                        style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;" onkeyup="searchDependencies()" />
