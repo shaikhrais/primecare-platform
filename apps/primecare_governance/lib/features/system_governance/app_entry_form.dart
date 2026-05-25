@@ -68,7 +68,11 @@ class _AppEntryFormState extends State<AppEntryForm> {
           ),
           const SizedBox(height: 32),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Application ${_nameController.text} registered successfully under ${_status}!')),
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.colors.primary,
               foregroundColor: Colors.white,

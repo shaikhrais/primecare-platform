@@ -21,6 +21,13 @@ def init_db(force_reset=False):
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "runtime_interaction_events",
+            "manual_verification_checks",
+            "workflow_step_results",
+            "workflow_execution_runs",
+            "workflow_steps",
+            "workflow_definitions",
+            "screen_behavior_profiles",
             "api_versions",
             "api_test_cases",
             "api_error_codes",
@@ -1300,6 +1307,149 @@ def init_db(force_reset=False):
     """)
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_ghs_app ON governance_health_scores(app_id);")
 
+    # 61. screen_behavior_profiles
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS screen_behavior_profiles (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      screen_id INTEGER NOT NULL,
+      behavior_type TEXT NOT NULL,
+      requires_data INTEGER DEFAULT 0,
+      requires_mutation INTEGER DEFAULT 0,
+      requires_permissions INTEGER DEFAULT 1,
+      requires_upload INTEGER DEFAULT 0,
+      requires_notifications INTEGER DEFAULT 0,
+      requires_realtime INTEGER DEFAULT 0,
+      status TEXT DEFAULT 'active',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      UNIQUE(screen_id)
+    );
+    """)
+
+    # 62. workflow_definitions
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS workflow_definitions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      role_id INTEGER NOT NULL,
+      workflow_code TEXT NOT NULL,
+      workflow_name TEXT NOT NULL,
+      start_screen_id INTEGER,
+      status TEXT DEFAULT 'active',
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+      FOREIGN KEY (start_screen_id) REFERENCES screens(id) ON DELETE SET NULL,
+      UNIQUE(app_id, role_id, workflow_code)
+    );
+    """)
+
+    # 63. workflow_steps
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS workflow_steps (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      workflow_id INTEGER NOT NULL,
+      step_order INTEGER NOT NULL,
+      step_name TEXT NOT NULL,
+      screen_id INTEGER,
+      function_id INTEGER,
+      api_id INTEGER,
+      expected_result TEXT,
+      rollback_required INTEGER DEFAULT 0,
+      status TEXT DEFAULT 'active',
+      FOREIGN KEY (workflow_id) REFERENCES workflow_definitions(id) ON DELETE CASCADE,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE SET NULL,
+      FOREIGN KEY (function_id) REFERENCES screen_functions(id) ON DELETE SET NULL,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL,
+      UNIQUE(workflow_id, step_order)
+    );
+    """)
+
+    # 64. workflow_execution_runs
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS workflow_execution_runs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      workflow_id INTEGER NOT NULL,
+      role_id INTEGER NOT NULL,
+      test_user_email TEXT,
+      status TEXT DEFAULT 'running',
+      started_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      completed_at TEXT,
+      failed_step_id INTEGER,
+      summary_json TEXT,
+      FOREIGN KEY (workflow_id) REFERENCES workflow_definitions(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+      FOREIGN KEY (failed_step_id) REFERENCES workflow_steps(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 65. workflow_step_results
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS workflow_step_results (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      run_id INTEGER NOT NULL,
+      step_id INTEGER NOT NULL,
+      status TEXT NOT NULL,
+      actual_result TEXT,
+      console_log TEXT,
+      network_log TEXT,
+      screenshot_path TEXT,
+      error_message TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (run_id) REFERENCES workflow_execution_runs(id) ON DELETE CASCADE,
+      FOREIGN KEY (step_id) REFERENCES workflow_steps(id) ON DELETE CASCADE
+    );
+    """)
+
+    # 66. manual_verification_checks
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS manual_verification_checks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      screen_id INTEGER NOT NULL,
+      role_id INTEGER,
+      check_name TEXT NOT NULL,
+      check_status TEXT DEFAULT 'pending',
+      evidence TEXT,
+      verified_by TEXT,
+      verified_at TEXT,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
+    );
+    """)
+
+    # 67. runtime_interaction_events
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS runtime_interaction_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      run_id INTEGER,
+      app_id INTEGER NOT NULL,
+      role_id INTEGER,
+      screen_id INTEGER,
+      function_id INTEGER,
+      api_id INTEGER,
+      event_type TEXT NOT NULL,
+      event_status TEXT NOT NULL,
+      expected_result TEXT,
+      actual_result TEXT,
+      error_message TEXT,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (run_id) REFERENCES workflow_execution_runs(id) ON DELETE SET NULL,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL,
+      FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE SET NULL,
+      FOREIGN KEY (function_id) REFERENCES screen_functions(id) ON DELETE SET NULL,
+      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE SET NULL
+    );
+    """)
+
+    # Create optimized indexing structures for workflow tracking
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_workflow_app_role ON workflow_definitions(app_id, role_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_workflow_steps_workflow ON workflow_steps(workflow_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_workflow_runs_workflow ON workflow_execution_runs(workflow_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_step_results_run ON workflow_step_results(run_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_events_screen ON runtime_interaction_events(screen_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_events_api ON runtime_interaction_events(api_id);")
+
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_roles_org ON roles(org_id);")
@@ -1386,7 +1536,7 @@ def init_db(force_reset=False):
 
     conn.commit()
     conn.close()
-    print("PrimeCare 69-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 76-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
 
 if __name__ == "__main__":
     init_db()

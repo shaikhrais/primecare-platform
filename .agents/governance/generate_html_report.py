@@ -5,7 +5,7 @@ import datetime
 
 def generate_report():
     print("=====================================================")
-    print("Generating Relational 34-Table HTML Governance Report")
+    print("Generating Relational 41-Table HTML Governance Report")
     print("=====================================================")
 
     gov_dir = os.path.dirname(os.path.abspath(__file__))
@@ -79,14 +79,20 @@ def generate_report():
         html
     )
 
-    # 2. Update Header H2 to 34-Table Schema
+    # 2. Update Header H2 to 41-Table Schema
     html = html.replace(
         '<h2>Relational 19-Table Master Index &amp; Health Diagnostics</h2>',
-        '<h2>Relational 34-Table Master Index &amp; Health Diagnostics</h2>'
+        '<h2>Relational 41-Table Master Index &amp; Health Diagnostics</h2>'
+    ).replace(
+        '<h2>Relational 34-Table Master Index &amp; Health Diagnostics</h2>',
+        '<h2>Relational 41-Table Master Index &amp; Health Diagnostics</h2>'
     )
     html = html.replace(
         'Comprehensive overview of all 19 relational governance catalog tables',
-        'Comprehensive overview of all 34 relational governance catalog tables'
+        'Comprehensive overview of all 41 relational governance catalog tables'
+    ).replace(
+        'Comprehensive overview of all 34 relational governance catalog tables',
+        'Comprehensive overview of all 41 relational governance catalog tables'
     )
 
     # 3. Dynamically query all 22 tables and compute record volume + columns width
@@ -1032,7 +1038,7 @@ def generate_report():
         out_f.write(html)
 
     conn.close()
-    print(f"SUCCESS: Synthesized and generated full 34-table HTML report at: {output_path}")
+    print(f"SUCCESS: Synthesized and generated full 41-table HTML report at: {output_path}")
 
 if __name__ == "__main__":
     generate_report()

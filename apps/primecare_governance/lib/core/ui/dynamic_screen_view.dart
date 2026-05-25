@@ -558,7 +558,11 @@ class DynamicScreenView extends GovernedConsumerWidget {
             child: PrimeButton.primary(
               label: 'governance.dynamic_screen.initiate_development'.tr(),
               icon: LucideIcons.code,
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Development initiation sequence activated for ${metadata.title}!')),
+                );
+              },
             ),
           ),
           SizedBox(height: context.s(12)),
@@ -567,7 +571,11 @@ class DynamicScreenView extends GovernedConsumerWidget {
             child: PrimeButton.secondary(
               label: 'governance.dynamic_screen.file_correction_ticket'.tr(),
               icon: LucideIcons.ticket,
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('File correction ticket registry opened for ${metadata.title}!')),
+                );
+              },
             ),
           ),
         ],

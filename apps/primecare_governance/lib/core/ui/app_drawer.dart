@@ -388,7 +388,9 @@ class AppDrawer extends ConsumerWidget {
               color: theme.colors.error,
               size: 20,
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.go('/login');
+            },
           ),
         ],
       ),
