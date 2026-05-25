@@ -2441,19 +2441,6 @@ def run_db_remodeling_and_reconciliation():
         VALUES (?, ?, ?, 'Web/Chrome', '192.168.1.10', ?);
         """, (la_id, f"sess_token_{la_id}_2026", role_id, datetime_str()))
         sessions_seeded += 1
-        
-    # Explicitly insert the two missing session rows to satisfy crash_reports FK constraint
-    cursor.execute("""
-    INSERT INTO user_sessions (logical_app_id, session_token, role_id, device_platform, ip_address, started_at)
-    VALUES (6, 'session_6_001', NULL, 'iOS', '192.168.1.11', ?);
-    """, (datetime_str(),))
-    sessions_seeded += 1
-    
-    cursor.execute("""
-    INSERT INTO user_sessions (logical_app_id, session_token, role_id, device_platform, ip_address, started_at)
-    VALUES (8, 'session_8_001', NULL, 'Android', '192.168.1.12', ?);
-    """, (datetime_str(),))
-    sessions_seeded += 1
 
     # 5. Seed crash_reports (Now session references exist in user_sessions)
     for idx, la in enumerate(log_apps[:2]):
@@ -2463,7 +2450,7 @@ def run_db_remodeling_and_reconciliation():
         cursor.execute("""
         INSERT INTO crash_reports (logical_app_id, crash_code, error_type, stack_trace, device_info, session_id)
         VALUES (?, ?, 'NullPointerException', 'Exception in thread \"main\" java.lang.NullPointerException at com.primecare.app...', 'iPhone 15 Pro, iOS 17.4', ?);
-        """, (la_id, f"CRSH_{app_code.upper()}_001", f"session_{la_id}_001"))
+        """, (la_id, f"CRSH_{app_code.upper()}_001", f"sess_token_{la_id}_2026"))
         crashes_seeded += 1
         
         # 6. Seed api_failures
