@@ -1,0 +1,243 @@
+// Governance - Category: view | Purpose: UI Screen component rendering the PortalWorkflowScreen workspace interface.
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+// --- MVC State Model ---
+class PortalWorkflowState {
+  final bool isLoading;
+  final String? error;
+  final String title;
+  final List<String> logs;
+
+  const PortalWorkflowState({
+    required this.isLoading,
+    this.error,
+    required this.title,
+    required this.logs,
+  });
+
+  PortalWorkflowState copyWith({
+    bool? isLoading,
+    String? error,
+    String? title,
+    List<String>? logs,
+  }) {
+    return PortalWorkflowState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      title: title ?? this.title,
+      logs: logs ?? this.logs,
+    );
+  }
+}
+
+// --- Controller (Notifier) ---
+class PortalWorkflowController extends StateNotifier<PortalWorkflowState> {
+  final Ref ref;
+
+  PortalWorkflowController(this.ref)
+      : super(
+          const PortalWorkflowState(
+            isLoading: false,
+            title: 'Portal Workflow Operations', // LocaleKeys.mock.tr()
+            logs: [
+              'Portal session monitor active.',
+              'Workflow engine synced.',
+            ],
+          ),
+        );
+
+  Future<void> runWorkflowScan() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/portal-workflow/compliance/scan',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'run_workflow_scan',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Portal workflow scan complete at ${DateTime.now().toIso8601String()}',
+            'All portal data flows verified successfully.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Workflow scan failed: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error running scan: $e',
+        ],
+      );
+    }
+  }
+
+  void addLog(String entry) {
+    state = state.copyWith(logs: [...state.logs, entry]);
+  }
+}
+
+// --- Provider ---
+final portalWorkflowProvider =
+    StateNotifierProvider<PortalWorkflowController, PortalWorkflowState>((ref) {
+  return PortalWorkflowController(ref);
+});
+
+// --- View ---
+class PortalWorkflowScreen extends GovernedConsumerWidget {
+  const PortalWorkflowScreen({super.key});
+
+  @override
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(portalWorkflowProvider);
+    final controller = ref.read(portalWorkflowProvider.notifier);
+    final theme = context.theme;
+    final roleBase = 'PortalWorkflowScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
+
+    return Scaffold(
+      backgroundColor: theme.colors.background,
+      appBar: AppBar(
+        backgroundColor: theme.colors.surface,
+        elevation: 0,
+        title: Text(
+          state.title,
+          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+            onPressed: () => controller.addLog('Manual workflow refresh.'),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Centralized view of data streams, workflow automation controls, and diagnostic logs for the Portal portal interface.',
+              onRefresh: () => controller.addLog('Portal telemetry synced.'),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Streams', // LocaleKeys.mock.tr()
+                    value: '18 Active',
+                    trendLabel: 'Optimal transaction levels',
+                    progress: 0.95,
+                    icon: LucideIcons.layers,
+                    brandColor: theme.colors.primary,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'System Stability', // LocaleKeys.mock.tr()
+                    value: '100% OK',
+                    trendLabel: 'Zero issues detected',
+                    progress: 1.0,
+                    icon: LucideIcons.checkCircle,
+                    brandColor: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Workflow Telemetry Stats', // LocaleKeys.mock.tr()
+              dataPoints: const [88, 92, 90, 95, 93, 100],
+              labels: const ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Portal Audit & Diagnostics Log',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  ),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: state.isLoading ? null : () => controller.runWorkflowScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Run Portal Diagnostic Verification Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
