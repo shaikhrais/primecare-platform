@@ -1,27 +1,27 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the PswMessagesScreen workspace interface.
+// Governance - Category: view | Purpose: UI Screen component rendering the CaregiverVisitNotesScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class PswMessagesState {
+class CaregiverVisitNotesState {
   final bool isLoading;
   final String? error;
   final String title;
   final List<String> logs;
 
-  const PswMessagesState({
+  const CaregiverVisitNotesState({
     required this.isLoading,
     this.error,
     required this.title,
     required this.logs,
   });
 
-  PswMessagesState copyWith({
+  CaregiverVisitNotesState copyWith({
     bool? isLoading,
     String? error,
     String? title,
     List<String>? logs,
   }) {
-    return PswMessagesState(
+    return CaregiverVisitNotesState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       title: title ?? this.title,
@@ -31,14 +31,14 @@ class PswMessagesState {
 }
 
 // --- Controller (Notifier) ---
-class PswMessagesController extends StateNotifier<PswMessagesState> {
+class CaregiverVisitNotesController extends StateNotifier<CaregiverVisitNotesState> {
   final Ref ref;
 
-  PswMessagesController(this.ref)
+  CaregiverVisitNotesController(this.ref)
       : super(
-          const PswMessagesState(
+          const CaregiverVisitNotesState(
             isLoading: false,
-            title: 'Pswmessages Control Center',
+            title: 'Caregivervisitnotes Control Center',
             logs: [
               'System initialized.',
               'Security posture sync complete.',
@@ -51,7 +51,7 @@ class PswMessagesController extends StateNotifier<PswMessagesState> {
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/psw-messages/compliance/scan',
+        '/v1/caregiver-visit-notes/compliance/scan',
         body: {
           'timestamp': DateTime.now().toIso8601String(),
           'action': 'run_compliance_scan',
@@ -92,21 +92,21 @@ class PswMessagesController extends StateNotifier<PswMessagesState> {
 }
 
 // --- Provider ---
-final pswMessagesProvider =
-    StateNotifierProvider<PswMessagesController, PswMessagesState>((ref) {
-  return PswMessagesController(ref);
+final caregiverVisitNotesProvider =
+    StateNotifierProvider<CaregiverVisitNotesController, CaregiverVisitNotesState>((ref) {
+  return CaregiverVisitNotesController(ref);
 });
 
 // --- View ---
-class PswMessagesScreen extends GovernedConsumerWidget {
-  const PswMessagesScreen({super.key});
+class CaregiverVisitNotesScreen extends GovernedConsumerWidget {
+  const CaregiverVisitNotesScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(pswMessagesProvider);
-    final controller = ref.read(pswMessagesProvider.notifier);
+    final state = ref.watch(caregiverVisitNotesProvider);
+    final controller = ref.read(caregiverVisitNotesProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'PswMessagesScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
+    final roleBase = 'CaregiverVisitNotesScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,

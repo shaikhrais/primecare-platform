@@ -1,27 +1,27 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the PswMessagesScreen workspace interface.
+// Governance - Category: view | Purpose: UI Screen component rendering the CfoTaxScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class PswMessagesState {
+class CfoTaxState {
   final bool isLoading;
   final String? error;
   final String title;
   final List<String> logs;
 
-  const PswMessagesState({
+  const CfoTaxState({
     required this.isLoading,
     this.error,
     required this.title,
     required this.logs,
   });
 
-  PswMessagesState copyWith({
+  CfoTaxState copyWith({
     bool? isLoading,
     String? error,
     String? title,
     List<String>? logs,
   }) {
-    return PswMessagesState(
+    return CfoTaxState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       title: title ?? this.title,
@@ -31,14 +31,14 @@ class PswMessagesState {
 }
 
 // --- Controller (Notifier) ---
-class PswMessagesController extends StateNotifier<PswMessagesState> {
+class CfoTaxController extends StateNotifier<CfoTaxState> {
   final Ref ref;
 
-  PswMessagesController(this.ref)
+  CfoTaxController(this.ref)
       : super(
-          const PswMessagesState(
+          const CfoTaxState(
             isLoading: false,
-            title: 'Pswmessages Control Center',
+            title: 'Cfotax Control Center',
             logs: [
               'System initialized.',
               'Security posture sync complete.',
@@ -51,7 +51,7 @@ class PswMessagesController extends StateNotifier<PswMessagesState> {
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/psw-messages/compliance/scan',
+        '/v1/cfo-tax/compliance/scan',
         body: {
           'timestamp': DateTime.now().toIso8601String(),
           'action': 'run_compliance_scan',
@@ -92,21 +92,21 @@ class PswMessagesController extends StateNotifier<PswMessagesState> {
 }
 
 // --- Provider ---
-final pswMessagesProvider =
-    StateNotifierProvider<PswMessagesController, PswMessagesState>((ref) {
-  return PswMessagesController(ref);
+final cfoTaxProvider =
+    StateNotifierProvider<CfoTaxController, CfoTaxState>((ref) {
+  return CfoTaxController(ref);
 });
 
 // --- View ---
-class PswMessagesScreen extends GovernedConsumerWidget {
-  const PswMessagesScreen({super.key});
+class CfoTaxScreen extends GovernedConsumerWidget {
+  const CfoTaxScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(pswMessagesProvider);
-    final controller = ref.read(pswMessagesProvider.notifier);
+    final state = ref.watch(cfoTaxProvider);
+    final controller = ref.read(cfoTaxProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'PswMessagesScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
+    final roleBase = 'CfoTaxScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,

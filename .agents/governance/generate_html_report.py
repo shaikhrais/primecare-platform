@@ -35,7 +35,7 @@ def generate_report():
     total_components = 0 # screen_components is dropped; fallback to 0
     cursor.execute("SELECT COUNT(*) FROM screen_functions;")
     total_functions = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM drift_findings WHERE status = 'open';")
+    cursor.execute("SELECT COUNT(*) FROM governance_findings WHERE status = 'open' AND finding_category = 'drift';")
     total_drifts = cursor.fetchone()[0] or 0
     total_test_runs = 0 # test_runs is dropped; fallback to 0
     total_test_results = 0 # test_results is dropped; fallback to 0
@@ -113,13 +113,13 @@ def generate_report():
         problem = "None"
         badge = "badge-green"
         
-        if t_name in ('drift_findings', 'implementation_tasks') and row_count > 0:
+        if t_name in ('governance_findings', 'implementation_tasks') and row_count > 0:
             risk = "Medium"
             badge = "badge-yellow"
-        elif t_name == 'drift_findings' and row_count > 5:
+        elif t_name == 'governance_findings' and row_count > 5:
             risk = "High"
             badge = "badge-red"
-            problem = f"{row_count} drifts detected"
+            problem = f"{row_count} findings detected"
 
         master_index_rows.append(f"""
         <tr>
@@ -929,7 +929,7 @@ def generate_report():
                     <tbody>
     """
     
-    cursor.execute("SELECT * FROM ci_pipeline_runs ORDER BY id DESC LIMIT 10;")
+    cursor.execute("SELECT * FROM release_operations WHERE operation_type = 'pipeline_run' ORDER BY id DESC LIMIT 10;")
     run_rows = cursor.fetchall()
     if not run_rows:
         extra_sections += """
@@ -938,13 +938,13 @@ def generate_report():
         </tr>
         """
     for r in run_rows:
-        status_badge = "badge-green" if r['pipeline_status'] == 'passed' else "badge-red" if r['pipeline_status'] == 'failed' else "badge-yellow"
+        status_badge = "badge-green" if r['status'] == 'passed' else "badge-red" if r['status'] == 'failed' else "badge-yellow"
         extra_sections += f"""
         <tr>
             <td><code>#{r['run_number']}</code></td>
             <td><strong>{r['branch']}</strong></td>
             <td><code>{r['commit_sha'][:8] if r['commit_sha'] else 'N/A'}</code></td>
-            <td><span class="badge {status_badge}">{r['pipeline_status']}</span></td>
+            <td><span class="badge {status_badge}">{r['status']}</span></td>
             <td><code>{r['triggered_by']}</code></td>
             <td><code>{r['started_at']}</code></td>
         </tr>
