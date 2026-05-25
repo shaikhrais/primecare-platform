@@ -4,15 +4,15 @@
     "passed": 28,
     "failed": 0,
     "pass_rate": 100,
-    "avg_response_ms": 116,
-    "generated_at": "2026-05-25T22:36:54.994Z",
+    "avg_response_ms": 122,
+    "generated_at": "2026-05-25T23:58:12.926Z",
     "kpi_list": {
       "app_availability": 100,
       "public_url_status": 100,
       "ssl_status": 100,
-      "page_load_time": 116,
+      "page_load_time": 122,
       "api_health": 100,
-      "api_response_time": 116,
+      "api_response_time": 122,
       "auth_login_success": 100,
       "role_access_success": 100,
       "screen_runtime_success": 100,
@@ -36,7 +36,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 261,
+      "duration_ms": 199,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!--\r\n    If you are serving your web app in a path other than the root, change the\r\n    href value below to reflect the base path you are serving from.\r\n\r\n    The path provided below has to start and end with a slash \"/\" in order for\r\n    it to work correctly.\r\n\r\n",
       "ssl_verified": 1
     },
@@ -47,7 +47,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 125,
+      "duration_ms": 220,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!--\r\n    If you are serving your web app in a path other than the root, change the\r\n    href value below to reflect the base path you are serving from.\r\n\r\n    The path provided below has to start and end with a slash \"/\" in order for\r\n    it to work correctly.\r\n\r\n",
       "ssl_verified": 1
     },
@@ -58,7 +58,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 134,
+      "duration_ms": 136,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <base href=\"/\">\r\n  <meta charset=\"UTF-8\">\r\n  <meta content=\"IE=Edge\" http-equiv=\"X-UA-Compatible\">\r\n  <meta name=\"description\" content=\"PrimeCare Corporate Portal\">\r\n  <title>PrimeCare Corporate</title>\r\n  <style>\r\n    body { background-color: #0F172A; margin: 0; d",
       "ssl_verified": 1
     },
@@ -69,7 +69,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 153,
+      "duration_ms": 217,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!--\r\n    If you are serving your web app in a path other than the root, change the\r\n    href value below to reflect the base path you are serving from.\r\n\r\n    The path provided below has to start and end with a slash \"/\" in order for\r\n    it to work correctly.\r\n\r\n",
       "ssl_verified": 1
     },
@@ -80,7 +80,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 162,
+      "duration_ms": 138,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!--\r\n    If you are serving your web app in a path other than the root, change the\r\n    href value below to reflect the base path you are serving from.\r\n\r\n    The path provided below has to start and end with a slash \"/\" in order for\r\n    it to work correctly.\r\n\r\n",
       "ssl_verified": 1
     },
@@ -91,7 +91,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 141,
+      "duration_ms": 121,
       "body_preview": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <!--\r\n    If you are serving your web app in a path other than the root, change the\r\n    href value below to reflect the base path you are serving from.\r\n\r\n    The path provided below has to start and end with a slash \"/\" in order for\r\n    it to work correctly.\r\n\r\n",
       "ssl_verified": 1
     },
@@ -104,7 +104,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 103,
+      "duration_ms": 123,
       "ok": true,
       "status": 200
     },
@@ -117,7 +117,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 134,
+      "duration_ms": 135,
       "ok": true,
       "status": 200
     },
@@ -130,7 +130,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 101,
+      "duration_ms": 146,
       "ok": true,
       "status": 200
     },
@@ -143,7 +143,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 120,
+      "duration_ms": 116,
       "ok": true,
       "status": 200
     },
@@ -156,7 +156,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 131,
+      "duration_ms": 127,
       "ok": true,
       "status": 200
     },
@@ -169,7 +169,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 106,
+      "duration_ms": 118,
       "ok": true,
       "status": 200
     },
@@ -182,7 +182,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 125,
+      "duration_ms": 150,
       "ok": true,
       "status": 200
     },
@@ -195,7 +195,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 139,
+      "duration_ms": 131,
       "ok": true,
       "status": 200
     },
@@ -208,7 +208,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 115,
+      "duration_ms": 109,
       "ok": true,
       "status": 200
     },
@@ -221,7 +221,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 119,
+      "duration_ms": 178,
       "ok": true,
       "status": 200
     },
@@ -234,7 +234,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 101,
+      "duration_ms": 108,
       "ok": true,
       "status": 200
     },
@@ -247,7 +247,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 142,
+      "duration_ms": 126,
       "ok": true,
       "status": 200
     },
@@ -260,7 +260,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 100,
+      "duration_ms": 122,
       "ok": true,
       "status": 200
     },
@@ -273,7 +273,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 116,
+      "duration_ms": 127,
       "ok": true,
       "status": 200
     },
@@ -286,7 +286,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 89,
+      "duration_ms": 123,
       "ok": true,
       "status": 200
     },
@@ -299,7 +299,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 159,
+      "duration_ms": 110,
       "ok": true,
       "status": 200
     },
@@ -312,7 +312,7 @@
       "allowed_access_passed": true,
       "unauthorized_blocked_passed": true,
       "passed": true,
-      "duration_ms": 141,
+      "duration_ms": 150,
       "ok": true,
       "status": 200
     },
@@ -324,7 +324,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 32,
+      "duration_ms": 23,
       "body_preview": "{\"status\":\"success\",\"emulated\":true}",
       "ssl_verified": 1,
       "emulated": true
@@ -337,7 +337,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 53,
+      "duration_ms": 33,
       "body_preview": "{\"status\":\"success\",\"token\":\"ZT_JWT_TRACESIG_MOCK_SUCCESS\",\"role\":\"psw\"}",
       "ssl_verified": 1,
       "emulated": true
@@ -350,7 +350,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 53,
+      "duration_ms": 46,
       "body_preview": "{\"status\":\"success\",\"emulated\":true}",
       "ssl_verified": 1,
       "emulated": true
@@ -363,7 +363,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 46,
+      "duration_ms": 42,
       "body_preview": "{\"status\":\"success\",\"emulated\":true}",
       "ssl_verified": 1,
       "emulated": true
@@ -376,7 +376,7 @@
       "passed": true,
       "ok": true,
       "status": 200,
-      "duration_ms": 44,
+      "duration_ms": 51,
       "body_preview": "{\"status\":\"success\",\"emulated\":true}",
       "ssl_verified": 1,
       "emulated": true
