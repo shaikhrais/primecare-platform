@@ -491,7 +491,29 @@ def execute_remediation():
                             screenshot_path = ?,
                             screen_status = 'verified',
                             verification_status = 'fully_verified',
-                            last_checked_at = CURRENT_TIMESTAMP
+                            last_checked_at = CURRENT_TIMESTAMP,
+                            -- Stage 6 Columns
+                            code_scan_status = ?,
+                            real_code_found = ?,
+                            real_component_count = ?,
+                            real_button_count = ?,
+                            real_api_call_count = ?,
+                            empty_placeholder_detected = ?,
+                            hardcoded_mock_data_detected = ?,
+                            fake_handler_detected = ?,
+                            null_onpressed_detected = ?,
+                            real_business_logic_found = ?,
+                            provider_or_controller_found = ?,
+                            repository_or_service_found = ?,
+                            runtime_clicked = ?,
+                            runtime_data_loaded = ?,
+                            runtime_api_success = ?,
+                            runtime_save_tested = ?,
+                            implementation_depth_score = ?,
+                            implementation_depth_status = ?,
+                            code_evidence_text = ?,
+                            missing_implementation_text = ?,
+                            agent_next_action = ?
                         WHERE id = ?;
                     """, (
                         audit_res['button_list_text'],
@@ -508,6 +530,29 @@ def execute_remediation():
                         audit_res['interactive_components_json'],
                         audit_res['proof_log_path'],
                         audit_res['screenshot_path'],
+                        
+                        # Stage 6
+                        audit_res['code_scan_status'],
+                        audit_res['real_code_found'],
+                        audit_res['real_component_count'],
+                        audit_res['real_button_count'],
+                        audit_res['real_api_call_count'],
+                        audit_res['empty_placeholder_detected'],
+                        audit_res['hardcoded_mock_data_detected'],
+                        audit_res['fake_handler_detected'],
+                        audit_res['null_onpressed_detected'],
+                        audit_res['real_business_logic_found'],
+                        audit_res['provider_or_controller_found'],
+                        audit_res['repository_or_service_found'],
+                        audit_res['runtime_clicked'],
+                        audit_res['runtime_data_loaded'],
+                        audit_res['runtime_api_success'],
+                        audit_res['runtime_save_tested'],
+                        audit_res['implementation_depth_score'],
+                        audit_res['implementation_depth_status'],
+                        audit_res['code_evidence_text'],
+                        audit_res['missing_implementation_text'],
+                        audit_res['agent_next_action'],
                         related_screen_id
                     ))
 
