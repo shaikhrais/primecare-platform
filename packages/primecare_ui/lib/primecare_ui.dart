@@ -549,3 +549,6 @@ export 'src/screens/executive/intake_coordinator_assessment_queue_screen.dart';
 export 'src/screens/executive/intake_coordinator_booking_screen.dart';
 export 'src/screens/executive/intake_coordinator_documents_screen.dart';
 export 'src/screens/executive/intake_coordinator_follow_up_screen.dart';
+
+// Seeded screens via automated generation pipeline
+export 'src/screens/common/shared_screen_stubs.dart';

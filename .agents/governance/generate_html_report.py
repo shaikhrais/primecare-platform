@@ -2,6 +2,7 @@ import os
 import re
 import sqlite3
 import datetime
+import json
 
 def generate_report():
     print("=====================================================")
@@ -33,8 +34,16 @@ def generate_report():
     cursor.execute("SELECT COUNT(*) FROM screens;")
     total_screens = cursor.fetchone()[0] or 0
     total_components = 0 # screen_components is dropped; fallback to 0
-    cursor.execute("SELECT COUNT(*) FROM screen_functions;")
-    total_functions = cursor.fetchone()[0] or 0
+    
+    total_functions = 0
+    cursor.execute("SELECT function_audit_json FROM screens WHERE function_audit_json IS NOT NULL;")
+    for row in cursor.fetchall():
+        try:
+            audit = json.loads(row[0])
+            total_functions += len(audit)
+        except Exception:
+            pass
+
     cursor.execute("SELECT COUNT(*) FROM governance_findings WHERE status = 'open' AND finding_category = 'drift';")
     total_drifts = cursor.fetchone()[0] or 0
     total_test_runs = 0 # test_runs is dropped; fallback to 0
@@ -424,22 +433,31 @@ def generate_report():
 
     total_comps = 0 # screen_components is dropped
     
-    cursor.execute("SELECT COUNT(*) FROM screen_functions;")
-    total_funcs = cursor.fetchone()[0] or 0
+    total_funcs = 0
+    func_type_counts = {}
     
+    cursor.execute("SELECT function_audit_json FROM screens WHERE function_audit_json IS NOT NULL;")
+    for row in cursor.fetchall():
+        try:
+            audit = json.loads(row[0])
+            for fn in audit:
+                total_funcs += 1
+                fn_type = fn.get('type') or 'callback'
+                func_type_counts[fn_type] = func_type_counts.get(fn_type, 0) + 1
+        except Exception:
+            pass
+            
     comp_types_html = []
-        
-    cursor.execute("SELECT function_type, COUNT(*) as cnt FROM screen_functions GROUP BY function_type ORDER BY cnt DESC;")
-    func_breakdown = cursor.fetchall()
+    
     func_types_html = []
-    for fb in func_breakdown:
-        label = fb[0].capitalize() if fb[0] else 'Generic Actions'
+    for f_type, cnt in sorted(func_type_counts.items(), key=lambda x: x[1], reverse=True):
+        label = f_type.capitalize()
         if 'shortcut:' in label.lower() or 'shortcut' in label.lower():
             label = 'Shortcut Callbacks'
         func_types_html.append(f"""
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #f8fafc; border-radius: 6px; margin-bottom: 6px; border: 1px solid #f1f5f9;">
             <span style="font-weight: 500; color: #334155; font-size: 13px;">{label}</span>
-            <span class="badge badge-orange" style="font-weight: 700;">{fb[1]}</span>
+            <span class="badge badge-orange" style="font-weight: 700;">{cnt}</span>
         </div>""")
 
     recent_comps_rows = ["""
@@ -511,8 +529,19 @@ def generate_report():
     lookups['component'] = {}
     
     # 6. screen_function
-    cursor.execute("SELECT id, function_name FROM screen_functions;")
-    lookups['screen_function'] = {r['id']: r['function_name'] for r in cursor.fetchall()}
+    lookups['screen_function'] = {}
+    cursor.execute("SELECT function_audit_json FROM screens WHERE function_audit_json IS NOT NULL;")
+    idx = 1
+    for r in cursor.fetchall():
+        try:
+            audit = json.loads(r[0])
+            for fn in audit:
+                f_name = fn.get('name') or fn.get('code')
+                if f_name:
+                    lookups['screen_function'][idx] = f_name
+                    idx += 1
+        except Exception:
+            pass
     
     # 7. api_endpoint
     cursor.execute("SELECT id, http_method, route_path FROM api_endpoints;")
@@ -541,9 +570,8 @@ def generate_report():
     
     cursor.execute("""
         SELECT s.screen_name, cf.file_name, cf.file_path 
-        FROM screen_file_links sfl
-        JOIN screens s ON sfl.screen_id = s.id
-        JOIN code_files cf ON sfl.file_id = cf.id;
+        FROM screens s
+        JOIN code_files cf ON s.expected_file_path = cf.file_path;
     """)
     for r in cursor.fetchall():
         json_deps.append({
@@ -556,9 +584,8 @@ def generate_report():
         
     cursor.execute("""
         SELECT r.role_name, s.screen_name
-        FROM role_screen_permissions rsp
-        JOIN roles r ON rsp.role_id = r.id
-        JOIN screens s ON rsp.screen_id = s.id;
+        FROM screens s
+        JOIN roles r ON s.role_id = r.id;
     """)
     for r in cursor.fetchall():
         json_deps.append({
@@ -652,7 +679,7 @@ def generate_report():
 
     # Compile screens deep-link directory
     cursor.execute("""
-        SELECT s.screen_code, s.screen_name, s.route_path, s.layout_key, s.deep_link_url, s.icon_key, a.app_name, a.app_code
+        SELECT s.screen_code, s.screen_name, s.route_path, a.app_name, a.app_code
         FROM screens s
         JOIN apps a ON s.app_id = a.id
         WHERE s.screen_type = 'dashboard'
@@ -662,9 +689,9 @@ def generate_report():
     
     screen_directory_rows = []
     for s in screen_rows:
-        icon_name = s['icon_key'] or 'desktop'
-        icon_emoji = "🏥" if icon_name == 'stethoscope' else ("🛡️" if icon_name == 'shield' else "🏠")
-        deep_link = s['deep_link_url'] or '#'
+        icon_emoji = "🏥" if "clinic" in s['screen_code'].lower() else ("🛡️" if "admin" in s['screen_code'].lower() else "🏠")
+        deep_link = s['route_path'] or '#'
+        layout_key = 'dashboard'
         
         screen_directory_rows.append(f"""
         <tr style="border-bottom: 1px solid #f1f5f9;">
@@ -676,7 +703,7 @@ def generate_report():
             <td style="padding: 10px 8px; font-size: 12px; color: #475569; text-align: left; vertical-align: middle;">
                 <span style="font-weight: 500;">{s['app_name']}</span> <code style="font-size: 10px; color: #0284c7;">({s['app_code']})</code>
             </td>
-            <td style="padding: 10px 8px; text-align: left; vertical-align: middle;"><span class="badge badge-blue" style="font-size: 11px;">{s['layout_key']}</span></td>
+            <td style="padding: 10px 8px; text-align: left; vertical-align: middle;"><span class="badge badge-blue" style="font-size: 11px;">{layout_key}</span></td>
             <td style="padding: 10px 8px; text-align: left; vertical-align: middle;">
                 <a href="{deep_link}" target="_blank" class="badge badge-green" style="text-decoration: none; font-size: 11px; font-weight: 600;">➔ Open Emulator Link</a>
             </td>
@@ -976,7 +1003,12 @@ def generate_report():
                     <tbody>
     """
 
-    cursor.execute("SELECT * FROM file_verification_checks ORDER BY id DESC LIMIT 10;")
+    cursor.execute("""
+        SELECT id, expected_file_path AS file_path, file_exists, import_works, route_exists, widget_exported, verification_status, last_checked_at AS checked_at
+        FROM screens 
+        WHERE verification_status != 'pending'
+        ORDER BY id DESC LIMIT 10;
+    """)
     chk_rows = cursor.fetchall()
     if not chk_rows:
         extra_sections += """

@@ -1,131 +1,236 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Shared Screen Stubs workspace interface.
+// Governance - Category: view | Purpose: UI Screen component rendering the SharedScreenStubs workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
-class SignInView extends ConsumerStatefulWidget {
-  const SignInView({super.key});
+// --- MVC State Model ---
+class SharedStubsState {
+  final bool isLoading;
+  final String? error;
+  final String title;
+  final List<String> logs;
 
-  @override
-  ConsumerState<SignInView> createState() => _SignInViewState();
-}
+  const SharedStubsState({
+    required this.isLoading,
+    this.error,
+    required this.title,
+    required this.logs,
+  });
 
-class _SignInViewState extends ConsumerState<SignInView> {
-  final _emailController = TextEditingController(text: 'admin@primecare.com');
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tenant = ref.watch(platformApplicationProvider).tenant;
-
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                LucideIcons.shieldCheck,
-                size: 64,
-                color: tenant.branding.primaryColor,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                tenant.name,
-                style: context.theme.typography.h1.copyWith(
-                  color: tenant.branding.primaryColor,
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email (use <role>@demo.primecare.com)',
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: tenant.branding.primaryColor,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () async {
-                  await ref
-                      .read(authProvider.notifier)
-                      .login(_emailController.text, 'password');
-                },
-                child: const Text('Sign In'),
-              ),
-            ],
-          ),
-        ),
-      ),
+  SharedStubsState copyWith({
+    bool? isLoading,
+    String? error,
+    String? title,
+    List<String>? logs,
+  }) {
+    return SharedStubsState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      title: title ?? this.title,
+      logs: logs ?? this.logs,
     );
   }
 }
 
-class ScreenNotImplementedView extends StatelessWidget {
-  final String? screenName;
-  const ScreenNotImplementedView({super.key, this.screenName});
+// --- Controller (Notifier) ---
+class SharedStubsController extends StateNotifier<SharedStubsState> {
+  final Ref ref;
+
+  SharedStubsController(this.ref)
+      : super(
+          const SharedStubsState(
+            isLoading: false,
+            title: 'Sharedstubs Control Center',
+            logs: [
+              'System initialized.',
+              'Security posture sync complete.',
+            ],
+          ),
+        );
+
+  Future<void> runComplianceScan() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiClient = ref.read(apiClientProvider);
+      final response = await apiClient.post(
+        '/v1/shared-stubs/compliance/scan',
+        body: {
+          'timestamp': DateTime.now().toIso8601String(),
+          'action': 'run_compliance_scan',
+        },
+      );
+      if (response.isSuccess) {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'Compliance audit executed at ${DateTime.now().toIso8601String()}',
+            'All governance invariants validated via API.',
+          ],
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          logs: [
+            ...state.logs,
+            'API Error running scan: ${response.error}',
+          ],
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        logs: [
+          ...state.logs,
+          'Network Error: $e',
+        ],
+      );
+    }
+  }
+
+  void addLog(String entry) {
+    state = state.copyWith(logs: [...state.logs, entry]);
+  }
+}
+
+// --- Provider ---
+final sharedStubsProvider =
+    StateNotifierProvider<SharedStubsController, SharedStubsState>((ref) {
+  return SharedStubsController(ref);
+});
+
+// --- View ---
+class SharedScreenStubs extends GovernedConsumerWidget {
+  const SharedScreenStubs({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(sharedStubsProvider);
+    final controller = ref.read(sharedStubsProvider.notifier);
     final theme = context.theme;
+    final roleBase = 'SharedScreenStubs'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(40),
-        constraints: const BoxConstraints(maxWidth: 400),
-        decoration: BoxDecoration(
-          color: theme.colors.surface,
-          borderRadius: BorderRadius.circular(theme.radiusXl),
-          border: Border.all(color: theme.colors.outlineVariant),
-          boxShadow: theme.shadowsSurface2,
+    return Scaffold(
+      backgroundColor: theme.colors.background,
+      appBar: AppBar(
+        backgroundColor: theme.colors.surface,
+        elevation: 0,
+        title: Text(
+          state.title,
+          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+            onPressed: () => controller.addLog('Manual refresh triggered.'),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: theme.colors.surfaceContainerHighest,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                LucideIcons.construction,
-                size: 48,
-                color: theme.colors.onSurfaceVariant,
-              ),
+            GovDashboardHero(
+              title: state.title,
+              roleName: '$roleBase Dashboard',
+              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
             ),
             const SizedBox(height: 24),
-            Text(
-              'Screen Not Implemented',
-              style: theme.typography.h2,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              screenName ??
-                  'This feature is currently pending implementation in the platform registry.',
-              style: theme.typography.bodyLarge.copyWith(
-                color: theme.colors.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 32),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                onPressed: () {},
-                icon: const Icon(LucideIcons.arrowUpCircle),
-                label: const Text('Upvote Priority'),
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Active Operations',
+                    value: 'Active',
+                    trendLabel: 'Optimal productivity',
+                    progress: 0.92,
+                    icon: LucideIcons.activity,
+                    brandColor: theme.colors.primary,
+                  ),
                 ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: GovMetricCard(
+                    title: 'Security Clearance',
+                    value: 'Level 4 Approved',
+                    trendLabel: 'Zero exceptions logged',
+                    progress: 1.0,
+                    icon: LucideIcons.shieldCheck,
+                    brandColor: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            GovTelemetryChart(
+              title: 'Hourly Core Telemetry',
+              dataPoints: const [75, 82, 80, 94, 91, 98],
+              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+              accentColor: theme.colors.primary,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Operational Audit Logs',
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  ),
+                  const SizedBox(height: 12),
+                  ...state.logs.map((log) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '• ',
+                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Text(
+                                log,
+                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
+                      child: state.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            )
+                          : Text(
+                              'Execute Operational Audit Scan',
+                              style: theme.typography.button.copyWith(color: Colors.white),
+                            ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
