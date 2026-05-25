@@ -472,18 +472,6 @@ def execute_remediation():
 
                 audit_res = parse_screen_file(file_path, s_name, s_code, role_code)
                 if audit_res:
-                    role_base = s_name.replace('DashboardScreen', '').replace('Screen', '')
-                    r_code = role_base[0].lower() + role_base[1:]
-                    comp_list = f"MVC Components:\n1. {role_base}State - MVC State Model\n2. {role_base}Controller - Riverpod Controller\n3. {r_code}Provider - Riverpod StateNotifierProvider\n4. {s_name} - GovernedConsumerWidget View"
-                    comp_behavior = f"Manages user dashboard metrics, logs compliance scanning events, and runs transactional API sweeps."
-                    
-                    audit_json = [
-                        {"component": f"{role_base}State", "exists": True, "purpose": "State mapping", "status": "passed"},
-                        {"component": f"{role_base}Controller", "exists": True, "purpose": "Riverpod Controller", "status": "passed"},
-                        {"component": f"{r_code}Provider", "exists": True, "purpose": "Riverpod Provider", "status": "passed"},
-                        {"component": s_name, "exists": True, "purpose": "Consumer View class", "status": "passed"}
-                    ]
-
                     cursor.execute("""
                         UPDATE screens
                         SET 
@@ -496,6 +484,9 @@ def execute_remediation():
                             component_list_text = ?,
                             component_behavior_text = ?,
                             component_audit_json = ?,
+                            interactive_component_list_text = ?,
+                            interactive_components_text = ?,
+                            interactive_components_json = ?,
                             proof_log_path = ?,
                             screenshot_path = ?,
                             screen_status = 'verified',
@@ -509,9 +500,12 @@ def execute_remediation():
                         audit_res['api_call_list_text'],
                         audit_res['api_audit_json'],
                         audit_res['allowed_roles_text'],
-                        comp_list,
-                        comp_behavior,
-                        json.dumps(audit_json),
+                        audit_res['component_list_text'],
+                        audit_res['component_behavior_text'],
+                        audit_res['component_audit_json'],
+                        audit_res['interactive_component_list_text'],
+                        audit_res['interactive_components_text'],
+                        audit_res['interactive_components_json'],
                         audit_res['proof_log_path'],
                         audit_res['screenshot_path'],
                         related_screen_id
