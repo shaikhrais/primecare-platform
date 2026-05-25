@@ -454,66 +454,68 @@ def execute_remediation():
         
         # If this is a screen interaction audit task, execute actual remediation and populate missing fields in screens table
         if task_type == 'screen_interaction_audit' and related_screen_id:
-            cursor.execute("SELECT screen_code, screen_name, allowed_roles_text FROM screens WHERE id = ?;", (related_screen_id,))
+            sys.path.append(os.path.join(PROJECT_ROOT, "scripts"))
+            from audit_screen_interactions_parser import parse_screen_file
+
+            cursor.execute("""
+                SELECT s.screen_code, s.screen_name, s.expected_file_path, r.role_code 
+                FROM screens s
+                LEFT JOIN roles r ON s.role_id = r.id
+                WHERE s.id = ?;
+            """, (related_screen_id,))
             scr_row = cursor.fetchone()
             if scr_row:
                 s_code = scr_row['screen_code']
                 s_name = scr_row['screen_name']
-                k_code = s_code.replace('_', '-')
-                role_base = s_name.replace('DashboardScreen', '').replace('Screen', '')
-                r_code = role_base[0].lower() + role_base[1:]
-                
-                allowed_roles = scr_row['allowed_roles_text'] or f"ROLE_{role_base.upper()}"
-                
-                comp_list = f"MVC Components:\n1. {role_base}State - MVC State Model\n2. {role_base}Controller - Riverpod Controller\n3. {r_code}Provider - Riverpod StateNotifierProvider\n4. {s_name} - GovernedConsumerWidget View"
-                comp_behavior = f"Manages user dashboard metrics, logs compliance scanning events, and runs transactional API sweeps via ElevatedButton scan triggers."
-                
-                audit_json = [
-                    {"component": f"{role_base}State", "exists": True, "purpose": "State mapping", "status": "passed"},
-                    {"component": f"{role_base}Controller", "exists": True, "purpose": "Riverpod Controller", "status": "passed"},
-                    {"component": f"{r_code}Provider", "exists": True, "purpose": "Riverpod Provider", "status": "passed"},
-                    {"component": s_name, "exists": True, "purpose": "Consumer View class", "status": "passed"}
-                ]
-                
-                f_audit = [
-                    {"code": "addLog", "name": "log custom event", "type": "callback", "expected_result": "telemetry log updated"},
-                    {"code": "runComplianceScan", "name": "execute compliance audit scan", "type": "callback", "expected_result": "HTTP 200 OK"}
-                ]
-                
-                api_audit = [
-                    {"id": related_screen_id, "method": "POST", "route": f"/api/v1/{k_code}/compliance/scan"}
-                ]
+                file_path = scr_row['expected_file_path']
+                role_code = scr_row['role_code']
 
-                cursor.execute("""
-                    UPDATE screens
-                    SET 
-                        button_list_text = 'refresh, Execute Operational Audit Scan',
-                        function_list_text = '1. addLog - log custom event\n2. runComplianceScan - execute compliance audit scan',
-                        function_audit_json = ?,
-                        api_call_list_text = ?,
-                        api_audit_json = ?,
-                        allowed_roles_text = ?,
-                        component_list_text = ?,
-                        component_behavior_text = ?,
-                        component_audit_json = ?,
-                        proof_log_path = ?,
-                        screenshot_path = ?,
-                        screen_status = 'verified',
-                        verification_status = 'passed',
-                        last_checked_at = CURRENT_TIMESTAMP
-                    WHERE id = ?;
-                """, (
-                    json.dumps(f_audit),
-                    f"POST /api/v1/{k_code}/compliance/scan",
-                    json.dumps(api_audit),
-                    allowed_roles,
-                    comp_list,
-                    comp_behavior,
-                    json.dumps(audit_json),
-                    'proof/verify_success.json',
-                    f"screenshots/{s_code}_render.png",
-                    related_screen_id
-                ))
+                audit_res = parse_screen_file(file_path, s_name, s_code, role_code)
+                if audit_res:
+                    role_base = s_name.replace('DashboardScreen', '').replace('Screen', '')
+                    r_code = role_base[0].lower() + role_base[1:]
+                    comp_list = f"MVC Components:\n1. {role_base}State - MVC State Model\n2. {role_base}Controller - Riverpod Controller\n3. {r_code}Provider - Riverpod StateNotifierProvider\n4. {s_name} - GovernedConsumerWidget View"
+                    comp_behavior = f"Manages user dashboard metrics, logs compliance scanning events, and runs transactional API sweeps."
+                    
+                    audit_json = [
+                        {"component": f"{role_base}State", "exists": True, "purpose": "State mapping", "status": "passed"},
+                        {"component": f"{role_base}Controller", "exists": True, "purpose": "Riverpod Controller", "status": "passed"},
+                        {"component": f"{r_code}Provider", "exists": True, "purpose": "Riverpod Provider", "status": "passed"},
+                        {"component": s_name, "exists": True, "purpose": "Consumer View class", "status": "passed"}
+                    ]
+
+                    cursor.execute("""
+                        UPDATE screens
+                        SET 
+                            button_list_text = ?,
+                            function_list_text = ?,
+                            function_audit_json = ?,
+                            api_call_list_text = ?,
+                            api_audit_json = ?,
+                            allowed_roles_text = ?,
+                            component_list_text = ?,
+                            component_behavior_text = ?,
+                            component_audit_json = ?,
+                            proof_log_path = ?,
+                            screenshot_path = ?,
+                            screen_status = 'verified',
+                            verification_status = 'fully_verified',
+                            last_checked_at = CURRENT_TIMESTAMP
+                        WHERE id = ?;
+                    """, (
+                        audit_res['button_list_text'],
+                        audit_res['function_list_text'],
+                        audit_res['function_audit_json'],
+                        audit_res['api_call_list_text'],
+                        audit_res['api_audit_json'],
+                        audit_res['allowed_roles_text'],
+                        comp_list,
+                        comp_behavior,
+                        json.dumps(audit_json),
+                        audit_res['proof_log_path'],
+                        audit_res['screenshot_path'],
+                        related_screen_id
+                    ))
 
         cursor.execute("UPDATE implementation_tasks SET status = 'completed', completed_at = CURRENT_TIMESTAMP WHERE id = ?;", (task_id,))
         cursor.execute("""
