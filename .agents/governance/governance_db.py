@@ -17,8 +17,14 @@ def init_db(force_reset=False):
     cursor = conn.cursor()
     
     if force_reset:
-        print("Force resetting SQLite tables...")
+        print("Force resetting SQLite tables and views...")
         cursor.execute("DROP VIEW IF EXISTS v_agent_pending_task_queue;")
+        cursor.execute("DROP VIEW IF EXISTS v_project_health_summary;")
+        cursor.execute("DROP VIEW IF EXISTS v_screen_readiness_summary;")
+        cursor.execute("DROP VIEW IF EXISTS v_api_readiness_summary;")
+        cursor.execute("DROP VIEW IF EXISTS v_drift_summary;")
+        cursor.execute("DROP VIEW IF EXISTS v_agent_dashboard_summary;")
+        cursor.execute("DROP VIEW IF EXISTS v_workflow_execution_summary;")
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
@@ -1554,7 +1560,7 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_artifact ON agent_execution_runs(artifact_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_test_run ON agent_execution_runs(verified_by_test_run_id);")
 
-    # Create the unified Agent Work Queue view
+    # 1. Agent main queue view
     cursor.execute("""
     CREATE VIEW IF NOT EXISTS v_agent_pending_task_queue AS
     SELECT
@@ -1567,70 +1573,163 @@ def init_db(force_reset=False):
         WHEN t.priority = 'low' THEN 4
         ELSE 5
       END AS priority_rank,
-
-      t.status AS task_status,
+      t.status,
       t.task_type,
       t.task_title,
       t.task_description,
       t.assigned_agent,
-      t.created_at,
+      a.app_code,
+      a.app_name,
+      s.screen_name,
+      s.route_path,
+      api.http_method,
+      api.route_path AS api_route,
+      d.finding_type,
+      d.severity,
+      d.message AS drift_message,
+      t.created_at
+    FROM implementation_tasks t
+    LEFT JOIN apps a ON a.id = t.app_id
+    LEFT JOIN screens s ON s.id = t.related_screen_id
+    LEFT JOIN api_endpoints api ON api.id = t.related_api_id
+    LEFT JOIN drift_findings d ON d.id = t.source_finding_id
+    WHERE t.status NOT IN ('completed', 'verified', 'closed')
+    ORDER BY priority_rank, t.created_at;
+    """)
 
+    # 2. Project health summary view
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_project_health_summary AS
+    SELECT
       a.id AS app_id,
       a.app_code,
       a.app_name,
 
+      COUNT(DISTINCT s.id) AS total_screens,
+      COUNT(DISTINCT api.id) AS total_apis,
+      COUNT(DISTINCT t.id) AS total_tasks,
+      COUNT(DISTINCT CASE WHEN t.status = 'completed' THEN t.id END) AS completed_tasks,
+      COUNT(DISTINCT CASE WHEN t.status != 'completed' THEN t.id END) AS pending_tasks,
+
+      COUNT(DISTINCT d.id) AS total_drift,
+      COUNT(DISTINCT CASE WHEN d.status = 'closed' THEN d.id END) AS closed_drift,
+      COUNT(DISTINCT CASE WHEN d.status != 'closed' THEN d.id END) AS open_drift,
+
+      COUNT(DISTINCT tc.id) AS total_tests,
+      COUNT(DISTINCT CASE WHEN tc.last_run_status = 'passed' THEN tc.id END) AS passed_tests,
+      COUNT(DISTINCT CASE WHEN tc.last_run_status = 'failed' THEN tc.id END) AS failed_tests
+
+    FROM apps a
+    LEFT JOIN screens s ON s.app_id = a.id
+    LEFT JOIN api_endpoints api ON api.app_id = a.id
+    LEFT JOIN implementation_tasks t ON t.app_id = a.id
+    LEFT JOIN drift_findings d ON d.app_id = a.id
+    LEFT JOIN test_cases tc ON tc.app_id = a.id
+    GROUP BY a.id, a.app_code, a.app_name;
+    """)
+
+    # 3. Screen readiness view
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_screen_readiness_summary AS
+    SELECT
       s.id AS screen_id,
+      a.app_code,
       s.screen_code,
       s.screen_name,
       s.route_path,
 
-      f.id AS function_id,
-      f.function_code,
-      f.function_name,
-      f.function_type,
-      f.api_id,
+      COUNT(DISTINCT sf.id) AS functions_count,
+      COUNT(DISTINCT sal.api_id) AS linked_apis,
+      COUNT(DISTINCT tc.id) AS linked_tests,
 
-      api.id AS api_id_resolved,
-      api.route_path AS api_route_path,
+      CASE
+        WHEN COUNT(DISTINCT sf.id) = 0 THEN 'missing_functions'
+        WHEN COUNT(DISTINCT sal.api_id) = 0 THEN 'missing_api_link'
+        WHEN COUNT(DISTINCT tc.id) = 0 THEN 'missing_test'
+        ELSE 'ready'
+      END AS readiness_status
+
+    FROM screens s
+    LEFT JOIN apps a ON a.id = s.app_id
+    LEFT JOIN screen_functions sf ON sf.screen_id = s.id
+    LEFT JOIN screen_api_links sal ON sal.screen_id = s.id
+    LEFT JOIN test_cases tc ON tc.related_screen_id = s.id
+    GROUP BY s.id, a.app_code, s.screen_code, s.screen_name, s.route_path;
+    """)
+
+    # 4. API readiness view
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_api_readiness_summary AS
+    SELECT
+      api.id AS api_id,
+      a.app_code,
       api.http_method,
+      api.route_path,
+      api.implementation_status,
 
-      cf.id AS related_file_id,
-      cf.file_path AS related_file_path,
+      COUNT(DISTINCT sal.screen_id) AS linked_screens,
+      COUNT(DISTINCT sf.id) AS linked_functions,
+      COUNT(DISTINCT tc.id) AS linked_tests,
 
-      d.id AS drift_id,
+      CASE
+        WHEN COUNT(DISTINCT tc.id) = 0 THEN 'missing_test'
+        WHEN COUNT(DISTINCT sal.screen_id) = 0 THEN 'backend_only_or_orphan'
+        ELSE 'ready'
+      END AS api_status
+
+    FROM api_endpoints api
+    LEFT JOIN apps a ON a.id = api.app_id
+    LEFT JOIN screen_api_links sal ON sal.api_id = api.id
+    LEFT JOIN screen_functions sf ON sf.api_id = api.id
+    LEFT JOIN test_cases tc ON tc.related_api_id = api.id
+    GROUP BY api.id, a.app_code, api.http_method, api.route_path, api.implementation_status;
+    """)
+
+    # 5. Drift summary view
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_drift_summary AS
+    SELECT
+      a.app_code,
       d.finding_type,
-      d.severity AS drift_severity,
-      d.message AS drift_message
+      d.severity,
+      d.status,
+      COUNT(*) AS total
+    FROM drift_findings d
+    LEFT JOIN apps a ON a.id = d.app_id
+    GROUP BY a.app_code, d.finding_type, d.severity, d.status;
+    """)
 
-    FROM implementation_tasks t
+    # 6. Agent dashboard summary
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_agent_dashboard_summary AS
+    SELECT
+      COUNT(*) AS total_tasks,
+      SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending,
+      SUM(CASE WHEN status = 'investigating' THEN 1 ELSE 0 END) AS investigating,
+      SUM(CASE WHEN status = 'fixing' THEN 1 ELSE 0 END) AS fixing,
+      SUM(CASE WHEN status = 'test_failed' THEN 1 ELSE 0 END) AS test_failed,
+      SUM(CASE WHEN status = 'proof_missing' THEN 1 ELSE 0 END) AS proof_missing,
+      SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed
+    FROM implementation_tasks;
+    """)
 
-    LEFT JOIN apps a
-      ON a.id = t.app_id
-
-    LEFT JOIN screens s
-      ON s.id = t.related_screen_id
-
-    LEFT JOIN screen_functions f
-      ON f.screen_id = s.id
-
-    LEFT JOIN api_endpoints api
-      ON api.id = COALESCE(t.related_api_id, f.api_id)
-
-    LEFT JOIN code_files cf
-      ON cf.id = t.related_file_id
-
-    LEFT JOIN drift_findings d
-      ON d.id = t.source_finding_id
-
-    WHERE t.status IN (
-      'pending',
-      'assigned',
-      'investigating',
-      'build_failed',
-      'runtime_failed',
-      'test_failed',
-      'proof_missing'
-    );
+    # 7. Workflow execution summary
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_workflow_execution_summary AS
+    SELECT
+      wd.workflow_code,
+      wd.workflow_name,
+      a.app_code,
+      r.role_code,
+      COUNT(wr.id) AS total_runs,
+      SUM(CASE WHEN wr.status = 'passed' THEN 1 ELSE 0 END) AS passed_runs,
+      SUM(CASE WHEN wr.status = 'failed' THEN 1 ELSE 0 END) AS failed_runs,
+      MAX(wr.started_at) AS last_run_at
+    FROM workflow_definitions wd
+    LEFT JOIN apps a ON a.id = wd.app_id
+    LEFT JOIN roles r ON r.id = wd.role_id
+    LEFT JOIN workflow_execution_runs wr ON wr.workflow_id = wd.id
+    GROUP BY wd.workflow_code, wd.workflow_name, a.app_code, r.role_code;
     """)
 
     conn.commit()
