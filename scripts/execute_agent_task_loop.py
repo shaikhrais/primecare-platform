@@ -452,8 +452,8 @@ def execute_remediation():
         # State Flow: completed
         print(f"  {COLOR_GREEN}[OK] Completed:{COLOR_RESET} {rem_meta['step_completed']}")
         
-        # If this is a screen interaction audit task, execute actual remediation and populate missing fields in screens table
-        if task_type == 'screen_interaction_audit' and related_screen_id:
+        # If this is a screen interaction audit task or deep code verification, execute actual remediation and populate missing fields in screens table
+        if (task_type == 'screen_interaction_audit' or task_type == 'deep_code_verification') and related_screen_id:
             sys.path.append(os.path.join(PROJECT_ROOT, "scripts"))
             from audit_screen_interactions_parser import parse_screen_file
 
@@ -513,7 +513,16 @@ def execute_remediation():
                             implementation_depth_status = ?,
                             code_evidence_text = ?,
                             missing_implementation_text = ?,
-                            agent_next_action = ?
+                            agent_next_action = ?,
+                            -- Stage 6 Runtime Columns
+                            runtime_opened = ?,
+                            runtime_navigation_tested = ?,
+                            runtime_form_submit_tested = ?,
+                            runtime_search_tested = ?,
+                            runtime_table_loaded = ?,
+                            runtime_modal_tested = ?,
+                            runtime_permission_tested = ?,
+                            runtime_verification_score = ?
                         WHERE id = ?;
                     """, (
                         audit_res['button_list_text'],
@@ -553,6 +562,16 @@ def execute_remediation():
                         audit_res['code_evidence_text'],
                         audit_res['missing_implementation_text'],
                         audit_res['agent_next_action'],
+                        
+                        # Stage 6 Runtime Quality
+                        audit_res['runtime_opened'],
+                        audit_res['runtime_navigation_tested'],
+                        audit_res['runtime_form_submit_tested'],
+                        audit_res['runtime_search_tested'],
+                        audit_res['runtime_table_loaded'],
+                        audit_res['runtime_modal_tested'],
+                        audit_res['runtime_permission_tested'],
+                        audit_res['runtime_verification_score'],
                         related_screen_id
                     ))
 

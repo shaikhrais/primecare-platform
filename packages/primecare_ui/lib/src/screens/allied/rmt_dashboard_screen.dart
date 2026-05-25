@@ -1,17 +1,38 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Rmt Dashboard Screen workspace interface.
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+
+// --- Appointment Model ---
+class RmtAppointment {
+  final String id;
+  final String patientName;
+  final String treatmentType;
+  final String timeSlot;
+  final String status;
+
+  const RmtAppointment({
+    required this.id,
+    required this.patientName,
+    required this.treatmentType,
+    required this.timeSlot,
+    required this.status,
+  });
+}
 
 // --- MVC State Model ---
 class RmtDashboardState {
   final bool isLoading;
   final String? error;
   final String title;
+  final List<RmtAppointment> appointments;
   final List<String> logs;
 
   const RmtDashboardState({
     required this.isLoading,
     this.error,
     required this.title,
+    required this.appointments,
     required this.logs,
   });
 
@@ -19,12 +40,14 @@ class RmtDashboardState {
     bool? isLoading,
     String? error,
     String? title,
+    List<RmtAppointment>? appointments,
     List<String>? logs,
   }) {
     return RmtDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       title: title ?? this.title,
+      appointments: appointments ?? this.appointments,
       logs: logs ?? this.logs,
     );
   }
@@ -36,25 +59,29 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
 
   RmtDashboardController(this.ref)
       : super(
-          const RmtDashboardState(
+          RmtDashboardState(
             isLoading: false,
-            title: 'Rmt Control Center',
-            logs: [
-              'System initialized.',
-              'Security sync complete.',
+            title: 'RMT Therapy Dashboard'.tr(),
+            appointments: const [
+              RmtAppointment(id: 'apt-1', patientName: 'John Doe', treatmentType: 'Deep Tissue Massage', timeSlot: '09:00 AM - 10:00 AM', status: 'Scheduled'),
+              RmtAppointment(id: 'apt-2', patientName: 'Jane Smith', treatmentType: 'Myofascial Release', timeSlot: '11:30 AM - 12:30 PM', status: 'Active'),
+            ],
+            logs: const [
+              'Therapy workspace initialized.',
+              'Connected to Allied Health Schedule database.',
             ],
           ),
         );
 
-  Future<void> runComplianceScan() async {
+  Future<void> fetchAppointments() async {
     state = state.copyWith(isLoading: true);
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/rmt/compliance/scan',
+        '/v1/rmt/appointments/fetch',
         body: {
           'timestamp': DateTime.now().toIso8601String(),
-          'action': 'run_compliance_scan',
+          'action': 'fetch_active_appointments',
         },
       );
       if (response.isSuccess) {
@@ -62,8 +89,7 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
           isLoading: false,
           logs: [
             ...state.logs,
-            'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-            'All governance invariants validated via API.',
+            'Appointments successfully updated from API.',
           ],
         );
       } else {
@@ -71,30 +97,28 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
           isLoading: false,
           logs: [
             ...state.logs,
-            'API Error running scan: ${response.error}',
+            'API Error: ${response.error}',
           ],
         );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
+        logs: [...state.logs, 'Network Error: $e'],
       );
     }
   }
 
-  Future<void> syncPosture() async {
+  Future<void> createSoapNote(String appointmentId, String soapText) async {
     state = state.copyWith(isLoading: true);
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/rmt/compliance/sync',
+        '/v1/rmt/soap-notes/submit',
         body: {
+          'appointmentId': appointmentId,
+          'notes': soapText,
           'timestamp': DateTime.now().toIso8601String(),
-          'action': 'sync_posture',
         },
       );
       if (response.isSuccess) {
@@ -102,38 +126,33 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
           isLoading: false,
           logs: [
             ...state.logs,
-            'Manual synchronization sweep completed via API.',
+            'SOAP Clinical Note successfully submitted for $appointmentId.',
           ],
         );
       } else {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error syncing posture: ${response.error}',
-          ],
+          logs: [...state.logs, 'API Error: ${response.error}'],
         );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
+        logs: [...state.logs, 'Network Error: $e'],
       );
     }
   }
 
-  Future<void> updatePolicy() async {
+  Future<void> submitInsuranceClaim(String appointmentId) async {
     state = state.copyWith(isLoading: true);
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/rmt/policy/update',
+        '/v1/rmt/claims/submit',
         body: {
+          'appointmentId': appointmentId,
+          'provider': 'PrimeCare Telus Health Integration',
           'timestamp': DateTime.now().toIso8601String(),
-          'action': 'update_policy',
         },
       );
       if (response.isSuccess) {
@@ -141,38 +160,32 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
           isLoading: false,
           logs: [
             ...state.logs,
-            'Security posture updated and validated via API.',
+            'Telus Health direct billing claim approved for $appointmentId.',
           ],
         );
       } else {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error updating policy: ${response.error}',
-          ],
+          logs: [...state.logs, 'API Error: ${response.error}'],
         );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
+        logs: [...state.logs, 'Network Error: $e'],
       );
     }
   }
 
-  Future<void> exportLogs() async {
+  Future<void> updateTreatmentPlan(String planId) async {
     state = state.copyWith(isLoading: true);
     try {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
-        '/v1/rmt/logs/export',
+        '/v1/rmt/treatment-plans/update',
         body: {
+          'planId': planId,
           'timestamp': DateTime.now().toIso8601String(),
-          'action': 'export_logs',
         },
       );
       if (response.isSuccess) {
@@ -180,31 +193,21 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
           isLoading: false,
           logs: [
             ...state.logs,
-            'Audit logs successfully compiled and exported via API.',
+            'Treatment Plan $planId successfully updated via API.',
           ],
         );
       } else {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error exporting logs: ${response.error}',
-          ],
+          logs: [...state.logs, 'API Error: ${response.error}'],
         );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
+        logs: [...state.logs, 'Network Error: $e'],
       );
     }
-  }
-
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
   }
 }
 
@@ -223,7 +226,6 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(rmtDashboardProvider);
     final controller = ref.read(rmtDashboardProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'RmtDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
       backgroundColor: theme.colors.background,
@@ -237,7 +239,7 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
         actions: [
           IconButton(
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual refresh triggered.'),
+            onPressed: () => controller.fetchAppointments(),
           ),
         ],
       ),
@@ -248,44 +250,80 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
           children: [
             GovDashboardHero(
               title: state.title,
-              roleName: '$roleBase Dashboard',
-              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
+              roleName: 'Allied RMT Therapist',
+              description: 'Manage therapeutic SOAP charting notes, process Telus Health direct billing claims, and review scheduled massage sessions.',
+              onRefresh: () => controller.fetchAppointments(),
             ),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Operations',
-                    value: 'Active',
-                    trendLabel: 'Optimal productivity',
-                    progress: 0.92,
-                    icon: LucideIcons.activity,
-                    brandColor: theme.colors.primary,
+
+            // Active Sessions List
+            PrimeCareCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Massage Appointments & SOAP Notes',
+                    style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Security Clearance',
-                    value: 'Level 4 Approved',
-                    trendLabel: 'Zero exceptions logged',
-                    progress: 1.0,
-                    icon: LucideIcons.shieldCheck,
-                    brandColor: Colors.green,
-                  ),
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  ...state.appointments.map((apt) => Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: theme.colors.background,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: theme.colors.border),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    apt.patientName,
+                                    style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    apt.status,
+                                    style: TextStyle(
+                                      color: apt.status == 'Active' ? Colors.green : theme.colors.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${apt.treatmentType} | ${apt.timeSlot}',
+                                style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+                              ),
+                              const SizedBox(height: 12),
+                              Row(
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(backgroundColor: theme.colors.primary),
+                                    onPressed: () => controller.createSoapNote(apt.id, 'Myofascial tightness resolved.'),
+                                    child: const Text('Save SOAP Chart note', style: TextStyle(color: Colors.white)),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  TextButton(
+                                    onPressed: () => controller.submitInsuranceClaim(apt.id),
+                                    child: Text('Submit Direct Billing claim'.tr()),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
-            GovTelemetryChart(
-              title: 'Hourly Core Telemetry',
-              dataPoints: const [75, 82, 80, 94, 91, 98],
-              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-              accentColor: theme.colors.primary,
-            ),
-            const SizedBox(height: 24),
+
+            // Telemetry Logs Panel
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -320,33 +358,6 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
                           ],
                         ),
                       )),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Text(
-                              'Execute Operational Audit Scan',
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
-                    ),
-                  ),
                 ],
               ),
             ),

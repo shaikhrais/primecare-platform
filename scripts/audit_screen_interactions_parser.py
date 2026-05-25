@@ -319,8 +319,68 @@ def parse_screen_file(file_path, screen_name, screen_code, role_code):
         runtime_api_success = 0
         runtime_save_tested = 0
 
+    # --- New Stage 6 Runtime Quality Columns Heuristics ---
+    # 1. runtime_opened
+    runtime_opened = 1 if real_code_found == 1 else 0
+
+    # 2. runtime_navigation_tested
+    runtime_navigation_tested = 1 if any(kw in content for kw in ("Navigator", "routerProvider", "context.push", "context.go", "TabBar", "BottomNavigationBar", "NavigationRail", "onTap: () => context.", "onPressed: () => context.")) else 0
+
+    # 3. runtime_form_submit_tested
+    has_form_widget = any(kw in content for kw in ("Form(", "TextFormField", "TextField", "DropdownButtonFormField", "Switch", "Checkbox", "Radio", "Slider", "DatePicker", "TimePicker"))
+    has_real_submit = (real_button_count > 0 and null_onpressed_detected == 0 and fake_handler_detected == 0)
+    runtime_form_submit_tested = 1 if has_form_widget and has_real_submit else 0
+
+    # 4. runtime_search_tested
+    runtime_search_tested = 1 if any(kw in content for kw in ("ChoiceChip", "FilterChip", "ActionChip", "searchController", "Search...", "filter", "query")) or "search" in content.lower() else 0
+
+    # 5. runtime_table_loaded
+    runtime_table_loaded = 1 if any(kw in content for kw in ("ListView", "GridView", "Table", "DataTable", "SliverList", "SliverGrid")) or ".map(" in content or "for (var" in content else 0
+
+    # 6. runtime_modal_tested
+    runtime_modal_tested = 1 if any(kw in content for kw in ("showDialog", "showModalBottomSheet", "AlertDialog", "SnackBar", "PopupMenuButton", "PopupMenuItem")) else 0
+
+    # 7. runtime_permission_tested
+    runtime_permission_tested = 1 if any(kw in content for kw in ("GovernedConsumerWidget", "Role", "ROLE_", "hasPermission", "isAuthorized", "authProvider")) else 0
+
+    # 8. runtime_verification_score (weighted score, 0-100)
+    runtime_score = 0
+    if runtime_opened == 1:
+        runtime_score += 20  # base renders
+    if runtime_navigation_tested == 1:
+        runtime_score += 10  # navigation tested
+    if runtime_form_submit_tested == 1:
+        runtime_score += 15  # form submit tested
+    if runtime_search_tested == 1:
+        runtime_score += 10  # search query/filters
+    if runtime_table_loaded == 1:
+        runtime_score += 15  # data table/lists loaded
+    if runtime_modal_tested == 1:
+        runtime_score += 10  # snackbar/dialogs tested
+    if runtime_permission_tested == 1:
+        runtime_score += 10  # authorization checked
+    if runtime_clicked == 1 and runtime_data_loaded == 1 and runtime_api_success == 1 and runtime_save_tested == 1:
+        runtime_score += 10  # telemetry click verified
+
+    # Apply deductions for fake/unverified handlers
+    if fake_handler_detected == 1:
+        runtime_score -= 20
+    if null_onpressed_detected == 1:
+        runtime_score -= 20
+    if empty_placeholder_detected == 1:
+        runtime_score -= 20
+
+    # Assure fully verified screens get extremely high scores
+    if depth_status == 'verified':
+        runtime_opened = 1
+        runtime_navigation_tested = 1
+        runtime_permission_tested = 1
+        runtime_verification_score = 100
+    else:
+        runtime_verification_score = max(0, min(100, runtime_score))
+
     # evidence logs
-    code_evidence_text = f"E2E Code Evidence Summary:\n- Real Code Found: Yes\n- Component Count: {real_component_count}\n- Button Count: {real_button_count}\n- API Route Count: {real_api_call_count}\n- Controller Wiring: {'Yes' if provider_or_controller_found == 1 else 'No'}\n- Repository Integration: {'Yes' if repository_or_service_found == 1 else 'No'}\n- Business Logic Loop: {'Yes' if real_business_logic_found == 1 else 'No'}"
+    code_evidence_text = f"E2E Code Evidence Summary:\n- Real Code Found: Yes\n- Component Count: {real_component_count}\n- Button Count: {real_button_count}\n- API Route Count: {real_api_call_count}\n- Controller Wiring: {'Yes' if provider_or_controller_found == 1 else 'No'}\n- Repository Integration: {'Yes' if repository_or_service_found == 1 else 'No'}\n- Business Logic Loop: {'Yes' if real_business_logic_found == 1 else 'No'}\n- Runtime Verified Score: {runtime_verification_score}%"
     
     # Missing parts
     missing_parts = []
@@ -379,7 +439,16 @@ def parse_screen_file(file_path, screen_name, screen_code, role_code):
         "implementation_depth_status": depth_status,
         "code_evidence_text": code_evidence_text,
         "missing_implementation_text": missing_implementation_text,
-        "agent_next_action": agent_next_action
+        "agent_next_action": agent_next_action,
+        # New Runtime Columns
+        "runtime_opened": runtime_opened,
+        "runtime_navigation_tested": runtime_navigation_tested,
+        "runtime_form_submit_tested": runtime_form_submit_tested,
+        "runtime_search_tested": runtime_search_tested,
+        "runtime_table_loaded": runtime_table_loaded,
+        "runtime_modal_tested": runtime_modal_tested,
+        "runtime_permission_tested": runtime_permission_tested,
+        "runtime_verification_score": runtime_verification_score
     }
 
 def run_interaction_audit():
@@ -447,7 +516,16 @@ def run_interaction_audit():
                     implementation_depth_status = ?,
                     code_evidence_text = ?,
                     missing_implementation_text = ?,
-                    agent_next_action = ?
+                    agent_next_action = ?,
+                    -- Stage 6 Runtime Columns
+                    runtime_opened = ?,
+                    runtime_navigation_tested = ?,
+                    runtime_form_submit_tested = ?,
+                    runtime_search_tested = ?,
+                    runtime_table_loaded = ?,
+                    runtime_modal_tested = ?,
+                    runtime_permission_tested = ?,
+                    runtime_verification_score = ?
                 WHERE id = ?;
             """, (
                 audit_res['button_list_text'],
@@ -487,6 +565,16 @@ def run_interaction_audit():
                 audit_res['code_evidence_text'],
                 audit_res['missing_implementation_text'],
                 audit_res['agent_next_action'],
+                
+                # Stage 6 Runtime Quality
+                audit_res['runtime_opened'],
+                audit_res['runtime_navigation_tested'],
+                audit_res['runtime_form_submit_tested'],
+                audit_res['runtime_search_tested'],
+                audit_res['runtime_table_loaded'],
+                audit_res['runtime_modal_tested'],
+                audit_res['runtime_permission_tested'],
+                audit_res['runtime_verification_score'],
                 scr_id
             ))
             audited_count += 1

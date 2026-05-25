@@ -95,7 +95,7 @@ def verify_lifecycle_compliance():
             scr_code = file_basename.replace(".dart", "")
             
             # Check if registered in screens table
-            cursor.execute("SELECT id, screen_name FROM screens WHERE file_path = ? OR screen_code = ? OR screen_code = ?;", (scr_file, scr_code, scr_code.replace("_screen", "")))
+            cursor.execute("SELECT id, screen_name FROM screens WHERE expected_file_path = ? OR screen_code = ? OR screen_code = ?;", (scr_file, scr_code, scr_code.replace("_screen", "")))
             scr_row = cursor.fetchone()
             
             if not scr_row:

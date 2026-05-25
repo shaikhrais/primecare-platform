@@ -17,7 +17,7 @@ def upgrade_database():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    # 1. Alter screens table to add all 22 columns (Self-healing)
+    # 1. Alter screens table to add all 22 columns + 8 runtime columns (Self-healing)
     new_columns = [
         ("code_scan_status", "TEXT DEFAULT 'pending'"),
         ("real_code_found", "INTEGER DEFAULT 0"),
@@ -39,7 +39,16 @@ def upgrade_database():
         ("implementation_depth_status", "TEXT DEFAULT 'not_checked'"),
         ("code_evidence_text", "TEXT"),
         ("missing_implementation_text", "TEXT"),
-        ("agent_next_action", "TEXT")
+        ("agent_next_action", "TEXT"),
+        # New Runtime Columns
+        ("runtime_opened", "INTEGER DEFAULT 0"),
+        ("runtime_navigation_tested", "INTEGER DEFAULT 0"),
+        ("runtime_form_submit_tested", "INTEGER DEFAULT 0"),
+        ("runtime_search_tested", "INTEGER DEFAULT 0"),
+        ("runtime_table_loaded", "INTEGER DEFAULT 0"),
+        ("runtime_modal_tested", "INTEGER DEFAULT 0"),
+        ("runtime_permission_tested", "INTEGER DEFAULT 0"),
+        ("runtime_verification_score", "INTEGER DEFAULT 0")
     ]
 
     cursor.execute("PRAGMA table_info(screens);")
