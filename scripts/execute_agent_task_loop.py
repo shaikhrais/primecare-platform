@@ -286,6 +286,58 @@ def execute_remediation():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
+    # Recreate temporary schema dynamically to support orchestration logging without disk pollution
+    cursor.execute("""
+    CREATE TEMP TABLE IF NOT EXISTS agent_task_dispatches (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task_id INTEGER UNIQUE,
+        agent_name TEXT,
+        dispatch_status TEXT,
+        assigned_at TEXT,
+        started_at TEXT,
+        current_step TEXT,
+        proof_json TEXT,
+        completed_at TEXT
+    );
+    """)
+
+    cursor.execute("""
+    CREATE TEMP VIEW IF NOT EXISTS v_agent_dashboard_summary AS
+    SELECT 
+        COUNT(*) AS total_tasks,
+        SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending,
+        SUM(CASE WHEN status = 'investigating' THEN 1 ELSE 0 END) AS investigating,
+        SUM(CASE WHEN status = 'fixing' THEN 1 ELSE 0 END) AS fixing,
+        SUM(CASE WHEN status = 'test_failed' THEN 1 ELSE 0 END) AS test_failed,
+        SUM(CASE WHEN status = 'proof_missing' THEN 1 ELSE 0 END) AS proof_missing,
+        SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed
+    FROM implementation_tasks;
+    """)
+
+    cursor.execute("""
+    CREATE TEMP VIEW IF NOT EXISTS v_agent_pending_task_queue AS
+    SELECT 
+        t.id AS task_id,
+        t.priority,
+        t.status,
+        t.task_type,
+        t.task_title,
+        t.task_description,
+        a.app_code,
+        s.route_path,
+        CASE t.priority 
+            WHEN 'critical' THEN 1 
+            WHEN 'high' THEN 2 
+            WHEN 'medium' THEN 3 
+            ELSE 4 
+        END AS priority_rank,
+        t.created_at
+    FROM implementation_tasks t
+    LEFT JOIN apps a ON t.app_id = a.id
+    LEFT JOIN screens s ON t.related_screen_id = s.id
+    WHERE t.status != 'completed';
+    """)
+
     # Step 1: Read dashboard summary before starting
     cursor.execute("SELECT * FROM v_agent_dashboard_summary;")
     dash = cursor.fetchone()
