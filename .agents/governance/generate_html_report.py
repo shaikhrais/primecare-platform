@@ -888,17 +888,30 @@ def generate_report():
 
                 <!-- Step 5 -->
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
-                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">⏳</div>
-                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #ea580c; margin-bottom: 4px;">Milestone 05</div>
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">✓</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #0284c7; margin-bottom: 4px;">Milestone 05</div>
                     <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Self-Healing Drift Reconcile</h4>
-                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Developing self-healing migration systems automatically correcting schema/filesystem drifts and orchestrating rollbacks.</p>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Constructed AI drift reconcilers automatically closing E2E api gaps, assigning fallsafe asset owners, and deprecating dead controllers.</p>
+                </div>
+
+                <!-- Step 6 -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">⏳</div>
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #ea580c; margin-bottom: 4px;">Milestone 06</div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Predictive Risk &amp; Gating</h4>
+                    <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Integrating ML-driven predictive risk algorithms to block unsafe deployments dynamically before edge worker commits.</p>
                 </div>
             </div>
             
             <div style="margin-top: 20px; padding: 12px; background: #ffffff; border-radius: 6px; border: 1px dashed #cbd5e1; font-size: 12.5px; color: #334155; line-height: 1.5;">
-                <strong>💡 Next Operational Step:</strong> Audit dead-code modules and unowned assets in the codebase by executing the new trace detector:
-                <code style="display: inline-block; padding: 2px 6px; background: #f1f5f9; border-radius: 4px; font-family: monospace; font-size: 11px; color: #0f172a; border: 1px solid #cbd5e1;">python scripts/detect_orphans.py</code>.
-                This registers findings directly in <code>drift_findings</code> and unresolved incidents inside <code>incident_reports</code>.
+                <strong>💡 Next Operational Step:</strong> Execute a full closed-loop database scan and self-healing sweep:
+                <code style="display: block; margin: 8px 0; padding: 8px; background: #f8fafc; border-radius: 4px; font-family: monospace; font-size: 11.5px; color: #0f172a; border: 1px solid #e2e8f0; line-height: 1.4;">
+                    # 1. Sweep to detect outstanding dead-code, layout orphans, or unowned files:<br>
+                    python scripts/detect_orphans.py<br><br>
+                    # 2. Trigger active self-healing transactions to auto-resolve open compliance gaps:<br>
+                    python scripts/reconcile_drift.py
+                </code>
+                The engine records all operations, running validations and archiving audited reports inside <code>reports/governance/</code>.
             </div>
         </div>
     """
