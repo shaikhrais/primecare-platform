@@ -35,6 +35,7 @@ def init_db(force_reset=False):
             "api_failures",
             "user_sessions",
             "crash_reports",
+            "governance_health_scores",
             "runtime_logs",
             "rollback_operations",
             "rollback_snapshots",
@@ -1215,7 +1216,8 @@ def init_db(force_reset=False):
       device_info TEXT,
       session_id TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE
+      FOREIGN KEY (logical_app_id) REFERENCES logical_apps(id) ON DELETE CASCADE,
+      FOREIGN KEY (session_id) REFERENCES user_sessions(session_token) ON DELETE SET NULL
     );
     """)
 
@@ -1277,6 +1279,26 @@ def init_db(force_reset=False):
       UNIQUE(release_version_id, gate_name)
     );
     """)
+
+    # 60. governance_health_scores
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS governance_health_scores (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      app_id INTEGER NOT NULL,
+      architecture_score REAL,
+      testing_score REAL,
+      security_score REAL,
+      drift_score REAL,
+      deployment_score REAL,
+      dependency_score REAL,
+      runtime_score REAL,
+      overall_score REAL,
+      generated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (app_id) REFERENCES apps(id) ON DELETE CASCADE,
+      UNIQUE(app_id, generated_at)
+    );
+    """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_ghs_app ON governance_health_scores(app_id);")
 
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")

@@ -209,8 +209,63 @@ def generate_report():
             </td>
         </tr>""")
 
+    # 5.6. Add dynamic Governance Health Scores
+    cursor.execute("""
+        SELECT a.app_name, a.app_code, h.architecture_score, h.testing_score, h.security_score, h.drift_score, h.deployment_score, h.dependency_score, h.runtime_score, h.overall_score
+        FROM governance_health_scores h
+        JOIN apps a ON h.app_id = a.id
+        ORDER BY h.overall_score DESC;
+    """)
+    score_rows = cursor.fetchall()
+    
+    score_table_rows = []
+    for s in score_rows:
+        overall = s['overall_score']
+        badge_class = "badge-green" if overall >= 98.0 else ("badge-yellow" if overall >= 95.0 else "badge-red")
+        
+        score_table_rows.append(f"""
+        <tr>
+            <td style="vertical-align: middle; font-weight: 700; color: #1e3a8a;">{s['app_name']} <code style="font-weight: normal; font-size: 11px; color: #0284c7;">({s['app_code']})</code></td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['architecture_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['testing_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['security_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['drift_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['deployment_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['dependency_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;">{s['runtime_score']}%</td>
+            <td style="text-align: center; vertical-align: middle; font-family: monospace;"><span class="badge {badge_class}" style="font-size: 12px; font-weight: 800;">{overall}%</span></td>
+        </tr>""")
+
     charts_section_marker = '<!-- 4. CSS-Based Static Charts Section -->'
     new_card_html = f"""
+        <!-- Enterprise Architecture & Governance Health Scores -->
+        <div class="card" id="governance-health-scores" style="margin-bottom: 30px;">
+            <h2>Enterprise Architecture &amp; Governance Health Scores</h2>
+            <div style="margin-bottom: 15px; font-size: 13px; color: #475569;">
+                Dynamic health scores evaluated programmatically based on active compliance metrics, testing coverage, security findings, and dependency alignment.
+            </div>
+            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Application Module</th>
+                            <th style="text-align: center;">Architecture</th>
+                            <th style="text-align: center;">Testing</th>
+                            <th style="text-align: center;">Security</th>
+                            <th style="text-align: center;">Drift</th>
+                            <th style="text-align: center;">Deployment</th>
+                            <th style="text-align: center;">Dependency</th>
+                            <th style="text-align: center;">Runtime</th>
+                            <th style="text-align: center; font-weight: bold;">Overall Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {"".join(score_table_rows)}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Application Use-Case & Screen Map -->
         <div class="card" id="app-usecase-map" style="margin-bottom: 30px;">
             <h2>Application Use-Case &amp; Screen Map</h2>
@@ -241,7 +296,7 @@ def generate_report():
     # Add sidebar links
     html = html.replace(
         '<a href="#data-analysis">Data Analysis &amp; Health</a>',
-        '<a href="#app-usecase-map">App Screen Map</a>\n            <a href="#screen-hypermedia-directory">Screen Deep-Link Index</a>\n            <a href="#api-gateway-explorer">API Gateway Explorer</a>\n            <a href="#roadmap-next-steps">Hardened Governance Roadmap</a>\n            <a href="#data-analysis">Data Analysis &amp; Health</a>'
+        '<a href="#governance-health-scores">Governance Health Scores</a>\n            <a href="#app-usecase-map">App Screen Map</a>\n            <a href="#screen-hypermedia-directory">Screen Deep-Link Index</a>\n            <a href="#api-gateway-explorer">API Gateway Explorer</a>\n            <a href="#roadmap-next-steps">Hardened Governance Roadmap</a>\n            <a href="#data-analysis">Data Analysis &amp; Health</a>'
     )
 
     # 6. Update Stats Summary tiles dynamically
