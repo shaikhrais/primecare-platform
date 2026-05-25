@@ -18,9 +18,11 @@ def init_db(force_reset=False):
     
     if force_reset:
         print("Force resetting SQLite tables...")
+        cursor.execute("DROP VIEW IF EXISTS v_agent_pending_task_queue;")
         cursor.execute("PRAGMA foreign_keys = OFF;")
         
         tables_to_drop = [
+            "agent_task_dispatches",
             "runtime_interaction_events",
             "manual_verification_checks",
             "workflow_step_results",
@@ -628,6 +630,7 @@ def init_db(force_reset=False):
       related_file_id INTEGER,
       assigned_agent TEXT,
       status TEXT DEFAULT 'pending',
+      verification_status TEXT,
       source_finding_id INTEGER,
       completed_at TEXT,
       verified_by_test_run_id INTEGER,
@@ -1442,6 +1445,22 @@ def init_db(force_reset=False):
     );
     """)
 
+    # 68. agent_task_dispatches
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS agent_task_dispatches (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      task_id INTEGER NOT NULL,
+      agent_name TEXT NOT NULL,
+      dispatch_status TEXT DEFAULT 'assigned',
+      assigned_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      started_at TEXT,
+      completed_at TEXT,
+      current_step TEXT,
+      proof_json TEXT,
+      FOREIGN KEY (task_id) REFERENCES implementation_tasks(id) ON DELETE CASCADE
+    );
+    """)
+
     # Create optimized indexing structures for workflow tracking
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_workflow_app_role ON workflow_definitions(app_id, role_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_workflow_steps_workflow ON workflow_steps(workflow_id);")
@@ -1449,6 +1468,7 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_step_results_run ON workflow_step_results(run_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_events_screen ON runtime_interaction_events(screen_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_runtime_events_api ON runtime_interaction_events(api_id);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_dispatches_task ON agent_task_dispatches(task_id);")
 
     # Create optimized indexing structures
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_apps_org ON apps(org_id);")
@@ -1534,9 +1554,88 @@ def init_db(force_reset=False):
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_artifact ON agent_execution_runs(artifact_id);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_aer_test_run ON agent_execution_runs(verified_by_test_run_id);")
 
+    # Create the unified Agent Work Queue view
+    cursor.execute("""
+    CREATE VIEW IF NOT EXISTS v_agent_pending_task_queue AS
+    SELECT
+      t.id AS task_id,
+      t.priority,
+      CASE
+        WHEN t.priority = 'critical' THEN 1
+        WHEN t.priority = 'high' THEN 2
+        WHEN t.priority = 'medium' THEN 3
+        WHEN t.priority = 'low' THEN 4
+        ELSE 5
+      END AS priority_rank,
+
+      t.status AS task_status,
+      t.task_type,
+      t.task_title,
+      t.task_description,
+      t.assigned_agent,
+      t.created_at,
+
+      a.id AS app_id,
+      a.app_code,
+      a.app_name,
+
+      s.id AS screen_id,
+      s.screen_code,
+      s.screen_name,
+      s.route_path,
+
+      f.id AS function_id,
+      f.function_code,
+      f.function_name,
+      f.function_type,
+      f.api_id,
+
+      api.id AS api_id_resolved,
+      api.route_path AS api_route_path,
+      api.http_method,
+
+      cf.id AS related_file_id,
+      cf.file_path AS related_file_path,
+
+      d.id AS drift_id,
+      d.finding_type,
+      d.severity AS drift_severity,
+      d.message AS drift_message
+
+    FROM implementation_tasks t
+
+    LEFT JOIN apps a
+      ON a.id = t.app_id
+
+    LEFT JOIN screens s
+      ON s.id = t.related_screen_id
+
+    LEFT JOIN screen_functions f
+      ON f.screen_id = s.id
+
+    LEFT JOIN api_endpoints api
+      ON api.id = COALESCE(t.related_api_id, f.api_id)
+
+    LEFT JOIN code_files cf
+      ON cf.id = t.related_file_id
+
+    LEFT JOIN drift_findings d
+      ON d.id = t.source_finding_id
+
+    WHERE t.status IN (
+      'pending',
+      'assigned',
+      'investigating',
+      'build_failed',
+      'runtime_failed',
+      'test_failed',
+      'proof_missing'
+    );
+    """)
+
     conn.commit()
     conn.close()
-    print("PrimeCare 76-Table Relational Ultimate Software Governance SQLite Database schemas fully initialized.")
+    print("PrimeCare 77-Table Relational Ultimate Software Governance SQLite Database schemas and Views fully initialized.")
 
 if __name__ == "__main__":
     init_db()
