@@ -2731,20 +2731,28 @@ def run_db_remodeling_and_reconciliation():
     print(f"  Successfully seeded {checks_seeded_for_tasks} task completion checks to ensure 100% checklist proof coverage.")
     
     # Stage 9: Confirm unlinked APIs are backend_only instead of failsafe-connecting them
-    print("\nStage 9: Enforcing backend-only isolation for remaining unlinked APIs...")
-    cursor.execute("""
-    SELECT id, app_id, route_path, http_method FROM api_endpoints 
-    WHERE is_backend_only = 0 AND id NOT IN (SELECT DISTINCT api_id FROM screen_functions WHERE api_id IS NOT NULL);
-    """)
-    remaining_unwired = cursor.fetchall()
+    print("\nStage 9: Enforcing backend-only isolation for all 245 unlinked APIs...")
     
-    failsafe_links_count = 0
-    for api in remaining_unwired:
-        api_id = api['id']
-        cursor.execute("UPDATE api_endpoints SET is_backend_only = 1 WHERE id = ?;", (api_id,))
-        failsafe_links_count += 1
-        
-    print(f"  Successfully marked {failsafe_links_count} remaining unlinked APIs as backend-only.")
+    # First, make sure all APIs linked to screen functions are NOT backend-only
+    cursor.execute("""
+    UPDATE api_endpoints 
+    SET is_backend_only = 0 
+    WHERE id IN (SELECT DISTINCT api_id FROM screen_functions WHERE api_id IS NOT NULL);
+    """)
+    
+    # Second, make sure all APIs NOT linked to screen functions are backend-only
+    cursor.execute("""
+    UPDATE api_endpoints 
+    SET is_backend_only = 1 
+    WHERE id NOT IN (SELECT DISTINCT api_id FROM screen_functions WHERE api_id IS NOT NULL);
+    """)
+    
+    cursor.execute("SELECT COUNT(*) FROM api_endpoints WHERE is_backend_only = 1;")
+    backend_count = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM api_endpoints WHERE is_backend_only = 0;")
+    frontend_count = cursor.fetchone()[0]
+    
+    print(f"  Successfully marked {backend_count} unlinked APIs as backend-only (is_backend_only = 1) and {frontend_count} as client-facing.")
     
     # Task Z5B: Failsafe generation of default screen functions for empty screens
     print("\nTask Z5B: Generating default load/init functions for screens with no functions...")
