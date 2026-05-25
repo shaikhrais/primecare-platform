@@ -39,8 +39,31 @@ class OfficeWorkflowScreen extends GovernedConsumerWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: theme.colors.border),
               ),
-              child: Center(
-                child: Text('Integration Sandbox for Office Workflow Module', style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text('Integration Sandbox for Office Workflow Module', style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface)),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Execute Action Sweep',
+                        style: theme.typography.button.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
