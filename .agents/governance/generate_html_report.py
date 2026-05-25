@@ -32,18 +32,14 @@ def generate_report():
     total_apps = cursor.fetchone()[0] or 0
     cursor.execute("SELECT COUNT(*) FROM screens;")
     total_screens = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM screen_components;")
-    total_components = cursor.fetchone()[0] or 0
+    total_components = 0 # screen_components is dropped; fallback to 0
     cursor.execute("SELECT COUNT(*) FROM screen_functions;")
     total_functions = cursor.fetchone()[0] or 0
     cursor.execute("SELECT COUNT(*) FROM drift_findings WHERE status = 'open';")
     total_drifts = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM test_runs;")
-    total_test_runs = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM test_results;")
-    total_test_results = cursor.fetchone()[0] or 0
-    cursor.execute("SELECT COUNT(*) FROM task_completion_checks WHERE check_status = 'pending';")
-    total_pending_checks = cursor.fetchone()[0] or 0
+    total_test_runs = 0 # test_runs is dropped; fallback to 0
+    total_test_results = 0 # test_results is dropped; fallback to 0
+    total_pending_checks = 0 # task_completion_checks is dropped; fallback to 0
 
     # Read original report as the template
     with open(template_path, 'r', encoding='utf-8') as f:
@@ -426,21 +422,12 @@ def generate_report():
         </div>
     """
 
-    cursor.execute("SELECT COUNT(*) FROM screen_components;")
-    total_comps = cursor.fetchone()[0] or 0
+    total_comps = 0 # screen_components is dropped
     
     cursor.execute("SELECT COUNT(*) FROM screen_functions;")
     total_funcs = cursor.fetchone()[0] or 0
     
-    cursor.execute("SELECT component_type, COUNT(*) as cnt FROM screen_components GROUP BY component_type ORDER BY cnt DESC;")
-    comp_breakdown = cursor.fetchall()
     comp_types_html = []
-    for cb in comp_breakdown:
-        comp_types_html.append(f"""
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #f8fafc; border-radius: 6px; margin-bottom: 6px; border: 1px solid #f1f5f9;">
-            <span style="font-weight: 500; color: #334155; font-size: 13px;">{cb[0].capitalize()} Components</span>
-            <span class="badge badge-blue" style="font-weight: 700;">{cb[1]}</span>
-        </div>""")
         
     cursor.execute("SELECT function_type, COUNT(*) as cnt FROM screen_functions GROUP BY function_type ORDER BY cnt DESC;")
     func_breakdown = cursor.fetchall()
@@ -455,25 +442,10 @@ def generate_report():
             <span class="badge badge-orange" style="font-weight: 700;">{fb[1]}</span>
         </div>""")
 
-    cursor.execute("""
-        SELECT c.component_code, c.component_name, c.component_type, c.data_cy, s.screen_name, a.app_code
-        FROM screen_components c
-        JOIN screens s ON c.screen_id = s.id
-        JOIN apps a ON s.app_id = a.id
-        ORDER BY c.id DESC
-        LIMIT 10;
-    """)
-    recent_comps = cursor.fetchall()
-    recent_comps_rows = []
-    for rc in recent_comps:
-        recent_comps_rows.append(f"""
+    recent_comps_rows = ["""
         <tr style="border-bottom: 1px solid #f1f5f9;">
-            <td style="padding: 10px 8px; font-weight: 600; color: #0f172a; text-align: left;">{rc[1]}</td>
-            <td style="padding: 10px 8px; font-family: monospace; color: #64748b; text-align: left;">{rc[0]}</td>
-            <td style="padding: 10px 8px; text-align: left;"><span class="badge badge-blue">{rc[2].upper()}</span></td>
-            <td style="padding: 10px 8px; font-family: monospace; font-size: 11px; color: #0284c7; font-weight: 600; text-align: left;"><code>{rc[3] or 'N/A'}</code></td>
-            <td style="padding: 10px 8px; text-align: left;">{rc[4]} <code style="color: #64748b;">({rc[5]})</code></td>
-        </tr>""")
+            <td colspan="5" style="padding: 10px 8px; color: #64748b; text-align: center;">No physical components are tracked separately. All components are cataloged within files.</td>
+        </tr>"""]
 
     ui_components_actions_html = f"""
         <!-- UI Components & Core Actions Catalog -->
@@ -518,29 +490,25 @@ def generate_report():
             </div>
         </div>
     """
-
+    
     # Build lookups for name mapping in dependency tree
     lookups = {}
     
     # 1. logical_app
-    cursor.execute("SELECT id, app_name FROM logical_apps;")
-    lookups['logical_app'] = {r['id']: r['app_name'] for r in cursor.fetchall()}
+    lookups['logical_app'] = {}
     
     # 2. physical_package
-    cursor.execute("SELECT id, package_name FROM physical_packages;")
-    lookups['physical_package'] = {r['id']: r['package_name'] for r in cursor.fetchall()}
+    lookups['physical_package'] = {}
     
     # 3. package_file
-    cursor.execute("SELECT id, file_name FROM package_files;")
-    lookups['package_file'] = {r['id']: r['file_name'] for r in cursor.fetchall()}
+    lookups['package_file'] = {}
     
     # 4. screen
     cursor.execute("SELECT id, screen_name FROM screens;")
     lookups['screen'] = {r['id']: r['screen_name'] for r in cursor.fetchall()}
     
     # 5. component
-    cursor.execute("SELECT id, component_name FROM screen_components;")
-    lookups['component'] = {r['id']: r['component_name'] for r in cursor.fetchall()}
+    lookups['component'] = {}
     
     # 6. screen_function
     cursor.execute("SELECT id, function_name FROM screen_functions;")
@@ -563,35 +531,44 @@ def generate_report():
     lookups['test_case'] = {r['id']: r['test_name'] for r in cursor.fetchall()}
 
     # 11. environment_config
-    cursor.execute("SELECT id, env_key FROM environment_configs;")
-    lookups['environment_config'] = {r['id']: r['env_key'] for r in cursor.fetchall()}
+    lookups['environment_config'] = {}
 
     # 12. feature_flag
-    cursor.execute("SELECT id, flag_name FROM feature_flags;")
-    lookups['feature_flag'] = {r['id']: r['flag_name'] for r in cursor.fetchall()}
+    lookups['feature_flag'] = {}
 
-    # Fetch all dependencies
-    cursor.execute("SELECT * FROM artifact_dependencies;")
-    deps = cursor.fetchall()
-    
+    # Fetch all dependencies from kept tables if any, e.g. screen_file_links or role_screen_permissions
     json_deps = []
-    for d in deps:
-        src_type = d['source_type']
-        src_id = d['source_id']
-        tgt_type = d['target_type']
-        tgt_id = d['target_id']
-        
-        src_name = lookups.get(src_type, {}).get(src_id, f"ID {src_id}")
-        tgt_name = lookups.get(tgt_type, {}).get(tgt_id, f"ID {tgt_id}")
-        
-        json_deps.append({
-            "source_type": src_type,
-            "source_name": src_name,
-            "target_type": tgt_type,
-            "target_name": tgt_name,
-            "dependency_type": d['dependency_type']
-        })
     
+    cursor.execute("""
+        SELECT s.screen_name, cf.file_name, cf.file_path 
+        FROM screen_file_links sfl
+        JOIN screens s ON sfl.screen_id = s.id
+        JOIN code_files cf ON sfl.file_id = cf.id;
+    """)
+    for r in cursor.fetchall():
+        json_deps.append({
+            "source_type": "screen",
+            "source_name": r[0],
+            "target_type": "code_file",
+            "target_name": r[1],
+            "dependency_type": "file_link"
+        })
+        
+    cursor.execute("""
+        SELECT r.role_name, s.screen_name
+        FROM role_screen_permissions rsp
+        JOIN roles r ON rsp.role_id = r.id
+        JOIN screens s ON rsp.screen_id = s.id;
+    """)
+    for r in cursor.fetchall():
+        json_deps.append({
+            "source_type": "role",
+            "source_name": r[0],
+            "target_type": "screen",
+            "target_name": r[1],
+            "dependency_type": "permission"
+        })
+
     import json
     deps_json_str = json.dumps(json_deps)
 
@@ -604,7 +581,7 @@ def generate_report():
             </div>
             
             <div style="margin-top: 15px; padding: 12px; border-left: 4px solid #10b981; background: #f0fdf4; border-radius: 6px; font-size: 12.5px; color: #1e3a8a; line-height: 1.5; margin-bottom: 20px; border: 1px solid #d1fae5;">
-                <strong>🚀 Auto Dependency Impact Engine CLI Active:</strong><br>
+                <strong>[Active] Auto Dependency Impact Engine CLI Active:</strong><br>
                 You can immediately calculate downstream visual and logical impacts for any API, screen, file, or component by running:
                 <code style="display: block; margin: 8px 0; padding: 8px; background: #f8fafc; border-radius: 4px; font-family: monospace; font-size: 12px; color: #0f172a; border: 1px solid #e2e8f0; font-weight: bold;">python scripts/query_dependency_impact.py --screen clinic_dashboard</code>
                 This CLI traverses the entire transitive dependency graph, calculates a weighted <strong>Impact Risk Score</strong>, and compiles a comprehensive QA regression checklist inside <code>reports/governance/impact_reports/</code>.
@@ -854,7 +831,7 @@ def generate_report():
     roadmap_html = """
         <!-- Roadmap & Next Steps Card -->
         <div class="card" id="roadmap-next-steps" style="margin-bottom: 30px; border-left: 5px solid #0284c7; background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);">
-            <h2>🗺️ Architectural Governance Roadmap &amp; Next Steps</h2>
+            <h2>Architectural Governance Roadmap &amp; Next Steps</h2>
             <div style="margin-bottom: 20px; font-size: 13px; color: #475569;">
                 Strategic milestones for the PrimeCare zero-trust relational software governance ecosystem. Tracks implementation history, active hardening, and future bidirectional sync engines.
             </div>
@@ -902,7 +879,7 @@ def generate_report():
 
                 <!-- Step 6 -->
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
-                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">⏳</div>
+                    <div style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">...</div>
                     <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #ea580c; margin-bottom: 4px;">Milestone 06</div>
                     <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #0f172a; font-weight: 700;">Predictive Risk &amp; Gating</h4>
                     <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.4;">Integrating ML-driven predictive risk algorithms to block unsafe deployments dynamically before edge worker commits.</p>
@@ -910,7 +887,7 @@ def generate_report():
             </div>
             
             <div style="margin-top: 20px; padding: 12px; background: #ffffff; border-radius: 6px; border: 1px dashed #cbd5e1; font-size: 12.5px; color: #334155; line-height: 1.5;">
-                <strong>💡 Next Operational Step:</strong> Execute a full closed-loop database scan and self-healing sweep:
+                <strong>Next Operational Step:</strong> Execute a full closed-loop database scan and self-healing sweep:
                 <code style="display: block; margin: 8px 0; padding: 8px; background: #f8fafc; border-radius: 4px; font-family: monospace; font-size: 11.5px; color: #0f172a; border: 1px solid #e2e8f0; line-height: 1.4;">
                     # 1. Sweep to detect outstanding dead-code, layout orphans, or unowned files:<br>
                     python scripts/detect_orphans.py<br><br>
@@ -931,45 +908,45 @@ def generate_report():
         {api_gateway_explorer_html}
         {roadmap_html}
 
-        <!-- Test Runs Detail Card -->
+        <!-- CI Pipeline Runs Detail Card -->
         <div class="card" id="test-runs">
-            <h2>Logged Compliance Test Runs ({total_test_runs} runs)</h2>
+            <h2>CI Pipeline Quality Runs</h2>
             <div style="margin-bottom: 20px; font-size: 13px; color: #475569;">
-                Detailed execution logs for platform quality gates and CI/CD automated test runs.
+                Detailed execution logs for CI/CD pipeline automation and architectural gate verification.
             </div>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Run ID</th>
-                            <th>Run Name</th>
-                            <th>Run Type</th>
+                            <th>Run Number</th>
+                            <th>Branch</th>
+                            <th>Commit SHA</th>
                             <th>Status</th>
+                            <th>Triggered By</th>
                             <th>Started At</th>
-                            <th>Completed At</th>
                         </tr>
                     </thead>
                     <tbody>
     """
     
-    cursor.execute("SELECT * FROM test_runs ORDER BY id DESC LIMIT 10;")
+    cursor.execute("SELECT * FROM ci_pipeline_runs ORDER BY id DESC LIMIT 10;")
     run_rows = cursor.fetchall()
     if not run_rows:
         extra_sections += """
         <tr>
-            <td colspan="6" style="text-align: center; color: #64748b;">No test runs logged yet. Compliance gates verified.</td>
+            <td colspan="6" style="text-align: center; color: #64748b;">No pipeline runs logged yet. Compliance gates verified.</td>
         </tr>
         """
     for r in run_rows:
-        status_badge = "badge-green" if r['status'] == 'passed' else "badge-red" if r['status'] == 'failed' else "badge-yellow"
+        status_badge = "badge-green" if r['pipeline_status'] == 'passed' else "badge-red" if r['pipeline_status'] == 'failed' else "badge-yellow"
         extra_sections += f"""
         <tr>
-            <td><code>{r['id']}</code></td>
-            <td><strong>{r['run_name']}</strong></td>
-            <td><code>{r['run_type']}</code></td>
-            <td><span class="badge {status_badge}">{r['status']}</span></td>
+            <td><code>#{r['run_number']}</code></td>
+            <td><strong>{r['branch']}</strong></td>
+            <td><code>{r['commit_sha'][:8] if r['commit_sha'] else 'N/A'}</code></td>
+            <td><span class="badge {status_badge}">{r['pipeline_status']}</span></td>
+            <td><code>{r['triggered_by']}</code></td>
             <td><code>{r['started_at']}</code></td>
-            <td><code>{r['completed_at'] or 'N/A'}</code></td>
         </tr>
         """
 
@@ -979,43 +956,51 @@ def generate_report():
             </div>
         </div>
 
-        <!-- Task Verification Checks Detail Card -->
+        <!-- File Verification Checks Detail Card -->
         <div class="card" id="task-completion-checks">
-            <h2>Task Verification Evidence Checklist ({total_pending_checks} pending)</h2>
+            <h2>File Verification Checks</h2>
             <div style="margin-bottom: 20px; font-size: 13px; color: #475569;">
-                Checklist evidence logs proving compliance with zero-trust verification rules before implementation items are resolved.
+                Quality verification evidence proving that physical files conform to Zero-Trust and M3 responsive layouts.
             </div>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Check ID</th>
-                            <th>Task ID</th>
-                            <th>Verification Checklist Name</th>
+                            <th>File Path</th>
+                            <th>Flags (Exists/Import/Route/Widget)</th>
                             <th>Status</th>
-                            <th>Evidence Log Details</th>
+                            <th>Verification Checked At</th>
                         </tr>
                     </thead>
                     <tbody>
     """
 
-    cursor.execute("SELECT * FROM task_completion_checks ORDER BY id DESC LIMIT 10;")
+    cursor.execute("SELECT * FROM file_verification_checks ORDER BY id DESC LIMIT 10;")
     chk_rows = cursor.fetchall()
     if not chk_rows:
         extra_sections += """
         <tr>
-            <td colspan="5" style="text-align: center; color: #64748b;">No verification checks registered. Parity complete.</td>
+            <td colspan="5" style="text-align: center; color: #64748b;">No file verification checks registered.</td>
         </tr>
         """
     for c in chk_rows:
-        status_badge = "badge-green" if c['check_status'] == 'passed' else "badge-yellow"
+        status_badge = "badge-green" if c['verification_status'] == 'passed' or c['verification_status'] == 'verified' else ("badge-yellow" if c['verification_status'] == 'pending' else "badge-red")
+        
+        flags = []
+        if c['file_exists']: flags.append("Exists")
+        if c['import_works']: flags.append("Import")
+        if c['route_exists']: flags.append("Route")
+        if c['widget_exported']: flags.append("Widget")
+        flag_str = ", ".join(flags) if flags else "None"
+        
         extra_sections += f"""
         <tr>
             <td><code>{c['id']}</code></td>
-            <td><code>{c['task_id']}</code></td>
-            <td><strong>{c['check_name']}</strong></td>
-            <td><span class="badge {status_badge}">{c['check_status']}</span></td>
-            <td><code>{c['evidence'] or 'No evidence logged'}</code></td>
+            <td><code>{c['file_path']}</code></td>
+            <td><span style="font-size: 11px; color: #475569;">{flag_str}</span></td>
+            <td><span class="badge {status_badge}">{c['verification_status']}</span></td>
+            <td><code>{c['checked_at']}</code></td>
         </tr>
         """
 
