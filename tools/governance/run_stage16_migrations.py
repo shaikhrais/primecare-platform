@@ -104,6 +104,22 @@ def main():
     print("\nSeeding Stage 16 governance functions...")
     functions_to_seed = [
         (
+         'document_screen_data_load',
+         'Document Screen-Level Data Load Strategy',
+         'screen_load_doc',
+         'Scan all screens in registry, determine their data load strategies, set pagination, caching, lazy loading requirements, and document screen optimization status.',
+         'screens',
+         'SELECT id, screen_name, screen_type FROM screens WHERE data_load_strategy IS NULL;',
+         'python tools/governance/document_screen_data_load.py',
+         'Screens populated with data load strategies, pagination, and lazy loading parameters.',
+         'All screens in database are documented with a data loading strategy.',
+         'screens',
+         'data_load_strategy,pagination_required,lazy_loading_required,cache_required,optimization_status',
+         'json_log',
+         'tools/governance/reports/screen_data_load_report.json',
+         75
+        ),
+        (
          'audit_db_performance',
          'Audit Database Performance',
          'db_scan',

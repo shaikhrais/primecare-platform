@@ -9,33 +9,41 @@ def main():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    print("--- SLOW / UNOPTIMIZED APIs (from view) ---")
+    print("--- SCREENS WITH BLANK DATA LOAD STRATEGY OR OPTIMIZATION STATUS ---")
     cursor.execute("""
-        SELECT id, route_path, db_query_time_ms, possible_n_plus_one, optimization_status, prisma_model_names, query_pattern, uses_pagination, uses_select, uses_include
-        FROM api_endpoints
-        WHERE id IN (SELECT api_id FROM v_slow_api_index_recommendations)
+        SELECT count(*) as blank_count FROM screens
+        WHERE data_load_strategy IS NULL
+           OR data_load_strategy = ''
+           OR optimization_status IS NULL
+           OR optimization_status = '';
     """)
-    rows = cursor.fetchall()
-    print("Count:", len(rows))
-    for r in rows:
-        print(f"ID: {r['id']} | Route: {r['route_path']} | time_ms: {r['db_query_time_ms']} | N+1: {r['possible_n_plus_one']} | status: {r['optimization_status']} | models: {r['prisma_model_names']} | pattern: {r['query_pattern']} | pagination: {r['uses_pagination']} | select: {r['uses_select']} | include: {r['uses_include']}")
+    print("Blank Count:", cursor.fetchone()["blank_count"])
     
-    print("\n--- INDEX RECOMMENDATIONS STATUS ---")
-    cursor.execute("SELECT recommendation_status, count(*) as count FROM db_index_recommendations GROUP BY recommendation_status")
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS ROW COUNT ---")
+    cursor.execute("SELECT count(*) as total_count FROM governance_function_results")
+    print("Total Rows:", cursor.fetchone()["total_count"])
+    
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS GROUPED BY TARGET_TABLE ---")
+    cursor.execute("SELECT target_table, count(*) as count FROM governance_function_results GROUP BY target_table")
     for r in cursor.fetchall():
-        print(f"Status: {r['recommendation_status']} | Count: {r['count']}")
+        print(f"Table: {r['target_table']} | Count: {r['count']}")
         
-    print("\n--- GOVERNANCE FUNCTIONS RUN ORDER STATUS ---")
-    cursor.execute("SELECT id, function_code, last_run_status, run_order FROM governance_functions ORDER BY run_order")
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS GROUPED BY FUNCTION ---")
+    cursor.execute("""
+        SELECT f.function_code, count(r.id) as count 
+        FROM governance_functions f
+        LEFT JOIN governance_function_results r ON f.id = r.function_id
+        GROUP BY f.function_code
+    """)
     for r in cursor.fetchall():
-        print(f"ID: {r['id']} | Code: {r['function_code']} | Status: {r['last_run_status']} | Order: {r['run_order']}")
+        print(f"Function: {r['function_code']} | Results Count: {r['count']}")
 
-    print("\n--- PENDING IN QUEUE VIEW ---")
-    cursor.execute("SELECT * FROM v_governance_function_queue")
-    q_rows = cursor.fetchall()
-    print("Count:", len(q_rows))
-    for r in q_rows:
-        print(dict(r))
+    print("\n--- EXAMPLES OF SCREEN DATA LOAD STRATEGIES ---")
+    cursor.execute("""
+        SELECT data_load_strategy, count(*) as count FROM screens GROUP BY data_load_strategy
+    """)
+    for r in cursor.fetchall():
+        print(f"Strategy: {r['data_load_strategy']} | Count: {r['count']}")
         
     conn.close()
 

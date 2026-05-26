@@ -64,6 +64,30 @@ def main():
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
+    # Get function_id and run_id if running under orchestrator
+    run_id = None
+    function_id = None
+    try:
+        fn_row = cur.execute("""
+            SELECT id FROM governance_functions 
+            WHERE function_code = 'optimize_prisma_queries';
+        """).fetchone()
+        if fn_row:
+            function_id = fn_row["id"]
+            run_row = cur.execute("""
+                SELECT id FROM governance_function_runs
+                WHERE function_id = ? AND run_status = 'started'
+                ORDER BY id DESC LIMIT 1;
+            """, (function_id,)).fetchone()
+            if run_row:
+                run_id = run_row["id"]
+    except Exception as e:
+        print(f"  Note: Orchestrator context not found: {e}")
+
+    if function_id:
+        cur.execute("DELETE FROM governance_function_results WHERE function_id = ?;", (function_id,))
+        conn.commit()
+
     try:
         # Load pending recommendations
         recs = cur.execute("""
@@ -146,6 +170,32 @@ def main():
                 "api_optimized_id": api_id,
                 "screen_optimized_id": screen_id
             })
+
+            # Log to governance_function_results
+            before_state = {"recommendation_status": "pending", "optimization_status": "pending"}
+            after_state = {
+                "recommendation_status": "added",
+                "optimization_status": "optimized",
+                "index_name": index_name,
+                "table_name": table,
+                "columns": columns
+            }
+            cur.execute("""
+                INSERT INTO governance_function_results (
+                    run_id, function_id, target_table, target_id, target_name, 
+                    result_status, result_summary, before_json, after_json, 
+                    suggested_fix, created_at
+                ) VALUES (?, ?, 'db_index_recommendations', ?, ?, 'passed', ?, ?, ?, NULL, ?);
+            """, (
+                run_id,
+                function_id,
+                rec_id,
+                index_name,
+                f"Prisma schema index optimized: model '{table}', index '{index_name}' on ({columns}).",
+                json.dumps(before_state),
+                json.dumps(after_state),
+                datetime.utcnow().isoformat()
+            ))
 
     conn.commit()
 
