@@ -1,6 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide PhysicianDashboardScreen, RnDashboardScreen, RnMedicationsScreen, RnVitalsScreen, RnChartingScreen, RnMessagingScreen, PswDashboardScreen, PswCarePlanScreen, PswDailyNotesScreen, PswClientProfileScreen, PswMyShiftsScreen, PswMessagingScreen, IntakeCoordinatorDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen, ReceptionistDashboardScreen, RmtDashboardScreen, ChiropractorDashboardScreen, PhysiotherapistDashboardScreen, SocialWorkerDashboardScreen, ClinicalDirectorDashboardScreen, PswMessagesScreen, PswVisitNotesScreen, QaDashboardScreen;
+import 'package:primecare_ui/primecare_ui.dart' hide PhysicianDashboardScreen, RnDashboardScreen, RnMedicationsScreen, RnVitalsScreen, RnChartingScreen, RnMessagingScreen, PswDashboardScreen, PswCarePlanScreen, PswDailyNotesScreen, PswClientProfileScreen, PswMyShiftsScreen, PswMessagingScreen, IntakeCoordinatorDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen, ReceptionistDashboardScreen, RmtDashboardScreen, ChiropractorDashboardScreen, PhysiotherapistDashboardScreen, SocialWorkerDashboardScreen, ClinicalDirectorDashboardScreen, PswMessagesScreen, PswVisitNotesScreen, QaDashboardScreen, PswShiftTrackerScreen, PswDocumentsScreen;
 
 import 'clinic_routes.dart';
 

@@ -1,5 +1,5 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
-import 'package:primecare_ui/primecare_ui.dart' hide HrHiringDashboardScreen, OperationsManagerDashboardScreen, SchedulerDashboardScreen, BillingAdminDashboardScreen;
+import 'package:primecare_ui/primecare_ui.dart' hide HrHiringDashboardScreen, OperationsManagerDashboardScreen, SchedulerDashboardScreen, BillingAdminDashboardScreen, FranchiseOwnerBranchOverviewScreen, FranchiseOwnerStaffScreen, FranchiseOwnerAppointmentsScreen, FranchiseOwnerClientsScreen, FranchiseOwnerComplianceScreen, FranchiseOwnerReportsScreen, HrHiringApplicantsScreen, HrHiringInterviewsScreen, HrHiringOffersScreen, HrHiringOnboardingScreen, HrHiringCredentialsScreen;
 import 'package:flutter_core/flutter_core.dart';
 import '../../features/franchise/presentation/widgets/widgets.dart';
 
