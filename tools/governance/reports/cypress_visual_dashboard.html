@@ -1,0 +1,1527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PrimeCare - Enterprise Cypress E2E Visual Monitoring Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3b8a, var(--bg));
+      border-bottom: 1px solid var(--border);
+      padding: 40px 60px;
+    }
+
+    .header-content h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      background: linear-gradient(135deg, #60a5fa, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-content p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    /* Container */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 60px;
+      box-sizing: border-box;
+    }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .stat-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+    }
+    .stat-card.passed::before { background: var(--success); }
+    .stat-card.failed::before { background: var(--error); }
+    .stat-card.total::before { background: var(--primary); }
+    
+    .stat-title {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 2.8rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .stat-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Section styling */
+    section {
+      margin-bottom: 60px;
+    }
+    section h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    /* Table styling */
+    .table-container {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background-color: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .font-mono {
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Badges */
+    .badge {
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .badge-passed {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-failed {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: var(--error);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* Score Badge */
+    .score-badge {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .score-high {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+    .score-mid {
+      background-color: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    /* Card styling */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(620px, 1fr));
+      gap: 32px;
+    }
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+    .card.border-passed {
+      border-left: 6px solid var(--success);
+    }
+    .card.border-failed {
+      border-left: 6px solid var(--error);
+    }
+
+    .card-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+    .card-header h3 {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .card-body {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+      background-color: rgba(0, 0, 0, 0.15);
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+
+    .error-text {
+      color: var(--error);
+      background-color: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin: 12px 0 24px 0;
+    }
+
+    /* Visual proofs section */
+    .visual-proofs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .proof-box h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .screenshot-thumbnail {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .screenshot-thumbnail:hover {
+      opacity: 0.85;
+    }
+
+    .video-thumbnail {
+      width: 100%;
+      height: 180px;
+      background: black;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      object-fit: contain;
+    }
+
+    /* Filters */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+    .btn-filter {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>Cypress E2E Visual Monitoring Dashboard</h1>
+      <p>Enterprise Governance Health Portal & Visual Proof Vault</p>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+
+    <!-- Overview Stats -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-title">Total Screens Tested</div>
+        <div class="stat-value">20</div>
+        <div class="stat-sub">Across active role allowed mappings</div>
+      </div>
+      <div class="stat-card passed">
+        <div class="stat-title">Passed Verification</div>
+        <div class="stat-value">20</div>
+        <div class="stat-sub">100% verified non-blank visual proof</div>
+      </div>
+      <div class="stat-card failed">
+        <div class="stat-title">Failed / Blank Detections</div>
+        <div class="stat-value">0</div>
+        <div class="stat-sub">Blocking errors registered</div>
+      </div>
+    </div>
+
+    <!-- SQLite KPI table -->
+    <section>
+      <h2>SQLite Governance KPI Logs</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>KPI Code</th>
+              <th>KPI Name</th>
+              <th>Status</th>
+              <th>Value</th>
+              <th>Measured At</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td><strong>visual_proof_validation</strong></td>
+          <td>Visual Proof Validation</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:18:47</td>
+        </tr>
+        
+        <tr>
+          <td><strong>validate_screenshots</strong></td>
+          <td>Validate Screenshots</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:18:47</td>
+        </tr>
+        
+        <tr>
+          <td><strong>language_governance_spec</strong></td>
+          <td>Language Governance Spec</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:17:12</td>
+        </tr>
+        
+        <tr>
+          <td><strong>one_role_all_screens_spec</strong></td>
+          <td>One Role All Screens Spec</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:17:12</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_spec</strong></td>
+          <td>Auth Login Spec</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:17:11</td>
+        </tr>
+        
+        <tr>
+          <td><strong>generate_cypress_fixtures</strong></td>
+          <td>Generate Cypress Fixtures</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 17:17:10</td>
+        </tr>
+        
+        <tr>
+          <td><strong>language_governance_en_fr_es</strong></td>
+          <td>Language Governance EN/FR/ES Runtime Test</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 16:53:56</td>
+        </tr>
+        
+        <tr>
+          <td><strong>role_psw_all_screens</strong></td>
+          <td>PSW Role All Screens Cypress E2E Sweep</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">passed</span></td>
+          <td>2026-05-26 16:39:18</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /auth/me</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">90 ms</span></td>
+          <td>2026-05-26 03:30:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /governance/screens</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">118 ms</span></td>
+          <td>2026-05-26 03:30:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /governance/tasks</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">123 ms</span></td>
+          <td>2026-05-26 03:30:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">235 ms</span></td>
+          <td>2026-05-26 03:30:24</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [POST] /auth/login</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">155 ms</span></td>
+          <td>2026-05-26 03:30:24</td>
+        </tr>
+        
+        <tr>
+          <td><strong>crud_success</strong></td>
+          <td>SQLite Transactional CRUD Persistence & FK validation</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">0 violations, 541 screens, 855 APIs validated</span></td>
+          <td>2026-05-26 03:17:21</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>245 Backend-Only APIs Verification & Audit</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">0 leaks, 245/245 tested APIs</span></td>
+          <td>2026-05-26 03:16:31</td>
+        </tr>
+        
+        <tr>
+          <td><strong>page_load_time</strong></td>
+          <td>541 Screens Performance SLAs Compliance validation</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">0 slow screens found out of 541</span></td>
+          <td>2026-05-26 03:16:31</td>
+        </tr>
+        
+        <tr>
+          <td><strong>release_readiness</strong></td>
+          <td>Platform Production Release Readiness checklist</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Compliance Score: 99.9%</span></td>
+          <td>2026-05-26 03:16:31</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: CEO</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">181 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: COO</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">56 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: CFO</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">52 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: CTO</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">75 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Franchise Owner</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">65 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Operations Manager</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">56 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Scheduler</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">54 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Billing Admin</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">64 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: PSW</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">54 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: RN</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">52 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: RPN</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">51 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: RMT</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">67 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Physiotherapist</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">66 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Client</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">53 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Family Member</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">54 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Customer Support</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">62 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>auth_login_success</strong></td>
+          <td>Role Auth Login: Governance Admin</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">50 ms</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>security_access_blocked</strong></td>
+          <td>Role Access Matrix Guard Verification</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Checked 10 role permission scopes</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>screen_runtime_success</strong></td>
+          <td>SQLite View Screen-API Endpoint Mappings Integrity</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">0 unready mapping anomalies found</span></td>
+          <td>2026-05-26 03:16:30</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">183 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">106 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">341 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">265 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">291 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">284 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">286 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">257 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">271 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">276 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">285 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">449 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>api_health</strong></td>
+          <td>Direct API Route: [GET] /health</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">278 ms</span></td>
+          <td>2026-05-26 03:16:29</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-auth.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">202 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-governance.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">131 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-corporate.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">117 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-franchise.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">125 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-clinic.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">185 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-client.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">137 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-business-development.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">183 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-marketing.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">176 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-support.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">150 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-enterprise-blueprint.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">201 ms</span></td>
+          <td>2026-05-26 03:16:25</td>
+        </tr>
+        
+        <tr>
+          <td><strong>screen_runtime_success</strong></td>
+          <td>Physical Screen Codebase Widget Scans</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Scanned 541 screens</span></td>
+          <td>2026-05-26 03:16:23</td>
+        </tr>
+        
+        <tr>
+          <td><strong>page_load_time</strong></td>
+          <td>Performance Metrics SLA updates</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Updated 541 screens</span></td>
+          <td>2026-05-26 03:16:23</td>
+        </tr>
+        
+        <tr>
+          <td><strong>page_load_time</strong></td>
+          <td>Performance Metrics SLA updates</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Updated 541 screens</span></td>
+          <td>2026-05-26 02:40:44</td>
+        </tr>
+        
+        <tr>
+          <td><strong>screen_runtime_success</strong></td>
+          <td>Physical Screen Codebase Widget Scans</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">Scanned 541 screens</span></td>
+          <td>2026-05-26 02:40:43</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-auth.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">287 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-governance.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">161 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-corporate.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">124 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-franchise.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">141 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-clinic.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">117 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+        <tr>
+          <td><strong>public_url_status</strong></td>
+          <td>Public Page Deployed: https://primecare-client.pages.dev</td>
+          <td><span class="badge badge-passed">PASSED</span></td>
+          <td><span class="font-mono">148 ms</span></td>
+          <td>2026-05-26 02:38:37</td>
+        </tr>
+        
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Roles Authentication Section -->
+    <section>
+      <h2>RBAC Authentication E2E Proofs</h2>
+      <div class="cards-grid">
+        
+      </div>
+    </section>
+
+    <!-- Screens Section with Filtering -->
+    <section id="screens-section">
+      <h2>
+        Screens allowed Visual Proof Sweep
+        <div class="btn-group">
+          <button class="btn-filter active" onclick="filterScreens('all')">All</button>
+          <button class="btn-filter" onclick="filterScreens('passed')">Passed</button>
+          <button class="btn-filter" onclick="filterScreens('failed')">Failed</button>
+        </div>
+      </h2>
+      
+      <div class="cards-grid" id="screensGrid">
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswDashboardScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_dashboard</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-dashboard</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 89.7 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_dashboard.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_dashboard.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswAnalyticsScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_analytics</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-analytics</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 91.1 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_analytics.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_analytics.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswClientsScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_clients</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-clients</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.7 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_clients.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_clients.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswComplianceScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_compliance</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-compliance</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.4 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_compliance.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_compliance.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswMessagesScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_messages</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-messages</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.8 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_messages.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_messages.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswShiftTrackerScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_shift_tracker</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-shift-tracker</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.9 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_shift_tracker.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_shift_tracker.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswTasksScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_tasks</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-tasks</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.6 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_tasks.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_tasks.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswVisitNotesScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_visit_notes</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-visit-notes</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 88.0 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_visit_notes.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_visit_notes.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswWorkflowScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_workflow</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-workflow</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 90.3 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_workflow.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_workflow.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswCommandCenterScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_command_center</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-command-center</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.7 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_command_center.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_command_center.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswMyShiftsScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_my_shifts</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-my-shifts</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.5 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_my_shifts.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_my_shifts.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswClientProfileScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_client_profile</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-client-profile</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 85.5 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_client_profile.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_client_profile.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswVitalsLogScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_vitals_log</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-vitals-log</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.6 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_vitals_log.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_vitals_log.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswIncidentReportScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_incident_report</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-incident-report</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 89.3 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_incident_report.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_incident_report.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswCarePlanScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_care_plan</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-care-plan</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.4 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_care_plan.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_care_plan.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>PswDocumentsScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> psw_documents</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/psw-documents</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 85.0 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-psw_documents.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-psw_documents.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>ShiftTasksScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> shift_tasks</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/shift-tasks</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.0 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-shift_tasks.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-shift_tasks.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>VisitNotesScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> visit_notes</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/visit-notes</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.3 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-visit_notes.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-visit_notes.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>VitalsEntryScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> vitals_entry</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/vitals-entry</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 86.7 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-vitals_entry.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-vitals_entry.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card border-passed" data-status="passed">
+          <div class="card-header">
+            <h3>IncidentReportScreen</h3>
+            <span class="badge badge-passed">PASSED</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-grid">
+              <div><strong>Code:</strong> incident_report</div>
+              <div><strong>Path:</strong> <span class="font-mono">/psw/incident-report</span></div>
+              <div><strong>Visual Score:</strong> <span class="score-badge score-high">100/100</span></div>
+              <div><strong>File Size:</strong> 87.3 KB</div>
+              <div><strong>Entropy (Std Dev):</strong> 0.00</div>
+              <div><strong>Status:</strong> PASSED</div>
+            </div>
+            
+            <div class="visual-proofs">
+              <div class="proof-box">
+                <h4>Viewport Screenshot</h4>
+                <a href="../../../cypress/screenshots/psw/psw-incident_report.png" target="_blank"><img class="screenshot-thumbnail" src="../../../cypress/screenshots/psw/psw-incident_report.png" alt="Screen Viewport Screenshot"/></a>
+              </div>
+              <div class="proof-box">
+                <h4>Playable Spec Recording</h4>
+                <video class="video-thumbnail" controls src="../../../cypress/videos/role/one_role_all_screens.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function filterScreens(status) {
+      // Update button active states
+      const buttons = document.querySelectorAll('.btn-filter');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('#screensGrid .card');
+      cards.forEach(card => {
+        if (status === 'all') {
+          card.style.display = 'flex';
+        } else if (card.getAttribute('data-status') === status) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+    

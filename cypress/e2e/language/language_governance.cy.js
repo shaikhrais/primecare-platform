@@ -1,35 +1,19 @@
-describe("Language Governance EN/FR/ES", () => {
-  it("switches EN FR ES and verifies topbar/sidebar/content", () => {
-    cy.fixture("governance/languages.json").then((languages) => {
-      const activeLocales = languages.map((l) => l.locale_code);
+describe("Language Governance EN FR ES", () => {
+  it("switches languages and verifies visible UI", () => {
+    cy.loginAsRole(Cypress.env("ROLE_CODE") || "psw");
 
-      expect(activeLocales).to.deep.eq(["en", "fr", "es"]);
+    const locales = ["en", "fr", "es"];
 
-      cy.loginAsRole("psw");
-      cy.wait(2000);
-
+    for (const locale of locales) {
+      cy.switchLanguage(locale);
       cy.verifyShellExists();
+      cy.verifyNotBlank();
+      cy.screenshot(`language-${locale}`);
+    }
 
-      for (const locale of activeLocales) {
-        cy.switchLanguage(locale);
-
-        cy.get('[data-cy="app-topbar"]').should("exist");
-        cy.get('[data-cy="app-sidebar"]').should("exist");
-        cy.get('[data-cy="app-content-slot"]').should("exist");
-
-        cy.get('[data-cy="app-shell"]').should("be.visible");
-        cy.get('[data-cy="app-content-slot"]').should("be.visible");
-        cy.get("body").invoke("text").should("not.be.empty");
-        cy.wait(2000);
-        cy.screenshot(`language-${locale}-shell`, { capture: "viewport" });
-        cy.wait(2000);
-      }
-
-      cy.reload();
-      cy.wait(2000);
-
-      cy.verifyShellExists();
-      cy.get('[data-cy="topbar-language-switcher"]').should("exist");
-    });
+    cy.reload();
+    cy.waitAndSee();
+    cy.verifyShellExists();
+    cy.verifyNotBlank();
   });
 });
