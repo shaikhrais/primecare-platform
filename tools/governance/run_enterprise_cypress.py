@@ -96,6 +96,14 @@ def main():
             "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/role/one_role_all_screens.cy.js"]
         },
         {
+            "name": "one_app_all_roles_spec",
+            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/app/one_app_all_roles.cy.js"]
+        },
+        {
+            "name": "org_full_e2e_spec",
+            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/org/org_full_e2e.cy.js"]
+        },
+        {
             "name": "validate_screenshots",
             "cmd": ["python", "tools/governance/validate_screenshots.py"]
         },
