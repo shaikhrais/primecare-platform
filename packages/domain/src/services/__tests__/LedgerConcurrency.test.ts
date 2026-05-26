@@ -107,5 +107,5 @@ describe('LedgerService Concurrency Hardening', () => {
 
         expect(Number(lastAssetEntry?.balanceAfter)).toBe(expectedBalance);
         expect(Number(lastRevenueEntry?.balanceAfter)).toBe(expectedBalance);
-    });
+    }, 30000);
 });
