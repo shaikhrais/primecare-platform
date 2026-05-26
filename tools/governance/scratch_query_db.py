@@ -9,15 +9,37 @@ def main():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    print("--- SCREENS WITH BLANK DATA LOAD STRATEGY OR OPTIMIZATION STATUS ---")
+    print("--- APPS WITH BLANK LAYOUT OR BRANDING ---")
+    cursor.execute("""
+        SELECT count(*) as blank_count FROM apps
+        WHERE default_layout_key IS NULL OR default_layout_key = ''
+           OR app_shell_type IS NULL OR app_shell_type = ''
+           OR theme_config_json IS NULL OR theme_config_json = ''
+           OR branding_json IS NULL OR branding_json = '';
+    """)
+    print("Blank Apps Count:", cursor.fetchone()["blank_count"])
+    
+    print("\n--- ROLES WITH BLANK LAYOUT OR MENU ---")
+    cursor.execute("""
+        SELECT count(*) as blank_count FROM roles
+        WHERE topbar_config_json IS NULL OR topbar_config_json = ''
+           OR sidebar_config_json IS NULL OR sidebar_config_json = ''
+           OR default_dashboard_screen_code IS NULL OR default_dashboard_screen_code = ''
+           OR allowed_menu_json IS NULL OR allowed_menu_json = ''
+           OR role_layout_key IS NULL OR role_layout_key = ''
+           OR navigation_style IS NULL OR navigation_style = '';
+    """)
+    print("Blank Roles Count:", cursor.fetchone()["blank_count"])
+    
+    print("\n--- SCREENS WITH BLANK LAYOUT ---")
     cursor.execute("""
         SELECT count(*) as blank_count FROM screens
-        WHERE data_load_strategy IS NULL
-           OR data_load_strategy = ''
-           OR optimization_status IS NULL
-           OR optimization_status = '';
+        WHERE content_layout_type IS NULL OR content_layout_type = ''
+           OR parent_layout_key IS NULL OR parent_layout_key = ''
+           OR menu_label IS NULL OR menu_label = ''
+           OR menu_icon IS NULL OR menu_icon = '';
     """)
-    print("Blank Count:", cursor.fetchone()["blank_count"])
+    print("Blank Screens Count:", cursor.fetchone()["blank_count"])
     
     print("\n--- GOVERNANCE_FUNCTION_RESULTS ROW COUNT ---")
     cursor.execute("SELECT count(*) as total_count FROM governance_function_results")
@@ -37,13 +59,6 @@ def main():
     """)
     for r in cursor.fetchall():
         print(f"Function: {r['function_code']} | Results Count: {r['count']}")
-
-    print("\n--- EXAMPLES OF SCREEN DATA LOAD STRATEGIES ---")
-    cursor.execute("""
-        SELECT data_load_strategy, count(*) as count FROM screens GROUP BY data_load_strategy
-    """)
-    for r in cursor.fetchall():
-        print(f"Strategy: {r['data_load_strategy']} | Count: {r['count']}")
         
     conn.close()
 

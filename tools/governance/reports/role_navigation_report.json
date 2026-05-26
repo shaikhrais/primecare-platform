@@ -1,0 +1,5197 @@
+[
+  {
+    "role_id": 1,
+    "role_code": "chiropractor",
+    "role_name": "Chiropractor",
+    "navigation_style": "sidebar",
+    "default_dashboard": "chiropractor_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Chiropractor Dashboard",
+        "icon": "dashboard",
+        "screen_code": "chiropractor_dashboard",
+        "route": "/common/chiropractor-dashboard"
+      },
+      {
+        "label": "Chiropractor Analytics",
+        "icon": "menu",
+        "screen_code": "chiropractor_analytics",
+        "route": "/common/chiropractor-analytics"
+      },
+      {
+        "label": "Chiropractor Compliance",
+        "icon": "menu",
+        "screen_code": "chiropractor_compliance",
+        "route": "/common/chiropractor-compliance"
+      },
+      {
+        "label": "Chiropractor Workflow",
+        "icon": "trending_up",
+        "screen_code": "chiropractor_workflow",
+        "route": "/common/chiropractor-workflow"
+      },
+      {
+        "label": "Chiropractor Command Center",
+        "icon": "menu",
+        "screen_code": "chiropractor_command_center",
+        "route": "/allied/chiropractor-command-center"
+      },
+      {
+        "label": "Chiropractor Appointments",
+        "icon": "menu",
+        "screen_code": "chiropractor_appointments",
+        "route": "/allied/chiropractor-appointments"
+      },
+      {
+        "label": "Chiropractor Client Intake",
+        "icon": "person",
+        "screen_code": "chiropractor_client_intake",
+        "route": "/allied/chiropractor-client-intake"
+      },
+      {
+        "label": "Chiropractor Assessment",
+        "icon": "menu",
+        "screen_code": "chiropractor_assessment",
+        "route": "/allied/chiropractor-assessment"
+      },
+      {
+        "label": "Chiropractor Treatment Notes",
+        "icon": "description",
+        "screen_code": "chiropractor_treatment_notes",
+        "route": "/allied/chiropractor-treatment-notes"
+      },
+      {
+        "label": "Chiropractor Exercise Plan",
+        "icon": "menu",
+        "screen_code": "chiropractor_exercise_plan",
+        "route": "/allied/chiropractor-exercise-plan"
+      },
+      {
+        "label": "Chiropractor Billing Link",
+        "icon": "menu",
+        "screen_code": "chiropractor_billing_link",
+        "route": "/allied/chiropractor-billing-link"
+      },
+      {
+        "label": "Chiropractor Reports",
+        "icon": "description",
+        "screen_code": "chiropractor_reports",
+        "route": "/allied/chiropractor-reports"
+      },
+      {
+        "label": "Chiropractic Assessment",
+        "icon": "menu",
+        "screen_code": "chiropractic_assessment",
+        "route": "/allied/chiropractic-assessment"
+      },
+      {
+        "label": "Adjustment Notes",
+        "icon": "description",
+        "screen_code": "adjustment_notes",
+        "route": "/allied/adjustment-notes"
+      },
+      {
+        "label": "Xray Review",
+        "icon": "menu",
+        "screen_code": "xray_review",
+        "route": "/allied/xray-review"
+      },
+      {
+        "label": "Chiropractic Progress Tracking",
+        "icon": "menu",
+        "screen_code": "chiropractic_progress_tracking",
+        "route": "/allied/chiropractic-progress-tracking"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chiropractor Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "chiropractor_dashboard",
+      "chiropractor_analytics",
+      "chiropractor_compliance",
+      "chiropractor_workflow",
+      "chiropractor_command_center",
+      "chiropractor_appointments",
+      "chiropractor_client_intake",
+      "chiropractor_assessment",
+      "chiropractor_treatment_notes",
+      "chiropractor_exercise_plan",
+      "chiropractor_billing_link",
+      "chiropractor_reports",
+      "chiropractic_assessment",
+      "adjustment_notes",
+      "xray_review",
+      "chiropractic_progress_tracking"
+    ]
+  },
+  {
+    "role_id": 2,
+    "role_code": "physio",
+    "role_name": "Physiotherapist",
+    "navigation_style": "sidebar",
+    "default_dashboard": "physiotherapist_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Physiotherapist Dashboard",
+        "icon": "dashboard",
+        "screen_code": "physiotherapist_dashboard",
+        "route": "/common/physiotherapist-dashboard"
+      },
+      {
+        "label": "Physiotherapist Analytics",
+        "icon": "menu",
+        "screen_code": "physiotherapist_analytics",
+        "route": "/common/physiotherapist-analytics"
+      },
+      {
+        "label": "Physiotherapist Compliance",
+        "icon": "menu",
+        "screen_code": "physiotherapist_compliance",
+        "route": "/common/physiotherapist-compliance"
+      },
+      {
+        "label": "Physiotherapist Workflow",
+        "icon": "trending_up",
+        "screen_code": "physiotherapist_workflow",
+        "route": "/common/physiotherapist-workflow"
+      },
+      {
+        "label": "Physiotherapist Command Center",
+        "icon": "menu",
+        "screen_code": "physiotherapist_command_center",
+        "route": "/allied/physiotherapist-command-center"
+      },
+      {
+        "label": "Physiotherapist Appointments",
+        "icon": "menu",
+        "screen_code": "physiotherapist_appointments",
+        "route": "/allied/physiotherapist-appointments"
+      },
+      {
+        "label": "Physiotherapist Client Intake",
+        "icon": "person",
+        "screen_code": "physiotherapist_client_intake",
+        "route": "/allied/physiotherapist-client-intake"
+      },
+      {
+        "label": "Physiotherapist Assessment",
+        "icon": "menu",
+        "screen_code": "physiotherapist_assessment",
+        "route": "/allied/physiotherapist-assessment"
+      },
+      {
+        "label": "Physiotherapist Treatment Notes",
+        "icon": "description",
+        "screen_code": "physiotherapist_treatment_notes",
+        "route": "/allied/physiotherapist-treatment-notes"
+      },
+      {
+        "label": "Physiotherapist Exercise Plan",
+        "icon": "menu",
+        "screen_code": "physiotherapist_exercise_plan",
+        "route": "/allied/physiotherapist-exercise-plan"
+      },
+      {
+        "label": "Physiotherapist Billing Link",
+        "icon": "menu",
+        "screen_code": "physiotherapist_billing_link",
+        "route": "/allied/physiotherapist-billing-link"
+      },
+      {
+        "label": "Physiotherapist Reports",
+        "icon": "description",
+        "screen_code": "physiotherapist_reports",
+        "route": "/allied/physiotherapist-reports"
+      },
+      {
+        "label": "Assessment",
+        "icon": "menu",
+        "screen_code": "assessment",
+        "route": "/clinical/assessment"
+      },
+      {
+        "label": "Treatment Plan",
+        "icon": "menu",
+        "screen_code": "treatment_plan",
+        "route": "/clinical/treatment-plan"
+      },
+      {
+        "label": "Exercise Prescription",
+        "icon": "menu",
+        "screen_code": "exercise_prescription",
+        "route": "/clinical/exercise-prescription"
+      },
+      {
+        "label": "Progress Tracking",
+        "icon": "menu",
+        "screen_code": "progress_tracking",
+        "route": "/clinical/progress-tracking"
+      }
+    ],
+    "topbar_config": {
+      "title": "Physiotherapist Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "physiotherapist_dashboard",
+      "physiotherapist_analytics",
+      "physiotherapist_compliance",
+      "physiotherapist_workflow",
+      "physiotherapist_command_center",
+      "physiotherapist_appointments",
+      "physiotherapist_client_intake",
+      "physiotherapist_assessment",
+      "physiotherapist_treatment_notes",
+      "physiotherapist_exercise_plan",
+      "physiotherapist_billing_link",
+      "physiotherapist_reports",
+      "assessment",
+      "treatment_plan",
+      "exercise_prescription",
+      "progress_tracking"
+    ]
+  },
+  {
+    "role_id": 3,
+    "role_code": "rmt",
+    "role_name": "Registered Massage Therapist (RMT)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "rmt_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Rmt Dashboard",
+        "icon": "dashboard",
+        "screen_code": "rmt_dashboard",
+        "route": "/allied/rmt-dashboard"
+      },
+      {
+        "label": "Rmt Analytics",
+        "icon": "menu",
+        "screen_code": "rmt_analytics",
+        "route": "/allied/rmt-analytics"
+      },
+      {
+        "label": "Rmt Compliance",
+        "icon": "menu",
+        "screen_code": "rmt_compliance",
+        "route": "/allied/rmt-compliance"
+      },
+      {
+        "label": "Rmt Workflow",
+        "icon": "trending_up",
+        "screen_code": "rmt_workflow",
+        "route": "/allied/rmt-workflow"
+      },
+      {
+        "label": "Rmt Command Center",
+        "icon": "menu",
+        "screen_code": "rmt_command_center",
+        "route": "/allied/rmt-command-center"
+      },
+      {
+        "label": "Rmt Appointments",
+        "icon": "menu",
+        "screen_code": "rmt_appointments",
+        "route": "/allied/rmt-appointments"
+      },
+      {
+        "label": "Rmt Client Intake",
+        "icon": "person",
+        "screen_code": "rmt_client_intake",
+        "route": "/allied/rmt-client-intake"
+      },
+      {
+        "label": "Rmt Assessment",
+        "icon": "menu",
+        "screen_code": "rmt_assessment",
+        "route": "/allied/rmt-assessment"
+      },
+      {
+        "label": "Rmt Treatment Notes",
+        "icon": "description",
+        "screen_code": "rmt_treatment_notes",
+        "route": "/allied/rmt-treatment-notes"
+      },
+      {
+        "label": "Rmt Exercise Plan",
+        "icon": "menu",
+        "screen_code": "rmt_exercise_plan",
+        "route": "/allied/rmt-exercise-plan"
+      },
+      {
+        "label": "Rmt Billing Link",
+        "icon": "menu",
+        "screen_code": "rmt_billing_link",
+        "route": "/allied/rmt-billing-link"
+      },
+      {
+        "label": "Rmt Reports",
+        "icon": "description",
+        "screen_code": "rmt_reports",
+        "route": "/allied/rmt-reports"
+      },
+      {
+        "label": "Massage Assessment",
+        "icon": "menu",
+        "screen_code": "massage_assessment",
+        "route": "/allied/massage-assessment"
+      },
+      {
+        "label": "Treatment Notes",
+        "icon": "description",
+        "screen_code": "treatment_notes",
+        "route": "/allied/treatment-notes"
+      },
+      {
+        "label": "Home Care Plan",
+        "icon": "menu",
+        "screen_code": "home_care_plan",
+        "route": "/allied/home-care-plan"
+      },
+      {
+        "label": "Client Progress",
+        "icon": "person",
+        "screen_code": "client_progress",
+        "route": "/allied/client-progress"
+      }
+    ],
+    "topbar_config": {
+      "title": "Registered Massage Therapist (RMT) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "rmt_dashboard",
+      "rmt_analytics",
+      "rmt_compliance",
+      "rmt_workflow",
+      "rmt_command_center",
+      "rmt_appointments",
+      "rmt_client_intake",
+      "rmt_assessment",
+      "rmt_treatment_notes",
+      "rmt_exercise_plan",
+      "rmt_billing_link",
+      "rmt_reports",
+      "massage_assessment",
+      "treatment_notes",
+      "home_care_plan",
+      "client_progress"
+    ]
+  },
+  {
+    "role_id": 4,
+    "role_code": "social_worker",
+    "role_name": "Social Worker",
+    "navigation_style": "sidebar",
+    "default_dashboard": "social_worker_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Social Worker Dashboard",
+        "icon": "dashboard",
+        "screen_code": "social_worker_dashboard",
+        "route": "/common/social-worker-dashboard"
+      },
+      {
+        "label": "Social Worker Analytics",
+        "icon": "menu",
+        "screen_code": "social_worker_analytics",
+        "route": "/common/social-worker-analytics"
+      },
+      {
+        "label": "Social Worker Compliance",
+        "icon": "menu",
+        "screen_code": "social_worker_compliance",
+        "route": "/common/social-worker-compliance"
+      },
+      {
+        "label": "Social Worker Workflow",
+        "icon": "trending_up",
+        "screen_code": "social_worker_workflow",
+        "route": "/common/social-worker-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Social Worker Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "social_worker_dashboard",
+      "social_worker_analytics",
+      "social_worker_compliance",
+      "social_worker_workflow"
+    ]
+  },
+  {
+    "role_id": 5,
+    "role_code": "therapist",
+    "role_name": "Therapist",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "therapist_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Therapist Dashboard",
+        "icon": "dashboard",
+        "screen_code": "therapist_dashboard",
+        "route": "/allied/therapist-dashboard"
+      },
+      {
+        "label": "Therapist  Analytics",
+        "icon": "menu",
+        "screen_code": "therapist_analytics",
+        "route": "/allied/therapist-analytics"
+      },
+      {
+        "label": "Therapist  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "therapist_workflow",
+        "route": "/allied/therapist-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Therapist Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "therapist_dashboard",
+      "therapist_analytics",
+      "therapist_workflow"
+    ]
+  },
+  {
+    "role_id": 6,
+    "role_code": "clinical_director",
+    "role_name": "Clinical Director",
+    "navigation_style": "sidebar",
+    "default_dashboard": "clinical_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Clinical Dashboard",
+        "icon": "dashboard",
+        "screen_code": "clinical_dashboard",
+        "route": "/clinical/clinical-dashboard"
+      },
+      {
+        "label": "Clinic Dashboard",
+        "icon": "dashboard",
+        "screen_code": "clinic_dashboard",
+        "route": "/common/clinic-dashboard"
+      },
+      {
+        "label": "Clinical Analytics",
+        "icon": "menu",
+        "screen_code": "clinical_analytics",
+        "route": "/clinical/clinical-analytics"
+      },
+      {
+        "label": "Clinical Compliance",
+        "icon": "menu",
+        "screen_code": "clinical_compliance",
+        "route": "/clinical/clinical-compliance"
+      },
+      {
+        "label": "Clinical Workflow",
+        "icon": "trending_up",
+        "screen_code": "clinical_workflow",
+        "route": "/clinical/clinical-workflow"
+      },
+      {
+        "label": "Clinic Analytics",
+        "icon": "menu",
+        "screen_code": "clinic_analytics",
+        "route": "/common/clinic-analytics"
+      },
+      {
+        "label": "Clinic Compliance",
+        "icon": "menu",
+        "screen_code": "clinic_compliance",
+        "route": "/common/clinic-compliance"
+      },
+      {
+        "label": "Clinic Workflow",
+        "icon": "trending_up",
+        "screen_code": "clinic_workflow",
+        "route": "/common/clinic-workflow"
+      },
+      {
+        "label": "Clinical Director Staff Quality",
+        "icon": "menu",
+        "screen_code": "clinical_director_staff_quality",
+        "route": "/clinical/clinical-director-staff-quality"
+      },
+      {
+        "label": "Clinical Director Incident Review",
+        "icon": "menu",
+        "screen_code": "clinical_director_incident_review",
+        "route": "/clinical/clinical-director-incident-review"
+      },
+      {
+        "label": "Clinical Director Compliance",
+        "icon": "menu",
+        "screen_code": "clinical_director_compliance",
+        "route": "/clinical/clinical-director-compliance"
+      },
+      {
+        "label": "Clinical Director Reports",
+        "icon": "description",
+        "screen_code": "clinical_director_reports",
+        "route": "/clinical/clinical-director-reports"
+      },
+      {
+        "label": "Clinical Director Approvals",
+        "icon": "menu",
+        "screen_code": "clinical_director_approvals",
+        "route": "/clinical/clinical-director-approvals"
+      },
+      {
+        "label": "Clinical Director Performance",
+        "icon": "menu",
+        "screen_code": "clinical_director_performance",
+        "route": "/clinical/clinical-director-performance"
+      },
+      {
+        "label": "Clinical Quality",
+        "icon": "menu",
+        "screen_code": "clinical_quality",
+        "route": "/clinical/clinical-quality"
+      },
+      {
+        "label": "Staff Performance",
+        "icon": "menu",
+        "screen_code": "staff_performance",
+        "route": "/clinical/staff-performance"
+      },
+      {
+        "label": "Compliance Review",
+        "icon": "menu",
+        "screen_code": "compliance_review",
+        "route": "/clinical/compliance-review"
+      },
+      {
+        "label": "Incident Oversight",
+        "icon": "menu",
+        "screen_code": "incident_oversight",
+        "route": "/clinical/incident-oversight"
+      },
+      {
+        "label": "Clinical Operations4 K",
+        "icon": "menu",
+        "screen_code": "clinical_operations4_k",
+        "route": "/clinical/clinical-operations4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Clinical Director Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "clinical_dashboard",
+      "clinic_dashboard",
+      "clinical_analytics",
+      "clinical_compliance",
+      "clinical_workflow",
+      "clinic_analytics",
+      "clinic_compliance",
+      "clinic_workflow",
+      "clinical_director_staff_quality",
+      "clinical_director_incident_review",
+      "clinical_director_compliance",
+      "clinical_director_reports",
+      "clinical_director_approvals",
+      "clinical_director_performance",
+      "clinical_quality",
+      "staff_performance",
+      "compliance_review",
+      "incident_oversight",
+      "clinical_operations4_k"
+    ]
+  },
+  {
+    "role_id": 7,
+    "role_code": "intake",
+    "role_name": "Intake Coordinator",
+    "navigation_style": "sidebar",
+    "default_dashboard": "intake_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Intake Dashboard",
+        "icon": "dashboard",
+        "screen_code": "intake_dashboard",
+        "route": "/common/intake-dashboard"
+      },
+      {
+        "label": "Intake Coordinator Dashboard",
+        "icon": "dashboard",
+        "screen_code": "intake_coordinator_dashboard",
+        "route": "/staff/intake-coordinator-dashboard"
+      },
+      {
+        "label": "Intake Analytics",
+        "icon": "menu",
+        "screen_code": "intake_analytics",
+        "route": "/common/intake-analytics"
+      },
+      {
+        "label": "Intake Compliance",
+        "icon": "menu",
+        "screen_code": "intake_compliance",
+        "route": "/common/intake-compliance"
+      },
+      {
+        "label": "Intake Workflow",
+        "icon": "trending_up",
+        "screen_code": "intake_workflow",
+        "route": "/common/intake-workflow"
+      },
+      {
+        "label": "Intake Coordinator Analytics",
+        "icon": "menu",
+        "screen_code": "intake_coordinator_analytics",
+        "route": "/staff/intake-coordinator-analytics"
+      },
+      {
+        "label": "Intake Coordinator Compliance",
+        "icon": "menu",
+        "screen_code": "intake_coordinator_compliance",
+        "route": "/staff/intake-coordinator-compliance"
+      },
+      {
+        "label": "Intake Coordinator Workflow",
+        "icon": "trending_up",
+        "screen_code": "intake_coordinator_workflow",
+        "route": "/staff/intake-coordinator-workflow"
+      },
+      {
+        "label": "Referral Management",
+        "icon": "menu",
+        "screen_code": "referral_management",
+        "route": "/executive/referral-management"
+      },
+      {
+        "label": "Client Intake",
+        "icon": "person",
+        "screen_code": "client_intake",
+        "route": "/executive/client-intake"
+      },
+      {
+        "label": "Booking",
+        "icon": "menu",
+        "screen_code": "booking",
+        "route": "/executive/booking"
+      },
+      {
+        "label": "Followup",
+        "icon": "menu",
+        "screen_code": "followup",
+        "route": "/executive/followup"
+      }
+    ],
+    "topbar_config": {
+      "title": "Intake Coordinator Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "intake_dashboard",
+      "intake_coordinator_dashboard",
+      "intake_analytics",
+      "intake_compliance",
+      "intake_workflow",
+      "intake_coordinator_analytics",
+      "intake_coordinator_compliance",
+      "intake_coordinator_workflow",
+      "referral_management",
+      "client_intake",
+      "booking",
+      "followup"
+    ]
+  },
+  {
+    "role_id": 8,
+    "role_code": "rn",
+    "role_name": "Registered Nurse (RN)",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "rn_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Rn Dashboard",
+        "icon": "dashboard",
+        "screen_code": "rn_dashboard",
+        "route": "/rn/rn-dashboard"
+      },
+      {
+        "label": "Rn Analytics",
+        "icon": "menu",
+        "screen_code": "rn_analytics",
+        "route": "/rn/rn-analytics"
+      },
+      {
+        "label": "Rn Assessments",
+        "icon": "menu",
+        "screen_code": "rn_assessments",
+        "route": "/rn/rn-assessments"
+      },
+      {
+        "label": "Rn Care Plans",
+        "icon": "menu",
+        "screen_code": "rn_care_plans",
+        "route": "/rn/rn-care-plans"
+      },
+      {
+        "label": "Rn Compliance",
+        "icon": "menu",
+        "screen_code": "rn_compliance",
+        "route": "/rn/rn-compliance"
+      },
+      {
+        "label": "Rn Workflow",
+        "icon": "trending_up",
+        "screen_code": "rn_workflow",
+        "route": "/rn/rn-workflow"
+      },
+      {
+        "label": "Rn Command Center",
+        "icon": "menu",
+        "screen_code": "rn_command_center",
+        "route": "/rn/rn-command-center"
+      },
+      {
+        "label": "Rn Patient Charting",
+        "icon": "person",
+        "screen_code": "rn_patient_charting",
+        "route": "/rn/rn-patient-charting"
+      },
+      {
+        "label": "Rn Medications",
+        "icon": "menu",
+        "screen_code": "rn_medications",
+        "route": "/rn/rn-medications"
+      },
+      {
+        "label": "Rn Vitals",
+        "icon": "menu",
+        "screen_code": "rn_vitals",
+        "route": "/rn/rn-vitals"
+      },
+      {
+        "label": "Rn Care Plan Review",
+        "icon": "menu",
+        "screen_code": "rn_care_plan_review",
+        "route": "/rn/rn-care-plan-review"
+      },
+      {
+        "label": "Rn Incident Review",
+        "icon": "menu",
+        "screen_code": "rn_incident_review",
+        "route": "/rn/rn-incident-review"
+      },
+      {
+        "label": "Rn Tasks",
+        "icon": "menu",
+        "screen_code": "rn_tasks",
+        "route": "/rn/rn-tasks"
+      },
+      {
+        "label": "Rn Reports",
+        "icon": "description",
+        "screen_code": "rn_reports",
+        "route": "/rn/rn-reports"
+      },
+      {
+        "label": "Patient Charting",
+        "icon": "person",
+        "screen_code": "patient_charting",
+        "route": "/rn/patient-charting"
+      },
+      {
+        "label": "Medication Administration",
+        "icon": "menu",
+        "screen_code": "medication_administration",
+        "route": "/rn/medication-administration"
+      },
+      {
+        "label": "Care Plan Review",
+        "icon": "menu",
+        "screen_code": "care_plan_review",
+        "route": "/rn/care-plan-review"
+      },
+      {
+        "label": "Incident Review",
+        "icon": "menu",
+        "screen_code": "incident_review",
+        "route": "/rn/incident-review"
+      },
+      {
+        "label": "Shift Report",
+        "icon": "description",
+        "screen_code": "shift_report",
+        "route": "/rn/shift-report"
+      }
+    ],
+    "topbar_config": {
+      "title": "Registered Nurse (RN) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "rn_dashboard",
+      "rn_analytics",
+      "rn_assessments",
+      "rn_care_plans",
+      "rn_compliance",
+      "rn_workflow",
+      "rn_command_center",
+      "rn_patient_charting",
+      "rn_medications",
+      "rn_vitals",
+      "rn_care_plan_review",
+      "rn_incident_review",
+      "rn_tasks",
+      "rn_reports",
+      "patient_charting",
+      "medication_administration",
+      "care_plan_review",
+      "incident_review",
+      "shift_report"
+    ]
+  },
+  {
+    "role_id": 9,
+    "role_code": "physician",
+    "role_name": "Physician",
+    "navigation_style": "sidebar",
+    "default_dashboard": "physician_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Physician Dashboard",
+        "icon": "dashboard",
+        "screen_code": "physician_dashboard",
+        "route": "/clinical/physician-dashboard"
+      },
+      {
+        "label": "Physician  Analytics",
+        "icon": "menu",
+        "screen_code": "physician_analytics",
+        "route": "/clinical/physician-analytics"
+      },
+      {
+        "label": "Physician  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "physician_workflow",
+        "route": "/clinical/physician-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Physician Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "physician_dashboard",
+      "physician_analytics",
+      "physician_workflow"
+    ]
+  },
+  {
+    "role_id": 10,
+    "role_code": "cns",
+    "role_name": "Clinical Nurse Specialist",
+    "navigation_style": "sidebar",
+    "default_dashboard": "cns_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Cns Dashboard",
+        "icon": "dashboard",
+        "screen_code": "cns_dashboard",
+        "route": "/clinical/cns-dashboard"
+      },
+      {
+        "label": "Clinical  Nurse  Specialist  Analytics",
+        "icon": "assignment",
+        "screen_code": "cns_analytics",
+        "route": "/rn/cns-analytics"
+      },
+      {
+        "label": "Clinical  Nurse  Specialist  Compliance  Workflow",
+        "icon": "assignment",
+        "screen_code": "cns_workflow",
+        "route": "/rn/cns-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Clinical Nurse Specialist Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "cns_dashboard",
+      "cns_analytics",
+      "cns_workflow"
+    ]
+  },
+  {
+    "role_id": 11,
+    "role_code": "pediatric",
+    "role_name": "Pediatric Specialist",
+    "navigation_style": "sidebar",
+    "default_dashboard": "pediatric_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Pediatric Dashboard",
+        "icon": "dashboard",
+        "screen_code": "pediatric_dashboard",
+        "route": "/clinical/pediatric-dashboard"
+      },
+      {
+        "label": "Pediatric  Specialist  Analytics",
+        "icon": "assignment",
+        "screen_code": "pediatric_analytics",
+        "route": "/clinical/pediatric-analytics"
+      },
+      {
+        "label": "Pediatric  Specialist  Compliance  Workflow",
+        "icon": "assignment",
+        "screen_code": "pediatric_workflow",
+        "route": "/clinical/pediatric-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Pediatric Specialist Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "pediatric_dashboard",
+      "pediatric_analytics",
+      "pediatric_workflow"
+    ]
+  },
+  {
+    "role_id": 12,
+    "role_code": "caregiver",
+    "role_name": "Caregiver",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "caregiver_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Caregiver Dashboard",
+        "icon": "dashboard",
+        "screen_code": "caregiver_dashboard",
+        "route": "/common/caregiver-dashboard"
+      },
+      {
+        "label": "Caregiver Tasks",
+        "icon": "menu",
+        "screen_code": "caregiver_tasks",
+        "route": "/psw/caregiver-tasks"
+      },
+      {
+        "label": "Caregiver Client Profile",
+        "icon": "person",
+        "screen_code": "caregiver_client_profile",
+        "route": "/psw/caregiver-client-profile"
+      },
+      {
+        "label": "Caregiver Visit Notes",
+        "icon": "description",
+        "screen_code": "caregiver_visit_notes",
+        "route": "/psw/caregiver-visit-notes"
+      },
+      {
+        "label": "Caregiver Schedule",
+        "icon": "menu",
+        "screen_code": "caregiver_schedule",
+        "route": "/psw/caregiver-schedule"
+      },
+      {
+        "label": "Caregiver Incident Report",
+        "icon": "description",
+        "screen_code": "caregiver_incident_report",
+        "route": "/psw/caregiver-incident-report"
+      },
+      {
+        "label": "Schedule",
+        "icon": "menu",
+        "screen_code": "schedule",
+        "route": "/psw/schedule"
+      },
+      {
+        "label": "Messaging",
+        "icon": "menu",
+        "screen_code": "messaging",
+        "route": "/psw/messaging"
+      }
+    ],
+    "topbar_config": {
+      "title": "Caregiver Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "caregiver_dashboard",
+      "caregiver_tasks",
+      "caregiver_client_profile",
+      "caregiver_visit_notes",
+      "caregiver_schedule",
+      "caregiver_incident_report",
+      "schedule",
+      "messaging"
+    ]
+  },
+  {
+    "role_id": 13,
+    "role_code": "guest",
+    "role_name": "Guest",
+    "navigation_style": "sidebar",
+    "default_dashboard": "dynamic_screen_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Dynamic Dashboard",
+        "icon": "dashboard",
+        "screen_code": "dynamic_screen_dashboard",
+        "route": "/common/dynamic-dashboard"
+      },
+      {
+        "label": "Guest Dashboard",
+        "icon": "dashboard",
+        "screen_code": "guest_dashboard",
+        "route": "/common/guest-dashboard"
+      },
+      {
+        "label": "Guest Analytics",
+        "icon": "menu",
+        "screen_code": "guest_analytics",
+        "route": "/common/guest-analytics"
+      },
+      {
+        "label": "Guest Compliance",
+        "icon": "menu",
+        "screen_code": "guest_compliance",
+        "route": "/common/guest-compliance"
+      },
+      {
+        "label": "Guest Workflow",
+        "icon": "trending_up",
+        "screen_code": "guest_workflow",
+        "route": "/common/guest-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Guest Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "dynamic_screen_dashboard",
+      "guest_dashboard",
+      "guest_analytics",
+      "guest_compliance",
+      "guest_workflow"
+    ]
+  },
+  {
+    "role_id": 14,
+    "role_code": "portal",
+    "role_name": "Portal User",
+    "navigation_style": "sidebar",
+    "default_dashboard": "portal_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Portal Dashboard",
+        "icon": "dashboard",
+        "screen_code": "portal_dashboard",
+        "route": "/common/portal-dashboard"
+      },
+      {
+        "label": "Portal Analytics",
+        "icon": "menu",
+        "screen_code": "portal_analytics",
+        "route": "/common/portal-analytics"
+      },
+      {
+        "label": "Portal Compliance",
+        "icon": "menu",
+        "screen_code": "portal_compliance",
+        "route": "/common/portal-compliance"
+      },
+      {
+        "label": "Portal Workflow",
+        "icon": "trending_up",
+        "screen_code": "portal_workflow",
+        "route": "/common/portal-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Portal User Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "portal_dashboard",
+      "portal_analytics",
+      "portal_compliance",
+      "portal_workflow"
+    ]
+  },
+  {
+    "role_id": 15,
+    "role_code": "patient",
+    "role_name": "Patient",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "family_member_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Family Member Dashboard",
+        "icon": "dashboard",
+        "screen_code": "family_member_dashboard",
+        "route": "/common/family-member-dashboard"
+      },
+      {
+        "label": "Patient Dashboard",
+        "icon": "dashboard",
+        "screen_code": "patient_dashboard",
+        "route": "/common/patient-dashboard"
+      },
+      {
+        "label": "Patient Analytics",
+        "icon": "person",
+        "screen_code": "patient_analytics",
+        "route": "/common/patient-analytics"
+      },
+      {
+        "label": "Patient Compliance",
+        "icon": "person",
+        "screen_code": "patient_compliance",
+        "route": "/common/patient-compliance"
+      },
+      {
+        "label": "Patient Workflow",
+        "icon": "person",
+        "screen_code": "patient_workflow",
+        "route": "/common/patient-workflow"
+      },
+      {
+        "label": "Patient Command Center",
+        "icon": "person",
+        "screen_code": "patient_command_center",
+        "route": "/common/patient-command-center"
+      },
+      {
+        "label": "Patient Appointments",
+        "icon": "person",
+        "screen_code": "patient_appointments",
+        "route": "/common/patient-appointments"
+      },
+      {
+        "label": "Patient Care Plan",
+        "icon": "person",
+        "screen_code": "patient_care_plan",
+        "route": "/common/patient-care-plan"
+      },
+      {
+        "label": "Patient Messages",
+        "icon": "person",
+        "screen_code": "patient_messages",
+        "route": "/common/patient-messages"
+      },
+      {
+        "label": "Patient Documents",
+        "icon": "person",
+        "screen_code": "patient_documents",
+        "route": "/common/patient-documents"
+      },
+      {
+        "label": "Patient Billing",
+        "icon": "person",
+        "screen_code": "patient_billing",
+        "route": "/common/patient-billing"
+      },
+      {
+        "label": "Patient Profile",
+        "icon": "person",
+        "screen_code": "patient_profile",
+        "route": "/common/patient-profile"
+      },
+      {
+        "label": "Appointment",
+        "icon": "menu",
+        "screen_code": "appointment",
+        "route": "/common/appointment"
+      },
+      {
+        "label": "Care Plan",
+        "icon": "menu",
+        "screen_code": "care_plan",
+        "route": "/common/care-plan"
+      },
+      {
+        "label": "Billing",
+        "icon": "menu",
+        "screen_code": "billing",
+        "route": "/common/billing"
+      },
+      {
+        "label": "Documents",
+        "icon": "description",
+        "screen_code": "documents",
+        "route": "/common/documents"
+      }
+    ],
+    "topbar_config": {
+      "title": "Patient Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "family_member_dashboard",
+      "patient_dashboard",
+      "patient_analytics",
+      "patient_compliance",
+      "patient_workflow",
+      "patient_command_center",
+      "patient_appointments",
+      "patient_care_plan",
+      "patient_messages",
+      "patient_documents",
+      "patient_billing",
+      "patient_profile",
+      "appointment",
+      "care_plan",
+      "billing",
+      "documents"
+    ]
+  },
+  {
+    "role_id": 16,
+    "role_code": "dynamic",
+    "role_name": "Dynamic Screen Viewer",
+    "navigation_style": "sidebar",
+    "default_dashboard": "customer_support_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Customer Support Dashboard",
+        "icon": "dashboard",
+        "screen_code": "customer_support_dashboard",
+        "route": "/common/customer-support-dashboard"
+      },
+      {
+        "label": "Support Dashboard",
+        "icon": "dashboard",
+        "screen_code": "support_dashboard",
+        "route": "/common/support-dashboard"
+      },
+      {
+        "label": "Dynamic Analytics",
+        "icon": "menu",
+        "screen_code": "dynamic_analytics",
+        "route": "/common/dynamic-analytics"
+      },
+      {
+        "label": "Dynamic Compliance",
+        "icon": "menu",
+        "screen_code": "dynamic_compliance",
+        "route": "/common/dynamic-compliance"
+      },
+      {
+        "label": "Dynamic Workflow",
+        "icon": "trending_up",
+        "screen_code": "dynamic_workflow",
+        "route": "/common/dynamic-workflow"
+      },
+      {
+        "label": "Shared Stubs",
+        "icon": "menu",
+        "screen_code": "shared_stubs",
+        "route": "/common/shared-stubs"
+      }
+    ],
+    "topbar_config": {
+      "title": "Dynamic Screen Viewer Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "customer_support_dashboard",
+      "support_dashboard",
+      "dynamic_analytics",
+      "dynamic_compliance",
+      "dynamic_workflow",
+      "shared_stubs"
+    ]
+  },
+  {
+    "role_id": 17,
+    "role_code": "infrastructure",
+    "role_name": "Infrastructure Auditor",
+    "navigation_style": "sidebar",
+    "default_dashboard": "infrastructure_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Infrastructure Dashboard",
+        "icon": "dashboard",
+        "screen_code": "infrastructure_dashboard",
+        "route": "/common/infrastructure-dashboard"
+      },
+      {
+        "label": "Architecture Planning Analytics",
+        "icon": "menu",
+        "screen_code": "architecture_planning_analytics",
+        "route": "/common/architecture-planning-analytics"
+      },
+      {
+        "label": "Architecture Planning Compliance",
+        "icon": "menu",
+        "screen_code": "architecture_planning_compliance",
+        "route": "/common/architecture-planning-compliance"
+      },
+      {
+        "label": "Architecture Planning Workflow",
+        "icon": "trending_up",
+        "screen_code": "architecture_planning_workflow",
+        "route": "/common/architecture-planning-workflow"
+      },
+      {
+        "label": "Infrastructure Analytics",
+        "icon": "menu",
+        "screen_code": "infrastructure_analytics",
+        "route": "/common/infrastructure-analytics"
+      },
+      {
+        "label": "Infrastructure Compliance",
+        "icon": "menu",
+        "screen_code": "infrastructure_compliance",
+        "route": "/common/infrastructure-compliance"
+      },
+      {
+        "label": "Infrastructure Workflow",
+        "icon": "trending_up",
+        "screen_code": "infrastructure_workflow",
+        "route": "/common/infrastructure-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Infrastructure Auditor Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "infrastructure_dashboard",
+      "architecture_planning_analytics",
+      "architecture_planning_compliance",
+      "architecture_planning_workflow",
+      "infrastructure_analytics",
+      "infrastructure_compliance",
+      "infrastructure_workflow"
+    ]
+  },
+  {
+    "role_id": 18,
+    "role_code": "system_verification",
+    "role_name": "System Verification Officer",
+    "navigation_style": "sidebar",
+    "default_dashboard": "qa_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Qa Dashboard",
+        "icon": "dashboard",
+        "screen_code": "qa_dashboard",
+        "route": "/common/qa-dashboard"
+      },
+      {
+        "label": "tem Verification Dashboard",
+        "icon": "dashboard",
+        "screen_code": "system_verification_dashboard",
+        "route": "/common/system-verification-dashboard"
+      },
+      {
+        "label": "Quality Assurance Dashboard",
+        "icon": "dashboard",
+        "screen_code": "quality_assurance_dashboard",
+        "route": "/staff/quality-assurance-dashboard"
+      },
+      {
+        "label": "tem Analytics",
+        "icon": "menu",
+        "screen_code": "system_analytics",
+        "route": "/common/system-analytics"
+      },
+      {
+        "label": "tem Compliance",
+        "icon": "menu",
+        "screen_code": "system_compliance",
+        "route": "/common/system-compliance"
+      },
+      {
+        "label": "tem Verification Analytics",
+        "icon": "menu",
+        "screen_code": "system_verification_analytics",
+        "route": "/common/system-verification-analytics"
+      },
+      {
+        "label": "tem Verification Compliance",
+        "icon": "menu",
+        "screen_code": "system_verification_compliance",
+        "route": "/common/system-verification-compliance"
+      },
+      {
+        "label": "tem Verification Workflow",
+        "icon": "trending_up",
+        "screen_code": "system_verification_workflow",
+        "route": "/common/system-verification-workflow"
+      },
+      {
+        "label": "tem Workflow",
+        "icon": "trending_up",
+        "screen_code": "system_workflow",
+        "route": "/common/system-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "System Verification Officer Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "qa_dashboard",
+      "system_verification_dashboard",
+      "quality_assurance_dashboard",
+      "system_analytics",
+      "system_compliance",
+      "system_verification_analytics",
+      "system_verification_compliance",
+      "system_verification_workflow",
+      "system_workflow"
+    ]
+  },
+  {
+    "role_id": 19,
+    "role_code": "training",
+    "role_name": "Training Candidate",
+    "navigation_style": "sidebar",
+    "default_dashboard": "training_hub_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Training Hub Dashboard",
+        "icon": "dashboard",
+        "screen_code": "training_hub_dashboard",
+        "route": "/common/training-hub-dashboard"
+      },
+      {
+        "label": "Training Coordinator Dashboard",
+        "icon": "dashboard",
+        "screen_code": "training_coordinator_dashboard",
+        "route": "/staff/training-coordinator-dashboard"
+      },
+      {
+        "label": "Training Hub Analytics",
+        "icon": "menu",
+        "screen_code": "training_hub_analytics",
+        "route": "/common/training-hub-analytics"
+      },
+      {
+        "label": "Training Hub Compliance",
+        "icon": "menu",
+        "screen_code": "training_hub_compliance",
+        "route": "/common/training-hub-compliance"
+      },
+      {
+        "label": "Training Hub Workflow",
+        "icon": "trending_up",
+        "screen_code": "training_hub_workflow",
+        "route": "/common/training-hub-workflow"
+      },
+      {
+        "label": "Training Director Analytics",
+        "icon": "menu",
+        "screen_code": "training_director_analytics",
+        "route": "/executive/training-director-analytics"
+      },
+      {
+        "label": "Training Director Compliance",
+        "icon": "menu",
+        "screen_code": "training_director_compliance",
+        "route": "/executive/training-director-compliance"
+      },
+      {
+        "label": "Training Director Workflow",
+        "icon": "trending_up",
+        "screen_code": "training_director_workflow",
+        "route": "/executive/training-director-workflow"
+      },
+      {
+        "label": "Training Coordinator Analytics",
+        "icon": "menu",
+        "screen_code": "training_coordinator_analytics",
+        "route": "/staff/training-coordinator-analytics"
+      },
+      {
+        "label": "Training Coordinator Compliance",
+        "icon": "menu",
+        "screen_code": "training_coordinator_compliance",
+        "route": "/staff/training-coordinator-compliance"
+      },
+      {
+        "label": "Training Coordinator Workflow",
+        "icon": "trending_up",
+        "screen_code": "training_coordinator_workflow",
+        "route": "/staff/training-coordinator-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Training Candidate Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "training_hub_dashboard",
+      "training_coordinator_dashboard",
+      "training_hub_analytics",
+      "training_hub_compliance",
+      "training_hub_workflow",
+      "training_director_analytics",
+      "training_director_compliance",
+      "training_director_workflow",
+      "training_coordinator_analytics",
+      "training_coordinator_compliance",
+      "training_coordinator_workflow"
+    ]
+  },
+  {
+    "role_id": 20,
+    "role_code": "ceo",
+    "role_name": "Chief Executive Officer (CEO)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "executive_command_center",
+    "sidebar_items": [
+      {
+        "label": "Executive Command Center",
+        "icon": "menu",
+        "screen_code": "executive_command_center",
+        "route": "/executive/executive-command-center"
+      },
+      {
+        "label": "Enterprise Health",
+        "icon": "menu",
+        "screen_code": "enterprise_health",
+        "route": "/executive/enterprise-health"
+      },
+      {
+        "label": "Revenue Analytics",
+        "icon": "menu",
+        "screen_code": "revenue_analytics",
+        "route": "/executive/revenue-analytics"
+      },
+      {
+        "label": "Risk Management",
+        "icon": "menu",
+        "screen_code": "risk_management",
+        "route": "/executive/risk-management"
+      },
+      {
+        "label": "Franchise Overview",
+        "icon": "dashboard",
+        "screen_code": "franchise_overview",
+        "route": "/executive/franchise-overview"
+      },
+      {
+        "label": "Enterprise Command Center4 K",
+        "icon": "menu",
+        "screen_code": "enterprise_command_center4_k",
+        "route": "/executive/enterprise-command-center4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chief Executive Officer (CEO) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "executive_command_center",
+      "enterprise_health",
+      "revenue_analytics",
+      "risk_management",
+      "franchise_overview",
+      "enterprise_command_center4_k"
+    ]
+  },
+  {
+    "role_id": 21,
+    "role_code": "cfo",
+    "role_name": "Chief Financial Officer (CFO)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "cfo_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Cfo Dashboard",
+        "icon": "dashboard",
+        "screen_code": "cfo_dashboard",
+        "route": "/executive/cfo-dashboard"
+      },
+      {
+        "label": "Cfo Analytics",
+        "icon": "menu",
+        "screen_code": "cfo_analytics",
+        "route": "/executive/cfo-analytics"
+      },
+      {
+        "label": "Cfo Compliance",
+        "icon": "menu",
+        "screen_code": "cfo_compliance",
+        "route": "/executive/cfo-compliance"
+      },
+      {
+        "label": "Cfo Workflow",
+        "icon": "trending_up",
+        "screen_code": "cfo_workflow",
+        "route": "/executive/cfo-workflow"
+      },
+      {
+        "label": "Cfo Revenue",
+        "icon": "menu",
+        "screen_code": "cfo_revenue",
+        "route": "/executive/cfo-revenue"
+      },
+      {
+        "label": "Cfo Expenses",
+        "icon": "menu",
+        "screen_code": "cfo_expenses",
+        "route": "/executive/cfo-expenses"
+      },
+      {
+        "label": "Cfo Payroll",
+        "icon": "menu",
+        "screen_code": "cfo_payroll",
+        "route": "/executive/cfo-payroll"
+      },
+      {
+        "label": "Cfo Invoices",
+        "icon": "menu",
+        "screen_code": "cfo_invoices",
+        "route": "/executive/cfo-invoices"
+      },
+      {
+        "label": "Cfo Tax",
+        "icon": "menu",
+        "screen_code": "cfo_tax",
+        "route": "/executive/cfo-tax"
+      },
+      {
+        "label": "Cfo Profitability",
+        "icon": "menu",
+        "screen_code": "cfo_profitability",
+        "route": "/executive/cfo-profitability"
+      },
+      {
+        "label": "Cfo Cashflow",
+        "icon": "trending_up",
+        "screen_code": "cfo_cashflow",
+        "route": "/executive/cfo-cashflow"
+      },
+      {
+        "label": "Financial Dashboard",
+        "icon": "dashboard",
+        "screen_code": "financial_dashboard",
+        "route": "/executive/financial-dashboard"
+      },
+      {
+        "label": "Revenue",
+        "icon": "menu",
+        "screen_code": "revenue",
+        "route": "/executive/revenue"
+      },
+      {
+        "label": "Expense Management",
+        "icon": "menu",
+        "screen_code": "expense_management",
+        "route": "/executive/expense-management"
+      },
+      {
+        "label": "Payroll",
+        "icon": "menu",
+        "screen_code": "payroll",
+        "route": "/executive/payroll"
+      },
+      {
+        "label": "Tax Compliance",
+        "icon": "menu",
+        "screen_code": "tax_compliance",
+        "route": "/executive/tax-compliance"
+      },
+      {
+        "label": "Financial Operations4 K",
+        "icon": "menu",
+        "screen_code": "financial_operations4_k",
+        "route": "/executive/financial-operations4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chief Financial Officer (CFO) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "cfo_dashboard",
+      "cfo_analytics",
+      "cfo_compliance",
+      "cfo_workflow",
+      "cfo_revenue",
+      "cfo_expenses",
+      "cfo_payroll",
+      "cfo_invoices",
+      "cfo_tax",
+      "cfo_profitability",
+      "cfo_cashflow",
+      "financial_dashboard",
+      "revenue",
+      "expense_management",
+      "payroll",
+      "tax_compliance",
+      "financial_operations4_k"
+    ]
+  },
+  {
+    "role_id": 22,
+    "role_code": "ciso",
+    "role_name": "Chief Information Security Officer (CISO)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "ciso_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Ciso Dashboard",
+        "icon": "dashboard",
+        "screen_code": "ciso_dashboard",
+        "route": "/executive/ciso-dashboard"
+      },
+      {
+        "label": "Ciso Analytics",
+        "icon": "menu",
+        "screen_code": "ciso_analytics",
+        "route": "/executive/ciso-analytics"
+      },
+      {
+        "label": "Ciso Compliance",
+        "icon": "menu",
+        "screen_code": "ciso_compliance",
+        "route": "/executive/ciso-compliance"
+      },
+      {
+        "label": "Ciso Workflow",
+        "icon": "trending_up",
+        "screen_code": "ciso_workflow",
+        "route": "/executive/ciso-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chief Information Security Officer (CISO) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "ciso_dashboard",
+      "ciso_analytics",
+      "ciso_compliance",
+      "ciso_workflow"
+    ]
+  },
+  {
+    "role_id": 23,
+    "role_code": "coo",
+    "role_name": "Chief Operating Officer (COO)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "coo_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Coo Dashboard",
+        "icon": "dashboard",
+        "screen_code": "coo_dashboard",
+        "route": "/executive/coo-dashboard"
+      },
+      {
+        "label": "Coo Analytics",
+        "icon": "menu",
+        "screen_code": "coo_analytics",
+        "route": "/executive/coo-analytics"
+      },
+      {
+        "label": "Coo Compliance",
+        "icon": "menu",
+        "screen_code": "coo_compliance",
+        "route": "/executive/coo-compliance"
+      },
+      {
+        "label": "Coo Workflow",
+        "icon": "trending_up",
+        "screen_code": "coo_workflow",
+        "route": "/executive/coo-workflow"
+      },
+      {
+        "label": "Coo Command Center",
+        "icon": "menu",
+        "screen_code": "coo_command_center",
+        "route": "/executive/coo-command-center"
+      },
+      {
+        "label": "Coo Operations Overview",
+        "icon": "dashboard",
+        "screen_code": "coo_operations_overview",
+        "route": "/executive/coo-operations-overview"
+      },
+      {
+        "label": "Coo Staffing",
+        "icon": "menu",
+        "screen_code": "coo_staffing",
+        "route": "/executive/coo-staffing"
+      },
+      {
+        "label": "Coo Scheduling Health",
+        "icon": "menu",
+        "screen_code": "coo_scheduling_health",
+        "route": "/executive/coo-scheduling-health"
+      },
+      {
+        "label": "Coo Workflow Issues",
+        "icon": "trending_up",
+        "screen_code": "coo_workflow_issues",
+        "route": "/executive/coo-workflow-issues"
+      },
+      {
+        "label": "Coo Branch Comparison",
+        "icon": "menu",
+        "screen_code": "coo_branch_comparison",
+        "route": "/executive/coo-branch-comparison"
+      },
+      {
+        "label": "Operations Command Center",
+        "icon": "menu",
+        "screen_code": "operations_command_center",
+        "route": "/executive/operations-command-center"
+      },
+      {
+        "label": "Staffing Overview",
+        "icon": "dashboard",
+        "screen_code": "staffing_overview",
+        "route": "/executive/staffing-overview"
+      },
+      {
+        "label": "Workflow Issue",
+        "icon": "trending_up",
+        "screen_code": "workflow_issue",
+        "route": "/executive/workflow-issue"
+      },
+      {
+        "label": "Service Quality",
+        "icon": "menu",
+        "screen_code": "service_quality",
+        "route": "/executive/service-quality"
+      },
+      {
+        "label": "Branch Performance",
+        "icon": "menu",
+        "screen_code": "branch_performance",
+        "route": "/executive/branch-performance"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chief Operating Officer (COO) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "coo_dashboard",
+      "coo_analytics",
+      "coo_compliance",
+      "coo_workflow",
+      "coo_command_center",
+      "coo_operations_overview",
+      "coo_staffing",
+      "coo_scheduling_health",
+      "coo_workflow_issues",
+      "coo_branch_comparison",
+      "operations_command_center",
+      "staffing_overview",
+      "workflow_issue",
+      "service_quality",
+      "branch_performance"
+    ]
+  },
+  {
+    "role_id": 24,
+    "role_code": "cto",
+    "role_name": "Chief Technology Officer (CTO)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "architecture_planning_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Architecture Planning Dashboard",
+        "icon": "dashboard",
+        "screen_code": "architecture_planning_dashboard",
+        "route": "/common/architecture-planning-dashboard"
+      },
+      {
+        "label": "Cto Dashboard",
+        "icon": "dashboard",
+        "screen_code": "cto_dashboard",
+        "route": "/executive/cto-dashboard"
+      },
+      {
+        "label": "Cto Analytics",
+        "icon": "menu",
+        "screen_code": "cto_analytics",
+        "route": "/executive/cto-analytics"
+      },
+      {
+        "label": "Cto Compliance",
+        "icon": "menu",
+        "screen_code": "cto_compliance",
+        "route": "/executive/cto-compliance"
+      },
+      {
+        "label": "Cto Workflow",
+        "icon": "trending_up",
+        "screen_code": "cto_workflow",
+        "route": "/executive/cto-workflow"
+      },
+      {
+        "label": "tem Health",
+        "icon": "menu",
+        "screen_code": "system_health",
+        "route": "/executive/system-health"
+      },
+      {
+        "label": "Api Monitoring",
+        "icon": "menu",
+        "screen_code": "api_monitoring",
+        "route": "/executive/api-monitoring"
+      },
+      {
+        "label": "Deployment Center",
+        "icon": "menu",
+        "screen_code": "deployment_center",
+        "route": "/executive/deployment-center"
+      },
+      {
+        "label": "Security Audit",
+        "icon": "menu",
+        "screen_code": "security_audit",
+        "route": "/executive/security-audit"
+      },
+      {
+        "label": "Release Management",
+        "icon": "menu",
+        "screen_code": "release_management",
+        "route": "/executive/release-management"
+      }
+    ],
+    "topbar_config": {
+      "title": "Chief Technology Officer (CTO) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "architecture_planning_dashboard",
+      "cto_dashboard",
+      "cto_analytics",
+      "cto_compliance",
+      "cto_workflow",
+      "system_health",
+      "api_monitoring",
+      "deployment_center",
+      "security_audit",
+      "release_management"
+    ]
+  },
+  {
+    "role_id": 25,
+    "role_code": "cx_director",
+    "role_name": "CX Director",
+    "navigation_style": "sidebar",
+    "default_dashboard": "cx_director_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Cx Director Dashboard",
+        "icon": "dashboard",
+        "screen_code": "cx_director_dashboard",
+        "route": "/executive/cx-director-dashboard"
+      },
+      {
+        "label": "Cx Director Analytics",
+        "icon": "menu",
+        "screen_code": "cx_director_analytics",
+        "route": "/executive/cx-director-analytics"
+      },
+      {
+        "label": "Cx Director Compliance",
+        "icon": "menu",
+        "screen_code": "cx_director_compliance",
+        "route": "/executive/cx-director-compliance"
+      },
+      {
+        "label": "Cx Director Workflow",
+        "icon": "trending_up",
+        "screen_code": "cx_director_workflow",
+        "route": "/executive/cx-director-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "CX Director Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "cx_director_dashboard",
+      "cx_director_analytics",
+      "cx_director_compliance",
+      "cx_director_workflow"
+    ]
+  },
+  {
+    "role_id": 26,
+    "role_code": "finance_director",
+    "role_name": "Finance Director",
+    "navigation_style": "sidebar",
+    "default_dashboard": "finance_director_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Finance Director Dashboard",
+        "icon": "dashboard",
+        "screen_code": "finance_director_dashboard",
+        "route": "/executive/finance-director-dashboard"
+      },
+      {
+        "label": "Finance Director Analytics",
+        "icon": "menu",
+        "screen_code": "finance_director_analytics",
+        "route": "/executive/finance-director-analytics"
+      },
+      {
+        "label": "Finance Director Compliance",
+        "icon": "menu",
+        "screen_code": "finance_director_compliance",
+        "route": "/executive/finance-director-compliance"
+      },
+      {
+        "label": "Finance Director Workflow",
+        "icon": "trending_up",
+        "screen_code": "finance_director_workflow",
+        "route": "/executive/finance-director-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Finance Director Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "finance_director_dashboard",
+      "finance_director_analytics",
+      "finance_director_compliance",
+      "finance_director_workflow"
+    ]
+  },
+  {
+    "role_id": 27,
+    "role_code": "hr_director",
+    "role_name": "HR Director",
+    "navigation_style": "sidebar",
+    "default_dashboard": "hr_director_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Hr Director Dashboard",
+        "icon": "dashboard",
+        "screen_code": "hr_director_dashboard",
+        "route": "/executive/hr-director-dashboard"
+      },
+      {
+        "label": "Hr Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "hr_manager_dashboard",
+        "route": "/staff/hr-manager-dashboard"
+      },
+      {
+        "label": "Hr Director Analytics",
+        "icon": "menu",
+        "screen_code": "hr_director_analytics",
+        "route": "/executive/hr-director-analytics"
+      },
+      {
+        "label": "Hr Director Compliance",
+        "icon": "menu",
+        "screen_code": "hr_director_compliance",
+        "route": "/executive/hr-director-compliance"
+      },
+      {
+        "label": "Hr Director Workflow",
+        "icon": "trending_up",
+        "screen_code": "hr_director_workflow",
+        "route": "/executive/hr-director-workflow"
+      },
+      {
+        "label": "Hr Manager Analytics",
+        "icon": "menu",
+        "screen_code": "hr_manager_analytics",
+        "route": "/staff/hr-manager-analytics"
+      },
+      {
+        "label": "Hr Manager Compliance",
+        "icon": "menu",
+        "screen_code": "hr_manager_compliance",
+        "route": "/staff/hr-manager-compliance"
+      },
+      {
+        "label": "Hr Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "hr_manager_workflow",
+        "route": "/staff/hr-manager-workflow"
+      },
+      {
+        "label": "Hr Director Hiring Pipeline",
+        "icon": "menu",
+        "screen_code": "hr_director_hiring_pipeline",
+        "route": "/executive/hr-director-hiring-pipeline"
+      },
+      {
+        "label": "Hr Director Staff Files",
+        "icon": "menu",
+        "screen_code": "hr_director_staff_files",
+        "route": "/executive/hr-director-staff-files"
+      },
+      {
+        "label": "Hr Director Training",
+        "icon": "menu",
+        "screen_code": "hr_director_training",
+        "route": "/executive/hr-director-training"
+      },
+      {
+        "label": "Hr Director Credential Expiry",
+        "icon": "menu",
+        "screen_code": "hr_director_credential_expiry",
+        "route": "/executive/hr-director-credential-expiry"
+      },
+      {
+        "label": "Hr Director Onboarding",
+        "icon": "menu",
+        "screen_code": "hr_director_onboarding",
+        "route": "/executive/hr-director-onboarding"
+      },
+      {
+        "label": "Hiring Pipeline",
+        "icon": "menu",
+        "screen_code": "hiring_pipeline",
+        "route": "/management/hiring-pipeline"
+      },
+      {
+        "label": "Employee Records",
+        "icon": "menu",
+        "screen_code": "employee_records",
+        "route": "/management/employee-records"
+      },
+      {
+        "label": "Credential Expiry",
+        "icon": "menu",
+        "screen_code": "credential_expiry",
+        "route": "/management/credential-expiry"
+      },
+      {
+        "label": "Training Management",
+        "icon": "menu",
+        "screen_code": "training_management",
+        "route": "/management/training-management"
+      },
+      {
+        "label": "Onboarding",
+        "icon": "menu",
+        "screen_code": "onboarding",
+        "route": "/management/onboarding"
+      }
+    ],
+    "topbar_config": {
+      "title": "HR Director Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "hr_director_dashboard",
+      "hr_manager_dashboard",
+      "hr_director_analytics",
+      "hr_director_compliance",
+      "hr_director_workflow",
+      "hr_manager_analytics",
+      "hr_manager_compliance",
+      "hr_manager_workflow",
+      "hr_director_hiring_pipeline",
+      "hr_director_staff_files",
+      "hr_director_training",
+      "hr_director_credential_expiry",
+      "hr_director_onboarding",
+      "hiring_pipeline",
+      "employee_records",
+      "credential_expiry",
+      "training_management",
+      "onboarding"
+    ]
+  },
+  {
+    "role_id": 28,
+    "role_code": "legal",
+    "role_name": "Legal Counsel",
+    "navigation_style": "sidebar",
+    "default_dashboard": "legal_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Legal Dashboard",
+        "icon": "dashboard",
+        "screen_code": "legal_dashboard",
+        "route": "/executive/legal-dashboard"
+      },
+      {
+        "label": "Legal Analytics",
+        "icon": "menu",
+        "screen_code": "legal_analytics",
+        "route": "/executive/legal-analytics"
+      },
+      {
+        "label": "Legal Compliance",
+        "icon": "menu",
+        "screen_code": "legal_compliance",
+        "route": "/executive/legal-compliance"
+      },
+      {
+        "label": "Legal Workflow",
+        "icon": "trending_up",
+        "screen_code": "legal_workflow",
+        "route": "/executive/legal-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Legal Counsel Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "legal_dashboard",
+      "legal_analytics",
+      "legal_compliance",
+      "legal_workflow"
+    ]
+  },
+  {
+    "role_id": 29,
+    "role_code": "owner",
+    "role_name": "Franchise Owner",
+    "navigation_style": "sidebar",
+    "default_dashboard": "franchise_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Franchise Dashboard",
+        "icon": "dashboard",
+        "screen_code": "franchise_dashboard",
+        "route": "/common/franchise-dashboard"
+      },
+      {
+        "label": "Owner Dashboard",
+        "icon": "dashboard",
+        "screen_code": "owner_dashboard",
+        "route": "/executive/owner-dashboard"
+      },
+      {
+        "label": "Franchise Analytics",
+        "icon": "menu",
+        "screen_code": "franchise_analytics",
+        "route": "/common/franchise-analytics"
+      },
+      {
+        "label": "Franchise Compliance",
+        "icon": "menu",
+        "screen_code": "franchise_compliance",
+        "route": "/common/franchise-compliance"
+      },
+      {
+        "label": "Franchise Workflow",
+        "icon": "trending_up",
+        "screen_code": "franchise_workflow",
+        "route": "/common/franchise-workflow"
+      },
+      {
+        "label": "Owner Analytics",
+        "icon": "menu",
+        "screen_code": "owner_analytics",
+        "route": "/executive/owner-analytics"
+      },
+      {
+        "label": "Owner Compliance",
+        "icon": "menu",
+        "screen_code": "owner_compliance",
+        "route": "/executive/owner-compliance"
+      },
+      {
+        "label": "Owner Workflow",
+        "icon": "trending_up",
+        "screen_code": "owner_workflow",
+        "route": "/executive/owner-workflow"
+      },
+      {
+        "label": "Franchise Sales Manager Analytics",
+        "icon": "menu",
+        "screen_code": "franchise_sales_manager_analytics",
+        "route": "/management/franchise-sales-manager-analytics"
+      },
+      {
+        "label": "Franchise Sales Manager Compliance",
+        "icon": "menu",
+        "screen_code": "franchise_sales_manager_compliance",
+        "route": "/management/franchise-sales-manager-compliance"
+      },
+      {
+        "label": "Franchise Sales Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "franchise_sales_manager_workflow",
+        "route": "/management/franchise-sales-manager-workflow"
+      },
+      {
+        "label": "Franchise Owner Command Center",
+        "icon": "menu",
+        "screen_code": "franchise_owner_command_center",
+        "route": "/executive/franchise-owner-command-center"
+      },
+      {
+        "label": "Franchise Owner Branch Overview",
+        "icon": "dashboard",
+        "screen_code": "franchise_owner_branch_overview",
+        "route": "/executive/franchise-owner-branch-overview"
+      },
+      {
+        "label": "Franchise Owner Staff",
+        "icon": "menu",
+        "screen_code": "franchise_owner_staff",
+        "route": "/executive/franchise-owner-staff"
+      },
+      {
+        "label": "Franchise Owner Clients",
+        "icon": "person",
+        "screen_code": "franchise_owner_clients",
+        "route": "/executive/franchise-owner-clients"
+      },
+      {
+        "label": "Franchise Owner Appointments",
+        "icon": "menu",
+        "screen_code": "franchise_owner_appointments",
+        "route": "/executive/franchise-owner-appointments"
+      },
+      {
+        "label": "Franchise Owner Finance Snapshot",
+        "icon": "menu",
+        "screen_code": "franchise_owner_finance_snapshot",
+        "route": "/executive/franchise-owner-finance-snapshot"
+      },
+      {
+        "label": "Franchise Owner Compliance",
+        "icon": "menu",
+        "screen_code": "franchise_owner_compliance",
+        "route": "/executive/franchise-owner-compliance"
+      },
+      {
+        "label": "Franchise Owner Reports",
+        "icon": "description",
+        "screen_code": "franchise_owner_reports",
+        "route": "/executive/franchise-owner-reports"
+      },
+      {
+        "label": "Franchise Command Center",
+        "icon": "menu",
+        "screen_code": "franchise_command_center",
+        "route": "/executive/franchise-command-center"
+      },
+      {
+        "label": "Revenue Snapshot",
+        "icon": "menu",
+        "screen_code": "revenue_snapshot",
+        "route": "/executive/revenue-snapshot"
+      },
+      {
+        "label": "Staff Management",
+        "icon": "menu",
+        "screen_code": "staff_management",
+        "route": "/executive/staff-management"
+      },
+      {
+        "label": "Appointment Overview",
+        "icon": "dashboard",
+        "screen_code": "appointment_overview",
+        "route": "/executive/appointment-overview"
+      },
+      {
+        "label": "Compliance Overview",
+        "icon": "dashboard",
+        "screen_code": "compliance_overview",
+        "route": "/executive/compliance-overview"
+      },
+      {
+        "label": "Franchise Command Center4 K",
+        "icon": "menu",
+        "screen_code": "franchise_command_center4_k",
+        "route": "/executive/franchise-command-center4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Franchise Owner Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "franchise_dashboard",
+      "owner_dashboard",
+      "franchise_analytics",
+      "franchise_compliance",
+      "franchise_workflow",
+      "owner_analytics",
+      "owner_compliance",
+      "owner_workflow",
+      "franchise_sales_manager_analytics",
+      "franchise_sales_manager_compliance",
+      "franchise_sales_manager_workflow",
+      "franchise_owner_command_center",
+      "franchise_owner_branch_overview",
+      "franchise_owner_staff",
+      "franchise_owner_clients",
+      "franchise_owner_appointments",
+      "franchise_owner_finance_snapshot",
+      "franchise_owner_compliance",
+      "franchise_owner_reports",
+      "franchise_command_center",
+      "revenue_snapshot",
+      "staff_management",
+      "appointment_overview",
+      "compliance_overview",
+      "franchise_command_center4_k"
+    ]
+  },
+  {
+    "role_id": 30,
+    "role_code": "shareholder",
+    "role_name": "Shareholder",
+    "navigation_style": "sidebar",
+    "default_dashboard": "shareholder_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Shareholder Dashboard",
+        "icon": "dashboard",
+        "screen_code": "shareholder_dashboard",
+        "route": "/executive/shareholder-dashboard"
+      },
+      {
+        "label": "Shareholder Analytics",
+        "icon": "menu",
+        "screen_code": "shareholder_analytics",
+        "route": "/executive/shareholder-analytics"
+      },
+      {
+        "label": "Shareholder Compliance",
+        "icon": "menu",
+        "screen_code": "shareholder_compliance",
+        "route": "/executive/shareholder-compliance"
+      },
+      {
+        "label": "Shareholder Workflow",
+        "icon": "trending_up",
+        "screen_code": "shareholder_workflow",
+        "route": "/executive/shareholder-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Shareholder Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "shareholder_dashboard",
+      "shareholder_analytics",
+      "shareholder_compliance",
+      "shareholder_workflow"
+    ]
+  },
+  {
+    "role_id": 31,
+    "role_code": "training_director",
+    "role_name": "Training Director",
+    "navigation_style": "sidebar",
+    "default_dashboard": "course_architect_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Course Architect Dashboard",
+        "icon": "dashboard",
+        "screen_code": "course_architect_dashboard",
+        "route": "/common/course-architect-dashboard"
+      },
+      {
+        "label": "Training Director Dashboard",
+        "icon": "dashboard",
+        "screen_code": "training_director_dashboard",
+        "route": "/executive/training-director-dashboard"
+      },
+      {
+        "label": "Course Architect Analytics",
+        "icon": "menu",
+        "screen_code": "course_architect_analytics",
+        "route": "/common/course-architect-analytics"
+      },
+      {
+        "label": "Course Architect Compliance",
+        "icon": "menu",
+        "screen_code": "course_architect_compliance",
+        "route": "/common/course-architect-compliance"
+      },
+      {
+        "label": "Course Architect Workflow",
+        "icon": "trending_up",
+        "screen_code": "course_architect_workflow",
+        "route": "/common/course-architect-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Training Director Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "course_architect_dashboard",
+      "training_director_dashboard",
+      "course_architect_analytics",
+      "course_architect_compliance",
+      "course_architect_workflow"
+    ]
+  },
+  {
+    "role_id": 32,
+    "role_code": "community_outreach",
+    "role_name": "Community Outreach Lead",
+    "navigation_style": "sidebar",
+    "default_dashboard": "community_outreach_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Community Outreach Dashboard",
+        "icon": "dashboard",
+        "screen_code": "community_outreach_dashboard",
+        "route": "/management/community-outreach-dashboard"
+      },
+      {
+        "label": "Community Outreach Analytics",
+        "icon": "menu",
+        "screen_code": "community_outreach_analytics",
+        "route": "/management/community-outreach-analytics"
+      },
+      {
+        "label": "Community Outreach Compliance",
+        "icon": "menu",
+        "screen_code": "community_outreach_compliance",
+        "route": "/management/community-outreach-compliance"
+      },
+      {
+        "label": "Community Outreach Workflow",
+        "icon": "trending_up",
+        "screen_code": "community_outreach_workflow",
+        "route": "/management/community-outreach-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Community Outreach Lead Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "community_outreach_dashboard",
+      "community_outreach_analytics",
+      "community_outreach_compliance",
+      "community_outreach_workflow"
+    ]
+  },
+  {
+    "role_id": 33,
+    "role_code": "compliance",
+    "role_name": "Compliance Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "compliance_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Compliance Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "compliance_manager_dashboard",
+        "route": "/management/compliance-manager-dashboard"
+      },
+      {
+        "label": "Compliance Manager Analytics",
+        "icon": "menu",
+        "screen_code": "compliance_manager_analytics",
+        "route": "/management/compliance-manager-analytics"
+      },
+      {
+        "label": "Compliance Manager Compliance",
+        "icon": "menu",
+        "screen_code": "compliance_manager_compliance",
+        "route": "/management/compliance-manager-compliance"
+      },
+      {
+        "label": "Compliance Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "compliance_manager_workflow",
+        "route": "/management/compliance-manager-workflow"
+      },
+      {
+        "label": "Compliance Dashboard",
+        "icon": "dashboard",
+        "screen_code": "compliance_dashboard",
+        "route": "/management/compliance-dashboard"
+      },
+      {
+        "label": "Audit Review",
+        "icon": "menu",
+        "screen_code": "audit_review",
+        "route": "/management/audit-review"
+      },
+      {
+        "label": "Incident Management",
+        "icon": "menu",
+        "screen_code": "incident_management",
+        "route": "/management/incident-management"
+      },
+      {
+        "label": "Policy Management",
+        "icon": "menu",
+        "screen_code": "policy_management",
+        "route": "/management/policy-management"
+      },
+      {
+        "label": "Corrective Action",
+        "icon": "menu",
+        "screen_code": "corrective_action",
+        "route": "/management/corrective-action"
+      }
+    ],
+    "topbar_config": {
+      "title": "Compliance Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "compliance_manager_dashboard",
+      "compliance_manager_analytics",
+      "compliance_manager_compliance",
+      "compliance_manager_workflow",
+      "compliance_dashboard",
+      "audit_review",
+      "incident_management",
+      "policy_management",
+      "corrective_action"
+    ]
+  },
+  {
+    "role_id": 34,
+    "role_code": "franchise_sales",
+    "role_name": "Franchise Sales Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "franchise_sales_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Franchise Sales Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "franchise_sales_manager_dashboard",
+        "route": "/management/franchise-sales-manager-dashboard"
+      },
+      {
+        "label": "Franchise  Sales  Manager  Analytics",
+        "icon": "menu",
+        "screen_code": "franchise_sales_analytics",
+        "route": "/executive/franchise-sales-analytics"
+      },
+      {
+        "label": "Franchise  Sales  Manager  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "franchise_sales_workflow",
+        "route": "/executive/franchise-sales-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Franchise Sales Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "franchise_sales_manager_dashboard",
+      "franchise_sales_analytics",
+      "franchise_sales_workflow"
+    ]
+  },
+  {
+    "role_id": 35,
+    "role_code": "gm",
+    "role_name": "General Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "general_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "General Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "general_manager_dashboard",
+        "route": "/management/general-manager-dashboard"
+      },
+      {
+        "label": "General Manager Analytics",
+        "icon": "menu",
+        "screen_code": "general_manager_analytics",
+        "route": "/management/general-manager-analytics"
+      },
+      {
+        "label": "General Manager Compliance",
+        "icon": "menu",
+        "screen_code": "general_manager_compliance",
+        "route": "/management/general-manager-compliance"
+      },
+      {
+        "label": "General Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "general_manager_workflow",
+        "route": "/management/general-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "General Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "general_manager_dashboard",
+      "general_manager_analytics",
+      "general_manager_compliance",
+      "general_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 36,
+    "role_code": "governance",
+    "role_name": "Governance Officer",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "system_dashboard",
+    "sidebar_items": [
+      {
+        "label": "tem Dashboard",
+        "icon": "dashboard",
+        "screen_code": "system_dashboard",
+        "route": "/common/system-dashboard"
+      },
+      {
+        "label": "Governance Officer Dashboard",
+        "icon": "dashboard",
+        "screen_code": "governance_officer_dashboard",
+        "route": "/management/governance-officer-dashboard"
+      },
+      {
+        "label": "Governance Officer Analytics",
+        "icon": "menu",
+        "screen_code": "governance_officer_analytics",
+        "route": "/management/governance-officer-analytics"
+      },
+      {
+        "label": "Governance Officer Compliance",
+        "icon": "menu",
+        "screen_code": "governance_officer_compliance",
+        "route": "/management/governance-officer-compliance"
+      },
+      {
+        "label": "Governance Officer Workflow",
+        "icon": "trending_up",
+        "screen_code": "governance_officer_workflow",
+        "route": "/management/governance-officer-workflow"
+      },
+      {
+        "label": "Governance Control Room",
+        "icon": "menu",
+        "screen_code": "governance_control_room",
+        "route": "/common/governance-control-room"
+      },
+      {
+        "label": "Runtime Verification",
+        "icon": "menu",
+        "screen_code": "runtime_verification",
+        "route": "/common/runtime-verification"
+      },
+      {
+        "label": "Drift Findings",
+        "icon": "menu",
+        "screen_code": "drift_findings",
+        "route": "/common/drift-findings"
+      },
+      {
+        "label": "Pending Task Queue",
+        "icon": "assignment",
+        "screen_code": "pending_task_queue",
+        "route": "/common/pending-task-queue"
+      },
+      {
+        "label": "Agent Dispatch",
+        "icon": "menu",
+        "screen_code": "agent_dispatch",
+        "route": "/common/agent-dispatch"
+      },
+      {
+        "label": "Audit",
+        "icon": "menu",
+        "screen_code": "audit",
+        "route": "/common/audit"
+      },
+      {
+        "label": "Api Health Dashboard",
+        "icon": "dashboard",
+        "screen_code": "api_health_dashboard",
+        "route": "/common/api-health-dashboard"
+      },
+      {
+        "label": "Release Operations",
+        "icon": "menu",
+        "screen_code": "release_operations",
+        "route": "/common/release-operations"
+      },
+      {
+        "label": "File Verification Dashboard",
+        "icon": "dashboard",
+        "screen_code": "file_verification_dashboard",
+        "route": "/common/file-verification-dashboard"
+      },
+      {
+        "label": "Role Coverage Dashboard",
+        "icon": "dashboard",
+        "screen_code": "role_coverage_dashboard",
+        "route": "/common/role-coverage-dashboard"
+      },
+      {
+        "label": "Responsive Preview",
+        "icon": "menu",
+        "screen_code": "responsive_preview",
+        "route": "/common/responsive-preview"
+      },
+      {
+        "label": "Workflow Execution",
+        "icon": "trending_up",
+        "screen_code": "workflow_execution",
+        "route": "/common/workflow-execution"
+      },
+      {
+        "label": "Governance Operations4 K",
+        "icon": "menu",
+        "screen_code": "governance_operations4_k",
+        "route": "/common/governance-operations4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Governance Officer Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "system_dashboard",
+      "governance_officer_dashboard",
+      "governance_officer_analytics",
+      "governance_officer_compliance",
+      "governance_officer_workflow",
+      "governance_control_room",
+      "runtime_verification",
+      "drift_findings",
+      "pending_task_queue",
+      "agent_dispatch",
+      "audit",
+      "api_health_dashboard",
+      "release_operations",
+      "file_verification_dashboard",
+      "role_coverage_dashboard",
+      "responsive_preview",
+      "workflow_execution",
+      "governance_operations4_k"
+    ]
+  },
+  {
+    "role_id": 37,
+    "role_code": "bus_dev",
+    "role_name": "Head of Business Development",
+    "navigation_style": "sidebar",
+    "default_dashboard": "business_development_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Business Development Dashboard",
+        "icon": "dashboard",
+        "screen_code": "business_development_dashboard",
+        "route": "/common/business-development-dashboard"
+      },
+      {
+        "label": "Head Of Bus Dev Dashboard",
+        "icon": "dashboard",
+        "screen_code": "head_of_bus_dev_dashboard",
+        "route": "/management/head-of-bus-dev-dashboard"
+      },
+      {
+        "label": "Business Development Analytics",
+        "icon": "menu",
+        "screen_code": "business_development_analytics",
+        "route": "/common/business-development-analytics"
+      },
+      {
+        "label": "Business Development Compliance",
+        "icon": "menu",
+        "screen_code": "business_development_compliance",
+        "route": "/common/business-development-compliance"
+      },
+      {
+        "label": "Business Development Workflow",
+        "icon": "trending_up",
+        "screen_code": "business_development_workflow",
+        "route": "/common/business-development-workflow"
+      },
+      {
+        "label": "Head Of Bus Dev Analytics",
+        "icon": "menu",
+        "screen_code": "head_of_bus_dev_analytics",
+        "route": "/management/head-of-bus-dev-analytics"
+      },
+      {
+        "label": "Head Of Bus Dev Compliance",
+        "icon": "menu",
+        "screen_code": "head_of_bus_dev_compliance",
+        "route": "/management/head-of-bus-dev-compliance"
+      },
+      {
+        "label": "Head Of Bus Dev Workflow",
+        "icon": "trending_up",
+        "screen_code": "head_of_bus_dev_workflow",
+        "route": "/management/head-of-bus-dev-workflow"
+      },
+      {
+        "label": "Franchise Lead",
+        "icon": "menu",
+        "screen_code": "franchise_lead",
+        "route": "/management/franchise-lead"
+      },
+      {
+        "label": "Partnership Management",
+        "icon": "menu",
+        "screen_code": "partnership_management",
+        "route": "/management/partnership-management"
+      },
+      {
+        "label": "Growth Analytics",
+        "icon": "menu",
+        "screen_code": "growth_analytics",
+        "route": "/management/growth-analytics"
+      },
+      {
+        "label": "Outreach Campaign",
+        "icon": "menu",
+        "screen_code": "outreach_campaign",
+        "route": "/management/outreach-campaign"
+      }
+    ],
+    "topbar_config": {
+      "title": "Head of Business Development Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "business_development_dashboard",
+      "head_of_bus_dev_dashboard",
+      "business_development_analytics",
+      "business_development_compliance",
+      "business_development_workflow",
+      "head_of_bus_dev_analytics",
+      "head_of_bus_dev_compliance",
+      "head_of_bus_dev_workflow",
+      "franchise_lead",
+      "partnership_management",
+      "growth_analytics",
+      "outreach_campaign"
+    ]
+  },
+  {
+    "role_id": 38,
+    "role_code": "marketing",
+    "role_name": "Head of Marketing",
+    "navigation_style": "sidebar",
+    "default_dashboard": "head_of_marketing_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Head Of Marketing Dashboard",
+        "icon": "dashboard",
+        "screen_code": "head_of_marketing_dashboard",
+        "route": "/management/head-of-marketing-dashboard"
+      },
+      {
+        "label": "Head Of Marketing Analytics",
+        "icon": "menu",
+        "screen_code": "head_of_marketing_analytics",
+        "route": "/management/head-of-marketing-analytics"
+      },
+      {
+        "label": "Head Of Marketing Compliance",
+        "icon": "menu",
+        "screen_code": "head_of_marketing_compliance",
+        "route": "/management/head-of-marketing-compliance"
+      },
+      {
+        "label": "Head Of Marketing Workflow",
+        "icon": "trending_up",
+        "screen_code": "head_of_marketing_workflow",
+        "route": "/management/head-of-marketing-workflow"
+      },
+      {
+        "label": "Campaign Dashboard",
+        "icon": "dashboard",
+        "screen_code": "campaign_dashboard",
+        "route": "/management/campaign-dashboard"
+      },
+      {
+        "label": "Lead Analytics",
+        "icon": "menu",
+        "screen_code": "lead_analytics",
+        "route": "/management/lead-analytics"
+      },
+      {
+        "label": "Social Media",
+        "icon": "menu",
+        "screen_code": "social_media",
+        "route": "/management/social-media"
+      },
+      {
+        "label": "Brand Management",
+        "icon": "menu",
+        "screen_code": "brand_management",
+        "route": "/management/brand-management"
+      }
+    ],
+    "topbar_config": {
+      "title": "Head of Marketing Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "head_of_marketing_dashboard",
+      "head_of_marketing_analytics",
+      "head_of_marketing_compliance",
+      "head_of_marketing_workflow",
+      "campaign_dashboard",
+      "lead_analytics",
+      "social_media",
+      "brand_management"
+    ]
+  },
+  {
+    "role_id": 39,
+    "role_code": "local_marketing",
+    "role_name": "Local Marketing Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "local_marketing_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Local Marketing Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "local_marketing_manager_dashboard",
+        "route": "/management/local-marketing-manager-dashboard"
+      },
+      {
+        "label": "Local Marketing Manager Analytics",
+        "icon": "menu",
+        "screen_code": "local_marketing_manager_analytics",
+        "route": "/management/local-marketing-manager-analytics"
+      },
+      {
+        "label": "Local Marketing Manager Compliance",
+        "icon": "menu",
+        "screen_code": "local_marketing_manager_compliance",
+        "route": "/management/local-marketing-manager-compliance"
+      },
+      {
+        "label": "Local Marketing Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "local_marketing_manager_workflow",
+        "route": "/management/local-marketing-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Local Marketing Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "local_marketing_manager_dashboard",
+      "local_marketing_manager_analytics",
+      "local_marketing_manager_compliance",
+      "local_marketing_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 40,
+    "role_code": "ops_manager",
+    "role_name": "Operations Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "operations_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Operations Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "operations_manager_dashboard",
+        "route": "/management/operations-manager-dashboard"
+      },
+      {
+        "label": "Operations Manager Analytics",
+        "icon": "menu",
+        "screen_code": "operations_manager_analytics",
+        "route": "/management/operations-manager-analytics"
+      },
+      {
+        "label": "Operations Manager Compliance",
+        "icon": "menu",
+        "screen_code": "operations_manager_compliance",
+        "route": "/management/operations-manager-compliance"
+      },
+      {
+        "label": "Operations Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "operations_manager_workflow",
+        "route": "/management/operations-manager-workflow"
+      },
+      {
+        "label": "Daily Operations",
+        "icon": "menu",
+        "screen_code": "daily_operations",
+        "route": "/management/daily-operations"
+      },
+      {
+        "label": "Attendance",
+        "icon": "menu",
+        "screen_code": "attendance",
+        "route": "/management/attendance"
+      },
+      {
+        "label": "Scheduling Health",
+        "icon": "menu",
+        "screen_code": "scheduling_health",
+        "route": "/management/scheduling-health"
+      },
+      {
+        "label": "Service Issue",
+        "icon": "menu",
+        "screen_code": "service_issue",
+        "route": "/management/service-issue"
+      }
+    ],
+    "topbar_config": {
+      "title": "Operations Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "operations_manager_dashboard",
+      "operations_manager_analytics",
+      "operations_manager_compliance",
+      "operations_manager_workflow",
+      "daily_operations",
+      "attendance",
+      "scheduling_health",
+      "service_issue"
+    ]
+  },
+  {
+    "role_id": 41,
+    "role_code": "partnership",
+    "role_name": "Partnership Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "partnership_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Partnership Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "partnership_manager_dashboard",
+        "route": "/management/partnership-manager-dashboard"
+      },
+      {
+        "label": "Partnership Manager Analytics",
+        "icon": "menu",
+        "screen_code": "partnership_manager_analytics",
+        "route": "/management/partnership-manager-analytics"
+      },
+      {
+        "label": "Partnership Manager Compliance",
+        "icon": "menu",
+        "screen_code": "partnership_manager_compliance",
+        "route": "/management/partnership-manager-compliance"
+      },
+      {
+        "label": "Partnership Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "partnership_manager_workflow",
+        "route": "/management/partnership-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Partnership Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "partnership_manager_dashboard",
+      "partnership_manager_analytics",
+      "partnership_manager_compliance",
+      "partnership_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 42,
+    "role_code": "regional_bdm",
+    "role_name": "Regional BDM",
+    "navigation_style": "sidebar",
+    "default_dashboard": "regional_bdm_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Regional Bdm Dashboard",
+        "icon": "dashboard",
+        "screen_code": "regional_bdm_dashboard",
+        "route": "/management/regional-bdm-dashboard"
+      },
+      {
+        "label": "Regional Bdm Analytics",
+        "icon": "menu",
+        "screen_code": "regional_bdm_analytics",
+        "route": "/management/regional-bdm-analytics"
+      },
+      {
+        "label": "Regional Bdm Compliance",
+        "icon": "menu",
+        "screen_code": "regional_bdm_compliance",
+        "route": "/management/regional-bdm-compliance"
+      },
+      {
+        "label": "Regional Bdm Workflow",
+        "icon": "trending_up",
+        "screen_code": "regional_bdm_workflow",
+        "route": "/management/regional-bdm-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Regional BDM Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "regional_bdm_dashboard",
+      "regional_bdm_analytics",
+      "regional_bdm_compliance",
+      "regional_bdm_workflow"
+    ]
+  },
+  {
+    "role_id": 43,
+    "role_code": "regional_manager_usa",
+    "role_name": "Regional Manager USA",
+    "navigation_style": "sidebar",
+    "default_dashboard": "regional_manager_usa_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Regional Manager Usa Dashboard",
+        "icon": "dashboard",
+        "screen_code": "regional_manager_usa_dashboard",
+        "route": "/management/regional-manager-usa-dashboard"
+      },
+      {
+        "label": "Regional Manager Usa Analytics",
+        "icon": "menu",
+        "screen_code": "regional_manager_usa_analytics",
+        "route": "/management/regional-manager-usa-analytics"
+      },
+      {
+        "label": "Regional Manager Usa Compliance",
+        "icon": "menu",
+        "screen_code": "regional_manager_usa_compliance",
+        "route": "/management/regional-manager-usa-compliance"
+      },
+      {
+        "label": "Regional Manager Usa Workflow",
+        "icon": "trending_up",
+        "screen_code": "regional_manager_usa_workflow",
+        "route": "/management/regional-manager-usa-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Regional Manager USA Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "regional_manager_usa_dashboard",
+      "regional_manager_usa_analytics",
+      "regional_manager_usa_compliance",
+      "regional_manager_usa_workflow"
+    ]
+  },
+  {
+    "role_id": 44,
+    "role_code": "scrum_master",
+    "role_name": "Scrum Master",
+    "navigation_style": "sidebar",
+    "default_dashboard": "scrum_master_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Scrum Master Dashboard",
+        "icon": "dashboard",
+        "screen_code": "scrum_master_dashboard",
+        "route": "/management/scrum-master-dashboard"
+      },
+      {
+        "label": "Scrum Master Analytics",
+        "icon": "menu",
+        "screen_code": "scrum_master_analytics",
+        "route": "/management/scrum-master-analytics"
+      },
+      {
+        "label": "Scrum Master Compliance",
+        "icon": "menu",
+        "screen_code": "scrum_master_compliance",
+        "route": "/management/scrum-master-compliance"
+      },
+      {
+        "label": "Scrum Master Workflow",
+        "icon": "trending_up",
+        "screen_code": "scrum_master_workflow",
+        "route": "/management/scrum-master-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Scrum Master Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "scrum_master_dashboard",
+      "scrum_master_analytics",
+      "scrum_master_compliance",
+      "scrum_master_workflow"
+    ]
+  },
+  {
+    "role_id": 45,
+    "role_code": "hr_hiring",
+    "role_name": "Talent Acquisition Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "hr_hiring_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Hr Hiring Dashboard",
+        "icon": "dashboard",
+        "screen_code": "hr_hiring_dashboard",
+        "route": "/staff/hr-hiring-dashboard"
+      },
+      {
+        "label": "Hr Hiring Analytics",
+        "icon": "menu",
+        "screen_code": "hr_hiring_analytics",
+        "route": "/staff/hr-hiring-analytics"
+      },
+      {
+        "label": "Hr Hiring Compliance",
+        "icon": "menu",
+        "screen_code": "hr_hiring_compliance",
+        "route": "/staff/hr-hiring-compliance"
+      },
+      {
+        "label": "Hr Hiring Workflow",
+        "icon": "trending_up",
+        "screen_code": "hr_hiring_workflow",
+        "route": "/staff/hr-hiring-workflow"
+      },
+      {
+        "label": "Hr Hiring Applicants",
+        "icon": "menu",
+        "screen_code": "hr_hiring_applicants",
+        "route": "/staff/hr-hiring-applicants"
+      },
+      {
+        "label": "Hr Hiring Interviews",
+        "icon": "menu",
+        "screen_code": "hr_hiring_interviews",
+        "route": "/staff/hr-hiring-interviews"
+      },
+      {
+        "label": "Hr Hiring Offers",
+        "icon": "menu",
+        "screen_code": "hr_hiring_offers",
+        "route": "/staff/hr-hiring-offers"
+      },
+      {
+        "label": "Hr Hiring Onboarding",
+        "icon": "menu",
+        "screen_code": "hr_hiring_onboarding",
+        "route": "/staff/hr-hiring-onboarding"
+      },
+      {
+        "label": "Hr Hiring Credentials",
+        "icon": "menu",
+        "screen_code": "hr_hiring_credentials",
+        "route": "/staff/hr-hiring-credentials"
+      },
+      {
+        "label": "Applicant Tracking",
+        "icon": "menu",
+        "screen_code": "applicant_tracking",
+        "route": "/staff/applicant-tracking"
+      },
+      {
+        "label": "Interview Scheduling",
+        "icon": "menu",
+        "screen_code": "interview_scheduling",
+        "route": "/staff/interview-scheduling"
+      },
+      {
+        "label": "Offer Management",
+        "icon": "menu",
+        "screen_code": "offer_management",
+        "route": "/staff/offer-management"
+      },
+      {
+        "label": "Onboarding Checklist",
+        "icon": "assignment",
+        "screen_code": "onboarding_checklist",
+        "route": "/staff/onboarding-checklist"
+      }
+    ],
+    "topbar_config": {
+      "title": "Talent Acquisition Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "hr_hiring_dashboard",
+      "hr_hiring_analytics",
+      "hr_hiring_compliance",
+      "hr_hiring_workflow",
+      "hr_hiring_applicants",
+      "hr_hiring_interviews",
+      "hr_hiring_offers",
+      "hr_hiring_onboarding",
+      "hr_hiring_credentials",
+      "applicant_tracking",
+      "interview_scheduling",
+      "offer_management",
+      "onboarding_checklist"
+    ]
+  },
+  {
+    "role_id": 46,
+    "role_code": "territory_expansion",
+    "role_name": "Territory Expansion Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "territory_expansion_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Territory Expansion Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "territory_expansion_manager_dashboard",
+        "route": "/management/territory-expansion-manager-dashboard"
+      },
+      {
+        "label": "Territory Expansion Manager Analytics",
+        "icon": "menu",
+        "screen_code": "territory_expansion_manager_analytics",
+        "route": "/management/territory-expansion-manager-analytics"
+      },
+      {
+        "label": "Territory Expansion Manager Compliance",
+        "icon": "menu",
+        "screen_code": "territory_expansion_manager_compliance",
+        "route": "/management/territory-expansion-manager-compliance"
+      },
+      {
+        "label": "Territory Expansion Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "territory_expansion_manager_workflow",
+        "route": "/management/territory-expansion-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Territory Expansion Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "territory_expansion_manager_dashboard",
+      "territory_expansion_manager_analytics",
+      "territory_expansion_manager_compliance",
+      "territory_expansion_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 47,
+    "role_code": "territory_sales",
+    "role_name": "Territory Sales Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "territory_sales_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Territory Sales Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "territory_sales_manager_dashboard",
+        "route": "/management/territory-sales-manager-dashboard"
+      },
+      {
+        "label": "Territory Sales Manager Analytics",
+        "icon": "menu",
+        "screen_code": "territory_sales_manager_analytics",
+        "route": "/management/territory-sales-manager-analytics"
+      },
+      {
+        "label": "Territory Sales Manager Compliance",
+        "icon": "menu",
+        "screen_code": "territory_sales_manager_compliance",
+        "route": "/management/territory-sales-manager-compliance"
+      },
+      {
+        "label": "Territory Sales Manager Workflow",
+        "icon": "trending_up",
+        "screen_code": "territory_sales_manager_workflow",
+        "route": "/management/territory-sales-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Territory Sales Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "territory_sales_manager_dashboard",
+      "territory_sales_manager_analytics",
+      "territory_sales_manager_compliance",
+      "territory_sales_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 48,
+    "role_code": "volunteer_coordinator",
+    "role_name": "Volunteer Coordinator",
+    "navigation_style": "drawer",
+    "default_dashboard": "volunteer_coordinator_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Volunteer Coordinator Dashboard",
+        "icon": "dashboard",
+        "screen_code": "volunteer_coordinator_dashboard",
+        "route": "/staff/volunteer-coordinator-dashboard"
+      },
+      {
+        "label": "Intake Coordinator Referrals",
+        "icon": "menu",
+        "screen_code": "intake_coordinator_referrals",
+        "route": "/executive/intake-coordinator-referrals"
+      },
+      {
+        "label": "Intake Coordinator New Client Intake",
+        "icon": "person",
+        "screen_code": "intake_coordinator_new_client_intake",
+        "route": "/executive/intake-coordinator-new-client-intake"
+      },
+      {
+        "label": "Intake Coordinator Assessment Queue",
+        "icon": "assignment",
+        "screen_code": "intake_coordinator_assessment_queue",
+        "route": "/executive/intake-coordinator-assessment-queue"
+      },
+      {
+        "label": "Intake Coordinator Booking",
+        "icon": "menu",
+        "screen_code": "intake_coordinator_booking",
+        "route": "/executive/intake-coordinator-booking"
+      },
+      {
+        "label": "Intake Coordinator Documents",
+        "icon": "description",
+        "screen_code": "intake_coordinator_documents",
+        "route": "/executive/intake-coordinator-documents"
+      },
+      {
+        "label": "Intake Coordinator Follow Up",
+        "icon": "menu",
+        "screen_code": "intake_coordinator_follow_up",
+        "route": "/executive/intake-coordinator-follow-up"
+      }
+    ],
+    "topbar_config": {
+      "title": "Volunteer Coordinator Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "volunteer_coordinator_dashboard",
+      "intake_coordinator_referrals",
+      "intake_coordinator_new_client_intake",
+      "intake_coordinator_assessment_queue",
+      "intake_coordinator_booking",
+      "intake_coordinator_documents",
+      "intake_coordinator_follow_up"
+    ]
+  },
+  {
+    "role_id": 49,
+    "role_code": "premium_concierge",
+    "role_name": "Premium Concierge Care Coordinator",
+    "navigation_style": "sidebar",
+    "default_dashboard": "premium_concierge_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Premium Concierge Dashboard",
+        "icon": "dashboard",
+        "screen_code": "premium_concierge_dashboard",
+        "route": "/management/premium-concierge-dashboard"
+      },
+      {
+        "label": "Premium  Concierge  Care  Coordinator  Analytics",
+        "icon": "menu",
+        "screen_code": "premium_concierge_analytics",
+        "route": "/premium/premium-concierge-analytics"
+      },
+      {
+        "label": "Premium  Concierge  Care  Coordinator  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "premium_concierge_workflow",
+        "route": "/premium/premium-concierge-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Premium Concierge Care Coordinator Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "premium_concierge_dashboard",
+      "premium_concierge_analytics",
+      "premium_concierge_workflow"
+    ]
+  },
+  {
+    "role_id": 50,
+    "role_code": "vip_manager",
+    "role_name": "VIP Client Manager",
+    "navigation_style": "sidebar",
+    "default_dashboard": "vip_manager_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Vip Manager Dashboard",
+        "icon": "dashboard",
+        "screen_code": "vip_manager_dashboard",
+        "route": "/management/vip-manager-dashboard"
+      },
+      {
+        "label": "V I P  Client  Manager  Analytics",
+        "icon": "person",
+        "screen_code": "vip_manager_analytics",
+        "route": "/executive/vip-manager-analytics"
+      },
+      {
+        "label": "V I P  Client  Manager  Compliance  Workflow",
+        "icon": "person",
+        "screen_code": "vip_manager_workflow",
+        "route": "/executive/vip-manager-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "VIP Client Manager Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "vip_manager_dashboard",
+      "vip_manager_analytics",
+      "vip_manager_workflow"
+    ]
+  },
+  {
+    "role_id": 51,
+    "role_code": "psw",
+    "role_name": "Personal Support Worker (PSW)",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "psw_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Psw Dashboard",
+        "icon": "dashboard",
+        "screen_code": "psw_dashboard",
+        "route": "/psw/psw-dashboard"
+      },
+      {
+        "label": "Psw Analytics",
+        "icon": "menu",
+        "screen_code": "psw_analytics",
+        "route": "/psw/psw-analytics"
+      },
+      {
+        "label": "Psw Clients",
+        "icon": "person",
+        "screen_code": "psw_clients",
+        "route": "/psw/psw-clients"
+      },
+      {
+        "label": "Psw Compliance",
+        "icon": "menu",
+        "screen_code": "psw_compliance",
+        "route": "/psw/psw-compliance"
+      },
+      {
+        "label": "Psw Messages",
+        "icon": "chat",
+        "screen_code": "psw_messages",
+        "route": "/psw/psw-messages"
+      },
+      {
+        "label": "Psw Shift Tracker",
+        "icon": "menu",
+        "screen_code": "psw_shift_tracker",
+        "route": "/psw/psw-shift-tracker"
+      },
+      {
+        "label": "Psw Tasks",
+        "icon": "menu",
+        "screen_code": "psw_tasks",
+        "route": "/psw/psw-tasks"
+      },
+      {
+        "label": "Psw Visit Notes",
+        "icon": "description",
+        "screen_code": "psw_visit_notes",
+        "route": "/psw/psw-visit-notes"
+      },
+      {
+        "label": "Psw Workflow",
+        "icon": "trending_up",
+        "screen_code": "psw_workflow",
+        "route": "/psw/psw-workflow"
+      },
+      {
+        "label": "Psw Command Center",
+        "icon": "menu",
+        "screen_code": "psw_command_center",
+        "route": "/psw/psw-command-center"
+      },
+      {
+        "label": "Psw My Shifts",
+        "icon": "menu",
+        "screen_code": "psw_my_shifts",
+        "route": "/psw/psw-my-shifts"
+      },
+      {
+        "label": "Psw Client Profile",
+        "icon": "person",
+        "screen_code": "psw_client_profile",
+        "route": "/psw/psw-client-profile"
+      },
+      {
+        "label": "Psw Visit Notes",
+        "icon": "description",
+        "screen_code": "psw_visit_notes",
+        "route": "/psw/psw-visit-notes"
+      },
+      {
+        "label": "Psw Vitals Log",
+        "icon": "menu",
+        "screen_code": "psw_vitals_log",
+        "route": "/psw/psw-vitals-log"
+      },
+      {
+        "label": "Psw Incident Report",
+        "icon": "description",
+        "screen_code": "psw_incident_report",
+        "route": "/psw/psw-incident-report"
+      },
+      {
+        "label": "Psw Care Plan",
+        "icon": "menu",
+        "screen_code": "psw_care_plan",
+        "route": "/psw/psw-care-plan"
+      },
+      {
+        "label": "Psw Messages",
+        "icon": "chat",
+        "screen_code": "psw_messages",
+        "route": "/psw/psw-messages"
+      },
+      {
+        "label": "Psw Documents",
+        "icon": "description",
+        "screen_code": "psw_documents",
+        "route": "/psw/psw-documents"
+      },
+      {
+        "label": "Shift Tasks",
+        "icon": "menu",
+        "screen_code": "shift_tasks",
+        "route": "/psw/shift-tasks"
+      },
+      {
+        "label": "Visit Notes",
+        "icon": "description",
+        "screen_code": "visit_notes",
+        "route": "/psw/visit-notes"
+      },
+      {
+        "label": "Vitals Entry",
+        "icon": "menu",
+        "screen_code": "vitals_entry",
+        "route": "/psw/vitals-entry"
+      },
+      {
+        "label": "Incident Report",
+        "icon": "description",
+        "screen_code": "incident_report",
+        "route": "/psw/incident-report"
+      }
+    ],
+    "topbar_config": {
+      "title": "Personal Support Worker (PSW) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "psw_dashboard",
+      "psw_analytics",
+      "psw_clients",
+      "psw_compliance",
+      "psw_messages",
+      "psw_shift_tracker",
+      "psw_tasks",
+      "psw_visit_notes",
+      "psw_workflow",
+      "psw_command_center",
+      "psw_my_shifts",
+      "psw_client_profile",
+      "psw_visit_notes",
+      "psw_vitals_log",
+      "psw_incident_report",
+      "psw_care_plan",
+      "psw_messages",
+      "psw_documents",
+      "shift_tasks",
+      "visit_notes",
+      "vitals_entry",
+      "incident_report"
+    ]
+  },
+  {
+    "role_id": 52,
+    "role_code": "hsw",
+    "role_name": "Home Support Worker",
+    "navigation_style": "sidebar",
+    "default_dashboard": "hsw_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Hsw Dashboard",
+        "icon": "dashboard",
+        "screen_code": "hsw_dashboard",
+        "route": "/clinical/hsw-dashboard"
+      },
+      {
+        "label": "Hsw Adl Logger",
+        "icon": "menu",
+        "screen_code": "hsw_adl_logger",
+        "route": "/clinical/hsw-adl-logger"
+      },
+      {
+        "label": "Hsw Care Plans",
+        "icon": "menu",
+        "screen_code": "hsw_care_plans",
+        "route": "/clinical/hsw-care-plans"
+      },
+      {
+        "label": "Hsw Incident Reports",
+        "icon": "description",
+        "screen_code": "hsw_incident_reports",
+        "route": "/clinical/hsw-incident-reports"
+      },
+      {
+        "label": "Hsw Schedule",
+        "icon": "menu",
+        "screen_code": "hsw_schedule",
+        "route": "/clinical/hsw-schedule"
+      }
+    ],
+    "topbar_config": {
+      "title": "Home Support Worker Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "hsw_dashboard",
+      "hsw_adl_logger",
+      "hsw_care_plans",
+      "hsw_incident_reports",
+      "hsw_schedule"
+    ]
+  },
+  {
+    "role_id": 53,
+    "role_code": "rn_field_supervisor",
+    "role_name": "Registered Nurse (RN) Field Supervisor",
+    "navigation_style": "bottom_nav",
+    "default_dashboard": "rn_field_supervisor_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Rn Field Supervisor Dashboard",
+        "icon": "dashboard",
+        "screen_code": "rn_field_supervisor_dashboard",
+        "route": "/rn/rn-field-supervisor-dashboard"
+      },
+      {
+        "label": "Registered  Nurse ( R N)  Field  Supervisor  Analytics",
+        "icon": "menu",
+        "screen_code": "rn_field_supervisor_analytics",
+        "route": "/rn/rn-field-supervisor-analytics"
+      },
+      {
+        "label": "Registered  Nurse ( R N)  Field  Supervisor  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "rn_field_supervisor_workflow",
+        "route": "/rn/rn-field-supervisor-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Registered Nurse (RN) Field Supervisor Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "rn_field_supervisor_dashboard",
+      "rn_field_supervisor_analytics",
+      "rn_field_supervisor_workflow"
+    ]
+  },
+  {
+    "role_id": 54,
+    "role_code": "np",
+    "role_name": "Nurse Practitioner (NP)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "np_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Np Dashboard",
+        "icon": "dashboard",
+        "screen_code": "np_dashboard",
+        "route": "/clinical/np-dashboard"
+      },
+      {
+        "label": "Nurse  Practitioner ( N P)  Analytics",
+        "icon": "menu",
+        "screen_code": "np_analytics",
+        "route": "/rn/np-analytics"
+      },
+      {
+        "label": "Nurse  Practitioner ( N P)  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "np_workflow",
+        "route": "/rn/np-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Nurse Practitioner (NP) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "np_dashboard",
+      "np_analytics",
+      "np_workflow"
+    ]
+  },
+  {
+    "role_id": 55,
+    "role_code": "rpn",
+    "role_name": "Registered Practical Nurse (RPN)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "rpn_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Rpn Dashboard",
+        "icon": "dashboard",
+        "screen_code": "rpn_dashboard",
+        "route": "/rpn/rpn-dashboard"
+      },
+      {
+        "label": "Rpn Analytics",
+        "icon": "menu",
+        "screen_code": "rpn_analytics",
+        "route": "/rpn/rpn-analytics"
+      },
+      {
+        "label": "Rpn Compliance",
+        "icon": "menu",
+        "screen_code": "rpn_compliance",
+        "route": "/rpn/rpn-compliance"
+      },
+      {
+        "label": "Rpn Workflow",
+        "icon": "trending_up",
+        "screen_code": "rpn_workflow",
+        "route": "/rpn/rpn-workflow"
+      },
+      {
+        "label": "Rpn Command Center",
+        "icon": "menu",
+        "screen_code": "rpn_command_center",
+        "route": "/rpn/rpn-command-center"
+      },
+      {
+        "label": "Rpn Patient Charting",
+        "icon": "person",
+        "screen_code": "rpn_patient_charting",
+        "route": "/rpn/rpn-patient-charting"
+      },
+      {
+        "label": "Rpn Medications",
+        "icon": "menu",
+        "screen_code": "rpn_medications",
+        "route": "/rpn/rpn-medications"
+      },
+      {
+        "label": "Rpn Vitals",
+        "icon": "menu",
+        "screen_code": "rpn_vitals",
+        "route": "/rpn/rpn-vitals"
+      },
+      {
+        "label": "Rpn Care Plan Review",
+        "icon": "menu",
+        "screen_code": "rpn_care_plan_review",
+        "route": "/rpn/rpn-care-plan-review"
+      },
+      {
+        "label": "Rpn Incident Review",
+        "icon": "menu",
+        "screen_code": "rpn_incident_review",
+        "route": "/rpn/rpn-incident-review"
+      },
+      {
+        "label": "Rpn Tasks",
+        "icon": "menu",
+        "screen_code": "rpn_tasks",
+        "route": "/rpn/rpn-tasks"
+      },
+      {
+        "label": "Rpn Reports",
+        "icon": "description",
+        "screen_code": "rpn_reports",
+        "route": "/rpn/rpn-reports"
+      },
+      {
+        "label": "Nursing Task",
+        "icon": "menu",
+        "screen_code": "nursing_task",
+        "route": "/clinical/nursing-task"
+      },
+      {
+        "label": "Vitals Tracking",
+        "icon": "menu",
+        "screen_code": "vitals_tracking",
+        "route": "/clinical/vitals-tracking"
+      },
+      {
+        "label": "Medication",
+        "icon": "menu",
+        "screen_code": "medication",
+        "route": "/clinical/medication"
+      },
+      {
+        "label": "Patient Observation",
+        "icon": "person",
+        "screen_code": "patient_observation",
+        "route": "/clinical/patient-observation"
+      }
+    ],
+    "topbar_config": {
+      "title": "Registered Practical Nurse (RPN) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "rpn_dashboard",
+      "rpn_analytics",
+      "rpn_compliance",
+      "rpn_workflow",
+      "rpn_command_center",
+      "rpn_patient_charting",
+      "rpn_medications",
+      "rpn_vitals",
+      "rpn_care_plan_review",
+      "rpn_incident_review",
+      "rpn_tasks",
+      "rpn_reports",
+      "nursing_task",
+      "vitals_tracking",
+      "medication",
+      "patient_observation"
+    ]
+  },
+  {
+    "role_id": 56,
+    "role_code": "lpn",
+    "role_name": "Licensed Practical Nurse (LPN)",
+    "navigation_style": "sidebar",
+    "default_dashboard": "lpn_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Lpn Dashboard",
+        "icon": "dashboard",
+        "screen_code": "lpn_dashboard",
+        "route": "/clinical/lpn-dashboard"
+      },
+      {
+        "label": "Licensed  Practical  Nurse ( L P N)  Analytics",
+        "icon": "menu",
+        "screen_code": "lpn_analytics",
+        "route": "/rpn/lpn-analytics"
+      },
+      {
+        "label": "Licensed  Practical  Nurse ( L P N)  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "lpn_workflow",
+        "route": "/rpn/lpn-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Licensed Practical Nurse (LPN) Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "lpn_dashboard",
+      "lpn_analytics",
+      "lpn_workflow"
+    ]
+  },
+  {
+    "role_id": 57,
+    "role_code": "employee",
+    "role_name": "Employee",
+    "navigation_style": "sidebar",
+    "default_dashboard": "employee_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Employee Dashboard",
+        "icon": "dashboard",
+        "screen_code": "employee_dashboard",
+        "route": "/staff/employee-dashboard"
+      },
+      {
+        "label": "Employee  Analytics",
+        "icon": "menu",
+        "screen_code": "employee_analytics",
+        "route": "/staff/employee-analytics"
+      },
+      {
+        "label": "Employee  Compliance  Workflow",
+        "icon": "trending_up",
+        "screen_code": "employee_workflow",
+        "route": "/staff/employee-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Employee Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "employee_dashboard",
+      "employee_analytics",
+      "employee_workflow"
+    ]
+  },
+  {
+    "role_id": 58,
+    "role_code": "volunteer",
+    "role_name": "Volunteer",
+    "navigation_style": "sidebar",
+    "default_dashboard": "volunteer_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Volunteer Dashboard",
+        "icon": "dashboard",
+        "screen_code": "volunteer_dashboard",
+        "route": "/staff/volunteer-dashboard"
+      },
+      {
+        "label": "Volunteer Coordinator Analytics",
+        "icon": "menu",
+        "screen_code": "volunteer_coordinator_analytics",
+        "route": "/staff/volunteer-coordinator-analytics"
+      },
+      {
+        "label": "Volunteer Coordinator Compliance",
+        "icon": "menu",
+        "screen_code": "volunteer_coordinator_compliance",
+        "route": "/staff/volunteer-coordinator-compliance"
+      },
+      {
+        "label": "Volunteer Coordinator Workflow",
+        "icon": "trending_up",
+        "screen_code": "volunteer_coordinator_workflow",
+        "route": "/staff/volunteer-coordinator-workflow"
+      }
+    ],
+    "topbar_config": {
+      "title": "Volunteer Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "volunteer_dashboard",
+      "volunteer_coordinator_analytics",
+      "volunteer_coordinator_compliance",
+      "volunteer_coordinator_workflow"
+    ]
+  },
+  {
+    "role_id": 59,
+    "role_code": "admin",
+    "role_name": "Administrative Assistant",
+    "navigation_style": "sidebar",
+    "default_dashboard": "office_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Office Dashboard",
+        "icon": "dashboard",
+        "screen_code": "office_dashboard",
+        "route": "/common/office-dashboard"
+      },
+      {
+        "label": "Billing Admin Dashboard",
+        "icon": "dashboard",
+        "screen_code": "billing_admin_dashboard",
+        "route": "/staff/billing-admin-dashboard"
+      },
+      {
+        "label": "Receptionist Dashboard",
+        "icon": "dashboard",
+        "screen_code": "receptionist_dashboard",
+        "route": "/staff/receptionist-dashboard"
+      },
+      {
+        "label": "Office Analytics",
+        "icon": "menu",
+        "screen_code": "office_analytics",
+        "route": "/common/office-analytics"
+      },
+      {
+        "label": "Office Compliance",
+        "icon": "menu",
+        "screen_code": "office_compliance",
+        "route": "/common/office-compliance"
+      },
+      {
+        "label": "Office Workflow",
+        "icon": "trending_up",
+        "screen_code": "office_workflow",
+        "route": "/common/office-workflow"
+      },
+      {
+        "label": "Billing Admin Analytics",
+        "icon": "menu",
+        "screen_code": "billing_admin_analytics",
+        "route": "/staff/billing-admin-analytics"
+      },
+      {
+        "label": "Billing Admin Compliance",
+        "icon": "menu",
+        "screen_code": "billing_admin_compliance",
+        "route": "/staff/billing-admin-compliance"
+      },
+      {
+        "label": "Billing Admin Workflow",
+        "icon": "trending_up",
+        "screen_code": "billing_admin_workflow",
+        "route": "/staff/billing-admin-workflow"
+      },
+      {
+        "label": "Receptionist Analytics",
+        "icon": "menu",
+        "screen_code": "receptionist_analytics",
+        "route": "/staff/receptionist-analytics"
+      },
+      {
+        "label": "Receptionist Compliance",
+        "icon": "menu",
+        "screen_code": "receptionist_compliance",
+        "route": "/staff/receptionist-compliance"
+      },
+      {
+        "label": "Receptionist Workflow",
+        "icon": "trending_up",
+        "screen_code": "receptionist_workflow",
+        "route": "/staff/receptionist-workflow"
+      },
+      {
+        "label": "Invoice Management",
+        "icon": "menu",
+        "screen_code": "invoice_management",
+        "route": "/staff/invoice-management"
+      },
+      {
+        "label": "Claims Processing",
+        "icon": "menu",
+        "screen_code": "claims_processing",
+        "route": "/staff/claims-processing"
+      },
+      {
+        "label": "Payment Tracking",
+        "icon": "menu",
+        "screen_code": "payment_tracking",
+        "route": "/staff/payment-tracking"
+      },
+      {
+        "label": "Refund Management",
+        "icon": "menu",
+        "screen_code": "refund_management",
+        "route": "/staff/refund-management"
+      }
+    ],
+    "topbar_config": {
+      "title": "Administrative Assistant Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "office_dashboard",
+      "billing_admin_dashboard",
+      "receptionist_dashboard",
+      "office_analytics",
+      "office_compliance",
+      "office_workflow",
+      "billing_admin_analytics",
+      "billing_admin_compliance",
+      "billing_admin_workflow",
+      "receptionist_analytics",
+      "receptionist_compliance",
+      "receptionist_workflow",
+      "invoice_management",
+      "claims_processing",
+      "payment_tracking",
+      "refund_management"
+    ]
+  },
+  {
+    "role_id": 60,
+    "role_code": "scheduler",
+    "role_name": "Shift Supervisor",
+    "navigation_style": "drawer",
+    "default_dashboard": "scheduler_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Scheduler Dashboard",
+        "icon": "dashboard",
+        "screen_code": "scheduler_dashboard",
+        "route": "/staff/scheduler-dashboard"
+      },
+      {
+        "label": "Coordinator Dispatch Map",
+        "icon": "menu",
+        "screen_code": "coordinator_dispatch_map",
+        "route": "/staff/coordinator-dispatch-map"
+      },
+      {
+        "label": "Coordinator Hub",
+        "icon": "menu",
+        "screen_code": "coordinator_hub",
+        "route": "/staff/coordinator-hub"
+      },
+      {
+        "label": "Coordinator Sos",
+        "icon": "menu",
+        "screen_code": "coordinator_sos",
+        "route": "/staff/coordinator-sos"
+      },
+      {
+        "label": "Coordinator Waitlist",
+        "icon": "assignment",
+        "screen_code": "coordinator_waitlist",
+        "route": "/staff/coordinator-waitlist"
+      },
+      {
+        "label": "Scheduler Analytics",
+        "icon": "menu",
+        "screen_code": "scheduler_analytics",
+        "route": "/staff/scheduler-analytics"
+      },
+      {
+        "label": "Scheduler Compliance",
+        "icon": "menu",
+        "screen_code": "scheduler_compliance",
+        "route": "/staff/scheduler-compliance"
+      },
+      {
+        "label": "Scheduler Workflow",
+        "icon": "trending_up",
+        "screen_code": "scheduler_workflow",
+        "route": "/staff/scheduler-workflow"
+      },
+      {
+        "label": "Scheduler Command Center",
+        "icon": "menu",
+        "screen_code": "scheduler_command_center",
+        "route": "/staff/scheduler-command-center"
+      },
+      {
+        "label": "Scheduler Calendar",
+        "icon": "menu",
+        "screen_code": "scheduler_calendar",
+        "route": "/staff/scheduler-calendar"
+      },
+      {
+        "label": "Scheduler Booking Requests",
+        "icon": "menu",
+        "screen_code": "scheduler_booking_requests",
+        "route": "/staff/scheduler-booking-requests"
+      },
+      {
+        "label": "Scheduler Conflicts",
+        "icon": "menu",
+        "screen_code": "scheduler_conflicts",
+        "route": "/staff/scheduler-conflicts"
+      },
+      {
+        "label": "Scheduler Open Shifts",
+        "icon": "menu",
+        "screen_code": "scheduler_open_shifts",
+        "route": "/staff/scheduler-open-shifts"
+      },
+      {
+        "label": "Scheduler Provider Availability",
+        "icon": "menu",
+        "screen_code": "scheduler_provider_availability",
+        "route": "/staff/scheduler-provider-availability"
+      },
+      {
+        "label": "Scheduling Dashboard",
+        "icon": "dashboard",
+        "screen_code": "scheduling_dashboard",
+        "route": "/staff/scheduling-dashboard"
+      },
+      {
+        "label": "Calendar Management",
+        "icon": "menu",
+        "screen_code": "calendar_management",
+        "route": "/staff/calendar-management"
+      },
+      {
+        "label": "Conflict Resolution",
+        "icon": "menu",
+        "screen_code": "conflict_resolution",
+        "route": "/staff/conflict-resolution"
+      },
+      {
+        "label": "Open Shift",
+        "icon": "menu",
+        "screen_code": "open_shift",
+        "route": "/staff/open-shift"
+      },
+      {
+        "label": "Scheduling Operations4 K",
+        "icon": "menu",
+        "screen_code": "scheduling_operations4_k",
+        "route": "/staff/scheduling-operations4-k"
+      }
+    ],
+    "topbar_config": {
+      "title": "Shift Supervisor Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "scheduler_dashboard",
+      "coordinator_dispatch_map",
+      "coordinator_hub",
+      "coordinator_sos",
+      "coordinator_waitlist",
+      "scheduler_analytics",
+      "scheduler_compliance",
+      "scheduler_workflow",
+      "scheduler_command_center",
+      "scheduler_calendar",
+      "scheduler_booking_requests",
+      "scheduler_conflicts",
+      "scheduler_open_shifts",
+      "scheduler_provider_availability",
+      "scheduling_dashboard",
+      "calendar_management",
+      "conflict_resolution",
+      "open_shift",
+      "scheduling_operations4_k"
+    ]
+  },
+  {
+    "role_id": 61,
+    "role_code": "customer_support",
+    "role_name": "Customer Support",
+    "navigation_style": "drawer",
+    "default_dashboard": "customer_support_analytics",
+    "sidebar_items": [
+      {
+        "label": "Customer Support Analytics",
+        "icon": "menu",
+        "screen_code": "customer_support_analytics",
+        "route": "/common/customer-support-analytics"
+      },
+      {
+        "label": "Customer Support Compliance",
+        "icon": "menu",
+        "screen_code": "customer_support_compliance",
+        "route": "/common/customer-support-compliance"
+      },
+      {
+        "label": "Customer Support Workflow",
+        "icon": "trending_up",
+        "screen_code": "customer_support_workflow",
+        "route": "/common/customer-support-workflow"
+      },
+      {
+        "label": "Support Analytics",
+        "icon": "menu",
+        "screen_code": "support_analytics",
+        "route": "/common/support-analytics"
+      },
+      {
+        "label": "Support Compliance",
+        "icon": "menu",
+        "screen_code": "support_compliance",
+        "route": "/common/support-compliance"
+      },
+      {
+        "label": "Support Workflow",
+        "icon": "trending_up",
+        "screen_code": "support_workflow",
+        "route": "/common/support-workflow"
+      },
+      {
+        "label": "Ticket Management",
+        "icon": "menu",
+        "screen_code": "ticket_management",
+        "route": "/staff/ticket-management"
+      },
+      {
+        "label": "Client Issue",
+        "icon": "person",
+        "screen_code": "client_issue",
+        "route": "/staff/client-issue"
+      },
+      {
+        "label": "Communication",
+        "icon": "menu",
+        "screen_code": "communication",
+        "route": "/staff/communication"
+      },
+      {
+        "label": "Resolution Tracking",
+        "icon": "menu",
+        "screen_code": "resolution_tracking",
+        "route": "/staff/resolution-tracking"
+      }
+    ],
+    "topbar_config": {
+      "title": "Customer Support Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "customer_support_analytics",
+      "customer_support_compliance",
+      "customer_support_workflow",
+      "support_analytics",
+      "support_compliance",
+      "support_workflow",
+      "ticket_management",
+      "client_issue",
+      "communication",
+      "resolution_tracking"
+    ]
+  },
+  {
+    "role_id": 62,
+    "role_code": "training_coordinator",
+    "role_name": "Training Coordinator",
+    "navigation_style": "drawer",
+    "default_dashboard": "training_dashboard",
+    "sidebar_items": [
+      {
+        "label": "Training Dashboard",
+        "icon": "dashboard",
+        "screen_code": "training_dashboard",
+        "route": "/staff/training-dashboard"
+      },
+      {
+        "label": "Course Assignment",
+        "icon": "menu",
+        "screen_code": "course_assignment",
+        "route": "/staff/course-assignment"
+      },
+      {
+        "label": "Certification Tracking",
+        "icon": "menu",
+        "screen_code": "certification_tracking",
+        "route": "/staff/certification-tracking"
+      },
+      {
+        "label": "Staff Progress",
+        "icon": "menu",
+        "screen_code": "staff_progress",
+        "route": "/staff/staff-progress"
+      }
+    ],
+    "topbar_config": {
+      "title": "Training Coordinator Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "training_dashboard",
+      "course_assignment",
+      "certification_tracking",
+      "staff_progress"
+    ]
+  },
+  {
+    "role_id": 63,
+    "role_code": "qa_specialist",
+    "role_name": "QA Specialist",
+    "navigation_style": "sidebar",
+    "default_dashboard": "qa_analytics",
+    "sidebar_items": [
+      {
+        "label": "Qa Analytics",
+        "icon": "menu",
+        "screen_code": "qa_analytics",
+        "route": "/common/qa-analytics"
+      },
+      {
+        "label": "Qa Compliance",
+        "icon": "menu",
+        "screen_code": "qa_compliance",
+        "route": "/common/qa-compliance"
+      },
+      {
+        "label": "Qa Workflow",
+        "icon": "trending_up",
+        "screen_code": "qa_workflow",
+        "route": "/common/qa-workflow"
+      },
+      {
+        "label": "Quality Assurance Analytics",
+        "icon": "menu",
+        "screen_code": "quality_assurance_analytics",
+        "route": "/staff/quality-assurance-analytics"
+      },
+      {
+        "label": "Quality Assurance Compliance",
+        "icon": "menu",
+        "screen_code": "quality_assurance_compliance",
+        "route": "/staff/quality-assurance-compliance"
+      },
+      {
+        "label": "Quality Assurance Workflow",
+        "icon": "trending_up",
+        "screen_code": "quality_assurance_workflow",
+        "route": "/staff/quality-assurance-workflow"
+      },
+      {
+        "label": "Quality Audit",
+        "icon": "menu",
+        "screen_code": "quality_audit",
+        "route": "/staff/quality-audit"
+      },
+      {
+        "label": "Failed Workflow",
+        "icon": "trending_up",
+        "screen_code": "failed_workflow",
+        "route": "/staff/failed-workflow"
+      },
+      {
+        "label": "Testing Overview",
+        "icon": "dashboard",
+        "screen_code": "testing_overview",
+        "route": "/staff/testing-overview"
+      },
+      {
+        "label": "Defect Tracking",
+        "icon": "menu",
+        "screen_code": "defect_tracking",
+        "route": "/staff/defect-tracking"
+      }
+    ],
+    "topbar_config": {
+      "title": "QA Specialist Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "qa_analytics",
+      "qa_compliance",
+      "qa_workflow",
+      "quality_assurance_analytics",
+      "quality_assurance_compliance",
+      "quality_assurance_workflow",
+      "quality_audit",
+      "failed_workflow",
+      "testing_overview",
+      "defect_tracking"
+    ]
+  },
+  {
+    "role_id": 64,
+    "role_code": "family",
+    "role_name": "Family Member",
+    "navigation_style": "sidebar",
+    "default_dashboard": "family_member_analytics",
+    "sidebar_items": [
+      {
+        "label": "Family Member Analytics",
+        "icon": "menu",
+        "screen_code": "family_member_analytics",
+        "route": "/common/family-member-analytics"
+      },
+      {
+        "label": "Family Member Compliance",
+        "icon": "menu",
+        "screen_code": "family_member_compliance",
+        "route": "/common/family-member-compliance"
+      },
+      {
+        "label": "Family Member Workflow",
+        "icon": "trending_up",
+        "screen_code": "family_member_workflow",
+        "route": "/common/family-member-workflow"
+      },
+      {
+        "label": "Family Overview",
+        "icon": "dashboard",
+        "screen_code": "family_overview",
+        "route": "/common/family-overview"
+      },
+      {
+        "label": "Care Updates",
+        "icon": "menu",
+        "screen_code": "care_updates",
+        "route": "/common/care-updates"
+      },
+      {
+        "label": "Billing Overview",
+        "icon": "dashboard",
+        "screen_code": "billing_overview",
+        "route": "/common/billing-overview"
+      },
+      {
+        "label": "Emergency Contacts",
+        "icon": "menu",
+        "screen_code": "emergency_contacts",
+        "route": "/common/emergency-contacts"
+      }
+    ],
+    "topbar_config": {
+      "title": "Family Member Portal",
+      "showSearch": true,
+      "showNotifications": true,
+      "showProfile": true,
+      "actions": [
+        "messages",
+        "tasks",
+        "logout"
+      ]
+    },
+    "allowed_screens": [
+      "family_member_analytics",
+      "family_member_compliance",
+      "family_member_workflow",
+      "family_overview",
+      "care_updates",
+      "billing_overview",
+      "emergency_contacts"
+    ]
+  }
+]

@@ -1,0 +1,772 @@
+[
+  {
+    "app_id": 1,
+    "app_code": "ui",
+    "app_name": "PrimeCare UI Client",
+    "default_layout_key": "ui_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "PrimeCare UI Client",
+      "logoUrl": "/assets/branding/ui_logo.svg",
+      "faviconUrl": "/assets/branding/ui_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 2,
+    "app_code": "wa",
+    "app_name": "Web Admin Console",
+    "default_layout_key": "wa_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Web Admin Console",
+      "logoUrl": "/assets/branding/wa_logo.svg",
+      "faviconUrl": "/assets/branding/wa_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 3,
+    "app_code": "au",
+    "app_name": "Primecare Auth",
+    "default_layout_key": "au_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Auth",
+      "logoUrl": "/assets/branding/au_logo.svg",
+      "faviconUrl": "/assets/branding/au_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 4,
+    "app_code": "bd",
+    "app_name": "Primecare Business Development",
+    "default_layout_key": "bd_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Business Development",
+      "logoUrl": "/assets/branding/bd_logo.svg",
+      "faviconUrl": "/assets/branding/bd_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 5,
+    "app_code": "cl",
+    "app_name": "Primecare Client",
+    "default_layout_key": "cl_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Client",
+      "logoUrl": "/assets/branding/cl_logo.svg",
+      "faviconUrl": "/assets/branding/cl_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 6,
+    "app_code": "ci",
+    "app_name": "Primecare Clinic",
+    "default_layout_key": "ci_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Clinic",
+      "logoUrl": "/assets/branding/ci_logo.svg",
+      "faviconUrl": "/assets/branding/ci_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 7,
+    "app_code": "co",
+    "app_name": "Primecare Corporate",
+    "default_layout_key": "co_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Corporate",
+      "logoUrl": "/assets/branding/co_logo.svg",
+      "faviconUrl": "/assets/branding/co_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 8,
+    "app_code": "eb",
+    "app_name": "Primecare Enterprise Blueprint",
+    "default_layout_key": "eb_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Enterprise Blueprint",
+      "logoUrl": "/assets/branding/eb_logo.svg",
+      "faviconUrl": "/assets/branding/eb_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 9,
+    "app_code": "fr",
+    "app_name": "Primecare Franchise",
+    "default_layout_key": "fr_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Franchise",
+      "logoUrl": "/assets/branding/fr_logo.svg",
+      "faviconUrl": "/assets/branding/fr_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 10,
+    "app_code": "go",
+    "app_name": "Primecare Governance",
+    "default_layout_key": "go_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Governance",
+      "logoUrl": "/assets/branding/go_logo.svg",
+      "faviconUrl": "/assets/branding/go_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 11,
+    "app_code": "ma",
+    "app_name": "Primecare Marketing",
+    "default_layout_key": "ma_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Marketing",
+      "logoUrl": "/assets/branding/ma_logo.svg",
+      "faviconUrl": "/assets/branding/ma_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 12,
+    "app_code": "su",
+    "app_name": "Primecare Support",
+    "default_layout_key": "su_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Primecare Support",
+      "logoUrl": "/assets/branding/su_logo.svg",
+      "faviconUrl": "/assets/branding/su_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 13,
+    "app_code": "wo",
+    "app_name": "Worker Api",
+    "default_layout_key": "wo_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Worker Api",
+      "logoUrl": "/assets/branding/wo_logo.svg",
+      "faviconUrl": "/assets/branding/wo_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 14,
+    "app_code": "cn",
+    "app_name": "Contracts",
+    "default_layout_key": "cn_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Contracts",
+      "logoUrl": "/assets/branding/cn_logo.svg",
+      "faviconUrl": "/assets/branding/cn_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 15,
+    "app_code": "db",
+    "app_name": "Database",
+    "default_layout_key": "db_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Database",
+      "logoUrl": "/assets/branding/db_logo.svg",
+      "faviconUrl": "/assets/branding/db_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 16,
+    "app_code": "dc",
+    "app_name": "Database Client",
+    "default_layout_key": "dc_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Database Client",
+      "logoUrl": "/assets/branding/dc_logo.svg",
+      "faviconUrl": "/assets/branding/dc_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 17,
+    "app_code": "dm",
+    "app_name": "Domain",
+    "default_layout_key": "dm_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Domain",
+      "logoUrl": "/assets/branding/dm_logo.svg",
+      "faviconUrl": "/assets/branding/dm_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 18,
+    "app_code": "fs",
+    "app_name": "Factory System",
+    "default_layout_key": "fs_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Factory System",
+      "logoUrl": "/assets/branding/fs_logo.svg",
+      "faviconUrl": "/assets/branding/fs_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 19,
+    "app_code": "fc",
+    "app_name": "Flutter Core",
+    "default_layout_key": "fc_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Flutter Core",
+      "logoUrl": "/assets/branding/fc_logo.svg",
+      "faviconUrl": "/assets/branding/fc_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 20,
+    "app_code": "if",
+    "app_name": "Infrastructure",
+    "default_layout_key": "if_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Infrastructure",
+      "logoUrl": "/assets/branding/if_logo.svg",
+      "faviconUrl": "/assets/branding/if_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 21,
+    "app_code": "me",
+    "app_name": "Messaging",
+    "default_layout_key": "me_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Messaging",
+      "logoUrl": "/assets/branding/me_logo.svg",
+      "faviconUrl": "/assets/branding/me_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 23,
+    "app_code": "sy",
+    "app_name": "Security",
+    "default_layout_key": "sy_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Security",
+      "logoUrl": "/assets/branding/sy_logo.svg",
+      "faviconUrl": "/assets/branding/sy_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 25,
+    "app_code": "gw",
+    "app_name": "Api Gateway",
+    "default_layout_key": "gw_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Api Gateway",
+      "logoUrl": "/assets/branding/gw_logo.svg",
+      "faviconUrl": "/assets/branding/gw_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 26,
+    "app_code": "at",
+    "app_name": "Auth Api",
+    "default_layout_key": "at_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Auth Api",
+      "logoUrl": "/assets/branding/at_logo.svg",
+      "faviconUrl": "/assets/branding/at_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 27,
+    "app_code": "bi",
+    "app_name": "Billing Api",
+    "default_layout_key": "bi_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Billing Api",
+      "logoUrl": "/assets/branding/bi_logo.svg",
+      "faviconUrl": "/assets/branding/bi_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 28,
+    "app_code": "ca",
+    "app_name": "Client Api",
+    "default_layout_key": "ca_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Client Api",
+      "logoUrl": "/assets/branding/ca_logo.svg",
+      "faviconUrl": "/assets/branding/ca_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 29,
+    "app_code": "cp",
+    "app_name": "Compliance Api",
+    "default_layout_key": "cp_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Compliance Api",
+      "logoUrl": "/assets/branding/cp_logo.svg",
+      "faviconUrl": "/assets/branding/cp_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 30,
+    "app_code": "fa",
+    "app_name": "Franchise Reporting Api",
+    "default_layout_key": "fa_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Franchise Reporting Api",
+      "logoUrl": "/assets/branding/fa_logo.svg",
+      "faviconUrl": "/assets/branding/fa_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 31,
+    "app_code": "gv",
+    "app_name": "Governance Api",
+    "default_layout_key": "gv_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Governance Api",
+      "logoUrl": "/assets/branding/gv_logo.svg",
+      "faviconUrl": "/assets/branding/gv_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 32,
+    "app_code": "no",
+    "app_name": "Notes Api",
+    "default_layout_key": "no_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Notes Api",
+      "logoUrl": "/assets/branding/no_logo.svg",
+      "faviconUrl": "/assets/branding/no_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 33,
+    "app_code": "nt",
+    "app_name": "Notification Api",
+    "default_layout_key": "nt_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Notification Api",
+      "logoUrl": "/assets/branding/nt_logo.svg",
+      "faviconUrl": "/assets/branding/nt_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 34,
+    "app_code": "pr",
+    "app_name": "Provider Api",
+    "default_layout_key": "pr_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Provider Api",
+      "logoUrl": "/assets/branding/pr_logo.svg",
+      "faviconUrl": "/assets/branding/pr_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 35,
+    "app_code": "sc",
+    "app_name": "Scheduling Api",
+    "default_layout_key": "sc_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Scheduling Api",
+      "logoUrl": "/assets/branding/sc_logo.svg",
+      "faviconUrl": "/assets/branding/sc_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 36,
+    "app_code": "ve",
+    "app_name": "Verification Api",
+    "default_layout_key": "ve_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Verification Api",
+      "logoUrl": "/assets/branding/ve_logo.svg",
+      "faviconUrl": "/assets/branding/ve_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  },
+  {
+    "app_id": 37,
+    "app_code": "vi",
+    "app_name": "Visit Api",
+    "default_layout_key": "vi_shell_layout",
+    "app_shell_type": "web",
+    "theme_config": {
+      "themeMode": "light",
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "fontFamily": "Segoe UI",
+      "borderRadius": 8,
+      "themeName": "azure_corporate"
+    },
+    "branding": {
+      "appName": "Visit Api",
+      "logoUrl": "/assets/branding/vi_logo.svg",
+      "faviconUrl": "/assets/branding/vi_favicon.ico",
+      "companyName": "PrimeCare Platform Inc.",
+      "copyrightYear": 2026
+    }
+  }
+]

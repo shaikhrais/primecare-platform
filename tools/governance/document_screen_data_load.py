@@ -12,6 +12,36 @@ Path(REPORT_DIR).mkdir(parents=True, exist_ok=True)
 def now():
     return datetime.utcnow().isoformat()
 
+def get_or_create_run_context(cur, function_code, run_command):
+    # Find function
+    fn_row = cur.execute("SELECT id FROM governance_functions WHERE function_code = ?;", (function_code,)).fetchone()
+    if fn_row:
+        function_id = fn_row["id"]
+    else:
+        cur.execute("""
+            INSERT INTO governance_functions (function_code, function_name, function_type, run_command, run_order)
+            VALUES (?, ?, 'temp', ?, 999);
+        """, (function_code, function_code, run_command))
+        function_id = cur.lastrowid
+        
+    # Check for active run
+    run_row = cur.execute("""
+        SELECT id FROM governance_function_runs
+        WHERE function_id = ? AND run_status = 'started'
+        ORDER BY id DESC LIMIT 1;
+    """, (function_id,)).fetchone()
+    
+    if run_row:
+        run_id = run_row["id"]
+    else:
+        cur.execute("""
+            INSERT INTO governance_function_runs (function_id, run_status, command_run, started_at)
+            VALUES (?, 'started', ?, ?);
+        """, (function_id, run_command, datetime.utcnow().isoformat()))
+        run_id = cur.lastrowid
+        
+    return run_id, function_id
+
 def main():
     print("Executing: Document Screen-Level Data Loading Strategy...")
     
@@ -35,26 +65,8 @@ def main():
         else:
             print(f"  Error adding column: {e}")
 
-    # 2. Get function_id and run_id if running under orchestrator
-    run_id = None
-    function_id = None
-    try:
-        fn_row = cur.execute("""
-            SELECT id FROM governance_functions 
-            WHERE function_code = 'document_screen_data_load';
-        """).fetchone()
-        if fn_row:
-            function_id = fn_row["id"]
-            
-            run_row = cur.execute("""
-                SELECT id FROM governance_function_runs
-                WHERE function_id = ? AND run_status = 'started'
-                ORDER BY id DESC LIMIT 1;
-            """, (function_id,)).fetchone()
-            if run_row:
-                run_id = run_row["id"]
-    except Exception as e:
-        print(f"  Note: Orchestrator context not found: {e}")
+    # Get orchestrator context
+    run_id, function_id = get_or_create_run_context(cur, "document_screen_data_load", "python tools/governance/document_screen_data_load.py")
 
     # 3. Load all screens
     try:
