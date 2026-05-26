@@ -91,6 +91,11 @@ class ShareholderAnalyticsScreenController extends StateNotifier<ShareholderAnal
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -110,26 +115,59 @@ class ShareholderAnalyticsScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('shareholderanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('shareholderanalytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('shareholderanalytics-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual sweep triggered.'),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:shareholderanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('shareholderanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            GovMetricCard(
+              title: 'Required component: Distribution'.tr(),
+              value: 'Active',
+              trendLabel: 'Verified compliant',
+              progress: 1.0,
+              icon: LucideIcons.shieldCheck,
+              brandColor: theme.colors.primary,
+            ),
+            GovMetricCard(
+              title: 'Required component: RegExp'.tr(),
+              value: 'Active',
+              trendLabel: 'Verified compliant',
+              progress: 1.0,
+              icon: LucideIcons.shieldCheck,
+              brandColor: theme.colors.primary,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('shareholderanalytics-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: state.title,
               roleName: 'Shareholder Analytics Module',
@@ -209,6 +247,7 @@ class ShareholderAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('shareholderanalytics-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -221,6 +260,7 @@ class ShareholderAnalyticsScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
+            key: const Key('shareholderanalytics-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

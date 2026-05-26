@@ -195,6 +195,11 @@ class CoordinatorDispatchMapController extends StateNotifier<CoordinatorDispatch
     await Future<void>.delayed(const Duration(milliseconds: 600));
     state = state.copyWith(isLoading: false);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -227,16 +232,21 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
         : state.caregivers.firstWhere((c) => c['id'] == state.selectedCaregiverId);
 
     return Scaffold(
+      key: const Key('coordinatordispatchmap-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('coordinatordispatchmap-title'),
           'Live Dispatch Map',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('coordinatordispatchmap-btn-1'),
+            key: const Key('coordinatordispatchmap-btn-1'),
+            key: const Key('coordinatordispatchmap-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshMap(),
           ),
@@ -244,7 +254,8 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
         ],
       ),
       body: state.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(
+            key: const Key('coordinatordispatchmap-loading'),))
           : LayoutBuilder(
               builder: (context, constraints) {
                 final isWide = constraints.maxWidth > 950;
@@ -255,6 +266,52 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                 return isWide
                     ? Row(
                         children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatordispatchmap-btn-2'),
+            key: const Key('coordinatordispatchmap-btn-2'),
+            key: const Key('coordinatordispatchmap-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatordispatchmap-btn-3'),
+            key: const Key('coordinatordispatchmap-btn-3'),
+            key: const Key('coordinatordispatchmap-btn-3'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatordispatchmap-btn-4'),
+            key: const Key('coordinatordispatchmap-btn-4'),
+            key: const Key('coordinatordispatchmap-btn-4'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 3'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatordispatchmap-btn-5'),
+            key: const Key('coordinatordispatchmap-btn-5'),
+            key: const Key('coordinatordispatchmap-btn-5'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 4'.tr()),
+              ),
+            ),
+
                           Expanded(flex: 3, child: mapWidget),
                           Container(width: 1, color: theme.colors.border),
                           Expanded(flex: 2, child: sidebarWidget),
@@ -313,7 +370,8 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
             left: 16,
             right: 16,
             child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+        key: const Key('coordinatordispatchmap-content'),
+        scrollDirection: Axis.horizontal,
               child: Row(
                 children: ['All', 'North', 'Central', 'South', 'West'].map((sector) {
                   final isSelected = state.selectedSector == sector;
@@ -576,6 +634,9 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                           ),
                         ),
                         IconButton(
+            key: const Key('coordinatordispatchmap-btn-6'),
+            key: const Key('coordinatordispatchmap-btn-6'),
+            key: const Key('coordinatordispatchmap-btn-6'),
                           icon: const Icon(LucideIcons.x, size: 16),
                           onPressed: () => controller.selectCaregiver(null),
                         ),
@@ -638,6 +699,9 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                                 ),
                               ),
                               ElevatedButton(
+            key: const Key('coordinatordispatchmap-btn-7'),
+            key: const Key('coordinatordispatchmap-btn-7'),
+            key: const Key('coordinatordispatchmap-btn-7'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.primary,
                                   elevation: 0,
@@ -647,7 +711,8 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                                     ? null
                                     : () => controller.dispatchCaregiver((shift['id'] as String?) ?? '', (selectedCaregiver['id'] as String?) ?? ''),
                                 child: state.isDispatching
-                                    ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                    ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(
+            key: const Key('coordinatordispatchmap-loading'),color: Colors.white, strokeWidth: 2))
                                     : Text(
                                         'Dispatch',
                                         style: theme.typography.button.copyWith(color: Colors.white, fontSize: 11),

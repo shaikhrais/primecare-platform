@@ -43,6 +43,9 @@ foreach ($app in $apps) {
 
     Set-Location -Path $appPath
     
+    Write-Host '⚡ Step 0: Cleaning build cache...' -ForegroundColor Yellow
+    flutter clean
+    
     Write-Host '⚡ Step 1: Resolving dependencies...' -ForegroundColor Yellow
     flutter pub get
     if ($LASTEXITCODE -ne 0) {

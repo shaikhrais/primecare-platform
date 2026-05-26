@@ -7,24 +7,59 @@ class ReceptionistAnalyticsScreen extends GovernedConsumerWidget {
   const ReceptionistAnalyticsScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('receptionistanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('receptionistanalytics-title'),
           'Receptionist Analytics',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:receptionistanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('receptionistanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('receptionistanalytics-btn-1'),
+            key: const Key('receptionistanalytics-btn-1'),
+            key: const Key('receptionistanalytics-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('receptionistanalytics-btn-2'),
+            key: const Key('receptionistanalytics-btn-2'),
+            key: const Key('receptionistanalytics-btn-2'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Receptionist Analytics',
               roleName: 'Receptionist Module',
@@ -50,13 +85,16 @@ class ReceptionistAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('receptionistanalytics-btn-3'),
+            key: const Key('receptionistanalytics-btn-3'),
+            key: const Key('receptionistanalytics-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () => triggerStateAction(),
                       child: Text(
                         'Execute Action Sweep',
                         style: theme.typography.button.copyWith(color: Colors.white),

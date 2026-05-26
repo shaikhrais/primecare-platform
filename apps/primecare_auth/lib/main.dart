@@ -101,7 +101,7 @@ final authRouterProvider = Provider<GoRouter>((ref) {
           body: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 500),
-              child: const SignInView(),
+              child: const LoginView(),
             ),
           ),
         ),

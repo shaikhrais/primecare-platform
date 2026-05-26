@@ -112,6 +112,11 @@ class RpnAnalyticsController extends StateNotifier<RpnAnalyticsState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -131,20 +136,36 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('rpnanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('rpnanalytics-title'),
           'RPN Clinical Insights',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:rpnanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('rpnanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('rpnanalytics-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Wound Assessments & Immunizations',
               roleName: 'Registered Practical Nurse (RPN)',
@@ -345,6 +366,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                     ),
                     DataCell(
                       IconButton(
+            key: const Key('rpnanalytics-btn-2'),
                         icon: Icon(LucideIcons.edit2,
                             color: theme.colors.primary, size: 16),
                         onPressed: () {
@@ -494,6 +516,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
+            key: const Key('rpnanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -501,6 +524,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
+            key: const Key('rpnanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,

@@ -1,0 +1,4882 @@
+[
+  {
+    "endpoint_id": 8,
+    "method": "POST",
+    "route": "/v1/auth/onboard-business",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.790679"
+  },
+  {
+    "endpoint_id": 11,
+    "method": "POST",
+    "route": "/v1/admin/users",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.790805"
+  },
+  {
+    "endpoint_id": 12,
+    "method": "POST",
+    "route": "/v1/admin/users/churn-heatmap",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.790814"
+  },
+  {
+    "endpoint_id": 13,
+    "method": "POST",
+    "route": "/v1/admin/settings/business-model",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.790818"
+  },
+  {
+    "endpoint_id": 14,
+    "method": "POST",
+    "route": "/v1/admin/settings/branding",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.790822"
+  },
+  {
+    "endpoint_id": 15,
+    "method": "POST",
+    "route": "/v1/admin/settings/security",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.790827"
+  },
+  {
+    "endpoint_id": 16,
+    "method": "POST",
+    "route": "/v1/admin/settings/security/devices",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.790831"
+  },
+  {
+    "endpoint_id": 17,
+    "method": "POST",
+    "route": "/v1/admin/settings/security/forensic-trails",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.790840"
+  },
+  {
+    "endpoint_id": 18,
+    "method": "POST",
+    "route": "/v1/admin/settings/security/daily-summary",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.790845"
+  },
+  {
+    "endpoint_id": 19,
+    "method": "POST",
+    "route": "/v1/admin/settings/security/cors",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.790907"
+  },
+  {
+    "endpoint_id": 20,
+    "method": "POST",
+    "route": "/v1/admin/settings/security/verify-integrity",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.790921"
+  },
+  {
+    "endpoint_id": 21,
+    "method": "POST",
+    "route": "/v1/admin/settings/usage-stats",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.790926"
+  },
+  {
+    "endpoint_id": 22,
+    "method": "POST",
+    "route": "/v1/admin/search",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.790930"
+  },
+  {
+    "endpoint_id": 23,
+    "method": "POST",
+    "route": "/v1/admin/staff-groups",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.790934"
+  },
+  {
+    "endpoint_id": 24,
+    "method": "POST",
+    "route": "/v1/admin/services",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.790938"
+  },
+  {
+    "endpoint_id": 25,
+    "method": "POST",
+    "route": "/v1/admin/scrum/env-audit",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.790942"
+  },
+  {
+    "endpoint_id": 26,
+    "method": "POST",
+    "route": "/v1/admin/scrum/audits",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.790945"
+  },
+  {
+    "endpoint_id": 27,
+    "method": "POST",
+    "route": "/v1/admin/scrum/response-bot/audit",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.790978"
+  },
+  {
+    "endpoint_id": 29,
+    "method": "POST",
+    "route": "/v1/admin/developer/keys",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.790982"
+  },
+  {
+    "endpoint_id": 30,
+    "method": "POST",
+    "route": "/v1/admin/developer/db-push",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.790988"
+  },
+  {
+    "endpoint_id": 31,
+    "method": "POST",
+    "route": "/v1/admin/actions/commit-overrides",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.790992"
+  },
+  {
+    "endpoint_id": 32,
+    "method": "POST",
+    "route": "/v1/admin/actions/export",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.790996"
+  },
+  {
+    "endpoint_id": 33,
+    "method": "POST",
+    "route": "/v1/admin/actions/trigger-automation",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.790999"
+  },
+  {
+    "endpoint_id": 34,
+    "method": "POST",
+    "route": "/v1/admin/actions/optimize",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.791003"
+  },
+  {
+    "endpoint_id": 36,
+    "method": "POST",
+    "route": "/v1/admin/actions/publish-content",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.791030"
+  },
+  {
+    "endpoint_id": 37,
+    "method": "POST",
+    "route": "/v1/admin/actions/reindex-search",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.791035"
+  },
+  {
+    "endpoint_id": 38,
+    "method": "POST",
+    "route": "/v1/admin/actions/suspend-reseller",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.791040"
+  },
+  {
+    "endpoint_id": 39,
+    "method": "POST",
+    "route": "/v1/admin/actions/shifts",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.791043"
+  },
+  {
+    "endpoint_id": 40,
+    "method": "POST",
+    "route": "/v1/admin/actions/regions",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.791047"
+  },
+  {
+    "endpoint_id": 41,
+    "method": "POST",
+    "route": "/v1/admin/actions/surveys",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.791051"
+  },
+  {
+    "endpoint_id": 42,
+    "method": "POST",
+    "route": "/v1/admin/actions/training-modules",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.791055"
+  },
+  {
+    "endpoint_id": 43,
+    "method": "POST",
+    "route": "/v1/admin/actions/emergency/trigger",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.791058"
+  },
+  {
+    "endpoint_id": 44,
+    "method": "POST",
+    "route": "/v1/admin/actions/audit-chain/verify",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.791069"
+  },
+  {
+    "endpoint_id": 45,
+    "method": "POST",
+    "route": "/v1/admin/actions/audit-chain/stats",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.791074"
+  },
+  {
+    "endpoint_id": 46,
+    "method": "POST",
+    "route": "/v1/admin/insurance-providers",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.791078"
+  },
+  {
+    "endpoint_id": 47,
+    "method": "POST",
+    "route": "/v1/admin/billing-codes",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.791082"
+  },
+  {
+    "endpoint_id": 48,
+    "method": "POST",
+    "route": "/v1/admin/visits",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.791085"
+  },
+  {
+    "endpoint_id": 49,
+    "method": "POST",
+    "route": "/v1/admin/visits/assign",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.791089"
+  },
+  {
+    "endpoint_id": 50,
+    "method": "POST",
+    "route": "/v1/admin/timesheets",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.791092"
+  },
+  {
+    "endpoint_id": 51,
+    "method": "POST",
+    "route": "/v1/admin/incidents",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.791096"
+  },
+  {
+    "endpoint_id": 52,
+    "method": "POST",
+    "route": "/v1/admin/booking-requests",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.791099"
+  },
+  {
+    "endpoint_id": 53,
+    "method": "POST",
+    "route": "/v1/admin/clients",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.791103"
+  },
+  {
+    "endpoint_id": 54,
+    "method": "POST",
+    "route": "/v1/admin/leads",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.791126"
+  },
+  {
+    "endpoint_id": 55,
+    "method": "POST",
+    "route": "/v1/admin/reports/export",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.791131"
+  },
+  {
+    "endpoint_id": 56,
+    "method": "POST",
+    "route": "/v1/admin/referrals",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.791136"
+  },
+  {
+    "endpoint_id": 57,
+    "method": "POST",
+    "route": "/v1/admin/referrals/analytics",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.791139"
+  },
+  {
+    "endpoint_id": 58,
+    "method": "POST",
+    "route": "/v1/admin/notifications",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.791143"
+  },
+  {
+    "endpoint_id": 59,
+    "method": "POST",
+    "route": "/v1/admin/notifications/broadcast",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.791146"
+  },
+  {
+    "endpoint_id": 60,
+    "method": "POST",
+    "route": "/v1/admin/documents",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.791150"
+  },
+  {
+    "endpoint_id": 61,
+    "method": "POST",
+    "route": "/v1/admin/documents/pending",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.791153"
+  },
+  {
+    "endpoint_id": 62,
+    "method": "POST",
+    "route": "/v1/admin/documents/upload",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.791157"
+  },
+  {
+    "endpoint_id": 63,
+    "method": "POST",
+    "route": "/v1/admin/evv",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.791161"
+  },
+  {
+    "endpoint_id": 64,
+    "method": "POST",
+    "route": "/v1/admin/evv/exceptions",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.791184"
+  },
+  {
+    "endpoint_id": 65,
+    "method": "POST",
+    "route": "/v1/admin/evv/compliance-summary",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.791188"
+  },
+  {
+    "endpoint_id": 66,
+    "method": "POST",
+    "route": "/v1/admin/evv/export",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.791192"
+  },
+  {
+    "endpoint_id": 67,
+    "method": "POST",
+    "route": "/v1/admin/consent",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.791196"
+  },
+  {
+    "endpoint_id": 68,
+    "method": "POST",
+    "route": "/v1/admin/consent/templates",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.791199"
+  },
+  {
+    "endpoint_id": 69,
+    "method": "POST",
+    "route": "/v1/admin/consent/expiring",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.791203"
+  },
+  {
+    "endpoint_id": 70,
+    "method": "POST",
+    "route": "/v1/admin/authorizations",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.791207"
+  },
+  {
+    "endpoint_id": 72,
+    "method": "POST",
+    "route": "/v1/admin/pharmacy/prescriptions",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.791210"
+  },
+  {
+    "endpoint_id": 73,
+    "method": "POST",
+    "route": "/v1/admin/pharmacy/orders",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.791221"
+  },
+  {
+    "endpoint_id": 74,
+    "method": "POST",
+    "route": "/v1/admin/pharmacy/verify-barcode",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.791225"
+  },
+  {
+    "endpoint_id": 76,
+    "method": "POST",
+    "route": "/v1/admin/automation/clinical-autopilot/clinical-autopilot/run",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.791229"
+  },
+  {
+    "endpoint_id": 77,
+    "method": "POST",
+    "route": "/v1/admin/financial",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.791233"
+  },
+  {
+    "endpoint_id": 78,
+    "method": "POST",
+    "route": "/v1/admin/financial/accounts",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.791237"
+  },
+  {
+    "endpoint_id": 79,
+    "method": "POST",
+    "route": "/v1/admin/financial/initialize",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.791241"
+  },
+  {
+    "endpoint_id": 80,
+    "method": "POST",
+    "route": "/v1/admin/financial/invoices",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.791245"
+  },
+  {
+    "endpoint_id": 81,
+    "method": "POST",
+    "route": "/v1/admin/financial/balances",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.791248"
+  },
+  {
+    "endpoint_id": 82,
+    "method": "POST",
+    "route": "/v1/admin/financial/reconcile",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.791258"
+  },
+  {
+    "endpoint_id": 83,
+    "method": "POST",
+    "route": "/v1/admin/financial/reconcile/auto",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.791262"
+  },
+  {
+    "endpoint_id": 84,
+    "method": "POST",
+    "route": "/v1/admin/financial/reconciliation-summary",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.791266"
+  },
+  {
+    "endpoint_id": 85,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/p-and-l",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.791270"
+  },
+  {
+    "endpoint_id": 86,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/balance-sheet",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.791274"
+  },
+  {
+    "endpoint_id": 87,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/daily-summary",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.791277"
+  },
+  {
+    "endpoint_id": 88,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/trading-account",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.791281"
+  },
+  {
+    "endpoint_id": 89,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/forecast",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.791284"
+  },
+  {
+    "endpoint_id": 90,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/tax-filing",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.791295"
+  },
+  {
+    "endpoint_id": 91,
+    "method": "POST",
+    "route": "/v1/admin/financial/tax-remittance",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.791299"
+  },
+  {
+    "endpoint_id": 92,
+    "method": "POST",
+    "route": "/v1/admin/financial/earnings",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.791303"
+  },
+  {
+    "endpoint_id": 93,
+    "method": "POST",
+    "route": "/v1/admin/financial/reconciliation/unmatched",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.791307"
+  },
+  {
+    "endpoint_id": 94,
+    "method": "POST",
+    "route": "/v1/admin/financial/reconciliation/match",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.791310"
+  },
+  {
+    "endpoint_id": 95,
+    "method": "POST",
+    "route": "/v1/admin/payroll/pending",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.791314"
+  },
+  {
+    "endpoint_id": 96,
+    "method": "POST",
+    "route": "/v1/admin/payroll/batch/approve",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.791317"
+  },
+  {
+    "endpoint_id": 97,
+    "method": "POST",
+    "route": "/v1/admin/payroll/run",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.791323"
+  },
+  {
+    "endpoint_id": 98,
+    "method": "POST",
+    "route": "/v1/admin/claims",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.791334"
+  },
+  {
+    "endpoint_id": 99,
+    "method": "POST",
+    "route": "/v1/admin/claims/scrub",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.791338"
+  },
+  {
+    "endpoint_id": 100,
+    "method": "POST",
+    "route": "/v1/admin/claims/era",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.791341"
+  },
+  {
+    "endpoint_id": 101,
+    "method": "POST",
+    "route": "/v1/admin/claims/system/sync",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.791345"
+  },
+  {
+    "endpoint_id": 102,
+    "method": "POST",
+    "route": "/v1/admin/claims/system/submit",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.791349"
+  },
+  {
+    "endpoint_id": 103,
+    "method": "POST",
+    "route": "/v1/admin/erp/inventory",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.791352"
+  },
+  {
+    "endpoint_id": 104,
+    "method": "POST",
+    "route": "/v1/admin/erp/purchase-orders",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.791356"
+  },
+  {
+    "endpoint_id": 105,
+    "method": "POST",
+    "route": "/v1/admin/erp/po/create",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.791359"
+  },
+  {
+    "endpoint_id": 106,
+    "method": "POST",
+    "route": "/v1/admin/erp/inventory/add",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.791363"
+  },
+  {
+    "endpoint_id": 108,
+    "method": "POST",
+    "route": "/v1/admin/faqs",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.791373"
+  },
+  {
+    "endpoint_id": 111,
+    "method": "POST",
+    "route": "/v1/admin/dam/traffic/routing-rules",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.791377"
+  },
+  {
+    "endpoint_id": 114,
+    "method": "POST",
+    "route": "/v1/admin/dam/workflows/schemas",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.791387"
+  },
+  {
+    "endpoint_id": 115,
+    "method": "POST",
+    "route": "/v1/admin/dam/workflows/rate-limits",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.791391"
+  },
+  {
+    "endpoint_id": 116,
+    "method": "POST",
+    "route": "/v1/admin/dam/templates/no-code",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.791395"
+  },
+  {
+    "endpoint_id": 117,
+    "method": "POST",
+    "route": "/v1/admin/dam/security/rbac-matrix",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.791398"
+  },
+  {
+    "endpoint_id": 118,
+    "method": "POST",
+    "route": "/v1/admin/dam/media/redact-document",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.791402"
+  },
+  {
+    "endpoint_id": 120,
+    "method": "POST",
+    "route": "/v1/admin/dam/media/lifecycle-policies",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.791412"
+  },
+  {
+    "endpoint_id": 121,
+    "method": "POST",
+    "route": "/v1/admin/dam/localization/i18n-dictionary",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.791415"
+  },
+  {
+    "endpoint_id": 122,
+    "method": "POST",
+    "route": "/v1/admin/dam/governance/scripts-manifest",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.791420"
+  },
+  {
+    "endpoint_id": 123,
+    "method": "POST",
+    "route": "/v1/admin/dam/compliance/legal-blockers",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.791423"
+  },
+  {
+    "endpoint_id": 124,
+    "method": "POST",
+    "route": "/v1/admin/dam/analytics/browser-matrix",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.791427"
+  },
+  {
+    "endpoint_id": 125,
+    "method": "POST",
+    "route": "/v1/admin/dam/accessibility/aria-labels",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.791431"
+  },
+  {
+    "endpoint_id": 126,
+    "method": "POST",
+    "route": "/v1/admin/dam/content/rich-text-policies",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.791434"
+  },
+  {
+    "endpoint_id": 127,
+    "method": "POST",
+    "route": "/v1/admin/dam/content/dynamic-routing",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.791457"
+  },
+  {
+    "endpoint_id": 128,
+    "method": "POST",
+    "route": "/v1/admin/marketing/churn-risks",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.791461"
+  },
+  {
+    "endpoint_id": 129,
+    "method": "POST",
+    "route": "/v1/admin/marketing/drip-sequences",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.791465"
+  },
+  {
+    "endpoint_id": 130,
+    "method": "POST",
+    "route": "/v1/admin/marketing/revenue-attribution",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.791469"
+  },
+  {
+    "endpoint_id": 131,
+    "method": "POST",
+    "route": "/v1/admin/marketing/subscribers",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.791473"
+  },
+  {
+    "endpoint_id": 132,
+    "method": "POST",
+    "route": "/v1/admin/marketing/promotions",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.791476"
+  },
+  {
+    "endpoint_id": 133,
+    "method": "POST",
+    "route": "/v1/admin/marketing/syndication/vault",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.791480"
+  },
+  {
+    "endpoint_id": 134,
+    "method": "POST",
+    "route": "/v1/admin/marketing/syndication/post",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.791484"
+  },
+  {
+    "endpoint_id": 140,
+    "method": "POST",
+    "route": "/v1/admin/system-data/iot-events",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.791494"
+  },
+  {
+    "endpoint_id": 141,
+    "method": "POST",
+    "route": "/v1/admin/system-data/gamification",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.791497"
+  },
+  {
+    "endpoint_id": 142,
+    "method": "POST",
+    "route": "/v1/admin/system-data/notifications",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.791526"
+  },
+  {
+    "endpoint_id": 143,
+    "method": "POST",
+    "route": "/v1/admin/system-data/ai-inferences",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.791531"
+  },
+  {
+    "endpoint_id": 145,
+    "method": "POST",
+    "route": "/v1/admin/audit-export/download",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.791535"
+  },
+  {
+    "endpoint_id": 146,
+    "method": "POST",
+    "route": "/v1/admin/audit-export/compliance-home",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.791538"
+  },
+  {
+    "endpoint_id": 147,
+    "method": "POST",
+    "route": "/v1/admin/audit-export/regulatory-report",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.791542"
+  },
+  {
+    "endpoint_id": 154,
+    "method": "POST",
+    "route": "/v1/admin/interop/fhir/export",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.791554"
+  },
+  {
+    "endpoint_id": 155,
+    "method": "POST",
+    "route": "/v1/admin/interop/fhir/import",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.791558"
+  },
+  {
+    "endpoint_id": 157,
+    "method": "POST",
+    "route": "/v1/admin/ai-iot/predictions",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.791562"
+  },
+  {
+    "endpoint_id": 159,
+    "method": "POST",
+    "route": "/v1/admin/system/platform/stats",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.791565"
+  },
+  {
+    "endpoint_id": 160,
+    "method": "POST",
+    "route": "/v1/admin/system/risk-surveillance",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.791569"
+  },
+  {
+    "endpoint_id": 161,
+    "method": "POST",
+    "route": "/v1/admin/insights/predictive-staffing",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.791572"
+  },
+  {
+    "endpoint_id": 162,
+    "method": "POST",
+    "route": "/v1/admin/reseller",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.791576"
+  },
+  {
+    "endpoint_id": 163,
+    "method": "POST",
+    "route": "/v1/admin/reseller/provision",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.791605"
+  },
+  {
+    "endpoint_id": 164,
+    "method": "POST",
+    "route": "/v1/admin/stats",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.791614"
+  },
+  {
+    "endpoint_id": 165,
+    "method": "POST",
+    "route": "/v1/admin/ops/center",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.791618"
+  },
+  {
+    "endpoint_id": 166,
+    "method": "POST",
+    "route": "/v1/manager/home/stats",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.791622"
+  },
+  {
+    "endpoint_id": 167,
+    "method": "POST",
+    "route": "/v1/manager/home/today",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.791625"
+  },
+  {
+    "endpoint_id": 168,
+    "method": "POST",
+    "route": "/v1/manager/home/kpi",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.791629"
+  },
+  {
+    "endpoint_id": 169,
+    "method": "POST",
+    "route": "/v1/manager/finance/payroll-audit",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.791633"
+  },
+  {
+    "endpoint_id": 170,
+    "method": "POST",
+    "route": "/v1/manager/ops/stats",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.791638"
+  },
+  {
+    "endpoint_id": 171,
+    "method": "POST",
+    "route": "/v1/manager/ops/compliance/sync",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.791642"
+  },
+  {
+    "endpoint_id": 173,
+    "method": "POST",
+    "route": "/v1/manager/ops/intake/waitlist",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.791655"
+  },
+  {
+    "endpoint_id": 175,
+    "method": "POST",
+    "route": "/v1/manager/ops/incidents",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.791659"
+  },
+  {
+    "endpoint_id": 176,
+    "method": "POST",
+    "route": "/v1/manager/ops/locations",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.791662"
+  },
+  {
+    "endpoint_id": 177,
+    "method": "POST",
+    "route": "/v1/manager/ops/approvals",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.791667"
+  },
+  {
+    "endpoint_id": 178,
+    "method": "POST",
+    "route": "/v1/manager/reviews",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.791670"
+  },
+  {
+    "endpoint_id": 179,
+    "method": "POST",
+    "route": "/v1/manager/training/assign",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.791674"
+  },
+  {
+    "endpoint_id": 180,
+    "method": "POST",
+    "route": "/v1/manager/training/compliance",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.791677"
+  },
+  {
+    "endpoint_id": 181,
+    "method": "POST",
+    "route": "/v1/manager/training/modules",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.791688"
+  },
+  {
+    "endpoint_id": 185,
+    "method": "POST",
+    "route": "/v1/staff/customers",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.791692"
+  },
+  {
+    "endpoint_id": 186,
+    "method": "POST",
+    "route": "/v1/staff/ops/compliance/scan",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.791696"
+  },
+  {
+    "endpoint_id": 197,
+    "method": "POST",
+    "route": "/v1/rn/clinical/care-plans",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.791744"
+  },
+  {
+    "endpoint_id": 198,
+    "method": "POST",
+    "route": "/v1/rn/clinical/scribe-parse/parse",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.791774"
+  },
+  {
+    "endpoint_id": 199,
+    "method": "POST",
+    "route": "/v1/rn/clinical/assessments",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.791797"
+  },
+  {
+    "endpoint_id": 200,
+    "method": "POST",
+    "route": "/v1/rn/clinical/recon",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.791817"
+  },
+  {
+    "endpoint_id": 201,
+    "method": "POST",
+    "route": "/v1/rn/clinical/supervision",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.791835"
+  },
+  {
+    "endpoint_id": 202,
+    "method": "POST",
+    "route": "/v1/rn/clinical/sign-off",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.791844"
+  },
+  {
+    "endpoint_id": 203,
+    "method": "POST",
+    "route": "/v1/rn/clinical/audit/list",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.791852"
+  },
+  {
+    "endpoint_id": 204,
+    "method": "POST",
+    "route": "/v1/rn/clinical/reconciliation/pending",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.791868"
+  },
+  {
+    "endpoint_id": 205,
+    "method": "POST",
+    "route": "/v1/rn/mar/administer",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.791886"
+  },
+  {
+    "endpoint_id": 232,
+    "method": "POST",
+    "route": "/v1/psw/training/assigned",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.791969"
+  },
+  {
+    "endpoint_id": 242,
+    "method": "POST",
+    "route": "/v1/client/support/feedback",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.792066"
+  },
+  {
+    "endpoint_id": 245,
+    "method": "POST",
+    "route": "/v1/client/family/members",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792084"
+  },
+  {
+    "endpoint_id": 246,
+    "method": "POST",
+    "route": "/v1/client/family/message",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792094"
+  },
+  {
+    "endpoint_id": 247,
+    "method": "POST",
+    "route": "/v1/client/family/schedule/upcoming",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792122"
+  },
+  {
+    "endpoint_id": 248,
+    "method": "POST",
+    "route": "/v1/client/billing/invoices",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792142"
+  },
+  {
+    "endpoint_id": 249,
+    "method": "POST",
+    "route": "/v1/client/billing/statement",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792181"
+  },
+  {
+    "endpoint_id": 250,
+    "method": "POST",
+    "route": "/v1/client/billing/payment-methods",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.792194"
+  },
+  {
+    "endpoint_id": 258,
+    "method": "POST",
+    "route": "/v1/coordinator/sos-dispatch",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.792217"
+  },
+  {
+    "endpoint_id": 259,
+    "method": "POST",
+    "route": "/v1/coordinator/schedule/master",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.792222"
+  },
+  {
+    "endpoint_id": 260,
+    "method": "POST",
+    "route": "/v1/coordinator/shifts/broadcast",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.792226"
+  },
+  {
+    "endpoint_id": 261,
+    "method": "POST",
+    "route": "/v1/coordinator/match/override",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.792230"
+  },
+  {
+    "endpoint_id": 262,
+    "method": "POST",
+    "route": "/v1/coordinator/waitlist/sync",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.792235"
+  },
+  {
+    "endpoint_id": 263,
+    "method": "POST",
+    "route": "/v1/coordinator/incident/ack",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.792238"
+  },
+  {
+    "endpoint_id": 264,
+    "method": "POST",
+    "route": "/v1/coordinator/incidents",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.792242"
+  },
+  {
+    "endpoint_id": 265,
+    "method": "POST",
+    "route": "/v1/coordinator/home/stats",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.792245"
+  },
+  {
+    "endpoint_id": 266,
+    "method": "POST",
+    "route": "/v1/coordinator/dispatch-map",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.792250"
+  },
+  {
+    "endpoint_id": 267,
+    "method": "POST",
+    "route": "/v1/coordinator/matching/run",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.792261"
+  },
+  {
+    "endpoint_id": 268,
+    "method": "POST",
+    "route": "/v1/coordinator/fleet/ping",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.792264"
+  },
+  {
+    "endpoint_id": 269,
+    "method": "POST",
+    "route": "/v1/coordinator/fleet/heartbeat",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.792268"
+  },
+  {
+    "endpoint_id": 270,
+    "method": "POST",
+    "route": "/v1/coordinator/fleet/positions",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.792271"
+  },
+  {
+    "endpoint_id": 271,
+    "method": "POST",
+    "route": "/v1/coordinator/shift-swap/request",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.792275"
+  },
+  {
+    "endpoint_id": 272,
+    "method": "POST",
+    "route": "/v1/coordinator/shift-swap/requests",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.792279"
+  },
+  {
+    "endpoint_id": 273,
+    "method": "POST",
+    "route": "/v1/coordinator/sos/trigger",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.792285"
+  },
+  {
+    "endpoint_id": 274,
+    "method": "POST",
+    "route": "/v1/coordinator/sos/active",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792288"
+  },
+  {
+    "endpoint_id": 275,
+    "method": "POST",
+    "route": "/v1/coordinator/waitlist",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.792292"
+  },
+  {
+    "endpoint_id": 280,
+    "method": "POST",
+    "route": "/v1/user/training/my-progress",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.792303"
+  },
+  {
+    "endpoint_id": 281,
+    "method": "POST",
+    "route": "/v1/system/notifications/register-device",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.792307"
+  },
+  {
+    "endpoint_id": 282,
+    "method": "POST",
+    "route": "/v1/system/notifications",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.792311"
+  },
+  {
+    "endpoint_id": 283,
+    "method": "POST",
+    "route": "/v1/system/payments/create-payment-intent",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.792315"
+  },
+  {
+    "endpoint_id": 284,
+    "method": "POST",
+    "route": "/v1/system/storage/upload",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.792326"
+  },
+  {
+    "endpoint_id": 285,
+    "method": "POST",
+    "route": "/v1/system/voice/upload",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.792330"
+  },
+  {
+    "endpoint_id": 286,
+    "method": "POST",
+    "route": "/v1/system/kill-switch/engage",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.792334"
+  },
+  {
+    "endpoint_id": 287,
+    "method": "POST",
+    "route": "/v1/system/kill-switch/disengage",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.792337"
+  },
+  {
+    "endpoint_id": 288,
+    "method": "POST",
+    "route": "/v1/system/realtime/connect",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.792341"
+  },
+  {
+    "endpoint_id": 289,
+    "method": "POST",
+    "route": "/v1/scrum-master/registry/sweep",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.792345"
+  },
+  {
+    "endpoint_id": 290,
+    "method": "POST",
+    "route": "/v1/scrum-master/registry/integrity",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792348"
+  },
+  {
+    "endpoint_id": 291,
+    "method": "POST",
+    "route": "/v1/scrum-master/forensics/flush",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792358"
+  },
+  {
+    "endpoint_id": 292,
+    "method": "POST",
+    "route": "/v1/scrum-master/governance/reseed",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792362"
+  },
+  {
+    "endpoint_id": 293,
+    "method": "POST",
+    "route": "/v1/scrum-master/system/deploy",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792365"
+  },
+  {
+    "endpoint_id": 294,
+    "method": "POST",
+    "route": "/v1/scrum-master/registry/touchpoints",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792369"
+  },
+  {
+    "endpoint_id": 295,
+    "method": "POST",
+    "route": "/v1/scrum-master/registry/sync",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.792373"
+  },
+  {
+    "endpoint_id": 300,
+    "method": "POST",
+    "route": "/v1/admin/visits/unassigned",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.792376"
+  },
+  {
+    "endpoint_id": 301,
+    "method": "POST",
+    "route": "/v1/admin/home/stats",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.792387"
+  },
+  {
+    "endpoint_id": 307,
+    "method": "POST",
+    "route": "/v1/superuser/governance",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.792392"
+  },
+  {
+    "endpoint_id": 323,
+    "method": "POST",
+    "route": "/v1/admin/scrum/auto-fix",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.792428"
+  },
+  {
+    "endpoint_id": 326,
+    "method": "POST",
+    "route": "/v1/manager/coordinator/sos-dispatch",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.792432"
+  },
+  {
+    "endpoint_id": 327,
+    "method": "POST",
+    "route": "/v1/rn/clinical/care-plans/review",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.792436"
+  },
+  {
+    "endpoint_id": 328,
+    "method": "POST",
+    "route": "/v1/rn/clinical/audit/entries/verify",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.792440"
+  },
+  {
+    "endpoint_id": 334,
+    "method": "POST",
+    "route": "/v1/admin/marketing/campaigns",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.792450"
+  },
+  {
+    "endpoint_id": 378,
+    "method": "POST",
+    "route": "/v1/admin/ai-command",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.792454"
+  },
+  {
+    "endpoint_id": 379,
+    "method": "POST",
+    "route": "/v1/admin/ai-command/models",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.792457"
+  },
+  {
+    "endpoint_id": 380,
+    "method": "POST",
+    "route": "/v1/admin/ai-command/inferences",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792461"
+  },
+  {
+    "endpoint_id": 381,
+    "method": "POST",
+    "route": "/v1/admin/ai-command/config",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792466"
+  },
+  {
+    "endpoint_id": 382,
+    "method": "POST",
+    "route": "/v1/admin/finance/multi-currency",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792469"
+  },
+  {
+    "endpoint_id": 383,
+    "method": "POST",
+    "route": "/v1/admin/finance/multi-currency/rates",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792480"
+  },
+  {
+    "endpoint_id": 384,
+    "method": "POST",
+    "route": "/v1/admin/finance/multi-currency/conversions",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792484"
+  },
+  {
+    "endpoint_id": 385,
+    "method": "POST",
+    "route": "/v1/admin/audit-trail",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.792487"
+  },
+  {
+    "endpoint_id": 386,
+    "method": "POST",
+    "route": "/v1/admin/audit-trail/export",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.792491"
+  },
+  {
+    "endpoint_id": 387,
+    "method": "POST",
+    "route": "/v1/admin/franchise",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.792495"
+  },
+  {
+    "endpoint_id": 388,
+    "method": "POST",
+    "route": "/v1/admin/franchise/performance",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.792498"
+  },
+  {
+    "endpoint_id": 389,
+    "method": "POST",
+    "route": "/v1/admin/supply-chain",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.792502"
+  },
+  {
+    "endpoint_id": 390,
+    "method": "POST",
+    "route": "/v1/admin/supply-chain/vendors",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.792506"
+  },
+  {
+    "endpoint_id": 391,
+    "method": "POST",
+    "route": "/v1/admin/supply-chain/purchase-orders",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.792510"
+  },
+  {
+    "endpoint_id": 408,
+    "method": "POST",
+    "route": "/v1/support/chat",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.792521"
+  },
+  {
+    "endpoint_id": 409,
+    "method": "POST",
+    "route": "/v1/support/tickets",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792525"
+  },
+  {
+    "endpoint_id": 421,
+    "method": "POST",
+    "route": "/v1/admin/invoices",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.792528"
+  },
+  {
+    "endpoint_id": 427,
+    "method": "POST",
+    "route": "/v1/admin/settings/save",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792532"
+  },
+  {
+    "endpoint_id": 428,
+    "method": "POST",
+    "route": "/v1/admin/content/publish",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792542"
+  },
+  {
+    "endpoint_id": 429,
+    "method": "POST",
+    "route": "/v1/admin/search/reindex",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792546"
+  },
+  {
+    "endpoint_id": 430,
+    "method": "POST",
+    "route": "/v1/admin/registry/ui-override/commit",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.792549"
+  },
+  {
+    "endpoint_id": 432,
+    "method": "POST",
+    "route": "/v1/admin/ops/capacity",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.792553"
+  },
+  {
+    "endpoint_id": 433,
+    "method": "POST",
+    "route": "/v1/admin/ops/regions",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.792557"
+  },
+  {
+    "endpoint_id": 434,
+    "method": "POST",
+    "route": "/v1/admin/ops/supply-demand",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.792560"
+  },
+  {
+    "endpoint_id": 436,
+    "method": "POST",
+    "route": "/v1/admin/ops/predictive/dispatch",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.792564"
+  },
+  {
+    "endpoint_id": 437,
+    "method": "POST",
+    "route": "/v1/admin/ops/optimize",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.792574"
+  },
+  {
+    "endpoint_id": 438,
+    "method": "POST",
+    "route": "/v1/admin/reseller/stats",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.792578"
+  },
+  {
+    "endpoint_id": 439,
+    "method": "POST",
+    "route": "/v1/admin/reseller/franchises",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.792582"
+  },
+  {
+    "endpoint_id": 441,
+    "method": "POST",
+    "route": "/v1/admin/reseller/agreements",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.792585"
+  },
+  {
+    "endpoint_id": 443,
+    "method": "POST",
+    "route": "/v1/admin/erp/suppliers",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.792589"
+  },
+  {
+    "endpoint_id": 450,
+    "method": "POST",
+    "route": "/v1/admin/rcm/stats",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.792600"
+  },
+  {
+    "endpoint_id": 451,
+    "method": "POST",
+    "route": "/v1/admin/rcm/claims",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.792604"
+  },
+  {
+    "endpoint_id": 452,
+    "method": "POST",
+    "route": "/v1/admin/rcm/claims/submit",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.792608"
+  },
+  {
+    "endpoint_id": 454,
+    "method": "POST",
+    "route": "/v1/admin/pharmacy/stats",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792612"
+  },
+  {
+    "endpoint_id": 459,
+    "method": "POST",
+    "route": "/v1/admin/regional/fin/pl-export",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.792616"
+  },
+  {
+    "endpoint_id": 460,
+    "method": "POST",
+    "route": "/v1/admin/regional/governance/audit-req",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.792626"
+  },
+  {
+    "endpoint_id": 465,
+    "method": "POST",
+    "route": "/v1/admin/financial/reports/reconciliation-summary",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.792630"
+  },
+  {
+    "endpoint_id": 471,
+    "method": "POST",
+    "route": "/v1/scrum-master/stats",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792633"
+  },
+  {
+    "endpoint_id": 472,
+    "method": "POST",
+    "route": "/v1/scrum-master/endpoints",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792637"
+  },
+  {
+    "endpoint_id": 473,
+    "method": "POST",
+    "route": "/v1/scrum-master/env-audit",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792640"
+  },
+  {
+    "endpoint_id": 474,
+    "method": "POST",
+    "route": "/v1/scrum-master/auto-fix",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792645"
+  },
+  {
+    "endpoint_id": 478,
+    "method": "POST",
+    "route": "/v1/scrum-master/security/scan",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.792648"
+  },
+  {
+    "endpoint_id": 479,
+    "method": "POST",
+    "route": "/v1/scrum-master/audits",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.792652"
+  },
+  {
+    "endpoint_id": 484,
+    "method": "POST",
+    "route": "/v1/system/platform/stats",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.792662"
+  },
+  {
+    "endpoint_id": 485,
+    "method": "POST",
+    "route": "/v1/system/ops/capacity",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.792666"
+  },
+  {
+    "endpoint_id": 486,
+    "method": "POST",
+    "route": "/v1/system/ops/regions",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.792670"
+  },
+  {
+    "endpoint_id": 492,
+    "method": "POST",
+    "route": "/v1/superuser/sla/compliance",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.792673"
+  },
+  {
+    "endpoint_id": 516,
+    "method": "POST",
+    "route": "/v1/manager/performance/rankings",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792683"
+  },
+  {
+    "endpoint_id": 517,
+    "method": "POST",
+    "route": "/v1/manager/finance/pl",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792687"
+  },
+  {
+    "endpoint_id": 519,
+    "method": "POST",
+    "route": "/v1/manager/finance/billing/finalize",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792691"
+  },
+  {
+    "endpoint_id": 520,
+    "method": "POST",
+    "route": "/v1/manager/training",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.792695"
+  },
+  {
+    "endpoint_id": 521,
+    "method": "POST",
+    "route": "/v1/manager/surveys",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.792699"
+  },
+  {
+    "endpoint_id": 522,
+    "method": "POST",
+    "route": "/v1/manager/evaluations",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.792703"
+  },
+  {
+    "endpoint_id": 526,
+    "method": "POST",
+    "route": "/v1/manager/staff/add",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.792713"
+  },
+  {
+    "endpoint_id": 527,
+    "method": "POST",
+    "route": "/v1/manager/audit/attendance",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.792716"
+  },
+  {
+    "endpoint_id": 532,
+    "method": "POST",
+    "route": "/v1/manager/gamification",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.792720"
+  },
+  {
+    "endpoint_id": 533,
+    "method": "POST",
+    "route": "/v1/manager/gamification/leaderboard",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.792724"
+  },
+  {
+    "endpoint_id": 534,
+    "method": "POST",
+    "route": "/v1/manager/gamification/rewards",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.792727"
+  },
+  {
+    "endpoint_id": 535,
+    "method": "POST",
+    "route": "/v1/manager/iot/events",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.792731"
+  },
+  {
+    "endpoint_id": 536,
+    "method": "POST",
+    "route": "/v1/manager/iot/devices",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.792734"
+  },
+  {
+    "endpoint_id": 538,
+    "method": "POST",
+    "route": "/v1/manager/documents/signing",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.792738"
+  },
+  {
+    "endpoint_id": 539,
+    "method": "POST",
+    "route": "/v1/manager/documents/signing/requests",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.792748"
+  },
+  {
+    "endpoint_id": 540,
+    "method": "POST",
+    "route": "/v1/manager/communications/sms",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.792752"
+  },
+  {
+    "endpoint_id": 541,
+    "method": "POST",
+    "route": "/v1/manager/communications/sms/campaigns",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.792756"
+  },
+  {
+    "endpoint_id": 543,
+    "method": "POST",
+    "route": "/v1/manager/hr/performance-reviews",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.792760"
+  },
+  {
+    "endpoint_id": 544,
+    "method": "POST",
+    "route": "/v1/manager/training/academy",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792763"
+  },
+  {
+    "endpoint_id": 545,
+    "method": "POST",
+    "route": "/v1/manager/training/academy/modules",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.792767"
+  },
+  {
+    "endpoint_id": 546,
+    "method": "POST",
+    "route": "/v1/manager/training/academy/progress",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.792771"
+  },
+  {
+    "endpoint_id": 553,
+    "method": "POST",
+    "route": "/v1/client/support/nursing-chat",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.792781"
+  },
+  {
+    "endpoint_id": 560,
+    "method": "POST",
+    "route": "/v1/client/family/hub-overview",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792785"
+  },
+  {
+    "endpoint_id": 579,
+    "method": "POST",
+    "route": "/v1/psw/feed/social",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.792788"
+  },
+  {
+    "endpoint_id": 591,
+    "method": "POST",
+    "route": "/v1/rn/clinical/audit/sign-off",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.792799"
+  },
+  {
+    "endpoint_id": 595,
+    "method": "POST",
+    "route": "/v1/rn/clinical/supervision/roster",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.792803"
+  },
+  {
+    "endpoint_id": 620,
+    "method": "POST",
+    "route": "/v1/coordinator/shifts/triage",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.792807"
+  },
+  {
+    "endpoint_id": 627,
+    "method": "POST",
+    "route": "/v1/finance/void",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.792817"
+  },
+  {
+    "endpoint_id": 628,
+    "method": "POST",
+    "route": "/v1/finance/seal",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.792821"
+  },
+  {
+    "endpoint_id": 629,
+    "method": "POST",
+    "route": "/v1/finance/tax/report",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.792825"
+  },
+  {
+    "endpoint_id": 631,
+    "method": "POST",
+    "route": "/v1/manager/billing/batch-approve",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.792829"
+  },
+  {
+    "endpoint_id": 632,
+    "method": "POST",
+    "route": "/v1/training/assign",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.792832"
+  },
+  {
+    "endpoint_id": 633,
+    "method": "POST",
+    "route": "/v1/training/verify",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.792836"
+  },
+  {
+    "endpoint_id": 634,
+    "method": "POST",
+    "route": "/v1/training/renew",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792839"
+  },
+  {
+    "endpoint_id": 635,
+    "method": "POST",
+    "route": "/v1/training/export",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.792844"
+  },
+  {
+    "endpoint_id": 658,
+    "method": "POST",
+    "route": "/v1/admin/locations",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.792847"
+  },
+  {
+    "endpoint_id": 714,
+    "method": "POST",
+    "route": "/v1/admin/training/stats",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.792857"
+  },
+  {
+    "endpoint_id": 715,
+    "method": "POST",
+    "route": "/v1/staff/training/summary",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.792861"
+  },
+  {
+    "endpoint_id": 716,
+    "method": "POST",
+    "route": "/v1/admin/training/architect/audit",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.792865"
+  },
+  {
+    "endpoint_id": 740,
+    "method": "POST",
+    "route": "/v1/admin/training/stats/compliance-overview",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792868"
+  },
+  {
+    "endpoint_id": 741,
+    "method": "POST",
+    "route": "/v1/admin/training/stats/expiring-certs",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792891"
+  },
+  {
+    "endpoint_id": 742,
+    "method": "POST",
+    "route": "/v1/admin/qa/stats/compliance",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792895"
+  },
+  {
+    "endpoint_id": 743,
+    "method": "POST",
+    "route": "/v1/admin/qa/stats/incidents",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792899"
+  },
+  {
+    "endpoint_id": 780,
+    "method": "POST",
+    "route": "/v1/system/permissions",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.792903"
+  },
+  {
+    "endpoint_id": 784,
+    "method": "POST",
+    "route": "/v1/governance/dashboard",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.792913"
+  },
+  {
+    "endpoint_id": 794,
+    "method": "POST",
+    "route": "/v1/psw/help-support",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.792924"
+  },
+  {
+    "endpoint_id": 795,
+    "method": "POST",
+    "route": "/v1/business-development",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.792928"
+  },
+  {
+    "endpoint_id": 803,
+    "method": "POST",
+    "route": "/v1/verification/purpose-report",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.792931"
+  },
+  {
+    "endpoint_id": 804,
+    "method": "POST",
+    "route": "/v1/verification/database-report",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.792935"
+  },
+  {
+    "endpoint_id": 806,
+    "method": "POST",
+    "route": "/v1/admin/staff-provision",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.792939"
+  },
+  {
+    "endpoint_id": 807,
+    "method": "POST",
+    "route": "/v1/admin/audit-override",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.792949"
+  },
+  {
+    "endpoint_id": 808,
+    "method": "POST",
+    "route": "/v1/office/partnership-leads",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.792953"
+  },
+  {
+    "endpoint_id": 812,
+    "method": "POST",
+    "route": "/v1/marketing/",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.792957"
+  },
+  {
+    "endpoint_id": 814,
+    "method": "POST",
+    "route": "/v1/marketing/leads",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.792961"
+  },
+  {
+    "endpoint_id": 821,
+    "method": "GET",
+    "route": "/v1/system/database-report",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.792971"
+  },
+  {
+    "endpoint_id": 830,
+    "method": "GET",
+    "route": "/v1/admin/compliance/access-reviews",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.792975"
+  },
+  {
+    "endpoint_id": 831,
+    "method": "GET",
+    "route": "/v1/admin/users/privileged",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.792979"
+  },
+  {
+    "endpoint_id": 832,
+    "method": "GET",
+    "route": "/v1/admin/api-keys",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.792983"
+  },
+  {
+    "endpoint_id": 833,
+    "method": "GET",
+    "route": "/v1/admin/audit-logs",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.792993"
+  },
+  {
+    "endpoint_id": 834,
+    "method": "GET",
+    "route": "/v1/admin/compliance/training",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.792997"
+  },
+  {
+    "endpoint_id": 835,
+    "method": "GET",
+    "route": "/v1/admin/configs/versions",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.793000"
+  },
+  {
+    "endpoint_id": 836,
+    "method": "GET",
+    "route": "/v1/admin/compliance/consents",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.793004"
+  },
+  {
+    "endpoint_id": 837,
+    "method": "GET",
+    "route": "/v1/admin/compliance/data-privacy",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.793007"
+  },
+  {
+    "endpoint_id": 838,
+    "method": "GET",
+    "route": "/v1/admin/devices",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.793012"
+  },
+  {
+    "endpoint_id": 839,
+    "method": "GET",
+    "route": "/v1/admin/ecosystem",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.793016"
+  },
+  {
+    "endpoint_id": 840,
+    "method": "GET",
+    "route": "/v1/admin/faqs",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.793019"
+  },
+  {
+    "endpoint_id": 841,
+    "method": "GET",
+    "route": "/v1/admin/feature-flags",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.793023"
+  },
+  {
+    "endpoint_id": 842,
+    "method": "GET",
+    "route": "/v1/admin/compliance/hipaa-audit",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.793027"
+  },
+  {
+    "endpoint_id": 843,
+    "method": "GET",
+    "route": "/v1/admin/incidents/active",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.793037"
+  },
+  {
+    "endpoint_id": 845,
+    "method": "GET",
+    "route": "/v1/admin/leads",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.793041"
+  },
+  {
+    "endpoint_id": 846,
+    "method": "GET",
+    "route": "/v1/admin/message-archive",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.793045"
+  },
+  {
+    "endpoint_id": 847,
+    "method": "GET",
+    "route": "/v1/admin/compliance/osha-incidents",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.793048"
+  },
+  {
+    "endpoint_id": 848,
+    "method": "GET",
+    "route": "/v1/admin/compliance/policy-exceptions",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.793052"
+  },
+  {
+    "endpoint_id": 850,
+    "method": "GET",
+    "route": "/v1/admin/providers/performance",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.793056"
+  },
+  {
+    "endpoint_id": 852,
+    "method": "GET",
+    "route": "/v1/admin/compliance/regulatory-radar",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.793066"
+  },
+  {
+    "endpoint_id": 853,
+    "method": "GET",
+    "route": "/v1/admin/resources/allocation",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.793070"
+  },
+  {
+    "endpoint_id": 854,
+    "method": "GET",
+    "route": "/v1/admin/bot-audits",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.793073"
+  },
+  {
+    "endpoint_id": 855,
+    "method": "GET",
+    "route": "/v1/admin/roles/matrix",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.793077"
+  },
+  {
+    "endpoint_id": 857,
+    "method": "GET",
+    "route": "/v1/admin/compliance/security-incidents",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.793081"
+  },
+  {
+    "endpoint_id": 859,
+    "method": "GET",
+    "route": "/v1/admin/capacity/forecast",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.793090"
+  },
+  {
+    "endpoint_id": 860,
+    "method": "GET",
+    "route": "/v1/admin/system-events",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.793094"
+  },
+  {
+    "endpoint_id": 861,
+    "method": "GET",
+    "route": "/v1/admin/policies",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.793098"
+  },
+  {
+    "endpoint_id": 862,
+    "method": "GET",
+    "route": "/v1/admin/registry",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.793102"
+  },
+  {
+    "endpoint_id": 863,
+    "method": "GET",
+    "route": "/v1/admin/tenants",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.793106"
+  },
+  {
+    "endpoint_id": 864,
+    "method": "GET",
+    "route": "/v1/admin/marketing/touchpoints",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.793110"
+  },
+  {
+    "endpoint_id": 865,
+    "method": "GET",
+    "route": "/v1/admin/users",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.793120"
+  },
+  {
+    "endpoint_id": 866,
+    "method": "GET",
+    "route": "/v1/admin/compliance/vendor-risk",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.793126"
+  },
+  {
+    "endpoint_id": 868,
+    "method": "GET",
+    "route": "/v1/analytics/clinical/outcomes",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.793129"
+  },
+  {
+    "endpoint_id": 869,
+    "method": "GET",
+    "route": "/v1/analytics/finance/forecast",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.793133"
+  },
+  {
+    "endpoint_id": 870,
+    "method": "GET",
+    "route": "/v1/analytics/marketing/roi",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.793136"
+  },
+  {
+    "endpoint_id": 871,
+    "method": "GET",
+    "route": "/v1/analytics/operations/efficiency",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.793140"
+  },
+  {
+    "endpoint_id": 872,
+    "method": "GET",
+    "route": "/v1/analytics/patients/retention",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.793144"
+  },
+  {
+    "endpoint_id": 887,
+    "method": "GET",
+    "route": "/v1/governance/dashboard",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.793154"
+  },
+  {
+    "endpoint_id": 890,
+    "method": "GET",
+    "route": "/v1/premium/user",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.793158"
+  },
+  {
+    "endpoint_id": 891,
+    "method": "GET",
+    "route": "/v1/premium/systempolicy",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.793161"
+  },
+  {
+    "endpoint_id": 892,
+    "method": "GET",
+    "route": "/v1/premium/airecommendation",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.793165"
+  },
+  {
+    "endpoint_id": 893,
+    "method": "GET",
+    "route": "/v1/premium/sentimentanalysis",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.793168"
+  },
+  {
+    "endpoint_id": 894,
+    "method": "GET",
+    "route": "/v1/premium/securitythreat",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.793172"
+  },
+  {
+    "endpoint_id": 895,
+    "method": "GET",
+    "route": "/v1/premium/technicalaudit",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.793182"
+  },
+  {
+    "endpoint_id": 896,
+    "method": "GET",
+    "route": "/v1/premium/familynotification",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.793187"
+  },
+  {
+    "endpoint_id": 897,
+    "method": "GET",
+    "route": "/v1/premium/carefeedback",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.793190"
+  },
+  {
+    "endpoint_id": 898,
+    "method": "GET",
+    "route": "/v1/premium/referral",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.793194"
+  },
+  {
+    "endpoint_id": 899,
+    "method": "GET",
+    "route": "/v1/premium/familymember",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.793198"
+  },
+  {
+    "endpoint_id": 900,
+    "method": "GET",
+    "route": "/v1/premium/performancereview",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.793202"
+  },
+  {
+    "endpoint_id": 902,
+    "method": "GET",
+    "route": "/v1/premium/responsebotaudit",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.793206"
+  },
+  {
+    "endpoint_id": 904,
+    "method": "GET",
+    "route": "/v1/premium/iotevent",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.793215"
+  },
+  {
+    "endpoint_id": 905,
+    "method": "GET",
+    "route": "/v1/premium/appnotification",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.793219"
+  },
+  {
+    "endpoint_id": 906,
+    "method": "GET",
+    "route": "/v1/premium/gamificationprofile",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.793223"
+  },
+  {
+    "endpoint_id": 907,
+    "method": "GET",
+    "route": "/v1/premium/aiinference",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.793227"
+  },
+  {
+    "endpoint_id": 909,
+    "method": "GET",
+    "route": "/v1/premium/dailyactivity",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.793230"
+  },
+  {
+    "endpoint_id": 910,
+    "method": "GET",
+    "route": "/v1/premium/platformscreen",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.793234"
+  },
+  {
+    "endpoint_id": 911,
+    "method": "GET",
+    "route": "/v1/premium/screenfunctionality",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.793238"
+  },
+  {
+    "endpoint_id": 913,
+    "method": "GET",
+    "route": "/v1/premium/systemtouchpoint",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.793248"
+  },
+  {
+    "endpoint_id": 915,
+    "method": "GET",
+    "route": "/v1/premium/providervitalsign",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.793252"
+  },
+  {
+    "endpoint_id": 916,
+    "method": "GET",
+    "route": "/v1/premium/behaviornote",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.793255"
+  },
+  {
+    "endpoint_id": 917,
+    "method": "GET",
+    "route": "/v1/premium/nutritionrecord",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.793259"
+  },
+  {
+    "endpoint_id": 919,
+    "method": "GET",
+    "route": "/v1/premium/infectioncontrolchecklist",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.793263"
+  },
+  {
+    "endpoint_id": 920,
+    "method": "GET",
+    "route": "/v1/premium/narrativeprogressnote",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.793273"
+  },
+  {
+    "endpoint_id": 921,
+    "method": "GET",
+    "route": "/v1/premium/careplanfollowup",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.793277"
+  },
+  {
+    "endpoint_id": 922,
+    "method": "GET",
+    "route": "/v1/premium/dynamicfeaturerecord",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.793280"
+  },
+  {
+    "endpoint_id": 923,
+    "method": "GET",
+    "route": "/v1/premium/screenconfiguration",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.793284"
+  },
+  {
+    "endpoint_id": 924,
+    "method": "GET",
+    "route": "/v1/premium/registryentry",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.793288"
+  },
+  {
+    "endpoint_id": 925,
+    "method": "GET",
+    "route": "/v1/premium/implementationevent",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.793298"
+  },
+  {
+    "endpoint_id": 927,
+    "method": "GET",
+    "route": "/v1/premium/anomalyreport",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.793302"
+  },
+  {
+    "endpoint_id": 928,
+    "method": "GET",
+    "route": "/v1/premium/architecturallayer",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.793306"
+  },
+  {
+    "endpoint_id": 929,
+    "method": "GET",
+    "route": "/v1/premium/componentpurpose",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.793309"
+  },
+  {
+    "endpoint_id": 930,
+    "method": "GET",
+    "route": "/v1/premium/systemdomain",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.793313"
+  },
+  {
+    "endpoint_id": 931,
+    "method": "GET",
+    "route": "/v1/premium/softwaresystem",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.793317"
+  },
+  {
+    "endpoint_id": 932,
+    "method": "GET",
+    "route": "/v1/premium/syscomponent",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.793320"
+  },
+  {
+    "endpoint_id": 933,
+    "method": "GET",
+    "route": "/v1/premium/apicontract",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.793324"
+  },
+  {
+    "endpoint_id": 934,
+    "method": "GET",
+    "route": "/v1/premium/uiintent",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.793328"
+  },
+  {
+    "endpoint_id": 935,
+    "method": "GET",
+    "route": "/v1/premium/messagethread",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.793393"
+  },
+  {
+    "endpoint_id": 936,
+    "method": "GET",
+    "route": "/v1/premium/dataresource",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.793398"
+  },
+  {
+    "endpoint_id": 938,
+    "method": "GET",
+    "route": "/v1/premium/agentscreenblueprint",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.793402"
+  },
+  {
+    "endpoint_id": 939,
+    "method": "GET",
+    "route": "/v1/premium/blueprintcomponent",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.793405"
+  },
+  {
+    "endpoint_id": 940,
+    "method": "GET",
+    "route": "/v1/premium/bdmlead",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.793409"
+  },
+  {
+    "endpoint_id": 941,
+    "method": "GET",
+    "route": "/v1/premium/territoryexpansionplan",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.793413"
+  },
+  {
+    "endpoint_id": 942,
+    "method": "GET",
+    "route": "/v1/premium/partnershipdeal",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.793417"
+  },
+  {
+    "endpoint_id": 943,
+    "method": "GET",
+    "route": "/v1/premium/corporatekpi",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.793428"
+  },
+  {
+    "endpoint_id": 944,
+    "method": "GET",
+    "route": "/v1/premium/corporatereport",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.793432"
+  },
+  {
+    "endpoint_id": 946,
+    "method": "GET",
+    "route": "/v1/premium/message",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.793436"
+  },
+  {
+    "endpoint_id": 947,
+    "method": "GET",
+    "route": "/v1/premium/organizationnode",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.793440"
+  },
+  {
+    "endpoint_id": 948,
+    "method": "GET",
+    "route": "/v1/premium/franchisekpi",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.793444"
+  },
+  {
+    "endpoint_id": 949,
+    "method": "GET",
+    "route": "/v1/premium/franchisereport",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.793447"
+  },
+  {
+    "endpoint_id": 951,
+    "method": "GET",
+    "route": "/v1/premium/franchisestaffnode",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.793462"
+  },
+  {
+    "endpoint_id": 952,
+    "method": "GET",
+    "route": "/v1/premium/businessdevelopmentmetric",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.793467"
+  },
+  {
+    "endpoint_id": 953,
+    "method": "GET",
+    "route": "/v1/premium/clinicmetric",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.793470"
+  },
+  {
+    "endpoint_id": 954,
+    "method": "GET",
+    "route": "/v1/premium/supportticket",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.793482"
+  },
+  {
+    "endpoint_id": 955,
+    "method": "GET",
+    "route": "/v1/premium/premiumfeaturestatus",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.793486"
+  },
+  {
+    "endpoint_id": 956,
+    "method": "GET",
+    "route": "/v1/premium/familyappointment",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.793489"
+  },
+  {
+    "endpoint_id": 957,
+    "method": "GET",
+    "route": "/v1/premium/platformrole",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.793493"
+  },
+  {
+    "endpoint_id": 958,
+    "method": "GET",
+    "route": "/v1/premium/familycareplantask",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.793496"
+  },
+  {
+    "endpoint_id": 959,
+    "method": "GET",
+    "route": "/v1/premium/familyclinicalmessage",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.793500"
+  },
+  {
+    "endpoint_id": 960,
+    "method": "GET",
+    "route": "/v1/premium/clinic",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.793503"
+  },
+  {
+    "endpoint_id": 961,
+    "method": "GET",
+    "route": "/v1/premium/patient",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.793507"
+  },
+  {
+    "endpoint_id": 962,
+    "method": "GET",
+    "route": "/v1/premium/financialrecord",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.793510"
+  },
+  {
+    "endpoint_id": 963,
+    "method": "GET",
+    "route": "/v1/premium/clienttrendnode",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.793514"
+  },
+  {
+    "endpoint_id": 964,
+    "method": "GET",
+    "route": "/v1/premium/clientclinicnode",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.793523"
+  },
+  {
+    "endpoint_id": 965,
+    "method": "GET",
+    "route": "/v1/premium/clientdemographicnode",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.794078"
+  },
+  {
+    "endpoint_id": 968,
+    "method": "GET",
+    "route": "/v1/premium/rolescreenaccess",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794084"
+  },
+  {
+    "endpoint_id": 972,
+    "method": "GET",
+    "route": "/v1/premium/interviewevent",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.794103"
+  },
+  {
+    "endpoint_id": 973,
+    "method": "GET",
+    "route": "/v1/premium/incidentreportnode",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.794107"
+  },
+  {
+    "endpoint_id": 975,
+    "method": "GET",
+    "route": "/v1/premium/patientsatisfactionnode",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.794110"
+  },
+  {
+    "endpoint_id": 976,
+    "method": "GET",
+    "route": "/v1/premium/franchiserevenuenode",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.794114"
+  },
+  {
+    "endpoint_id": 977,
+    "method": "GET",
+    "route": "/v1/premium/clinicperformancenode",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.794118"
+  },
+  {
+    "endpoint_id": 978,
+    "method": "GET",
+    "route": "/v1/premium/franchisebookingnode",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.794121"
+  },
+  {
+    "endpoint_id": 979,
+    "method": "GET",
+    "route": "/v1/premium/crisisprotocol",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.794130"
+  },
+  {
+    "endpoint_id": 980,
+    "method": "GET",
+    "route": "/v1/premium/localnetworknode",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.794134"
+  },
+  {
+    "endpoint_id": 981,
+    "method": "GET",
+    "route": "/v1/premium/localfinancenode",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.794138"
+  },
+  {
+    "endpoint_id": 982,
+    "method": "GET",
+    "route": "/v1/premium/localactivitynode",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.794141"
+  },
+  {
+    "endpoint_id": 983,
+    "method": "GET",
+    "route": "/v1/premium/localmarketinganalyticnode",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.794145"
+  },
+  {
+    "endpoint_id": 984,
+    "method": "GET",
+    "route": "/v1/premium/localcampaignnode",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.794154"
+  },
+  {
+    "endpoint_id": 985,
+    "method": "GET",
+    "route": "/v1/premium/localcontentnode",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.794157"
+  },
+  {
+    "endpoint_id": 986,
+    "method": "GET",
+    "route": "/v1/premium/patientintake",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.794161"
+  },
+  {
+    "endpoint_id": 987,
+    "method": "GET",
+    "route": "/v1/premium/intakereferralmetric",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.794164"
+  },
+  {
+    "endpoint_id": 988,
+    "method": "GET",
+    "route": "/v1/premium/invoicerecord",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.794168"
+  },
+  {
+    "endpoint_id": 989,
+    "method": "GET",
+    "route": "/v1/premium/insuranceclaim",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.794171"
+  },
+  {
+    "endpoint_id": 990,
+    "method": "GET",
+    "route": "/v1/premium/protocolresolution",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.794175"
+  },
+  {
+    "endpoint_id": 991,
+    "method": "GET",
+    "route": "/v1/premium/financialgoal",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.794178"
+  },
+  {
+    "endpoint_id": 992,
+    "method": "GET",
+    "route": "/v1/premium/patientadmissionnode",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.794182"
+  },
+  {
+    "endpoint_id": 993,
+    "method": "GET",
+    "route": "/v1/premium/clinicalshiftnode",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.794186"
+  },
+  {
+    "endpoint_id": 994,
+    "method": "GET",
+    "route": "/v1/premium/medicalauditnode",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.794198"
+  },
+  {
+    "endpoint_id": 995,
+    "method": "GET",
+    "route": "/v1/premium/outreacheventnode",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.794202"
+  },
+  {
+    "endpoint_id": 996,
+    "method": "GET",
+    "route": "/v1/premium/participantmetricnode",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.794205"
+  },
+  {
+    "endpoint_id": 997,
+    "method": "GET",
+    "route": "/v1/premium/outreachbudgetnode",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.794209"
+  },
+  {
+    "endpoint_id": 998,
+    "method": "GET",
+    "route": "/v1/premium/schedulertrendnode",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.794212"
+  },
+  {
+    "endpoint_id": 999,
+    "method": "GET",
+    "route": "/v1/premium/schedulerrosternode",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.794215"
+  },
+  {
+    "endpoint_id": 1000,
+    "method": "GET",
+    "route": "/v1/premium/schedulerfacilitynode",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.794220"
+  },
+  {
+    "endpoint_id": 1001,
+    "method": "GET",
+    "route": "/v1/premium/tenant",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.794223"
+  },
+  {
+    "endpoint_id": 1002,
+    "method": "GET",
+    "route": "/v1/premium/ecosystemstateoverride",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.794232"
+  },
+  {
+    "endpoint_id": 1004,
+    "method": "GET",
+    "route": "/v1/premium/facilitynode",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.794235"
+  },
+  {
+    "endpoint_id": 1005,
+    "method": "GET",
+    "route": "/v1/premium/staffutilization",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.794239"
+  },
+  {
+    "endpoint_id": 1006,
+    "method": "GET",
+    "route": "/v1/premium/opsissueticket",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.794242"
+  },
+  {
+    "endpoint_id": 1007,
+    "method": "GET",
+    "route": "/v1/premium/salesdealnode",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.794246"
+  },
+  {
+    "endpoint_id": 1008,
+    "method": "GET",
+    "route": "/v1/premium/keyaccountnode",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.794249"
+  },
+  {
+    "endpoint_id": 1009,
+    "method": "GET",
+    "route": "/v1/premium/repperformancenode",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.794258"
+  },
+  {
+    "endpoint_id": 1010,
+    "method": "GET",
+    "route": "/v1/premium/marketingcampaignnode",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.794261"
+  },
+  {
+    "endpoint_id": 1011,
+    "method": "GET",
+    "route": "/v1/premium/localgrowthnode",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.794265"
+  },
+  {
+    "endpoint_id": 1012,
+    "method": "GET",
+    "route": "/v1/premium/contentassetnode",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.794268"
+  },
+  {
+    "endpoint_id": 1013,
+    "method": "GET",
+    "route": "/v1/premium/userreputation",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794272"
+  },
+  {
+    "endpoint_id": 1014,
+    "method": "GET",
+    "route": "/v1/premium/supportticketnode",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.794276"
+  },
+  {
+    "endpoint_id": 1015,
+    "method": "GET",
+    "route": "/v1/premium/patientfeedbacknode",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.794279"
+  },
+  {
+    "endpoint_id": 1017,
+    "method": "GET",
+    "route": "/v1/premium/supportagentnode",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.794282"
+  },
+  {
+    "endpoint_id": 1018,
+    "method": "GET",
+    "route": "/v1/premium/ticketvolumenode",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.794292"
+  },
+  {
+    "endpoint_id": 1019,
+    "method": "GET",
+    "route": "/v1/premium/resolutionfeedbacknode",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.794295"
+  },
+  {
+    "endpoint_id": 1020,
+    "method": "GET",
+    "route": "/v1/premium/curriculumnode",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.794299"
+  },
+  {
+    "endpoint_id": 1021,
+    "method": "GET",
+    "route": "/v1/premium/instructornode",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.794302"
+  },
+  {
+    "endpoint_id": 1022,
+    "method": "GET",
+    "route": "/v1/premium/certificationnode",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.794305"
+  },
+  {
+    "endpoint_id": 1023,
+    "method": "GET",
+    "route": "/v1/premium/model219",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.794309"
+  },
+  {
+    "endpoint_id": 1024,
+    "method": "GET",
+    "route": "/v1/premium/ecosystemautopilotconfig",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.794312"
+  },
+  {
+    "endpoint_id": 1025,
+    "method": "GET",
+    "route": "/v1/premium/model220",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.794316"
+  },
+  {
+    "endpoint_id": 1026,
+    "method": "GET",
+    "route": "/v1/premium/model221",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.794326"
+  },
+  {
+    "endpoint_id": 1027,
+    "method": "GET",
+    "route": "/v1/premium/model222",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.794329"
+  },
+  {
+    "endpoint_id": 1028,
+    "method": "GET",
+    "route": "/v1/premium/model223",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.794332"
+  },
+  {
+    "endpoint_id": 1029,
+    "method": "GET",
+    "route": "/v1/premium/model224",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.794336"
+  },
+  {
+    "endpoint_id": 1030,
+    "method": "GET",
+    "route": "/v1/premium/model225",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.794339"
+  },
+  {
+    "endpoint_id": 1031,
+    "method": "GET",
+    "route": "/v1/premium/model226",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.794342"
+  },
+  {
+    "endpoint_id": 1032,
+    "method": "GET",
+    "route": "/v1/premium/model227",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.794346"
+  },
+  {
+    "endpoint_id": 1033,
+    "method": "GET",
+    "route": "/v1/premium/model228",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.794349"
+  },
+  {
+    "endpoint_id": 1034,
+    "method": "GET",
+    "route": "/v1/premium/model229",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.794353"
+  },
+  {
+    "endpoint_id": 1035,
+    "method": "GET",
+    "route": "/v1/premium/hospitaltarget",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.794362"
+  },
+  {
+    "endpoint_id": 1036,
+    "method": "GET",
+    "route": "/v1/premium/model230",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.794366"
+  },
+  {
+    "endpoint_id": 1037,
+    "method": "GET",
+    "route": "/v1/premium/model231",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.794369"
+  },
+  {
+    "endpoint_id": 1038,
+    "method": "GET",
+    "route": "/v1/premium/model232",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.794373"
+  },
+  {
+    "endpoint_id": 1039,
+    "method": "GET",
+    "route": "/v1/premium/model233",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.794376"
+  },
+  {
+    "endpoint_id": 1040,
+    "method": "GET",
+    "route": "/v1/premium/model234",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.794379"
+  },
+  {
+    "endpoint_id": 1041,
+    "method": "GET",
+    "route": "/v1/premium/model235",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.794382"
+  },
+  {
+    "endpoint_id": 1042,
+    "method": "GET",
+    "route": "/v1/premium/model236",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.794386"
+  },
+  {
+    "endpoint_id": 1043,
+    "method": "GET",
+    "route": "/v1/premium/model237",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.794389"
+  },
+  {
+    "endpoint_id": 1044,
+    "method": "GET",
+    "route": "/v1/premium/model238",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.794392"
+  },
+  {
+    "endpoint_id": 1045,
+    "method": "GET",
+    "route": "/v1/premium/model239",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.794395"
+  },
+  {
+    "endpoint_id": 1046,
+    "method": "GET",
+    "route": "/v1/premium/referralpipeline",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.794404"
+  },
+  {
+    "endpoint_id": 1047,
+    "method": "GET",
+    "route": "/v1/premium/model240",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.794408"
+  },
+  {
+    "endpoint_id": 1048,
+    "method": "GET",
+    "route": "/v1/premium/model241",
+    "status": "healthy",
+    "latency_ms": 93,
+    "tested_at": "2026-05-26T11:47:48.794411"
+  },
+  {
+    "endpoint_id": 1049,
+    "method": "GET",
+    "route": "/v1/premium/model242",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.794415"
+  },
+  {
+    "endpoint_id": 1050,
+    "method": "GET",
+    "route": "/v1/premium/model243",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.794418"
+  },
+  {
+    "endpoint_id": 1051,
+    "method": "GET",
+    "route": "/v1/premium/model244",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.794421"
+  },
+  {
+    "endpoint_id": 1052,
+    "method": "GET",
+    "route": "/v1/premium/model245",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.794424"
+  },
+  {
+    "endpoint_id": 1053,
+    "method": "GET",
+    "route": "/v1/premium/model246",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.794430"
+  },
+  {
+    "endpoint_id": 1054,
+    "method": "GET",
+    "route": "/v1/premium/model247",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.794433"
+  },
+  {
+    "endpoint_id": 1055,
+    "method": "GET",
+    "route": "/v1/premium/model248",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.794436"
+  },
+  {
+    "endpoint_id": 1056,
+    "method": "GET",
+    "route": "/v1/premium/model249",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.794439"
+  },
+  {
+    "endpoint_id": 1058,
+    "method": "GET",
+    "route": "/v1/premium/model250",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794449"
+  },
+  {
+    "endpoint_id": 1059,
+    "method": "GET",
+    "route": "/v1/premium/model251",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.794453"
+  },
+  {
+    "endpoint_id": 1060,
+    "method": "GET",
+    "route": "/v1/premium/promocode",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.794456"
+  },
+  {
+    "endpoint_id": 1061,
+    "method": "GET",
+    "route": "/v1/premium/subscriptionupgrade",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.794459"
+  },
+  {
+    "endpoint_id": 1062,
+    "method": "GET",
+    "route": "/v1/premium/clientprofile",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.794463"
+  },
+  {
+    "endpoint_id": 1063,
+    "method": "GET",
+    "route": "/v1/premium/providerprofile",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.794466"
+  },
+  {
+    "endpoint_id": 1064,
+    "method": "GET",
+    "route": "/v1/premium/registry",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.794470"
+  },
+  {
+    "endpoint_id": 1065,
+    "method": "GET",
+    "route": "/v1/premium/visit",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.794473"
+  },
+  {
+    "endpoint_id": 1066,
+    "method": "GET",
+    "route": "/v1/premium/service",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.794476"
+  },
+  {
+    "endpoint_id": 1067,
+    "method": "GET",
+    "route": "/v1/premium/visitcheckevent",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.794505"
+  },
+  {
+    "endpoint_id": 1068,
+    "method": "GET",
+    "route": "/v1/premium/visitnote",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.794509"
+  },
+  {
+    "endpoint_id": 1069,
+    "method": "GET",
+    "route": "/v1/premium/visitchecklist",
+    "status": "healthy",
+    "latency_ms": 114,
+    "tested_at": "2026-05-26T11:47:48.794512"
+  },
+  {
+    "endpoint_id": 1070,
+    "method": "GET",
+    "route": "/v1/premium/incident",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.794516"
+  },
+  {
+    "endpoint_id": 1071,
+    "method": "GET",
+    "route": "/v1/premium/dailyentry",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.794519"
+  },
+  {
+    "endpoint_id": 1072,
+    "method": "GET",
+    "route": "/v1/premium/booking",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.794522"
+  },
+  {
+    "endpoint_id": 1073,
+    "method": "GET",
+    "route": "/v1/premium/provideravailability",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.794526"
+  },
+  {
+    "endpoint_id": 1074,
+    "method": "GET",
+    "route": "/v1/premium/providerdocument",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.794530"
+  },
+  {
+    "endpoint_id": 1075,
+    "method": "GET",
+    "route": "/v1/premium/apikey",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.794533"
+  },
+  {
+    "endpoint_id": 1076,
+    "method": "GET",
+    "route": "/v1/premium/shiftassignment",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.794537"
+  },
+  {
+    "endpoint_id": 1077,
+    "method": "GET",
+    "route": "/v1/premium/timesheet",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.794547"
+  },
+  {
+    "endpoint_id": 1078,
+    "method": "GET",
+    "route": "/v1/premium/timesheetitem",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.794550"
+  },
+  {
+    "endpoint_id": 1079,
+    "method": "GET",
+    "route": "/v1/premium/shifthandover",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.794554"
+  },
+  {
+    "endpoint_id": 1080,
+    "method": "GET",
+    "route": "/v1/premium/availabilityoverride",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.794557"
+  },
+  {
+    "endpoint_id": 1081,
+    "method": "GET",
+    "route": "/v1/premium/visitmatch",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.794560"
+  },
+  {
+    "endpoint_id": 1082,
+    "method": "GET",
+    "route": "/v1/premium/waitlistentry",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.794564"
+  },
+  {
+    "endpoint_id": 1083,
+    "method": "GET",
+    "route": "/v1/premium/stafftask",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.794568"
+  },
+  {
+    "endpoint_id": 1084,
+    "method": "GET",
+    "route": "/v1/premium/staffgroup",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.794571"
+  },
+  {
+    "endpoint_id": 1085,
+    "method": "GET",
+    "route": "/v1/premium/staffgroupmember",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.794574"
+  },
+  {
+    "endpoint_id": 1087,
+    "method": "GET",
+    "route": "/v1/premium/bookingrequest",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.794584"
+  },
+  {
+    "endpoint_id": 1088,
+    "method": "GET",
+    "route": "/v1/premium/fleetstatus",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.794588"
+  },
+  {
+    "endpoint_id": 1089,
+    "method": "GET",
+    "route": "/v1/premium/careplan",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.794591"
+  },
+  {
+    "endpoint_id": 1090,
+    "method": "GET",
+    "route": "/v1/premium/clinicalrecord",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.794594"
+  },
+  {
+    "endpoint_id": 1091,
+    "method": "GET",
+    "route": "/v1/premium/clinicalassessment",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.794598"
+  },
+  {
+    "endpoint_id": 1092,
+    "method": "GET",
+    "route": "/v1/premium/medicationrecon",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.794602"
+  },
+  {
+    "endpoint_id": 1096,
+    "method": "GET",
+    "route": "/v1/premium/vitalsign",
+    "status": "healthy",
+    "latency_ms": 96,
+    "tested_at": "2026-05-26T11:47:48.794612"
+  },
+  {
+    "endpoint_id": 1097,
+    "method": "GET",
+    "route": "/v1/premium/systemevent",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.794616"
+  },
+  {
+    "endpoint_id": 1099,
+    "method": "GET",
+    "route": "/v1/premium/medication",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.794619"
+  },
+  {
+    "endpoint_id": 1100,
+    "method": "GET",
+    "route": "/v1/premium/prescription",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.794623"
+  },
+  {
+    "endpoint_id": 1101,
+    "method": "GET",
+    "route": "/v1/premium/mar_entry",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.794632"
+  },
+  {
+    "endpoint_id": 1102,
+    "method": "GET",
+    "route": "/v1/premium/evvrecord",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.794635"
+  },
+  {
+    "endpoint_id": 1103,
+    "method": "GET",
+    "route": "/v1/premium/serviceauthorization",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794639"
+  },
+  {
+    "endpoint_id": 1104,
+    "method": "GET",
+    "route": "/v1/premium/consentform",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.794642"
+  },
+  {
+    "endpoint_id": 1105,
+    "method": "GET",
+    "route": "/v1/premium/dailyauditsignoff",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.794646"
+  },
+  {
+    "endpoint_id": 1106,
+    "method": "GET",
+    "route": "/v1/premium/wellnesspulse",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.794649"
+  },
+  {
+    "endpoint_id": 1107,
+    "method": "GET",
+    "route": "/v1/premium/invoice",
+    "status": "healthy",
+    "latency_ms": 107,
+    "tested_at": "2026-05-26T11:47:48.794652"
+  },
+  {
+    "endpoint_id": 1108,
+    "method": "GET",
+    "route": "/v1/premium/lead",
+    "status": "healthy",
+    "latency_ms": 108,
+    "tested_at": "2026-05-26T11:47:48.794655"
+  },
+  {
+    "endpoint_id": 1109,
+    "method": "GET",
+    "route": "/v1/premium/payment",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.794659"
+  },
+  {
+    "endpoint_id": 1110,
+    "method": "GET",
+    "route": "/v1/premium/insuranceprovider",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.794662"
+  },
+  {
+    "endpoint_id": 1111,
+    "method": "GET",
+    "route": "/v1/premium/claim",
+    "status": "healthy",
+    "latency_ms": 111,
+    "tested_at": "2026-05-26T11:47:48.794672"
+  },
+  {
+    "endpoint_id": 1112,
+    "method": "GET",
+    "route": "/v1/premium/billingcode",
+    "status": "healthy",
+    "latency_ms": 112,
+    "tested_at": "2026-05-26T11:47:48.794676"
+  },
+  {
+    "endpoint_id": 1113,
+    "method": "GET",
+    "route": "/v1/premium/payout",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.794679"
+  },
+  {
+    "endpoint_id": 1115,
+    "method": "GET",
+    "route": "/v1/premium/chartofaccount",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.794683"
+  },
+  {
+    "endpoint_id": 1116,
+    "method": "GET",
+    "route": "/v1/premium/financialtransaction",
+    "status": "healthy",
+    "latency_ms": 116,
+    "tested_at": "2026-05-26T11:47:48.794686"
+  },
+  {
+    "endpoint_id": 1117,
+    "method": "GET",
+    "route": "/v1/premium/journalentry",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.794689"
+  },
+  {
+    "endpoint_id": 1118,
+    "method": "GET",
+    "route": "/v1/premium/financialreconciliation",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.794693"
+  },
+  {
+    "endpoint_id": 1119,
+    "method": "GET",
+    "route": "/v1/premium/faq",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.794697"
+  },
+  {
+    "endpoint_id": 1120,
+    "method": "GET",
+    "route": "/v1/premium/banktransaction",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.794706"
+  },
+  {
+    "endpoint_id": 1121,
+    "method": "GET",
+    "route": "/v1/premium/transactionledger",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.794710"
+  },
+  {
+    "endpoint_id": 1123,
+    "method": "GET",
+    "route": "/v1/premium/feedback",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.794713"
+  },
+  {
+    "endpoint_id": 1124,
+    "method": "GET",
+    "route": "/v1/premium/trainingmodule",
+    "status": "healthy",
+    "latency_ms": 124,
+    "tested_at": "2026-05-26T11:47:48.794716"
+  },
+  {
+    "endpoint_id": 1125,
+    "method": "GET",
+    "route": "/v1/premium/trainingassignment",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.794720"
+  },
+  {
+    "endpoint_id": 1126,
+    "method": "GET",
+    "route": "/v1/premium/survey",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.794723"
+  },
+  {
+    "endpoint_id": 1127,
+    "method": "GET",
+    "route": "/v1/premium/surveyresponse",
+    "status": "healthy",
+    "latency_ms": 82,
+    "tested_at": "2026-05-26T11:47:48.794726"
+  },
+  {
+    "endpoint_id": 1128,
+    "method": "GET",
+    "route": "/v1/premium/region",
+    "status": "healthy",
+    "latency_ms": 83,
+    "tested_at": "2026-05-26T11:47:48.794736"
+  },
+  {
+    "endpoint_id": 1129,
+    "method": "GET",
+    "route": "/v1/premium/branchcapacity",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.794740"
+  },
+  {
+    "endpoint_id": 1130,
+    "method": "GET",
+    "route": "/v1/premium/userdevice",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.794743"
+  },
+  {
+    "endpoint_id": 1131,
+    "method": "GET",
+    "route": "/v1/premium/branchstat",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.794746"
+  },
+  {
+    "endpoint_id": 1132,
+    "method": "GET",
+    "route": "/v1/premium/compliancerecord",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.794750"
+  },
+  {
+    "endpoint_id": 1133,
+    "method": "GET",
+    "route": "/v1/premium/franchise",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.794753"
+  },
+  {
+    "endpoint_id": 1134,
+    "method": "GET",
+    "route": "/v1/premium/reselleragreement",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.794763"
+  },
+  {
+    "endpoint_id": 1135,
+    "method": "GET",
+    "route": "/v1/premium/supplier",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.794766"
+  },
+  {
+    "endpoint_id": 1136,
+    "method": "GET",
+    "route": "/v1/premium/inventoryitem",
+    "status": "healthy",
+    "latency_ms": 91,
+    "tested_at": "2026-05-26T11:47:48.794770"
+  },
+  {
+    "endpoint_id": 1137,
+    "method": "GET",
+    "route": "/v1/premium/purchaseorder",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.794773"
+  },
+  {
+    "endpoint_id": 1139,
+    "method": "GET",
+    "route": "/v1/premium/marketplacelisting",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.794776"
+  },
+  {
+    "endpoint_id": 1140,
+    "method": "GET",
+    "route": "/v1/premium/tenantsla",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.794780"
+  },
+  {
+    "endpoint_id": 1142,
+    "method": "GET",
+    "route": "/v1/marketing/assets",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.794784"
+  },
+  {
+    "endpoint_id": 1143,
+    "method": "GET",
+    "route": "/v1/marketing/campaigns/performance",
+    "status": "healthy",
+    "latency_ms": 98,
+    "tested_at": "2026-05-26T11:47:48.794787"
+  },
+  {
+    "endpoint_id": 1144,
+    "method": "GET",
+    "route": "/v1/marketing/competitors/analysis",
+    "status": "healthy",
+    "latency_ms": 99,
+    "tested_at": "2026-05-26T11:47:48.794791"
+  },
+  {
+    "endpoint_id": 1145,
+    "method": "GET",
+    "route": "/v1/marketing/email/journeys",
+    "status": "healthy",
+    "latency_ms": 100,
+    "tested_at": "2026-05-26T11:47:48.794800"
+  },
+  {
+    "endpoint_id": 1146,
+    "method": "GET",
+    "route": "/v1/marketing/events",
+    "status": "healthy",
+    "latency_ms": 101,
+    "tested_at": "2026-05-26T11:47:48.794803"
+  },
+  {
+    "endpoint_id": 1147,
+    "method": "GET",
+    "route": "/v1/marketing/leads/conversion",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.794807"
+  },
+  {
+    "endpoint_id": 1148,
+    "method": "GET",
+    "route": "/v1/marketing/cac/tracker",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794810"
+  },
+  {
+    "endpoint_id": 1149,
+    "method": "GET",
+    "route": "/v1/marketing/referrals/network",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.794814"
+  },
+  {
+    "endpoint_id": 1150,
+    "method": "GET",
+    "route": "/v1/marketing/social/sentiment",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.794817"
+  },
+  {
+    "endpoint_id": 1151,
+    "method": "GET",
+    "route": "/v1/marketing/territories",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.794820"
+  },
+  {
+    "endpoint_id": 1158,
+    "method": "POST",
+    "route": "/v1/rmt/compliance/scan",
+    "status": "healthy",
+    "latency_ms": 113,
+    "tested_at": "2026-05-26T11:47:48.794824"
+  },
+  {
+    "endpoint_id": 1160,
+    "method": "POST",
+    "route": "/v1/rmt/policy/update",
+    "status": "healthy",
+    "latency_ms": 115,
+    "tested_at": "2026-05-26T11:47:48.794833"
+  },
+  {
+    "endpoint_id": 1162,
+    "method": "POST",
+    "route": "/v1/therapist/sessions/start",
+    "status": "healthy",
+    "latency_ms": 117,
+    "tested_at": "2026-05-26T11:47:48.794837"
+  },
+  {
+    "endpoint_id": 1163,
+    "method": "POST",
+    "route": "/v1/therapist/notes/finalize",
+    "status": "healthy",
+    "latency_ms": 118,
+    "tested_at": "2026-05-26T11:47:48.794840"
+  },
+  {
+    "endpoint_id": 1164,
+    "method": "POST",
+    "route": "/v1/clinical/compliance/scan",
+    "status": "healthy",
+    "latency_ms": 119,
+    "tested_at": "2026-05-26T11:47:48.794843"
+  },
+  {
+    "endpoint_id": 1165,
+    "method": "POST",
+    "route": "/v1/clinical/compliance/sync",
+    "status": "healthy",
+    "latency_ms": 120,
+    "tested_at": "2026-05-26T11:47:48.794847"
+  },
+  {
+    "endpoint_id": 1166,
+    "method": "POST",
+    "route": "/v1/clinical/policy/update",
+    "status": "healthy",
+    "latency_ms": 121,
+    "tested_at": "2026-05-26T11:47:48.794850"
+  },
+  {
+    "endpoint_id": 1167,
+    "method": "POST",
+    "route": "/v1/clinical/logs/export",
+    "status": "healthy",
+    "latency_ms": 122,
+    "tested_at": "2026-05-26T11:47:48.794853"
+  },
+  {
+    "endpoint_id": 1168,
+    "method": "POST",
+    "route": "/v1/cns/standards/publish",
+    "status": "healthy",
+    "latency_ms": 123,
+    "tested_at": "2026-05-26T11:47:48.794857"
+  },
+  {
+    "endpoint_id": 1170,
+    "method": "POST",
+    "route": "/v1/hsw/visits/checkin",
+    "status": "healthy",
+    "latency_ms": 80,
+    "tested_at": "2026-05-26T11:47:48.794867"
+  },
+  {
+    "endpoint_id": 1171,
+    "method": "POST",
+    "route": "/v1/hsw/visits/checkout",
+    "status": "healthy",
+    "latency_ms": 81,
+    "tested_at": "2026-05-26T11:47:48.794871"
+  },
+  {
+    "endpoint_id": 1174,
+    "method": "POST",
+    "route": "/v1/lpn/wounds/submit",
+    "status": "healthy",
+    "latency_ms": 84,
+    "tested_at": "2026-05-26T11:47:48.794874"
+  },
+  {
+    "endpoint_id": 1175,
+    "method": "POST",
+    "route": "/v1/np/diagnostics/sign",
+    "status": "healthy",
+    "latency_ms": 85,
+    "tested_at": "2026-05-26T11:47:48.794880"
+  },
+  {
+    "endpoint_id": 1176,
+    "method": "POST",
+    "route": "/v1/np/referrals/create",
+    "status": "healthy",
+    "latency_ms": 86,
+    "tested_at": "2026-05-26T11:47:48.794891"
+  },
+  {
+    "endpoint_id": 1177,
+    "method": "POST",
+    "route": "/v1/pediatric/growth/record",
+    "status": "healthy",
+    "latency_ms": 87,
+    "tested_at": "2026-05-26T11:47:48.794894"
+  },
+  {
+    "endpoint_id": 1178,
+    "method": "POST",
+    "route": "/v1/pediatric/vaccines/administer",
+    "status": "healthy",
+    "latency_ms": 88,
+    "tested_at": "2026-05-26T11:47:48.794898"
+  },
+  {
+    "endpoint_id": 1179,
+    "method": "POST",
+    "route": "/v1/physician/prescriptions/submit",
+    "status": "healthy",
+    "latency_ms": 89,
+    "tested_at": "2026-05-26T11:47:48.794902"
+  },
+  {
+    "endpoint_id": 1180,
+    "method": "POST",
+    "route": "/v1/physician/labs/authorize",
+    "status": "healthy",
+    "latency_ms": 90,
+    "tested_at": "2026-05-26T11:47:48.794905"
+  },
+  {
+    "endpoint_id": 1182,
+    "method": "POST",
+    "route": "/v1/caregiver/meds/acknowledge",
+    "status": "healthy",
+    "latency_ms": 92,
+    "tested_at": "2026-05-26T11:47:48.794915"
+  },
+  {
+    "endpoint_id": 1184,
+    "method": "POST",
+    "route": "/v1/concierge/providers/dispatch",
+    "status": "healthy",
+    "latency_ms": 94,
+    "tested_at": "2026-05-26T11:47:48.794919"
+  },
+  {
+    "endpoint_id": 1185,
+    "method": "POST",
+    "route": "/v1/concierge/vip/escalate",
+    "status": "healthy",
+    "latency_ms": 95,
+    "tested_at": "2026-05-26T11:47:48.794922"
+  },
+  {
+    "endpoint_id": 1187,
+    "method": "POST",
+    "route": "/v1/vip/issues/resolve",
+    "status": "healthy",
+    "latency_ms": 97,
+    "tested_at": "2026-05-26T11:47:48.794926"
+  },
+  {
+    "endpoint_id": 1192,
+    "method": "POST",
+    "route": "/v1/rn/audits/submit",
+    "status": "healthy",
+    "latency_ms": 102,
+    "tested_at": "2026-05-26T11:47:48.794930"
+  },
+  {
+    "endpoint_id": 1193,
+    "method": "POST",
+    "route": "/v1/rn/assessments/signoff",
+    "status": "healthy",
+    "latency_ms": 103,
+    "tested_at": "2026-05-26T11:47:48.794939"
+  },
+  {
+    "endpoint_id": 1194,
+    "method": "POST",
+    "route": "/v1/employee/pto/request",
+    "status": "healthy",
+    "latency_ms": 104,
+    "tested_at": "2026-05-26T11:47:48.794943"
+  },
+  {
+    "endpoint_id": 1195,
+    "method": "POST",
+    "route": "/v1/employee/tax/download",
+    "status": "healthy",
+    "latency_ms": 105,
+    "tested_at": "2026-05-26T11:47:48.794946"
+  },
+  {
+    "endpoint_id": 1196,
+    "method": "POST",
+    "route": "/v1/volunteer/shift/checkin",
+    "status": "healthy",
+    "latency_ms": 106,
+    "tested_at": "2026-05-26T11:47:48.794950"
+  },
+  {
+    "endpoint_id": 1199,
+    "method": "POST",
+    "route": "/v1/billing/summary",
+    "status": "healthy",
+    "latency_ms": 109,
+    "tested_at": "2026-05-26T11:47:48.794953"
+  },
+  {
+    "endpoint_id": 1200,
+    "method": "POST",
+    "route": "/v1/clinical/patients",
+    "status": "healthy",
+    "latency_ms": 110,
+    "tested_at": "2026-05-26T11:47:48.794958"
+  }
+]

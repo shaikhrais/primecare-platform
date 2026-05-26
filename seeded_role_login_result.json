@@ -1,0 +1,160 @@
+{
+  "test_suite": "test_seeded_role_login",
+  "overall_passed": true,
+  "timestamp": "2026-05-26T03:31:44.657Z",
+  "results": [
+    {
+      "role_name": "CEO",
+      "role_code": "ceo",
+      "email": "ceo@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 186,
+      "emulated": false
+    },
+    {
+      "role_name": "COO",
+      "role_code": "coo",
+      "email": "coo@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 64,
+      "emulated": false
+    },
+    {
+      "role_name": "CFO",
+      "role_code": "cfo",
+      "email": "cfo@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 55,
+      "emulated": false
+    },
+    {
+      "role_name": "CTO",
+      "role_code": "cto",
+      "email": "cto@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 52,
+      "emulated": false
+    },
+    {
+      "role_name": "Franchise Owner",
+      "role_code": "owner",
+      "email": "owner@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 71,
+      "emulated": false
+    },
+    {
+      "role_name": "Operations Manager",
+      "role_code": "ops_manager",
+      "email": "ops_manager@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 114,
+      "emulated": false
+    },
+    {
+      "role_name": "Scheduler",
+      "role_code": "scheduler",
+      "email": "scheduler@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 51,
+      "emulated": false
+    },
+    {
+      "role_name": "Billing Admin",
+      "role_code": "admin",
+      "email": "admin@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 61,
+      "emulated": false
+    },
+    {
+      "role_name": "PSW",
+      "role_code": "psw",
+      "email": "psw@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 142,
+      "emulated": false
+    },
+    {
+      "role_name": "RN",
+      "role_code": "rn",
+      "email": "rn@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 50,
+      "emulated": false
+    },
+    {
+      "role_name": "RPN",
+      "role_code": "rpn",
+      "email": "rpn@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 74,
+      "emulated": false
+    },
+    {
+      "role_name": "RMT",
+      "role_code": "rmt",
+      "email": "rmt@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 62,
+      "emulated": false
+    },
+    {
+      "role_name": "Physiotherapist",
+      "role_code": "physio",
+      "email": "physio@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 215,
+      "emulated": false
+    },
+    {
+      "role_name": "Client",
+      "role_code": "patient",
+      "email": "patient@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 186,
+      "emulated": false
+    },
+    {
+      "role_name": "Family Member",
+      "role_code": "family",
+      "email": "family@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 50,
+      "emulated": false
+    },
+    {
+      "role_name": "Customer Support",
+      "role_code": "customer_support",
+      "email": "customer_support@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 52,
+      "emulated": false
+    },
+    {
+      "role_name": "Governance Admin",
+      "role_code": "qa_specialist",
+      "email": "qa_specialist@test.primecare.local",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 49,
+      "emulated": false
+    }
+  ]
+}

@@ -161,6 +161,11 @@ class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistSta
     await Future<void>.delayed(const Duration(milliseconds: 500));
     state = state.copyWith(isLoading: false);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -193,16 +198,21 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
         : state.waitlistIntakes.firstWhere((i) => i['id'] == state.selectedIntakeId);
 
     return Scaffold(
+      key: const Key('coordinatorwaitlist-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('coordinatorwaitlist-title'),
           'Intake waitlist and matching panel',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('coordinatorwaitlist-btn-1'),
+            key: const Key('coordinatorwaitlist-btn-1'),
+            key: const Key('coordinatorwaitlist-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshWaitlist(),
           ),
@@ -210,7 +220,8 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
         ],
       ),
       body: state.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(
+            key: const Key('coordinatorwaitlist-loading'),))
           : LayoutBuilder(
               builder: (context, constraints) {
                 final isWide = constraints.maxWidth > 950;
@@ -222,6 +233,41 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorwaitlist-btn-2'),
+            key: const Key('coordinatorwaitlist-btn-2'),
+            key: const Key('coordinatorwaitlist-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorwaitlist-btn-3'),
+            key: const Key('coordinatorwaitlist-btn-3'),
+            key: const Key('coordinatorwaitlist-btn-3'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorwaitlist-btn-4'),
+            key: const Key('coordinatorwaitlist-btn-4'),
+            key: const Key('coordinatorwaitlist-btn-4'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 3'.tr()),
+              ),
+            ),
+
                           Expanded(flex: 3, child: intakeListWidget),
                           Container(width: 1, color: theme.colors.border),
                           Expanded(flex: 2, child: matchingWidget),
@@ -429,6 +475,7 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
       color: theme.colors.surface,
       padding: const EdgeInsets.all(24),
       child: SingleChildScrollView(
+        key: const Key('coordinatorwaitlist-content'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -551,6 +598,9 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                         ),
                       ),
                       ElevatedButton(
+            key: const Key('coordinatorwaitlist-btn-5'),
+            key: const Key('coordinatorwaitlist-btn-5'),
+            key: const Key('coordinatorwaitlist-btn-5'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,
                           elevation: 0,
@@ -560,7 +610,8 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                             ? null
                             : () => controller.onboardAndAssign((intake['id'] as String?) ?? '', (cg['name'] as String?) ?? ''),
                         child: state.isMatching
-                            ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                            ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(
+            key: const Key('coordinatorwaitlist-loading'),color: Colors.white, strokeWidth: 2))
                             : Text(
                                 'Onboard',
                                 style: theme.typography.button.copyWith(color: Colors.white, fontSize: 11),

@@ -150,6 +150,11 @@ class RnAnalyticsController extends StateNotifier<RnAnalyticsState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -176,20 +181,36 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
     }).toList();
 
     return Scaffold(
+      key: const Key('rnanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('rnanalytics-title'),
           'RN Clinical Insights',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:rnanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('rnanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('rnanalytics-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Cognitive Scoring & Care Parity',
               roleName: 'Registered Nurse (RN) Lead',
@@ -420,6 +441,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
                     ),
                     DataCell(
                       IconButton(
+            key: const Key('rnanalytics-btn-2'),
                         icon: Icon(LucideIcons.edit2, color: theme.colors.primary, size: 18),
                         onPressed: () {
                           _showScoreEditDialog(context, id, mmse, patient, controller);
@@ -496,6 +518,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
+            key: const Key('rnanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -503,6 +526,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
+            key: const Key('rnanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,

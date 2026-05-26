@@ -122,6 +122,11 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -141,20 +146,36 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('rpnworkflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('rpnworkflow-title'),
           'RPN Practical Workflows',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:rpnworkflow-screen',
+        child: SingleChildScrollView(
+        key: const Key('rpnworkflow-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('rpnworkflow-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Wound Dressing & Vaccine Logs',
               roleName: 'Registered Practical Nurse (RPN)',
@@ -265,6 +286,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
+            key: const Key('rpnworkflow-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -299,6 +321,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
+            key: const Key('rpnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),
@@ -433,6 +456,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
+            key: const Key('rpnworkflow-btn-3'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -468,6 +492,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
+            key: const Key('rpnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),

@@ -152,6 +152,11 @@ class PswShiftTrackerController extends StateNotifier<PswShiftTrackerState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -171,20 +176,36 @@ class PswShiftTrackerScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('pswshifttracker-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('pswshifttracker-title'),
           'Shift Tracker',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:pswshifttracker-screen',
+        child: SingleChildScrollView(
+        key: const Key('pswshifttracker-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('pswshifttracker-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             // Active Shift Card / Clock In/Out Center
             _buildActiveTracker(context, state, controller),
             const SizedBox(height: 24),

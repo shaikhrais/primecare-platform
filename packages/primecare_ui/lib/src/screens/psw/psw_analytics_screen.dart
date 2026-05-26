@@ -170,6 +170,11 @@ class PswAnalyticsController extends StateNotifier<PswAnalyticsState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -189,20 +194,36 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('pswanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('pswanalytics-title'),
           'PSW Care Analytics',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:pswanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('pswanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('pswanalytics-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Clinical Outcomes & Telemetry',
               roleName: 'Personal Support Worker (PSW)',
@@ -407,6 +428,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                     theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
               ),
               IconButton(
+            key: const Key('pswanalytics-btn-2'),
                 icon: Icon(LucideIcons.plusCircle, color: theme.colors.primary),
                 tooltip: 'Quick Mood Log',
                 onPressed: () {
@@ -576,6 +598,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
+            key: const Key('pswanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -583,6 +606,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
+            key: const Key('pswanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,

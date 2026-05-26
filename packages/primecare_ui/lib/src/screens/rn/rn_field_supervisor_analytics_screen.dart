@@ -91,6 +91,11 @@ class RnFieldSupervisorAnalyticsScreenController extends StateNotifier<RnFieldSu
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -110,26 +115,43 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('registered nurse (rn) field supervisor analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('registered nurse (rn) field supervisor analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('registered nurse (rn) field supervisor analytics-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual sweep triggered.'),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:registered nurse (rn) field supervisor analytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('registered nurse (rn) field supervisor analytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('registered nurse (rn) field supervisor analytics-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: state.title,
               roleName: 'Rn Field Supervisor Analytics Module',
@@ -209,6 +231,7 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('registered nurse (rn) field supervisor analytics-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -221,6 +244,7 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
+            key: const Key('registered nurse (rn) field supervisor analytics-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

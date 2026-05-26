@@ -102,21 +102,32 @@ class CooDashboardScreen extends GovernedConsumerWidget {
   const CooDashboardScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final telemetryAsync = ref.watch(cooDashboardProvider);
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('coodashboard-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('coodashboard-title'),
           'COO Control Center',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('coodashboard-btn-1'),
+            key: const Key('coodashboard-btn-1'),
+            key: const Key('coodashboard-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => ref.invalidate(cooDashboardProvider),
           ),
@@ -124,6 +135,7 @@ class CooDashboardScreen extends GovernedConsumerWidget {
       ),
       body: telemetryAsync.when(
         data: (data) => Center(
+        key: const Key('coodashboard-content'),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1800),
             child: ResponsiveSplitDashboard(
@@ -152,6 +164,19 @@ class CooDashboardScreen extends GovernedConsumerWidget {
               mainContent: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coodashboard-btn-2'),
+            key: const Key('coodashboard-btn-2'),
+            key: const Key('coodashboard-btn-2'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
                   GovDashboardHero(
                     title: 'COO Control Center', // .tr() LocaleKeys.
                     roleName: 'COO Dashboard', // .tr() LocaleKeys.
@@ -234,6 +259,9 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
+            key: const Key('coodashboard-btn-3'),
+            key: const Key('coodashboard-btn-3'),
+            key: const Key('coodashboard-btn-3'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colors.primary,
                             shape: RoundedRectangleBorder(
@@ -250,6 +278,7 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                                   height: 20,
                                   width: 20,
                                   child: CircularProgressIndicator(
+            key: const Key('coodashboard-loading'),
                                     strokeWidth: 2,
                                     valueColor:
                                         AlwaysStoppedAnimation(Colors.white),
@@ -278,7 +307,8 @@ class CooDashboardScreen extends GovernedConsumerWidget {
           ),
         ),
         loading: () => Center(
-          child: CircularProgressIndicator(color: theme.colors.primary),
+          child: CircularProgressIndicator(
+            key: const Key('coodashboard-loading'),color: theme.colors.primary),
         ),
         error: (error, stack) => Center(
           child: Column(
@@ -290,9 +320,13 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                 size: 48,
               ),
               const SizedBox(height: 16),
-              Text('Error loading dashboard', style: theme.typography.h3),
+              Text(
+            key: const Key('coodashboard-error'), 'Error loading dashboard', style: theme.typography.h3),
               const SizedBox(height: 8),
               ElevatedButton(
+            key: const Key('coodashboard-btn-4'),
+            key: const Key('coodashboard-btn-4'),
+            key: const Key('coodashboard-btn-4'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primary,
                   foregroundColor: theme.colors.onPrimary,

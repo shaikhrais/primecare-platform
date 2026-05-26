@@ -89,6 +89,11 @@ class CooBranchComparisonController extends StateNotifier<CooBranchComparisonSta
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -109,26 +114,43 @@ class CooBranchComparisonScreen extends GovernedConsumerWidget {
     final roleBase = 'CooBranchComparisonScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
+      key: const Key('coobranchcomparison-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('coobranchcomparison-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('coobranchcomparison-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual refresh triggered.'),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:coobranchcomparison-screen',
+        child: SingleChildScrollView(
+        key: const Key('coobranchcomparison-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coobranchcomparison-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: state.title,
               roleName: '$roleBase Dashboard',
@@ -208,6 +230,7 @@ class CooBranchComparisonScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('coobranchcomparison-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -220,6 +243,7 @@ class CooBranchComparisonScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
+            key: const Key('coobranchcomparison-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

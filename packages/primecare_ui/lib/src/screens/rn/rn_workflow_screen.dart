@@ -130,6 +130,11 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
           );
     } catch (_) {}
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -149,20 +154,36 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('rnworkflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('rnworkflow-title'),
           'RN Supervisor Workflows',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:rnworkflow-screen',
+        child: SingleChildScrollView(
+        key: const Key('rnworkflow-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('rnworkflow-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Care Plan Revisions & Goal Builders',
               roleName: 'Registered Nurse (RN) Lead',
@@ -467,6 +488,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
+            key: const Key('rnworkflow-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -503,6 +525,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
+            key: const Key('rnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),

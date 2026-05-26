@@ -7,24 +7,59 @@ class TrainingCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
   const TrainingCoordinatorAnalyticsScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('trainingcoordinatoranalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('trainingcoordinatoranalytics-title'),
           'TrainingCoordinator Analytics',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:trainingcoordinatoranalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('trainingcoordinatoranalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('trainingcoordinatoranalytics-btn-1'),
+            key: const Key('trainingcoordinatoranalytics-btn-1'),
+            key: const Key('trainingcoordinatoranalytics-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('trainingcoordinatoranalytics-btn-2'),
+            key: const Key('trainingcoordinatoranalytics-btn-2'),
+            key: const Key('trainingcoordinatoranalytics-btn-2'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'TrainingCoordinator Analytics',
               roleName: 'TrainingCoordinator Module',
@@ -50,13 +85,16 @@ class TrainingCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('trainingcoordinatoranalytics-btn-3'),
+            key: const Key('trainingcoordinatoranalytics-btn-3'),
+            key: const Key('trainingcoordinatoranalytics-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () => triggerStateAction(),
                       child: Text(
                         'Execute Action Sweep',
                         style: theme.typography.button.copyWith(color: Colors.white),

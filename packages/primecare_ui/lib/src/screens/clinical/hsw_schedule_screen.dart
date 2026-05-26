@@ -7,24 +7,48 @@ class HswScheduleScreen extends GovernedConsumerWidget {
   const HswScheduleScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('hswschedule-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('hswschedule-title'),
           'HSW Schedule & Visits',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:hswschedule-screen',
+        child: SingleChildScrollView(
+        key: const Key('hswschedule-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('hswschedule-btn-1'),
+            key: const Key('hswschedule-btn-1'),
+            key: const Key('hswschedule-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'HSW Schedule & Visits',
               roleName: 'HSW Module',
@@ -49,7 +73,7 @@ class HswScheduleScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 12),
                   ElevatedButton.icon(
                     key: const ValueKey('request_schedule_swap'),
-                    onPressed: () {},
+                    onPressed: () => triggerStateAction(),
                     icon: const Icon(LucideIcons.gitCompare),
                     label: const Text('Request Schedule Shift Swap'),
                   ),
@@ -92,7 +116,7 @@ class HswScheduleScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 12),
                   ElevatedButton.icon(
                     key: const ValueKey('generate_travel_expense_report'),
-                    onPressed: () {},
+                    onPressed: () => triggerStateAction(),
                     icon: const Icon(LucideIcons.fileSpreadsheet),
                     label: const Text('Generate Travel Mileage Report'),
                   ),

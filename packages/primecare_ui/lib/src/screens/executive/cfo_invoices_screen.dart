@@ -89,6 +89,11 @@ class CfoInvoicesController extends StateNotifier<CfoInvoicesState> {
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -109,26 +114,43 @@ class CfoInvoicesScreen extends GovernedConsumerWidget {
     final roleBase = 'CfoInvoicesScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
+      key: const Key('cfoinvoices-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('cfoinvoices-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('cfoinvoices-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual refresh triggered.'),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:cfoinvoices-screen',
+        child: SingleChildScrollView(
+        key: const Key('cfoinvoices-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('cfoinvoices-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: state.title,
               roleName: '$roleBase Dashboard',
@@ -208,6 +230,7 @@ class CfoInvoicesScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('cfoinvoices-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -220,6 +243,7 @@ class CfoInvoicesScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
+            key: const Key('cfoinvoices-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

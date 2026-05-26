@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=C:\flutter
-FLUTTER_APPLICATION_PATH=C:\p\apps\primecare_business_development
+FLUTTER_APPLICATION_PATH=C:\Users\Admin2\Documents\GitHub\primecare-platform\apps\primecare_business_development
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib\main.dart
 FLUTTER_BUILD_DIR=build

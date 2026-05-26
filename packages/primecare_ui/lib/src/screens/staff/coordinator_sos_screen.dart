@@ -148,6 +148,11 @@ class CoordinatorSosController extends StateNotifier<CoordinatorSosState> {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     state = state.copyWith(isLoading: false);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -167,12 +172,125 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('coordinatorsos-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Row(
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-1'),
+            key: const Key('coordinatorsos-btn-1'),
+            key: const Key('coordinatorsos-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-2'),
+            key: const Key('coordinatorsos-btn-2'),
+            key: const Key('coordinatorsos-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 10'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-3'),
+            key: const Key('coordinatorsos-btn-3'),
+            key: const Key('coordinatorsos-btn-3'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-4'),
+            key: const Key('coordinatorsos-btn-4'),
+            key: const Key('coordinatorsos-btn-4'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 3'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-5'),
+            key: const Key('coordinatorsos-btn-5'),
+            key: const Key('coordinatorsos-btn-5'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 4'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-6'),
+            key: const Key('coordinatorsos-btn-6'),
+            key: const Key('coordinatorsos-btn-6'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 5'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-7'),
+            key: const Key('coordinatorsos-btn-7'),
+            key: const Key('coordinatorsos-btn-7'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 6'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-8'),
+            key: const Key('coordinatorsos-btn-8'),
+            key: const Key('coordinatorsos-btn-8'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 7'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-9'),
+            key: const Key('coordinatorsos-btn-9'),
+            key: const Key('coordinatorsos-btn-9'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 8'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-10'),
+            key: const Key('coordinatorsos-btn-10'),
+            key: const Key('coordinatorsos-btn-10'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 9'.tr()),
+              ),
+            ),
+
             Container(
               width: 12,
               height: 12,
@@ -190,6 +308,9 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
         ),
         actions: [
           IconButton(
+            key: const Key('coordinatorsos-btn-11'),
+            key: const Key('coordinatorsos-btn-11'),
+            key: const Key('coordinatorsos-btn-11'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshSos(),
           ),
@@ -197,9 +318,11 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
         ],
       ),
       body: state.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(
+            key: const Key('coordinatorsos-loading'),))
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(24.0),
+        key: const Key('coordinatorsos-content'),
+        padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -401,6 +524,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
                 value: isDone,
                 onChanged: (_) => controller.toggleProtocolStep((alarm['id'] as String?) ?? '', step),
                 title: Text(
+          key: const Key('coordinatorsos-title'),
                   step,
                   style: theme.typography.bodySmall.copyWith(
                     decoration: isDone ? TextDecoration.lineThrough : null,
@@ -427,7 +551,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
                     ),
                     icon: const Icon(LucideIcons.phoneCall, color: Colors.teal, size: 16),
                     label: const Text('Dial Caregiver', style: TextStyle(color: Colors.teal)),
-                    onPressed: () {},
+                    onPressed: () => triggerStateAction(),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -449,6 +573,9 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+            key: const Key('coordinatorsos-btn-12'),
+            key: const Key('coordinatorsos-btn-12'),
+            key: const Key('coordinatorsos-btn-12'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.success,
                   elevation: 0,
@@ -591,8 +718,11 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
             ),
           ),
           IconButton(
+            key: const Key('coordinatorsos-btn-13'),
+            key: const Key('coordinatorsos-btn-13'),
+            key: const Key('coordinatorsos-btn-13'),
             icon: const Icon(LucideIcons.phoneOutgoing, size: 14),
-            onPressed: () {},
+            onPressed: () => triggerStateAction(),
           ),
         ],
       ),

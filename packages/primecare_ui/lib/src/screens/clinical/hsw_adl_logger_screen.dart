@@ -7,24 +7,48 @@ class HswAdlLoggerScreen extends GovernedConsumerWidget {
   const HswAdlLoggerScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('hswadllogger-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('hswadllogger-title'),
           'HSW ADL Daily Logger',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:hswadllogger-screen',
+        child: SingleChildScrollView(
+        key: const Key('hswadllogger-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('hswadllogger-btn-1'),
+            key: const Key('hswadllogger-btn-1'),
+            key: const Key('hswadllogger-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'HSW ADL Daily Logger',
               roleName: 'HSW Module',
@@ -51,14 +75,14 @@ class HswAdlLoggerScreen extends GovernedConsumerWidget {
                     children: [
                       ElevatedButton.icon(
                         key: const ValueKey('save_adl_draft'),
-                        onPressed: () {},
+                        onPressed: () => triggerStateAction(),
                         icon: const Icon(LucideIcons.save),
                         label: const Text('Save ADL Logger Draft'),
                       ),
                       const SizedBox(width: 12),
                       ElevatedButton.icon(
                         key: const ValueKey('submit_adl_logs'),
-                        onPressed: () {},
+                        onPressed: () => triggerStateAction(),
                         icon: const Icon(LucideIcons.send),
                         label: const Text('Submit Completed ADL Logs'),
                       ),

@@ -1,0 +1,5987 @@
+[
+  {
+    "id": 1,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/register",
+    "health_status": "healthy"
+  },
+  {
+    "id": 2,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/login",
+    "health_status": "healthy"
+  },
+  {
+    "id": 3,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/switch-role",
+    "health_status": "healthy"
+  },
+  {
+    "id": 4,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/refresh",
+    "health_status": "healthy"
+  },
+  {
+    "id": 5,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/logout",
+    "health_status": "healthy"
+  },
+  {
+    "id": 6,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/whoami",
+    "health_status": "healthy"
+  },
+  {
+    "id": 7,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/impersonate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 8,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/onboard-business",
+    "health_status": "healthy"
+  },
+  {
+    "id": 9,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/osm",
+    "health_status": "healthy"
+  },
+  {
+    "id": 10,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/osm/callback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 11,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/users",
+    "health_status": "healthy"
+  },
+  {
+    "id": 12,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/users/churn-heatmap",
+    "health_status": "healthy"
+  },
+  {
+    "id": 13,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/business-model",
+    "health_status": "healthy"
+  },
+  {
+    "id": 14,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/branding",
+    "health_status": "healthy"
+  },
+  {
+    "id": 15,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security",
+    "health_status": "healthy"
+  },
+  {
+    "id": 16,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security/devices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 17,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security/forensic-trails",
+    "health_status": "healthy"
+  },
+  {
+    "id": 18,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security/daily-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 19,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security/cors",
+    "health_status": "healthy"
+  },
+  {
+    "id": 20,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/security/verify-integrity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 21,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/usage-stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 22,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/search",
+    "health_status": "healthy"
+  },
+  {
+    "id": 23,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/staff-groups",
+    "health_status": "healthy"
+  },
+  {
+    "id": 24,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/services",
+    "health_status": "healthy"
+  },
+  {
+    "id": 25,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/scrum/env-audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 26,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/scrum/audits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 27,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/scrum/response-bot/audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 28,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/scrum/registry/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 29,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/developer/keys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 30,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/developer/db-push",
+    "health_status": "healthy"
+  },
+  {
+    "id": 31,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/commit-overrides",
+    "health_status": "healthy"
+  },
+  {
+    "id": 32,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 33,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/trigger-automation",
+    "health_status": "healthy"
+  },
+  {
+    "id": 34,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/optimize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 35,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/backup",
+    "health_status": "healthy"
+  },
+  {
+    "id": 36,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/publish-content",
+    "health_status": "healthy"
+  },
+  {
+    "id": 37,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/reindex-search",
+    "health_status": "healthy"
+  },
+  {
+    "id": 38,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/suspend-reseller",
+    "health_status": "healthy"
+  },
+  {
+    "id": 39,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/shifts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 40,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/regions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 41,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/surveys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 42,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/training-modules",
+    "health_status": "healthy"
+  },
+  {
+    "id": 43,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/emergency/trigger",
+    "health_status": "healthy"
+  },
+  {
+    "id": 44,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/audit-chain/verify",
+    "health_status": "healthy"
+  },
+  {
+    "id": 45,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/actions/audit-chain/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 46,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/insurance-providers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 47,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/billing-codes",
+    "health_status": "healthy"
+  },
+  {
+    "id": 48,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/visits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 49,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/visits/assign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 50,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/timesheets",
+    "health_status": "healthy"
+  },
+  {
+    "id": 51,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 52,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/booking-requests",
+    "health_status": "healthy"
+  },
+  {
+    "id": 53,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/clients",
+    "health_status": "healthy"
+  },
+  {
+    "id": 54,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/leads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 55,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reports/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 56,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/referrals",
+    "health_status": "healthy"
+  },
+  {
+    "id": 57,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/referrals/analytics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 58,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/notifications",
+    "health_status": "healthy"
+  },
+  {
+    "id": 59,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/notifications/broadcast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 60,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/documents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 61,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/documents/pending",
+    "health_status": "healthy"
+  },
+  {
+    "id": 62,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/documents/upload",
+    "health_status": "healthy"
+  },
+  {
+    "id": 63,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/evv",
+    "health_status": "healthy"
+  },
+  {
+    "id": 64,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/evv/exceptions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 65,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/evv/compliance-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 66,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/evv/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 67,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/consent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 68,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/consent/templates",
+    "health_status": "healthy"
+  },
+  {
+    "id": 69,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/consent/expiring",
+    "health_status": "healthy"
+  },
+  {
+    "id": 70,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/authorizations",
+    "health_status": "healthy"
+  },
+  {
+    "id": 71,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/authorizations/alerts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 72,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/pharmacy/prescriptions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 73,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/pharmacy/orders",
+    "health_status": "healthy"
+  },
+  {
+    "id": 74,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/pharmacy/verify-barcode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 75,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/pharmacy/mar/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 76,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/automation/clinical-autopilot/clinical-autopilot/run",
+    "health_status": "healthy"
+  },
+  {
+    "id": 77,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial",
+    "health_status": "healthy"
+  },
+  {
+    "id": 78,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/accounts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 79,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/initialize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 80,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/invoices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 81,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/balances",
+    "health_status": "healthy"
+  },
+  {
+    "id": 82,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reconcile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 83,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reconcile/auto",
+    "health_status": "healthy"
+  },
+  {
+    "id": 84,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reconciliation-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 85,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/p-and-l",
+    "health_status": "healthy"
+  },
+  {
+    "id": 86,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/balance-sheet",
+    "health_status": "healthy"
+  },
+  {
+    "id": 87,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/daily-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 88,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/trading-account",
+    "health_status": "healthy"
+  },
+  {
+    "id": 89,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/forecast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 90,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/tax-filing",
+    "health_status": "healthy"
+  },
+  {
+    "id": 91,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/tax-remittance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 92,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/earnings",
+    "health_status": "healthy"
+  },
+  {
+    "id": 93,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reconciliation/unmatched",
+    "health_status": "healthy"
+  },
+  {
+    "id": 94,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reconciliation/match",
+    "health_status": "healthy"
+  },
+  {
+    "id": 95,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/payroll/pending",
+    "health_status": "healthy"
+  },
+  {
+    "id": 96,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/payroll/batch/approve",
+    "health_status": "healthy"
+  },
+  {
+    "id": 97,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/payroll/run",
+    "health_status": "healthy"
+  },
+  {
+    "id": 98,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/claims",
+    "health_status": "healthy"
+  },
+  {
+    "id": 99,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/claims/scrub",
+    "health_status": "healthy"
+  },
+  {
+    "id": 100,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/claims/era",
+    "health_status": "healthy"
+  },
+  {
+    "id": 101,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/claims/system/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 102,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/claims/system/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 103,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/inventory",
+    "health_status": "healthy"
+  },
+  {
+    "id": 104,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/purchase-orders",
+    "health_status": "healthy"
+  },
+  {
+    "id": 105,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/po/create",
+    "health_status": "healthy"
+  },
+  {
+    "id": 106,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/inventory/add",
+    "health_status": "healthy"
+  },
+  {
+    "id": 107,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/blog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 108,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/faqs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 109,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/design/sync-fonts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 110,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/design/sync-tokens",
+    "health_status": "healthy"
+  },
+  {
+    "id": 111,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/traffic/routing-rules",
+    "health_status": "healthy"
+  },
+  {
+    "id": 112,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/workflows/visual-logic",
+    "health_status": "healthy"
+  },
+  {
+    "id": 113,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/workflows/rollback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 114,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/workflows/schemas",
+    "health_status": "healthy"
+  },
+  {
+    "id": 115,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/workflows/rate-limits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 116,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/templates/no-code",
+    "health_status": "healthy"
+  },
+  {
+    "id": 117,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/security/rbac-matrix",
+    "health_status": "healthy"
+  },
+  {
+    "id": 118,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/media/redact-document",
+    "health_status": "healthy"
+  },
+  {
+    "id": 119,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/media/cdn-sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 120,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/media/lifecycle-policies",
+    "health_status": "healthy"
+  },
+  {
+    "id": 121,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/localization/i18n-dictionary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 122,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/governance/scripts-manifest",
+    "health_status": "healthy"
+  },
+  {
+    "id": 123,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/compliance/legal-blockers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 124,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/analytics/browser-matrix",
+    "health_status": "healthy"
+  },
+  {
+    "id": 125,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/accessibility/aria-labels",
+    "health_status": "healthy"
+  },
+  {
+    "id": 126,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/content/rich-text-policies",
+    "health_status": "healthy"
+  },
+  {
+    "id": 127,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/dam/content/dynamic-routing",
+    "health_status": "healthy"
+  },
+  {
+    "id": 128,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/churn-risks",
+    "health_status": "healthy"
+  },
+  {
+    "id": 129,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/drip-sequences",
+    "health_status": "healthy"
+  },
+  {
+    "id": 130,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/revenue-attribution",
+    "health_status": "healthy"
+  },
+  {
+    "id": 131,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/subscribers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 132,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/promotions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 133,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/syndication/vault",
+    "health_status": "healthy"
+  },
+  {
+    "id": 134,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/syndication/post",
+    "health_status": "healthy"
+  },
+  {
+    "id": 135,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/sessions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 136,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/vitals",
+    "health_status": "healthy"
+  },
+  {
+    "id": 137,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/session/start",
+    "health_status": "healthy"
+  },
+  {
+    "id": 138,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/triage/open",
+    "health_status": "healthy"
+  },
+  {
+    "id": 139,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/vitals/verify",
+    "health_status": "healthy"
+  },
+  {
+    "id": 140,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system-data/iot-events",
+    "health_status": "healthy"
+  },
+  {
+    "id": 141,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system-data/gamification",
+    "health_status": "healthy"
+  },
+  {
+    "id": 142,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system-data/notifications",
+    "health_status": "healthy"
+  },
+  {
+    "id": 143,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system-data/ai-inferences",
+    "health_status": "healthy"
+  },
+  {
+    "id": 144,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system-data/communication-logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 145,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-export/download",
+    "health_status": "healthy"
+  },
+  {
+    "id": 146,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-export/compliance-home",
+    "health_status": "healthy"
+  },
+  {
+    "id": 147,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-export/regulatory-report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 148,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/webhooks",
+    "health_status": "healthy"
+  },
+  {
+    "id": 149,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/webhooks/deliveries",
+    "health_status": "healthy"
+  },
+  {
+    "id": 150,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/cron/compliance-sweep",
+    "health_status": "healthy"
+  },
+  {
+    "id": 151,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/cron/training-reminders",
+    "health_status": "healthy"
+  },
+  {
+    "id": 152,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/cron/authorization-exhaustion",
+    "health_status": "healthy"
+  },
+  {
+    "id": 153,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/cron/inventory-reorder",
+    "health_status": "healthy"
+  },
+  {
+    "id": 154,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/interop/fhir/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 155,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/interop/fhir/import",
+    "health_status": "healthy"
+  },
+  {
+    "id": 156,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/interop/fhir/sync-log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 157,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-iot/predictions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 158,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-iot/telehealth/session",
+    "health_status": "healthy"
+  },
+  {
+    "id": 159,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system/platform/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 160,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/system/risk-surveillance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 161,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/insights/predictive-staffing",
+    "health_status": "healthy"
+  },
+  {
+    "id": 162,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reseller",
+    "health_status": "healthy"
+  },
+  {
+    "id": 163,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reseller/provision",
+    "health_status": "healthy"
+  },
+  {
+    "id": 164,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 165,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/center",
+    "health_status": "healthy"
+  },
+  {
+    "id": 166,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 167,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/home/today",
+    "health_status": "healthy"
+  },
+  {
+    "id": 168,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/home/kpi",
+    "health_status": "healthy"
+  },
+  {
+    "id": 169,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/finance/payroll-audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 170,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 171,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/compliance/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 172,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/branch-health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 173,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/intake/waitlist",
+    "health_status": "healthy"
+  },
+  {
+    "id": 174,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/schedule/logistics-board",
+    "health_status": "healthy"
+  },
+  {
+    "id": 175,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 176,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/locations",
+    "health_status": "healthy"
+  },
+  {
+    "id": 177,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/ops/approvals",
+    "health_status": "healthy"
+  },
+  {
+    "id": 178,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/reviews",
+    "health_status": "healthy"
+  },
+  {
+    "id": 179,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/assign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 180,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/compliance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 181,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/modules",
+    "health_status": "healthy"
+  },
+  {
+    "id": 182,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 183,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/visits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 184,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/tickets",
+    "health_status": "healthy"
+  },
+  {
+    "id": 185,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/customers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 186,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/ops/compliance/scan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 187,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/tasks/grid",
+    "health_status": "healthy"
+  },
+  {
+    "id": 188,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/tasks",
+    "health_status": "healthy"
+  },
+  {
+    "id": 189,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/ops/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 190,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/ops/incidents/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 191,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/messages/hub",
+    "health_status": "healthy"
+  },
+  {
+    "id": 192,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/messages/hub/audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 193,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/messages/hub/multidisciplinary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 194,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/allied/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 195,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/allied/treatments",
+    "health_status": "healthy"
+  },
+  {
+    "id": 196,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/supervision/roster",
+    "health_status": "healthy"
+  },
+  {
+    "id": 197,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/care-plans",
+    "health_status": "healthy"
+  },
+  {
+    "id": 198,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/scribe-parse/parse",
+    "health_status": "healthy"
+  },
+  {
+    "id": 199,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/assessments",
+    "health_status": "healthy"
+  },
+  {
+    "id": 200,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/recon",
+    "health_status": "healthy"
+  },
+  {
+    "id": 201,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/supervision",
+    "health_status": "healthy"
+  },
+  {
+    "id": 202,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/sign-off",
+    "health_status": "healthy"
+  },
+  {
+    "id": 203,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/audit/list",
+    "health_status": "healthy"
+  },
+  {
+    "id": 204,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/reconciliation/pending",
+    "health_status": "healthy"
+  },
+  {
+    "id": 205,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/mar/administer",
+    "health_status": "healthy"
+  },
+  {
+    "id": 206,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/mar/prn",
+    "health_status": "healthy"
+  },
+  {
+    "id": 207,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/mar/review",
+    "health_status": "healthy"
+  },
+  {
+    "id": 208,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/wound-care/assessments",
+    "health_status": "healthy"
+  },
+  {
+    "id": 209,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/assessments/templates",
+    "health_status": "healthy"
+  },
+  {
+    "id": 210,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/assessments",
+    "health_status": "healthy"
+  },
+  {
+    "id": 211,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 212,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/home/hardware/purchase",
+    "health_status": "healthy"
+  },
+  {
+    "id": 213,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/home/incident",
+    "health_status": "healthy"
+  },
+  {
+    "id": 214,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/home/wellness",
+    "health_status": "healthy"
+  },
+  {
+    "id": 215,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/home/store/redeem",
+    "health_status": "healthy"
+  },
+  {
+    "id": 216,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/visits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 217,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/offers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 218,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/availability",
+    "health_status": "healthy"
+  },
+  {
+    "id": 219,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/marketplace",
+    "health_status": "healthy"
+  },
+  {
+    "id": 220,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/marketplace/swaps",
+    "health_status": "healthy"
+  },
+  {
+    "id": 221,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/daily-entry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 222,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/daily-entry/history",
+    "health_status": "healthy"
+  },
+  {
+    "id": 223,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 224,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/handover",
+    "health_status": "healthy"
+  },
+  {
+    "id": 225,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/availability/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 226,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/payouts/history",
+    "health_status": "healthy"
+  },
+  {
+    "id": 227,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/wellness/pulse",
+    "health_status": "healthy"
+  },
+  {
+    "id": 228,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/mileage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 229,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/mileage/calculate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 230,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/mileage/summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 231,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/mileage/submit-override",
+    "health_status": "healthy"
+  },
+  {
+    "id": 232,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/training/assigned",
+    "health_status": "healthy"
+  },
+  {
+    "id": 233,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/visit-notes",
+    "health_status": "healthy"
+  },
+  {
+    "id": 234,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/mar",
+    "health_status": "healthy"
+  },
+  {
+    "id": 235,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/home/profile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 236,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 237,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/bookings",
+    "health_status": "healthy"
+  },
+  {
+    "id": 238,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/bookings/requests",
+    "health_status": "healthy"
+  },
+  {
+    "id": 239,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/invoices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 240,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/services",
+    "health_status": "healthy"
+  },
+  {
+    "id": 241,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/team/roster",
+    "health_status": "healthy"
+  },
+  {
+    "id": 242,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/support/feedback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 243,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/engagement/feed",
+    "health_status": "healthy"
+  },
+  {
+    "id": 244,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/engagement/pay-invoice",
+    "health_status": "healthy"
+  },
+  {
+    "id": 245,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/family/members",
+    "health_status": "healthy"
+  },
+  {
+    "id": 246,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/family/message",
+    "health_status": "healthy"
+  },
+  {
+    "id": 247,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/family/schedule/upcoming",
+    "health_status": "healthy"
+  },
+  {
+    "id": 248,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/billing/invoices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 249,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/billing/statement",
+    "health_status": "healthy"
+  },
+  {
+    "id": 250,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/billing/payment-methods",
+    "health_status": "healthy"
+  },
+  {
+    "id": 251,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/feedback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 252,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/feedback/surveys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 253,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/feedback/analytics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 254,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/request",
+    "health_status": "healthy"
+  },
+  {
+    "id": 255,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/requests",
+    "health_status": "healthy"
+  },
+  {
+    "id": 256,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/team",
+    "health_status": "healthy"
+  },
+  {
+    "id": 257,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/profile/medical-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 258,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/sos-dispatch",
+    "health_status": "healthy"
+  },
+  {
+    "id": 259,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/schedule/master",
+    "health_status": "healthy"
+  },
+  {
+    "id": 260,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/shifts/broadcast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 261,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/match/override",
+    "health_status": "healthy"
+  },
+  {
+    "id": 262,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/waitlist/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 263,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/incident/ack",
+    "health_status": "healthy"
+  },
+  {
+    "id": 264,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 265,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 266,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/dispatch-map",
+    "health_status": "healthy"
+  },
+  {
+    "id": 267,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/matching/run",
+    "health_status": "healthy"
+  },
+  {
+    "id": 268,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/fleet/ping",
+    "health_status": "healthy"
+  },
+  {
+    "id": 269,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/fleet/heartbeat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 270,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/fleet/positions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 271,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/shift-swap/request",
+    "health_status": "healthy"
+  },
+  {
+    "id": 272,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/shift-swap/requests",
+    "health_status": "healthy"
+  },
+  {
+    "id": 273,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/sos/trigger",
+    "health_status": "healthy"
+  },
+  {
+    "id": 274,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/sos/active",
+    "health_status": "healthy"
+  },
+  {
+    "id": 275,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/waitlist",
+    "health_status": "healthy"
+  },
+  {
+    "id": 276,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/profile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 277,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/change-password",
+    "health_status": "healthy"
+  },
+  {
+    "id": 278,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/messaging/threads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 279,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/training/catalog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 280,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/training/my-progress",
+    "health_status": "healthy"
+  },
+  {
+    "id": 281,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/notifications/register-device",
+    "health_status": "healthy"
+  },
+  {
+    "id": 282,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/notifications",
+    "health_status": "healthy"
+  },
+  {
+    "id": 283,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/payments/create-payment-intent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 284,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/storage/upload",
+    "health_status": "healthy"
+  },
+  {
+    "id": 285,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/voice/upload",
+    "health_status": "healthy"
+  },
+  {
+    "id": 286,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/kill-switch/engage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 287,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/kill-switch/disengage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 288,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/realtime/connect",
+    "health_status": "healthy"
+  },
+  {
+    "id": 289,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/registry/sweep",
+    "health_status": "healthy"
+  },
+  {
+    "id": 290,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/registry/integrity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 291,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/forensics/flush",
+    "health_status": "healthy"
+  },
+  {
+    "id": 292,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/governance/reseed",
+    "health_status": "healthy"
+  },
+  {
+    "id": 293,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/system/deploy",
+    "health_status": "healthy"
+  },
+  {
+    "id": 294,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/registry/touchpoints",
+    "health_status": "healthy"
+  },
+  {
+    "id": 295,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/registry/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 296,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/cron/incident-sla",
+    "health_status": "healthy"
+  },
+  {
+    "id": 297,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/debug/hash",
+    "health_status": "healthy"
+  },
+  {
+    "id": 300,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/visits/unassigned",
+    "health_status": "healthy"
+  },
+  {
+    "id": 301,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 305,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule",
+    "health_status": "healthy"
+  },
+  {
+    "id": 306,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/tenants",
+    "health_status": "healthy"
+  },
+  {
+    "id": 307,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/governance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 308,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/insights",
+    "health_status": "healthy"
+  },
+  {
+    "id": 309,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/predictive",
+    "health_status": "healthy"
+  },
+  {
+    "id": 310,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/churn",
+    "health_status": "healthy"
+  },
+  {
+    "id": 311,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/optimization",
+    "health_status": "healthy"
+  },
+  {
+    "id": 312,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/threats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 313,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/sessions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 314,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/permissions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 315,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/audits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 316,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ops/capacity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 317,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ops/regions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 318,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ops/logistics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 319,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/public/leads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 320,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/public/services",
+    "health_status": "healthy"
+  },
+  {
+    "id": 321,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/public/blog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 323,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/scrum/auto-fix",
+    "health_status": "healthy"
+  },
+  {
+    "id": 326,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/coordinator/sos-dispatch",
+    "health_status": "healthy"
+  },
+  {
+    "id": 327,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/care-plans/review",
+    "health_status": "healthy"
+  },
+  {
+    "id": 328,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/audit/entries/verify",
+    "health_status": "healthy"
+  },
+  {
+    "id": 329,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/visits/check-in",
+    "health_status": "healthy"
+  },
+  {
+    "id": 330,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/schedule/payouts/request",
+    "health_status": "healthy"
+  },
+  {
+    "id": 334,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/marketing/campaigns",
+    "health_status": "healthy"
+  },
+  {
+    "id": 378,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-command",
+    "health_status": "healthy"
+  },
+  {
+    "id": 379,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-command/models",
+    "health_status": "healthy"
+  },
+  {
+    "id": 380,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-command/inferences",
+    "health_status": "healthy"
+  },
+  {
+    "id": 381,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ai-command/config",
+    "health_status": "healthy"
+  },
+  {
+    "id": 382,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/finance/multi-currency",
+    "health_status": "healthy"
+  },
+  {
+    "id": 383,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/finance/multi-currency/rates",
+    "health_status": "healthy"
+  },
+  {
+    "id": 384,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/finance/multi-currency/conversions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 385,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-trail",
+    "health_status": "healthy"
+  },
+  {
+    "id": 386,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-trail/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 387,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/franchise",
+    "health_status": "healthy"
+  },
+  {
+    "id": 388,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/franchise/performance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 389,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/supply-chain",
+    "health_status": "healthy"
+  },
+  {
+    "id": 390,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/supply-chain/vendors",
+    "health_status": "healthy"
+  },
+  {
+    "id": 391,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/supply-chain/purchase-orders",
+    "health_status": "healthy"
+  },
+  {
+    "id": 392,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/supply-chain/inventory/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 395,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/forgot-password",
+    "health_status": "healthy"
+  },
+  {
+    "id": 396,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/reset-password",
+    "health_status": "healthy"
+  },
+  {
+    "id": 408,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/support/chat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 409,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/support/tickets",
+    "health_status": "healthy"
+  },
+  {
+    "id": 419,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/incidents/crisis-mode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 421,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/invoices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 424,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/logo",
+    "health_status": "healthy"
+  },
+  {
+    "id": 427,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/settings/save",
+    "health_status": "healthy"
+  },
+  {
+    "id": 428,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/content/publish",
+    "health_status": "healthy"
+  },
+  {
+    "id": 429,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/search/reindex",
+    "health_status": "healthy"
+  },
+  {
+    "id": 430,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/registry/ui-override/commit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 432,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/capacity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 433,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/regions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 434,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/supply-demand",
+    "health_status": "healthy"
+  },
+  {
+    "id": 435,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/logistics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 436,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/predictive/dispatch",
+    "health_status": "healthy"
+  },
+  {
+    "id": 437,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/ops/optimize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 438,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reseller/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 439,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reseller/franchises",
+    "health_status": "healthy"
+  },
+  {
+    "id": 441,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/reseller/agreements",
+    "health_status": "healthy"
+  },
+  {
+    "id": 443,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/suppliers",
+    "health_status": "healthy"
+  },
+  {
+    "id": 445,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/erp/stock/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 446,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 448,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/sessions/create",
+    "health_status": "healthy"
+  },
+  {
+    "id": 449,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/telehealth/vitals/push",
+    "health_status": "healthy"
+  },
+  {
+    "id": 450,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/rcm/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 451,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/rcm/claims",
+    "health_status": "healthy"
+  },
+  {
+    "id": 452,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/rcm/claims/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 453,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/rcm/revenue/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 454,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/pharmacy/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 459,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/regional/fin/pl-export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 460,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/regional/governance/audit-req",
+    "health_status": "healthy"
+  },
+  {
+    "id": 465,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/financial/reports/reconciliation-summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 471,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 472,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/endpoints",
+    "health_status": "healthy"
+  },
+  {
+    "id": 473,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/env-audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 474,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/auto-fix",
+    "health_status": "healthy"
+  },
+  {
+    "id": 478,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/security/scan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 479,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/audits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 480,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/scrum-master/registry/health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 484,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/platform/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 485,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/ops/capacity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 486,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/ops/regions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 487,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/ops/logistics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 489,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/audit-logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 491,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/health/summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 492,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/sla/compliance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 493,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/policies/engine",
+    "health_status": "healthy"
+  },
+  {
+    "id": 494,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/superuser/risk-surveillance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 499,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/visit-sentiment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 500,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/optimize-flow",
+    "health_status": "healthy"
+  },
+  {
+    "id": 501,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/sentiment-scan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 502,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/insights/refresh",
+    "health_status": "healthy"
+  },
+  {
+    "id": 503,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/ai/autopilot/engage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 507,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/crypto-health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 508,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/threat-detection",
+    "health_status": "healthy"
+  },
+  {
+    "id": 509,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/security/platform-audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 510,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/interop/fhir/import",
+    "health_status": "healthy"
+  },
+  {
+    "id": 511,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/interop/did/verify",
+    "health_status": "healthy"
+  },
+  {
+    "id": 512,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/interop/did/generate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 516,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/performance/rankings",
+    "health_status": "healthy"
+  },
+  {
+    "id": 517,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/finance/pl",
+    "health_status": "healthy"
+  },
+  {
+    "id": 519,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/finance/billing/finalize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 520,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training",
+    "health_status": "healthy"
+  },
+  {
+    "id": 521,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/surveys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 522,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/evaluations",
+    "health_status": "healthy"
+  },
+  {
+    "id": 526,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/staff/add",
+    "health_status": "healthy"
+  },
+  {
+    "id": 527,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/audit/attendance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 532,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/gamification",
+    "health_status": "healthy"
+  },
+  {
+    "id": 533,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/gamification/leaderboard",
+    "health_status": "healthy"
+  },
+  {
+    "id": 534,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/gamification/rewards",
+    "health_status": "healthy"
+  },
+  {
+    "id": 535,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/iot/events",
+    "health_status": "healthy"
+  },
+  {
+    "id": 536,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/iot/devices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 537,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/iot/alerts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 538,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/documents/signing",
+    "health_status": "healthy"
+  },
+  {
+    "id": 539,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/documents/signing/requests",
+    "health_status": "healthy"
+  },
+  {
+    "id": 540,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/communications/sms",
+    "health_status": "healthy"
+  },
+  {
+    "id": 541,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/communications/sms/campaigns",
+    "health_status": "healthy"
+  },
+  {
+    "id": 542,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/communications/sms/logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 543,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/hr/performance-reviews",
+    "health_status": "healthy"
+  },
+  {
+    "id": 544,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/academy",
+    "health_status": "healthy"
+  },
+  {
+    "id": 545,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/academy/modules",
+    "health_status": "healthy"
+  },
+  {
+    "id": 546,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/training/academy/progress",
+    "health_status": "healthy"
+  },
+  {
+    "id": 552,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/services/catalog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 553,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/support/nursing-chat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 560,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/family/hub-overview",
+    "health_status": "healthy"
+  },
+  {
+    "id": 566,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/client/bookings/request",
+    "health_status": "healthy"
+  },
+  {
+    "id": 577,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/credentials/vault",
+    "health_status": "healthy"
+  },
+  {
+    "id": 579,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/feed/social",
+    "health_status": "healthy"
+  },
+  {
+    "id": 580,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/incident/report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 584,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/fleet/heartbeat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 586,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/sos/trigger",
+    "health_status": "healthy"
+  },
+  {
+    "id": 587,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/guide",
+    "health_status": "healthy"
+  },
+  {
+    "id": 588,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/home/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 591,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/audit/sign-off",
+    "health_status": "healthy"
+  },
+  {
+    "id": 595,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/clinical/supervision/roster",
+    "health_status": "healthy"
+  },
+  {
+    "id": 609,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/coordinator/coverage-alerts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 620,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/coordinator/shifts/triage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 624,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/saas/promo/validate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 625,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/saas/promo/apply",
+    "health_status": "healthy"
+  },
+  {
+    "id": 627,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/finance/void",
+    "health_status": "healthy"
+  },
+  {
+    "id": 628,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/finance/seal",
+    "health_status": "healthy"
+  },
+  {
+    "id": 629,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/finance/tax/report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 631,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/manager/billing/batch-approve",
+    "health_status": "healthy"
+  },
+  {
+    "id": 632,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/training/assign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 633,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/training/verify",
+    "health_status": "healthy"
+  },
+  {
+    "id": 634,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/training/renew",
+    "health_status": "healthy"
+  },
+  {
+    "id": 635,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/training/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 658,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/locations",
+    "health_status": "healthy"
+  },
+  {
+    "id": 702,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/expenses",
+    "health_status": "healthy"
+  },
+  {
+    "id": 708,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/profile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 710,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/messages",
+    "health_status": "healthy"
+  },
+  {
+    "id": 714,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/training/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 715,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/staff/training/summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 716,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/training/architect/audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 739,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/allied/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 740,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/training/stats/compliance-overview",
+    "health_status": "healthy"
+  },
+  {
+    "id": 741,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/training/stats/expiring-certs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 742,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/qa/stats/compliance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 743,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/qa/stats/incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 777,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/user/preferences",
+    "health_status": "healthy"
+  },
+  {
+    "id": 779,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/me",
+    "health_status": "healthy"
+  },
+  {
+    "id": 780,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/system/permissions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 782,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/executive/coo/telemetry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 783,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/messages",
+    "health_status": "healthy"
+  },
+  {
+    "id": 784,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/governance/dashboard",
+    "health_status": "healthy"
+  },
+  {
+    "id": 785,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/governance/dashboard-metrics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 786,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/provider/dashboard",
+    "health_status": "healthy"
+  },
+  {
+    "id": 787,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/provider/metrics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 788,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/profile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 789,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/reports",
+    "health_status": "healthy"
+  },
+  {
+    "id": 790,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/documents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 791,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/check-in",
+    "health_status": "healthy"
+  },
+  {
+    "id": 792,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/system-logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 793,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/notifications",
+    "health_status": "healthy"
+  },
+  {
+    "id": 794,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/psw/help-support",
+    "health_status": "healthy"
+  },
+  {
+    "id": 795,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/business-development",
+    "health_status": "healthy"
+  },
+  {
+    "id": 802,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/provider/checkin",
+    "health_status": "healthy"
+  },
+  {
+    "id": 803,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/verification/purpose-report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 804,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/verification/database-report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 806,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/staff-provision",
+    "health_status": "healthy"
+  },
+  {
+    "id": 807,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/admin/audit-override",
+    "health_status": "healthy"
+  },
+  {
+    "id": 808,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/office/partnership-leads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 810,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/public/",
+    "health_status": "healthy"
+  },
+  {
+    "id": 811,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/debug/",
+    "health_status": "healthy"
+  },
+  {
+    "id": 812,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/marketing/",
+    "health_status": "healthy"
+  },
+  {
+    "id": 813,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 814,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/marketing/leads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 815,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 816,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/telemetry/errors",
+    "health_status": "healthy"
+  },
+  {
+    "id": 817,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/public/branding",
+    "health_status": "healthy"
+  },
+  {
+    "id": 818,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/public/stats",
+    "health_status": "healthy"
+  },
+  {
+    "id": 819,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/public/registries",
+    "health_status": "healthy"
+  },
+  {
+    "id": 820,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/public/screens",
+    "health_status": "healthy"
+  },
+  {
+    "id": 821,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/system/database-report",
+    "health_status": "healthy"
+  },
+  {
+    "id": 822,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/auth/",
+    "health_status": "healthy"
+  },
+  {
+    "id": 829,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/features",
+    "health_status": "healthy"
+  },
+  {
+    "id": 830,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/access-reviews",
+    "health_status": "healthy"
+  },
+  {
+    "id": 831,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/users/privileged",
+    "health_status": "healthy"
+  },
+  {
+    "id": 832,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/api-keys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 833,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/audit-logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 834,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/training",
+    "health_status": "healthy"
+  },
+  {
+    "id": 835,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/configs/versions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 836,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/consents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 837,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/data-privacy",
+    "health_status": "healthy"
+  },
+  {
+    "id": 838,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/devices",
+    "health_status": "healthy"
+  },
+  {
+    "id": 839,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/ecosystem",
+    "health_status": "healthy"
+  },
+  {
+    "id": 840,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/faqs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 841,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/feature-flags",
+    "health_status": "healthy"
+  },
+  {
+    "id": 842,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/hipaa-audit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 843,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/incidents/active",
+    "health_status": "healthy"
+  },
+  {
+    "id": 844,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/integrations/health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 845,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/leads",
+    "health_status": "healthy"
+  },
+  {
+    "id": 846,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/message-archive",
+    "health_status": "healthy"
+  },
+  {
+    "id": 847,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/osha-incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 848,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/policy-exceptions",
+    "health_status": "healthy"
+  },
+  {
+    "id": 849,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/protocols/logs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 850,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/providers/performance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 851,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/qa/metrics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 852,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/regulatory-radar",
+    "health_status": "healthy"
+  },
+  {
+    "id": 853,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/resources/allocation",
+    "health_status": "healthy"
+  },
+  {
+    "id": 854,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/bot-audits",
+    "health_status": "healthy"
+  },
+  {
+    "id": 855,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/roles/matrix",
+    "health_status": "healthy"
+  },
+  {
+    "id": 856,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/messages/inbox",
+    "health_status": "healthy"
+  },
+  {
+    "id": 857,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/security-incidents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 858,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/topology",
+    "health_status": "healthy"
+  },
+  {
+    "id": 859,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/capacity/forecast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 860,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/system-events",
+    "health_status": "healthy"
+  },
+  {
+    "id": 861,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/policies",
+    "health_status": "healthy"
+  },
+  {
+    "id": 862,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/registry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 863,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/tenants",
+    "health_status": "healthy"
+  },
+  {
+    "id": 864,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/marketing/touchpoints",
+    "health_status": "healthy"
+  },
+  {
+    "id": 865,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/users",
+    "health_status": "healthy"
+  },
+  {
+    "id": 866,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/admin/compliance/vendor-risk",
+    "health_status": "healthy"
+  },
+  {
+    "id": 867,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/executive/summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 868,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/clinical/outcomes",
+    "health_status": "healthy"
+  },
+  {
+    "id": 869,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/finance/forecast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 870,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/marketing/roi",
+    "health_status": "healthy"
+  },
+  {
+    "id": 871,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/operations/efficiency",
+    "health_status": "healthy"
+  },
+  {
+    "id": 872,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/patients/retention",
+    "health_status": "healthy"
+  },
+  {
+    "id": 873,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/clinical/population-health",
+    "health_status": "healthy"
+  },
+  {
+    "id": 874,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/predictive/forecast",
+    "health_status": "healthy"
+  },
+  {
+    "id": 875,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/hr/utilization",
+    "health_status": "healthy"
+  },
+  {
+    "id": 876,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/analytics/procurement/costs",
+    "health_status": "healthy"
+  },
+  {
+    "id": 877,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/certs/alerts",
+    "health_status": "healthy"
+  },
+  {
+    "id": 878,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/guidelines",
+    "health_status": "healthy"
+  },
+  {
+    "id": 879,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/cme/tracking",
+    "health_status": "healthy"
+  },
+  {
+    "id": 880,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/journal_club/topics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 881,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/library/databases",
+    "health_status": "healthy"
+  },
+  {
+    "id": 882,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/cases",
+    "health_status": "healthy"
+  },
+  {
+    "id": 883,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/peer_review/cases",
+    "health_status": "healthy"
+  },
+  {
+    "id": 884,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/residency/residents",
+    "health_status": "healthy"
+  },
+  {
+    "id": 885,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/sim_lab/schedule",
+    "health_status": "healthy"
+  },
+  {
+    "id": 886,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/education/surgical/videos",
+    "health_status": "healthy"
+  },
+  {
+    "id": 887,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/governance/dashboard",
+    "health_status": "healthy"
+  },
+  {
+    "id": 889,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/executive/coo/telemetry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 890,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/user",
+    "health_status": "healthy"
+  },
+  {
+    "id": 891,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systempolicy",
+    "health_status": "healthy"
+  },
+  {
+    "id": 892,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/airecommendation",
+    "health_status": "healthy"
+  },
+  {
+    "id": 893,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/sentimentanalysis",
+    "health_status": "healthy"
+  },
+  {
+    "id": 894,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/securitythreat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 895,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/technicalaudit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 896,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/familynotification",
+    "health_status": "healthy"
+  },
+  {
+    "id": 897,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/carefeedback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 898,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/referral",
+    "health_status": "healthy"
+  },
+  {
+    "id": 899,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/familymember",
+    "health_status": "healthy"
+  },
+  {
+    "id": 900,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/performancereview",
+    "health_status": "healthy"
+  },
+  {
+    "id": 901,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/webhookendpoint",
+    "health_status": "healthy"
+  },
+  {
+    "id": 902,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/responsebotaudit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 903,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/webhookdelivery",
+    "health_status": "healthy"
+  },
+  {
+    "id": 904,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/iotevent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 905,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/appnotification",
+    "health_status": "healthy"
+  },
+  {
+    "id": 906,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/gamificationprofile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 907,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/aiinference",
+    "health_status": "healthy"
+  },
+  {
+    "id": 908,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/communicationlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 909,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/dailyactivity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 910,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/platformscreen",
+    "health_status": "healthy"
+  },
+  {
+    "id": 911,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/screenfunctionality",
+    "health_status": "healthy"
+  },
+  {
+    "id": 912,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/providershiftlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 913,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systemtouchpoint",
+    "health_status": "healthy"
+  },
+  {
+    "id": 914,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/adlcarelog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 915,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/providervitalsign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 916,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/behaviornote",
+    "health_status": "healthy"
+  },
+  {
+    "id": 917,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/nutritionrecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 918,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/mobilitylog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 919,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/infectioncontrolchecklist",
+    "health_status": "healthy"
+  },
+  {
+    "id": 920,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/narrativeprogressnote",
+    "health_status": "healthy"
+  },
+  {
+    "id": 921,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/careplanfollowup",
+    "health_status": "healthy"
+  },
+  {
+    "id": 922,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/dynamicfeaturerecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 923,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/screenconfiguration",
+    "health_status": "healthy"
+  },
+  {
+    "id": 924,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/registryentry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 925,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/implementationevent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 926,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/verificationlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 927,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/anomalyreport",
+    "health_status": "healthy"
+  },
+  {
+    "id": 928,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/architecturallayer",
+    "health_status": "healthy"
+  },
+  {
+    "id": 929,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/componentpurpose",
+    "health_status": "healthy"
+  },
+  {
+    "id": 930,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systemdomain",
+    "health_status": "healthy"
+  },
+  {
+    "id": 931,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/softwaresystem",
+    "health_status": "healthy"
+  },
+  {
+    "id": 932,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/syscomponent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 933,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/apicontract",
+    "health_status": "healthy"
+  },
+  {
+    "id": 934,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/uiintent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 935,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/messagethread",
+    "health_status": "healthy"
+  },
+  {
+    "id": 936,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/dataresource",
+    "health_status": "healthy"
+  },
+  {
+    "id": 937,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/platformhealthhistory",
+    "health_status": "healthy"
+  },
+  {
+    "id": 938,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/agentscreenblueprint",
+    "health_status": "healthy"
+  },
+  {
+    "id": 939,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/blueprintcomponent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 940,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/bdmlead",
+    "health_status": "healthy"
+  },
+  {
+    "id": 941,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/territoryexpansionplan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 942,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/partnershipdeal",
+    "health_status": "healthy"
+  },
+  {
+    "id": 943,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/corporatekpi",
+    "health_status": "healthy"
+  },
+  {
+    "id": 944,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/corporatereport",
+    "health_status": "healthy"
+  },
+  {
+    "id": 945,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/corporatealert",
+    "health_status": "healthy"
+  },
+  {
+    "id": 946,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/message",
+    "health_status": "healthy"
+  },
+  {
+    "id": 947,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/organizationnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 948,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchisekpi",
+    "health_status": "healthy"
+  },
+  {
+    "id": 949,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchisereport",
+    "health_status": "healthy"
+  },
+  {
+    "id": 950,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchisealert",
+    "health_status": "healthy"
+  },
+  {
+    "id": 951,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchisestaffnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 952,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/businessdevelopmentmetric",
+    "health_status": "healthy"
+  },
+  {
+    "id": 953,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinicmetric",
+    "health_status": "healthy"
+  },
+  {
+    "id": 954,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supportticket",
+    "health_status": "healthy"
+  },
+  {
+    "id": 955,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/premiumfeaturestatus",
+    "health_status": "healthy"
+  },
+  {
+    "id": 956,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/familyappointment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 957,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/platformrole",
+    "health_status": "healthy"
+  },
+  {
+    "id": 958,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/familycareplantask",
+    "health_status": "healthy"
+  },
+  {
+    "id": 959,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/familyclinicalmessage",
+    "health_status": "healthy"
+  },
+  {
+    "id": 960,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinic",
+    "health_status": "healthy"
+  },
+  {
+    "id": 961,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patient",
+    "health_status": "healthy"
+  },
+  {
+    "id": 962,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/financialrecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 963,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clienttrendnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 964,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clientclinicnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 965,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clientdemographicnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 966,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/healthnetrevenuenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 967,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/healthnetefficiencynode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 968,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/rolescreenaccess",
+    "health_status": "healthy"
+  },
+  {
+    "id": 969,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/healthnetnetworknode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 970,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/jobopening",
+    "health_status": "healthy"
+  },
+  {
+    "id": 971,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/jobcandidate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 972,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/interviewevent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 973,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/incidentreportnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 974,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/auditlognode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 975,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patientsatisfactionnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 976,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchiserevenuenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 977,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinicperformancenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 978,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchisebookingnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 979,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/crisisprotocol",
+    "health_status": "healthy"
+  },
+  {
+    "id": 980,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localnetworknode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 981,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localfinancenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 982,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localactivitynode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 983,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localmarketinganalyticnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 984,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localcampaignnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 985,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localcontentnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 986,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patientintake",
+    "health_status": "healthy"
+  },
+  {
+    "id": 987,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/intakereferralmetric",
+    "health_status": "healthy"
+  },
+  {
+    "id": 988,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/invoicerecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 989,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/insuranceclaim",
+    "health_status": "healthy"
+  },
+  {
+    "id": 990,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/protocolresolution",
+    "health_status": "healthy"
+  },
+  {
+    "id": 991,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/financialgoal",
+    "health_status": "healthy"
+  },
+  {
+    "id": 992,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patientadmissionnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 993,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinicalshiftnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 994,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/medicalauditnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 995,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/outreacheventnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 996,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/participantmetricnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 997,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/outreachbudgetnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 998,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/schedulertrendnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 999,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/schedulerrosternode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1000,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/schedulerfacilitynode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1001,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/tenant",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1002,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/ecosystemstateoverride",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1003,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systemeventlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1004,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/facilitynode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1005,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/staffutilization",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1006,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/opsissueticket",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1007,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/salesdealnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1008,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/keyaccountnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1009,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/repperformancenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1010,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/marketingcampaignnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1011,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/localgrowthnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1012,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/contentassetnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1013,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/userreputation",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1014,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supportticketnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1015,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patientfeedbacknode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1016,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systemtelemetrynode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1017,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supportagentnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1018,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/ticketvolumenode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1019,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/resolutionfeedbacknode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1020,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/curriculumnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1021,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/instructornode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1022,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/certificationnode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1023,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model219",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1024,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/ecosystemautopilotconfig",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1025,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model220",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1026,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model221",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1027,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model222",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1028,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model223",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1029,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model224",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1030,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model225",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1031,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model226",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1032,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model227",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1033,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model228",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1034,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model229",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1035,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/hospitaltarget",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1036,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model230",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1037,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model231",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1038,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model232",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1039,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model233",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1040,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model234",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1041,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model235",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1042,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model236",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1043,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model237",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1044,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model238",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1045,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model239",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1046,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/referralpipeline",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1047,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model240",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1048,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model241",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1049,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model242",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1050,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model243",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1051,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model244",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1052,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model245",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1053,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model246",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1054,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model247",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1055,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model248",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1056,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model249",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1057,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supplyforecastmetrics",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1058,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model250",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1059,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/model251",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1060,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/promocode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1061,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/subscriptionupgrade",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1062,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clientprofile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1063,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/providerprofile",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1064,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/registry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1065,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/visit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1066,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/service",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1067,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/visitcheckevent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1068,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/visitnote",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1069,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/visitchecklist",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1070,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/incident",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1071,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/dailyentry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1072,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/booking",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1073,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/provideravailability",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1074,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/providerdocument",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1075,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/apikey",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1076,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/shiftassignment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1077,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/timesheet",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1078,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/timesheetitem",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1079,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/shifthandover",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1080,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/availabilityoverride",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1081,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/visitmatch",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1082,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/waitlistentry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1083,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/stafftask",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1084,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/staffgroup",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1085,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/staffgroupmember",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1086,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/auditlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1087,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/bookingrequest",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1088,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/fleetstatus",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1089,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/careplan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1090,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinicalrecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1091,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/clinicalassessment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1092,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/medicationrecon",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1093,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supervisionlog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1094,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/healthid",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1095,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/fhirsynclog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1096,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/vitalsign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1097,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/systemevent",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1098,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/patientalert",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1099,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/medication",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1100,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/prescription",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1101,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/mar_entry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1102,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/evvrecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1103,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/serviceauthorization",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1104,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/consentform",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1105,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/dailyauditsignoff",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1106,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/wellnesspulse",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1107,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/invoice",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1108,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/lead",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1109,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/payment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1110,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/insuranceprovider",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1111,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/claim",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1112,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/billingcode",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1113,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/payout",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1114,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/mileagelog",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1115,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/chartofaccount",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1116,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/financialtransaction",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1117,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/journalentry",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1118,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/financialreconciliation",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1119,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/faq",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1120,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/banktransaction",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1121,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/transactionledger",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1122,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/blogpost",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1123,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/feedback",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1124,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/trainingmodule",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1125,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/trainingassignment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1126,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/survey",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1127,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/surveyresponse",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1128,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/region",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1129,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/branchcapacity",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1130,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/userdevice",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1131,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/branchstat",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1132,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/compliancerecord",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1133,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/franchise",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1134,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/reselleragreement",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1135,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/supplier",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1136,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/inventoryitem",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1137,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/purchaseorder",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1138,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/telehealthsession",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1139,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/marketplacelisting",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1140,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/premium/tenantsla",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1142,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/assets",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1143,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/campaigns/performance",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1144,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/competitors/analysis",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1145,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/email/journeys",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1146,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/events",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1147,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/leads/conversion",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1148,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/cac/tracker",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1149,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/referrals/network",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1150,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/social/sentiment",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1151,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/marketing/territories",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1158,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rmt/compliance/scan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1159,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rmt/compliance/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1160,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rmt/policy/update",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1161,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rmt/logs/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1162,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/therapist/sessions/start",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1163,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/therapist/notes/finalize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1164,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/clinical/compliance/scan",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1165,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/clinical/compliance/sync",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1166,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/clinical/policy/update",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1167,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/clinical/logs/export",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1168,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/cns/standards/publish",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1169,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/cns/consultations/log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1170,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/hsw/visits/checkin",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1171,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/hsw/visits/checkout",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1172,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/hsw/alerts/trigger",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1173,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/lpn/medpass/log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1174,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/lpn/wounds/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1175,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/np/diagnostics/sign",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1176,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/np/referrals/create",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1177,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/pediatric/growth/record",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1178,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/pediatric/vaccines/administer",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1179,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/physician/prescriptions/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1180,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/physician/labs/authorize",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1181,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/caregiver/activity/log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1182,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/caregiver/meds/acknowledge",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1184,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/concierge/providers/dispatch",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1185,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/concierge/vip/escalate",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1186,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/vip/touchpoints/log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1187,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/vip/issues/resolve",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1188,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/psw/messages",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1190,
+    "app_id": 1,
+    "http_method": "GET",
+    "route_path": "/v1/psw/visit-notes",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1192,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/audits/submit",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1193,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/rn/assessments/signoff",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1194,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/employee/pto/request",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1195,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/employee/tax/download",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1196,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/volunteer/shift/checkin",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1197,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/volunteer/visits/log",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1199,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/billing/summary",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1200,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/clinical/patients",
+    "health_status": "healthy"
+  },
+  {
+    "id": 1201,
+    "app_id": 1,
+    "http_method": "POST",
+    "route_path": "/v1/operations/logistics",
+    "health_status": "healthy"
+  }
+]

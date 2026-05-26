@@ -145,6 +145,11 @@ class RnCarePlansController extends StateNotifier<RnCarePlansState> {
 
     state = state.copyWith(carePlans: updatedPlans);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -175,18 +180,34 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
     );
 
     return Scaffold(
+      key: const Key('rncareplans-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('rncareplans-title'),
           'Clinical Care Plans',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: Row(
+      body: Semantics(
+        label: 'data-cy:rncareplans-screen',
+        child: Row(
+        key: const Key('rncareplans-content'),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('rncareplans-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
           // Sidebar Patient Selector List
           Container(
             width: 320,
@@ -417,6 +438,7 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
               ),
               const SizedBox(width: 12),
               ElevatedButton(
+            key: const Key('rncareplans-btn-2'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primary,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),

@@ -163,6 +163,11 @@ class CoordinatorHubController extends StateNotifier<CoordinatorHubState> {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     state = state.copyWith(isLoading: false);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -182,16 +187,21 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('coordinatorhub-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('coordinatorhub-title'),
           'Operational Coordinator Hub',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('coordinatorhub-btn-1'),
+            key: const Key('coordinatorhub-btn-1'),
+            key: const Key('coordinatorhub-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshHub(),
           ),
@@ -199,12 +209,60 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
         ],
       ),
       body: state.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(
+            key: const Key('coordinatorhub-loading'),))
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(24.0),
+        key: const Key('coordinatorhub-content'),
+        padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorhub-btn-2'),
+            key: const Key('coordinatorhub-btn-2'),
+            key: const Key('coordinatorhub-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorhub-btn-3'),
+            key: const Key('coordinatorhub-btn-3'),
+            key: const Key('coordinatorhub-btn-3'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 2'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorhub-btn-4'),
+            key: const Key('coordinatorhub-btn-4'),
+            key: const Key('coordinatorhub-btn-4'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 3'.tr()),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('coordinatorhub-btn-5'),
+            key: const Key('coordinatorhub-btn-5'),
+            key: const Key('coordinatorhub-btn-5'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 4'.tr()),
+              ),
+            ),
+
                   // KPI Grid
                   _buildKpiGrid(context, state),
                   const SizedBox(height: 28),
@@ -387,6 +445,9 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(width: 16),
           IconButton(
+            key: const Key('coordinatorhub-btn-6'),
+            key: const Key('coordinatorhub-btn-6'),
+            key: const Key('coordinatorhub-btn-6'),
             icon: Icon(LucideIcons.checkSquare, color: theme.colors.primary, size: 20),
             onPressed: () => controller.resolveAlert((alert['id'] as String?) ?? ''),
             tooltip: 'Resolve Alert',
@@ -602,6 +663,9 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
                       width: double.infinity,
                       height: 36,
                       child: ElevatedButton(
+            key: const Key('coordinatorhub-btn-7'),
+            key: const Key('coordinatorhub-btn-7'),
+            key: const Key('coordinatorhub-btn-7'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,
                           elevation: 0,

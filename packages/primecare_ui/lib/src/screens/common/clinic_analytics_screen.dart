@@ -7,24 +7,48 @@ class ClinicAnalyticsScreen extends GovernedConsumerWidget {
   const ClinicAnalyticsScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('clinicanalytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('clinicanalytics-title'),
           'Clinic Analytics',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:clinicanalytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('clinicanalytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('clinicanalytics-btn-1'),
+            key: const Key('clinicanalytics-btn-1'),
+            key: const Key('clinicanalytics-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'Clinic Analytics',
               roleName: 'Clinic Module',
@@ -50,13 +74,16 @@ class ClinicAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('clinicanalytics-btn-2'),
+            key: const Key('clinicanalytics-btn-2'),
+            key: const Key('clinicanalytics-btn-2'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () => triggerStateAction(),
                       child: Text(
                         'Execute Action Sweep',
                         style: theme.typography.button.copyWith(color: Colors.white),

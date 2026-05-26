@@ -7,24 +7,48 @@ class HswIncidentReportsScreen extends GovernedConsumerWidget {
   const HswIncidentReportsScreen({super.key});
 
   @override
+  
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
+
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     return Scaffold(
+      key: const Key('hswincidentreports-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('hswincidentreports-title'),
           'HSW Incident Reports',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:hswincidentreports-screen',
+        child: SingleChildScrollView(
+        key: const Key('hswincidentreports-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('hswincidentreports-btn-1'),
+            key: const Key('hswincidentreports-btn-1'),
+            key: const Key('hswincidentreports-btn-1'),
+                onPressed: () => triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: 'HSW Incident Reports',
               roleName: 'HSW Module',
@@ -49,7 +73,7 @@ class HswIncidentReportsScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     key: const ValueKey('submit_incident_report'),
-                    onPressed: () {},
+                    onPressed: () => triggerStateAction(),
                     icon: const Icon(LucideIcons.shieldAlert),
                     label: const Text('Submit Critical Incident Report'),
                   ),

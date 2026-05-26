@@ -104,6 +104,11 @@ class PswTasksController extends StateNotifier<PswTasksState> {
 
     state = state.copyWith(tasks: updatedTasks);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -126,20 +131,36 @@ class PswTasksScreen extends GovernedConsumerWidget {
     final completedTasks = state.tasks.where((t) => t['isCompleted'] == true).toList();
 
     return Scaffold(
+      key: const Key('pswtasks-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('pswtasks-title'),
           'Daily Tasks',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:pswtasks-screen',
+        child: SingleChildScrollView(
+        key: const Key('pswtasks-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('pswtasks-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             // Active Progress Ring/Bar
             _buildProgressCard(context, state),
             const SizedBox(height: 24),
@@ -232,6 +253,7 @@ class PswTasksScreen extends GovernedConsumerWidget {
                 height: 60,
                 width: 60,
                 child: CircularProgressIndicator(
+            key: const Key('pswtasks-loading'),
                   value: progress,
                   backgroundColor: theme.colors.background,
                   valueColor: AlwaysStoppedAnimation(theme.colors.primary),

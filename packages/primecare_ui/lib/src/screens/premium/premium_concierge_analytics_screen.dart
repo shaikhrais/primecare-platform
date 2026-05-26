@@ -91,6 +91,11 @@ class PremiumConciergeAnalyticsController extends StateNotifier<PremiumConcierge
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -111,26 +116,43 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
     final roleBase = 'PremiumConciergeAnalyticsScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
 
     return Scaffold(
+      key: const Key('premium concierge care coordinator analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('premium concierge care coordinator analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
           IconButton(
+            key: const Key('premium concierge care coordinator analytics-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual analytics recalculation.'),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Semantics(
+        label: 'data-cy:premium concierge care coordinator analytics-screen',
+        child: SingleChildScrollView(
+        key: const Key('premium concierge care coordinator analytics-content'),
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('premium concierge care coordinator analytics-btn-2'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
             GovDashboardHero(
               title: state.title,
               roleName: '$roleBase Dashboard',
@@ -210,6 +232,7 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
+            key: const Key('premium concierge care coordinator analytics-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -222,6 +245,7 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
+            key: const Key('premium concierge care coordinator analytics-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

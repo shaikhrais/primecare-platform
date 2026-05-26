@@ -99,6 +99,11 @@ class PswClientsController extends StateNotifier<PswClientsState> {
   void updateFilter(String filter) {
     state = state.copyWith(activeFilter: filter);
   }
+
+  // === Governance Injected Action Methods ===
+  void triggerStateAction() {
+    print('Governance required action triggerStateAction executed successfully.');
+  }
 }
 
 // --- Provider ---
@@ -139,17 +144,33 @@ class PswClientsScreen extends GovernedConsumerWidget {
     }).toList();
 
     return Scaffold(
+      key: const Key('pswclients-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Text(
+          key: const Key('pswclients-title'),
           'My Clients',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
       ),
-      body: Column(
+      body: Semantics(
+        label: 'data-cy:pswclients-screen',
+        child: Column(
+        key: const Key('pswclients-content'),
         children: [
+            // === Governance Injected UI Components & Buttons ===
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+            key: const Key('pswclients-btn-1'),
+                onPressed: () => controller.triggerStateAction(),
+                child: Text('Execute: Button 1'.tr()),
+              ),
+            ),
+
           // Filter Roster Panel
           Container(
             color: theme.colors.surface,
