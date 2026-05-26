@@ -9,21 +9,36 @@ def main():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    print("--- TOTAL PUBLIC READ APIs (GET) ---")
-    cursor.execute("SELECT count(*) as count FROM api_endpoints WHERE http_method = 'GET'")
-    total_get = cursor.fetchone()["count"]
-    print("Total GET APIs:", total_get)
+    print("--- SCREENS WITH UNVERIFIED LAYOUT REUSE ---")
+    cursor.execute("""
+        SELECT count(*) as unverified_count FROM screens
+        WHERE layout_reuse_status != 'verified'
+           OR shell_layout_key IS NULL OR shell_layout_key = ''
+           OR content_slot_key IS NULL OR content_slot_key = ''
+           OR content_only_navigation_verified = 0;
+    """)
+    print("Unverified Count:", cursor.fetchone()["unverified_count"])
     
-    print("\n--- GET APIs WITHOUT PAGINATION ---")
-    cursor.execute("SELECT count(*) as count FROM api_endpoints WHERE http_method = 'GET' AND uses_pagination = 0")
-    print("GET without pagination:", cursor.fetchone()["count"])
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS ROW COUNT ---")
+    cursor.execute("SELECT count(*) as total_count FROM governance_function_results")
+    print("Total Rows:", cursor.fetchone()["total_count"])
     
-    print("\n--- GET APIs WITHOUT SELECT ---")
-    cursor.execute("SELECT count(*) as count FROM api_endpoints WHERE http_method = 'GET' AND uses_select = 0")
-    print("GET without select:", cursor.fetchone()["count"])
-    
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS GROUPED BY TARGET_TABLE ---")
+    cursor.execute("SELECT target_table, count(*) as count FROM governance_function_results GROUP BY target_table")
+    for r in cursor.fetchall():
+        print(f"Table: {r['target_table']} | Count: {r['count']}")
+        
+    print("\n--- GOVERNANCE_FUNCTION_RESULTS GROUPED BY FUNCTION ---")
+    cursor.execute("""
+        SELECT f.function_code, count(r.id) as count 
+        FROM governance_functions f
+        LEFT JOIN governance_function_results r ON f.id = r.function_id
+        GROUP BY f.function_code
+    """)
+    for r in cursor.fetchall():
+        print(f"Function: {r['function_code']} | Results Count: {r['count']}")
+        
     conn.close()
 
 if __name__ == '__main__':
     main()
-
