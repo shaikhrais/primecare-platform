@@ -43,7 +43,14 @@ describe("One Role All Screens Test", () => {
           cy.get(`[data-cy="${dataCy.primary_content}"]`).should("exist");
         }
 
-        cy.screenshot(`${roleCode}-${screen.screen_code}`);
+        cy.get('[data-cy="app-shell"]').should("be.visible");
+        cy.get('[data-cy="app-content-slot"]').should("be.visible");
+        if (dataCy.screen_root) {
+          cy.get(`[data-cy="${dataCy.screen_root}"]`).should("be.visible");
+        }
+        cy.get("body").invoke("text").should("not.be.empty");
+        cy.wait(2000);
+        cy.screenshot(`${roleCode}-${screen.screen_code}`, { capture: "viewport" });
         cy.wait(2000);
       }
     });
