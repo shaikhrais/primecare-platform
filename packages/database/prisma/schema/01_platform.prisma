@@ -64,6 +64,8 @@ model User {
 
   @@index([tenantId])
   @@map("users")
+
+  @@index([status, createdAt])
 }
 
 model Tenant {

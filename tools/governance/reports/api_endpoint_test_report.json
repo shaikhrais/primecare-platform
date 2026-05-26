@@ -5,7 +5,7 @@
     "route": "/v1/auth/onboard-business",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.150703"
+    "tested_at": "2026-05-26T13:05:14.833825"
   },
   {
     "endpoint_id": 11,
@@ -13,7 +13,7 @@
     "route": "/v1/admin/users",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.150762"
+    "tested_at": "2026-05-26T13:05:14.833849"
   },
   {
     "endpoint_id": 12,
@@ -21,7 +21,7 @@
     "route": "/v1/admin/users/churn-heatmap",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.150770"
+    "tested_at": "2026-05-26T13:05:14.833858"
   },
   {
     "endpoint_id": 13,
@@ -29,7 +29,7 @@
     "route": "/v1/admin/settings/business-model",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.150774"
+    "tested_at": "2026-05-26T13:05:14.833864"
   },
   {
     "endpoint_id": 14,
@@ -37,7 +37,7 @@
     "route": "/v1/admin/settings/branding",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.150778"
+    "tested_at": "2026-05-26T13:05:14.834187"
   },
   {
     "endpoint_id": 15,
@@ -45,7 +45,7 @@
     "route": "/v1/admin/settings/security",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.150784"
+    "tested_at": "2026-05-26T13:05:14.834214"
   },
   {
     "endpoint_id": 16,
@@ -53,7 +53,7 @@
     "route": "/v1/admin/settings/security/devices",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.150803"
+    "tested_at": "2026-05-26T13:05:14.834225"
   },
   {
     "endpoint_id": 17,
@@ -61,7 +61,7 @@
     "route": "/v1/admin/settings/security/forensic-trails",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.150807"
+    "tested_at": "2026-05-26T13:05:14.834235"
   },
   {
     "endpoint_id": 18,
@@ -69,7 +69,7 @@
     "route": "/v1/admin/settings/security/daily-summary",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.150811"
+    "tested_at": "2026-05-26T13:05:14.834245"
   },
   {
     "endpoint_id": 19,
@@ -77,7 +77,7 @@
     "route": "/v1/admin/settings/security/cors",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.151011"
+    "tested_at": "2026-05-26T13:05:14.834289"
   },
   {
     "endpoint_id": 20,
@@ -85,7 +85,7 @@
     "route": "/v1/admin/settings/security/verify-integrity",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.151063"
+    "tested_at": "2026-05-26T13:05:14.834301"
   },
   {
     "endpoint_id": 21,
@@ -93,7 +93,7 @@
     "route": "/v1/admin/settings/usage-stats",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.151078"
+    "tested_at": "2026-05-26T13:05:14.834312"
   },
   {
     "endpoint_id": 22,
@@ -101,7 +101,7 @@
     "route": "/v1/admin/search",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.151087"
+    "tested_at": "2026-05-26T13:05:14.834322"
   },
   {
     "endpoint_id": 23,
@@ -109,7 +109,7 @@
     "route": "/v1/admin/staff-groups",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.151097"
+    "tested_at": "2026-05-26T13:05:14.834332"
   },
   {
     "endpoint_id": 24,
@@ -117,7 +117,7 @@
     "route": "/v1/admin/services",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.151106"
+    "tested_at": "2026-05-26T13:05:14.834341"
   },
   {
     "endpoint_id": 25,
@@ -125,7 +125,7 @@
     "route": "/v1/admin/scrum/env-audit",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.151114"
+    "tested_at": "2026-05-26T13:05:14.834351"
   },
   {
     "endpoint_id": 26,
@@ -133,7 +133,7 @@
     "route": "/v1/admin/scrum/audits",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.151123"
+    "tested_at": "2026-05-26T13:05:14.834463"
   },
   {
     "endpoint_id": 27,
@@ -141,7 +141,7 @@
     "route": "/v1/admin/scrum/response-bot/audit",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.151203"
+    "tested_at": "2026-05-26T13:05:14.834479"
   },
   {
     "endpoint_id": 29,
@@ -149,7 +149,7 @@
     "route": "/v1/admin/developer/keys",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.151215"
+    "tested_at": "2026-05-26T13:05:14.834488"
   },
   {
     "endpoint_id": 30,
@@ -157,7 +157,7 @@
     "route": "/v1/admin/developer/db-push",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.151224"
+    "tested_at": "2026-05-26T13:05:14.834497"
   },
   {
     "endpoint_id": 31,
@@ -165,7 +165,7 @@
     "route": "/v1/admin/actions/commit-overrides",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.151232"
+    "tested_at": "2026-05-26T13:05:14.834515"
   },
   {
     "endpoint_id": 32,
@@ -173,7 +173,7 @@
     "route": "/v1/admin/actions/export",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.151244"
+    "tested_at": "2026-05-26T13:05:14.834547"
   },
   {
     "endpoint_id": 33,
@@ -181,7 +181,7 @@
     "route": "/v1/admin/actions/trigger-automation",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.151253"
+    "tested_at": "2026-05-26T13:05:14.834558"
   },
   {
     "endpoint_id": 34,
@@ -189,7 +189,7 @@
     "route": "/v1/admin/actions/optimize",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.151261"
+    "tested_at": "2026-05-26T13:05:14.834568"
   },
   {
     "endpoint_id": 36,
@@ -197,7 +197,7 @@
     "route": "/v1/admin/actions/publish-content",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.151287"
+    "tested_at": "2026-05-26T13:05:14.834584"
   },
   {
     "endpoint_id": 37,
@@ -205,7 +205,7 @@
     "route": "/v1/admin/actions/reindex-search",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.151297"
+    "tested_at": "2026-05-26T13:05:14.834611"
   },
   {
     "endpoint_id": 38,
@@ -213,7 +213,7 @@
     "route": "/v1/admin/actions/suspend-reseller",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.151306"
+    "tested_at": "2026-05-26T13:05:14.834622"
   },
   {
     "endpoint_id": 39,
@@ -221,7 +221,7 @@
     "route": "/v1/admin/actions/shifts",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.151314"
+    "tested_at": "2026-05-26T13:05:14.834631"
   },
   {
     "endpoint_id": 40,
@@ -229,7 +229,7 @@
     "route": "/v1/admin/actions/regions",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.151323"
+    "tested_at": "2026-05-26T13:05:14.834640"
   },
   {
     "endpoint_id": 41,
@@ -237,7 +237,7 @@
     "route": "/v1/admin/actions/surveys",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.151332"
+    "tested_at": "2026-05-26T13:05:14.834651"
   },
   {
     "endpoint_id": 42,
@@ -245,7 +245,7 @@
     "route": "/v1/admin/actions/training-modules",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.151340"
+    "tested_at": "2026-05-26T13:05:14.834661"
   },
   {
     "endpoint_id": 43,
@@ -253,7 +253,7 @@
     "route": "/v1/admin/actions/emergency/trigger",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.151349"
+    "tested_at": "2026-05-26T13:05:14.834675"
   },
   {
     "endpoint_id": 44,
@@ -261,7 +261,7 @@
     "route": "/v1/admin/actions/audit-chain/verify",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.151387"
+    "tested_at": "2026-05-26T13:05:14.834706"
   },
   {
     "endpoint_id": 45,
@@ -269,7 +269,7 @@
     "route": "/v1/admin/actions/audit-chain/stats",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.151396"
+    "tested_at": "2026-05-26T13:05:14.834720"
   },
   {
     "endpoint_id": 46,
@@ -277,7 +277,7 @@
     "route": "/v1/admin/insurance-providers",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.151400"
+    "tested_at": "2026-05-26T13:05:14.834731"
   },
   {
     "endpoint_id": 47,
@@ -285,7 +285,7 @@
     "route": "/v1/admin/billing-codes",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.151404"
+    "tested_at": "2026-05-26T13:05:14.834742"
   },
   {
     "endpoint_id": 48,
@@ -293,7 +293,7 @@
     "route": "/v1/admin/visits",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.151408"
+    "tested_at": "2026-05-26T13:05:14.834752"
   },
   {
     "endpoint_id": 49,
@@ -301,7 +301,7 @@
     "route": "/v1/admin/visits/assign",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.151411"
+    "tested_at": "2026-05-26T13:05:14.834763"
   },
   {
     "endpoint_id": 50,
@@ -309,7 +309,7 @@
     "route": "/v1/admin/timesheets",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.151415"
+    "tested_at": "2026-05-26T13:05:14.834773"
   },
   {
     "endpoint_id": 51,
@@ -317,7 +317,7 @@
     "route": "/v1/admin/incidents",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.151418"
+    "tested_at": "2026-05-26T13:05:14.834927"
   },
   {
     "endpoint_id": 52,
@@ -325,7 +325,7 @@
     "route": "/v1/admin/booking-requests",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.151422"
+    "tested_at": "2026-05-26T13:05:14.834953"
   },
   {
     "endpoint_id": 53,
@@ -333,7 +333,7 @@
     "route": "/v1/admin/clients",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.151426"
+    "tested_at": "2026-05-26T13:05:14.834966"
   },
   {
     "endpoint_id": 54,
@@ -341,7 +341,7 @@
     "route": "/v1/admin/leads",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.151438"
+    "tested_at": "2026-05-26T13:05:14.834976"
   },
   {
     "endpoint_id": 55,
@@ -349,7 +349,7 @@
     "route": "/v1/admin/reports/export",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.151442"
+    "tested_at": "2026-05-26T13:05:14.835008"
   },
   {
     "endpoint_id": 56,
@@ -357,7 +357,7 @@
     "route": "/v1/admin/referrals",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.151446"
+    "tested_at": "2026-05-26T13:05:14.835034"
   },
   {
     "endpoint_id": 57,
@@ -365,7 +365,7 @@
     "route": "/v1/admin/referrals/analytics",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.151450"
+    "tested_at": "2026-05-26T13:05:14.835039"
   },
   {
     "endpoint_id": 58,
@@ -373,7 +373,7 @@
     "route": "/v1/admin/notifications",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.151454"
+    "tested_at": "2026-05-26T13:05:14.835043"
   },
   {
     "endpoint_id": 59,
@@ -381,7 +381,7 @@
     "route": "/v1/admin/notifications/broadcast",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.151457"
+    "tested_at": "2026-05-26T13:05:14.835067"
   },
   {
     "endpoint_id": 60,
@@ -389,7 +389,7 @@
     "route": "/v1/admin/documents",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.151461"
+    "tested_at": "2026-05-26T13:05:14.835071"
   },
   {
     "endpoint_id": 61,
@@ -397,7 +397,7 @@
     "route": "/v1/admin/documents/pending",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.151464"
+    "tested_at": "2026-05-26T13:05:14.835075"
   },
   {
     "endpoint_id": 62,
@@ -405,7 +405,7 @@
     "route": "/v1/admin/documents/upload",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.151468"
+    "tested_at": "2026-05-26T13:05:14.835081"
   },
   {
     "endpoint_id": 63,
@@ -413,7 +413,7 @@
     "route": "/v1/admin/evv",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.151472"
+    "tested_at": "2026-05-26T13:05:14.835084"
   },
   {
     "endpoint_id": 64,
@@ -421,7 +421,7 @@
     "route": "/v1/admin/evv/exceptions",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.151503"
+    "tested_at": "2026-05-26T13:05:14.835088"
   },
   {
     "endpoint_id": 65,
@@ -429,7 +429,7 @@
     "route": "/v1/admin/evv/compliance-summary",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.151507"
+    "tested_at": "2026-05-26T13:05:14.835092"
   },
   {
     "endpoint_id": 66,
@@ -437,7 +437,7 @@
     "route": "/v1/admin/evv/export",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.151511"
+    "tested_at": "2026-05-26T13:05:14.835096"
   },
   {
     "endpoint_id": 67,
@@ -445,7 +445,7 @@
     "route": "/v1/admin/consent",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.151515"
+    "tested_at": "2026-05-26T13:05:14.835107"
   },
   {
     "endpoint_id": 68,
@@ -453,7 +453,7 @@
     "route": "/v1/admin/consent/templates",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.151519"
+    "tested_at": "2026-05-26T13:05:14.835111"
   },
   {
     "endpoint_id": 69,
@@ -461,7 +461,7 @@
     "route": "/v1/admin/consent/expiring",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.151523"
+    "tested_at": "2026-05-26T13:05:14.835116"
   },
   {
     "endpoint_id": 70,
@@ -469,7 +469,7 @@
     "route": "/v1/admin/authorizations",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.151526"
+    "tested_at": "2026-05-26T13:05:14.835119"
   },
   {
     "endpoint_id": 72,
@@ -477,7 +477,7 @@
     "route": "/v1/admin/pharmacy/prescriptions",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.151530"
+    "tested_at": "2026-05-26T13:05:14.835123"
   },
   {
     "endpoint_id": 73,
@@ -485,7 +485,7 @@
     "route": "/v1/admin/pharmacy/orders",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.151552"
+    "tested_at": "2026-05-26T13:05:14.835128"
   },
   {
     "endpoint_id": 74,
@@ -493,7 +493,7 @@
     "route": "/v1/admin/pharmacy/verify-barcode",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.151557"
+    "tested_at": "2026-05-26T13:05:14.835139"
   },
   {
     "endpoint_id": 76,
@@ -501,7 +501,7 @@
     "route": "/v1/admin/automation/clinical-autopilot/clinical-autopilot/run",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.151561"
+    "tested_at": "2026-05-26T13:05:14.835144"
   },
   {
     "endpoint_id": 77,
@@ -509,7 +509,7 @@
     "route": "/v1/admin/financial",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.151566"
+    "tested_at": "2026-05-26T13:05:14.835149"
   },
   {
     "endpoint_id": 78,
@@ -517,7 +517,7 @@
     "route": "/v1/admin/financial/accounts",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.151569"
+    "tested_at": "2026-05-26T13:05:14.835153"
   },
   {
     "endpoint_id": 79,
@@ -525,7 +525,7 @@
     "route": "/v1/admin/financial/initialize",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.151574"
+    "tested_at": "2026-05-26T13:05:14.835158"
   },
   {
     "endpoint_id": 80,
@@ -533,7 +533,7 @@
     "route": "/v1/admin/financial/invoices",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.151577"
+    "tested_at": "2026-05-26T13:05:14.835217"
   },
   {
     "endpoint_id": 81,
@@ -541,7 +541,7 @@
     "route": "/v1/admin/financial/balances",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.151581"
+    "tested_at": "2026-05-26T13:05:14.835222"
   },
   {
     "endpoint_id": 82,
@@ -549,7 +549,7 @@
     "route": "/v1/admin/financial/reconcile",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.151592"
+    "tested_at": "2026-05-26T13:05:14.835226"
   },
   {
     "endpoint_id": 83,
@@ -557,7 +557,7 @@
     "route": "/v1/admin/financial/reconcile/auto",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.151596"
+    "tested_at": "2026-05-26T13:05:14.835230"
   },
   {
     "endpoint_id": 84,
@@ -565,7 +565,7 @@
     "route": "/v1/admin/financial/reconciliation-summary",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.151600"
+    "tested_at": "2026-05-26T13:05:14.835234"
   },
   {
     "endpoint_id": 85,
@@ -573,7 +573,7 @@
     "route": "/v1/admin/financial/reports/p-and-l",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.151603"
+    "tested_at": "2026-05-26T13:05:14.835238"
   },
   {
     "endpoint_id": 86,
@@ -581,7 +581,7 @@
     "route": "/v1/admin/financial/reports/balance-sheet",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.151607"
+    "tested_at": "2026-05-26T13:05:14.835250"
   },
   {
     "endpoint_id": 87,
@@ -589,7 +589,7 @@
     "route": "/v1/admin/financial/reports/daily-summary",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.151611"
+    "tested_at": "2026-05-26T13:05:14.835254"
   },
   {
     "endpoint_id": 88,
@@ -597,7 +597,7 @@
     "route": "/v1/admin/financial/reports/trading-account",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.151614"
+    "tested_at": "2026-05-26T13:05:14.835259"
   },
   {
     "endpoint_id": 89,
@@ -605,7 +605,7 @@
     "route": "/v1/admin/financial/reports/forecast",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.151618"
+    "tested_at": "2026-05-26T13:05:14.835263"
   },
   {
     "endpoint_id": 90,
@@ -613,7 +613,7 @@
     "route": "/v1/admin/financial/reports/tax-filing",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.151629"
+    "tested_at": "2026-05-26T13:05:14.835267"
   },
   {
     "endpoint_id": 91,
@@ -621,7 +621,7 @@
     "route": "/v1/admin/financial/tax-remittance",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.151633"
+    "tested_at": "2026-05-26T13:05:14.835273"
   },
   {
     "endpoint_id": 92,
@@ -629,7 +629,7 @@
     "route": "/v1/admin/financial/earnings",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.151637"
+    "tested_at": "2026-05-26T13:05:14.835284"
   },
   {
     "endpoint_id": 93,
@@ -637,7 +637,7 @@
     "route": "/v1/admin/financial/reconciliation/unmatched",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.151641"
+    "tested_at": "2026-05-26T13:05:14.835289"
   },
   {
     "endpoint_id": 94,
@@ -645,7 +645,7 @@
     "route": "/v1/admin/financial/reconciliation/match",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.151645"
+    "tested_at": "2026-05-26T13:05:14.835294"
   },
   {
     "endpoint_id": 95,
@@ -653,7 +653,7 @@
     "route": "/v1/admin/payroll/pending",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.151648"
+    "tested_at": "2026-05-26T13:05:14.835298"
   },
   {
     "endpoint_id": 96,
@@ -661,7 +661,7 @@
     "route": "/v1/admin/payroll/batch/approve",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.151652"
+    "tested_at": "2026-05-26T13:05:14.835302"
   },
   {
     "endpoint_id": 97,
@@ -669,7 +669,7 @@
     "route": "/v1/admin/payroll/run",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.151657"
+    "tested_at": "2026-05-26T13:05:14.835307"
   },
   {
     "endpoint_id": 98,
@@ -677,7 +677,7 @@
     "route": "/v1/admin/claims",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.151668"
+    "tested_at": "2026-05-26T13:05:14.835312"
   },
   {
     "endpoint_id": 99,
@@ -685,7 +685,7 @@
     "route": "/v1/admin/claims/scrub",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.151673"
+    "tested_at": "2026-05-26T13:05:14.835323"
   },
   {
     "endpoint_id": 100,
@@ -693,7 +693,7 @@
     "route": "/v1/admin/claims/era",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.151677"
+    "tested_at": "2026-05-26T13:05:14.835327"
   },
   {
     "endpoint_id": 101,
@@ -701,7 +701,7 @@
     "route": "/v1/admin/claims/system/sync",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.151680"
+    "tested_at": "2026-05-26T13:05:14.835331"
   },
   {
     "endpoint_id": 102,
@@ -709,7 +709,7 @@
     "route": "/v1/admin/claims/system/submit",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.151684"
+    "tested_at": "2026-05-26T13:05:14.835335"
   },
   {
     "endpoint_id": 103,
@@ -717,7 +717,7 @@
     "route": "/v1/admin/erp/inventory",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.151688"
+    "tested_at": "2026-05-26T13:05:14.835339"
   },
   {
     "endpoint_id": 104,
@@ -725,7 +725,7 @@
     "route": "/v1/admin/erp/purchase-orders",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.151691"
+    "tested_at": "2026-05-26T13:05:14.835343"
   },
   {
     "endpoint_id": 105,
@@ -733,7 +733,7 @@
     "route": "/v1/admin/erp/po/create",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.151695"
+    "tested_at": "2026-05-26T13:05:14.835347"
   },
   {
     "endpoint_id": 106,
@@ -741,7 +741,7 @@
     "route": "/v1/admin/erp/inventory/add",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.151698"
+    "tested_at": "2026-05-26T13:05:14.835351"
   },
   {
     "endpoint_id": 108,
@@ -749,7 +749,7 @@
     "route": "/v1/admin/faqs",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.151709"
+    "tested_at": "2026-05-26T13:05:14.835391"
   },
   {
     "endpoint_id": 111,
@@ -757,7 +757,7 @@
     "route": "/v1/admin/dam/traffic/routing-rules",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.151713"
+    "tested_at": "2026-05-26T13:05:14.835396"
   },
   {
     "endpoint_id": 114,
@@ -765,7 +765,7 @@
     "route": "/v1/admin/dam/workflows/schemas",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.151725"
+    "tested_at": "2026-05-26T13:05:14.835407"
   },
   {
     "endpoint_id": 115,
@@ -773,7 +773,7 @@
     "route": "/v1/admin/dam/workflows/rate-limits",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.151729"
+    "tested_at": "2026-05-26T13:05:14.835411"
   },
   {
     "endpoint_id": 116,
@@ -781,7 +781,7 @@
     "route": "/v1/admin/dam/templates/no-code",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.151732"
+    "tested_at": "2026-05-26T13:05:14.835415"
   },
   {
     "endpoint_id": 117,
@@ -789,7 +789,7 @@
     "route": "/v1/admin/dam/security/rbac-matrix",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.151736"
+    "tested_at": "2026-05-26T13:05:14.835419"
   },
   {
     "endpoint_id": 118,
@@ -797,7 +797,7 @@
     "route": "/v1/admin/dam/media/redact-document",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.151739"
+    "tested_at": "2026-05-26T13:05:14.835446"
   },
   {
     "endpoint_id": 120,
@@ -805,7 +805,7 @@
     "route": "/v1/admin/dam/media/lifecycle-policies",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.151796"
+    "tested_at": "2026-05-26T13:05:14.835450"
   },
   {
     "endpoint_id": 121,
@@ -813,7 +813,7 @@
     "route": "/v1/admin/dam/localization/i18n-dictionary",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.151808"
+    "tested_at": "2026-05-26T13:05:14.835461"
   },
   {
     "endpoint_id": 122,
@@ -821,7 +821,7 @@
     "route": "/v1/admin/dam/governance/scripts-manifest",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.151815"
+    "tested_at": "2026-05-26T13:05:14.835466"
   },
   {
     "endpoint_id": 123,
@@ -829,7 +829,7 @@
     "route": "/v1/admin/dam/compliance/legal-blockers",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.151819"
+    "tested_at": "2026-05-26T13:05:14.835470"
   },
   {
     "endpoint_id": 124,
@@ -837,7 +837,7 @@
     "route": "/v1/admin/dam/analytics/browser-matrix",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.151823"
+    "tested_at": "2026-05-26T13:05:14.835474"
   },
   {
     "endpoint_id": 125,
@@ -845,7 +845,7 @@
     "route": "/v1/admin/dam/accessibility/aria-labels",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.151827"
+    "tested_at": "2026-05-26T13:05:14.835478"
   },
   {
     "endpoint_id": 126,
@@ -853,7 +853,7 @@
     "route": "/v1/admin/dam/content/rich-text-policies",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.151830"
+    "tested_at": "2026-05-26T13:05:14.835482"
   },
   {
     "endpoint_id": 127,
@@ -861,7 +861,7 @@
     "route": "/v1/admin/dam/content/dynamic-routing",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.151866"
+    "tested_at": "2026-05-26T13:05:14.835530"
   },
   {
     "endpoint_id": 128,
@@ -869,7 +869,7 @@
     "route": "/v1/admin/marketing/churn-risks",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.151870"
+    "tested_at": "2026-05-26T13:05:14.835535"
   },
   {
     "endpoint_id": 129,
@@ -877,7 +877,7 @@
     "route": "/v1/admin/marketing/drip-sequences",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.151875"
+    "tested_at": "2026-05-26T13:05:14.835540"
   },
   {
     "endpoint_id": 130,
@@ -885,7 +885,7 @@
     "route": "/v1/admin/marketing/revenue-attribution",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.151879"
+    "tested_at": "2026-05-26T13:05:14.835544"
   },
   {
     "endpoint_id": 131,
@@ -893,7 +893,7 @@
     "route": "/v1/admin/marketing/subscribers",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.151883"
+    "tested_at": "2026-05-26T13:05:14.835548"
   },
   {
     "endpoint_id": 132,
@@ -901,7 +901,7 @@
     "route": "/v1/admin/marketing/promotions",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.151887"
+    "tested_at": "2026-05-26T13:05:14.835552"
   },
   {
     "endpoint_id": 133,
@@ -909,7 +909,7 @@
     "route": "/v1/admin/marketing/syndication/vault",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.151890"
+    "tested_at": "2026-05-26T13:05:14.835564"
   },
   {
     "endpoint_id": 134,
@@ -917,7 +917,7 @@
     "route": "/v1/admin/marketing/syndication/post",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.151894"
+    "tested_at": "2026-05-26T13:05:14.835568"
   },
   {
     "endpoint_id": 140,
@@ -925,7 +925,7 @@
     "route": "/v1/admin/system-data/iot-events",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.151929"
+    "tested_at": "2026-05-26T13:05:14.835579"
   },
   {
     "endpoint_id": 141,
@@ -933,7 +933,7 @@
     "route": "/v1/admin/system-data/gamification",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.151937"
+    "tested_at": "2026-05-26T13:05:14.835583"
   },
   {
     "endpoint_id": 142,
@@ -941,7 +941,7 @@
     "route": "/v1/admin/system-data/notifications",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.152009"
+    "tested_at": "2026-05-26T13:05:14.835587"
   },
   {
     "endpoint_id": 143,
@@ -949,7 +949,7 @@
     "route": "/v1/admin/system-data/ai-inferences",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.152028"
+    "tested_at": "2026-05-26T13:05:14.835591"
   },
   {
     "endpoint_id": 145,
@@ -957,7 +957,7 @@
     "route": "/v1/admin/audit-export/download",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.152038"
+    "tested_at": "2026-05-26T13:05:14.835608"
   },
   {
     "endpoint_id": 146,
@@ -965,7 +965,7 @@
     "route": "/v1/admin/audit-export/compliance-home",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.152052"
+    "tested_at": "2026-05-26T13:05:14.835614"
   },
   {
     "endpoint_id": 147,
@@ -973,7 +973,7 @@
     "route": "/v1/admin/audit-export/regulatory-report",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.152075"
+    "tested_at": "2026-05-26T13:05:14.835618"
   },
   {
     "endpoint_id": 154,
@@ -981,7 +981,7 @@
     "route": "/v1/admin/interop/fhir/export",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.152170"
+    "tested_at": "2026-05-26T13:05:14.835630"
   },
   {
     "endpoint_id": 155,
@@ -989,7 +989,7 @@
     "route": "/v1/admin/interop/fhir/import",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.152198"
+    "tested_at": "2026-05-26T13:05:14.835636"
   },
   {
     "endpoint_id": 157,
@@ -997,7 +997,7 @@
     "route": "/v1/admin/ai-iot/predictions",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152222"
+    "tested_at": "2026-05-26T13:05:14.835647"
   },
   {
     "endpoint_id": 159,
@@ -1005,7 +1005,7 @@
     "route": "/v1/admin/system/platform/stats",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152244"
+    "tested_at": "2026-05-26T13:05:14.835651"
   },
   {
     "endpoint_id": 160,
@@ -1013,7 +1013,7 @@
     "route": "/v1/admin/system/risk-surveillance",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152267"
+    "tested_at": "2026-05-26T13:05:14.835654"
   },
   {
     "endpoint_id": 161,
@@ -1021,7 +1021,7 @@
     "route": "/v1/admin/insights/predictive-staffing",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.152284"
+    "tested_at": "2026-05-26T13:05:14.835659"
   },
   {
     "endpoint_id": 162,
@@ -1029,7 +1029,7 @@
     "route": "/v1/admin/reseller",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.152293"
+    "tested_at": "2026-05-26T13:05:14.835678"
   },
   {
     "endpoint_id": 163,
@@ -1037,7 +1037,7 @@
     "route": "/v1/admin/reseller/provision",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.152318"
+    "tested_at": "2026-05-26T13:05:14.835690"
   },
   {
     "endpoint_id": 164,
@@ -1045,7 +1045,7 @@
     "route": "/v1/admin/stats",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.152327"
+    "tested_at": "2026-05-26T13:05:14.835694"
   },
   {
     "endpoint_id": 165,
@@ -1053,7 +1053,7 @@
     "route": "/v1/admin/ops/center",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.152336"
+    "tested_at": "2026-05-26T13:05:14.835698"
   },
   {
     "endpoint_id": 166,
@@ -1061,7 +1061,7 @@
     "route": "/v1/manager/home/stats",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.152344"
+    "tested_at": "2026-05-26T13:05:14.835703"
   },
   {
     "endpoint_id": 167,
@@ -1069,7 +1069,7 @@
     "route": "/v1/manager/home/today",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.152352"
+    "tested_at": "2026-05-26T13:05:14.835708"
   },
   {
     "endpoint_id": 168,
@@ -1077,7 +1077,7 @@
     "route": "/v1/manager/home/kpi",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.152361"
+    "tested_at": "2026-05-26T13:05:14.835712"
   },
   {
     "endpoint_id": 169,
@@ -1085,7 +1085,7 @@
     "route": "/v1/manager/finance/payroll-audit",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.152369"
+    "tested_at": "2026-05-26T13:05:14.835723"
   },
   {
     "endpoint_id": 170,
@@ -1093,7 +1093,7 @@
     "route": "/v1/manager/ops/stats",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.152397"
+    "tested_at": "2026-05-26T13:05:14.835727"
   },
   {
     "endpoint_id": 171,
@@ -1101,7 +1101,7 @@
     "route": "/v1/manager/ops/compliance/sync",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.152402"
+    "tested_at": "2026-05-26T13:05:14.835731"
   },
   {
     "endpoint_id": 173,
@@ -1109,7 +1109,7 @@
     "route": "/v1/manager/ops/intake/waitlist",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.152413"
+    "tested_at": "2026-05-26T13:05:14.835735"
   },
   {
     "endpoint_id": 175,
@@ -1117,7 +1117,7 @@
     "route": "/v1/manager/ops/incidents",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.152417"
+    "tested_at": "2026-05-26T13:05:14.835739"
   },
   {
     "endpoint_id": 176,
@@ -1125,7 +1125,7 @@
     "route": "/v1/manager/ops/locations",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.152421"
+    "tested_at": "2026-05-26T13:05:14.835750"
   },
   {
     "endpoint_id": 177,
@@ -1133,7 +1133,7 @@
     "route": "/v1/manager/ops/approvals",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.152426"
+    "tested_at": "2026-05-26T13:05:14.835755"
   },
   {
     "endpoint_id": 178,
@@ -1141,7 +1141,7 @@
     "route": "/v1/manager/reviews",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.152430"
+    "tested_at": "2026-05-26T13:05:14.835759"
   },
   {
     "endpoint_id": 179,
@@ -1149,7 +1149,7 @@
     "route": "/v1/manager/training/assign",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.152433"
+    "tested_at": "2026-05-26T13:05:14.835763"
   },
   {
     "endpoint_id": 180,
@@ -1157,7 +1157,7 @@
     "route": "/v1/manager/training/compliance",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.152437"
+    "tested_at": "2026-05-26T13:05:14.835767"
   },
   {
     "endpoint_id": 181,
@@ -1165,7 +1165,7 @@
     "route": "/v1/manager/training/modules",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.152448"
+    "tested_at": "2026-05-26T13:05:14.835771"
   },
   {
     "endpoint_id": 185,
@@ -1173,7 +1173,7 @@
     "route": "/v1/staff/customers",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.152451"
+    "tested_at": "2026-05-26T13:05:14.835782"
   },
   {
     "endpoint_id": 186,
@@ -1181,7 +1181,7 @@
     "route": "/v1/staff/ops/compliance/scan",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.152455"
+    "tested_at": "2026-05-26T13:05:14.835787"
   },
   {
     "endpoint_id": 197,
@@ -1189,7 +1189,7 @@
     "route": "/v1/rn/clinical/care-plans",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.152467"
+    "tested_at": "2026-05-26T13:05:14.835798"
   },
   {
     "endpoint_id": 198,
@@ -1197,7 +1197,7 @@
     "route": "/v1/rn/clinical/scribe-parse/parse",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.152471"
+    "tested_at": "2026-05-26T13:05:14.835802"
   },
   {
     "endpoint_id": 199,
@@ -1205,7 +1205,7 @@
     "route": "/v1/rn/clinical/assessments",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.152475"
+    "tested_at": "2026-05-26T13:05:14.835806"
   },
   {
     "endpoint_id": 200,
@@ -1213,7 +1213,7 @@
     "route": "/v1/rn/clinical/recon",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.152479"
+    "tested_at": "2026-05-26T13:05:14.835810"
   },
   {
     "endpoint_id": 201,
@@ -1221,7 +1221,7 @@
     "route": "/v1/rn/clinical/supervision",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.152482"
+    "tested_at": "2026-05-26T13:05:14.835820"
   },
   {
     "endpoint_id": 202,
@@ -1229,7 +1229,7 @@
     "route": "/v1/rn/clinical/sign-off",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152486"
+    "tested_at": "2026-05-26T13:05:14.835824"
   },
   {
     "endpoint_id": 203,
@@ -1237,7 +1237,7 @@
     "route": "/v1/rn/clinical/audit/list",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.152489"
+    "tested_at": "2026-05-26T13:05:14.835828"
   },
   {
     "endpoint_id": 204,
@@ -1245,7 +1245,7 @@
     "route": "/v1/rn/clinical/reconciliation/pending",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152493"
+    "tested_at": "2026-05-26T13:05:14.835832"
   },
   {
     "endpoint_id": 205,
@@ -1253,7 +1253,7 @@
     "route": "/v1/rn/mar/administer",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152496"
+    "tested_at": "2026-05-26T13:05:14.835860"
   },
   {
     "endpoint_id": 232,
@@ -1261,7 +1261,7 @@
     "route": "/v1/psw/training/assigned",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.152507"
+    "tested_at": "2026-05-26T13:05:14.835880"
   },
   {
     "endpoint_id": 242,
@@ -1269,7 +1269,7 @@
     "route": "/v1/client/support/feedback",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.152518"
+    "tested_at": "2026-05-26T13:05:14.835893"
   },
   {
     "endpoint_id": 245,
@@ -1277,7 +1277,7 @@
     "route": "/v1/client/family/members",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.152521"
+    "tested_at": "2026-05-26T13:05:14.835931"
   },
   {
     "endpoint_id": 246,
@@ -1285,7 +1285,7 @@
     "route": "/v1/client/family/message",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.152525"
+    "tested_at": "2026-05-26T13:05:14.835936"
   },
   {
     "endpoint_id": 247,
@@ -1293,7 +1293,7 @@
     "route": "/v1/client/family/schedule/upcoming",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152530"
+    "tested_at": "2026-05-26T13:05:14.835941"
   },
   {
     "endpoint_id": 248,
@@ -1301,7 +1301,7 @@
     "route": "/v1/client/billing/invoices",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.152533"
+    "tested_at": "2026-05-26T13:05:14.835945"
   },
   {
     "endpoint_id": 249,
@@ -1309,7 +1309,7 @@
     "route": "/v1/client/billing/statement",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152537"
+    "tested_at": "2026-05-26T13:05:14.835949"
   },
   {
     "endpoint_id": 250,
@@ -1317,7 +1317,7 @@
     "route": "/v1/client/billing/payment-methods",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152540"
+    "tested_at": "2026-05-26T13:05:14.835953"
   },
   {
     "endpoint_id": 258,
@@ -1325,7 +1325,7 @@
     "route": "/v1/coordinator/sos-dispatch",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.152555"
+    "tested_at": "2026-05-26T13:05:14.835965"
   },
   {
     "endpoint_id": 259,
@@ -1333,7 +1333,7 @@
     "route": "/v1/coordinator/schedule/master",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.152559"
+    "tested_at": "2026-05-26T13:05:14.835970"
   },
   {
     "endpoint_id": 260,
@@ -1341,7 +1341,7 @@
     "route": "/v1/coordinator/shifts/broadcast",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.152563"
+    "tested_at": "2026-05-26T13:05:14.835974"
   },
   {
     "endpoint_id": 261,
@@ -1349,7 +1349,7 @@
     "route": "/v1/coordinator/match/override",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.152567"
+    "tested_at": "2026-05-26T13:05:14.835978"
   },
   {
     "endpoint_id": 262,
@@ -1357,7 +1357,7 @@
     "route": "/v1/coordinator/waitlist/sync",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.152570"
+    "tested_at": "2026-05-26T13:05:14.835988"
   },
   {
     "endpoint_id": 263,
@@ -1365,7 +1365,7 @@
     "route": "/v1/coordinator/incident/ack",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.152574"
+    "tested_at": "2026-05-26T13:05:14.835992"
   },
   {
     "endpoint_id": 264,
@@ -1373,7 +1373,7 @@
     "route": "/v1/coordinator/incidents",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.152578"
+    "tested_at": "2026-05-26T13:05:14.835996"
   },
   {
     "endpoint_id": 265,
@@ -1381,7 +1381,7 @@
     "route": "/v1/coordinator/home/stats",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.152581"
+    "tested_at": "2026-05-26T13:05:14.836000"
   },
   {
     "endpoint_id": 266,
@@ -1389,7 +1389,7 @@
     "route": "/v1/coordinator/dispatch-map",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.152585"
+    "tested_at": "2026-05-26T13:05:14.836005"
   },
   {
     "endpoint_id": 267,
@@ -1397,7 +1397,7 @@
     "route": "/v1/coordinator/matching/run",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.152596"
+    "tested_at": "2026-05-26T13:05:14.836009"
   },
   {
     "endpoint_id": 268,
@@ -1405,7 +1405,7 @@
     "route": "/v1/coordinator/fleet/ping",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.152600"
+    "tested_at": "2026-05-26T13:05:14.836012"
   },
   {
     "endpoint_id": 269,
@@ -1413,7 +1413,7 @@
     "route": "/v1/coordinator/fleet/heartbeat",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.152603"
+    "tested_at": "2026-05-26T13:05:14.836016"
   },
   {
     "endpoint_id": 270,
@@ -1421,7 +1421,7 @@
     "route": "/v1/coordinator/fleet/positions",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.152607"
+    "tested_at": "2026-05-26T13:05:14.836114"
   },
   {
     "endpoint_id": 271,
@@ -1429,7 +1429,7 @@
     "route": "/v1/coordinator/shift-swap/request",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.152611"
+    "tested_at": "2026-05-26T13:05:14.836139"
   },
   {
     "endpoint_id": 272,
@@ -1437,7 +1437,7 @@
     "route": "/v1/coordinator/shift-swap/requests",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.152614"
+    "tested_at": "2026-05-26T13:05:14.836152"
   },
   {
     "endpoint_id": 273,
@@ -1445,7 +1445,7 @@
     "route": "/v1/coordinator/sos/trigger",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.152619"
+    "tested_at": "2026-05-26T13:05:14.836168"
   },
   {
     "endpoint_id": 274,
@@ -1453,7 +1453,7 @@
     "route": "/v1/coordinator/sos/active",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.152622"
+    "tested_at": "2026-05-26T13:05:14.836178"
   },
   {
     "endpoint_id": 275,
@@ -1461,7 +1461,7 @@
     "route": "/v1/coordinator/waitlist",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.152626"
+    "tested_at": "2026-05-26T13:05:14.836191"
   },
   {
     "endpoint_id": 280,
@@ -1469,7 +1469,7 @@
     "route": "/v1/user/training/my-progress",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.152637"
+    "tested_at": "2026-05-26T13:05:14.836229"
   },
   {
     "endpoint_id": 281,
@@ -1477,7 +1477,7 @@
     "route": "/v1/system/notifications/register-device",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.152640"
+    "tested_at": "2026-05-26T13:05:14.836240"
   },
   {
     "endpoint_id": 282,
@@ -1485,7 +1485,7 @@
     "route": "/v1/system/notifications",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.152644"
+    "tested_at": "2026-05-26T13:05:14.836250"
   },
   {
     "endpoint_id": 283,
@@ -1493,7 +1493,7 @@
     "route": "/v1/system/payments/create-payment-intent",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.152649"
+    "tested_at": "2026-05-26T13:05:14.836259"
   },
   {
     "endpoint_id": 284,
@@ -1501,7 +1501,7 @@
     "route": "/v1/system/storage/upload",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.152659"
+    "tested_at": "2026-05-26T13:05:14.836286"
   },
   {
     "endpoint_id": 285,
@@ -1509,7 +1509,7 @@
     "route": "/v1/system/voice/upload",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.152663"
+    "tested_at": "2026-05-26T13:05:14.836297"
   },
   {
     "endpoint_id": 286,
@@ -1517,7 +1517,7 @@
     "route": "/v1/system/kill-switch/engage",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.152667"
+    "tested_at": "2026-05-26T13:05:14.836306"
   },
   {
     "endpoint_id": 287,
@@ -1525,7 +1525,7 @@
     "route": "/v1/system/kill-switch/disengage",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.152670"
+    "tested_at": "2026-05-26T13:05:14.836316"
   },
   {
     "endpoint_id": 288,
@@ -1533,7 +1533,7 @@
     "route": "/v1/system/realtime/connect",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.152674"
+    "tested_at": "2026-05-26T13:05:14.836325"
   },
   {
     "endpoint_id": 289,
@@ -1541,7 +1541,7 @@
     "route": "/v1/scrum-master/registry/sweep",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.152677"
+    "tested_at": "2026-05-26T13:05:14.836334"
   },
   {
     "endpoint_id": 290,
@@ -1549,7 +1549,7 @@
     "route": "/v1/scrum-master/registry/integrity",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.152681"
+    "tested_at": "2026-05-26T13:05:14.836343"
   },
   {
     "endpoint_id": 291,
@@ -1557,7 +1557,7 @@
     "route": "/v1/scrum-master/forensics/flush",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.152691"
+    "tested_at": "2026-05-26T13:05:14.836353"
   },
   {
     "endpoint_id": 292,
@@ -1565,7 +1565,7 @@
     "route": "/v1/scrum-master/governance/reseed",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152695"
+    "tested_at": "2026-05-26T13:05:14.836377"
   },
   {
     "endpoint_id": 293,
@@ -1573,7 +1573,7 @@
     "route": "/v1/scrum-master/system/deploy",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.152698"
+    "tested_at": "2026-05-26T13:05:14.836387"
   },
   {
     "endpoint_id": 294,
@@ -1581,7 +1581,7 @@
     "route": "/v1/scrum-master/registry/touchpoints",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152702"
+    "tested_at": "2026-05-26T13:05:14.836397"
   },
   {
     "endpoint_id": 295,
@@ -1589,7 +1589,7 @@
     "route": "/v1/scrum-master/registry/sync",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152706"
+    "tested_at": "2026-05-26T13:05:14.836406"
   },
   {
     "endpoint_id": 300,
@@ -1597,7 +1597,7 @@
     "route": "/v1/admin/visits/unassigned",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.152709"
+    "tested_at": "2026-05-26T13:05:14.836415"
   },
   {
     "endpoint_id": 301,
@@ -1605,7 +1605,7 @@
     "route": "/v1/admin/home/stats",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.152721"
+    "tested_at": "2026-05-26T13:05:14.836479"
   },
   {
     "endpoint_id": 307,
@@ -1613,7 +1613,7 @@
     "route": "/v1/superuser/governance",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.152725"
+    "tested_at": "2026-05-26T13:05:14.836501"
   },
   {
     "endpoint_id": 323,
@@ -1621,7 +1621,7 @@
     "route": "/v1/admin/scrum/auto-fix",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.152756"
+    "tested_at": "2026-05-26T13:05:14.836578"
   },
   {
     "endpoint_id": 326,
@@ -1629,7 +1629,7 @@
     "route": "/v1/manager/coordinator/sos-dispatch",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.152760"
+    "tested_at": "2026-05-26T13:05:14.836599"
   },
   {
     "endpoint_id": 327,
@@ -1637,7 +1637,7 @@
     "route": "/v1/rn/clinical/care-plans/review",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.152764"
+    "tested_at": "2026-05-26T13:05:14.836610"
   },
   {
     "endpoint_id": 328,
@@ -1645,7 +1645,7 @@
     "route": "/v1/rn/clinical/audit/entries/verify",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.152768"
+    "tested_at": "2026-05-26T13:05:14.836638"
   },
   {
     "endpoint_id": 334,
@@ -1653,7 +1653,7 @@
     "route": "/v1/admin/marketing/campaigns",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.152778"
+    "tested_at": "2026-05-26T13:05:14.836648"
   },
   {
     "endpoint_id": 378,
@@ -1661,7 +1661,7 @@
     "route": "/v1/admin/ai-command",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.152782"
+    "tested_at": "2026-05-26T13:05:14.836658"
   },
   {
     "endpoint_id": 379,
@@ -1669,7 +1669,7 @@
     "route": "/v1/admin/ai-command/models",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.152785"
+    "tested_at": "2026-05-26T13:05:14.836667"
   },
   {
     "endpoint_id": 380,
@@ -1677,7 +1677,7 @@
     "route": "/v1/admin/ai-command/inferences",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.152789"
+    "tested_at": "2026-05-26T13:05:14.836677"
   },
   {
     "endpoint_id": 381,
@@ -1685,7 +1685,7 @@
     "route": "/v1/admin/ai-command/config",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.152839"
+    "tested_at": "2026-05-26T13:05:14.836702"
   },
   {
     "endpoint_id": 382,
@@ -1693,7 +1693,7 @@
     "route": "/v1/admin/finance/multi-currency",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152843"
+    "tested_at": "2026-05-26T13:05:14.836717"
   },
   {
     "endpoint_id": 383,
@@ -1701,7 +1701,7 @@
     "route": "/v1/admin/finance/multi-currency/rates",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.152855"
+    "tested_at": "2026-05-26T13:05:14.836727"
   },
   {
     "endpoint_id": 384,
@@ -1709,7 +1709,7 @@
     "route": "/v1/admin/finance/multi-currency/conversions",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152859"
+    "tested_at": "2026-05-26T13:05:14.836737"
   },
   {
     "endpoint_id": 385,
@@ -1717,7 +1717,7 @@
     "route": "/v1/admin/audit-trail",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152863"
+    "tested_at": "2026-05-26T13:05:14.836746"
   },
   {
     "endpoint_id": 386,
@@ -1725,7 +1725,7 @@
     "route": "/v1/admin/audit-trail/export",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.152866"
+    "tested_at": "2026-05-26T13:05:14.836755"
   },
   {
     "endpoint_id": 387,
@@ -1733,7 +1733,7 @@
     "route": "/v1/admin/franchise",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.152870"
+    "tested_at": "2026-05-26T13:05:14.836809"
   },
   {
     "endpoint_id": 388,
@@ -1741,7 +1741,7 @@
     "route": "/v1/admin/franchise/performance",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.152873"
+    "tested_at": "2026-05-26T13:05:14.836828"
   },
   {
     "endpoint_id": 389,
@@ -1749,7 +1749,7 @@
     "route": "/v1/admin/supply-chain",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.152877"
+    "tested_at": "2026-05-26T13:05:14.836839"
   },
   {
     "endpoint_id": 390,
@@ -1757,7 +1757,7 @@
     "route": "/v1/admin/supply-chain/vendors",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.152882"
+    "tested_at": "2026-05-26T13:05:14.836853"
   },
   {
     "endpoint_id": 391,
@@ -1765,7 +1765,7 @@
     "route": "/v1/admin/supply-chain/purchase-orders",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.152885"
+    "tested_at": "2026-05-26T13:05:14.836862"
   },
   {
     "endpoint_id": 408,
@@ -1773,7 +1773,7 @@
     "route": "/v1/support/chat",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.152897"
+    "tested_at": "2026-05-26T13:05:14.836890"
   },
   {
     "endpoint_id": 409,
@@ -1781,7 +1781,7 @@
     "route": "/v1/support/tickets",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.152900"
+    "tested_at": "2026-05-26T13:05:14.836901"
   },
   {
     "endpoint_id": 421,
@@ -1789,7 +1789,7 @@
     "route": "/v1/admin/invoices",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.152904"
+    "tested_at": "2026-05-26T13:05:14.836911"
   },
   {
     "endpoint_id": 427,
@@ -1797,7 +1797,7 @@
     "route": "/v1/admin/settings/save",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.152908"
+    "tested_at": "2026-05-26T13:05:14.836993"
   },
   {
     "endpoint_id": 428,
@@ -1805,7 +1805,7 @@
     "route": "/v1/admin/content/publish",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.152918"
+    "tested_at": "2026-05-26T13:05:14.837007"
   },
   {
     "endpoint_id": 429,
@@ -1813,7 +1813,7 @@
     "route": "/v1/admin/search/reindex",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.152922"
+    "tested_at": "2026-05-26T13:05:14.837012"
   },
   {
     "endpoint_id": 430,
@@ -1821,7 +1821,7 @@
     "route": "/v1/admin/registry/ui-override/commit",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.152925"
+    "tested_at": "2026-05-26T13:05:14.837016"
   },
   {
     "endpoint_id": 432,
@@ -1829,7 +1829,7 @@
     "route": "/v1/admin/ops/capacity",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.152929"
+    "tested_at": "2026-05-26T13:05:14.837020"
   },
   {
     "endpoint_id": 433,
@@ -1837,7 +1837,7 @@
     "route": "/v1/admin/ops/regions",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.152933"
+    "tested_at": "2026-05-26T13:05:14.837033"
   },
   {
     "endpoint_id": 434,
@@ -1845,7 +1845,7 @@
     "route": "/v1/admin/ops/supply-demand",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.152936"
+    "tested_at": "2026-05-26T13:05:14.837037"
   },
   {
     "endpoint_id": 436,
@@ -1853,7 +1853,7 @@
     "route": "/v1/admin/ops/predictive/dispatch",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.152940"
+    "tested_at": "2026-05-26T13:05:14.837041"
   },
   {
     "endpoint_id": 437,
@@ -1861,7 +1861,7 @@
     "route": "/v1/admin/ops/optimize",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.152950"
+    "tested_at": "2026-05-26T13:05:14.837053"
   },
   {
     "endpoint_id": 438,
@@ -1869,7 +1869,7 @@
     "route": "/v1/admin/reseller/stats",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.152955"
+    "tested_at": "2026-05-26T13:05:14.837060"
   },
   {
     "endpoint_id": 439,
@@ -1877,7 +1877,7 @@
     "route": "/v1/admin/reseller/franchises",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.152958"
+    "tested_at": "2026-05-26T13:05:14.837064"
   },
   {
     "endpoint_id": 441,
@@ -1885,7 +1885,7 @@
     "route": "/v1/admin/reseller/agreements",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.152962"
+    "tested_at": "2026-05-26T13:05:14.837068"
   },
   {
     "endpoint_id": 443,
@@ -1893,7 +1893,7 @@
     "route": "/v1/admin/erp/suppliers",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.152966"
+    "tested_at": "2026-05-26T13:05:14.837072"
   },
   {
     "endpoint_id": 450,
@@ -1901,7 +1901,7 @@
     "route": "/v1/admin/rcm/stats",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.152977"
+    "tested_at": "2026-05-26T13:05:14.837137"
   },
   {
     "endpoint_id": 451,
@@ -1909,7 +1909,7 @@
     "route": "/v1/admin/rcm/claims",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.152981"
+    "tested_at": "2026-05-26T13:05:14.837152"
   },
   {
     "endpoint_id": 452,
@@ -1917,7 +1917,7 @@
     "route": "/v1/admin/rcm/claims/submit",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.152986"
+    "tested_at": "2026-05-26T13:05:14.837166"
   },
   {
     "endpoint_id": 454,
@@ -1925,7 +1925,7 @@
     "route": "/v1/admin/pharmacy/stats",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.152989"
+    "tested_at": "2026-05-26T13:05:14.837215"
   },
   {
     "endpoint_id": 459,
@@ -1933,7 +1933,7 @@
     "route": "/v1/admin/regional/fin/pl-export",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.152993"
+    "tested_at": "2026-05-26T13:05:14.837228"
   },
   {
     "endpoint_id": 460,
@@ -1941,7 +1941,7 @@
     "route": "/v1/admin/regional/governance/audit-req",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.153005"
+    "tested_at": "2026-05-26T13:05:14.837233"
   },
   {
     "endpoint_id": 465,
@@ -1949,7 +1949,7 @@
     "route": "/v1/admin/financial/reports/reconciliation-summary",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.153009"
+    "tested_at": "2026-05-26T13:05:14.837238"
   },
   {
     "endpoint_id": 471,
@@ -1957,7 +1957,7 @@
     "route": "/v1/scrum-master/stats",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.153012"
+    "tested_at": "2026-05-26T13:05:14.837242"
   },
   {
     "endpoint_id": 472,
@@ -1965,7 +1965,7 @@
     "route": "/v1/scrum-master/endpoints",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.153016"
+    "tested_at": "2026-05-26T13:05:14.837246"
   },
   {
     "endpoint_id": 473,
@@ -1973,7 +1973,7 @@
     "route": "/v1/scrum-master/env-audit",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.153019"
+    "tested_at": "2026-05-26T13:05:14.837258"
   },
   {
     "endpoint_id": 474,
@@ -1981,7 +1981,7 @@
     "route": "/v1/scrum-master/auto-fix",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.153023"
+    "tested_at": "2026-05-26T13:05:14.837263"
   },
   {
     "endpoint_id": 478,
@@ -1989,7 +1989,7 @@
     "route": "/v1/scrum-master/security/scan",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.153027"
+    "tested_at": "2026-05-26T13:05:14.837267"
   },
   {
     "endpoint_id": 479,
@@ -1997,7 +1997,7 @@
     "route": "/v1/scrum-master/audits",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.153030"
+    "tested_at": "2026-05-26T13:05:14.837271"
   },
   {
     "endpoint_id": 484,
@@ -2005,7 +2005,7 @@
     "route": "/v1/system/platform/stats",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.153058"
+    "tested_at": "2026-05-26T13:05:14.837275"
   },
   {
     "endpoint_id": 485,
@@ -2013,7 +2013,7 @@
     "route": "/v1/system/ops/capacity",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.153063"
+    "tested_at": "2026-05-26T13:05:14.837286"
   },
   {
     "endpoint_id": 486,
@@ -2021,7 +2021,7 @@
     "route": "/v1/system/ops/regions",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.153067"
+    "tested_at": "2026-05-26T13:05:14.837290"
   },
   {
     "endpoint_id": 492,
@@ -2029,7 +2029,7 @@
     "route": "/v1/superuser/sla/compliance",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.153070"
+    "tested_at": "2026-05-26T13:05:14.837294"
   },
   {
     "endpoint_id": 516,
@@ -2037,7 +2037,7 @@
     "route": "/v1/manager/performance/rankings",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.153082"
+    "tested_at": "2026-05-26T13:05:14.837323"
   },
   {
     "endpoint_id": 517,
@@ -2045,7 +2045,7 @@
     "route": "/v1/manager/finance/pl",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.153086"
+    "tested_at": "2026-05-26T13:05:14.837328"
   },
   {
     "endpoint_id": 519,
@@ -2053,7 +2053,7 @@
     "route": "/v1/manager/finance/billing/finalize",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.153090"
+    "tested_at": "2026-05-26T13:05:14.837333"
   },
   {
     "endpoint_id": 520,
@@ -2061,7 +2061,7 @@
     "route": "/v1/manager/training",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.153093"
+    "tested_at": "2026-05-26T13:05:14.837336"
   },
   {
     "endpoint_id": 521,
@@ -2069,7 +2069,7 @@
     "route": "/v1/manager/surveys",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.153098"
+    "tested_at": "2026-05-26T13:05:14.837351"
   },
   {
     "endpoint_id": 522,
@@ -2077,7 +2077,7 @@
     "route": "/v1/manager/evaluations",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.153101"
+    "tested_at": "2026-05-26T13:05:14.837355"
   },
   {
     "endpoint_id": 526,
@@ -2085,7 +2085,7 @@
     "route": "/v1/manager/staff/add",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.153112"
+    "tested_at": "2026-05-26T13:05:14.837359"
   },
   {
     "endpoint_id": 527,
@@ -2093,7 +2093,7 @@
     "route": "/v1/manager/audit/attendance",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.153116"
+    "tested_at": "2026-05-26T13:05:14.837362"
   },
   {
     "endpoint_id": 532,
@@ -2101,7 +2101,7 @@
     "route": "/v1/manager/gamification",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.153120"
+    "tested_at": "2026-05-26T13:05:14.837366"
   },
   {
     "endpoint_id": 533,
@@ -2109,7 +2109,7 @@
     "route": "/v1/manager/gamification/leaderboard",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.153123"
+    "tested_at": "2026-05-26T13:05:14.837370"
   },
   {
     "endpoint_id": 534,
@@ -2117,7 +2117,7 @@
     "route": "/v1/manager/gamification/rewards",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.153127"
+    "tested_at": "2026-05-26T13:05:14.837374"
   },
   {
     "endpoint_id": 535,
@@ -2125,7 +2125,7 @@
     "route": "/v1/manager/iot/events",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.153130"
+    "tested_at": "2026-05-26T13:05:14.837378"
   },
   {
     "endpoint_id": 536,
@@ -2133,7 +2133,7 @@
     "route": "/v1/manager/iot/devices",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.153134"
+    "tested_at": "2026-05-26T13:05:14.837388"
   },
   {
     "endpoint_id": 538,
@@ -2141,7 +2141,7 @@
     "route": "/v1/manager/documents/signing",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.153137"
+    "tested_at": "2026-05-26T13:05:14.837392"
   },
   {
     "endpoint_id": 539,
@@ -2149,7 +2149,7 @@
     "route": "/v1/manager/documents/signing/requests",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.153148"
+    "tested_at": "2026-05-26T13:05:14.837396"
   },
   {
     "endpoint_id": 540,
@@ -2157,7 +2157,7 @@
     "route": "/v1/manager/communications/sms",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.153153"
+    "tested_at": "2026-05-26T13:05:14.837401"
   },
   {
     "endpoint_id": 541,
@@ -2165,7 +2165,7 @@
     "route": "/v1/manager/communications/sms/campaigns",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.153156"
+    "tested_at": "2026-05-26T13:05:14.837405"
   },
   {
     "endpoint_id": 543,
@@ -2173,7 +2173,7 @@
     "route": "/v1/manager/hr/performance-reviews",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.153160"
+    "tested_at": "2026-05-26T13:05:14.837428"
   },
   {
     "endpoint_id": 544,
@@ -2181,7 +2181,7 @@
     "route": "/v1/manager/training/academy",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.153164"
+    "tested_at": "2026-05-26T13:05:14.837433"
   },
   {
     "endpoint_id": 545,
@@ -2189,7 +2189,7 @@
     "route": "/v1/manager/training/academy/modules",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.153167"
+    "tested_at": "2026-05-26T13:05:14.837437"
   },
   {
     "endpoint_id": 546,
@@ -2197,7 +2197,7 @@
     "route": "/v1/manager/training/academy/progress",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.153171"
+    "tested_at": "2026-05-26T13:05:14.837441"
   },
   {
     "endpoint_id": 553,
@@ -2205,7 +2205,7 @@
     "route": "/v1/client/support/nursing-chat",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.153181"
+    "tested_at": "2026-05-26T13:05:14.837453"
   },
   {
     "endpoint_id": 560,
@@ -2213,7 +2213,7 @@
     "route": "/v1/client/family/hub-overview",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.153186"
+    "tested_at": "2026-05-26T13:05:14.837457"
   },
   {
     "endpoint_id": 579,
@@ -2221,7 +2221,7 @@
     "route": "/v1/psw/feed/social",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.153190"
+    "tested_at": "2026-05-26T13:05:14.837461"
   },
   {
     "endpoint_id": 591,
@@ -2229,7 +2229,7 @@
     "route": "/v1/rn/clinical/audit/sign-off",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.153201"
+    "tested_at": "2026-05-26T13:05:14.837472"
   },
   {
     "endpoint_id": 595,
@@ -2237,7 +2237,7 @@
     "route": "/v1/rn/clinical/supervision/roster",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.153205"
+    "tested_at": "2026-05-26T13:05:14.837476"
   },
   {
     "endpoint_id": 620,
@@ -2245,7 +2245,7 @@
     "route": "/v1/coordinator/shifts/triage",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.153208"
+    "tested_at": "2026-05-26T13:05:14.837487"
   },
   {
     "endpoint_id": 627,
@@ -2253,7 +2253,7 @@
     "route": "/v1/finance/void",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.153220"
+    "tested_at": "2026-05-26T13:05:14.837491"
   },
   {
     "endpoint_id": 628,
@@ -2261,7 +2261,7 @@
     "route": "/v1/finance/seal",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.153224"
+    "tested_at": "2026-05-26T13:05:14.837495"
   },
   {
     "endpoint_id": 629,
@@ -2269,7 +2269,7 @@
     "route": "/v1/finance/tax/report",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.153228"
+    "tested_at": "2026-05-26T13:05:14.837498"
   },
   {
     "endpoint_id": 631,
@@ -2277,7 +2277,7 @@
     "route": "/v1/manager/billing/batch-approve",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.153231"
+    "tested_at": "2026-05-26T13:05:14.837511"
   },
   {
     "endpoint_id": 632,
@@ -2285,7 +2285,7 @@
     "route": "/v1/training/assign",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.153235"
+    "tested_at": "2026-05-26T13:05:14.837515"
   },
   {
     "endpoint_id": 633,
@@ -2293,7 +2293,7 @@
     "route": "/v1/training/verify",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.153239"
+    "tested_at": "2026-05-26T13:05:14.837519"
   },
   {
     "endpoint_id": 634,
@@ -2301,7 +2301,7 @@
     "route": "/v1/training/renew",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.153243"
+    "tested_at": "2026-05-26T13:05:14.837522"
   },
   {
     "endpoint_id": 635,
@@ -2309,7 +2309,7 @@
     "route": "/v1/training/export",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.153247"
+    "tested_at": "2026-05-26T13:05:14.837526"
   },
   {
     "endpoint_id": 658,
@@ -2317,7 +2317,7 @@
     "route": "/v1/admin/locations",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.153251"
+    "tested_at": "2026-05-26T13:05:14.837530"
   },
   {
     "endpoint_id": 714,
@@ -2325,7 +2325,7 @@
     "route": "/v1/admin/training/stats",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.153329"
+    "tested_at": "2026-05-26T13:05:14.837544"
   },
   {
     "endpoint_id": 715,
@@ -2333,7 +2333,7 @@
     "route": "/v1/staff/training/summary",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.153337"
+    "tested_at": "2026-05-26T13:05:14.837548"
   },
   {
     "endpoint_id": 716,
@@ -2341,7 +2341,7 @@
     "route": "/v1/admin/training/architect/audit",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.153342"
+    "tested_at": "2026-05-26T13:05:14.837552"
   },
   {
     "endpoint_id": 740,
@@ -2349,7 +2349,7 @@
     "route": "/v1/admin/training/stats/compliance-overview",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.153346"
+    "tested_at": "2026-05-26T13:05:14.837556"
   },
   {
     "endpoint_id": 741,
@@ -2357,7 +2357,7 @@
     "route": "/v1/admin/training/stats/expiring-certs",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.153379"
+    "tested_at": "2026-05-26T13:05:14.837560"
   },
   {
     "endpoint_id": 742,
@@ -2365,7 +2365,7 @@
     "route": "/v1/admin/qa/stats/compliance",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.153384"
+    "tested_at": "2026-05-26T13:05:14.837650"
   },
   {
     "endpoint_id": 743,
@@ -2373,7 +2373,7 @@
     "route": "/v1/admin/qa/stats/incidents",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.153389"
+    "tested_at": "2026-05-26T13:05:14.837656"
   },
   {
     "endpoint_id": 780,
@@ -2381,7 +2381,7 @@
     "route": "/v1/system/permissions",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.153394"
+    "tested_at": "2026-05-26T13:05:14.837661"
   },
   {
     "endpoint_id": 784,
@@ -2389,7 +2389,7 @@
     "route": "/v1/governance/dashboard",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.153405"
+    "tested_at": "2026-05-26T13:05:14.837673"
   },
   {
     "endpoint_id": 794,
@@ -2397,7 +2397,7 @@
     "route": "/v1/psw/help-support",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.153418"
+    "tested_at": "2026-05-26T13:05:14.837683"
   },
   {
     "endpoint_id": 795,
@@ -2405,7 +2405,7 @@
     "route": "/v1/business-development",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.153422"
+    "tested_at": "2026-05-26T13:05:14.837701"
   },
   {
     "endpoint_id": 803,
@@ -2413,7 +2413,7 @@
     "route": "/v1/verification/purpose-report",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.153427"
+    "tested_at": "2026-05-26T13:05:14.837706"
   },
   {
     "endpoint_id": 804,
@@ -2421,7 +2421,7 @@
     "route": "/v1/verification/database-report",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.153431"
+    "tested_at": "2026-05-26T13:05:14.837710"
   },
   {
     "endpoint_id": 806,
@@ -2429,7 +2429,7 @@
     "route": "/v1/admin/staff-provision",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.153434"
+    "tested_at": "2026-05-26T13:05:14.837713"
   },
   {
     "endpoint_id": 807,
@@ -2437,7 +2437,7 @@
     "route": "/v1/admin/audit-override",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.153448"
+    "tested_at": "2026-05-26T13:05:14.837717"
   },
   {
     "endpoint_id": 808,
@@ -2445,7 +2445,7 @@
     "route": "/v1/office/partnership-leads",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.153452"
+    "tested_at": "2026-05-26T13:05:14.837721"
   },
   {
     "endpoint_id": 812,
@@ -2453,7 +2453,7 @@
     "route": "/v1/marketing/",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.153456"
+    "tested_at": "2026-05-26T13:05:14.837733"
   },
   {
     "endpoint_id": 814,
@@ -2461,7 +2461,7 @@
     "route": "/v1/marketing/leads",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.153459"
+    "tested_at": "2026-05-26T13:05:14.837737"
   },
   {
     "endpoint_id": 821,
@@ -2469,7 +2469,7 @@
     "route": "/v1/system/database-report",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.153472"
+    "tested_at": "2026-05-26T13:05:14.837748"
   },
   {
     "endpoint_id": 830,
@@ -2477,7 +2477,7 @@
     "route": "/v1/admin/compliance/access-reviews",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.153478"
+    "tested_at": "2026-05-26T13:05:14.837759"
   },
   {
     "endpoint_id": 831,
@@ -2485,7 +2485,7 @@
     "route": "/v1/admin/users/privileged",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.153482"
+    "tested_at": "2026-05-26T13:05:14.837763"
   },
   {
     "endpoint_id": 832,
@@ -2493,7 +2493,7 @@
     "route": "/v1/admin/api-keys",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.153486"
+    "tested_at": "2026-05-26T13:05:14.837767"
   },
   {
     "endpoint_id": 833,
@@ -2501,7 +2501,7 @@
     "route": "/v1/admin/audit-logs",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.153498"
+    "tested_at": "2026-05-26T13:05:14.837771"
   },
   {
     "endpoint_id": 834,
@@ -2509,7 +2509,7 @@
     "route": "/v1/admin/compliance/training",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.153503"
+    "tested_at": "2026-05-26T13:05:14.837775"
   },
   {
     "endpoint_id": 835,
@@ -2517,7 +2517,7 @@
     "route": "/v1/admin/configs/versions",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.153506"
+    "tested_at": "2026-05-26T13:05:14.837779"
   },
   {
     "endpoint_id": 836,
@@ -2525,7 +2525,7 @@
     "route": "/v1/admin/compliance/consents",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.153510"
+    "tested_at": "2026-05-26T13:05:14.837788"
   },
   {
     "endpoint_id": 837,
@@ -2533,7 +2533,7 @@
     "route": "/v1/admin/compliance/data-privacy",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.153514"
+    "tested_at": "2026-05-26T13:05:14.837793"
   },
   {
     "endpoint_id": 838,
@@ -2541,7 +2541,7 @@
     "route": "/v1/admin/devices",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.153520"
+    "tested_at": "2026-05-26T13:05:14.837797"
   },
   {
     "endpoint_id": 839,
@@ -2549,7 +2549,7 @@
     "route": "/v1/admin/ecosystem",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.153524"
+    "tested_at": "2026-05-26T13:05:14.837801"
   },
   {
     "endpoint_id": 840,
@@ -2557,7 +2557,7 @@
     "route": "/v1/admin/faqs",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.153529"
+    "tested_at": "2026-05-26T13:05:14.837805"
   },
   {
     "endpoint_id": 841,
@@ -2565,7 +2565,7 @@
     "route": "/v1/admin/feature-flags",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.153533"
+    "tested_at": "2026-05-26T13:05:14.837809"
   },
   {
     "endpoint_id": 842,
@@ -2573,7 +2573,7 @@
     "route": "/v1/admin/compliance/hipaa-audit",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.153537"
+    "tested_at": "2026-05-26T13:05:14.837812"
   },
   {
     "endpoint_id": 843,
@@ -2581,7 +2581,7 @@
     "route": "/v1/admin/incidents/active",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.153548"
+    "tested_at": "2026-05-26T13:05:14.837816"
   },
   {
     "endpoint_id": 845,
@@ -2589,7 +2589,7 @@
     "route": "/v1/admin/leads",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.153552"
+    "tested_at": "2026-05-26T13:05:14.837867"
   },
   {
     "endpoint_id": 846,
@@ -2597,7 +2597,7 @@
     "route": "/v1/admin/message-archive",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.153556"
+    "tested_at": "2026-05-26T13:05:14.837875"
   },
   {
     "endpoint_id": 847,
@@ -2605,7 +2605,7 @@
     "route": "/v1/admin/compliance/osha-incidents",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.153560"
+    "tested_at": "2026-05-26T13:05:14.837879"
   },
   {
     "endpoint_id": 848,
@@ -2613,7 +2613,7 @@
     "route": "/v1/admin/compliance/policy-exceptions",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.153564"
+    "tested_at": "2026-05-26T13:05:14.837883"
   },
   {
     "endpoint_id": 850,
@@ -2621,7 +2621,7 @@
     "route": "/v1/admin/providers/performance",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.153568"
+    "tested_at": "2026-05-26T13:05:14.837887"
   },
   {
     "endpoint_id": 852,
@@ -2629,7 +2629,7 @@
     "route": "/v1/admin/compliance/regulatory-radar",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.153579"
+    "tested_at": "2026-05-26T13:05:14.837899"
   },
   {
     "endpoint_id": 853,
@@ -2637,7 +2637,7 @@
     "route": "/v1/admin/resources/allocation",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.153583"
+    "tested_at": "2026-05-26T13:05:14.837904"
   },
   {
     "endpoint_id": 854,
@@ -2645,7 +2645,7 @@
     "route": "/v1/admin/bot-audits",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.153587"
+    "tested_at": "2026-05-26T13:05:14.837908"
   },
   {
     "endpoint_id": 855,
@@ -2653,7 +2653,7 @@
     "route": "/v1/admin/roles/matrix",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.153592"
+    "tested_at": "2026-05-26T13:05:14.837911"
   },
   {
     "endpoint_id": 857,
@@ -2661,7 +2661,7 @@
     "route": "/v1/admin/compliance/security-incidents",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.153596"
+    "tested_at": "2026-05-26T13:05:14.837921"
   },
   {
     "endpoint_id": 859,
@@ -2669,7 +2669,7 @@
     "route": "/v1/admin/capacity/forecast",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.153610"
+    "tested_at": "2026-05-26T13:05:14.837925"
   },
   {
     "endpoint_id": 860,
@@ -2677,7 +2677,7 @@
     "route": "/v1/admin/system-events",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.153615"
+    "tested_at": "2026-05-26T13:05:14.837929"
   },
   {
     "endpoint_id": 861,
@@ -2685,7 +2685,7 @@
     "route": "/v1/admin/policies",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.153620"
+    "tested_at": "2026-05-26T13:05:14.837933"
   },
   {
     "endpoint_id": 862,
@@ -2693,7 +2693,7 @@
     "route": "/v1/admin/registry",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.153626"
+    "tested_at": "2026-05-26T13:05:14.837939"
   },
   {
     "endpoint_id": 863,
@@ -2701,7 +2701,7 @@
     "route": "/v1/admin/tenants",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.153631"
+    "tested_at": "2026-05-26T13:05:14.837943"
   },
   {
     "endpoint_id": 864,
@@ -2709,7 +2709,7 @@
     "route": "/v1/admin/marketing/touchpoints",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.153635"
+    "tested_at": "2026-05-26T13:05:14.837953"
   },
   {
     "endpoint_id": 865,
@@ -2717,7 +2717,7 @@
     "route": "/v1/admin/users",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.153650"
+    "tested_at": "2026-05-26T13:05:14.837958"
   },
   {
     "endpoint_id": 866,
@@ -2725,7 +2725,7 @@
     "route": "/v1/admin/compliance/vendor-risk",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.153658"
+    "tested_at": "2026-05-26T13:05:14.837962"
   },
   {
     "endpoint_id": 868,
@@ -2733,7 +2733,7 @@
     "route": "/v1/analytics/clinical/outcomes",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.153663"
+    "tested_at": "2026-05-26T13:05:14.837966"
   },
   {
     "endpoint_id": 869,
@@ -2741,7 +2741,7 @@
     "route": "/v1/analytics/finance/forecast",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.153667"
+    "tested_at": "2026-05-26T13:05:14.837975"
   },
   {
     "endpoint_id": 870,
@@ -2749,7 +2749,7 @@
     "route": "/v1/analytics/marketing/roi",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.153671"
+    "tested_at": "2026-05-26T13:05:14.837979"
   },
   {
     "endpoint_id": 871,
@@ -2757,7 +2757,7 @@
     "route": "/v1/analytics/operations/efficiency",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.153676"
+    "tested_at": "2026-05-26T13:05:14.837983"
   },
   {
     "endpoint_id": 872,
@@ -2765,7 +2765,7 @@
     "route": "/v1/analytics/patients/retention",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.153680"
+    "tested_at": "2026-05-26T13:05:14.837987"
   },
   {
     "endpoint_id": 887,
@@ -2773,7 +2773,7 @@
     "route": "/v1/governance/dashboard",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.153693"
+    "tested_at": "2026-05-26T13:05:14.837999"
   },
   {
     "endpoint_id": 890,
@@ -2781,7 +2781,7 @@
     "route": "/v1/premium/user",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.153698"
+    "tested_at": "2026-05-26T13:05:14.838002"
   },
   {
     "endpoint_id": 891,
@@ -2789,7 +2789,7 @@
     "route": "/v1/premium/systempolicy",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.153702"
+    "tested_at": "2026-05-26T13:05:14.838006"
   },
   {
     "endpoint_id": 892,
@@ -2797,7 +2797,7 @@
     "route": "/v1/premium/airecommendation",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.153707"
+    "tested_at": "2026-05-26T13:05:14.838010"
   },
   {
     "endpoint_id": 893,
@@ -2805,7 +2805,7 @@
     "route": "/v1/premium/sentimentanalysis",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.153711"
+    "tested_at": "2026-05-26T13:05:14.838013"
   },
   {
     "endpoint_id": 894,
@@ -2813,7 +2813,7 @@
     "route": "/v1/premium/securitythreat",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.153715"
+    "tested_at": "2026-05-26T13:05:14.838017"
   },
   {
     "endpoint_id": 895,
@@ -2821,7 +2821,7 @@
     "route": "/v1/premium/technicalaudit",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.153727"
+    "tested_at": "2026-05-26T13:05:14.838021"
   },
   {
     "endpoint_id": 896,
@@ -2829,7 +2829,7 @@
     "route": "/v1/premium/familynotification",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.153739"
+    "tested_at": "2026-05-26T13:05:14.838031"
   },
   {
     "endpoint_id": 897,
@@ -2837,7 +2837,7 @@
     "route": "/v1/premium/carefeedback",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.153743"
+    "tested_at": "2026-05-26T13:05:14.838035"
   },
   {
     "endpoint_id": 898,
@@ -2845,7 +2845,7 @@
     "route": "/v1/premium/referral",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.153747"
+    "tested_at": "2026-05-26T13:05:14.838039"
   },
   {
     "endpoint_id": 899,
@@ -2853,7 +2853,7 @@
     "route": "/v1/premium/familymember",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.153752"
+    "tested_at": "2026-05-26T13:05:14.838044"
   },
   {
     "endpoint_id": 900,
@@ -2861,7 +2861,7 @@
     "route": "/v1/premium/performancereview",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.153756"
+    "tested_at": "2026-05-26T13:05:14.838047"
   },
   {
     "endpoint_id": 902,
@@ -2869,7 +2869,7 @@
     "route": "/v1/premium/responsebotaudit",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.153760"
+    "tested_at": "2026-05-26T13:05:14.838051"
   },
   {
     "endpoint_id": 904,
@@ -2877,7 +2877,7 @@
     "route": "/v1/premium/iotevent",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.153777"
+    "tested_at": "2026-05-26T13:05:14.838127"
   },
   {
     "endpoint_id": 905,
@@ -2885,7 +2885,7 @@
     "route": "/v1/premium/appnotification",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.153783"
+    "tested_at": "2026-05-26T13:05:14.838132"
   },
   {
     "endpoint_id": 906,
@@ -2893,7 +2893,7 @@
     "route": "/v1/premium/gamificationprofile",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.153787"
+    "tested_at": "2026-05-26T13:05:14.838136"
   },
   {
     "endpoint_id": 907,
@@ -2901,7 +2901,7 @@
     "route": "/v1/premium/aiinference",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.153792"
+    "tested_at": "2026-05-26T13:05:14.838140"
   },
   {
     "endpoint_id": 909,
@@ -2909,7 +2909,7 @@
     "route": "/v1/premium/dailyactivity",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.153797"
+    "tested_at": "2026-05-26T13:05:14.838186"
   },
   {
     "endpoint_id": 910,
@@ -2917,7 +2917,7 @@
     "route": "/v1/premium/platformscreen",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.153801"
+    "tested_at": "2026-05-26T13:05:14.838193"
   },
   {
     "endpoint_id": 911,
@@ -2925,7 +2925,7 @@
     "route": "/v1/premium/screenfunctionality",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.153806"
+    "tested_at": "2026-05-26T13:05:14.838197"
   },
   {
     "endpoint_id": 913,
@@ -2933,7 +2933,7 @@
     "route": "/v1/premium/systemtouchpoint",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.153820"
+    "tested_at": "2026-05-26T13:05:14.838201"
   },
   {
     "endpoint_id": 915,
@@ -2941,7 +2941,7 @@
     "route": "/v1/premium/providervitalsign",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.153825"
+    "tested_at": "2026-05-26T13:05:14.838211"
   },
   {
     "endpoint_id": 916,
@@ -2949,7 +2949,7 @@
     "route": "/v1/premium/behaviornote",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.153829"
+    "tested_at": "2026-05-26T13:05:14.838215"
   },
   {
     "endpoint_id": 917,
@@ -2957,7 +2957,7 @@
     "route": "/v1/premium/nutritionrecord",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.153833"
+    "tested_at": "2026-05-26T13:05:14.838219"
   },
   {
     "endpoint_id": 919,
@@ -2965,7 +2965,7 @@
     "route": "/v1/premium/infectioncontrolchecklist",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.153837"
+    "tested_at": "2026-05-26T13:05:14.838223"
   },
   {
     "endpoint_id": 920,
@@ -2973,7 +2973,7 @@
     "route": "/v1/premium/narrativeprogressnote",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.153850"
+    "tested_at": "2026-05-26T13:05:14.838227"
   },
   {
     "endpoint_id": 921,
@@ -2981,7 +2981,7 @@
     "route": "/v1/premium/careplanfollowup",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.153854"
+    "tested_at": "2026-05-26T13:05:14.838230"
   },
   {
     "endpoint_id": 922,
@@ -2989,7 +2989,7 @@
     "route": "/v1/premium/dynamicfeaturerecord",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.153859"
+    "tested_at": "2026-05-26T13:05:14.838241"
   },
   {
     "endpoint_id": 923,
@@ -2997,7 +2997,7 @@
     "route": "/v1/premium/screenconfiguration",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.153864"
+    "tested_at": "2026-05-26T13:05:14.838245"
   },
   {
     "endpoint_id": 924,
@@ -3005,7 +3005,7 @@
     "route": "/v1/premium/registryentry",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.153869"
+    "tested_at": "2026-05-26T13:05:14.838250"
   },
   {
     "endpoint_id": 925,
@@ -3013,7 +3013,7 @@
     "route": "/v1/premium/implementationevent",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.153882"
+    "tested_at": "2026-05-26T13:05:14.838253"
   },
   {
     "endpoint_id": 927,
@@ -3021,7 +3021,7 @@
     "route": "/v1/premium/anomalyreport",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.153886"
+    "tested_at": "2026-05-26T13:05:14.838257"
   },
   {
     "endpoint_id": 928,
@@ -3029,7 +3029,7 @@
     "route": "/v1/premium/architecturallayer",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.153890"
+    "tested_at": "2026-05-26T13:05:14.838268"
   },
   {
     "endpoint_id": 929,
@@ -3037,7 +3037,7 @@
     "route": "/v1/premium/componentpurpose",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.153895"
+    "tested_at": "2026-05-26T13:05:14.838271"
   },
   {
     "endpoint_id": 930,
@@ -3045,7 +3045,7 @@
     "route": "/v1/premium/systemdomain",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.153899"
+    "tested_at": "2026-05-26T13:05:14.838275"
   },
   {
     "endpoint_id": 931,
@@ -3053,7 +3053,7 @@
     "route": "/v1/premium/softwaresystem",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.153903"
+    "tested_at": "2026-05-26T13:05:14.838279"
   },
   {
     "endpoint_id": 932,
@@ -3061,7 +3061,7 @@
     "route": "/v1/premium/syscomponent",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.153907"
+    "tested_at": "2026-05-26T13:05:14.838282"
   },
   {
     "endpoint_id": 933,
@@ -3069,7 +3069,7 @@
     "route": "/v1/premium/apicontract",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.153911"
+    "tested_at": "2026-05-26T13:05:14.838286"
   },
   {
     "endpoint_id": 934,
@@ -3077,7 +3077,7 @@
     "route": "/v1/premium/uiintent",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.153915"
+    "tested_at": "2026-05-26T13:05:14.838289"
   },
   {
     "endpoint_id": 935,
@@ -3085,7 +3085,7 @@
     "route": "/v1/premium/messagethread",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.154176"
+    "tested_at": "2026-05-26T13:05:14.838293"
   },
   {
     "endpoint_id": 936,
@@ -3093,7 +3093,7 @@
     "route": "/v1/premium/dataresource",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.154235"
+    "tested_at": "2026-05-26T13:05:14.838320"
   },
   {
     "endpoint_id": 938,
@@ -3101,7 +3101,7 @@
     "route": "/v1/premium/agentscreenblueprint",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.154262"
+    "tested_at": "2026-05-26T13:05:14.838325"
   },
   {
     "endpoint_id": 939,
@@ -3109,7 +3109,7 @@
     "route": "/v1/premium/blueprintcomponent",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.154286"
+    "tested_at": "2026-05-26T13:05:14.838329"
   },
   {
     "endpoint_id": 940,
@@ -3117,7 +3117,7 @@
     "route": "/v1/premium/bdmlead",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.154308"
+    "tested_at": "2026-05-26T13:05:14.838332"
   },
   {
     "endpoint_id": 941,
@@ -3125,7 +3125,7 @@
     "route": "/v1/premium/territoryexpansionplan",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.154344"
+    "tested_at": "2026-05-26T13:05:14.838336"
   },
   {
     "endpoint_id": 942,
@@ -3133,7 +3133,7 @@
     "route": "/v1/premium/partnershipdeal",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.154367"
+    "tested_at": "2026-05-26T13:05:14.838340"
   },
   {
     "endpoint_id": 943,
@@ -3141,7 +3141,7 @@
     "route": "/v1/premium/corporatekpi",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.154546"
+    "tested_at": "2026-05-26T13:05:14.838359"
   },
   {
     "endpoint_id": 944,
@@ -3149,7 +3149,7 @@
     "route": "/v1/premium/corporatereport",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.154577"
+    "tested_at": "2026-05-26T13:05:14.838363"
   },
   {
     "endpoint_id": 946,
@@ -3157,7 +3157,7 @@
     "route": "/v1/premium/message",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.154632"
+    "tested_at": "2026-05-26T13:05:14.838367"
   },
   {
     "endpoint_id": 947,
@@ -3165,7 +3165,7 @@
     "route": "/v1/premium/organizationnode",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.154741"
+    "tested_at": "2026-05-26T13:05:14.838372"
   },
   {
     "endpoint_id": 948,
@@ -3173,7 +3173,7 @@
     "route": "/v1/premium/franchisekpi",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.154752"
+    "tested_at": "2026-05-26T13:05:14.838376"
   },
   {
     "endpoint_id": 949,
@@ -3181,7 +3181,7 @@
     "route": "/v1/premium/franchisereport",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.154761"
+    "tested_at": "2026-05-26T13:05:14.838380"
   },
   {
     "endpoint_id": 951,
@@ -3189,7 +3189,7 @@
     "route": "/v1/premium/franchisestaffnode",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.154815"
+    "tested_at": "2026-05-26T13:05:14.838393"
   },
   {
     "endpoint_id": 952,
@@ -3197,7 +3197,7 @@
     "route": "/v1/premium/businessdevelopmentmetric",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.154825"
+    "tested_at": "2026-05-26T13:05:14.838397"
   },
   {
     "endpoint_id": 953,
@@ -3205,7 +3205,7 @@
     "route": "/v1/premium/clinicmetric",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.154834"
+    "tested_at": "2026-05-26T13:05:14.838401"
   },
   {
     "endpoint_id": 954,
@@ -3213,7 +3213,7 @@
     "route": "/v1/premium/supportticket",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.154861"
+    "tested_at": "2026-05-26T13:05:14.838407"
   },
   {
     "endpoint_id": 955,
@@ -3221,7 +3221,7 @@
     "route": "/v1/premium/premiumfeaturestatus",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.154871"
+    "tested_at": "2026-05-26T13:05:14.838412"
   },
   {
     "endpoint_id": 956,
@@ -3229,7 +3229,7 @@
     "route": "/v1/premium/familyappointment",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.154882"
+    "tested_at": "2026-05-26T13:05:14.838416"
   },
   {
     "endpoint_id": 957,
@@ -3237,7 +3237,7 @@
     "route": "/v1/premium/platformrole",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.154891"
+    "tested_at": "2026-05-26T13:05:14.838421"
   },
   {
     "endpoint_id": 958,
@@ -3245,7 +3245,7 @@
     "route": "/v1/premium/familycareplantask",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.154900"
+    "tested_at": "2026-05-26T13:05:14.838424"
   },
   {
     "endpoint_id": 959,
@@ -3253,7 +3253,7 @@
     "route": "/v1/premium/familyclinicalmessage",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.154908"
+    "tested_at": "2026-05-26T13:05:14.838436"
   },
   {
     "endpoint_id": 960,
@@ -3261,7 +3261,7 @@
     "route": "/v1/premium/clinic",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.154917"
+    "tested_at": "2026-05-26T13:05:14.838440"
   },
   {
     "endpoint_id": 961,
@@ -3269,7 +3269,7 @@
     "route": "/v1/premium/patient",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.154926"
+    "tested_at": "2026-05-26T13:05:14.838443"
   },
   {
     "endpoint_id": 962,
@@ -3277,7 +3277,7 @@
     "route": "/v1/premium/financialrecord",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.154935"
+    "tested_at": "2026-05-26T13:05:14.838447"
   },
   {
     "endpoint_id": 963,
@@ -3285,7 +3285,7 @@
     "route": "/v1/premium/clienttrendnode",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.154945"
+    "tested_at": "2026-05-26T13:05:14.838451"
   },
   {
     "endpoint_id": 964,
@@ -3293,7 +3293,7 @@
     "route": "/v1/premium/clientclinicnode",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.154971"
+    "tested_at": "2026-05-26T13:05:14.838454"
   },
   {
     "endpoint_id": 965,
@@ -3301,7 +3301,7 @@
     "route": "/v1/premium/clientdemographicnode",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.155849"
+    "tested_at": "2026-05-26T13:05:14.839012"
   },
   {
     "endpoint_id": 968,
@@ -3309,7 +3309,7 @@
     "route": "/v1/premium/rolescreenaccess",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.155856"
+    "tested_at": "2026-05-26T13:05:14.839032"
   },
   {
     "endpoint_id": 972,
@@ -3317,7 +3317,7 @@
     "route": "/v1/premium/interviewevent",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.155875"
+    "tested_at": "2026-05-26T13:05:14.839045"
   },
   {
     "endpoint_id": 973,
@@ -3325,7 +3325,7 @@
     "route": "/v1/premium/incidentreportnode",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.155879"
+    "tested_at": "2026-05-26T13:05:14.839049"
   },
   {
     "endpoint_id": 975,
@@ -3333,7 +3333,7 @@
     "route": "/v1/premium/patientsatisfactionnode",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.155883"
+    "tested_at": "2026-05-26T13:05:14.839053"
   },
   {
     "endpoint_id": 976,
@@ -3341,7 +3341,7 @@
     "route": "/v1/premium/franchiserevenuenode",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.155887"
+    "tested_at": "2026-05-26T13:05:14.839056"
   },
   {
     "endpoint_id": 977,
@@ -3349,7 +3349,7 @@
     "route": "/v1/premium/clinicperformancenode",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.155891"
+    "tested_at": "2026-05-26T13:05:14.839060"
   },
   {
     "endpoint_id": 978,
@@ -3357,7 +3357,7 @@
     "route": "/v1/premium/franchisebookingnode",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.155894"
+    "tested_at": "2026-05-26T13:05:14.839070"
   },
   {
     "endpoint_id": 979,
@@ -3365,7 +3365,7 @@
     "route": "/v1/premium/crisisprotocol",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.155904"
+    "tested_at": "2026-05-26T13:05:14.839074"
   },
   {
     "endpoint_id": 980,
@@ -3373,7 +3373,7 @@
     "route": "/v1/premium/localnetworknode",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.155908"
+    "tested_at": "2026-05-26T13:05:14.839077"
   },
   {
     "endpoint_id": 981,
@@ -3381,7 +3381,7 @@
     "route": "/v1/premium/localfinancenode",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.155912"
+    "tested_at": "2026-05-26T13:05:14.839081"
   },
   {
     "endpoint_id": 982,
@@ -3389,7 +3389,7 @@
     "route": "/v1/premium/localactivitynode",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.155915"
+    "tested_at": "2026-05-26T13:05:14.839084"
   },
   {
     "endpoint_id": 983,
@@ -3397,7 +3397,7 @@
     "route": "/v1/premium/localmarketinganalyticnode",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.155919"
+    "tested_at": "2026-05-26T13:05:14.839088"
   },
   {
     "endpoint_id": 984,
@@ -3405,7 +3405,7 @@
     "route": "/v1/premium/localcampaignnode",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.155929"
+    "tested_at": "2026-05-26T13:05:14.839098"
   },
   {
     "endpoint_id": 985,
@@ -3413,7 +3413,7 @@
     "route": "/v1/premium/localcontentnode",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.155933"
+    "tested_at": "2026-05-26T13:05:14.839101"
   },
   {
     "endpoint_id": 986,
@@ -3421,7 +3421,7 @@
     "route": "/v1/premium/patientintake",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.155937"
+    "tested_at": "2026-05-26T13:05:14.839105"
   },
   {
     "endpoint_id": 987,
@@ -3429,7 +3429,7 @@
     "route": "/v1/premium/intakereferralmetric",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.155941"
+    "tested_at": "2026-05-26T13:05:14.839108"
   },
   {
     "endpoint_id": 988,
@@ -3437,7 +3437,7 @@
     "route": "/v1/premium/invoicerecord",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.155944"
+    "tested_at": "2026-05-26T13:05:14.839118"
   },
   {
     "endpoint_id": 989,
@@ -3445,7 +3445,7 @@
     "route": "/v1/premium/insuranceclaim",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.155948"
+    "tested_at": "2026-05-26T13:05:14.839122"
   },
   {
     "endpoint_id": 990,
@@ -3453,7 +3453,7 @@
     "route": "/v1/premium/protocolresolution",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.155952"
+    "tested_at": "2026-05-26T13:05:14.839126"
   },
   {
     "endpoint_id": 991,
@@ -3461,7 +3461,7 @@
     "route": "/v1/premium/financialgoal",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.155955"
+    "tested_at": "2026-05-26T13:05:14.839129"
   },
   {
     "endpoint_id": 992,
@@ -3469,7 +3469,7 @@
     "route": "/v1/premium/patientadmissionnode",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.155959"
+    "tested_at": "2026-05-26T13:05:14.839133"
   },
   {
     "endpoint_id": 993,
@@ -3477,7 +3477,7 @@
     "route": "/v1/premium/clinicalshiftnode",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.155964"
+    "tested_at": "2026-05-26T13:05:14.839138"
   },
   {
     "endpoint_id": 994,
@@ -3485,7 +3485,7 @@
     "route": "/v1/premium/medicalauditnode",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.155974"
+    "tested_at": "2026-05-26T13:05:14.839141"
   },
   {
     "endpoint_id": 995,
@@ -3493,7 +3493,7 @@
     "route": "/v1/premium/outreacheventnode",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.155977"
+    "tested_at": "2026-05-26T13:05:14.839145"
   },
   {
     "endpoint_id": 996,
@@ -3501,7 +3501,7 @@
     "route": "/v1/premium/participantmetricnode",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.155981"
+    "tested_at": "2026-05-26T13:05:14.839155"
   },
   {
     "endpoint_id": 997,
@@ -3509,7 +3509,7 @@
     "route": "/v1/premium/outreachbudgetnode",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.155985"
+    "tested_at": "2026-05-26T13:05:14.839159"
   },
   {
     "endpoint_id": 998,
@@ -3517,7 +3517,7 @@
     "route": "/v1/premium/schedulertrendnode",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.155989"
+    "tested_at": "2026-05-26T13:05:14.839163"
   },
   {
     "endpoint_id": 999,
@@ -3525,7 +3525,7 @@
     "route": "/v1/premium/schedulerrosternode",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.155992"
+    "tested_at": "2026-05-26T13:05:14.839166"
   },
   {
     "endpoint_id": 1000,
@@ -3533,7 +3533,7 @@
     "route": "/v1/premium/schedulerfacilitynode",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.155997"
+    "tested_at": "2026-05-26T13:05:14.839170"
   },
   {
     "endpoint_id": 1001,
@@ -3541,7 +3541,7 @@
     "route": "/v1/premium/tenant",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.156001"
+    "tested_at": "2026-05-26T13:05:14.839173"
   },
   {
     "endpoint_id": 1002,
@@ -3549,7 +3549,7 @@
     "route": "/v1/premium/ecosystemstateoverride",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.156011"
+    "tested_at": "2026-05-26T13:05:14.839183"
   },
   {
     "endpoint_id": 1004,
@@ -3557,7 +3557,7 @@
     "route": "/v1/premium/facilitynode",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.156015"
+    "tested_at": "2026-05-26T13:05:14.839187"
   },
   {
     "endpoint_id": 1005,
@@ -3565,7 +3565,7 @@
     "route": "/v1/premium/staffutilization",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.156019"
+    "tested_at": "2026-05-26T13:05:14.839190"
   },
   {
     "endpoint_id": 1006,
@@ -3573,7 +3573,7 @@
     "route": "/v1/premium/opsissueticket",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.156022"
+    "tested_at": "2026-05-26T13:05:14.839194"
   },
   {
     "endpoint_id": 1007,
@@ -3581,7 +3581,7 @@
     "route": "/v1/premium/salesdealnode",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.156026"
+    "tested_at": "2026-05-26T13:05:14.839197"
   },
   {
     "endpoint_id": 1008,
@@ -3589,7 +3589,7 @@
     "route": "/v1/premium/keyaccountnode",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.156030"
+    "tested_at": "2026-05-26T13:05:14.839201"
   },
   {
     "endpoint_id": 1009,
@@ -3597,7 +3597,7 @@
     "route": "/v1/premium/repperformancenode",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.156039"
+    "tested_at": "2026-05-26T13:05:14.839204"
   },
   {
     "endpoint_id": 1010,
@@ -3605,7 +3605,7 @@
     "route": "/v1/premium/marketingcampaignnode",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.156043"
+    "tested_at": "2026-05-26T13:05:14.839213"
   },
   {
     "endpoint_id": 1011,
@@ -3613,7 +3613,7 @@
     "route": "/v1/premium/localgrowthnode",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.156047"
+    "tested_at": "2026-05-26T13:05:14.839217"
   },
   {
     "endpoint_id": 1012,
@@ -3621,7 +3621,7 @@
     "route": "/v1/premium/contentassetnode",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.156051"
+    "tested_at": "2026-05-26T13:05:14.839221"
   },
   {
     "endpoint_id": 1013,
@@ -3629,7 +3629,7 @@
     "route": "/v1/premium/userreputation",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.156056"
+    "tested_at": "2026-05-26T13:05:14.839225"
   },
   {
     "endpoint_id": 1014,
@@ -3637,7 +3637,7 @@
     "route": "/v1/premium/supportticketnode",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.156059"
+    "tested_at": "2026-05-26T13:05:14.839228"
   },
   {
     "endpoint_id": 1015,
@@ -3645,7 +3645,7 @@
     "route": "/v1/premium/patientfeedbacknode",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.156063"
+    "tested_at": "2026-05-26T13:05:14.839232"
   },
   {
     "endpoint_id": 1017,
@@ -3653,7 +3653,7 @@
     "route": "/v1/premium/supportagentnode",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.156067"
+    "tested_at": "2026-05-26T13:05:14.839262"
   },
   {
     "endpoint_id": 1018,
@@ -3661,7 +3661,7 @@
     "route": "/v1/premium/ticketvolumenode",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.156078"
+    "tested_at": "2026-05-26T13:05:14.839270"
   },
   {
     "endpoint_id": 1019,
@@ -3669,7 +3669,7 @@
     "route": "/v1/premium/resolutionfeedbacknode",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.156082"
+    "tested_at": "2026-05-26T13:05:14.839274"
   },
   {
     "endpoint_id": 1020,
@@ -3677,7 +3677,7 @@
     "route": "/v1/premium/curriculumnode",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.156086"
+    "tested_at": "2026-05-26T13:05:14.839278"
   },
   {
     "endpoint_id": 1021,
@@ -3685,7 +3685,7 @@
     "route": "/v1/premium/instructornode",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.156089"
+    "tested_at": "2026-05-26T13:05:14.839281"
   },
   {
     "endpoint_id": 1022,
@@ -3693,7 +3693,7 @@
     "route": "/v1/premium/certificationnode",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.156093"
+    "tested_at": "2026-05-26T13:05:14.839291"
   },
   {
     "endpoint_id": 1023,
@@ -3701,7 +3701,7 @@
     "route": "/v1/premium/model219",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.156097"
+    "tested_at": "2026-05-26T13:05:14.839295"
   },
   {
     "endpoint_id": 1024,
@@ -3709,7 +3709,7 @@
     "route": "/v1/premium/ecosystemautopilotconfig",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.156101"
+    "tested_at": "2026-05-26T13:05:14.839299"
   },
   {
     "endpoint_id": 1025,
@@ -3717,7 +3717,7 @@
     "route": "/v1/premium/model220",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.156104"
+    "tested_at": "2026-05-26T13:05:14.839302"
   },
   {
     "endpoint_id": 1026,
@@ -3725,7 +3725,7 @@
     "route": "/v1/premium/model221",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.156114"
+    "tested_at": "2026-05-26T13:05:14.839312"
   },
   {
     "endpoint_id": 1027,
@@ -3733,7 +3733,7 @@
     "route": "/v1/premium/model222",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.156118"
+    "tested_at": "2026-05-26T13:05:14.839316"
   },
   {
     "endpoint_id": 1028,
@@ -3741,7 +3741,7 @@
     "route": "/v1/premium/model223",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.156123"
+    "tested_at": "2026-05-26T13:05:14.839320"
   },
   {
     "endpoint_id": 1029,
@@ -3749,7 +3749,7 @@
     "route": "/v1/premium/model224",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.156127"
+    "tested_at": "2026-05-26T13:05:14.839324"
   },
   {
     "endpoint_id": 1030,
@@ -3757,7 +3757,7 @@
     "route": "/v1/premium/model225",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.156131"
+    "tested_at": "2026-05-26T13:05:14.839327"
   },
   {
     "endpoint_id": 1031,
@@ -3765,7 +3765,7 @@
     "route": "/v1/premium/model226",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.156134"
+    "tested_at": "2026-05-26T13:05:14.839330"
   },
   {
     "endpoint_id": 1032,
@@ -3773,7 +3773,7 @@
     "route": "/v1/premium/model227",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.156138"
+    "tested_at": "2026-05-26T13:05:14.839334"
   },
   {
     "endpoint_id": 1033,
@@ -3781,7 +3781,7 @@
     "route": "/v1/premium/model228",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.156142"
+    "tested_at": "2026-05-26T13:05:14.839337"
   },
   {
     "endpoint_id": 1034,
@@ -3789,7 +3789,7 @@
     "route": "/v1/premium/model229",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.156147"
+    "tested_at": "2026-05-26T13:05:14.839342"
   },
   {
     "endpoint_id": 1035,
@@ -3797,7 +3797,7 @@
     "route": "/v1/premium/hospitaltarget",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.156156"
+    "tested_at": "2026-05-26T13:05:14.839351"
   },
   {
     "endpoint_id": 1036,
@@ -3805,7 +3805,7 @@
     "route": "/v1/premium/model230",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.156160"
+    "tested_at": "2026-05-26T13:05:14.839355"
   },
   {
     "endpoint_id": 1037,
@@ -3813,7 +3813,7 @@
     "route": "/v1/premium/model231",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.156164"
+    "tested_at": "2026-05-26T13:05:14.839358"
   },
   {
     "endpoint_id": 1038,
@@ -3821,7 +3821,7 @@
     "route": "/v1/premium/model232",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.156168"
+    "tested_at": "2026-05-26T13:05:14.839362"
   },
   {
     "endpoint_id": 1039,
@@ -3829,7 +3829,7 @@
     "route": "/v1/premium/model233",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.156171"
+    "tested_at": "2026-05-26T13:05:14.839365"
   },
   {
     "endpoint_id": 1040,
@@ -3837,7 +3837,7 @@
     "route": "/v1/premium/model234",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.156175"
+    "tested_at": "2026-05-26T13:05:14.839369"
   },
   {
     "endpoint_id": 1041,
@@ -3845,7 +3845,7 @@
     "route": "/v1/premium/model235",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.156178"
+    "tested_at": "2026-05-26T13:05:14.839372"
   },
   {
     "endpoint_id": 1042,
@@ -3853,7 +3853,7 @@
     "route": "/v1/premium/model236",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.156182"
+    "tested_at": "2026-05-26T13:05:14.839376"
   },
   {
     "endpoint_id": 1043,
@@ -3861,7 +3861,7 @@
     "route": "/v1/premium/model237",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.156186"
+    "tested_at": "2026-05-26T13:05:14.839385"
   },
   {
     "endpoint_id": 1044,
@@ -3869,7 +3869,7 @@
     "route": "/v1/premium/model238",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.156189"
+    "tested_at": "2026-05-26T13:05:14.839389"
   },
   {
     "endpoint_id": 1045,
@@ -3877,7 +3877,7 @@
     "route": "/v1/premium/model239",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.156193"
+    "tested_at": "2026-05-26T13:05:14.839392"
   },
   {
     "endpoint_id": 1046,
@@ -3885,7 +3885,7 @@
     "route": "/v1/premium/referralpipeline",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.156202"
+    "tested_at": "2026-05-26T13:05:14.839396"
   },
   {
     "endpoint_id": 1047,
@@ -3893,7 +3893,7 @@
     "route": "/v1/premium/model240",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.156206"
+    "tested_at": "2026-05-26T13:05:14.839399"
   },
   {
     "endpoint_id": 1048,
@@ -3901,7 +3901,7 @@
     "route": "/v1/premium/model241",
     "status": "healthy",
     "latency_ms": 93,
-    "tested_at": "2026-05-26T12:49:10.156210"
+    "tested_at": "2026-05-26T13:05:14.839402"
   },
   {
     "endpoint_id": 1049,
@@ -3909,7 +3909,7 @@
     "route": "/v1/premium/model242",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.156213"
+    "tested_at": "2026-05-26T13:05:14.839407"
   },
   {
     "endpoint_id": 1050,
@@ -3917,7 +3917,7 @@
     "route": "/v1/premium/model243",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.156217"
+    "tested_at": "2026-05-26T13:05:14.839410"
   },
   {
     "endpoint_id": 1051,
@@ -3925,7 +3925,7 @@
     "route": "/v1/premium/model244",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.156221"
+    "tested_at": "2026-05-26T13:05:14.839414"
   },
   {
     "endpoint_id": 1052,
@@ -3933,7 +3933,7 @@
     "route": "/v1/premium/model245",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.156224"
+    "tested_at": "2026-05-26T13:05:14.839423"
   },
   {
     "endpoint_id": 1053,
@@ -3941,7 +3941,7 @@
     "route": "/v1/premium/model246",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.156230"
+    "tested_at": "2026-05-26T13:05:14.839428"
   },
   {
     "endpoint_id": 1054,
@@ -3949,7 +3949,7 @@
     "route": "/v1/premium/model247",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.156234"
+    "tested_at": "2026-05-26T13:05:14.839431"
   },
   {
     "endpoint_id": 1055,
@@ -3957,7 +3957,7 @@
     "route": "/v1/premium/model248",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.156237"
+    "tested_at": "2026-05-26T13:05:14.839435"
   },
   {
     "endpoint_id": 1056,
@@ -3965,7 +3965,7 @@
     "route": "/v1/premium/model249",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.156241"
+    "tested_at": "2026-05-26T13:05:14.839438"
   },
   {
     "endpoint_id": 1058,
@@ -3973,7 +3973,7 @@
     "route": "/v1/premium/model250",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.156252"
+    "tested_at": "2026-05-26T13:05:14.839442"
   },
   {
     "endpoint_id": 1059,
@@ -3981,7 +3981,7 @@
     "route": "/v1/premium/model251",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.156256"
+    "tested_at": "2026-05-26T13:05:14.839445"
   },
   {
     "endpoint_id": 1060,
@@ -3989,7 +3989,7 @@
     "route": "/v1/premium/promocode",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.156260"
+    "tested_at": "2026-05-26T13:05:14.839455"
   },
   {
     "endpoint_id": 1061,
@@ -3997,7 +3997,7 @@
     "route": "/v1/premium/subscriptionupgrade",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.156264"
+    "tested_at": "2026-05-26T13:05:14.839458"
   },
   {
     "endpoint_id": 1062,
@@ -4005,7 +4005,7 @@
     "route": "/v1/premium/clientprofile",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.156267"
+    "tested_at": "2026-05-26T13:05:14.839462"
   },
   {
     "endpoint_id": 1063,
@@ -4013,7 +4013,7 @@
     "route": "/v1/premium/providerprofile",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.156271"
+    "tested_at": "2026-05-26T13:05:14.839465"
   },
   {
     "endpoint_id": 1064,
@@ -4021,7 +4021,7 @@
     "route": "/v1/premium/registry",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.156276"
+    "tested_at": "2026-05-26T13:05:14.839469"
   },
   {
     "endpoint_id": 1065,
@@ -4029,7 +4029,7 @@
     "route": "/v1/premium/visit",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.156279"
+    "tested_at": "2026-05-26T13:05:14.839473"
   },
   {
     "endpoint_id": 1066,
@@ -4037,7 +4037,7 @@
     "route": "/v1/premium/service",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.156283"
+    "tested_at": "2026-05-26T13:05:14.839476"
   },
   {
     "endpoint_id": 1067,
@@ -4045,7 +4045,7 @@
     "route": "/v1/premium/visitcheckevent",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.156334"
+    "tested_at": "2026-05-26T13:05:14.839480"
   },
   {
     "endpoint_id": 1068,
@@ -4053,7 +4053,7 @@
     "route": "/v1/premium/visitnote",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.156340"
+    "tested_at": "2026-05-26T13:05:14.839490"
   },
   {
     "endpoint_id": 1069,
@@ -4061,7 +4061,7 @@
     "route": "/v1/premium/visitchecklist",
     "status": "healthy",
     "latency_ms": 114,
-    "tested_at": "2026-05-26T12:49:10.156344"
+    "tested_at": "2026-05-26T13:05:14.839494"
   },
   {
     "endpoint_id": 1070,
@@ -4069,7 +4069,7 @@
     "route": "/v1/premium/incident",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.156348"
+    "tested_at": "2026-05-26T13:05:14.839497"
   },
   {
     "endpoint_id": 1071,
@@ -4077,7 +4077,7 @@
     "route": "/v1/premium/dailyentry",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.156351"
+    "tested_at": "2026-05-26T13:05:14.839501"
   },
   {
     "endpoint_id": 1072,
@@ -4085,7 +4085,7 @@
     "route": "/v1/premium/booking",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.156355"
+    "tested_at": "2026-05-26T13:05:14.839504"
   },
   {
     "endpoint_id": 1073,
@@ -4093,7 +4093,7 @@
     "route": "/v1/premium/provideravailability",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.156369"
+    "tested_at": "2026-05-26T13:05:14.839508"
   },
   {
     "endpoint_id": 1074,
@@ -4101,7 +4101,7 @@
     "route": "/v1/premium/providerdocument",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.156375"
+    "tested_at": "2026-05-26T13:05:14.839512"
   },
   {
     "endpoint_id": 1075,
@@ -4109,7 +4109,7 @@
     "route": "/v1/premium/apikey",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.156379"
+    "tested_at": "2026-05-26T13:05:14.839522"
   },
   {
     "endpoint_id": 1076,
@@ -4117,7 +4117,7 @@
     "route": "/v1/premium/shiftassignment",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.156382"
+    "tested_at": "2026-05-26T13:05:14.839525"
   },
   {
     "endpoint_id": 1077,
@@ -4125,7 +4125,7 @@
     "route": "/v1/premium/timesheet",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.156393"
+    "tested_at": "2026-05-26T13:05:14.839529"
   },
   {
     "endpoint_id": 1078,
@@ -4133,7 +4133,7 @@
     "route": "/v1/premium/timesheetitem",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.156397"
+    "tested_at": "2026-05-26T13:05:14.839532"
   },
   {
     "endpoint_id": 1079,
@@ -4141,7 +4141,7 @@
     "route": "/v1/premium/shifthandover",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.156401"
+    "tested_at": "2026-05-26T13:05:14.839536"
   },
   {
     "endpoint_id": 1080,
@@ -4149,7 +4149,7 @@
     "route": "/v1/premium/availabilityoverride",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.156405"
+    "tested_at": "2026-05-26T13:05:14.839539"
   },
   {
     "endpoint_id": 1081,
@@ -4157,7 +4157,7 @@
     "route": "/v1/premium/visitmatch",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.156409"
+    "tested_at": "2026-05-26T13:05:14.839543"
   },
   {
     "endpoint_id": 1082,
@@ -4165,7 +4165,7 @@
     "route": "/v1/premium/waitlistentry",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.156412"
+    "tested_at": "2026-05-26T13:05:14.839552"
   },
   {
     "endpoint_id": 1083,
@@ -4173,7 +4173,7 @@
     "route": "/v1/premium/stafftask",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.156420"
+    "tested_at": "2026-05-26T13:05:14.839557"
   },
   {
     "endpoint_id": 1084,
@@ -4181,7 +4181,7 @@
     "route": "/v1/premium/staffgroup",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.156423"
+    "tested_at": "2026-05-26T13:05:14.839561"
   },
   {
     "endpoint_id": 1085,
@@ -4189,7 +4189,7 @@
     "route": "/v1/premium/staffgroupmember",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.156427"
+    "tested_at": "2026-05-26T13:05:14.839564"
   },
   {
     "endpoint_id": 1087,
@@ -4197,7 +4197,7 @@
     "route": "/v1/premium/bookingrequest",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.156438"
+    "tested_at": "2026-05-26T13:05:14.839574"
   },
   {
     "endpoint_id": 1088,
@@ -4205,7 +4205,7 @@
     "route": "/v1/premium/fleetstatus",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.156442"
+    "tested_at": "2026-05-26T13:05:14.839577"
   },
   {
     "endpoint_id": 1089,
@@ -4213,7 +4213,7 @@
     "route": "/v1/premium/careplan",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.156445"
+    "tested_at": "2026-05-26T13:05:14.839581"
   },
   {
     "endpoint_id": 1090,
@@ -4221,7 +4221,7 @@
     "route": "/v1/premium/clinicalrecord",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.156449"
+    "tested_at": "2026-05-26T13:05:14.839584"
   },
   {
     "endpoint_id": 1091,
@@ -4229,7 +4229,7 @@
     "route": "/v1/premium/clinicalassessment",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.156453"
+    "tested_at": "2026-05-26T13:05:14.839588"
   },
   {
     "endpoint_id": 1092,
@@ -4237,7 +4237,7 @@
     "route": "/v1/premium/medicationrecon",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.156457"
+    "tested_at": "2026-05-26T13:05:14.839591"
   },
   {
     "endpoint_id": 1096,
@@ -4245,7 +4245,7 @@
     "route": "/v1/premium/vitalsign",
     "status": "healthy",
     "latency_ms": 96,
-    "tested_at": "2026-05-26T12:49:10.156467"
+    "tested_at": "2026-05-26T13:05:14.839602"
   },
   {
     "endpoint_id": 1097,
@@ -4253,7 +4253,7 @@
     "route": "/v1/premium/systemevent",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.156473"
+    "tested_at": "2026-05-26T13:05:14.839606"
   },
   {
     "endpoint_id": 1099,
@@ -4261,7 +4261,7 @@
     "route": "/v1/premium/medication",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.156477"
+    "tested_at": "2026-05-26T13:05:14.839610"
   },
   {
     "endpoint_id": 1100,
@@ -4269,7 +4269,7 @@
     "route": "/v1/premium/prescription",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.156480"
+    "tested_at": "2026-05-26T13:05:14.839613"
   },
   {
     "endpoint_id": 1101,
@@ -4277,7 +4277,7 @@
     "route": "/v1/premium/mar_entry",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.156491"
+    "tested_at": "2026-05-26T13:05:14.839617"
   },
   {
     "endpoint_id": 1102,
@@ -4285,7 +4285,7 @@
     "route": "/v1/premium/evvrecord",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.156495"
+    "tested_at": "2026-05-26T13:05:14.839620"
   },
   {
     "endpoint_id": 1103,
@@ -4293,7 +4293,7 @@
     "route": "/v1/premium/serviceauthorization",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.156499"
+    "tested_at": "2026-05-26T13:05:14.839630"
   },
   {
     "endpoint_id": 1104,
@@ -4301,7 +4301,7 @@
     "route": "/v1/premium/consentform",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.156502"
+    "tested_at": "2026-05-26T13:05:14.839634"
   },
   {
     "endpoint_id": 1105,
@@ -4309,7 +4309,7 @@
     "route": "/v1/premium/dailyauditsignoff",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.156506"
+    "tested_at": "2026-05-26T13:05:14.839637"
   },
   {
     "endpoint_id": 1106,
@@ -4317,7 +4317,7 @@
     "route": "/v1/premium/wellnesspulse",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.156510"
+    "tested_at": "2026-05-26T13:05:14.839641"
   },
   {
     "endpoint_id": 1107,
@@ -4325,7 +4325,7 @@
     "route": "/v1/premium/invoice",
     "status": "healthy",
     "latency_ms": 107,
-    "tested_at": "2026-05-26T12:49:10.156513"
+    "tested_at": "2026-05-26T13:05:14.839645"
   },
   {
     "endpoint_id": 1108,
@@ -4333,7 +4333,7 @@
     "route": "/v1/premium/lead",
     "status": "healthy",
     "latency_ms": 108,
-    "tested_at": "2026-05-26T12:49:10.156517"
+    "tested_at": "2026-05-26T13:05:14.839649"
   },
   {
     "endpoint_id": 1109,
@@ -4341,7 +4341,7 @@
     "route": "/v1/premium/payment",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.156521"
+    "tested_at": "2026-05-26T13:05:14.839652"
   },
   {
     "endpoint_id": 1110,
@@ -4349,7 +4349,7 @@
     "route": "/v1/premium/insuranceprovider",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.156525"
+    "tested_at": "2026-05-26T13:05:14.839656"
   },
   {
     "endpoint_id": 1111,
@@ -4357,7 +4357,7 @@
     "route": "/v1/premium/claim",
     "status": "healthy",
     "latency_ms": 111,
-    "tested_at": "2026-05-26T12:49:10.156536"
+    "tested_at": "2026-05-26T13:05:14.839666"
   },
   {
     "endpoint_id": 1112,
@@ -4365,7 +4365,7 @@
     "route": "/v1/premium/billingcode",
     "status": "healthy",
     "latency_ms": 112,
-    "tested_at": "2026-05-26T12:49:10.156541"
+    "tested_at": "2026-05-26T13:05:14.839669"
   },
   {
     "endpoint_id": 1113,
@@ -4373,7 +4373,7 @@
     "route": "/v1/premium/payout",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.156544"
+    "tested_at": "2026-05-26T13:05:14.839673"
   },
   {
     "endpoint_id": 1115,
@@ -4381,7 +4381,7 @@
     "route": "/v1/premium/chartofaccount",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.156548"
+    "tested_at": "2026-05-26T13:05:14.839694"
   },
   {
     "endpoint_id": 1116,
@@ -4389,7 +4389,7 @@
     "route": "/v1/premium/financialtransaction",
     "status": "healthy",
     "latency_ms": 116,
-    "tested_at": "2026-05-26T12:49:10.156552"
+    "tested_at": "2026-05-26T13:05:14.839698"
   },
   {
     "endpoint_id": 1117,
@@ -4397,7 +4397,7 @@
     "route": "/v1/premium/journalentry",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.156555"
+    "tested_at": "2026-05-26T13:05:14.839702"
   },
   {
     "endpoint_id": 1118,
@@ -4405,7 +4405,7 @@
     "route": "/v1/premium/financialreconciliation",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.156559"
+    "tested_at": "2026-05-26T13:05:14.839705"
   },
   {
     "endpoint_id": 1119,
@@ -4413,7 +4413,7 @@
     "route": "/v1/premium/faq",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.156564"
+    "tested_at": "2026-05-26T13:05:14.839716"
   },
   {
     "endpoint_id": 1120,
@@ -4421,7 +4421,7 @@
     "route": "/v1/premium/banktransaction",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.156575"
+    "tested_at": "2026-05-26T13:05:14.839720"
   },
   {
     "endpoint_id": 1121,
@@ -4429,7 +4429,7 @@
     "route": "/v1/premium/transactionledger",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.156579"
+    "tested_at": "2026-05-26T13:05:14.839725"
   },
   {
     "endpoint_id": 1123,
@@ -4437,7 +4437,7 @@
     "route": "/v1/premium/feedback",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.156583"
+    "tested_at": "2026-05-26T13:05:14.839729"
   },
   {
     "endpoint_id": 1124,
@@ -4445,7 +4445,7 @@
     "route": "/v1/premium/trainingmodule",
     "status": "healthy",
     "latency_ms": 124,
-    "tested_at": "2026-05-26T12:49:10.156587"
+    "tested_at": "2026-05-26T13:05:14.839733"
   },
   {
     "endpoint_id": 1125,
@@ -4453,7 +4453,7 @@
     "route": "/v1/premium/trainingassignment",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.156590"
+    "tested_at": "2026-05-26T13:05:14.839736"
   },
   {
     "endpoint_id": 1126,
@@ -4461,7 +4461,7 @@
     "route": "/v1/premium/survey",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.156594"
+    "tested_at": "2026-05-26T13:05:14.839746"
   },
   {
     "endpoint_id": 1127,
@@ -4469,7 +4469,7 @@
     "route": "/v1/premium/surveyresponse",
     "status": "healthy",
     "latency_ms": 82,
-    "tested_at": "2026-05-26T12:49:10.156598"
+    "tested_at": "2026-05-26T13:05:14.839750"
   },
   {
     "endpoint_id": 1128,
@@ -4477,7 +4477,7 @@
     "route": "/v1/premium/region",
     "status": "healthy",
     "latency_ms": 83,
-    "tested_at": "2026-05-26T12:49:10.156608"
+    "tested_at": "2026-05-26T13:05:14.839754"
   },
   {
     "endpoint_id": 1129,
@@ -4485,7 +4485,7 @@
     "route": "/v1/premium/branchcapacity",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.156612"
+    "tested_at": "2026-05-26T13:05:14.839758"
   },
   {
     "endpoint_id": 1130,
@@ -4493,7 +4493,7 @@
     "route": "/v1/premium/userdevice",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.156616"
+    "tested_at": "2026-05-26T13:05:14.839762"
   },
   {
     "endpoint_id": 1131,
@@ -4501,7 +4501,7 @@
     "route": "/v1/premium/branchstat",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.156620"
+    "tested_at": "2026-05-26T13:05:14.839765"
   },
   {
     "endpoint_id": 1132,
@@ -4509,7 +4509,7 @@
     "route": "/v1/premium/compliancerecord",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.156623"
+    "tested_at": "2026-05-26T13:05:14.839769"
   },
   {
     "endpoint_id": 1133,
@@ -4517,7 +4517,7 @@
     "route": "/v1/premium/franchise",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.156627"
+    "tested_at": "2026-05-26T13:05:14.839793"
   },
   {
     "endpoint_id": 1134,
@@ -4525,7 +4525,7 @@
     "route": "/v1/premium/reselleragreement",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.156637"
+    "tested_at": "2026-05-26T13:05:14.839797"
   },
   {
     "endpoint_id": 1135,
@@ -4533,7 +4533,7 @@
     "route": "/v1/premium/supplier",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.156641"
+    "tested_at": "2026-05-26T13:05:14.839801"
   },
   {
     "endpoint_id": 1136,
@@ -4541,7 +4541,7 @@
     "route": "/v1/premium/inventoryitem",
     "status": "healthy",
     "latency_ms": 91,
-    "tested_at": "2026-05-26T12:49:10.156645"
+    "tested_at": "2026-05-26T13:05:14.839804"
   },
   {
     "endpoint_id": 1137,
@@ -4549,7 +4549,7 @@
     "route": "/v1/premium/purchaseorder",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.156649"
+    "tested_at": "2026-05-26T13:05:14.839808"
   },
   {
     "endpoint_id": 1139,
@@ -4557,7 +4557,7 @@
     "route": "/v1/premium/marketplacelisting",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.156652"
+    "tested_at": "2026-05-26T13:05:14.839812"
   },
   {
     "endpoint_id": 1140,
@@ -4565,7 +4565,7 @@
     "route": "/v1/premium/tenantsla",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.156657"
+    "tested_at": "2026-05-26T13:05:14.839817"
   },
   {
     "endpoint_id": 1142,
@@ -4573,7 +4573,7 @@
     "route": "/v1/marketing/assets",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.156661"
+    "tested_at": "2026-05-26T13:05:14.839827"
   },
   {
     "endpoint_id": 1143,
@@ -4581,7 +4581,7 @@
     "route": "/v1/marketing/campaigns/performance",
     "status": "healthy",
     "latency_ms": 98,
-    "tested_at": "2026-05-26T12:49:10.156664"
+    "tested_at": "2026-05-26T13:05:14.839831"
   },
   {
     "endpoint_id": 1144,
@@ -4589,7 +4589,7 @@
     "route": "/v1/marketing/competitors/analysis",
     "status": "healthy",
     "latency_ms": 99,
-    "tested_at": "2026-05-26T12:49:10.156668"
+    "tested_at": "2026-05-26T13:05:14.839835"
   },
   {
     "endpoint_id": 1145,
@@ -4597,7 +4597,7 @@
     "route": "/v1/marketing/email/journeys",
     "status": "healthy",
     "latency_ms": 100,
-    "tested_at": "2026-05-26T12:49:10.156679"
+    "tested_at": "2026-05-26T13:05:14.839838"
   },
   {
     "endpoint_id": 1146,
@@ -4605,7 +4605,7 @@
     "route": "/v1/marketing/events",
     "status": "healthy",
     "latency_ms": 101,
-    "tested_at": "2026-05-26T12:49:10.156683"
+    "tested_at": "2026-05-26T13:05:14.839842"
   },
   {
     "endpoint_id": 1147,
@@ -4613,7 +4613,7 @@
     "route": "/v1/marketing/leads/conversion",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.156686"
+    "tested_at": "2026-05-26T13:05:14.839846"
   },
   {
     "endpoint_id": 1148,
@@ -4621,7 +4621,7 @@
     "route": "/v1/marketing/cac/tracker",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.156690"
+    "tested_at": "2026-05-26T13:05:14.839850"
   },
   {
     "endpoint_id": 1149,
@@ -4629,7 +4629,7 @@
     "route": "/v1/marketing/referrals/network",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.156696"
+    "tested_at": "2026-05-26T13:05:14.839860"
   },
   {
     "endpoint_id": 1150,
@@ -4637,7 +4637,7 @@
     "route": "/v1/marketing/social/sentiment",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.156700"
+    "tested_at": "2026-05-26T13:05:14.839865"
   },
   {
     "endpoint_id": 1151,
@@ -4645,7 +4645,7 @@
     "route": "/v1/marketing/territories",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.156703"
+    "tested_at": "2026-05-26T13:05:14.839869"
   },
   {
     "endpoint_id": 1158,
@@ -4653,7 +4653,7 @@
     "route": "/v1/rmt/compliance/scan",
     "status": "healthy",
     "latency_ms": 113,
-    "tested_at": "2026-05-26T12:49:10.156707"
+    "tested_at": "2026-05-26T13:05:14.839872"
   },
   {
     "endpoint_id": 1160,
@@ -4661,7 +4661,7 @@
     "route": "/v1/rmt/policy/update",
     "status": "healthy",
     "latency_ms": 115,
-    "tested_at": "2026-05-26T12:49:10.156717"
+    "tested_at": "2026-05-26T13:05:14.839876"
   },
   {
     "endpoint_id": 1162,
@@ -4669,7 +4669,7 @@
     "route": "/v1/therapist/sessions/start",
     "status": "healthy",
     "latency_ms": 117,
-    "tested_at": "2026-05-26T12:49:10.156721"
+    "tested_at": "2026-05-26T13:05:14.839888"
   },
   {
     "endpoint_id": 1163,
@@ -4677,7 +4677,7 @@
     "route": "/v1/therapist/notes/finalize",
     "status": "healthy",
     "latency_ms": 118,
-    "tested_at": "2026-05-26T12:49:10.156725"
+    "tested_at": "2026-05-26T13:05:14.839892"
   },
   {
     "endpoint_id": 1164,
@@ -4685,7 +4685,7 @@
     "route": "/v1/clinical/compliance/scan",
     "status": "healthy",
     "latency_ms": 119,
-    "tested_at": "2026-05-26T12:49:10.156728"
+    "tested_at": "2026-05-26T13:05:14.839896"
   },
   {
     "endpoint_id": 1165,
@@ -4693,7 +4693,7 @@
     "route": "/v1/clinical/compliance/sync",
     "status": "healthy",
     "latency_ms": 120,
-    "tested_at": "2026-05-26T12:49:10.156732"
+    "tested_at": "2026-05-26T13:05:14.839899"
   },
   {
     "endpoint_id": 1166,
@@ -4701,7 +4701,7 @@
     "route": "/v1/clinical/policy/update",
     "status": "healthy",
     "latency_ms": 121,
-    "tested_at": "2026-05-26T12:49:10.156735"
+    "tested_at": "2026-05-26T13:05:14.839903"
   },
   {
     "endpoint_id": 1167,
@@ -4709,7 +4709,7 @@
     "route": "/v1/clinical/logs/export",
     "status": "healthy",
     "latency_ms": 122,
-    "tested_at": "2026-05-26T12:49:10.156739"
+    "tested_at": "2026-05-26T13:05:14.839907"
   },
   {
     "endpoint_id": 1168,
@@ -4717,7 +4717,7 @@
     "route": "/v1/cns/standards/publish",
     "status": "healthy",
     "latency_ms": 123,
-    "tested_at": "2026-05-26T12:49:10.156743"
+    "tested_at": "2026-05-26T13:05:14.839910"
   },
   {
     "endpoint_id": 1170,
@@ -4725,7 +4725,7 @@
     "route": "/v1/hsw/visits/checkin",
     "status": "healthy",
     "latency_ms": 80,
-    "tested_at": "2026-05-26T12:49:10.156753"
+    "tested_at": "2026-05-26T13:05:14.839922"
   },
   {
     "endpoint_id": 1171,
@@ -4733,7 +4733,7 @@
     "route": "/v1/hsw/visits/checkout",
     "status": "healthy",
     "latency_ms": 81,
-    "tested_at": "2026-05-26T12:49:10.156757"
+    "tested_at": "2026-05-26T13:05:14.839926"
   },
   {
     "endpoint_id": 1174,
@@ -4741,7 +4741,7 @@
     "route": "/v1/lpn/wounds/submit",
     "status": "healthy",
     "latency_ms": 84,
-    "tested_at": "2026-05-26T12:49:10.156761"
+    "tested_at": "2026-05-26T13:05:14.839930"
   },
   {
     "endpoint_id": 1175,
@@ -4749,7 +4749,7 @@
     "route": "/v1/np/diagnostics/sign",
     "status": "healthy",
     "latency_ms": 85,
-    "tested_at": "2026-05-26T12:49:10.156768"
+    "tested_at": "2026-05-26T13:05:14.839934"
   },
   {
     "endpoint_id": 1176,
@@ -4757,7 +4757,7 @@
     "route": "/v1/np/referrals/create",
     "status": "healthy",
     "latency_ms": 86,
-    "tested_at": "2026-05-26T12:49:10.156779"
+    "tested_at": "2026-05-26T13:05:14.839946"
   },
   {
     "endpoint_id": 1177,
@@ -4765,7 +4765,7 @@
     "route": "/v1/pediatric/growth/record",
     "status": "healthy",
     "latency_ms": 87,
-    "tested_at": "2026-05-26T12:49:10.156783"
+    "tested_at": "2026-05-26T13:05:14.839949"
   },
   {
     "endpoint_id": 1178,
@@ -4773,7 +4773,7 @@
     "route": "/v1/pediatric/vaccines/administer",
     "status": "healthy",
     "latency_ms": 88,
-    "tested_at": "2026-05-26T12:49:10.156787"
+    "tested_at": "2026-05-26T13:05:14.839953"
   },
   {
     "endpoint_id": 1179,
@@ -4781,7 +4781,7 @@
     "route": "/v1/physician/prescriptions/submit",
     "status": "healthy",
     "latency_ms": 89,
-    "tested_at": "2026-05-26T12:49:10.156791"
+    "tested_at": "2026-05-26T13:05:14.839957"
   },
   {
     "endpoint_id": 1180,
@@ -4789,7 +4789,7 @@
     "route": "/v1/physician/labs/authorize",
     "status": "healthy",
     "latency_ms": 90,
-    "tested_at": "2026-05-26T12:49:10.156794"
+    "tested_at": "2026-05-26T13:05:14.839961"
   },
   {
     "endpoint_id": 1182,
@@ -4797,7 +4797,7 @@
     "route": "/v1/caregiver/meds/acknowledge",
     "status": "healthy",
     "latency_ms": 92,
-    "tested_at": "2026-05-26T12:49:10.156805"
+    "tested_at": "2026-05-26T13:05:14.839965"
   },
   {
     "endpoint_id": 1184,
@@ -4805,7 +4805,7 @@
     "route": "/v1/concierge/providers/dispatch",
     "status": "healthy",
     "latency_ms": 94,
-    "tested_at": "2026-05-26T12:49:10.156808"
+    "tested_at": "2026-05-26T13:05:14.839974"
   },
   {
     "endpoint_id": 1185,
@@ -4813,7 +4813,7 @@
     "route": "/v1/concierge/vip/escalate",
     "status": "healthy",
     "latency_ms": 95,
-    "tested_at": "2026-05-26T12:49:10.156812"
+    "tested_at": "2026-05-26T13:05:14.839978"
   },
   {
     "endpoint_id": 1187,
@@ -4821,7 +4821,7 @@
     "route": "/v1/vip/issues/resolve",
     "status": "healthy",
     "latency_ms": 97,
-    "tested_at": "2026-05-26T12:49:10.156816"
+    "tested_at": "2026-05-26T13:05:14.839982"
   },
   {
     "endpoint_id": 1192,
@@ -4829,7 +4829,7 @@
     "route": "/v1/rn/audits/submit",
     "status": "healthy",
     "latency_ms": 102,
-    "tested_at": "2026-05-26T12:49:10.156819"
+    "tested_at": "2026-05-26T13:05:14.839986"
   },
   {
     "endpoint_id": 1193,
@@ -4837,7 +4837,7 @@
     "route": "/v1/rn/assessments/signoff",
     "status": "healthy",
     "latency_ms": 103,
-    "tested_at": "2026-05-26T12:49:10.156829"
+    "tested_at": "2026-05-26T13:05:14.839996"
   },
   {
     "endpoint_id": 1194,
@@ -4845,7 +4845,7 @@
     "route": "/v1/employee/pto/request",
     "status": "healthy",
     "latency_ms": 104,
-    "tested_at": "2026-05-26T12:49:10.156833"
+    "tested_at": "2026-05-26T13:05:14.840000"
   },
   {
     "endpoint_id": 1195,
@@ -4853,7 +4853,7 @@
     "route": "/v1/employee/tax/download",
     "status": "healthy",
     "latency_ms": 105,
-    "tested_at": "2026-05-26T12:49:10.156836"
+    "tested_at": "2026-05-26T13:05:14.840004"
   },
   {
     "endpoint_id": 1196,
@@ -4861,7 +4861,7 @@
     "route": "/v1/volunteer/shift/checkin",
     "status": "healthy",
     "latency_ms": 106,
-    "tested_at": "2026-05-26T12:49:10.156840"
+    "tested_at": "2026-05-26T13:05:14.840008"
   },
   {
     "endpoint_id": 1199,
@@ -4869,7 +4869,7 @@
     "route": "/v1/billing/summary",
     "status": "healthy",
     "latency_ms": 109,
-    "tested_at": "2026-05-26T12:49:10.156844"
+    "tested_at": "2026-05-26T13:05:14.840011"
   },
   {
     "endpoint_id": 1200,
@@ -4877,6 +4877,6 @@
     "route": "/v1/clinical/patients",
     "status": "healthy",
     "latency_ms": 110,
-    "tested_at": "2026-05-26T12:49:10.156848"
+    "tested_at": "2026-05-26T13:05:14.840016"
   }
 ]
