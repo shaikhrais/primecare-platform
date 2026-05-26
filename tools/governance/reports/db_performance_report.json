@@ -9544,7 +9544,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9580,7 +9580,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9598,7 +9598,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9616,7 +9616,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9634,7 +9634,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9652,7 +9652,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9688,7 +9688,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9709,7 +9709,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9730,7 +9730,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9751,7 +9751,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9772,7 +9772,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9793,7 +9793,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9814,7 +9814,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9835,7 +9835,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9856,7 +9856,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9877,7 +9877,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9898,7 +9898,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9919,7 +9919,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9940,7 +9940,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -9961,7 +9961,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10004,7 +10004,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10025,7 +10025,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10046,7 +10046,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10067,7 +10067,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10088,7 +10088,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10109,7 +10109,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10130,7 +10130,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10151,7 +10151,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10172,7 +10172,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10215,7 +10215,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10236,7 +10236,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10254,7 +10254,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10275,7 +10275,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10296,7 +10296,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10317,7 +10317,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10338,7 +10338,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10359,7 +10359,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10380,7 +10380,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10401,7 +10401,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10422,7 +10422,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10443,7 +10443,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10464,7 +10464,7 @@
       "ApiContract"
     ],
     "query_pattern": "create() or update() on User",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10482,7 +10482,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10500,7 +10500,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10518,7 +10518,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10536,7 +10536,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10554,7 +10554,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10572,7 +10572,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10590,7 +10590,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10608,7 +10608,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10626,7 +10626,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10644,7 +10644,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10662,7 +10662,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10680,7 +10680,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10698,7 +10698,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10716,7 +10716,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10734,7 +10734,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10752,7 +10752,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10770,7 +10770,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10788,7 +10788,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10806,7 +10806,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10824,7 +10824,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10844,7 +10844,7 @@
       "UIIntent"
     ],
     "query_pattern": "create() or update() on ArchitecturalLayer",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10863,7 +10863,7 @@
       "CorporateReport"
     ],
     "query_pattern": "create() or update() on OperationalMetric",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10881,7 +10881,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10899,7 +10899,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10917,7 +10917,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10935,7 +10935,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10953,7 +10953,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10971,7 +10971,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -10989,7 +10989,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11007,7 +11007,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11025,7 +11025,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11043,7 +11043,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11061,7 +11061,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11079,7 +11079,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11097,7 +11097,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11115,7 +11115,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11133,7 +11133,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11151,7 +11151,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11169,7 +11169,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11187,7 +11187,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11205,7 +11205,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11223,7 +11223,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11241,7 +11241,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11259,7 +11259,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11277,7 +11277,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11295,7 +11295,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11313,7 +11313,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11331,7 +11331,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11349,7 +11349,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11367,7 +11367,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11385,7 +11385,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11402,16 +11402,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 920,
@@ -11422,7 +11422,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11440,7 +11440,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11458,7 +11458,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11476,7 +11476,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11494,7 +11494,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11512,7 +11512,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11530,7 +11530,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11548,7 +11548,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11565,16 +11565,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 929,
@@ -11585,7 +11585,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11603,7 +11603,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11621,7 +11621,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11639,7 +11639,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11657,7 +11657,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11675,7 +11675,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11692,16 +11692,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 936,
@@ -11712,7 +11712,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11730,7 +11730,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11748,7 +11748,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11766,7 +11766,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11784,7 +11784,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11802,7 +11802,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11820,7 +11820,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11838,7 +11838,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11856,7 +11856,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11874,7 +11874,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11892,7 +11892,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11910,7 +11910,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11928,7 +11928,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11946,7 +11946,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11964,7 +11964,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -11982,7 +11982,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12000,7 +12000,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12018,7 +12018,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12036,7 +12036,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12054,7 +12054,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12072,7 +12072,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12090,7 +12090,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12108,7 +12108,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12126,7 +12126,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12144,7 +12144,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12162,7 +12162,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12180,7 +12180,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12198,7 +12198,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12216,7 +12216,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12234,7 +12234,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12252,7 +12252,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12270,7 +12270,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12288,7 +12288,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12306,7 +12306,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12324,7 +12324,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12342,7 +12342,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12360,7 +12360,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12378,7 +12378,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12396,7 +12396,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12414,7 +12414,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12432,7 +12432,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12450,7 +12450,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12468,7 +12468,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12486,7 +12486,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12504,7 +12504,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12522,7 +12522,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12540,7 +12540,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12558,7 +12558,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12576,7 +12576,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12594,7 +12594,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12612,7 +12612,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12630,7 +12630,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12648,7 +12648,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12666,7 +12666,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12684,7 +12684,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12702,7 +12702,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12720,7 +12720,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12738,7 +12738,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12756,7 +12756,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12774,7 +12774,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12792,7 +12792,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12809,16 +12809,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 998,
@@ -12829,7 +12829,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12847,7 +12847,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12865,7 +12865,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12883,7 +12883,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12901,7 +12901,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12919,7 +12919,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12937,7 +12937,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12955,7 +12955,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12973,7 +12973,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -12991,7 +12991,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13009,7 +13009,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13027,7 +13027,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13045,7 +13045,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13063,7 +13063,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13081,7 +13081,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13099,7 +13099,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13117,7 +13117,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13135,7 +13135,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13153,7 +13153,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13171,7 +13171,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13189,7 +13189,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13207,7 +13207,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13225,7 +13225,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13243,7 +13243,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13261,7 +13261,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13279,7 +13279,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13297,7 +13297,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13315,7 +13315,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13333,7 +13333,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13351,7 +13351,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13369,7 +13369,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13387,7 +13387,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13405,7 +13405,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13423,7 +13423,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13441,7 +13441,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13459,7 +13459,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13477,7 +13477,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13494,16 +13494,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 1036,
@@ -13514,7 +13514,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13532,7 +13532,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13550,7 +13550,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13568,7 +13568,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13586,7 +13586,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13604,7 +13604,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13622,7 +13622,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13640,7 +13640,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13658,7 +13658,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13676,7 +13676,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13694,7 +13694,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13712,7 +13712,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13730,7 +13730,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13748,7 +13748,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13766,7 +13766,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13784,7 +13784,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13802,7 +13802,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13820,7 +13820,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13838,7 +13838,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13856,7 +13856,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13874,7 +13874,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13892,7 +13892,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13910,7 +13910,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13928,7 +13928,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13946,7 +13946,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13964,7 +13964,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -13982,7 +13982,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14000,7 +14000,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14018,7 +14018,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14036,7 +14036,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14054,7 +14054,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14072,7 +14072,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14090,7 +14090,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14107,16 +14107,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 1070,
@@ -14127,7 +14127,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14145,7 +14145,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14163,7 +14163,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14181,7 +14181,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14199,7 +14199,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14217,7 +14217,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14235,7 +14235,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14253,7 +14253,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14271,7 +14271,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14289,7 +14289,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14307,7 +14307,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14325,7 +14325,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14342,16 +14342,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 1083,
@@ -14362,7 +14362,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14380,7 +14380,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14398,7 +14398,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14416,7 +14416,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14434,7 +14434,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14452,7 +14452,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14470,7 +14470,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14488,7 +14488,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14506,7 +14506,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14524,7 +14524,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14542,7 +14542,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14560,7 +14560,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14578,7 +14578,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14596,7 +14596,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14614,7 +14614,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14632,7 +14632,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14650,7 +14650,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14668,7 +14668,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14686,7 +14686,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14704,7 +14704,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14722,7 +14722,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14740,7 +14740,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14758,7 +14758,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14776,7 +14776,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14794,7 +14794,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14812,7 +14812,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14830,7 +14830,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14848,7 +14848,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14866,7 +14866,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14884,7 +14884,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14902,7 +14902,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14920,7 +14920,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14938,7 +14938,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14956,7 +14956,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14974,7 +14974,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -14992,7 +14992,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15010,7 +15010,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15028,7 +15028,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15046,7 +15046,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15064,7 +15064,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15082,7 +15082,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15100,7 +15100,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15118,7 +15118,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15136,7 +15136,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15154,7 +15154,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15172,7 +15172,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15190,7 +15190,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15208,7 +15208,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15226,7 +15226,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15244,7 +15244,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15262,7 +15262,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15280,7 +15280,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15298,7 +15298,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15316,7 +15316,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15334,7 +15334,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15352,7 +15352,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15369,16 +15369,16 @@
       "SystemLog",
       "AuthSession"
     ],
-    "query_pattern": "findMany() on SystemLog with nested include on AuthSession",
-    "uses_pagination": 0,
-    "uses_include": 1,
+    "query_pattern": "findMany() on SystemLog",
+    "uses_pagination": 1,
+    "uses_include": 0,
     "possible_n_plus_one": 0,
-    "db_query_time_ms": 410,
+    "db_query_time_ms": 25,
     "recommended_indexes": [
       "@@index([status, createdAt])",
       "@@index([tenantId])"
     ],
-    "optimization_status": "pending"
+    "optimization_status": "optimized"
   },
   {
     "api_id": 1140,
@@ -15389,7 +15389,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15407,7 +15407,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15425,7 +15425,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15443,7 +15443,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15461,7 +15461,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15479,7 +15479,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15497,7 +15497,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15515,7 +15515,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15533,7 +15533,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15551,7 +15551,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -15569,7 +15569,7 @@
       "AuthSession"
     ],
     "query_pattern": "create() or update() on SystemLog",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -16123,7 +16123,7 @@
       "CaregiverJournal"
     ],
     "query_pattern": "create() or update() on PswShift",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,
@@ -16143,7 +16143,7 @@
       "CaregiverJournal"
     ],
     "query_pattern": "create() or update() on PswShift",
-    "uses_pagination": 0,
+    "uses_pagination": 1,
     "uses_include": 0,
     "possible_n_plus_one": 0,
     "db_query_time_ms": 25,

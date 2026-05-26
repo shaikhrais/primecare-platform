@@ -94,6 +94,12 @@ def main():
         # Seed realistic patterns
         uses_pagination = 1 if "page" in route.lower() or "limit" in route.lower() else 0
         uses_select = 1 if "select" in route.lower() or "profile" in route.lower() else 0
+        
+        # Simple/fast GET endpoints default to supporting pagination and select configurations
+        if method == "GET" and not (is_list and len(models) > 2):
+            uses_pagination = 1
+            uses_select = 1
+            
         uses_include = 1 if is_list and not uses_select else 0
         
         # Heavy query defaults (triggering the need for Stage 16 optimizations)

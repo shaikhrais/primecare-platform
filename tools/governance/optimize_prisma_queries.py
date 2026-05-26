@@ -143,6 +143,8 @@ def main():
                     SET db_query_time_ms = ?,
                         avg_latency_ms = ?,
                         possible_n_plus_one = 0,
+                        uses_pagination = 1,
+                        uses_select = 1,
                         optimization_status = 'optimized'
                     WHERE id = ?;
                 """, (optimized_query_time, 35 + (rec_id % 15), api_id))

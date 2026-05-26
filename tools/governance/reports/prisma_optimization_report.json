@@ -1,6 +1,6 @@
 [
   {
-    "recommendation_id": 92,
+    "recommendation_id": 111,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -10,7 +10,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 93,
+    "recommendation_id": 112,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -20,7 +20,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 94,
+    "recommendation_id": 113,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -30,7 +30,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 95,
+    "recommendation_id": 114,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -40,7 +40,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 96,
+    "recommendation_id": 115,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -50,7 +50,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 97,
+    "recommendation_id": 116,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -60,7 +60,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 98,
+    "recommendation_id": 117,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -70,7 +70,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 99,
+    "recommendation_id": 118,
     "table_name": "SystemLog",
     "columns": "status, createdAt",
     "index_name": "idx_systemlog_status_created",
@@ -80,7 +80,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 100,
+    "recommendation_id": 119,
     "table_name": "TherapistRoster",
     "columns": "status, createdAt",
     "index_name": "idx_therapistroster_status_created",
@@ -90,7 +90,7 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 101,
+    "recommendation_id": 120,
     "table_name": "User",
     "columns": "status, createdAt",
     "index_name": "idx_user_status_created",
@@ -100,93 +100,13 @@
     "screen_optimized_id": null
   },
   {
-    "recommendation_id": 102,
+    "recommendation_id": 121,
     "table_name": "User",
     "columns": "status, createdAt",
     "index_name": "idx_user_status_created",
     "file_injected": "01_platform.prisma",
     "status": "added",
     "api_optimized_id": 853,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 103,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 919,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 104,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 928,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 105,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 935,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 106,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 997,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 107,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 1035,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 108,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 1069,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 109,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 1082,
-    "screen_optimized_id": null
-  },
-  {
-    "recommendation_id": 110,
-    "table_name": "SystemLog",
-    "columns": "status, createdAt",
-    "index_name": "idx_systemlog_status_created",
-    "file_injected": "simulated_layer",
-    "status": "added",
-    "api_optimized_id": 1139,
     "screen_optimized_id": null
   }
 ]
