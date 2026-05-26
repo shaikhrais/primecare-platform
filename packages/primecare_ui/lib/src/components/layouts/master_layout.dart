@@ -259,22 +259,6 @@ class MasterLayout extends ConsumerWidget {
             value: 'es',
             child: Text('Español (ES)', style: theme.typography.bodyMedium),
           ),
-          PopupMenuItem<String>(
-            value: 'hi',
-            child: Text('हिन्दी (HI)', style: theme.typography.bodyMedium),
-          ),
-          PopupMenuItem<String>(
-            value: 'gu',
-            child: Text('ગુજરાતી (GU)', style: theme.typography.bodyMedium),
-          ),
-          PopupMenuItem<String>(
-            value: 'ar',
-            child: Text('العربية (AR) - RTL', style: theme.typography.bodyMedium),
-          ),
-          PopupMenuItem<String>(
-            value: 'ur',
-            child: Text('اردو (UR) - RTL', style: theme.typography.bodyMedium),
-          ),
         ],
       ),
       const SizedBox(width: 8),

@@ -59,10 +59,10 @@ def main():
         ('en', 'English', 'English', 'ltr', 1, 1),
         ('fr', 'French', 'Français', 'ltr', 1, 0),
         ('es', 'Spanish', 'Español', 'ltr', 1, 0),
-        ('hi', 'Hindi', 'हिन्दी', 'ltr', 1, 0),
-        ('gu', 'Gujarati', 'ગુજરાતી', 'ltr', 1, 0),
-        ('ar', 'Arabic', 'العربية', 'rtl', 1, 0),
-        ('ur', 'Urdu', 'اردو', 'rtl', 1, 0)
+        ('hi', 'Hindi', 'हिन्दी', 'ltr', 0, 0),
+        ('gu', 'Gujarati', 'ગુજરાતી', 'ltr', 0, 0),
+        ('ar', 'Arabic', 'العربية', 'rtl', 0, 0),
+        ('ur', 'Urdu', 'اردو', 'rtl', 0, 0)
     ]
     for row in languages:
         try:
