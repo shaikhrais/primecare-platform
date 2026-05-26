@@ -215,6 +215,69 @@ class MasterLayout extends ConsumerWidget {
         ],
       ),
       const SizedBox(width: 8),
+      PopupMenuButton<String>(
+        key: const Key('topbar-language-switcher'),
+        offset: const Offset(0, 48),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: theme.colors.border),
+        ),
+        tooltip: 'Change Language',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(LucideIcons.languages, color: theme.colors.onSurfaceVariant, size: 20),
+              const SizedBox(width: 6),
+              Text(
+                ref.watch(languageProvider).toUpperCase(),
+                style: theme.typography.labelBold.copyWith(
+                  color: theme.colors.onSurface,
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+        ),
+        onSelected: (lang) async {
+          await ref.read(languageProvider.notifier).setLanguage(lang);
+          if (context.mounted) {
+            await context.setLocale(Locale(lang));
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'en',
+            child: Text('English (EN)', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'fr',
+            child: Text('Français (FR)', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'es',
+            child: Text('Español (ES)', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'hi',
+            child: Text('हिन्दी (HI)', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'gu',
+            child: Text('ગુજરાતી (GU)', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'ar',
+            child: Text('العربية (AR) - RTL', style: theme.typography.bodyMedium),
+          ),
+          PopupMenuItem<String>(
+            value: 'ur',
+            child: Text('اردو (UR) - RTL', style: theme.typography.bodyMedium),
+          ),
+        ],
+      ),
+      const SizedBox(width: 8),
       IconButton(
         onPressed: () {},
         icon: Icon(LucideIcons.search, color: theme.colors.onSurfaceVariant),

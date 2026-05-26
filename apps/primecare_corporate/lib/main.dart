@@ -20,6 +20,12 @@ class PrimeCareCorporateApp extends ConsumerWidget {
     // Initialize Deep Link listener for Native SSO
     ref.read(deepLinkServiceProvider);
 
+    // Sync languageProvider with EasyLocalization
+    final langCode = ref.watch(languageProvider);
+    if (context.locale.languageCode != langCode) {
+      Future.microtask(() => context.setLocale(Locale(langCode)));
+    }
+
     final tenant = corporate.PrimeCareTenant();
 
     return MaterialApp.router(

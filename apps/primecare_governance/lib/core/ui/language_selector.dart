@@ -12,17 +12,6 @@ class LanguageSelector extends ConsumerWidget {
 
     return PopupMenuButton<String>(
       onSelected: (lang) {
-        if (lang != 'en') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Alert: $lang language translations are incomplete/missing for this module.',
-              ),
-              backgroundColor: theme.colors.error,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
         ref.read(languageProvider.notifier).setLanguage(lang);
       },
       icon: Container(
@@ -50,7 +39,10 @@ class LanguageSelector extends ConsumerWidget {
         _buildItem('en', 'English'),
         _buildItem('fr', 'Français'),
         _buildItem('es', 'Español'),
-        _buildItem('ar', 'العربية'),
+        _buildItem('hi', 'हिन्दी (Hindi)'),
+        _buildItem('gu', 'ગુજરાતી (Gujarati)'),
+        _buildItem('ar', 'العربية (Arabic)'),
+        _buildItem('ur', 'اردو (Urdu)'),
       ],
     );
   }
