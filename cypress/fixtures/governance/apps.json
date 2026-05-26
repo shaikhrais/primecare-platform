@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "app_code": "ui",
+    "app_name": "PrimeCare UI Client",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 2,
+    "app_code": "wa",
+    "app_name": "Web Admin Console",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 3,
+    "app_code": "au",
+    "app_name": "Primecare Auth",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 4,
+    "app_code": "bd",
+    "app_name": "Primecare Business Development",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 5,
+    "app_code": "cl",
+    "app_name": "Primecare Client",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 6,
+    "app_code": "ci",
+    "app_name": "Primecare Clinic",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 7,
+    "app_code": "co",
+    "app_name": "Primecare Corporate",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 8,
+    "app_code": "eb",
+    "app_name": "Primecare Enterprise Blueprint",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 9,
+    "app_code": "fr",
+    "app_name": "Primecare Franchise",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 10,
+    "app_code": "go",
+    "app_name": "Primecare Governance",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 11,
+    "app_code": "ma",
+    "app_name": "Primecare Marketing",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 12,
+    "app_code": "su",
+    "app_name": "Primecare Support",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 13,
+    "app_code": "wo",
+    "app_name": "Worker Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 14,
+    "app_code": "cn",
+    "app_name": "Contracts",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 15,
+    "app_code": "db",
+    "app_name": "Database",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 16,
+    "app_code": "dc",
+    "app_name": "Database Client",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 17,
+    "app_code": "dm",
+    "app_name": "Domain",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 18,
+    "app_code": "fs",
+    "app_name": "Factory System",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 19,
+    "app_code": "fc",
+    "app_name": "Flutter Core",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 20,
+    "app_code": "if",
+    "app_name": "Infrastructure",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 21,
+    "app_code": "me",
+    "app_name": "Messaging",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 23,
+    "app_code": "sy",
+    "app_name": "Security",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 25,
+    "app_code": "gw",
+    "app_name": "Api Gateway",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 26,
+    "app_code": "at",
+    "app_name": "Auth Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 27,
+    "app_code": "bi",
+    "app_name": "Billing Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 28,
+    "app_code": "ca",
+    "app_name": "Client Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 29,
+    "app_code": "cp",
+    "app_name": "Compliance Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 30,
+    "app_code": "fa",
+    "app_name": "Franchise Reporting Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 31,
+    "app_code": "gv",
+    "app_name": "Governance Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 32,
+    "app_code": "no",
+    "app_name": "Notes Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 33,
+    "app_code": "nt",
+    "app_name": "Notification Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 34,
+    "app_code": "pr",
+    "app_name": "Provider Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 35,
+    "app_code": "sc",
+    "app_name": "Scheduling Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 36,
+    "app_code": "ve",
+    "app_name": "Verification Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  },
+  {
+    "id": 37,
+    "app_code": "vi",
+    "app_name": "Visit Api",
+    "supported_locales_json": "[\"en\",\"fr\",\"es\"]"
+  }
+]

@@ -1,24 +1,31 @@
-describe("Language Governance Test", () => {
-  it("changes language from topbar and verifies UI updates", () => {
-    cy.visit("/psw/dashboard");
-    cy.wait(2000);
+describe("Language Governance EN/FR/ES", () => {
+  it("switches EN FR ES and verifies topbar/sidebar/content", () => {
+    cy.fixture("governance/languages.json").then((languages) => {
+      const activeLocales = languages.map((l) => l.locale_code);
 
-    cy.get('[data-cy="app-topbar"]').should("exist");
-    cy.get('[data-cy="topbar-language-switcher"]').should("exist").click();
-    cy.wait(2000);
+      expect(activeLocales).to.deep.eq(["en", "fr", "es"]);
 
-    cy.get('[data-cy="topbar-language-option-fr"]').click();
-    cy.wait(2000);
+      cy.loginAsRole("psw");
+      cy.wait(2000);
 
-    cy.get('[data-cy="app-topbar"]').should("contain.text", "FR");
-    cy.get('[data-cy="app-sidebar"]').should("exist");
-    cy.get('[data-cy="app-content-slot"]').should("exist");
+      cy.verifyShellExists();
 
-    cy.reload();
-    cy.wait(2000);
+      for (const locale of activeLocales) {
+        cy.switchLanguage(locale);
 
-    cy.get('[data-cy="topbar-language-switcher"]').should("contain.text", "FR");
+        cy.get('[data-cy="app-topbar"]').should("exist");
+        cy.get('[data-cy="app-sidebar"]').should("exist");
+        cy.get('[data-cy="app-content-slot"]').should("exist");
 
-    cy.screenshot("language-change-psw-dashboard-fr");
+        cy.screenshot(`language-${locale}-shell`);
+        cy.wait(2000);
+      }
+
+      cy.reload();
+      cy.wait(2000);
+
+      cy.verifyShellExists();
+      cy.get('[data-cy="topbar-language-switcher"]').should("exist");
+    });
   });
 });

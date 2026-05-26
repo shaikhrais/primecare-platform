@@ -1,0 +1,450 @@
+[
+  {
+    "id": 1,
+    "role_code": "chiropractor",
+    "role_name": "Chiropractor",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 2,
+    "role_code": "physio",
+    "role_name": "Physiotherapist",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 3,
+    "role_code": "rmt",
+    "role_name": "Registered Massage Therapist (RMT)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 4,
+    "role_code": "social_worker",
+    "role_name": "Social Worker",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 5,
+    "role_code": "therapist",
+    "role_name": "Therapist",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 6,
+    "role_code": "clinical_director",
+    "role_name": "Clinical Director",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 7,
+    "role_code": "intake",
+    "role_name": "Intake Coordinator",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 8,
+    "role_code": "rn",
+    "role_name": "Registered Nurse (RN)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 9,
+    "role_code": "physician",
+    "role_name": "Physician",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 10,
+    "role_code": "cns",
+    "role_name": "Clinical Nurse Specialist",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 11,
+    "role_code": "pediatric",
+    "role_name": "Pediatric Specialist",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 12,
+    "role_code": "caregiver",
+    "role_name": "Caregiver",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 13,
+    "role_code": "guest",
+    "role_name": "Guest",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 14,
+    "role_code": "portal",
+    "role_name": "Portal User",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 15,
+    "role_code": "patient",
+    "role_name": "Patient",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 16,
+    "role_code": "dynamic",
+    "role_name": "Dynamic Screen Viewer",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 17,
+    "role_code": "infrastructure",
+    "role_name": "Infrastructure Auditor",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 18,
+    "role_code": "system_verification",
+    "role_name": "System Verification Officer",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 19,
+    "role_code": "training",
+    "role_name": "Training Candidate",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 20,
+    "role_code": "ceo",
+    "role_name": "Chief Executive Officer (CEO)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 21,
+    "role_code": "cfo",
+    "role_name": "Chief Financial Officer (CFO)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 22,
+    "role_code": "ciso",
+    "role_name": "Chief Information Security Officer (CISO)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 23,
+    "role_code": "coo",
+    "role_name": "Chief Operating Officer (COO)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 24,
+    "role_code": "cto",
+    "role_name": "Chief Technology Officer (CTO)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 25,
+    "role_code": "cx_director",
+    "role_name": "CX Director",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 26,
+    "role_code": "finance_director",
+    "role_name": "Finance Director",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 27,
+    "role_code": "hr_director",
+    "role_name": "HR Director",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 28,
+    "role_code": "legal",
+    "role_name": "Legal Counsel",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 29,
+    "role_code": "owner",
+    "role_name": "Franchise Owner",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 30,
+    "role_code": "shareholder",
+    "role_name": "Shareholder",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 31,
+    "role_code": "training_director",
+    "role_name": "Training Director",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 32,
+    "role_code": "community_outreach",
+    "role_name": "Community Outreach Lead",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 33,
+    "role_code": "compliance",
+    "role_name": "Compliance Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 34,
+    "role_code": "franchise_sales",
+    "role_name": "Franchise Sales Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 35,
+    "role_code": "gm",
+    "role_name": "General Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 36,
+    "role_code": "governance",
+    "role_name": "Governance Officer",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 37,
+    "role_code": "bus_dev",
+    "role_name": "Head of Business Development",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 38,
+    "role_code": "marketing",
+    "role_name": "Head of Marketing",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 39,
+    "role_code": "local_marketing",
+    "role_name": "Local Marketing Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 40,
+    "role_code": "ops_manager",
+    "role_name": "Operations Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 41,
+    "role_code": "partnership",
+    "role_name": "Partnership Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 42,
+    "role_code": "regional_bdm",
+    "role_name": "Regional BDM",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 43,
+    "role_code": "regional_manager_usa",
+    "role_name": "Regional Manager USA",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 44,
+    "role_code": "scrum_master",
+    "role_name": "Scrum Master",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 45,
+    "role_code": "hr_hiring",
+    "role_name": "Talent Acquisition Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 46,
+    "role_code": "territory_expansion",
+    "role_name": "Territory Expansion Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 47,
+    "role_code": "territory_sales",
+    "role_name": "Territory Sales Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 48,
+    "role_code": "volunteer_coordinator",
+    "role_name": "Volunteer Coordinator",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 49,
+    "role_code": "premium_concierge",
+    "role_name": "Premium Concierge Care Coordinator",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 50,
+    "role_code": "vip_manager",
+    "role_name": "VIP Client Manager",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 51,
+    "role_code": "psw",
+    "role_name": "Personal Support Worker (PSW)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 52,
+    "role_code": "hsw",
+    "role_name": "Home Support Worker",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 53,
+    "role_code": "rn_field_supervisor",
+    "role_name": "Registered Nurse (RN) Field Supervisor",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 54,
+    "role_code": "np",
+    "role_name": "Nurse Practitioner (NP)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 55,
+    "role_code": "rpn",
+    "role_name": "Registered Practical Nurse (RPN)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 56,
+    "role_code": "lpn",
+    "role_name": "Licensed Practical Nurse (LPN)",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 57,
+    "role_code": "employee",
+    "role_name": "Employee",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 58,
+    "role_code": "volunteer",
+    "role_name": "Volunteer",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 59,
+    "role_code": "admin",
+    "role_name": "Administrative Assistant",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 60,
+    "role_code": "scheduler",
+    "role_name": "Shift Supervisor",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 61,
+    "role_code": "customer_support",
+    "role_name": "Customer Support",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 62,
+    "role_code": "training_coordinator",
+    "role_name": "Training Coordinator",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 63,
+    "role_code": "qa_specialist",
+    "role_name": "QA Specialist",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  },
+  {
+    "id": 64,
+    "role_code": "family",
+    "role_name": "Family Member",
+    "allowed_locales_json": "[\"en\",\"fr\",\"es\"]",
+    "show_language_switcher": 1
+  }
+]
