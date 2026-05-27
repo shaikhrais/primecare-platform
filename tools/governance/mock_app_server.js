@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
-const PORT = 3000;
+const PORT = 3099;
 const FIXTURES_DIR = path.join(__dirname, '..', '..', 'cypress', 'fixtures', 'governance');
 
 // Load screens fixture to match routes
@@ -561,7 +561,8 @@ function getAppShellHtml(screen, lang) {
     </div>
 
     <!-- App Shell Main Content Area -->
-    <div class="app-shell" data-cy="app-content-slot" ${screenRootAttr}>
+    <div class="app-shell" data-cy="app-content-slot">
+      <div ${screenRootAttr} style="display: flex; flex-direction: column; flex: 1; width: 100%; box-sizing: border-box;">
       
       <!-- Metrics row -->
       <div class="metrics-row">
@@ -632,6 +633,7 @@ function getAppShellHtml(screen, lang) {
           })()}
         </div>
 
+      </div>
       </div>
 
     </div>

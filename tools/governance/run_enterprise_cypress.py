@@ -65,7 +65,7 @@ def main():
 
     # 1. Start Node.js Mock App Server in background
     server_script = os.path.join("tools", "governance", "mock_app_server.js")
-    print(f"Launching Mock App Server at http://localhost:3000...")
+    print(f"Launching Mock App Server at http://localhost:3099...")
     
     server_proc = None
     try:
@@ -116,7 +116,7 @@ def main():
     failed_step = None
     
     # Ensure CYPRESS_BASE_URL is bound to localhost server
-    os.environ["CYPRESS_BASE_URL"] = "http://localhost:3000"
+    os.environ["CYPRESS_BASE_URL"] = "http://localhost:3099"
     if "ROLE_CODE" not in os.environ:
         os.environ["ROLE_CODE"] = "psw"
 

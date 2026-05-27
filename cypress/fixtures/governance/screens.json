@@ -13110,7 +13110,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_dashboard.png"
   },
@@ -49660,7 +49660,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_analytics.png"
   },
@@ -49875,7 +49875,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_clients.png"
   },
@@ -50090,7 +50090,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_compliance.png"
   },
@@ -50305,7 +50305,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_messages.png"
   },
@@ -50520,7 +50520,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_shift_tracker.png"
   },
@@ -50735,7 +50735,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_tasks.png"
   },
@@ -50950,7 +50950,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_visit_notes.png"
   },
@@ -51165,7 +51165,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_workflow.png"
   },
@@ -73740,7 +73740,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_command_center.png"
   },
@@ -73955,7 +73955,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_my_shifts.png"
   },
@@ -74170,7 +74170,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_client_profile.png"
   },
@@ -74600,7 +74600,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_vitals_log.png"
   },
@@ -74815,7 +74815,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_incident_report.png"
   },
@@ -75030,7 +75030,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_care_plan.png"
   },
@@ -75460,7 +75460,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-psw_documents.png"
   },
@@ -98035,7 +98035,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-shift_tasks.png"
   },
@@ -98250,7 +98250,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-visit_notes.png"
   },
@@ -98465,7 +98465,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-vitals_entry.png"
   },
@@ -98680,7 +98680,7 @@
     "cypress_spec_path": "cypress/e2e/role/one_role_all_screens.cy.js",
     "cypress_last_status": "passed",
     "cypress_last_error": null,
-    "cypress_last_run_at": "2026-05-26T17:18:47.368552",
+    "cypress_last_run_at": "2026-05-26T17:57:08.999056",
     "cypress_video_path": "cypress/videos/role/one_role_all_screens.mp4",
     "cypress_screenshot_path": "cypress/screenshots/psw/psw-incident_report.png"
   },

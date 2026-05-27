@@ -78,6 +78,7 @@ model User {
   preferredLanguage          String                      @default("en") @map("preferred_language")
 
   @@index([tenantId])
+  @@index([status, createdAt])
   @@map("users")
 }
 
