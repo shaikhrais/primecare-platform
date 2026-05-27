@@ -2,7 +2,16 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'core/routing/app_router.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/semantics.dart';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (kIsWeb) {
+    SemanticsBinding.instance.ensureSemantics();
+  }
+
   PrimeCareAppRunner.run(appWidget: const PrimeCareSupportApp());
 }
 

@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:web/web.dart' as web;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/semantics.dart';
+
 class AuthTenant extends PlatformTenant {
   @override
   String get tenantId => 'primecare_hq';
@@ -31,6 +34,7 @@ class AuthApplication extends PlatformApplication {
 }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     ProviderScope(
       overrides: [
@@ -39,6 +43,9 @@ void main() {
       child: const PrimeCareAuthApp(),
     ),
   );
+  if (kIsWeb) {
+    SemanticsBinding.instance.ensureSemantics();
+  }
 }
 
 class PrimeCareAuthApp extends ConsumerWidget {
@@ -97,14 +104,7 @@ final authRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/login',
-        builder: (context, state) => Scaffold(
-          body: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: const LoginView(),
-            ),
-          ),
-        ),
+        builder: (context, state) => const LoginView(),
       ),
       GoRoute(
         path: '/success',

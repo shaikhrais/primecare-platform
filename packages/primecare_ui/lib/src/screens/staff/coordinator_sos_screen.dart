@@ -529,7 +529,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
                     ),
                     icon: const Icon(LucideIcons.phoneCall, color: Colors.teal, size: 16),
                     label: const Text('Dial Caregiver', style: TextStyle(color: Colors.teal)),
-                    onPressed: () => triggerStateAction(),
+                    onPressed: () => controller.triggerStateAction(),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -646,9 +646,9 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
             style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
-          _buildContactTile(context, '911 Emergency Line', 'Critical Trauma Dispatch', LucideIcons.phone, Colors.red),
-          _buildContactTile(context, 'Clinical Director Hub', 'Senior Clinical Supervisor', LucideIcons.shieldCheck, theme.colors.primary),
-          _buildContactTile(context, 'Telehealth Advisory', 'Non-critical Medical Guidance', LucideIcons.activity, Colors.teal),
+          _buildContactTile(context, '911 Emergency Line', 'Critical Trauma Dispatch', LucideIcons.phone, Colors.red, controller),
+          _buildContactTile(context, 'Clinical Director Hub', 'Senior Clinical Supervisor', LucideIcons.shieldCheck, theme.colors.primary, controller),
+          _buildContactTile(context, 'Telehealth Advisory', 'Non-critical Medical Guidance', LucideIcons.activity, Colors.teal, controller),
         ],
       ),
     );
@@ -660,6 +660,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
     String desc,
     IconData icon,
     Color iconColor,
+    CoordinatorSosController controller,
   ) {
     final theme = context.theme;
     return Container(
@@ -696,7 +697,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
           IconButton(
             key: const Key('coordinatorsos-btn-13'),
             icon: const Icon(LucideIcons.phoneOutgoing, size: 14),
-            onPressed: () => triggerStateAction(),
+            onPressed: () => controller.triggerStateAction(),
           ),
         ],
       ),

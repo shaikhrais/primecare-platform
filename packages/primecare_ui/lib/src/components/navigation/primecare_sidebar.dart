@@ -143,32 +143,35 @@ class PrimeCareSidebar extends StatelessWidget {
         currentRoute == item.route ||
         ((currentRoute?.startsWith(item.route) ?? false) && item.route != '/');
 
-    return ListTile(
-      leading: Icon(
-        item.icon,
-        size: context.s(20),
-        color: isSelected
-            ? theme.colors.primary
-            : theme.colors.onSurfaceVariant,
-      ),
-      title: Text(
-        item.label,
-        style: theme.typography.bodyMedium.copyWith(
+    return Cy(
+      id: 'sidebar-nav-${item.label.toLowerCase().replaceAll(' ', '-')}',
+      child: ListTile(
+        leading: Icon(
+          item.icon,
+          size: context.s(20),
           color: isSelected
               ? theme.colors.primary
               : theme.colors.onSurfaceVariant,
-          fontSize: context.s(14),
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
+        title: Text(
+          item.label,
+          style: theme.typography.bodyMedium.copyWith(
+            color: isSelected
+                ? theme.colors.primary
+                : theme.colors.onSurfaceVariant,
+            fontSize: context.s(14),
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(context.s(8)),
+        ),
+        selected: isSelected,
+        selectedTileColor: theme.colors.primary.withValues(alpha: 0.05),
+        onTap: () {
+          context.go(item.route);
+        },
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(context.s(8)),
-      ),
-      selected: isSelected,
-      selectedTileColor: theme.colors.primary.withValues(alpha: 0.05),
-      onTap: () {
-        context.go(item.route);
-      },
     );
   }
 

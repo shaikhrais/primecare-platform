@@ -6,8 +6,15 @@ import 'core/i18n/language_provider.dart';
 import 'core/routing/governance_application.dart';
 import 'core/governance/registries/index.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/semantics.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (kIsWeb) {
+    SemanticsBinding.instance.ensureSemantics();
+  }
 
   // 1. Initialize Security Governance Watchdog (Bank-Grade)
   SessionWatchdog.instance.initialize();

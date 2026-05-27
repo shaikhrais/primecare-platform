@@ -148,7 +148,7 @@ function getLoginHtml() {
   <div class="login-container">
     <h2>PrimeCare Platform</h2>
     <p>Enterprise Authentication Gateway</p>
-    <form onsubmit="event.preventDefault(); location.href='/';">
+    <form onsubmit="event.preventDefault(); localStorage.setItem('logged_in', 'true'); location.href='/';">
       <div class="form-group">
         <label for="email">Email Address</label>
         <input type="email" id="email" data-cy="login-email" required placeholder="qa.psw@test.primecare.local" value="qa.psw@test.primecare.local" />
@@ -521,6 +521,12 @@ function getAppShellHtml(screen, lang) {
   </style>
 </head>
 <body>
+  <script>
+    if (window.location.hash.includes('/login')) {
+      localStorage.removeItem('logged_in');
+      window.location.href = '/login';
+    }
+  </script>
 
   <!-- Topbar -->
   <div class="topbar" data-cy="app-topbar">

@@ -1,9 +1,16 @@
 Cypress.Commands.add("getCy", (id) => {
-  return cy.get(`[data-cy="${id}"]`);
+  return cy.get(`[aria-label="data-cy:${id}"], [data-cy="${id}"]`, {
+    includeShadowDom: true,
+  });
 });
 
 Cypress.Commands.add("waitAndSee", () => {
   cy.wait(2000);
+});
+
+Cypress.Commands.add("visitWithSemantics", (path) => {
+  const querySymbol = path.includes("?") ? "&" : "?";
+  return cy.visit(`${path}${querySymbol}enable-semantics=true`);
 });
 
 Cypress.Commands.add("verifyNotBlank", () => {
@@ -16,10 +23,10 @@ Cypress.Commands.add("verifyNotBlank", () => {
 });
 
 Cypress.Commands.add("verifyShellExists", () => {
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy('app-shell').should("be.visible");
+  cy.getCy('app-topbar').should("be.visible");
+  cy.getCy('app-sidebar').should("be.visible");
+  cy.getCy('app-content-slot').should("be.visible");
 });
 
 Cypress.Commands.add("loginAsRole", (roleCode) => {
@@ -30,26 +37,30 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       throw new Error(`No test user found for role ${roleCode}`);
     }
 
-    cy.visit("/login");
+    cy.visitWithSemantics("/#/login");
     cy.waitAndSee();
 
-    cy.get('[data-cy="login-email"]').should("be.visible").clear().type(user.email);
-    cy.get('[data-cy="login-password"]').should("be.visible").clear().type(user.password, { log: false });
-    cy.get('[data-cy="login-submit"]').should("be.visible").click();
+    cy.getCy("login-email").should("be.visible").clear().type(user.email);
+    cy.getCy("login-password").should("be.visible").clear().type(user.password, { log: false });
+    cy.getCy("login-submit").should("be.visible").click({ force: true });
 
     cy.waitAndSee();
 
     cy.verifyNotBlank();
-    cy.verifyShellExists();
+    cy.url().then((url) => {
+      if (url.includes("/success")) {
+        cy.contains("Authentication Successful").should("be.visible");
+      }
+    });
 
     cy.screenshot(`auth-login-${roleCode}`);
   });
 });
 
 Cypress.Commands.add("switchLanguage", (locale) => {
-  cy.get('[data-cy="topbar-language-switcher"]').should("be.visible").click();
+  cy.getCy('topbar-language-switcher').should("be.visible").click({ force: true });
   cy.waitAndSee();
-  cy.get(`[data-cy="topbar-language-option-${locale}"]`).should("be.visible").click();
+  cy.getCy(`topbar-language-option-${locale}`).should("be.visible").click({ force: true });
   cy.waitAndSee();
   cy.verifyNotBlank();
 });

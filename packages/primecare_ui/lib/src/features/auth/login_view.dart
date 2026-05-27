@@ -218,31 +218,37 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
-                _InputField(
-                  label: 'IDENTIFIER',
-                  placeholder: 'admin@primecare.com',
-                  icon: Icons.person_outline_rounded,
-                  initialValue: widget.state.email,
-                  onChanged: controller.onEmailChanged,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Identifier is required';
-                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) return 'Invalid email format';
-                    return null;
-                  },
+                Cy(
+                  id: 'login-email',
+                  child: _InputField(
+                    label: 'IDENTIFIER',
+                    placeholder: 'admin@primecare.com',
+                    icon: Icons.person_outline_rounded,
+                    initialValue: widget.state.email,
+                    onChanged: controller.onEmailChanged,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Identifier is required';
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) return 'Invalid email format';
+                      return null;
+                    },
+                  ),
                 ),
                 const SizedBox(height: 20),
-                _InputField(
-                  label: 'SECURITY TOKEN',
-                  placeholder: '••••••••',
-                  icon: Icons.key_outlined,
-                  obscureText: true,
-                  initialValue: widget.state.password,
-                  onChanged: controller.onPasswordChanged,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Security token is required';
-                    if (value.length < 8) return 'Token must be at least 8 characters';
-                    return null;
-                  },
+                Cy(
+                  id: 'login-password',
+                  child: _InputField(
+                    label: 'SECURITY TOKEN',
+                    placeholder: '••••••••',
+                    icon: Icons.key_outlined,
+                    obscureText: true,
+                    initialValue: widget.state.password,
+                    onChanged: controller.onPasswordChanged,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Security token is required';
+                      if (value.length < 8) return 'Token must be at least 8 characters';
+                      return null;
+                    },
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -348,6 +354,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
 }
 
 class _InputField extends StatelessWidget {
+  final Key? fieldKey;
   final String label;
   final String placeholder;
   final IconData icon;
@@ -357,6 +364,7 @@ class _InputField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
 
   const _InputField({
+    this.fieldKey,
     required this.label,
     required this.placeholder,
     required this.icon,
@@ -384,6 +392,7 @@ class _InputField extends StatelessWidget {
           ),
         ),
         TextFormField(
+          key: fieldKey,
           initialValue: initialValue,
           onChanged: onChanged,
           validator: validator,
@@ -516,26 +525,29 @@ class _ActionButtons extends StatelessWidget {
     final theme = context.theme;
     return Column(
       children: [
-        ElevatedButton(
-          onPressed: onLogin,
-          style:
-              ElevatedButton.styleFrom(
-                backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+        Cy(
+          id: 'login-submit',
+          child: ElevatedButton(
+            onPressed: onLogin,
+            style:
+                ElevatedButton.styleFrom(
+                  backgroundColor: theme.colors.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 0,
+                ).copyWith(
+                  overlayColor: WidgetStateProperty.all(
+                    Colors.white.withValues(alpha: 0.1),
+                  ),
                 ),
-                elevation: 0,
-              ).copyWith(
-                overlayColor: WidgetStateProperty.all(
-                  Colors.white.withValues(alpha: 0.1),
-                ),
+            child: const Center(
+              child: Text(
+                'INITIATE SESSION',
+                style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
               ),
-          child: const Center(
-            child: Text(
-              'INITIATE SESSION',
-              style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
             ),
           ),
         ),

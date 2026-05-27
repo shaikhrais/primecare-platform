@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-26T05:44:32.788Z",
+  "timestamp": "2026-05-27T03:53:53.905Z",
   "overallI18nScore": "94.8%",
   "deployments": [
     {
@@ -37,7 +37,7 @@
             ";\r\n      }\r\n\r\n      if (!authState.isAuthenticated && !isAtLogin) {\r\n        return",
             "?redirect_uri=${Uri.encodeComponent(redirectUri)}",
             ";\r\n      }\r\n\r\n      return null;\r\n    },\r\n    routes: [\r\n      GoRoute(\r\n        path:",
-            ",\r\n        builder: (context, state) => Scaffold(\r\n          body: Center(\r\n            child: ConstrainedBox(\r\n              constraints: const BoxConstraints(maxWidth: 500),\r\n              child: const LoginView(),\r\n            ),\r\n          ),\r\n        ),\r\n      ),\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) => const LoginView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) => const Scaffold(\r\n          body: Center(\r\n            child: Text("
           ],
           "components": [
@@ -997,9 +997,7 @@
         {
           "screenName": "language_selector",
           "language": "dart",
-          "labels": [
-            "Alert: $lang language translations are incomplete/missing for this module."
-          ],
+          "labels": [],
           "textElements": [
             "en",
             "English",
@@ -1007,7 +1005,14 @@
             "Français",
             "es",
             "Español",
-            "ar"
+            "hi",
+            "हिन्दी (Hindi)",
+            "gu",
+            "ગુજરાતી (Gujarati)",
+            "ar",
+            "العربية (Arabic)",
+            "ur",
+            "اردو (Urdu)"
           ],
           "components": [
             "Row",
@@ -1019,8 +1024,8 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 1,
-            "textElementsCount": 7
+            "labelsCount": 0,
+            "textElementsCount": 14
           }
         },
         {
@@ -10417,6 +10422,7 @@
           ],
           "components": [
             "Provider: deepLinkServiceProvider",
+            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -17348,6 +17354,7 @@
           ],
           "components": [
             "Provider: deepLinkServiceProvider",
+            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {

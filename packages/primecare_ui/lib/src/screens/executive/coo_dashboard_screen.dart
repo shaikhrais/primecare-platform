@@ -300,8 +300,8 @@ class CooDashboardScreen extends GovernedConsumerWidget {
             ),
           ),
         ),
-        loading: () => Center(
-          child: CircularProgressIndicator(
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
         ),
         error: (error, stack) => Center(
           child: Column(

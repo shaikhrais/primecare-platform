@@ -35,102 +35,111 @@ class MasterLayout extends ConsumerWidget {
     final isOffline = connectivityState.value == false;
     final zoomFactor = ref.watch(contentZoomProvider);
 
-    return Scaffold(
-      backgroundColor: theme.colors.background,
-      drawer: drawer ?? _buildSidebar(context, authState, tenant),
-      endDrawer: endDrawer,
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Icon(
-              LucideIcons.shieldCheck,
-              color: tenant.branding.primaryColor,
-              size: 28,
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+    return Cy(
+      id: 'app-shell',
+      child: Scaffold(
+        backgroundColor: theme.colors.background,
+        drawer: drawer ?? _buildSidebar(context, authState, tenant),
+        endDrawer: endDrawer,
+        appBar: AppBar(
+          title: Cy(
+            id: 'app-topbar',
+            child: Row(
               children: [
-                Text(
-                  tenant.name,
-                  style: theme.typography.h3.copyWith(
-                    color: tenant.branding.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Icon(
+                  LucideIcons.shieldCheck,
+                  color: tenant.branding.primaryColor,
+                  size: 28,
                 ),
-                Text(
-                  _getDefaultTitle(shellType),
-                  style: theme.typography.bodyMedium.copyWith(
-                    color: theme.colors.onSurfaceVariant,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: theme.colors.primary.withValues(alpha: 0.1),
-                border: Border.all(
-                  color: theme.colors.primary.withValues(alpha: 0.3),
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                app.name.toUpperCase(),
-                style: theme.typography.labelBold.copyWith(
-                  color: theme.colors.primary,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.1,
-                ),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(LucideIcons.menu, color: theme.colors.primary),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Divider(color: theme.colors.divider, height: 1),
-        ),
-      ),
-      floatingActionButton: floatingActionButton,
-      body: SafeArea(
-        child: Column(
-          children: [
-            if (isOffline)
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                color: theme.colors.error.withValues(alpha: 0.9),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(LucideIcons.wifiOff, color: Colors.white, size: 16),
-                    const SizedBox(width: 8),
                     Text(
-                      'Offline Mode - Viewing cached data. Changes will sync when reconnected.',
-                      style: theme.typography.labelBold.copyWith(
-                        color: Colors.white,
+                      tenant.name,
+                      style: theme.typography.h3.copyWith(
+                        color: tenant.branding.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _getDefaultTitle(shellType),
+                      style: theme.typography.bodyMedium.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                        fontSize: 12,
                       ),
                     ),
                   ],
                 ),
-              ),
-            Expanded(
-              child: AppShellBoundary(child: OmniConstraintWrapper(child: child)),
+                const SizedBox(width: 16),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: theme.colors.primary.withValues(alpha: 0.1),
+                    border: Border.all(
+                      color: theme.colors.primary.withValues(alpha: 0.3),
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    app.name.toUpperCase(),
+                    style: theme.typography.labelBold.copyWith(
+                      color: theme.colors.primary,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.1,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(LucideIcons.menu, color: theme.colors.primary),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: Divider(color: theme.colors.divider, height: 1),
+          ),
+        ),
+        floatingActionButton: floatingActionButton,
+        body: SafeArea(
+          child: Column(
+            children: [
+              if (isOffline)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  color: theme.colors.error.withValues(alpha: 0.9),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(LucideIcons.wifiOff, color: Colors.white, size: 16),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Offline Mode - Viewing cached data. Changes will sync when reconnected.',
+                        style: theme.typography.labelBold.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              Expanded(
+                child: Cy(
+                  id: 'app-content-slot',
+                  child: AppShellBoundary(child: OmniConstraintWrapper(child: child)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -215,51 +224,66 @@ class MasterLayout extends ConsumerWidget {
         ],
       ),
       const SizedBox(width: 8),
-      PopupMenuButton<String>(
-        key: const Key('topbar-language-switcher'),
-        offset: const Offset(0, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: theme.colors.border),
-        ),
-        tooltip: 'Change Language',
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(LucideIcons.languages, color: theme.colors.onSurfaceVariant, size: 20),
-              const SizedBox(width: 6),
-              Text(
-                ref.watch(languageProvider).toUpperCase(),
-                style: theme.typography.labelBold.copyWith(
-                  color: theme.colors.onSurface,
-                  fontSize: 13,
+      Cy(
+        id: 'topbar-language-switcher',
+        child: PopupMenuButton<String>(
+          key: const Key('topbar-language-switcher'),
+          offset: const Offset(0, 48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: theme.colors.border),
+          ),
+          tooltip: 'Change Language',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(LucideIcons.languages, color: theme.colors.onSurfaceVariant, size: 20),
+                const SizedBox(width: 6),
+                Text(
+                  ref.watch(languageProvider).toUpperCase(),
+                  style: theme.typography.labelBold.copyWith(
+                    color: theme.colors.onSurface,
+                    fontSize: 13,
+                  ),
                 ),
+              ],
+            ),
+          ),
+          onSelected: (lang) async {
+            await ref.read(languageProvider.notifier).setLanguage(lang);
+            if (context.mounted) {
+              await context.setLocale(Locale(lang));
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'en',
+              child: Cy(
+                id: 'topbar-language-option-en',
+                container: false,
+                child: Text('English (EN)', style: theme.typography.bodyMedium),
               ),
-            ],
-          ),
+            ),
+            PopupMenuItem<String>(
+              value: 'fr',
+              child: Cy(
+                id: 'topbar-language-option-fr',
+                container: false,
+                child: Text('Français (FR)', style: theme.typography.bodyMedium),
+              ),
+            ),
+            PopupMenuItem<String>(
+              value: 'es',
+              child: Cy(
+                id: 'topbar-language-option-es',
+                container: false,
+                child: Text('Español (ES)', style: theme.typography.bodyMedium),
+              ),
+            ),
+          ],
         ),
-        onSelected: (lang) async {
-          await ref.read(languageProvider.notifier).setLanguage(lang);
-          if (context.mounted) {
-            await context.setLocale(Locale(lang));
-          }
-        },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          PopupMenuItem<String>(
-            value: 'en',
-            child: Text('English (EN)', style: theme.typography.bodyMedium),
-          ),
-          PopupMenuItem<String>(
-            value: 'fr',
-            child: Text('Français (FR)', style: theme.typography.bodyMedium),
-          ),
-          PopupMenuItem<String>(
-            value: 'es',
-            child: Text('Español (ES)', style: theme.typography.bodyMedium),
-          ),
-        ],
       ),
       const SizedBox(width: 8),
       IconButton(
@@ -362,13 +386,16 @@ class MasterLayout extends ConsumerWidget {
     // Prioritize registry-driven menu items for "Real Programmer" consistency
     final List<PrimeCareNavigationItem> items = govRole.menuItems;
 
-    return PrimeCareSidebar(
-      userName: auth.userName ?? 'System User',
-      userRole: govRole.name,
-      currentRoute: currentRoute,
-      items: items,
-      tenantName: tenant.name,
-      tenantColor: tenant.branding.primaryColor,
+    return Cy(
+      id: 'app-sidebar',
+      child: PrimeCareSidebar(
+        userName: auth.userName ?? 'System User',
+        userRole: govRole.name,
+        currentRoute: currentRoute,
+        items: items,
+        tenantName: tenant.name,
+        tenantColor: tenant.branding.primaryColor,
+      ),
     );
   }
 }
