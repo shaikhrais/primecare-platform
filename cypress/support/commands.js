@@ -1,5 +1,5 @@
 Cypress.Commands.add("getCy", (id) => {
-  return cy.get(`[aria-label="data-cy:${id}"], [data-cy="${id}"]`, {
+  return cy.get(`[aria-label*="data-cy:${id}"], [data-cy="${id}"]`, {
     includeShadowDom: true,
   });
 });
@@ -9,6 +9,14 @@ Cypress.Commands.add("waitAndSee", () => {
 });
 
 Cypress.Commands.add("visitWithSemantics", (path) => {
+  if (path.startsWith("/#/")) {
+    const hashSegment = path.substring(2); // e.g. "/login"
+    const delimiter = hashSegment.includes("?") ? "&" : "?";
+    return cy.visit(`/?enable-semantics=true#${hashSegment}`);
+  } else if (path.startsWith("#/")) {
+    const hashSegment = path.substring(1);
+    return cy.visit(`/?enable-semantics=true#${hashSegment}`);
+  }
   const querySymbol = path.includes("?") ? "&" : "?";
   return cy.visit(`${path}${querySymbol}enable-semantics=true`);
 });
@@ -32,20 +40,39 @@ Cypress.Commands.add("verifyShellExists", () => {
 Cypress.Commands.add("loginAsRole", (roleCode) => {
   cy.fixture("governance/test_users.json").then((users) => {
     const user = users.find((u) => u.role_code === roleCode);
+    if (!user) throw new Error(`No test user found for role ${roleCode}`);
 
-    if (!user) {
-      throw new Error(`No test user found for role ${roleCode}`);
-    }
+    // Read password from environment, fallback to fixture or default
+    const password = Cypress.env(user.password_env) || "Test@12345";
 
     cy.visitWithSemantics("/#/login");
     cy.waitAndSee();
 
-    cy.getCy("login-email").should("be.visible").clear().type(user.email);
-    cy.getCy("login-password").should("be.visible").clear().type(user.password, { log: false });
-    cy.getCy("login-submit").should("be.visible").click({ force: true });
+    cy.document().then((doc) => {
+      // Direct inputs check (works for CanvasKit/Semantic inputs or mock server HTML)
+      const hasStandardInput = doc.querySelector('input[type="text"]') || doc.querySelector('input[type="email"]');
+      if (hasStandardInput) {
+        const emailSelector = doc.querySelector('input[type="email"]') ? 'input[type="email"]' : 'input[type="text"]';
+        cy.get(emailSelector, { includeShadowDom: true }).should("be.visible").clear().type(user.email);
+        cy.get('input[type="password"]', { includeShadowDom: true }).should("be.visible").clear().type(password, { log: false });
+        
+        // Find best button to click
+        const hasInitiateSession = doc.body.innerText.includes("INITIATE SESSION");
+        if (hasInitiateSession) {
+          cy.contains("INITIATE SESSION", { includeShadowDom: true }).click({ force: true });
+        } else {
+          const buttonSelector = doc.querySelector('[data-cy="login-submit"]') ? '[data-cy="login-submit"]' : '[aria-label*="data-cy:login-submit"]';
+          cy.get(buttonSelector, { includeShadowDom: true }).click({ force: true });
+        }
+      } else {
+        // Fallback to contains semantics selectors
+        cy.getCy("login-email").should("be.visible").clear().type(user.email);
+        cy.getCy("login-password").should("be.visible").clear().type(password, { log: false });
+        cy.getCy("login-submit").should("be.visible").click({ force: true });
+      }
+    });
 
     cy.waitAndSee();
-
     cy.verifyNotBlank();
     cy.url().then((url) => {
       if (url.includes("/success")) {

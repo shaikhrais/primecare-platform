@@ -1,5 +1,57 @@
 [
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_psw.cy.js\\Auth - psw -- logs in as psw (failed) (1).png",
+    "relative_path": "cypress/screenshots/auth_psw.cy.js/Auth - psw -- logs in as psw (failed) (1).png",
+    "exists": true,
+    "size": 194450,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 89.98071398281898,
+    "variance": 8098.879705318432,
+    "dominant_ratio": 0.21220377604166665,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_psw.cy.js\\Auth - psw -- logs in as psw (failed).png",
+    "relative_path": "cypress/screenshots/auth_psw.cy.js/Auth - psw -- logs in as psw (failed).png",
+    "exists": true,
+    "size": 191800,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 90.01087906689878,
+    "variance": 8104.281122592879,
+    "dominant_ratio": 0.21220486111111111,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_psw.cy.js\\auth-login-psw (1).png",
+    "relative_path": "cypress/screenshots/auth_psw.cy.js/auth-login-psw (1).png",
+    "exists": true,
+    "size": 319154,
+    "width": 1280,
+    "height": 1080,
+    "std_dev": 64.40561038678419,
+    "variance": 4245.3295054171385,
+    "dominant_ratio": 0.022757523148148148,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_psw.cy.js\\auth-login-psw.png",
+    "relative_path": "cypress/screenshots/auth_psw.cy.js/auth-login-psw.png",
+    "exists": true,
+    "size": 319154,
+    "width": 1280,
+    "height": 1080,
+    "std_dev": 64.40561038678419,
+    "variance": 4245.3295054171385,
+    "dominant_ratio": 0.022757523148148148,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\button_components.cy.js\\component-login-button.png",
     "relative_path": "cypress/screenshots/button_components.cy.js/component-login-button.png",
     "exists": true,

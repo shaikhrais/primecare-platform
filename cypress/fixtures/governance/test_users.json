@@ -2,321 +2,321 @@
   {
     "role_code": "chiropractor",
     "email": "qa.chiropractor@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "physio",
     "email": "qa.physio@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "rmt",
     "email": "qa.rmt@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "social_worker",
     "email": "qa.social_worker@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "therapist",
     "email": "qa.therapist@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "clinical_director",
     "email": "qa.clinical_director@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "intake",
     "email": "qa.intake@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "rn",
     "email": "qa.rn@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "physician",
     "email": "qa.physician@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "cns",
     "email": "qa.cns@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "pediatric",
     "email": "qa.pediatric@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "caregiver",
     "email": "qa.caregiver@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "guest",
     "email": "qa.guest@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "portal",
     "email": "qa.portal@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "patient",
     "email": "qa.patient@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "dynamic",
     "email": "qa.dynamic@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "infrastructure",
     "email": "qa.infrastructure@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "system_verification",
     "email": "qa.system_verification@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "training",
     "email": "qa.training@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "ceo",
     "email": "qa.ceo@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "cfo",
     "email": "qa.cfo@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "ciso",
     "email": "qa.ciso@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "coo",
     "email": "qa.coo@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "cto",
     "email": "qa.cto@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "cx_director",
     "email": "qa.cx_director@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "finance_director",
     "email": "qa.finance_director@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "hr_director",
     "email": "qa.hr_director@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "legal",
     "email": "qa.legal@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "owner",
     "email": "qa.owner@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "shareholder",
     "email": "qa.shareholder@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "training_director",
     "email": "qa.training_director@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "community_outreach",
     "email": "qa.community_outreach@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "compliance",
     "email": "qa.compliance@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "franchise_sales",
     "email": "qa.franchise_sales@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "gm",
     "email": "qa.gm@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "governance",
     "email": "qa.governance@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "bus_dev",
     "email": "qa.bus_dev@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "marketing",
     "email": "qa.marketing@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "local_marketing",
     "email": "qa.local_marketing@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "ops_manager",
     "email": "qa.ops_manager@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "partnership",
     "email": "qa.partnership@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "regional_bdm",
     "email": "qa.regional_bdm@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "regional_manager_usa",
     "email": "qa.regional_manager_usa@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "scrum_master",
     "email": "qa.scrum_master@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "hr_hiring",
     "email": "qa.hr_hiring@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "territory_expansion",
     "email": "qa.territory_expansion@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "territory_sales",
     "email": "qa.territory_sales@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "volunteer_coordinator",
     "email": "qa.volunteer_coordinator@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "premium_concierge",
     "email": "qa.premium_concierge@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "vip_manager",
     "email": "qa.vip_manager@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "psw",
     "email": "qa.psw@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "hsw",
     "email": "qa.hsw@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "rn_field_supervisor",
     "email": "qa.rn_field_supervisor@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "np",
     "email": "qa.np@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "rpn",
     "email": "qa.rpn@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "lpn",
     "email": "qa.lpn@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "employee",
     "email": "qa.employee@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "volunteer",
     "email": "qa.volunteer@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "admin",
     "email": "qa.admin@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "scheduler",
     "email": "qa.scheduler@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "customer_support",
     "email": "qa.customer_support@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "training_coordinator",
     "email": "qa.training_coordinator@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "qa_specialist",
     "email": "qa.qa_specialist@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   },
   {
     "role_code": "family",
     "email": "qa.family@test.primecare.local",
-    "password": "Test@12345"
+    "password_env": "TEST_DEFAULT_PASSWORD"
   }
 ]

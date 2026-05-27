@@ -17,11 +17,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.chiropractor@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-chiropractor.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 2,
@@ -41,11 +47,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.physio@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-physio.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 3,
@@ -65,11 +77,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.rmt@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rmt.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 4,
@@ -89,11 +107,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.social_worker@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-social_worker.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 5,
@@ -113,11 +137,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.therapist@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-therapist.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 6,
@@ -137,11 +167,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.clinical_director@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-clinical_director.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 7,
@@ -161,11 +197,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.intake@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-intake.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 8,
@@ -185,11 +227,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.rn@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rn.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 9,
@@ -209,11 +257,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.physician@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-physician.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 10,
@@ -233,11 +287,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.cns@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cns.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 11,
@@ -257,11 +317,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.pediatric@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-pediatric.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 12,
@@ -281,11 +347,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.caregiver@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-caregiver.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 13,
@@ -305,11 +377,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.guest@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-guest.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 14,
@@ -329,11 +407,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.portal@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-portal.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 15,
@@ -353,11 +437,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.patient@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-patient.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 16,
@@ -377,11 +467,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.dynamic@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-dynamic.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 17,
@@ -401,11 +497,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.infrastructure@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-infrastructure.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 18,
@@ -425,11 +527,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.system_verification@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-system_verification.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 19,
@@ -449,11 +557,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.training@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-training.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 20,
@@ -473,11 +587,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.ceo@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ceo.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 21,
@@ -497,11 +617,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.cfo@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cfo.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 22,
@@ -521,11 +647,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.ciso@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ciso.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 23,
@@ -545,11 +677,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.coo@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-coo.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 24,
@@ -569,11 +707,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.cto@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cto.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 25,
@@ -593,11 +737,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.cx_director@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cx_director.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 26,
@@ -617,11 +767,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.finance_director@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-finance_director.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 27,
@@ -641,11 +797,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.hr_director@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-hr_director.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 28,
@@ -665,11 +827,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.legal@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-legal.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 29,
@@ -689,11 +857,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.owner@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-owner.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 30,
@@ -713,11 +887,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.shareholder@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-shareholder.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 31,
@@ -737,11 +917,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.training_director@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-training_director.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 32,
@@ -761,11 +947,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.community_outreach@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-community_outreach.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 33,
@@ -785,11 +977,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.compliance@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-compliance.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 34,
@@ -809,11 +1007,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.franchise_sales@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-franchise_sales.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 35,
@@ -833,11 +1037,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.gm@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-gm.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 36,
@@ -857,11 +1067,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.governance@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-governance.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 37,
@@ -881,11 +1097,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.bus_dev@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-bus_dev.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 38,
@@ -905,11 +1127,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.marketing@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-marketing.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 39,
@@ -929,11 +1157,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.local_marketing@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-local_marketing.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 40,
@@ -953,11 +1187,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.ops_manager@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ops_manager.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 41,
@@ -977,11 +1217,17 @@
     "show_language_switcher": 1,
     "test_email": "qa.partnership@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T14:58:39.548702",
+    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-partnership.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 42,
@@ -1005,7 +1251,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 43,
@@ -1029,7 +1281,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 44,
@@ -1053,7 +1311,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 45,
@@ -1077,7 +1341,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 46,
@@ -1101,7 +1371,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 47,
@@ -1125,7 +1401,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 48,
@@ -1149,7 +1431,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 49,
@@ -1173,7 +1461,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 50,
@@ -1197,7 +1491,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 51,
@@ -1219,9 +1519,15 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T00:18:35.180351",
-    "auth_screenshot_path": "cypress/screenshots/org_full_e2e.cy.js/auth-login-psw.png",
-    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4"
+    "auth_last_run_at": "2026-05-27T15:22:54.528290",
+    "auth_screenshot_path": "cypress/screenshots/topbar_components.cy.js/auth-login-psw.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 52,
@@ -1245,7 +1551,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 53,
@@ -1269,7 +1581,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 54,
@@ -1293,7 +1611,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 55,
@@ -1317,7 +1641,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 56,
@@ -1341,7 +1671,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 57,
@@ -1365,7 +1701,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 58,
@@ -1389,7 +1731,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 59,
@@ -1413,7 +1761,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 60,
@@ -1437,7 +1791,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 61,
@@ -1461,7 +1821,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 62,
@@ -1485,7 +1851,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 63,
@@ -1509,7 +1881,13 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   },
   {
     "id": 64,
@@ -1533,6 +1911,12 @@
     "auth_last_error": null,
     "auth_last_run_at": null,
     "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_video_path": null,
+    "test_user_seed_status": "not_seeded",
+    "test_user_id": null,
+    "test_login_verified": 0,
+    "test_login_last_status": "not_run",
+    "test_login_last_error": null,
+    "test_login_last_run_at": null
   }
 ]
