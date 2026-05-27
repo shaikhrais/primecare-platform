@@ -85,23 +85,23 @@ def main():
         },
         {
             "name": "auth_login_spec",
-            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/auth/auth_login.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/auth/auth_{os.environ.get('ROLE_CODE', 'psw').lower()}.cy.js"]
         },
         {
             "name": "language_governance_spec",
-            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/language/language_governance.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/language/language_{os.environ.get('ROLE_CODE', 'psw').lower()}.cy.js"]
         },
         {
             "name": "one_role_all_screens_spec",
-            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/role/one_role_all_screens.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/roles/role_{os.environ.get('ROLE_CODE', 'psw').lower()}_all_screens.cy.js"]
         },
         {
             "name": "one_app_all_roles_spec",
-            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/app/one_app_all_roles.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/apps/*.cy.js"]
         },
         {
             "name": "org_full_e2e_spec",
-            "cmd": ["npx", "cypress", "run", "--spec", "cypress/e2e/org/org_full_e2e.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/org/org_full_ui.cy.js"]
         },
         {
             "name": "validate_screenshots",

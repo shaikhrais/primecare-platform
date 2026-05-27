@@ -191,16 +191,18 @@ def main():
         log("[FATAL] Fixture generation failed!")
         sys.exit(1)
 
-    # Step 6: First run ONLY: auth_login.cy.js to verify auth page is visible on Cloudflare
-    log("\n[RUNNING STEP] LIVE AUTH LOGIN SPEC (CYPRESS)...")
+    role_code = cypress_env.get("ROLE_CODE", "psw").lower()
+
+    # Step 6: First run ONLY: auth spec per role to verify auth page is visible on Cloudflare
+    log(f"\n[RUNNING STEP] LIVE AUTH LOGIN SPEC FOR ROLE '{role_code}' (CYPRESS)...")
     auth_spec_res = run_command([
-        "cypress", "run", "--spec", "cypress/e2e/auth/auth_login.cy.js"
+        "cypress", "run", "--spec", f"cypress/e2e/generated/auth/auth_{role_code}.cy.js"
     ], env=cypress_env)
 
     if auth_spec_res.returncode != 0:
-        log("[FATAL] Live auth_login_spec failed against Cloudflare URL!")
+        log(f"[FATAL] Live auth spec for role '{role_code}' failed against Cloudflare URL!")
         save_result("auth_login_spec", "failed", auth_spec_res.stdout + "\n" + auth_spec_res.stderr)
-        create_failure_task(f"Cypress auth_login_spec failed on Cloudflare URL: {deployed_url}")
+        create_failure_task(f"Cypress auth spec failed on Cloudflare URL: {deployed_url}")
         sys.exit(1)
         
     save_result("auth_login_spec", "passed", auth_spec_res.stdout)
@@ -210,19 +212,19 @@ def main():
     remaining_steps = [
         {
             "name": "language_governance_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/language/language_governance.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/language/language_{role_code}.cy.js"]
         },
         {
             "name": "one_role_all_screens_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/role/one_role_all_screens.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/roles/role_{role_code}_all_screens.cy.js"]
         },
         {
             "name": "one_app_all_roles_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/app/one_app_all_roles.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/apps/*.cy.js"]
         },
         {
             "name": "org_full_e2e_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/org/org_full_e2e.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/org/org_full_ui.cy.js"]
         }
     ]
 
