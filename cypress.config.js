@@ -16,7 +16,7 @@ module.exports = defineConfig({
   viewportHeight: 1080,
 
   e2e: {
-    baseUrl: process.env.CYPRESS_BASE_URL || "https://YOUR-CLOUDFLARE-URL.pages.dev",
+    baseUrl: process.env.CYPRESS_BASE_URL || "https://primecare-auth.pages.dev",
     specPattern: "cypress/e2e/**/*.cy.js",
     supportFile: "cypress/support/e2e.js",
     setupNodeEvents(on, config) {
