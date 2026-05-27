@@ -196,7 +196,7 @@ def main():
     # Step 6: First run ONLY: auth spec per role to verify auth page is visible on Cloudflare
     log(f"\n[RUNNING STEP] LIVE AUTH LOGIN SPEC FOR ROLE '{role_code}' (CYPRESS)...")
     auth_spec_res = run_command([
-        "cypress", "run", "--spec", f"cypress/e2e/generated/auth/auth_{role_code}.cy.js"
+        "cypress", "run", "--spec", f"cypress/e2e/01_auth/auth_{role_code}.cy.js"
     ], env=cypress_env)
 
     if auth_spec_res.returncode != 0:
@@ -212,19 +212,19 @@ def main():
     remaining_steps = [
         {
             "name": "language_governance_spec",
-            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/language/language_{role_code}.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/02_language/language_{role_code}.cy.js"]
         },
         {
             "name": "one_role_all_screens_spec",
-            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/generated/roles/role_{role_code}_all_screens.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/04_roles/role_{role_code}_all_screens.cy.js"]
         },
         {
             "name": "one_app_all_roles_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/apps/*.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/05_apps/*.cy.js"]
         },
         {
             "name": "org_full_e2e_spec",
-            "cmd": ["cypress", "run", "--spec", "cypress/e2e/generated/org/org_full_ui.cy.js"]
+            "cmd": ["cypress", "run", "--spec", "cypress/e2e/06_org/org_full_ui.cy.js"]
         }
     ]
 
