@@ -254,8 +254,8 @@ class TrainingHubComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

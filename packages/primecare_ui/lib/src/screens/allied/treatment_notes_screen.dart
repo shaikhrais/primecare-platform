@@ -258,8 +258,8 @@ class TreatmentNotesScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -256,8 +256,8 @@ class FranchiseDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

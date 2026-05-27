@@ -274,8 +274,8 @@ class CustomerSupportDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

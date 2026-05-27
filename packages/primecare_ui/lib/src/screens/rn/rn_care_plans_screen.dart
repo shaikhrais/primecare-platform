@@ -288,8 +288,8 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
               child: _buildCarePlanWorkspace(context, activePlan, controller),
             ),
           ),
-        ],
-      ),
+        ],),
+    ),
     );
   }
 

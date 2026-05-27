@@ -276,8 +276,8 @@ class SchedulerOpenShiftsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

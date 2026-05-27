@@ -254,8 +254,8 @@ class OperationsManagerComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -259,8 +259,8 @@ class PhysicianWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

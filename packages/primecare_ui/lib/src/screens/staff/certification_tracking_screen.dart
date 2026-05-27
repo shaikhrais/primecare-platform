@@ -276,8 +276,8 @@ class CertificationTrackingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

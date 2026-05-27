@@ -258,8 +258,8 @@ class RnIncidentReviewScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

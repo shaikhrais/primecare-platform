@@ -258,8 +258,8 @@ class CaregiverClientProfileScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

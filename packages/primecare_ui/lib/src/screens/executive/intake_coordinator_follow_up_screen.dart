@@ -258,8 +258,8 @@ class IntakeCoordinatorFollowUpScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

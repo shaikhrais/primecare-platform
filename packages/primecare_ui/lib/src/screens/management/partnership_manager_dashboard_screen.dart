@@ -256,8 +256,8 @@ class PartnershipManagerDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

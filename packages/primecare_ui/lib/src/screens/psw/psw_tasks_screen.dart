@@ -198,8 +198,8 @@ class PswTasksScreen extends GovernedConsumerWidget {
             else
               ...completedTasks.map((task) => _buildTaskRow(context, task, controller)),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

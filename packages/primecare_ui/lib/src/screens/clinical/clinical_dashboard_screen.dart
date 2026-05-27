@@ -375,8 +375,8 @@ class ClinicalDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

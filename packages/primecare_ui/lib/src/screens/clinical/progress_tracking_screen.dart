@@ -258,8 +258,8 @@ class ProgressTrackingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

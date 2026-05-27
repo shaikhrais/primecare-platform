@@ -258,8 +258,8 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -254,8 +254,8 @@ class ArchitecturePlanningComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

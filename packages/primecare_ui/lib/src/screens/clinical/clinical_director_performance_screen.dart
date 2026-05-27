@@ -258,8 +258,8 @@ class ClinicalDirectorPerformanceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

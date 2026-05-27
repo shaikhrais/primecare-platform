@@ -258,8 +258,8 @@ class SchedulingHealthScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

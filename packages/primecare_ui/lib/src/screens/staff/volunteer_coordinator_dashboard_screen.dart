@@ -274,8 +274,8 @@ class VolunteerCoordinatorDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -254,8 +254,8 @@ class RegionalManagerUsaComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

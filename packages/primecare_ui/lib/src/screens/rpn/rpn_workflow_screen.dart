@@ -219,8 +219,8 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

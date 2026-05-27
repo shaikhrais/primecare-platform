@@ -220,8 +220,8 @@ class PswClientsScreen extends GovernedConsumerWidget {
                     },
                   ),
           ),
-        ],
-      ),
+        ],),
+    ),
     );
   }
 

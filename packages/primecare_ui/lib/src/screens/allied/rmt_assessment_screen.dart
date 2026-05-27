@@ -258,8 +258,8 @@ class RmtAssessmentScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

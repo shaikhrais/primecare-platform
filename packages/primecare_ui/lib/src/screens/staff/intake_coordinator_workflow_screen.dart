@@ -42,8 +42,6 @@ class IntakeCoordinatorWorkflowScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('intakecoordinatorworkflow-btn-1'),
-            key: const Key('intakecoordinatorworkflow-btn-1'),
-            key: const Key('intakecoordinatorworkflow-btn-1'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -52,8 +50,6 @@ class IntakeCoordinatorWorkflowScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('intakecoordinatorworkflow-btn-2'),
-            key: const Key('intakecoordinatorworkflow-btn-2'),
             key: const Key('intakecoordinatorworkflow-btn-2'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 2'.tr()),
@@ -86,8 +82,6 @@ class IntakeCoordinatorWorkflowScreen extends GovernedConsumerWidget {
                     height: 48,
                     child: ElevatedButton(
             key: const Key('intakecoordinatorworkflow-btn-3'),
-            key: const Key('intakecoordinatorworkflow-btn-3'),
-            key: const Key('intakecoordinatorworkflow-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -105,8 +99,8 @@ class IntakeCoordinatorWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

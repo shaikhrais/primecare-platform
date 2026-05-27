@@ -258,8 +258,8 @@ class ChiropractorTreatmentNotesScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

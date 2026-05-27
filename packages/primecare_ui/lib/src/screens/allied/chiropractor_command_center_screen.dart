@@ -258,8 +258,8 @@ class ChiropractorCommandCenterScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

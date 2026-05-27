@@ -258,8 +258,8 @@ class ClinicalOperations4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

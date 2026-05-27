@@ -258,8 +258,8 @@ class CaregiverTasksScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

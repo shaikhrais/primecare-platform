@@ -258,8 +258,8 @@ class PswCommandCenterScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

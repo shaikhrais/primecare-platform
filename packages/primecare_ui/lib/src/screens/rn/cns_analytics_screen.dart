@@ -259,8 +259,8 @@ class CnsAnalyticsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class FranchiseOwnerBranchOverviewScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

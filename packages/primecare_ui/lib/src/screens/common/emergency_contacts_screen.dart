@@ -258,8 +258,8 @@ class EmergencyContactsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

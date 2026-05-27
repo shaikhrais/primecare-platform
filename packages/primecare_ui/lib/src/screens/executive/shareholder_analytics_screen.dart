@@ -275,8 +275,8 @@ class ShareholderAnalyticsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

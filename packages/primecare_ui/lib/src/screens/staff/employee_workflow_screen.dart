@@ -259,8 +259,8 @@ class EmployeeWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

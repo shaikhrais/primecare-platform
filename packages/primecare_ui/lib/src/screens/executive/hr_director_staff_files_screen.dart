@@ -258,8 +258,8 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

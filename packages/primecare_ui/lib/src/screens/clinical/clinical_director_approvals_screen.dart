@@ -258,8 +258,8 @@ class ClinicalDirectorApprovalsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -276,8 +276,8 @@ class OnboardingChecklistScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

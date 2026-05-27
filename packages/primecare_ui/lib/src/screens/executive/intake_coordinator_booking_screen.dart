@@ -258,8 +258,8 @@ class IntakeCoordinatorBookingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

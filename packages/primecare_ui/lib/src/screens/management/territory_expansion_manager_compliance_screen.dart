@@ -254,8 +254,8 @@ class TerritoryExpansionManagerComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

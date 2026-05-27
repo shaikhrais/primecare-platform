@@ -258,8 +258,8 @@ class AppointmentOverviewScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -259,8 +259,8 @@ class EmployeeAnalyticsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class FranchiseOwnerCommandCenterScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

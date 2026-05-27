@@ -276,8 +276,8 @@ class FailedWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -272,8 +272,8 @@ class VolunteerCoordinatorComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

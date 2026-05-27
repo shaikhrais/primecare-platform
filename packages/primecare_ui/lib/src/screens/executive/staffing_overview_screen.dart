@@ -258,8 +258,8 @@ class StaffingOverviewScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

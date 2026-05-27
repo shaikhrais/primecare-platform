@@ -276,8 +276,8 @@ class SchedulerProviderAvailabilityScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

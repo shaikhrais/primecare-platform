@@ -42,8 +42,6 @@ class HswAdlLoggerScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('hswadllogger-btn-1'),
-            key: const Key('hswadllogger-btn-1'),
-            key: const Key('hswadllogger-btn-1'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -130,8 +128,8 @@ class HswAdlLoggerScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

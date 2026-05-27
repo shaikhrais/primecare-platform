@@ -258,8 +258,8 @@ class HrDirectorCredentialExpiryScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

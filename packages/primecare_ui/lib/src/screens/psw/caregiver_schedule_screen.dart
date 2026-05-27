@@ -258,8 +258,8 @@ class CaregiverScheduleScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

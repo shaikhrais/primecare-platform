@@ -258,8 +258,8 @@ class PhysiotherapistAppointmentsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

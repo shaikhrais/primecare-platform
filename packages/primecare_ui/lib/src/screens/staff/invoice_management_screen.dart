@@ -276,8 +276,8 @@ class InvoiceManagementScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

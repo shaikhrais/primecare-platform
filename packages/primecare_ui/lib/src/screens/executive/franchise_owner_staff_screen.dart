@@ -258,8 +258,8 @@ class FranchiseOwnerStaffScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

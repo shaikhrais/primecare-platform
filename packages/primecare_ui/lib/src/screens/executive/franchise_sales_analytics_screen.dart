@@ -259,8 +259,8 @@ class FranchiseSalesAnalyticsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -185,8 +185,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-1'),
-            key: const Key('coordinatorsos-btn-1'),
-            key: const Key('coordinatorsos-btn-1'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -195,8 +193,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorsos-btn-2'),
-            key: const Key('coordinatorsos-btn-2'),
             key: const Key('coordinatorsos-btn-2'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 10'.tr()),
@@ -207,8 +203,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-3'),
-            key: const Key('coordinatorsos-btn-3'),
-            key: const Key('coordinatorsos-btn-3'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 2'.tr()),
               ),
@@ -217,8 +211,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorsos-btn-4'),
-            key: const Key('coordinatorsos-btn-4'),
             key: const Key('coordinatorsos-btn-4'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 3'.tr()),
@@ -229,8 +221,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-5'),
-            key: const Key('coordinatorsos-btn-5'),
-            key: const Key('coordinatorsos-btn-5'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 4'.tr()),
               ),
@@ -239,8 +229,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorsos-btn-6'),
-            key: const Key('coordinatorsos-btn-6'),
             key: const Key('coordinatorsos-btn-6'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 5'.tr()),
@@ -251,8 +239,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-7'),
-            key: const Key('coordinatorsos-btn-7'),
-            key: const Key('coordinatorsos-btn-7'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 6'.tr()),
               ),
@@ -261,8 +247,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorsos-btn-8'),
-            key: const Key('coordinatorsos-btn-8'),
             key: const Key('coordinatorsos-btn-8'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 7'.tr()),
@@ -273,8 +257,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-9'),
-            key: const Key('coordinatorsos-btn-9'),
-            key: const Key('coordinatorsos-btn-9'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 8'.tr()),
               ),
@@ -283,8 +265,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorsos-btn-10'),
-            key: const Key('coordinatorsos-btn-10'),
             key: const Key('coordinatorsos-btn-10'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 9'.tr()),
@@ -308,8 +288,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
         ),
         actions: [
           IconButton(
-            key: const Key('coordinatorsos-btn-11'),
-            key: const Key('coordinatorsos-btn-11'),
             key: const Key('coordinatorsos-btn-11'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshSos(),
@@ -574,8 +552,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
             key: const Key('coordinatorsos-btn-12'),
-            key: const Key('coordinatorsos-btn-12'),
-            key: const Key('coordinatorsos-btn-12'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.success,
                   elevation: 0,
@@ -718,8 +694,6 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
             ),
           ),
           IconButton(
-            key: const Key('coordinatorsos-btn-13'),
-            key: const Key('coordinatorsos-btn-13'),
             key: const Key('coordinatorsos-btn-13'),
             icon: const Icon(LucideIcons.phoneOutgoing, size: 14),
             onPressed: () => triggerStateAction(),

@@ -259,8 +259,8 @@ class RnFieldSupervisorWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class CfoProfitabilityScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

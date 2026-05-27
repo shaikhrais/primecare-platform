@@ -258,8 +258,8 @@ class WorkflowExecutionScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

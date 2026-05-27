@@ -258,8 +258,8 @@ class FinancialOperations4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

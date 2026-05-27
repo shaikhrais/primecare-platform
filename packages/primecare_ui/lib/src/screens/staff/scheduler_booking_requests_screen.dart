@@ -276,8 +276,8 @@ class SchedulerBookingRequestsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class MedicationAdministrationScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

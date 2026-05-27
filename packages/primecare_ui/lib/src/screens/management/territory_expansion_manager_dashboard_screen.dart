@@ -256,8 +256,8 @@ class TerritoryExpansionManagerDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class OutreachCampaignScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

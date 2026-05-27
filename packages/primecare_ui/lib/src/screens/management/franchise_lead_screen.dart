@@ -258,8 +258,8 @@ class FranchiseLeadScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

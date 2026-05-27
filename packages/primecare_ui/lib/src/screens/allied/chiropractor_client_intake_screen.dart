@@ -258,8 +258,8 @@ class ChiropractorClientIntakeScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

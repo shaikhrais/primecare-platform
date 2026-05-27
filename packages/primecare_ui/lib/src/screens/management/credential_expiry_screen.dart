@@ -258,8 +258,8 @@ class CredentialExpiryScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

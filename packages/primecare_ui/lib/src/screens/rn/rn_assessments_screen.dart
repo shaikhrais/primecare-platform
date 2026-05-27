@@ -161,8 +161,8 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
             const SizedBox(height: 12),
             ...state.assessmentHistory.map((asm) => _buildHistoryCard(context, asm)),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

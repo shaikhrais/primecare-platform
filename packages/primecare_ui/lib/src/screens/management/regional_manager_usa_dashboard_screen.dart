@@ -256,8 +256,8 @@ class RegionalManagerUsaDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

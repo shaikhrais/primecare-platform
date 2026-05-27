@@ -211,8 +211,6 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
         actions: [
           IconButton(
             key: const Key('coordinatorwaitlist-btn-1'),
-            key: const Key('coordinatorwaitlist-btn-1'),
-            key: const Key('coordinatorwaitlist-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshWaitlist(),
           ),
@@ -239,8 +237,6 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorwaitlist-btn-2'),
-            key: const Key('coordinatorwaitlist-btn-2'),
-            key: const Key('coordinatorwaitlist-btn-2'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -250,8 +246,6 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatorwaitlist-btn-3'),
-            key: const Key('coordinatorwaitlist-btn-3'),
-            key: const Key('coordinatorwaitlist-btn-3'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 2'.tr()),
               ),
@@ -260,8 +254,6 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-4'),
-            key: const Key('coordinatorwaitlist-btn-4'),
             key: const Key('coordinatorwaitlist-btn-4'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 3'.tr()),
@@ -598,8 +590,6 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                         ),
                       ),
                       ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-5'),
-            key: const Key('coordinatorwaitlist-btn-5'),
             key: const Key('coordinatorwaitlist-btn-5'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,

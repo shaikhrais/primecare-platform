@@ -258,8 +258,8 @@ class HrDirectorTrainingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

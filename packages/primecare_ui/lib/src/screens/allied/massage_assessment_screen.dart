@@ -258,8 +258,8 @@ class MassageAssessmentScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

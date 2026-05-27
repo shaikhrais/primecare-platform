@@ -276,8 +276,8 @@ class ConflictResolutionScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

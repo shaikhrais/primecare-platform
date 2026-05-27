@@ -127,7 +127,6 @@ class PswMessagesScreen extends GovernedConsumerWidget {
         actions: [
           IconButton(
             key: const Key('pswmessages-btn-1'),
-            key: const Key('pswmessages-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => controller.addLog('Manual refresh triggered.'),
           ),
@@ -147,7 +146,6 @@ class PswMessagesScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('pswmessages-btn-2'),
-            key: const Key('pswmessages-btn-2'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -158,7 +156,6 @@ class PswMessagesScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('pswmessages-btn-3'),
             key: const Key('pswmessages-btn-3'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
@@ -245,7 +242,6 @@ class PswMessagesScreen extends GovernedConsumerWidget {
                     height: 48,
                     child: ElevatedButton(
             key: const Key('pswmessages-btn-4'),
-            key: const Key('pswmessages-btn-4'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -273,8 +269,8 @@ class PswMessagesScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

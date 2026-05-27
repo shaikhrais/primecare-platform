@@ -276,8 +276,8 @@ class SchedulingOperations4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

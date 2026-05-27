@@ -272,8 +272,8 @@ class TrainingCoordinatorComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

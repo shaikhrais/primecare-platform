@@ -1217,11 +1217,11 @@
     "show_language_switcher": 1,
     "test_email": "qa.psw@test.primecare.local",
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
-    "auth_test_status": "not_run",
+    "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": null,
-    "auth_screenshot_path": null,
-    "auth_video_path": null
+    "auth_last_run_at": "2026-05-27T00:18:35.180351",
+    "auth_screenshot_path": "cypress/screenshots/org_full_e2e.cy.js/auth-login-psw.png",
+    "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4"
   },
   {
     "id": 52,

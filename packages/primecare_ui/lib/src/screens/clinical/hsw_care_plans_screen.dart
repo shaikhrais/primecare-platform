@@ -42,8 +42,6 @@ class HswCarePlansScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('hswcareplans-btn-1'),
-            key: const Key('hswcareplans-btn-1'),
-            key: const Key('hswcareplans-btn-1'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -119,8 +117,8 @@ class HswCarePlansScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

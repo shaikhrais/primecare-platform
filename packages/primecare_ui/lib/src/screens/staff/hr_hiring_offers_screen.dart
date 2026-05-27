@@ -276,8 +276,8 @@ class HrHiringOffersScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

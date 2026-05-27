@@ -276,8 +276,8 @@ class CourseAssignmentScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

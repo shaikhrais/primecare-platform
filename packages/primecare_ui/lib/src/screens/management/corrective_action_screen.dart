@@ -258,8 +258,8 @@ class CorrectiveActionScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

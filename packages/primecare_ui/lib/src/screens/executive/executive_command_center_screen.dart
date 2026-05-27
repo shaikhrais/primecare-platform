@@ -258,8 +258,8 @@ class ExecutiveCommandCenterScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

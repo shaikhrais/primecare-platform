@@ -258,8 +258,8 @@ class PhysiotherapistReportsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class CooCommandCenterScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

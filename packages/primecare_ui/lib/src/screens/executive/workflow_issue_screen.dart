@@ -258,8 +258,8 @@ class WorkflowIssueScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

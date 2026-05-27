@@ -218,8 +218,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

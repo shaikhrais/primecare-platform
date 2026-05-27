@@ -42,8 +42,6 @@ class ArchitecturePlanningAnalyticsScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('architectureplanninganalytics-btn-1'),
-            key: const Key('architectureplanninganalytics-btn-1'),
-            key: const Key('architectureplanninganalytics-btn-1'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -75,8 +73,6 @@ class ArchitecturePlanningAnalyticsScreen extends GovernedConsumerWidget {
                     height: 48,
                     child: ElevatedButton(
             key: const Key('architectureplanninganalytics-btn-2'),
-            key: const Key('architectureplanninganalytics-btn-2'),
-            key: const Key('architectureplanninganalytics-btn-2'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(
@@ -94,8 +90,8 @@ class ArchitecturePlanningAnalyticsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

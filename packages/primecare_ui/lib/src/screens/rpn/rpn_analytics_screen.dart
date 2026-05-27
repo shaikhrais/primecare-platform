@@ -249,8 +249,8 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
               },
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

@@ -256,8 +256,8 @@ class ArchitecturePlanningDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

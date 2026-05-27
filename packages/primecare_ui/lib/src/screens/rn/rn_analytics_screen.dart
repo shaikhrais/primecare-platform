@@ -293,8 +293,8 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
             // High Fidelity Table for Cognitive Evaluations (MMSE)
             _buildCognitiveTableCard(context, displayEvaluations, controller),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

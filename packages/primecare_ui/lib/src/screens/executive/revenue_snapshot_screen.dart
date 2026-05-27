@@ -258,8 +258,8 @@ class RevenueSnapshotScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

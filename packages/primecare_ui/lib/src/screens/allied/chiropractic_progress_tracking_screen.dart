@@ -258,8 +258,8 @@ class ChiropracticProgressTrackingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

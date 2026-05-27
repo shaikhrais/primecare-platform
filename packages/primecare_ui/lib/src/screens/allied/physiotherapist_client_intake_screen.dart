@@ -258,8 +258,8 @@ class PhysiotherapistClientIntakeScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

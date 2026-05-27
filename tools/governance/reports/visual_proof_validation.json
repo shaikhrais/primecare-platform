@@ -26,6 +26,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_login.cy.js\\auth-login-psw (2).png",
+    "relative_path": "cypress/screenshots/auth_login.cy.js/auth-login-psw (2).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_login.cy.js\\auth-login-psw.png",
     "relative_path": "cypress/screenshots/auth_login.cy.js/auth-login-psw.png",
     "exists": true,
@@ -41,6 +54,19 @@
   {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_login.cy.js\\auth-login-success (1).png",
     "relative_path": "cypress/screenshots/auth_login.cy.js/auth-login-success (1).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_login.cy.js\\auth-login-success (2).png",
+    "relative_path": "cypress/screenshots/auth_login.cy.js/auth-login-success (2).png",
     "exists": true,
     "size": 114939,
     "width": 1280,
@@ -21190,6 +21216,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\auth-login-psw (2).png",
+    "relative_path": "cypress/screenshots/language_governance.cy.js/auth-login-psw (2).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\auth-login-psw.png",
     "relative_path": "cypress/screenshots/language_governance.cy.js/auth-login-psw.png",
     "exists": true,
@@ -21205,6 +21244,19 @@
   {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-en (1).png",
     "relative_path": "cypress/screenshots/language_governance.cy.js/language-en (1).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-en (2).png",
+    "relative_path": "cypress/screenshots/language_governance.cy.js/language-en (2).png",
     "exists": true,
     "size": 114939,
     "width": 1280,
@@ -21242,6 +21294,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-es (2).png",
+    "relative_path": "cypress/screenshots/language_governance.cy.js/language-es (2).png",
+    "exists": true,
+    "size": 116313,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.88473429144215,
+    "variance": 3805.152578387164,
+    "dominant_ratio": 0.49969835069444446,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-es.png",
     "relative_path": "cypress/screenshots/language_governance.cy.js/language-es.png",
     "exists": true,
@@ -21268,6 +21333,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-fr (2).png",
+    "relative_path": "cypress/screenshots/language_governance.cy.js/language-fr (2).png",
+    "exists": true,
+    "size": 115490,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.85886610015672,
+    "variance": 3802.0223039138314,
+    "dominant_ratio": 0.5004893663194444,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\language_governance.cy.js\\language-fr.png",
     "relative_path": "cypress/screenshots/language_governance.cy.js/language-fr.png",
     "exists": true,
@@ -21281,8 +21359,34 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_app_all_roles.cy.js\\app-all-roles-psw (1).png",
+    "relative_path": "cypress/screenshots/one_app_all_roles.cy.js/app-all-roles-psw (1).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_app_all_roles.cy.js\\app-all-roles-psw.png",
     "relative_path": "cypress/screenshots/one_app_all_roles.cy.js/app-all-roles-psw.png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_app_all_roles.cy.js\\auth-login-psw (1).png",
+    "relative_path": "cypress/screenshots/one_app_all_roles.cy.js/auth-login-psw (1).png",
     "exists": true,
     "size": 114939,
     "width": 1280,
@@ -21320,6 +21424,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\auth-login-psw (2).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/auth-login-psw (2).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\auth-login-psw.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/auth-login-psw.png",
     "exists": true,
@@ -21346,6 +21463,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-incident_report (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-incident_report (1).png",
+    "exists": true,
+    "size": 120214,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.034747741712124,
+    "variance": 3828.9891880400423,
+    "dominant_ratio": 0.49968207465277775,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-incident_report.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-incident_report.png",
     "exists": true,
@@ -21355,6 +21485,19 @@
     "std_dev": 61.034747741712124,
     "variance": 3828.9891880400423,
     "dominant_ratio": 0.49968207465277775,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_analytics (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_analytics (1).png",
+    "exists": true,
+    "size": 113685,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.66365006256552,
+    "variance": 3781.108084170606,
+    "dominant_ratio": 0.4997482638888889,
     "visual_score": 100,
     "blank": false
   },
@@ -21372,6 +21515,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_care_plan (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_care_plan (1).png",
+    "exists": true,
+    "size": 118485,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.04660273034548,
+    "variance": 3823.9678938666707,
+    "dominant_ratio": 0.5000325520833333,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_care_plan.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_care_plan.png",
     "exists": true,
@@ -21381,6 +21537,19 @@
     "std_dev": 61.04660273034548,
     "variance": 3823.9678938666707,
     "dominant_ratio": 0.5000325520833333,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_clients (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_clients (1).png",
+    "exists": true,
+    "size": 118365,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.962144225538815,
+    "variance": 3822.226003029849,
+    "dominant_ratio": 0.5003504774305556,
     "visual_score": 100,
     "blank": false
   },
@@ -21398,6 +21567,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_client_profile (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_client_profile (1).png",
+    "exists": true,
+    "size": 121404,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.11899911507948,
+    "variance": 3835.751934697432,
+    "dominant_ratio": 0.49960069444444444,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_client_profile.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_client_profile.png",
     "exists": true,
@@ -21407,6 +21589,19 @@
     "std_dev": 61.11899911507948,
     "variance": 3835.751934697432,
     "dominant_ratio": 0.49960069444444444,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_command_center (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_command_center (1).png",
+    "exists": true,
+    "size": 123092,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.208396952043245,
+    "variance": 3846.5494204010342,
+    "dominant_ratio": 0.4989832899305556,
     "visual_score": 100,
     "blank": false
   },
@@ -21424,6 +21619,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_compliance (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_compliance (1).png",
+    "exists": true,
+    "size": 115371,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.76893253717973,
+    "variance": 3795.7805694619315,
+    "dominant_ratio": 0.4994661458333333,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_compliance.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_compliance.png",
     "exists": true,
@@ -21433,6 +21641,19 @@
     "std_dev": 60.76893253717973,
     "variance": 3795.7805694619315,
     "dominant_ratio": 0.4994661458333333,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_dashboard (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_dashboard (1).png",
+    "exists": true,
+    "size": 114081,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.71523105673544,
+    "variance": 3787.3399135555796,
+    "dominant_ratio": 0.49947265625,
     "visual_score": 100,
     "blank": false
   },
@@ -21450,6 +21671,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_documents (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_documents (1).png",
+    "exists": true,
+    "size": 113580,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.71053656992377,
+    "variance": 3786.773727391776,
+    "dominant_ratio": 0.49948567708333336,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_documents.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_documents.png",
     "exists": true,
@@ -21459,6 +21693,19 @@
     "std_dev": 60.71053656992377,
     "variance": 3786.773727391776,
     "dominant_ratio": 0.49948567708333336,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_incident_report (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_incident_report (1).png",
+    "exists": true,
+    "size": 116132,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.98540074203274,
+    "variance": 3822.4028441164505,
+    "dominant_ratio": 0.498994140625,
     "visual_score": 100,
     "blank": false
   },
@@ -21489,6 +21736,32 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_messages (2).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_messages (2).png",
+    "exists": true,
+    "size": 120411,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.09761198862808,
+    "variance": 3830.1620532992924,
+    "dominant_ratio": 0.49969835069444446,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_messages (3).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_messages (3).png",
+    "exists": true,
+    "size": 120411,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.09761198862808,
+    "variance": 3830.1620532992924,
+    "dominant_ratio": 0.49969835069444446,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_messages.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_messages.png",
     "exists": true,
@@ -21498,6 +21771,19 @@
     "std_dev": 61.09761198862808,
     "variance": 3830.1620532992924,
     "dominant_ratio": 0.49969835069444446,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_my_shifts (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_my_shifts (1).png",
+    "exists": true,
+    "size": 119111,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.071043410585986,
+    "variance": 3826.9585290405234,
+    "dominant_ratio": 0.4997905815972222,
     "visual_score": 100,
     "blank": false
   },
@@ -21515,6 +21801,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_shift_tracker (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_shift_tracker (1).png",
+    "exists": true,
+    "size": 118412,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.98740173684771,
+    "variance": 3823.034901766057,
+    "dominant_ratio": 0.49966254340277777,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_shift_tracker.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_shift_tracker.png",
     "exists": true,
@@ -21524,6 +21823,19 @@
     "std_dev": 60.98740173684771,
     "variance": 3823.034901766057,
     "dominant_ratio": 0.49966254340277777,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_tasks (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_tasks (1).png",
+    "exists": true,
+    "size": 114415,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.78521937533309,
+    "variance": 3793.4530850705064,
+    "dominant_ratio": 0.5004177517361111,
     "visual_score": 100,
     "blank": false
   },
@@ -21554,6 +21866,32 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_visit_notes (2).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_visit_notes (2).png",
+    "exists": true,
+    "size": 115683,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.74902738728238,
+    "variance": 3793.368420743021,
+    "dominant_ratio": 0.499638671875,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_visit_notes (3).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_visit_notes (3).png",
+    "exists": true,
+    "size": 115683,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.74902738728238,
+    "variance": 3793.368420743021,
+    "dominant_ratio": 0.499638671875,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_visit_notes.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_visit_notes.png",
     "exists": true,
@@ -21563,6 +21901,19 @@
     "std_dev": 60.74902738728238,
     "variance": 3793.368420743021,
     "dominant_ratio": 0.499638671875,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_vitals_log (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_vitals_log (1).png",
+    "exists": true,
+    "size": 113531,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.6739569268149,
+    "variance": 3782.393330654201,
+    "dominant_ratio": 0.49970703125,
     "visual_score": 100,
     "blank": false
   },
@@ -21580,6 +21931,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_workflow (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_workflow (1).png",
+    "exists": true,
+    "size": 119336,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.06927714260559,
+    "variance": 3826.759641805415,
+    "dominant_ratio": 0.499833984375,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-psw_workflow.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-psw_workflow.png",
     "exists": true,
@@ -21589,6 +21953,19 @@
     "std_dev": 61.06927714260559,
     "variance": 3826.759641805415,
     "dominant_ratio": 0.499833984375,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-shift_tasks (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-shift_tasks (1).png",
+    "exists": true,
+    "size": 118171,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.95570126747706,
+    "variance": 3821.5063987679255,
+    "dominant_ratio": 0.5004893663194444,
     "visual_score": 100,
     "blank": false
   },
@@ -21606,6 +21983,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-visit_notes (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-visit_notes (1).png",
+    "exists": true,
+    "size": 118251,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.95080508190474,
+    "variance": 3820.810911706645,
+    "dominant_ratio": 0.5004264322916666,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-visit_notes.png",
     "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-visit_notes.png",
     "exists": true,
@@ -21615,6 +22005,19 @@
     "std_dev": 60.95080508190474,
     "variance": 3820.810911706645,
     "dominant_ratio": 0.5004264322916666,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\one_role_all_screens.cy.js\\psw-vitals_entry (1).png",
+    "relative_path": "cypress/screenshots/one_role_all_screens.cy.js/psw-vitals_entry (1).png",
+    "exists": true,
+    "size": 117192,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 61.00304746841937,
+    "variance": 3818.730252767346,
+    "dominant_ratio": 0.5003569878472223,
     "visual_score": 100,
     "blank": false
   },
@@ -21632,6 +22035,19 @@
     "blank": false
   },
   {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\org_full_e2e.cy.js\\auth-login-psw (1).png",
+    "relative_path": "cypress/screenshots/org_full_e2e.cy.js/auth-login-psw (1).png",
+    "exists": true,
+    "size": 114939,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.858160403792226,
+    "variance": 3802.6145362859693,
+    "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
     "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\org_full_e2e.cy.js\\auth-login-psw.png",
     "relative_path": "cypress/screenshots/org_full_e2e.cy.js/auth-login-psw.png",
     "exists": true,
@@ -21641,6 +22057,19 @@
     "std_dev": 60.858160403792226,
     "variance": 3802.6145362859693,
     "dominant_ratio": 0.5009092881944445,
+    "visual_score": 100,
+    "blank": false
+  },
+  {
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\org_full_e2e.cy.js\\org-full-fr (1).png",
+    "relative_path": "cypress/screenshots/org_full_e2e.cy.js/org-full-fr (1).png",
+    "exists": true,
+    "size": 115490,
+    "width": 1280,
+    "height": 720,
+    "std_dev": 60.85886610015672,
+    "variance": 3802.0223039138314,
+    "dominant_ratio": 0.5004893663194444,
     "visual_score": 100,
     "blank": false
   },

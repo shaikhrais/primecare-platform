@@ -276,8 +276,8 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

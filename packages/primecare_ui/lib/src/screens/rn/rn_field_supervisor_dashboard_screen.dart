@@ -339,8 +339,8 @@ class RnFieldSupervisorDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

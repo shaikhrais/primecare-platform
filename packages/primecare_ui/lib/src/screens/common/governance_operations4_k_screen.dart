@@ -258,8 +258,8 @@ class GovernanceOperations4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class RuntimeVerificationScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

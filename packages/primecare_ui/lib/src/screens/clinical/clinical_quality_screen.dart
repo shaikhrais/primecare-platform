@@ -258,8 +258,8 @@ class ClinicalQualityScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

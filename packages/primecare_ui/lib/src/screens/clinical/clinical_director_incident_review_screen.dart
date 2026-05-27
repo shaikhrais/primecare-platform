@@ -258,8 +258,8 @@ class ClinicalDirectorIncidentReviewScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

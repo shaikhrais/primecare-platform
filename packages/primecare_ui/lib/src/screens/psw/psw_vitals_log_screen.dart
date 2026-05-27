@@ -258,8 +258,8 @@ class PswVitalsLogScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

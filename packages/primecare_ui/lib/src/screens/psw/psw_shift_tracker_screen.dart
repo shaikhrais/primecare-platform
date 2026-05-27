@@ -217,8 +217,8 @@ class PswShiftTrackerScreen extends GovernedConsumerWidget {
             const SizedBox(height: 12),
             ...state.todayShifts.map((shift) => _buildShiftCard(context, shift, state, controller)),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

@@ -254,8 +254,8 @@ class BusinessDevelopmentComplianceScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

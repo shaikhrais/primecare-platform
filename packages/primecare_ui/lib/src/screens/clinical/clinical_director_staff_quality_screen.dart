@@ -258,8 +258,8 @@ class ClinicalDirectorStaffQualityScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

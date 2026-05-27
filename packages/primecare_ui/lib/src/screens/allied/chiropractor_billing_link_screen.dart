@@ -258,8 +258,8 @@ class ChiropractorBillingLinkScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

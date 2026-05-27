@@ -258,8 +258,8 @@ class TreatmentPlanScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

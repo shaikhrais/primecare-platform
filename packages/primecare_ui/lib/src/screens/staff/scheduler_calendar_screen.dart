@@ -276,8 +276,8 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class IntakeCoordinatorAssessmentQueueScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

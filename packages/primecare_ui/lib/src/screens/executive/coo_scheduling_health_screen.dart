@@ -258,8 +258,8 @@ class CooSchedulingHealthScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

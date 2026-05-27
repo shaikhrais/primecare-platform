@@ -258,8 +258,8 @@ class ChiropractorAppointmentsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -127,7 +127,8 @@ def main():
         print("Command:", " ".join(cmd))
 
         # Run process synchronously
-        result = subprocess.run(cmd, capture_output=True, text=True, errors="ignore", shell=True)
+        cmd_str = " ".join(cmd) if isinstance(cmd, list) else cmd
+        result = subprocess.run(cmd_str, capture_output=True, text=True, errors="ignore", shell=True)
 
         if result.returncode != 0:
             print(f"\n[ERROR] Step '{name}' failed with exit code {result.returncode}!")

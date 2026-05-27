@@ -258,8 +258,8 @@ class FranchiseOwnerFinanceSnapshotScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

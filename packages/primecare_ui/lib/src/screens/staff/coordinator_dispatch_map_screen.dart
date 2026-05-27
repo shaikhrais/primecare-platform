@@ -245,8 +245,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
         actions: [
           IconButton(
             key: const Key('coordinatordispatchmap-btn-1'),
-            key: const Key('coordinatordispatchmap-btn-1'),
-            key: const Key('coordinatordispatchmap-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
             onPressed: () => controller.refreshMap(),
           ),
@@ -272,8 +270,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatordispatchmap-btn-2'),
-            key: const Key('coordinatordispatchmap-btn-2'),
-            key: const Key('coordinatordispatchmap-btn-2'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
               ),
@@ -282,8 +278,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatordispatchmap-btn-3'),
-            key: const Key('coordinatordispatchmap-btn-3'),
             key: const Key('coordinatordispatchmap-btn-3'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 2'.tr()),
@@ -294,8 +288,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
               height: 48,
               child: ElevatedButton(
             key: const Key('coordinatordispatchmap-btn-4'),
-            key: const Key('coordinatordispatchmap-btn-4'),
-            key: const Key('coordinatordispatchmap-btn-4'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 3'.tr()),
               ),
@@ -304,8 +296,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coordinatordispatchmap-btn-5'),
-            key: const Key('coordinatordispatchmap-btn-5'),
             key: const Key('coordinatordispatchmap-btn-5'),
                 onPressed: () => controller.triggerStateAction(),
                 child: Text('Execute: Button 4'.tr()),
@@ -635,8 +625,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                         ),
                         IconButton(
             key: const Key('coordinatordispatchmap-btn-6'),
-            key: const Key('coordinatordispatchmap-btn-6'),
-            key: const Key('coordinatordispatchmap-btn-6'),
                           icon: const Icon(LucideIcons.x, size: 16),
                           onPressed: () => controller.selectCaregiver(null),
                         ),
@@ -699,8 +687,6 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                                 ),
                               ),
                               ElevatedButton(
-            key: const Key('coordinatordispatchmap-btn-7'),
-            key: const Key('coordinatordispatchmap-btn-7'),
             key: const Key('coordinatordispatchmap-btn-7'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.primary,

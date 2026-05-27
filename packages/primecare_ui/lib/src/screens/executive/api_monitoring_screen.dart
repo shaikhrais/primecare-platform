@@ -258,8 +258,8 @@ class ApiMonitoringScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class ExercisePrescriptionScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

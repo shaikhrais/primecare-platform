@@ -258,8 +258,8 @@ class EnterpriseCommandCenter4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

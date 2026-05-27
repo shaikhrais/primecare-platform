@@ -258,8 +258,8 @@ class RmtBillingLinkScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

@@ -258,8 +258,8 @@ class FranchiseOwnerAppointmentsScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

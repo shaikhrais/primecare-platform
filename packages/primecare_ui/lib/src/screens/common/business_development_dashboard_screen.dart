@@ -256,8 +256,8 @@ class BusinessDevelopmentDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

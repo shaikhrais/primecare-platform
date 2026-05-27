@@ -258,8 +258,8 @@ class FranchiseCommandCenter4KScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

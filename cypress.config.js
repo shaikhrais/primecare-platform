@@ -8,14 +8,15 @@ module.exports = defineConfig({
   pageLoadTimeout: 90000,
   viewportWidth: 1920,
   viewportHeight: 1080,
-  retries: {
-    runMode: 0,
-    openMode: 0
+  env: {
+    TEST_PASSWORD: process.env.TEST_PASSWORD || "Test@12345",
   },
   e2e: {
+    baseUrl: process.env.CYPRESS_BASE_URL || "https://YOUR-CLOUDFLARE-URL.pages.dev",
+    specPattern: "cypress/e2e/**/*.cy.js",
+    supportFile: "cypress/support/e2e.js",
     setupNodeEvents(on, config) {
       return config;
     },
-    baseUrl: process.env.CYPRESS_BASE_URL || "http://localhost:3099"
-  }
+  },
 });

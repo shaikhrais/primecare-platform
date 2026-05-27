@@ -258,8 +258,8 @@ class RmtClientIntakeScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

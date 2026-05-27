@@ -126,8 +126,6 @@ class CooDashboardScreen extends GovernedConsumerWidget {
         actions: [
           IconButton(
             key: const Key('coodashboard-btn-1'),
-            key: const Key('coodashboard-btn-1'),
-            key: const Key('coodashboard-btn-1'),
             icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
             onPressed: () => ref.invalidate(cooDashboardProvider),
           ),
@@ -169,8 +167,6 @@ class CooDashboardScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-            key: const Key('coodashboard-btn-2'),
-            key: const Key('coodashboard-btn-2'),
             key: const Key('coodashboard-btn-2'),
                 onPressed: () => triggerStateAction(),
                 child: Text('Execute: Button 1'.tr()),
@@ -260,8 +256,6 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                         height: 48,
                         child: ElevatedButton(
             key: const Key('coodashboard-btn-3'),
-            key: const Key('coodashboard-btn-3'),
-            key: const Key('coodashboard-btn-3'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colors.primary,
                             shape: RoundedRectangleBorder(
@@ -308,7 +302,6 @@ class CooDashboardScreen extends GovernedConsumerWidget {
         ),
         loading: () => Center(
           child: CircularProgressIndicator(
-            key: const Key('coodashboard-loading'),color: theme.colors.primary),
         ),
         error: (error, stack) => Center(
           child: Column(
@@ -324,8 +317,6 @@ class CooDashboardScreen extends GovernedConsumerWidget {
             key: const Key('coodashboard-error'), 'Error loading dashboard', style: theme.typography.h3),
               const SizedBox(height: 8),
               ElevatedButton(
-            key: const Key('coodashboard-btn-4'),
-            key: const Key('coodashboard-btn-4'),
             key: const Key('coodashboard-btn-4'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primary,

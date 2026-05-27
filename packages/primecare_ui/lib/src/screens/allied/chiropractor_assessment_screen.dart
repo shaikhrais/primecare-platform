@@ -258,8 +258,8 @@ class ChiropractorAssessmentScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

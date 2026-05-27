@@ -258,8 +258,8 @@ class HrDirectorOnboardingScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

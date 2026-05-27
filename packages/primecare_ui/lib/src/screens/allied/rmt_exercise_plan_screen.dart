@@ -258,8 +258,8 @@ class RmtExercisePlanScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

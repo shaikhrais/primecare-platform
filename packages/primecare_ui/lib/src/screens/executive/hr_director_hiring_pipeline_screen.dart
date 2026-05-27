@@ -258,8 +258,8 @@ class HrDirectorHiringPipelineScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

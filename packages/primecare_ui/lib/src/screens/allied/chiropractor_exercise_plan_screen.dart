@@ -258,8 +258,8 @@ class ChiropractorExercisePlanScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

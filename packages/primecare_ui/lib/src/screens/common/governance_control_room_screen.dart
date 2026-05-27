@@ -258,8 +258,8 @@ class GovernanceControlRoomScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }

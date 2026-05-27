@@ -337,8 +337,8 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
               },
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 

@@ -258,8 +258,8 @@ class IntakeCoordinatorNewClientIntakeScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
+        ),),
+    ),
     );
   }
 }
