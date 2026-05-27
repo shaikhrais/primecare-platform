@@ -84,7 +84,8 @@ def main():
         }
         
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {default_password}"
         }
         
         req_data = json.dumps(payload).encode("utf-8")

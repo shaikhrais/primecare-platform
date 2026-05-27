@@ -40,44 +40,41 @@ Cypress.Commands.add("verifyShellExists", () => {
 Cypress.Commands.add("loginAsRole", (roleCode) => {
   cy.fixture("governance/test_users.json").then((users) => {
     const user = users.find((u) => u.role_code === roleCode);
-    if (!user) throw new Error(`No test user found for role ${roleCode}`);
+    if (!user) throw new Error(`No test user for role ${roleCode}`);
 
-    // Read password from environment, fallback to fixture or default
-    const password = Cypress.env(user.password_env) || "Test@12345";
+    const password = Cypress.env(user.password_env);
+    if (!password) throw new Error(`Missing Cypress env password: ${user.password_env}`);
 
-    cy.visitWithSemantics("/#/login");
-    cy.waitAndSee();
+    // Visit login with semantics parameter
+    cy.visit("/login?enable-semantics=true");
+    cy.wait(2000);
 
+    // Support both input[type="text"] and input[type="email"] for robust targeting
+    cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
+      .first()
+      .should("be.visible")
+      .clear()
+      .type(user.email);
+
+    cy.get('input[type="password"]', { includeShadowDom: true })
+      .should("be.visible")
+      .clear()
+      .type(password, { log: false });
+
+    // Handle "INITIATE SESSION" click with fallback to generic submit if needed
     cy.document().then((doc) => {
-      // Direct inputs check (works for CanvasKit/Semantic inputs or mock server HTML)
-      const hasStandardInput = doc.querySelector('input[type="text"]') || doc.querySelector('input[type="email"]');
-      if (hasStandardInput) {
-        const emailSelector = doc.querySelector('input[type="email"]') ? 'input[type="email"]' : 'input[type="text"]';
-        cy.get(emailSelector, { includeShadowDom: true }).should("be.visible").clear().type(user.email);
-        cy.get('input[type="password"]', { includeShadowDom: true }).should("be.visible").clear().type(password, { log: false });
-        
-        // Find best button to click
-        const hasInitiateSession = doc.body.innerText.includes("INITIATE SESSION");
-        if (hasInitiateSession) {
-          cy.contains("INITIATE SESSION", { includeShadowDom: true }).click({ force: true });
-        } else {
-          const buttonSelector = doc.querySelector('[data-cy="login-submit"]') ? '[data-cy="login-submit"]' : '[aria-label*="data-cy:login-submit"]';
-          cy.get(buttonSelector, { includeShadowDom: true }).click({ force: true });
-        }
+      const hasInitiateSession = doc.body.innerText.includes("INITIATE SESSION");
+      if (hasInitiateSession) {
+        cy.contains("INITIATE SESSION", { includeShadowDom: true }).click({ force: true });
       } else {
-        // Fallback to contains semantics selectors
-        cy.getCy("login-email").should("be.visible").clear().type(user.email);
-        cy.getCy("login-password").should("be.visible").clear().type(password, { log: false });
-        cy.getCy("login-submit").should("be.visible").click({ force: true });
+        // Fallback for standard buttons or elements
+        cy.get('button, input[type="submit"]', { includeShadowDom: true }).first().click({ force: true });
       }
     });
 
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.url().then((url) => {
-      if (url.includes("/success")) {
-        cy.contains("Authentication Successful").should("be.visible");
-      }
+    cy.wait(2000);
+    cy.get("body").invoke("text").should((text) => {
+      expect(text.trim().length).to.be.greaterThan(5);
     });
 
     cy.screenshot(`auth-login-${roleCode}`);

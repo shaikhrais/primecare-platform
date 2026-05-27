@@ -60,6 +60,7 @@ import { usersRouter } from './routes/users'
 import { authRouter } from './routes/auth'
 import { shiftsRouter } from './routes/shifts'
 import { premiumRouter } from './routes/premium'
+import { testRouter } from './routes/test'
 
 app.route('/api/v1/franchise', franchiseRouter)
 app.route('/api/v1/clinical', clinicalRouter)
@@ -69,8 +70,10 @@ app.route('/api/v1/billing', billingRouter)
 app.route('/api/v1/executive', executiveRouter)
 app.route('/api/v1/users', usersRouter)
 app.route('/api/v1/auth', authRouter)
+app.route('/v1/auth', authRouter)
 app.route('/api/v1/shifts', shiftsRouter)
 app.route('/api/v1/premium', premiumRouter)
+app.route('/v1/test', testRouter)
 
 export class ChatServer {
   constructor(private state: any, private env: any) {}

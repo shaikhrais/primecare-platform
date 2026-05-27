@@ -13,7 +13,32 @@ function getUserDetails(emailOrToken: string) {
   let email = 'psw@demo.primecare.com'
   let tenantId = 'primecare_hq'
 
-  if (identifier.includes('ceo')) {
+  if (identifier.startsWith('qa.') && identifier.includes('@test.primecare.local')) {
+    const extractedRole = identifier.substring(3, identifier.indexOf('@test.primecare.local'))
+    role = extractedRole
+    firstName = 'QA'
+    lastName = extractedRole.toUpperCase()
+    email = identifier
+  } else if (identifier.startsWith('mock-jwt-token-')) {
+    const extractedRole = identifier.substring('mock-jwt-token-'.length)
+    role = extractedRole
+    firstName = 'QA'
+    lastName = extractedRole.toUpperCase()
+    email = `qa.${extractedRole}@test.primecare.local`
+    
+    // Map standard demo profiles if exact match
+    if (extractedRole === 'ceo') {
+      firstName = 'John'; lastName = 'CEO'; email = 'ceo@demo.primecare.com'
+    } else if (extractedRole === 'coo') {
+      firstName = 'Charles'; lastName = 'COO'; email = 'coo@demo.primecare.com'
+    } else if (extractedRole === 'admin') {
+      firstName = 'Jane'; lastName = 'Admin'; email = 'admin@demo.primecare.com'
+    } else if (extractedRole === 'client') {
+      firstName = 'Alice'; lastName = 'Patient'; email = 'client@demo.primecare.com'
+    } else if (extractedRole === 'super_admin') {
+      firstName = 'Mohammed'; lastName = 'SuperAdmin'; email = 'itpro.mohammed@gmail.com'
+    }
+  } else if (identifier.includes('ceo')) {
     role = 'ceo'
     firstName = 'John'
     lastName = 'CEO'
