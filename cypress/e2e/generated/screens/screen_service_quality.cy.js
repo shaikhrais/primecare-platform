@@ -1,44 +1,22 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.coo@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Screen - service_quality", () => {
   it("opens and verifies screen service_quality", () => {
-    login();
+    cy.loginAsRole("coo");
 
   cy.visit("/executive/service-quality");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("servicequality-screen").should("be.visible");
+  cy.getCy("servicequality-title").should("be.visible");
+  cy.getCy("servicequality-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="servicequality-screen"]`).should("be.visible");
-  cy.get(`[data-cy="servicequality-title"]`).should("be.visible");
-  cy.get(`[data-cy="servicequality-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("service_quality");
 
   });

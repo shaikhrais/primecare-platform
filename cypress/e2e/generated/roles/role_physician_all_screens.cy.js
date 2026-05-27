@@ -1,83 +1,47 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.physician@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Role All Screens - physician", () => {
   it("tests all screens for role physician", () => {
-    login();
+    cy.loginAsRole("physician");
 
 
   cy.visit("/clinical/physician-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiciandashboard-screen").should("be.visible");
+  cy.getCy("physiciandashboard-title").should("be.visible");
+  cy.getCy("physiciandashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiciandashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiciandashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiciandashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physician_dashboard");
 
   cy.visit("/clinical/physician-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physician analytics-screen").should("be.visible");
+  cy.getCy("physician analytics-title").should("be.visible");
+  cy.getCy("physician analytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physician analytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physician analytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="physician analytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physician_analytics");
 
   cy.visit("/clinical/physician-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physician compliance workflow-screen").should("be.visible");
+  cy.getCy("physician compliance workflow-title").should("be.visible");
+  cy.getCy("physician compliance workflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physician compliance workflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physician compliance workflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="physician compliance workflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physician_workflow");
 
   });

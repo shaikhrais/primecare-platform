@@ -1,44 +1,22 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.chiropractor@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Screen - chiropractor_compliance", () => {
   it("opens and verifies screen chiropractor_compliance", () => {
-    login();
+    cy.loginAsRole("chiropractor");
 
   cy.visit("/common/chiropractor-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorcompliance-screen").should("be.visible");
+  cy.getCy("chiropractorcompliance-title").should("be.visible");
+  cy.getCy("chiropractorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
   });

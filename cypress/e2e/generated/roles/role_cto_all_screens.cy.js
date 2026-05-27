@@ -1,1470 +1,923 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.cto@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Role All Screens - cto", () => {
   it("tests all screens for role cto", () => {
-    login();
+    cy.loginAsRole("cto");
 
 
   cy.visit("/clinical/clinical-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldashboard-screen").should("be.visible");
+  cy.getCy("clinicaldashboard-title").should("be.visible");
+  cy.getCy("clinicaldashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
 
   cy.visit("/common/architecture-planning-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("architectureplanningdashboard-screen").should("be.visible");
+  cy.getCy("architectureplanningdashboard-title").should("be.visible");
+  cy.getCy("architectureplanningdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="architectureplanningdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="architectureplanningdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="architectureplanningdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("architecture_planning_dashboard");
 
   cy.visit("/common/chiropractor-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractordashboard-screen").should("be.visible");
+  cy.getCy("chiropractordashboard-title").should("be.visible");
+  cy.getCy("chiropractordashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractordashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractordashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractordashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
 
   cy.visit("/common/clinic-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicdashboard-screen").should("be.visible");
+  cy.getCy("clinicdashboard-title").should("be.visible");
+  cy.getCy("clinicdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
 
   cy.visit("/common/course-architect-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("coursearchitectdashboard-screen").should("be.visible");
+  cy.getCy("coursearchitectdashboard-title").should("be.visible");
+  cy.getCy("coursearchitectdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="coursearchitectdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
   cy.visit("/executive/cto-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("ctodashboard-screen").should("be.visible");
+  cy.getCy("ctodashboard-title").should("be.visible");
+  cy.getCy("ctodashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="ctodashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="ctodashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="ctodashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cto_dashboard");
 
   cy.visit("/executive/cx-director-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("cxdirectordashboard-screen").should("be.visible");
+  cy.getCy("cxdirectordashboard-title").should("be.visible");
+  cy.getCy("cxdirectordashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="cxdirectordashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectordashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectordashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
 
   cy.visit("/executive/finance-director-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("financedirectordashboard-screen").should("be.visible");
+  cy.getCy("financedirectordashboard-title").should("be.visible");
+  cy.getCy("financedirectordashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="financedirectordashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectordashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectordashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
 
   cy.visit("/executive/hr-director-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectordashboard-screen").should("be.visible");
+  cy.getCy("hrdirectordashboard-title").should("be.visible");
+  cy.getCy("hrdirectordashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectordashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectordashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectordashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
 
   cy.visit("/executive/training-director-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("trainingdirectordashboard-screen").should("be.visible");
+  cy.getCy("trainingdirectordashboard-title").should("be.visible");
+  cy.getCy("trainingdirectordashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="trainingdirectordashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="trainingdirectordashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="trainingdirectordashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
   cy.visit("/staff/hr-manager-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrmanagerdashboard-screen").should("be.visible");
+  cy.getCy("hrmanagerdashboard-title").should("be.visible");
+  cy.getCy("hrmanagerdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrmanagerdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagerdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagerdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_manager_dashboard");
 
   cy.visit("/clinical/clinical-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicalanalytics-screen").should("be.visible");
+  cy.getCy("clinicalanalytics-title").should("be.visible");
+  cy.getCy("clinicalanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicalanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_analytics");
 
   cy.visit("/clinical/clinical-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicalcompliance-screen").should("be.visible");
+  cy.getCy("clinicalcompliance-title").should("be.visible");
+  cy.getCy("clinicalcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicalcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_compliance");
 
   cy.visit("/clinical/clinical-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicalworkflow-screen").should("be.visible");
+  cy.getCy("clinicalworkflow-title").should("be.visible");
+  cy.getCy("clinicalworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicalworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_workflow");
 
   cy.visit("/common/chiropractor-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractoranalytics-screen").should("be.visible");
+  cy.getCy("chiropractoranalytics-title").should("be.visible");
+  cy.getCy("chiropractoranalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractoranalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractoranalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractoranalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
 
   cy.visit("/common/chiropractor-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorcompliance-screen").should("be.visible");
+  cy.getCy("chiropractorcompliance-title").should("be.visible");
+  cy.getCy("chiropractorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
   cy.visit("/common/chiropractor-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorworkflow-screen").should("be.visible");
+  cy.getCy("chiropractorworkflow-title").should("be.visible");
+  cy.getCy("chiropractorworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
 
   cy.visit("/common/clinic-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicanalytics-screen").should("be.visible");
+  cy.getCy("clinicanalytics-title").should("be.visible");
+  cy.getCy("clinicanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinic_analytics");
 
   cy.visit("/common/clinic-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("cliniccompliance-screen").should("be.visible");
+  cy.getCy("cliniccompliance-title").should("be.visible");
+  cy.getCy("cliniccompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="cliniccompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="cliniccompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="cliniccompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinic_compliance");
 
   cy.visit("/common/clinic-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicworkflow-screen").should("be.visible");
+  cy.getCy("clinicworkflow-title").should("be.visible");
+  cy.getCy("clinicworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinic_workflow");
 
   cy.visit("/common/course-architect-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("coursearchitectanalytics-screen").should("be.visible");
+  cy.getCy("coursearchitectanalytics-title").should("be.visible");
+  cy.getCy("coursearchitectanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="coursearchitectanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
   cy.visit("/common/course-architect-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("coursearchitectcompliance-screen").should("be.visible");
+  cy.getCy("coursearchitectcompliance-title").should("be.visible");
+  cy.getCy("coursearchitectcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="coursearchitectcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
   cy.visit("/common/course-architect-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("coursearchitectworkflow-screen").should("be.visible");
+  cy.getCy("coursearchitectworkflow-title").should("be.visible");
+  cy.getCy("coursearchitectworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="coursearchitectworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="coursearchitectworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
 
   cy.visit("/executive/cto-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("ctoanalytics-screen").should("be.visible");
+  cy.getCy("ctoanalytics-title").should("be.visible");
+  cy.getCy("ctoanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="ctoanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="ctoanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="ctoanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cto_analytics");
 
   cy.visit("/executive/cto-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("ctocompliance-screen").should("be.visible");
+  cy.getCy("ctocompliance-title").should("be.visible");
+  cy.getCy("ctocompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="ctocompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="ctocompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="ctocompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cto_compliance");
 
   cy.visit("/executive/cto-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("ctoworkflow-screen").should("be.visible");
+  cy.getCy("ctoworkflow-title").should("be.visible");
+  cy.getCy("ctoworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="ctoworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="ctoworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="ctoworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cto_workflow");
 
   cy.visit("/executive/cx-director-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("cxdirectoranalytics-screen").should("be.visible");
+  cy.getCy("cxdirectoranalytics-title").should("be.visible");
+  cy.getCy("cxdirectoranalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="cxdirectoranalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectoranalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectoranalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
 
   cy.visit("/executive/cx-director-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("cxdirectorcompliance-screen").should("be.visible");
+  cy.getCy("cxdirectorcompliance-title").should("be.visible");
+  cy.getCy("cxdirectorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="cxdirectorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
 
   cy.visit("/executive/cx-director-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("cxdirectorworkflow-screen").should("be.visible");
+  cy.getCy("cxdirectorworkflow-title").should("be.visible");
+  cy.getCy("cxdirectorworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="cxdirectorworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectorworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="cxdirectorworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("cx_director_workflow");
 
   cy.visit("/executive/finance-director-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("financedirectoranalytics-screen").should("be.visible");
+  cy.getCy("financedirectoranalytics-title").should("be.visible");
+  cy.getCy("financedirectoranalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="financedirectoranalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectoranalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectoranalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
 
   cy.visit("/executive/finance-director-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("financedirectorcompliance-screen").should("be.visible");
+  cy.getCy("financedirectorcompliance-title").should("be.visible");
+  cy.getCy("financedirectorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="financedirectorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
 
   cy.visit("/executive/finance-director-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("financedirectorworkflow-screen").should("be.visible");
+  cy.getCy("financedirectorworkflow-title").should("be.visible");
+  cy.getCy("financedirectorworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="financedirectorworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectorworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="financedirectorworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("finance_director_workflow");
 
   cy.visit("/executive/hr-director-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectoranalytics-screen").should("be.visible");
+  cy.getCy("hrdirectoranalytics-title").should("be.visible");
+  cy.getCy("hrdirectoranalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectoranalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectoranalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectoranalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
 
   cy.visit("/executive/hr-director-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectorcompliance-screen").should("be.visible");
+  cy.getCy("hrdirectorcompliance-title").should("be.visible");
+  cy.getCy("hrdirectorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_compliance");
 
   cy.visit("/executive/hr-director-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectorworkflow-screen").should("be.visible");
+  cy.getCy("hrdirectorworkflow-title").should("be.visible");
+  cy.getCy("hrdirectorworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectorworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_workflow");
 
   cy.visit("/staff/hr-manager-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrmanageranalytics-screen").should("be.visible");
+  cy.getCy("hrmanageranalytics-title").should("be.visible");
+  cy.getCy("hrmanageranalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrmanageranalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanageranalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanageranalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_manager_analytics");
 
   cy.visit("/staff/hr-manager-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrmanagercompliance-screen").should("be.visible");
+  cy.getCy("hrmanagercompliance-title").should("be.visible");
+  cy.getCy("hrmanagercompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrmanagercompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagercompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagercompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_manager_compliance");
 
   cy.visit("/staff/hr-manager-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrmanagerworkflow-screen").should("be.visible");
+  cy.getCy("hrmanagerworkflow-title").should("be.visible");
+  cy.getCy("hrmanagerworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrmanagerworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagerworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrmanagerworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_manager_workflow");
 
   cy.visit("/allied/chiropractor-command-center");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorcommandcenter-screen").should("be.visible");
+  cy.getCy("chiropractorcommandcenter-title").should("be.visible");
+  cy.getCy("chiropractorcommandcenter-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorcommandcenter-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcommandcenter-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorcommandcenter-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
 
   cy.visit("/allied/chiropractor-appointments");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorappointments-screen").should("be.visible");
+  cy.getCy("chiropractorappointments-title").should("be.visible");
+  cy.getCy("chiropractorappointments-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorappointments-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorappointments-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorappointments-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
 
   cy.visit("/allied/chiropractor-client-intake");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorclientintake-screen").should("be.visible");
+  cy.getCy("chiropractorclientintake-title").should("be.visible");
+  cy.getCy("chiropractorclientintake-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorclientintake-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorclientintake-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorclientintake-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
 
   cy.visit("/allied/chiropractor-assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorassessment-screen").should("be.visible");
+  cy.getCy("chiropractorassessment-title").should("be.visible");
+  cy.getCy("chiropractorassessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorassessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorassessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorassessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
 
   cy.visit("/allied/chiropractor-treatment-notes");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractortreatmentnotes-screen").should("be.visible");
+  cy.getCy("chiropractortreatmentnotes-title").should("be.visible");
+  cy.getCy("chiropractortreatmentnotes-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractortreatmentnotes-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractortreatmentnotes-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractortreatmentnotes-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
 
   cy.visit("/allied/chiropractor-exercise-plan");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorexerciseplan-screen").should("be.visible");
+  cy.getCy("chiropractorexerciseplan-title").should("be.visible");
+  cy.getCy("chiropractorexerciseplan-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorexerciseplan-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorexerciseplan-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorexerciseplan-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
 
   cy.visit("/allied/chiropractor-billing-link");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorbillinglink-screen").should("be.visible");
+  cy.getCy("chiropractorbillinglink-title").should("be.visible");
+  cy.getCy("chiropractorbillinglink-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorbillinglink-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorbillinglink-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorbillinglink-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
 
   cy.visit("/allied/chiropractor-reports");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropractorreports-screen").should("be.visible");
+  cy.getCy("chiropractorreports-title").should("be.visible");
+  cy.getCy("chiropractorreports-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropractorreports-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorreports-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropractorreports-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
 
   cy.visit("/clinical/clinical-director-staff-quality");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorstaffquality-screen").should("be.visible");
+  cy.getCy("clinicaldirectorstaffquality-title").should("be.visible");
+  cy.getCy("clinicaldirectorstaffquality-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorstaffquality-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorstaffquality-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorstaffquality-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
 
   cy.visit("/clinical/clinical-director-incident-review");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorincidentreview-screen").should("be.visible");
+  cy.getCy("clinicaldirectorincidentreview-title").should("be.visible");
+  cy.getCy("clinicaldirectorincidentreview-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorincidentreview-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorincidentreview-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorincidentreview-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
 
   cy.visit("/clinical/clinical-director-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorcompliance-screen").should("be.visible");
+  cy.getCy("clinicaldirectorcompliance-title").should("be.visible");
+  cy.getCy("clinicaldirectorcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
 
   cy.visit("/clinical/clinical-director-reports");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorreports-screen").should("be.visible");
+  cy.getCy("clinicaldirectorreports-title").should("be.visible");
+  cy.getCy("clinicaldirectorreports-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorreports-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorreports-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorreports-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
 
   cy.visit("/clinical/clinical-director-approvals");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorapprovals-screen").should("be.visible");
+  cy.getCy("clinicaldirectorapprovals-title").should("be.visible");
+  cy.getCy("clinicaldirectorapprovals-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorapprovals-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorapprovals-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorapprovals-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
 
   cy.visit("/clinical/clinical-director-performance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaldirectorperformance-screen").should("be.visible");
+  cy.getCy("clinicaldirectorperformance-title").should("be.visible");
+  cy.getCy("clinicaldirectorperformance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaldirectorperformance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorperformance-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaldirectorperformance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
 
   cy.visit("/executive/hr-director-hiring-pipeline");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectorhiringpipeline-screen").should("be.visible");
+  cy.getCy("hrdirectorhiringpipeline-title").should("be.visible");
+  cy.getCy("hrdirectorhiringpipeline-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectorhiringpipeline-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorhiringpipeline-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorhiringpipeline-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_hiring_pipeline");
 
   cy.visit("/executive/hr-director-staff-files");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectorstafffiles-screen").should("be.visible");
+  cy.getCy("hrdirectorstafffiles-title").should("be.visible");
+  cy.getCy("hrdirectorstafffiles-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectorstafffiles-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorstafffiles-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorstafffiles-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_staff_files");
 
   cy.visit("/executive/hr-director-training");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectortraining-screen").should("be.visible");
+  cy.getCy("hrdirectortraining-title").should("be.visible");
+  cy.getCy("hrdirectortraining-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectortraining-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectortraining-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectortraining-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_training");
 
   cy.visit("/executive/hr-director-credential-expiry");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectorcredentialexpiry-screen").should("be.visible");
+  cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible");
+  cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectorcredentialexpiry-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorcredentialexpiry-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectorcredentialexpiry-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_credential_expiry");
 
   cy.visit("/executive/hr-director-onboarding");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hrdirectoronboarding-screen").should("be.visible");
+  cy.getCy("hrdirectoronboarding-title").should("be.visible");
+  cy.getCy("hrdirectoronboarding-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hrdirectoronboarding-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectoronboarding-title"]`).should("be.visible");
-  cy.get(`[data-cy="hrdirectoronboarding-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hr_director_onboarding");
 
   cy.visit("/executive/system-health");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("systemhealth-screen").should("be.visible");
+  cy.getCy("systemhealth-title").should("be.visible");
+  cy.getCy("systemhealth-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="systemhealth-screen"]`).should("be.visible");
-  cy.get(`[data-cy="systemhealth-title"]`).should("be.visible");
-  cy.get(`[data-cy="systemhealth-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("system_health");
 
   cy.visit("/executive/api-monitoring");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("apimonitoring-screen").should("be.visible");
+  cy.getCy("apimonitoring-title").should("be.visible");
+  cy.getCy("apimonitoring-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="apimonitoring-screen"]`).should("be.visible");
-  cy.get(`[data-cy="apimonitoring-title"]`).should("be.visible");
-  cy.get(`[data-cy="apimonitoring-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("api_monitoring");
 
   cy.visit("/executive/deployment-center");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("deploymentcenter-screen").should("be.visible");
+  cy.getCy("deploymentcenter-title").should("be.visible");
+  cy.getCy("deploymentcenter-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="deploymentcenter-screen"]`).should("be.visible");
-  cy.get(`[data-cy="deploymentcenter-title"]`).should("be.visible");
-  cy.get(`[data-cy="deploymentcenter-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("deployment_center");
 
   cy.visit("/executive/security-audit");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("securityaudit-screen").should("be.visible");
+  cy.getCy("securityaudit-title").should("be.visible");
+  cy.getCy("securityaudit-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="securityaudit-screen"]`).should("be.visible");
-  cy.get(`[data-cy="securityaudit-title"]`).should("be.visible");
-  cy.get(`[data-cy="securityaudit-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("security_audit");
 
   cy.visit("/executive/release-management");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("releasemanagement-screen").should("be.visible");
+  cy.getCy("releasemanagement-title").should("be.visible");
+  cy.getCy("releasemanagement-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="releasemanagement-screen"]`).should("be.visible");
-  cy.get(`[data-cy="releasemanagement-title"]`).should("be.visible");
-  cy.get(`[data-cy="releasemanagement-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("release_management");
 
   cy.visit("/management/hiring-pipeline");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("hiringpipeline-screen").should("be.visible");
+  cy.getCy("hiringpipeline-title").should("be.visible");
+  cy.getCy("hiringpipeline-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="hiringpipeline-screen"]`).should("be.visible");
-  cy.get(`[data-cy="hiringpipeline-title"]`).should("be.visible");
-  cy.get(`[data-cy="hiringpipeline-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("hiring_pipeline");
 
   cy.visit("/management/employee-records");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("employeerecords-screen").should("be.visible");
+  cy.getCy("employeerecords-title").should("be.visible");
+  cy.getCy("employeerecords-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="employeerecords-screen"]`).should("be.visible");
-  cy.get(`[data-cy="employeerecords-title"]`).should("be.visible");
-  cy.get(`[data-cy="employeerecords-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("employee_records");
 
   cy.visit("/management/credential-expiry");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("credentialexpiry-screen").should("be.visible");
+  cy.getCy("credentialexpiry-title").should("be.visible");
+  cy.getCy("credentialexpiry-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="credentialexpiry-screen"]`).should("be.visible");
-  cy.get(`[data-cy="credentialexpiry-title"]`).should("be.visible");
-  cy.get(`[data-cy="credentialexpiry-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("credential_expiry");
 
   cy.visit("/management/training-management");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("trainingmanagement-screen").should("be.visible");
+  cy.getCy("trainingmanagement-title").should("be.visible");
+  cy.getCy("trainingmanagement-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="trainingmanagement-screen"]`).should("be.visible");
-  cy.get(`[data-cy="trainingmanagement-title"]`).should("be.visible");
-  cy.get(`[data-cy="trainingmanagement-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("training_management");
 
   cy.visit("/management/onboarding");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("onboarding-screen").should("be.visible");
+  cy.getCy("onboarding-title").should("be.visible");
+  cy.getCy("onboarding-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="onboarding-screen"]`).should("be.visible");
-  cy.get(`[data-cy="onboarding-title"]`).should("be.visible");
-  cy.get(`[data-cy="onboarding-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("onboarding");
 
   cy.visit("/allied/chiropractic-assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropracticassessment-screen").should("be.visible");
+  cy.getCy("chiropracticassessment-title").should("be.visible");
+  cy.getCy("chiropracticassessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropracticassessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropracticassessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropracticassessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
 
   cy.visit("/allied/adjustment-notes");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("adjustmentnotes-screen").should("be.visible");
+  cy.getCy("adjustmentnotes-title").should("be.visible");
+  cy.getCy("adjustmentnotes-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="adjustmentnotes-screen"]`).should("be.visible");
-  cy.get(`[data-cy="adjustmentnotes-title"]`).should("be.visible");
-  cy.get(`[data-cy="adjustmentnotes-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("adjustment_notes");
 
   cy.visit("/allied/xray-review");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("xrayreview-screen").should("be.visible");
+  cy.getCy("xrayreview-title").should("be.visible");
+  cy.getCy("xrayreview-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="xrayreview-screen"]`).should("be.visible");
-  cy.get(`[data-cy="xrayreview-title"]`).should("be.visible");
-  cy.get(`[data-cy="xrayreview-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("xray_review");
 
   cy.visit("/allied/chiropractic-progress-tracking");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("chiropracticprogresstracking-screen").should("be.visible");
+  cy.getCy("chiropracticprogresstracking-title").should("be.visible");
+  cy.getCy("chiropracticprogresstracking-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="chiropracticprogresstracking-screen"]`).should("be.visible");
-  cy.get(`[data-cy="chiropracticprogresstracking-title"]`).should("be.visible");
-  cy.get(`[data-cy="chiropracticprogresstracking-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("chiropractic_progress_tracking");
 
   cy.visit("/clinical/clinical-quality");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicalquality-screen").should("be.visible");
+  cy.getCy("clinicalquality-title").should("be.visible");
+  cy.getCy("clinicalquality-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicalquality-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalquality-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicalquality-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_quality");
 
   cy.visit("/clinical/staff-performance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("staffperformance-screen").should("be.visible");
+  cy.getCy("staffperformance-title").should("be.visible");
+  cy.getCy("staffperformance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="staffperformance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="staffperformance-title"]`).should("be.visible");
-  cy.get(`[data-cy="staffperformance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("staff_performance");
 
   cy.visit("/clinical/compliance-review");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("compliancereview-screen").should("be.visible");
+  cy.getCy("compliancereview-title").should("be.visible");
+  cy.getCy("compliancereview-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="compliancereview-screen"]`).should("be.visible");
-  cy.get(`[data-cy="compliancereview-title"]`).should("be.visible");
-  cy.get(`[data-cy="compliancereview-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("compliance_review");
 
   cy.visit("/clinical/incident-oversight");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("incidentoversight-screen").should("be.visible");
+  cy.getCy("incidentoversight-title").should("be.visible");
+  cy.getCy("incidentoversight-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="incidentoversight-screen"]`).should("be.visible");
-  cy.get(`[data-cy="incidentoversight-title"]`).should("be.visible");
-  cy.get(`[data-cy="incidentoversight-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("incident_oversight");
 
   cy.visit("/clinical/clinical-operations4-k");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clinicaloperations4k-screen").should("be.visible");
+  cy.getCy("clinicaloperations4k-title").should("be.visible");
+  cy.getCy("clinicaloperations4k-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clinicaloperations4k-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaloperations4k-title"]`).should("be.visible");
-  cy.get(`[data-cy="clinicaloperations4k-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("clinical_operations4_k");
 
   });

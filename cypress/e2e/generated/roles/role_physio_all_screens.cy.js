@@ -1,330 +1,203 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.physio@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Role All Screens - physio", () => {
   it("tests all screens for role physio", () => {
-    login();
+    cy.loginAsRole("physio");
 
 
   cy.visit("/common/physiotherapist-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistdashboard-screen").should("be.visible");
+  cy.getCy("physiotherapistdashboard-title").should("be.visible");
+  cy.getCy("physiotherapistdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_dashboard");
 
   cy.visit("/common/physiotherapist-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistanalytics-screen").should("be.visible");
+  cy.getCy("physiotherapistanalytics-title").should("be.visible");
+  cy.getCy("physiotherapistanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_analytics");
 
   cy.visit("/common/physiotherapist-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistcompliance-screen").should("be.visible");
+  cy.getCy("physiotherapistcompliance-title").should("be.visible");
+  cy.getCy("physiotherapistcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_compliance");
 
   cy.visit("/common/physiotherapist-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistworkflow-screen").should("be.visible");
+  cy.getCy("physiotherapistworkflow-title").should("be.visible");
+  cy.getCy("physiotherapistworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_workflow");
 
   cy.visit("/allied/physiotherapist-command-center");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistcommandcenter-screen").should("be.visible");
+  cy.getCy("physiotherapistcommandcenter-title").should("be.visible");
+  cy.getCy("physiotherapistcommandcenter-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistcommandcenter-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistcommandcenter-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistcommandcenter-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_command_center");
 
   cy.visit("/allied/physiotherapist-appointments");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistappointments-screen").should("be.visible");
+  cy.getCy("physiotherapistappointments-title").should("be.visible");
+  cy.getCy("physiotherapistappointments-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistappointments-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistappointments-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistappointments-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_appointments");
 
   cy.visit("/allied/physiotherapist-client-intake");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistclientintake-screen").should("be.visible");
+  cy.getCy("physiotherapistclientintake-title").should("be.visible");
+  cy.getCy("physiotherapistclientintake-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistclientintake-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistclientintake-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistclientintake-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_client_intake");
 
   cy.visit("/allied/physiotherapist-assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistassessment-screen").should("be.visible");
+  cy.getCy("physiotherapistassessment-title").should("be.visible");
+  cy.getCy("physiotherapistassessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistassessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistassessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistassessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_assessment");
 
   cy.visit("/allied/physiotherapist-treatment-notes");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapisttreatmentnotes-screen").should("be.visible");
+  cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
+  cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapisttreatmentnotes-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapisttreatmentnotes-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapisttreatmentnotes-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_treatment_notes");
 
   cy.visit("/allied/physiotherapist-exercise-plan");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistexerciseplan-screen").should("be.visible");
+  cy.getCy("physiotherapistexerciseplan-title").should("be.visible");
+  cy.getCy("physiotherapistexerciseplan-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistexerciseplan-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistexerciseplan-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistexerciseplan-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_exercise_plan");
 
   cy.visit("/allied/physiotherapist-billing-link");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistbillinglink-screen").should("be.visible");
+  cy.getCy("physiotherapistbillinglink-title").should("be.visible");
+  cy.getCy("physiotherapistbillinglink-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistbillinglink-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistbillinglink-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistbillinglink-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_billing_link");
 
   cy.visit("/allied/physiotherapist-reports");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("physiotherapistreports-screen").should("be.visible");
+  cy.getCy("physiotherapistreports-title").should("be.visible");
+  cy.getCy("physiotherapistreports-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="physiotherapistreports-screen"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistreports-title"]`).should("be.visible");
-  cy.get(`[data-cy="physiotherapistreports-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("physiotherapist_reports");
 
   cy.visit("/clinical/assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("assessment-screen").should("be.visible");
+  cy.getCy("assessment-title").should("be.visible");
+  cy.getCy("assessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="assessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="assessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="assessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("assessment");
 
   cy.visit("/clinical/treatment-plan");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("treatmentplan-screen").should("be.visible");
+  cy.getCy("treatmentplan-title").should("be.visible");
+  cy.getCy("treatmentplan-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="treatmentplan-screen"]`).should("be.visible");
-  cy.get(`[data-cy="treatmentplan-title"]`).should("be.visible");
-  cy.get(`[data-cy="treatmentplan-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("treatment_plan");
 
   cy.visit("/clinical/exercise-prescription");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("exerciseprescription-screen").should("be.visible");
+  cy.getCy("exerciseprescription-title").should("be.visible");
+  cy.getCy("exerciseprescription-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="exerciseprescription-screen"]`).should("be.visible");
-  cy.get(`[data-cy="exerciseprescription-title"]`).should("be.visible");
-  cy.get(`[data-cy="exerciseprescription-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("exercise_prescription");
 
   cy.visit("/clinical/progress-tracking");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("progresstracking-screen").should("be.visible");
+  cy.getCy("progresstracking-title").should("be.visible");
+  cy.getCy("progresstracking-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="progresstracking-screen"]`).should("be.visible");
-  cy.get(`[data-cy="progresstracking-title"]`).should("be.visible");
-  cy.get(`[data-cy="progresstracking-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("progress_tracking");
 
   });

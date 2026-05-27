@@ -1,330 +1,203 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 // Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
 
-
-function login() {
-  cy.visit("/login");
-  cy.wait(2000);
-
-  cy.get('[data-cy="login-email"]').should("be.visible").clear().type("qa.rmt@test.primecare.local");
-  cy.get('[data-cy="login-password"]').should("be.visible").clear().type(Cypress.env("TEST_PASSWORD"), { log: false });
-  cy.get('[data-cy="login-submit"]').should("be.visible").click();
-
-  cy.wait(2000);
-
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
-}
 
 describe("Role All Screens - rmt", () => {
   it("tests all screens for role rmt", () => {
-    login();
+    cy.loginAsRole("rmt");
 
 
   cy.visit("/allied/rmt-dashboard");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtdashboard-screen").should("be.visible");
+  cy.getCy("rmtdashboard-title").should("be.visible");
+  cy.getCy("rmtdashboard-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtdashboard-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtdashboard-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtdashboard-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_dashboard");
 
   cy.visit("/allied/rmt-analytics");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtanalytics-screen").should("be.visible");
+  cy.getCy("rmtanalytics-title").should("be.visible");
+  cy.getCy("rmtanalytics-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtanalytics-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtanalytics-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtanalytics-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_analytics");
 
   cy.visit("/allied/rmt-compliance");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtcompliance-screen").should("be.visible");
+  cy.getCy("rmtcompliance-title").should("be.visible");
+  cy.getCy("rmtcompliance-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtcompliance-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtcompliance-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtcompliance-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_compliance");
 
   cy.visit("/allied/rmt-workflow");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtworkflow-screen").should("be.visible");
+  cy.getCy("rmtworkflow-title").should("be.visible");
+  cy.getCy("rmtworkflow-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtworkflow-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtworkflow-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtworkflow-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_workflow");
 
   cy.visit("/allied/rmt-command-center");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtcommandcenter-screen").should("be.visible");
+  cy.getCy("rmtcommandcenter-title").should("be.visible");
+  cy.getCy("rmtcommandcenter-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtcommandcenter-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtcommandcenter-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtcommandcenter-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_command_center");
 
   cy.visit("/allied/rmt-appointments");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtappointments-screen").should("be.visible");
+  cy.getCy("rmtappointments-title").should("be.visible");
+  cy.getCy("rmtappointments-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtappointments-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtappointments-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtappointments-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_appointments");
 
   cy.visit("/allied/rmt-client-intake");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtclientintake-screen").should("be.visible");
+  cy.getCy("rmtclientintake-title").should("be.visible");
+  cy.getCy("rmtclientintake-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtclientintake-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtclientintake-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtclientintake-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_client_intake");
 
   cy.visit("/allied/rmt-assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtassessment-screen").should("be.visible");
+  cy.getCy("rmtassessment-title").should("be.visible");
+  cy.getCy("rmtassessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtassessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtassessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtassessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_assessment");
 
   cy.visit("/allied/rmt-treatment-notes");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmttreatmentnotes-screen").should("be.visible");
+  cy.getCy("rmttreatmentnotes-title").should("be.visible");
+  cy.getCy("rmttreatmentnotes-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmttreatmentnotes-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmttreatmentnotes-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmttreatmentnotes-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_treatment_notes");
 
   cy.visit("/allied/rmt-exercise-plan");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtexerciseplan-screen").should("be.visible");
+  cy.getCy("rmtexerciseplan-title").should("be.visible");
+  cy.getCy("rmtexerciseplan-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtexerciseplan-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtexerciseplan-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtexerciseplan-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_exercise_plan");
 
   cy.visit("/allied/rmt-billing-link");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtbillinglink-screen").should("be.visible");
+  cy.getCy("rmtbillinglink-title").should("be.visible");
+  cy.getCy("rmtbillinglink-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtbillinglink-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtbillinglink-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtbillinglink-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_billing_link");
 
   cy.visit("/allied/rmt-reports");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("rmtreports-screen").should("be.visible");
+  cy.getCy("rmtreports-title").should("be.visible");
+  cy.getCy("rmtreports-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="rmtreports-screen"]`).should("be.visible");
-  cy.get(`[data-cy="rmtreports-title"]`).should("be.visible");
-  cy.get(`[data-cy="rmtreports-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("rmt_reports");
 
   cy.visit("/allied/massage-assessment");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("massageassessment-screen").should("be.visible");
+  cy.getCy("massageassessment-title").should("be.visible");
+  cy.getCy("massageassessment-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="massageassessment-screen"]`).should("be.visible");
-  cy.get(`[data-cy="massageassessment-title"]`).should("be.visible");
-  cy.get(`[data-cy="massageassessment-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("massage_assessment");
 
   cy.visit("/allied/treatment-notes");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("treatmentnotes-screen").should("be.visible");
+  cy.getCy("treatmentnotes-title").should("be.visible");
+  cy.getCy("treatmentnotes-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="treatmentnotes-screen"]`).should("be.visible");
-  cy.get(`[data-cy="treatmentnotes-title"]`).should("be.visible");
-  cy.get(`[data-cy="treatmentnotes-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("treatment_notes");
 
   cy.visit("/allied/home-care-plan");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("homecareplan-screen").should("be.visible");
+  cy.getCy("homecareplan-title").should("be.visible");
+  cy.getCy("homecareplan-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="homecareplan-screen"]`).should("be.visible");
-  cy.get(`[data-cy="homecareplan-title"]`).should("be.visible");
-  cy.get(`[data-cy="homecareplan-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("home_care_plan");
 
   cy.visit("/allied/client-progress");
-  cy.wait(2000);
+  cy.waitAndSee();
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
 
-  cy.get('[data-cy="app-shell"]').should("be.visible");
-  cy.get('[data-cy="app-topbar"]').should("be.visible");
-  cy.get('[data-cy="app-sidebar"]').should("be.visible");
-  cy.get('[data-cy="app-content-slot"]').should("be.visible");
+  cy.getCy("clientprogress-screen").should("be.visible");
+  cy.getCy("clientprogress-title").should("be.visible");
+  cy.getCy("clientprogress-content").should("be.visible");
 
-  cy.get("body").invoke("text").should((text) => {
-    expect(text.trim().length).to.be.greaterThan(5);
-  });
-
-  cy.get(`[data-cy="clientprogress-screen"]`).should("be.visible");
-  cy.get(`[data-cy="clientprogress-title"]`).should("be.visible");
-  cy.get(`[data-cy="clientprogress-content"]`).should("be.visible");
-
-  cy.wait(2000);
+  cy.waitAndSee();
   cy.screenshot("client_progress");
 
   });
