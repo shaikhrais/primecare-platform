@@ -73,6 +73,15 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       final redirectUri = state.uri.queryParameters['redirect_uri'] ?? 
                           (kIsWeb ? Uri.base.queryParameters['redirect_uri'] : null);
 
+      final forceLogin = state.uri.queryParameters['force_login'] == 'true' ||
+                          (kIsWeb && Uri.base.queryParameters['force_login'] == 'true');
+      if (forceLogin && authState.isAuthenticated) {
+        Future.microtask(() {
+          ref.read(authProvider.notifier).logout();
+        });
+        return '/login${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+      }
+
       // If authenticated and trying to log in (or just logged in)
       if (authState.isAuthenticated) {
         if (redirectUri != null && redirectUri.isNotEmpty) {

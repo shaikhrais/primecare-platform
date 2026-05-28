@@ -1,14 +1,14 @@
 [
   {
-    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\auth_psw.cy.js\\auth-login-psw.png",
-    "relative_path": "cypress/screenshots/auth_psw.cy.js/auth-login-psw.png",
+    "file": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\cypress\\screenshots\\clinic_auth_redirect_psw.cy.js\\auth-login-psw.png",
+    "relative_path": "cypress/screenshots/clinic_auth_redirect_psw.cy.js/auth-login-psw.png",
     "exists": true,
-    "size": 320873,
+    "size": 319006,
     "width": 1280,
     "height": 1080,
-    "std_dev": 64.37390098964411,
-    "variance": 4241.069427061794,
-    "dominant_ratio": 0.022757523148148148,
+    "std_dev": 64.61214505302088,
+    "variance": 4281.272706798328,
+    "dominant_ratio": 0.024965277777777777,
     "visual_score": 100,
     "blank": false
   }

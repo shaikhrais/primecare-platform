@@ -139,7 +139,7 @@ class RouteGuard {
         final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
         return GuardResult(
           false, 
-          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
+          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
         );
       }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
@@ -152,7 +152,7 @@ class RouteGuard {
         final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
         return GuardResult(
           false, 
-          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
+          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
         );
       }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
