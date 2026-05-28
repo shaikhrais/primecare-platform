@@ -196,7 +196,14 @@ class AuthNotifier extends Notifier<AuthState> {
           if (response.isSuccess) {
             final data = response.data as Map<String, dynamic>;
             await prefs.setString('auth_token', 'sso-token');
-            await prefs.setString('auth_role', data['roles']?.toString() ?? 'psw');
+            final rawRoles = data['roles'];
+            String roleStr = 'psw';
+            if (rawRoles is List && rawRoles.isNotEmpty) {
+              roleStr = rawRoles.first.toString();
+            } else if (rawRoles != null) {
+              roleStr = rawRoles.toString();
+            }
+            await prefs.setString('auth_role', roleStr);
             await prefs.setString('auth_user_id', data['userId']?.toString() ?? '');
             // keep existing username if any
           } else {
