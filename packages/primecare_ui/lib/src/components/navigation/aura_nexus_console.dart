@@ -328,7 +328,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
           child: Row(
             children: [
               Expanded(
-                child: TextField(
+                child: TextField(key: const Key('aura_nexus_console_textfield_input_1'), 
                   controller: _messageInputController,
                   decoration: InputDecoration(
                     hintText: 'Type query (e.g. schedule nurse, emergency)...',
@@ -351,7 +351,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
                 ),
               ),
               SizedBox(width: context.s(8)),
-              IconButton(
+              IconButton(key: const Key('aura_nexus_console_iconbutton_button_1'), 
                 icon: Icon(LucideIcons.send, color: theme.colors.primary),
                 onPressed: () {
                   notifier.sendMessage(_messageInputController.text);

@@ -294,7 +294,7 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: TextField(
+                child: TextField(key: const Key('coordinator_waitlist_screen_textfield_input_1'), 
                   onChanged: (val) => controller.setSearchQuery(val),
                   style: const TextStyle(fontSize: 13),
                   decoration: InputDecoration(

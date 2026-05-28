@@ -390,7 +390,7 @@ class _AppNotificationBodyState extends ConsumerState<_AppNotificationBody> {
             ],
           ),
           const SizedBox(height: 16),
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('app_notification_screen_textfield_input_1'), 
             label: 'Event Title / Message',
             hintText: 'e.g., Critical SpO2 Level below 88%...',
             controller: _titleController,
@@ -598,7 +598,7 @@ class _AppNotificationBodyState extends ConsumerState<_AppNotificationBody> {
                       ),
                       const SizedBox(width: 8),
                       if (!e.isResolved)
-                        IconButton(
+                        IconButton(key: const Key('app_notification_screen_iconbutton_button_1'), 
                           tooltip: 'Resolve Event',
                           icon: const Icon(LucideIcons.checkSquare, color: Colors.teal),
                           onPressed: () => _resolveEvent(e),

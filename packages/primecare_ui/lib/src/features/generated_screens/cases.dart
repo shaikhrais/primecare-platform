@@ -364,7 +364,7 @@ class Cases extends GovernedConsumerWidget {
                           style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                         ),
                         const SizedBox(height: 16),
-                        TextField(
+                        TextField(key: const Key('cases_textfield_input_1'), 
                           controller: titleController,
                           decoration: const InputDecoration(
                             labelText: 'Incident Title',
@@ -403,7 +403,7 @@ class Cases extends GovernedConsumerWidget {
                           },
                         ),
                         const SizedBox(height: 12),
-                        TextField(
+                        TextField(key: const Key('cases_textfield_input_2'), 
                           controller: descriptionController,
                           maxLines: 4,
                           decoration: const InputDecoration(
@@ -416,7 +416,7 @@ class Cases extends GovernedConsumerWidget {
                         SizedBox(
                           width: double.infinity,
                           height: 44,
-                          child: ElevatedButton(
+                          child: ElevatedButton(key: const Key('cases_elevatedbutton_button_1'), 
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colors.primary,
                               shape: RoundedRectangleBorder(

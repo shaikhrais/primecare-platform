@@ -550,7 +550,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TextField(
+                    TextField(key: const Key('psw_analytics_screen_textfield_input_1'), 
                       controller: clientController,
                       style: theme.typography.bodyMedium,
                       decoration: InputDecoration(
@@ -583,7 +583,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextField(
+                    TextField(key: const Key('psw_analytics_screen_textfield_input_2'), 
                       controller: noteController,
                       style: theme.typography.bodyMedium,
                       maxLines: 2,

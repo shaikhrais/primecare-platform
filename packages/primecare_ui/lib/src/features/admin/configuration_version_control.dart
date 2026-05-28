@@ -24,7 +24,7 @@ class ConfigurationVersionControlScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('configuration_version_control_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(configVersionsProvider),
           ),
@@ -57,12 +57,12 @@ class ConfigurationVersionControlScreen extends GovernedConsumerWidget {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            OutlinedButton(
+                            OutlinedButton(key: const Key('configuration_version_control_outlinedbutton_button_1'), 
                               onPressed: () {},
                               child: const Text('View Diff'),
                             ),
                             const SizedBox(width: 8),
-                            ElevatedButton(
+                            ElevatedButton(key: const Key('configuration_version_control_elevatedbutton_button_1'), 
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(backgroundColor: theme.colors.error),
                               child: const Text('Rollback'),

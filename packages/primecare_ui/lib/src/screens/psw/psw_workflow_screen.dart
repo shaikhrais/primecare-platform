@@ -443,7 +443,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  child: PrimeCareTextField(
+                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_1'), 
                     label: 'BP Systolic (mmHg)',
                     controller: sysController,
                     validator: (val) {
@@ -455,7 +455,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: PrimeCareTextField(
+                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_2'), 
                     label: 'BP Diastolic (mmHg)',
                     controller: diaController,
                     validator: (val) {
@@ -471,7 +471,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  child: PrimeCareTextField(
+                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_3'), 
                     label: 'Heart Rate (bpm)',
                     controller: heartController,
                     validator: (val) {
@@ -483,7 +483,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: PrimeCareTextField(
+                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_4'), 
                     label: 'Temperature (°C)',
                     controller: tempController,
                     validator: (val) {
@@ -496,7 +496,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_5'), 
               label: 'Oxygen Saturation (%)',
               controller: oxygenController,
               validator: (val) {

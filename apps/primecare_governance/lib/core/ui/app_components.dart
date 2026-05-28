@@ -51,7 +51,7 @@ class AppInput extends StatelessWidget {
       children: [
         Text(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 8),
-        TextField(
+        TextField(key: const Key('app_components_textfield_input_1'), 
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(

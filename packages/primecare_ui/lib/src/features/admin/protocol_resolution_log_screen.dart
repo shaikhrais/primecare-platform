@@ -24,7 +24,7 @@ class ProtocolResolutionLogScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('protocol_resolution_log_screen_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(protocolLogsProvider),
           ),
@@ -72,7 +72,7 @@ class ProtocolResolutionLogScreen extends GovernedConsumerWidget {
                                     title: Text(item as String),
                                   )),
                                 const SizedBox(height: 16),
-                                ElevatedButton(
+                                ElevatedButton(key: const Key('protocol_resolution_log_screen_elevatedbutton_button_1'), 
                                   onPressed: () {},
                                   child: const Text('Download Full Report PDF'),
                                 ),

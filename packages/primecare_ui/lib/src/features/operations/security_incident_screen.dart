@@ -593,7 +593,7 @@ class _SecurityIncidentBodyState extends ConsumerState<_SecurityIncidentBody> {
           const SizedBox(height: 16),
 
           // Description field
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('security_incident_screen_textfield_input_1'), 
             label: 'Incident Log Description',
             hintText: 'Enter full telemetry reports, system details, involved IPs...',
             controller: _descController,

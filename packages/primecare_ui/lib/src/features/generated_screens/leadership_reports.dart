@@ -653,7 +653,7 @@ class LeadershipReports extends GovernedConsumerWidget {
                           'Executive Overview',
                           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
                         ),
-                        IconButton(
+                        IconButton(key: const Key('leadership_reports_iconbutton_button_1'), 
                           icon: const Icon(LucideIcons.x),
                           onPressed: () => controller.selectReport(null),
                         ),

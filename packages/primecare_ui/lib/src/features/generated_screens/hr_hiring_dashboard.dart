@@ -312,7 +312,7 @@ class HrHiringDashboard extends GovernedConsumerWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('hr_hiring_dashboard_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search candidates by name or role...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -341,7 +341,7 @@ class HrHiringDashboard extends GovernedConsumerWidget {
                         ],
                       ),
                       const SizedBox(width: 16),
-                      ElevatedButton(
+                      ElevatedButton(key: const Key('hr_hiring_dashboard_elevatedbutton_button_1'), 
                         onPressed: () => _showAddCandidateDialog(context, controller),
                         child: const Text('Add Candidate'),
                       ),
@@ -467,7 +467,7 @@ class HrHiringDashboard extends GovernedConsumerWidget {
                                               label: const Text('Schedule'),
                                             ),
                                           const SizedBox(width: 8),
-                                          ElevatedButton(
+                                          ElevatedButton(key: const Key('hr_hiring_dashboard_elevatedbutton_button_2'), 
                                             onPressed: () => controller.advanceStage((cand['id'] as String)),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: theme.colors.primary,
@@ -516,7 +516,7 @@ class HrHiringDashboard extends GovernedConsumerWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextField(key: const Key('hr_hiring_dashboard_textfield_input_2'), 
                 decoration: InputDecoration(
                   labelText: 'Schedule Date (YYYY-MM-DD)',
                   border: OutlineInputBorder(
@@ -529,11 +529,11 @@ class HrHiringDashboard extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('hr_hiring_dashboard_textbutton_button_1'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('hr_hiring_dashboard_elevatedbutton_button_3'), 
               onPressed: () {
                 controller.scheduleInterview(id: id, date: dateStr);
                 Navigator.of(context).pop();
@@ -567,7 +567,7 @@ class HrHiringDashboard extends GovernedConsumerWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextField(key: const Key('hr_hiring_dashboard_textfield_input_3'), 
                 controller: nameController,
                 decoration: InputDecoration(
                   labelText: 'Candidate Full Name',
@@ -597,11 +597,11 @@ class HrHiringDashboard extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('hr_hiring_dashboard_textbutton_button_2'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('hr_hiring_dashboard_elevatedbutton_button_4'), 
               onPressed: () {
                 if (nameController.text.isNotEmpty) {
                   controller.addNewCandidate(name: nameController.text, role: selectedRole);

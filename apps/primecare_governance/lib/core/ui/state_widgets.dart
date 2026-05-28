@@ -52,7 +52,7 @@ class EmptyState extends StatelessWidget {
             ],
             if (onRetry != null) ...[
               const SizedBox(height: 32),
-              ElevatedButton(
+              ElevatedButton(key: const Key('state_widgets_elevatedbutton_button_1'), 
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primary,

@@ -136,7 +136,7 @@ class _ResetPasswordCard extends ConsumerWidget {
                 if (state.isLoading)
                   const Center(child: CircularProgressIndicator())
                 else
-                  ElevatedButton(
+                  ElevatedButton(key: const Key('reset_password_view_elevatedbutton_button_1'), 
                     onPressed: controller.submit,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colors.primary,

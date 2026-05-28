@@ -24,7 +24,7 @@ class OshaIncidentReporterScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('osha_incident_reporter_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(oshaIncidentsProvider),
           ),
@@ -62,7 +62,7 @@ class OshaIncidentReporterScreen extends GovernedConsumerWidget {
                         leading: const Icon(Icons.medical_information, size: 32),
                         title: Text('Case No. ${incident['caseNumber']} - ${incident['employeeName']}', style: theme.typography.h4),
                         subtitle: Text('Date: ${incident['date']} | Location: ${incident['location']}'),
-                        trailing: OutlinedButton(
+                        trailing: OutlinedButton(key: const Key('osha_incident_reporter_outlinedbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('View Form 301'),
                         ),

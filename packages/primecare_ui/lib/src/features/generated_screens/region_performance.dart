@@ -442,7 +442,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 16),
-                                  ElevatedButton(
+                                  ElevatedButton(key: const Key('region_performance_elevatedbutton_button_1'), 
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: isUnderPerforming ? Colors.red.withValues(alpha: 0.1) : theme.colors.background,
                                       foregroundColor: isUnderPerforming ? Colors.red : theme.colors.primary,
@@ -494,7 +494,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                           'Regional Deep Dive',
                           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
                         ),
-                        IconButton(
+                        IconButton(key: const Key('region_performance_iconbutton_button_1'), 
                           icon: const Icon(LucideIcons.x),
                           onPressed: () => controller.selectRegion(null),
                         ),
@@ -563,7 +563,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 48,
-                        child: ElevatedButton(
+                        child: ElevatedButton(key: const Key('region_performance_elevatedbutton_button_2'), 
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colors.primary,
                             foregroundColor: theme.colors.onPrimary,

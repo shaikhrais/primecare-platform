@@ -107,7 +107,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             if (issue.metadata['sourcePath'] != null)
-                              IconButton(
+                              IconButton(key: const Key('governance_issue_table_iconbutton_button_1'), 
                                 icon: const Icon(Icons.code, size: 18),
                                 tooltip: 'Open in VS Code',
                                 onPressed: () async {
@@ -120,7 +120,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                                 },
                               ),
                             if (issue.metadata['fixProperty'] != null)
-                              IconButton(
+                              IconButton(key: const Key('governance_issue_table_iconbutton_button_2'), 
                                 icon: const Icon(
                                   Icons.auto_fix_high_rounded,
                                   size: 18,
@@ -159,7 +159,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                                   }
                                 },
                               ),
-                            IconButton(
+                            IconButton(key: const Key('governance_issue_table_iconbutton_button_3'), 
                               icon: const Icon(
                                 Icons.build,
                                 size: 18,

@@ -60,7 +60,7 @@ class RoleScreenAccessScreen extends GovernedConsumerWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: TextField(
+                            child: TextField(key: const Key('role_screen_access_screen_textfield_input_1'), 
                               decoration: InputDecoration(
                                 hintText: 'Search Registry Screens...',
                                 prefixIcon: const Icon(Icons.search),

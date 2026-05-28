@@ -317,7 +317,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('region_dashboard_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search branches or clients...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -480,7 +480,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: ElevatedButton(
+                                        child: ElevatedButton(key: const Key('region_dashboard_elevatedbutton_button_1'), 
                                           onPressed: () => controller.reassignStaff('br-103', 'br-102', 4),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: theme.colors.primary,
@@ -668,7 +668,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                                   ],
                                                 ),
                                               ),
-                                              IconButton(
+                                              IconButton(key: const Key('region_dashboard_iconbutton_button_1'), 
                                                 icon: Icon(LucideIcons.zap, color: theme.colors.primary, size: 20),
                                                 onPressed: () => controller.autoMatchCaregiver((client['id'] as String)),
                                                 tooltip: 'Auto-Match Caregiver',

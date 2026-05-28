@@ -503,7 +503,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                     },
                   ),
                   const SizedBox(height: 16),
-                  TextField(
+                  TextField(key: const Key('rpn_analytics_screen_textfield_input_1'), 
                     controller: sizeController,
                     style: theme.typography.bodyMedium,
                     decoration: InputDecoration(

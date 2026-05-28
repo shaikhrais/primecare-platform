@@ -385,7 +385,7 @@ class HrOnboardingScreen extends GovernedConsumerWidget {
                                   ),
                                 ],
                               ),
-                              IconButton(
+                              IconButton(key: const Key('hr_onboarding_screen_iconbutton_button_1'), 
                                 icon: const Icon(LucideIcons.x),
                                 onPressed: () => controller.selectApplicant(null),
                               ),
@@ -437,7 +437,7 @@ class HrOnboardingScreen extends GovernedConsumerWidget {
                             width: double.infinity,
                             child: state.processingAction
                                 ? const Center(child: CircularProgressIndicator())
-                                : ElevatedButton(
+                                : ElevatedButton(key: const Key('hr_onboarding_screen_elevatedbutton_button_1'), 
                                     onPressed: (selectedApp['complianceScore'] as double) >= 80.0
                                         ? () => controller.promoteToRoster((selectedApp['id'] as String))
                                         : null,

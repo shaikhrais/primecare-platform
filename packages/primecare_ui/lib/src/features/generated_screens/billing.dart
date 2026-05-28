@@ -248,7 +248,7 @@ class Billing extends GovernedConsumerWidget {
                         style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
                       ),
                     ),
-                    IconButton(
+                    IconButton(key: const Key('billing_iconbutton_button_1'), 
                       icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
                       onPressed: controller.dismissSuccess,
                     ),
@@ -456,7 +456,7 @@ class Billing extends GovernedConsumerWidget {
                           ),
                           Row(
                             children: [
-                              OutlinedButton(
+                              OutlinedButton(key: const Key('billing_outlinedbutton_button_1'), 
                                 style: OutlinedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                   side: BorderSide(color: theme.colors.divider),
@@ -472,7 +472,7 @@ class Billing extends GovernedConsumerWidget {
                               ),
                               if (!isPaid) ...[
                                 const SizedBox(width: 12),
-                                ElevatedButton(
+                                ElevatedButton(key: const Key('billing_elevatedbutton_button_1'), 
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: theme.colors.primary,
                                     foregroundColor: Colors.white,
@@ -628,7 +628,7 @@ class Billing extends GovernedConsumerWidget {
               const SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: ElevatedButton(key: const Key('billing_elevatedbutton_button_2'), 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: Colors.white,
@@ -763,7 +763,7 @@ class Billing extends GovernedConsumerWidget {
                   const SizedBox(height: 24),
 
                   // Card inputs
-                  PrimeCareTextField(
+                  PrimeCareTextField(key: const Key('billing_textfield_input_1'), 
                     label: 'Cardholder Number',
                     hintText: '4532 0000 0000 0000',
                     controller: cardNumberController,
@@ -772,7 +772,7 @@ class Billing extends GovernedConsumerWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: PrimeCareTextField(
+                        child: PrimeCareTextField(key: const Key('billing_textfield_input_2'), 
                           label: 'Expiry Date',
                           hintText: 'MM/YY',
                           controller: expiryController,
@@ -780,7 +780,7 @@ class Billing extends GovernedConsumerWidget {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: PrimeCareTextField(
+                        child: PrimeCareTextField(key: const Key('billing_textfield_input_3'), 
                           label: 'CVV/CVC',
                           hintText: '•••',
                           controller: cvcController,
@@ -800,7 +800,7 @@ class Billing extends GovernedConsumerWidget {
                   else
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: ElevatedButton(key: const Key('billing_elevatedbutton_button_3'), 
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,
                           foregroundColor: Colors.white,

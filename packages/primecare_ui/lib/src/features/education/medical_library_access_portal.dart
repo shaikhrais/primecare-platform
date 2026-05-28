@@ -20,7 +20,7 @@ class MedicalLibraryAccessPortalScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Medical Library Access Portal', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('medical_library_access_portal_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(libraryDatabasesProvider),
           ),

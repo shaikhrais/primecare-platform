@@ -114,7 +114,7 @@ class ApiMonitoring extends GovernedConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(Icons.cloud_off, color: theme.colors.warning),
             ),
-          IconButton(
+          IconButton(key: const Key('api_monitoring_iconbutton_button_1'), 
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.invalidate(apiMonitoringProvider),
             tooltip: 'Sync Telemetry',
@@ -297,7 +297,7 @@ class ApiMonitoring extends GovernedConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: TextButton(
+          child: TextButton(key: const Key('api_monitoring_textbutton_button_1'), 
             onPressed: () {},
             child: const Text('Rotate', style: TextStyle(fontWeight: FontWeight.bold)),
           ),

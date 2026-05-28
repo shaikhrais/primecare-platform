@@ -27,7 +27,7 @@ class ApiKeyManagerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('api_key_manager_screen_iconbutton_button_1'), 
             icon: Icon(Icons.add, color: theme.colors.primary),
             onPressed: () {
               // Action to generate new key
@@ -87,12 +87,12 @@ class ApiKeyManagerScreen extends GovernedConsumerWidget {
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      IconButton(
+                                      IconButton(key: const Key('api_key_manager_screen_iconbutton_button_2'), 
                                         icon: const Icon(Icons.autorenew),
                                         tooltip: 'Rotate Key',
                                         onPressed: () {},
                                       ),
-                                      IconButton(
+                                      IconButton(key: const Key('api_key_manager_screen_iconbutton_button_3'), 
                                         icon: Icon(Icons.delete, color: theme.colors.error),
                                         tooltip: 'Revoke Key',
                                         onPressed: () {},

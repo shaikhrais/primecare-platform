@@ -179,7 +179,7 @@ class ClinicalDirectorDashboard extends GovernedConsumerWidget {
           ],
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('clinical_director_dashboard_iconbutton_button_1'), 
             icon: Icon(LucideIcons.shieldAlert, color: theme.colors.primary),
             onPressed: () => controller.triggerComplianceAudit(),
           ),
@@ -286,7 +286,7 @@ class ClinicalDirectorDashboard extends GovernedConsumerWidget {
                     title: Text('${alert['client']} - ${alert['vital']} (${alert['value']})'),
                     subtitle: Text('Recorded: ${alert['date']}'),
                     trailing: isOpen
-                        ? ElevatedButton(
+                        ? ElevatedButton(key: const Key('clinical_director_dashboard_elevatedbutton_button_1'), 
                             onPressed: () => controller.resolveAlert((alert['id'] as String)),
                             child: const Text('Resolve'),
                           )

@@ -195,7 +195,7 @@ class PolicyManager extends GovernedConsumerWidget {
                       border: Border.all(color: theme.colors.border),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: TextField(
+                    child: TextField(key: const Key('policy_manager_textfield_input_1'), 
                       decoration: const InputDecoration(
                         icon: Icon(LucideIcons.search, size: 20),
                         hintText: 'Search SOP Title or ID...',
@@ -326,7 +326,7 @@ class PolicyManager extends GovernedConsumerWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 36,
-                        child: OutlinedButton(
+                        child: OutlinedButton(key: const Key('policy_manager_outlinedbutton_button_1'), 
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(color: theme.colors.primary),
                             shape: RoundedRectangleBorder(

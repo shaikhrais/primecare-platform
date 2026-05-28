@@ -19,7 +19,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-chiropractor.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -27,7 +27,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.115322Z"
+    "test_login_last_run_at": "2026-05-28T13:25:41.583545Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/common/chiropractor-dashboard"
   },
   {
     "id": 2,
@@ -49,7 +53,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-physio.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -57,7 +61,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.196846Z"
+    "test_login_last_run_at": "2026-05-28T13:25:41.694063Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/common/physiotherapist-dashboard"
   },
   {
     "id": 3,
@@ -79,7 +87,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rmt.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -87,7 +95,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.289271Z"
+    "test_login_last_run_at": "2026-05-28T13:25:41.830028Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/allied/rmt-dashboard"
   },
   {
     "id": 4,
@@ -109,7 +121,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-social_worker.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -117,7 +129,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.417576Z"
+    "test_login_last_run_at": "2026-05-28T13:25:41.907118Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/common/social-worker-dashboard"
   },
   {
     "id": 5,
@@ -139,7 +155,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-therapist.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -147,7 +163,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.508309Z"
+    "test_login_last_run_at": "2026-05-28T13:25:41.977934Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/allied/therapist-dashboard"
   },
   {
     "id": 6,
@@ -169,7 +189,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-clinical_director.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -177,7 +197,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.569164Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.064950Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/clinical-dashboard"
   },
   {
     "id": 7,
@@ -199,7 +223,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-intake.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -207,7 +231,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.642058Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.158354Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/common/intake-dashboard"
   },
   {
     "id": 8,
@@ -217,7 +245,7 @@
     "role_level": 3,
     "status": "active",
     "topbar_config_json": "{\"title\": \"Registered Nurse (RN) Portal\", \"showSearch\": true, \"showNotifications\": true, \"showProfile\": true, \"actions\": [\"messages\", \"tasks\", \"logout\"]}",
-    "sidebar_config_json": "{\"items\": [{\"label\": \"Rn Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"rn_dashboard\", \"route\": \"/rn/rn-dashboard\"}, {\"label\": \"Rn Analytics\", \"icon\": \"menu\", \"screen_code\": \"rn_analytics\", \"route\": \"/rn/rn-analytics\"}, {\"label\": \"Rn Assessments\", \"icon\": \"menu\", \"screen_code\": \"rn_assessments\", \"route\": \"/rn/rn-assessments\"}, {\"label\": \"Rn Care Plans\", \"icon\": \"menu\", \"screen_code\": \"rn_care_plans\", \"route\": \"/rn/rn-care-plans\"}, {\"label\": \"Rn Compliance\", \"icon\": \"menu\", \"screen_code\": \"rn_compliance\", \"route\": \"/rn/rn-compliance\"}, {\"label\": \"Rn Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"rn_workflow\", \"route\": \"/rn/rn-workflow\"}, {\"label\": \"Rn Command Center\", \"icon\": \"menu\", \"screen_code\": \"rn_command_center\", \"route\": \"/rn/rn-command-center\"}, {\"label\": \"Rn Patient Charting\", \"icon\": \"person\", \"screen_code\": \"rn_patient_charting\", \"route\": \"/rn/rn-patient-charting\"}, {\"label\": \"Rn Medications\", \"icon\": \"menu\", \"screen_code\": \"rn_medications\", \"route\": \"/rn/rn-medications\"}, {\"label\": \"Rn Vitals\", \"icon\": \"menu\", \"screen_code\": \"rn_vitals\", \"route\": \"/rn/rn-vitals\"}, {\"label\": \"Rn Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"rn_care_plan_review\", \"route\": \"/rn/rn-care-plan-review\"}, {\"label\": \"Rn Incident Review\", \"icon\": \"menu\", \"screen_code\": \"rn_incident_review\", \"route\": \"/rn/rn-incident-review\"}, {\"label\": \"Rn Tasks\", \"icon\": \"menu\", \"screen_code\": \"rn_tasks\", \"route\": \"/rn/rn-tasks\"}, {\"label\": \"Rn Reports\", \"icon\": \"description\", \"screen_code\": \"rn_reports\", \"route\": \"/rn/rn-reports\"}, {\"label\": \"Patient Charting\", \"icon\": \"person\", \"screen_code\": \"patient_charting\", \"route\": \"/rn/patient-charting\"}, {\"label\": \"Medication Administration\", \"icon\": \"menu\", \"screen_code\": \"medication_administration\", \"route\": \"/rn/medication-administration\"}, {\"label\": \"Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"care_plan_review\", \"route\": \"/rn/care-plan-review\"}, {\"label\": \"Incident Review\", \"icon\": \"menu\", \"screen_code\": \"incident_review\", \"route\": \"/rn/incident-review\"}, {\"label\": \"Shift Report\", \"icon\": \"description\", \"screen_code\": \"shift_report\", \"route\": \"/rn/shift-report\"}]}",
+    "sidebar_config_json": "{\"items\": [{\"label\": \"Rn Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"rn_dashboard\", \"route\": \"/offices/clinical/roles/rn/dashboard\"}, {\"label\": \"Rn Analytics\", \"icon\": \"menu\", \"screen_code\": \"rn_analytics\", \"route\": \"/offices/clinical/roles/rn/rn-analytics\"}, {\"label\": \"Rn Assessments\", \"icon\": \"menu\", \"screen_code\": \"rn_assessments\", \"route\": \"/offices/clinical/roles/rn/rn-assessments\"}, {\"label\": \"Rn Care Plans\", \"icon\": \"menu\", \"screen_code\": \"rn_care_plans\", \"route\": \"/offices/clinical/roles/rn/rn-care-plans\"}, {\"label\": \"Rn Compliance\", \"icon\": \"menu\", \"screen_code\": \"rn_compliance\", \"route\": \"/offices/clinical/roles/rn/rn-compliance\"}, {\"label\": \"Rn Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"rn_workflow\", \"route\": \"/offices/clinical/roles/rn/rn-workflow\"}, {\"label\": \"Rn Command Center\", \"icon\": \"menu\", \"screen_code\": \"rn_command_center\", \"route\": \"/offices/clinical/roles/rn/rn-command-center\"}, {\"label\": \"Rn Patient Charting\", \"icon\": \"person\", \"screen_code\": \"rn_patient_charting\", \"route\": \"/offices/clinical/roles/rn/patient-charting\"}, {\"label\": \"Rn Medications\", \"icon\": \"menu\", \"screen_code\": \"rn_medications\", \"route\": \"/offices/clinical/roles/rn/medications\"}, {\"label\": \"Rn Vitals\", \"icon\": \"menu\", \"screen_code\": \"rn_vitals\", \"route\": \"/offices/clinical/roles/rn/vitals\"}, {\"label\": \"Rn Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"rn_care_plan_review\", \"route\": \"/offices/clinical/roles/rn/rn-care-plan-review\"}, {\"label\": \"Rn Incident Review\", \"icon\": \"menu\", \"screen_code\": \"rn_incident_review\", \"route\": \"/offices/clinical/roles/rn/rn-incident-review\"}, {\"label\": \"Rn Tasks\", \"icon\": \"menu\", \"screen_code\": \"rn_tasks\", \"route\": \"/offices/clinical/roles/rn/rn-tasks\"}, {\"label\": \"Rn Reports\", \"icon\": \"description\", \"screen_code\": \"rn_reports\", \"route\": \"/offices/clinical/roles/rn/rn-reports\"}, {\"label\": \"Patient Charting\", \"icon\": \"person\", \"screen_code\": \"patient_charting\", \"route\": \"/offices/clinical/roles/rn/patient-charting\"}, {\"label\": \"Medication Administration\", \"icon\": \"menu\", \"screen_code\": \"medication_administration\", \"route\": \"/offices/clinical/roles/rn/medication-administration\"}, {\"label\": \"Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"care_plan_review\", \"route\": \"/offices/clinical/roles/rn/care-plan-review\"}, {\"label\": \"Incident Review\", \"icon\": \"menu\", \"screen_code\": \"incident_review\", \"route\": \"/offices/clinical/roles/rn/incident-review\"}, {\"label\": \"Shift Report\", \"icon\": \"description\", \"screen_code\": \"shift_report\", \"route\": \"/offices/clinical/roles/rn/shift-report\"}]}",
     "default_dashboard_screen_code": "rn_dashboard",
     "allowed_menu_json": "{\"allowed_screens\": [\"rn_dashboard\", \"rn_analytics\", \"rn_assessments\", \"rn_care_plans\", \"rn_compliance\", \"rn_workflow\", \"rn_command_center\", \"rn_patient_charting\", \"rn_medications\", \"rn_vitals\", \"rn_care_plan_review\", \"rn_incident_review\", \"rn_tasks\", \"rn_reports\", \"patient_charting\", \"medication_administration\", \"care_plan_review\", \"incident_review\", \"shift_report\"]}",
     "role_layout_key": "rn_shell_layout",
@@ -229,7 +257,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rn.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -237,7 +265,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.720540Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.252200Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/offices/clinical/roles/rn/dashboard"
   },
   {
     "id": 9,
@@ -259,7 +291,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-physician.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -267,7 +299,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.808768Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.341741Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/physician-dashboard"
   },
   {
     "id": 10,
@@ -289,7 +325,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cns.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -297,7 +333,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:01.930117Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.439801Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/cns-dashboard"
   },
   {
     "id": 11,
@@ -319,7 +359,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-pediatric.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -327,7 +367,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.044456Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.542350Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/pediatric-dashboard"
   },
   {
     "id": 12,
@@ -349,7 +393,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-caregiver.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -357,7 +401,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.147674Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.663112Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/common/caregiver-dashboard"
   },
   {
     "id": 13,
@@ -379,7 +427,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-guest.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -387,7 +435,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.213992Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.798758Z",
+    "primary_app_code": "client",
+    "primary_app_url": "https://primecare-client.pages.dev",
+    "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
+    "post_login_route": "/common/dynamic-dashboard"
   },
   {
     "id": 14,
@@ -409,7 +461,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-portal.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -417,7 +469,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.315739Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.891518Z",
+    "primary_app_code": "client",
+    "primary_app_url": "https://primecare-client.pages.dev",
+    "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
+    "post_login_route": "/common/portal-dashboard"
   },
   {
     "id": 15,
@@ -439,7 +495,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-patient.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -447,7 +503,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.385883Z"
+    "test_login_last_run_at": "2026-05-28T13:25:42.967807Z",
+    "primary_app_code": "client",
+    "primary_app_url": "https://primecare-client.pages.dev",
+    "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
+    "post_login_route": "/common/family-member-dashboard"
   },
   {
     "id": 16,
@@ -469,7 +529,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-dynamic.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -477,7 +537,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.498396Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.058546Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/common/customer-support-dashboard"
   },
   {
     "id": 17,
@@ -499,7 +563,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-infrastructure.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -507,7 +571,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.592134Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.127727Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/common/infrastructure-dashboard"
   },
   {
     "id": 18,
@@ -529,7 +597,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-system_verification.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -537,7 +605,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.718288Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.245532Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/common/qa-dashboard"
   },
   {
     "id": 19,
@@ -559,7 +631,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-training.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -567,7 +639,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.808500Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.332992Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/common/training-hub-dashboard"
   },
   {
     "id": 20,
@@ -589,7 +665,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ceo.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -597,7 +673,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.899697Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.429919Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/executive-command-center"
   },
   {
     "id": 21,
@@ -619,7 +699,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cfo.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -627,7 +707,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:02.994490Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.521895Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/cfo-dashboard"
   },
   {
     "id": 22,
@@ -649,7 +733,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ciso.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -657,7 +741,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.105425Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.626137Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/ciso-dashboard"
   },
   {
     "id": 23,
@@ -679,7 +767,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-coo.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -687,7 +775,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.195936Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.704311Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/coo-dashboard"
   },
   {
     "id": 24,
@@ -709,7 +801,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cto.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -717,7 +809,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.294675Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.790895Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/common/architecture-planning-dashboard"
   },
   {
     "id": 25,
@@ -739,7 +835,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-cx_director.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -747,7 +843,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.394512Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.873966Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/cx-director-dashboard"
   },
   {
     "id": 26,
@@ -769,7 +869,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-finance_director.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -777,7 +877,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.499140Z"
+    "test_login_last_run_at": "2026-05-28T13:25:43.986338Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/finance-director-dashboard"
   },
   {
     "id": 27,
@@ -799,7 +903,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-hr_director.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -807,7 +911,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.587913Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.086470Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/hr-director-dashboard"
   },
   {
     "id": 28,
@@ -829,7 +937,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-legal.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -837,7 +945,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.659692Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.155916Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/legal-dashboard"
   },
   {
     "id": 29,
@@ -859,7 +971,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-owner.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -867,7 +979,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.746298Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.255188Z",
+    "primary_app_code": "franchise",
+    "primary_app_url": "https://primecare-franchise.pages.dev",
+    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
+    "post_login_route": "/common/franchise-dashboard"
   },
   {
     "id": 30,
@@ -889,7 +1005,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-shareholder.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -897,7 +1013,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.831104Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.342757Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/executive/shareholder-dashboard"
   },
   {
     "id": 31,
@@ -919,7 +1039,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-training_director.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -927,7 +1047,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:03.900200Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.451168Z",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/common/course-architect-dashboard"
   },
   {
     "id": 32,
@@ -949,7 +1073,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-community_outreach.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -957,7 +1081,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.038007Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.546646Z",
+    "primary_app_code": "marketing",
+    "primary_app_url": "https://primecare-marketing.pages.dev",
+    "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
+    "post_login_route": "/management/community-outreach-dashboard"
   },
   {
     "id": 33,
@@ -979,7 +1107,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-compliance.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -987,7 +1115,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.140694Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.635849Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/management/compliance-manager-dashboard"
   },
   {
     "id": 34,
@@ -1009,7 +1141,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-franchise_sales.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1017,7 +1149,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.221610Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.745986Z",
+    "primary_app_code": "franchise",
+    "primary_app_url": "https://primecare-franchise.pages.dev",
+    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
+    "post_login_route": "/management/franchise-sales-manager-dashboard"
   },
   {
     "id": 35,
@@ -1039,7 +1175,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-gm.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1047,7 +1183,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.284190Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.830560Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/general-manager-dashboard"
   },
   {
     "id": 36,
@@ -1069,7 +1209,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-governance.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1077,7 +1217,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.372933Z"
+    "test_login_last_run_at": "2026-05-28T13:25:44.907466Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/common/system-dashboard"
   },
   {
     "id": 37,
@@ -1099,7 +1243,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-bus_dev.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1107,7 +1251,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.479844Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.007613Z",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/common/business-development-dashboard"
   },
   {
     "id": 38,
@@ -1129,7 +1277,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-marketing.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1137,7 +1285,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.578651Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.134907Z",
+    "primary_app_code": "marketing",
+    "primary_app_url": "https://primecare-marketing.pages.dev",
+    "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
+    "post_login_route": "/management/head-of-marketing-dashboard"
   },
   {
     "id": 39,
@@ -1159,7 +1311,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-local_marketing.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1167,7 +1319,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.648551Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.226315Z",
+    "primary_app_code": "marketing",
+    "primary_app_url": "https://primecare-marketing.pages.dev",
+    "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
+    "post_login_route": "/management/local-marketing-manager-dashboard"
   },
   {
     "id": 40,
@@ -1189,7 +1345,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-ops_manager.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1197,7 +1353,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.748965Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.369437Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/operations-manager-dashboard"
   },
   {
     "id": 41,
@@ -1219,7 +1379,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-partnership.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1227,7 +1387,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.826849Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.478750Z",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/management/partnership-manager-dashboard"
   },
   {
     "id": 42,
@@ -1249,7 +1413,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-regional_bdm.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1257,7 +1421,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.893184Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.578455Z",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/management/regional-bdm-dashboard"
   },
   {
     "id": 43,
@@ -1279,7 +1447,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-regional_manager_usa.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1287,7 +1455,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:04.997116Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.678098Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/regional-manager-usa-dashboard"
   },
   {
     "id": 44,
@@ -1309,7 +1481,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-scrum_master.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1317,7 +1489,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.087432Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.810598Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/scrum-master-dashboard"
   },
   {
     "id": 45,
@@ -1339,7 +1515,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-hr_hiring.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1347,7 +1523,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.191308Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.916921Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/staff/hr-hiring-dashboard"
   },
   {
     "id": 46,
@@ -1369,7 +1549,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-territory_expansion.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1377,7 +1557,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.269527Z"
+    "test_login_last_run_at": "2026-05-28T13:25:45.997498Z",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/management/territory-expansion-manager-dashboard"
   },
   {
     "id": 47,
@@ -1399,7 +1583,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-territory_sales.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1407,7 +1591,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.335511Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.091533Z",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/management/territory-sales-manager-dashboard"
   },
   {
     "id": 48,
@@ -1429,7 +1617,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-volunteer_coordinator.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1437,7 +1625,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.416319Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.176341Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/staff/volunteer-coordinator-dashboard"
   },
   {
     "id": 49,
@@ -1459,7 +1651,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-premium_concierge.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1467,7 +1659,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.514801Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.250084Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/premium-concierge-dashboard"
   },
   {
     "id": 50,
@@ -1489,7 +1685,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-vip_manager.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1497,7 +1693,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.619723Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.341868Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/management/vip-manager-dashboard"
   },
   {
     "id": 51,
@@ -1507,7 +1707,7 @@
     "role_level": 2,
     "status": "active",
     "topbar_config_json": "{\"title\": \"Personal Support Worker (PSW) Portal\", \"showSearch\": true, \"showNotifications\": true, \"showProfile\": true, \"actions\": [\"messages\", \"tasks\", \"logout\"]}",
-    "sidebar_config_json": "{\"items\": [{\"label\": \"Psw Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"psw_dashboard\", \"route\": \"/psw/psw-dashboard\"}, {\"label\": \"Psw Analytics\", \"icon\": \"menu\", \"screen_code\": \"psw_analytics\", \"route\": \"/psw/psw-analytics\"}, {\"label\": \"Psw Clients\", \"icon\": \"person\", \"screen_code\": \"psw_clients\", \"route\": \"/psw/psw-clients\"}, {\"label\": \"Psw Compliance\", \"icon\": \"menu\", \"screen_code\": \"psw_compliance\", \"route\": \"/psw/psw-compliance\"}, {\"label\": \"Psw Messages\", \"icon\": \"chat\", \"screen_code\": \"psw_messages\", \"route\": \"/psw/psw-messages\"}, {\"label\": \"Psw Shift Tracker\", \"icon\": \"menu\", \"screen_code\": \"psw_shift_tracker\", \"route\": \"/psw/psw-shift-tracker\"}, {\"label\": \"Psw Tasks\", \"icon\": \"menu\", \"screen_code\": \"psw_tasks\", \"route\": \"/psw/psw-tasks\"}, {\"label\": \"Psw Visit Notes\", \"icon\": \"description\", \"screen_code\": \"psw_visit_notes\", \"route\": \"/psw/psw-visit-notes\"}, {\"label\": \"Psw Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"psw_workflow\", \"route\": \"/psw/psw-workflow\"}, {\"label\": \"Psw Command Center\", \"icon\": \"menu\", \"screen_code\": \"psw_command_center\", \"route\": \"/psw/psw-command-center\"}, {\"label\": \"Psw My Shifts\", \"icon\": \"menu\", \"screen_code\": \"psw_my_shifts\", \"route\": \"/psw/psw-my-shifts\"}, {\"label\": \"Psw Client Profile\", \"icon\": \"person\", \"screen_code\": \"psw_client_profile\", \"route\": \"/psw/psw-client-profile\"}, {\"label\": \"Psw Visit Notes\", \"icon\": \"description\", \"screen_code\": \"psw_visit_notes\", \"route\": \"/psw/psw-visit-notes\"}, {\"label\": \"Psw Vitals Log\", \"icon\": \"menu\", \"screen_code\": \"psw_vitals_log\", \"route\": \"/psw/psw-vitals-log\"}, {\"label\": \"Psw Incident Report\", \"icon\": \"description\", \"screen_code\": \"psw_incident_report\", \"route\": \"/psw/psw-incident-report\"}, {\"label\": \"Psw Care Plan\", \"icon\": \"menu\", \"screen_code\": \"psw_care_plan\", \"route\": \"/psw/psw-care-plan\"}, {\"label\": \"Psw Messages\", \"icon\": \"chat\", \"screen_code\": \"psw_messages\", \"route\": \"/psw/psw-messages\"}, {\"label\": \"Psw Documents\", \"icon\": \"description\", \"screen_code\": \"psw_documents\", \"route\": \"/psw/psw-documents\"}, {\"label\": \"Shift Tasks\", \"icon\": \"menu\", \"screen_code\": \"shift_tasks\", \"route\": \"/psw/shift-tasks\"}, {\"label\": \"Visit Notes\", \"icon\": \"description\", \"screen_code\": \"visit_notes\", \"route\": \"/psw/visit-notes\"}, {\"label\": \"Vitals Entry\", \"icon\": \"menu\", \"screen_code\": \"vitals_entry\", \"route\": \"/psw/vitals-entry\"}, {\"label\": \"Incident Report\", \"icon\": \"description\", \"screen_code\": \"incident_report\", \"route\": \"/psw/incident-report\"}]}",
+    "sidebar_config_json": "{\"items\": [{\"label\": \"Psw Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"psw_dashboard\", \"route\": \"/offices/clinical/roles/psw/dashboard\"}, {\"label\": \"Psw Analytics\", \"icon\": \"menu\", \"screen_code\": \"psw_analytics\", \"route\": \"/offices/clinical/roles/psw/psw-analytics\"}, {\"label\": \"Psw Clients\", \"icon\": \"person\", \"screen_code\": \"psw_clients\", \"route\": \"/offices/clinical/roles/psw/patient-profile\"}, {\"label\": \"Psw Compliance\", \"icon\": \"menu\", \"screen_code\": \"psw_compliance\", \"route\": \"/offices/clinical/roles/psw/psw-compliance\"}, {\"label\": \"Psw Messages\", \"icon\": \"chat\", \"screen_code\": \"psw_messages\", \"route\": \"/offices/clinical/roles/psw/messages\"}, {\"label\": \"Psw Shift Tracker\", \"icon\": \"menu\", \"screen_code\": \"psw_shift_tracker\", \"route\": \"/offices/clinical/roles/psw/schedule\"}, {\"label\": \"Psw Tasks\", \"icon\": \"menu\", \"screen_code\": \"psw_tasks\", \"route\": \"/offices/clinical/roles/psw/visit-checklist\"}, {\"label\": \"Psw Visit Notes\", \"icon\": \"description\", \"screen_code\": \"psw_visit_notes\", \"route\": \"/offices/clinical/roles/psw/visit-notes\"}, {\"label\": \"Psw Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"psw_workflow\", \"route\": \"/offices/clinical/roles/psw/psw-workflow\"}, {\"label\": \"Psw Command Center\", \"icon\": \"menu\", \"screen_code\": \"psw_command_center\", \"route\": \"/offices/clinical/roles/psw/psw-command-center\"}, {\"label\": \"Psw My Shifts\", \"icon\": \"menu\", \"screen_code\": \"psw_my_shifts\", \"route\": \"/offices/clinical/roles/psw/psw-my-shifts\"}, {\"label\": \"Psw Client Profile\", \"icon\": \"person\", \"screen_code\": \"psw_client_profile\", \"route\": \"/offices/clinical/roles/psw/psw-client-profile\"}, {\"label\": \"Psw Visit Notes\", \"icon\": \"description\", \"screen_code\": \"psw_visit_notes\", \"route\": \"/offices/clinical/roles/psw/visit-notes\"}, {\"label\": \"Psw Vitals Log\", \"icon\": \"menu\", \"screen_code\": \"psw_vitals_log\", \"route\": \"/offices/clinical/roles/psw/observation-vitals-log\"}, {\"label\": \"Psw Incident Report\", \"icon\": \"description\", \"screen_code\": \"psw_incident_report\", \"route\": \"/offices/clinical/roles/psw/incident-report\"}, {\"label\": \"Psw Care Plan\", \"icon\": \"menu\", \"screen_code\": \"psw_care_plan\", \"route\": \"/offices/clinical/roles/psw/care-plan\"}, {\"label\": \"Psw Messages\", \"icon\": \"chat\", \"screen_code\": \"psw_messages\", \"route\": \"/offices/clinical/roles/psw/messages\"}, {\"label\": \"Psw Documents\", \"icon\": \"description\", \"screen_code\": \"psw_documents\", \"route\": \"/offices/clinical/roles/psw/documents\"}, {\"label\": \"Shift Tasks\", \"icon\": \"menu\", \"screen_code\": \"shift_tasks\", \"route\": \"/offices/clinical/roles/psw/shift-tasks\"}, {\"label\": \"Visit Notes\", \"icon\": \"description\", \"screen_code\": \"visit_notes\", \"route\": \"/offices/clinical/roles/psw/visit-notes\"}, {\"label\": \"Vitals Entry\", \"icon\": \"menu\", \"screen_code\": \"vitals_entry\", \"route\": \"/offices/clinical/roles/psw/vitals-entry\"}, {\"label\": \"Incident Report\", \"icon\": \"description\", \"screen_code\": \"incident_report\", \"route\": \"/offices/clinical/roles/psw/incident-report\"}]}",
     "default_dashboard_screen_code": "psw_dashboard",
     "allowed_menu_json": "{\"allowed_screens\": [\"psw_dashboard\", \"psw_analytics\", \"psw_clients\", \"psw_compliance\", \"psw_messages\", \"psw_shift_tracker\", \"psw_tasks\", \"psw_visit_notes\", \"psw_workflow\", \"psw_command_center\", \"psw_my_shifts\", \"psw_client_profile\", \"psw_visit_notes\", \"psw_vitals_log\", \"psw_incident_report\", \"psw_care_plan\", \"psw_messages\", \"psw_documents\", \"shift_tasks\", \"visit_notes\", \"vitals_entry\", \"incident_report\"]}",
     "role_layout_key": "psw_shell_layout",
@@ -1519,15 +1719,19 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
-    "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-psw.png",
+    "auth_last_run_at": "2026-05-28T03:44:21.392489",
+    "auth_screenshot_path": "cypress/screenshots/auth_psw.cy.js/auth-login-psw.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
     "test_user_id": "test-user-id-psw",
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.706231Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.476206Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/offices/clinical/roles/psw/dashboard"
   },
   {
     "id": 52,
@@ -1549,7 +1753,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-hsw.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1557,7 +1761,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.776896Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.590488Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/hsw-dashboard"
   },
   {
     "id": 53,
@@ -1579,7 +1787,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rn_field_supervisor.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1587,7 +1795,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.853281Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.690586Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/rn/rn-field-supervisor-dashboard"
   },
   {
     "id": 54,
@@ -1609,7 +1821,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-np.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1617,7 +1829,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:05.951478Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.794059Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/np-dashboard"
   },
   {
     "id": 55,
@@ -1627,7 +1843,7 @@
     "role_level": 2,
     "status": "active",
     "topbar_config_json": "{\"title\": \"Registered Practical Nurse (RPN) Portal\", \"showSearch\": true, \"showNotifications\": true, \"showProfile\": true, \"actions\": [\"messages\", \"tasks\", \"logout\"]}",
-    "sidebar_config_json": "{\"items\": [{\"label\": \"Rpn Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"rpn_dashboard\", \"route\": \"/rpn/rpn-dashboard\"}, {\"label\": \"Rpn Analytics\", \"icon\": \"menu\", \"screen_code\": \"rpn_analytics\", \"route\": \"/rpn/rpn-analytics\"}, {\"label\": \"Rpn Compliance\", \"icon\": \"menu\", \"screen_code\": \"rpn_compliance\", \"route\": \"/rpn/rpn-compliance\"}, {\"label\": \"Rpn Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"rpn_workflow\", \"route\": \"/rpn/rpn-workflow\"}, {\"label\": \"Rpn Command Center\", \"icon\": \"menu\", \"screen_code\": \"rpn_command_center\", \"route\": \"/rpn/rpn-command-center\"}, {\"label\": \"Rpn Patient Charting\", \"icon\": \"person\", \"screen_code\": \"rpn_patient_charting\", \"route\": \"/rpn/rpn-patient-charting\"}, {\"label\": \"Rpn Medications\", \"icon\": \"menu\", \"screen_code\": \"rpn_medications\", \"route\": \"/rpn/rpn-medications\"}, {\"label\": \"Rpn Vitals\", \"icon\": \"menu\", \"screen_code\": \"rpn_vitals\", \"route\": \"/rpn/rpn-vitals\"}, {\"label\": \"Rpn Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"rpn_care_plan_review\", \"route\": \"/rpn/rpn-care-plan-review\"}, {\"label\": \"Rpn Incident Review\", \"icon\": \"menu\", \"screen_code\": \"rpn_incident_review\", \"route\": \"/rpn/rpn-incident-review\"}, {\"label\": \"Rpn Tasks\", \"icon\": \"menu\", \"screen_code\": \"rpn_tasks\", \"route\": \"/rpn/rpn-tasks\"}, {\"label\": \"Rpn Reports\", \"icon\": \"description\", \"screen_code\": \"rpn_reports\", \"route\": \"/rpn/rpn-reports\"}, {\"label\": \"Nursing Task\", \"icon\": \"menu\", \"screen_code\": \"nursing_task\", \"route\": \"/clinical/nursing-task\"}, {\"label\": \"Vitals Tracking\", \"icon\": \"menu\", \"screen_code\": \"vitals_tracking\", \"route\": \"/clinical/vitals-tracking\"}, {\"label\": \"Medication\", \"icon\": \"menu\", \"screen_code\": \"medication\", \"route\": \"/clinical/medication\"}, {\"label\": \"Patient Observation\", \"icon\": \"person\", \"screen_code\": \"patient_observation\", \"route\": \"/clinical/patient-observation\"}]}",
+    "sidebar_config_json": "{\"items\": [{\"label\": \"Rpn Dashboard\", \"icon\": \"dashboard\", \"screen_code\": \"rpn_dashboard\", \"route\": \"/offices/clinical/roles/rpn/dashboard\"}, {\"label\": \"Rpn Analytics\", \"icon\": \"menu\", \"screen_code\": \"rpn_analytics\", \"route\": \"/offices/clinical/roles/rpn/rpn-analytics\"}, {\"label\": \"Rpn Compliance\", \"icon\": \"menu\", \"screen_code\": \"rpn_compliance\", \"route\": \"/offices/clinical/roles/rpn/rpn-compliance\"}, {\"label\": \"Rpn Workflow\", \"icon\": \"trending_up\", \"screen_code\": \"rpn_workflow\", \"route\": \"/offices/clinical/roles/rpn/rpn-workflow\"}, {\"label\": \"Rpn Command Center\", \"icon\": \"menu\", \"screen_code\": \"rpn_command_center\", \"route\": \"/offices/clinical/roles/rpn/rpn-command-center\"}, {\"label\": \"Rpn Patient Charting\", \"icon\": \"person\", \"screen_code\": \"rpn_patient_charting\", \"route\": \"/offices/clinical/roles/rpn/patient-charting\"}, {\"label\": \"Rpn Medications\", \"icon\": \"menu\", \"screen_code\": \"rpn_medications\", \"route\": \"/offices/clinical/roles/rpn/medications\"}, {\"label\": \"Rpn Vitals\", \"icon\": \"menu\", \"screen_code\": \"rpn_vitals\", \"route\": \"/offices/clinical/roles/rpn/vitals\"}, {\"label\": \"Rpn Care Plan Review\", \"icon\": \"menu\", \"screen_code\": \"rpn_care_plan_review\", \"route\": \"/offices/clinical/roles/rpn/rpn-care-plan-review\"}, {\"label\": \"Rpn Incident Review\", \"icon\": \"menu\", \"screen_code\": \"rpn_incident_review\", \"route\": \"/offices/clinical/roles/rpn/rpn-incident-review\"}, {\"label\": \"Rpn Tasks\", \"icon\": \"menu\", \"screen_code\": \"rpn_tasks\", \"route\": \"/offices/clinical/roles/rpn/rpn-tasks\"}, {\"label\": \"Rpn Reports\", \"icon\": \"description\", \"screen_code\": \"rpn_reports\", \"route\": \"/offices/clinical/roles/rpn/rpn-reports\"}, {\"label\": \"Nursing Task\", \"icon\": \"menu\", \"screen_code\": \"nursing_task\", \"route\": \"/offices/clinical/roles/rpn/nursing-task\"}, {\"label\": \"Vitals Tracking\", \"icon\": \"menu\", \"screen_code\": \"vitals_tracking\", \"route\": \"/offices/clinical/roles/rpn/vitals-tracking\"}, {\"label\": \"Medication\", \"icon\": \"menu\", \"screen_code\": \"medication\", \"route\": \"/offices/clinical/roles/rpn/medication\"}, {\"label\": \"Patient Observation\", \"icon\": \"person\", \"screen_code\": \"patient_observation\", \"route\": \"/offices/clinical/roles/rpn/patient-observation\"}]}",
     "default_dashboard_screen_code": "rpn_dashboard",
     "allowed_menu_json": "{\"allowed_screens\": [\"rpn_dashboard\", \"rpn_analytics\", \"rpn_compliance\", \"rpn_workflow\", \"rpn_command_center\", \"rpn_patient_charting\", \"rpn_medications\", \"rpn_vitals\", \"rpn_care_plan_review\", \"rpn_incident_review\", \"rpn_tasks\", \"rpn_reports\", \"nursing_task\", \"vitals_tracking\", \"medication\", \"patient_observation\"]}",
     "role_layout_key": "rpn_shell_layout",
@@ -1639,7 +1855,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-rpn.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1647,7 +1863,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.043858Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.885803Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/offices/clinical/roles/rpn/dashboard"
   },
   {
     "id": 56,
@@ -1669,7 +1889,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-lpn.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1677,7 +1897,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.147372Z"
+    "test_login_last_run_at": "2026-05-28T13:25:46.966017Z",
+    "primary_app_code": "clinic",
+    "primary_app_url": "https://primecare-clinic.pages.dev",
+    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/clinical/lpn-dashboard"
   },
   {
     "id": 57,
@@ -1699,7 +1923,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-employee.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1707,7 +1931,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.234915Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.056672Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/staff/employee-dashboard"
   },
   {
     "id": 58,
@@ -1729,7 +1957,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-volunteer.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1737,7 +1965,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.319962Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.161471Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/staff/volunteer-dashboard"
   },
   {
     "id": 59,
@@ -1759,7 +1991,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-admin.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1767,7 +1999,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.409913Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.279282Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/common/office-dashboard"
   },
   {
     "id": 60,
@@ -1789,7 +2025,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-scheduler.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1797,7 +2033,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.487155Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.391402Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/staff/scheduler-dashboard"
   },
   {
     "id": 61,
@@ -1819,7 +2059,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-customer_support.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1827,7 +2067,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.555536Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.478046Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/common/customer-support-analytics"
   },
   {
     "id": 62,
@@ -1849,7 +2093,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-training_coordinator.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1857,7 +2101,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.643806Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.550127Z",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/staff/training-dashboard"
   },
   {
     "id": 63,
@@ -1879,7 +2127,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-qa_specialist.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1887,7 +2135,11 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.734983Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.648123Z",
+    "primary_app_code": "support",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/common/qa-analytics"
   },
   {
     "id": 64,
@@ -1909,7 +2161,7 @@
     "test_password_secret_ref": "TEST_DEFAULT_PASSWORD",
     "auth_test_status": "passed",
     "auth_last_error": null,
-    "auth_last_run_at": "2026-05-27T16:47:07.219979",
+    "auth_last_run_at": "2026-05-28T03:03:04.866730",
     "auth_screenshot_path": "cypress/screenshots/auth_master_loop.cy.js/auth-login-family.png",
     "auth_video_path": "cypress/videos/auth/auth_login.cy.js.mp4",
     "test_user_seed_status": "created",
@@ -1917,6 +2169,10 @@
     "test_login_verified": 1,
     "test_login_last_status": "passed",
     "test_login_last_error": null,
-    "test_login_last_run_at": "2026-05-28T01:57:06.822949Z"
+    "test_login_last_run_at": "2026-05-28T13:25:47.731994Z",
+    "primary_app_code": "client",
+    "primary_app_url": "https://primecare-client.pages.dev",
+    "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
+    "post_login_route": "/common/family-member-analytics"
   }
 ]

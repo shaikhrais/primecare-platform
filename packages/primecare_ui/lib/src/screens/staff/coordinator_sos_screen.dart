@@ -599,7 +599,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
             style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
           ),
           const SizedBox(height: 16),
-          TextField(
+          TextField(key: const Key('coordinator_sos_screen_textfield_input_1'), 
             controller: textController,
             maxLines: 4,
             style: const TextStyle(fontSize: 13),

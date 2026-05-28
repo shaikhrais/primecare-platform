@@ -610,7 +610,7 @@ class _GamificationProfileBodyState extends ConsumerState<_GamificationProfileBo
           const SizedBox(height: 16),
 
           // Manual Points Field
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('gamification_profile_screen_textfield_input_1'), 
             label: 'Custom Points Amount (Optional)',
             hintText: 'Leave empty for preset reason score...',
             controller: _pointsController,

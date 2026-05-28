@@ -24,7 +24,7 @@ class ResponseBotAuditScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('response_bot_audit_screen_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(botAuditProvider),
           ),
@@ -48,7 +48,7 @@ class ResponseBotAuditScreen extends GovernedConsumerWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: TextField(
+                    child: TextField(key: const Key('response_bot_audit_screen_textfield_input_1'), 
                       decoration: InputDecoration(
                         hintText: 'Search Transcripts...',
                         prefixIcon: const Icon(Icons.search),

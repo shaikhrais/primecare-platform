@@ -24,7 +24,7 @@ class ConsentManagementConsoleScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('consent_management_console_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(consentsProvider),
           ),
@@ -59,7 +59,7 @@ class ConsentManagementConsoleScreen extends GovernedConsumerWidget {
                         ),
                         title: Text('Patient: ${consent['patientName']} (ID: ${consent['patientId']})', style: theme.typography.h4),
                         subtitle: Text('Type: ${consent['type']} | Status: ${consent['status']} | Date: ${consent['updatedAt']}'),
-                        trailing: OutlinedButton(
+                        trailing: OutlinedButton(key: const Key('consent_management_console_outlinedbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('View Details'),
                         ),

@@ -307,7 +307,7 @@ class BillingConsole extends GovernedConsumerWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('billing_console_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by client name or transaction ID...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -335,7 +335,7 @@ class BillingConsole extends GovernedConsumerWidget {
                         ],
                       ),
                       const SizedBox(width: 16),
-                      ElevatedButton(
+                      ElevatedButton(key: const Key('billing_console_elevatedbutton_button_1'), 
                         onPressed: () => _showCreateInvoiceDialog(context, controller),
                         child: const Text('New Private Pay'),
                       ),
@@ -443,12 +443,12 @@ class BillingConsole extends GovernedConsumerWidget {
                                             child: Row(
                                               children: [
                                                 if (isPendingAudit)
-                                                  TextButton(
+                                                  TextButton(key: const Key('billing_console_textbutton_button_1'), 
                                                     onPressed: () => controller.approveTransaction((tx['id'] as String)),
                                                     child: const Text('Approve'),
                                                   )
                                                 else if (isPendingSweep)
-                                                  TextButton(
+                                                  TextButton(key: const Key('billing_console_textbutton_button_2'), 
                                                     onPressed: () => controller.triggerSweep(),
                                                     child: const Text('Sweep'),
                                                   )
@@ -499,7 +499,7 @@ class BillingConsole extends GovernedConsumerWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextField(key: const Key('billing_console_textfield_input_2'), 
                 controller: nameController,
                 decoration: InputDecoration(
                   labelText: 'Client Name',
@@ -509,7 +509,7 @@ class BillingConsole extends GovernedConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
+              TextField(key: const Key('billing_console_textfield_input_3'), 
                 controller: amountController,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
@@ -522,11 +522,11 @@ class BillingConsole extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('billing_console_textbutton_button_3'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('billing_console_elevatedbutton_button_2'), 
               onPressed: () {
                 final amt = double.tryParse(amountController.text) ?? 0.0;
                 if (nameController.text.isNotEmpty && amt > 0) {

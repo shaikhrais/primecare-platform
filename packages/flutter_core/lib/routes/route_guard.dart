@@ -99,6 +99,7 @@ class RouteGuard {
     if (requestedRoute == CommonRoutes.login ||
         requestedRoute == CommonRoutes.signup ||
         requestedRoute == CommonRoutes.forgotPassword ||
+        requestedRoute == CommonRoutes.ssoRedirect ||
         requestedRoute == '/') {
       // If logged in and trying to hit public unauthenticated routes, redirect to dashboard.
       if (isLoggedIn) {
@@ -122,11 +123,8 @@ class RouteGuard {
     // Helper to get correct redirect URI based on platform
     String getRedirectUri(String requestedRoute) {
       if (kIsWeb) {
-        // If web, we want the current URL (base) + requestedRoute.
-        // For now, we assume the host handles relative paths correctly or we append a placeholder
-        // Since we don't have dart:html, we can just pass the path. The SSO portal should handle it.
-        // But to be robust, we'll prefix with a custom identifier for the host to parse if needed.
-        return requestedRoute;
+        // If web, we return the absolute URL (origin + path) so the SSO portal knows where to redirect back
+        return Uri.parse(Uri.base.origin).resolve(requestedRoute).toString();
       } else {
         // For Windows/APK, we must use the deep link custom scheme
         return 'primecare://auth/callback?route=${Uri.encodeComponent(requestedRoute)}';

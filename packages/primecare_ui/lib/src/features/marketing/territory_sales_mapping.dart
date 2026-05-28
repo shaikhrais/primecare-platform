@@ -20,7 +20,7 @@ class TerritorySalesMappingScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Territory Sales Mapping', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('territory_sales_mapping_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(territorySalesProvider),
           ),

@@ -20,7 +20,7 @@ class LeadConversionFunnelScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Lead Conversion Funnel', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('lead_conversion_funnel_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(leadConversionProvider),
           ),

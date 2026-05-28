@@ -271,7 +271,7 @@ class Audits extends GovernedConsumerWidget {
                             SizedBox(
                               width: double.infinity,
                               height: 44,
-                              child: ElevatedButton(
+                              child: ElevatedButton(key: const Key('audits_elevatedbutton_button_1'), 
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.primary,
                                   shape: RoundedRectangleBorder(
@@ -323,7 +323,7 @@ class Audits extends GovernedConsumerWidget {
                             Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(key: const Key('audits_textfield_input_1'), 
                                     controller: nameController,
                                     decoration: const InputDecoration(
                                       labelText: 'Audit Scope Name',
@@ -334,7 +334,7 @@ class Audits extends GovernedConsumerWidget {
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(key: const Key('audits_textfield_input_2'), 
                                     controller: auditorController,
                                     decoration: const InputDecoration(
                                       labelText: 'Lead Auditor Scope',
@@ -349,7 +349,7 @@ class Audits extends GovernedConsumerWidget {
                             SizedBox(
                               width: double.infinity,
                               height: 44,
-                              child: ElevatedButton(
+                              child: ElevatedButton(key: const Key('audits_elevatedbutton_button_2'), 
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.background,
                                   side: BorderSide(color: theme.colors.primary),

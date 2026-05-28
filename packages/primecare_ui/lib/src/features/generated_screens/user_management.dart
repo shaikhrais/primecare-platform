@@ -275,7 +275,7 @@ class UserManagement extends GovernedConsumerWidget {
                           children: [
                             Expanded(
                               flex: 2,
-                              child: TextField(
+                              child: TextField(key: const Key('user_management_textfield_input_1'), 
                                 decoration: InputDecoration(
                                   hintText: 'Search by name, email, or office...',
                                   prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -562,7 +562,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                       'Create Platform Account',
                       style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
                     ),
-                    IconButton(
+                    IconButton(key: const Key('user_management_iconbutton_button_1'), 
                       icon: const Icon(LucideIcons.x),
                       onPressed: widget.onClose,
                     ),
@@ -570,7 +570,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                 ),
                 const SizedBox(height: 24),
                 // Form Fields
-                TextField(
+                TextField(key: const Key('user_management_textfield_input_2'), 
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Full Name',
@@ -580,7 +580,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                TextField(
+                TextField(key: const Key('user_management_textfield_input_3'), 
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email Address',
@@ -590,7 +590,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                TextField(
+                TextField(key: const Key('user_management_textfield_input_4'), 
                   controller: _officeController,
                   decoration: InputDecoration(
                     labelText: 'Assigned Office Branch',
@@ -626,7 +626,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                 Row(
                   children: [
                     Expanded(
-                      child: OutlinedButton(
+                      child: OutlinedButton(key: const Key('user_management_outlinedbutton_button_1'), 
                         onPressed: widget.onClose,
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -639,7 +639,7 @@ class _CreateUserDrawerState extends State<_CreateUserDrawer> {
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: ElevatedButton(
+                      child: ElevatedButton(key: const Key('user_management_elevatedbutton_button_1'), 
                         onPressed: () {
                           if (_nameController.text.isNotEmpty &&
                               _emailController.text.isNotEmpty &&

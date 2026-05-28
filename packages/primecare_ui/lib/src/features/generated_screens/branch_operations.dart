@@ -282,7 +282,7 @@ class BranchOperations extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('branch_operations_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search regional care hubs or provinces...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),

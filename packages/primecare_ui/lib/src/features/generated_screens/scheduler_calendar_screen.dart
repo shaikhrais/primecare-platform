@@ -242,11 +242,11 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
                             ),
                             Row(
                               children: [
-                                IconButton(
+                                IconButton(key: const Key('scheduler_calendar_screen_iconbutton_button_1'), 
                                   icon: const Icon(LucideIcons.chevronLeft, size: 18),
                                   onPressed: () {},
                                 ),
-                                IconButton(
+                                IconButton(key: const Key('scheduler_calendar_screen_iconbutton_button_2'), 
                                   icon: const Icon(LucideIcons.chevronRight, size: 18),
                                   onPressed: () {},
                                 ),
@@ -331,7 +331,7 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
                             style: theme.typography.bodyMedium.copyWith(color: Colors.red.shade800),
                           ),
                           const SizedBox(height: 12),
-                          ElevatedButton(
+                          ElevatedButton(key: const Key('scheduler_calendar_screen_elevatedbutton_button_1'), 
                             onPressed: () => controller.resolveConflict(state.conflictIds.first),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
@@ -448,7 +448,7 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
                                   ),
                                   Row(
                                     children: [
-                                      IconButton(
+                                      IconButton(key: const Key('scheduler_calendar_screen_iconbutton_button_3'), 
                                         icon: const Icon(LucideIcons.trash2, size: 16, color: Colors.red),
                                         onPressed: () => controller.deleteShift((shift['id'] as String)),
                                       ),
@@ -513,7 +513,7 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
   ) {
     final theme = context.theme;
     final isSelected = viewVal == activeView;
-    return OutlinedButton(
+    return OutlinedButton(key: const Key('scheduler_calendar_screen_outlinedbutton_button_1'), 
       onPressed: () => onSelected(viewVal),
       style: OutlinedButton.styleFrom(
         backgroundColor: isSelected ? theme.colors.primary : Colors.transparent,
@@ -599,7 +599,7 @@ class SchedulerCalendarScreen extends GovernedConsumerWidget {
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton(key: const Key('scheduler_calendar_screen_elevatedbutton_button_2'), 
                     onPressed: () {
                       controller.addShift(
                         caregiverController.text,

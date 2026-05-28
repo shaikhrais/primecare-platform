@@ -20,7 +20,7 @@ class SocialMediaSentimentAnalyzerScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Social Media Sentiment', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('social_media_sentiment_analyzer_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(socialSentimentProvider),
           ),

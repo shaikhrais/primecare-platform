@@ -177,7 +177,7 @@ class PswClientsScreen extends GovernedConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Column(
               children: [
-                TextField(
+                TextField(key: const Key('psw_clients_screen_textfield_input_1'), 
                   onChanged: (val) => controller.updateSearchQuery(val),
                   decoration: InputDecoration(
                     hintText: 'Search client by name or address...',

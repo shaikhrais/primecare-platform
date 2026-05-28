@@ -266,7 +266,7 @@ class FinancialOverview extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('financial_overview_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search private pay, payroll, or expenses...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),

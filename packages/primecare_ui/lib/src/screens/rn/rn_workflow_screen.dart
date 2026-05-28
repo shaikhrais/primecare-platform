@@ -437,7 +437,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_1'), 
               label: 'Target Patient Name',
               controller: patientController,
               validator: (val) {
@@ -446,7 +446,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_2'), 
               label: 'Active Care Plan Goal',
               controller: goalTitleController,
               hintText: 'e.g. Post-stroke motor function restoration...',
@@ -476,7 +476,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_3'), 
               label: 'milestone Action Scope Detail',
               controller: scopeController,
               maxLines: 3,

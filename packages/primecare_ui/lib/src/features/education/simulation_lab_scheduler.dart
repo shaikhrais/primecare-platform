@@ -20,7 +20,7 @@ class SimulationLabSchedulerScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Simulation Lab Scheduler', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('simulation_lab_scheduler_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(simLabScheduleProvider),
           ),
@@ -63,7 +63,7 @@ class SimulationLabSchedulerScreen extends GovernedConsumerWidget {
                         ),
                         title: Text(session['title'] as String, style: theme.typography.h4),
                         subtitle: Text('Instructor: ${session['instructor']} | Lab: ${session['room']}', style: theme.typography.bodyMedium),
-                        trailing: OutlinedButton(
+                        trailing: OutlinedButton(key: const Key('simulation_lab_scheduler_outlinedbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('Details'),
                         ),

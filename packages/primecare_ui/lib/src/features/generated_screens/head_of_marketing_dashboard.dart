@@ -338,7 +338,7 @@ class HeadOfMarketingDashboard extends GovernedConsumerWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 8),
-                                      IconButton(
+                                      IconButton(key: const Key('head_of_marketing_dashboard_iconbutton_button_1'), 
                                         icon: Icon(
                                           status == 'Active' ? LucideIcons.pauseCircle : LucideIcons.playCircle,
                                           color: theme.colors.primary,

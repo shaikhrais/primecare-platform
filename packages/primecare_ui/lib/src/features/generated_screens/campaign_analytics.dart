@@ -386,7 +386,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   if (status != 'Completed')
-                                    IconButton(
+                                    IconButton(key: const Key('campaign_analytics_iconbutton_button_1'), 
                                       icon: Icon(
                                         status == 'Active' ? LucideIcons.pauseCircle : LucideIcons.playCircle,
                                         color: theme.colors.primary,

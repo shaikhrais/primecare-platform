@@ -24,7 +24,7 @@ class IntegrationHealthMonitorScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('integration_health_monitor_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(integrationHealthProvider),
           ),
@@ -62,7 +62,7 @@ class IntegrationHealthMonitorScreen extends GovernedConsumerWidget {
                         ),
                         title: Text((integration['name'] as String?) ?? 'Unknown Service', style: theme.typography.h4),
                         subtitle: Text('Last sync: ${(integration['lastSync'] as String?) ?? 'N/A'} | Latency: ${integration['latency']}ms'),
-                        trailing: OutlinedButton(
+                        trailing: OutlinedButton(key: const Key('integration_health_monitor_outlinedbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('View Logs'),
                         ),

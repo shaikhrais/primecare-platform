@@ -140,7 +140,7 @@ class _MfaCardState extends ConsumerState<_MfaCard> {
                   if (widget.state.isLoading)
                     const Center(child: CircularProgressIndicator())
                   else
-                    ElevatedButton(
+                    ElevatedButton(key: const Key('mfa_view_elevatedbutton_button_1'), 
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           controller.verify();

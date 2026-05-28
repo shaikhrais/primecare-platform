@@ -184,7 +184,7 @@ class FamilyHome extends GovernedConsumerWidget {
                         style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
                       ),
                     ),
-                    IconButton(
+                    IconButton(key: const Key('family_home_iconbutton_button_1'), 
                       icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
                       onPressed: controller.dismissNotification,
                     ),
@@ -586,7 +586,7 @@ class FamilyHome extends GovernedConsumerWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: ElevatedButton(key: const Key('family_home_elevatedbutton_button_1'), 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         foregroundColor: Colors.white,

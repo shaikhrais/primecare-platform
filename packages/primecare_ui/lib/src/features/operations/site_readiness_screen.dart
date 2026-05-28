@@ -547,7 +547,7 @@ class _SiteReadinessBodyState extends ConsumerState<_SiteReadinessBody> {
           ),
           const SizedBox(height: 16),
 
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('site_readiness_screen_textfield_input_1'), 
             label: 'Audit Target Date (YYYY-MM-DD)',
             hintText: 'e.g. 2026-06-12',
             controller: _scheduleDateController,

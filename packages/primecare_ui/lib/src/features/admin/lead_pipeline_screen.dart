@@ -24,12 +24,12 @@ class LeadPipelineScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('lead_pipeline_screen_iconbutton_button_1'), 
             icon: Icon(Icons.add, color: theme.colors.primary),
             onPressed: () {},
             tooltip: 'Add New Lead',
           ),
-          IconButton(
+          IconButton(key: const Key('lead_pipeline_screen_iconbutton_button_2'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () {
               ref.invalidate(leadPipelineProvider);

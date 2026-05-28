@@ -191,7 +191,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                         style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
                       ),
                     ),
-                    IconButton(
+                    IconButton(key: const Key('tax_remittance_iconbutton_button_1'), 
                       icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
                       onPressed: controller.dismissNotification,
                     ),
@@ -445,7 +445,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                           width: double.infinity,
                           child: state.isSubmittingFiling
                               ? const Center(child: CircularProgressIndicator())
-                              : ElevatedButton(
+                              : ElevatedButton(key: const Key('tax_remittance_elevatedbutton_button_1'), 
                                   onPressed: basePendingAmount > 0
                                       ? () => _showConfirmationDialog(context, controller)
                                       : null,
@@ -498,14 +498,14 @@ class TaxRemittance extends GovernedConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton(
+                    child: OutlinedButton(key: const Key('tax_remittance_outlinedbutton_button_1'), 
                       onPressed: () => Navigator.pop(context),
                       child: const Text('Cancel'),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton(
+                    child: ElevatedButton(key: const Key('tax_remittance_elevatedbutton_button_2'), 
                       onPressed: () {
                         controller.executeFilingSubmission();
                         Navigator.pop(context);

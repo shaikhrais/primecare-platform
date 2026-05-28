@@ -111,7 +111,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               const LanguageSelector(),
               const SizedBox(width: 8),
               Builder(
-                builder: (context) => IconButton(
+                builder: (context) => IconButton(key: const Key('route_registry_iconbutton_button_1'), 
                   onPressed: () => Scaffold.of(context).openEndDrawer(),
                   icon: const Icon(LucideIcons.search),
                 ),

@@ -20,7 +20,7 @@ class BrandAssetLibraryScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Brand Asset Library', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('brand_asset_library_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(brandAssetsProvider),
           ),

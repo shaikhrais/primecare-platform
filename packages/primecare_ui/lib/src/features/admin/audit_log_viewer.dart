@@ -27,7 +27,7 @@ class AuditLogViewer extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('audit_log_viewer_iconbutton_button_1'), 
             icon: Icon(Icons.download, color: theme.colors.primary),
             onPressed: () {
               // Action to export logs
@@ -70,7 +70,7 @@ class AuditLogViewer extends GovernedConsumerWidget {
                           Text('Recent Audit Events', style: theme.typography.h4),
                           SizedBox(
                             width: 300,
-                            child: TextField(
+                            child: TextField(key: const Key('audit_log_viewer_textfield_input_1'), 
                               decoration: InputDecoration(
                                 hintText: 'Search logs...',
                                 prefixIcon: const Icon(Icons.search),
@@ -111,7 +111,7 @@ class AuditLogViewer extends GovernedConsumerWidget {
                                 DataCell(Text((log['ip'] as String?) ?? '0.0.0.0')),
                                 DataCell(Text((log['status'] as String?) ?? 'Success')),
                                 DataCell(
-                                  TextButton(
+                                  TextButton(key: const Key('audit_log_viewer_textbutton_button_1'), 
                                     onPressed: () {
                                       // Open EventDetailDrawer
                                     },

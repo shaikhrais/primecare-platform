@@ -52,7 +52,7 @@ class RegistryEntryEditorScreen extends GovernedConsumerWidget {
                         border: Border.all(color: theme.colors.border),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: TextField(
+                      child: TextField(key: const Key('registry_entry_editor_textfield_input_1'), 
                         maxLines: null,
                         style: const TextStyle(fontFamily: 'monospace'),
                         decoration: const InputDecoration(

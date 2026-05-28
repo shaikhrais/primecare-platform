@@ -20,7 +20,7 @@ class ReferralNetworkManagerScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Referral Network Manager', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('referral_network_manager_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(referralNetworkProvider),
           ),

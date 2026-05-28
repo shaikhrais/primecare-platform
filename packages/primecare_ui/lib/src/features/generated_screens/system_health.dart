@@ -518,7 +518,7 @@ class SystemHealth extends GovernedConsumerWidget {
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: OutlinedButton(
+                                      child: OutlinedButton(key: const Key('system_health_outlinedbutton_button_1'), 
                                         onPressed: () => controller.adjustConnections(5),
                                         style: OutlinedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
@@ -530,7 +530,7 @@ class SystemHealth extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(width: 12),
                                     Expanded(
-                                      child: OutlinedButton(
+                                      child: OutlinedButton(key: const Key('system_health_outlinedbutton_button_2'), 
                                         onPressed: () => controller.adjustConnections(-5),
                                         style: OutlinedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
@@ -722,7 +722,7 @@ class SystemHealth extends GovernedConsumerWidget {
                                     ),
                                   ),
                                   const Spacer(),
-                                  IconButton(
+                                  IconButton(key: const Key('system_health_iconbutton_button_1'), 
                                     icon: const Icon(LucideIcons.trash2, color: Color(0xFF94A3B8), size: 16),
                                     onPressed: controller.clearLogs,
                                     padding: EdgeInsets.zero,

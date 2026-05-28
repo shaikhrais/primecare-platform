@@ -405,7 +405,7 @@ class _GovernanceDashboardContentState
               ),
               SizedBox(
                 width: 300,
-                child: TextField(
+                child: TextField(key: const Key('governance_dashboard_textfield_input_1'), 
                   decoration: InputDecoration(
                     hintText: 'Search screens...',
                     prefixIcon: const Icon(Icons.search),

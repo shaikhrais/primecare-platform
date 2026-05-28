@@ -24,12 +24,12 @@ class DeviceFleetManager extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('device_fleet_manager_iconbutton_button_1'), 
             icon: Icon(Icons.add_to_home_screen, color: theme.colors.primary),
             onPressed: () {},
             tooltip: 'Provision New Device',
           ),
-          IconButton(
+          IconButton(key: const Key('device_fleet_manager_iconbutton_button_2'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(deviceFleetProvider),
             tooltip: 'Refresh Device Status',
@@ -88,7 +88,7 @@ class DeviceFleetManager extends GovernedConsumerWidget {
                                   ),
                                   title: Text((device['deviceName'] as String?) ?? 'Unknown Device'),
                                   subtitle: Text('Assigned: ${(device['assignedUser'] as String?) ?? 'Unassigned'}'),
-                                  trailing: IconButton(
+                                  trailing: IconButton(key: const Key('device_fleet_manager_iconbutton_button_3'), 
                                     icon: const Icon(Icons.phonelink_erase, color: Colors.red),
                                     onPressed: () {},
                                     tooltip: 'Remote Wipe',

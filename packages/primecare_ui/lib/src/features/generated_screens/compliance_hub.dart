@@ -245,7 +245,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                                           ),
                                         ),
                                       ),
-                                      IconButton(
+                                      IconButton(key: const Key('compliance_hub_iconbutton_button_1'), 
                                         icon: const Icon(LucideIcons.checkSquare, size: 20),
                                         onPressed: () => controller.resolveAlert(alert.id),
                                       ),
@@ -312,7 +312,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                         SizedBox(
                           width: double.infinity,
                           height: 44,
-                          child: ElevatedButton(
+                          child: ElevatedButton(key: const Key('compliance_hub_elevatedbutton_button_1'), 
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colors.primary,
                               shape: RoundedRectangleBorder(

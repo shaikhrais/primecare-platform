@@ -24,7 +24,7 @@ class PolicyExceptionTrackerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('policy_exception_tracker_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(policyExceptionsProvider),
           ),
@@ -68,12 +68,12 @@ class PolicyExceptionTrackerScreen extends GovernedConsumerWidget {
                                 const SizedBox(height: 16),
                                 Row(
                                   children: [
-                                    OutlinedButton(
+                                    OutlinedButton(key: const Key('policy_exception_tracker_outlinedbutton_button_1'), 
                                       onPressed: () {},
                                       child: const Text('Revoke Exception'),
                                     ),
                                     const SizedBox(width: 8),
-                                    ElevatedButton(
+                                    ElevatedButton(key: const Key('policy_exception_tracker_elevatedbutton_button_1'), 
                                       onPressed: () {},
                                       child: const Text('Extend Expiration'),
                                     ),

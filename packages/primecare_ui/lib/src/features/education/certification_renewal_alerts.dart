@@ -20,7 +20,7 @@ class CertificationRenewalAlertsScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Certification Renewal Alerts', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('certification_renewal_alerts_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(certAlertsProvider),
           ),
@@ -60,7 +60,7 @@ class CertificationRenewalAlertsScreen extends GovernedConsumerWidget {
                             Text('Expires: ${alert['expiry_date']}', style: theme.typography.labelSmall.copyWith(fontWeight: FontWeight.bold, color: isCritical ? Colors.red : Colors.orange)),
                           ],
                         ),
-                        trailing: ElevatedButton(
+                        trailing: ElevatedButton(key: const Key('certification_renewal_alerts_elevatedbutton_button_1'), 
                           style: ElevatedButton.styleFrom(backgroundColor: isCritical ? Colors.red : theme.colors.primary),
                           onPressed: () {},
                           child: const Text('Send Reminder'),

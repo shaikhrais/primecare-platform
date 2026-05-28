@@ -110,7 +110,7 @@ class TenantConfigurationScreen extends GovernedConsumerWidget {
                               title: Text('All accounts in good standing'),
                             ),
                             const SizedBox(height: 16),
-                            OutlinedButton(
+                            OutlinedButton(key: const Key('tenant_configuration_screen_outlinedbutton_button_1'), 
                               onPressed: () {},
                               child: const Text('View Financial Hub'),
                             ),

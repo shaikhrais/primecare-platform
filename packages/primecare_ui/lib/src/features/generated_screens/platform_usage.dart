@@ -103,7 +103,7 @@ class PlatformUsageController extends StateNotifier<PlatformUsageState> {
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: ElevatedButton(key: const Key('platform_usage_elevatedbutton_button_1'), 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         foregroundColor: theme.colors.onPrimary,
@@ -166,7 +166,7 @@ class PlatformUsage extends GovernedConsumerWidget {
         foregroundColor: theme.colors.onSurface,
         elevation: 0,
         actions: [
-          IconButton(
+          IconButton(key: const Key('platform_usage_iconbutton_button_1'), 
             icon: const Icon(LucideIcons.refreshCw),
             onPressed: () {
               ref.invalidate(platformUsageControllerProvider);
@@ -344,7 +344,7 @@ class PlatformUsage extends GovernedConsumerWidget {
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: ElevatedButton(
+              child: ElevatedButton(key: const Key('platform_usage_elevatedbutton_button_2'), 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent,
                   foregroundColor: Colors.white,

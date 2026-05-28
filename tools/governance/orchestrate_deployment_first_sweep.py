@@ -234,7 +234,7 @@ def main():
     # -------------------------------------------------------------------------
     log("\n--- STEP 7: Run Cypress PSW Auth Spec first against Cloudflare ---")
     psw_auth_res = run_command([
-        "cypress", "run", "--spec", "cypress/e2e/01_auth/auth_psw.cy.js"
+        "cypress", "run", "--spec", "cypress/e2e/01_auth/clinic_auth_redirect_psw.cy.js"
     ])
     print(psw_auth_res.stdout)
     

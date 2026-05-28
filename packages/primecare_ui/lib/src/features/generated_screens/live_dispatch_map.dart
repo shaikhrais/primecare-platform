@@ -244,7 +244,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('live_dispatch_map_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search caregiver or client...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -597,7 +597,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                         width: double.infinity,
                                         child: state.isAssigning && isSelected
                                             ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
-                                            : ElevatedButton(
+                                            : ElevatedButton(key: const Key('live_dispatch_map_elevatedbutton_button_1'), 
                                                 onPressed: isSelected
                                                     ? () => controller.assignCaregiver((shift['id'] as String), 'Grace Hopper, PSW')
                                                     : () => controller.selectShift((shift['id'] as String?)),

@@ -425,7 +425,7 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: TextField(
+                child: TextField(key: const Key('rn_care_plans_screen_textfield_input_1'), 
                   controller: textController,
                   decoration: InputDecoration(
                     hintText: 'Enter new clinical objective or instruction...',

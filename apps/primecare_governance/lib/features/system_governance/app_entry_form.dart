@@ -67,7 +67,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
             ],
           ),
           const SizedBox(height: 32),
-          ElevatedButton(
+          ElevatedButton(key: const Key('app_entry_form_elevatedbutton_button_1'), 
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Application ${_nameController.text} registered successfully under ${_status}!')),

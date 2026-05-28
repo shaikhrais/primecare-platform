@@ -735,12 +735,12 @@ class ControlCenterScreen extends ConsumerWidget {
                       ),
                       Row(
                         children: [
-                          IconButton(
+                          IconButton(key: const Key('control_center_screen_iconbutton_button_1'), 
                             icon: const Icon(LucideIcons.refreshCw, size: 14),
                             onPressed: () => ref.read(controlCenterScreenControllerProvider.notifier).triggerRetest(selectedTask.id),
                             tooltip: 'Trigger Retest',
                           ),
-                          IconButton(
+                          IconButton(key: const Key('control_center_screen_iconbutton_button_2'), 
                             icon: const Icon(LucideIcons.eye, size: 14),
                             onPressed: () => ref.read(controlCenterScreenControllerProvider.notifier).verifyScreenUI(selectedTask.id),
                             tooltip: 'Verify Screen UI',

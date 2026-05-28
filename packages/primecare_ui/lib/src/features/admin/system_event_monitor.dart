@@ -27,7 +27,7 @@ class SystemEventMonitor extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('system_event_monitor_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () {
               ref.invalidate(systemEventsProvider);
@@ -107,7 +107,7 @@ class SystemEventMonitor extends GovernedConsumerWidget {
                                   leading: Icon(Icons.error_outline, color: theme.colors.error),
                                   title: Text(dlqItem['eventType'] as String? ?? 'Unknown Event', style: theme.typography.bodyLarge),
                                   subtitle: Text('Retries: ${dlqItem['retryCount'] ?? 0}', style: theme.typography.bodyMedium),
-                                  trailing: IconButton(
+                                  trailing: IconButton(key: const Key('system_event_monitor_iconbutton_button_2'), 
                                     icon: const Icon(Icons.replay),
                                     onPressed: () {},
                                     tooltip: 'Retry Event',

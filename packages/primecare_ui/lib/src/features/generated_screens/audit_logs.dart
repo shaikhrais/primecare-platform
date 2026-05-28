@@ -133,7 +133,7 @@ class AuditLogs extends GovernedConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(Icons.cloud_off, color: theme.colors.warning),
             ),
-          IconButton(
+          IconButton(key: const Key('audit_logs_iconbutton_button_1'), 
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.invalidate(auditLogsProvider),
             tooltip: 'Refresh Ledger',

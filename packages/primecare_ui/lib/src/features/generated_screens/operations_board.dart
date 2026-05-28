@@ -263,7 +263,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('operations_board_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search operational alert logs...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -416,7 +416,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                             if (!isResolved) ...[
                               Column(
                                 children: [
-                                  ElevatedButton(
+                                  ElevatedButton(key: const Key('operations_board_elevatedbutton_button_1'), 
                                     onPressed: () => controller.acknowledgeAlert((alert['id'] as String)),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: theme.colors.primary,
@@ -428,7 +428,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                                     child: const Text('Acknowledge'),
                                   ),
                                   const SizedBox(height: 8),
-                                  OutlinedButton(
+                                  OutlinedButton(key: const Key('operations_board_outlinedbutton_button_1'), 
                                     onPressed: () => controller.resolveAlert((alert['id'] as String)),
                                     style: OutlinedButton.styleFrom(
                                       shape: RoundedRectangleBorder(

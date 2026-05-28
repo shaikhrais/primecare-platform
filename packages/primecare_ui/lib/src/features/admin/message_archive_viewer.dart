@@ -24,12 +24,12 @@ class MessageArchiveViewerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('message_archive_viewer_iconbutton_button_1'), 
             icon: Icon(Icons.download, color: theme.colors.primary),
             onPressed: () {},
             tooltip: 'Export for Legal Discovery',
           ),
-          IconButton(
+          IconButton(key: const Key('message_archive_viewer_iconbutton_button_2'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(archiveProvider),
           ),
@@ -48,7 +48,7 @@ class MessageArchiveViewerScreen extends GovernedConsumerWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
+                    child: TextField(key: const Key('message_archive_viewer_textfield_input_1'), 
                       decoration: InputDecoration(
                         hintText: 'Search by User ID, Date Range, or Keywords...',
                         prefixIcon: const Icon(Icons.search),
@@ -85,7 +85,7 @@ class MessageArchiveViewerScreen extends GovernedConsumerWidget {
                         DataCell(Text((doc['recipient'] as String?) ?? '')),
                         DataCell(Text((doc['subject'] as String?) ?? '')),
                         DataCell(
-                          TextButton(
+                          TextButton(key: const Key('message_archive_viewer_textbutton_button_1'), 
                             onPressed: () {},
                             child: const Text('View Transcript'),
                           ),

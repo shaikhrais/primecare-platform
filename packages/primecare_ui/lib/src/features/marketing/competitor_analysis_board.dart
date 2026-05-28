@@ -20,7 +20,7 @@ class CompetitorAnalysisBoardScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Competitor Analysis Board', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('competitor_analysis_board_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(competitorAnalysisProvider),
           ),

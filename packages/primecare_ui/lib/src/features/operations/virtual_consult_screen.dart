@@ -554,7 +554,7 @@ class _VirtualConsultBodyState extends ConsumerState<_VirtualConsultBody> {
           ),
           const SizedBox(height: 16),
 
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('virtual_consult_screen_textfield_input_1'), 
             label: 'New Telehealth Slot Time',
             hintText: 'e.g. 03:30 PM - 04:00 PM',
             controller: _newTimeSlotController,

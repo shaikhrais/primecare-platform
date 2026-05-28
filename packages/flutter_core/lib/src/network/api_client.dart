@@ -87,15 +87,12 @@ class ApiClient {
 
     if (cleanPath == '/v1/auth/me') {
       return ApiResponse(
-        statusCode: 200,
+        statusCode: 401,
         data: {
-          'userId': 'mock-user-id-default',
-          'firstName': 'Jane',
-          'lastName': 'Doe',
-          'roles': 'psw',
-          'tenantId': 'mock-tenant-id',
-          'preferredLanguage': 'en',
+          'status': 'error',
+          'message': 'Unauthorized: No active session token found (Offline Mock).',
         },
+        error: 'Unauthorized',
       );
     }
 

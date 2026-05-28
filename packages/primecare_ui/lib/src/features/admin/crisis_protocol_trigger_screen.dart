@@ -84,7 +84,7 @@ class CrisisProtocolTriggerScreen extends GovernedConsumerWidget {
             const SizedBox(height: 8),
             Text(description, style: theme.typography.bodyMedium, textAlign: TextAlign.center),
             const SizedBox(height: 24),
-            ElevatedButton(
+            ElevatedButton(key: const Key('crisis_protocol_trigger_screen_elevatedbutton_button_1'), 
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.error,
                 foregroundColor: Colors.white,

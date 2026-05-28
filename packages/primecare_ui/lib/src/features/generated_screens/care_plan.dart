@@ -183,7 +183,7 @@ class CarePlan extends GovernedConsumerWidget {
                         style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
                       ),
                     ),
-                    IconButton(
+                    IconButton(key: const Key('care_plan_iconbutton_button_1'), 
                       icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
                       onPressed: controller.dismissSuccess,
                     ),
@@ -267,7 +267,7 @@ class CarePlan extends GovernedConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Active Checkbox
-                      IconButton(
+                      IconButton(key: const Key('care_plan_iconbutton_button_2'), 
                         icon: Icon(
                           isCompleted ? LucideIcons.checkSquare : LucideIcons.square,
                           color: isCompleted ? theme.colors.primary : theme.colors.onSurfaceVariant,
@@ -500,7 +500,7 @@ class CarePlan extends GovernedConsumerWidget {
                   const SizedBox(height: 20),
 
                   // Notes Textarea
-                  PrimeCareTextField(
+                  PrimeCareTextField(key: const Key('care_plan_textfield_input_1'), 
                     label: 'Qualitative Care Notes & Feedback',
                     hintText: 'Share any observations about caregiver interactions or rehabilitation exercises...',
                     controller: feedbackTextController,
@@ -510,7 +510,7 @@ class CarePlan extends GovernedConsumerWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: ElevatedButton(key: const Key('care_plan_elevatedbutton_button_1'), 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         foregroundColor: Colors.white,

@@ -24,7 +24,7 @@ class FAQManagerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('faq_manager_screen_iconbutton_button_1'), 
             icon: Icon(Icons.add_circle, color: theme.colors.primary),
             onPressed: () {},
             tooltip: 'Add New FAQ Entry',
@@ -85,8 +85,8 @@ class FAQManagerScreen extends GovernedConsumerWidget {
                                     ),
                                     OverflowBar(
                                       children: [
-                                        TextButton(onPressed: () {}, child: const Text('Edit')),
-                                        TextButton(onPressed: () {}, child: const Text('Delete')),
+                                        TextButton(key: const Key('faq_manager_screen_textbutton_button_1'), onPressed: () {}, child: const Text('Edit')),
+                                        TextButton(key: const Key('faq_manager_screen_textbutton_button_2'), onPressed: () {}, child: const Text('Delete')),
                                       ],
                                     )
                                   ],

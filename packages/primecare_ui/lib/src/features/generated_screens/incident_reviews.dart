@@ -250,7 +250,7 @@ class IncidentReviews extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('incident_reviews_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by caregiver, client, or description details...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -400,7 +400,7 @@ class IncidentReviews extends GovernedConsumerWidget {
                                   ),
                                   const SizedBox(width: 16),
                                   if (!isResolved)
-                                    ElevatedButton(
+                                    ElevatedButton(key: const Key('incident_reviews_elevatedbutton_button_1'), 
                                       onPressed: state.isResolving
                                           ? null
                                           : () => controller.resolveIncident(id),

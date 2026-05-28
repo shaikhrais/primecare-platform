@@ -39,7 +39,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final requestedRoute = state.uri.path;
 
       // Ensure SSO Portal URL is configured
-      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
 
       final result = RouteGuard.verify(
         requestedRoute: requestedRoute,
@@ -69,7 +69,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
-          final url = state.uri.queryParameters['url'] ?? 'http://localhost:3000';
+          final url = state.uri.queryParameters['url'] ?? 'https://primecare-auth.pages.dev';
           return SsoRedirectView(redirectUrl: url);
         },
       ),
@@ -77,8 +77,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: CommonRoutes.login,
         redirect: (context, state) {
           // If a user hits /login directly, force them to the SSO redirect
-          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'http://localhost:3000');
-          final defaultRedirectUri = const String.fromEnvironment('APP_BASE_URL', defaultValue: 'http://localhost:3008');
+          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
+          final defaultRedirectUri = const String.fromEnvironment('APP_BASE_URL', defaultValue: 'https://primecare-support.pages.dev');
           final redirectUri = kIsWeb ? defaultRedirectUri : 'primecare://auth/callback';
           final target = '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
           return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(target)}';

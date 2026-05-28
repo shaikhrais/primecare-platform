@@ -292,7 +292,7 @@ class Invoices extends GovernedConsumerWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('invoices_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by client or invoice ID...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -423,14 +423,14 @@ class Invoices extends GovernedConsumerWidget {
                                     const SizedBox(width: 16),
                                     Row(
                                       children: [
-                                        IconButton(
+                                        IconButton(key: const Key('invoices_iconbutton_button_1'), 
                                           icon: const Icon(LucideIcons.download),
                                           onPressed: () => controller.downloadInvoicePdf((inv['id'] as String)),
                                           tooltip: 'Download Invoice PDF',
                                         ),
                                         if (!isPaid) ...[
                                           const SizedBox(width: 8),
-                                          ElevatedButton(
+                                          ElevatedButton(key: const Key('invoices_elevatedbutton_button_1'), 
                                             onPressed: () => controller.markAsPaid((inv['id'] as String)),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: theme.colors.primary,

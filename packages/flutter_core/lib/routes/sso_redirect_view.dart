@@ -21,12 +21,14 @@ class _SsoRedirectViewState extends State<SsoRedirectView> {
   }
 
   Future<void> _launchSSO() async {
-    if (await canLaunchUrlString(widget.redirectUrl)) {
+    try {
       await launchUrlString(
         widget.redirectUrl,
         mode: LaunchMode.externalApplication, // Forces system browser for shared cookie jar
         webOnlyWindowName: '_self', // Replaces the current tab on Web
       );
+    } catch (e) {
+      debugPrint('SSO launch error: $e');
     }
   }
 

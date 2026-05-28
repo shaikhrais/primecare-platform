@@ -26,7 +26,7 @@ class TouchpointAnalyzerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('touchpoint_analyzer_screen_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(touchpointProvider),
           ),
@@ -95,7 +95,7 @@ class TouchpointAnalyzerScreen extends GovernedConsumerWidget {
                                   leading: const Icon(Icons.campaign),
                                   title: Text(campaign['name'] as String? ?? 'Campaign'),
                                   subtitle: Text('Conversion: ${campaign['conversionRate'] ?? 0}%'),
-                                  trailing: TextButton(onPressed: () {}, child: const Text('A/B Details')),
+                                  trailing: TextButton(key: const Key('touchpoint_analyzer_screen_textbutton_button_1'), onPressed: () {}, child: const Text('A/B Details')),
                                 );
                               },
                             ),

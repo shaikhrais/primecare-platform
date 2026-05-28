@@ -53,11 +53,11 @@ class PremiumFeature86 extends GovernedConsumerWidget {
           ],
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('premium_feature_86_iconbutton_button_1'), 
             icon: const Icon(Icons.tune, color: Color(0xFF64748B)),
             onPressed: () {},
           ),
-          IconButton(
+          IconButton(key: const Key('premium_feature_86_iconbutton_button_2'), 
             icon: const Icon(Icons.notifications_outlined, color: Color(0xFF64748B)),
             onPressed: () {},
           ),

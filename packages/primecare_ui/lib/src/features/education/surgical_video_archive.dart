@@ -20,7 +20,7 @@ class SurgicalVideoArchiveScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Surgical Video Archive', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('surgical_video_archive_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(surgicalVideosProvider),
           ),

@@ -20,7 +20,7 @@ class EventAndWebinarManagerScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Events & Webinars', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('event_and_webinar_manager_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(eventsProvider),
           ),

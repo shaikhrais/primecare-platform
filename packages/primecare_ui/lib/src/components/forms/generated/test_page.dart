@@ -19,7 +19,7 @@ class TestPage extends StatelessWidget {
             decoration: const InputDecoration(labelText: 'test_field_input Field'),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
+          ElevatedButton(key: const Key('test_page_elevatedbutton_button_1'), 
             onPressed: () {},
             child: const Text('Submit'),
           ),

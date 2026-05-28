@@ -20,7 +20,7 @@ class JournalClubDiscussionBoardScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Journal Club Discussion Board', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('journal_club_discussion_board_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(journalClubProvider),
           ),
@@ -81,7 +81,7 @@ class JournalClubDiscussionBoardScreen extends GovernedConsumerWidget {
                         const SizedBox(width: 4),
                         Text('${topic['likes']}', style: theme.typography.labelSmall),
                         const Spacer(),
-                        TextButton(
+                        TextButton(key: const Key('journal_club_discussion_board_textbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('Read & Discuss'),
                         )

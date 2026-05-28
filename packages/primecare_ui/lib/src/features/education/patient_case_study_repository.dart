@@ -20,7 +20,7 @@ class PatientCaseStudyRepositoryScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Patient Case Study Repository', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('patient_case_study_repository_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(caseStudyProvider),
           ),
@@ -75,7 +75,7 @@ class PatientCaseStudyRepositoryScreen extends GovernedConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('By ${caseData['author']}', style: theme.typography.labelSmall),
-                        TextButton(
+                        TextButton(key: const Key('patient_case_study_repository_textbutton_button_1'), 
                           onPressed: () {},
                           child: const Text('View Case'),
                         )

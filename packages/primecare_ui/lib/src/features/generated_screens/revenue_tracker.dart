@@ -277,7 +277,7 @@ class RevenueTracker extends GovernedConsumerWidget {
                         children: [
                           Expanded(
                             flex: 3,
-                            child: TextField(
+                            child: TextField(key: const Key('revenue_tracker_textfield_input_1'), 
                               decoration: InputDecoration(
                                 hintText: 'Search by client, invoice ID, or insurer...',
                                 prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -427,7 +427,7 @@ class RevenueTracker extends GovernedConsumerWidget {
                                   ),
                                   const SizedBox(width: 24),
                                   if (isPending)
-                                    ElevatedButton(
+                                    ElevatedButton(key: const Key('revenue_tracker_elevatedbutton_button_1'), 
                                       onPressed: state.isReconciling ? null : () => controller.reconcileInvoice(id),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: theme.colors.primary,

@@ -6,7 +6,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: ElevatedButton(key: const Key('primary-btn'), onPressed: () {}, child: const Text('Save')),
+          body: ElevatedButton(key: const Key('primary_button_test_elevatedbutton_button_1'), key: const Key('primary-btn'), onPressed: () {}, child: const Text('Save')),
         ),
       ),
     );

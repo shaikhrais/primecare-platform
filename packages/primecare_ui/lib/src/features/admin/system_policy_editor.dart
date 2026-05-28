@@ -24,12 +24,12 @@ class SystemPolicyEditor extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('system_policy_editor_iconbutton_button_1'), 
             icon: Icon(Icons.add, color: theme.colors.primary),
             onPressed: () {},
             tooltip: 'Create New Policy',
           ),
-          IconButton(
+          IconButton(key: const Key('system_policy_editor_iconbutton_button_2'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(systemPoliciesProvider),
           ),
@@ -88,7 +88,7 @@ class SystemPolicyEditor extends GovernedConsumerWidget {
                             Text('Enforce Platform-Wide', style: theme.typography.bodyLarge),
                             Switch(value: true, onChanged: (val) {}),
                             const SizedBox(width: 16),
-                            ElevatedButton(
+                            ElevatedButton(key: const Key('system_policy_editor_elevatedbutton_button_1'), 
                               onPressed: () {},
                               child: const Text('Save Changes'),
                             ),
@@ -109,7 +109,7 @@ class SystemPolicyEditor extends GovernedConsumerWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: TextField(
+                                child: TextField(key: const Key('system_policy_editor_textfield_input_1'), 
                                   maxLines: null,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,

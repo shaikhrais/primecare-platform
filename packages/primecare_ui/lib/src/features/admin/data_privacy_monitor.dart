@@ -24,7 +24,7 @@ class DataPrivacyMonitorScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('data_privacy_monitor_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(dataPrivacyProvider),
           ),
@@ -70,7 +70,7 @@ class DataPrivacyMonitorScreen extends GovernedConsumerWidget {
                                 leading: const Icon(Icons.warning, color: Colors.redAccent),
                                 title: Text('Unusual bulk export detected by User $index', style: theme.typography.h4),
                                 subtitle: const Text('Action requires immediate review.'),
-                                trailing: OutlinedButton(
+                                trailing: OutlinedButton(key: const Key('data_privacy_monitor_outlinedbutton_button_1'), 
                                   onPressed: () {},
                                   child: const Text('Investigate'),
                                 ),

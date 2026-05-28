@@ -145,7 +145,7 @@ class DashboardErrorWidget extends StatelessWidget {
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 24),
-            ElevatedButton(
+            ElevatedButton(key: const Key('prime_components_elevatedbutton_button_1'), 
               onPressed: onRetry,
               child: const Text('Retry Hydration'),
             ),
@@ -578,7 +578,7 @@ class PrimeButton extends StatelessWidget {
     );
 
     if (isGhost) {
-      return TextButton(
+      return TextButton(key: const Key('prime_components_textbutton_button_1'), 
         onPressed: isLoading ? null : onPressed,
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -592,7 +592,7 @@ class PrimeButton extends StatelessWidget {
 
     return SizedBox(
       width: isFullWidth ? double.infinity : null,
-      child: ElevatedButton(
+      child: ElevatedButton(key: const Key('prime_components_elevatedbutton_button_2'), 
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,

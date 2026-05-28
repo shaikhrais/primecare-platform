@@ -322,7 +322,7 @@ class GrowthPipeline extends GovernedConsumerWidget {
                         children: [
                           Expanded(
                             flex: 3,
-                            child: TextField(
+                            child: TextField(key: const Key('growth_pipeline_textfield_input_1'), 
                               decoration: InputDecoration(
                                 hintText: 'Search by franchisee name, ID, or territory...',
                                 prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -499,12 +499,12 @@ class GrowthPipeline extends GovernedConsumerWidget {
                                       const SizedBox(height: 8),
                                       Row(
                                         children: [
-                                          TextButton(
+                                          TextButton(key: const Key('growth_pipeline_textbutton_button_1'), 
                                             onPressed: () => controller.selectLead(leadId),
                                             child: const Text('Details'),
                                           ),
                                           const SizedBox(width: 8),
-                                          ElevatedButton(
+                                          ElevatedButton(key: const Key('growth_pipeline_elevatedbutton_button_1'), 
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: theme.colors.primary,
                                               foregroundColor: theme.colors.onPrimary,
@@ -556,7 +556,7 @@ class GrowthPipeline extends GovernedConsumerWidget {
                           'Franchise Details',
                           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
                         ),
-                        IconButton(
+                        IconButton(key: const Key('growth_pipeline_iconbutton_button_1'), 
                           icon: const Icon(LucideIcons.x),
                           onPressed: () => controller.selectLead(null),
                         ),
@@ -626,7 +626,7 @@ class GrowthPipeline extends GovernedConsumerWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 44,
-                        child: OutlinedButton(
+                        child: OutlinedButton(key: const Key('growth_pipeline_outlinedbutton_button_1'), 
                           onPressed: () => controller.requestTerritoryStudy((selectedLead['id'] as String)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -642,7 +642,7 @@ class GrowthPipeline extends GovernedConsumerWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 44,
-                        child: ElevatedButton(
+                        child: ElevatedButton(key: const Key('growth_pipeline_elevatedbutton_button_2'), 
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                             foregroundColor: Colors.white,

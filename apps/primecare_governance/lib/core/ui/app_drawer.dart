@@ -118,7 +118,7 @@ class AppDrawer extends ConsumerWidget {
               ],
             ),
           ),
-          IconButton(
+          IconButton(key: const Key('app_drawer_iconbutton_button_1'), 
             icon: Icon(Icons.close, size: 16, color: theme.colors.error),
             onPressed: () =>
                 ref.read(roleImpersonationProvider.notifier).impersonate(null),
@@ -382,7 +382,7 @@ class AppDrawer extends ConsumerWidget {
               ],
             ),
           ),
-          IconButton(
+          IconButton(key: const Key('app_drawer_iconbutton_button_2'), 
             icon: Icon(
               Icons.logout_outlined,
               color: theme.colors.error,

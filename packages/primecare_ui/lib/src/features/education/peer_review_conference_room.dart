@@ -20,7 +20,7 @@ class PeerReviewConferenceRoomScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('M&M Peer Review Room', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('peer_review_conference_room_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(peerReviewProvider),
           ),
@@ -85,7 +85,7 @@ class PeerReviewConferenceRoomScreen extends GovernedConsumerWidget {
                                 backgroundColor: (prCase['status'] as String) == 'Pending Review' ? Colors.orange : Colors.green,
                                 ),
                                 const SizedBox(height: 8),
-                                OutlinedButton(
+                                OutlinedButton(key: const Key('peer_review_conference_room_outlinedbutton_button_1'), 
                                   onPressed: () {},
                                   child: const Text('Join Discussion'),
                                 ),

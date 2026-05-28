@@ -24,7 +24,7 @@ class SecureMessageCenterScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('secure_message_center_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(messagesProvider),
           ),
@@ -54,7 +54,7 @@ class SecureMessageCenterScreen extends GovernedConsumerWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: TextField(
+                    child: TextField(key: const Key('secure_message_center_textfield_input_1'), 
                       decoration: InputDecoration(
                         hintText: 'Search Inbox...',
                         prefixIcon: const Icon(Icons.search),
@@ -121,8 +121,8 @@ class SecureMessageCenterScreen extends GovernedConsumerWidget {
                           ),
                           Row(
                             children: [
-                              IconButton(icon: const Icon(Icons.reply), onPressed: () {}),
-                              IconButton(icon: const Icon(Icons.archive), onPressed: () {}),
+                              IconButton(key: const Key('secure_message_center_iconbutton_button_2'), icon: const Icon(Icons.reply), onPressed: () {}),
+                              IconButton(key: const Key('secure_message_center_iconbutton_button_3'), icon: const Icon(Icons.archive), onPressed: () {}),
                             ],
                           ),
                         ],
@@ -147,7 +147,7 @@ class SecureMessageCenterScreen extends GovernedConsumerWidget {
                         children: [
                           IconButton(icon: const Icon(Icons.attach_file), onPressed: () {}),
                           Expanded(
-                            child: TextField(
+                            child: TextField(key: const Key('secure_message_center_textfield_input_2'), 
                               decoration: InputDecoration(
                                 hintText: 'Type a secure reply...',
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
@@ -156,7 +156,7 @@ class SecureMessageCenterScreen extends GovernedConsumerWidget {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          IconButton(
+                          IconButton(key: const Key('secure_message_center_iconbutton_button_5'), 
                             icon: Icon(Icons.send, color: theme.colors.primary),
                             onPressed: () {},
                           ),

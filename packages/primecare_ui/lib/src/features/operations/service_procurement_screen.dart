@@ -435,7 +435,7 @@ class _ServiceProcurementBodyState extends ConsumerState<_ServiceProcurementBody
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          OutlinedButton(
+                          OutlinedButton(key: const Key('service_procurement_screen_outlinedbutton_button_1'), 
                             style: OutlinedButton.styleFrom(
                               foregroundColor: theme.colors.error,
                               side: BorderSide(color: theme.colors.error.withValues(alpha: 0.4)),
@@ -445,7 +445,7 @@ class _ServiceProcurementBodyState extends ConsumerState<_ServiceProcurementBody
                             child: const Text('Decline', style: TextStyle(fontSize: 12)),
                           ),
                           const SizedBox(width: 8),
-                          ElevatedButton(
+                          ElevatedButton(key: const Key('service_procurement_screen_elevatedbutton_button_1'), 
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                               foregroundColor: Colors.white,
@@ -515,7 +515,7 @@ class _ServiceProcurementBodyState extends ConsumerState<_ServiceProcurementBody
           const SizedBox(height: 16),
 
           // Vendor Name field
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('service_procurement_screen_textfield_input_1'), 
             label: 'Vendor Name',
             hintText: 'e.g. SurgiCore Supplies, Biohazard Co...',
             controller: _vendorController,
@@ -551,7 +551,7 @@ class _ServiceProcurementBodyState extends ConsumerState<_ServiceProcurementBody
           const SizedBox(height: 16),
 
           // Total Cost field
-          PrimeCareTextField(
+          PrimeCareTextField(key: const Key('service_procurement_screen_textfield_input_2'), 
             label: 'Estimated Cost (USD)',
             hintText: 'e.g. 4500.00',
             controller: _costController,

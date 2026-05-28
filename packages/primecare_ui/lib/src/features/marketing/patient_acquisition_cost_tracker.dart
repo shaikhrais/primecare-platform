@@ -20,7 +20,7 @@ class PatientAcquisitionCostTrackerScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Patient Acquisition Cost (CAC)', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('patient_acquisition_cost_tracker_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(acquisitionCostProvider),
           ),

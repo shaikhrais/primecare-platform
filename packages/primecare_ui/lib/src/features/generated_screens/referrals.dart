@@ -251,12 +251,12 @@ class Referrals extends GovernedConsumerWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      OutlinedButton(
+                                      OutlinedButton(key: const Key('referrals_outlinedbutton_button_1'), 
                                         onPressed: () => controller.rejectReferral((item['id'] as String)),
                                         child: const Text('Decline'),
                                       ),
                                       const SizedBox(width: 8),
-                                      ElevatedButton(
+                                      ElevatedButton(key: const Key('referrals_elevatedbutton_button_1'), 
                                         onPressed: () => controller.acceptReferral((item['id'] as String)),
                                         child: const Text('Accept Referral'),
                                       ),

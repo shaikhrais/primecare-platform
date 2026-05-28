@@ -253,7 +253,7 @@ class IntakePipeline extends GovernedConsumerWidget {
           ],
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('intake_pipeline_iconbutton_button_1'), 
             icon: Icon(LucideIcons.plusCircle, color: theme.colors.primary),
             onPressed: () => controller.toggleCreateDrawer(true),
             tooltip: 'Add New Referral',
@@ -301,7 +301,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('intake_pipeline_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search pipeline referrals...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -458,7 +458,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
+              TextField(key: const Key('intake_pipeline_textfield_input_2'), 
                 decoration: InputDecoration(
                   labelText: 'Scheduled Date (YYYY-MM-DD)',
                   border: OutlineInputBorder(
@@ -471,11 +471,11 @@ class IntakePipeline extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('intake_pipeline_textbutton_button_1'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('intake_pipeline_elevatedbutton_button_1'), 
               onPressed: () {
                 controller.scheduleAssessment(intakeId, selectedNurse, dateVal);
                 Navigator.of(context).pop();
@@ -640,7 +640,7 @@ class _KanbanColumn extends StatelessWidget {
                               ),
                             ],
                             if (onAdvance != null) ...[
-                              ElevatedButton(
+                              ElevatedButton(key: const Key('intake_pipeline_elevatedbutton_button_2'), 
                                 onPressed: () => onAdvance!((intake['id'] as String)),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.primary,
@@ -751,7 +751,7 @@ class _NewIntakeFormDrawerState extends State<_NewIntakeFormDrawer> {
             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
-          TextField(
+          TextField(key: const Key('intake_pipeline_textfield_input_3'), 
             controller: _nameController,
             decoration: InputDecoration(
               labelText: 'Client Full Name',
@@ -761,7 +761,7 @@ class _NewIntakeFormDrawerState extends State<_NewIntakeFormDrawer> {
             ),
           ),
           const SizedBox(height: 16),
-          TextField(
+          TextField(key: const Key('intake_pipeline_textfield_input_4'), 
             controller: _sourceController,
             decoration: InputDecoration(
               labelText: 'Referral Lead Source',
@@ -796,7 +796,7 @@ class _NewIntakeFormDrawerState extends State<_NewIntakeFormDrawer> {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton(
+                child: OutlinedButton(key: const Key('intake_pipeline_outlinedbutton_button_1'), 
                   onPressed: widget.onCancel,
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -808,7 +808,7 @@ class _NewIntakeFormDrawerState extends State<_NewIntakeFormDrawer> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: ElevatedButton(
+                child: ElevatedButton(key: const Key('intake_pipeline_elevatedbutton_button_3'), 
                   onPressed: () {
                     if (_nameController.text.isNotEmpty && _sourceController.text.isNotEmpty) {
                       widget.onSubmit(_nameController.text, _sourceController.text, _selectedUrgency);

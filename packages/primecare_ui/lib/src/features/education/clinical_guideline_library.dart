@@ -20,7 +20,7 @@ class ClinicalGuidelineLibraryScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Clinical Guideline Library', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('clinical_guideline_library_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(clinicalGuidelinesProvider),
           ),
@@ -67,7 +67,7 @@ class ClinicalGuidelineLibraryScreen extends GovernedConsumerWidget {
                     const SizedBox(height: 4),
                     Text('Last Updated: ${guideline['last_updated']}', style: theme.typography.labelSmall),
                     const Spacer(),
-                    OutlinedButton(
+                    OutlinedButton(key: const Key('clinical_guideline_library_outlinedbutton_button_1'), 
                       onPressed: () {},
                       child: const Text('View Full Pathway'),
                     )

@@ -252,7 +252,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: TextButton(
+                  child: TextButton(key: const Key('login_view_textbutton_button_1'), 
                     onPressed: () => _showForgotPasswordDialog(context, controller),
                     child: Text(
                       'Forgot Password?',
@@ -324,7 +324,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
         ),
         actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         actions: [
-          TextButton(
+          TextButton(key: const Key('login_view_textbutton_button_2'), 
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'CANCEL',
@@ -334,7 +334,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
               ),
             ),
           ),
-          ElevatedButton(
+          ElevatedButton(key: const Key('login_view_elevatedbutton_button_1'), 
             onPressed: () async {
                Navigator.of(context).pop();
                await controller.forgotPassword(email);
@@ -527,7 +527,7 @@ class _ActionButtons extends StatelessWidget {
       children: [
         Cy(
           id: 'login-submit',
-          child: ElevatedButton(
+          child: ElevatedButton(key: const Key('login_view_elevatedbutton_button_2'), 
             onPressed: onLogin,
             style:
                 ElevatedButton.styleFrom(
@@ -553,7 +553,7 @@ class _ActionButtons extends StatelessWidget {
         ),
         if (!kReleaseMode) ...[
           const SizedBox(height: 16),
-          OutlinedButton(
+          OutlinedButton(key: const Key('login_view_outlinedbutton_button_1'), 
             onPressed: controller.loginWithDemo,
             style: OutlinedButton.styleFrom(
               foregroundColor: theme.colors.primary,

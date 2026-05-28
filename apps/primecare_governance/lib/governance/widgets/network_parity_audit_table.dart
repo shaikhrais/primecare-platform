@@ -136,7 +136,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     ),
                   ),
                   DataCell(
-                    IconButton(
+                    IconButton(key: const Key('network_parity_audit_table_iconbutton_button_1'), 
                       icon: Icon(
                         issue.autoRemediable ? Icons.auto_fix_high : Icons.build,
                         color: Colors.blue,

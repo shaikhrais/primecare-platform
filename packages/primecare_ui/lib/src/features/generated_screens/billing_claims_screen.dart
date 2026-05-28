@@ -289,7 +289,7 @@ class BillingClaimsScreen extends GovernedConsumerWidget {
                     ),
                     Row(
                       children: [
-                        OutlinedButton(
+                        OutlinedButton(key: const Key('billing_claims_screen_outlinedbutton_button_1'), 
                           onPressed: () => controller.toggleSelectAll(false),
                           child: const Text('Clear Selection'),
                         ),
@@ -458,7 +458,7 @@ class BillingClaimsScreen extends GovernedConsumerWidget {
                             child: Row(
                               children: [
                                 if (canSelect)
-                                  IconButton(
+                                  IconButton(key: const Key('billing_claims_screen_iconbutton_button_1'), 
                                     icon: const Icon(LucideIcons.checkCircle, color: Colors.green),
                                     onPressed: () => controller.manuallyReconcile((claim['id'] as String)),
                                     tooltip: 'Manually Approve',

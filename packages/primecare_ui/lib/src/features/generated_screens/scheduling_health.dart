@@ -260,7 +260,7 @@ class SchedulingHealth extends GovernedConsumerWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: TextField(
+                        child: TextField(key: const Key('scheduling_health_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by caregiver, client, or anomaly type...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -395,7 +395,7 @@ class SchedulingHealth extends GovernedConsumerWidget {
                                   ),
                                   const SizedBox(width: 16),
                                   if (isCritical)
-                                    ElevatedButton(
+                                    ElevatedButton(key: const Key('scheduling_health_elevatedbutton_button_1'), 
                                       onPressed: state.isResolvingConflict
                                           ? null
                                           : () => controller.resolveConflict(id),

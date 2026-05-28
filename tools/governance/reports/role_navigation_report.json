@@ -766,115 +766,115 @@
         "label": "Rn Dashboard",
         "icon": "dashboard",
         "screen_code": "rn_dashboard",
-        "route": "/rn/rn-dashboard"
+        "route": "/offices/clinical/roles/rn/dashboard"
       },
       {
         "label": "Rn Analytics",
         "icon": "menu",
         "screen_code": "rn_analytics",
-        "route": "/rn/rn-analytics"
+        "route": "/offices/clinical/roles/rn/rn-analytics"
       },
       {
         "label": "Rn Assessments",
         "icon": "menu",
         "screen_code": "rn_assessments",
-        "route": "/rn/rn-assessments"
+        "route": "/offices/clinical/roles/rn/rn-assessments"
       },
       {
         "label": "Rn Care Plans",
         "icon": "menu",
         "screen_code": "rn_care_plans",
-        "route": "/rn/rn-care-plans"
+        "route": "/offices/clinical/roles/rn/rn-care-plans"
       },
       {
         "label": "Rn Compliance",
         "icon": "menu",
         "screen_code": "rn_compliance",
-        "route": "/rn/rn-compliance"
+        "route": "/offices/clinical/roles/rn/rn-compliance"
       },
       {
         "label": "Rn Workflow",
         "icon": "trending_up",
         "screen_code": "rn_workflow",
-        "route": "/rn/rn-workflow"
+        "route": "/offices/clinical/roles/rn/rn-workflow"
       },
       {
         "label": "Rn Command Center",
         "icon": "menu",
         "screen_code": "rn_command_center",
-        "route": "/rn/rn-command-center"
+        "route": "/offices/clinical/roles/rn/rn-command-center"
       },
       {
         "label": "Rn Patient Charting",
         "icon": "person",
         "screen_code": "rn_patient_charting",
-        "route": "/rn/rn-patient-charting"
+        "route": "/offices/clinical/roles/rn/patient-charting"
       },
       {
         "label": "Rn Medications",
         "icon": "menu",
         "screen_code": "rn_medications",
-        "route": "/rn/rn-medications"
+        "route": "/offices/clinical/roles/rn/medications"
       },
       {
         "label": "Rn Vitals",
         "icon": "menu",
         "screen_code": "rn_vitals",
-        "route": "/rn/rn-vitals"
+        "route": "/offices/clinical/roles/rn/vitals"
       },
       {
         "label": "Rn Care Plan Review",
         "icon": "menu",
         "screen_code": "rn_care_plan_review",
-        "route": "/rn/rn-care-plan-review"
+        "route": "/offices/clinical/roles/rn/rn-care-plan-review"
       },
       {
         "label": "Rn Incident Review",
         "icon": "menu",
         "screen_code": "rn_incident_review",
-        "route": "/rn/rn-incident-review"
+        "route": "/offices/clinical/roles/rn/rn-incident-review"
       },
       {
         "label": "Rn Tasks",
         "icon": "menu",
         "screen_code": "rn_tasks",
-        "route": "/rn/rn-tasks"
+        "route": "/offices/clinical/roles/rn/rn-tasks"
       },
       {
         "label": "Rn Reports",
         "icon": "description",
         "screen_code": "rn_reports",
-        "route": "/rn/rn-reports"
+        "route": "/offices/clinical/roles/rn/rn-reports"
       },
       {
         "label": "Patient Charting",
         "icon": "person",
         "screen_code": "patient_charting",
-        "route": "/rn/patient-charting"
+        "route": "/offices/clinical/roles/rn/patient-charting"
       },
       {
         "label": "Medication Administration",
         "icon": "menu",
         "screen_code": "medication_administration",
-        "route": "/rn/medication-administration"
+        "route": "/offices/clinical/roles/rn/medication-administration"
       },
       {
         "label": "Care Plan Review",
         "icon": "menu",
         "screen_code": "care_plan_review",
-        "route": "/rn/care-plan-review"
+        "route": "/offices/clinical/roles/rn/care-plan-review"
       },
       {
         "label": "Incident Review",
         "icon": "menu",
         "screen_code": "incident_review",
-        "route": "/rn/incident-review"
+        "route": "/offices/clinical/roles/rn/incident-review"
       },
       {
         "label": "Shift Report",
         "icon": "description",
         "screen_code": "shift_report",
-        "route": "/rn/shift-report"
+        "route": "/offices/clinical/roles/rn/shift-report"
       }
     ],
     "topbar_config": {
@@ -4022,133 +4022,133 @@
         "label": "Psw Dashboard",
         "icon": "dashboard",
         "screen_code": "psw_dashboard",
-        "route": "/psw/psw-dashboard"
+        "route": "/offices/clinical/roles/psw/dashboard"
       },
       {
         "label": "Psw Analytics",
         "icon": "menu",
         "screen_code": "psw_analytics",
-        "route": "/psw/psw-analytics"
+        "route": "/offices/clinical/roles/psw/psw-analytics"
       },
       {
         "label": "Psw Clients",
         "icon": "person",
         "screen_code": "psw_clients",
-        "route": "/psw/psw-clients"
+        "route": "/offices/clinical/roles/psw/patient-profile"
       },
       {
         "label": "Psw Compliance",
         "icon": "menu",
         "screen_code": "psw_compliance",
-        "route": "/psw/psw-compliance"
+        "route": "/offices/clinical/roles/psw/psw-compliance"
       },
       {
         "label": "Psw Messages",
         "icon": "chat",
         "screen_code": "psw_messages",
-        "route": "/psw/psw-messages"
+        "route": "/offices/clinical/roles/psw/messages"
       },
       {
         "label": "Psw Shift Tracker",
         "icon": "menu",
         "screen_code": "psw_shift_tracker",
-        "route": "/psw/psw-shift-tracker"
+        "route": "/offices/clinical/roles/psw/schedule"
       },
       {
         "label": "Psw Tasks",
         "icon": "menu",
         "screen_code": "psw_tasks",
-        "route": "/psw/psw-tasks"
+        "route": "/offices/clinical/roles/psw/visit-checklist"
       },
       {
         "label": "Psw Visit Notes",
         "icon": "description",
         "screen_code": "psw_visit_notes",
-        "route": "/psw/psw-visit-notes"
+        "route": "/offices/clinical/roles/psw/visit-notes"
       },
       {
         "label": "Psw Workflow",
         "icon": "trending_up",
         "screen_code": "psw_workflow",
-        "route": "/psw/psw-workflow"
+        "route": "/offices/clinical/roles/psw/psw-workflow"
       },
       {
         "label": "Psw Command Center",
         "icon": "menu",
         "screen_code": "psw_command_center",
-        "route": "/psw/psw-command-center"
+        "route": "/offices/clinical/roles/psw/psw-command-center"
       },
       {
         "label": "Psw My Shifts",
         "icon": "menu",
         "screen_code": "psw_my_shifts",
-        "route": "/psw/psw-my-shifts"
+        "route": "/offices/clinical/roles/psw/psw-my-shifts"
       },
       {
         "label": "Psw Client Profile",
         "icon": "person",
         "screen_code": "psw_client_profile",
-        "route": "/psw/psw-client-profile"
+        "route": "/offices/clinical/roles/psw/psw-client-profile"
       },
       {
         "label": "Psw Visit Notes",
         "icon": "description",
         "screen_code": "psw_visit_notes",
-        "route": "/psw/psw-visit-notes"
+        "route": "/offices/clinical/roles/psw/visit-notes"
       },
       {
         "label": "Psw Vitals Log",
         "icon": "menu",
         "screen_code": "psw_vitals_log",
-        "route": "/psw/psw-vitals-log"
+        "route": "/offices/clinical/roles/psw/observation-vitals-log"
       },
       {
         "label": "Psw Incident Report",
         "icon": "description",
         "screen_code": "psw_incident_report",
-        "route": "/psw/psw-incident-report"
+        "route": "/offices/clinical/roles/psw/incident-report"
       },
       {
         "label": "Psw Care Plan",
         "icon": "menu",
         "screen_code": "psw_care_plan",
-        "route": "/psw/psw-care-plan"
+        "route": "/offices/clinical/roles/psw/care-plan"
       },
       {
         "label": "Psw Messages",
         "icon": "chat",
         "screen_code": "psw_messages",
-        "route": "/psw/psw-messages"
+        "route": "/offices/clinical/roles/psw/messages"
       },
       {
         "label": "Psw Documents",
         "icon": "description",
         "screen_code": "psw_documents",
-        "route": "/psw/psw-documents"
+        "route": "/offices/clinical/roles/psw/documents"
       },
       {
         "label": "Shift Tasks",
         "icon": "menu",
         "screen_code": "shift_tasks",
-        "route": "/psw/shift-tasks"
+        "route": "/offices/clinical/roles/psw/shift-tasks"
       },
       {
         "label": "Visit Notes",
         "icon": "description",
         "screen_code": "visit_notes",
-        "route": "/psw/visit-notes"
+        "route": "/offices/clinical/roles/psw/visit-notes"
       },
       {
         "label": "Vitals Entry",
         "icon": "menu",
         "screen_code": "vitals_entry",
-        "route": "/psw/vitals-entry"
+        "route": "/offices/clinical/roles/psw/vitals-entry"
       },
       {
         "label": "Incident Report",
         "icon": "description",
         "screen_code": "incident_report",
-        "route": "/psw/incident-report"
+        "route": "/offices/clinical/roles/psw/incident-report"
       }
     ],
     "topbar_config": {
@@ -4341,97 +4341,97 @@
         "label": "Rpn Dashboard",
         "icon": "dashboard",
         "screen_code": "rpn_dashboard",
-        "route": "/rpn/rpn-dashboard"
+        "route": "/offices/clinical/roles/rpn/dashboard"
       },
       {
         "label": "Rpn Analytics",
         "icon": "menu",
         "screen_code": "rpn_analytics",
-        "route": "/rpn/rpn-analytics"
+        "route": "/offices/clinical/roles/rpn/rpn-analytics"
       },
       {
         "label": "Rpn Compliance",
         "icon": "menu",
         "screen_code": "rpn_compliance",
-        "route": "/rpn/rpn-compliance"
+        "route": "/offices/clinical/roles/rpn/rpn-compliance"
       },
       {
         "label": "Rpn Workflow",
         "icon": "trending_up",
         "screen_code": "rpn_workflow",
-        "route": "/rpn/rpn-workflow"
+        "route": "/offices/clinical/roles/rpn/rpn-workflow"
       },
       {
         "label": "Rpn Command Center",
         "icon": "menu",
         "screen_code": "rpn_command_center",
-        "route": "/rpn/rpn-command-center"
+        "route": "/offices/clinical/roles/rpn/rpn-command-center"
       },
       {
         "label": "Rpn Patient Charting",
         "icon": "person",
         "screen_code": "rpn_patient_charting",
-        "route": "/rpn/rpn-patient-charting"
+        "route": "/offices/clinical/roles/rpn/patient-charting"
       },
       {
         "label": "Rpn Medications",
         "icon": "menu",
         "screen_code": "rpn_medications",
-        "route": "/rpn/rpn-medications"
+        "route": "/offices/clinical/roles/rpn/medications"
       },
       {
         "label": "Rpn Vitals",
         "icon": "menu",
         "screen_code": "rpn_vitals",
-        "route": "/rpn/rpn-vitals"
+        "route": "/offices/clinical/roles/rpn/vitals"
       },
       {
         "label": "Rpn Care Plan Review",
         "icon": "menu",
         "screen_code": "rpn_care_plan_review",
-        "route": "/rpn/rpn-care-plan-review"
+        "route": "/offices/clinical/roles/rpn/rpn-care-plan-review"
       },
       {
         "label": "Rpn Incident Review",
         "icon": "menu",
         "screen_code": "rpn_incident_review",
-        "route": "/rpn/rpn-incident-review"
+        "route": "/offices/clinical/roles/rpn/rpn-incident-review"
       },
       {
         "label": "Rpn Tasks",
         "icon": "menu",
         "screen_code": "rpn_tasks",
-        "route": "/rpn/rpn-tasks"
+        "route": "/offices/clinical/roles/rpn/rpn-tasks"
       },
       {
         "label": "Rpn Reports",
         "icon": "description",
         "screen_code": "rpn_reports",
-        "route": "/rpn/rpn-reports"
+        "route": "/offices/clinical/roles/rpn/rpn-reports"
       },
       {
         "label": "Nursing Task",
         "icon": "menu",
         "screen_code": "nursing_task",
-        "route": "/clinical/nursing-task"
+        "route": "/offices/clinical/roles/rpn/nursing-task"
       },
       {
         "label": "Vitals Tracking",
         "icon": "menu",
         "screen_code": "vitals_tracking",
-        "route": "/clinical/vitals-tracking"
+        "route": "/offices/clinical/roles/rpn/vitals-tracking"
       },
       {
         "label": "Medication",
         "icon": "menu",
         "screen_code": "medication",
-        "route": "/clinical/medication"
+        "route": "/offices/clinical/roles/rpn/medication"
       },
       {
         "label": "Patient Observation",
         "icon": "person",
         "screen_code": "patient_observation",
-        "route": "/clinical/patient-observation"
+        "route": "/offices/clinical/roles/rpn/patient-observation"
       }
     ],
     "topbar_config": {

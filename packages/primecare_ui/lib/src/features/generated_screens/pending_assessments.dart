@@ -228,7 +228,7 @@ class PendingAssessments extends GovernedConsumerWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('pending_assessments_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by client or assessment type...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -393,7 +393,7 @@ class PendingAssessments extends GovernedConsumerWidget {
                                           ),
                                           if (!isPending) ...[
                                             const SizedBox(width: 8),
-                                            ElevatedButton(
+                                            ElevatedButton(key: const Key('pending_assessments_elevatedbutton_button_1'), 
                                               onPressed: () => controller.completeAssessment((item['id'] as String)),
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: theme.colors.primary,
@@ -462,7 +462,7 @@ class PendingAssessments extends GovernedConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
+              TextField(key: const Key('pending_assessments_textfield_input_2'), 
                 decoration: InputDecoration(
                   labelText: 'Schedule Date (YYYY-MM-DD)',
                   border: OutlineInputBorder(
@@ -475,11 +475,11 @@ class PendingAssessments extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('pending_assessments_textbutton_button_1'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('pending_assessments_elevatedbutton_button_2'), 
               onPressed: () {
                 controller.scheduleAssessment(id: id, clinician: selectedClinician, date: dateStr);
                 Navigator.of(context).pop();

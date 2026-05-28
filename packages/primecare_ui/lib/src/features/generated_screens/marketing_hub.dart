@@ -279,7 +279,7 @@ class MarketingHub extends GovernedConsumerWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextField(key: const Key('marketing_hub_textfield_input_1'), 
                           decoration: InputDecoration(
                             hintText: 'Search by campaign title or type...',
                             prefixIcon: const Icon(LucideIcons.search, size: 20),
@@ -307,7 +307,7 @@ class MarketingHub extends GovernedConsumerWidget {
                         ],
                       ),
                       const SizedBox(width: 16),
-                      ElevatedButton(
+                      ElevatedButton(key: const Key('marketing_hub_elevatedbutton_button_1'), 
                         onPressed: () => _showLaunchDialog(context, controller),
                         child: const Text('Launch Campaign'),
                       ),
@@ -422,7 +422,7 @@ class MarketingHub extends GovernedConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 16),
-                                    ElevatedButton(
+                                    ElevatedButton(key: const Key('marketing_hub_elevatedbutton_button_2'), 
                                       onPressed: () => controller.toggleCampaign((camp['id'] as String)),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: isActive ? Colors.grey : theme.colors.primary,
@@ -470,7 +470,7 @@ class MarketingHub extends GovernedConsumerWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
+              TextField(key: const Key('marketing_hub_textfield_input_2'), 
                 controller: nameController,
                 decoration: InputDecoration(
                   labelText: 'Campaign Name',
@@ -498,7 +498,7 @@ class MarketingHub extends GovernedConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
+              TextField(key: const Key('marketing_hub_textfield_input_3'), 
                 controller: budgetController,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
@@ -511,11 +511,11 @@ class MarketingHub extends GovernedConsumerWidget {
             ],
           ),
           actions: [
-            TextButton(
+            TextButton(key: const Key('marketing_hub_textbutton_button_1'), 
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Cancel', style: TextStyle(color: theme.colors.onSurfaceVariant)),
             ),
-            ElevatedButton(
+            ElevatedButton(key: const Key('marketing_hub_elevatedbutton_button_3'), 
               onPressed: () {
                 final budget = double.tryParse(budgetController.text) ?? 0.0;
                 if (nameController.text.isNotEmpty && budget > 0) {

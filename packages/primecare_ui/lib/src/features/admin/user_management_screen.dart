@@ -27,7 +27,7 @@ class UserManagementScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('user_management_screen_iconbutton_button_1'), 
             icon: Icon(Icons.add, color: theme.colors.primary),
             onPressed: () {
               // Action to add user
@@ -86,7 +86,7 @@ class UserManagementScreen extends GovernedConsumerWidget {
                                   ),
                                   title: Text(user['name'] as String? ?? 'Unknown User', style: theme.typography.bodyLarge),
                                   subtitle: Text(user['role'] as String? ?? 'No Role Assigned', style: theme.typography.bodyMedium),
-                                  trailing: IconButton(
+                                  trailing: IconButton(key: const Key('user_management_screen_iconbutton_button_2'), 
                                     icon: const Icon(Icons.edit),
                                     onPressed: () {},
                                   ),

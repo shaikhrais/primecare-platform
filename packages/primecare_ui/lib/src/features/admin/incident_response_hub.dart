@@ -24,7 +24,7 @@ class IncidentResponseHubScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('incident_response_hub_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(activeIncidentsProvider),
           ),
@@ -91,7 +91,7 @@ class IncidentResponseHubScreen extends GovernedConsumerWidget {
                                     children: [
                                       Text('Lead: ${incident['lead'] ?? 'Unassigned'}', style: theme.typography.labelSmall),
                                       const Spacer(),
-                                      OutlinedButton(
+                                      OutlinedButton(key: const Key('incident_response_hub_outlinedbutton_button_1'), 
                                         onPressed: () {},
                                         child: const Text('Join War Room'),
                                       ),

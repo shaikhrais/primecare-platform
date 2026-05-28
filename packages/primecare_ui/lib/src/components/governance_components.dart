@@ -92,7 +92,7 @@ class GovDashboardHero extends StatelessWidget {
                 ],
               ),
               if (onRefresh != null)
-                IconButton(
+                IconButton(key: const Key('governance_components_iconbutton_button_1'), 
                   icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
                   onPressed: onRefresh,
                 ),
@@ -285,7 +285,7 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
             const SizedBox(height: 16),
             ...widget.fields.map((field) => Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: PrimeCareTextField(
+                  child: PrimeCareTextField(key: const Key('governance_components_textfield_input_1'), 
                     label: field,
                     hintText: 'Enter secure ${field.toLowerCase()}...',
                     controller: _controllers[field],
@@ -427,7 +427,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
                 ),
                 const SizedBox(height: 16),
                 // Search bar
-                TextField(
+                TextField(key: const Key('governance_components_textfield_input_2'), 
                   onChanged: (val) => setState(() => _searchQuery = val),
                   style: theme.typography.bodyMedium,
                   decoration: InputDecoration(

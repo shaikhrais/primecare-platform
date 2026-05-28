@@ -24,7 +24,7 @@ class SecurityIncidentLoggerScreen extends GovernedConsumerWidget {
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
         actions: [
-          IconButton(
+          IconButton(key: const Key('security_incident_logger_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(securityIncidentsProvider),
           ),
@@ -80,7 +80,7 @@ class SecurityIncidentLoggerScreen extends GovernedConsumerWidget {
                               children: [
                                 Text('Logged: ${incident['timestamp']}', style: theme.typography.labelSmall.copyWith(color: theme.colors.textSecondary)),
                                 const Spacer(),
-                                OutlinedButton(
+                                OutlinedButton(key: const Key('security_incident_logger_outlinedbutton_button_1'), 
                                   onPressed: () {},
                                   child: const Text('Update Status'),
                                 ),

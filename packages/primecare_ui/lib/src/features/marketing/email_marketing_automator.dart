@@ -20,7 +20,7 @@ class EmailMarketingAutomatorScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         title: Text('Email Marketing Automator', style: theme.typography.h3),
         actions: [
-          IconButton(
+          IconButton(key: const Key('email_marketing_automator_iconbutton_button_1'), 
             icon: Icon(Icons.refresh, color: theme.colors.primary),
             onPressed: () => ref.invalidate(emailJourneysProvider),
           ),

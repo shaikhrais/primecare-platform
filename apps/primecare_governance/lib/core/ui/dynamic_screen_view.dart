@@ -1512,7 +1512,7 @@ class _HifiIntakeFormWizardState extends State<HifiIntakeFormWizard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(
+                            TextButton(key: const Key('dynamic_screen_view_textbutton_button_1'), 
                               onPressed: () => setState(() => currentStep = 1),
                               child: const Text('Back'),
                             ),
@@ -1638,7 +1638,7 @@ class _HifiTelemetryDashboardState extends State<HifiTelemetryDashboard> {
                   ],
                 ),
                 const Spacer(),
-                IconButton(
+                IconButton(key: const Key('dynamic_screen_view_iconbutton_button_1'), 
                   icon: isRefreshing
                       ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
                       : const Icon(LucideIcons.refreshCw),
@@ -1987,7 +1987,7 @@ class _BlueprintSandboxViewState extends State<BlueprintSandboxView> {
                     ],
                   ),
                   SizedBox(height: context.s(16)),
-                  TextField(
+                  TextField(key: const Key('dynamic_screen_view_textfield_input_1'), 
                     style: const TextStyle(color: Colors.white, fontFamily: 'monospace'),
                     decoration: InputDecoration(
                       hintText: 'Filter keys (e.g. status)...',

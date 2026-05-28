@@ -255,7 +255,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_1'), 
               label: 'Target Patient',
               controller: patientController,
               validator: (val) {
@@ -264,7 +264,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_2'), 
               label: 'Anatomical Injury Location',
               controller: locationController,
               hintText: 'e.g. Sacrum, Right heel, Left forearm...',
@@ -274,7 +274,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_3'), 
               label: 'Treatment & Care Notes',
               controller: notesController,
               maxLines: 3,
@@ -366,7 +366,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_4'), 
               label: 'Target Patient',
               controller: patientController,
               validator: (val) {
@@ -445,7 +445,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(
+            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_5'), 
               label: 'Vaccine Lot Number',
               controller: lotController,
               hintText: 'e.g. LOT-558833',

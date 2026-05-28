@@ -99,7 +99,7 @@ class MasterLayout extends ConsumerWidget {
           scrolledUnderElevation: 0,
           actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
           leading: Builder(
-            builder: (context) => IconButton(
+            builder: (context) => IconButton(key: const Key('master_layout_iconbutton_button_1'), 
               icon: Icon(LucideIcons.menu, color: theme.colors.primary),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
@@ -173,7 +173,7 @@ class MasterLayout extends ConsumerWidget {
       Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(
+          IconButton(key: const Key('master_layout_iconbutton_button_2'), 
             tooltip: 'Zoom Out',
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomOut();
@@ -210,7 +210,7 @@ class MasterLayout extends ConsumerWidget {
               ),
             ),
           ),
-          IconButton(
+          IconButton(key: const Key('master_layout_iconbutton_button_3'), 
             tooltip: 'Zoom In',
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomIn();
@@ -286,7 +286,7 @@ class MasterLayout extends ConsumerWidget {
         ),
       ),
       const SizedBox(width: 8),
-      IconButton(
+      IconButton(key: const Key('master_layout_iconbutton_button_4'), 
         onPressed: () {},
         icon: Icon(LucideIcons.search, color: theme.colors.onSurfaceVariant),
       ),
