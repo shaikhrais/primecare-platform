@@ -121,10 +121,12 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       // Force clear all storage to prevent session bleeding
       cy.clearCookies();
       cy.clearLocalStorage();
-      cy.clearSessionStorage();
 
       // Ensure we are on the login view by checking the active path
       cy.window().then((win) => {
+        try {
+          win.sessionStorage.clear();
+        } catch (_) {}
         if (!win.location.pathname.includes("/login")) {
           cy.log("SSO Portal: Bypassing stale session and navigating to clean login page...");
           win.location.href = `/login?redirect_uri=${encodeURIComponent(user.redirect_url)}`;
