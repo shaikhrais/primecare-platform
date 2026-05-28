@@ -118,6 +118,20 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
 
     // Perform SSO authentication dynamically inside cy.origin block
     cy.origin("https://primecare-auth.pages.dev", { args: { user, password } }, ({ user, password }) => {
+      // Force clear all storage to prevent session bleeding
+      cy.clearCookies();
+      cy.clearLocalStorage();
+      cy.clearSessionStorage();
+
+      // Ensure we are on the login view by checking the active path
+      cy.window().then((win) => {
+        if (!win.location.pathname.includes("/login")) {
+          cy.log("SSO Portal: Bypassing stale session and navigating to clean login page...");
+          win.location.href = `/login?redirect_uri=${encodeURIComponent(user.redirect_url)}`;
+          cy.wait(3000);
+        }
+      });
+
       // Wait for page/DOM to load and check if the login form is present
       cy.document().then((doc) => {
         const hasLoginForm = doc.querySelector('input[type="password"]');
