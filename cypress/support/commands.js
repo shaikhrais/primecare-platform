@@ -91,6 +91,9 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     cy.get('input[type="password"]', { includeShadowDom: true })
       .type(password, { log: false, force: true });
 
+    // Take screenshot of the filled login form before initiating session to prevent transition-based blank screenshots
+    cy.screenshot(`auth-login-${roleCode}`);
+
     // Handle "INITIATE SESSION" click with fallback to generic submit if needed
     cy.document().then((doc) => {
       const hasInitiateSession = doc.body.innerText.includes("INITIATE SESSION");
@@ -106,8 +109,6 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     cy.get("body").invoke("text").should((text) => {
       expect(text.trim().length).to.be.greaterThan(5);
     });
-
-    cy.screenshot(`auth-login-${roleCode}`);
   });
 });
 
