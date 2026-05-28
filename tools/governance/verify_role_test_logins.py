@@ -31,7 +31,7 @@ def main():
 
     # Load roles with test credentials
     roles = cur.execute("""
-        SELECT id, role_code, role_name, test_email
+        SELECT id, role_code, role_name, test_email, test_password
         FROM roles
         WHERE test_email IS NOT NULL AND test_email != '';
     """).fetchall()
@@ -43,6 +43,7 @@ def main():
     for r in roles:
         role_code = r["role_code"]
         email = r["test_email"]
+        password = r["test_password"] or default_password
         print(f"\n[Verify] Role: {role_code} -> Email: {email}...")
 
         # If base_url is not set, we cannot make live API calls.
@@ -76,7 +77,7 @@ def main():
         url = f"{base_url.rstrip('/')}/login" if "auth-api" in base_url else f"{base_url.rstrip('/')}/v1/auth/login"
         payload = {
             "email": email,
-            "password": default_password
+            "password": password
         }
         
         headers = {

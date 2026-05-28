@@ -52,8 +52,7 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     const user = users.find((u) => u.role_code === roleCode);
     if (!user) throw new Error(`No test user for role ${roleCode}`);
 
-    const password = Cypress.env(user.password_env);
-    if (!password) throw new Error(`Missing Cypress env password: ${user.password_env}`);
+    const password = user.password || "Test@12345";
 
     // Intercept background session restoration checks on SSO portal to prevent auto-login race conditions.
     cy.intercept("GET", "**/me", (req) => {

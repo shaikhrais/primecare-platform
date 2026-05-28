@@ -35,7 +35,7 @@ def main():
 
     # Load pending seed user records
     seeds = cur.execute("""
-        SELECT id, role_id, app_id, role_code, test_email, password_secret_ref, seed_status
+        SELECT id, role_id, app_id, role_code, test_email, test_password, seed_status
         FROM role_test_user_seeds
         WHERE seed_status NOT IN ('created', 'exists');
     """).fetchall()
@@ -49,9 +49,10 @@ def main():
         seed_id = s["id"]
         role_code = s["role_code"]
         email = s["test_email"]
+        password = s["test_password"] or default_password
         print(f"\n[Seed] Role: {role_code} -> Email: {email}...")
 
-        # If base_url is not provided, we fall back to registering seed failure
+        # If base_url is not provided, we gracefully register seed failure
         if not base_url:
             print("  Warning: TEST_API_BASE_URL is not set. Seeding API is currently unavailable.")
             cur.execute("""
@@ -78,14 +79,14 @@ def main():
         url = f"{base_url.rstrip('/')}/v1/test/seed-role-user"
         payload = {
             "email": email,
-            "password": default_password,
+            "password": password,
             "roleCode": role_code,
             "appCode": "primecare_clinic"
         }
         
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {default_password}",
+            "Authorization": f"Bearer {password}",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
         }
         

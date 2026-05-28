@@ -20,6 +20,7 @@ def main():
     columns_to_add = [
         ("test_email", "TEXT"),
         ("test_password_secret_ref", "TEXT DEFAULT 'TEST_DEFAULT_PASSWORD'"),
+        ("test_password", "TEXT DEFAULT 'Test@12345'"),
         ("test_user_seed_status", "TEXT DEFAULT 'not_seeded'"),
         ("test_user_id", "TEXT"),
         ("test_login_verified", "INTEGER DEFAULT 0"),
@@ -28,7 +29,7 @@ def main():
         ("test_login_last_run_at", "TEXT")
     ]
 
-    # Get existing columns
+    # Get existing columns of roles table
     cur.execute("PRAGMA table_info(roles);")
     existing_cols = [row[1] for row in cur.fetchall()]
 
@@ -39,7 +40,7 @@ def main():
         else:
             print(f"Column '{col_name}' already exists in roles table.")
 
-    # 2. Create seed tracking table
+    # 2. Create/update seed tracking table
     print("Creating role_test_user_seeds table if not exists...")
     cur.execute("""
     CREATE TABLE IF NOT EXISTS role_test_user_seeds (
@@ -51,6 +52,7 @@ def main():
       role_code TEXT NOT NULL,
       test_email TEXT NOT NULL,
       password_secret_ref TEXT DEFAULT 'TEST_DEFAULT_PASSWORD',
+      test_password TEXT DEFAULT 'Test@12345',
 
       seed_source TEXT DEFAULT 'api',
       -- api, db, manual
@@ -76,31 +78,54 @@ def main():
     );
     """)
 
-    # 3. Generate test email for every role
-    print("Generating standard test emails for all roles...")
+    # Ensure role_test_user_seeds also has test_password if table already existed
+    cur.execute("PRAGMA table_info(role_test_user_seeds);")
+    existing_seed_cols = [row[1] for row in cur.fetchall()]
+    if "test_password" not in existing_seed_cols:
+        print("Adding column 'test_password' to role_test_user_seeds table...")
+        cur.execute("ALTER TABLE role_test_user_seeds ADD COLUMN test_password TEXT DEFAULT 'Test@12345';")
+
+    # 3. Generate test email and populate flat password for every role
+    print("Generating standard test emails and flat passwords for all roles...")
     cur.execute("""
     UPDATE roles
     SET
       test_email = 'qa.' || lower(replace(role_code, ' ', '_')) || '@test.primecare.local',
+      test_password = 'Test@12345',
       test_password_secret_ref = 'TEST_DEFAULT_PASSWORD'
-    WHERE test_email IS NULL OR test_email = '';
+    WHERE test_email IS NULL OR test_email = '' OR test_password IS NULL OR test_password = '';
+    """)
+
+    # Make sure even already set rows have the flat password
+    cur.execute("""
+    UPDATE roles
+    SET test_password = 'Test@12345'
+    WHERE test_password IS NULL OR test_password = '';
     """)
 
     # 4. Insert role seed records
     print("Inserting seed tracking records into role_test_user_seeds...")
     cur.execute("""
     INSERT OR IGNORE INTO role_test_user_seeds
-    (role_id, app_id, role_code, test_email, password_secret_ref, seed_status)
+    (role_id, app_id, role_code, test_email, password_secret_ref, test_password, seed_status)
     SELECT
       id,
       NULL,
       role_code,
       test_email,
       'TEST_DEFAULT_PASSWORD',
+      'Test@12345',
       'pending'
     FROM roles
     WHERE test_email IS NOT NULL
       AND test_email != '';
+    """)
+
+    # Ensure existing rows in role_test_user_seeds have test_password set
+    cur.execute("""
+    UPDATE role_test_user_seeds
+    SET test_password = 'Test@12345'
+    WHERE test_password IS NULL OR test_password = '';
     """)
 
     conn.commit()
