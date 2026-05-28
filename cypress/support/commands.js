@@ -44,6 +44,10 @@ Cypress.Commands.add("verifyShellExists", () => {
 });
 
 Cypress.Commands.add("loginAsRole", (roleCode) => {
+  cy.clearAllCookies();
+  cy.clearAllLocalStorage();
+  cy.clearAllSessionStorage();
+
   cy.fixture("governance/test_users.json").then((users) => {
     const user = users.find((u) => u.role_code === roleCode);
     if (!user) throw new Error(`No test user for role ${roleCode}`);
