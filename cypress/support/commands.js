@@ -65,9 +65,19 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     cy.visit("/?enable-semantics=true#/login");
     cy.wait(1000);
     
-    // Clear all storage for the origin (clearing SharedPreferences)
+    // Clear all storage for the origin (clearing SharedPreferences, sessionStorage, and IndexedDB)
     cy.clearLocalStorage();
     cy.clearCookies();
+    cy.window().then((win) => {
+      win.sessionStorage.clear();
+      if (win.indexedDB && win.indexedDB.databases) {
+        win.indexedDB.databases().then((dbs) => {
+          dbs.forEach((db) => {
+            win.indexedDB.deleteDatabase(db.name);
+          });
+        });
+      }
+    });
     
     // Re-visit to force rendering a clean form with pathname /
     cy.visit("/?enable-semantics=true#/login");
