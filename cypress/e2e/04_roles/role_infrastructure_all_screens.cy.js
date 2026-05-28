@@ -8,7 +8,7 @@ describe("Role All Screens - infrastructure", () => {
     cy.loginAsRole("infrastructure");
 
 
-  cy.visit("/common/infrastructure-dashboard");
+  cy.visitWithSemantics("/common/infrastructure-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_dashboard");
 
-  cy.visit("/common/architecture-planning-analytics");
+  cy.visitWithSemantics("/common/architecture-planning-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_analytics");
 
-  cy.visit("/common/architecture-planning-compliance");
+  cy.visitWithSemantics("/common/architecture-planning-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_compliance");
 
-  cy.visit("/common/architecture-planning-workflow");
+  cy.visitWithSemantics("/common/architecture-planning-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_workflow");
 
-  cy.visit("/common/infrastructure-analytics");
+  cy.visitWithSemantics("/common/infrastructure-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_analytics");
 
-  cy.visit("/common/infrastructure-compliance");
+  cy.visitWithSemantics("/common/infrastructure-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - infrastructure", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_compliance");
 
-  cy.visit("/common/infrastructure-workflow");
+  cy.visitWithSemantics("/common/infrastructure-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

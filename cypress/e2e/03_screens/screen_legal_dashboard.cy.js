@@ -7,7 +7,7 @@ describe("Screen - legal_dashboard", () => {
   it("opens and verifies screen legal_dashboard", () => {
     cy.loginAsRole("legal");
 
-  cy.visit("/executive/legal-dashboard");
+  cy.visitWithSemantics("/executive/legal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

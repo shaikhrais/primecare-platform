@@ -7,7 +7,7 @@ describe("Screen - claims_processing", () => {
   it("opens and verifies screen claims_processing", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/claims-processing");
+  cy.visitWithSemantics("/staff/claims-processing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

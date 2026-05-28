@@ -7,7 +7,7 @@ describe("Screen - release_management", () => {
   it("opens and verifies screen release_management", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/executive/release-management");
+  cy.visitWithSemantics("/executive/release-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

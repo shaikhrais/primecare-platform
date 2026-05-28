@@ -7,7 +7,7 @@ describe("Screen - coo_staffing", () => {
   it("opens and verifies screen coo_staffing", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-staffing");
+  cy.visitWithSemantics("/executive/coo-staffing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

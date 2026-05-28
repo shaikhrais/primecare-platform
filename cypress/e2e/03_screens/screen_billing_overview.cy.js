@@ -7,7 +7,7 @@ describe("Screen - billing_overview", () => {
   it("opens and verifies screen billing_overview", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/billing-overview");
+  cy.visitWithSemantics("/common/billing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

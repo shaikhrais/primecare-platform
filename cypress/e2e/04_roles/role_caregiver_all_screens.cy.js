@@ -8,7 +8,7 @@ describe("Role All Screens - caregiver", () => {
     cy.loginAsRole("caregiver");
 
 
-  cy.visit("/common/caregiver-dashboard");
+  cy.visitWithSemantics("/common/caregiver-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_dashboard");
 
-  cy.visit("/psw/caregiver-tasks");
+  cy.visitWithSemantics("/psw/caregiver-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_tasks");
 
-  cy.visit("/psw/caregiver-client-profile");
+  cy.visitWithSemantics("/psw/caregiver-client-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_client_profile");
 
-  cy.visit("/psw/caregiver-visit-notes");
+  cy.visitWithSemantics("/psw/caregiver-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_visit_notes");
 
-  cy.visit("/psw/caregiver-schedule");
+  cy.visitWithSemantics("/psw/caregiver-schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_schedule");
 
-  cy.visit("/psw/caregiver-incident-report");
+  cy.visitWithSemantics("/psw/caregiver-incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_incident_report");
 
-  cy.visit("/psw/schedule");
+  cy.visitWithSemantics("/psw/schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - caregiver", () => {
   cy.waitAndSee();
   cy.screenshot("schedule");
 
-  cy.visit("/psw/messaging");
+  cy.visitWithSemantics("/psw/messaging");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

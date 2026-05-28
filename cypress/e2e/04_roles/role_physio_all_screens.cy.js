@@ -8,7 +8,7 @@ describe("Role All Screens - physio", () => {
     cy.loginAsRole("physio");
 
 
-  cy.visit("/common/physiotherapist-dashboard");
+  cy.visitWithSemantics("/common/physiotherapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_dashboard");
 
-  cy.visit("/common/physiotherapist-analytics");
+  cy.visitWithSemantics("/common/physiotherapist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_analytics");
 
-  cy.visit("/common/physiotherapist-compliance");
+  cy.visitWithSemantics("/common/physiotherapist-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_compliance");
 
-  cy.visit("/common/physiotherapist-workflow");
+  cy.visitWithSemantics("/common/physiotherapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_workflow");
 
-  cy.visit("/allied/physiotherapist-command-center");
+  cy.visitWithSemantics("/allied/physiotherapist-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_command_center");
 
-  cy.visit("/allied/physiotherapist-appointments");
+  cy.visitWithSemantics("/allied/physiotherapist-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_appointments");
 
-  cy.visit("/allied/physiotherapist-client-intake");
+  cy.visitWithSemantics("/allied/physiotherapist-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_client_intake");
 
-  cy.visit("/allied/physiotherapist-assessment");
+  cy.visitWithSemantics("/allied/physiotherapist-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_assessment");
 
-  cy.visit("/allied/physiotherapist-treatment-notes");
+  cy.visitWithSemantics("/allied/physiotherapist-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_treatment_notes");
 
-  cy.visit("/allied/physiotherapist-exercise-plan");
+  cy.visitWithSemantics("/allied/physiotherapist-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_exercise_plan");
 
-  cy.visit("/allied/physiotherapist-billing-link");
+  cy.visitWithSemantics("/allied/physiotherapist-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_billing_link");
 
-  cy.visit("/allied/physiotherapist-reports");
+  cy.visitWithSemantics("/allied/physiotherapist-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_reports");
 
-  cy.visit("/clinical/assessment");
+  cy.visitWithSemantics("/clinical/assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("assessment");
 
-  cy.visit("/clinical/treatment-plan");
+  cy.visitWithSemantics("/clinical/treatment-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("treatment_plan");
 
-  cy.visit("/clinical/exercise-prescription");
+  cy.visitWithSemantics("/clinical/exercise-prescription");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - physio", () => {
   cy.waitAndSee();
   cy.screenshot("exercise_prescription");
 
-  cy.visit("/clinical/progress-tracking");
+  cy.visitWithSemantics("/clinical/progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

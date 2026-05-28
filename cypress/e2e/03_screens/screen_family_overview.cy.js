@@ -7,7 +7,7 @@ describe("Screen - family_overview", () => {
   it("opens and verifies screen family_overview", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/family-overview");
+  cy.visitWithSemantics("/common/family-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - psw_command_center", () => {
   it("opens and verifies screen psw_command_center", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-command-center");
+  cy.visitWithSemantics("/psw/psw-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

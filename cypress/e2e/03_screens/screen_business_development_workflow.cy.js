@@ -7,7 +7,7 @@ describe("Screen - business_development_workflow", () => {
   it("opens and verifies screen business_development_workflow", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/common/business-development-workflow");
+  cy.visitWithSemantics("/common/business-development-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

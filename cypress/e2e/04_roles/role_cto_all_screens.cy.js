@@ -8,7 +8,7 @@ describe("Role All Screens - cto", () => {
     cy.loginAsRole("cto");
 
 
-  cy.visit("/clinical/clinical-dashboard");
+  cy.visitWithSemantics("/clinical/clinical-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
 
-  cy.visit("/common/architecture-planning-dashboard");
+  cy.visitWithSemantics("/common/architecture-planning-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_dashboard");
 
-  cy.visit("/common/chiropractor-dashboard");
+  cy.visitWithSemantics("/common/chiropractor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
 
-  cy.visit("/common/clinic-dashboard");
+  cy.visitWithSemantics("/common/clinic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
 
-  cy.visit("/common/course-architect-dashboard");
+  cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
-  cy.visit("/executive/cto-dashboard");
+  cy.visitWithSemantics("/executive/cto-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cto_dashboard");
 
-  cy.visit("/executive/cx-director-dashboard");
+  cy.visitWithSemantics("/executive/cx-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
 
-  cy.visit("/executive/finance-director-dashboard");
+  cy.visitWithSemantics("/executive/finance-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
 
-  cy.visit("/executive/hr-director-dashboard");
+  cy.visitWithSemantics("/executive/hr-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
 
-  cy.visit("/executive/training-director-dashboard");
+  cy.visitWithSemantics("/executive/training-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
-  cy.visit("/staff/hr-manager-dashboard");
+  cy.visitWithSemantics("/staff/hr-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_dashboard");
 
-  cy.visit("/clinical/clinical-analytics");
+  cy.visitWithSemantics("/clinical/clinical-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
 
-  cy.visit("/clinical/clinical-compliance");
+  cy.visitWithSemantics("/clinical/clinical-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
 
-  cy.visit("/clinical/clinical-workflow");
+  cy.visitWithSemantics("/clinical/clinical-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
 
-  cy.visit("/common/chiropractor-analytics");
+  cy.visitWithSemantics("/common/chiropractor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
 
-  cy.visit("/common/chiropractor-compliance");
+  cy.visitWithSemantics("/common/chiropractor-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
-  cy.visit("/common/chiropractor-workflow");
+  cy.visitWithSemantics("/common/chiropractor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
 
-  cy.visit("/common/clinic-analytics");
+  cy.visitWithSemantics("/common/clinic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
 
-  cy.visit("/common/clinic-compliance");
+  cy.visitWithSemantics("/common/clinic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
 
-  cy.visit("/common/clinic-workflow");
+  cy.visitWithSemantics("/common/clinic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -248,7 +248,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
 
-  cy.visit("/common/course-architect-analytics");
+  cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -260,7 +260,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
-  cy.visit("/common/course-architect-compliance");
+  cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -272,7 +272,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -284,7 +284,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
 
-  cy.visit("/executive/cto-analytics");
+  cy.visitWithSemantics("/executive/cto-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -296,7 +296,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cto_analytics");
 
-  cy.visit("/executive/cto-compliance");
+  cy.visitWithSemantics("/executive/cto-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -308,7 +308,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cto_compliance");
 
-  cy.visit("/executive/cto-workflow");
+  cy.visitWithSemantics("/executive/cto-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -320,7 +320,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cto_workflow");
 
-  cy.visit("/executive/cx-director-analytics");
+  cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -332,7 +332,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
 
-  cy.visit("/executive/cx-director-compliance");
+  cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -344,7 +344,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
 
-  cy.visit("/executive/cx-director-workflow");
+  cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -356,7 +356,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_workflow");
 
-  cy.visit("/executive/finance-director-analytics");
+  cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -368,7 +368,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
 
-  cy.visit("/executive/finance-director-compliance");
+  cy.visitWithSemantics("/executive/finance-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -380,7 +380,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
 
-  cy.visit("/executive/finance-director-workflow");
+  cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -392,7 +392,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_workflow");
 
-  cy.visit("/executive/hr-director-analytics");
+  cy.visitWithSemantics("/executive/hr-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -404,7 +404,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
 
-  cy.visit("/executive/hr-director-compliance");
+  cy.visitWithSemantics("/executive/hr-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -416,7 +416,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_compliance");
 
-  cy.visit("/executive/hr-director-workflow");
+  cy.visitWithSemantics("/executive/hr-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -428,7 +428,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_workflow");
 
-  cy.visit("/staff/hr-manager-analytics");
+  cy.visitWithSemantics("/staff/hr-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -440,7 +440,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_analytics");
 
-  cy.visit("/staff/hr-manager-compliance");
+  cy.visitWithSemantics("/staff/hr-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -452,7 +452,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_compliance");
 
-  cy.visit("/staff/hr-manager-workflow");
+  cy.visitWithSemantics("/staff/hr-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -464,7 +464,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_workflow");
 
-  cy.visit("/allied/chiropractor-command-center");
+  cy.visitWithSemantics("/allied/chiropractor-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -476,7 +476,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
 
-  cy.visit("/allied/chiropractor-appointments");
+  cy.visitWithSemantics("/allied/chiropractor-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -488,7 +488,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
 
-  cy.visit("/allied/chiropractor-client-intake");
+  cy.visitWithSemantics("/allied/chiropractor-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -500,7 +500,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
 
-  cy.visit("/allied/chiropractor-assessment");
+  cy.visitWithSemantics("/allied/chiropractor-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -512,7 +512,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
 
-  cy.visit("/allied/chiropractor-treatment-notes");
+  cy.visitWithSemantics("/allied/chiropractor-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -524,7 +524,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
 
-  cy.visit("/allied/chiropractor-exercise-plan");
+  cy.visitWithSemantics("/allied/chiropractor-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -536,7 +536,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
 
-  cy.visit("/allied/chiropractor-billing-link");
+  cy.visitWithSemantics("/allied/chiropractor-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -548,7 +548,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
 
-  cy.visit("/allied/chiropractor-reports");
+  cy.visitWithSemantics("/allied/chiropractor-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -560,7 +560,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
 
-  cy.visit("/clinical/clinical-director-staff-quality");
+  cy.visitWithSemantics("/clinical/clinical-director-staff-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -572,7 +572,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
 
-  cy.visit("/clinical/clinical-director-incident-review");
+  cy.visitWithSemantics("/clinical/clinical-director-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -584,7 +584,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
 
-  cy.visit("/clinical/clinical-director-compliance");
+  cy.visitWithSemantics("/clinical/clinical-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -596,7 +596,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
 
-  cy.visit("/clinical/clinical-director-reports");
+  cy.visitWithSemantics("/clinical/clinical-director-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -608,7 +608,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
 
-  cy.visit("/clinical/clinical-director-approvals");
+  cy.visitWithSemantics("/clinical/clinical-director-approvals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -620,7 +620,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
 
-  cy.visit("/clinical/clinical-director-performance");
+  cy.visitWithSemantics("/clinical/clinical-director-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -632,7 +632,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
 
-  cy.visit("/executive/hr-director-hiring-pipeline");
+  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -644,7 +644,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_hiring_pipeline");
 
-  cy.visit("/executive/hr-director-staff-files");
+  cy.visitWithSemantics("/executive/hr-director-staff-files");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -656,7 +656,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_staff_files");
 
-  cy.visit("/executive/hr-director-training");
+  cy.visitWithSemantics("/executive/hr-director-training");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -668,7 +668,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_training");
 
-  cy.visit("/executive/hr-director-credential-expiry");
+  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -680,7 +680,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_credential_expiry");
 
-  cy.visit("/executive/hr-director-onboarding");
+  cy.visitWithSemantics("/executive/hr-director-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -692,7 +692,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_onboarding");
 
-  cy.visit("/executive/system-health");
+  cy.visitWithSemantics("/executive/system-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -704,7 +704,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("system_health");
 
-  cy.visit("/executive/api-monitoring");
+  cy.visitWithSemantics("/executive/api-monitoring");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -716,7 +716,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("api_monitoring");
 
-  cy.visit("/executive/deployment-center");
+  cy.visitWithSemantics("/executive/deployment-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -728,7 +728,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("deployment_center");
 
-  cy.visit("/executive/security-audit");
+  cy.visitWithSemantics("/executive/security-audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -740,7 +740,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("security_audit");
 
-  cy.visit("/executive/release-management");
+  cy.visitWithSemantics("/executive/release-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -752,7 +752,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("release_management");
 
-  cy.visit("/management/hiring-pipeline");
+  cy.visitWithSemantics("/management/hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -764,7 +764,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("hiring_pipeline");
 
-  cy.visit("/management/employee-records");
+  cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -776,7 +776,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("employee_records");
 
-  cy.visit("/management/credential-expiry");
+  cy.visitWithSemantics("/management/credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -788,7 +788,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("credential_expiry");
 
-  cy.visit("/management/training-management");
+  cy.visitWithSemantics("/management/training-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -800,7 +800,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("training_management");
 
-  cy.visit("/management/onboarding");
+  cy.visitWithSemantics("/management/onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -812,7 +812,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("onboarding");
 
-  cy.visit("/allied/chiropractic-assessment");
+  cy.visitWithSemantics("/allied/chiropractic-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -824,7 +824,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
 
-  cy.visit("/allied/adjustment-notes");
+  cy.visitWithSemantics("/allied/adjustment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -836,7 +836,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
 
-  cy.visit("/allied/xray-review");
+  cy.visitWithSemantics("/allied/xray-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -848,7 +848,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("xray_review");
 
-  cy.visit("/allied/chiropractic-progress-tracking");
+  cy.visitWithSemantics("/allied/chiropractic-progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -860,7 +860,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_progress_tracking");
 
-  cy.visit("/clinical/clinical-quality");
+  cy.visitWithSemantics("/clinical/clinical-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -872,7 +872,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
 
-  cy.visit("/clinical/staff-performance");
+  cy.visitWithSemantics("/clinical/staff-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -884,7 +884,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("staff_performance");
 
-  cy.visit("/clinical/compliance-review");
+  cy.visitWithSemantics("/clinical/compliance-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -896,7 +896,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_review");
 
-  cy.visit("/clinical/incident-oversight");
+  cy.visitWithSemantics("/clinical/incident-oversight");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -908,7 +908,7 @@ describe("Role All Screens - cto", () => {
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
 
-  cy.visit("/clinical/clinical-operations4-k");
+  cy.visitWithSemantics("/clinical/clinical-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

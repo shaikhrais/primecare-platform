@@ -7,7 +7,7 @@ describe("Screen - partnership_management", () => {
   it("opens and verifies screen partnership_management", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/management/partnership-management");
+  cy.visitWithSemantics("/management/partnership-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

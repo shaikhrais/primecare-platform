@@ -7,7 +7,7 @@ describe("Screen - service_issue", () => {
   it("opens and verifies screen service_issue", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/service-issue");
+  cy.visitWithSemantics("/management/service-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

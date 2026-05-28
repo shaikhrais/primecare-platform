@@ -7,7 +7,7 @@ describe("Screen - rmt_billing_link", () => {
   it("opens and verifies screen rmt_billing_link", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-billing-link");
+  cy.visitWithSemantics("/allied/rmt-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

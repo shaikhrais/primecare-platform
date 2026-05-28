@@ -153,7 +153,7 @@ def main():
     run_id, function_id = get_or_create_run_context(
         cur, 
         "test_language_en_fr_es", 
-        "npx cypress run --spec cypress/e2e/language/language_governance.cy.js"
+        "cypress run --spec cypress/e2e/language/language_governance.cy.js"
     )
 
     # Clean old results for this function
@@ -263,7 +263,7 @@ def main():
          'Test Language EN FR ES Cypress',
          'cypress',
          'Test only active languages EN/FR/ES using topbar language switcher and verify shell/content still works.',
-         'npx cypress run --spec cypress/e2e/language/language_governance.cy.js',
+         'cypress run --spec cypress/e2e/language/language_governance.cy.js',
          'Cypress passes, video/screenshot proof saved, kpi_results row inserted.',
          'kpi_results',
          'video_screenshot',

@@ -7,7 +7,7 @@ describe("Screen - psw_analytics", () => {
   it("opens and verifies screen psw_analytics", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-analytics");
+  cy.visitWithSemantics("/psw/psw-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

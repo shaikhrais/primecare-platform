@@ -7,7 +7,7 @@ describe("Screen - general_manager_compliance", () => {
   it("opens and verifies screen general_manager_compliance", () => {
     cy.loginAsRole("gm");
 
-  cy.visit("/management/general-manager-compliance");
+  cy.visitWithSemantics("/management/general-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

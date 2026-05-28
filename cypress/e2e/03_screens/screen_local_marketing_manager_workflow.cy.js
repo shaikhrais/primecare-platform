@@ -7,7 +7,7 @@ describe("Screen - local_marketing_manager_workflow", () => {
   it("opens and verifies screen local_marketing_manager_workflow", () => {
     cy.loginAsRole("local_marketing");
 
-  cy.visit("/management/local-marketing-manager-workflow");
+  cy.visitWithSemantics("/management/local-marketing-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

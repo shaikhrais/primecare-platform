@@ -7,7 +7,7 @@ describe("Screen - training_coordinator_dashboard", () => {
   it("opens and verifies screen training_coordinator_dashboard", () => {
     cy.loginAsRole("training");
 
-  cy.visit("/staff/training-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/training-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - legal", () => {
     cy.loginAsRole("legal");
 
 
-  cy.visit("/executive/legal-dashboard");
+  cy.visitWithSemantics("/executive/legal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - legal", () => {
   cy.waitAndSee();
   cy.screenshot("legal_dashboard");
 
-  cy.visit("/executive/legal-analytics");
+  cy.visitWithSemantics("/executive/legal-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - legal", () => {
   cy.waitAndSee();
   cy.screenshot("legal_analytics");
 
-  cy.visit("/executive/legal-compliance");
+  cy.visitWithSemantics("/executive/legal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - legal", () => {
   cy.waitAndSee();
   cy.screenshot("legal_compliance");
 
-  cy.visit("/executive/legal-workflow");
+  cy.visitWithSemantics("/executive/legal-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - documents", () => {
   it("opens and verifies screen documents", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/documents");
+  cy.visitWithSemantics("/common/documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

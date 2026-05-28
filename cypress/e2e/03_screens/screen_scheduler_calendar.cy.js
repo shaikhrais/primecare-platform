@@ -7,7 +7,7 @@ describe("Screen - scheduler_calendar", () => {
   it("opens and verifies screen scheduler_calendar", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-calendar");
+  cy.visitWithSemantics("/staff/scheduler-calendar");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

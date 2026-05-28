@@ -7,7 +7,7 @@ describe("Screen - dynamic_screen_dashboard", () => {
   it("opens and verifies screen dynamic_screen_dashboard", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/dynamic-dashboard");
+  cy.visitWithSemantics("/common/dynamic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

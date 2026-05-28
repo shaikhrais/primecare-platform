@@ -7,7 +7,7 @@ describe("Screen - support_compliance", () => {
   it("opens and verifies screen support_compliance", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/common/support-compliance");
+  cy.visitWithSemantics("/common/support-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

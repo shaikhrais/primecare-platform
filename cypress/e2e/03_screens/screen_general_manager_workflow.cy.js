@@ -7,7 +7,7 @@ describe("Screen - general_manager_workflow", () => {
   it("opens and verifies screen general_manager_workflow", () => {
     cy.loginAsRole("gm");
 
-  cy.visit("/management/general-manager-workflow");
+  cy.visitWithSemantics("/management/general-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

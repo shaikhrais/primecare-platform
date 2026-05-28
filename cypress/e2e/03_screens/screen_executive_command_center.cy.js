@@ -7,7 +7,7 @@ describe("Screen - executive_command_center", () => {
   it("opens and verifies screen executive_command_center", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/executive-command-center");
+  cy.visitWithSemantics("/executive/executive-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

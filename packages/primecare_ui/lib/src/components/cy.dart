@@ -6,18 +6,20 @@ import 'package:flutter/material.dart';
 class Cy extends StatelessWidget {
   final String id;
   final Widget child;
+  final bool container;
 
   const Cy({
     super.key,
     required this.id,
     required this.child,
+    this.container = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
       label: 'data-cy:$id',
-      container: true,
+      container: container,
       child: KeyedSubtree(
         key: Key(id),
         child: child,

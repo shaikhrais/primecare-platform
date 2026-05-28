@@ -7,7 +7,7 @@ describe("Screen - receptionist_dashboard", () => {
   it("opens and verifies screen receptionist_dashboard", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/receptionist-dashboard");
+  cy.visitWithSemantics("/staff/receptionist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

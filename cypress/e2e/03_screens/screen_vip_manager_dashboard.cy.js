@@ -7,7 +7,7 @@ describe("Screen - vip_manager_dashboard", () => {
   it("opens and verifies screen vip_manager_dashboard", () => {
     cy.loginAsRole("vip_manager");
 
-  cy.visit("/management/vip-manager-dashboard");
+  cy.visitWithSemantics("/management/vip-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

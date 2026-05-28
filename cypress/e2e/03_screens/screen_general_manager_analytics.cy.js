@@ -7,7 +7,7 @@ describe("Screen - general_manager_analytics", () => {
   it("opens and verifies screen general_manager_analytics", () => {
     cy.loginAsRole("gm");
 
-  cy.visit("/management/general-manager-analytics");
+  cy.visitWithSemantics("/management/general-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

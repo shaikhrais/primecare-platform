@@ -7,7 +7,7 @@ describe("Screen - franchise_overview", () => {
   it("opens and verifies screen franchise_overview", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/franchise-overview");
+  cy.visitWithSemantics("/executive/franchise-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

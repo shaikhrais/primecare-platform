@@ -7,7 +7,7 @@ describe("Screen - dynamic_compliance", () => {
   it("opens and verifies screen dynamic_compliance", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/dynamic-compliance");
+  cy.visitWithSemantics("/common/dynamic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

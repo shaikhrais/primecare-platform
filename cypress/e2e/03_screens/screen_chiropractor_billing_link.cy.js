@@ -7,7 +7,7 @@ describe("Screen - chiropractor_billing_link", () => {
   it("opens and verifies screen chiropractor_billing_link", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/allied/chiropractor-billing-link");
+  cy.visitWithSemantics("/allied/chiropractor-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - shareholder_compliance", () => {
   it("opens and verifies screen shareholder_compliance", () => {
     cy.loginAsRole("shareholder");
 
-  cy.visit("/executive/shareholder-compliance");
+  cy.visitWithSemantics("/executive/shareholder-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

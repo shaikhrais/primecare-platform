@@ -7,7 +7,7 @@ describe("Screen - massage_assessment", () => {
   it("opens and verifies screen massage_assessment", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/massage-assessment");
+  cy.visitWithSemantics("/allied/massage-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

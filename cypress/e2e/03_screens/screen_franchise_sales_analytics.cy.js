@@ -7,7 +7,7 @@ describe("Screen - franchise_sales_analytics", () => {
   it("opens and verifies screen franchise_sales_analytics", () => {
     cy.loginAsRole("franchise_sales");
 
-  cy.visit("/executive/franchise-sales-analytics");
+  cy.visitWithSemantics("/executive/franchise-sales-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

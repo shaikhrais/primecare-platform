@@ -8,7 +8,7 @@ describe("Role All Screens - bus_dev", () => {
     cy.loginAsRole("bus_dev");
 
 
-  cy.visit("/common/business-development-dashboard");
+  cy.visitWithSemantics("/common/business-development-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_dashboard");
 
-  cy.visit("/management/head-of-bus-dev-dashboard");
+  cy.visitWithSemantics("/management/head-of-bus-dev-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_dashboard");
 
-  cy.visit("/common/business-development-analytics");
+  cy.visitWithSemantics("/common/business-development-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_analytics");
 
-  cy.visit("/common/business-development-compliance");
+  cy.visitWithSemantics("/common/business-development-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_compliance");
 
-  cy.visit("/common/business-development-workflow");
+  cy.visitWithSemantics("/common/business-development-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_workflow");
 
-  cy.visit("/management/head-of-bus-dev-analytics");
+  cy.visitWithSemantics("/management/head-of-bus-dev-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_analytics");
 
-  cy.visit("/management/head-of-bus-dev-compliance");
+  cy.visitWithSemantics("/management/head-of-bus-dev-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_compliance");
 
-  cy.visit("/management/head-of-bus-dev-workflow");
+  cy.visitWithSemantics("/management/head-of-bus-dev-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_workflow");
 
-  cy.visit("/management/franchise-lead");
+  cy.visitWithSemantics("/management/franchise-lead");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_lead");
 
-  cy.visit("/management/partnership-management");
+  cy.visitWithSemantics("/management/partnership-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_management");
 
-  cy.visit("/management/growth-analytics");
+  cy.visitWithSemantics("/management/growth-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - bus_dev", () => {
   cy.waitAndSee();
   cy.screenshot("growth_analytics");
 
-  cy.visit("/management/outreach-campaign");
+  cy.visitWithSemantics("/management/outreach-campaign");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

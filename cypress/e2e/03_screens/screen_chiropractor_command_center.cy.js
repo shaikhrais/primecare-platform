@@ -7,7 +7,7 @@ describe("Screen - chiropractor_command_center", () => {
   it("opens and verifies screen chiropractor_command_center", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/allied/chiropractor-command-center");
+  cy.visitWithSemantics("/allied/chiropractor-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

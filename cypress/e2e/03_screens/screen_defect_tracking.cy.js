@@ -7,7 +7,7 @@ describe("Screen - defect_tracking", () => {
   it("opens and verifies screen defect_tracking", () => {
     cy.loginAsRole("qa_specialist");
 
-  cy.visit("/staff/defect-tracking");
+  cy.visitWithSemantics("/staff/defect-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

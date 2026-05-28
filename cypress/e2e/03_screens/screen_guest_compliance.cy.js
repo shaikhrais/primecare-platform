@@ -7,7 +7,7 @@ describe("Screen - guest_compliance", () => {
   it("opens and verifies screen guest_compliance", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/guest-compliance");
+  cy.visitWithSemantics("/common/guest-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

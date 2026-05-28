@@ -7,7 +7,7 @@ describe("Screen - followup", () => {
   it("opens and verifies screen followup", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/executive/followup");
+  cy.visitWithSemantics("/executive/followup");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

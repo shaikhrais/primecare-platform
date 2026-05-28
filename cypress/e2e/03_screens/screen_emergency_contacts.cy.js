@@ -7,7 +7,7 @@ describe("Screen - emergency_contacts", () => {
   it("opens and verifies screen emergency_contacts", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/emergency-contacts");
+  cy.visitWithSemantics("/common/emergency-contacts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

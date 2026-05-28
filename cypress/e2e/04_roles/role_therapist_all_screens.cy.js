@@ -8,7 +8,7 @@ describe("Role All Screens - therapist", () => {
     cy.loginAsRole("therapist");
 
 
-  cy.visit("/allied/therapist-dashboard");
+  cy.visitWithSemantics("/allied/therapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - therapist", () => {
   cy.waitAndSee();
   cy.screenshot("therapist_dashboard");
 
-  cy.visit("/allied/therapist-analytics");
+  cy.visitWithSemantics("/allied/therapist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - therapist", () => {
   cy.waitAndSee();
   cy.screenshot("therapist_analytics");
 
-  cy.visit("/allied/therapist-workflow");
+  cy.visitWithSemantics("/allied/therapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - intake_coordinator_assessment_queue", () => {
   it("opens and verifies screen intake_coordinator_assessment_queue", () => {
     cy.loginAsRole("volunteer_coordinator");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

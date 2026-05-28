@@ -8,7 +8,7 @@ describe("Role All Screens - owner", () => {
     cy.loginAsRole("owner");
 
 
-  cy.visit("/common/franchise-dashboard");
+  cy.visitWithSemantics("/common/franchise-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_dashboard");
 
-  cy.visit("/executive/owner-dashboard");
+  cy.visitWithSemantics("/executive/owner-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("owner_dashboard");
 
-  cy.visit("/common/franchise-analytics");
+  cy.visitWithSemantics("/common/franchise-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_analytics");
 
-  cy.visit("/common/franchise-compliance");
+  cy.visitWithSemantics("/common/franchise-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_compliance");
 
-  cy.visit("/common/franchise-workflow");
+  cy.visitWithSemantics("/common/franchise-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_workflow");
 
-  cy.visit("/executive/owner-analytics");
+  cy.visitWithSemantics("/executive/owner-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("owner_analytics");
 
-  cy.visit("/executive/owner-compliance");
+  cy.visitWithSemantics("/executive/owner-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("owner_compliance");
 
-  cy.visit("/executive/owner-workflow");
+  cy.visitWithSemantics("/executive/owner-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("owner_workflow");
 
-  cy.visit("/management/franchise-sales-manager-analytics");
+  cy.visitWithSemantics("/management/franchise-sales-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_analytics");
 
-  cy.visit("/management/franchise-sales-manager-compliance");
+  cy.visitWithSemantics("/management/franchise-sales-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_compliance");
 
-  cy.visit("/management/franchise-sales-manager-workflow");
+  cy.visitWithSemantics("/management/franchise-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_workflow");
 
-  cy.visit("/executive/franchise-owner-command-center");
+  cy.visitWithSemantics("/executive/franchise-owner-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_command_center");
 
-  cy.visit("/executive/franchise-owner-branch-overview");
+  cy.visitWithSemantics("/executive/franchise-owner-branch-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_branch_overview");
 
-  cy.visit("/executive/franchise-owner-staff");
+  cy.visitWithSemantics("/executive/franchise-owner-staff");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_staff");
 
-  cy.visit("/executive/franchise-owner-clients");
+  cy.visitWithSemantics("/executive/franchise-owner-clients");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_clients");
 
-  cy.visit("/executive/franchise-owner-appointments");
+  cy.visitWithSemantics("/executive/franchise-owner-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_appointments");
 
-  cy.visit("/executive/franchise-owner-finance-snapshot");
+  cy.visitWithSemantics("/executive/franchise-owner-finance-snapshot");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_finance_snapshot");
 
-  cy.visit("/executive/franchise-owner-compliance");
+  cy.visitWithSemantics("/executive/franchise-owner-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_compliance");
 
-  cy.visit("/executive/franchise-owner-reports");
+  cy.visitWithSemantics("/executive/franchise-owner-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_reports");
 
-  cy.visit("/executive/franchise-command-center");
+  cy.visitWithSemantics("/executive/franchise-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -248,7 +248,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_command_center");
 
-  cy.visit("/executive/revenue-snapshot");
+  cy.visitWithSemantics("/executive/revenue-snapshot");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -260,7 +260,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("revenue_snapshot");
 
-  cy.visit("/executive/staff-management");
+  cy.visitWithSemantics("/executive/staff-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -272,7 +272,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("staff_management");
 
-  cy.visit("/executive/appointment-overview");
+  cy.visitWithSemantics("/executive/appointment-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -284,7 +284,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("appointment_overview");
 
-  cy.visit("/executive/compliance-overview");
+  cy.visitWithSemantics("/executive/compliance-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -296,7 +296,7 @@ describe("Role All Screens - owner", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_overview");
 
-  cy.visit("/executive/franchise-command-center4-k");
+  cy.visitWithSemantics("/executive/franchise-command-center4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

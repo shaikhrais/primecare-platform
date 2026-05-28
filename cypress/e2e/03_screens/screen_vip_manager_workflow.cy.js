@@ -7,7 +7,7 @@ describe("Screen - vip_manager_workflow", () => {
   it("opens and verifies screen vip_manager_workflow", () => {
     cy.loginAsRole("vip_manager");
 
-  cy.visit("/executive/vip-manager-workflow");
+  cy.visitWithSemantics("/executive/vip-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

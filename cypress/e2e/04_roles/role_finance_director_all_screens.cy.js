@@ -8,7 +8,7 @@ describe("Role All Screens - finance_director", () => {
     cy.loginAsRole("finance_director");
 
 
-  cy.visit("/executive/finance-director-dashboard");
+  cy.visitWithSemantics("/executive/finance-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - finance_director", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
 
-  cy.visit("/executive/finance-director-analytics");
+  cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - finance_director", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
 
-  cy.visit("/executive/finance-director-compliance");
+  cy.visitWithSemantics("/executive/finance-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - finance_director", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
 
-  cy.visit("/executive/finance-director-workflow");
+  cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

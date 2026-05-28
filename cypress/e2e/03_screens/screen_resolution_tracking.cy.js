@@ -7,7 +7,7 @@ describe("Screen - resolution_tracking", () => {
   it("opens and verifies screen resolution_tracking", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/staff/resolution-tracking");
+  cy.visitWithSemantics("/staff/resolution-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

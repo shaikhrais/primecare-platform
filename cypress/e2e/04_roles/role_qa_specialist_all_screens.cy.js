@@ -8,7 +8,7 @@ describe("Role All Screens - qa_specialist", () => {
     cy.loginAsRole("qa_specialist");
 
 
-  cy.visit("/common/qa-analytics");
+  cy.visitWithSemantics("/common/qa-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("qa_analytics");
 
-  cy.visit("/common/qa-compliance");
+  cy.visitWithSemantics("/common/qa-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("qa_compliance");
 
-  cy.visit("/common/qa-workflow");
+  cy.visitWithSemantics("/common/qa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("qa_workflow");
 
-  cy.visit("/staff/quality-assurance-analytics");
+  cy.visitWithSemantics("/staff/quality-assurance-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_analytics");
 
-  cy.visit("/staff/quality-assurance-compliance");
+  cy.visitWithSemantics("/staff/quality-assurance-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_compliance");
 
-  cy.visit("/staff/quality-assurance-workflow");
+  cy.visitWithSemantics("/staff/quality-assurance-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_workflow");
 
-  cy.visit("/staff/quality-audit");
+  cy.visitWithSemantics("/staff/quality-audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("quality_audit");
 
-  cy.visit("/staff/failed-workflow");
+  cy.visitWithSemantics("/staff/failed-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("failed_workflow");
 
-  cy.visit("/staff/testing-overview");
+  cy.visitWithSemantics("/staff/testing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - qa_specialist", () => {
   cy.waitAndSee();
   cy.screenshot("testing_overview");
 
-  cy.visit("/staff/defect-tracking");
+  cy.visitWithSemantics("/staff/defect-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

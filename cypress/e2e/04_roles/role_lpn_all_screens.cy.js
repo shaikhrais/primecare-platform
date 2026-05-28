@@ -8,7 +8,7 @@ describe("Role All Screens - lpn", () => {
     cy.loginAsRole("lpn");
 
 
-  cy.visit("/clinical/lpn-dashboard");
+  cy.visitWithSemantics("/clinical/lpn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - lpn", () => {
   cy.waitAndSee();
   cy.screenshot("lpn_dashboard");
 
-  cy.visit("/rpn/lpn-analytics");
+  cy.visitWithSemantics("/rpn/lpn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - lpn", () => {
   cy.waitAndSee();
   cy.screenshot("lpn_analytics");
 
-  cy.visit("/rpn/lpn-workflow");
+  cy.visitWithSemantics("/rpn/lpn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

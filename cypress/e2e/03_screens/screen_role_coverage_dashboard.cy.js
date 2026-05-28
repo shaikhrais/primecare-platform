@@ -7,7 +7,7 @@ describe("Screen - role_coverage_dashboard", () => {
   it("opens and verifies screen role_coverage_dashboard", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/role-coverage-dashboard");
+  cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

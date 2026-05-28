@@ -7,7 +7,7 @@ describe("Screen - portal_dashboard", () => {
   it("opens and verifies screen portal_dashboard", () => {
     cy.loginAsRole("portal");
 
-  cy.visit("/common/portal-dashboard");
+  cy.visitWithSemantics("/common/portal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

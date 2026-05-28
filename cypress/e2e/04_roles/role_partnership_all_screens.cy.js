@@ -8,7 +8,7 @@ describe("Role All Screens - partnership", () => {
     cy.loginAsRole("partnership");
 
 
-  cy.visit("/management/partnership-manager-dashboard");
+  cy.visitWithSemantics("/management/partnership-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - partnership", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_dashboard");
 
-  cy.visit("/management/partnership-manager-analytics");
+  cy.visitWithSemantics("/management/partnership-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - partnership", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_analytics");
 
-  cy.visit("/management/partnership-manager-compliance");
+  cy.visitWithSemantics("/management/partnership-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - partnership", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_compliance");
 
-  cy.visit("/management/partnership-manager-workflow");
+  cy.visitWithSemantics("/management/partnership-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

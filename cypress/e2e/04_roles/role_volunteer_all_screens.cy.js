@@ -8,7 +8,7 @@ describe("Role All Screens - volunteer", () => {
     cy.loginAsRole("volunteer");
 
 
-  cy.visit("/staff/volunteer-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
 
-  cy.visit("/staff/volunteer-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_dashboard");
 
-  cy.visit("/staff/volunteer-coordinator-analytics");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_analytics");
 
-  cy.visit("/staff/volunteer-coordinator-compliance");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_compliance");
 
-  cy.visit("/staff/volunteer-coordinator-workflow");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_workflow");
 
-  cy.visit("/executive/intake-coordinator-referrals");
+  cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
 
-  cy.visit("/executive/intake-coordinator-documents");
+  cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - volunteer", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
 
-  cy.visit("/executive/intake-coordinator-follow-up");
+  cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

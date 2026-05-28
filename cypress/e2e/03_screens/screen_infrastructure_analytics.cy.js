@@ -7,7 +7,7 @@ describe("Screen - infrastructure_analytics", () => {
   it("opens and verifies screen infrastructure_analytics", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/infrastructure-analytics");
+  cy.visitWithSemantics("/common/infrastructure-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

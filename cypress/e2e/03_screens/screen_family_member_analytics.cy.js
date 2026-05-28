@@ -7,7 +7,7 @@ describe("Screen - family_member_analytics", () => {
   it("opens and verifies screen family_member_analytics", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/family-member-analytics");
+  cy.visitWithSemantics("/common/family-member-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

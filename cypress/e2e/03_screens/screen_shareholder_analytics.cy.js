@@ -7,7 +7,7 @@ describe("Screen - shareholder_analytics", () => {
   it("opens and verifies screen shareholder_analytics", () => {
     cy.loginAsRole("shareholder");
 
-  cy.visit("/executive/shareholder-analytics");
+  cy.visitWithSemantics("/executive/shareholder-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

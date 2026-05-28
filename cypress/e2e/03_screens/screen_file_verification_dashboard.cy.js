@@ -7,7 +7,7 @@ describe("Screen - file_verification_dashboard", () => {
   it("opens and verifies screen file_verification_dashboard", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/file-verification-dashboard");
+  cy.visitWithSemantics("/common/file-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

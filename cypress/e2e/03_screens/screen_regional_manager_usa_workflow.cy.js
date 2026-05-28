@@ -7,7 +7,7 @@ describe("Screen - regional_manager_usa_workflow", () => {
   it("opens and verifies screen regional_manager_usa_workflow", () => {
     cy.loginAsRole("regional_manager_usa");
 
-  cy.visit("/management/regional-manager-usa-workflow");
+  cy.visitWithSemantics("/management/regional-manager-usa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

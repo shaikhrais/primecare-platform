@@ -7,7 +7,7 @@ describe("Screen - guest_workflow", () => {
   it("opens and verifies screen guest_workflow", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/guest-workflow");
+  cy.visitWithSemantics("/common/guest-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

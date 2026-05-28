@@ -7,7 +7,7 @@ describe("Screen - expense_management", () => {
   it("opens and verifies screen expense_management", () => {
     cy.loginAsRole("cfo");
 
-  cy.visit("/executive/expense-management");
+  cy.visitWithSemantics("/executive/expense-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

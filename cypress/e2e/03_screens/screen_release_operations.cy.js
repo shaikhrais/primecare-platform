@@ -7,7 +7,7 @@ describe("Screen - release_operations", () => {
   it("opens and verifies screen release_operations", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/release-operations");
+  cy.visitWithSemantics("/common/release-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

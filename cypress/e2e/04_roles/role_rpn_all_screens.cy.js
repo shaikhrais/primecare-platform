@@ -8,7 +8,7 @@ describe("Role All Screens - rpn", () => {
     cy.loginAsRole("rpn");
 
 
-  cy.visit("/rpn/rpn-dashboard");
+  cy.visitWithSemantics("/rpn/rpn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_dashboard");
 
-  cy.visit("/rpn/rpn-analytics");
+  cy.visitWithSemantics("/rpn/rpn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_analytics");
 
-  cy.visit("/rpn/rpn-compliance");
+  cy.visitWithSemantics("/rpn/rpn-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_compliance");
 
-  cy.visit("/rpn/rpn-workflow");
+  cy.visitWithSemantics("/rpn/rpn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_workflow");
 
-  cy.visit("/rpn/rpn-command-center");
+  cy.visitWithSemantics("/rpn/rpn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_command_center");
 
-  cy.visit("/rpn/rpn-patient-charting");
+  cy.visitWithSemantics("/rpn/rpn-patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_patient_charting");
 
-  cy.visit("/rpn/rpn-medications");
+  cy.visitWithSemantics("/rpn/rpn-medications");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_medications");
 
-  cy.visit("/rpn/rpn-vitals");
+  cy.visitWithSemantics("/rpn/rpn-vitals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_vitals");
 
-  cy.visit("/rpn/rpn-care-plan-review");
+  cy.visitWithSemantics("/rpn/rpn-care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_care_plan_review");
 
-  cy.visit("/rpn/rpn-incident-review");
+  cy.visitWithSemantics("/rpn/rpn-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_incident_review");
 
-  cy.visit("/rpn/rpn-tasks");
+  cy.visitWithSemantics("/rpn/rpn-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_tasks");
 
-  cy.visit("/rpn/rpn-reports");
+  cy.visitWithSemantics("/rpn/rpn-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_reports");
 
-  cy.visit("/clinical/nursing-task");
+  cy.visitWithSemantics("/clinical/nursing-task");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("nursing_task");
 
-  cy.visit("/clinical/vitals-tracking");
+  cy.visitWithSemantics("/clinical/vitals-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("vitals_tracking");
 
-  cy.visit("/clinical/medication");
+  cy.visitWithSemantics("/clinical/medication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - rpn", () => {
   cy.waitAndSee();
   cy.screenshot("medication");
 
-  cy.visit("/clinical/patient-observation");
+  cy.visitWithSemantics("/clinical/patient-observation");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

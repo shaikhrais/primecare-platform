@@ -7,7 +7,7 @@ describe("Screen - coo_workflow_issues", () => {
   it("opens and verifies screen coo_workflow_issues", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-workflow-issues");
+  cy.visitWithSemantics("/executive/coo-workflow-issues");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

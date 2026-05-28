@@ -7,7 +7,7 @@ describe("Screen - community_outreach_workflow", () => {
   it("opens and verifies screen community_outreach_workflow", () => {
     cy.loginAsRole("community_outreach");
 
-  cy.visit("/management/community-outreach-workflow");
+  cy.visitWithSemantics("/management/community-outreach-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

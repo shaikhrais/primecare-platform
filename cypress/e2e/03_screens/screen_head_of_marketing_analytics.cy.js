@@ -7,7 +7,7 @@ describe("Screen - head_of_marketing_analytics", () => {
   it("opens and verifies screen head_of_marketing_analytics", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/head-of-marketing-analytics");
+  cy.visitWithSemantics("/management/head-of-marketing-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

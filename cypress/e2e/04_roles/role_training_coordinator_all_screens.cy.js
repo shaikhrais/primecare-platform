@@ -8,7 +8,7 @@ describe("Role All Screens - training_coordinator", () => {
     cy.loginAsRole("training_coordinator");
 
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - training_coordinator", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - training_coordinator", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - training_coordinator", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

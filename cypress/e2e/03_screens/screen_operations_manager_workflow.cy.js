@@ -7,7 +7,7 @@ describe("Screen - operations_manager_workflow", () => {
   it("opens and verifies screen operations_manager_workflow", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/operations-manager-workflow");
+  cy.visitWithSemantics("/management/operations-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

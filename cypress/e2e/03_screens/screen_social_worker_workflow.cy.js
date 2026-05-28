@@ -7,7 +7,7 @@ describe("Screen - social_worker_workflow", () => {
   it("opens and verifies screen social_worker_workflow", () => {
     cy.loginAsRole("social_worker");
 
-  cy.visit("/common/social-worker-workflow");
+  cy.visitWithSemantics("/common/social-worker-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

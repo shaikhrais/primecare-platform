@@ -7,7 +7,7 @@ describe("Screen - partnership_manager_workflow", () => {
   it("opens and verifies screen partnership_manager_workflow", () => {
     cy.loginAsRole("partnership");
 
-  cy.visit("/management/partnership-manager-workflow");
+  cy.visitWithSemantics("/management/partnership-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

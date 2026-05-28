@@ -7,7 +7,7 @@ describe("Screen - cfo_payroll", () => {
   it("opens and verifies screen cfo_payroll", () => {
     cy.loginAsRole("cfo");
 
-  cy.visit("/executive/cfo-payroll");
+  cy.visitWithSemantics("/executive/cfo-payroll");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

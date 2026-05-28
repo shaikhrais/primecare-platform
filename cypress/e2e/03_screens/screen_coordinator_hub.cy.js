@@ -7,7 +7,7 @@ describe("Screen - coordinator_hub", () => {
   it("opens and verifies screen coordinator_hub", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/coordinator-hub");
+  cy.visitWithSemantics("/staff/coordinator-hub");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

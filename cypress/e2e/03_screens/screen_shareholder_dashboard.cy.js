@@ -7,7 +7,7 @@ describe("Screen - shareholder_dashboard", () => {
   it("opens and verifies screen shareholder_dashboard", () => {
     cy.loginAsRole("shareholder");
 
-  cy.visit("/executive/shareholder-dashboard");
+  cy.visitWithSemantics("/executive/shareholder-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

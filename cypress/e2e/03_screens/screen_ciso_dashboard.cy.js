@@ -7,7 +7,7 @@ describe("Screen - ciso_dashboard", () => {
   it("opens and verifies screen ciso_dashboard", () => {
     cy.loginAsRole("ciso");
 
-  cy.visit("/executive/ciso-dashboard");
+  cy.visitWithSemantics("/executive/ciso-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

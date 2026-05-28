@@ -7,7 +7,7 @@ describe("Screen - revenue_snapshot", () => {
   it("opens and verifies screen revenue_snapshot", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/revenue-snapshot");
+  cy.visitWithSemantics("/executive/revenue-snapshot");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

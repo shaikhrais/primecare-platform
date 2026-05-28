@@ -7,7 +7,7 @@ describe("Screen - hr_director_credential_expiry", () => {
   it("opens and verifies screen hr_director_credential_expiry", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-credential-expiry");
+  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

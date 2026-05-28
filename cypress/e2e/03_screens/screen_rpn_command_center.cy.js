@@ -7,7 +7,7 @@ describe("Screen - rpn_command_center", () => {
   it("opens and verifies screen rpn_command_center", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-command-center");
+  cy.visitWithSemantics("/rpn/rpn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

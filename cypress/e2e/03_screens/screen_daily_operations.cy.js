@@ -7,7 +7,7 @@ describe("Screen - daily_operations", () => {
   it("opens and verifies screen daily_operations", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/daily-operations");
+  cy.visitWithSemantics("/management/daily-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

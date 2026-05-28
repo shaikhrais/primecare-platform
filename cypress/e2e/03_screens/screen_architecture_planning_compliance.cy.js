@@ -7,7 +7,7 @@ describe("Screen - architecture_planning_compliance", () => {
   it("opens and verifies screen architecture_planning_compliance", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/architecture-planning-compliance");
+  cy.visitWithSemantics("/common/architecture-planning-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - intake_coordinator_workflow", () => {
   it("opens and verifies screen intake_coordinator_workflow", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/staff/intake-coordinator-workflow");
+  cy.visitWithSemantics("/staff/intake-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

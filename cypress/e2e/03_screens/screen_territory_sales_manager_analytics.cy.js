@@ -7,7 +7,7 @@ describe("Screen - territory_sales_manager_analytics", () => {
   it("opens and verifies screen territory_sales_manager_analytics", () => {
     cy.loginAsRole("territory_sales");
 
-  cy.visit("/management/territory-sales-manager-analytics");
+  cy.visitWithSemantics("/management/territory-sales-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

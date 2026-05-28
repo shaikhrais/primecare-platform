@@ -8,7 +8,7 @@ describe("Role All Screens - cns", () => {
     cy.loginAsRole("cns");
 
 
-  cy.visit("/clinical/cns-dashboard");
+  cy.visitWithSemantics("/clinical/cns-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - cns", () => {
   cy.waitAndSee();
   cy.screenshot("cns_dashboard");
 
-  cy.visit("/rn/cns-analytics");
+  cy.visitWithSemantics("/rn/cns-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - cns", () => {
   cy.waitAndSee();
   cy.screenshot("cns_analytics");
 
-  cy.visit("/rn/cns-workflow");
+  cy.visitWithSemantics("/rn/cns-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

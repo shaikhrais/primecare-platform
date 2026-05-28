@@ -7,7 +7,7 @@ describe("Screen - franchise_dashboard", () => {
   it("opens and verifies screen franchise_dashboard", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/common/franchise-dashboard");
+  cy.visitWithSemantics("/common/franchise-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

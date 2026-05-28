@@ -7,7 +7,7 @@ describe("Screen - training_director_workflow", () => {
   it("opens and verifies screen training_director_workflow", () => {
     cy.loginAsRole("training");
 
-  cy.visit("/executive/training-director-workflow");
+  cy.visitWithSemantics("/executive/training-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

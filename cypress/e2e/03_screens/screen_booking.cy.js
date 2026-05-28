@@ -7,7 +7,7 @@ describe("Screen - booking", () => {
   it("opens and verifies screen booking", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/executive/booking");
+  cy.visitWithSemantics("/executive/booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

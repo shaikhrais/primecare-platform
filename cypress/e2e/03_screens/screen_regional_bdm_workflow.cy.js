@@ -7,7 +7,7 @@ describe("Screen - regional_bdm_workflow", () => {
   it("opens and verifies screen regional_bdm_workflow", () => {
     cy.loginAsRole("regional_bdm");
 
-  cy.visit("/management/regional-bdm-workflow");
+  cy.visitWithSemantics("/management/regional-bdm-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - agent_dispatch", () => {
   it("opens and verifies screen agent_dispatch", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/agent-dispatch");
+  cy.visitWithSemantics("/common/agent-dispatch");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

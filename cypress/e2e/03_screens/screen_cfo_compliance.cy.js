@@ -7,7 +7,7 @@ describe("Screen - cfo_compliance", () => {
   it("opens and verifies screen cfo_compliance", () => {
     cy.loginAsRole("cfo");
 
-  cy.visit("/executive/cfo-compliance");
+  cy.visitWithSemantics("/executive/cfo-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - psw_tasks", () => {
   it("opens and verifies screen psw_tasks", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-tasks");
+  cy.visitWithSemantics("/psw/psw-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

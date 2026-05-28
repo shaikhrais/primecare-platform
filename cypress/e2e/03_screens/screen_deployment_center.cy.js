@@ -7,7 +7,7 @@ describe("Screen - deployment_center", () => {
   it("opens and verifies screen deployment_center", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/executive/deployment-center");
+  cy.visitWithSemantics("/executive/deployment-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

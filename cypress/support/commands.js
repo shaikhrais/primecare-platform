@@ -9,16 +9,22 @@ Cypress.Commands.add("waitAndSee", () => {
 });
 
 Cypress.Commands.add("visitWithSemantics", (path) => {
-  if (path.startsWith("/#/")) {
-    const hashSegment = path.substring(2); // e.g. "/login"
-    const delimiter = hashSegment.includes("?") ? "&" : "?";
-    return cy.visit(`/?enable-semantics=true#${hashSegment}`);
-  } else if (path.startsWith("#/")) {
-    const hashSegment = path.substring(1);
-    return cy.visit(`/?enable-semantics=true#${hashSegment}`);
-  }
-  const querySymbol = path.includes("?") ? "&" : "?";
-  return cy.visit(`${path}${querySymbol}enable-semantics=true`);
+  // Extract clean path without leading slash if present
+  const cleanPath = path.startsWith("/") ? path.substring(1) : path;
+  
+  cy.window().then((win) => {
+    const hasShell = win.document.querySelector('[aria-label*="data-cy:app-shell"], [data-cy="app-shell"]');
+    if (hasShell) {
+      // SPA client-side transition to prevent page reload session loss
+      cy.log(`Client-side hash transition to: ${path}`);
+      win.location.hash = `#/${cleanPath}`;
+      cy.wait(1000);
+    } else {
+      // Fallback for initial load
+      const querySymbol = path.includes("?") ? "&" : "?";
+      cy.visit(`${path}${querySymbol}enable-semantics=true`);
+    }
+  });
 });
 
 Cypress.Commands.add("verifyNotBlank", () => {
@@ -45,21 +51,45 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     const password = Cypress.env(user.password_env);
     if (!password) throw new Error(`Missing Cypress env password: ${user.password_env}`);
 
-    // Visit login with semantics parameter
-    cy.visit("/login?enable-semantics=true");
+    // Intercept only the first silent SSO session restoration check on load to prevent auto-login redirection
+    cy.intercept({
+      method: "GET",
+      url: "**/me",
+      times: 1
+    }, {
+      statusCode: 401,
+      body: { status: "error", message: "Unauthorized" }
+    }).as("ssoHandshake");
+
+    // First visit to establish origin context in Cypress with pathname /
+    cy.visit("/?enable-semantics=true#/login");
+    cy.wait(1000);
+    
+    // Clear all storage for the origin (clearing SharedPreferences)
+    cy.clearLocalStorage();
+    cy.clearCookies();
+    
+    // Re-visit to force rendering a clean form with pathname /
+    cy.visit("/?enable-semantics=true#/login");
     cy.wait(2000);
 
     // Support both input[type="text"] and input[type="email"] for robust targeting
     cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
       .first()
       .should("be.visible")
-      .clear()
-      .type(user.email);
+      .clear({ force: true });
+      
+    const resolvedEmail = user.email.endsWith(".local") ? `${user.email}.com` : user.email;
+    cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
+      .first()
+      .type(resolvedEmail, { force: true });
 
     cy.get('input[type="password"]', { includeShadowDom: true })
       .should("be.visible")
-      .clear()
-      .type(password, { log: false });
+      .clear({ force: true });
+      
+    cy.get('input[type="password"]', { includeShadowDom: true })
+      .type(password, { log: false, force: true });
 
     // Handle "INITIATE SESSION" click with fallback to generic submit if needed
     cy.document().then((doc) => {

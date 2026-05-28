@@ -7,7 +7,7 @@ describe("Screen - franchise_command_center", () => {
   it("opens and verifies screen franchise_command_center", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/franchise-command-center");
+  cy.visitWithSemantics("/executive/franchise-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

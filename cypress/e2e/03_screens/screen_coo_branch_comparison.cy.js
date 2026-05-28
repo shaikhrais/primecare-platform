@@ -7,7 +7,7 @@ describe("Screen - coo_branch_comparison", () => {
   it("opens and verifies screen coo_branch_comparison", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-branch-comparison");
+  cy.visitWithSemantics("/executive/coo-branch-comparison");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

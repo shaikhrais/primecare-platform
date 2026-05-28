@@ -7,7 +7,7 @@ describe("Screen - staff_progress", () => {
   it("opens and verifies screen staff_progress", () => {
     cy.loginAsRole("training_coordinator");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - cx_director", () => {
     cy.loginAsRole("cx_director");
 
 
-  cy.visit("/executive/cx-director-dashboard");
+  cy.visitWithSemantics("/executive/cx-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - cx_director", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
 
-  cy.visit("/executive/cx-director-analytics");
+  cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - cx_director", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
 
-  cy.visit("/executive/cx-director-compliance");
+  cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - cx_director", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
 
-  cy.visit("/executive/cx-director-workflow");
+  cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

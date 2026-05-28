@@ -7,7 +7,7 @@ describe("Screen - vip_manager_analytics", () => {
   it("opens and verifies screen vip_manager_analytics", () => {
     cy.loginAsRole("vip_manager");
 
-  cy.visit("/executive/vip-manager-analytics");
+  cy.visitWithSemantics("/executive/vip-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - psw_shift_tracker", () => {
   it("opens and verifies screen psw_shift_tracker", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-shift-tracker");
+  cy.visitWithSemantics("/psw/psw-shift-tracker");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

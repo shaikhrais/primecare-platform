@@ -7,7 +7,7 @@ describe("Screen - family_member_workflow", () => {
   it("opens and verifies screen family_member_workflow", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/family-member-workflow");
+  cy.visitWithSemantics("/common/family-member-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

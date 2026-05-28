@@ -7,7 +7,7 @@ describe("Screen - psw_incident_report", () => {
   it("opens and verifies screen psw_incident_report", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-incident-report");
+  cy.visitWithSemantics("/psw/psw-incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

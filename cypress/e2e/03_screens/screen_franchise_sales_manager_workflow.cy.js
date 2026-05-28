@@ -7,7 +7,7 @@ describe("Screen - franchise_sales_manager_workflow", () => {
   it("opens and verifies screen franchise_sales_manager_workflow", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/management/franchise-sales-manager-workflow");
+  cy.visitWithSemantics("/management/franchise-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

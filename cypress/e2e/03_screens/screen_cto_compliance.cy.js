@@ -7,7 +7,7 @@ describe("Screen - cto_compliance", () => {
   it("opens and verifies screen cto_compliance", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/executive/cto-compliance");
+  cy.visitWithSemantics("/executive/cto-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

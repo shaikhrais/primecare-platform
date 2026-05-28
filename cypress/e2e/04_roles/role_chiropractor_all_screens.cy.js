@@ -8,7 +8,7 @@ describe("Role All Screens - chiropractor", () => {
     cy.loginAsRole("chiropractor");
 
 
-  cy.visit("/common/chiropractor-dashboard");
+  cy.visitWithSemantics("/common/chiropractor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
 
-  cy.visit("/common/chiropractor-analytics");
+  cy.visitWithSemantics("/common/chiropractor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
 
-  cy.visit("/common/chiropractor-compliance");
+  cy.visitWithSemantics("/common/chiropractor-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
-  cy.visit("/common/chiropractor-workflow");
+  cy.visitWithSemantics("/common/chiropractor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
 
-  cy.visit("/allied/chiropractor-command-center");
+  cy.visitWithSemantics("/allied/chiropractor-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
 
-  cy.visit("/allied/chiropractor-appointments");
+  cy.visitWithSemantics("/allied/chiropractor-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
 
-  cy.visit("/allied/chiropractor-client-intake");
+  cy.visitWithSemantics("/allied/chiropractor-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
 
-  cy.visit("/allied/chiropractor-assessment");
+  cy.visitWithSemantics("/allied/chiropractor-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
 
-  cy.visit("/allied/chiropractor-treatment-notes");
+  cy.visitWithSemantics("/allied/chiropractor-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
 
-  cy.visit("/allied/chiropractor-exercise-plan");
+  cy.visitWithSemantics("/allied/chiropractor-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
 
-  cy.visit("/allied/chiropractor-billing-link");
+  cy.visitWithSemantics("/allied/chiropractor-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
 
-  cy.visit("/allied/chiropractor-reports");
+  cy.visitWithSemantics("/allied/chiropractor-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
 
-  cy.visit("/allied/chiropractic-assessment");
+  cy.visitWithSemantics("/allied/chiropractic-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
 
-  cy.visit("/allied/adjustment-notes");
+  cy.visitWithSemantics("/allied/adjustment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
 
-  cy.visit("/allied/xray-review");
+  cy.visitWithSemantics("/allied/xray-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - chiropractor", () => {
   cy.waitAndSee();
   cy.screenshot("xray_review");
 
-  cy.visit("/allied/chiropractic-progress-tracking");
+  cy.visitWithSemantics("/allied/chiropractic-progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

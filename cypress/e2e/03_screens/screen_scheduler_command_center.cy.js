@@ -7,7 +7,7 @@ describe("Screen - scheduler_command_center", () => {
   it("opens and verifies screen scheduler_command_center", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-command-center");
+  cy.visitWithSemantics("/staff/scheduler-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

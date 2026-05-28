@@ -7,7 +7,7 @@ describe("Screen - governance_officer_analytics", () => {
   it("opens and verifies screen governance_officer_analytics", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/management/governance-officer-analytics");
+  cy.visitWithSemantics("/management/governance-officer-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

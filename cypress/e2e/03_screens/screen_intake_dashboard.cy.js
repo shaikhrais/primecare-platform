@@ -7,7 +7,7 @@ describe("Screen - intake_dashboard", () => {
   it("opens and verifies screen intake_dashboard", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/common/intake-dashboard");
+  cy.visitWithSemantics("/common/intake-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

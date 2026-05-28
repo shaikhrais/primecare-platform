@@ -7,7 +7,7 @@ describe("Screen - rpn_compliance", () => {
   it("opens and verifies screen rpn_compliance", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-compliance");
+  cy.visitWithSemantics("/rpn/rpn-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

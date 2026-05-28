@@ -7,7 +7,7 @@ describe("Screen - therapist_workflow", () => {
   it("opens and verifies screen therapist_workflow", () => {
     cy.loginAsRole("therapist");
 
-  cy.visit("/allied/therapist-workflow");
+  cy.visitWithSemantics("/allied/therapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

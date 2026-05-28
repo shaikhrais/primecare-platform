@@ -8,7 +8,7 @@ describe("Role All Screens - patient", () => {
     cy.loginAsRole("patient");
 
 
-  cy.visit("/common/family-member-dashboard");
+  cy.visitWithSemantics("/common/family-member-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_dashboard");
 
-  cy.visit("/common/patient-dashboard");
+  cy.visitWithSemantics("/common/patient-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_dashboard");
 
-  cy.visit("/common/patient-analytics");
+  cy.visitWithSemantics("/common/patient-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_analytics");
 
-  cy.visit("/common/patient-compliance");
+  cy.visitWithSemantics("/common/patient-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_compliance");
 
-  cy.visit("/common/patient-workflow");
+  cy.visitWithSemantics("/common/patient-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_workflow");
 
-  cy.visit("/common/patient-command-center");
+  cy.visitWithSemantics("/common/patient-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_command_center");
 
-  cy.visit("/common/patient-appointments");
+  cy.visitWithSemantics("/common/patient-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_appointments");
 
-  cy.visit("/common/patient-care-plan");
+  cy.visitWithSemantics("/common/patient-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_care_plan");
 
-  cy.visit("/common/patient-messages");
+  cy.visitWithSemantics("/common/patient-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_messages");
 
-  cy.visit("/common/patient-documents");
+  cy.visitWithSemantics("/common/patient-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_documents");
 
-  cy.visit("/common/patient-billing");
+  cy.visitWithSemantics("/common/patient-billing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_billing");
 
-  cy.visit("/common/patient-profile");
+  cy.visitWithSemantics("/common/patient-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("patient_profile");
 
-  cy.visit("/common/appointment");
+  cy.visitWithSemantics("/common/appointment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("appointment");
 
-  cy.visit("/common/care-plan");
+  cy.visitWithSemantics("/common/care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("care_plan");
 
-  cy.visit("/common/billing");
+  cy.visitWithSemantics("/common/billing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - patient", () => {
   cy.waitAndSee();
   cy.screenshot("billing");
 
-  cy.visit("/common/documents");
+  cy.visitWithSemantics("/common/documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - architecture_planning_dashboard", () => {
   it("opens and verifies screen architecture_planning_dashboard", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/common/architecture-planning-dashboard");
+  cy.visitWithSemantics("/common/architecture-planning-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

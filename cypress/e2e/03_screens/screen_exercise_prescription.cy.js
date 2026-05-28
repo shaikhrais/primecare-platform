@@ -7,7 +7,7 @@ describe("Screen - exercise_prescription", () => {
   it("opens and verifies screen exercise_prescription", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/clinical/exercise-prescription");
+  cy.visitWithSemantics("/clinical/exercise-prescription");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

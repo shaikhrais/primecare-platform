@@ -7,7 +7,7 @@ describe("Screen - scheduler_workflow", () => {
   it("opens and verifies screen scheduler_workflow", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-workflow");
+  cy.visitWithSemantics("/staff/scheduler-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

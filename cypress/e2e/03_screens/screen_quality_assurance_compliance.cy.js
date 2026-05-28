@@ -7,7 +7,7 @@ describe("Screen - quality_assurance_compliance", () => {
   it("opens and verifies screen quality_assurance_compliance", () => {
     cy.loginAsRole("qa_specialist");
 
-  cy.visit("/staff/quality-assurance-compliance");
+  cy.visitWithSemantics("/staff/quality-assurance-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

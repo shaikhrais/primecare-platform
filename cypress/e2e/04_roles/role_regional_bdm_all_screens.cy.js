@@ -8,7 +8,7 @@ describe("Role All Screens - regional_bdm", () => {
     cy.loginAsRole("regional_bdm");
 
 
-  cy.visit("/management/regional-bdm-dashboard");
+  cy.visitWithSemantics("/management/regional-bdm-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - regional_bdm", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_dashboard");
 
-  cy.visit("/management/regional-bdm-analytics");
+  cy.visitWithSemantics("/management/regional-bdm-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - regional_bdm", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_analytics");
 
-  cy.visit("/management/regional-bdm-compliance");
+  cy.visitWithSemantics("/management/regional-bdm-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - regional_bdm", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_compliance");
 
-  cy.visit("/management/regional-bdm-workflow");
+  cy.visitWithSemantics("/management/regional-bdm-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

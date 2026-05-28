@@ -7,7 +7,7 @@ describe("Screen - coo_operations_overview", () => {
   it("opens and verifies screen coo_operations_overview", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-operations-overview");
+  cy.visitWithSemantics("/executive/coo-operations-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

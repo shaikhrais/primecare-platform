@@ -7,7 +7,7 @@ describe("Screen - caregiver_tasks", () => {
   it("opens and verifies screen caregiver_tasks", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visit("/psw/caregiver-tasks");
+  cy.visitWithSemantics("/psw/caregiver-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

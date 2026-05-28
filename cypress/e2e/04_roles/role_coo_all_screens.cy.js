@@ -8,7 +8,7 @@ describe("Role All Screens - coo", () => {
     cy.loginAsRole("coo");
 
 
-  cy.visit("/executive/coo-dashboard");
+  cy.visitWithSemantics("/executive/coo-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_dashboard");
 
-  cy.visit("/staff/volunteer-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
 
-  cy.visit("/executive/coo-analytics");
+  cy.visitWithSemantics("/executive/coo-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_analytics");
 
-  cy.visit("/executive/coo-compliance");
+  cy.visitWithSemantics("/executive/coo-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_compliance");
 
-  cy.visit("/executive/coo-workflow");
+  cy.visitWithSemantics("/executive/coo-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_workflow");
 
-  cy.visit("/executive/coo-command-center");
+  cy.visitWithSemantics("/executive/coo-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_command_center");
 
-  cy.visit("/executive/coo-operations-overview");
+  cy.visitWithSemantics("/executive/coo-operations-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_operations_overview");
 
-  cy.visit("/executive/coo-staffing");
+  cy.visitWithSemantics("/executive/coo-staffing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_staffing");
 
-  cy.visit("/executive/coo-scheduling-health");
+  cy.visitWithSemantics("/executive/coo-scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_scheduling_health");
 
-  cy.visit("/executive/coo-workflow-issues");
+  cy.visitWithSemantics("/executive/coo-workflow-issues");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_workflow_issues");
 
-  cy.visit("/executive/coo-branch-comparison");
+  cy.visitWithSemantics("/executive/coo-branch-comparison");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("coo_branch_comparison");
 
-  cy.visit("/executive/intake-coordinator-referrals");
+  cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
 
-  cy.visit("/executive/intake-coordinator-documents");
+  cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
 
-  cy.visit("/executive/intake-coordinator-follow-up");
+  cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_follow_up");
 
-  cy.visit("/executive/operations-command-center");
+  cy.visitWithSemantics("/executive/operations-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("operations_command_center");
 
-  cy.visit("/executive/staffing-overview");
+  cy.visitWithSemantics("/executive/staffing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("staffing_overview");
 
-  cy.visit("/executive/workflow-issue");
+  cy.visitWithSemantics("/executive/workflow-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -248,7 +248,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("workflow_issue");
 
-  cy.visit("/executive/service-quality");
+  cy.visitWithSemantics("/executive/service-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -260,7 +260,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("service_quality");
 
-  cy.visit("/executive/branch-performance");
+  cy.visitWithSemantics("/executive/branch-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -272,7 +272,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("branch_performance");
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -284,7 +284,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -296,7 +296,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -308,7 +308,7 @@ describe("Role All Screens - coo", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - brand_management", () => {
   it("opens and verifies screen brand_management", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/brand-management");
+  cy.visitWithSemantics("/management/brand-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

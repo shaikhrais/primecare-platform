@@ -7,7 +7,7 @@ describe("Screen - infrastructure_workflow", () => {
   it("opens and verifies screen infrastructure_workflow", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/infrastructure-workflow");
+  cy.visitWithSemantics("/common/infrastructure-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

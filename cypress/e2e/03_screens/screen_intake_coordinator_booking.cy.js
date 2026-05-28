@@ -7,7 +7,7 @@ describe("Screen - intake_coordinator_booking", () => {
   it("opens and verifies screen intake_coordinator_booking", () => {
     cy.loginAsRole("volunteer_coordinator");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

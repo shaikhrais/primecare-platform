@@ -7,7 +7,7 @@ describe("Screen - infrastructure_dashboard", () => {
   it("opens and verifies screen infrastructure_dashboard", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/infrastructure-dashboard");
+  cy.visitWithSemantics("/common/infrastructure-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

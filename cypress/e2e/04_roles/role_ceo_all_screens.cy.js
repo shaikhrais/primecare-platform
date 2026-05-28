@@ -8,7 +8,7 @@ describe("Role All Screens - ceo", () => {
     cy.loginAsRole("ceo");
 
 
-  cy.visit("/executive/executive-command-center");
+  cy.visitWithSemantics("/executive/executive-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - ceo", () => {
   cy.waitAndSee();
   cy.screenshot("executive_command_center");
 
-  cy.visit("/executive/enterprise-health");
+  cy.visitWithSemantics("/executive/enterprise-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - ceo", () => {
   cy.waitAndSee();
   cy.screenshot("enterprise_health");
 
-  cy.visit("/executive/revenue-analytics");
+  cy.visitWithSemantics("/executive/revenue-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - ceo", () => {
   cy.waitAndSee();
   cy.screenshot("revenue_analytics");
 
-  cy.visit("/executive/risk-management");
+  cy.visitWithSemantics("/executive/risk-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - ceo", () => {
   cy.waitAndSee();
   cy.screenshot("risk_management");
 
-  cy.visit("/executive/franchise-overview");
+  cy.visitWithSemantics("/executive/franchise-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - ceo", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_overview");
 
-  cy.visit("/executive/enterprise-command-center4-k");
+  cy.visitWithSemantics("/executive/enterprise-command-center4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

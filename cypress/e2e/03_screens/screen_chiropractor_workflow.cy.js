@@ -7,7 +7,7 @@ describe("Screen - chiropractor_workflow", () => {
   it("opens and verifies screen chiropractor_workflow", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/common/chiropractor-workflow");
+  cy.visitWithSemantics("/common/chiropractor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

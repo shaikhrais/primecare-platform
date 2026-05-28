@@ -7,7 +7,7 @@ describe("Screen - rmt_treatment_notes", () => {
   it("opens and verifies screen rmt_treatment_notes", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-treatment-notes");
+  cy.visitWithSemantics("/allied/rmt-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

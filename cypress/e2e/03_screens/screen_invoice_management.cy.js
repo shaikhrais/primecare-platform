@@ -7,7 +7,7 @@ describe("Screen - invoice_management", () => {
   it("opens and verifies screen invoice_management", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/invoice-management");
+  cy.visitWithSemantics("/staff/invoice-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

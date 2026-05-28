@@ -7,7 +7,7 @@ describe("Screen - hr_director_hiring_pipeline", () => {
   it("opens and verifies screen hr_director_hiring_pipeline", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-hiring-pipeline");
+  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

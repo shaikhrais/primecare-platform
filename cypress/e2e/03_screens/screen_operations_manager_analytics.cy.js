@@ -7,7 +7,7 @@ describe("Screen - operations_manager_analytics", () => {
   it("opens and verifies screen operations_manager_analytics", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/operations-manager-analytics");
+  cy.visitWithSemantics("/management/operations-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

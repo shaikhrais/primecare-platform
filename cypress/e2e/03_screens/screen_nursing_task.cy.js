@@ -7,7 +7,7 @@ describe("Screen - nursing_task", () => {
   it("opens and verifies screen nursing_task", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/clinical/nursing-task");
+  cy.visitWithSemantics("/clinical/nursing-task");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

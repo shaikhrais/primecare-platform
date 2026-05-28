@@ -7,7 +7,7 @@ describe("Screen - governance_operations4_k", () => {
   it("opens and verifies screen governance_operations4_k", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/governance-operations4-k");
+  cy.visitWithSemantics("/common/governance-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

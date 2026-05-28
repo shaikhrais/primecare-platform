@@ -8,7 +8,7 @@ describe("Role All Screens - regional_manager_usa", () => {
     cy.loginAsRole("regional_manager_usa");
 
 
-  cy.visit("/management/regional-manager-usa-dashboard");
+  cy.visitWithSemantics("/management/regional-manager-usa-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_dashboard");
 
-  cy.visit("/management/regional-manager-usa-analytics");
+  cy.visitWithSemantics("/management/regional-manager-usa-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_analytics");
 
-  cy.visit("/management/regional-manager-usa-compliance");
+  cy.visitWithSemantics("/management/regional-manager-usa-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_compliance");
 
-  cy.visit("/management/regional-manager-usa-workflow");
+  cy.visitWithSemantics("/management/regional-manager-usa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

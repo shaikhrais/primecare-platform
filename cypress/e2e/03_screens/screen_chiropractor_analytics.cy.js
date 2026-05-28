@@ -7,7 +7,7 @@ describe("Screen - chiropractor_analytics", () => {
   it("opens and verifies screen chiropractor_analytics", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/common/chiropractor-analytics");
+  cy.visitWithSemantics("/common/chiropractor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

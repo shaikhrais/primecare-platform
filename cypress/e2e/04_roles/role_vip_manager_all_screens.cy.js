@@ -8,7 +8,7 @@ describe("Role All Screens - vip_manager", () => {
     cy.loginAsRole("vip_manager");
 
 
-  cy.visit("/management/vip-manager-dashboard");
+  cy.visitWithSemantics("/management/vip-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - vip_manager", () => {
   cy.waitAndSee();
   cy.screenshot("vip_manager_dashboard");
 
-  cy.visit("/executive/vip-manager-analytics");
+  cy.visitWithSemantics("/executive/vip-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - vip_manager", () => {
   cy.waitAndSee();
   cy.screenshot("vip_manager_analytics");
 
-  cy.visit("/executive/vip-manager-workflow");
+  cy.visitWithSemantics("/executive/vip-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

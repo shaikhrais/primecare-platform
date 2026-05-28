@@ -7,7 +7,7 @@ describe("Screen - family_member_dashboard", () => {
   it("opens and verifies screen family_member_dashboard", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/family-member-dashboard");
+  cy.visitWithSemantics("/common/family-member-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

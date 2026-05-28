@@ -7,7 +7,7 @@ describe("Screen - owner_dashboard", () => {
   it("opens and verifies screen owner_dashboard", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/owner-dashboard");
+  cy.visitWithSemantics("/executive/owner-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

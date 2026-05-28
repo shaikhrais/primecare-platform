@@ -7,7 +7,7 @@ describe("Screen - coordinator_waitlist", () => {
   it("opens and verifies screen coordinator_waitlist", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/coordinator-waitlist");
+  cy.visitWithSemantics("/staff/coordinator-waitlist");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

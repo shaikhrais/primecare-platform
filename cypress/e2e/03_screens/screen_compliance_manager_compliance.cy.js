@@ -7,7 +7,7 @@ describe("Screen - compliance_manager_compliance", () => {
   it("opens and verifies screen compliance_manager_compliance", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/compliance-manager-compliance");
+  cy.visitWithSemantics("/management/compliance-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

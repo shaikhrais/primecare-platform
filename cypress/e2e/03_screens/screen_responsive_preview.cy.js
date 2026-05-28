@@ -7,7 +7,7 @@ describe("Screen - responsive_preview", () => {
   it("opens and verifies screen responsive_preview", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/responsive-preview");
+  cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

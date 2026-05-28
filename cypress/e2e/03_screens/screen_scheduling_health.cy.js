@@ -7,7 +7,7 @@ describe("Screen - scheduling_health", () => {
   it("opens and verifies screen scheduling_health", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/scheduling-health");
+  cy.visitWithSemantics("/management/scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

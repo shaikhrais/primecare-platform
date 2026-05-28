@@ -7,7 +7,7 @@ describe("Screen - social_worker_analytics", () => {
   it("opens and verifies screen social_worker_analytics", () => {
     cy.loginAsRole("social_worker");
 
-  cy.visit("/common/social-worker-analytics");
+  cy.visitWithSemantics("/common/social-worker-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - psw_dashboard", () => {
   it("opens and verifies screen psw_dashboard", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-dashboard");
+  cy.visitWithSemantics("/psw/psw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

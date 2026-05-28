@@ -7,7 +7,7 @@ describe("Screen - rmt_workflow", () => {
   it("opens and verifies screen rmt_workflow", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-workflow");
+  cy.visitWithSemantics("/allied/rmt-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - rmt_reports", () => {
   it("opens and verifies screen rmt_reports", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-reports");
+  cy.visitWithSemantics("/allied/rmt-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

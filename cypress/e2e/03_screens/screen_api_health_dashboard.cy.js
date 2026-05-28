@@ -7,7 +7,7 @@ describe("Screen - api_health_dashboard", () => {
   it("opens and verifies screen api_health_dashboard", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/api-health-dashboard");
+  cy.visitWithSemantics("/common/api-health-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

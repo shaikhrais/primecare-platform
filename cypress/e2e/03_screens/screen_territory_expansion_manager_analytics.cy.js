@@ -7,7 +7,7 @@ describe("Screen - territory_expansion_manager_analytics", () => {
   it("opens and verifies screen territory_expansion_manager_analytics", () => {
     cy.loginAsRole("territory_expansion");
 
-  cy.visit("/management/territory-expansion-manager-analytics");
+  cy.visitWithSemantics("/management/territory-expansion-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

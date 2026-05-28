@@ -7,7 +7,7 @@ describe("Screen - adjustment_notes", () => {
   it("opens and verifies screen adjustment_notes", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/allied/adjustment-notes");
+  cy.visitWithSemantics("/allied/adjustment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

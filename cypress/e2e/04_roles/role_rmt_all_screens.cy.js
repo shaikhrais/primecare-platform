@@ -8,7 +8,7 @@ describe("Role All Screens - rmt", () => {
     cy.loginAsRole("rmt");
 
 
-  cy.visit("/allied/rmt-dashboard");
+  cy.visitWithSemantics("/allied/rmt-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_dashboard");
 
-  cy.visit("/allied/rmt-analytics");
+  cy.visitWithSemantics("/allied/rmt-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_analytics");
 
-  cy.visit("/allied/rmt-compliance");
+  cy.visitWithSemantics("/allied/rmt-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_compliance");
 
-  cy.visit("/allied/rmt-workflow");
+  cy.visitWithSemantics("/allied/rmt-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_workflow");
 
-  cy.visit("/allied/rmt-command-center");
+  cy.visitWithSemantics("/allied/rmt-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_command_center");
 
-  cy.visit("/allied/rmt-appointments");
+  cy.visitWithSemantics("/allied/rmt-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_appointments");
 
-  cy.visit("/allied/rmt-client-intake");
+  cy.visitWithSemantics("/allied/rmt-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_client_intake");
 
-  cy.visit("/allied/rmt-assessment");
+  cy.visitWithSemantics("/allied/rmt-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_assessment");
 
-  cy.visit("/allied/rmt-treatment-notes");
+  cy.visitWithSemantics("/allied/rmt-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_treatment_notes");
 
-  cy.visit("/allied/rmt-exercise-plan");
+  cy.visitWithSemantics("/allied/rmt-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_exercise_plan");
 
-  cy.visit("/allied/rmt-billing-link");
+  cy.visitWithSemantics("/allied/rmt-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_billing_link");
 
-  cy.visit("/allied/rmt-reports");
+  cy.visitWithSemantics("/allied/rmt-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_reports");
 
-  cy.visit("/allied/massage-assessment");
+  cy.visitWithSemantics("/allied/massage-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("massage_assessment");
 
-  cy.visit("/allied/treatment-notes");
+  cy.visitWithSemantics("/allied/treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("treatment_notes");
 
-  cy.visit("/allied/home-care-plan");
+  cy.visitWithSemantics("/allied/home-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - rmt", () => {
   cy.waitAndSee();
   cy.screenshot("home_care_plan");
 
-  cy.visit("/allied/client-progress");
+  cy.visitWithSemantics("/allied/client-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

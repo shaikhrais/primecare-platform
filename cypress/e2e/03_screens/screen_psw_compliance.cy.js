@@ -7,7 +7,7 @@ describe("Screen - psw_compliance", () => {
   it("opens and verifies screen psw_compliance", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-compliance");
+  cy.visitWithSemantics("/psw/psw-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

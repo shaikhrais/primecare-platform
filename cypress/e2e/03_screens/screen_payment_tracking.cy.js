@@ -7,7 +7,7 @@ describe("Screen - payment_tracking", () => {
   it("opens and verifies screen payment_tracking", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/payment-tracking");
+  cy.visitWithSemantics("/staff/payment-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

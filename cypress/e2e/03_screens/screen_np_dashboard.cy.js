@@ -7,7 +7,7 @@ describe("Screen - np_dashboard", () => {
   it("opens and verifies screen np_dashboard", () => {
     cy.loginAsRole("np");
 
-  cy.visit("/clinical/np-dashboard");
+  cy.visitWithSemantics("/clinical/np-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

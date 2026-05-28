@@ -7,7 +7,7 @@ describe("Screen - billing_admin_compliance", () => {
   it("opens and verifies screen billing_admin_compliance", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/billing-admin-compliance");
+  cy.visitWithSemantics("/staff/billing-admin-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

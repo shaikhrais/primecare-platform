@@ -7,7 +7,7 @@ describe("Screen - coo_scheduling_health", () => {
   it("opens and verifies screen coo_scheduling_health", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-scheduling-health");
+  cy.visitWithSemantics("/executive/coo-scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

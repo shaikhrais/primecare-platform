@@ -7,7 +7,7 @@ describe("Screen - rpn_tasks", () => {
   it("opens and verifies screen rpn_tasks", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-tasks");
+  cy.visitWithSemantics("/rpn/rpn-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

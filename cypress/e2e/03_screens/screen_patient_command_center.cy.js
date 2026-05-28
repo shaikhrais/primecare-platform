@@ -7,7 +7,7 @@ describe("Screen - patient_command_center", () => {
   it("opens and verifies screen patient_command_center", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/patient-command-center");
+  cy.visitWithSemantics("/common/patient-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

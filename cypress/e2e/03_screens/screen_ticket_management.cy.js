@@ -7,7 +7,7 @@ describe("Screen - ticket_management", () => {
   it("opens and verifies screen ticket_management", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/staff/ticket-management");
+  cy.visitWithSemantics("/staff/ticket-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

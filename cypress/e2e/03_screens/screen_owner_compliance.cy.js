@@ -7,7 +7,7 @@ describe("Screen - owner_compliance", () => {
   it("opens and verifies screen owner_compliance", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/owner-compliance");
+  cy.visitWithSemantics("/executive/owner-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

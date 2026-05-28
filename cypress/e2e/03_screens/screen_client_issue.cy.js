@@ -7,7 +7,7 @@ describe("Screen - client_issue", () => {
   it("opens and verifies screen client_issue", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/staff/client-issue");
+  cy.visitWithSemantics("/staff/client-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

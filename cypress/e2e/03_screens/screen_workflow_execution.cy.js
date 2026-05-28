@@ -7,7 +7,7 @@ describe("Screen - workflow_execution", () => {
   it("opens and verifies screen workflow_execution", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/workflow-execution");
+  cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

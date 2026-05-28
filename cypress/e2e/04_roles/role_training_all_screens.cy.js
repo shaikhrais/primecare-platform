@@ -8,7 +8,7 @@ describe("Role All Screens - training", () => {
     cy.loginAsRole("training");
 
 
-  cy.visit("/common/course-architect-dashboard");
+  cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
-  cy.visit("/common/training-hub-dashboard");
+  cy.visitWithSemantics("/common/training-hub-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_dashboard");
 
-  cy.visit("/executive/training-director-dashboard");
+  cy.visitWithSemantics("/executive/training-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
-  cy.visit("/staff/training-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/training-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_dashboard");
 
-  cy.visit("/common/course-architect-analytics");
+  cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
-  cy.visit("/common/course-architect-compliance");
+  cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
 
-  cy.visit("/common/training-hub-analytics");
+  cy.visitWithSemantics("/common/training-hub-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_analytics");
 
-  cy.visit("/common/training-hub-compliance");
+  cy.visitWithSemantics("/common/training-hub-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_compliance");
 
-  cy.visit("/common/training-hub-workflow");
+  cy.visitWithSemantics("/common/training-hub-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_workflow");
 
-  cy.visit("/executive/training-director-analytics");
+  cy.visitWithSemantics("/executive/training-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_analytics");
 
-  cy.visit("/executive/training-director-compliance");
+  cy.visitWithSemantics("/executive/training-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_compliance");
 
-  cy.visit("/executive/training-director-workflow");
+  cy.visitWithSemantics("/executive/training-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_workflow");
 
-  cy.visit("/staff/training-coordinator-analytics");
+  cy.visitWithSemantics("/staff/training-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_analytics");
 
-  cy.visit("/staff/training-coordinator-compliance");
+  cy.visitWithSemantics("/staff/training-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_compliance");
 
-  cy.visit("/staff/training-coordinator-workflow");
+  cy.visitWithSemantics("/staff/training-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_workflow");
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - training", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

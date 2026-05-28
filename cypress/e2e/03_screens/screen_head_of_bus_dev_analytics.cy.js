@@ -7,7 +7,7 @@ describe("Screen - head_of_bus_dev_analytics", () => {
   it("opens and verifies screen head_of_bus_dev_analytics", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/management/head-of-bus-dev-analytics");
+  cy.visitWithSemantics("/management/head-of-bus-dev-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

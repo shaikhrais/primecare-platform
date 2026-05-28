@@ -7,7 +7,7 @@ describe("Screen - territory_expansion_manager_workflow", () => {
   it("opens and verifies screen territory_expansion_manager_workflow", () => {
     cy.loginAsRole("territory_expansion");
 
-  cy.visit("/management/territory-expansion-manager-workflow");
+  cy.visitWithSemantics("/management/territory-expansion-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

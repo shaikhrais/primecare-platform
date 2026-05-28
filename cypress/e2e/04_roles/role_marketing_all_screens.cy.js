@@ -8,7 +8,7 @@ describe("Role All Screens - marketing", () => {
     cy.loginAsRole("marketing");
 
 
-  cy.visit("/management/head-of-marketing-dashboard");
+  cy.visitWithSemantics("/management/head-of-marketing-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_dashboard");
 
-  cy.visit("/management/local-marketing-manager-dashboard");
+  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_dashboard");
 
-  cy.visit("/management/head-of-marketing-analytics");
+  cy.visitWithSemantics("/management/head-of-marketing-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_analytics");
 
-  cy.visit("/management/head-of-marketing-compliance");
+  cy.visitWithSemantics("/management/head-of-marketing-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_compliance");
 
-  cy.visit("/management/head-of-marketing-workflow");
+  cy.visitWithSemantics("/management/head-of-marketing-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_workflow");
 
-  cy.visit("/management/local-marketing-manager-analytics");
+  cy.visitWithSemantics("/management/local-marketing-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_analytics");
 
-  cy.visit("/management/local-marketing-manager-compliance");
+  cy.visitWithSemantics("/management/local-marketing-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_compliance");
 
-  cy.visit("/management/local-marketing-manager-workflow");
+  cy.visitWithSemantics("/management/local-marketing-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_workflow");
 
-  cy.visit("/management/campaign-dashboard");
+  cy.visitWithSemantics("/management/campaign-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("campaign_dashboard");
 
-  cy.visit("/management/lead-analytics");
+  cy.visitWithSemantics("/management/lead-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("lead_analytics");
 
-  cy.visit("/management/social-media");
+  cy.visitWithSemantics("/management/social-media");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - marketing", () => {
   cy.waitAndSee();
   cy.screenshot("social_media");
 
-  cy.visit("/management/brand-management");
+  cy.visitWithSemantics("/management/brand-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

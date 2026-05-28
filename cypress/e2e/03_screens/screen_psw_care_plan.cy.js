@@ -7,7 +7,7 @@ describe("Screen - psw_care_plan", () => {
   it("opens and verifies screen psw_care_plan", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-care-plan");
+  cy.visitWithSemantics("/psw/psw-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

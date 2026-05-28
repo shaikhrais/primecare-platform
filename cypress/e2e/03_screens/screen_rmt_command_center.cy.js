@@ -7,7 +7,7 @@ describe("Screen - rmt_command_center", () => {
   it("opens and verifies screen rmt_command_center", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-command-center");
+  cy.visitWithSemantics("/allied/rmt-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - scrum_master_workflow", () => {
   it("opens and verifies screen scrum_master_workflow", () => {
     cy.loginAsRole("scrum_master");
 
-  cy.visit("/management/scrum-master-workflow");
+  cy.visitWithSemantics("/management/scrum-master-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

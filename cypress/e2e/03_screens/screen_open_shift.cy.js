@@ -7,7 +7,7 @@ describe("Screen - open_shift", () => {
   it("opens and verifies screen open_shift", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/open-shift");
+  cy.visitWithSemantics("/staff/open-shift");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

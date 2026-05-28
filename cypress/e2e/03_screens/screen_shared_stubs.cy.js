@@ -7,7 +7,7 @@ describe("Screen - shared_stubs", () => {
   it("opens and verifies screen shared_stubs", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/shared-stubs");
+  cy.visitWithSemantics("/common/shared-stubs");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

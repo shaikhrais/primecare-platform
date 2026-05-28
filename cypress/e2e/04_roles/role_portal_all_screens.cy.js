@@ -8,7 +8,7 @@ describe("Role All Screens - portal", () => {
     cy.loginAsRole("portal");
 
 
-  cy.visit("/common/portal-dashboard");
+  cy.visitWithSemantics("/common/portal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - portal", () => {
   cy.waitAndSee();
   cy.screenshot("portal_dashboard");
 
-  cy.visit("/common/portal-analytics");
+  cy.visitWithSemantics("/common/portal-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - portal", () => {
   cy.waitAndSee();
   cy.screenshot("portal_analytics");
 
-  cy.visit("/common/portal-compliance");
+  cy.visitWithSemantics("/common/portal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - portal", () => {
   cy.waitAndSee();
   cy.screenshot("portal_compliance");
 
-  cy.visit("/common/portal-workflow");
+  cy.visitWithSemantics("/common/portal-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

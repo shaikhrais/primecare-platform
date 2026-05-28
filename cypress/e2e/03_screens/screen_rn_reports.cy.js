@@ -7,7 +7,7 @@ describe("Screen - rn_reports", () => {
   it("opens and verifies screen rn_reports", () => {
     cy.loginAsRole("rn");
 
-  cy.visit("/rn/rn-reports");
+  cy.visitWithSemantics("/rn/rn-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

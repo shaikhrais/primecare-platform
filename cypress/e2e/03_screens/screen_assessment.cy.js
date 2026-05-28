@@ -7,7 +7,7 @@ describe("Screen - assessment", () => {
   it("opens and verifies screen assessment", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/clinical/assessment");
+  cy.visitWithSemantics("/clinical/assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

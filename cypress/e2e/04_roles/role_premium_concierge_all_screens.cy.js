@@ -8,7 +8,7 @@ describe("Role All Screens - premium_concierge", () => {
     cy.loginAsRole("premium_concierge");
 
 
-  cy.visit("/management/premium-concierge-dashboard");
+  cy.visitWithSemantics("/management/premium-concierge-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - premium_concierge", () => {
   cy.waitAndSee();
   cy.screenshot("premium_concierge_dashboard");
 
-  cy.visit("/premium/premium-concierge-analytics");
+  cy.visitWithSemantics("/premium/premium-concierge-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - premium_concierge", () => {
   cy.waitAndSee();
   cy.screenshot("premium_concierge_analytics");
 
-  cy.visit("/premium/premium-concierge-workflow");
+  cy.visitWithSemantics("/premium/premium-concierge-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

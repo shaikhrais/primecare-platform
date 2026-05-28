@@ -7,7 +7,7 @@ describe("Screen - shareholder_workflow", () => {
   it("opens and verifies screen shareholder_workflow", () => {
     cy.loginAsRole("shareholder");
 
-  cy.visit("/executive/shareholder-workflow");
+  cy.visitWithSemantics("/executive/shareholder-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - quality_assurance_analytics", () => {
   it("opens and verifies screen quality_assurance_analytics", () => {
     cy.loginAsRole("qa_specialist");
 
-  cy.visit("/staff/quality-assurance-analytics");
+  cy.visitWithSemantics("/staff/quality-assurance-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

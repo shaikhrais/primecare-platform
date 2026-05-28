@@ -8,7 +8,7 @@ describe("Role All Screens - rn_field_supervisor", () => {
     cy.loginAsRole("rn_field_supervisor");
 
 
-  cy.visit("/rn/rn-field-supervisor-dashboard");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
 
-  cy.visit("/rn/rn-field-supervisor-analytics");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_analytics");
 
-  cy.visit("/rn/rn-field-supervisor-workflow");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

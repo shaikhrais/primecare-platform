@@ -7,7 +7,7 @@ describe("Screen - training_director_analytics", () => {
   it("opens and verifies screen training_director_analytics", () => {
     cy.loginAsRole("training");
 
-  cy.visit("/executive/training-director-analytics");
+  cy.visitWithSemantics("/executive/training-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

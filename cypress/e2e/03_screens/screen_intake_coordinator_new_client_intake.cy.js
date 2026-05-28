@@ -7,7 +7,7 @@ describe("Screen - intake_coordinator_new_client_intake", () => {
   it("opens and verifies screen intake_coordinator_new_client_intake", () => {
     cy.loginAsRole("volunteer_coordinator");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

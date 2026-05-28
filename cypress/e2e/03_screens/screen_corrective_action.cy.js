@@ -7,7 +7,7 @@ describe("Screen - corrective_action", () => {
   it("opens and verifies screen corrective_action", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/corrective-action");
+  cy.visitWithSemantics("/management/corrective-action");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

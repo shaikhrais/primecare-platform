@@ -7,7 +7,7 @@ describe("Screen - owner_workflow", () => {
   it("opens and verifies screen owner_workflow", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/owner-workflow");
+  cy.visitWithSemantics("/executive/owner-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

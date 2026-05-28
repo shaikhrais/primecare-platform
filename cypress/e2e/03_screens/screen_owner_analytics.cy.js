@@ -7,7 +7,7 @@ describe("Screen - owner_analytics", () => {
   it("opens and verifies screen owner_analytics", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/owner-analytics");
+  cy.visitWithSemantics("/executive/owner-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

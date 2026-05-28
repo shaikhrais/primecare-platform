@@ -7,7 +7,7 @@ describe("Screen - certification_tracking", () => {
   it("opens and verifies screen certification_tracking", () => {
     cy.loginAsRole("training_coordinator");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

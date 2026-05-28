@@ -7,7 +7,7 @@ describe("Screen - hr_director_workflow", () => {
   it("opens and verifies screen hr_director_workflow", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-workflow");
+  cy.visitWithSemantics("/executive/hr-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

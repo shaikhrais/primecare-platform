@@ -8,7 +8,7 @@ describe("Role All Screens - social_worker", () => {
     cy.loginAsRole("social_worker");
 
 
-  cy.visit("/common/social-worker-dashboard");
+  cy.visitWithSemantics("/common/social-worker-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - social_worker", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_dashboard");
 
-  cy.visit("/common/social-worker-analytics");
+  cy.visitWithSemantics("/common/social-worker-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - social_worker", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_analytics");
 
-  cy.visit("/common/social-worker-compliance");
+  cy.visitWithSemantics("/common/social-worker-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - social_worker", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_compliance");
 
-  cy.visit("/common/social-worker-workflow");
+  cy.visitWithSemantics("/common/social-worker-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

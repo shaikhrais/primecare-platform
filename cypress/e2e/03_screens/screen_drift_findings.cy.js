@@ -7,7 +7,7 @@ describe("Screen - drift_findings", () => {
   it("opens and verifies screen drift_findings", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/drift-findings");
+  cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

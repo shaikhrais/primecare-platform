@@ -7,7 +7,7 @@ describe("Screen - hr_director_onboarding", () => {
   it("opens and verifies screen hr_director_onboarding", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-onboarding");
+  cy.visitWithSemantics("/executive/hr-director-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

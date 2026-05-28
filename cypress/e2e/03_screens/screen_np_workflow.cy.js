@@ -7,7 +7,7 @@ describe("Screen - np_workflow", () => {
   it("opens and verifies screen np_workflow", () => {
     cy.loginAsRole("np");
 
-  cy.visit("/rn/np-workflow");
+  cy.visitWithSemantics("/rn/np-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

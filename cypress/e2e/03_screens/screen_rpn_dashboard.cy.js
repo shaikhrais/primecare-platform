@@ -7,7 +7,7 @@ describe("Screen - rpn_dashboard", () => {
   it("opens and verifies screen rpn_dashboard", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-dashboard");
+  cy.visitWithSemantics("/rpn/rpn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

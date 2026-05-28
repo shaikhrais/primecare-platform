@@ -7,7 +7,7 @@ describe("Screen - coordinator_sos", () => {
   it("opens and verifies screen coordinator_sos", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/coordinator-sos");
+  cy.visitWithSemantics("/staff/coordinator-sos");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

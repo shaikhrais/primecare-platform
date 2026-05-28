@@ -7,7 +7,7 @@ describe("Screen - rn_field_supervisor_dashboard", () => {
   it("opens and verifies screen rn_field_supervisor_dashboard", () => {
     cy.loginAsRole("rn_field_supervisor");
 
-  cy.visit("/rn/rn-field-supervisor-dashboard");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

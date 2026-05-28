@@ -7,7 +7,7 @@ describe("Screen - portal_analytics", () => {
   it("opens and verifies screen portal_analytics", () => {
     cy.loginAsRole("portal");
 
-  cy.visit("/common/portal-analytics");
+  cy.visitWithSemantics("/common/portal-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

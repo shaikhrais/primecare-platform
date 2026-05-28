@@ -7,7 +7,7 @@ describe("Screen - patient_messages", () => {
   it("opens and verifies screen patient_messages", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/patient-messages");
+  cy.visitWithSemantics("/common/patient-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

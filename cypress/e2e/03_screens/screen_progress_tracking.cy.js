@@ -7,7 +7,7 @@ describe("Screen - progress_tracking", () => {
   it("opens and verifies screen progress_tracking", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/clinical/progress-tracking");
+  cy.visitWithSemantics("/clinical/progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

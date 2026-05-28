@@ -7,7 +7,7 @@ describe("Screen - regional_manager_usa_dashboard", () => {
   it("opens and verifies screen regional_manager_usa_dashboard", () => {
     cy.loginAsRole("regional_manager_usa");
 
-  cy.visit("/management/regional-manager-usa-dashboard");
+  cy.visitWithSemantics("/management/regional-manager-usa-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

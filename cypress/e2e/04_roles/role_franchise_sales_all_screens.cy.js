@@ -8,7 +8,7 @@ describe("Role All Screens - franchise_sales", () => {
     cy.loginAsRole("franchise_sales");
 
 
-  cy.visit("/management/franchise-sales-manager-dashboard");
+  cy.visitWithSemantics("/management/franchise-sales-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - franchise_sales", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_dashboard");
 
-  cy.visit("/executive/franchise-sales-analytics");
+  cy.visitWithSemantics("/executive/franchise-sales-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - franchise_sales", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_analytics");
 
-  cy.visit("/executive/franchise-sales-workflow");
+  cy.visitWithSemantics("/executive/franchise-sales-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

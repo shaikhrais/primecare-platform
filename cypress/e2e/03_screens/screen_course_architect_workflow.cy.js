@@ -7,7 +7,7 @@ describe("Screen - course_architect_workflow", () => {
   it("opens and verifies screen course_architect_workflow", () => {
     cy.loginAsRole("training_director");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - gm", () => {
     cy.loginAsRole("gm");
 
 
-  cy.visit("/management/general-manager-dashboard");
+  cy.visitWithSemantics("/management/general-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - gm", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_dashboard");
 
-  cy.visit("/management/general-manager-analytics");
+  cy.visitWithSemantics("/management/general-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - gm", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_analytics");
 
-  cy.visit("/management/general-manager-compliance");
+  cy.visitWithSemantics("/management/general-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - gm", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_compliance");
 
-  cy.visit("/management/general-manager-workflow");
+  cy.visitWithSemantics("/management/general-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

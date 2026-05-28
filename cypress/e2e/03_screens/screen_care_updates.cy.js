@@ -7,7 +7,7 @@ describe("Screen - care_updates", () => {
   it("opens and verifies screen care_updates", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/care-updates");
+  cy.visitWithSemantics("/common/care-updates");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

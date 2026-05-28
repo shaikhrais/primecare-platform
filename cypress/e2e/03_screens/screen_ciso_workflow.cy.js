@@ -7,7 +7,7 @@ describe("Screen - ciso_workflow", () => {
   it("opens and verifies screen ciso_workflow", () => {
     cy.loginAsRole("ciso");
 
-  cy.visit("/executive/ciso-workflow");
+  cy.visitWithSemantics("/executive/ciso-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

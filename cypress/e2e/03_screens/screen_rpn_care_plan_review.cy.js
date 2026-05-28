@@ -7,7 +7,7 @@ describe("Screen - rpn_care_plan_review", () => {
   it("opens and verifies screen rpn_care_plan_review", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-care-plan-review");
+  cy.visitWithSemantics("/rpn/rpn-care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

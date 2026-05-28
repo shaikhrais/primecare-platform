@@ -8,7 +8,7 @@ describe("Role All Screens - shareholder", () => {
     cy.loginAsRole("shareholder");
 
 
-  cy.visit("/executive/shareholder-dashboard");
+  cy.visitWithSemantics("/executive/shareholder-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - shareholder", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_dashboard");
 
-  cy.visit("/executive/shareholder-analytics");
+  cy.visitWithSemantics("/executive/shareholder-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - shareholder", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_analytics");
 
-  cy.visit("/executive/shareholder-compliance");
+  cy.visitWithSemantics("/executive/shareholder-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - shareholder", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_compliance");
 
-  cy.visit("/executive/shareholder-workflow");
+  cy.visitWithSemantics("/executive/shareholder-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

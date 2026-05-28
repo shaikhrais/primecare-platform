@@ -7,7 +7,7 @@ describe("Screen - therapist_dashboard", () => {
   it("opens and verifies screen therapist_dashboard", () => {
     cy.loginAsRole("therapist");
 
-  cy.visit("/allied/therapist-dashboard");
+  cy.visitWithSemantics("/allied/therapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - home_care_plan", () => {
   it("opens and verifies screen home_care_plan", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/home-care-plan");
+  cy.visitWithSemantics("/allied/home-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

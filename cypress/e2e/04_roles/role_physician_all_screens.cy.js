@@ -8,7 +8,7 @@ describe("Role All Screens - physician", () => {
     cy.loginAsRole("physician");
 
 
-  cy.visit("/clinical/physician-dashboard");
+  cy.visitWithSemantics("/clinical/physician-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - physician", () => {
   cy.waitAndSee();
   cy.screenshot("physician_dashboard");
 
-  cy.visit("/clinical/physician-analytics");
+  cy.visitWithSemantics("/clinical/physician-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - physician", () => {
   cy.waitAndSee();
   cy.screenshot("physician_analytics");
 
-  cy.visit("/clinical/physician-workflow");
+  cy.visitWithSemantics("/clinical/physician-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

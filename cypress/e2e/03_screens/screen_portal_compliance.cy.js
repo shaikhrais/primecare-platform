@@ -7,7 +7,7 @@ describe("Screen - portal_compliance", () => {
   it("opens and verifies screen portal_compliance", () => {
     cy.loginAsRole("portal");
 
-  cy.visit("/common/portal-compliance");
+  cy.visitWithSemantics("/common/portal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

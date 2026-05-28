@@ -7,7 +7,7 @@ describe("Screen - physiotherapist_dashboard", () => {
   it("opens and verifies screen physiotherapist_dashboard", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/common/physiotherapist-dashboard");
+  cy.visitWithSemantics("/common/physiotherapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

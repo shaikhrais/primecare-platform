@@ -7,7 +7,7 @@ describe("Screen - system_health", () => {
   it("opens and verifies screen system_health", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/executive/system-health");
+  cy.visitWithSemantics("/executive/system-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

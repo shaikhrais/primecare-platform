@@ -7,7 +7,7 @@ describe("Screen - dynamic_analytics", () => {
   it("opens and verifies screen dynamic_analytics", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/dynamic-analytics");
+  cy.visitWithSemantics("/common/dynamic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

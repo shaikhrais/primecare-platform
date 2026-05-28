@@ -7,7 +7,7 @@ describe("Screen - architecture_planning_analytics", () => {
   it("opens and verifies screen architecture_planning_analytics", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/architecture-planning-analytics");
+  cy.visitWithSemantics("/common/architecture-planning-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

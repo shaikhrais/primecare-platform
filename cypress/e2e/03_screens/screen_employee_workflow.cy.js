@@ -7,7 +7,7 @@ describe("Screen - employee_workflow", () => {
   it("opens and verifies screen employee_workflow", () => {
     cy.loginAsRole("employee");
 
-  cy.visit("/staff/employee-workflow");
+  cy.visitWithSemantics("/staff/employee-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

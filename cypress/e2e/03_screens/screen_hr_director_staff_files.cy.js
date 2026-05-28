@@ -7,7 +7,7 @@ describe("Screen - hr_director_staff_files", () => {
   it("opens and verifies screen hr_director_staff_files", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-staff-files");
+  cy.visitWithSemantics("/executive/hr-director-staff-files");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - intake", () => {
     cy.loginAsRole("intake");
 
 
-  cy.visit("/common/intake-dashboard");
+  cy.visitWithSemantics("/common/intake-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_dashboard");
 
-  cy.visit("/staff/intake-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/intake-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_dashboard");
 
-  cy.visit("/common/intake-analytics");
+  cy.visitWithSemantics("/common/intake-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_analytics");
 
-  cy.visit("/common/intake-compliance");
+  cy.visitWithSemantics("/common/intake-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_compliance");
 
-  cy.visit("/common/intake-workflow");
+  cy.visitWithSemantics("/common/intake-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_workflow");
 
-  cy.visit("/staff/intake-coordinator-analytics");
+  cy.visitWithSemantics("/staff/intake-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_analytics");
 
-  cy.visit("/staff/intake-coordinator-compliance");
+  cy.visitWithSemantics("/staff/intake-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_compliance");
 
-  cy.visit("/staff/intake-coordinator-workflow");
+  cy.visitWithSemantics("/staff/intake-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_workflow");
 
-  cy.visit("/executive/referral-management");
+  cy.visitWithSemantics("/executive/referral-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("referral_management");
 
-  cy.visit("/executive/client-intake");
+  cy.visitWithSemantics("/executive/client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("client_intake");
 
-  cy.visit("/executive/booking");
+  cy.visitWithSemantics("/executive/booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - intake", () => {
   cy.waitAndSee();
   cy.screenshot("booking");
 
-  cy.visit("/executive/followup");
+  cy.visitWithSemantics("/executive/followup");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

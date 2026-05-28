@@ -7,7 +7,7 @@ describe("Screen - dynamic_workflow", () => {
   it("opens and verifies screen dynamic_workflow", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/dynamic-workflow");
+  cy.visitWithSemantics("/common/dynamic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

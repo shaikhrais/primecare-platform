@@ -7,7 +7,7 @@ describe("Screen - hsw_dashboard", () => {
   it("opens and verifies screen hsw_dashboard", () => {
     cy.loginAsRole("hsw");
 
-  cy.visit("/clinical/hsw-dashboard");
+  cy.visitWithSemantics("/clinical/hsw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

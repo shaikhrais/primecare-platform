@@ -7,7 +7,7 @@ describe("Screen - attendance", () => {
   it("opens and verifies screen attendance", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/attendance");
+  cy.visitWithSemantics("/management/attendance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

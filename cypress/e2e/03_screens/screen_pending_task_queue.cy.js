@@ -7,7 +7,7 @@ describe("Screen - pending_task_queue", () => {
   it("opens and verifies screen pending_task_queue", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/pending-task-queue");
+  cy.visitWithSemantics("/common/pending-task-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

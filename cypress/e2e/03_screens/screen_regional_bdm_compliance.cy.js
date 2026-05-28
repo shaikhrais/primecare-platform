@@ -7,7 +7,7 @@ describe("Screen - regional_bdm_compliance", () => {
   it("opens and verifies screen regional_bdm_compliance", () => {
     cy.loginAsRole("regional_bdm");
 
-  cy.visit("/management/regional-bdm-compliance");
+  cy.visitWithSemantics("/management/regional-bdm-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

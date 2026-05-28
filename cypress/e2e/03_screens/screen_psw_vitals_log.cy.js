@@ -7,7 +7,7 @@ describe("Screen - psw_vitals_log", () => {
   it("opens and verifies screen psw_vitals_log", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-vitals-log");
+  cy.visitWithSemantics("/psw/psw-vitals-log");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

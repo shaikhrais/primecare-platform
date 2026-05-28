@@ -7,7 +7,7 @@ describe("Screen - rpn_patient_charting", () => {
   it("opens and verifies screen rpn_patient_charting", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-patient-charting");
+  cy.visitWithSemantics("/rpn/rpn-patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

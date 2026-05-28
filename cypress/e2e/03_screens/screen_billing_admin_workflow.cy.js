@@ -7,7 +7,7 @@ describe("Screen - billing_admin_workflow", () => {
   it("opens and verifies screen billing_admin_workflow", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/billing-admin-workflow");
+  cy.visitWithSemantics("/staff/billing-admin-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

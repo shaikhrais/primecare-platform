@@ -7,7 +7,7 @@ describe("Screen - territory_sales_manager_workflow", () => {
   it("opens and verifies screen territory_sales_manager_workflow", () => {
     cy.loginAsRole("territory_sales");
 
-  cy.visit("/management/territory-sales-manager-workflow");
+  cy.visitWithSemantics("/management/territory-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

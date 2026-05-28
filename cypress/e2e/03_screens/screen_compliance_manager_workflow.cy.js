@@ -7,7 +7,7 @@ describe("Screen - compliance_manager_workflow", () => {
   it("opens and verifies screen compliance_manager_workflow", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/compliance-manager-workflow");
+  cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

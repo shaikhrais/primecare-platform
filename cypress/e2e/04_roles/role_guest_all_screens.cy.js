@@ -8,7 +8,7 @@ describe("Role All Screens - guest", () => {
     cy.loginAsRole("guest");
 
 
-  cy.visit("/common/dynamic-dashboard");
+  cy.visitWithSemantics("/common/dynamic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - guest", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_screen_dashboard");
 
-  cy.visit("/common/guest-dashboard");
+  cy.visitWithSemantics("/common/guest-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - guest", () => {
   cy.waitAndSee();
   cy.screenshot("guest_dashboard");
 
-  cy.visit("/common/guest-analytics");
+  cy.visitWithSemantics("/common/guest-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - guest", () => {
   cy.waitAndSee();
   cy.screenshot("guest_analytics");
 
-  cy.visit("/common/guest-compliance");
+  cy.visitWithSemantics("/common/guest-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - guest", () => {
   cy.waitAndSee();
   cy.screenshot("guest_compliance");
 
-  cy.visit("/common/guest-workflow");
+  cy.visitWithSemantics("/common/guest-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

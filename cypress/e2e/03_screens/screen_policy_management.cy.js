@@ -7,7 +7,7 @@ describe("Screen - policy_management", () => {
   it("opens and verifies screen policy_management", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/policy-management");
+  cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

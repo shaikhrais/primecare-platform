@@ -7,7 +7,7 @@ describe("Screen - chiropractic_progress_tracking", () => {
   it("opens and verifies screen chiropractic_progress_tracking", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/allied/chiropractic-progress-tracking");
+  cy.visitWithSemantics("/allied/chiropractic-progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - scrum_master", () => {
     cy.loginAsRole("scrum_master");
 
 
-  cy.visit("/management/scrum-master-dashboard");
+  cy.visitWithSemantics("/management/scrum-master-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - scrum_master", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_dashboard");
 
-  cy.visit("/management/scrum-master-analytics");
+  cy.visitWithSemantics("/management/scrum-master-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - scrum_master", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_analytics");
 
-  cy.visit("/management/scrum-master-compliance");
+  cy.visitWithSemantics("/management/scrum-master-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - scrum_master", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_compliance");
 
-  cy.visit("/management/scrum-master-workflow");
+  cy.visitWithSemantics("/management/scrum-master-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

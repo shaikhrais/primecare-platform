@@ -7,7 +7,7 @@ describe("Screen - cfo_dashboard", () => {
   it("opens and verifies screen cfo_dashboard", () => {
     cy.loginAsRole("cfo");
 
-  cy.visit("/executive/cfo-dashboard");
+  cy.visitWithSemantics("/executive/cfo-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

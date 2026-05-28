@@ -8,7 +8,7 @@ describe("Role All Screens - dynamic", () => {
     cy.loginAsRole("dynamic");
 
 
-  cy.visit("/common/customer-support-dashboard");
+  cy.visitWithSemantics("/common/customer-support-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - dynamic", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_dashboard");
 
-  cy.visit("/common/support-dashboard");
+  cy.visitWithSemantics("/common/support-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - dynamic", () => {
   cy.waitAndSee();
   cy.screenshot("support_dashboard");
 
-  cy.visit("/common/dynamic-analytics");
+  cy.visitWithSemantics("/common/dynamic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - dynamic", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_analytics");
 
-  cy.visit("/common/dynamic-compliance");
+  cy.visitWithSemantics("/common/dynamic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - dynamic", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_compliance");
 
-  cy.visit("/common/dynamic-workflow");
+  cy.visitWithSemantics("/common/dynamic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - dynamic", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_workflow");
 
-  cy.visit("/common/shared-stubs");
+  cy.visitWithSemantics("/common/shared-stubs");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

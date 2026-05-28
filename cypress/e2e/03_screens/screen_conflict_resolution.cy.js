@@ -7,7 +7,7 @@ describe("Screen - conflict_resolution", () => {
   it("opens and verifies screen conflict_resolution", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/conflict-resolution");
+  cy.visitWithSemantics("/staff/conflict-resolution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

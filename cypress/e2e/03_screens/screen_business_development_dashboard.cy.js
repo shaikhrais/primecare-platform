@@ -7,7 +7,7 @@ describe("Screen - business_development_dashboard", () => {
   it("opens and verifies screen business_development_dashboard", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/common/business-development-dashboard");
+  cy.visitWithSemantics("/common/business-development-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - operations_command_center", () => {
   it("opens and verifies screen operations_command_center", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/operations-command-center");
+  cy.visitWithSemantics("/executive/operations-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - local_marketing", () => {
     cy.loginAsRole("local_marketing");
 
 
-  cy.visit("/management/local-marketing-manager-dashboard");
+  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - local_marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_dashboard");
 
-  cy.visit("/management/local-marketing-manager-analytics");
+  cy.visitWithSemantics("/management/local-marketing-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - local_marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_analytics");
 
-  cy.visit("/management/local-marketing-manager-compliance");
+  cy.visitWithSemantics("/management/local-marketing-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - local_marketing", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_compliance");
 
-  cy.visit("/management/local-marketing-manager-workflow");
+  cy.visitWithSemantics("/management/local-marketing-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

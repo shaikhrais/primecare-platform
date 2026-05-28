@@ -7,7 +7,7 @@ describe("Screen - lpn_workflow", () => {
   it("opens and verifies screen lpn_workflow", () => {
     cy.loginAsRole("lpn");
 
-  cy.visit("/rpn/lpn-workflow");
+  cy.visitWithSemantics("/rpn/lpn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

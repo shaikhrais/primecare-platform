@@ -7,7 +7,7 @@ describe("Screen - portal_workflow", () => {
   it("opens and verifies screen portal_workflow", () => {
     cy.loginAsRole("portal");
 
-  cy.visit("/common/portal-workflow");
+  cy.visitWithSemantics("/common/portal-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

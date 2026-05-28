@@ -7,7 +7,7 @@ describe("Screen - support_workflow", () => {
   it("opens and verifies screen support_workflow", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/common/support-workflow");
+  cy.visitWithSemantics("/common/support-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

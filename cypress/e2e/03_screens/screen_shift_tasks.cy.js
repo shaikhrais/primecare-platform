@@ -7,7 +7,7 @@ describe("Screen - shift_tasks", () => {
   it("opens and verifies screen shift_tasks", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/shift-tasks");
+  cy.visitWithSemantics("/psw/shift-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

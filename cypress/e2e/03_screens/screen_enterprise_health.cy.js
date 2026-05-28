@@ -7,7 +7,7 @@ describe("Screen - enterprise_health", () => {
   it("opens and verifies screen enterprise_health", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/enterprise-health");
+  cy.visitWithSemantics("/executive/enterprise-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

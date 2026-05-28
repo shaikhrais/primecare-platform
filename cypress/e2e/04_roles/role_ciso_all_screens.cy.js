@@ -8,7 +8,7 @@ describe("Role All Screens - ciso", () => {
     cy.loginAsRole("ciso");
 
 
-  cy.visit("/executive/ciso-dashboard");
+  cy.visitWithSemantics("/executive/ciso-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - ciso", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_dashboard");
 
-  cy.visit("/executive/ciso-analytics");
+  cy.visitWithSemantics("/executive/ciso-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - ciso", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_analytics");
 
-  cy.visit("/executive/ciso-compliance");
+  cy.visitWithSemantics("/executive/ciso-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - ciso", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_compliance");
 
-  cy.visit("/executive/ciso-workflow");
+  cy.visitWithSemantics("/executive/ciso-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

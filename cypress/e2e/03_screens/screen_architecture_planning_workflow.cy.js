@@ -7,7 +7,7 @@ describe("Screen - architecture_planning_workflow", () => {
   it("opens and verifies screen architecture_planning_workflow", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/architecture-planning-workflow");
+  cy.visitWithSemantics("/common/architecture-planning-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - np_analytics", () => {
   it("opens and verifies screen np_analytics", () => {
     cy.loginAsRole("np");
 
-  cy.visit("/rn/np-analytics");
+  cy.visitWithSemantics("/rn/np-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

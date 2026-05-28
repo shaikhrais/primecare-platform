@@ -7,7 +7,7 @@ describe("Screen - scheduler_analytics", () => {
   it("opens and verifies screen scheduler_analytics", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-analytics");
+  cy.visitWithSemantics("/staff/scheduler-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

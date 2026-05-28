@@ -7,7 +7,7 @@ describe("Screen - customer_support_dashboard", () => {
   it("opens and verifies screen customer_support_dashboard", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/customer-support-dashboard");
+  cy.visitWithSemantics("/common/customer-support-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

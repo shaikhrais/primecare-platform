@@ -7,7 +7,7 @@ describe("Screen - medication", () => {
   it("opens and verifies screen medication", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/clinical/medication");
+  cy.visitWithSemantics("/clinical/medication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

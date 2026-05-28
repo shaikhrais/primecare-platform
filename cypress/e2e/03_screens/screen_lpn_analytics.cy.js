@@ -7,7 +7,7 @@ describe("Screen - lpn_analytics", () => {
   it("opens and verifies screen lpn_analytics", () => {
     cy.loginAsRole("lpn");
 
-  cy.visit("/rpn/lpn-analytics");
+  cy.visitWithSemantics("/rpn/lpn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

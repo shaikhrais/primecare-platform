@@ -7,7 +7,7 @@ describe("Screen - regional_manager_usa_compliance", () => {
   it("opens and verifies screen regional_manager_usa_compliance", () => {
     cy.loginAsRole("regional_manager_usa");
 
-  cy.visit("/management/regional-manager-usa-compliance");
+  cy.visitWithSemantics("/management/regional-manager-usa-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

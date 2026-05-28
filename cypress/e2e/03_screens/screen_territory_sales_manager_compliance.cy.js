@@ -7,7 +7,7 @@ describe("Screen - territory_sales_manager_compliance", () => {
   it("opens and verifies screen territory_sales_manager_compliance", () => {
     cy.loginAsRole("territory_sales");
 
-  cy.visit("/management/territory-sales-manager-compliance");
+  cy.visitWithSemantics("/management/territory-sales-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

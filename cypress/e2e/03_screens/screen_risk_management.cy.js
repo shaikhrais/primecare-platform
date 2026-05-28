@@ -7,7 +7,7 @@ describe("Screen - risk_management", () => {
   it("opens and verifies screen risk_management", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/risk-management");
+  cy.visitWithSemantics("/executive/risk-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

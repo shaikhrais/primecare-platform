@@ -7,7 +7,7 @@ describe("Screen - messaging", () => {
   it("opens and verifies screen messaging", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visit("/psw/messaging");
+  cy.visitWithSemantics("/psw/messaging");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

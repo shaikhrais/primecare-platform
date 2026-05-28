@@ -7,7 +7,7 @@ describe("Screen - hsw_schedule", () => {
   it("opens and verifies screen hsw_schedule", () => {
     cy.loginAsRole("hsw");
 
-  cy.visit("/clinical/hsw-schedule");
+  cy.visitWithSemantics("/clinical/hsw-schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

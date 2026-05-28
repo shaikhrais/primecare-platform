@@ -7,7 +7,7 @@ describe("Screen - intake_compliance", () => {
   it("opens and verifies screen intake_compliance", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/common/intake-compliance");
+  cy.visitWithSemantics("/common/intake-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

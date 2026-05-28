@@ -8,7 +8,7 @@ describe("Org Full UI Test", () => {
   it("tests org role chiropractor", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visit("/common/chiropractor-dashboard");
+  cy.visitWithSemantics("/common/chiropractor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
 
-  cy.visit("/common/chiropractor-analytics");
+  cy.visitWithSemantics("/common/chiropractor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
 
-  cy.visit("/common/chiropractor-compliance");
+  cy.visitWithSemantics("/common/chiropractor-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
-  cy.visit("/common/chiropractor-workflow");
+  cy.visitWithSemantics("/common/chiropractor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
 
-  cy.visit("/allied/chiropractor-command-center");
+  cy.visitWithSemantics("/allied/chiropractor-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
 
-  cy.visit("/allied/chiropractor-appointments");
+  cy.visitWithSemantics("/allied/chiropractor-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
 
-  cy.visit("/allied/chiropractor-client-intake");
+  cy.visitWithSemantics("/allied/chiropractor-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
 
-  cy.visit("/allied/chiropractor-assessment");
+  cy.visitWithSemantics("/allied/chiropractor-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
 
-  cy.visit("/allied/chiropractor-treatment-notes");
+  cy.visitWithSemantics("/allied/chiropractor-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
 
-  cy.visit("/allied/chiropractor-exercise-plan");
+  cy.visitWithSemantics("/allied/chiropractor-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
 
-  cy.visit("/allied/chiropractor-billing-link");
+  cy.visitWithSemantics("/allied/chiropractor-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
 
-  cy.visit("/allied/chiropractor-reports");
+  cy.visitWithSemantics("/allied/chiropractor-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
 
-  cy.visit("/allied/chiropractic-assessment");
+  cy.visitWithSemantics("/allied/chiropractic-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
 
-  cy.visit("/allied/adjustment-notes");
+  cy.visitWithSemantics("/allied/adjustment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
 
-  cy.visit("/allied/xray-review");
+  cy.visitWithSemantics("/allied/xray-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("xray_review");
 
-  cy.visit("/allied/chiropractic-progress-tracking");
+  cy.visitWithSemantics("/allied/chiropractic-progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -204,7 +204,7 @@ describe("Org Full UI Test", () => {
   it("tests org role physio", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/common/physiotherapist-dashboard");
+  cy.visitWithSemantics("/common/physiotherapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -216,7 +216,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_dashboard");
 
-  cy.visit("/common/physiotherapist-analytics");
+  cy.visitWithSemantics("/common/physiotherapist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -228,7 +228,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_analytics");
 
-  cy.visit("/common/physiotherapist-compliance");
+  cy.visitWithSemantics("/common/physiotherapist-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -240,7 +240,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_compliance");
 
-  cy.visit("/common/physiotherapist-workflow");
+  cy.visitWithSemantics("/common/physiotherapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -252,7 +252,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_workflow");
 
-  cy.visit("/allied/physiotherapist-command-center");
+  cy.visitWithSemantics("/allied/physiotherapist-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -264,7 +264,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_command_center");
 
-  cy.visit("/allied/physiotherapist-appointments");
+  cy.visitWithSemantics("/allied/physiotherapist-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -276,7 +276,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_appointments");
 
-  cy.visit("/allied/physiotherapist-client-intake");
+  cy.visitWithSemantics("/allied/physiotherapist-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -288,7 +288,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_client_intake");
 
-  cy.visit("/allied/physiotherapist-assessment");
+  cy.visitWithSemantics("/allied/physiotherapist-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -300,7 +300,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_assessment");
 
-  cy.visit("/allied/physiotherapist-treatment-notes");
+  cy.visitWithSemantics("/allied/physiotherapist-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -312,7 +312,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_treatment_notes");
 
-  cy.visit("/allied/physiotherapist-exercise-plan");
+  cy.visitWithSemantics("/allied/physiotherapist-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -324,7 +324,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_exercise_plan");
 
-  cy.visit("/allied/physiotherapist-billing-link");
+  cy.visitWithSemantics("/allied/physiotherapist-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -336,7 +336,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_billing_link");
 
-  cy.visit("/allied/physiotherapist-reports");
+  cy.visitWithSemantics("/allied/physiotherapist-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -348,7 +348,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physiotherapist_reports");
 
-  cy.visit("/clinical/assessment");
+  cy.visitWithSemantics("/clinical/assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -360,7 +360,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("assessment");
 
-  cy.visit("/clinical/treatment-plan");
+  cy.visitWithSemantics("/clinical/treatment-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -372,7 +372,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("treatment_plan");
 
-  cy.visit("/clinical/exercise-prescription");
+  cy.visitWithSemantics("/clinical/exercise-prescription");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -384,7 +384,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("exercise_prescription");
 
-  cy.visit("/clinical/progress-tracking");
+  cy.visitWithSemantics("/clinical/progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -400,7 +400,7 @@ describe("Org Full UI Test", () => {
   it("tests org role rmt", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-dashboard");
+  cy.visitWithSemantics("/allied/rmt-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -412,7 +412,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_dashboard");
 
-  cy.visit("/allied/rmt-analytics");
+  cy.visitWithSemantics("/allied/rmt-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -424,7 +424,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_analytics");
 
-  cy.visit("/allied/rmt-compliance");
+  cy.visitWithSemantics("/allied/rmt-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -436,7 +436,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_compliance");
 
-  cy.visit("/allied/rmt-workflow");
+  cy.visitWithSemantics("/allied/rmt-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -448,7 +448,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_workflow");
 
-  cy.visit("/allied/rmt-command-center");
+  cy.visitWithSemantics("/allied/rmt-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -460,7 +460,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_command_center");
 
-  cy.visit("/allied/rmt-appointments");
+  cy.visitWithSemantics("/allied/rmt-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -472,7 +472,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_appointments");
 
-  cy.visit("/allied/rmt-client-intake");
+  cy.visitWithSemantics("/allied/rmt-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -484,7 +484,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_client_intake");
 
-  cy.visit("/allied/rmt-assessment");
+  cy.visitWithSemantics("/allied/rmt-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -496,7 +496,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_assessment");
 
-  cy.visit("/allied/rmt-treatment-notes");
+  cy.visitWithSemantics("/allied/rmt-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -508,7 +508,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_treatment_notes");
 
-  cy.visit("/allied/rmt-exercise-plan");
+  cy.visitWithSemantics("/allied/rmt-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -520,7 +520,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_exercise_plan");
 
-  cy.visit("/allied/rmt-billing-link");
+  cy.visitWithSemantics("/allied/rmt-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -532,7 +532,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_billing_link");
 
-  cy.visit("/allied/rmt-reports");
+  cy.visitWithSemantics("/allied/rmt-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -544,7 +544,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rmt_reports");
 
-  cy.visit("/allied/massage-assessment");
+  cy.visitWithSemantics("/allied/massage-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -556,7 +556,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("massage_assessment");
 
-  cy.visit("/allied/treatment-notes");
+  cy.visitWithSemantics("/allied/treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -568,7 +568,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("treatment_notes");
 
-  cy.visit("/allied/home-care-plan");
+  cy.visitWithSemantics("/allied/home-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -580,7 +580,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("home_care_plan");
 
-  cy.visit("/allied/client-progress");
+  cy.visitWithSemantics("/allied/client-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -596,7 +596,7 @@ describe("Org Full UI Test", () => {
   it("tests org role social_worker", () => {
     cy.loginAsRole("social_worker");
 
-  cy.visit("/common/social-worker-dashboard");
+  cy.visitWithSemantics("/common/social-worker-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -608,7 +608,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_dashboard");
 
-  cy.visit("/common/social-worker-analytics");
+  cy.visitWithSemantics("/common/social-worker-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -620,7 +620,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_analytics");
 
-  cy.visit("/common/social-worker-compliance");
+  cy.visitWithSemantics("/common/social-worker-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -632,7 +632,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("social_worker_compliance");
 
-  cy.visit("/common/social-worker-workflow");
+  cy.visitWithSemantics("/common/social-worker-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -648,7 +648,7 @@ describe("Org Full UI Test", () => {
   it("tests org role therapist", () => {
     cy.loginAsRole("therapist");
 
-  cy.visit("/allied/therapist-dashboard");
+  cy.visitWithSemantics("/allied/therapist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -660,7 +660,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("therapist_dashboard");
 
-  cy.visit("/allied/therapist-analytics");
+  cy.visitWithSemantics("/allied/therapist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -672,7 +672,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("therapist_analytics");
 
-  cy.visit("/allied/therapist-workflow");
+  cy.visitWithSemantics("/allied/therapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -688,7 +688,7 @@ describe("Org Full UI Test", () => {
   it("tests org role clinical_director", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visit("/clinical/clinical-dashboard");
+  cy.visitWithSemantics("/clinical/clinical-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -700,7 +700,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
 
-  cy.visit("/common/clinic-dashboard");
+  cy.visitWithSemantics("/common/clinic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -712,7 +712,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
 
-  cy.visit("/clinical/clinical-analytics");
+  cy.visitWithSemantics("/clinical/clinical-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -724,7 +724,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
 
-  cy.visit("/clinical/clinical-compliance");
+  cy.visitWithSemantics("/clinical/clinical-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -736,7 +736,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
 
-  cy.visit("/clinical/clinical-workflow");
+  cy.visitWithSemantics("/clinical/clinical-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -748,7 +748,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
 
-  cy.visit("/common/clinic-analytics");
+  cy.visitWithSemantics("/common/clinic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -760,7 +760,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
 
-  cy.visit("/common/clinic-compliance");
+  cy.visitWithSemantics("/common/clinic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -772,7 +772,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
 
-  cy.visit("/common/clinic-workflow");
+  cy.visitWithSemantics("/common/clinic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -784,7 +784,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
 
-  cy.visit("/clinical/clinical-director-staff-quality");
+  cy.visitWithSemantics("/clinical/clinical-director-staff-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -796,7 +796,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
 
-  cy.visit("/clinical/clinical-director-incident-review");
+  cy.visitWithSemantics("/clinical/clinical-director-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -808,7 +808,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
 
-  cy.visit("/clinical/clinical-director-compliance");
+  cy.visitWithSemantics("/clinical/clinical-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -820,7 +820,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
 
-  cy.visit("/clinical/clinical-director-reports");
+  cy.visitWithSemantics("/clinical/clinical-director-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -832,7 +832,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
 
-  cy.visit("/clinical/clinical-director-approvals");
+  cy.visitWithSemantics("/clinical/clinical-director-approvals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -844,7 +844,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
 
-  cy.visit("/clinical/clinical-director-performance");
+  cy.visitWithSemantics("/clinical/clinical-director-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -856,7 +856,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
 
-  cy.visit("/clinical/clinical-quality");
+  cy.visitWithSemantics("/clinical/clinical-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -868,7 +868,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
 
-  cy.visit("/clinical/staff-performance");
+  cy.visitWithSemantics("/clinical/staff-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -880,7 +880,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("staff_performance");
 
-  cy.visit("/clinical/compliance-review");
+  cy.visitWithSemantics("/clinical/compliance-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -892,7 +892,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_review");
 
-  cy.visit("/clinical/incident-oversight");
+  cy.visitWithSemantics("/clinical/incident-oversight");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -904,7 +904,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
 
-  cy.visit("/clinical/clinical-operations4-k");
+  cy.visitWithSemantics("/clinical/clinical-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -920,7 +920,7 @@ describe("Org Full UI Test", () => {
   it("tests org role intake", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/common/intake-dashboard");
+  cy.visitWithSemantics("/common/intake-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -932,7 +932,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_dashboard");
 
-  cy.visit("/staff/intake-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/intake-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -944,7 +944,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_dashboard");
 
-  cy.visit("/common/intake-analytics");
+  cy.visitWithSemantics("/common/intake-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -956,7 +956,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_analytics");
 
-  cy.visit("/common/intake-compliance");
+  cy.visitWithSemantics("/common/intake-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -968,7 +968,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_compliance");
 
-  cy.visit("/common/intake-workflow");
+  cy.visitWithSemantics("/common/intake-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -980,7 +980,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_workflow");
 
-  cy.visit("/staff/intake-coordinator-analytics");
+  cy.visitWithSemantics("/staff/intake-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -992,7 +992,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_analytics");
 
-  cy.visit("/staff/intake-coordinator-compliance");
+  cy.visitWithSemantics("/staff/intake-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1004,7 +1004,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_compliance");
 
-  cy.visit("/staff/intake-coordinator-workflow");
+  cy.visitWithSemantics("/staff/intake-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1016,7 +1016,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_workflow");
 
-  cy.visit("/executive/referral-management");
+  cy.visitWithSemantics("/executive/referral-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1028,7 +1028,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("referral_management");
 
-  cy.visit("/executive/client-intake");
+  cy.visitWithSemantics("/executive/client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1040,7 +1040,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("client_intake");
 
-  cy.visit("/executive/booking");
+  cy.visitWithSemantics("/executive/booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1052,7 +1052,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("booking");
 
-  cy.visit("/executive/followup");
+  cy.visitWithSemantics("/executive/followup");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1068,7 +1068,7 @@ describe("Org Full UI Test", () => {
   it("tests org role rn", () => {
     cy.loginAsRole("rn");
 
-  cy.visit("/common/system-dashboard");
+  cy.visitWithSemantics("/common/system-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1080,7 +1080,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_dashboard");
 
-  cy.visit("/management/governance-officer-dashboard");
+  cy.visitWithSemantics("/management/governance-officer-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1092,7 +1092,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_dashboard");
 
-  cy.visit("/rn/rn-dashboard");
+  cy.visitWithSemantics("/rn/rn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1104,7 +1104,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_dashboard");
 
-  cy.visit("/rn/rn-field-supervisor-dashboard");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1116,7 +1116,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
 
-  cy.visit("/management/governance-officer-analytics");
+  cy.visitWithSemantics("/management/governance-officer-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1128,7 +1128,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_analytics");
 
-  cy.visit("/management/governance-officer-compliance");
+  cy.visitWithSemantics("/management/governance-officer-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1140,7 +1140,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_compliance");
 
-  cy.visit("/management/governance-officer-workflow");
+  cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1152,7 +1152,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_workflow");
 
-  cy.visit("/rn/rn-analytics");
+  cy.visitWithSemantics("/rn/rn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1164,7 +1164,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_analytics");
 
-  cy.visit("/rn/rn-assessments");
+  cy.visitWithSemantics("/rn/rn-assessments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1176,7 +1176,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_assessments");
 
-  cy.visit("/rn/rn-care-plans");
+  cy.visitWithSemantics("/rn/rn-care-plans");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1188,7 +1188,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_care_plans");
 
-  cy.visit("/rn/rn-compliance");
+  cy.visitWithSemantics("/rn/rn-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1200,7 +1200,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_compliance");
 
-  cy.visit("/rn/rn-workflow");
+  cy.visitWithSemantics("/rn/rn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1212,7 +1212,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_workflow");
 
-  cy.visit("/rn/rn-command-center");
+  cy.visitWithSemantics("/rn/rn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1224,7 +1224,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_command_center");
 
-  cy.visit("/rn/rn-patient-charting");
+  cy.visitWithSemantics("/rn/rn-patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1236,7 +1236,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_patient_charting");
 
-  cy.visit("/rn/rn-medications");
+  cy.visitWithSemantics("/rn/rn-medications");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1248,7 +1248,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_medications");
 
-  cy.visit("/rn/rn-vitals");
+  cy.visitWithSemantics("/rn/rn-vitals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1260,7 +1260,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_vitals");
 
-  cy.visit("/rn/rn-care-plan-review");
+  cy.visitWithSemantics("/rn/rn-care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1272,7 +1272,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_care_plan_review");
 
-  cy.visit("/rn/rn-incident-review");
+  cy.visitWithSemantics("/rn/rn-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1284,7 +1284,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_incident_review");
 
-  cy.visit("/rn/rn-tasks");
+  cy.visitWithSemantics("/rn/rn-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1296,7 +1296,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_tasks");
 
-  cy.visit("/rn/rn-reports");
+  cy.visitWithSemantics("/rn/rn-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1308,7 +1308,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_reports");
 
-  cy.visit("/rn/patient-charting");
+  cy.visitWithSemantics("/rn/patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1320,7 +1320,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_charting");
 
-  cy.visit("/rn/medication-administration");
+  cy.visitWithSemantics("/rn/medication-administration");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1332,7 +1332,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("medication_administration");
 
-  cy.visit("/rn/care-plan-review");
+  cy.visitWithSemantics("/rn/care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1344,7 +1344,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("care_plan_review");
 
-  cy.visit("/rn/incident-review");
+  cy.visitWithSemantics("/rn/incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1356,7 +1356,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("incident_review");
 
-  cy.visit("/rn/shift-report");
+  cy.visitWithSemantics("/rn/shift-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1368,7 +1368,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("shift_report");
 
-  cy.visit("/common/governance-control-room");
+  cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1380,7 +1380,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_control_room");
 
-  cy.visit("/common/runtime-verification");
+  cy.visitWithSemantics("/common/runtime-verification");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1392,7 +1392,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("runtime_verification");
 
-  cy.visit("/common/drift-findings");
+  cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1404,7 +1404,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("drift_findings");
 
-  cy.visit("/common/pending-task-queue");
+  cy.visitWithSemantics("/common/pending-task-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1416,7 +1416,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("pending_task_queue");
 
-  cy.visit("/common/agent-dispatch");
+  cy.visitWithSemantics("/common/agent-dispatch");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1428,7 +1428,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("agent_dispatch");
 
-  cy.visit("/common/audit");
+  cy.visitWithSemantics("/common/audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1440,7 +1440,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("audit");
 
-  cy.visit("/common/api-health-dashboard");
+  cy.visitWithSemantics("/common/api-health-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1452,7 +1452,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("api_health_dashboard");
 
-  cy.visit("/common/release-operations");
+  cy.visitWithSemantics("/common/release-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1464,7 +1464,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("release_operations");
 
-  cy.visit("/common/file-verification-dashboard");
+  cy.visitWithSemantics("/common/file-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1476,7 +1476,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("file_verification_dashboard");
 
-  cy.visit("/common/role-coverage-dashboard");
+  cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1488,7 +1488,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("role_coverage_dashboard");
 
-  cy.visit("/common/responsive-preview");
+  cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1500,7 +1500,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("responsive_preview");
 
-  cy.visit("/common/workflow-execution");
+  cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1512,7 +1512,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("workflow_execution");
 
-  cy.visit("/common/governance-operations4-k");
+  cy.visitWithSemantics("/common/governance-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1524,7 +1524,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_operations4_k");
 
-  cy.visit("/rn/rn-field-supervisor-analytics");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1536,7 +1536,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_analytics");
 
-  cy.visit("/rn/rn-field-supervisor-workflow");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1552,7 +1552,7 @@ describe("Org Full UI Test", () => {
   it("tests org role physician", () => {
     cy.loginAsRole("physician");
 
-  cy.visit("/clinical/physician-dashboard");
+  cy.visitWithSemantics("/clinical/physician-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1564,7 +1564,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physician_dashboard");
 
-  cy.visit("/clinical/physician-analytics");
+  cy.visitWithSemantics("/clinical/physician-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1576,7 +1576,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("physician_analytics");
 
-  cy.visit("/clinical/physician-workflow");
+  cy.visitWithSemantics("/clinical/physician-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1592,7 +1592,7 @@ describe("Org Full UI Test", () => {
   it("tests org role cns", () => {
     cy.loginAsRole("cns");
 
-  cy.visit("/clinical/cns-dashboard");
+  cy.visitWithSemantics("/clinical/cns-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1604,7 +1604,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cns_dashboard");
 
-  cy.visit("/rn/cns-analytics");
+  cy.visitWithSemantics("/rn/cns-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1616,7 +1616,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cns_analytics");
 
-  cy.visit("/rn/cns-workflow");
+  cy.visitWithSemantics("/rn/cns-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1632,7 +1632,7 @@ describe("Org Full UI Test", () => {
   it("tests org role pediatric", () => {
     cy.loginAsRole("pediatric");
 
-  cy.visit("/clinical/pediatric-dashboard");
+  cy.visitWithSemantics("/clinical/pediatric-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1644,7 +1644,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("pediatric_dashboard");
 
-  cy.visit("/clinical/pediatric-analytics");
+  cy.visitWithSemantics("/clinical/pediatric-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1656,7 +1656,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("pediatric_analytics");
 
-  cy.visit("/clinical/pediatric-workflow");
+  cy.visitWithSemantics("/clinical/pediatric-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1672,7 +1672,7 @@ describe("Org Full UI Test", () => {
   it("tests org role caregiver", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visit("/common/caregiver-dashboard");
+  cy.visitWithSemantics("/common/caregiver-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1684,7 +1684,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_dashboard");
 
-  cy.visit("/psw/caregiver-tasks");
+  cy.visitWithSemantics("/psw/caregiver-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1696,7 +1696,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_tasks");
 
-  cy.visit("/psw/caregiver-client-profile");
+  cy.visitWithSemantics("/psw/caregiver-client-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1708,7 +1708,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_client_profile");
 
-  cy.visit("/psw/caregiver-visit-notes");
+  cy.visitWithSemantics("/psw/caregiver-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1720,7 +1720,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_visit_notes");
 
-  cy.visit("/psw/caregiver-schedule");
+  cy.visitWithSemantics("/psw/caregiver-schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1732,7 +1732,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_schedule");
 
-  cy.visit("/psw/caregiver-incident-report");
+  cy.visitWithSemantics("/psw/caregiver-incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1744,7 +1744,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("caregiver_incident_report");
 
-  cy.visit("/psw/schedule");
+  cy.visitWithSemantics("/psw/schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1756,7 +1756,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("schedule");
 
-  cy.visit("/psw/messaging");
+  cy.visitWithSemantics("/psw/messaging");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1772,7 +1772,7 @@ describe("Org Full UI Test", () => {
   it("tests org role guest", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/dynamic-dashboard");
+  cy.visitWithSemantics("/common/dynamic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1784,7 +1784,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_screen_dashboard");
 
-  cy.visit("/common/guest-dashboard");
+  cy.visitWithSemantics("/common/guest-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1796,7 +1796,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("guest_dashboard");
 
-  cy.visit("/common/guest-analytics");
+  cy.visitWithSemantics("/common/guest-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1808,7 +1808,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("guest_analytics");
 
-  cy.visit("/common/guest-compliance");
+  cy.visitWithSemantics("/common/guest-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1820,7 +1820,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("guest_compliance");
 
-  cy.visit("/common/guest-workflow");
+  cy.visitWithSemantics("/common/guest-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1836,7 +1836,7 @@ describe("Org Full UI Test", () => {
   it("tests org role portal", () => {
     cy.loginAsRole("portal");
 
-  cy.visit("/common/portal-dashboard");
+  cy.visitWithSemantics("/common/portal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1848,7 +1848,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("portal_dashboard");
 
-  cy.visit("/common/portal-analytics");
+  cy.visitWithSemantics("/common/portal-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1860,7 +1860,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("portal_analytics");
 
-  cy.visit("/common/portal-compliance");
+  cy.visitWithSemantics("/common/portal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1872,7 +1872,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("portal_compliance");
 
-  cy.visit("/common/portal-workflow");
+  cy.visitWithSemantics("/common/portal-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1888,7 +1888,7 @@ describe("Org Full UI Test", () => {
   it("tests org role patient", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/family-member-dashboard");
+  cy.visitWithSemantics("/common/family-member-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1900,7 +1900,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_dashboard");
 
-  cy.visit("/common/patient-dashboard");
+  cy.visitWithSemantics("/common/patient-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1912,7 +1912,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_dashboard");
 
-  cy.visit("/common/patient-analytics");
+  cy.visitWithSemantics("/common/patient-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1924,7 +1924,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_analytics");
 
-  cy.visit("/common/patient-compliance");
+  cy.visitWithSemantics("/common/patient-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1936,7 +1936,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_compliance");
 
-  cy.visit("/common/patient-workflow");
+  cy.visitWithSemantics("/common/patient-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1948,7 +1948,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_workflow");
 
-  cy.visit("/common/patient-command-center");
+  cy.visitWithSemantics("/common/patient-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1960,7 +1960,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_command_center");
 
-  cy.visit("/common/patient-appointments");
+  cy.visitWithSemantics("/common/patient-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1972,7 +1972,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_appointments");
 
-  cy.visit("/common/patient-care-plan");
+  cy.visitWithSemantics("/common/patient-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1984,7 +1984,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_care_plan");
 
-  cy.visit("/common/patient-messages");
+  cy.visitWithSemantics("/common/patient-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -1996,7 +1996,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_messages");
 
-  cy.visit("/common/patient-documents");
+  cy.visitWithSemantics("/common/patient-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2008,7 +2008,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_documents");
 
-  cy.visit("/common/patient-billing");
+  cy.visitWithSemantics("/common/patient-billing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2020,7 +2020,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_billing");
 
-  cy.visit("/common/patient-profile");
+  cy.visitWithSemantics("/common/patient-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2032,7 +2032,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("patient_profile");
 
-  cy.visit("/common/appointment");
+  cy.visitWithSemantics("/common/appointment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2044,7 +2044,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("appointment");
 
-  cy.visit("/common/care-plan");
+  cy.visitWithSemantics("/common/care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2056,7 +2056,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("care_plan");
 
-  cy.visit("/common/billing");
+  cy.visitWithSemantics("/common/billing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2068,7 +2068,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing");
 
-  cy.visit("/common/documents");
+  cy.visitWithSemantics("/common/documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2084,7 +2084,7 @@ describe("Org Full UI Test", () => {
   it("tests org role dynamic", () => {
     cy.loginAsRole("dynamic");
 
-  cy.visit("/common/customer-support-dashboard");
+  cy.visitWithSemantics("/common/customer-support-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2096,7 +2096,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_dashboard");
 
-  cy.visit("/common/support-dashboard");
+  cy.visitWithSemantics("/common/support-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2108,7 +2108,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("support_dashboard");
 
-  cy.visit("/common/dynamic-analytics");
+  cy.visitWithSemantics("/common/dynamic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2120,7 +2120,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_analytics");
 
-  cy.visit("/common/dynamic-compliance");
+  cy.visitWithSemantics("/common/dynamic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2132,7 +2132,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_compliance");
 
-  cy.visit("/common/dynamic-workflow");
+  cy.visitWithSemantics("/common/dynamic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2144,7 +2144,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("dynamic_workflow");
 
-  cy.visit("/common/shared-stubs");
+  cy.visitWithSemantics("/common/shared-stubs");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2160,7 +2160,7 @@ describe("Org Full UI Test", () => {
   it("tests org role infrastructure", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/infrastructure-dashboard");
+  cy.visitWithSemantics("/common/infrastructure-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2172,7 +2172,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_dashboard");
 
-  cy.visit("/common/architecture-planning-analytics");
+  cy.visitWithSemantics("/common/architecture-planning-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2184,7 +2184,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_analytics");
 
-  cy.visit("/common/architecture-planning-compliance");
+  cy.visitWithSemantics("/common/architecture-planning-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2196,7 +2196,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_compliance");
 
-  cy.visit("/common/architecture-planning-workflow");
+  cy.visitWithSemantics("/common/architecture-planning-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2208,7 +2208,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_workflow");
 
-  cy.visit("/common/infrastructure-analytics");
+  cy.visitWithSemantics("/common/infrastructure-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2220,7 +2220,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_analytics");
 
-  cy.visit("/common/infrastructure-compliance");
+  cy.visitWithSemantics("/common/infrastructure-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2232,7 +2232,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("infrastructure_compliance");
 
-  cy.visit("/common/infrastructure-workflow");
+  cy.visitWithSemantics("/common/infrastructure-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2248,7 +2248,7 @@ describe("Org Full UI Test", () => {
   it("tests org role system_verification", () => {
     cy.loginAsRole("system_verification");
 
-  cy.visit("/common/qa-dashboard");
+  cy.visitWithSemantics("/common/qa-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2260,7 +2260,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("qa_dashboard");
 
-  cy.visit("/common/system-verification-dashboard");
+  cy.visitWithSemantics("/common/system-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2272,7 +2272,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_dashboard");
 
-  cy.visit("/staff/quality-assurance-dashboard");
+  cy.visitWithSemantics("/staff/quality-assurance-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2284,7 +2284,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_dashboard");
 
-  cy.visit("/common/system-analytics");
+  cy.visitWithSemantics("/common/system-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2296,7 +2296,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_analytics");
 
-  cy.visit("/common/system-compliance");
+  cy.visitWithSemantics("/common/system-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2308,7 +2308,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_compliance");
 
-  cy.visit("/common/system-verification-analytics");
+  cy.visitWithSemantics("/common/system-verification-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2320,7 +2320,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_analytics");
 
-  cy.visit("/common/system-verification-compliance");
+  cy.visitWithSemantics("/common/system-verification-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2332,7 +2332,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_compliance");
 
-  cy.visit("/common/system-verification-workflow");
+  cy.visitWithSemantics("/common/system-verification-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2344,7 +2344,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_workflow");
 
-  cy.visit("/common/system-workflow");
+  cy.visitWithSemantics("/common/system-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2360,7 +2360,7 @@ describe("Org Full UI Test", () => {
   it("tests org role training", () => {
     cy.loginAsRole("training");
 
-  cy.visit("/common/course-architect-dashboard");
+  cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2372,7 +2372,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
-  cy.visit("/common/training-hub-dashboard");
+  cy.visitWithSemantics("/common/training-hub-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2384,7 +2384,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_dashboard");
 
-  cy.visit("/executive/training-director-dashboard");
+  cy.visitWithSemantics("/executive/training-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2396,7 +2396,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
-  cy.visit("/staff/training-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/training-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2408,7 +2408,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_dashboard");
 
-  cy.visit("/common/course-architect-analytics");
+  cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2420,7 +2420,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
-  cy.visit("/common/course-architect-compliance");
+  cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2432,7 +2432,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2444,7 +2444,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
 
-  cy.visit("/common/training-hub-analytics");
+  cy.visitWithSemantics("/common/training-hub-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2456,7 +2456,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_analytics");
 
-  cy.visit("/common/training-hub-compliance");
+  cy.visitWithSemantics("/common/training-hub-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2468,7 +2468,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_compliance");
 
-  cy.visit("/common/training-hub-workflow");
+  cy.visitWithSemantics("/common/training-hub-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2480,7 +2480,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_hub_workflow");
 
-  cy.visit("/executive/training-director-analytics");
+  cy.visitWithSemantics("/executive/training-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2492,7 +2492,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_analytics");
 
-  cy.visit("/executive/training-director-compliance");
+  cy.visitWithSemantics("/executive/training-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2504,7 +2504,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_compliance");
 
-  cy.visit("/executive/training-director-workflow");
+  cy.visitWithSemantics("/executive/training-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2516,7 +2516,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_workflow");
 
-  cy.visit("/staff/training-coordinator-analytics");
+  cy.visitWithSemantics("/staff/training-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2528,7 +2528,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_analytics");
 
-  cy.visit("/staff/training-coordinator-compliance");
+  cy.visitWithSemantics("/staff/training-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2540,7 +2540,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_compliance");
 
-  cy.visit("/staff/training-coordinator-workflow");
+  cy.visitWithSemantics("/staff/training-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2552,7 +2552,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_coordinator_workflow");
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2564,7 +2564,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2576,7 +2576,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2588,7 +2588,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2604,7 +2604,7 @@ describe("Org Full UI Test", () => {
   it("tests org role ceo", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/executive-command-center");
+  cy.visitWithSemantics("/executive/executive-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2616,7 +2616,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("executive_command_center");
 
-  cy.visit("/executive/enterprise-health");
+  cy.visitWithSemantics("/executive/enterprise-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2628,7 +2628,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("enterprise_health");
 
-  cy.visit("/executive/revenue-analytics");
+  cy.visitWithSemantics("/executive/revenue-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2640,7 +2640,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("revenue_analytics");
 
-  cy.visit("/executive/risk-management");
+  cy.visitWithSemantics("/executive/risk-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2652,7 +2652,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("risk_management");
 
-  cy.visit("/executive/franchise-overview");
+  cy.visitWithSemantics("/executive/franchise-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2664,7 +2664,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_overview");
 
-  cy.visit("/executive/enterprise-command-center4-k");
+  cy.visitWithSemantics("/executive/enterprise-command-center4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2680,7 +2680,7 @@ describe("Org Full UI Test", () => {
   it("tests org role cfo", () => {
     cy.loginAsRole("cfo");
 
-  cy.visit("/executive/cfo-dashboard");
+  cy.visitWithSemantics("/executive/cfo-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2692,7 +2692,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_dashboard");
 
-  cy.visit("/executive/cfo-analytics");
+  cy.visitWithSemantics("/executive/cfo-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2704,7 +2704,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_analytics");
 
-  cy.visit("/executive/cfo-compliance");
+  cy.visitWithSemantics("/executive/cfo-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2716,7 +2716,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_compliance");
 
-  cy.visit("/executive/cfo-workflow");
+  cy.visitWithSemantics("/executive/cfo-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2728,7 +2728,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_workflow");
 
-  cy.visit("/executive/cfo-revenue");
+  cy.visitWithSemantics("/executive/cfo-revenue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2740,7 +2740,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_revenue");
 
-  cy.visit("/executive/cfo-expenses");
+  cy.visitWithSemantics("/executive/cfo-expenses");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2752,7 +2752,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_expenses");
 
-  cy.visit("/executive/cfo-payroll");
+  cy.visitWithSemantics("/executive/cfo-payroll");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2764,7 +2764,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_payroll");
 
-  cy.visit("/executive/cfo-invoices");
+  cy.visitWithSemantics("/executive/cfo-invoices");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2776,7 +2776,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_invoices");
 
-  cy.visit("/executive/cfo-tax");
+  cy.visitWithSemantics("/executive/cfo-tax");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2788,7 +2788,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_tax");
 
-  cy.visit("/executive/cfo-profitability");
+  cy.visitWithSemantics("/executive/cfo-profitability");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2800,7 +2800,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_profitability");
 
-  cy.visit("/executive/cfo-cashflow");
+  cy.visitWithSemantics("/executive/cfo-cashflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2812,7 +2812,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_cashflow");
 
-  cy.visit("/executive/financial-dashboard");
+  cy.visitWithSemantics("/executive/financial-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2824,7 +2824,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("financial_dashboard");
 
-  cy.visit("/executive/revenue");
+  cy.visitWithSemantics("/executive/revenue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2836,7 +2836,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("revenue");
 
-  cy.visit("/executive/expense-management");
+  cy.visitWithSemantics("/executive/expense-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2848,7 +2848,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("expense_management");
 
-  cy.visit("/executive/payroll");
+  cy.visitWithSemantics("/executive/payroll");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2860,7 +2860,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("payroll");
 
-  cy.visit("/executive/tax-compliance");
+  cy.visitWithSemantics("/executive/tax-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2872,7 +2872,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("tax_compliance");
 
-  cy.visit("/executive/financial-operations4-k");
+  cy.visitWithSemantics("/executive/financial-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2888,7 +2888,7 @@ describe("Org Full UI Test", () => {
   it("tests org role ciso", () => {
     cy.loginAsRole("ciso");
 
-  cy.visit("/executive/ciso-dashboard");
+  cy.visitWithSemantics("/executive/ciso-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2900,7 +2900,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_dashboard");
 
-  cy.visit("/executive/ciso-analytics");
+  cy.visitWithSemantics("/executive/ciso-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2912,7 +2912,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_analytics");
 
-  cy.visit("/executive/ciso-compliance");
+  cy.visitWithSemantics("/executive/ciso-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2924,7 +2924,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("ciso_compliance");
 
-  cy.visit("/executive/ciso-workflow");
+  cy.visitWithSemantics("/executive/ciso-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2940,7 +2940,7 @@ describe("Org Full UI Test", () => {
   it("tests org role coo", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/coo-dashboard");
+  cy.visitWithSemantics("/executive/coo-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2952,7 +2952,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_dashboard");
 
-  cy.visit("/staff/volunteer-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2964,7 +2964,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
 
-  cy.visit("/executive/coo-analytics");
+  cy.visitWithSemantics("/executive/coo-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2976,7 +2976,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_analytics");
 
-  cy.visit("/executive/coo-compliance");
+  cy.visitWithSemantics("/executive/coo-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -2988,7 +2988,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_compliance");
 
-  cy.visit("/executive/coo-workflow");
+  cy.visitWithSemantics("/executive/coo-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3000,7 +3000,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_workflow");
 
-  cy.visit("/executive/coo-command-center");
+  cy.visitWithSemantics("/executive/coo-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3012,7 +3012,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_command_center");
 
-  cy.visit("/executive/coo-operations-overview");
+  cy.visitWithSemantics("/executive/coo-operations-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3024,7 +3024,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_operations_overview");
 
-  cy.visit("/executive/coo-staffing");
+  cy.visitWithSemantics("/executive/coo-staffing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3036,7 +3036,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_staffing");
 
-  cy.visit("/executive/coo-scheduling-health");
+  cy.visitWithSemantics("/executive/coo-scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3048,7 +3048,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_scheduling_health");
 
-  cy.visit("/executive/coo-workflow-issues");
+  cy.visitWithSemantics("/executive/coo-workflow-issues");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3060,7 +3060,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_workflow_issues");
 
-  cy.visit("/executive/coo-branch-comparison");
+  cy.visitWithSemantics("/executive/coo-branch-comparison");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3072,7 +3072,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coo_branch_comparison");
 
-  cy.visit("/executive/intake-coordinator-referrals");
+  cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3084,7 +3084,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3096,7 +3096,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3108,7 +3108,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3120,7 +3120,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
 
-  cy.visit("/executive/intake-coordinator-documents");
+  cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3132,7 +3132,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
 
-  cy.visit("/executive/intake-coordinator-follow-up");
+  cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3144,7 +3144,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_follow_up");
 
-  cy.visit("/executive/operations-command-center");
+  cy.visitWithSemantics("/executive/operations-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3156,7 +3156,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("operations_command_center");
 
-  cy.visit("/executive/staffing-overview");
+  cy.visitWithSemantics("/executive/staffing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3168,7 +3168,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("staffing_overview");
 
-  cy.visit("/executive/workflow-issue");
+  cy.visitWithSemantics("/executive/workflow-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3180,7 +3180,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("workflow_issue");
 
-  cy.visit("/executive/service-quality");
+  cy.visitWithSemantics("/executive/service-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3192,7 +3192,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("service_quality");
 
-  cy.visit("/executive/branch-performance");
+  cy.visitWithSemantics("/executive/branch-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3204,7 +3204,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("branch_performance");
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3216,7 +3216,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3228,7 +3228,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3240,7 +3240,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3256,7 +3256,7 @@ describe("Org Full UI Test", () => {
   it("tests org role cto", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/clinical/clinical-dashboard");
+  cy.visitWithSemantics("/clinical/clinical-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3268,7 +3268,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
 
-  cy.visit("/common/architecture-planning-dashboard");
+  cy.visitWithSemantics("/common/architecture-planning-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3280,7 +3280,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("architecture_planning_dashboard");
 
-  cy.visit("/common/chiropractor-dashboard");
+  cy.visitWithSemantics("/common/chiropractor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3292,7 +3292,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
 
-  cy.visit("/common/clinic-dashboard");
+  cy.visitWithSemantics("/common/clinic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3304,7 +3304,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
 
-  cy.visit("/common/course-architect-dashboard");
+  cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3316,7 +3316,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
-  cy.visit("/executive/cto-dashboard");
+  cy.visitWithSemantics("/executive/cto-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3328,7 +3328,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cto_dashboard");
 
-  cy.visit("/executive/cx-director-dashboard");
+  cy.visitWithSemantics("/executive/cx-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3340,7 +3340,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
 
-  cy.visit("/executive/finance-director-dashboard");
+  cy.visitWithSemantics("/executive/finance-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3352,7 +3352,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
 
-  cy.visit("/executive/hr-director-dashboard");
+  cy.visitWithSemantics("/executive/hr-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3364,7 +3364,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
 
-  cy.visit("/executive/training-director-dashboard");
+  cy.visitWithSemantics("/executive/training-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3376,7 +3376,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
-  cy.visit("/staff/hr-manager-dashboard");
+  cy.visitWithSemantics("/staff/hr-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3388,7 +3388,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_dashboard");
 
-  cy.visit("/clinical/clinical-analytics");
+  cy.visitWithSemantics("/clinical/clinical-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3400,7 +3400,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
 
-  cy.visit("/clinical/clinical-compliance");
+  cy.visitWithSemantics("/clinical/clinical-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3412,7 +3412,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
 
-  cy.visit("/clinical/clinical-workflow");
+  cy.visitWithSemantics("/clinical/clinical-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3424,7 +3424,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
 
-  cy.visit("/common/chiropractor-analytics");
+  cy.visitWithSemantics("/common/chiropractor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3436,7 +3436,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
 
-  cy.visit("/common/chiropractor-compliance");
+  cy.visitWithSemantics("/common/chiropractor-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3448,7 +3448,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
 
-  cy.visit("/common/chiropractor-workflow");
+  cy.visitWithSemantics("/common/chiropractor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3460,7 +3460,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
 
-  cy.visit("/common/clinic-analytics");
+  cy.visitWithSemantics("/common/clinic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3472,7 +3472,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
 
-  cy.visit("/common/clinic-compliance");
+  cy.visitWithSemantics("/common/clinic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3484,7 +3484,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
 
-  cy.visit("/common/clinic-workflow");
+  cy.visitWithSemantics("/common/clinic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3496,7 +3496,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
 
-  cy.visit("/common/course-architect-analytics");
+  cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3508,7 +3508,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
-  cy.visit("/common/course-architect-compliance");
+  cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3520,7 +3520,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3532,7 +3532,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
 
-  cy.visit("/executive/cto-analytics");
+  cy.visitWithSemantics("/executive/cto-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3544,7 +3544,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cto_analytics");
 
-  cy.visit("/executive/cto-compliance");
+  cy.visitWithSemantics("/executive/cto-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3556,7 +3556,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cto_compliance");
 
-  cy.visit("/executive/cto-workflow");
+  cy.visitWithSemantics("/executive/cto-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3568,7 +3568,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cto_workflow");
 
-  cy.visit("/executive/cx-director-analytics");
+  cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3580,7 +3580,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
 
-  cy.visit("/executive/cx-director-compliance");
+  cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3592,7 +3592,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
 
-  cy.visit("/executive/cx-director-workflow");
+  cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3604,7 +3604,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_workflow");
 
-  cy.visit("/executive/finance-director-analytics");
+  cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3616,7 +3616,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
 
-  cy.visit("/executive/finance-director-compliance");
+  cy.visitWithSemantics("/executive/finance-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3628,7 +3628,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
 
-  cy.visit("/executive/finance-director-workflow");
+  cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3640,7 +3640,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_workflow");
 
-  cy.visit("/executive/hr-director-analytics");
+  cy.visitWithSemantics("/executive/hr-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3652,7 +3652,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
 
-  cy.visit("/executive/hr-director-compliance");
+  cy.visitWithSemantics("/executive/hr-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3664,7 +3664,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_compliance");
 
-  cy.visit("/executive/hr-director-workflow");
+  cy.visitWithSemantics("/executive/hr-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3676,7 +3676,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_workflow");
 
-  cy.visit("/staff/hr-manager-analytics");
+  cy.visitWithSemantics("/staff/hr-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3688,7 +3688,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_analytics");
 
-  cy.visit("/staff/hr-manager-compliance");
+  cy.visitWithSemantics("/staff/hr-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3700,7 +3700,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_compliance");
 
-  cy.visit("/staff/hr-manager-workflow");
+  cy.visitWithSemantics("/staff/hr-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3712,7 +3712,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_workflow");
 
-  cy.visit("/allied/chiropractor-command-center");
+  cy.visitWithSemantics("/allied/chiropractor-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3724,7 +3724,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
 
-  cy.visit("/allied/chiropractor-appointments");
+  cy.visitWithSemantics("/allied/chiropractor-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3736,7 +3736,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
 
-  cy.visit("/allied/chiropractor-client-intake");
+  cy.visitWithSemantics("/allied/chiropractor-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3748,7 +3748,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
 
-  cy.visit("/allied/chiropractor-assessment");
+  cy.visitWithSemantics("/allied/chiropractor-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3760,7 +3760,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
 
-  cy.visit("/allied/chiropractor-treatment-notes");
+  cy.visitWithSemantics("/allied/chiropractor-treatment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3772,7 +3772,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
 
-  cy.visit("/allied/chiropractor-exercise-plan");
+  cy.visitWithSemantics("/allied/chiropractor-exercise-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3784,7 +3784,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
 
-  cy.visit("/allied/chiropractor-billing-link");
+  cy.visitWithSemantics("/allied/chiropractor-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3796,7 +3796,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
 
-  cy.visit("/allied/chiropractor-reports");
+  cy.visitWithSemantics("/allied/chiropractor-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3808,7 +3808,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
 
-  cy.visit("/clinical/clinical-director-staff-quality");
+  cy.visitWithSemantics("/clinical/clinical-director-staff-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3820,7 +3820,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
 
-  cy.visit("/clinical/clinical-director-incident-review");
+  cy.visitWithSemantics("/clinical/clinical-director-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3832,7 +3832,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
 
-  cy.visit("/clinical/clinical-director-compliance");
+  cy.visitWithSemantics("/clinical/clinical-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3844,7 +3844,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
 
-  cy.visit("/clinical/clinical-director-reports");
+  cy.visitWithSemantics("/clinical/clinical-director-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3856,7 +3856,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
 
-  cy.visit("/clinical/clinical-director-approvals");
+  cy.visitWithSemantics("/clinical/clinical-director-approvals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3868,7 +3868,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
 
-  cy.visit("/clinical/clinical-director-performance");
+  cy.visitWithSemantics("/clinical/clinical-director-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3880,7 +3880,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
 
-  cy.visit("/executive/hr-director-hiring-pipeline");
+  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3892,7 +3892,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_hiring_pipeline");
 
-  cy.visit("/executive/hr-director-staff-files");
+  cy.visitWithSemantics("/executive/hr-director-staff-files");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3904,7 +3904,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_staff_files");
 
-  cy.visit("/executive/hr-director-training");
+  cy.visitWithSemantics("/executive/hr-director-training");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3916,7 +3916,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_training");
 
-  cy.visit("/executive/hr-director-credential-expiry");
+  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3928,7 +3928,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_credential_expiry");
 
-  cy.visit("/executive/hr-director-onboarding");
+  cy.visitWithSemantics("/executive/hr-director-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3940,7 +3940,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_onboarding");
 
-  cy.visit("/executive/system-health");
+  cy.visitWithSemantics("/executive/system-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3952,7 +3952,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_health");
 
-  cy.visit("/executive/api-monitoring");
+  cy.visitWithSemantics("/executive/api-monitoring");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3964,7 +3964,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("api_monitoring");
 
-  cy.visit("/executive/deployment-center");
+  cy.visitWithSemantics("/executive/deployment-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3976,7 +3976,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("deployment_center");
 
-  cy.visit("/executive/security-audit");
+  cy.visitWithSemantics("/executive/security-audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -3988,7 +3988,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("security_audit");
 
-  cy.visit("/executive/release-management");
+  cy.visitWithSemantics("/executive/release-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4000,7 +4000,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("release_management");
 
-  cy.visit("/management/hiring-pipeline");
+  cy.visitWithSemantics("/management/hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4012,7 +4012,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hiring_pipeline");
 
-  cy.visit("/management/employee-records");
+  cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4024,7 +4024,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("employee_records");
 
-  cy.visit("/management/credential-expiry");
+  cy.visitWithSemantics("/management/credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4036,7 +4036,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("credential_expiry");
 
-  cy.visit("/management/training-management");
+  cy.visitWithSemantics("/management/training-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4048,7 +4048,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_management");
 
-  cy.visit("/management/onboarding");
+  cy.visitWithSemantics("/management/onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4060,7 +4060,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("onboarding");
 
-  cy.visit("/allied/chiropractic-assessment");
+  cy.visitWithSemantics("/allied/chiropractic-assessment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4072,7 +4072,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
 
-  cy.visit("/allied/adjustment-notes");
+  cy.visitWithSemantics("/allied/adjustment-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4084,7 +4084,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
 
-  cy.visit("/allied/xray-review");
+  cy.visitWithSemantics("/allied/xray-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4096,7 +4096,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("xray_review");
 
-  cy.visit("/allied/chiropractic-progress-tracking");
+  cy.visitWithSemantics("/allied/chiropractic-progress-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4108,7 +4108,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("chiropractic_progress_tracking");
 
-  cy.visit("/clinical/clinical-quality");
+  cy.visitWithSemantics("/clinical/clinical-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4120,7 +4120,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
 
-  cy.visit("/clinical/staff-performance");
+  cy.visitWithSemantics("/clinical/staff-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4132,7 +4132,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("staff_performance");
 
-  cy.visit("/clinical/compliance-review");
+  cy.visitWithSemantics("/clinical/compliance-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4144,7 +4144,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_review");
 
-  cy.visit("/clinical/incident-oversight");
+  cy.visitWithSemantics("/clinical/incident-oversight");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4156,7 +4156,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
 
-  cy.visit("/clinical/clinical-operations4-k");
+  cy.visitWithSemantics("/clinical/clinical-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4172,7 +4172,7 @@ describe("Org Full UI Test", () => {
   it("tests org role cx_director", () => {
     cy.loginAsRole("cx_director");
 
-  cy.visit("/executive/cx-director-dashboard");
+  cy.visitWithSemantics("/executive/cx-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4184,7 +4184,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
 
-  cy.visit("/executive/cx-director-analytics");
+  cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4196,7 +4196,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
 
-  cy.visit("/executive/cx-director-compliance");
+  cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4208,7 +4208,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
 
-  cy.visit("/executive/cx-director-workflow");
+  cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4224,7 +4224,7 @@ describe("Org Full UI Test", () => {
   it("tests org role finance_director", () => {
     cy.loginAsRole("finance_director");
 
-  cy.visit("/executive/finance-director-dashboard");
+  cy.visitWithSemantics("/executive/finance-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4236,7 +4236,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
 
-  cy.visit("/executive/finance-director-analytics");
+  cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4248,7 +4248,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
 
-  cy.visit("/executive/finance-director-compliance");
+  cy.visitWithSemantics("/executive/finance-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4260,7 +4260,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
 
-  cy.visit("/executive/finance-director-workflow");
+  cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4276,7 +4276,7 @@ describe("Org Full UI Test", () => {
   it("tests org role hr_director", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/executive/hr-director-dashboard");
+  cy.visitWithSemantics("/executive/hr-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4288,7 +4288,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
 
-  cy.visit("/staff/hr-manager-dashboard");
+  cy.visitWithSemantics("/staff/hr-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4300,7 +4300,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_dashboard");
 
-  cy.visit("/executive/hr-director-analytics");
+  cy.visitWithSemantics("/executive/hr-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4312,7 +4312,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
 
-  cy.visit("/executive/hr-director-compliance");
+  cy.visitWithSemantics("/executive/hr-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4324,7 +4324,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_compliance");
 
-  cy.visit("/executive/hr-director-workflow");
+  cy.visitWithSemantics("/executive/hr-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4336,7 +4336,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_workflow");
 
-  cy.visit("/staff/hr-manager-analytics");
+  cy.visitWithSemantics("/staff/hr-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4348,7 +4348,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_analytics");
 
-  cy.visit("/staff/hr-manager-compliance");
+  cy.visitWithSemantics("/staff/hr-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4360,7 +4360,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_compliance");
 
-  cy.visit("/staff/hr-manager-workflow");
+  cy.visitWithSemantics("/staff/hr-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4372,7 +4372,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_manager_workflow");
 
-  cy.visit("/executive/hr-director-hiring-pipeline");
+  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4384,7 +4384,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_hiring_pipeline");
 
-  cy.visit("/executive/hr-director-staff-files");
+  cy.visitWithSemantics("/executive/hr-director-staff-files");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4396,7 +4396,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_staff_files");
 
-  cy.visit("/executive/hr-director-training");
+  cy.visitWithSemantics("/executive/hr-director-training");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4408,7 +4408,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_training");
 
-  cy.visit("/executive/hr-director-credential-expiry");
+  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4420,7 +4420,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_credential_expiry");
 
-  cy.visit("/executive/hr-director-onboarding");
+  cy.visitWithSemantics("/executive/hr-director-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4432,7 +4432,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_director_onboarding");
 
-  cy.visit("/management/hiring-pipeline");
+  cy.visitWithSemantics("/management/hiring-pipeline");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4444,7 +4444,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hiring_pipeline");
 
-  cy.visit("/management/employee-records");
+  cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4456,7 +4456,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("employee_records");
 
-  cy.visit("/management/credential-expiry");
+  cy.visitWithSemantics("/management/credential-expiry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4468,7 +4468,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("credential_expiry");
 
-  cy.visit("/management/training-management");
+  cy.visitWithSemantics("/management/training-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4480,7 +4480,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_management");
 
-  cy.visit("/management/onboarding");
+  cy.visitWithSemantics("/management/onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4496,7 +4496,7 @@ describe("Org Full UI Test", () => {
   it("tests org role legal", () => {
     cy.loginAsRole("legal");
 
-  cy.visit("/executive/legal-dashboard");
+  cy.visitWithSemantics("/executive/legal-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4508,7 +4508,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("legal_dashboard");
 
-  cy.visit("/executive/legal-analytics");
+  cy.visitWithSemantics("/executive/legal-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4520,7 +4520,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("legal_analytics");
 
-  cy.visit("/executive/legal-compliance");
+  cy.visitWithSemantics("/executive/legal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4532,7 +4532,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("legal_compliance");
 
-  cy.visit("/executive/legal-workflow");
+  cy.visitWithSemantics("/executive/legal-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4548,7 +4548,7 @@ describe("Org Full UI Test", () => {
   it("tests org role owner", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/common/franchise-dashboard");
+  cy.visitWithSemantics("/common/franchise-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4560,7 +4560,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_dashboard");
 
-  cy.visit("/executive/owner-dashboard");
+  cy.visitWithSemantics("/executive/owner-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4572,7 +4572,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("owner_dashboard");
 
-  cy.visit("/common/franchise-analytics");
+  cy.visitWithSemantics("/common/franchise-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4584,7 +4584,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_analytics");
 
-  cy.visit("/common/franchise-compliance");
+  cy.visitWithSemantics("/common/franchise-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4596,7 +4596,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_compliance");
 
-  cy.visit("/common/franchise-workflow");
+  cy.visitWithSemantics("/common/franchise-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4608,7 +4608,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_workflow");
 
-  cy.visit("/executive/owner-analytics");
+  cy.visitWithSemantics("/executive/owner-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4620,7 +4620,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("owner_analytics");
 
-  cy.visit("/executive/owner-compliance");
+  cy.visitWithSemantics("/executive/owner-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4632,7 +4632,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("owner_compliance");
 
-  cy.visit("/executive/owner-workflow");
+  cy.visitWithSemantics("/executive/owner-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4644,7 +4644,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("owner_workflow");
 
-  cy.visit("/management/franchise-sales-manager-analytics");
+  cy.visitWithSemantics("/management/franchise-sales-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4656,7 +4656,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_analytics");
 
-  cy.visit("/management/franchise-sales-manager-compliance");
+  cy.visitWithSemantics("/management/franchise-sales-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4668,7 +4668,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_compliance");
 
-  cy.visit("/management/franchise-sales-manager-workflow");
+  cy.visitWithSemantics("/management/franchise-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4680,7 +4680,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_workflow");
 
-  cy.visit("/executive/franchise-owner-command-center");
+  cy.visitWithSemantics("/executive/franchise-owner-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4692,7 +4692,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_command_center");
 
-  cy.visit("/executive/franchise-owner-branch-overview");
+  cy.visitWithSemantics("/executive/franchise-owner-branch-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4704,7 +4704,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_branch_overview");
 
-  cy.visit("/executive/franchise-owner-staff");
+  cy.visitWithSemantics("/executive/franchise-owner-staff");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4716,7 +4716,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_staff");
 
-  cy.visit("/executive/franchise-owner-clients");
+  cy.visitWithSemantics("/executive/franchise-owner-clients");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4728,7 +4728,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_clients");
 
-  cy.visit("/executive/franchise-owner-appointments");
+  cy.visitWithSemantics("/executive/franchise-owner-appointments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4740,7 +4740,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_appointments");
 
-  cy.visit("/executive/franchise-owner-finance-snapshot");
+  cy.visitWithSemantics("/executive/franchise-owner-finance-snapshot");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4752,7 +4752,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_finance_snapshot");
 
-  cy.visit("/executive/franchise-owner-compliance");
+  cy.visitWithSemantics("/executive/franchise-owner-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4764,7 +4764,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_compliance");
 
-  cy.visit("/executive/franchise-owner-reports");
+  cy.visitWithSemantics("/executive/franchise-owner-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4776,7 +4776,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_owner_reports");
 
-  cy.visit("/executive/franchise-command-center");
+  cy.visitWithSemantics("/executive/franchise-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4788,7 +4788,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_command_center");
 
-  cy.visit("/executive/revenue-snapshot");
+  cy.visitWithSemantics("/executive/revenue-snapshot");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4800,7 +4800,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("revenue_snapshot");
 
-  cy.visit("/executive/staff-management");
+  cy.visitWithSemantics("/executive/staff-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4812,7 +4812,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("staff_management");
 
-  cy.visit("/executive/appointment-overview");
+  cy.visitWithSemantics("/executive/appointment-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4824,7 +4824,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("appointment_overview");
 
-  cy.visit("/executive/compliance-overview");
+  cy.visitWithSemantics("/executive/compliance-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4836,7 +4836,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_overview");
 
-  cy.visit("/executive/franchise-command-center4-k");
+  cy.visitWithSemantics("/executive/franchise-command-center4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4852,7 +4852,7 @@ describe("Org Full UI Test", () => {
   it("tests org role shareholder", () => {
     cy.loginAsRole("shareholder");
 
-  cy.visit("/executive/shareholder-dashboard");
+  cy.visitWithSemantics("/executive/shareholder-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4864,7 +4864,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_dashboard");
 
-  cy.visit("/executive/shareholder-analytics");
+  cy.visitWithSemantics("/executive/shareholder-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4876,7 +4876,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_analytics");
 
-  cy.visit("/executive/shareholder-compliance");
+  cy.visitWithSemantics("/executive/shareholder-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4888,7 +4888,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("shareholder_compliance");
 
-  cy.visit("/executive/shareholder-workflow");
+  cy.visitWithSemantics("/executive/shareholder-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4904,7 +4904,7 @@ describe("Org Full UI Test", () => {
   it("tests org role training_director", () => {
     cy.loginAsRole("training_director");
 
-  cy.visit("/common/course-architect-dashboard");
+  cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4916,7 +4916,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
 
-  cy.visit("/executive/training-director-dashboard");
+  cy.visitWithSemantics("/executive/training-director-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4928,7 +4928,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
 
-  cy.visit("/common/course-architect-analytics");
+  cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4940,7 +4940,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
 
-  cy.visit("/common/course-architect-compliance");
+  cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4952,7 +4952,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
 
-  cy.visit("/common/course-architect-workflow");
+  cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4968,7 +4968,7 @@ describe("Org Full UI Test", () => {
   it("tests org role community_outreach", () => {
     cy.loginAsRole("community_outreach");
 
-  cy.visit("/management/community-outreach-dashboard");
+  cy.visitWithSemantics("/management/community-outreach-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4980,7 +4980,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_dashboard");
 
-  cy.visit("/management/community-outreach-analytics");
+  cy.visitWithSemantics("/management/community-outreach-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -4992,7 +4992,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_analytics");
 
-  cy.visit("/management/community-outreach-compliance");
+  cy.visitWithSemantics("/management/community-outreach-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5004,7 +5004,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_compliance");
 
-  cy.visit("/management/community-outreach-workflow");
+  cy.visitWithSemantics("/management/community-outreach-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5020,7 +5020,7 @@ describe("Org Full UI Test", () => {
   it("tests org role compliance", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/compliance-manager-dashboard");
+  cy.visitWithSemantics("/management/compliance-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5032,7 +5032,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_dashboard");
 
-  cy.visit("/management/compliance-manager-analytics");
+  cy.visitWithSemantics("/management/compliance-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5044,7 +5044,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_analytics");
 
-  cy.visit("/management/compliance-manager-compliance");
+  cy.visitWithSemantics("/management/compliance-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5056,7 +5056,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_compliance");
 
-  cy.visit("/management/compliance-manager-workflow");
+  cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5068,7 +5068,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_workflow");
 
-  cy.visit("/management/compliance-dashboard");
+  cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5080,7 +5080,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_dashboard");
 
-  cy.visit("/management/audit-review");
+  cy.visitWithSemantics("/management/audit-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5092,7 +5092,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("audit_review");
 
-  cy.visit("/management/incident-management");
+  cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5104,7 +5104,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("incident_management");
 
-  cy.visit("/management/policy-management");
+  cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5116,7 +5116,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("policy_management");
 
-  cy.visit("/management/corrective-action");
+  cy.visitWithSemantics("/management/corrective-action");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5132,7 +5132,7 @@ describe("Org Full UI Test", () => {
   it("tests org role franchise_sales", () => {
     cy.loginAsRole("franchise_sales");
 
-  cy.visit("/management/franchise-sales-manager-dashboard");
+  cy.visitWithSemantics("/management/franchise-sales-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5144,7 +5144,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_dashboard");
 
-  cy.visit("/executive/franchise-sales-analytics");
+  cy.visitWithSemantics("/executive/franchise-sales-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5156,7 +5156,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_sales_analytics");
 
-  cy.visit("/executive/franchise-sales-workflow");
+  cy.visitWithSemantics("/executive/franchise-sales-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5172,7 +5172,7 @@ describe("Org Full UI Test", () => {
   it("tests org role gm", () => {
     cy.loginAsRole("gm");
 
-  cy.visit("/management/general-manager-dashboard");
+  cy.visitWithSemantics("/management/general-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5184,7 +5184,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_dashboard");
 
-  cy.visit("/management/general-manager-analytics");
+  cy.visitWithSemantics("/management/general-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5196,7 +5196,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_analytics");
 
-  cy.visit("/management/general-manager-compliance");
+  cy.visitWithSemantics("/management/general-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5208,7 +5208,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("general_manager_compliance");
 
-  cy.visit("/management/general-manager-workflow");
+  cy.visitWithSemantics("/management/general-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5224,7 +5224,7 @@ describe("Org Full UI Test", () => {
   it("tests org role governance", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/system-dashboard");
+  cy.visitWithSemantics("/common/system-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5236,7 +5236,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("system_dashboard");
 
-  cy.visit("/management/governance-officer-dashboard");
+  cy.visitWithSemantics("/management/governance-officer-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5248,7 +5248,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_dashboard");
 
-  cy.visit("/management/governance-officer-analytics");
+  cy.visitWithSemantics("/management/governance-officer-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5260,7 +5260,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_analytics");
 
-  cy.visit("/management/governance-officer-compliance");
+  cy.visitWithSemantics("/management/governance-officer-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5272,7 +5272,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_compliance");
 
-  cy.visit("/management/governance-officer-workflow");
+  cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5284,7 +5284,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_workflow");
 
-  cy.visit("/common/governance-control-room");
+  cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5296,7 +5296,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("governance_control_room");
 
-  cy.visit("/common/runtime-verification");
+  cy.visitWithSemantics("/common/runtime-verification");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5308,7 +5308,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("runtime_verification");
 
-  cy.visit("/common/drift-findings");
+  cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5320,7 +5320,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("drift_findings");
 
-  cy.visit("/common/pending-task-queue");
+  cy.visitWithSemantics("/common/pending-task-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5332,7 +5332,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("pending_task_queue");
 
-  cy.visit("/common/agent-dispatch");
+  cy.visitWithSemantics("/common/agent-dispatch");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5344,7 +5344,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("agent_dispatch");
 
-  cy.visit("/common/audit");
+  cy.visitWithSemantics("/common/audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5356,7 +5356,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("audit");
 
-  cy.visit("/common/api-health-dashboard");
+  cy.visitWithSemantics("/common/api-health-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5368,7 +5368,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("api_health_dashboard");
 
-  cy.visit("/common/release-operations");
+  cy.visitWithSemantics("/common/release-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5380,7 +5380,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("release_operations");
 
-  cy.visit("/common/file-verification-dashboard");
+  cy.visitWithSemantics("/common/file-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5392,7 +5392,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("file_verification_dashboard");
 
-  cy.visit("/common/role-coverage-dashboard");
+  cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5404,7 +5404,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("role_coverage_dashboard");
 
-  cy.visit("/common/responsive-preview");
+  cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5416,7 +5416,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("responsive_preview");
 
-  cy.visit("/common/workflow-execution");
+  cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5428,7 +5428,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("workflow_execution");
 
-  cy.visit("/common/governance-operations4-k");
+  cy.visitWithSemantics("/common/governance-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5444,7 +5444,7 @@ describe("Org Full UI Test", () => {
   it("tests org role bus_dev", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/common/business-development-dashboard");
+  cy.visitWithSemantics("/common/business-development-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5456,7 +5456,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_dashboard");
 
-  cy.visit("/management/head-of-bus-dev-dashboard");
+  cy.visitWithSemantics("/management/head-of-bus-dev-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5468,7 +5468,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_dashboard");
 
-  cy.visit("/common/business-development-analytics");
+  cy.visitWithSemantics("/common/business-development-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5480,7 +5480,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_analytics");
 
-  cy.visit("/common/business-development-compliance");
+  cy.visitWithSemantics("/common/business-development-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5492,7 +5492,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_compliance");
 
-  cy.visit("/common/business-development-workflow");
+  cy.visitWithSemantics("/common/business-development-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5504,7 +5504,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("business_development_workflow");
 
-  cy.visit("/management/head-of-bus-dev-analytics");
+  cy.visitWithSemantics("/management/head-of-bus-dev-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5516,7 +5516,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_analytics");
 
-  cy.visit("/management/head-of-bus-dev-compliance");
+  cy.visitWithSemantics("/management/head-of-bus-dev-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5528,7 +5528,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_compliance");
 
-  cy.visit("/management/head-of-bus-dev-workflow");
+  cy.visitWithSemantics("/management/head-of-bus-dev-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5540,7 +5540,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_workflow");
 
-  cy.visit("/management/franchise-lead");
+  cy.visitWithSemantics("/management/franchise-lead");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5552,7 +5552,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("franchise_lead");
 
-  cy.visit("/management/partnership-management");
+  cy.visitWithSemantics("/management/partnership-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5564,7 +5564,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_management");
 
-  cy.visit("/management/growth-analytics");
+  cy.visitWithSemantics("/management/growth-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5576,7 +5576,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("growth_analytics");
 
-  cy.visit("/management/outreach-campaign");
+  cy.visitWithSemantics("/management/outreach-campaign");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5592,7 +5592,7 @@ describe("Org Full UI Test", () => {
   it("tests org role marketing", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/head-of-marketing-dashboard");
+  cy.visitWithSemantics("/management/head-of-marketing-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5604,7 +5604,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_dashboard");
 
-  cy.visit("/management/local-marketing-manager-dashboard");
+  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5616,7 +5616,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_dashboard");
 
-  cy.visit("/management/head-of-marketing-analytics");
+  cy.visitWithSemantics("/management/head-of-marketing-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5628,7 +5628,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_analytics");
 
-  cy.visit("/management/head-of-marketing-compliance");
+  cy.visitWithSemantics("/management/head-of-marketing-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5640,7 +5640,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_compliance");
 
-  cy.visit("/management/head-of-marketing-workflow");
+  cy.visitWithSemantics("/management/head-of-marketing-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5652,7 +5652,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_workflow");
 
-  cy.visit("/management/local-marketing-manager-analytics");
+  cy.visitWithSemantics("/management/local-marketing-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5664,7 +5664,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_analytics");
 
-  cy.visit("/management/local-marketing-manager-compliance");
+  cy.visitWithSemantics("/management/local-marketing-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5676,7 +5676,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_compliance");
 
-  cy.visit("/management/local-marketing-manager-workflow");
+  cy.visitWithSemantics("/management/local-marketing-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5688,7 +5688,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_workflow");
 
-  cy.visit("/management/campaign-dashboard");
+  cy.visitWithSemantics("/management/campaign-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5700,7 +5700,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("campaign_dashboard");
 
-  cy.visit("/management/lead-analytics");
+  cy.visitWithSemantics("/management/lead-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5712,7 +5712,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("lead_analytics");
 
-  cy.visit("/management/social-media");
+  cy.visitWithSemantics("/management/social-media");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5724,7 +5724,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("social_media");
 
-  cy.visit("/management/brand-management");
+  cy.visitWithSemantics("/management/brand-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5740,7 +5740,7 @@ describe("Org Full UI Test", () => {
   it("tests org role local_marketing", () => {
     cy.loginAsRole("local_marketing");
 
-  cy.visit("/management/local-marketing-manager-dashboard");
+  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5752,7 +5752,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_dashboard");
 
-  cy.visit("/management/local-marketing-manager-analytics");
+  cy.visitWithSemantics("/management/local-marketing-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5764,7 +5764,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_analytics");
 
-  cy.visit("/management/local-marketing-manager-compliance");
+  cy.visitWithSemantics("/management/local-marketing-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5776,7 +5776,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_compliance");
 
-  cy.visit("/management/local-marketing-manager-workflow");
+  cy.visitWithSemantics("/management/local-marketing-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5792,7 +5792,7 @@ describe("Org Full UI Test", () => {
   it("tests org role ops_manager", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/operations-manager-dashboard");
+  cy.visitWithSemantics("/management/operations-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5804,7 +5804,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_dashboard");
 
-  cy.visit("/management/operations-manager-analytics");
+  cy.visitWithSemantics("/management/operations-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5816,7 +5816,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_analytics");
 
-  cy.visit("/management/operations-manager-compliance");
+  cy.visitWithSemantics("/management/operations-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5828,7 +5828,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_compliance");
 
-  cy.visit("/management/operations-manager-workflow");
+  cy.visitWithSemantics("/management/operations-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5840,7 +5840,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_workflow");
 
-  cy.visit("/management/daily-operations");
+  cy.visitWithSemantics("/management/daily-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5852,7 +5852,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("daily_operations");
 
-  cy.visit("/management/attendance");
+  cy.visitWithSemantics("/management/attendance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5864,7 +5864,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("attendance");
 
-  cy.visit("/management/scheduling-health");
+  cy.visitWithSemantics("/management/scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5876,7 +5876,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduling_health");
 
-  cy.visit("/management/service-issue");
+  cy.visitWithSemantics("/management/service-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5892,7 +5892,7 @@ describe("Org Full UI Test", () => {
   it("tests org role partnership", () => {
     cy.loginAsRole("partnership");
 
-  cy.visit("/management/partnership-manager-dashboard");
+  cy.visitWithSemantics("/management/partnership-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5904,7 +5904,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_dashboard");
 
-  cy.visit("/management/partnership-manager-analytics");
+  cy.visitWithSemantics("/management/partnership-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5916,7 +5916,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_analytics");
 
-  cy.visit("/management/partnership-manager-compliance");
+  cy.visitWithSemantics("/management/partnership-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5928,7 +5928,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("partnership_manager_compliance");
 
-  cy.visit("/management/partnership-manager-workflow");
+  cy.visitWithSemantics("/management/partnership-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5944,7 +5944,7 @@ describe("Org Full UI Test", () => {
   it("tests org role regional_bdm", () => {
     cy.loginAsRole("regional_bdm");
 
-  cy.visit("/management/regional-bdm-dashboard");
+  cy.visitWithSemantics("/management/regional-bdm-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5956,7 +5956,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_dashboard");
 
-  cy.visit("/management/regional-bdm-analytics");
+  cy.visitWithSemantics("/management/regional-bdm-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5968,7 +5968,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_analytics");
 
-  cy.visit("/management/regional-bdm-compliance");
+  cy.visitWithSemantics("/management/regional-bdm-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5980,7 +5980,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_bdm_compliance");
 
-  cy.visit("/management/regional-bdm-workflow");
+  cy.visitWithSemantics("/management/regional-bdm-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -5996,7 +5996,7 @@ describe("Org Full UI Test", () => {
   it("tests org role regional_manager_usa", () => {
     cy.loginAsRole("regional_manager_usa");
 
-  cy.visit("/management/regional-manager-usa-dashboard");
+  cy.visitWithSemantics("/management/regional-manager-usa-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6008,7 +6008,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_dashboard");
 
-  cy.visit("/management/regional-manager-usa-analytics");
+  cy.visitWithSemantics("/management/regional-manager-usa-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6020,7 +6020,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_analytics");
 
-  cy.visit("/management/regional-manager-usa-compliance");
+  cy.visitWithSemantics("/management/regional-manager-usa-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6032,7 +6032,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_compliance");
 
-  cy.visit("/management/regional-manager-usa-workflow");
+  cy.visitWithSemantics("/management/regional-manager-usa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6048,7 +6048,7 @@ describe("Org Full UI Test", () => {
   it("tests org role scrum_master", () => {
     cy.loginAsRole("scrum_master");
 
-  cy.visit("/management/scrum-master-dashboard");
+  cy.visitWithSemantics("/management/scrum-master-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6060,7 +6060,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_dashboard");
 
-  cy.visit("/management/scrum-master-analytics");
+  cy.visitWithSemantics("/management/scrum-master-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6072,7 +6072,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_analytics");
 
-  cy.visit("/management/scrum-master-compliance");
+  cy.visitWithSemantics("/management/scrum-master-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6084,7 +6084,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scrum_master_compliance");
 
-  cy.visit("/management/scrum-master-workflow");
+  cy.visitWithSemantics("/management/scrum-master-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6100,7 +6100,7 @@ describe("Org Full UI Test", () => {
   it("tests org role hr_hiring", () => {
     cy.loginAsRole("hr_hiring");
 
-  cy.visit("/staff/hr-hiring-dashboard");
+  cy.visitWithSemantics("/staff/hr-hiring-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6112,7 +6112,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_dashboard");
 
-  cy.visit("/staff/hr-hiring-analytics");
+  cy.visitWithSemantics("/staff/hr-hiring-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6124,7 +6124,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_analytics");
 
-  cy.visit("/staff/hr-hiring-compliance");
+  cy.visitWithSemantics("/staff/hr-hiring-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6136,7 +6136,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_compliance");
 
-  cy.visit("/staff/hr-hiring-workflow");
+  cy.visitWithSemantics("/staff/hr-hiring-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6148,7 +6148,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_workflow");
 
-  cy.visit("/staff/hr-hiring-applicants");
+  cy.visitWithSemantics("/staff/hr-hiring-applicants");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6160,7 +6160,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_applicants");
 
-  cy.visit("/staff/hr-hiring-interviews");
+  cy.visitWithSemantics("/staff/hr-hiring-interviews");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6172,7 +6172,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_interviews");
 
-  cy.visit("/staff/hr-hiring-offers");
+  cy.visitWithSemantics("/staff/hr-hiring-offers");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6184,7 +6184,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_offers");
 
-  cy.visit("/staff/hr-hiring-onboarding");
+  cy.visitWithSemantics("/staff/hr-hiring-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6196,7 +6196,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_onboarding");
 
-  cy.visit("/staff/hr-hiring-credentials");
+  cy.visitWithSemantics("/staff/hr-hiring-credentials");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6208,7 +6208,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_credentials");
 
-  cy.visit("/staff/applicant-tracking");
+  cy.visitWithSemantics("/staff/applicant-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6220,7 +6220,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("applicant_tracking");
 
-  cy.visit("/staff/interview-scheduling");
+  cy.visitWithSemantics("/staff/interview-scheduling");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6232,7 +6232,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("interview_scheduling");
 
-  cy.visit("/staff/offer-management");
+  cy.visitWithSemantics("/staff/offer-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6244,7 +6244,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("offer_management");
 
-  cy.visit("/staff/onboarding-checklist");
+  cy.visitWithSemantics("/staff/onboarding-checklist");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6260,7 +6260,7 @@ describe("Org Full UI Test", () => {
   it("tests org role territory_expansion", () => {
     cy.loginAsRole("territory_expansion");
 
-  cy.visit("/management/territory-expansion-manager-dashboard");
+  cy.visitWithSemantics("/management/territory-expansion-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6272,7 +6272,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_dashboard");
 
-  cy.visit("/management/territory-expansion-manager-analytics");
+  cy.visitWithSemantics("/management/territory-expansion-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6284,7 +6284,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_analytics");
 
-  cy.visit("/management/territory-expansion-manager-compliance");
+  cy.visitWithSemantics("/management/territory-expansion-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6296,7 +6296,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_compliance");
 
-  cy.visit("/management/territory-expansion-manager-workflow");
+  cy.visitWithSemantics("/management/territory-expansion-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6312,7 +6312,7 @@ describe("Org Full UI Test", () => {
   it("tests org role territory_sales", () => {
     cy.loginAsRole("territory_sales");
 
-  cy.visit("/management/territory-sales-manager-dashboard");
+  cy.visitWithSemantics("/management/territory-sales-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6324,7 +6324,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_dashboard");
 
-  cy.visit("/management/territory-sales-manager-analytics");
+  cy.visitWithSemantics("/management/territory-sales-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6336,7 +6336,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_analytics");
 
-  cy.visit("/management/territory-sales-manager-compliance");
+  cy.visitWithSemantics("/management/territory-sales-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6348,7 +6348,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_compliance");
 
-  cy.visit("/management/territory-sales-manager-workflow");
+  cy.visitWithSemantics("/management/territory-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6364,7 +6364,7 @@ describe("Org Full UI Test", () => {
   it("tests org role volunteer_coordinator", () => {
     cy.loginAsRole("volunteer_coordinator");
 
-  cy.visit("/staff/volunteer-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6376,7 +6376,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
 
-  cy.visit("/executive/intake-coordinator-referrals");
+  cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6388,7 +6388,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6400,7 +6400,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6412,7 +6412,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6424,7 +6424,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
 
-  cy.visit("/executive/intake-coordinator-documents");
+  cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6436,7 +6436,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
 
-  cy.visit("/executive/intake-coordinator-follow-up");
+  cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6452,7 +6452,7 @@ describe("Org Full UI Test", () => {
   it("tests org role premium_concierge", () => {
     cy.loginAsRole("premium_concierge");
 
-  cy.visit("/management/premium-concierge-dashboard");
+  cy.visitWithSemantics("/management/premium-concierge-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6464,7 +6464,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("premium_concierge_dashboard");
 
-  cy.visit("/premium/premium-concierge-analytics");
+  cy.visitWithSemantics("/premium/premium-concierge-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6476,7 +6476,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("premium_concierge_analytics");
 
-  cy.visit("/premium/premium-concierge-workflow");
+  cy.visitWithSemantics("/premium/premium-concierge-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6492,7 +6492,7 @@ describe("Org Full UI Test", () => {
   it("tests org role vip_manager", () => {
     cy.loginAsRole("vip_manager");
 
-  cy.visit("/management/vip-manager-dashboard");
+  cy.visitWithSemantics("/management/vip-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6504,7 +6504,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("vip_manager_dashboard");
 
-  cy.visit("/executive/vip-manager-analytics");
+  cy.visitWithSemantics("/executive/vip-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6516,7 +6516,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("vip_manager_analytics");
 
-  cy.visit("/executive/vip-manager-workflow");
+  cy.visitWithSemantics("/executive/vip-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6532,7 +6532,7 @@ describe("Org Full UI Test", () => {
   it("tests org role psw", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-dashboard");
+  cy.visitWithSemantics("/psw/psw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6544,7 +6544,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
 
-  cy.visit("/psw/psw-analytics");
+  cy.visitWithSemantics("/psw/psw-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6556,7 +6556,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_analytics");
 
-  cy.visit("/psw/psw-clients");
+  cy.visitWithSemantics("/psw/psw-clients");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6568,7 +6568,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_clients");
 
-  cy.visit("/psw/psw-compliance");
+  cy.visitWithSemantics("/psw/psw-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6580,7 +6580,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_compliance");
 
-  cy.visit("/psw/psw-messages");
+  cy.visitWithSemantics("/psw/psw-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6592,7 +6592,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_messages");
 
-  cy.visit("/psw/psw-shift-tracker");
+  cy.visitWithSemantics("/psw/psw-shift-tracker");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6604,7 +6604,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_shift_tracker");
 
-  cy.visit("/psw/psw-tasks");
+  cy.visitWithSemantics("/psw/psw-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6616,7 +6616,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_tasks");
 
-  cy.visit("/psw/psw-visit-notes");
+  cy.visitWithSemantics("/psw/psw-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6628,7 +6628,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
 
-  cy.visit("/psw/psw-workflow");
+  cy.visitWithSemantics("/psw/psw-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6640,7 +6640,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_workflow");
 
-  cy.visit("/psw/psw-command-center");
+  cy.visitWithSemantics("/psw/psw-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6652,7 +6652,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_command_center");
 
-  cy.visit("/psw/psw-my-shifts");
+  cy.visitWithSemantics("/psw/psw-my-shifts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6664,7 +6664,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_my_shifts");
 
-  cy.visit("/psw/psw-client-profile");
+  cy.visitWithSemantics("/psw/psw-client-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6676,7 +6676,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_client_profile");
 
-  cy.visit("/psw/psw-visit-notes");
+  cy.visitWithSemantics("/psw/psw-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6688,7 +6688,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
 
-  cy.visit("/psw/psw-vitals-log");
+  cy.visitWithSemantics("/psw/psw-vitals-log");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6700,7 +6700,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_vitals_log");
 
-  cy.visit("/psw/psw-incident-report");
+  cy.visitWithSemantics("/psw/psw-incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6712,7 +6712,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_incident_report");
 
-  cy.visit("/psw/psw-care-plan");
+  cy.visitWithSemantics("/psw/psw-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6724,7 +6724,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_care_plan");
 
-  cy.visit("/psw/psw-messages");
+  cy.visitWithSemantics("/psw/psw-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6736,7 +6736,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_messages");
 
-  cy.visit("/psw/psw-documents");
+  cy.visitWithSemantics("/psw/psw-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6748,7 +6748,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("psw_documents");
 
-  cy.visit("/psw/shift-tasks");
+  cy.visitWithSemantics("/psw/shift-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6760,7 +6760,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("shift_tasks");
 
-  cy.visit("/psw/visit-notes");
+  cy.visitWithSemantics("/psw/visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6772,7 +6772,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("visit_notes");
 
-  cy.visit("/psw/vitals-entry");
+  cy.visitWithSemantics("/psw/vitals-entry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6784,7 +6784,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("vitals_entry");
 
-  cy.visit("/psw/incident-report");
+  cy.visitWithSemantics("/psw/incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6800,7 +6800,7 @@ describe("Org Full UI Test", () => {
   it("tests org role hsw", () => {
     cy.loginAsRole("hsw");
 
-  cy.visit("/clinical/hsw-dashboard");
+  cy.visitWithSemantics("/clinical/hsw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6812,7 +6812,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_dashboard");
 
-  cy.visit("/clinical/hsw-adl-logger");
+  cy.visitWithSemantics("/clinical/hsw-adl-logger");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6824,7 +6824,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_adl_logger");
 
-  cy.visit("/clinical/hsw-care-plans");
+  cy.visitWithSemantics("/clinical/hsw-care-plans");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6836,7 +6836,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_care_plans");
 
-  cy.visit("/clinical/hsw-incident-reports");
+  cy.visitWithSemantics("/clinical/hsw-incident-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6848,7 +6848,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_incident_reports");
 
-  cy.visit("/clinical/hsw-schedule");
+  cy.visitWithSemantics("/clinical/hsw-schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6864,7 +6864,7 @@ describe("Org Full UI Test", () => {
   it("tests org role rn_field_supervisor", () => {
     cy.loginAsRole("rn_field_supervisor");
 
-  cy.visit("/rn/rn-field-supervisor-dashboard");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6876,7 +6876,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
 
-  cy.visit("/rn/rn-field-supervisor-analytics");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6888,7 +6888,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_analytics");
 
-  cy.visit("/rn/rn-field-supervisor-workflow");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6904,7 +6904,7 @@ describe("Org Full UI Test", () => {
   it("tests org role np", () => {
     cy.loginAsRole("np");
 
-  cy.visit("/clinical/np-dashboard");
+  cy.visitWithSemantics("/clinical/np-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6916,7 +6916,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("np_dashboard");
 
-  cy.visit("/rn/np-analytics");
+  cy.visitWithSemantics("/rn/np-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6928,7 +6928,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("np_analytics");
 
-  cy.visit("/rn/np-workflow");
+  cy.visitWithSemantics("/rn/np-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6944,7 +6944,7 @@ describe("Org Full UI Test", () => {
   it("tests org role rpn", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-dashboard");
+  cy.visitWithSemantics("/rpn/rpn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6956,7 +6956,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_dashboard");
 
-  cy.visit("/rpn/rpn-analytics");
+  cy.visitWithSemantics("/rpn/rpn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6968,7 +6968,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_analytics");
 
-  cy.visit("/rpn/rpn-compliance");
+  cy.visitWithSemantics("/rpn/rpn-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6980,7 +6980,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_compliance");
 
-  cy.visit("/rpn/rpn-workflow");
+  cy.visitWithSemantics("/rpn/rpn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -6992,7 +6992,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_workflow");
 
-  cy.visit("/rpn/rpn-command-center");
+  cy.visitWithSemantics("/rpn/rpn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7004,7 +7004,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_command_center");
 
-  cy.visit("/rpn/rpn-patient-charting");
+  cy.visitWithSemantics("/rpn/rpn-patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7016,7 +7016,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_patient_charting");
 
-  cy.visit("/rpn/rpn-medications");
+  cy.visitWithSemantics("/rpn/rpn-medications");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7028,7 +7028,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_medications");
 
-  cy.visit("/rpn/rpn-vitals");
+  cy.visitWithSemantics("/rpn/rpn-vitals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7040,7 +7040,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_vitals");
 
-  cy.visit("/rpn/rpn-care-plan-review");
+  cy.visitWithSemantics("/rpn/rpn-care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7052,7 +7052,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_care_plan_review");
 
-  cy.visit("/rpn/rpn-incident-review");
+  cy.visitWithSemantics("/rpn/rpn-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7064,7 +7064,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_incident_review");
 
-  cy.visit("/rpn/rpn-tasks");
+  cy.visitWithSemantics("/rpn/rpn-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7076,7 +7076,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_tasks");
 
-  cy.visit("/rpn/rpn-reports");
+  cy.visitWithSemantics("/rpn/rpn-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7088,7 +7088,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("rpn_reports");
 
-  cy.visit("/clinical/nursing-task");
+  cy.visitWithSemantics("/clinical/nursing-task");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7100,7 +7100,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("nursing_task");
 
-  cy.visit("/clinical/vitals-tracking");
+  cy.visitWithSemantics("/clinical/vitals-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7112,7 +7112,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("vitals_tracking");
 
-  cy.visit("/clinical/medication");
+  cy.visitWithSemantics("/clinical/medication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7124,7 +7124,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("medication");
 
-  cy.visit("/clinical/patient-observation");
+  cy.visitWithSemantics("/clinical/patient-observation");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7140,7 +7140,7 @@ describe("Org Full UI Test", () => {
   it("tests org role lpn", () => {
     cy.loginAsRole("lpn");
 
-  cy.visit("/clinical/lpn-dashboard");
+  cy.visitWithSemantics("/clinical/lpn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7152,7 +7152,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("lpn_dashboard");
 
-  cy.visit("/rpn/lpn-analytics");
+  cy.visitWithSemantics("/rpn/lpn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7164,7 +7164,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("lpn_analytics");
 
-  cy.visit("/rpn/lpn-workflow");
+  cy.visitWithSemantics("/rpn/lpn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7180,7 +7180,7 @@ describe("Org Full UI Test", () => {
   it("tests org role employee", () => {
     cy.loginAsRole("employee");
 
-  cy.visit("/staff/employee-dashboard");
+  cy.visitWithSemantics("/staff/employee-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7192,7 +7192,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("employee_dashboard");
 
-  cy.visit("/staff/employee-analytics");
+  cy.visitWithSemantics("/staff/employee-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7204,7 +7204,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("employee_analytics");
 
-  cy.visit("/staff/employee-workflow");
+  cy.visitWithSemantics("/staff/employee-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7220,7 +7220,7 @@ describe("Org Full UI Test", () => {
   it("tests org role volunteer", () => {
     cy.loginAsRole("volunteer");
 
-  cy.visit("/staff/volunteer-coordinator-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7232,7 +7232,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
 
-  cy.visit("/staff/volunteer-dashboard");
+  cy.visitWithSemantics("/staff/volunteer-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7244,7 +7244,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_dashboard");
 
-  cy.visit("/staff/volunteer-coordinator-analytics");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7256,7 +7256,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_analytics");
 
-  cy.visit("/staff/volunteer-coordinator-compliance");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7268,7 +7268,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_compliance");
 
-  cy.visit("/staff/volunteer-coordinator-workflow");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7280,7 +7280,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_workflow");
 
-  cy.visit("/executive/intake-coordinator-referrals");
+  cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7292,7 +7292,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
 
-  cy.visit("/executive/intake-coordinator-new-client-intake");
+  cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7304,7 +7304,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
 
-  cy.visit("/executive/intake-coordinator-assessment-queue");
+  cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7316,7 +7316,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
 
-  cy.visit("/executive/intake-coordinator-booking");
+  cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7328,7 +7328,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
 
-  cy.visit("/executive/intake-coordinator-documents");
+  cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7340,7 +7340,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
 
-  cy.visit("/executive/intake-coordinator-follow-up");
+  cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7356,7 +7356,7 @@ describe("Org Full UI Test", () => {
   it("tests org role admin", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/common/office-dashboard");
+  cy.visitWithSemantics("/common/office-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7368,7 +7368,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("office_dashboard");
 
-  cy.visit("/staff/billing-admin-dashboard");
+  cy.visitWithSemantics("/staff/billing-admin-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7380,7 +7380,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_dashboard");
 
-  cy.visit("/staff/receptionist-dashboard");
+  cy.visitWithSemantics("/staff/receptionist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7392,7 +7392,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_dashboard");
 
-  cy.visit("/common/office-analytics");
+  cy.visitWithSemantics("/common/office-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7404,7 +7404,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("office_analytics");
 
-  cy.visit("/common/office-compliance");
+  cy.visitWithSemantics("/common/office-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7416,7 +7416,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("office_compliance");
 
-  cy.visit("/common/office-workflow");
+  cy.visitWithSemantics("/common/office-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7428,7 +7428,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("office_workflow");
 
-  cy.visit("/staff/billing-admin-analytics");
+  cy.visitWithSemantics("/staff/billing-admin-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7440,7 +7440,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_analytics");
 
-  cy.visit("/staff/billing-admin-compliance");
+  cy.visitWithSemantics("/staff/billing-admin-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7452,7 +7452,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_compliance");
 
-  cy.visit("/staff/billing-admin-workflow");
+  cy.visitWithSemantics("/staff/billing-admin-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7464,7 +7464,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_workflow");
 
-  cy.visit("/staff/receptionist-analytics");
+  cy.visitWithSemantics("/staff/receptionist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7476,7 +7476,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_analytics");
 
-  cy.visit("/staff/receptionist-compliance");
+  cy.visitWithSemantics("/staff/receptionist-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7488,7 +7488,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_compliance");
 
-  cy.visit("/staff/receptionist-workflow");
+  cy.visitWithSemantics("/staff/receptionist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7500,7 +7500,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_workflow");
 
-  cy.visit("/staff/invoice-management");
+  cy.visitWithSemantics("/staff/invoice-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7512,7 +7512,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("invoice_management");
 
-  cy.visit("/staff/claims-processing");
+  cy.visitWithSemantics("/staff/claims-processing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7524,7 +7524,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("claims_processing");
 
-  cy.visit("/staff/payment-tracking");
+  cy.visitWithSemantics("/staff/payment-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7536,7 +7536,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("payment_tracking");
 
-  cy.visit("/staff/refund-management");
+  cy.visitWithSemantics("/staff/refund-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7552,7 +7552,7 @@ describe("Org Full UI Test", () => {
   it("tests org role scheduler", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-dashboard");
+  cy.visitWithSemantics("/staff/scheduler-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7564,7 +7564,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_dashboard");
 
-  cy.visit("/staff/coordinator-dispatch-map");
+  cy.visitWithSemantics("/staff/coordinator-dispatch-map");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7576,7 +7576,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coordinator_dispatch_map");
 
-  cy.visit("/staff/coordinator-hub");
+  cy.visitWithSemantics("/staff/coordinator-hub");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7588,7 +7588,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coordinator_hub");
 
-  cy.visit("/staff/coordinator-sos");
+  cy.visitWithSemantics("/staff/coordinator-sos");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7600,7 +7600,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coordinator_sos");
 
-  cy.visit("/staff/coordinator-waitlist");
+  cy.visitWithSemantics("/staff/coordinator-waitlist");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7612,7 +7612,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("coordinator_waitlist");
 
-  cy.visit("/staff/scheduler-analytics");
+  cy.visitWithSemantics("/staff/scheduler-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7624,7 +7624,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_analytics");
 
-  cy.visit("/staff/scheduler-compliance");
+  cy.visitWithSemantics("/staff/scheduler-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7636,7 +7636,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_compliance");
 
-  cy.visit("/staff/scheduler-workflow");
+  cy.visitWithSemantics("/staff/scheduler-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7648,7 +7648,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_workflow");
 
-  cy.visit("/staff/scheduler-command-center");
+  cy.visitWithSemantics("/staff/scheduler-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7660,7 +7660,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_command_center");
 
-  cy.visit("/staff/scheduler-calendar");
+  cy.visitWithSemantics("/staff/scheduler-calendar");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7672,7 +7672,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_calendar");
 
-  cy.visit("/staff/scheduler-booking-requests");
+  cy.visitWithSemantics("/staff/scheduler-booking-requests");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7684,7 +7684,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_booking_requests");
 
-  cy.visit("/staff/scheduler-conflicts");
+  cy.visitWithSemantics("/staff/scheduler-conflicts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7696,7 +7696,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_conflicts");
 
-  cy.visit("/staff/scheduler-open-shifts");
+  cy.visitWithSemantics("/staff/scheduler-open-shifts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7708,7 +7708,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_open_shifts");
 
-  cy.visit("/staff/scheduler-provider-availability");
+  cy.visitWithSemantics("/staff/scheduler-provider-availability");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7720,7 +7720,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduler_provider_availability");
 
-  cy.visit("/staff/scheduling-dashboard");
+  cy.visitWithSemantics("/staff/scheduling-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7732,7 +7732,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("scheduling_dashboard");
 
-  cy.visit("/staff/calendar-management");
+  cy.visitWithSemantics("/staff/calendar-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7744,7 +7744,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("calendar_management");
 
-  cy.visit("/staff/conflict-resolution");
+  cy.visitWithSemantics("/staff/conflict-resolution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7756,7 +7756,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("conflict_resolution");
 
-  cy.visit("/staff/open-shift");
+  cy.visitWithSemantics("/staff/open-shift");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7768,7 +7768,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("open_shift");
 
-  cy.visit("/staff/scheduling-operations4-k");
+  cy.visitWithSemantics("/staff/scheduling-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7784,7 +7784,7 @@ describe("Org Full UI Test", () => {
   it("tests org role customer_support", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/common/customer-support-analytics");
+  cy.visitWithSemantics("/common/customer-support-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7796,7 +7796,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_analytics");
 
-  cy.visit("/common/customer-support-compliance");
+  cy.visitWithSemantics("/common/customer-support-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7808,7 +7808,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_compliance");
 
-  cy.visit("/common/customer-support-workflow");
+  cy.visitWithSemantics("/common/customer-support-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7820,7 +7820,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_workflow");
 
-  cy.visit("/common/support-analytics");
+  cy.visitWithSemantics("/common/support-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7832,7 +7832,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("support_analytics");
 
-  cy.visit("/common/support-compliance");
+  cy.visitWithSemantics("/common/support-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7844,7 +7844,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("support_compliance");
 
-  cy.visit("/common/support-workflow");
+  cy.visitWithSemantics("/common/support-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7856,7 +7856,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("support_workflow");
 
-  cy.visit("/staff/ticket-management");
+  cy.visitWithSemantics("/staff/ticket-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7868,7 +7868,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("ticket_management");
 
-  cy.visit("/staff/client-issue");
+  cy.visitWithSemantics("/staff/client-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7880,7 +7880,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("client_issue");
 
-  cy.visit("/staff/communication");
+  cy.visitWithSemantics("/staff/communication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7892,7 +7892,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("communication");
 
-  cy.visit("/staff/resolution-tracking");
+  cy.visitWithSemantics("/staff/resolution-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7908,7 +7908,7 @@ describe("Org Full UI Test", () => {
   it("tests org role training_coordinator", () => {
     cy.loginAsRole("training_coordinator");
 
-  cy.visit("/staff/training-dashboard");
+  cy.visitWithSemantics("/staff/training-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7920,7 +7920,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("training_dashboard");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7932,7 +7932,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("course_assignment");
 
-  cy.visit("/staff/certification-tracking");
+  cy.visitWithSemantics("/staff/certification-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7944,7 +7944,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("certification_tracking");
 
-  cy.visit("/staff/staff-progress");
+  cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7960,7 +7960,7 @@ describe("Org Full UI Test", () => {
   it("tests org role qa_specialist", () => {
     cy.loginAsRole("qa_specialist");
 
-  cy.visit("/common/qa-analytics");
+  cy.visitWithSemantics("/common/qa-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7972,7 +7972,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("qa_analytics");
 
-  cy.visit("/common/qa-compliance");
+  cy.visitWithSemantics("/common/qa-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7984,7 +7984,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("qa_compliance");
 
-  cy.visit("/common/qa-workflow");
+  cy.visitWithSemantics("/common/qa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -7996,7 +7996,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("qa_workflow");
 
-  cy.visit("/staff/quality-assurance-analytics");
+  cy.visitWithSemantics("/staff/quality-assurance-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8008,7 +8008,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_analytics");
 
-  cy.visit("/staff/quality-assurance-compliance");
+  cy.visitWithSemantics("/staff/quality-assurance-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8020,7 +8020,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_compliance");
 
-  cy.visit("/staff/quality-assurance-workflow");
+  cy.visitWithSemantics("/staff/quality-assurance-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8032,7 +8032,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_workflow");
 
-  cy.visit("/staff/quality-audit");
+  cy.visitWithSemantics("/staff/quality-audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8044,7 +8044,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("quality_audit");
 
-  cy.visit("/staff/failed-workflow");
+  cy.visitWithSemantics("/staff/failed-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8056,7 +8056,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("failed_workflow");
 
-  cy.visit("/staff/testing-overview");
+  cy.visitWithSemantics("/staff/testing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8068,7 +8068,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("testing_overview");
 
-  cy.visit("/staff/defect-tracking");
+  cy.visitWithSemantics("/staff/defect-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8084,7 +8084,7 @@ describe("Org Full UI Test", () => {
   it("tests org role family", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/family-member-analytics");
+  cy.visitWithSemantics("/common/family-member-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8096,7 +8096,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_analytics");
 
-  cy.visit("/common/family-member-compliance");
+  cy.visitWithSemantics("/common/family-member-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8108,7 +8108,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_compliance");
 
-  cy.visit("/common/family-member-workflow");
+  cy.visitWithSemantics("/common/family-member-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8120,7 +8120,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_workflow");
 
-  cy.visit("/common/family-overview");
+  cy.visitWithSemantics("/common/family-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8132,7 +8132,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("family_overview");
 
-  cy.visit("/common/care-updates");
+  cy.visitWithSemantics("/common/care-updates");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8144,7 +8144,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("care_updates");
 
-  cy.visit("/common/billing-overview");
+  cy.visitWithSemantics("/common/billing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -8156,7 +8156,7 @@ describe("Org Full UI Test", () => {
   cy.waitAndSee();
   cy.screenshot("billing_overview");
 
-  cy.visit("/common/emergency-contacts");
+  cy.visitWithSemantics("/common/emergency-contacts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

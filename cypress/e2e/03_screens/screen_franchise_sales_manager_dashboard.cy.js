@@ -7,7 +7,7 @@ describe("Screen - franchise_sales_manager_dashboard", () => {
   it("opens and verifies screen franchise_sales_manager_dashboard", () => {
     cy.loginAsRole("franchise_sales");
 
-  cy.visit("/management/franchise-sales-manager-dashboard");
+  cy.visitWithSemantics("/management/franchise-sales-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - intake_coordinator_analytics", () => {
   it("opens and verifies screen intake_coordinator_analytics", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/staff/intake-coordinator-analytics");
+  cy.visitWithSemantics("/staff/intake-coordinator-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

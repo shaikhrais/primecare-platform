@@ -8,7 +8,7 @@ describe("Role All Screens - admin", () => {
     cy.loginAsRole("admin");
 
 
-  cy.visit("/common/office-dashboard");
+  cy.visitWithSemantics("/common/office-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("office_dashboard");
 
-  cy.visit("/staff/billing-admin-dashboard");
+  cy.visitWithSemantics("/staff/billing-admin-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_dashboard");
 
-  cy.visit("/staff/receptionist-dashboard");
+  cy.visitWithSemantics("/staff/receptionist-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_dashboard");
 
-  cy.visit("/common/office-analytics");
+  cy.visitWithSemantics("/common/office-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("office_analytics");
 
-  cy.visit("/common/office-compliance");
+  cy.visitWithSemantics("/common/office-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("office_compliance");
 
-  cy.visit("/common/office-workflow");
+  cy.visitWithSemantics("/common/office-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("office_workflow");
 
-  cy.visit("/staff/billing-admin-analytics");
+  cy.visitWithSemantics("/staff/billing-admin-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_analytics");
 
-  cy.visit("/staff/billing-admin-compliance");
+  cy.visitWithSemantics("/staff/billing-admin-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_compliance");
 
-  cy.visit("/staff/billing-admin-workflow");
+  cy.visitWithSemantics("/staff/billing-admin-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("billing_admin_workflow");
 
-  cy.visit("/staff/receptionist-analytics");
+  cy.visitWithSemantics("/staff/receptionist-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_analytics");
 
-  cy.visit("/staff/receptionist-compliance");
+  cy.visitWithSemantics("/staff/receptionist-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_compliance");
 
-  cy.visit("/staff/receptionist-workflow");
+  cy.visitWithSemantics("/staff/receptionist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("receptionist_workflow");
 
-  cy.visit("/staff/invoice-management");
+  cy.visitWithSemantics("/staff/invoice-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("invoice_management");
 
-  cy.visit("/staff/claims-processing");
+  cy.visitWithSemantics("/staff/claims-processing");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("claims_processing");
 
-  cy.visit("/staff/payment-tracking");
+  cy.visitWithSemantics("/staff/payment-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - admin", () => {
   cy.waitAndSee();
   cy.screenshot("payment_tracking");
 
-  cy.visit("/staff/refund-management");
+  cy.visitWithSemantics("/staff/refund-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

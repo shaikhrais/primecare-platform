@@ -7,7 +7,7 @@ describe("Screen - compliance_dashboard", () => {
   it("opens and verifies screen compliance_dashboard", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/compliance-dashboard");
+  cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

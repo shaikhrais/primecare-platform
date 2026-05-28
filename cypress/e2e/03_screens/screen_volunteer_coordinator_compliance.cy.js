@@ -7,7 +7,7 @@ describe("Screen - volunteer_coordinator_compliance", () => {
   it("opens and verifies screen volunteer_coordinator_compliance", () => {
     cy.loginAsRole("volunteer");
 
-  cy.visit("/staff/volunteer-coordinator-compliance");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

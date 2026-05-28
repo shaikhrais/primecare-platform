@@ -7,7 +7,7 @@ describe("Screen - scrum_master_dashboard", () => {
   it("opens and verifies screen scrum_master_dashboard", () => {
     cy.loginAsRole("scrum_master");
 
-  cy.visit("/management/scrum-master-dashboard");
+  cy.visitWithSemantics("/management/scrum-master-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

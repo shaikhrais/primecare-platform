@@ -7,7 +7,7 @@ describe("Screen - client_progress", () => {
   it("opens and verifies screen client_progress", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/client-progress");
+  cy.visitWithSemantics("/allied/client-progress");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

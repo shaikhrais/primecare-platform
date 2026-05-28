@@ -8,7 +8,7 @@ describe("Role All Screens - cfo", () => {
     cy.loginAsRole("cfo");
 
 
-  cy.visit("/executive/cfo-dashboard");
+  cy.visitWithSemantics("/executive/cfo-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_dashboard");
 
-  cy.visit("/executive/cfo-analytics");
+  cy.visitWithSemantics("/executive/cfo-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_analytics");
 
-  cy.visit("/executive/cfo-compliance");
+  cy.visitWithSemantics("/executive/cfo-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_compliance");
 
-  cy.visit("/executive/cfo-workflow");
+  cy.visitWithSemantics("/executive/cfo-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_workflow");
 
-  cy.visit("/executive/cfo-revenue");
+  cy.visitWithSemantics("/executive/cfo-revenue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_revenue");
 
-  cy.visit("/executive/cfo-expenses");
+  cy.visitWithSemantics("/executive/cfo-expenses");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_expenses");
 
-  cy.visit("/executive/cfo-payroll");
+  cy.visitWithSemantics("/executive/cfo-payroll");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_payroll");
 
-  cy.visit("/executive/cfo-invoices");
+  cy.visitWithSemantics("/executive/cfo-invoices");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_invoices");
 
-  cy.visit("/executive/cfo-tax");
+  cy.visitWithSemantics("/executive/cfo-tax");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_tax");
 
-  cy.visit("/executive/cfo-profitability");
+  cy.visitWithSemantics("/executive/cfo-profitability");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_profitability");
 
-  cy.visit("/executive/cfo-cashflow");
+  cy.visitWithSemantics("/executive/cfo-cashflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("cfo_cashflow");
 
-  cy.visit("/executive/financial-dashboard");
+  cy.visitWithSemantics("/executive/financial-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("financial_dashboard");
 
-  cy.visit("/executive/revenue");
+  cy.visitWithSemantics("/executive/revenue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("revenue");
 
-  cy.visit("/executive/expense-management");
+  cy.visitWithSemantics("/executive/expense-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("expense_management");
 
-  cy.visit("/executive/payroll");
+  cy.visitWithSemantics("/executive/payroll");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("payroll");
 
-  cy.visit("/executive/tax-compliance");
+  cy.visitWithSemantics("/executive/tax-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - cfo", () => {
   cy.waitAndSee();
   cy.screenshot("tax_compliance");
 
-  cy.visit("/executive/financial-operations4-k");
+  cy.visitWithSemantics("/executive/financial-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

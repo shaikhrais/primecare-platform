@@ -7,7 +7,7 @@ describe("Screen - billing_admin_dashboard", () => {
   it("opens and verifies screen billing_admin_dashboard", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/billing-admin-dashboard");
+  cy.visitWithSemantics("/staff/billing-admin-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

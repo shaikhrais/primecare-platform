@@ -7,7 +7,7 @@ describe("Screen - social_media", () => {
   it("opens and verifies screen social_media", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/social-media");
+  cy.visitWithSemantics("/management/social-media");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

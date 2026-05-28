@@ -7,7 +7,7 @@ describe("Screen - course_assignment", () => {
   it("opens and verifies screen course_assignment", () => {
     cy.loginAsRole("training_coordinator");
 
-  cy.visit("/staff/course-assignment");
+  cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

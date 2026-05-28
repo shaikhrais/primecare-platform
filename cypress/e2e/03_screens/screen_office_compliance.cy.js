@@ -7,7 +7,7 @@ describe("Screen - office_compliance", () => {
   it("opens and verifies screen office_compliance", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/common/office-compliance");
+  cy.visitWithSemantics("/common/office-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

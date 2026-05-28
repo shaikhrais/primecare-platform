@@ -7,7 +7,7 @@ describe("Screen - appointment", () => {
   it("opens and verifies screen appointment", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/appointment");
+  cy.visitWithSemantics("/common/appointment");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

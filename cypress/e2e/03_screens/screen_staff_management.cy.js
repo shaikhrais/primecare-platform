@@ -7,7 +7,7 @@ describe("Screen - staff_management", () => {
   it("opens and verifies screen staff_management", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/staff-management");
+  cy.visitWithSemantics("/executive/staff-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -163,7 +163,7 @@ def main():
     run_id, function_id = get_or_create_run_context(
         cur, 
         "test_one_role_all_screens_cypress", 
-        f"ROLE_CODE={role_code} npx cypress run --spec cypress/e2e/role/one_role_all_screens.cy.js"
+        f"ROLE_CODE={role_code} cypress run --spec cypress/e2e/role/one_role_all_screens.cy.js"
     )
 
     # Clean old results for this run context

@@ -7,7 +7,7 @@ describe("Screen - caregiver_client_profile", () => {
   it("opens and verifies screen caregiver_client_profile", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visit("/psw/caregiver-client-profile");
+  cy.visitWithSemantics("/psw/caregiver-client-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

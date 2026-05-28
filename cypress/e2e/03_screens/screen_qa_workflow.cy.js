@@ -7,7 +7,7 @@ describe("Screen - qa_workflow", () => {
   it("opens and verifies screen qa_workflow", () => {
     cy.loginAsRole("qa_specialist");
 
-  cy.visit("/common/qa-workflow");
+  cy.visitWithSemantics("/common/qa-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - growth_analytics", () => {
   it("opens and verifies screen growth_analytics", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/management/growth-analytics");
+  cy.visitWithSemantics("/management/growth-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

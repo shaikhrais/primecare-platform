@@ -7,7 +7,7 @@ describe("Screen - psw_documents", () => {
   it("opens and verifies screen psw_documents", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-documents");
+  cy.visitWithSemantics("/psw/psw-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

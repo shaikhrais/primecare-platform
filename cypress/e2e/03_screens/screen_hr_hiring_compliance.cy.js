@@ -7,7 +7,7 @@ describe("Screen - hr_hiring_compliance", () => {
   it("opens and verifies screen hr_hiring_compliance", () => {
     cy.loginAsRole("hr_hiring");
 
-  cy.visit("/staff/hr-hiring-compliance");
+  cy.visitWithSemantics("/staff/hr-hiring-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

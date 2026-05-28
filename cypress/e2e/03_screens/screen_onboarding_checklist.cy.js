@@ -7,7 +7,7 @@ describe("Screen - onboarding_checklist", () => {
   it("opens and verifies screen onboarding_checklist", () => {
     cy.loginAsRole("hr_hiring");
 
-  cy.visit("/staff/onboarding-checklist");
+  cy.visitWithSemantics("/staff/onboarding-checklist");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - family", () => {
     cy.loginAsRole("family");
 
 
-  cy.visit("/common/family-member-analytics");
+  cy.visitWithSemantics("/common/family-member-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_analytics");
 
-  cy.visit("/common/family-member-compliance");
+  cy.visitWithSemantics("/common/family-member-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_compliance");
 
-  cy.visit("/common/family-member-workflow");
+  cy.visitWithSemantics("/common/family-member-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("family_member_workflow");
 
-  cy.visit("/common/family-overview");
+  cy.visitWithSemantics("/common/family-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("family_overview");
 
-  cy.visit("/common/care-updates");
+  cy.visitWithSemantics("/common/care-updates");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("care_updates");
 
-  cy.visit("/common/billing-overview");
+  cy.visitWithSemantics("/common/billing-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - family", () => {
   cy.waitAndSee();
   cy.screenshot("billing_overview");
 
-  cy.visit("/common/emergency-contacts");
+  cy.visitWithSemantics("/common/emergency-contacts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

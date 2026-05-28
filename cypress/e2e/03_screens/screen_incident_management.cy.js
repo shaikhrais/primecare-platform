@@ -7,7 +7,7 @@ describe("Screen - incident_management", () => {
   it("opens and verifies screen incident_management", () => {
     cy.loginAsRole("compliance");
 
-  cy.visit("/management/incident-management");
+  cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

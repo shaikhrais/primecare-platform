@@ -7,7 +7,7 @@ describe("Screen - support_analytics", () => {
   it("opens and verifies screen support_analytics", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/common/support-analytics");
+  cy.visitWithSemantics("/common/support-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

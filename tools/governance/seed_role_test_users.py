@@ -85,7 +85,8 @@ def main():
         
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {default_password}"
+            "Authorization": f"Bearer {default_password}",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
         }
         
         req_data = json.dumps(payload).encode("utf-8")

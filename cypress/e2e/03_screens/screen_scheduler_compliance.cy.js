@@ -7,7 +7,7 @@ describe("Screen - scheduler_compliance", () => {
   it("opens and verifies screen scheduler_compliance", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-compliance");
+  cy.visitWithSemantics("/staff/scheduler-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

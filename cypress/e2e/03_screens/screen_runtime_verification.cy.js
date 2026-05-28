@@ -7,7 +7,7 @@ describe("Screen - runtime_verification", () => {
   it("opens and verifies screen runtime_verification", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/runtime-verification");
+  cy.visitWithSemantics("/common/runtime-verification");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

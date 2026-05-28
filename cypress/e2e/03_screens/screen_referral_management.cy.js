@@ -7,7 +7,7 @@ describe("Screen - referral_management", () => {
   it("opens and verifies screen referral_management", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/executive/referral-management");
+  cy.visitWithSemantics("/executive/referral-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

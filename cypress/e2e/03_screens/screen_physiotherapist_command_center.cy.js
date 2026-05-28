@@ -7,7 +7,7 @@ describe("Screen - physiotherapist_command_center", () => {
   it("opens and verifies screen physiotherapist_command_center", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/allied/physiotherapist-command-center");
+  cy.visitWithSemantics("/allied/physiotherapist-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

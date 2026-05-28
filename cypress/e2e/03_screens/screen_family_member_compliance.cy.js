@@ -7,7 +7,7 @@ describe("Screen - family_member_compliance", () => {
   it("opens and verifies screen family_member_compliance", () => {
     cy.loginAsRole("family");
 
-  cy.visit("/common/family-member-compliance");
+  cy.visitWithSemantics("/common/family-member-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

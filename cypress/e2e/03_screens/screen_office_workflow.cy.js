@@ -7,7 +7,7 @@ describe("Screen - office_workflow", () => {
   it("opens and verifies screen office_workflow", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/common/office-workflow");
+  cy.visitWithSemantics("/common/office-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - premium_concierge_analytics", () => {
   it("opens and verifies screen premium_concierge_analytics", () => {
     cy.loginAsRole("premium_concierge");
 
-  cy.visit("/premium/premium-concierge-analytics");
+  cy.visitWithSemantics("/premium/premium-concierge-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

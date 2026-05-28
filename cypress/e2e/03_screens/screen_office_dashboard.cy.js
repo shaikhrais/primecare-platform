@@ -7,7 +7,7 @@ describe("Screen - office_dashboard", () => {
   it("opens and verifies screen office_dashboard", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/common/office-dashboard");
+  cy.visitWithSemantics("/common/office-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

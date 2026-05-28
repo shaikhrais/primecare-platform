@@ -7,7 +7,7 @@ describe("Screen - outreach_campaign", () => {
   it("opens and verifies screen outreach_campaign", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/management/outreach-campaign");
+  cy.visitWithSemantics("/management/outreach-campaign");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

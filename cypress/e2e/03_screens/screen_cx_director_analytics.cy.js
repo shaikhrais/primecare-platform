@@ -7,7 +7,7 @@ describe("Screen - cx_director_analytics", () => {
   it("opens and verifies screen cx_director_analytics", () => {
     cy.loginAsRole("cx_director");
 
-  cy.visit("/executive/cx-director-analytics");
+  cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - general_manager_dashboard", () => {
   it("opens and verifies screen general_manager_dashboard", () => {
     cy.loginAsRole("gm");
 
-  cy.visit("/management/general-manager-dashboard");
+  cy.visitWithSemantics("/management/general-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

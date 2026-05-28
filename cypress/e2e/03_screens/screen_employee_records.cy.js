@@ -7,7 +7,7 @@ describe("Screen - employee_records", () => {
   it("opens and verifies screen employee_records", () => {
     cy.loginAsRole("hr_director");
 
-  cy.visit("/management/employee-records");
+  cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

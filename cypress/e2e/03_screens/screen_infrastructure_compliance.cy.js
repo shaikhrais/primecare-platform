@@ -7,7 +7,7 @@ describe("Screen - infrastructure_compliance", () => {
   it("opens and verifies screen infrastructure_compliance", () => {
     cy.loginAsRole("infrastructure");
 
-  cy.visit("/common/infrastructure-compliance");
+  cy.visitWithSemantics("/common/infrastructure-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

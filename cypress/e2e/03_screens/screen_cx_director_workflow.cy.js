@@ -7,7 +7,7 @@ describe("Screen - cx_director_workflow", () => {
   it("opens and verifies screen cx_director_workflow", () => {
     cy.loginAsRole("cx_director");
 
-  cy.visit("/executive/cx-director-workflow");
+  cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

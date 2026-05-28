@@ -7,7 +7,7 @@ describe("Screen - community_outreach_analytics", () => {
   it("opens and verifies screen community_outreach_analytics", () => {
     cy.loginAsRole("community_outreach");
 
-  cy.visit("/management/community-outreach-analytics");
+  cy.visitWithSemantics("/management/community-outreach-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - partnership_manager_analytics", () => {
   it("opens and verifies screen partnership_manager_analytics", () => {
     cy.loginAsRole("partnership");
 
-  cy.visit("/management/partnership-manager-analytics");
+  cy.visitWithSemantics("/management/partnership-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

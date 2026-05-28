@@ -7,7 +7,7 @@ describe("Screen - franchise_lead", () => {
   it("opens and verifies screen franchise_lead", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/management/franchise-lead");
+  cy.visitWithSemantics("/management/franchise-lead");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

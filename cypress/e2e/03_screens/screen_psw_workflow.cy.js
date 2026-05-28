@@ -7,7 +7,7 @@ describe("Screen - psw_workflow", () => {
   it("opens and verifies screen psw_workflow", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-workflow");
+  cy.visitWithSemantics("/psw/psw-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

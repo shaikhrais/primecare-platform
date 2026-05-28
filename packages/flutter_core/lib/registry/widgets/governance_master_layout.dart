@@ -54,127 +54,142 @@ class GovernanceMasterLayout extends ConsumerWidget {
       child: QuickAccessBoundary(
         userRole: GovernanceRole(activeRole),
         currentOffice: 'CORPORATE', // Or retrieve this dynamically
-        child: Scaffold(
+        child: Semantics(
+          label: 'data-cy:app-shell',
+          container: true,
+          child: KeyedSubtree(
+            key: const Key('app-shell'),
+            child: Scaffold(
           drawer: isHandheld ? _buildSidebar(context, ref, theme, modules, tenant, tier) : null,
-          appBar: AppBar(
-          elevation: 0,
-          backgroundColor: theme.scaffoldBackgroundColor,
-          surfaceTintColor: Colors.transparent,
-          title: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: theme.primaryColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(LucideIcons.shieldCheck, color: theme.primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tenant.name,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    application.name,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.hintColor,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            // HUD: Role & Metrics (Clickable Role Switcher)
-            GestureDetector(
-              onTap: () {
-                showDialog<void>(
-                  context: context,
-                  barrierColor: Colors.black.withValues(alpha: 0.5),
-                  builder: (context) => _RoleSwitcherDialog(
-                    activeRole: activeRole,
-                    ref: ref,
-                  ),
-                );
-              },
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: Container(
-                  margin: const EdgeInsets.only(right: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: theme.primaryColor.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: theme.primaryColor.withValues(alpha: 0.1),
-                    ),
-                  ),
-                  child: Row(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight),
+            child: Semantics(
+              label: 'data-cy:app-topbar',
+              container: true,
+              child: KeyedSubtree(
+                key: const Key('app-topbar'),
+                child: AppBar(
+                  elevation: 0,
+                  backgroundColor: theme.scaffoldBackgroundColor,
+                  surfaceTintColor: Colors.transparent,
+                  title: Row(
                     children: [
-                      Icon(LucideIcons.user, size: 14, color: theme.primaryColor),
-                      const SizedBox(width: 8),
-                      Text(
-                        activeRole.displayName,
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.primaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(LucideIcons.chevronDown, size: 12, color: theme.primaryColor),
-                      const SizedBox(width: 12),
                       Container(
-                        width: 1,
-                        height: 14,
-                        color: theme.primaryColor.withValues(alpha: 0.2),
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: theme.primaryColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(LucideIcons.shieldCheck, color: theme.primaryColor),
                       ),
                       const SizedBox(width: 12),
-                      Builder(
-                        builder: (context) {
-                          final govRole = GovernanceRole(activeRole);
-                          return Row(
-                            children: [
-                              Icon(LucideIcons.layers, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
-                              const SizedBox(width: 4),
-                              Text(
-                                'Role Items: ${govRole.totalSidebarItems}',
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: theme.primaryColor.withValues(alpha: 0.8),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Icon(LucideIcons.appWindow, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
-                              const SizedBox(width: 4),
-                              Text(
-                                'App Total: ${govRole.totalAppSidebarItems}',
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: theme.primaryColor.withValues(alpha: 0.8),
-                                ),
-                              ),
-                            ],
-                          );
-                        }
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tenant.name,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            application.name,
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.hintColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  actions: [
+                    // HUD: Role & Metrics (Clickable Role Switcher)
+                    GestureDetector(
+                      onTap: () {
+                        showDialog<void>(
+                          context: context,
+                          barrierColor: Colors.black.withValues(alpha: 0.5),
+                          builder: (context) => _RoleSwitcherDialog(
+                            activeRole: activeRole,
+                            ref: ref,
+                          ),
+                        );
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: theme.primaryColor.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: theme.primaryColor.withValues(alpha: 0.1),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(LucideIcons.user, size: 14, color: theme.primaryColor),
+                              const SizedBox(width: 8),
+                              Text(
+                                activeRole.displayName,
+                                style: theme.textTheme.labelMedium?.copyWith(
+                                  color: theme.primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Icon(LucideIcons.chevronDown, size: 12, color: theme.primaryColor),
+                              const SizedBox(width: 12),
+                              Container(
+                                width: 1,
+                                height: 14,
+                                color: theme.primaryColor.withValues(alpha: 0.2),
+                              ),
+                              const SizedBox(width: 12),
+                              Builder(
+                                builder: (context) {
+                                  final govRole = GovernanceRole(activeRole);
+                                  return Row(
+                                    children: [
+                                      Icon(LucideIcons.layers, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'Role Items: ${govRole.totalSidebarItems}',
+                                        style: theme.textTheme.labelSmall?.copyWith(
+                                          color: theme.primaryColor.withValues(alpha: 0.8),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Icon(LucideIcons.appWindow, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'App Total: ${govRole.totalAppSidebarItems}',
+                                        style: theme.textTheme.labelSmall?.copyWith(
+                                          color: theme.primaryColor.withValues(alpha: 0.8),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(LucideIcons.logOut),
+                      onPressed: () {
+                        ref.read(authProvider.notifier).logout();
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                  ],
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(LucideIcons.logOut),
-              onPressed: () {
-                ref.read(authProvider.notifier).logout();
-              },
-            ),
-            const SizedBox(width: 8),
-          ],
-        ),
+          ),
         body: Row(
           children: [
             // Premium Governance Sidebar
@@ -182,14 +197,23 @@ class GovernanceMasterLayout extends ConsumerWidget {
               _buildSidebar(context, ref, theme, modules, tenant, tier),
             // Main Content Area
             Expanded(
-              child: Container(
-                color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                child: AppShellBoundary(child: child),
+              child: Semantics(
+                label: 'data-cy:app-content-slot',
+                container: true,
+                child: KeyedSubtree(
+                  key: const Key('app-content-slot'),
+                  child: Container(
+                    color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
+                    child: AppShellBoundary(child: child),
+                  ),
+                ),
               ),
             ),
           ],
         ),
       ),
+      ),
+    ),
       ),
     );
   }
@@ -199,8 +223,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       surfaceTintColor: Colors.transparent,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      child: Container(
-        width: AdaptiveScalingConfig.getSidebarWidth(tier),
+      child: Semantics(
+        label: 'data-cy:app-sidebar',
+        container: true,
+        child: KeyedSubtree(
+          key: const Key('app-sidebar'),
+          child: Container(
+            width: AdaptiveScalingConfig.getSidebarWidth(tier),
         decoration: BoxDecoration(
           color: theme.scaffoldBackgroundColor,
           border: Border(
@@ -309,6 +338,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
               ],
             );
           },
+        ),
+        ),
         ),
       ),
     );

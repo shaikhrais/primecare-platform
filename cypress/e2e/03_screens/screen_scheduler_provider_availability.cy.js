@@ -7,7 +7,7 @@ describe("Screen - scheduler_provider_availability", () => {
   it("opens and verifies screen scheduler_provider_availability", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-provider-availability");
+  cy.visitWithSemantics("/staff/scheduler-provider-availability");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

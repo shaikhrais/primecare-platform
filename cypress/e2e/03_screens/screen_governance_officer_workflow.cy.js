@@ -7,7 +7,7 @@ describe("Screen - governance_officer_workflow", () => {
   it("opens and verifies screen governance_officer_workflow", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/management/governance-officer-workflow");
+  cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

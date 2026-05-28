@@ -8,7 +8,7 @@ describe("Role All Screens - rn", () => {
     cy.loginAsRole("rn");
 
 
-  cy.visit("/common/system-dashboard");
+  cy.visitWithSemantics("/common/system-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("system_dashboard");
 
-  cy.visit("/management/governance-officer-dashboard");
+  cy.visitWithSemantics("/management/governance-officer-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_dashboard");
 
-  cy.visit("/rn/rn-dashboard");
+  cy.visitWithSemantics("/rn/rn-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_dashboard");
 
-  cy.visit("/rn/rn-field-supervisor-dashboard");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
 
-  cy.visit("/management/governance-officer-analytics");
+  cy.visitWithSemantics("/management/governance-officer-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_analytics");
 
-  cy.visit("/management/governance-officer-compliance");
+  cy.visitWithSemantics("/management/governance-officer-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_compliance");
 
-  cy.visit("/management/governance-officer-workflow");
+  cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_officer_workflow");
 
-  cy.visit("/rn/rn-analytics");
+  cy.visitWithSemantics("/rn/rn-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_analytics");
 
-  cy.visit("/rn/rn-assessments");
+  cy.visitWithSemantics("/rn/rn-assessments");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_assessments");
 
-  cy.visit("/rn/rn-care-plans");
+  cy.visitWithSemantics("/rn/rn-care-plans");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_care_plans");
 
-  cy.visit("/rn/rn-compliance");
+  cy.visitWithSemantics("/rn/rn-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_compliance");
 
-  cy.visit("/rn/rn-workflow");
+  cy.visitWithSemantics("/rn/rn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_workflow");
 
-  cy.visit("/rn/rn-command-center");
+  cy.visitWithSemantics("/rn/rn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_command_center");
 
-  cy.visit("/rn/rn-patient-charting");
+  cy.visitWithSemantics("/rn/rn-patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_patient_charting");
 
-  cy.visit("/rn/rn-medications");
+  cy.visitWithSemantics("/rn/rn-medications");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_medications");
 
-  cy.visit("/rn/rn-vitals");
+  cy.visitWithSemantics("/rn/rn-vitals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_vitals");
 
-  cy.visit("/rn/rn-care-plan-review");
+  cy.visitWithSemantics("/rn/rn-care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_care_plan_review");
 
-  cy.visit("/rn/rn-incident-review");
+  cy.visitWithSemantics("/rn/rn-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_incident_review");
 
-  cy.visit("/rn/rn-tasks");
+  cy.visitWithSemantics("/rn/rn-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_tasks");
 
-  cy.visit("/rn/rn-reports");
+  cy.visitWithSemantics("/rn/rn-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -248,7 +248,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_reports");
 
-  cy.visit("/rn/patient-charting");
+  cy.visitWithSemantics("/rn/patient-charting");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -260,7 +260,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("patient_charting");
 
-  cy.visit("/rn/medication-administration");
+  cy.visitWithSemantics("/rn/medication-administration");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -272,7 +272,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("medication_administration");
 
-  cy.visit("/rn/care-plan-review");
+  cy.visitWithSemantics("/rn/care-plan-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -284,7 +284,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("care_plan_review");
 
-  cy.visit("/rn/incident-review");
+  cy.visitWithSemantics("/rn/incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -296,7 +296,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("incident_review");
 
-  cy.visit("/rn/shift-report");
+  cy.visitWithSemantics("/rn/shift-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -308,7 +308,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("shift_report");
 
-  cy.visit("/common/governance-control-room");
+  cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -320,7 +320,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_control_room");
 
-  cy.visit("/common/runtime-verification");
+  cy.visitWithSemantics("/common/runtime-verification");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -332,7 +332,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("runtime_verification");
 
-  cy.visit("/common/drift-findings");
+  cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -344,7 +344,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("drift_findings");
 
-  cy.visit("/common/pending-task-queue");
+  cy.visitWithSemantics("/common/pending-task-queue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -356,7 +356,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("pending_task_queue");
 
-  cy.visit("/common/agent-dispatch");
+  cy.visitWithSemantics("/common/agent-dispatch");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -368,7 +368,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("agent_dispatch");
 
-  cy.visit("/common/audit");
+  cy.visitWithSemantics("/common/audit");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -380,7 +380,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("audit");
 
-  cy.visit("/common/api-health-dashboard");
+  cy.visitWithSemantics("/common/api-health-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -392,7 +392,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("api_health_dashboard");
 
-  cy.visit("/common/release-operations");
+  cy.visitWithSemantics("/common/release-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -404,7 +404,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("release_operations");
 
-  cy.visit("/common/file-verification-dashboard");
+  cy.visitWithSemantics("/common/file-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -416,7 +416,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("file_verification_dashboard");
 
-  cy.visit("/common/role-coverage-dashboard");
+  cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -428,7 +428,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("role_coverage_dashboard");
 
-  cy.visit("/common/responsive-preview");
+  cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -440,7 +440,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("responsive_preview");
 
-  cy.visit("/common/workflow-execution");
+  cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -452,7 +452,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("workflow_execution");
 
-  cy.visit("/common/governance-operations4-k");
+  cy.visitWithSemantics("/common/governance-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -464,7 +464,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("governance_operations4_k");
 
-  cy.visit("/rn/rn-field-supervisor-analytics");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -476,7 +476,7 @@ describe("Role All Screens - rn", () => {
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_analytics");
 
-  cy.visit("/rn/rn-field-supervisor-workflow");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

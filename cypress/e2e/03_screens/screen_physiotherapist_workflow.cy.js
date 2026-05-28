@@ -7,7 +7,7 @@ describe("Screen - physiotherapist_workflow", () => {
   it("opens and verifies screen physiotherapist_workflow", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/common/physiotherapist-workflow");
+  cy.visitWithSemantics("/common/physiotherapist-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

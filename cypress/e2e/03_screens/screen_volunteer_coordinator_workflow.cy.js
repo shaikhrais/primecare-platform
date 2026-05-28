@@ -7,7 +7,7 @@ describe("Screen - volunteer_coordinator_workflow", () => {
   it("opens and verifies screen volunteer_coordinator_workflow", () => {
     cy.loginAsRole("volunteer");
 
-  cy.visit("/staff/volunteer-coordinator-workflow");
+  cy.visitWithSemantics("/staff/volunteer-coordinator-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

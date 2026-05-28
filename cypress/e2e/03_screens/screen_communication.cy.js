@@ -7,7 +7,7 @@ describe("Screen - communication", () => {
   it("opens and verifies screen communication", () => {
     cy.loginAsRole("customer_support");
 
-  cy.visit("/staff/communication");
+  cy.visitWithSemantics("/staff/communication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

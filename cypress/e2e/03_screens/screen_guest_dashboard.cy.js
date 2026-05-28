@@ -7,7 +7,7 @@ describe("Screen - guest_dashboard", () => {
   it("opens and verifies screen guest_dashboard", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/guest-dashboard");
+  cy.visitWithSemantics("/common/guest-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

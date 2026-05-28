@@ -8,7 +8,7 @@ describe("Role All Screens - community_outreach", () => {
     cy.loginAsRole("community_outreach");
 
 
-  cy.visit("/management/community-outreach-dashboard");
+  cy.visitWithSemantics("/management/community-outreach-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - community_outreach", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_dashboard");
 
-  cy.visit("/management/community-outreach-analytics");
+  cy.visitWithSemantics("/management/community-outreach-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - community_outreach", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_analytics");
 
-  cy.visit("/management/community-outreach-compliance");
+  cy.visitWithSemantics("/management/community-outreach-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - community_outreach", () => {
   cy.waitAndSee();
   cy.screenshot("community_outreach_compliance");
 
-  cy.visit("/management/community-outreach-workflow");
+  cy.visitWithSemantics("/management/community-outreach-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

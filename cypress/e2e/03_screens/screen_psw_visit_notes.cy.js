@@ -7,7 +7,7 @@ describe("Screen - psw_visit_notes", () => {
   it("opens and verifies screen psw_visit_notes", () => {
     cy.loginAsRole("psw");
 
-  cy.visit("/psw/psw-visit-notes");
+  cy.visitWithSemantics("/psw/psw-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

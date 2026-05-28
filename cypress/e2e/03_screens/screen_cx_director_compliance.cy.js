@@ -7,7 +7,7 @@ describe("Screen - cx_director_compliance", () => {
   it("opens and verifies screen cx_director_compliance", () => {
     cy.loginAsRole("cx_director");
 
-  cy.visit("/executive/cx-director-compliance");
+  cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - hr_hiring", () => {
     cy.loginAsRole("hr_hiring");
 
 
-  cy.visit("/staff/hr-hiring-dashboard");
+  cy.visitWithSemantics("/staff/hr-hiring-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_dashboard");
 
-  cy.visit("/staff/hr-hiring-analytics");
+  cy.visitWithSemantics("/staff/hr-hiring-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_analytics");
 
-  cy.visit("/staff/hr-hiring-compliance");
+  cy.visitWithSemantics("/staff/hr-hiring-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_compliance");
 
-  cy.visit("/staff/hr-hiring-workflow");
+  cy.visitWithSemantics("/staff/hr-hiring-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_workflow");
 
-  cy.visit("/staff/hr-hiring-applicants");
+  cy.visitWithSemantics("/staff/hr-hiring-applicants");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_applicants");
 
-  cy.visit("/staff/hr-hiring-interviews");
+  cy.visitWithSemantics("/staff/hr-hiring-interviews");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_interviews");
 
-  cy.visit("/staff/hr-hiring-offers");
+  cy.visitWithSemantics("/staff/hr-hiring-offers");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_offers");
 
-  cy.visit("/staff/hr-hiring-onboarding");
+  cy.visitWithSemantics("/staff/hr-hiring-onboarding");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_onboarding");
 
-  cy.visit("/staff/hr-hiring-credentials");
+  cy.visitWithSemantics("/staff/hr-hiring-credentials");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("hr_hiring_credentials");
 
-  cy.visit("/staff/applicant-tracking");
+  cy.visitWithSemantics("/staff/applicant-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("applicant_tracking");
 
-  cy.visit("/staff/interview-scheduling");
+  cy.visitWithSemantics("/staff/interview-scheduling");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("interview_scheduling");
 
-  cy.visit("/staff/offer-management");
+  cy.visitWithSemantics("/staff/offer-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - hr_hiring", () => {
   cy.waitAndSee();
   cy.screenshot("offer_management");
 
-  cy.visit("/staff/onboarding-checklist");
+  cy.visitWithSemantics("/staff/onboarding-checklist");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - interview_scheduling", () => {
   it("opens and verifies screen interview_scheduling", () => {
     cy.loginAsRole("hr_hiring");
 
-  cy.visit("/staff/interview-scheduling");
+  cy.visitWithSemantics("/staff/interview-scheduling");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

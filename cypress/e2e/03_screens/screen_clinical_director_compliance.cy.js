@@ -7,7 +7,7 @@ describe("Screen - clinical_director_compliance", () => {
   it("opens and verifies screen clinical_director_compliance", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visit("/clinical/clinical-director-compliance");
+  cy.visitWithSemantics("/clinical/clinical-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

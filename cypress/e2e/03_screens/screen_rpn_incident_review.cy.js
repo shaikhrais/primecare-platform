@@ -7,7 +7,7 @@ describe("Screen - rpn_incident_review", () => {
   it("opens and verifies screen rpn_incident_review", () => {
     cy.loginAsRole("rpn");
 
-  cy.visit("/rpn/rpn-incident-review");
+  cy.visitWithSemantics("/rpn/rpn-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -7,7 +7,7 @@ describe("Screen - rn_workflow", () => {
   it("opens and verifies screen rn_workflow", () => {
     cy.loginAsRole("rn");
 
-  cy.visit("/rn/rn-workflow");
+  cy.visitWithSemantics("/rn/rn-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

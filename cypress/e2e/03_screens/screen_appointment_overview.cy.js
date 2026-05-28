@@ -7,7 +7,7 @@ describe("Screen - appointment_overview", () => {
   it("opens and verifies screen appointment_overview", () => {
     cy.loginAsRole("owner");
 
-  cy.visit("/executive/appointment-overview");
+  cy.visitWithSemantics("/executive/appointment-overview");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

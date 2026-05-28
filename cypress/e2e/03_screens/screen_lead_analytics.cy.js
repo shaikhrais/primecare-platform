@@ -7,7 +7,7 @@ describe("Screen - lead_analytics", () => {
   it("opens and verifies screen lead_analytics", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/lead-analytics");
+  cy.visitWithSemantics("/management/lead-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

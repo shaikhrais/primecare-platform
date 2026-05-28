@@ -8,7 +8,7 @@ describe("Role All Screens - clinical_director", () => {
     cy.loginAsRole("clinical_director");
 
 
-  cy.visit("/clinical/clinical-dashboard");
+  cy.visitWithSemantics("/clinical/clinical-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
 
-  cy.visit("/common/clinic-dashboard");
+  cy.visitWithSemantics("/common/clinic-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
 
-  cy.visit("/clinical/clinical-analytics");
+  cy.visitWithSemantics("/clinical/clinical-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
 
-  cy.visit("/clinical/clinical-compliance");
+  cy.visitWithSemantics("/clinical/clinical-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
 
-  cy.visit("/clinical/clinical-workflow");
+  cy.visitWithSemantics("/clinical/clinical-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
 
-  cy.visit("/common/clinic-analytics");
+  cy.visitWithSemantics("/common/clinic-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
 
-  cy.visit("/common/clinic-compliance");
+  cy.visitWithSemantics("/common/clinic-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
 
-  cy.visit("/common/clinic-workflow");
+  cy.visitWithSemantics("/common/clinic-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
 
-  cy.visit("/clinical/clinical-director-staff-quality");
+  cy.visitWithSemantics("/clinical/clinical-director-staff-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
 
-  cy.visit("/clinical/clinical-director-incident-review");
+  cy.visitWithSemantics("/clinical/clinical-director-incident-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
 
-  cy.visit("/clinical/clinical-director-compliance");
+  cy.visitWithSemantics("/clinical/clinical-director-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
 
-  cy.visit("/clinical/clinical-director-reports");
+  cy.visitWithSemantics("/clinical/clinical-director-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
 
-  cy.visit("/clinical/clinical-director-approvals");
+  cy.visitWithSemantics("/clinical/clinical-director-approvals");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
 
-  cy.visit("/clinical/clinical-director-performance");
+  cy.visitWithSemantics("/clinical/clinical-director-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
 
-  cy.visit("/clinical/clinical-quality");
+  cy.visitWithSemantics("/clinical/clinical-quality");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
 
-  cy.visit("/clinical/staff-performance");
+  cy.visitWithSemantics("/clinical/staff-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("staff_performance");
 
-  cy.visit("/clinical/compliance-review");
+  cy.visitWithSemantics("/clinical/compliance-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_review");
 
-  cy.visit("/clinical/incident-oversight");
+  cy.visitWithSemantics("/clinical/incident-oversight");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - clinical_director", () => {
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
 
-  cy.visit("/clinical/clinical-operations4-k");
+  cy.visitWithSemantics("/clinical/clinical-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

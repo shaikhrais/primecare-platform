@@ -8,7 +8,7 @@ describe("Role All Screens - hsw", () => {
     cy.loginAsRole("hsw");
 
 
-  cy.visit("/clinical/hsw-dashboard");
+  cy.visitWithSemantics("/clinical/hsw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - hsw", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_dashboard");
 
-  cy.visit("/clinical/hsw-adl-logger");
+  cy.visitWithSemantics("/clinical/hsw-adl-logger");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - hsw", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_adl_logger");
 
-  cy.visit("/clinical/hsw-care-plans");
+  cy.visitWithSemantics("/clinical/hsw-care-plans");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - hsw", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_care_plans");
 
-  cy.visit("/clinical/hsw-incident-reports");
+  cy.visitWithSemantics("/clinical/hsw-incident-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - hsw", () => {
   cy.waitAndSee();
   cy.screenshot("hsw_incident_reports");
 
-  cy.visit("/clinical/hsw-schedule");
+  cy.visitWithSemantics("/clinical/hsw-schedule");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

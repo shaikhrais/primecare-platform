@@ -8,7 +8,7 @@ describe("Role All Screens - employee", () => {
     cy.loginAsRole("employee");
 
 
-  cy.visit("/staff/employee-dashboard");
+  cy.visitWithSemantics("/staff/employee-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - employee", () => {
   cy.waitAndSee();
   cy.screenshot("employee_dashboard");
 
-  cy.visit("/staff/employee-analytics");
+  cy.visitWithSemantics("/staff/employee-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - employee", () => {
   cy.waitAndSee();
   cy.screenshot("employee_analytics");
 
-  cy.visit("/staff/employee-workflow");
+  cy.visitWithSemantics("/staff/employee-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

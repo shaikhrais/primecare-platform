@@ -7,7 +7,7 @@ describe("Screen - coordinator_dispatch_map", () => {
   it("opens and verifies screen coordinator_dispatch_map", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/coordinator-dispatch-map");
+  cy.visitWithSemantics("/staff/coordinator-dispatch-map");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

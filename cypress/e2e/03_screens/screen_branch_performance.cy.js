@@ -7,7 +7,7 @@ describe("Screen - branch_performance", () => {
   it("opens and verifies screen branch_performance", () => {
     cy.loginAsRole("coo");
 
-  cy.visit("/executive/branch-performance");
+  cy.visitWithSemantics("/executive/branch-performance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

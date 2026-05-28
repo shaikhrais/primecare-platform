@@ -7,7 +7,7 @@ describe("Screen - scheduler_booking_requests", () => {
   it("opens and verifies screen scheduler_booking_requests", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-booking-requests");
+  cy.visitWithSemantics("/staff/scheduler-booking-requests");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

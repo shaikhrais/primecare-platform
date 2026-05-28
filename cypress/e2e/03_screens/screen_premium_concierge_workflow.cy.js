@@ -7,7 +7,7 @@ describe("Screen - premium_concierge_workflow", () => {
   it("opens and verifies screen premium_concierge_workflow", () => {
     cy.loginAsRole("premium_concierge");
 
-  cy.visit("/premium/premium-concierge-workflow");
+  cy.visitWithSemantics("/premium/premium-concierge-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

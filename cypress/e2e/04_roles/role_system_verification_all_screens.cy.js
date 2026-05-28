@@ -8,7 +8,7 @@ describe("Role All Screens - system_verification", () => {
     cy.loginAsRole("system_verification");
 
 
-  cy.visit("/common/qa-dashboard");
+  cy.visitWithSemantics("/common/qa-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("qa_dashboard");
 
-  cy.visit("/common/system-verification-dashboard");
+  cy.visitWithSemantics("/common/system-verification-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_dashboard");
 
-  cy.visit("/staff/quality-assurance-dashboard");
+  cy.visitWithSemantics("/staff/quality-assurance-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("quality_assurance_dashboard");
 
-  cy.visit("/common/system-analytics");
+  cy.visitWithSemantics("/common/system-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_analytics");
 
-  cy.visit("/common/system-compliance");
+  cy.visitWithSemantics("/common/system-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_compliance");
 
-  cy.visit("/common/system-verification-analytics");
+  cy.visitWithSemantics("/common/system-verification-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_analytics");
 
-  cy.visit("/common/system-verification-compliance");
+  cy.visitWithSemantics("/common/system-verification-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_compliance");
 
-  cy.visit("/common/system-verification-workflow");
+  cy.visitWithSemantics("/common/system-verification-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - system_verification", () => {
   cy.waitAndSee();
   cy.screenshot("system_verification_workflow");
 
-  cy.visit("/common/system-workflow");
+  cy.visitWithSemantics("/common/system-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

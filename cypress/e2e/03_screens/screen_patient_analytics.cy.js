@@ -7,7 +7,7 @@ describe("Screen - patient_analytics", () => {
   it("opens and verifies screen patient_analytics", () => {
     cy.loginAsRole("patient");
 
-  cy.visit("/common/patient-analytics");
+  cy.visitWithSemantics("/common/patient-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

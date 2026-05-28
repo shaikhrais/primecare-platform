@@ -7,7 +7,7 @@ describe("Screen - governance_control_room", () => {
   it("opens and verifies screen governance_control_room", () => {
     cy.loginAsRole("governance");
 
-  cy.visit("/common/governance-control-room");
+  cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

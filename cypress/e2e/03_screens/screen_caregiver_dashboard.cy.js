@@ -7,7 +7,7 @@ describe("Screen - caregiver_dashboard", () => {
   it("opens and verifies screen caregiver_dashboard", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visit("/common/caregiver-dashboard");
+  cy.visitWithSemantics("/common/caregiver-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

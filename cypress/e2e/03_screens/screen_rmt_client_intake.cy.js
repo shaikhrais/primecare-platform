@@ -7,7 +7,7 @@ describe("Screen - rmt_client_intake", () => {
   it("opens and verifies screen rmt_client_intake", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-client-intake");
+  cy.visitWithSemantics("/allied/rmt-client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

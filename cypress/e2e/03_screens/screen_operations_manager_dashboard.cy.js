@@ -7,7 +7,7 @@ describe("Screen - operations_manager_dashboard", () => {
   it("opens and verifies screen operations_manager_dashboard", () => {
     cy.loginAsRole("ops_manager");
 
-  cy.visit("/management/operations-manager-dashboard");
+  cy.visitWithSemantics("/management/operations-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

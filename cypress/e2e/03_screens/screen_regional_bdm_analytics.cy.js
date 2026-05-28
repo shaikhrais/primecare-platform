@@ -7,7 +7,7 @@ describe("Screen - regional_bdm_analytics", () => {
   it("opens and verifies screen regional_bdm_analytics", () => {
     cy.loginAsRole("regional_bdm");
 
-  cy.visit("/management/regional-bdm-analytics");
+  cy.visitWithSemantics("/management/regional-bdm-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

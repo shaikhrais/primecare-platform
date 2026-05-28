@@ -8,7 +8,7 @@ describe("Role All Screens - pediatric", () => {
     cy.loginAsRole("pediatric");
 
 
-  cy.visit("/clinical/pediatric-dashboard");
+  cy.visitWithSemantics("/clinical/pediatric-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - pediatric", () => {
   cy.waitAndSee();
   cy.screenshot("pediatric_dashboard");
 
-  cy.visit("/clinical/pediatric-analytics");
+  cy.visitWithSemantics("/clinical/pediatric-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - pediatric", () => {
   cy.waitAndSee();
   cy.screenshot("pediatric_analytics");
 
-  cy.visit("/clinical/pediatric-workflow");
+  cy.visitWithSemantics("/clinical/pediatric-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

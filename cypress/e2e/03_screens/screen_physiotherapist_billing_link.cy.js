@@ -7,7 +7,7 @@ describe("Screen - physiotherapist_billing_link", () => {
   it("opens and verifies screen physiotherapist_billing_link", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/allied/physiotherapist-billing-link");
+  cy.visitWithSemantics("/allied/physiotherapist-billing-link");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

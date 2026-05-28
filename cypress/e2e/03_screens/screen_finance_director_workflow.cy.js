@@ -7,7 +7,7 @@ describe("Screen - finance_director_workflow", () => {
   it("opens and verifies screen finance_director_workflow", () => {
     cy.loginAsRole("finance_director");
 
-  cy.visit("/executive/finance-director-workflow");
+  cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

@@ -8,7 +8,7 @@ describe("Role All Screens - compliance", () => {
     cy.loginAsRole("compliance");
 
 
-  cy.visit("/management/compliance-manager-dashboard");
+  cy.visitWithSemantics("/management/compliance-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_dashboard");
 
-  cy.visit("/management/compliance-manager-analytics");
+  cy.visitWithSemantics("/management/compliance-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_analytics");
 
-  cy.visit("/management/compliance-manager-compliance");
+  cy.visitWithSemantics("/management/compliance-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_compliance");
 
-  cy.visit("/management/compliance-manager-workflow");
+  cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_manager_workflow");
 
-  cy.visit("/management/compliance-dashboard");
+  cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("compliance_dashboard");
 
-  cy.visit("/management/audit-review");
+  cy.visitWithSemantics("/management/audit-review");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("audit_review");
 
-  cy.visit("/management/incident-management");
+  cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("incident_management");
 
-  cy.visit("/management/policy-management");
+  cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - compliance", () => {
   cy.waitAndSee();
   cy.screenshot("policy_management");
 
-  cy.visit("/management/corrective-action");
+  cy.visitWithSemantics("/management/corrective-action");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

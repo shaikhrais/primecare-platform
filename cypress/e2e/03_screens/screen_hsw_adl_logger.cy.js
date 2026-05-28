@@ -7,7 +7,7 @@ describe("Screen - hsw_adl_logger", () => {
   it("opens and verifies screen hsw_adl_logger", () => {
     cy.loginAsRole("hsw");
 
-  cy.visit("/clinical/hsw-adl-logger");
+  cy.visitWithSemantics("/clinical/hsw-adl-logger");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

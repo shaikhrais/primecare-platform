@@ -8,7 +8,7 @@ describe("Role All Screens - ops_manager", () => {
     cy.loginAsRole("ops_manager");
 
 
-  cy.visit("/management/operations-manager-dashboard");
+  cy.visitWithSemantics("/management/operations-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_dashboard");
 
-  cy.visit("/management/operations-manager-analytics");
+  cy.visitWithSemantics("/management/operations-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_analytics");
 
-  cy.visit("/management/operations-manager-compliance");
+  cy.visitWithSemantics("/management/operations-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_compliance");
 
-  cy.visit("/management/operations-manager-workflow");
+  cy.visitWithSemantics("/management/operations-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("operations_manager_workflow");
 
-  cy.visit("/management/daily-operations");
+  cy.visitWithSemantics("/management/daily-operations");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("daily_operations");
 
-  cy.visit("/management/attendance");
+  cy.visitWithSemantics("/management/attendance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("attendance");
 
-  cy.visit("/management/scheduling-health");
+  cy.visitWithSemantics("/management/scheduling-health");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - ops_manager", () => {
   cy.waitAndSee();
   cy.screenshot("scheduling_health");
 
-  cy.visit("/management/service-issue");
+  cy.visitWithSemantics("/management/service-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

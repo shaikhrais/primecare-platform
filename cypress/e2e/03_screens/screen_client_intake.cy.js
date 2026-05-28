@@ -7,7 +7,7 @@ describe("Screen - client_intake", () => {
   it("opens and verifies screen client_intake", () => {
     cy.loginAsRole("intake");
 
-  cy.visit("/executive/client-intake");
+  cy.visitWithSemantics("/executive/client-intake");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

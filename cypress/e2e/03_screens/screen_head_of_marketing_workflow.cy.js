@@ -7,7 +7,7 @@ describe("Screen - head_of_marketing_workflow", () => {
   it("opens and verifies screen head_of_marketing_workflow", () => {
     cy.loginAsRole("marketing");
 
-  cy.visit("/management/head-of-marketing-workflow");
+  cy.visitWithSemantics("/management/head-of-marketing-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

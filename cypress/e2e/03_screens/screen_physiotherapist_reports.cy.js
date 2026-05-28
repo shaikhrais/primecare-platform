@@ -7,7 +7,7 @@ describe("Screen - physiotherapist_reports", () => {
   it("opens and verifies screen physiotherapist_reports", () => {
     cy.loginAsRole("physio");
 
-  cy.visit("/allied/physiotherapist-reports");
+  cy.visitWithSemantics("/allied/physiotherapist-reports");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

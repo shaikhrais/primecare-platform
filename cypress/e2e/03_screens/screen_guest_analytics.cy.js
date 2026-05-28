@@ -7,7 +7,7 @@ describe("Screen - guest_analytics", () => {
   it("opens and verifies screen guest_analytics", () => {
     cy.loginAsRole("guest");
 
-  cy.visit("/common/guest-analytics");
+  cy.visitWithSemantics("/common/guest-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

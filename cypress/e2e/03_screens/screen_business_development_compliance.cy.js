@@ -7,7 +7,7 @@ describe("Screen - business_development_compliance", () => {
   it("opens and verifies screen business_development_compliance", () => {
     cy.loginAsRole("bus_dev");
 
-  cy.visit("/common/business-development-compliance");
+  cy.visitWithSemantics("/common/business-development-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

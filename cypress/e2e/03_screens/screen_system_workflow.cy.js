@@ -7,7 +7,7 @@ describe("Screen - system_workflow", () => {
   it("opens and verifies screen system_workflow", () => {
     cy.loginAsRole("system_verification");
 
-  cy.visit("/common/system-workflow");
+  cy.visitWithSemantics("/common/system-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

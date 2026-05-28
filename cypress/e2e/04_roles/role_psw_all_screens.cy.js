@@ -8,7 +8,7 @@ describe("Role All Screens - psw", () => {
     cy.loginAsRole("psw");
 
 
-  cy.visit("/psw/psw-dashboard");
+  cy.visitWithSemantics("/psw/psw-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
 
-  cy.visit("/psw/psw-analytics");
+  cy.visitWithSemantics("/psw/psw-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_analytics");
 
-  cy.visit("/psw/psw-clients");
+  cy.visitWithSemantics("/psw/psw-clients");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_clients");
 
-  cy.visit("/psw/psw-compliance");
+  cy.visitWithSemantics("/psw/psw-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_compliance");
 
-  cy.visit("/psw/psw-messages");
+  cy.visitWithSemantics("/psw/psw-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_messages");
 
-  cy.visit("/psw/psw-shift-tracker");
+  cy.visitWithSemantics("/psw/psw-shift-tracker");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_shift_tracker");
 
-  cy.visit("/psw/psw-tasks");
+  cy.visitWithSemantics("/psw/psw-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_tasks");
 
-  cy.visit("/psw/psw-visit-notes");
+  cy.visitWithSemantics("/psw/psw-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
 
-  cy.visit("/psw/psw-workflow");
+  cy.visitWithSemantics("/psw/psw-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_workflow");
 
-  cy.visit("/psw/psw-command-center");
+  cy.visitWithSemantics("/psw/psw-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -128,7 +128,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_command_center");
 
-  cy.visit("/psw/psw-my-shifts");
+  cy.visitWithSemantics("/psw/psw-my-shifts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -140,7 +140,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_my_shifts");
 
-  cy.visit("/psw/psw-client-profile");
+  cy.visitWithSemantics("/psw/psw-client-profile");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -152,7 +152,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_client_profile");
 
-  cy.visit("/psw/psw-visit-notes");
+  cy.visitWithSemantics("/psw/psw-visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -164,7 +164,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
 
-  cy.visit("/psw/psw-vitals-log");
+  cy.visitWithSemantics("/psw/psw-vitals-log");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -176,7 +176,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_vitals_log");
 
-  cy.visit("/psw/psw-incident-report");
+  cy.visitWithSemantics("/psw/psw-incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -188,7 +188,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_incident_report");
 
-  cy.visit("/psw/psw-care-plan");
+  cy.visitWithSemantics("/psw/psw-care-plan");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -200,7 +200,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_care_plan");
 
-  cy.visit("/psw/psw-messages");
+  cy.visitWithSemantics("/psw/psw-messages");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -212,7 +212,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_messages");
 
-  cy.visit("/psw/psw-documents");
+  cy.visitWithSemantics("/psw/psw-documents");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -224,7 +224,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("psw_documents");
 
-  cy.visit("/psw/shift-tasks");
+  cy.visitWithSemantics("/psw/shift-tasks");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -236,7 +236,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("shift_tasks");
 
-  cy.visit("/psw/visit-notes");
+  cy.visitWithSemantics("/psw/visit-notes");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -248,7 +248,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("visit_notes");
 
-  cy.visit("/psw/vitals-entry");
+  cy.visitWithSemantics("/psw/vitals-entry");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -260,7 +260,7 @@ describe("Role All Screens - psw", () => {
   cy.waitAndSee();
   cy.screenshot("vitals_entry");
 
-  cy.visit("/psw/incident-report");
+  cy.visitWithSemantics("/psw/incident-report");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

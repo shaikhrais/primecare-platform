@@ -8,7 +8,7 @@ describe("Role All Screens - customer_support", () => {
     cy.loginAsRole("customer_support");
 
 
-  cy.visit("/common/customer-support-analytics");
+  cy.visitWithSemantics("/common/customer-support-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_analytics");
 
-  cy.visit("/common/customer-support-compliance");
+  cy.visitWithSemantics("/common/customer-support-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_compliance");
 
-  cy.visit("/common/customer-support-workflow");
+  cy.visitWithSemantics("/common/customer-support-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("customer_support_workflow");
 
-  cy.visit("/common/support-analytics");
+  cy.visitWithSemantics("/common/support-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -56,7 +56,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("support_analytics");
 
-  cy.visit("/common/support-compliance");
+  cy.visitWithSemantics("/common/support-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -68,7 +68,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("support_compliance");
 
-  cy.visit("/common/support-workflow");
+  cy.visitWithSemantics("/common/support-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -80,7 +80,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("support_workflow");
 
-  cy.visit("/staff/ticket-management");
+  cy.visitWithSemantics("/staff/ticket-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -92,7 +92,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("ticket_management");
 
-  cy.visit("/staff/client-issue");
+  cy.visitWithSemantics("/staff/client-issue");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -104,7 +104,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("client_issue");
 
-  cy.visit("/staff/communication");
+  cy.visitWithSemantics("/staff/communication");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -116,7 +116,7 @@ describe("Role All Screens - customer_support", () => {
   cy.waitAndSee();
   cy.screenshot("communication");
 
-  cy.visit("/staff/resolution-tracking");
+  cy.visitWithSemantics("/staff/resolution-tracking");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

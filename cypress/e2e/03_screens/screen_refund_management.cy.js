@@ -7,7 +7,7 @@ describe("Screen - refund_management", () => {
   it("opens and verifies screen refund_management", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/staff/refund-management");
+  cy.visitWithSemantics("/staff/refund-management");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

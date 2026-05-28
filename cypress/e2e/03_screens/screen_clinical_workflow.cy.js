@@ -7,7 +7,7 @@ describe("Screen - clinical_workflow", () => {
   it("opens and verifies screen clinical_workflow", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visit("/clinical/clinical-workflow");
+  cy.visitWithSemantics("/clinical/clinical-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

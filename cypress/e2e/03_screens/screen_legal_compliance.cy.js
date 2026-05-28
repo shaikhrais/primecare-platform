@@ -7,7 +7,7 @@ describe("Screen - legal_compliance", () => {
   it("opens and verifies screen legal_compliance", () => {
     cy.loginAsRole("legal");
 
-  cy.visit("/executive/legal-compliance");
+  cy.visitWithSemantics("/executive/legal-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

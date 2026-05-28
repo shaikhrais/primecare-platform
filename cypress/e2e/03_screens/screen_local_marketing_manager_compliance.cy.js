@@ -7,7 +7,7 @@ describe("Screen - local_marketing_manager_compliance", () => {
   it("opens and verifies screen local_marketing_manager_compliance", () => {
     cy.loginAsRole("local_marketing");
 
-  cy.visit("/management/local-marketing-manager-compliance");
+  cy.visitWithSemantics("/management/local-marketing-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

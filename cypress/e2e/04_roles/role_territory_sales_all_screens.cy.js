@@ -8,7 +8,7 @@ describe("Role All Screens - territory_sales", () => {
     cy.loginAsRole("territory_sales");
 
 
-  cy.visit("/management/territory-sales-manager-dashboard");
+  cy.visitWithSemantics("/management/territory-sales-manager-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -20,7 +20,7 @@ describe("Role All Screens - territory_sales", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_dashboard");
 
-  cy.visit("/management/territory-sales-manager-analytics");
+  cy.visitWithSemantics("/management/territory-sales-manager-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -32,7 +32,7 @@ describe("Role All Screens - territory_sales", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_analytics");
 
-  cy.visit("/management/territory-sales-manager-compliance");
+  cy.visitWithSemantics("/management/territory-sales-manager-compliance");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();
@@ -44,7 +44,7 @@ describe("Role All Screens - territory_sales", () => {
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_compliance");
 
-  cy.visit("/management/territory-sales-manager-workflow");
+  cy.visitWithSemantics("/management/territory-sales-manager-workflow");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

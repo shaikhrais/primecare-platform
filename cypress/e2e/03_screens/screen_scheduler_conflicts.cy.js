@@ -7,7 +7,7 @@ describe("Screen - scheduler_conflicts", () => {
   it("opens and verifies screen scheduler_conflicts", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-conflicts");
+  cy.visitWithSemantics("/staff/scheduler-conflicts");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

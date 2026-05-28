@@ -7,7 +7,7 @@ describe("Screen - office_analytics", () => {
   it("opens and verifies screen office_analytics", () => {
     cy.loginAsRole("admin");
 
-  cy.visit("/common/office-analytics");
+  cy.visitWithSemantics("/common/office-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

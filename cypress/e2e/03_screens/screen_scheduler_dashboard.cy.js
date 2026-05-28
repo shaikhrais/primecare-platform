@@ -7,7 +7,7 @@ describe("Screen - scheduler_dashboard", () => {
   it("opens and verifies screen scheduler_dashboard", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduler-dashboard");
+  cy.visitWithSemantics("/staff/scheduler-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

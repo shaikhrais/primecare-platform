@@ -72,15 +72,16 @@ def main():
             verified_count += 1
             continue
 
-        # Real authentication call to /v1/auth/login
-        url = f"{base_url.rstrip('/')}/v1/auth/login"
+        # Real authentication call to /login
+        url = f"{base_url.rstrip('/')}/login" if "auth-api" in base_url else f"{base_url.rstrip('/')}/v1/auth/login"
         payload = {
             "email": email,
             "password": default_password
         }
         
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
         }
         
         req_data = json.dumps(payload).encode("utf-8")

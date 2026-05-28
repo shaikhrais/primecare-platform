@@ -7,7 +7,7 @@ describe("Screen - scheduling_operations4_k", () => {
   it("opens and verifies screen scheduling_operations4_k", () => {
     cy.loginAsRole("scheduler");
 
-  cy.visit("/staff/scheduling-operations4-k");
+  cy.visitWithSemantics("/staff/scheduling-operations4-k");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

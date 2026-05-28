@@ -7,7 +7,7 @@ describe("Screen - revenue_analytics", () => {
   it("opens and verifies screen revenue_analytics", () => {
     cy.loginAsRole("ceo");
 
-  cy.visit("/executive/revenue-analytics");
+  cy.visitWithSemantics("/executive/revenue-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

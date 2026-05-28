@@ -7,7 +7,7 @@ describe("Screen - incident_oversight", () => {
   it("opens and verifies screen incident_oversight", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visit("/clinical/incident-oversight");
+  cy.visitWithSemantics("/clinical/incident-oversight");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

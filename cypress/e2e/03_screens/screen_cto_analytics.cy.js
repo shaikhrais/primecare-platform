@@ -7,7 +7,7 @@ describe("Screen - cto_analytics", () => {
   it("opens and verifies screen cto_analytics", () => {
     cy.loginAsRole("cto");
 
-  cy.visit("/executive/cto-analytics");
+  cy.visitWithSemantics("/executive/cto-analytics");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

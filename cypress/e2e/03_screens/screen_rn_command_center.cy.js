@@ -7,7 +7,7 @@ describe("Screen - rn_command_center", () => {
   it("opens and verifies screen rn_command_center", () => {
     cy.loginAsRole("rn");
 
-  cy.visit("/rn/rn-command-center");
+  cy.visitWithSemantics("/rn/rn-command-center");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

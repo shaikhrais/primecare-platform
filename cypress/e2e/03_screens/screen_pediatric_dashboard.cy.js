@@ -7,7 +7,7 @@ describe("Screen - pediatric_dashboard", () => {
   it("opens and verifies screen pediatric_dashboard", () => {
     cy.loginAsRole("pediatric");
 
-  cy.visit("/clinical/pediatric-dashboard");
+  cy.visitWithSemantics("/clinical/pediatric-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

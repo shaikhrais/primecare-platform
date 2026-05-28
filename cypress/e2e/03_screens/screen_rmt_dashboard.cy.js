@@ -7,7 +7,7 @@ describe("Screen - rmt_dashboard", () => {
   it("opens and verifies screen rmt_dashboard", () => {
     cy.loginAsRole("rmt");
 
-  cy.visit("/allied/rmt-dashboard");
+  cy.visitWithSemantics("/allied/rmt-dashboard");
   cy.waitAndSee();
   cy.verifyShellExists();
   cy.verifyNotBlank();

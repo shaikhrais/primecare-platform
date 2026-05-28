@@ -574,5 +574,4 @@ export 'src/screens/clinical/clinical_operations4_k_screen.dart';
 export 'src/screens/common/governance_operations4_k_screen.dart';
 export 'src/screens/staff/scheduling_operations4_k_screen.dart';
 export 'src/screens/executive/financial_operations4_k_screen.dart';
-export 'testing/cy.dart';
 
