@@ -9,7 +9,11 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(physiotherapistDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:physiotherapistdashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('physiotherapistdashboard-screen'),
       appBar: AppBar(
         title: const Text('PhysiotherapistDashboard'),
       ),
@@ -18,6 +22,7 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

@@ -9,7 +9,11 @@ class PswScheduleScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswScheduleScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswschedule-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswschedule-screen'),
       appBar: AppBar(
         title: const Text('PswSchedule'),
       ),
@@ -18,6 +22,7 @@ class PswScheduleScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

@@ -9,7 +9,11 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(socialWorkerDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:socialworkerdashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('socialworkerdashboard-screen'),
       appBar: AppBar(
         title: const Text('SocialWorkerDashboard'),
       ),
@@ -18,6 +22,7 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

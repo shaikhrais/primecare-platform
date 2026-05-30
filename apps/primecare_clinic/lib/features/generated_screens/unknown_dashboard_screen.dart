@@ -9,7 +9,11 @@ class UnknownDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(unknownDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:unknowndashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('unknowndashboard-screen'),
       appBar: AppBar(
         title: const Text('UnknownDashboard'),
       ),
@@ -18,6 +22,7 @@ class UnknownDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

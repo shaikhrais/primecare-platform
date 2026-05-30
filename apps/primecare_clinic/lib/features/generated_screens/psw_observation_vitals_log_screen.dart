@@ -9,7 +9,11 @@ class PswObservationVitalsLogScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswObservationVitalsLogScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswobservationvitalslog-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswobservationvitalslog-screen'),
       appBar: AppBar(
         title: const Text('PswObservationVitalsLog'),
       ),
@@ -18,6 +22,7 @@ class PswObservationVitalsLogScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

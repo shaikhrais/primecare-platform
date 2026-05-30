@@ -117,7 +117,10 @@ class PremiumConciergeWorkflowScreen extends GovernedConsumerWidget {
     );
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:premiumconciergeworkflow-screen',
+      container: true,
+      child: Scaffold(
       key: const Key(
         'premium concierge care coordinator compliance workflow-screen',
       ),
@@ -125,13 +128,13 @@ class PremiumConciergeWorkflowScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:premiumconciergeworkflow-title', child: Text(
           key: const Key(
             'premium concierge care coordinator compliance workflow-title',
           ),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key(
@@ -166,14 +169,14 @@ class PremiumConciergeWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:premiumconciergeworkflow-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Premium Concierge Workflow Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Premium Concierge Workflow.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -304,6 +307,7 @@ class PremiumConciergeWorkflowScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

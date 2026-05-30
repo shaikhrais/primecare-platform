@@ -115,17 +115,20 @@ class EmployeeAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(employeeAnalyticsScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:employeeanalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('employee analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:employeeanalytics-title', child: Text(
           key: const Key('employee analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('employee analytics-btn-1'),
@@ -153,14 +156,14 @@ class EmployeeAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:employeeanalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Employee Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Employee Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -287,6 +290,7 @@ class EmployeeAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

@@ -115,17 +115,20 @@ class PediatricAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(pediatricAnalyticsScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pediatricanalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('pediatric specialist analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:pediatricanalytics-title', child: Text(
           key: const Key('pediatric specialist analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('pediatric specialist analytics-btn-1'),
@@ -153,14 +156,14 @@ class PediatricAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:pediatricanalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Pediatric Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Pediatric Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -289,6 +292,7 @@ class PediatricAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

@@ -9,7 +9,11 @@ class NurseDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(nurseDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:nursedashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('nursedashboard-screen'),
       appBar: AppBar(
         title: const Text('NurseDashboard'),
       ),
@@ -18,6 +22,7 @@ class NurseDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

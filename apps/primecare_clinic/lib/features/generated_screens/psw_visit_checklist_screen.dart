@@ -9,7 +9,11 @@ class PswVisitChecklistScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswVisitChecklistScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswvisitchecklist-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswvisitchecklist-screen'),
       appBar: AppBar(
         title: const Text('PswVisitChecklist'),
       ),
@@ -18,6 +22,7 @@ class PswVisitChecklistScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

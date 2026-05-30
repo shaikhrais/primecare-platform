@@ -9,7 +9,11 @@ class ClinicHistoryLogsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicHistoryLogsScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:clinichistorylogs-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('clinichistorylogs-screen'),
       appBar: AppBar(
         title: const Text('ClinicHistoryLogs'),
       ),
@@ -18,6 +22,7 @@ class ClinicHistoryLogsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

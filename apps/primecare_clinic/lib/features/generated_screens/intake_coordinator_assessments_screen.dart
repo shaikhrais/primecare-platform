@@ -9,7 +9,11 @@ class IntakeCoordinatorAssessmentsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(intakeCoordinatorAssessmentsScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:intakecoordinatorassessments-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('intakecoordinatorassessments-screen'),
       appBar: AppBar(
         title: const Text('IntakeCoordinatorAssessments'),
       ),
@@ -18,6 +22,7 @@ class IntakeCoordinatorAssessmentsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

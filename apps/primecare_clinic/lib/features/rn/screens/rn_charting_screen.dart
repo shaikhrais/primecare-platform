@@ -9,7 +9,11 @@ class RnChartingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(rnChartingScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:rncharting-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rncharting-screen'),
       appBar: AppBar(
         title: const Text('RnCharting'),
       ),
@@ -18,6 +22,7 @@ class RnChartingScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

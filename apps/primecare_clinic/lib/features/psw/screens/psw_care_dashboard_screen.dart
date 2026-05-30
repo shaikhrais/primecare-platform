@@ -9,7 +9,11 @@ class PswCareDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswCareDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswcaredashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswcaredashboard-screen'),
       appBar: AppBar(
         title: const Text('PswCareDashboard'),
       ),
@@ -18,6 +22,7 @@ class PswCareDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

@@ -115,17 +115,20 @@ class FranchiseSalesAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(franchiseSalesAnalyticsScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:franchisesalesanalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('franchise sales manager analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:franchisesalesanalytics-title', child: Text(
           key: const Key('franchise sales manager analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('franchise sales manager analytics-btn-1'),
@@ -153,14 +156,14 @@ class FranchiseSalesAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:franchisesalesanalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Franchise Sales Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Franchise Sales Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -291,6 +294,7 @@ class FranchiseSalesAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

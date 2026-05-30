@@ -9,7 +9,11 @@ class PswMessagesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswMessagesScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswmessages-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswmessages-screen'),
       appBar: AppBar(
         title: const Text('PswMessages'),
       ),
@@ -18,6 +22,7 @@ class PswMessagesScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

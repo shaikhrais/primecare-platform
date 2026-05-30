@@ -111,17 +111,20 @@ class LpnAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(lpnAnalyticsScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:lpnanalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('licensed practical nurse (lpn) analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:lpnanalytics-title', child: Text(
           key: const Key('licensed practical nurse (lpn) analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('licensed practical nurse (lpn) analytics-btn-1'),
@@ -151,14 +154,14 @@ class LpnAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:lpnanalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Lpn Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Lpn Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -289,6 +292,7 @@ class LpnAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

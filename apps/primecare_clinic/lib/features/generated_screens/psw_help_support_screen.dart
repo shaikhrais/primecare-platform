@@ -9,7 +9,11 @@ class PswHelpSupportScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswHelpSupportScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswhelpsupport-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswhelpsupport-screen'),
       appBar: AppBar(
         title: const Text('PswHelpSupport'),
       ),
@@ -18,6 +22,7 @@ class PswHelpSupportScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

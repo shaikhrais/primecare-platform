@@ -120,17 +120,20 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
         .replaceAll('DashboardScreen', '')
         .replaceAll('Screen', '');
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:premiumconciergeanalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('premium concierge care coordinator analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:premiumconciergeanalytics-title', child: Text(
           key: const Key('premium concierge care coordinator analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key(
@@ -165,14 +168,14 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:premiumconciergeanalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: '$roleBase Dashboard',
                 description:
                     'Centralized telemetry, metric charts, and operations log analysis for the Premium Concierge Care Coordinator Analytics segment.',
                 onRefresh: () =>
                     controller.addLog('Premium concierge stats updated.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -304,6 +307,7 @@ class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

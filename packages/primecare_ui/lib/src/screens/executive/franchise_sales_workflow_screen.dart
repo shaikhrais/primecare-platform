@@ -115,17 +115,20 @@ class FranchiseSalesWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(franchiseSalesWorkflowScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:franchisesalesworkflow-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('franchise sales manager compliance workflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:franchisesalesworkflow-title', child: Text(
           key: const Key('franchise sales manager compliance workflow-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('franchise sales manager compliance workflow-btn-1'),
@@ -155,14 +158,14 @@ class FranchiseSalesWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:franchisesalesworkflow-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Franchise Sales Workflow Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Franchise Sales Workflow.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -293,6 +296,7 @@ class FranchiseSalesWorkflowScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

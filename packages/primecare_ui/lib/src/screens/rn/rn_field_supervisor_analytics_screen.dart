@@ -117,19 +117,22 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
     );
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:rnfieldsupervisoranalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('registered nurse (rn) field supervisor analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:rnfieldsupervisoranalytics-title', child: Text(
           key: const Key(
             'registered nurse (rn) field supervisor analytics-title',
           ),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key(
@@ -164,14 +167,14 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:rnfieldsupervisoranalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Rn Field Supervisor Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Rn Field Supervisor Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -302,6 +305,7 @@ class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

@@ -9,7 +9,11 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicalDirectorDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:clinicaldirectordashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('clinicaldirectordashboard-screen'),
       appBar: AppBar(
         title: const Text('ClinicalDirectorDashboard'),
       ),
@@ -18,6 +22,7 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

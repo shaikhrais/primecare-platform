@@ -115,17 +115,20 @@ class PediatricWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(pediatricWorkflowScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pediatricworkflow-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('pediatric specialist compliance workflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:pediatricworkflow-title', child: Text(
           key: const Key('pediatric specialist compliance workflow-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('pediatric specialist compliance workflow-btn-1'),
@@ -155,14 +158,14 @@ class PediatricWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:pediatricworkflow-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Pediatric Workflow Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Pediatric Workflow.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -293,6 +296,7 @@ class PediatricWorkflowScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

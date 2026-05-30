@@ -9,7 +9,11 @@ class RmtDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(rmtDashboardScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:rmtdashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rmtdashboard-screen'),
       appBar: AppBar(
         title: const Text('RmtDashboard'),
       ),
@@ -18,6 +22,7 @@ class RmtDashboardScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

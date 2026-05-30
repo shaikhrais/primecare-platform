@@ -9,7 +9,11 @@ class PswTaskListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswTaskListScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswtasklist-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswtasklist-screen'),
       appBar: AppBar(
         title: const Text('PswTaskList'),
       ),
@@ -18,6 +22,7 @@ class PswTaskListScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

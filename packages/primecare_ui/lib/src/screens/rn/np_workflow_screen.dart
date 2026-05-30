@@ -109,17 +109,20 @@ class NpWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(npWorkflowScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:npworkflow-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('nurse practitioner (np) compliance workflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:npworkflow-title', child: Text(
           key: const Key('nurse practitioner (np) compliance workflow-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('nurse practitioner (np) compliance workflow-btn-1'),
@@ -149,14 +152,14 @@ class NpWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:npworkflow-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Np Workflow Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Np Workflow.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -287,6 +290,7 @@ class NpWorkflowScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

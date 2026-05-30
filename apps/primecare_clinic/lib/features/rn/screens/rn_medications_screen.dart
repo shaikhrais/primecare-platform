@@ -9,7 +9,11 @@ class RnMedicationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(rnMedicationsScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:rnmedications-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rnmedications-screen'),
       appBar: AppBar(
         title: const Text('RnMedications'),
       ),
@@ -18,6 +22,7 @@ class RnMedicationsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

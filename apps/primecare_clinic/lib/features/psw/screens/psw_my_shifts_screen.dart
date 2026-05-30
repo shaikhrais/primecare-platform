@@ -9,7 +9,11 @@ class PswMyShiftsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswMyShiftsScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswmyshifts-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswmyshifts-screen'),
       appBar: AppBar(
         title: const Text('PswMyShifts'),
       ),
@@ -18,6 +22,7 @@ class PswMyShiftsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

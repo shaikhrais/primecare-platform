@@ -115,17 +115,20 @@ class VipManagerWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(vipManagerWorkflowScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:vipmanagerworkflow-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('vip client manager compliance workflow-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:vipmanagerworkflow-title', child: Text(
           key: const Key('vip client manager compliance workflow-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('vip client manager compliance workflow-btn-1'),
@@ -155,14 +158,14 @@ class VipManagerWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:vipmanagerworkflow-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Vip Manager Workflow Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Vip Manager Workflow.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -293,6 +296,7 @@ class VipManagerWorkflowScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

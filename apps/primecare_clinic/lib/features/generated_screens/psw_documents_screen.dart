@@ -9,7 +9,11 @@ class PswDocumentsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswDocumentsScreenControllerProvider);
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:pswdocuments-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswdocuments-screen'),
       appBar: AppBar(
         title: const Text('PswDocuments'),
       ),
@@ -18,6 +22,7 @@ class PswDocumentsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error loading features: $error')),
       ),
+    )
     );
   }
 

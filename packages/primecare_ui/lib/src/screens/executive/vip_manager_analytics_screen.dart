@@ -115,17 +115,20 @@ class VipManagerAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(vipManagerAnalyticsScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
+    return Semantics(
+      label: 'data-cy:vipmanageranalytics-screen',
+      container: true,
+      child: Scaffold(
       key: const Key('vip client manager analytics-screen'),
       backgroundColor: theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:vipmanageranalytics-title', child: Text(
           key: const Key('vip client manager analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('vip client manager analytics-btn-1'),
@@ -153,14 +156,14 @@ class VipManagerAnalyticsScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:vipmanageranalytics-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: 'Vip Manager Analytics Module',
                 description:
                     'Centralized telemetry, metrics monitoring, and operational logs verification center for Vip Manager Analytics.',
                 onRefresh: () =>
                     controller.addLog('Telemetry logs re-synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -289,6 +292,7 @@ class VipManagerAnalyticsScreen extends GovernedConsumerWidget {
           ),
         ),
       ),
+    )
     );
   }
 }
