@@ -118,6 +118,7 @@ class TreatmentPlanScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:treatmentplan-title',
             child: Text(
               key: const Key('treatmentplan-title'),

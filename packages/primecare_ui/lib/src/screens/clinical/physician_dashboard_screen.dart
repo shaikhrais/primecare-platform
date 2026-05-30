@@ -171,6 +171,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:physiciandashboard-title',
             child: Text(
               key: const Key('physiciandashboard-title'),

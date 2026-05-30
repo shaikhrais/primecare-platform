@@ -122,6 +122,7 @@ class ClinicalOperations4KScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:clinicaloperations4k-title',
             child: Text(
               key: const Key('clinicaloperations4k-title'),

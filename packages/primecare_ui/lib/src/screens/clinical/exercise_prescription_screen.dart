@@ -122,6 +122,7 @@ class ExercisePrescriptionScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:exerciseprescription-title',
             child: Text(
               key: const Key('exerciseprescription-title'),

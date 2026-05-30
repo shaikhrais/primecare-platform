@@ -121,6 +121,7 @@ class PswIncidentReportScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label:
                 'data-cy:pswincidentreport-title data-cy:incidentreport-title',
             child: Text(

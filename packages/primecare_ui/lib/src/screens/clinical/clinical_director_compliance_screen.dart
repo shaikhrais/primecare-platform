@@ -122,6 +122,7 @@ class ClinicalDirectorComplianceScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:clinicaldirectorcompliance-title',
             child: Text(
               key: const Key('clinicaldirectorcompliance-title'),

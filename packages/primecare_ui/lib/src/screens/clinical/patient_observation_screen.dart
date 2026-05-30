@@ -122,6 +122,7 @@ class PatientObservationScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:patientobservation-title',
             child: Text(
               key: const Key('patientobservation-title'),

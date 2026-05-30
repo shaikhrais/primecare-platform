@@ -124,6 +124,7 @@ class ClinicalDirectorIncidentReviewScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:clinicaldirectorincidentreview-title',
             child: Text(
               key: const Key('clinicaldirectorincidentreview-title'),

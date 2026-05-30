@@ -118,6 +118,7 @@ class AssessmentScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:assessment-title',
             child: Text(
               key: const Key('assessment-title'),

@@ -121,6 +121,7 @@ class RnPatientChartingScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label:
                 'data-cy:rnpatientcharting-title data-cy:patientcharting-title',
             child: Text(

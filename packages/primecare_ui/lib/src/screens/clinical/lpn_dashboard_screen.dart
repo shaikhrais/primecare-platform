@@ -167,6 +167,7 @@ class LpnDashboardScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:lpndashboard-title',
             child: Text(
               key: const Key('lpndashboard-title'),

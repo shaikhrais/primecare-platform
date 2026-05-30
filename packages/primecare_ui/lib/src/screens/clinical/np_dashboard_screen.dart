@@ -167,6 +167,7 @@ class NpDashboardScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:npdashboard-title',
             child: Text(
               key: const Key('npdashboard-title'),

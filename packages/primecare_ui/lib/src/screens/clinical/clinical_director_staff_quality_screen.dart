@@ -122,6 +122,7 @@ class ClinicalDirectorStaffQualityScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:clinicaldirectorstaffquality-title',
             child: Text(
               key: const Key('clinicaldirectorstaffquality-title'),

@@ -118,6 +118,7 @@ class VitalsTrackingScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:vitalstracking-title',
             child: Text(
               key: const Key('vitalstracking-title'),

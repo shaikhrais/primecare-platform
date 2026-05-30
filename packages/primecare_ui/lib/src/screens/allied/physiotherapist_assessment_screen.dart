@@ -123,6 +123,7 @@ class PhysiotherapistAssessmentScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label:
                 'data-cy:physiotherapistassessment-title data-cy:assessment-title',
             child: Text(

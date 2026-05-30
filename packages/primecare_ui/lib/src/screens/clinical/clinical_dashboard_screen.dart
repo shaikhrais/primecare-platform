@@ -220,6 +220,7 @@ class ClinicalDashboardScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:clinicaldashboard-title',
             child: Text(
               key: const Key('clinicaldashboard-title'),

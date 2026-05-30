@@ -120,6 +120,7 @@ class ComplianceReviewScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:compliancereview-title',
             child: Text(
               key: const Key('compliancereview-title'),

@@ -121,6 +121,7 @@ class RmtTreatmentNotesScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label:
                 'data-cy:rmttreatmentnotes-title data-cy:treatmentnotes-title',
             child: Text(

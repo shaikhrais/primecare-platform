@@ -167,6 +167,7 @@ class CnsDashboardScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(
+            container: true,
             label: 'data-cy:cnsdashboard-title',
             child: Text(
               key: const Key('cnsdashboard-title'),
