@@ -22,3 +22,12 @@ Cypress.on("window:before:load", (win) => {
   }
 });
 
+// Completely block the service worker script from loading to guarantee no caching
+beforeEach(() => {
+  cy.intercept("**/flutter_service_worker.js*", {
+    statusCode: 404,
+    body: "Service worker blocked by Cypress cache-buster"
+  });
+});
+
+
