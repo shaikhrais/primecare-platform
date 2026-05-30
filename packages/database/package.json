@@ -5,6 +5,7 @@
   "types": "src/index.ts",
   "scripts": {
     "generate": "prisma generate",
+    "format": "prisma format",
     "db-sync": "prisma db push",
     "postinstall": "prisma generate",
     "typecheck": "tsc --noEmit",

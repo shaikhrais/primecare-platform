@@ -47,7 +47,7 @@
 **Step 1. Boot the Cloudflare Edge API (The Brains)**
 1. Open your terminal in VS Code.
 2. Navigate to the backend: `cd apps/worker-api`
-3. Generate your Prisma hooks: `npx prisma generate`
+3. Generate your Prisma hooks: `npm run generate`
 4. Spin up the server locally: `npm run dev`
 
 **Step 2. Boot the Flutter User Interface (The Face)**

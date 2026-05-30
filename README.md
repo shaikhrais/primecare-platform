@@ -89,7 +89,7 @@ Ensure your PostgreSQL database is fully hydrated with our modular schema logic:
 ```bash
 cd packages/database
 npm install
-npx prisma db push
+npm run db-sync
 ```
 
 ### 3. Run a Flutter App

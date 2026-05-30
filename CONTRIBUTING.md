@@ -53,9 +53,9 @@ We use PostgreSQL managed by Prisma.
 3. Add your new `model`.
 4. Run the format and push commands to sync your local database:
 ```bash
-npx prisma format
-npx prisma db push
-npx prisma generate
+npm run format
+npm run db-sync
+npm run generate
 ```
 
 ---
@@ -66,6 +66,6 @@ Our GitHub Actions pipeline protects the `main` branch. Before pushing code, ens
 
 1. **Spider Validation:** Run `node scripts/frontend_spider.js`. This will instantly scan your new Flutter screens to ensure they contain `ConsumerWidget` and `Scaffold`.
 2. **Backend Analysis:** Run `dart analyze services` from the root directory to ensure your Shelf routing logic compiles cleanly.
-3. **Database Integrity:** If you changed Prisma files, ensure `npx prisma generate` runs without throwing relational errors.
+3. **Database Integrity:** If you changed Prisma files, ensure `npm run generate` runs without throwing relational errors.
 
 Happy Coding!
