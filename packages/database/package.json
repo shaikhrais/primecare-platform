@@ -8,7 +8,7 @@
     "db-sync": "prisma db push",
     "postinstall": "prisma generate",
     "typecheck": "tsc --noEmit",
-    "check-architecture": "npx tsx ci_architectural_gate.ts"
+    "check-architecture": "tsx ci_architectural_gate.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -19,6 +19,6 @@
     "typescript": "^5.0.0"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   }
 }

@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "generate:api": "npx openapi-typescript https://primecare-api.itpro-mohammed.workers.dev/openapi.json -o src/openapi.d.ts",
+    "generate:api": "openapi-typescript https://primecare-api.itpro-mohammed.workers.dev/openapi.json -o src/openapi.d.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:ui": "vitest"
