@@ -122,13 +122,16 @@ class RnPatientChartingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Semantics(
             container: true,
-            label:
-                'data-cy:rnpatientcharting-title data-cy:patientcharting-title',
-            child: Text(
-              key: const Key('rnpatientcharting-title'),
-              state.title,
-              style: theme.typography.h3.copyWith(
-                color: theme.colors.onSurface,
+            label: 'data-cy:rnpatientcharting-title',
+            child: Semantics(
+              container: true,
+              label: 'data-cy:patientcharting-title',
+              child: Text(
+                key: const Key('rnpatientcharting-title'),
+                state.title,
+                style: theme.typography.h3.copyWith(
+                  color: theme.colors.onSurface,
+                ),
               ),
             ),
           ),

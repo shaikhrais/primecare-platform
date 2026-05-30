@@ -124,13 +124,16 @@ class PhysiotherapistAssessmentScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Semantics(
             container: true,
-            label:
-                'data-cy:physiotherapistassessment-title data-cy:assessment-title',
-            child: Text(
-              key: const Key('physiotherapistassessment-title'),
-              state.title,
-              style: theme.typography.h3.copyWith(
-                color: theme.colors.onSurface,
+            label: 'data-cy:physiotherapistassessment-title',
+            child: Semantics(
+              container: true,
+              label: 'data-cy:assessment-title',
+              child: Text(
+                key: const Key('physiotherapistassessment-title'),
+                state.title,
+                style: theme.typography.h3.copyWith(
+                  color: theme.colors.onSurface,
+                ),
               ),
             ),
           ),

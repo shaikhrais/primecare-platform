@@ -122,13 +122,16 @@ class RmtTreatmentNotesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Semantics(
             container: true,
-            label:
-                'data-cy:rmttreatmentnotes-title data-cy:treatmentnotes-title',
-            child: Text(
-              key: const Key('rmttreatmentnotes-title'),
-              state.title,
-              style: theme.typography.h3.copyWith(
-                color: theme.colors.onSurface,
+            label: 'data-cy:rmttreatmentnotes-title',
+            child: Semantics(
+              container: true,
+              label: 'data-cy:treatmentnotes-title',
+              child: Text(
+                key: const Key('rmttreatmentnotes-title'),
+                state.title,
+                style: theme.typography.h3.copyWith(
+                  color: theme.colors.onSurface,
+                ),
               ),
             ),
           ),
