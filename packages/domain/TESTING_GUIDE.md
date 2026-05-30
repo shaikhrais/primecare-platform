@@ -17,7 +17,7 @@ The default configuration targets the local API at `http://localhost:8787`.
     ```
 -   **Command**:
     ```bash
-    npx cypress run
+    npm run cypress:run
     ```
 
 ### 2. Production / Staging
@@ -26,7 +26,7 @@ To run tests against a remote environment, override the `API_URL` variable via t
 
 -   **Command**:
     ```bash
-    npx cypress run --env API_URL=https://your-api.workers.dev
+    CYPRESS_BASE_URL="https://primecare-clinic.pages.dev" npm run cypress:run
     ```
 
 ## Shared Resources
