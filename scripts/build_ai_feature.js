@@ -14,12 +14,12 @@ if (!prismaContent.includes('model ChatSession')) {
 
 // Push Database
 console.log('Syncing Prisma Database...');
-execSync('npx prisma format', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
-// execSync('npx prisma db push --accept-data-loss', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
+execSync('prisma format', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
+// execSync('prisma db push --accept-data-loss', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
 // We'll skip actual db push for simulation to speed up execution if needed, but let's try it.
 try {
-    execSync('npx prisma db push', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
-    execSync('npx prisma generate', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
+    execSync('prisma db push', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
+    execSync('prisma generate', { cwd: path.join(ROOT_DIR, 'packages', 'database'), stdio: 'inherit' });
 } catch(e) {
     console.log("DB Push failed or skipped (no db connection).");
 }

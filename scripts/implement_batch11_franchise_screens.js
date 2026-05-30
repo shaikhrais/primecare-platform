@@ -125,7 +125,7 @@ if (fs.existsSync(ROUTER_FILE)) {
 // 3. Trigger Build & Deploy independently
 console.log('--- STARTING BACKGROUND DEPLOYMENT FOR BATCH 11 ---');
 try {
-    require('child_process').exec('flutter build web --release && npx wrangler pages deploy build/web --project-name primecare-franchise --commit-dirty=true', { cwd: APP_DIR });
+    require('child_process').exec('flutter build web --release && wrangler pages deploy build/web --project-name primecare-franchise --commit-dirty=true', { cwd: APP_DIR });
     console.log('🏆 Batch 11 Deployment triggered in the background!');
 } catch (e) {
     console.error('❌ Failed to trigger deployment!', e.message);

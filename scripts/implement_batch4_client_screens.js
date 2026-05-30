@@ -213,7 +213,7 @@ if (fs.existsSync(ROUTER_FILE)) {
 console.log('--- BUILDING AND DEPLOYING BATCH 4 (CLIENT PORTAL) ---');
 try {
     execSync('flutter build web --release', { cwd: CLIENT_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-client --commit-dirty=true', { cwd: CLIENT_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-client --commit-dirty=true', { cwd: CLIENT_DIR, stdio: 'inherit' });
     console.log('🏆 Batch 4 (Client Portal) Deployed Successfully!');
 } catch (e) {
     console.error('❌ Build/Deploy Failed!', e.message);

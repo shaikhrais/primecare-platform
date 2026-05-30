@@ -267,7 +267,7 @@ try {
     // Note: in the actual terminal, we must run the full build because the sandbox lacks flutter SDK directly available to Node sometimes, 
     // but assuming flutter is in PATH:
     execSync('flutter build web --release', { cwd: CLINIC_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
     console.log('✅ Clinic App Successfully Deployed!');
 } catch (e) {
     console.error('❌ Deployment Failed: ', e.message);

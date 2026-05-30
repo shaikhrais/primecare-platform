@@ -24,8 +24,8 @@ foreach ($dir in $appDirs) {
     flutter build web --release --dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api
 
     Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
-    # Using npx wrangler from local node_modules
-    npx wrangler pages deploy build/web --project-name $projectName
+    # Using wrangler from local node_modules
+    wrangler pages deploy build/web --project-name $projectName
     
     Write-Host "Successfully deployed $appName!" -ForegroundColor Green
 }

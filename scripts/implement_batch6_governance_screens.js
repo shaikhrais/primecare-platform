@@ -130,7 +130,7 @@ if (fs.existsSync(ROUTER_FILE)) {
 console.log('--- STARTING BACKGROUND DEPLOYMENT FOR BATCH 6 ---');
 try {
     // Run asynchronously, don't wait for completion here
-    require('child_process').exec('flutter build web --release && npx wrangler pages deploy build/web --project-name primecare-governance --commit-dirty=true', { cwd: GOV_DIR });
+    require('child_process').exec('flutter build web --release && wrangler pages deploy build/web --project-name primecare-governance --commit-dirty=true', { cwd: GOV_DIR });
     console.log('🏆 Batch 6 Deployment triggered in the background!');
 } catch (e) {
     console.error('❌ Failed to trigger deployment!', e.message);

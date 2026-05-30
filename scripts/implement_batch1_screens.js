@@ -131,7 +131,7 @@ import '../../features/shared/screens/clinic_history_logs_screen.dart';
 console.log('--- BUILDING AND DEPLOYING BATCH 1 ---');
 try {
     execSync('flutter build web --release', { cwd: CLINIC_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
     console.log('🏆 Batch 1 Deployed Successfully!');
 } catch (e) {
     console.error('❌ Build/Deploy Failed!', e.message);

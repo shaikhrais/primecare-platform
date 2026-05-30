@@ -54,7 +54,7 @@ for (const service of services) {
         const projectName = `primecare-worker-${service.replace(/_/g, '-')}`;
         
         // Execute real wrangler deployment
-        const output = execSync(`npx wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
+        const output = execSync(`wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
             cwd: serviceDir,
             encoding: 'utf8'
         });

@@ -139,9 +139,8 @@ void main() async {
     final projectName = app.replaceAll("_", "-");
     print('   - Deploying to Cloudflare Pages as $projectName...');
     final deployResult = await Process.run(
-      'npx',
+      'wrangler',
       [
-        'wrangler',
         'pages',
         'deploy',
         'build/web',

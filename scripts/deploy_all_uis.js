@@ -22,7 +22,7 @@ for (const app of apps) {
             const projectName = app.replace(/_/g, '-');
             
             // Execute real wrangler deployment
-            const output = execSync(`npx wrangler pages deploy build/web --project-name ${projectName} --commit-dirty=true`, { 
+            const output = execSync(`wrangler pages deploy build/web --project-name ${projectName} --commit-dirty=true`, { 
                 cwd: path.join(APPS_DIR, app),
                 encoding: 'utf8'
             });

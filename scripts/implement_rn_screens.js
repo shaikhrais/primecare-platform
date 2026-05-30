@@ -265,7 +265,7 @@ if (fs.existsSync(CLINIC_ROUTES_FILE)) {
 console.log('--- BUILDING AND DEPLOYING RN ROLE ---');
 try {
     execSync('flutter build web --release', { cwd: CLINIC_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
     console.log('🏆 RN Role Deployed Successfully!');
 } catch (e) {
     console.error('❌ Build/Deploy Failed!', e.message);

@@ -30,7 +30,7 @@ export default {
         
         try {
             console.log(`Deploying to ${projectName}...`);
-            execSync(`npx wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
+            execSync(`wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
                 cwd: path.join(SERVICES_DIR, service),
                 stdio: 'ignore' // Hide noisy output, we just want results
             });

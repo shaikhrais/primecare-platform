@@ -250,7 +250,7 @@ if (!routerContent.includes('psw_dashboard_screen.dart')) {
 console.log('--- BUILDING AND DEPLOYING ---');
 try {
     execSync('flutter build web --release', { cwd: CLINIC_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-clinic --commit-dirty=true', { cwd: CLINIC_DIR, stdio: 'inherit' });
     console.log('🏆 Master Hotfix Deployed Successfully!');
 } catch (e) {
     console.error('❌ Build/Deploy Failed!', e.message);

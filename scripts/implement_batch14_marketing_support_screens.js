@@ -150,14 +150,14 @@ if (fs.existsSync(SUPPORT_ROUTER_FILE)) {
 // 3. Trigger Double Build & Deploy independently
 console.log('--- STARTING BACKGROUND DEPLOYMENT FOR MARKETING & SUPPORT ---');
 try {
-    require('child_process').exec('flutter build web --release && npx wrangler pages deploy build/web --project-name primecare-marketing --commit-dirty=true', { cwd: MARKETING_APP_DIR });
+    require('child_process').exec('flutter build web --release && wrangler pages deploy build/web --project-name primecare-marketing --commit-dirty=true', { cwd: MARKETING_APP_DIR });
     console.log('🏆 Batch 14 Marketing Deployment triggered in the background!');
 } catch (e) {
     console.error('❌ Failed to trigger Marketing deployment!', e.message);
 }
 
 try {
-    require('child_process').exec('flutter build web --release && npx wrangler pages deploy build/web --project-name primecare-support --commit-dirty=true', { cwd: SUPPORT_APP_DIR });
+    require('child_process').exec('flutter build web --release && wrangler pages deploy build/web --project-name primecare-support --commit-dirty=true', { cwd: SUPPORT_APP_DIR });
     console.log('🏆 Batch 14 Support Deployment triggered in the background!');
 } catch (e) {
     console.error('❌ Failed to trigger Support deployment!', e.message);

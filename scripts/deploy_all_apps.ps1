@@ -14,7 +14,7 @@ Write-Host "🚧 STAGE-GATE: DATA READINESS CHECK" -ForegroundColor Yellow
 $refreshData = Read-Host "Refresh offline seed data from database before shipping? (y/n)"
 if ($refreshData -eq "y") {
     Write-Host "🔄 Running Offline Data Exporter..." -ForegroundColor Magenta
-    npx tsx packages/database/prisma/export_offline.ts
+    tsx packages/database/prisma/export_offline.ts
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Data export failed. Aborting deployment for safety." -ForegroundColor Red
         return

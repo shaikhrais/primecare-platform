@@ -112,7 +112,7 @@ if (fs.existsSync(ROUTER_FILE)) {
 console.log('--- BUILDING AND DEPLOYING BATCH 5 (GOVERNANCE DASHBOARD) ---');
 try {
     execSync('flutter build web --release', { cwd: GOV_DIR, stdio: 'inherit' });
-    execSync('npx wrangler pages deploy build/web --project-name primecare-governance --commit-dirty=true', { cwd: GOV_DIR, stdio: 'inherit' });
+    execSync('wrangler pages deploy build/web --project-name primecare-governance --commit-dirty=true', { cwd: GOV_DIR, stdio: 'inherit' });
     console.log('🏆 Batch 5 (Governance Dashboard) Deployed Successfully!');
 } catch (e) {
     console.error('❌ Build/Deploy Failed!', e.message);
