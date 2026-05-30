@@ -7,8 +7,11 @@ describe("Screen - clinic_workflow", () => {
   it("opens and verifies screen clinic_workflow", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/common/clinic-workflow");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ClinicWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - clinic_workflow", () => {
   cy.getCy("clinicworkflow-title").should("be.visible");
   cy.getCy("clinicworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ClinicWorkflowScreen successfully!\n");
 
   });
 });

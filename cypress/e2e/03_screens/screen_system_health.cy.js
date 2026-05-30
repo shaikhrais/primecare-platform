@@ -7,8 +7,11 @@ describe("Screen - system_health", () => {
   it("opens and verifies screen system_health", () => {
     cy.loginAsRole("cto");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/system-health (SystemHealthScreen)...");
   cy.visitWithSemantics("/executive/system-health");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SystemHealthScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - system_health", () => {
   cy.getCy("systemhealth-title").should("be.visible");
   cy.getCy("systemhealth-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemHealthScreen...");
   cy.waitAndSee();
   cy.screenshot("system_health");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SystemHealthScreen successfully!\n");
 
   });
 });

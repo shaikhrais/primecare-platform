@@ -7,8 +7,11 @@ describe("Screen - compliance_manager_analytics", () => {
   it("opens and verifies screen compliance_manager_analytics", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/compliance-manager-analytics (ComplianceManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ComplianceManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - compliance_manager_analytics", () => {
   cy.getCy("compliancemanageranalytics-title").should("be.visible");
   cy.getCy("compliancemanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ComplianceManagerAnalyticsScreen successfully!\n");
 
   });
 });

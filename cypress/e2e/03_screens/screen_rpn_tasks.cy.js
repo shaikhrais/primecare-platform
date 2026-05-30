@@ -7,8 +7,11 @@ describe("Screen - rpn_tasks", () => {
   it("opens and verifies screen rpn_tasks", () => {
     cy.loginAsRole("rpn");
 
-  cy.visitWithSemantics("/rpn/rpn-tasks");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rpn/rpn-tasks (RpnTasksScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rpn/rpn-tasks");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RpnTasksScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rpn_tasks", () => {
   cy.getCy("rpntasks-title").should("be.visible");
   cy.getCy("rpntasks-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnTasksScreen...");
   cy.waitAndSee();
   cy.screenshot("rpn_tasks");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RpnTasksScreen successfully!\n");
 
   });
 });

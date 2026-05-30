@@ -7,8 +7,11 @@ describe("Screen - therapist_analytics", () => {
   it("opens and verifies screen therapist_analytics", () => {
     cy.loginAsRole("therapist");
 
-  cy.visitWithSemantics("/allied/therapist-analytics");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/therapist/analytics (Therapist Analytics)...");
+  cy.visitWithSemantics("/offices/clinical/roles/therapist/analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Therapist Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - therapist_analytics", () => {
   cy.getCy("therapist analytics-title").should("be.visible");
   cy.getCy("therapist analytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Therapist Analytics...");
   cy.waitAndSee();
   cy.screenshot("therapist_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Therapist Analytics successfully!\n");
 
   });
 });

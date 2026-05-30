@@ -7,8 +7,11 @@ describe("Screen - intake_coordinator_assessment_queue", () => {
   it("opens and verifies screen intake_coordinator_assessment_queue", () => {
     cy.loginAsRole("volunteer_coordinator");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/intake-coordinator-assessment-queue (IntakeCoordinatorAssessmentQueueScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeCoordinatorAssessmentQueueScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_coordinator_assessment_queue", () => {
   cy.getCy("intakecoordinatorassessmentqueue-title").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorAssessmentQueueScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeCoordinatorAssessmentQueueScreen successfully!\n");
 
   });
 });

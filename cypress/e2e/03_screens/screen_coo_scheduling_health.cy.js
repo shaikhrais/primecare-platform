@@ -7,8 +7,11 @@ describe("Screen - coo_scheduling_health", () => {
   it("opens and verifies screen coo_scheduling_health", () => {
     cy.loginAsRole("coo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/coo-scheduling-health (CooSchedulingHealthScreen)...");
   cy.visitWithSemantics("/executive/coo-scheduling-health");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CooSchedulingHealthScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - coo_scheduling_health", () => {
   cy.getCy("cooschedulinghealth-title").should("be.visible");
   cy.getCy("cooschedulinghealth-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CooSchedulingHealthScreen...");
   cy.waitAndSee();
   cy.screenshot("coo_scheduling_health");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CooSchedulingHealthScreen successfully!\n");
 
   });
 });

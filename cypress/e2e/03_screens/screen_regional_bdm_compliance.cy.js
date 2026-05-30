@@ -7,8 +7,11 @@ describe("Screen - regional_bdm_compliance", () => {
   it("opens and verifies screen regional_bdm_compliance", () => {
     cy.loginAsRole("regional_bdm");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/regional-bdm-compliance (RegionalBdmComplianceScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RegionalBdmComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - regional_bdm_compliance", () => {
   cy.getCy("regionalbdmcompliance-title").should("be.visible");
   cy.getCy("regionalbdmcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RegionalBdmComplianceScreen successfully!\n");
 
   });
 });

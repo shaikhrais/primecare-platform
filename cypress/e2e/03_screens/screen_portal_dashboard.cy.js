@@ -7,8 +7,11 @@ describe("Screen - portal_dashboard", () => {
   it("opens and verifies screen portal_dashboard", () => {
     cy.loginAsRole("portal");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/portal-dashboard (PortalDashboardScreen)...");
   cy.visitWithSemantics("/common/portal-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PortalDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - portal_dashboard", () => {
   cy.getCy("portaldashboard-title").should("be.visible");
   cy.getCy("portaldashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("portal_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PortalDashboardScreen successfully!\n");
 
   });
 });

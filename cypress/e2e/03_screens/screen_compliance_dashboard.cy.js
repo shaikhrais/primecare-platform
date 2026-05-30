@@ -7,8 +7,11 @@ describe("Screen - compliance_dashboard", () => {
   it("opens and verifies screen compliance_dashboard", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/compliance-dashboard (ComplianceDashboardScreen)...");
   cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ComplianceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - compliance_dashboard", () => {
   cy.getCy("compliancedashboard-title").should("be.visible");
   cy.getCy("compliancedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ComplianceDashboardScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - business_development_compliance", () => {
   it("opens and verifies screen business_development_compliance", () => {
     cy.loginAsRole("bus_dev");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/business-development-compliance (BusinessDevelopmentComplianceScreen)...");
   cy.visitWithSemantics("/common/business-development-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for BusinessDevelopmentComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - business_development_compliance", () => {
   cy.getCy("businessdevelopmentcompliance-title").should("be.visible");
   cy.getCy("businessdevelopmentcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for BusinessDevelopmentComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("business_development_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified BusinessDevelopmentComplianceScreen successfully!\n");
 
   });
 });

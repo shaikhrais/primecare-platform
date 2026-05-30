@@ -7,8 +7,11 @@ describe("Screen - legal_dashboard", () => {
   it("opens and verifies screen legal_dashboard", () => {
     cy.loginAsRole("legal");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/legal-dashboard (LegalDashboardScreen)...");
   cy.visitWithSemantics("/executive/legal-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for LegalDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - legal_dashboard", () => {
   cy.getCy("legaldashboard-title").should("be.visible");
   cy.getCy("legaldashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for LegalDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("legal_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified LegalDashboardScreen successfully!\n");
 
   });
 });

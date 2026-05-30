@@ -45,64 +45,66 @@ class RnAnalyticsController extends StateNotifier<RnAnalyticsState> {
   final Ref _ref;
 
   RnAnalyticsController(this._ref)
-      : super(
-          const RnAnalyticsState(
-            selectedCategory: 'All',
-            completedIntakes: 14,
-            activeCarePlans: 38,
-            escalatedAlerts: 3,
-            averageMmseScore: 24.8,
-            evaluations: [
-              {
-                'id': 'EVAL-001',
-                'patient': 'Margaret Thompson',
-                'mmse': 26,
-                'status': 'Mild Cognitive Decline',
-                'isEscalated': false,
-                'lastTested': '2 weeks ago',
-              },
-              {
-                'id': 'EVAL-002',
-                'patient': 'Arthur Pendelton',
-                'mmse': 18,
-                'status': 'Moderate Cognitive Decline',
-                'isEscalated': true,
-                'lastTested': '1 week ago',
-              },
-              {
-                'id': 'EVAL-003',
-                'patient': 'Eleanor Vance',
-                'mmse': 29,
-                'status': 'Normal Cognitive Function',
-                'isEscalated': false,
-                'lastTested': '3 days ago',
-              },
-              {
-                'id': 'EVAL-004',
-                'patient': 'Douglas Miller',
-                'mmse': 12,
-                'status': 'Severe Cognitive Decline',
-                'isEscalated': true,
-                'lastTested': 'Yesterday',
-              },
-              {
-                'id': 'EVAL-005',
-                'patient': 'Beatrice Myers',
-                'mmse': 24,
-                'status': 'Mild Cognitive Decline',
-                'isEscalated': false,
-                'lastTested': '1 month ago',
-              },
-            ],
-          ),
-        );
+    : super(
+        const RnAnalyticsState(
+          selectedCategory: 'All',
+          completedIntakes: 14,
+          activeCarePlans: 38,
+          escalatedAlerts: 3,
+          averageMmseScore: 24.8,
+          evaluations: [
+            {
+              'id': 'EVAL-001',
+              'patient': 'Margaret Thompson',
+              'mmse': 26,
+              'status': 'Mild Cognitive Decline',
+              'isEscalated': false,
+              'lastTested': '2 weeks ago',
+            },
+            {
+              'id': 'EVAL-002',
+              'patient': 'Arthur Pendelton',
+              'mmse': 18,
+              'status': 'Moderate Cognitive Decline',
+              'isEscalated': true,
+              'lastTested': '1 week ago',
+            },
+            {
+              'id': 'EVAL-003',
+              'patient': 'Eleanor Vance',
+              'mmse': 29,
+              'status': 'Normal Cognitive Function',
+              'isEscalated': false,
+              'lastTested': '3 days ago',
+            },
+            {
+              'id': 'EVAL-004',
+              'patient': 'Douglas Miller',
+              'mmse': 12,
+              'status': 'Severe Cognitive Decline',
+              'isEscalated': true,
+              'lastTested': 'Yesterday',
+            },
+            {
+              'id': 'EVAL-005',
+              'patient': 'Beatrice Myers',
+              'mmse': 24,
+              'status': 'Mild Cognitive Decline',
+              'isEscalated': false,
+              'lastTested': '1 month ago',
+            },
+          ],
+        ),
+      );
 
   void changeCategory(String category) {
     state = state.copyWith(selectedCategory: category);
 
     // Aura behavioral telemetry log
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rn/analytics',
             eventType: 'rn_analytics_category_changed',
             metadata: {'category': category},
@@ -132,9 +134,14 @@ class RnAnalyticsController extends StateNotifier<RnAnalyticsState> {
     }).toList();
 
     // Recompute averages
-    final total = updatedEvals.fold<int>(0, (sum, item) => sum + (item['mmse'] as int));
+    final total = updatedEvals.fold<int>(
+      0,
+      (sum, item) => sum + (item['mmse'] as int),
+    );
     final avg = total / updatedEvals.length;
-    final escCount = updatedEvals.where((item) => item['isEscalated'] == true).length;
+    final escCount = updatedEvals
+        .where((item) => item['isEscalated'] == true)
+        .length;
 
     state = state.copyWith(
       evaluations: updatedEvals,
@@ -143,7 +150,9 @@ class RnAnalyticsController extends StateNotifier<RnAnalyticsState> {
     );
 
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rn/analytics',
             eventType: 'rn_mmse_score_modified',
             metadata: {'evalId': evalId, 'mmse': newMmse},
@@ -153,15 +162,17 @@ class RnAnalyticsController extends StateNotifier<RnAnalyticsState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rnAnalyticsControllerProvider =
     StateNotifierProvider<RnAnalyticsController, RnAnalyticsState>((ref) {
-  return RnAnalyticsController(ref);
-});
+      return RnAnalyticsController(ref);
+    });
 
 // --- View ---
 class RnAnalyticsScreen extends GovernedConsumerWidget {
@@ -176,125 +187,143 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
     // Filter evaluations
     final displayEvaluations = state.evaluations.where((e) {
       if (state.selectedCategory == 'All') return true;
-      if (state.selectedCategory == 'Escalated') return e['isEscalated'] == true;
+      if (state.selectedCategory == 'Escalated')
+        return e['isEscalated'] == true;
       return e['isEscalated'] != true; // Normal/Mild
     }).toList();
 
-    return Scaffold(
-      key: const Key('rnanalytics-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rnanalytics-title'),
-          'RN Clinical Insights',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:rnanalytics-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rnanalytics-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rnanalytics-title'),
+            'RN Clinical Insights',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:rnanalytics-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rnanalytics-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rnanalytics-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:rnanalytics-title',
+                  child: GovDashboardHero(
+                    title: 'Cognitive Scoring & Care Parity',
+                    roleName: 'Registered Nurse (RN) Lead',
+                    description:
+                        'Supervisory oversight dashboard analyzing MMSE cognitive tracking indices and incident telemetry.',
+                    onRefresh: () => ref.refresh(rnAnalyticsControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // RN Supervisory KPI Widgets
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final crossAxisCount = constraints.maxWidth > 900 ? 4 : 2;
+                    return GridView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        childAspectRatio: 1.4,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      children: [
+                        PrimeCareKpiCard(
+                          title: 'Avg Patient MMSE',
+                          value:
+                              '${state.averageMmseScore.toStringAsFixed(1)} / 30',
+                          icon: LucideIcons.brain,
+                          color: Colors.blue,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Completed Intakes',
+                          value: state.completedIntakes.toString(),
+                          icon: LucideIcons.clipboardCheck,
+                          color: theme.colors.primary,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Active Care Plans',
+                          value: state.activeCarePlans.toString(),
+                          icon: LucideIcons.fileSpreadsheet,
+                          color: Colors.green,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'High Risk Escalations',
+                          value: state.escalatedAlerts.toString(),
+                          icon: LucideIcons.bellRing,
+                          color: theme.colors.error,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // Tab Filters
+                Row(
+                  children: ['All', 'Escalated', 'Stable'].map((cat) {
+                    final isSelected = state.selectedCategory == cat;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ChoiceChip(
+                        label: Text(cat),
+                        selected: isSelected,
+                        selectedColor: theme.colors.primary.withValues(
+                          alpha: 0.15,
+                        ),
+                        labelStyle: theme.typography.bodyMedium.copyWith(
+                          color: isSelected
+                              ? theme.colors.primary
+                              : theme.colors.onSurfaceVariant,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                        onSelected: (val) {
+                          if (val) controller.changeCategory(cat);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 24),
+
+                // High Fidelity Table for Cognitive Evaluations (MMSE)
+                _buildCognitiveTableCard(
+                  context,
+                  displayEvaluations,
+                  controller,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:rnanalytics-screen',
-        child: SingleChildScrollView(
-        key: const Key('rnanalytics-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rnanalytics-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Cognitive Scoring & Care Parity',
-              roleName: 'Registered Nurse (RN) Lead',
-              description:
-                  'Supervisory oversight dashboard analyzing MMSE cognitive tracking indices and incident telemetry.',
-              onRefresh: () => ref.refresh(rnAnalyticsControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // RN Supervisory KPI Widgets
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final crossAxisCount = constraints.maxWidth > 900 ? 4 : 2;
-                return GridView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    childAspectRatio: 1.4,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  children: [
-                    PrimeCareKpiCard(
-                      title: 'Avg Patient MMSE',
-                      value: '${state.averageMmseScore.toStringAsFixed(1)} / 30',
-                      icon: LucideIcons.brain,
-                      color: Colors.blue,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Completed Intakes',
-                      value: state.completedIntakes.toString(),
-                      icon: LucideIcons.clipboardCheck,
-                      color: theme.colors.primary,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Active Care Plans',
-                      value: state.activeCarePlans.toString(),
-                      icon: LucideIcons.fileSpreadsheet,
-                      color: Colors.green,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'High Risk Escalations',
-                      value: state.escalatedAlerts.toString(),
-                      icon: LucideIcons.bellRing,
-                      color: theme.colors.error,
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 24),
-
-            // Tab Filters
-            Row(
-              children: ['All', 'Escalated', 'Stable'].map((cat) {
-                final isSelected = state.selectedCategory == cat;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ChoiceChip(
-                    label: Text(cat),
-                    selected: isSelected,
-                    selectedColor: theme.colors.primary.withValues(alpha: 0.15),
-                    labelStyle: theme.typography.bodyMedium.copyWith(
-                      color: isSelected
-                          ? theme.colors.primary
-                          : theme.colors.onSurfaceVariant,
-                      fontWeight:
-                          isSelected ? FontWeight.bold : FontWeight.normal,
-                    ),
-                    onSelected: (val) {
-                      if (val) controller.changeCategory(cat);
-                    },
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-
-            // High Fidelity Table for Cognitive Evaluations (MMSE)
-            _buildCognitiveTableCard(context, displayEvaluations, controller),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -441,10 +470,20 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
                     ),
                     DataCell(
                       IconButton(
-            key: const Key('rnanalytics-btn-2'),
-                        icon: Icon(LucideIcons.edit2, color: theme.colors.primary, size: 18),
+                        key: const Key('rnanalytics-btn-2'),
+                        icon: Icon(
+                          LucideIcons.edit2,
+                          color: theme.colors.primary,
+                          size: 18,
+                        ),
                         onPressed: () {
-                          _showScoreEditDialog(context, id, mmse, patient, controller);
+                          _showScoreEditDialog(
+                            context,
+                            id,
+                            mmse,
+                            patient,
+                            controller,
+                          );
                         },
                       ),
                     ),
@@ -518,7 +557,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
-            key: const Key('rnanalytics-btn-3'),
+                  key: const Key('rnanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -526,7 +565,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
-            key: const Key('rnanalytics-btn-4'),
+                  key: const Key('rnanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,

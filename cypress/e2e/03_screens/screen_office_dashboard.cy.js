@@ -7,8 +7,11 @@ describe("Screen - office_dashboard", () => {
   it("opens and verifies screen office_dashboard", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/office-dashboard (OfficeDashboardScreen)...");
   cy.visitWithSemantics("/common/office-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OfficeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - office_dashboard", () => {
   cy.getCy("officedashboard-title").should("be.visible");
   cy.getCy("officedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("office_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OfficeDashboardScreen successfully!\n");
 
   });
 });

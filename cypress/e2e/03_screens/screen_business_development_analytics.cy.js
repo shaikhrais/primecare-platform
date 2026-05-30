@@ -7,8 +7,11 @@ describe("Screen - business_development_analytics", () => {
   it("opens and verifies screen business_development_analytics", () => {
     cy.loginAsRole("bus_dev");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/business-development-analytics (BusinessDevelopmentAnalyticsScreen)...");
   cy.visitWithSemantics("/common/business-development-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for BusinessDevelopmentAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - business_development_analytics", () => {
   cy.getCy("businessdevelopmentanalytics-title").should("be.visible");
   cy.getCy("businessdevelopmentanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for BusinessDevelopmentAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("business_development_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified BusinessDevelopmentAnalyticsScreen successfully!\n");
 
   });
 });

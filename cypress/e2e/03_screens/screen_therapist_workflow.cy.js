@@ -7,8 +7,11 @@ describe("Screen - therapist_workflow", () => {
   it("opens and verifies screen therapist_workflow", () => {
     cy.loginAsRole("therapist");
 
-  cy.visitWithSemantics("/allied/therapist-workflow");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/therapist/workflow (Therapist Compliance Workflow)...");
+  cy.visitWithSemantics("/offices/clinical/roles/therapist/workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Therapist Compliance Workflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - therapist_workflow", () => {
   cy.getCy("therapist compliance workflow-title").should("be.visible");
   cy.getCy("therapist compliance workflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Therapist Compliance Workflow...");
   cy.waitAndSee();
   cy.screenshot("therapist_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Therapist Compliance Workflow successfully!\n");
 
   });
 });

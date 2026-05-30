@@ -7,8 +7,11 @@ describe("Screen - audit_review", () => {
   it("opens and verifies screen audit_review", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/audit-review (AuditReviewScreen)...");
   cy.visitWithSemantics("/management/audit-review");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for AuditReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - audit_review", () => {
   cy.getCy("auditreview-title").should("be.visible");
   cy.getCy("auditreview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for AuditReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("audit_review");
+  
+  cy.task("log", "✅ PROGRESS: - Verified AuditReviewScreen successfully!\n");
 
   });
 });

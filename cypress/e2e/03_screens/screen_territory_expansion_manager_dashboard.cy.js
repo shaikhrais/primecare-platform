@@ -7,8 +7,11 @@ describe("Screen - territory_expansion_manager_dashboard", () => {
   it("opens and verifies screen territory_expansion_manager_dashboard", () => {
     cy.loginAsRole("territory_expansion");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/territory-expansion-manager-dashboard (TerritoryExpansionManagerDashboardScreen)...");
   cy.visitWithSemantics("/management/territory-expansion-manager-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TerritoryExpansionManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - territory_expansion_manager_dashboard", () => {
   cy.getCy("territoryexpansionmanagerdashboard-title").should("be.visible");
   cy.getCy("territoryexpansionmanagerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritoryExpansionManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TerritoryExpansionManagerDashboardScreen successfully!\n");
 
   });
 });

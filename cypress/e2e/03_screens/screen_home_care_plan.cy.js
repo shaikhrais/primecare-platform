@@ -7,8 +7,11 @@ describe("Screen - home_care_plan", () => {
   it("opens and verifies screen home_care_plan", () => {
     cy.loginAsRole("rmt");
 
-  cy.visitWithSemantics("/allied/home-care-plan");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rmt/home-care-plan (HomeCarePlanScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rmt/home-care-plan");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HomeCarePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - home_care_plan", () => {
   cy.getCy("homecareplan-title").should("be.visible");
   cy.getCy("homecareplan-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HomeCarePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("home_care_plan");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HomeCarePlanScreen successfully!\n");
 
   });
 });

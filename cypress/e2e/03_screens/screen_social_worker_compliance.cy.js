@@ -7,8 +7,11 @@ describe("Screen - social_worker_compliance", () => {
   it("opens and verifies screen social_worker_compliance", () => {
     cy.loginAsRole("social_worker");
 
-  cy.visitWithSemantics("/common/social-worker-compliance");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/social_worker/compliance (SocialWorkerComplianceScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/social_worker/compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SocialWorkerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - social_worker_compliance", () => {
   cy.getCy("socialworkercompliance-title").should("be.visible");
   cy.getCy("socialworkercompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SocialWorkerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("social_worker_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SocialWorkerComplianceScreen successfully!\n");
 
   });
 });

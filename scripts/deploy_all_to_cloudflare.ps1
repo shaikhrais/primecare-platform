@@ -101,7 +101,12 @@ foreach ($app in $apps) {
     
     $url = 'N/A'
     if ($deployOutput -match 'https://[a-zA-Z0-9.-]+\.pages\.dev') {
-        $url = $Matches[0]
+        $url = $Matches[0].TrimEnd('/')
+        # Normalize URL to strip dynamic deployment preview subdomains (e.g., hash.primecare-xxx.pages.dev)
+        # and consistently return the clean public project alias (https://primecare-xxx.pages.dev)
+        if ($url -match "\.($projectName)\.pages\.dev$") {
+            $url = "https://$projectName.pages.dev"
+        }
     }
     
     if ($deployOutput -match 'Success' -or $deployOutput -match 'Deployment complete') {

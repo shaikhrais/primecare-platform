@@ -7,8 +7,11 @@ describe("Screen - invoice_management", () => {
   it("opens and verifies screen invoice_management", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/invoice-management (InvoiceManagementScreen)...");
   cy.visitWithSemantics("/staff/invoice-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for InvoiceManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - invoice_management", () => {
   cy.getCy("invoicemanagement-title").should("be.visible");
   cy.getCy("invoicemanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for InvoiceManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("invoice_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified InvoiceManagementScreen successfully!\n");
 
   });
 });

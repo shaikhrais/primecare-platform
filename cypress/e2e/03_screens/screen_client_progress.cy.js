@@ -7,8 +7,11 @@ describe("Screen - client_progress", () => {
   it("opens and verifies screen client_progress", () => {
     cy.loginAsRole("rmt");
 
-  cy.visitWithSemantics("/allied/client-progress");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rmt/client-progress (ClientProgressScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rmt/client-progress");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ClientProgressScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - client_progress", () => {
   cy.getCy("clientprogress-title").should("be.visible");
   cy.getCy("clientprogress-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ClientProgressScreen...");
   cy.waitAndSee();
   cy.screenshot("client_progress");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ClientProgressScreen successfully!\n");
 
   });
 });

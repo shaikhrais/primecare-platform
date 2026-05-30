@@ -7,8 +7,11 @@ describe("Screen - training_director_analytics", () => {
   it("opens and verifies screen training_director_analytics", () => {
     cy.loginAsRole("training");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/training-director-analytics (TrainingDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/training-director-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - training_director_analytics", () => {
   cy.getCy("trainingdirectoranalytics-title").should("be.visible");
   cy.getCy("trainingdirectoranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("training_director_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TrainingDirectorAnalyticsScreen successfully!\n");
 
   });
 });

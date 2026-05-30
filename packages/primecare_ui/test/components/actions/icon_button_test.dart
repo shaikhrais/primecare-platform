@@ -6,7 +6,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: IconButton(key: const Key('icon_button_test_iconbutton_button_1'), key: const Key('icon-btn'), icon: const Icon(Icons.add), onPressed: () {}),
+          body: IconButton(key: const Key('icon-btn'), icon: const Icon(Icons.add), onPressed: () {}),
         ),
       ),
     );

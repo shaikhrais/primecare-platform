@@ -7,8 +7,11 @@ describe("Screen - rmt_analytics", () => {
   it("opens and verifies screen rmt_analytics", () => {
     cy.loginAsRole("rmt");
 
-  cy.visitWithSemantics("/allied/rmt-analytics");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rmt/analytics (RmtAnalyticsScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rmt/analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RmtAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rmt_analytics", () => {
   cy.getCy("rmtanalytics-title").should("be.visible");
   cy.getCy("rmtanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RmtAnalyticsScreen successfully!\n");
 
   });
 });

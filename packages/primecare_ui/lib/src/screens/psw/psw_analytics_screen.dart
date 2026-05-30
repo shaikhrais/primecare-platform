@@ -49,52 +49,54 @@ class PswAnalyticsController extends StateNotifier<PswAnalyticsState> {
   final Ref _ref;
 
   PswAnalyticsController(this._ref)
-      : super(
-          const PswAnalyticsState(
-            selectedFilter: 'This Week',
-            adlCompletionRate: 94.2,
-            totalVisits: 28,
-            totalMileage: 142.8,
-            averageHydration: 2.1,
-            adlBreakdown: {
-              'Bathing & Hygiene': 0.95,
-              'Meal Preparation': 0.88,
-              'Transferring Assistance': 1.00,
-              'Grooming Support': 0.92,
+    : super(
+        const PswAnalyticsState(
+          selectedFilter: 'This Week',
+          adlCompletionRate: 94.2,
+          totalVisits: 28,
+          totalMileage: 142.8,
+          averageHydration: 2.1,
+          adlBreakdown: {
+            'Bathing & Hygiene': 0.95,
+            'Meal Preparation': 0.88,
+            'Transferring Assistance': 1.00,
+            'Grooming Support': 0.92,
+          },
+          moodObservations: [
+            {
+              'id': 'obs-1',
+              'client': 'Margaret Thompson',
+              'mood': 'Happy',
+              'timestamp': '2 hours ago',
+              'note': 'Enjoyed her breakfast and morning walk.',
+              'alert': 'info',
             },
-            moodObservations: [
-              {
-                'id': 'obs-1',
-                'client': 'Margaret Thompson',
-                'mood': 'Happy',
-                'timestamp': '2 hours ago',
-                'note': 'Enjoyed her breakfast and morning walk.',
-                'alert': 'info',
-              },
-              {
-                'id': 'obs-2',
-                'client': 'Arthur Pendelton',
-                'mood': 'Anxious',
-                'timestamp': 'Yesterday',
-                'note': 'Reported slight discomfort during transference.',
-                'alert': 'caution',
-              },
-              {
-                'id': 'obs-3',
-                'client': 'Eleanor Vance',
-                'mood': 'Agitated',
-                'timestamp': '2 days ago',
-                'note': 'Refused bath initially, but cooperated after tea.',
-                'alert': 'caution',
-              },
-            ],
-          ),
-        );
+            {
+              'id': 'obs-2',
+              'client': 'Arthur Pendelton',
+              'mood': 'Anxious',
+              'timestamp': 'Yesterday',
+              'note': 'Reported slight discomfort during transference.',
+              'alert': 'caution',
+            },
+            {
+              'id': 'obs-3',
+              'client': 'Eleanor Vance',
+              'mood': 'Agitated',
+              'timestamp': '2 days ago',
+              'note': 'Refused bath initially, but cooperated after tea.',
+              'alert': 'caution',
+            },
+          ],
+        ),
+      );
 
   void changeFilter(String filter) {
     // Log filter selection in Aura Telemetry
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/psw/analytics',
             eventType: 'psw_analytics_filter_changed',
             metadata: {'filter': filter},
@@ -163,7 +165,9 @@ class PswAnalyticsController extends StateNotifier<PswAnalyticsState> {
 
     // Track telemetry
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/psw/analytics',
             eventType: 'psw_mood_logged_quick',
             metadata: {'client': clientName, 'mood': mood},
@@ -173,15 +177,17 @@ class PswAnalyticsController extends StateNotifier<PswAnalyticsState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final pswAnalyticsControllerProvider =
     StateNotifierProvider<PswAnalyticsController, PswAnalyticsState>((ref) {
-  return PswAnalyticsController(ref);
-});
+      return PswAnalyticsController(ref);
+    });
 
 // --- View ---
 class PswAnalyticsScreen extends GovernedConsumerWidget {
@@ -193,152 +199,171 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(pswAnalyticsControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('pswanalytics-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('pswanalytics-title'),
-          'PSW Care Analytics',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:pswanalytics-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswanalytics-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('pswanalytics-title'),
+            'PSW Care Analytics',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
         ),
-      ),
-      body: Semantics(
-        label: 'data-cy:pswanalytics-screen',
-        child: SingleChildScrollView(
-        key: const Key('pswanalytics-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('pswanalytics-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Clinical Outcomes & Telemetry',
-              roleName: 'Personal Support Worker (PSW)',
-              description:
-                  'Aggregated compliance trends, active care plan metrics, and patient hydration tracking logs.',
-              onRefresh: () => ref.refresh(pswAnalyticsControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // Time Period Selector
-            Row(
-              children: ['Today', 'This Week', 'This Month'].map((filter) {
-                final isSelected = state.selectedFilter == filter;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ChoiceChip(
-                    label: Text(filter),
-                    selected: isSelected,
-                    selectedColor: theme.colors.primary.withValues(alpha: 0.15),
-                    labelStyle: theme.typography.bodyMedium.copyWith(
-                      color: isSelected
-                          ? theme.colors.primary
-                          : theme.colors.onSurfaceVariant,
-                      fontWeight:
-                          isSelected ? FontWeight.bold : FontWeight.normal,
-                    ),
-                    onSelected: (val) {
-                      if (val) controller.changeFilter(filter);
-                    },
+        body: Semantics(
+          label: 'data-cy:pswanalytics-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('pswanalytics-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('pswanalytics-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
                   ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
+                ),
 
-            // Responsive KPIs Grid
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final crossAxisCount = constraints.maxWidth > 900
-                    ? 4
-                    : constraints.maxWidth > 600
+                Semantics(
+                  label: 'data-cy:pswanalytics-title',
+                  child: GovDashboardHero(
+                    title: 'Clinical Outcomes & Telemetry',
+                    roleName: 'Personal Support Worker (PSW)',
+                    description:
+                        'Aggregated compliance trends, active care plan metrics, and patient hydration tracking logs.',
+                    onRefresh: () =>
+                        ref.refresh(pswAnalyticsControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Time Period Selector
+                Row(
+                  children: ['Today', 'This Week', 'This Month'].map((filter) {
+                    final isSelected = state.selectedFilter == filter;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ChoiceChip(
+                        label: Text(filter),
+                        selected: isSelected,
+                        selectedColor: theme.colors.primary.withValues(
+                          alpha: 0.15,
+                        ),
+                        labelStyle: theme.typography.bodyMedium.copyWith(
+                          color: isSelected
+                              ? theme.colors.primary
+                              : theme.colors.onSurfaceVariant,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                        onSelected: (val) {
+                          if (val) controller.changeFilter(filter);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 24),
+
+                // Responsive KPIs Grid
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final crossAxisCount = constraints.maxWidth > 900
+                        ? 4
+                        : constraints.maxWidth > 600
                         ? 2
                         : 2;
-                return GridView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    childAspectRatio: 1.4,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  children: [
-                    PrimeCareKpiCard(
-                      title: 'ADL Completion Rate',
-                      value: '${state.adlCompletionRate.toStringAsFixed(1)}%',
-                      icon: LucideIcons.checkSquare,
-                      color: Colors.green,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Total Shift Visits',
-                      value: state.totalVisits.toString(),
-                      icon: LucideIcons.calendarCheck,
-                      color: theme.colors.primary,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Avg Hydration Logged',
-                      value: '${state.averageHydration.toStringAsFixed(1)}L',
-                      icon: LucideIcons.droplet,
-                      color: Colors.blue,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Active Care Mileage',
-                      value: '${state.totalMileage.toStringAsFixed(1)} km',
-                      icon: LucideIcons.navigation,
-                      color: Colors.orange,
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 24),
+                    return GridView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        childAspectRatio: 1.4,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      children: [
+                        PrimeCareKpiCard(
+                          title: 'ADL Completion Rate',
+                          value:
+                              '${state.adlCompletionRate.toStringAsFixed(1)}%',
+                          icon: LucideIcons.checkSquare,
+                          color: Colors.green,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Total Shift Visits',
+                          value: state.totalVisits.toString(),
+                          icon: LucideIcons.calendarCheck,
+                          color: theme.colors.primary,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Avg Hydration Logged',
+                          value:
+                              '${state.averageHydration.toStringAsFixed(1)}L',
+                          icon: LucideIcons.droplet,
+                          color: Colors.blue,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Active Care Mileage',
+                          value: '${state.totalMileage.toStringAsFixed(1)} km',
+                          icon: LucideIcons.navigation,
+                          color: Colors.orange,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
 
-            // Two Column Details (ADL Details vs. Behavior Observations)
-            LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth > 900) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: _buildAdlBreakdownCard(context, state),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 6,
-                        child: _buildObservationsCard(context, state, controller),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      _buildAdlBreakdownCard(context, state),
-                      const SizedBox(height: 24),
-                      _buildObservationsCard(context, state, controller),
-                    ],
-                  );
-                }
-              },
+                // Two Column Details (ADL Details vs. Behavior Observations)
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 900) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: _buildAdlBreakdownCard(context, state),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 6,
+                            child: _buildObservationsCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          _buildAdlBreakdownCard(context, state),
+                          const SizedBox(height: 24),
+                          _buildObservationsCard(context, state, controller),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
-          ],
-        ),),
-    ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -394,8 +419,8 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                         value == 1.0
                             ? Colors.green
                             : value > 0.9
-                                ? theme.colors.primary
-                                : Colors.amber,
+                            ? theme.colors.primary
+                            : Colors.amber,
                       ),
                     ),
                   ),
@@ -424,11 +449,12 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
             children: [
               Text(
                 'Behavioral Mood Observations',
-                style:
-                    theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
+                style: theme.typography.h3.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               IconButton(
-            key: const Key('pswanalytics-btn-2'),
+                key: const Key('pswanalytics-btn-2'),
                 icon: Icon(LucideIcons.plusCircle, color: theme.colors.primary),
                 tooltip: 'Quick Mood Log',
                 onPressed: () {
@@ -479,7 +505,9 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                       child: Text(
                         mood,
                         style: theme.typography.labelSmall.copyWith(
-                          color: isAlert ? theme.colors.error : theme.colors.primary,
+                          color: isAlert
+                              ? theme.colors.error
+                              : theme.colors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -550,7 +578,8 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TextField(key: const Key('psw_analytics_screen_textfield_input_1'), 
+                    TextField(
+                      key: const Key('psw_analytics_screen_textfield_input_1'),
                       controller: clientController,
                       style: theme.typography.bodyMedium,
                       decoration: InputDecoration(
@@ -583,7 +612,8 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextField(key: const Key('psw_analytics_screen_textfield_input_2'), 
+                    TextField(
+                      key: const Key('psw_analytics_screen_textfield_input_2'),
                       controller: noteController,
                       style: theme.typography.bodyMedium,
                       maxLines: 2,
@@ -598,7 +628,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
-            key: const Key('pswanalytics-btn-3'),
+                  key: const Key('pswanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -606,7 +636,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
-            key: const Key('pswanalytics-btn-4'),
+                  key: const Key('pswanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,
@@ -622,7 +652,9 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Quick mood observation logged successfully.'),
+                          content: Text(
+                            'Quick mood observation logged successfully.',
+                          ),
                           duration: Duration(seconds: 2),
                         ),
                       );

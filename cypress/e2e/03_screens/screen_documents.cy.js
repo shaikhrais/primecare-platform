@@ -7,8 +7,11 @@ describe("Screen - documents", () => {
   it("opens and verifies screen documents", () => {
     cy.loginAsRole("patient");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/documents (DocumentsScreen)...");
   cy.visitWithSemantics("/common/documents");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for DocumentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - documents", () => {
   cy.getCy("documents-title").should("be.visible");
   cy.getCy("documents-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for DocumentsScreen...");
   cy.waitAndSee();
   cy.screenshot("documents");
+  
+  cy.task("log", "✅ PROGRESS: - Verified DocumentsScreen successfully!\n");
 
   });
 });

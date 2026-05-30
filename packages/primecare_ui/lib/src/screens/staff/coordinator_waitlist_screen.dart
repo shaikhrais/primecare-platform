@@ -42,76 +42,121 @@ class CoordinatorWaitlistState {
 }
 
 // --- Controller ---
-class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistState> {
+class CoordinatorWaitlistController
+    extends StateNotifier<CoordinatorWaitlistState> {
   final Ref _ref;
 
   CoordinatorWaitlistController(this._ref)
-      : super(
-          const CoordinatorWaitlistState(
-            waitlistIntakes: [
-              {
-                'id': 'INT-801',
-                'client': 'Eleanor Vance',
-                'age': 79,
-                'priority': 'high',
-                'admissionReason': 'Post-stroke rehab, cognitive assessment pending',
-                'requiredSkills': ['Stroke Rehab', 'Medication Management', 'PSW Support'],
-                'referredBy': 'Toronto Western Hospital',
-                'territory': 'South Sector',
-                'recommendedCaregivers': [
-                  {'name': 'Sarah Jenkins, PSW', 'score': 94, 'distance': '1.2 km'},
-                  {'name': 'David Miller, RPN', 'score': 88, 'distance': '3.4 km'},
-                ],
-              },
-              {
-                'id': 'INT-802',
-                'client': 'Arthur Pendelton',
-                'age': 84,
-                'priority': 'high',
-                'admissionReason': 'Advanced Alzheimers daily respite care',
-                'requiredSkills': ['Dementia Care', 'ADL Assisting', 'Palliative Care'],
-                'referredBy': 'Alzheimer Society York',
-                'territory': 'Central Sector',
-                'recommendedCaregivers': [
-                  {'name': 'Elena Rostova, PSW', 'score': 97, 'distance': '2.1 km'},
-                  {'name': 'Sarah Jenkins, PSW', 'score': 82, 'distance': '4.0 km'},
-                ],
-              },
-              {
-                'id': 'INT-803',
-                'client': 'Franklin Roosevelt',
-                'age': 72,
-                'priority': 'medium',
-                'admissionReason': 'Paraplegia transfer assistance, vital signs logging',
-                'requiredSkills': ['Hoyer Lift', 'Vitals Logging', 'Physiotherapy Support'],
-                'referredBy': 'Bridgepoint Rehab',
-                'territory': 'West Sector',
-                'recommendedCaregivers': [
-                  {'name': 'Marcus Aurelius, PT', 'score': 99, 'distance': '0.8 km'},
-                  {'name': 'David Miller, RPN', 'score': 85, 'distance': '5.2 km'},
-                ],
-              },
-              {
-                'id': 'INT-804',
-                'client': 'Elizabeth Bennet',
-                'age': 67,
-                'priority': 'low',
-                'admissionReason': 'Post-operative wound dressing twice weekly',
-                'requiredSkills': ['Wound Care', 'Clinical RN Assessments'],
-                'referredBy': 'Sunnybrook Health Sciences',
-                'territory': 'North Sector',
-                'recommendedCaregivers': [
-                  {'name': 'David Miller, RPN', 'score': 95, 'distance': '1.8 km'},
-                ],
-              },
-            ],
-          ),
-        );
+    : super(
+        const CoordinatorWaitlistState(
+          waitlistIntakes: [
+            {
+              'id': 'INT-801',
+              'client': 'Eleanor Vance',
+              'age': 79,
+              'priority': 'high',
+              'admissionReason':
+                  'Post-stroke rehab, cognitive assessment pending',
+              'requiredSkills': [
+                'Stroke Rehab',
+                'Medication Management',
+                'PSW Support',
+              ],
+              'referredBy': 'Toronto Western Hospital',
+              'territory': 'South Sector',
+              'recommendedCaregivers': [
+                {
+                  'name': 'Sarah Jenkins, PSW',
+                  'score': 94,
+                  'distance': '1.2 km',
+                },
+                {
+                  'name': 'David Miller, RPN',
+                  'score': 88,
+                  'distance': '3.4 km',
+                },
+              ],
+            },
+            {
+              'id': 'INT-802',
+              'client': 'Arthur Pendelton',
+              'age': 84,
+              'priority': 'high',
+              'admissionReason': 'Advanced Alzheimers daily respite care',
+              'requiredSkills': [
+                'Dementia Care',
+                'ADL Assisting',
+                'Palliative Care',
+              ],
+              'referredBy': 'Alzheimer Society York',
+              'territory': 'Central Sector',
+              'recommendedCaregivers': [
+                {
+                  'name': 'Elena Rostova, PSW',
+                  'score': 97,
+                  'distance': '2.1 km',
+                },
+                {
+                  'name': 'Sarah Jenkins, PSW',
+                  'score': 82,
+                  'distance': '4.0 km',
+                },
+              ],
+            },
+            {
+              'id': 'INT-803',
+              'client': 'Franklin Roosevelt',
+              'age': 72,
+              'priority': 'medium',
+              'admissionReason':
+                  'Paraplegia transfer assistance, vital signs logging',
+              'requiredSkills': [
+                'Hoyer Lift',
+                'Vitals Logging',
+                'Physiotherapy Support',
+              ],
+              'referredBy': 'Bridgepoint Rehab',
+              'territory': 'West Sector',
+              'recommendedCaregivers': [
+                {
+                  'name': 'Marcus Aurelius, PT',
+                  'score': 99,
+                  'distance': '0.8 km',
+                },
+                {
+                  'name': 'David Miller, RPN',
+                  'score': 85,
+                  'distance': '5.2 km',
+                },
+              ],
+            },
+            {
+              'id': 'INT-804',
+              'client': 'Elizabeth Bennet',
+              'age': 67,
+              'priority': 'low',
+              'admissionReason': 'Post-operative wound dressing twice weekly',
+              'requiredSkills': ['Wound Care', 'Clinical RN Assessments'],
+              'referredBy': 'Sunnybrook Health Sciences',
+              'territory': 'North Sector',
+              'recommendedCaregivers': [
+                {
+                  'name': 'David Miller, RPN',
+                  'score': 95,
+                  'distance': '1.8 km',
+                },
+              ],
+            },
+          ],
+        ),
+      );
 
   void selectIntake(String? id) {
     state = state.copyWith(selectedIntakeId: id);
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/staff/coordinator-waitlist',
             eventType: 'intake_selected',
             metadata: {'intakeId': id},
@@ -122,7 +167,9 @@ class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistSta
   void setPriorityFilter(String priority) {
     state = state.copyWith(filterPriority: priority);
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/staff/coordinator-waitlist',
             eventType: 'priority_filter_changed',
             metadata: {'priority': priority},
@@ -139,7 +186,9 @@ class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistSta
     await Future<void>.delayed(const Duration(milliseconds: 700));
 
     final intake = state.waitlistIntakes.firstWhere((i) => i['id'] == intakeId);
-    final updatedIntakes = state.waitlistIntakes.where((i) => i['id'] != intakeId).toList();
+    final updatedIntakes = state.waitlistIntakes
+        .where((i) => i['id'] != intakeId)
+        .toList();
 
     state = state.copyWith(
       isMatching: false,
@@ -148,10 +197,16 @@ class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistSta
     );
 
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/staff/coordinator-waitlist',
             eventType: 'intake_onboarded_and_assigned',
-            metadata: {'intakeId': intakeId, 'client': intake['client'], 'caregiver': caregiverName},
+            metadata: {
+              'intakeId': intakeId,
+              'client': intake['client'],
+              'caregiver': caregiverName,
+            },
           );
     } catch (_) {}
   }
@@ -164,15 +219,20 @@ class CoordinatorWaitlistController extends StateNotifier<CoordinatorWaitlistSta
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final coordinatorWaitlistControllerProvider =
-    StateNotifierProvider<CoordinatorWaitlistController, CoordinatorWaitlistState>((ref) {
-  return CoordinatorWaitlistController(ref);
-});
+    StateNotifierProvider<
+      CoordinatorWaitlistController,
+      CoordinatorWaitlistState
+    >((ref) {
+      return CoordinatorWaitlistController(ref);
+    });
 
 // --- View ---
 class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
@@ -186,94 +246,127 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
 
     // Apply filters
     final filteredIntakes = state.waitlistIntakes.where((intake) {
-      final matchesPriority = state.filterPriority == 'All' ||
-          intake['priority'].toString().toLowerCase() == state.filterPriority.toLowerCase();
-      final matchesSearch = intake['client'].toString().toLowerCase().contains(state.searchQuery.toLowerCase()) ||
-          intake['referredBy'].toString().toLowerCase().contains(state.searchQuery.toLowerCase());
+      final matchesPriority =
+          state.filterPriority == 'All' ||
+          intake['priority'].toString().toLowerCase() ==
+              state.filterPriority.toLowerCase();
+      final matchesSearch =
+          intake['client'].toString().toLowerCase().contains(
+            state.searchQuery.toLowerCase(),
+          ) ||
+          intake['referredBy'].toString().toLowerCase().contains(
+            state.searchQuery.toLowerCase(),
+          );
       return matchesPriority && matchesSearch;
     }).toList();
 
     final selectedIntake = state.selectedIntakeId == null
         ? null
-        : state.waitlistIntakes.firstWhere((i) => i['id'] == state.selectedIntakeId);
+        : state.waitlistIntakes.firstWhere(
+            (i) => i['id'] == state.selectedIntakeId,
+          );
 
-    return Scaffold(
-      key: const Key('coordinatorwaitlist-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('coordinatorwaitlist-title'),
-          'Intake waitlist and matching panel',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
-        actions: [
-          IconButton(
-            key: const Key('coordinatorwaitlist-btn-1'),
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
-            onPressed: () => controller.refreshWaitlist(),
+    return Semantics(
+      label: 'data-cy:coordinatorwaitlist-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('coordinatorwaitlist-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('coordinatorwaitlist-title'),
+            'Intake waitlist and matching panel',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
-          const SizedBox(width: 16),
-        ],
+          actions: [
+            IconButton(
+              key: const Key('coordinatorwaitlist-btn-1'),
+              icon: Icon(
+                LucideIcons.refreshCw,
+                color: theme.colors.primary,
+                size: 20,
+              ),
+              onPressed: () => controller.refreshWaitlist(),
+            ),
+            const SizedBox(width: 16),
+          ],
+        ),
+        body: state.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  key: const Key('coordinatorwaitlist-loading'),
+                ),
+              )
+            : LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWide = constraints.maxWidth > 950;
+
+                  final intakeListWidget = _buildIntakeListWidget(
+                    context,
+                    filteredIntakes,
+                    state,
+                    controller,
+                  );
+                  final matchingWidget = _buildMatchingDetailsWidget(
+                    context,
+                    selectedIntake,
+                    state,
+                    controller,
+                  );
+
+                  return isWide
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // === Governance Injected UI Components & Buttons ===
+                            SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: ElevatedButton(
+                                key: const Key('coordinatorwaitlist-btn-2'),
+                                onPressed: () =>
+                                    controller.triggerStateAction(),
+                                child: Text('Execute: Button 1'.tr()),
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: ElevatedButton(
+                                key: const Key('coordinatorwaitlist-btn-3'),
+                                onPressed: () =>
+                                    controller.triggerStateAction(),
+                                child: Text('Execute: Button 2'.tr()),
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: ElevatedButton(
+                                key: const Key('coordinatorwaitlist-btn-4'),
+                                onPressed: () =>
+                                    controller.triggerStateAction(),
+                                child: Text('Execute: Button 3'.tr()),
+                              ),
+                            ),
+
+                            Expanded(flex: 3, child: intakeListWidget),
+                            Container(width: 1, color: theme.colors.border),
+                            Expanded(flex: 2, child: matchingWidget),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Expanded(flex: 3, child: intakeListWidget),
+                            Container(height: 1, color: theme.colors.border),
+                            Expanded(flex: 2, child: matchingWidget),
+                          ],
+                        );
+                },
+              ),
       ),
-      body: state.isLoading
-          ? const Center(child: CircularProgressIndicator(
-            key: const Key('coordinatorwaitlist-loading'),))
-          : LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 950;
-
-                final intakeListWidget = _buildIntakeListWidget(context, filteredIntakes, state, controller);
-                final matchingWidget = _buildMatchingDetailsWidget(context, selectedIntake, state, controller);
-
-                return isWide
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-2'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-3'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 2'.tr()),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-4'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 3'.tr()),
-              ),
-            ),
-
-                          Expanded(flex: 3, child: intakeListWidget),
-                          Container(width: 1, color: theme.colors.border),
-                          Expanded(flex: 2, child: matchingWidget),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          Expanded(flex: 3, child: intakeListWidget),
-                          Container(height: 1, color: theme.colors.border),
-                          Expanded(flex: 2, child: matchingWidget),
-                        ],
-                      );
-              },
-            ),
     );
   }
 
@@ -294,13 +387,24 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: TextField(key: const Key('coordinator_waitlist_screen_textfield_input_1'), 
+                child: TextField(
+                  key: const Key(
+                    'coordinator_waitlist_screen_textfield_input_1',
+                  ),
                   onChanged: (val) => controller.setSearchQuery(val),
                   style: const TextStyle(fontSize: 13),
                   decoration: InputDecoration(
-                    prefixIcon: Icon(LucideIcons.search, size: 16, color: theme.colors.onSurfaceVariant),
+                    prefixIcon: Icon(
+                      LucideIcons.search,
+                      size: 16,
+                      color: theme.colors.onSurfaceVariant,
+                    ),
                     hintText: 'Search Intake list...',
-                    hintStyle: TextStyle(color: theme.colors.onSurfaceVariant.withValues(alpha: 0.7)),
+                    hintStyle: TextStyle(
+                      color: theme.colors.onSurfaceVariant.withValues(
+                        alpha: 0.7,
+                      ),
+                    ),
                     filled: true,
                     fillColor: theme.colors.surface,
                     border: OutlineInputBorder(
@@ -317,7 +421,10 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                 items: ['All', 'High', 'Medium', 'Low'].map((p) {
                   return DropdownMenuItem<String>(
                     value: p,
-                    child: Text('$p Priority', style: const TextStyle(fontSize: 13)),
+                    child: Text(
+                      '$p Priority',
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   );
                 }).toList(),
                 onChanged: (val) {
@@ -335,7 +442,9 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                 ? Center(
                     child: Text(
                       'No clients pending intake matching.',
-                      style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+                      style: theme.typography.bodyMedium.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                      ),
                     ),
                   )
                 : ListView.builder(
@@ -344,30 +453,43 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                       final intake = intakes[idx];
                       final isSelected = state.selectedIntakeId == intake['id'];
                       final isHigh = intake['priority'] == 'high';
-                      final accentColor = isHigh ? theme.colors.error : theme.colors.primary;
+                      final accentColor = isHigh
+                          ? theme.colors.error
+                          : theme.colors.primary;
 
                       return Container(
                         margin: const EdgeInsets.only(bottom: 12),
                         decoration: BoxDecoration(
-                          color: isSelected ? theme.colors.primary.withValues(alpha: 0.04) : theme.colors.surface,
+                          color: isSelected
+                              ? theme.colors.primary.withValues(alpha: 0.04)
+                              : theme.colors.surface,
                           borderRadius: BorderRadius.circular(theme.radiusSm),
                           border: Border.all(
-                            color: isSelected ? theme.colors.primary : theme.colors.border,
+                            color: isSelected
+                                ? theme.colors.primary
+                                : theme.colors.border,
                             width: isSelected ? 1.5 : 1.0,
                           ),
                         ),
                         child: ListTile(
-                          onTap: () => controller.selectIntake(isSelected ? null : intake['id'] as String?),
+                          onTap: () => controller.selectIntake(
+                            isSelected ? null : intake['id'] as String?,
+                          ),
                           contentPadding: const EdgeInsets.all(16),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 (intake['client'] as String?) ?? '',
-                                style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+                                style: theme.typography.bodyLarge.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 3,
+                                ),
                                 decoration: BoxDecoration(
                                   color: accentColor.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(6),
@@ -388,32 +510,50 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                               const SizedBox(height: 6),
                               Text(
                                 'Admission Focus: ${intake['admissionReason']}',
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurface),
+                                style: theme.typography.bodySmall.copyWith(
+                                  color: theme.colors.onSurface,
+                                ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 8),
                               Row(
                                 children: [
-                                  Icon(LucideIcons.home, size: 12, color: theme.colors.onSurfaceVariant),
+                                  Icon(
+                                    LucideIcons.home,
+                                    size: 12,
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
                                   const SizedBox(width: 4),
                                   Text(
                                     (intake['territory'] as String?) ?? '',
-                                    style: theme.typography.bodySmall.copyWith(fontSize: 11, color: theme.colors.onSurfaceVariant),
+                                    style: theme.typography.bodySmall.copyWith(
+                                      fontSize: 11,
+                                      color: theme.colors.onSurfaceVariant,
+                                    ),
                                   ),
                                   const SizedBox(width: 16),
-                                  Icon(LucideIcons.building, size: 12, color: theme.colors.onSurfaceVariant),
+                                  Icon(
+                                    LucideIcons.building,
+                                    size: 12,
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
                                       (intake['referredBy'] as String?) ?? '',
-                                      style: theme.typography.bodySmall.copyWith(fontSize: 11, color: theme.colors.onSurfaceVariant),
+                                      style: theme.typography.bodySmall
+                                          .copyWith(
+                                            fontSize: 11,
+                                            color:
+                                                theme.colors.onSurfaceVariant,
+                                          ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -442,16 +582,25 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(LucideIcons.users, size: 40, color: theme.colors.onSurfaceVariant.withValues(alpha: 0.5)),
+              Icon(
+                LucideIcons.users,
+                size: 40,
+                color: theme.colors.onSurfaceVariant.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 12),
               Text(
                 'No Client Intake Selected',
-                style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurfaceVariant),
+                style: theme.typography.bodyLarge.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colors.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 'Select a client intake profile to search for clinical caregiver recommendations.',
-                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                style: theme.typography.bodySmall.copyWith(
+                  color: theme.colors.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -460,7 +609,8 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
       );
     }
 
-    final recommended = intake['recommendedCaregivers'] as List<Map<String, dynamic>>? ?? [];
+    final recommended =
+        intake['recommendedCaregivers'] as List<Map<String, dynamic>>? ?? [];
     final skills = intake['requiredSkills'] as List<String>? ?? [];
 
     return Container(
@@ -473,7 +623,10 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
           children: [
             Text(
               'Intake Care Match recommendations',
-              style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurface),
+              style: theme.typography.h3.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colors.onSurface,
+              ),
             ),
             const SizedBox(height: 16),
             Container(
@@ -488,19 +641,25 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                 children: [
                   Text(
                     (intake['client'] as String?) ?? '',
-                    style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.typography.bodyLarge.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Age: ${intake['age']} yrs | Priority: ${intake['priority']}',
-                    style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    style: theme.typography.bodySmall.copyWith(
+                      color: theme.colors.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   const Divider(),
                   const SizedBox(height: 8),
                   Text(
                     'Required Clinical Skills:',
-                    style: theme.typography.labelSmall.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.typography.labelSmall.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Wrap(
@@ -508,7 +667,10 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                     runSpacing: 8,
                     children: skills.map((skill) {
                       return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: theme.colors.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
@@ -530,7 +692,9 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
             const SizedBox(height: 24),
             Text(
               'Optimal Caregiver Match Scoring',
-              style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+              style: theme.typography.bodyLarge.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             if (recommended.isEmpty)
@@ -538,7 +702,9 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
                   'No suitable caregiver found in this sector area.',
-                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                  style: theme.typography.bodySmall.copyWith(
+                    color: theme.colors.onSurfaceVariant,
+                  ),
                 ),
               )
             else
@@ -580,17 +746,22 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                           children: [
                             Text(
                               (cg['name'] as String?) ?? '',
-                              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                              style: theme.typography.bodyMedium.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
                               'Distance: ${cg['distance']} | Clinical Parity OK',
-                              style: theme.typography.bodySmall.copyWith(fontSize: 10, color: theme.colors.onSurfaceVariant),
+                              style: theme.typography.bodySmall.copyWith(
+                                fontSize: 10,
+                                color: theme.colors.onSurfaceVariant,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       ElevatedButton(
-            key: const Key('coordinatorwaitlist-btn-5'),
+                        key: const Key('coordinatorwaitlist-btn-5'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,
                           elevation: 0,
@@ -598,13 +769,26 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                         ),
                         onPressed: state.isMatching
                             ? null
-                            : () => controller.onboardAndAssign((intake['id'] as String?) ?? '', (cg['name'] as String?) ?? ''),
+                            : () => controller.onboardAndAssign(
+                                (intake['id'] as String?) ?? '',
+                                (cg['name'] as String?) ?? '',
+                              ),
                         child: state.isMatching
-                            ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(
-            key: const Key('coordinatorwaitlist-loading'),color: Colors.white, strokeWidth: 2))
+                            ? const SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: CircularProgressIndicator(
+                                  key: const Key('coordinatorwaitlist-loading'),
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
                             : Text(
                                 'Onboard',
-                                style: theme.typography.button.copyWith(color: Colors.white, fontSize: 11),
+                                style: theme.typography.button.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                ),
                               ),
                       ),
                     ],

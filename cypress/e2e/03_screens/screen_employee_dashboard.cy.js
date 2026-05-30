@@ -7,8 +7,11 @@ describe("Screen - employee_dashboard", () => {
   it("opens and verifies screen employee_dashboard", () => {
     cy.loginAsRole("employee");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/employee-dashboard (EmployeeDashboardScreen)...");
   cy.visitWithSemantics("/staff/employee-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for EmployeeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - employee_dashboard", () => {
   cy.getCy("employeedashboard-title").should("be.visible");
   cy.getCy("employeedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for EmployeeDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("employee_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified EmployeeDashboardScreen successfully!\n");
 
   });
 });

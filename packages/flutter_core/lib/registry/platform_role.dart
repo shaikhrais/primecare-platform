@@ -65,6 +65,20 @@ enum PlatformRole {
   intake,
   qa,
   support,
+  therapist,
+  physician,
+  cns,
+  pediatric,
+  caregiver,
+  premiumConcierge,
+  vipManager,
+  hsw,
+  rnFieldSupervisor,
+  np,
+  lpn,
+  employee,
+  volunteer,
+  qaSpecialist,
 
   // Training & Architecture
   trainingDirectorCertificate,
@@ -110,9 +124,31 @@ enum PlatformRole {
   static PlatformRole fromName(String? roleName) {
     if (roleName == null || roleName.isEmpty) return PlatformRole.guest;
 
-    final normalized = roleName.toLowerCase().replaceAll('_', '').replaceAll(' ', '');
+    final normalized = roleName
+        .toLowerCase()
+        .replaceAll('_', '')
+        .replaceAll(' ', '');
 
     if (normalized == 'superadmin') return PlatformRole.admin;
+    if (normalized == 'physio') return PlatformRole.physiotherapist;
+    if (normalized == 'compliance') return PlatformRole.complianceManager;
+    if (normalized == 'gm') return PlatformRole.generalManager;
+    if (normalized == 'busdev') return PlatformRole.headOfBusDev;
+    if (normalized == 'marketing') return PlatformRole.headOfMarketing;
+    if (normalized == 'opsmanager') return PlatformRole.operationsManager;
+    if (normalized == 'regionalmanagerusa')
+      return PlatformRole.regionalManagerUsa;
+    if (normalized == 'scrummaster') return PlatformRole.scrumMaster;
+    if (normalized == 'hrhiring') return PlatformRole.hrHiring;
+    if (normalized == 'territoryexpansion')
+      return PlatformRole.territoryExpansionManager;
+    if (normalized == 'territorysales')
+      return PlatformRole.territorySalesManager;
+    if (normalized == 'volunteercoordinator')
+      return PlatformRole.volunteerCoordinator;
+    if (normalized == 'family') return PlatformRole.familyMember;
+    if (normalized == 'training') return PlatformRole.trainingHub;
+    if (normalized == 'dynamic') return PlatformRole.dynamicScreen;
 
     for (final role in PlatformRole.values) {
       if (role.name.toLowerCase() == normalized ||

@@ -33,64 +33,67 @@ class PswClientsController extends StateNotifier<PswClientsState> {
   final Ref _ref;
 
   PswClientsController(this._ref)
-      : super(
-          const PswClientsState(
-            clients: [
-              {
-                'id': 'C-101',
-                'name': 'Margaret Thompson',
-                'age': 82,
-                'address': '451 Elm Ave, Toronto',
-                'phone': '(416) 555-0192',
-                'careLevel': 'Level 3 Support',
-                'vitalsStatus': 'Stable',
-                'nextVisit': 'Today at 08:00 AM',
-                'conditions': ['Osteoarthritis', 'Mild Cognitive Impairment'],
-                'notes': 'Prefers morning care before 9:00 AM. Key lockbox code: 4920.',
-                'visitedToday': true,
-              },
-              {
-                'id': 'C-102',
-                'name': 'Arthur Pendelton',
-                'age': 79,
-                'address': '89 Queen St W, Toronto',
-                'phone': '(416) 555-8321',
-                'careLevel': 'Level 2 Support',
-                'vitalsStatus': 'Stable',
-                'nextVisit': 'Today at 01:30 PM',
-                'conditions': ['Hypertension', 'Type 2 Diabetes'],
-                'notes': 'Ensure blood glucose check is completed prior to lunch ADLs.',
-                'visitedToday': false,
-              },
-              {
-                'id': 'C-103',
-                'name': 'Eleanor Vance',
-                'age': 88,
-                'address': '12 Bayview Rd, Richmond Hill',
-                'phone': '(905) 555-2019',
-                'careLevel': 'Level 4 Support',
-                'vitalsStatus': 'Requires Audit',
-                'nextVisit': 'Today at 06:00 PM',
-                'conditions': ['Parkinsons Disease', 'Dysphagia'],
-                'notes': 'High risk for falls. Walker must be in reach at all times.',
-                'visitedToday': false,
-              },
-              {
-                'id': 'C-104',
-                'name': 'Donald Harrison',
-                'age': 85,
-                'address': '203 Bloor St W, Toronto',
-                'phone': '(416) 555-4810',
-                'careLevel': 'Level 1 Support',
-                'vitalsStatus': 'Stable',
-                'nextVisit': 'Tomorrow at 10:00 AM',
-                'conditions': ['Post-Stroke Recovery', 'Mild Aphasia'],
-                'notes': 'Encourage speech exercises during physical assistance.',
-                'visitedToday': false,
-              },
-            ],
-          ),
-        );
+    : super(
+        const PswClientsState(
+          clients: [
+            {
+              'id': 'C-101',
+              'name': 'Margaret Thompson',
+              'age': 82,
+              'address': '451 Elm Ave, Toronto',
+              'phone': '(416) 555-0192',
+              'careLevel': 'Level 3 Support',
+              'vitalsStatus': 'Stable',
+              'nextVisit': 'Today at 08:00 AM',
+              'conditions': ['Osteoarthritis', 'Mild Cognitive Impairment'],
+              'notes':
+                  'Prefers morning care before 9:00 AM. Key lockbox code: 4920.',
+              'visitedToday': true,
+            },
+            {
+              'id': 'C-102',
+              'name': 'Arthur Pendelton',
+              'age': 79,
+              'address': '89 Queen St W, Toronto',
+              'phone': '(416) 555-8321',
+              'careLevel': 'Level 2 Support',
+              'vitalsStatus': 'Stable',
+              'nextVisit': 'Today at 01:30 PM',
+              'conditions': ['Hypertension', 'Type 2 Diabetes'],
+              'notes':
+                  'Ensure blood glucose check is completed prior to lunch ADLs.',
+              'visitedToday': false,
+            },
+            {
+              'id': 'C-103',
+              'name': 'Eleanor Vance',
+              'age': 88,
+              'address': '12 Bayview Rd, Richmond Hill',
+              'phone': '(905) 555-2019',
+              'careLevel': 'Level 4 Support',
+              'vitalsStatus': 'Requires Audit',
+              'nextVisit': 'Today at 06:00 PM',
+              'conditions': ['Parkinsons Disease', 'Dysphagia'],
+              'notes':
+                  'High risk for falls. Walker must be in reach at all times.',
+              'visitedToday': false,
+            },
+            {
+              'id': 'C-104',
+              'name': 'Donald Harrison',
+              'age': 85,
+              'address': '203 Bloor St W, Toronto',
+              'phone': '(416) 555-4810',
+              'careLevel': 'Level 1 Support',
+              'vitalsStatus': 'Stable',
+              'nextVisit': 'Tomorrow at 10:00 AM',
+              'conditions': ['Post-Stroke Recovery', 'Mild Aphasia'],
+              'notes': 'Encourage speech exercises during physical assistance.',
+              'visitedToday': false,
+            },
+          ],
+        ),
+      );
 
   void updateSearchQuery(String query) {
     state = state.copyWith(searchQuery: query);
@@ -102,15 +105,17 @@ class PswClientsController extends StateNotifier<PswClientsState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final pswClientsControllerProvider =
     StateNotifierProvider<PswClientsController, PswClientsState>((ref) {
-  return PswClientsController(ref);
-});
+      return PswClientsController(ref);
+    });
 
 // --- View ---
 class PswClientsScreen extends GovernedConsumerWidget {
@@ -124,14 +129,13 @@ class PswClientsScreen extends GovernedConsumerWidget {
 
     // Search and filter operations
     final filteredClients = state.clients.where((client) {
-      final matchesSearch = client['name']
-              .toString()
-              .toLowerCase()
-              .contains(state.searchQuery.toLowerCase()) ||
-          client['address']
-              .toString()
-              .toLowerCase()
-              .contains(state.searchQuery.toLowerCase());
+      final matchesSearch =
+          client['name'].toString().toLowerCase().contains(
+            state.searchQuery.toLowerCase(),
+          ) ||
+          client['address'].toString().toLowerCase().contains(
+            state.searchQuery.toLowerCase(),
+          );
 
       if (!matchesSearch) return false;
 
@@ -143,85 +147,114 @@ class PswClientsScreen extends GovernedConsumerWidget {
       return true;
     }).toList();
 
-    return Scaffold(
-      key: const Key('pswclients-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('pswclients-title'),
-          'My Clients',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:pswclients-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswclients-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('pswclients-title'),
+            'My Clients',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
         ),
-      ),
-      body: Semantics(
-        label: 'data-cy:pswclients-screen',
-        child: Column(
-        key: const Key('pswclients-content'),
-        children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('pswclients-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-          // Filter Roster Panel
-          Container(
-            color: theme.colors.surface,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Column(
-              children: [
-                TextField(key: const Key('psw_clients_screen_textfield_input_1'), 
-                  onChanged: (val) => controller.updateSearchQuery(val),
-                  decoration: InputDecoration(
-                    hintText: 'Search client by name or address...',
-                    prefixIcon: const Icon(LucideIcons.search, size: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: theme.colors.border),
-                    ),
-                    filled: true,
-                    fillColor: theme.colors.background,
-                  ),
+        body: Semantics(
+          label: 'data-cy:pswclients-content',
+          container: true,
+          child: Column(
+            key: const Key('pswclients-content'),
+            children: [
+              // === Governance Injected UI Components & Buttons ===
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  key: const Key('pswclients-btn-1'),
+                  onPressed: () => controller.triggerStateAction(),
+                  child: Text('Execute: Button 1'.tr()),
                 ),
-                const SizedBox(height: 12),
-                Row(
+              ),
+
+              // Filter Roster Panel
+              Container(
+                color: theme.colors.surface,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                child: Column(
                   children: [
-                    _buildFilterButton(context, 'All', 'all', state, controller),
-                    const SizedBox(width: 8),
-                    _buildFilterButton(context, 'Today', 'today', state, controller),
-                    const SizedBox(width: 8),
-                    _buildFilterButton(context, 'Pending Visit', 'pending', state, controller),
+                    TextField(
+                      key: const Key('psw_clients_screen_textfield_input_1'),
+                      onChanged: (val) => controller.updateSearchQuery(val),
+                      decoration: InputDecoration(
+                        hintText: 'Search client by name or address...',
+                        prefixIcon: const Icon(LucideIcons.search, size: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: theme.colors.border),
+                        ),
+                        filled: true,
+                        fillColor: theme.colors.background,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        _buildFilterButton(
+                          context,
+                          'All',
+                          'all',
+                          state,
+                          controller,
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterButton(
+                          context,
+                          'Today',
+                          'today',
+                          state,
+                          controller,
+                        ),
+                        const SizedBox(width: 8),
+                        _buildFilterButton(
+                          context,
+                          'Pending Visit',
+                          'pending',
+                          state,
+                          controller,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              // Clients List
+              Expanded(
+                child: filteredClients.isEmpty
+                    ? EmptyState(
+                        icon: LucideIcons.users,
+                        title: 'No Clients Found',
+                        subtitle:
+                            'Modify your search query or filters to explore the full client directory.',
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(24),
+                        itemCount: filteredClients.length,
+                        itemBuilder: (context, index) {
+                          final client = filteredClients[index];
+                          return _buildClientCard(context, client);
+                        },
+                      ),
+              ),
+            ],
           ),
-          // Clients List
-          Expanded(
-            child: filteredClients.isEmpty
-                ? EmptyState(
-                    icon: LucideIcons.users,
-                    title: 'No Clients Found',
-                    subtitle: 'Modify your search query or filters to explore the full client directory.',
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(24),
-                    itemCount: filteredClients.length,
-                    itemBuilder: (context, index) {
-                      final client = filteredClients[index];
-                      return _buildClientCard(context, client);
-                    },
-                  ),
-          ),
-        ],),
-    ),
+        ),
+      ),
     );
   }
 
@@ -288,7 +321,9 @@ class PswClientsScreen extends GovernedConsumerWidget {
           children: [
             Text(
               (client['name'] as String?) ?? '',
-              style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+              style: theme.typography.h4.copyWith(
+                color: theme.colors.onSurface,
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -313,12 +348,18 @@ class PswClientsScreen extends GovernedConsumerWidget {
             children: [
               Text(
                 (client['careLevel'] as String?) ?? '',
-                style: theme.typography.bodySmall.copyWith(color: theme.colors.primary),
+                style: theme.typography.bodySmall.copyWith(
+                  color: theme.colors.primary,
+                ),
               ),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(LucideIcons.calendar, size: 12, color: theme.colors.onSurfaceVariant),
+                  Icon(
+                    LucideIcons.calendar,
+                    size: 12,
+                    color: theme.colors.onSurfaceVariant,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     (client['nextVisit'] as String?) ?? '',
@@ -340,16 +381,28 @@ class PswClientsScreen extends GovernedConsumerWidget {
                 const Divider(),
                 const SizedBox(height: 12),
                 // Detailed Information Fields
-                _buildDetailRow(context, LucideIcons.mapPin, 'Address', (client['address'] as String?) ?? ''),
+                _buildDetailRow(
+                  context,
+                  LucideIcons.mapPin,
+                  'Address',
+                  (client['address'] as String?) ?? '',
+                ),
                 const SizedBox(height: 12),
-                _buildDetailRow(context, LucideIcons.phone, 'Contact Phone', (client['phone'] as String?) ?? ''),
+                _buildDetailRow(
+                  context,
+                  LucideIcons.phone,
+                  'Contact Phone',
+                  (client['phone'] as String?) ?? '',
+                ),
                 const SizedBox(height: 12),
                 _buildDetailRow(
                   context,
                   LucideIcons.heartHandshake,
                   'Vitals Status',
                   (client['vitalsStatus'] as String?) ?? '',
-                  valueColor: client['vitalsStatus'] == 'Stable' ? Colors.green : Colors.orange,
+                  valueColor: client['vitalsStatus'] == 'Stable'
+                      ? Colors.green
+                      : Colors.orange,
                 ),
                 const SizedBox(height: 16),
                 // Conditions List
@@ -365,20 +418,25 @@ class PswClientsScreen extends GovernedConsumerWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: (client['conditions'] as List<String>)
-                      .map((cond) => Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: theme.colors.background,
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: theme.colors.border),
+                      .map(
+                        (cond) => Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: theme.colors.background,
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: theme.colors.border),
+                          ),
+                          child: Text(
+                            cond,
+                            style: theme.typography.bodySmall.copyWith(
+                              color: theme.colors.onSurfaceVariant,
                             ),
-                            child: Text(
-                              cond,
-                              style: theme.typography.bodySmall.copyWith(
-                                color: theme.colors.onSurfaceVariant,
-                              ),
-                            ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
                 const SizedBox(height: 16),
@@ -396,7 +454,11 @@ class PswClientsScreen extends GovernedConsumerWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(LucideIcons.info, size: 14, color: theme.colors.primary),
+                          Icon(
+                            LucideIcons.info,
+                            size: 14,
+                            color: theme.colors.primary,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             'Caregiver Instructions',
@@ -419,7 +481,7 @@ class PswClientsScreen extends GovernedConsumerWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -451,7 +513,9 @@ class PswClientsScreen extends GovernedConsumerWidget {
             value,
             style: theme.typography.bodyMedium.copyWith(
               color: valueColor ?? theme.colors.onSurfaceVariant,
-              fontWeight: valueColor != null ? FontWeight.bold : FontWeight.normal,
+              fontWeight: valueColor != null
+                  ? FontWeight.bold
+                  : FontWeight.normal,
             ),
           ),
         ),

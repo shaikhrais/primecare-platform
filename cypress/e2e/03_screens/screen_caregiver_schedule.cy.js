@@ -7,8 +7,11 @@ describe("Screen - caregiver_schedule", () => {
   it("opens and verifies screen caregiver_schedule", () => {
     cy.loginAsRole("caregiver");
 
-  cy.visitWithSemantics("/psw/caregiver-schedule");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/caregiver/schedule (CaregiverScheduleScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/caregiver/schedule");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CaregiverScheduleScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - caregiver_schedule", () => {
   cy.getCy("caregiverschedule-title").should("be.visible");
   cy.getCy("caregiverschedule-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CaregiverScheduleScreen...");
   cy.waitAndSee();
   cy.screenshot("caregiver_schedule");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CaregiverScheduleScreen successfully!\n");
 
   });
 });

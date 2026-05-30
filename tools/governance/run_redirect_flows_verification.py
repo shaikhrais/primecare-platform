@@ -32,7 +32,7 @@ def main():
     log(f"Loaded {len(users)} users to verify.")
 
     # 1. Run Cypress SSO Master Redirection Loop Spec
-    cmd = "npx cypress run --spec cypress/e2e/01_auth/auth_master_loop.cy.js"
+    cmd = "cypress run --spec cypress/e2e/01_auth/auth_master_loop.cy.js"
     log(f"Executing SSO Redirect E2E Suite: {cmd}")
 
     proc_env = os.environ.copy()

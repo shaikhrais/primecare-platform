@@ -7,8 +7,11 @@ describe("Screen - coordinator_hub", () => {
   it("opens and verifies screen coordinator_hub", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/coordinator-hub (CoordinatorHubScreen)...");
   cy.visitWithSemantics("/staff/coordinator-hub");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CoordinatorHubScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - coordinator_hub", () => {
   cy.getCy("coordinatorhub-title").should("be.visible");
   cy.getCy("coordinatorhub-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CoordinatorHubScreen...");
   cy.waitAndSee();
   cy.screenshot("coordinator_hub");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CoordinatorHubScreen successfully!\n");
 
   });
 });

@@ -7,16 +7,10 @@ import 'package:primecare_ui/primecare_ui.dart';
 class PswTasksState {
   final List<Map<String, dynamic>> tasks;
 
-  const PswTasksState({
-    required this.tasks,
-  });
+  const PswTasksState({required this.tasks});
 
-  PswTasksState copyWith({
-    List<Map<String, dynamic>>? tasks,
-  }) {
-    return PswTasksState(
-      tasks: tasks ?? this.tasks,
-    );
+  PswTasksState copyWith({List<Map<String, dynamic>>? tasks}) {
+    return PswTasksState(tasks: tasks ?? this.tasks);
   }
 }
 
@@ -25,79 +19,78 @@ class PswTasksController extends StateNotifier<PswTasksState> {
   final Ref _ref;
 
   PswTasksController(this._ref)
-      : super(
-          const PswTasksState(
-            tasks: [
-              {
-                'id': 'T-001',
-                'client': 'Margaret Thompson',
-                'title': 'Prepare Breakfast & Tea',
-                'category': 'Meals',
-                'isCompleted': false,
-                'priority': 'normal',
-              },
-              {
-                'id': 'T-002',
-                'client': 'Margaret Thompson',
-                'title': 'Assist with Morning Walk (15 mins)',
-                'category': 'Mobility',
-                'isCompleted': false,
-                'priority': 'normal',
-              },
-              {
-                'id': 'T-003',
-                'client': 'Margaret Thompson',
-                'title': 'Confirm Medication Compliance',
-                'category': 'Meds',
-                'isCompleted': false,
-                'priority': 'high',
-              },
-              {
-                'id': 'T-004',
-                'client': 'Arthur Pendelton',
-                'title': 'Check Blood Glucose Levels',
-                'category': 'Vitals',
-                'isCompleted': false,
-                'priority': 'high',
-              },
-              {
-                'id': 'T-005',
-                'client': 'Arthur Pendelton',
-                'title': 'Provide Range of Motion Exercises',
-                'category': 'Physio Support',
-                'isCompleted': false,
-                'priority': 'normal',
-              },
-              {
-                'id': 'T-006',
-                'client': 'Eleanor Vance',
-                'title': 'Assist with Evening Bathing',
-                'category': 'ADL',
-                'isCompleted': false,
-                'priority': 'high',
-              },
-            ],
-          ),
-        );
+    : super(
+        const PswTasksState(
+          tasks: [
+            {
+              'id': 'T-001',
+              'client': 'Margaret Thompson',
+              'title': 'Prepare Breakfast & Tea',
+              'category': 'Meals',
+              'isCompleted': false,
+              'priority': 'normal',
+            },
+            {
+              'id': 'T-002',
+              'client': 'Margaret Thompson',
+              'title': 'Assist with Morning Walk (15 mins)',
+              'category': 'Mobility',
+              'isCompleted': false,
+              'priority': 'normal',
+            },
+            {
+              'id': 'T-003',
+              'client': 'Margaret Thompson',
+              'title': 'Confirm Medication Compliance',
+              'category': 'Meds',
+              'isCompleted': false,
+              'priority': 'high',
+            },
+            {
+              'id': 'T-004',
+              'client': 'Arthur Pendelton',
+              'title': 'Check Blood Glucose Levels',
+              'category': 'Vitals',
+              'isCompleted': false,
+              'priority': 'high',
+            },
+            {
+              'id': 'T-005',
+              'client': 'Arthur Pendelton',
+              'title': 'Provide Range of Motion Exercises',
+              'category': 'Physio Support',
+              'isCompleted': false,
+              'priority': 'normal',
+            },
+            {
+              'id': 'T-006',
+              'client': 'Eleanor Vance',
+              'title': 'Assist with Evening Bathing',
+              'category': 'ADL',
+              'isCompleted': false,
+              'priority': 'high',
+            },
+          ],
+        ),
+      );
 
   void toggleTask(String taskId) {
     final updatedTasks = state.tasks.map((task) {
       if (task['id'] == taskId) {
         final newStatus = task['isCompleted'] != true;
-        
+
         // Log event via telemetry execution gate
         try {
-          _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+          _ref
+              .read(auraBehavioralTelemetryProvider)
+              .logStructuralEvent(
                 route: '/psw/tasks',
                 eventType: 'psw_task_toggle',
                 metadata: {'taskId': taskId, 'completed': newStatus},
               );
         } catch (_) {}
 
-        return {
-          ...task,
-          'isCompleted': newStatus,
-        };
+        return {...task, 'isCompleted': newStatus};
       }
       return task;
     }).toList();
@@ -107,15 +100,17 @@ class PswTasksController extends StateNotifier<PswTasksState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final pswTasksControllerProvider =
     StateNotifierProvider<PswTasksController, PswTasksState>((ref) {
-  return PswTasksController(ref);
-});
+      return PswTasksController(ref);
+    });
 
 // --- View ---
 class PswTasksScreen extends GovernedConsumerWidget {
@@ -127,79 +122,101 @@ class PswTasksScreen extends GovernedConsumerWidget {
     final controller = ref.read(pswTasksControllerProvider.notifier);
     final theme = context.theme;
 
-    final pendingTasks = state.tasks.where((t) => t['isCompleted'] != true).toList();
-    final completedTasks = state.tasks.where((t) => t['isCompleted'] == true).toList();
+    final pendingTasks = state.tasks
+        .where((t) => t['isCompleted'] != true)
+        .toList();
+    final completedTasks = state.tasks
+        .where((t) => t['isCompleted'] == true)
+        .toList();
 
-    return Scaffold(
-      key: const Key('pswtasks-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('pswtasks-title'),
-          'Daily Tasks',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:pswtasks-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswtasks-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('pswtasks-title'),
+            'Daily Tasks',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:pswtasks-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('pswtasks-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('pswtasks-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                // Active Progress Ring/Bar
+                _buildProgressCard(context, state),
+                const SizedBox(height: 24),
+                // Pending Section
+                Text(
+                  'Pending Tasks (${pendingTasks.length})',
+                  style: theme.typography.h3.copyWith(
+                    color: theme.colors.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                if (pendingTasks.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      'Great job! All of your tasks are completed.',
+                      style: theme.typography.bodyMedium.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                      ),
+                    ),
+                  )
+                else
+                  ...pendingTasks.map(
+                    (task) => _buildTaskRow(context, task, controller),
+                  ),
+                const SizedBox(height: 24),
+                // Completed Section
+                Text(
+                  'Completed Tasks (${completedTasks.length})',
+                  style: theme.typography.h3.copyWith(
+                    color: theme.colors.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                if (completedTasks.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      'No completed tasks yet for this shift.',
+                      style: theme.typography.bodyMedium.copyWith(
+                        color: theme.colors.onSurfaceVariant,
+                      ),
+                    ),
+                  )
+                else
+                  ...completedTasks.map(
+                    (task) => _buildTaskRow(context, task, controller),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:pswtasks-screen',
-        child: SingleChildScrollView(
-        key: const Key('pswtasks-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('pswtasks-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            // Active Progress Ring/Bar
-            _buildProgressCard(context, state),
-            const SizedBox(height: 24),
-            // Pending Section
-            Text(
-              'Pending Tasks (${pendingTasks.length})',
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-            ),
-            const SizedBox(height: 12),
-            if (pendingTasks.isEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'Great job! All of your tasks are completed.',
-                  style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                ),
-              )
-            else
-              ...pendingTasks.map((task) => _buildTaskRow(context, task, controller)),
-            const SizedBox(height: 24),
-            // Completed Section
-            Text(
-              'Completed Tasks (${completedTasks.length})',
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-            ),
-            const SizedBox(height: 12),
-            if (completedTasks.isEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'No completed tasks yet for this shift.',
-                  style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                ),
-              )
-            else
-              ...completedTasks.map((task) => _buildTaskRow(context, task, controller)),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -225,12 +242,16 @@ class PswTasksScreen extends GovernedConsumerWidget {
               children: [
                 Text(
                   'Today\'s Progress',
-                  style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  style: theme.typography.h4.copyWith(
+                    color: theme.colors.onSurface,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   'You have completed $completed out of $total required ADL tasks.',
-                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                  style: theme.typography.bodySmall.copyWith(
+                    color: theme.colors.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ClipRRect(
@@ -253,7 +274,7 @@ class PswTasksScreen extends GovernedConsumerWidget {
                 height: 60,
                 width: 60,
                 child: CircularProgressIndicator(
-            key: const Key('pswtasks-loading'),
+                  key: const Key('pswtasks-loading'),
                   value: progress,
                   backgroundColor: theme.colors.background,
                   valueColor: AlwaysStoppedAnimation(theme.colors.primary),
@@ -312,7 +333,10 @@ class PswTasksScreen extends GovernedConsumerWidget {
                   children: [
                     if (isHigh) ...[
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
@@ -329,7 +353,10 @@ class PswTasksScreen extends GovernedConsumerWidget {
                       const SizedBox(width: 6),
                     ],
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: theme.colors.background,
                         borderRadius: BorderRadius.circular(4),
@@ -349,9 +376,13 @@ class PswTasksScreen extends GovernedConsumerWidget {
                 Text(
                   (task['title'] as String?) ?? '',
                   style: theme.typography.bodyMedium.copyWith(
-                    color: isCompleted ? theme.colors.onSurfaceVariant : theme.colors.onSurface,
+                    color: isCompleted
+                        ? theme.colors.onSurfaceVariant
+                        : theme.colors.onSurface,
                     decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    fontWeight: isCompleted ? FontWeight.normal : FontWeight.bold,
+                    fontWeight: isCompleted
+                        ? FontWeight.normal
+                        : FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),

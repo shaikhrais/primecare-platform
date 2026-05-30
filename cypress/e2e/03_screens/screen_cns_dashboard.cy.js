@@ -7,8 +7,11 @@ describe("Screen - cns_dashboard", () => {
   it("opens and verifies screen cns_dashboard", () => {
     cy.loginAsRole("cns");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/cns-dashboard (CnsDashboardScreen)...");
   cy.visitWithSemantics("/clinical/cns-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CnsDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cns_dashboard", () => {
   cy.getCy("cnsdashboard-title").should("be.visible");
   cy.getCy("cnsdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CnsDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("cns_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CnsDashboardScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - hr_director_analytics", () => {
   it("opens and verifies screen hr_director_analytics", () => {
     cy.loginAsRole("hr_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/hr-director-analytics (HrDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/hr-director-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hr_director_analytics", () => {
   cy.getCy("hrdirectoranalytics-title").should("be.visible");
   cy.getCy("hrdirectoranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HrDirectorAnalyticsScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - physiotherapist_treatment_notes", () => {
   it("opens and verifies screen physiotherapist_treatment_notes", () => {
     cy.loginAsRole("physio");
 
-  cy.visitWithSemantics("/allied/physiotherapist-treatment-notes");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/physiotherapist/treatment-notes (PhysiotherapistTreatmentNotesScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-notes");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PhysiotherapistTreatmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - physiotherapist_treatment_notes", () => {
   cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
   cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistTreatmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_treatment_notes");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PhysiotherapistTreatmentNotesScreen successfully!\n");
 
   });
 });

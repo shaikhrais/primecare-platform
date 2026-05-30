@@ -7,8 +7,11 @@ describe("Screen - booking", () => {
   it("opens and verifies screen booking", () => {
     cy.loginAsRole("intake");
 
-  cy.visitWithSemantics("/executive/booking");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/intake_coordinator/booking (BookingScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/booking");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for BookingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - booking", () => {
   cy.getCy("booking-title").should("be.visible");
   cy.getCy("booking-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for BookingScreen...");
   cy.waitAndSee();
   cy.screenshot("booking");
+  
+  cy.task("log", "✅ PROGRESS: - Verified BookingScreen successfully!\n");
 
   });
 });

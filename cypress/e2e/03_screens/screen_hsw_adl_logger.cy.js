@@ -7,8 +7,11 @@ describe("Screen - hsw_adl_logger", () => {
   it("opens and verifies screen hsw_adl_logger", () => {
     cy.loginAsRole("hsw");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/hsw-adl-logger (HswAdlLoggerScreen)...");
   cy.visitWithSemantics("/clinical/hsw-adl-logger");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HswAdlLoggerScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hsw_adl_logger", () => {
   cy.getCy("hswadllogger-title").should("be.visible");
   cy.getCy("hswadllogger-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HswAdlLoggerScreen...");
   cy.waitAndSee();
   cy.screenshot("hsw_adl_logger");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HswAdlLoggerScreen successfully!\n");
 
   });
 });

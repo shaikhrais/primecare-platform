@@ -7,8 +7,11 @@ describe("Screen - qa_compliance", () => {
   it("opens and verifies screen qa_compliance", () => {
     cy.loginAsRole("qa_specialist");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/qa-compliance (QaComplianceScreen)...");
   cy.visitWithSemantics("/common/qa-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for QaComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - qa_compliance", () => {
   cy.getCy("qacompliance-title").should("be.visible");
   cy.getCy("qacompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for QaComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("qa_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified QaComplianceScreen successfully!\n");
 
   });
 });

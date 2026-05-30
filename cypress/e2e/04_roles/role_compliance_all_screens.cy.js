@@ -8,8 +8,11 @@ describe("Role All Screens - compliance", () => {
     cy.loginAsRole("compliance");
 
 
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /management/compliance-manager-dashboard (ComplianceManagerDashboardScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Checking shell & content for ComplianceManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17,11 +20,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagerdashboard-title").should("be.visible");
   cy.getCy("compliancemanagerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Saving screenshot for ComplianceManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Verified ComplianceManagerDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Navigating to /management/compliance-manager-analytics (ComplianceManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Checking shell & content for ComplianceManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -29,11 +38,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanageranalytics-title").should("be.visible");
   cy.getCy("compliancemanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Saving screenshot for ComplianceManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Verified ComplianceManagerAnalyticsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Navigating to /management/compliance-manager-compliance (ComplianceManagerComplianceScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Checking shell & content for ComplianceManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -41,11 +56,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagercompliance-title").should("be.visible");
   cy.getCy("compliancemanagercompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Saving screenshot for ComplianceManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_compliance");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Verified ComplianceManagerComplianceScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Navigating to /management/compliance-manager-workflow (ComplianceManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Checking shell & content for ComplianceManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -53,11 +74,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagerworkflow-title").should("be.visible");
   cy.getCy("compliancemanagerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Saving screenshot for ComplianceManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_workflow");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Verified ComplianceManagerWorkflowScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Navigating to /management/compliance-dashboard (ComplianceDashboardScreen)...");
   cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Checking shell & content for ComplianceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -65,11 +92,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancedashboard-title").should("be.visible");
   cy.getCy("compliancedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Saving screenshot for ComplianceDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Verified ComplianceDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Navigating to /management/audit-review (AuditReviewScreen)...");
   cy.visitWithSemantics("/management/audit-review");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Checking shell & content for AuditReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -77,11 +110,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("auditreview-title").should("be.visible");
   cy.getCy("auditreview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Saving screenshot for AuditReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("audit_review");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Verified AuditReviewScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Navigating to /management/incident-management (IncidentManagementScreen)...");
   cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Checking shell & content for IncidentManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -89,11 +128,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("incidentmanagement-title").should("be.visible");
   cy.getCy("incidentmanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Saving screenshot for IncidentManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_management");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Verified IncidentManagementScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Navigating to /management/policy-management (PolicyManagementScreen)...");
   cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Checking shell & content for PolicyManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -101,11 +146,17 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("policymanagement-title").should("be.visible");
   cy.getCy("policymanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Saving screenshot for PolicyManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("policy_management");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Verified PolicyManagementScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Navigating to /management/corrective-action (CorrectiveActionScreen)...");
   cy.visitWithSemantics("/management/corrective-action");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Checking shell & content for CorrectiveActionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -113,8 +164,11 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("correctiveaction-title").should("be.visible");
   cy.getCy("correctiveaction-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Saving screenshot for CorrectiveActionScreen...");
   cy.waitAndSee();
   cy.screenshot("corrective_action");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Verified CorrectiveActionScreen successfully!\n");
 
   });
 });

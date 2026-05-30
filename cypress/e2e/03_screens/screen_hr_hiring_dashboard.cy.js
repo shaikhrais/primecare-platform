@@ -7,8 +7,11 @@ describe("Screen - hr_hiring_dashboard", () => {
   it("opens and verifies screen hr_hiring_dashboard", () => {
     cy.loginAsRole("hr_hiring");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/hr-hiring-dashboard (HrHiringDashboardScreen)...");
   cy.visitWithSemantics("/staff/hr-hiring-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrHiringDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hr_hiring_dashboard", () => {
   cy.getCy("hrhiringdashboard-title").should("be.visible");
   cy.getCy("hrhiringdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HrHiringDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_hiring_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HrHiringDashboardScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - incident_oversight", () => {
   it("opens and verifies screen incident_oversight", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/clinical/incident-oversight");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-oversight");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IncidentOversightScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - incident_oversight", () => {
   cy.getCy("incidentoversight-title").should("be.visible");
   cy.getCy("incidentoversight-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IncidentOversightScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IncidentOversightScreen successfully!\n");
 
   });
 });

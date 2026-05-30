@@ -7,8 +7,11 @@ describe("Screen - conflict_resolution", () => {
   it("opens and verifies screen conflict_resolution", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/conflict-resolution (ConflictResolutionScreen)...");
   cy.visitWithSemantics("/staff/conflict-resolution");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ConflictResolutionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - conflict_resolution", () => {
   cy.getCy("conflictresolution-title").should("be.visible");
   cy.getCy("conflictresolution-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ConflictResolutionScreen...");
   cy.waitAndSee();
   cy.screenshot("conflict_resolution");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ConflictResolutionScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - family_overview", () => {
   it("opens and verifies screen family_overview", () => {
     cy.loginAsRole("family");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/family-overview (FamilyOverviewScreen)...");
   cy.visitWithSemantics("/common/family-overview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FamilyOverviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - family_overview", () => {
   cy.getCy("familyoverview-title").should("be.visible");
   cy.getCy("familyoverview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyOverviewScreen...");
   cy.waitAndSee();
   cy.screenshot("family_overview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FamilyOverviewScreen successfully!\n");
 
   });
 });

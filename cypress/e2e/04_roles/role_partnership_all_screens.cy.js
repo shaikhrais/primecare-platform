@@ -8,8 +8,11 @@ describe("Role All Screens - partnership", () => {
     cy.loginAsRole("partnership");
 
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/partnership-manager-dashboard (PartnershipManagerDashboardScreen)...");
   cy.visitWithSemantics("/management/partnership-manager-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for PartnershipManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17,11 +20,17 @@ describe("Role All Screens - partnership", () => {
   cy.getCy("partnershipmanagerdashboard-title").should("be.visible");
   cy.getCy("partnershipmanagerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for PartnershipManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Verified PartnershipManagerDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Navigating to /management/partnership-manager-analytics (PartnershipManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/partnership-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Checking shell & content for PartnershipManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -29,11 +38,17 @@ describe("Role All Screens - partnership", () => {
   cy.getCy("partnershipmanageranalytics-title").should("be.visible");
   cy.getCy("partnershipmanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for PartnershipManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Verified PartnershipManagerAnalyticsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Navigating to /management/partnership-manager-compliance (PartnershipManagerComplianceScreen)...");
   cy.visitWithSemantics("/management/partnership-manager-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Checking shell & content for PartnershipManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -41,11 +56,17 @@ describe("Role All Screens - partnership", () => {
   cy.getCy("partnershipmanagercompliance-title").should("be.visible");
   cy.getCy("partnershipmanagercompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for PartnershipManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_compliance");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Verified PartnershipManagerComplianceScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Navigating to /management/partnership-manager-workflow (PartnershipManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/partnership-manager-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Checking shell & content for PartnershipManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -53,8 +74,11 @@ describe("Role All Screens - partnership", () => {
   cy.getCy("partnershipmanagerworkflow-title").should("be.visible");
   cy.getCy("partnershipmanagerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for PartnershipManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_workflow");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Verified PartnershipManagerWorkflowScreen successfully!\n");
 
   });
 });

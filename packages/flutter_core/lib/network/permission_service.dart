@@ -60,26 +60,8 @@ class PermissionService {
   }
 
   static Future<void> _applyMockFallback() async {
-    final mockPermissions = {
-      'ceo': ['/corporate', '/common'],
-      'founder': ['/corporate', '/common'],
-      'coo': ['/corporate', '/common'],
-      'cfo': ['/corporate', '/common'],
-      'cto': ['/corporate', '/common'],
-      'regional_manager': ['/bd', '/common'],
-      'franchise_owner': ['/franchise', '/common'],
-      'operations_manager': ['/franchise', '/common'],
-      'admin': ['/franchise', '/common'],
-      'receptionist': ['/common', '/dynamic'],
-      'rn': ['/clinic', '/common', '/dynamic'],
-      'rpn': ['/clinic', '/common', '/dynamic'],
-      'rmt': ['/clinic', '/common', '/dynamic'],
-      'psw': ['/clinic', '/common', '/dynamic'],
-      'physio': ['/clinic', '/common', '/dynamic'],
-      'client': ['/client', '/common'],
-      'family': ['/client', '/common'],
-    };
-
-    RouteGuard.synchronizePermissions(mockPermissions);
+    // Keep all high-fidelity default permissions from RouteGuard if dynamic fetch fails in dev/test,
+    // preventing dynamic role mapping wipes (e.g. for chiropractor, physio, clinical_director, etc.)
+    RouteGuard.synchronizePermissions(RouteGuard.defaultPermissions);
   }
 }

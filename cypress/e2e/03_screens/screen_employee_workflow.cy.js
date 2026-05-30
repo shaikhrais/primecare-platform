@@ -7,8 +7,11 @@ describe("Screen - employee_workflow", () => {
   it("opens and verifies screen employee_workflow", () => {
     cy.loginAsRole("employee");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/employee-workflow (Employee Compliance Workflow)...");
   cy.visitWithSemantics("/staff/employee-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Employee Compliance Workflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - employee_workflow", () => {
   cy.getCy("employee compliance workflow-title").should("be.visible");
   cy.getCy("employee compliance workflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Employee Compliance Workflow...");
   cy.waitAndSee();
   cy.screenshot("employee_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Employee Compliance Workflow successfully!\n");
 
   });
 });

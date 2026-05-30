@@ -7,8 +7,11 @@ describe("Screen - course_assignment", () => {
   it("opens and verifies screen course_assignment", () => {
     cy.loginAsRole("training_coordinator");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/course-assignment (CourseAssignmentScreen)...");
   cy.visitWithSemantics("/staff/course-assignment");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CourseAssignmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - course_assignment", () => {
   cy.getCy("courseassignment-title").should("be.visible");
   cy.getCy("courseassignment-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CourseAssignmentScreen...");
   cy.waitAndSee();
   cy.screenshot("course_assignment");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CourseAssignmentScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - infrastructure_workflow", () => {
   it("opens and verifies screen infrastructure_workflow", () => {
     cy.loginAsRole("infrastructure");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/infrastructure-workflow (InfrastructureWorkflowScreen)...");
   cy.visitWithSemantics("/common/infrastructure-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for InfrastructureWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - infrastructure_workflow", () => {
   cy.getCy("infrastructureworkflow-title").should("be.visible");
   cy.getCy("infrastructureworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for InfrastructureWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("infrastructure_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified InfrastructureWorkflowScreen successfully!\n");
 
   });
 });

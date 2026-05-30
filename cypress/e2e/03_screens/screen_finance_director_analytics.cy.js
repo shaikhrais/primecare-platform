@@ -7,8 +7,11 @@ describe("Screen - finance_director_analytics", () => {
   it("opens and verifies screen finance_director_analytics", () => {
     cy.loginAsRole("finance_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/finance-director-analytics (FinanceDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FinanceDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - finance_director_analytics", () => {
   cy.getCy("financedirectoranalytics-title").should("be.visible");
   cy.getCy("financedirectoranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FinanceDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FinanceDirectorAnalyticsScreen successfully!\n");
 
   });
 });

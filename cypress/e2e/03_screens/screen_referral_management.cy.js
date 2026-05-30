@@ -7,8 +7,11 @@ describe("Screen - referral_management", () => {
   it("opens and verifies screen referral_management", () => {
     cy.loginAsRole("intake");
 
-  cy.visitWithSemantics("/executive/referral-management");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/intake_coordinator/referral-management (ReferralManagementScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/referral-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ReferralManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - referral_management", () => {
   cy.getCy("referralmanagement-title").should("be.visible");
   cy.getCy("referralmanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ReferralManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("referral_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ReferralManagementScreen successfully!\n");
 
   });
 });

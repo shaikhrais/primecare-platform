@@ -7,8 +7,11 @@ describe("Screen - training_hub_compliance", () => {
   it("opens and verifies screen training_hub_compliance", () => {
     cy.loginAsRole("training");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/training-hub-compliance (TrainingHubComplianceScreen)...");
   cy.visitWithSemantics("/common/training-hub-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingHubComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - training_hub_compliance", () => {
   cy.getCy("traininghubcompliance-title").should("be.visible");
   cy.getCy("traininghubcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingHubComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("training_hub_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TrainingHubComplianceScreen successfully!\n");
 
   });
 });

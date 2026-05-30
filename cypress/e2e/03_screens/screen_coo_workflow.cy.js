@@ -7,8 +7,11 @@ describe("Screen - coo_workflow", () => {
   it("opens and verifies screen coo_workflow", () => {
     cy.loginAsRole("coo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/coo-workflow (CooWorkflowScreen)...");
   cy.visitWithSemantics("/executive/coo-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CooWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - coo_workflow", () => {
   cy.getCy("cooworkflow-title").should("be.visible");
   cy.getCy("cooworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CooWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("coo_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CooWorkflowScreen successfully!\n");
 
   });
 });

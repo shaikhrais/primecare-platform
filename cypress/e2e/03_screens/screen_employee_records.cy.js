@@ -7,8 +7,11 @@ describe("Screen - employee_records", () => {
   it("opens and verifies screen employee_records", () => {
     cy.loginAsRole("hr_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/employee-records (EmployeeRecordsScreen)...");
   cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for EmployeeRecordsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - employee_records", () => {
   cy.getCy("employeerecords-title").should("be.visible");
   cy.getCy("employeerecords-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for EmployeeRecordsScreen...");
   cy.waitAndSee();
   cy.screenshot("employee_records");
+  
+  cy.task("log", "✅ PROGRESS: - Verified EmployeeRecordsScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - governance_control_room", () => {
   it("opens and verifies screen governance_control_room", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/governance-control-room (GovernanceControlRoomScreen)...");
   cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GovernanceControlRoomScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - governance_control_room", () => {
   cy.getCy("governancecontrolroom-title").should("be.visible");
   cy.getCy("governancecontrolroom-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for GovernanceControlRoomScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_control_room");
+  
+  cy.task("log", "✅ PROGRESS: - Verified GovernanceControlRoomScreen successfully!\n");
 
   });
 });

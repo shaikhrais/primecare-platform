@@ -41,36 +41,40 @@ class RnAssessmentsController extends StateNotifier<RnAssessmentsState> {
   final Ref _ref;
 
   RnAssessmentsController(this._ref)
-      : super(
-          RnAssessmentsState(
-            assessmentHistory: [
-              {
-                'id': 'ASM-902',
-                'client': 'Margaret Thompson',
-                'date': '2026-05-10',
-                'overallScore': 7.2,
-                'status': 'completed',
-              },
-              {
-                'id': 'ASM-901',
-                'client': 'Arthur Pendelton',
-                'date': '2026-05-02',
-                'overallScore': 6.8,
-                'status': 'completed',
-              },
-            ],
-          ),
-        );
+    : super(
+        RnAssessmentsState(
+          assessmentHistory: [
+            {
+              'id': 'ASM-902',
+              'client': 'Margaret Thompson',
+              'date': '2026-05-10',
+              'overallScore': 7.2,
+              'status': 'completed',
+            },
+            {
+              'id': 'ASM-901',
+              'client': 'Arthur Pendelton',
+              'date': '2026-05-02',
+              'overallScore': 6.8,
+              'status': 'completed',
+            },
+          ],
+        ),
+      );
 
   void updateMobility(double val) => state = state.copyWith(mobilityScore: val);
-  void updateCognitive(double val) => state = state.copyWith(cognitiveScore: val);
-  void updateNutritional(double val) => state = state.copyWith(nutritionalScore: val);
+  void updateCognitive(double val) =>
+      state = state.copyWith(cognitiveScore: val);
+  void updateNutritional(double val) =>
+      state = state.copyWith(nutritionalScore: val);
 
   Future<void> submitAssessment(String clientName) async {
     state = state.copyWith(isSubmitting: true);
     await Future<void>.delayed(const Duration(milliseconds: 800));
 
-    final overall = (state.mobilityScore + state.cognitiveScore + state.nutritionalScore) / 3;
+    final overall =
+        (state.mobilityScore + state.cognitiveScore + state.nutritionalScore) /
+        3;
     final newAssessment = {
       'id': 'ASM-${900 + state.assessmentHistory.length + 1}',
       'client': clientName,
@@ -89,7 +93,9 @@ class RnAssessmentsController extends StateNotifier<RnAssessmentsState> {
 
     // Logging telemetry event via execution gate
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rn/assessments',
             eventType: 'rn_assessment_submitted',
             metadata: {'client': clientName, 'score': overall},
@@ -99,15 +105,17 @@ class RnAssessmentsController extends StateNotifier<RnAssessmentsState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rnAssessmentsControllerProvider =
     StateNotifierProvider<RnAssessmentsController, RnAssessmentsState>((ref) {
-  return RnAssessmentsController(ref);
-});
+      return RnAssessmentsController(ref);
+    });
 
 // --- View ---
 class RnAssessmentsScreen extends GovernedConsumerWidget {
@@ -119,50 +127,60 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
     final controller = ref.read(rnAssessmentsControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('rnassessments-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rnassessments-title'),
-          'Clinical Assessments',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:rnassessments-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rnassessments-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rnassessments-title'),
+            'Clinical Assessments',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:rnassessments-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rnassessments-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rnassessments-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                // Clinical Scoring Form
+                _buildAssessmentForm(context, state, controller),
+                const SizedBox(height: 28),
+                // Assessment History
+                Text(
+                  'Assessment History',
+                  style: theme.typography.h3.copyWith(
+                    color: theme.colors.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ...state.assessmentHistory.map(
+                  (asm) => _buildHistoryCard(context, asm),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:rnassessments-screen',
-        child: SingleChildScrollView(
-        key: const Key('rnassessments-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rnassessments-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            // Clinical Scoring Form
-            _buildAssessmentForm(context, state, controller),
-            const SizedBox(height: 28),
-            // Assessment History
-            Text(
-              'Assessment History',
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-            ),
-            const SizedBox(height: 12),
-            ...state.assessmentHistory.map((asm) => _buildHistoryCard(context, asm)),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -191,7 +209,9 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Score each clinical category carefully according to current patient symptoms.',
-            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+            style: theme.typography.bodySmall.copyWith(
+              color: theme.colors.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 24),
           // Category 1: Mobility
@@ -228,7 +248,7 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-            key: const Key('rnassessments-btn-2'),
+              key: const Key('rnassessments-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 shape: RoundedRectangleBorder(
@@ -243,14 +263,16 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-            key: const Key('rnassessments-loading'),
+                        key: const Key('rnassessments-loading'),
                         strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation(Colors.white),
                       ),
                     )
                   : Text(
                       'Record Clinical Assessment',
-                      style: theme.typography.button.copyWith(color: Colors.white),
+                      style: theme.typography.button.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
             ),
           ),
@@ -311,8 +333,18 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(leftLabel, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
-            Text(rightLabel, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+            Text(
+              leftLabel,
+              style: theme.typography.bodySmall.copyWith(
+                color: theme.colors.onSurfaceVariant,
+              ),
+            ),
+            Text(
+              rightLabel,
+              style: theme.typography.bodySmall.copyWith(
+                color: theme.colors.onSurfaceVariant,
+              ),
+            ),
           ],
         ),
       ],
@@ -347,7 +379,9 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
               const SizedBox(height: 4),
               Text(
                 'Recorded on ${asm['date']}',
-                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                style: theme.typography.bodySmall.copyWith(
+                  color: theme.colors.onSurfaceVariant,
+                ),
               ),
             ],
           ),

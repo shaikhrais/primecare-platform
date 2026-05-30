@@ -7,8 +7,11 @@ describe("Screen - failed_workflow", () => {
   it("opens and verifies screen failed_workflow", () => {
     cy.loginAsRole("qa_specialist");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/failed-workflow (FailedWorkflowScreen)...");
   cy.visitWithSemantics("/staff/failed-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FailedWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - failed_workflow", () => {
   cy.getCy("failedworkflow-title").should("be.visible");
   cy.getCy("failedworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FailedWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("failed_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FailedWorkflowScreen successfully!\n");
 
   });
 });

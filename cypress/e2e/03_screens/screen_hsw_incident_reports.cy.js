@@ -7,8 +7,11 @@ describe("Screen - hsw_incident_reports", () => {
   it("opens and verifies screen hsw_incident_reports", () => {
     cy.loginAsRole("hsw");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/hsw-incident-reports (HswIncidentReportsScreen)...");
   cy.visitWithSemantics("/clinical/hsw-incident-reports");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HswIncidentReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hsw_incident_reports", () => {
   cy.getCy("hswincidentreports-title").should("be.visible");
   cy.getCy("hswincidentreports-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HswIncidentReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("hsw_incident_reports");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HswIncidentReportsScreen successfully!\n");
 
   });
 });

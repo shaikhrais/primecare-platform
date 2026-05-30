@@ -7,8 +7,11 @@ describe("Screen - cto_workflow", () => {
   it("opens and verifies screen cto_workflow", () => {
     cy.loginAsRole("cto");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cto-workflow (CtoWorkflowScreen)...");
   cy.visitWithSemantics("/executive/cto-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CtoWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cto_workflow", () => {
   cy.getCy("ctoworkflow-title").should("be.visible");
   cy.getCy("ctoworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CtoWorkflowScreen successfully!\n");
 
   });
 });

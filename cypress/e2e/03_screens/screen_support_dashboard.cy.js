@@ -7,8 +7,11 @@ describe("Screen - support_dashboard", () => {
   it("opens and verifies screen support_dashboard", () => {
     cy.loginAsRole("dynamic");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/support-dashboard (SupportDashboardScreen)...");
   cy.visitWithSemantics("/common/support-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SupportDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - support_dashboard", () => {
   cy.getCy("supportdashboard-title").should("be.visible");
   cy.getCy("supportdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SupportDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("support_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SupportDashboardScreen successfully!\n");
 
   });
 });

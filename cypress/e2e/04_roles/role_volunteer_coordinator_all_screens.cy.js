@@ -8,8 +8,11 @@ describe("Role All Screens - volunteer_coordinator", () => {
     cy.loginAsRole("volunteer_coordinator");
 
 
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Navigating to /staff/volunteer-coordinator-dashboard (VolunteerCoordinatorDashboardScreen)...");
   cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Checking shell & content for VolunteerCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17,11 +20,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("volunteercoordinatordashboard-title").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Saving screenshot for VolunteerCoordinatorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Verified VolunteerCoordinatorDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Navigating to /executive/intake-coordinator-referrals (IntakeCoordinatorReferralsScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Checking shell & content for IntakeCoordinatorReferralsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -29,11 +38,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatorreferrals-title").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Saving screenshot for IntakeCoordinatorReferralsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Verified IntakeCoordinatorReferralsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Navigating to /executive/intake-coordinator-new-client-intake (IntakeCoordinatorNewClientIntakeScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Checking shell & content for IntakeCoordinatorNewClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -41,11 +56,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatornewclientintake-title").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Saving screenshot for IntakeCoordinatorNewClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Verified IntakeCoordinatorNewClientIntakeScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Navigating to /executive/intake-coordinator-assessment-queue (IntakeCoordinatorAssessmentQueueScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-assessment-queue");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Checking shell & content for IntakeCoordinatorAssessmentQueueScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -53,11 +74,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatorassessmentqueue-title").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Saving screenshot for IntakeCoordinatorAssessmentQueueScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessment_queue");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Verified IntakeCoordinatorAssessmentQueueScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Navigating to /executive/intake-coordinator-booking (IntakeCoordinatorBookingScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-booking");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Checking shell & content for IntakeCoordinatorBookingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -65,11 +92,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatorbooking-title").should("be.visible");
   cy.getCy("intakecoordinatorbooking-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Saving screenshot for IntakeCoordinatorBookingScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_booking");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Verified IntakeCoordinatorBookingScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Navigating to /executive/intake-coordinator-documents (IntakeCoordinatorDocumentsScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-documents");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Checking shell & content for IntakeCoordinatorDocumentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -77,11 +110,17 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatordocuments-title").should("be.visible");
   cy.getCy("intakecoordinatordocuments-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Saving screenshot for IntakeCoordinatorDocumentsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_documents");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Verified IntakeCoordinatorDocumentsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Navigating to /executive/intake-coordinator-follow-up (IntakeCoordinatorFollowUpScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-follow-up");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Checking shell & content for IntakeCoordinatorFollowUpScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -89,8 +128,11 @@ describe("Role All Screens - volunteer_coordinator", () => {
   cy.getCy("intakecoordinatorfollowup-title").should("be.visible");
   cy.getCy("intakecoordinatorfollowup-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Saving screenshot for IntakeCoordinatorFollowUpScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_follow_up");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Verified IntakeCoordinatorFollowUpScreen successfully!\n");
 
   });
 });

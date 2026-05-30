@@ -7,8 +7,11 @@ describe("Screen - security_audit", () => {
   it("opens and verifies screen security_audit", () => {
     cy.loginAsRole("cto");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/security-audit (SecurityAuditScreen)...");
   cy.visitWithSemantics("/executive/security-audit");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SecurityAuditScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - security_audit", () => {
   cy.getCy("securityaudit-title").should("be.visible");
   cy.getCy("securityaudit-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SecurityAuditScreen...");
   cy.waitAndSee();
   cy.screenshot("security_audit");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SecurityAuditScreen successfully!\n");
 
   });
 });

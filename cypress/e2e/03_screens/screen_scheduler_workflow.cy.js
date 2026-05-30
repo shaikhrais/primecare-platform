@@ -7,8 +7,11 @@ describe("Screen - scheduler_workflow", () => {
   it("opens and verifies screen scheduler_workflow", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-workflow (SchedulerWorkflowScreen)...");
   cy.visitWithSemantics("/staff/scheduler-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_workflow", () => {
   cy.getCy("schedulerworkflow-title").should("be.visible");
   cy.getCy("schedulerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerWorkflowScreen successfully!\n");
 
   });
 });

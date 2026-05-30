@@ -7,8 +7,11 @@ describe("Screen - rmt_billing_link", () => {
   it("opens and verifies screen rmt_billing_link", () => {
     cy.loginAsRole("rmt");
 
-  cy.visitWithSemantics("/allied/rmt-billing-link");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rmt/billing-link (RmtBillingLinkScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rmt/billing-link");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RmtBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rmt_billing_link", () => {
   cy.getCy("rmtbillinglink-title").should("be.visible");
   cy.getCy("rmtbillinglink-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_billing_link");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RmtBillingLinkScreen successfully!\n");
 
   });
 });

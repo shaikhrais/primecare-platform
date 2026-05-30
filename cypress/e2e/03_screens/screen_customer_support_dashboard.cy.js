@@ -7,8 +7,11 @@ describe("Screen - customer_support_dashboard", () => {
   it("opens and verifies screen customer_support_dashboard", () => {
     cy.loginAsRole("dynamic");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/customer-support-dashboard (CustomerSupportDashboardScreen)...");
   cy.visitWithSemantics("/common/customer-support-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CustomerSupportDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - customer_support_dashboard", () => {
   cy.getCy("customersupportdashboard-title").should("be.visible");
   cy.getCy("customersupportdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CustomerSupportDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("customer_support_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CustomerSupportDashboardScreen successfully!\n");
 
   });
 });

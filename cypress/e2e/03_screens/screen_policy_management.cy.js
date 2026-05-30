@@ -7,8 +7,11 @@ describe("Screen - policy_management", () => {
   it("opens and verifies screen policy_management", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/policy-management (PolicyManagementScreen)...");
   cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PolicyManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - policy_management", () => {
   cy.getCy("policymanagement-title").should("be.visible");
   cy.getCy("policymanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PolicyManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("policy_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PolicyManagementScreen successfully!\n");
 
   });
 });

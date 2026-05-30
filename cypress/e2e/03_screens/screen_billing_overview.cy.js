@@ -7,8 +7,11 @@ describe("Screen - billing_overview", () => {
   it("opens and verifies screen billing_overview", () => {
     cy.loginAsRole("family");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/billing-overview (BillingOverviewScreen)...");
   cy.visitWithSemantics("/common/billing-overview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for BillingOverviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - billing_overview", () => {
   cy.getCy("billingoverview-title").should("be.visible");
   cy.getCy("billingoverview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingOverviewScreen...");
   cy.waitAndSee();
   cy.screenshot("billing_overview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified BillingOverviewScreen successfully!\n");
 
   });
 });

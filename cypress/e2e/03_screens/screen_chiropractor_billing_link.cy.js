@@ -7,8 +7,11 @@ describe("Screen - chiropractor_billing_link", () => {
   it("opens and verifies screen chiropractor_billing_link", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visitWithSemantics("/allied/chiropractor-billing-link");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/chiropractor/billing-link (ChiropractorBillingLinkScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/billing-link");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ChiropractorBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - chiropractor_billing_link", () => {
   cy.getCy("chiropractorbillinglink-title").should("be.visible");
   cy.getCy("chiropractorbillinglink-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ChiropractorBillingLinkScreen successfully!\n");
 
   });
 });

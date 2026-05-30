@@ -7,8 +7,11 @@ describe("Screen - compliance_review", () => {
   it("opens and verifies screen compliance_review", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/clinical/compliance-review");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-review");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ComplianceReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - compliance_review", () => {
   cy.getCy("compliancereview-title").should("be.visible");
   cy.getCy("compliancereview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_review");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ComplianceReviewScreen successfully!\n");
 
   });
 });

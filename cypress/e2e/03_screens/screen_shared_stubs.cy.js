@@ -7,8 +7,11 @@ describe("Screen - shared_stubs", () => {
   it("opens and verifies screen shared_stubs", () => {
     cy.loginAsRole("dynamic");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/shared-stubs (SharedScreenStubs)...");
   cy.visitWithSemantics("/common/shared-stubs");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SharedScreenStubs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - shared_stubs", () => {
   cy.getCy("sharedstubs-title").should("be.visible");
   cy.getCy("sharedstubs-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SharedScreenStubs...");
   cy.waitAndSee();
   cy.screenshot("shared_stubs");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SharedScreenStubs successfully!\n");
 
   });
 });

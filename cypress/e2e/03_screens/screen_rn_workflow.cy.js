@@ -7,8 +7,11 @@ describe("Screen - rn_workflow", () => {
   it("opens and verifies screen rn_workflow", () => {
     cy.loginAsRole("rn");
 
-  cy.visitWithSemantics("/rn/rn-workflow");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rn/rn-workflow (RnWorkflowScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rn/rn-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RnWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rn_workflow", () => {
   cy.getCy("rnworkflow-title").should("be.visible");
   cy.getCy("rnworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RnWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RnWorkflowScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - financial_dashboard", () => {
   it("opens and verifies screen financial_dashboard", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/financial-dashboard (FinancialDashboardScreen)...");
   cy.visitWithSemantics("/executive/financial-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FinancialDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - financial_dashboard", () => {
   cy.getCy("financialdashboard-title").should("be.visible");
   cy.getCy("financialdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FinancialDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("financial_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FinancialDashboardScreen successfully!\n");
 
   });
 });

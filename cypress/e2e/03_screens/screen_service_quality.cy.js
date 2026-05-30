@@ -7,8 +7,11 @@ describe("Screen - service_quality", () => {
   it("opens and verifies screen service_quality", () => {
     cy.loginAsRole("coo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/service-quality (ServiceQualityScreen)...");
   cy.visitWithSemantics("/executive/service-quality");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ServiceQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - service_quality", () => {
   cy.getCy("servicequality-title").should("be.visible");
   cy.getCy("servicequality-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ServiceQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("service_quality");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ServiceQualityScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - receptionist_dashboard", () => {
   it("opens and verifies screen receptionist_dashboard", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/receptionist-dashboard (ReceptionistDashboardScreen)...");
   cy.visitWithSemantics("/staff/receptionist-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ReceptionistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - receptionist_dashboard", () => {
   cy.getCy("receptionistdashboard-title").should("be.visible");
   cy.getCy("receptionistdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ReceptionistDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("receptionist_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ReceptionistDashboardScreen successfully!\n");
 
   });
 });

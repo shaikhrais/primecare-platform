@@ -7,8 +7,11 @@ describe("Screen - office_analytics", () => {
   it("opens and verifies screen office_analytics", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/office-analytics (OfficeAnalyticsScreen)...");
   cy.visitWithSemantics("/common/office-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OfficeAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - office_analytics", () => {
   cy.getCy("officeanalytics-title").should("be.visible");
   cy.getCy("officeanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("office_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OfficeAnalyticsScreen successfully!\n");
 
   });
 });

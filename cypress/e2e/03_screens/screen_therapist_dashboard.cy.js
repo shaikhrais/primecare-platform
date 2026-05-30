@@ -7,8 +7,11 @@ describe("Screen - therapist_dashboard", () => {
   it("opens and verifies screen therapist_dashboard", () => {
     cy.loginAsRole("therapist");
 
-  cy.visitWithSemantics("/allied/therapist-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/therapist/dashboard (TherapistDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/therapist/dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TherapistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - therapist_dashboard", () => {
   cy.getCy("therapistdashboard-title").should("be.visible");
   cy.getCy("therapistdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TherapistDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("therapist_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TherapistDashboardScreen successfully!\n");
 
   });
 });

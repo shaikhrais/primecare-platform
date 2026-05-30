@@ -7,8 +7,11 @@ describe("Screen - role_coverage_dashboard", () => {
   it("opens and verifies screen role_coverage_dashboard", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/role-coverage-dashboard (RoleCoverageDashboardScreen)...");
   cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RoleCoverageDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - role_coverage_dashboard", () => {
   cy.getCy("rolecoveragedashboard-title").should("be.visible");
   cy.getCy("rolecoveragedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RoleCoverageDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("role_coverage_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RoleCoverageDashboardScreen successfully!\n");
 
   });
 });

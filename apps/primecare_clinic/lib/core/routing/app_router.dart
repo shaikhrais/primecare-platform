@@ -1,6 +1,34 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide PhysicianDashboardScreen, RnDashboardScreen, RnMedicationsScreen, RnVitalsScreen, RnChartingScreen, RnMessagingScreen, PswDashboardScreen, PswCarePlanScreen, PswDailyNotesScreen, PswClientProfileScreen, PswMyShiftsScreen, PswMessagingScreen, IntakeCoordinatorDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen, ReceptionistDashboardScreen, RmtDashboardScreen, ChiropractorDashboardScreen, PhysiotherapistDashboardScreen, SocialWorkerDashboardScreen, ClinicalDirectorDashboardScreen, PswMessagesScreen, PswVisitNotesScreen, QaDashboardScreen, PswShiftTrackerScreen, PswDocumentsScreen;
+import 'package:flutter_core/flutter_core.dart';
+import 'package:primecare_ui/primecare_ui.dart'
+    hide
+        PhysicianDashboardScreen,
+        RnDashboardScreen,
+        RnMedicationsScreen,
+        RnVitalsScreen,
+        RnChartingScreen,
+        RnMessagingScreen,
+        PswDashboardScreen,
+        PswCarePlanScreen,
+        PswDailyNotesScreen,
+        PswClientProfileScreen,
+        PswMyShiftsScreen,
+        PswMessagingScreen,
+        IntakeCoordinatorDashboardScreen,
+        QualityAssuranceDashboardScreen,
+        TrainingCoordinatorDashboardScreen,
+        ReceptionistDashboardScreen,
+        RmtDashboardScreen,
+        ChiropractorDashboardScreen,
+        PhysiotherapistDashboardScreen,
+        SocialWorkerDashboardScreen,
+        ClinicalDirectorDashboardScreen,
+        PswMessagesScreen,
+        PswVisitNotesScreen,
+        QaDashboardScreen,
+        PswShiftTrackerScreen,
+        PswDocumentsScreen;
 
 import 'clinic_routes.dart';
 
@@ -19,53 +47,27 @@ import '../../features/rn/screens/rn_messaging_screen.dart';
 
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
-import '../../features/psw/screens/psw_care_dashboard_screen.dart';
-import '../../features/psw/screens/psw_shift_tracker_screen.dart';
-import '../../features/psw/screens/psw_my_clients_screen.dart';
-import '../../features/psw/screens/psw_task_list_screen.dart';
-import '../../features/psw/screens/psw_messages_screen.dart';
-import '../../features/psw/screens/psw_visit_notes_screen.dart';
-import '../../features/psw/screens/psw_profile_screen.dart';
-import '../../features/psw/screens/psw_reports_screen.dart';
-import '../../features/psw/screens/psw_documents_screen.dart';
-import '../../features/psw/screens/psw_check_in_screen.dart';
-import '../../features/psw/screens/psw_system_logs_screen.dart';
-import '../../features/psw/screens/psw_notifications_screen.dart';
-import '../../features/psw/screens/psw_help_support_screen.dart';
-import '../../features/shared/screens/clinical_director_dashboard_screen.dart';
-import '../../features/physician/screens/physician_dashboard_screen.dart';
-import '../../features/shared/screens/intake_coordinator_dashboard_screen.dart';
-import '../../features/shared/screens/qa_dashboard_screen.dart';
-import '../../features/shared/screens/training_coordinator_dashboard_screen.dart';
-import '../../features/shared/screens/receptionist_dashboard_screen.dart';
-import '../../features/shared/screens/rmt_dashboard_screen.dart';
-import '../../features/shared/screens/chiropractor_dashboard_screen.dart';
-import '../../features/shared/screens/physiotherapist_dashboard_screen.dart';
-import '../../features/shared/screens/social_worker_dashboard_screen.dart';
-
-
-
-
-
 
 final clinicApplicationProvider = Provider<ClinicApplication>((ref) {
   return ClinicApplication();
 });
 
-final appRouterProvider = Provider<GoRouter>((ref) {
+final activeRoleProvider = Provider<PlatformRole>((ref) {
   final authState = ref.watch(authProvider);
-  final application = ref.watch(clinicApplicationProvider);
+  if (!authState.isInitialized || !authState.isAuthenticated) {
+    return PlatformRole.guest;
+  }
+  return PlatformRole.fromName(authState.role);
+});
 
-  // Provide a safe fallback role for public/unauthenticated access
-  final activeRole = authState.isAuthenticated
-      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
-              (r) => r?.name == authState.role,
-              orElse: () => PlatformRole.guest,
-            ) ??
-            PlatformRole.guest)
-      : PlatformRole.guest;
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final activeRole = ref.watch(activeRoleProvider);
+  final application = ref.read(clinicApplicationProvider);
 
-  final dashboardRoute = activeRole == PlatformRole.guest ? CommonRoutes.login : application.getDefinition(activeRole)?.dashboardRoute ?? CommonRoutes.login;
+  final dashboardRoute = activeRole == PlatformRole.guest
+      ? CommonRoutes.login
+      : application.getDefinition(activeRole)?.dashboardRoute ??
+            CommonRoutes.login;
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
@@ -73,10 +75,30 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: dashboardRoute,
     refreshListenable: authListenable,
     redirect: (context, state) {
+      final authState = ref.read(authProvider);
+      
+      // If the authentication system has not completed its initial session restoration check yet,
+      // DO NOT redirect the user! Prevent early redirects and let the startup check finalize.
+      if (!authState.isInitialized) {
+        return null;
+      }
+
       final requestedRoute = state.uri.path;
 
       // Ensure SSO Portal URL is configured (this normally goes in app initialization)
-      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
+        'SSO_PORTAL_URL',
+        defaultValue: 'https://primecare-auth.pages.dev',
+      );
+
+      // If trying to hit root/login/callback while authenticated, redirect to dashboard immediately
+      final isAtLanding =
+          requestedRoute == '/' ||
+          requestedRoute == CommonRoutes.login ||
+          requestedRoute == CommonRoutes.authCallback;
+      if (authState.isAuthenticated && isAtLanding) {
+        return dashboardRoute;
+      }
 
       final result = RouteGuard.verify(
         requestedRoute: requestedRoute,
@@ -91,45 +113,82 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return result.redirectRoute;
       }
 
-      // If allowed and trying to hit root/login while authenticated, go to dashboard
-      final isAtLanding = requestedRoute == '/' || requestedRoute == CommonRoutes.login;
-      if (authState.isAuthenticated && isAtLanding) {
-        return dashboardRoute;
-      }
-
       return null;
     },
     publicRoutes: [
-      GoRoute(path: '/clinic/dashboard', builder: (context, state) => const PswDashboardScreen()),
-      GoRoute(path: '/clinic/care-plan', builder: (context, state) => const PswCarePlanScreen()),
-      GoRoute(path: '/clinic/daily-notes', builder: (context, state) => const PswDailyNotesScreen()),
-      GoRoute(path: '/clinic/client-profile', builder: (context, state) => const PswClientProfileScreen()),
-      GoRoute(path: '/clinic/my-shifts', builder: (context, state) => const PswMyShiftsScreen()),
-      GoRoute(path: '/clinic/messaging', builder: (context, state) => const PswMessagingScreen()),
+      GoRoute(
+        path: '/clinic/dashboard',
+        builder: (context, state) => const PswDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/care-plan',
+        builder: (context, state) => const PswCarePlanScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/daily-notes',
+        builder: (context, state) => const PswDailyNotesScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/client-profile',
+        builder: (context, state) => const PswClientProfileScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/my-shifts',
+        builder: (context, state) => const PswMyShiftsScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/messaging',
+        builder: (context, state) => const PswMessagingScreen(),
+      ),
 
-      GoRoute(path: '/clinic/rn-dashboard', builder: (context, state) => const RnDashboardScreen()),
-      GoRoute(path: '/clinic/rn-medications', builder: (context, state) => const RnMedicationsScreen()),
-      GoRoute(path: '/clinic/rn-vitals', builder: (context, state) => const RnVitalsScreen()),
-      GoRoute(path: '/clinic/rn-charting', builder: (context, state) => const RnChartingScreen()),
-      GoRoute(path: '/clinic/rn-messaging', builder: (context, state) => const RnMessagingScreen()),
+      GoRoute(
+        path: '/clinic/rn-dashboard',
+        builder: (context, state) => const RnDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/rn-medications',
+        builder: (context, state) => const RnMedicationsScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/rn-vitals',
+        builder: (context, state) => const RnVitalsScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/rn-charting',
+        builder: (context, state) => const RnChartingScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/rn-messaging',
+        builder: (context, state) => const RnMessagingScreen(),
+      ),
 
-      GoRoute(path: '/clinic/incident-report', builder: (context, state) => const ClinicIncidentReportScreen()),
-      GoRoute(path: '/clinic/history-logs', builder: (context, state) => const ClinicHistoryLogsScreen()),
+      GoRoute(
+        path: '/clinic/incident-report',
+        builder: (context, state) => const ClinicIncidentReportScreen(),
+      ),
+      GoRoute(
+        path: '/clinic/history-logs',
+        builder: (context, state) => const ClinicHistoryLogsScreen(),
+      ),
 
-
-    
-    
-    
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
-          final url = state.uri.queryParameters['url'] ?? 'https://primecare-auth.pages.dev';
+          final url =
+              state.uri.queryParameters['url'] ??
+              'https://primecare-auth.pages.dev';
           return SsoRedirectView(redirectUrl: url);
         },
       ),
       GoRoute(
         path: CommonRoutes.login,
         builder: (context, state) => const LoginView(),
+      ),
+      GoRoute(
+        path: CommonRoutes.globalSettings,
+        builder: (context, state) => const Scaffold(
+          body: Center(child: Text('Settings / Safe Landing Area')),
+        ),
       ),
     ],
   );

@@ -7,8 +7,11 @@ describe("Screen - adjustment_notes", () => {
   it("opens and verifies screen adjustment_notes", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visitWithSemantics("/allied/adjustment-notes");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/chiropractor/adjustment-notes (AdjustmentNotesScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/adjustment-notes");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for AdjustmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - adjustment_notes", () => {
   cy.getCy("adjustmentnotes-title").should("be.visible");
   cy.getCy("adjustmentnotes-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for AdjustmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
+  
+  cy.task("log", "✅ PROGRESS: - Verified AdjustmentNotesScreen successfully!\n");
 
   });
 });

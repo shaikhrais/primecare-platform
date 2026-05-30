@@ -7,8 +7,11 @@ describe("Screen - community_outreach_workflow", () => {
   it("opens and verifies screen community_outreach_workflow", () => {
     cy.loginAsRole("community_outreach");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/community-outreach-workflow (CommunityOutreachWorkflowScreen)...");
   cy.visitWithSemantics("/management/community-outreach-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CommunityOutreachWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - community_outreach_workflow", () => {
   cy.getCy("communityoutreachworkflow-title").should("be.visible");
   cy.getCy("communityoutreachworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CommunityOutreachWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CommunityOutreachWorkflowScreen successfully!\n");
 
   });
 });

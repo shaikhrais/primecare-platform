@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Core implementation file for the Main platform logic.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:web/web.dart' as web;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -34,6 +35,7 @@ class AuthApplication extends PlatformApplication {
 }
 
 void main() {
+  configureUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     ProviderScope(
@@ -63,23 +65,42 @@ class PrimeCareAuthApp extends ConsumerWidget {
   }
 }
 
+// Memory-safe guard to ensure force_login is only evaluated once per page mount
+bool _hasForcedLogout = false;
+
 final authRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/login',
     refreshListenable: authListenable,
     redirect: (context, state) {
       final authState = ref.read(authProvider);
+      if (!authState.isInitialized) {
+        return null;
+      }
       final isAtLogin = state.uri.path == '/login';
-      final redirectUri = state.uri.queryParameters['redirect_uri'] ?? 
-                          (kIsWeb ? Uri.base.queryParameters['redirect_uri'] : null);
+      final redirectUri = state.uri.queryParameters['redirect_uri'];
 
-      final forceLogin = state.uri.queryParameters['force_login'] == 'true' ||
-                          (kIsWeb && Uri.base.queryParameters['force_login'] == 'true');
-      if (forceLogin && authState.isAuthenticated) {
-        Future.microtask(() {
-          ref.read(authProvider.notifier).logout();
-        });
+      final forceLogin = state.uri.queryParameters['force_login'] == 'true';
+      if (forceLogin && !_hasForcedLogout) {
+        _hasForcedLogout = true;
+        if (authState.isAuthenticated) {
+          Future.microtask(() {
+            ref.read(authProvider.notifier).logout();
+          });
+        }
+        if (kIsWeb) {
+          try {
+            final uri = Uri.parse(web.window.location.href);
+            final params = Map<String, String>.from(uri.queryParameters)..remove('force_login');
+            final newUri = uri.replace(queryParameters: params.isEmpty ? null : params);
+            web.window.history.replaceState(null, '', newUri.toString());
+          } catch (_) {}
+        }
         return '/login${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+      }
+
+      if (!forceLogin) {
+        _hasForcedLogout = false;
       }
 
       // If authenticated and trying to log in (or just logged in)
@@ -109,7 +130,7 @@ final authRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => const LoginViewWrapper(),
       ),
       GoRoute(
         path: '/success',
@@ -118,14 +139,34 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/consent',
         builder: (context, state) {
-          final redirectUri = state.uri.queryParameters['redirect_uri'] ?? 
-                              (kIsWeb ? Uri.base.queryParameters['redirect_uri'] : null) ?? '';
+          final redirectUri = state.uri.queryParameters['redirect_uri'] ?? '';
           return ConsentView(redirectUri: redirectUri);
         },
       ),
     ],
   );
 });
+
+class LoginViewWrapper extends ConsumerWidget {
+  const LoginViewWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AuthState>(authProvider, (previous, next) {
+      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
+        final state = GoRouterState.of(context);
+        final redirectUri = state.uri.queryParameters['redirect_uri'];
+        if (redirectUri != null && redirectUri.isNotEmpty) {
+          context.go('/consent?redirect_uri=${Uri.encodeComponent(redirectUri)}');
+        } else {
+          context.go('/success');
+        }
+      }
+    });
+
+    return const LoginView();
+  }
+}
 
 class SuccessProfileView extends ConsumerWidget {
   const SuccessProfileView({super.key});

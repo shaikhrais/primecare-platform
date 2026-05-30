@@ -7,8 +7,11 @@ describe("Screen - volunteer_coordinator_compliance", () => {
   it("opens and verifies screen volunteer_coordinator_compliance", () => {
     cy.loginAsRole("volunteer");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/volunteer-coordinator-compliance (VolunteerCoordinatorComplianceScreen)...");
   cy.visitWithSemantics("/staff/volunteer-coordinator-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for VolunteerCoordinatorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - volunteer_coordinator_compliance", () => {
   cy.getCy("volunteercoordinatorcompliance-title").should("be.visible");
   cy.getCy("volunteercoordinatorcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified VolunteerCoordinatorComplianceScreen successfully!\n");
 
   });
 });

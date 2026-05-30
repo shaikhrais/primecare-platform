@@ -7,8 +7,11 @@ describe("Screen - billing", () => {
   it("opens and verifies screen billing", () => {
     cy.loginAsRole("patient");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/billing (BillingScreen)...");
   cy.visitWithSemantics("/common/billing");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for BillingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - billing", () => {
   cy.getCy("billing-title").should("be.visible");
   cy.getCy("billing-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingScreen...");
   cy.waitAndSee();
   cy.screenshot("billing");
+  
+  cy.task("log", "✅ PROGRESS: - Verified BillingScreen successfully!\n");
 
   });
 });

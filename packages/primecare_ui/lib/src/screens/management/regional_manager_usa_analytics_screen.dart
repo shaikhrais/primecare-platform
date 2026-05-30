@@ -7,91 +7,109 @@ class RegionalManagerUsaAnalyticsScreen extends GovernedConsumerWidget {
   const RegionalManagerUsaAnalyticsScreen({super.key});
 
   @override
-  
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('regionalmanagerusaanalytics-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('regionalmanagerusaanalytics-title'),
-          'RegionalManagerUsa Analytics',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:regionalmanagerusaanalytics-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('regionalmanagerusaanalytics-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('regionalmanagerusaanalytics-title'),
+            'RegionalManagerUsa Analytics',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
         ),
-      ),
-      body: Semantics(
-        label: 'data-cy:regionalmanagerusaanalytics-screen',
-        child: SingleChildScrollView(
-        key: const Key('regionalmanagerusaanalytics-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('regionalmanagerusaanalytics-btn-1'),
-                onPressed: () => triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'RegionalManagerUsa Analytics',
-              roleName: 'RegionalManagerUsa Module',
-              description: 'Centralized Analytics operations for RegionalManagerUsa.',
-              onRefresh: () {},
-            ),
-            const SizedBox(height: 24),
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text('Integration Sandbox for RegionalManagerUsa Analytics Module', style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurface)),
+        body: Semantics(
+          label: 'data-cy:regionalmanagerusaanalytics-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('regionalmanagerusaanalytics-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('regionalmanagerusaanalytics-btn-1'),
+                    onPressed: () => triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
                   ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-            key: const Key('regionalmanagerusaanalytics-btn-2'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                ),
+
+                Semantics(
+                  label: 'data-cy:regionalmanagerusaanalytics-title',
+                  child: GovDashboardHero(
+                    title: 'RegionalManagerUsa Analytics',
+                    roleName: 'RegionalManagerUsa Module',
+                    description:
+                        'Centralized Analytics operations for RegionalManagerUsa.',
+                    onRefresh: () {},
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Integration Sandbox for RegionalManagerUsa Analytics Module',
+                          style: theme.typography.bodyLarge.copyWith(
+                            color: theme.colors.onSurface,
+                          ),
                         ),
                       ),
-                      onPressed: () => triggerStateAction(),
-                      child: Text(
-                        'Execute Action Sweep',
-                        style: theme.typography.button.copyWith(color: Colors.white),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          key: const Key('regionalmanagerusaanalytics-btn-2'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () => triggerStateAction(),
+                          child: Text(
+                            'Execute Action Sweep',
+                            style: theme.typography.button.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),),
-    ),
+          ),
+        ),
+      ),
     );
   }
 }

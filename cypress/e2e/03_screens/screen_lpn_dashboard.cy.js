@@ -7,8 +7,11 @@ describe("Screen - lpn_dashboard", () => {
   it("opens and verifies screen lpn_dashboard", () => {
     cy.loginAsRole("lpn");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/lpn-dashboard (LpnDashboardScreen)...");
   cy.visitWithSemantics("/clinical/lpn-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for LpnDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - lpn_dashboard", () => {
   cy.getCy("lpndashboard-title").should("be.visible");
   cy.getCy("lpndashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for LpnDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("lpn_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified LpnDashboardScreen successfully!\n");
 
   });
 });

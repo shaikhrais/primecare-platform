@@ -7,8 +7,11 @@ describe("Screen - regional_manager_usa_compliance", () => {
   it("opens and verifies screen regional_manager_usa_compliance", () => {
     cy.loginAsRole("regional_manager_usa");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/regional-manager-usa-compliance (RegionalManagerUsaComplianceScreen)...");
   cy.visitWithSemantics("/management/regional-manager-usa-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RegionalManagerUsaComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - regional_manager_usa_compliance", () => {
   cy.getCy("regionalmanagerusacompliance-title").should("be.visible");
   cy.getCy("regionalmanagerusacompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalManagerUsaComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_manager_usa_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RegionalManagerUsaComplianceScreen successfully!\n");
 
   });
 });

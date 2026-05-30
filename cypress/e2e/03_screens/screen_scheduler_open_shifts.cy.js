@@ -7,8 +7,11 @@ describe("Screen - scheduler_open_shifts", () => {
   it("opens and verifies screen scheduler_open_shifts", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-open-shifts (SchedulerOpenShiftsScreen)...");
   cy.visitWithSemantics("/staff/scheduler-open-shifts");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerOpenShiftsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_open_shifts", () => {
   cy.getCy("scheduleropenshifts-title").should("be.visible");
   cy.getCy("scheduleropenshifts-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerOpenShiftsScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_open_shifts");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerOpenShiftsScreen successfully!\n");
 
   });
 });

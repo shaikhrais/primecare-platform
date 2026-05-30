@@ -1,9 +1,15 @@
 // Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO Sync languageProvider with EasyLocalization
 import 'package:primecare_ui/primecare_ui.dart';
+import 'core/routing/marketing_routes.dart';
 import 'core/routing/app_router.dart';
 
 void main() {
-  PrimeCareAppRunner.run(appWidget: const PrimeCareMarketingApp());
+  PrimeCareAppRunner.run(
+    appWidget: const PrimeCareMarketingApp(),
+    overrides: [
+      platformApplicationProvider.overrideWithValue(MarketingApplication()),
+    ],
+  );
 }
 
 class PrimeCareMarketingApp extends ConsumerWidget {

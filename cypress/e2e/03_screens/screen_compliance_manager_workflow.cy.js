@@ -7,8 +7,11 @@ describe("Screen - compliance_manager_workflow", () => {
   it("opens and verifies screen compliance_manager_workflow", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/compliance-manager-workflow (ComplianceManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ComplianceManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - compliance_manager_workflow", () => {
   cy.getCy("compliancemanagerworkflow-title").should("be.visible");
   cy.getCy("compliancemanagerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ComplianceManagerWorkflowScreen successfully!\n");
 
   });
 });

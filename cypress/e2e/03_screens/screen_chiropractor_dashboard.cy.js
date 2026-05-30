@@ -7,8 +7,11 @@ describe("Screen - chiropractor_dashboard", () => {
   it("opens and verifies screen chiropractor_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visitWithSemantics("/common/chiropractor-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/chiropractor/dashboard (ChiropractorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ChiropractorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - chiropractor_dashboard", () => {
   cy.getCy("chiropractordashboard-title").should("be.visible");
   cy.getCy("chiropractordashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ChiropractorDashboardScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - general_manager_analytics", () => {
   it("opens and verifies screen general_manager_analytics", () => {
     cy.loginAsRole("gm");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/general-manager-analytics (GeneralManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/general-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GeneralManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - general_manager_analytics", () => {
   cy.getCy("generalmanageranalytics-title").should("be.visible");
   cy.getCy("generalmanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for GeneralManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified GeneralManagerAnalyticsScreen successfully!\n");
 
   });
 });

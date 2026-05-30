@@ -7,8 +7,11 @@ describe("Screen - lpn_analytics", () => {
   it("opens and verifies screen lpn_analytics", () => {
     cy.loginAsRole("lpn");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /rpn/lpn-analytics (Licensed Practical Nurse (LPN) Analytics)...");
   cy.visitWithSemantics("/rpn/lpn-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Licensed Practical Nurse (LPN) Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - lpn_analytics", () => {
   cy.getCy("licensed practical nurse (lpn) analytics-title").should("be.visible");
   cy.getCy("licensed practical nurse (lpn) analytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Licensed Practical Nurse (LPN) Analytics...");
   cy.waitAndSee();
   cy.screenshot("lpn_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Licensed Practical Nurse (LPN) Analytics successfully!\n");
 
   });
 });

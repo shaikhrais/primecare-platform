@@ -7,8 +7,11 @@ describe("Screen - clinic_dashboard", () => {
   it("opens and verifies screen clinic_dashboard", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/common/clinic-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ClinicDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - clinic_dashboard", () => {
   cy.getCy("clinicdashboard-title").should("be.visible");
   cy.getCy("clinicdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ClinicDashboardScreen successfully!\n");
 
   });
 });

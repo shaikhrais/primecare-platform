@@ -7,8 +7,11 @@ describe("Screen - scheduler_calendar", () => {
   it("opens and verifies screen scheduler_calendar", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-calendar (SchedulerCalendarScreen)...");
   cy.visitWithSemantics("/staff/scheduler-calendar");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerCalendarScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_calendar", () => {
   cy.getCy("schedulercalendar-title").should("be.visible");
   cy.getCy("schedulercalendar-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerCalendarScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_calendar");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerCalendarScreen successfully!\n");
 
   });
 });

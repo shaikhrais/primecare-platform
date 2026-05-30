@@ -7,8 +7,11 @@ describe("Screen - campaign_dashboard", () => {
   it("opens and verifies screen campaign_dashboard", () => {
     cy.loginAsRole("marketing");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/campaign-dashboard (CampaignDashboardScreen)...");
   cy.visitWithSemantics("/management/campaign-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CampaignDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - campaign_dashboard", () => {
   cy.getCy("campaigndashboard-title").should("be.visible");
   cy.getCy("campaigndashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CampaignDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("campaign_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CampaignDashboardScreen successfully!\n");
 
   });
 });

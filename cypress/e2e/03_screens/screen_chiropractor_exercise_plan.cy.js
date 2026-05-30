@@ -7,8 +7,11 @@ describe("Screen - chiropractor_exercise_plan", () => {
   it("opens and verifies screen chiropractor_exercise_plan", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visitWithSemantics("/allied/chiropractor-exercise-plan");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/chiropractor/exercise-plan (ChiropractorExercisePlanScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/exercise-plan");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ChiropractorExercisePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - chiropractor_exercise_plan", () => {
   cy.getCy("chiropractorexerciseplan-title").should("be.visible");
   cy.getCy("chiropractorexerciseplan-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorExercisePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ChiropractorExercisePlanScreen successfully!\n");
 
   });
 });

@@ -33,49 +33,47 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
   final Ref _ref;
 
   RnWorkflowController(this._ref)
-      : super(
-          const RnWorkflowState(
-            activePatient: 'Margaret Thompson',
-            isCreatingGoal: false,
-            revisions: [
-              {
-                'id': 'REV-101',
-                'patient': 'Margaret Thompson',
-                'title': 'Post-Operative Recovery Plan Rev 2',
-                'author': 'RN Sarah Jenkins',
-                'status': 'Approved',
-                'date': 'May 18, 2026',
-                'notes': 'Added daily passive range-of-motion routines.',
-              },
-              {
-                'id': 'REV-102',
-                'patient': 'Arthur Pendelton',
-                'title': 'Dementia Management Protocol Rev 1',
-                'author': 'RN David Vance',
-                'status': 'Pending Approval',
-                'date': 'May 19, 2026',
-                'notes': 'Revised hydration goals from 1.5L to 2.1L daily due to vitals.',
-              },
-              {
-                'id': 'REV-103',
-                'patient': 'Eleanor Vance',
-                'title': 'Hypertension Care Coordination Rev 4',
-                'author': 'RN Sarah Jenkins',
-                'status': 'Draft',
-                'date': 'Just Now',
-                'notes': 'Integrating low-sodium meal preps with PSW checklists.',
-              },
-            ],
-          ),
-        );
+    : super(
+        const RnWorkflowState(
+          activePatient: 'Margaret Thompson',
+          isCreatingGoal: false,
+          revisions: [
+            {
+              'id': 'REV-101',
+              'patient': 'Margaret Thompson',
+              'title': 'Post-Operative Recovery Plan Rev 2',
+              'author': 'RN Sarah Jenkins',
+              'status': 'Approved',
+              'date': 'May 18, 2026',
+              'notes': 'Added daily passive range-of-motion routines.',
+            },
+            {
+              'id': 'REV-102',
+              'patient': 'Arthur Pendelton',
+              'title': 'Dementia Management Protocol Rev 1',
+              'author': 'RN David Vance',
+              'status': 'Pending Approval',
+              'date': 'May 19, 2026',
+              'notes':
+                  'Revised hydration goals from 1.5L to 2.1L daily due to vitals.',
+            },
+            {
+              'id': 'REV-103',
+              'patient': 'Eleanor Vance',
+              'title': 'Hypertension Care Coordination Rev 4',
+              'author': 'RN Sarah Jenkins',
+              'status': 'Draft',
+              'date': 'Just Now',
+              'notes': 'Integrating low-sodium meal preps with PSW checklists.',
+            },
+          ],
+        ),
+      );
 
   void approveRevision(String revId) {
     final updatedRevisions = state.revisions.map((rev) {
       if (rev['id'] == revId) {
-        return {
-          ...rev,
-          'status': 'Approved',
-        };
+        return {...rev, 'status': 'Approved'};
       }
       return rev;
     }).toList();
@@ -84,7 +82,9 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
 
     // Aura behavioral telemetry logging
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rn/workflow',
             eventType: 'rn_revision_approved',
             metadata: {'revisionId': revId},
@@ -104,7 +104,8 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
     await Future<void>.delayed(const Duration(milliseconds: 700));
 
     final newRev = {
-      'id': 'REV-${DateTime.now().millisecondsSinceEpoch.toString().substring(10)}',
+      'id':
+          'REV-${DateTime.now().millisecondsSinceEpoch.toString().substring(10)}',
       'patient': patient,
       'title': 'New Therapeutic Goal: $goalTitle',
       'author': 'RN Lead',
@@ -119,7 +120,9 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
     );
 
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rn/workflow',
             eventType: 'rn_goal_created',
             metadata: {
@@ -133,15 +136,17 @@ class RnWorkflowController extends StateNotifier<RnWorkflowState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rnWorkflowControllerProvider =
     StateNotifierProvider<RnWorkflowController, RnWorkflowState>((ref) {
-  return RnWorkflowController(ref);
-});
+      return RnWorkflowController(ref);
+    });
 
 // --- View ---
 class RnWorkflowScreen extends GovernedConsumerWidget {
@@ -153,78 +158,99 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(rnWorkflowControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('rnworkflow-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rnworkflow-title'),
-          'RN Supervisor Workflows',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:rnworkflow-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rnworkflow-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rnworkflow-title'),
+            'RN Supervisor Workflows',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:rnworkflow-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rnworkflow-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rnworkflow-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:rnworkflow-title',
+                  child: GovDashboardHero(
+                    title: 'Care Plan Revisions & Goal Builders',
+                    roleName: 'Registered Nurse (RN) Lead',
+                    description:
+                        'Supervisory authorization pipelines for active plan adjustments, clinical timelines, and multi-level check gates.',
+                    onRefresh: () => ref.refresh(rnWorkflowControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Revision Timelines & Form Layout (Responsive Rows)
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 900) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: _buildTimelineRevisionCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 5,
+                            child: _buildGoalBuilderCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          _buildTimelineRevisionCard(
+                            context,
+                            state,
+                            controller,
+                          ),
+                          const SizedBox(height: 24),
+                          _buildGoalBuilderCard(context, state, controller),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:rnworkflow-screen',
-        child: SingleChildScrollView(
-        key: const Key('rnworkflow-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rnworkflow-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Care Plan Revisions & Goal Builders',
-              roleName: 'Registered Nurse (RN) Lead',
-              description:
-                  'Supervisory authorization pipelines for active plan adjustments, clinical timelines, and multi-level check gates.',
-              onRefresh: () => ref.refresh(rnWorkflowControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // Revision Timelines & Form Layout (Responsive Rows)
-            LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth > 900) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 6,
-                        child: _buildTimelineRevisionCard(context, state, controller),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 5,
-                        child: _buildGoalBuilderCard(context, state, controller),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      _buildTimelineRevisionCard(context, state, controller),
-                      const SizedBox(height: 24),
-                      _buildGoalBuilderCard(context, state, controller),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -283,8 +309,8 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                             color: isApproved
                                 ? Colors.green
                                 : isPending
-                                    ? Colors.orange
-                                    : theme.colors.outline,
+                                ? Colors.orange
+                                : theme.colors.outline,
                           ),
                         ),
                         Expanded(
@@ -310,14 +336,16 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
                                       title,
-                                      style: theme.typography.bodyLarge.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: theme.typography.bodyLarge
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
                                   ),
                                   Container(
@@ -329,22 +357,23 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                                       color: isApproved
                                           ? Colors.green.withValues(alpha: 0.1)
                                           : isPending
-                                              ? Colors.orange.withValues(alpha: 0.1)
-                                              : theme.colors.outline.withValues(
-                                                  alpha: 0.1,
-                                                ),
+                                          ? Colors.orange.withValues(alpha: 0.1)
+                                          : theme.colors.outline.withValues(
+                                              alpha: 0.1,
+                                            ),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
                                       status,
-                                      style: theme.typography.labelSmall.copyWith(
-                                        color: isApproved
-                                            ? Colors.green
-                                            : isPending
+                                      style: theme.typography.labelSmall
+                                          .copyWith(
+                                            color: isApproved
+                                                ? Colors.green
+                                                : isPending
                                                 ? Colors.orange
                                                 : theme.colors.onSurfaceVariant,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -381,7 +410,9 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                                     controller.approveRevision(id);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content: Text('Revision approved and logged.'),
+                                        content: Text(
+                                          'Revision approved and logged.',
+                                        ),
                                         backgroundColor: Colors.green,
                                       ),
                                     );
@@ -437,7 +468,8 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_1'), 
+            PrimeCareTextField(
+              key: const Key('rn_workflow_screen_textfield_input_1'),
               label: 'Target Patient Name',
               controller: patientController,
               validator: (val) {
@@ -446,7 +478,8 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_2'), 
+            PrimeCareTextField(
+              key: const Key('rn_workflow_screen_textfield_input_2'),
               label: 'Active Care Plan Goal',
               controller: goalTitleController,
               hintText: 'e.g. Post-stroke motor function restoration...',
@@ -467,20 +500,20 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                 labelStyle: theme.typography.labelMedium,
               ),
               items: ['2 weeks', '1 month', '3 months', '6 months']
-                  .map(
-                    (dur) => DropdownMenuItem(value: dur, child: Text(dur)),
-                  )
+                  .map((dur) => DropdownMenuItem(value: dur, child: Text(dur)))
                   .toList(),
               onChanged: (val) {
                 if (val != null) selectedDuration = val;
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('rn_workflow_screen_textfield_input_3'), 
+            PrimeCareTextField(
+              key: const Key('rn_workflow_screen_textfield_input_3'),
               label: 'milestone Action Scope Detail',
               controller: scopeController,
               maxLines: 3,
-              hintText: 'Provide details, therapeutic targets, or restriction criteria...',
+              hintText:
+                  'Provide details, therapeutic targets, or restriction criteria...',
               validator: (val) {
                 if (val == null || val.isEmpty) return 'Scope is required';
                 return null;
@@ -488,7 +521,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-            key: const Key('rnworkflow-btn-2'),
+              key: const Key('rnworkflow-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -511,7 +544,9 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('New Care Goal established and approved.'),
+                              content: Text(
+                                'New Care Goal established and approved.',
+                              ),
                               backgroundColor: Colors.green,
                             ),
                           );
@@ -525,7 +560,7 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-            key: const Key('rnworkflow-loading'),
+                        key: const Key('rnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),

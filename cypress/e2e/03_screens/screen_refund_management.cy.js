@@ -7,8 +7,11 @@ describe("Screen - refund_management", () => {
   it("opens and verifies screen refund_management", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/refund-management (RefundManagementScreen)...");
   cy.visitWithSemantics("/staff/refund-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RefundManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - refund_management", () => {
   cy.getCy("refundmanagement-title").should("be.visible");
   cy.getCy("refundmanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RefundManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("refund_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RefundManagementScreen successfully!\n");
 
   });
 });

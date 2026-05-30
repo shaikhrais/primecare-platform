@@ -7,8 +7,11 @@ describe("Screen - patient_compliance", () => {
   it("opens and verifies screen patient_compliance", () => {
     cy.loginAsRole("patient");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/patient-compliance (PatientComplianceScreen)...");
   cy.visitWithSemantics("/common/patient-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PatientComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - patient_compliance", () => {
   cy.getCy("patientcompliance-title").should("be.visible");
   cy.getCy("patientcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("patient_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PatientComplianceScreen successfully!\n");
 
   });
 });

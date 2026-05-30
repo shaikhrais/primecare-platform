@@ -148,13 +148,20 @@ def main():
         
         log(f"Deploying '{app_name}' to Cloudflare project '{proj_name}'...")
         deploy_res = run_command([
-            "npx", "wrangler", "pages", "deploy", "build/web",
+            "wrangler", "pages", "deploy", "build/web",
             "--project-name", proj_name, "--commit-dirty=true"
         ], cwd=app_dir)
         
-        stdout_str = deploy_res.stdout + "\n" + deploy_res.stderr
-        url_match = re.search(r"https://[a-zA-Z0-9.-]+\.pages\.dev", stdout_str)
-        deployed_url = url_match.group(0) if url_match else f"https://{proj_name}.pages.dev"
+        # Standardize to use consistent alias domain instead of unique subdomain preview hashes
+        deployed_url = f"https://{proj_name}.pages.dev"
+        match = re.search(r"https://[a-zA-Z0-9.-]+\.pages\.dev", deploy_res.stdout)
+        if match:
+            extracted_url = match.group(0).rstrip('/')
+            if f".{proj_name}.pages.dev" in extracted_url:
+                deployed_url = f"https://{proj_name}.pages.dev"
+            else:
+                deployed_url = extracted_url
+                
         deployment_id = "live-deploy-id-" + proj_name + "-" + str(int(time.time()))
         
         log(f"  Deployed URL: {deployed_url}")

@@ -7,8 +7,11 @@ describe("Screen - cfo_profitability", () => {
   it("opens and verifies screen cfo_profitability", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-profitability (CfoProfitabilityScreen)...");
   cy.visitWithSemantics("/executive/cfo-profitability");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoProfitabilityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cfo_profitability", () => {
   cy.getCy("cfoprofitability-title").should("be.visible");
   cy.getCy("cfoprofitability-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoProfitabilityScreen...");
   cy.waitAndSee();
   cy.screenshot("cfo_profitability");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CfoProfitabilityScreen successfully!\n");
 
   });
 });

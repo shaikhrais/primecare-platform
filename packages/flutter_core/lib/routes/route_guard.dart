@@ -17,9 +17,10 @@ class RouteGuard {
   /// Base URL for the Centralized SSO Portal (e.g., https://auth.primecare.com)
   /// If set, unauthenticated users will be redirected here via [externalRedirectUrl].
   static String? ssoPortalUrl;
+
   /// Maps a user role to a list of allowed route prefixes.
   /// This acts as our centralized permissions map.
-  static Map<String, List<String>> _rolePermissions = {
+  static final Map<String, List<String>> _defaultRolePermissions = {
     // Corporate Leadership
     'ceo': ['/offices/corporate', '/common'],
     'founder': ['/offices/corporate', '/common'],
@@ -51,15 +52,60 @@ class RouteGuard {
     'coordinator': ['/offices/franchise', '/common'],
 
     // Clinical Execution
-    'clinical_director': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'clinical_director': [
+      '/offices/clinical',
+      '/clinic',
+      '/common',
+      '/dynamic',
+    ],
     'clinicaldirector': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'rn': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'rpn': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'rmt': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'psw': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/debug'],
     'physio': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'physiotherapist': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'chiro': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'chiropractor': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'social_worker': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'therapist': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'caregiver': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'clinic': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'lpn': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/rpn'],
+    'np': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/rn'],
+    'physician': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'pediatric': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'hsw': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'cns': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'qa_specialist': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'employee': [
+      '/offices/clinical',
+      '/clinic',
+      '/common',
+      '/dynamic',
+      '/staff',
+    ],
+    'volunteer': [
+      '/offices/clinical',
+      '/clinic',
+      '/common',
+      '/dynamic',
+      '/staff',
+    ],
+    'premium_concierge': [
+      '/offices/clinical',
+      '/clinic',
+      '/common',
+      '/dynamic',
+    ],
+    'vip_manager': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
+    'rn_field_supervisor': [
+      '/offices/clinical',
+      '/clinic',
+      '/common',
+      '/dynamic',
+      '/rn',
+    ],
 
     // Support & Institutional
     'customer_support': ['/offices/support', '/dynamic', '/common'],
@@ -67,6 +113,8 @@ class RouteGuard {
     'intakecoordinator': ['/offices/support', '/dynamic', '/common'],
     'quality_assurance': ['/offices/support', '/dynamic', '/common'],
     'qualityassurance': ['/offices/support', '/dynamic', '/common'],
+    'training_coordinator': ['/offices/support', '/dynamic', '/common'],
+    'trainingcoordinator': ['/offices/support', '/dynamic', '/common'],
     'receptionist': ['/offices/support', '/dynamic', '/common'],
 
     // Marketing & Growth
@@ -78,6 +126,13 @@ class RouteGuard {
     'client': ['/offices/client', '/common'],
     'family': ['/offices/client', '/common'],
   };
+
+  static Map<String, List<String>> _rolePermissions = Map.from(
+    _defaultRolePermissions,
+  );
+
+  static Map<String, List<String>> get defaultPermissions =>
+      _defaultRolePermissions;
 
   /// Dynamically synchronizes permissions from the backend payload.
   static void synchronizePermissions(
@@ -100,6 +155,7 @@ class RouteGuard {
         requestedRoute == CommonRoutes.signup ||
         requestedRoute == CommonRoutes.forgotPassword ||
         requestedRoute == CommonRoutes.ssoRedirect ||
+        requestedRoute == CommonRoutes.authCallback ||
         requestedRoute == '/') {
       // If logged in and trying to hit public unauthenticated routes, redirect to dashboard.
       if (isLoggedIn) {
@@ -134,12 +190,13 @@ class RouteGuard {
     // 2. Check if user is logged in
     if (!isLoggedIn) {
       _log(requestedRoute, userRole, isLoggedIn, 'Blocked (Unauthenticated)');
-      
+
       if (ssoPortalUrl != null) {
         final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
         return GuardResult(
-          false, 
-          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
+          false,
+          externalRedirectUrl:
+              '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
         );
       }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
@@ -151,8 +208,9 @@ class RouteGuard {
       if (ssoPortalUrl != null) {
         final redirectUri = Uri.encodeComponent(getRedirectUri(requestedRoute));
         return GuardResult(
-          false, 
-          externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
+          false,
+          externalRedirectUrl:
+              '$ssoPortalUrl/login?redirect_uri=$redirectUri&force_login=true',
         );
       }
       return GuardResult(false, redirectRoute: CommonRoutes.login);
@@ -166,10 +224,14 @@ class RouteGuard {
 
     // Find the closest matching role prefix list
     List<String> allowedPrefixes = [];
-    for (final role in _rolePermissions.keys) {
-      if (normalizedRole.contains(role)) {
-        allowedPrefixes = _rolePermissions[role]!;
-        break;
+    if (_rolePermissions.containsKey(normalizedRole)) {
+      allowedPrefixes = _rolePermissions[normalizedRole]!;
+    } else {
+      for (final role in _rolePermissions.keys) {
+        if (normalizedRole.contains(role)) {
+          allowedPrefixes = _rolePermissions[role]!;
+          break;
+        }
       }
     }
 
@@ -180,7 +242,7 @@ class RouteGuard {
       if (ssoPortalUrl != null) {
         final redirectUri = Uri.encodeComponent(requestedRoute);
         return GuardResult(
-          false, 
+          false,
           externalRedirectUrl: '$ssoPortalUrl/login?redirect_uri=$redirectUri',
         );
       }

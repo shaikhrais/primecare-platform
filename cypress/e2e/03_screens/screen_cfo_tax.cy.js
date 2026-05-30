@@ -7,8 +7,11 @@ describe("Screen - cfo_tax", () => {
   it("opens and verifies screen cfo_tax", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-tax (CfoTaxScreen)...");
   cy.visitWithSemantics("/executive/cfo-tax");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoTaxScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cfo_tax", () => {
   cy.getCy("cfotax-title").should("be.visible");
   cy.getCy("cfotax-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoTaxScreen...");
   cy.waitAndSee();
   cy.screenshot("cfo_tax");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CfoTaxScreen successfully!\n");
 
   });
 });

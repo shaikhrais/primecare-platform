@@ -6,7 +6,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/chiropractor-dashboard"
+    "post_login_route": "/offices/clinical/roles/chiropractor/dashboard"
   },
   {
     "role_code": "physio",
@@ -15,7 +15,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/physiotherapist-dashboard"
+    "post_login_route": "/offices/clinical/roles/physiotherapist/dashboard"
   },
   {
     "role_code": "rmt",
@@ -24,7 +24,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/allied/rmt-dashboard"
+    "post_login_route": "/offices/clinical/roles/rmt/dashboard"
   },
   {
     "role_code": "social_worker",
@@ -33,7 +33,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/social-worker-dashboard"
+    "post_login_route": "/offices/clinical/roles/social_worker/dashboard"
   },
   {
     "role_code": "therapist",
@@ -42,7 +42,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/allied/therapist-dashboard"
+    "post_login_route": "/offices/clinical/roles/therapist/dashboard"
   },
   {
     "role_code": "clinical_director",
@@ -51,7 +51,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/clinical/clinical-dashboard"
+    "post_login_route": "/offices/clinical/roles/clinical_director/dashboard"
   },
   {
     "role_code": "intake",
@@ -60,7 +60,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/intake-dashboard"
+    "post_login_route": "/offices/clinical/roles/intake_coordinator/dashboard"
   },
   {
     "role_code": "rn",
@@ -105,7 +105,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/caregiver-dashboard"
+    "post_login_route": "/offices/clinical/roles/caregiver/dashboard"
   },
   {
     "role_code": "guest",
@@ -553,8 +553,8 @@
     "email": "qa.training_coordinator@test.primecare.local",
     "password": "Test@12345",
     "app_code": "governance",
-    "app_url": "https://primecare-governance.pages.dev",
-    "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "app_url": "https://primecare-clinic.pages.dev",
+    "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
     "post_login_route": "/staff/training-dashboard"
   },
   {
@@ -562,8 +562,8 @@
     "email": "qa.qa_specialist@test.primecare.local",
     "password": "Test@12345",
     "app_code": "support",
-    "app_url": "https://primecare-support.pages.dev",
-    "redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "app_url": "https://primecare-clinic.pages.dev",
+    "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
     "post_login_route": "/common/qa-analytics"
   },
   {

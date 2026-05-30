@@ -7,8 +7,11 @@ describe("Screen - chiropractor_command_center", () => {
   it("opens and verifies screen chiropractor_command_center", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.visitWithSemantics("/allied/chiropractor-command-center");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/chiropractor/command-center (ChiropractorCommandCenterScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/command-center");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ChiropractorCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - chiropractor_command_center", () => {
   cy.getCy("chiropractorcommandcenter-title").should("be.visible");
   cy.getCy("chiropractorcommandcenter-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ChiropractorCommandCenterScreen successfully!\n");
 
   });
 });

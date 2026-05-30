@@ -1,6 +1,94 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide HeadOfBusDevDashboardScreen, HeadOfMarketingDashboardScreen, ShareholderDashboardScreen, FinanceDirectorDashboardScreen, FinanceDirectorCashflowScreen, VolunteerCoordinatorDashboardScreen, HrManagerDashboardScreen, HrHiringDashboardScreen, HrDirectorDashboardScreen, CxDirectorDashboardScreen, ItAdminDashboardScreen, LegalDashboardScreen, CisoDashboardScreen, ComplianceManagerDashboardScreen, ComplianceManagerComplianceCasesScreen, ComplianceManagerPoliciesScreen, ComplianceManagerAuditsScreen, ComplianceManagerIncidentReviewScreen, ComplianceManagerCredentialTrackingScreen, ComplianceManagerDocumentExpiryScreen, ComplianceManagerRiskRegisterScreen, ComplianceManagerCorrectiveActionsScreen, ComplianceManagerTrainingComplianceScreen, ComplianceManagerReportsScreen, TrainingDirectorDashboardScreen, TrainingDirectorTrainingProgramsScreen, TrainingDirectorStaffTrainingMatrixScreen, TrainingDirectorComplianceTrainingScreen, TrainingDirectorCourseLibraryScreen, TrainingDirectorAssessmentsScreen, TrainingDirectorCertificationsScreen, TrainingDirectorTrainerAssignmentsScreen, TrainingDirectorReportsScreen, TrainingDirectorAnalyticsScreen, TrainingDirectorCourseArchitectScreen, TrainingDirectorHubScreen, TrainingDirectorCertificatesScreen, CfoDashboardScreen, CfoFinancialOverviewScreen, CfoRevenueScreen, CfoExpensesScreen, CfoFranchiseFinancialsScreen, CfoPayrollScreen, CfoAccountsReceivableScreen, CfoAccountsPayableScreen, CfoInvoicesScreen, CfoProfitabilityScreen, CfoTaxAndRemittanceScreen, CfoReportsScreen, CtoDashboardScreen, CtoSystemHealthScreen, CtoPlatformUsageScreen, CtoFeatureAdoptionScreen, CtoApiMonitoringScreen, CtoIntegrationsScreen, CtoAuditLogsScreen, CtoAccessControlScreen, CtoReleaseManagementScreen, CtoIssueTrackingScreen, CtoInfrastructureScreen, CtoReportsScreen, CtoVerificationHubScreen, CtoSystemVerificationScreen, CeoDashboardScreen, CeoEnterpriseOverviewScreen, CeoFranchiseOverviewScreen, CeoRegionPerformanceScreen, CeoRevenueSummaryScreen, CeoStrategicKpisScreen, CeoGrowthPipelineScreen, CeoLeadershipReportsScreen, CeoAlertsAndRisksScreen, CeoOrganizationMapScreen, CeoApprovalsScreen, CeoReportsScreen, OwnerDashboardScreen, CooDashboardScreen, CooOperationsOverviewScreen, CooBranchOperationsScreen, CooStaffingEfficiencyScreen, CooSchedulingHealthScreen, CooServiceDeliveryScreen, CooIssueEscalationsScreen, CooComplianceViewScreen, CooWorkflowPerformanceScreen, CooBranchComparisonScreen, CooReportsScreen;
+import 'package:primecare_ui/primecare_ui.dart'
+    hide
+        HeadOfBusDevDashboardScreen,
+        HeadOfMarketingDashboardScreen,
+        ShareholderDashboardScreen,
+        FinanceDirectorDashboardScreen,
+        FinanceDirectorCashflowScreen,
+        VolunteerCoordinatorDashboardScreen,
+        HrManagerDashboardScreen,
+        HrHiringDashboardScreen,
+        HrDirectorDashboardScreen,
+        CxDirectorDashboardScreen,
+        ItAdminDashboardScreen,
+        LegalDashboardScreen,
+        CisoDashboardScreen,
+        ComplianceManagerDashboardScreen,
+        ComplianceManagerComplianceCasesScreen,
+        ComplianceManagerPoliciesScreen,
+        ComplianceManagerAuditsScreen,
+        ComplianceManagerIncidentReviewScreen,
+        ComplianceManagerCredentialTrackingScreen,
+        ComplianceManagerDocumentExpiryScreen,
+        ComplianceManagerRiskRegisterScreen,
+        ComplianceManagerCorrectiveActionsScreen,
+        ComplianceManagerTrainingComplianceScreen,
+        ComplianceManagerReportsScreen,
+        TrainingDirectorDashboardScreen,
+        TrainingDirectorTrainingProgramsScreen,
+        TrainingDirectorStaffTrainingMatrixScreen,
+        TrainingDirectorComplianceTrainingScreen,
+        TrainingDirectorCourseLibraryScreen,
+        TrainingDirectorAssessmentsScreen,
+        TrainingDirectorCertificationsScreen,
+        TrainingDirectorTrainerAssignmentsScreen,
+        TrainingDirectorReportsScreen,
+        TrainingDirectorAnalyticsScreen,
+        TrainingDirectorCourseArchitectScreen,
+        TrainingDirectorHubScreen,
+        TrainingDirectorCertificatesScreen,
+        CfoDashboardScreen,
+        CfoFinancialOverviewScreen,
+        CfoRevenueScreen,
+        CfoExpensesScreen,
+        CfoFranchiseFinancialsScreen,
+        CfoPayrollScreen,
+        CfoAccountsReceivableScreen,
+        CfoAccountsPayableScreen,
+        CfoInvoicesScreen,
+        CfoProfitabilityScreen,
+        CfoTaxAndRemittanceScreen,
+        CfoReportsScreen,
+        CtoDashboardScreen,
+        CtoSystemHealthScreen,
+        CtoPlatformUsageScreen,
+        CtoFeatureAdoptionScreen,
+        CtoApiMonitoringScreen,
+        CtoIntegrationsScreen,
+        CtoAuditLogsScreen,
+        CtoAccessControlScreen,
+        CtoReleaseManagementScreen,
+        CtoIssueTrackingScreen,
+        CtoInfrastructureScreen,
+        CtoReportsScreen,
+        CtoVerificationHubScreen,
+        CtoSystemVerificationScreen,
+        CeoDashboardScreen,
+        CeoEnterpriseOverviewScreen,
+        CeoFranchiseOverviewScreen,
+        CeoRegionPerformanceScreen,
+        CeoRevenueSummaryScreen,
+        CeoStrategicKpisScreen,
+        CeoGrowthPipelineScreen,
+        CeoLeadershipReportsScreen,
+        CeoAlertsAndRisksScreen,
+        CeoOrganizationMapScreen,
+        CeoApprovalsScreen,
+        CeoReportsScreen,
+        OwnerDashboardScreen,
+        CooDashboardScreen,
+        CooOperationsOverviewScreen,
+        CooBranchOperationsScreen,
+        CooStaffingEfficiencyScreen,
+        CooSchedulingHealthScreen,
+        CooServiceDeliveryScreen,
+        CooIssueEscalationsScreen,
+        CooComplianceViewScreen,
+        CooWorkflowPerformanceScreen,
+        CooBranchComparisonScreen,
+        CooReportsScreen;
 import '../../features/ceo/screens/ceo_dashboard_screen.dart';
 import '../../features/ceo/screens/ceo_enterprise_overview_screen.dart';
 import '../../features/ceo/screens/ceo_franchise_overview_screen.dart';
@@ -96,38 +184,57 @@ import '../../features/cto/screens/cto_reports_screen.dart';
 import '../../features/cto/screens/cto_verification_hub_screen.dart';
 import '../../features/cto/screens/cto_system_verification_screen.dart';
 
-
 final corporateApplicationProvider = Provider<CorporateApplication>((ref) {
   return CorporateApplication();
 });
 
-final appRouterProvider = Provider<GoRouter>((ref) {
+final activeRoleProvider = Provider<PlatformRole>((ref) {
   final authState = ref.watch(authProvider);
-  final application = ref.watch(corporateApplicationProvider);
+  if (!authState.isInitialized || !authState.isAuthenticated) {
+    return PlatformRole.guest;
+  }
+  return PlatformRole.fromName(authState.role);
+});
 
-  // Override the platformApplicationProvider with our concrete instance
-  // This allows MasterLayout (in primecare_ui) to find the correct application metadata
-  // Note: In a real app, you might do this in the root ProviderScope, 
-  // but doing it here ensures the router and the layout stay in sync.
-  ref.onDispose(() {}); // Dummy for now
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final activeRole = ref.watch(activeRoleProvider);
+  final application = ref.read(corporateApplicationProvider);
 
-  // Provide a safe fallback role for public/unauthenticated access
-  final activeRole = authState.isAuthenticated
-      ? PlatformRole.fromName(authState.role)
-      : PlatformRole.guest;
+  final dashboardRoute = activeRole == PlatformRole.guest
+      ? CommonRoutes.login
+      : application.getDefinition(activeRole)?.dashboardRoute ??
+            CommonRoutes.login;
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
     activeRole: activeRole,
-    initialLocation: activeRole == PlatformRole.guest
-        ? CommonRoutes.login
-        : AuthNotifier.getDashboardRouteForRole(authState.role ?? ''),
+    initialLocation: dashboardRoute,
     refreshListenable: authListenable,
     redirect: (context, state) {
+      final authState = ref.read(authProvider);
+
+      // If the authentication system has not completed its initial session restoration check yet,
+      // DO NOT redirect the user! Prevent early redirects and let the startup check finalize.
+      if (!authState.isInitialized) {
+        return null;
+      }
+
       final requestedRoute = state.uri.path;
 
-      // Ensure SSO Portal URL is configured
-      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
+      // Ensure SSO Portal URL is configured (this normally goes in app initialization)
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
+        'SSO_PORTAL_URL',
+        defaultValue: 'https://primecare-auth.pages.dev',
+      );
+
+      // If trying to hit root/login/callback while authenticated, redirect to dashboard immediately
+      final isAtLanding =
+          requestedRoute == '/' ||
+          requestedRoute == CommonRoutes.login ||
+          requestedRoute == CommonRoutes.authCallback;
+      if (authState.isAuthenticated && isAtLanding) {
+        return dashboardRoute;
+      }
 
       final result = RouteGuard.verify(
         requestedRoute: requestedRoute,
@@ -142,32 +249,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return result.redirectRoute;
       }
 
-      final isAtLanding =
-          requestedRoute == '/' || requestedRoute == CommonRoutes.login;
-
-      if (authState.isAuthenticated && isAtLanding) {
-        final role = authState.role ?? '';
-        final destination = AuthNotifier.getDashboardRouteForRole(role);
-        return destination;
-      }
-
       return null;
     },
     publicRoutes: [
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
-          final url = state.uri.queryParameters['url'] ?? 'https://primecare-auth.pages.dev';
+          final url =
+              state.uri.queryParameters['url'] ??
+              'https://primecare-auth.pages.dev';
           return SsoRedirectView(redirectUrl: url);
         },
       ),
       GoRoute(
         path: CommonRoutes.login,
         redirect: (context, state) {
-          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
-          final defaultRedirectUri = const String.fromEnvironment('APP_BASE_URL', defaultValue: 'https://primecare-corporate.pages.dev');
-          final redirectUri = kIsWeb ? defaultRedirectUri : 'primecare://auth/callback';
-          final target = '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
+          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
+            'SSO_PORTAL_URL',
+            defaultValue: 'https://primecare-auth.pages.dev',
+          );
+          final defaultRedirectUri = const String.fromEnvironment(
+            'APP_BASE_URL',
+            defaultValue: 'https://primecare-corporate.pages.dev',
+          );
+          final redirectUri = kIsWeb
+              ? defaultRedirectUri
+              : 'primecare://auth/callback';
+          final target =
+              '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
           return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(target)}';
         },
       ),

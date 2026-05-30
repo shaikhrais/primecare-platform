@@ -7,8 +7,11 @@ describe("Screen - infrastructure_analytics", () => {
   it("opens and verifies screen infrastructure_analytics", () => {
     cy.loginAsRole("infrastructure");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/infrastructure-analytics (InfrastructureAnalyticsScreen)...");
   cy.visitWithSemantics("/common/infrastructure-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for InfrastructureAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - infrastructure_analytics", () => {
   cy.getCy("infrastructureanalytics-title").should("be.visible");
   cy.getCy("infrastructureanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for InfrastructureAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("infrastructure_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified InfrastructureAnalyticsScreen successfully!\n");
 
   });
 });

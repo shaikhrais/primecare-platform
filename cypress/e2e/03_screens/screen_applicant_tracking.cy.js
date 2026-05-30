@@ -7,8 +7,11 @@ describe("Screen - applicant_tracking", () => {
   it("opens and verifies screen applicant_tracking", () => {
     cy.loginAsRole("hr_hiring");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/applicant-tracking (ApplicantTrackingScreen)...");
   cy.visitWithSemantics("/staff/applicant-tracking");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ApplicantTrackingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - applicant_tracking", () => {
   cy.getCy("applicanttracking-title").should("be.visible");
   cy.getCy("applicanttracking-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ApplicantTrackingScreen...");
   cy.waitAndSee();
   cy.screenshot("applicant_tracking");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ApplicantTrackingScreen successfully!\n");
 
   });
 });

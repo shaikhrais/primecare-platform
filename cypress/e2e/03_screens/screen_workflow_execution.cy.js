@@ -7,8 +7,11 @@ describe("Screen - workflow_execution", () => {
   it("opens and verifies screen workflow_execution", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/workflow-execution (WorkflowExecutionScreen)...");
   cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for WorkflowExecutionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - workflow_execution", () => {
   cy.getCy("workflowexecution-title").should("be.visible");
   cy.getCy("workflowexecution-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for WorkflowExecutionScreen...");
   cy.waitAndSee();
   cy.screenshot("workflow_execution");
+  
+  cy.task("log", "✅ PROGRESS: - Verified WorkflowExecutionScreen successfully!\n");
 
   });
 });

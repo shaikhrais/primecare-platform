@@ -7,8 +7,11 @@ describe("Screen - franchise_command_center", () => {
   it("opens and verifies screen franchise_command_center", () => {
     cy.loginAsRole("owner");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/franchise-command-center (FranchiseCommandCenterScreen)...");
   cy.visitWithSemantics("/executive/franchise-command-center");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FranchiseCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - franchise_command_center", () => {
   cy.getCy("franchisecommandcenter-title").should("be.visible");
   cy.getCy("franchisecommandcenter-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("franchise_command_center");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FranchiseCommandCenterScreen successfully!\n");
 
   });
 });

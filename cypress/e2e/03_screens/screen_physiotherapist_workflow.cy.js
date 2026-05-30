@@ -7,8 +7,11 @@ describe("Screen - physiotherapist_workflow", () => {
   it("opens and verifies screen physiotherapist_workflow", () => {
     cy.loginAsRole("physio");
 
-  cy.visitWithSemantics("/common/physiotherapist-workflow");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/physiotherapist/workflow (PhysiotherapistWorkflowScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PhysiotherapistWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - physiotherapist_workflow", () => {
   cy.getCy("physiotherapistworkflow-title").should("be.visible");
   cy.getCy("physiotherapistworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PhysiotherapistWorkflowScreen successfully!\n");
 
   });
 });

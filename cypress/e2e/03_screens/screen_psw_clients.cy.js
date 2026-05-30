@@ -7,8 +7,11 @@ describe("Screen - psw_clients", () => {
   it("opens and verifies screen psw_clients", () => {
     cy.loginAsRole("psw");
 
-  cy.visitWithSemantics("/psw/psw-clients");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/patient-profile (PswClientsScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/patient-profile");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswClientsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - psw_clients", () => {
   cy.getCy("pswclients-title").should("be.visible");
   cy.getCy("pswclients-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PswClientsScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_clients");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PswClientsScreen successfully!\n");
 
   });
 });

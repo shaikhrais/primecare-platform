@@ -7,8 +7,11 @@ describe("Screen - cto_analytics", () => {
   it("opens and verifies screen cto_analytics", () => {
     cy.loginAsRole("cto");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cto-analytics (CtoAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/cto-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CtoAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cto_analytics", () => {
   cy.getCy("ctoanalytics-title").should("be.visible");
   cy.getCy("ctoanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CtoAnalyticsScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - operations_manager_compliance", () => {
   it("opens and verifies screen operations_manager_compliance", () => {
     cy.loginAsRole("ops_manager");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/operations-manager-compliance (OperationsManagerComplianceScreen)...");
   cy.visitWithSemantics("/management/operations-manager-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OperationsManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - operations_manager_compliance", () => {
   cy.getCy("operationsmanagercompliance-title").should("be.visible");
   cy.getCy("operationsmanagercompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OperationsManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OperationsManagerComplianceScreen successfully!\n");
 
   });
 });

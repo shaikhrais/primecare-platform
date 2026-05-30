@@ -6,26 +6,26 @@ import 'platform_role.dart';
 /// Centralizes access level controls, target dashboards, portals, and compliance routing.
 class RoleMetadata {
   final PlatformRole role;
-  
+
   /// The functional classification of the role
   /// E.g. 'Corporate', 'Business Development', 'Franchise', 'Clinical', 'Training/Architecture', 'Client Side', 'Infrastructure'
   final String category;
-  
+
   /// Access control level: 'read', 'write', 'admin', 'compliance'
   final String accessLevel;
-  
+
   /// Canonical identifier for the dashboard screen
   final String defaultDashboardId;
-  
+
   /// Canonical identifier for the compliance/governance screen
   final String defaultComplianceId;
-  
+
   /// Canonical identifier for the application/portal hosting the role
   final String defaultPortal;
-  
+
   /// Set of dashboards this role is authorized to view
   final List<String> allowedDashboardIds;
-  
+
   /// Set of compliance screens this role is authorized to view
   final List<String> allowedComplianceIds;
 
@@ -44,10 +44,11 @@ class RoleMetadata {
   bool get isAdmin => accessLevel == 'admin';
 
   /// True if the role possesses compliance-level auditing permissions.
-  bool get isCompliance => accessLevel == 'compliance' || accessLevel == 'admin';
+  bool get isCompliance =>
+      accessLevel == 'compliance' || accessLevel == 'admin';
 
   /// Returns the human-readable description of this role's purpose.
-  String get description => 
+  String get description =>
       '${role.displayName} is a $category role with $accessLevel access inside $defaultPortal.';
 }
 
@@ -581,6 +582,118 @@ class RoleRegistry {
       defaultComplianceId: 'SYSTEM_COMPLIANCE',
       defaultPortal: 'primecare_governance',
     ),
+    PlatformRole.therapist: const RoleMetadata(
+      role: PlatformRole.therapist,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'THERAPIST_DASHBOARD',
+      defaultComplianceId: 'THERAPIST_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.physician: const RoleMetadata(
+      role: PlatformRole.physician,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'PHYSICIAN_DASHBOARD',
+      defaultComplianceId: 'PHYSICIAN_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.cns: const RoleMetadata(
+      role: PlatformRole.cns,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'CNS_DASHBOARD',
+      defaultComplianceId: 'CNS_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.pediatric: const RoleMetadata(
+      role: PlatformRole.pediatric,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'PEDIATRIC_DASHBOARD',
+      defaultComplianceId: 'PEDIATRIC_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.caregiver: const RoleMetadata(
+      role: PlatformRole.caregiver,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'CAREGIVER_DASHBOARD',
+      defaultComplianceId: 'CAREGIVER_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.premiumConcierge: const RoleMetadata(
+      role: PlatformRole.premiumConcierge,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'PREMIUMCONCIERGE_DASHBOARD',
+      defaultComplianceId: 'PREMIUMCONCIERGE_COMPLIANCE',
+      defaultPortal: 'prime_support',
+    ),
+    PlatformRole.vipManager: const RoleMetadata(
+      role: PlatformRole.vipManager,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'VIPMANAGER_DASHBOARD',
+      defaultComplianceId: 'VIPMANAGER_COMPLIANCE',
+      defaultPortal: 'prime_support',
+    ),
+    PlatformRole.hsw: const RoleMetadata(
+      role: PlatformRole.hsw,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'HSW_DASHBOARD',
+      defaultComplianceId: 'HSW_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.rnFieldSupervisor: const RoleMetadata(
+      role: PlatformRole.rnFieldSupervisor,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'RNFIELDSUPERVISOR_DASHBOARD',
+      defaultComplianceId: 'RNFIELDSUPERVISOR_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.np: const RoleMetadata(
+      role: PlatformRole.np,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'NP_DASHBOARD',
+      defaultComplianceId: 'NP_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.lpn: const RoleMetadata(
+      role: PlatformRole.lpn,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'LPN_DASHBOARD',
+      defaultComplianceId: 'LPN_COMPLIANCE',
+      defaultPortal: 'prime_clinical',
+    ),
+    PlatformRole.employee: const RoleMetadata(
+      role: PlatformRole.employee,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'EMPLOYEE_DASHBOARD',
+      defaultComplianceId: 'EMPLOYEE_COMPLIANCE',
+      defaultPortal: 'prime_support',
+    ),
+    PlatformRole.volunteer: const RoleMetadata(
+      role: PlatformRole.volunteer,
+      category: 'Clinical',
+      accessLevel: 'write',
+      defaultDashboardId: 'VOLUNTEER_DASHBOARD',
+      defaultComplianceId: 'VOLUNTEER_COMPLIANCE',
+      defaultPortal: 'prime_support',
+    ),
+    PlatformRole.qaSpecialist: const RoleMetadata(
+      role: PlatformRole.qaSpecialist,
+      category: 'Clinical',
+      accessLevel: 'compliance',
+      defaultDashboardId: 'QASPECIALIST_DASHBOARD',
+      defaultComplianceId: 'QASPECIALIST_COMPLIANCE',
+      defaultPortal: 'prime_support',
+    ),
   };
 
   /// Retrieves metadata for a specific PlatformRole.
@@ -595,20 +708,24 @@ class RoleRegistry {
 
   /// Filters roles by their category.
   static List<RoleMetadata> getRolesByCategory(String category) {
-    return _registry.values.where((m) => m.category.toLowerCase() == category.toLowerCase()).toList();
+    return _registry.values
+        .where((m) => m.category.toLowerCase() == category.toLowerCase())
+        .toList();
   }
 
   /// Filters roles by their portal hosting.
   static List<RoleMetadata> getRolesByPortal(String portal) {
-    return _registry.values.where((m) => m.defaultPortal.toLowerCase() == portal.toLowerCase()).toList();
+    return _registry.values
+        .where((m) => m.defaultPortal.toLowerCase() == portal.toLowerCase())
+        .toList();
   }
 
   /// Audit check to ensure complete coverage of PlatformRoles.
   /// Ignores helper category roles.
   static bool verifyCompleteCoverage() {
-    final primaryRoles = PlatformRole.values.where((r) =>
-      r != PlatformRole.unknown &&
-      r.index < PlatformRole.corporate.index
+    final primaryRoles = PlatformRole.values.where(
+      (r) =>
+          r != PlatformRole.unknown && r.index < PlatformRole.corporate.index,
     );
 
     for (final role in primaryRoles) {

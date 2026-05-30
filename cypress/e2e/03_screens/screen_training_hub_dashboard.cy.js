@@ -7,8 +7,11 @@ describe("Screen - training_hub_dashboard", () => {
   it("opens and verifies screen training_hub_dashboard", () => {
     cy.loginAsRole("training");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/training-hub-dashboard (TrainingHubDashboardScreen)...");
   cy.visitWithSemantics("/common/training-hub-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingHubDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - training_hub_dashboard", () => {
   cy.getCy("traininghubdashboard-title").should("be.visible");
   cy.getCy("traininghubdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingHubDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("training_hub_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TrainingHubDashboardScreen successfully!\n");
 
   });
 });

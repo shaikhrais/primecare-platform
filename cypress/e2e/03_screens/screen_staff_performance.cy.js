@@ -7,8 +7,11 @@ describe("Screen - staff_performance", () => {
   it("opens and verifies screen staff_performance", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/clinical/staff-performance");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-performance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for StaffPerformanceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - staff_performance", () => {
   cy.getCy("staffperformance-title").should("be.visible");
   cy.getCy("staffperformance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffPerformanceScreen...");
   cy.waitAndSee();
   cy.screenshot("staff_performance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified StaffPerformanceScreen successfully!\n");
 
   });
 });

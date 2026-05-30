@@ -7,8 +7,11 @@ describe("Screen - quality_audit", () => {
   it("opens and verifies screen quality_audit", () => {
     cy.loginAsRole("qa_specialist");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/quality-audit (QualityAuditScreen)...");
   cy.visitWithSemantics("/staff/quality-audit");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for QualityAuditScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - quality_audit", () => {
   cy.getCy("qualityaudit-title").should("be.visible");
   cy.getCy("qualityaudit-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for QualityAuditScreen...");
   cy.waitAndSee();
   cy.screenshot("quality_audit");
+  
+  cy.task("log", "✅ PROGRESS: - Verified QualityAuditScreen successfully!\n");
 
   });
 });

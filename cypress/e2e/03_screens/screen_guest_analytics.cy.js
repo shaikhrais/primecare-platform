@@ -7,8 +7,11 @@ describe("Screen - guest_analytics", () => {
   it("opens and verifies screen guest_analytics", () => {
     cy.loginAsRole("guest");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/guest-analytics (GuestAnalyticsScreen)...");
   cy.visitWithSemantics("/common/guest-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GuestAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - guest_analytics", () => {
   cy.getCy("guestanalytics-title").should("be.visible");
   cy.getCy("guestanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("guest_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified GuestAnalyticsScreen successfully!\n");
 
   });
 });

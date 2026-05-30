@@ -7,8 +7,11 @@ describe("Screen - franchise_compliance", () => {
   it("opens and verifies screen franchise_compliance", () => {
     cy.loginAsRole("owner");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/franchise-compliance (FranchiseComplianceScreen)...");
   cy.visitWithSemantics("/common/franchise-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FranchiseComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - franchise_compliance", () => {
   cy.getCy("franchisecompliance-title").should("be.visible");
   cy.getCy("franchisecompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("franchise_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FranchiseComplianceScreen successfully!\n");
 
   });
 });

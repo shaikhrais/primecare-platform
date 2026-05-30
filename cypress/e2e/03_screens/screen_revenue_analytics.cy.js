@@ -7,8 +7,11 @@ describe("Screen - revenue_analytics", () => {
   it("opens and verifies screen revenue_analytics", () => {
     cy.loginAsRole("ceo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/revenue-analytics (RevenueAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/revenue-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RevenueAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - revenue_analytics", () => {
   cy.getCy("revenueanalytics-title").should("be.visible");
   cy.getCy("revenueanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RevenueAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("revenue_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RevenueAnalyticsScreen successfully!\n");
 
   });
 });

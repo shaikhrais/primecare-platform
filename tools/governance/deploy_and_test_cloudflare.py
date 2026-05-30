@@ -132,7 +132,7 @@ def main():
     # Step 2: Deploy compiled build folder to Cloudflare Pages using Wrangler
     log("Deploying build/web to Cloudflare Pages project 'primecare-auth'...")
     deploy_res = run_command([
-        "npx", "wrangler", "pages", "deploy", "build/web",
+        "wrangler", "pages", "deploy", "build/web",
         "--project-name", "primecare-auth", "--commit-dirty=true"
     ], cwd=auth_app_path)
     
@@ -140,18 +140,16 @@ def main():
         log("[FATAL] Cloudflare Pages wrangler deploy failed!")
         sys.exit(1)
 
-    # Step 3: Capture public deployed pages.dev URL from Wrangler stdout
-    deploy_output = deploy_res.stdout + "\n" + deploy_res.stderr
-    # Search for https://*.primecare-auth.pages.dev or general pages.dev domain
-    url_match = re.search(r"https://[a-zA-Z0-9.-]+\.pages\.dev", deploy_output)
-    
-    if not url_match:
-        # Fallback to standard alias
-        deployed_url = "https://primecare-auth.pages.dev"
-        log(f"[WARNING] Could not find live preview URL in wrangler output. Using production alias: {deployed_url}")
-    else:
-        deployed_url = url_match.group(0)
-        log(f"Captured deployed Cloudflare Pages URL: {deployed_url}")
+    # Step 3: Standardize to clean alias project URL
+    deployed_url = "https://primecare-auth.pages.dev"
+    match = re.search(r"https://[a-zA-Z0-9.-]+\.pages\.dev", deploy_res.stdout)
+    if match:
+        extracted_url = match.group(0).rstrip('/')
+        if ".primecare-auth.pages.dev" in extracted_url:
+            deployed_url = "https://primecare-auth.pages.dev"
+        else:
+            deployed_url = extracted_url
+    log(f"Normalized Cloudflare Pages URL: {deployed_url}")
 
     # Step 4: Validate public URL returns HTTP 200 status via network probe
     log(f"Probing public URL {deployed_url} for HTTP 200 status...")
@@ -196,7 +194,7 @@ def main():
     # Step 6: First run ONLY: auth spec per role to verify auth page is visible on Cloudflare
     log(f"\n[RUNNING STEP] LIVE AUTH LOGIN SPEC FOR ROLE '{role_code}' (CYPRESS)...")
     auth_spec_res = run_command([
-        "cypress", "run", "--spec", f"cypress/e2e/01_auth/auth_{role_code}.cy.js"
+        "cypress", "run", "--spec", f"cypress/e2e/01_auth/*_auth_redirect_{role_code}.cy.js"
     ], env=cypress_env)
 
     if auth_spec_res.returncode != 0:

@@ -7,8 +7,11 @@ describe("Screen - cfo_workflow", () => {
   it("opens and verifies screen cfo_workflow", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-workflow (CfoWorkflowScreen)...");
   cy.visitWithSemantics("/executive/cfo-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cfo_workflow", () => {
   cy.getCy("cfoworkflow-title").should("be.visible");
   cy.getCy("cfoworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("cfo_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CfoWorkflowScreen successfully!\n");
 
   });
 });

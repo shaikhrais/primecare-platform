@@ -7,8 +7,11 @@ describe("Screen - owner_dashboard", () => {
   it("opens and verifies screen owner_dashboard", () => {
     cy.loginAsRole("owner");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/owner-dashboard (OwnerDashboardScreen)...");
   cy.visitWithSemantics("/executive/owner-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OwnerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - owner_dashboard", () => {
   cy.getCy("ownerdashboard-title").should("be.visible");
   cy.getCy("ownerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OwnerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("owner_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OwnerDashboardScreen successfully!\n");
 
   });
 });

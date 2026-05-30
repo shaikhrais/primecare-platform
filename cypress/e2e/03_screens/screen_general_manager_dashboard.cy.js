@@ -7,8 +7,11 @@ describe("Screen - general_manager_dashboard", () => {
   it("opens and verifies screen general_manager_dashboard", () => {
     cy.loginAsRole("gm");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/general-manager-dashboard (GeneralManagerDashboardScreen)...");
   cy.visitWithSemantics("/management/general-manager-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GeneralManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - general_manager_dashboard", () => {
   cy.getCy("generalmanagerdashboard-title").should("be.visible");
   cy.getCy("generalmanagerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for GeneralManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified GeneralManagerDashboardScreen successfully!\n");
 
   });
 });

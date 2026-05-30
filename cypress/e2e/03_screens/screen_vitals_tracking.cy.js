@@ -7,8 +7,11 @@ describe("Screen - vitals_tracking", () => {
   it("opens and verifies screen vitals_tracking", () => {
     cy.loginAsRole("rpn");
 
-  cy.visitWithSemantics("/clinical/vitals-tracking");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rpn/vitals-tracking (VitalsTrackingScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rpn/vitals-tracking");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for VitalsTrackingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - vitals_tracking", () => {
   cy.getCy("vitalstracking-title").should("be.visible");
   cy.getCy("vitalstracking-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for VitalsTrackingScreen...");
   cy.waitAndSee();
   cy.screenshot("vitals_tracking");
+  
+  cy.task("log", "✅ PROGRESS: - Verified VitalsTrackingScreen successfully!\n");
 
   });
 });

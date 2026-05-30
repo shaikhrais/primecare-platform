@@ -7,8 +7,11 @@ describe("Screen - volunteer_coordinator_workflow", () => {
   it("opens and verifies screen volunteer_coordinator_workflow", () => {
     cy.loginAsRole("volunteer");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/volunteer-coordinator-workflow (VolunteerCoordinatorWorkflowScreen)...");
   cy.visitWithSemantics("/staff/volunteer-coordinator-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for VolunteerCoordinatorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - volunteer_coordinator_workflow", () => {
   cy.getCy("volunteercoordinatorworkflow-title").should("be.visible");
   cy.getCy("volunteercoordinatorworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("volunteer_coordinator_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified VolunteerCoordinatorWorkflowScreen successfully!\n");
 
   });
 });

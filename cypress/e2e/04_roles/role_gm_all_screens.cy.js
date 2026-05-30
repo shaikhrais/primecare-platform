@@ -8,8 +8,11 @@ describe("Role All Screens - gm", () => {
     cy.loginAsRole("gm");
 
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/general-manager-dashboard (GeneralManagerDashboardScreen)...");
   cy.visitWithSemantics("/management/general-manager-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for GeneralManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17,11 +20,17 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagerdashboard-title").should("be.visible");
   cy.getCy("generalmanagerdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for GeneralManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Verified GeneralManagerDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Navigating to /management/general-manager-analytics (GeneralManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/general-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Checking shell & content for GeneralManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -29,11 +38,17 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanageranalytics-title").should("be.visible");
   cy.getCy("generalmanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for GeneralManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Verified GeneralManagerAnalyticsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Navigating to /management/general-manager-compliance (GeneralManagerComplianceScreen)...");
   cy.visitWithSemantics("/management/general-manager-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Checking shell & content for GeneralManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -41,11 +56,17 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagercompliance-title").should("be.visible");
   cy.getCy("generalmanagercompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for GeneralManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_compliance");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Verified GeneralManagerComplianceScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Navigating to /management/general-manager-workflow (GeneralManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/general-manager-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Checking shell & content for GeneralManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -53,8 +74,11 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagerworkflow-title").should("be.visible");
   cy.getCy("generalmanagerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for GeneralManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_workflow");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Verified GeneralManagerWorkflowScreen successfully!\n");
 
   });
 });

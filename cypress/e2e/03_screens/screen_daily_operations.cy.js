@@ -7,8 +7,11 @@ describe("Screen - daily_operations", () => {
   it("opens and verifies screen daily_operations", () => {
     cy.loginAsRole("ops_manager");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/daily-operations (DailyOperationsScreen)...");
   cy.visitWithSemantics("/management/daily-operations");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for DailyOperationsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - daily_operations", () => {
   cy.getCy("dailyoperations-title").should("be.visible");
   cy.getCy("dailyoperations-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for DailyOperationsScreen...");
   cy.waitAndSee();
   cy.screenshot("daily_operations");
+  
+  cy.task("log", "✅ PROGRESS: - Verified DailyOperationsScreen successfully!\n");
 
   });
 });

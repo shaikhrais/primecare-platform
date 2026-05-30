@@ -7,8 +7,11 @@ describe("Screen - service_issue", () => {
   it("opens and verifies screen service_issue", () => {
     cy.loginAsRole("ops_manager");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/service-issue (ServiceIssueScreen)...");
   cy.visitWithSemantics("/management/service-issue");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ServiceIssueScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - service_issue", () => {
   cy.getCy("serviceissue-title").should("be.visible");
   cy.getCy("serviceissue-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ServiceIssueScreen...");
   cy.waitAndSee();
   cy.screenshot("service_issue");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ServiceIssueScreen successfully!\n");
 
   });
 });

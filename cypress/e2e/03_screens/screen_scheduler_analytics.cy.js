@@ -7,8 +7,11 @@ describe("Screen - scheduler_analytics", () => {
   it("opens and verifies screen scheduler_analytics", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-analytics (SchedulerAnalyticsScreen)...");
   cy.visitWithSemantics("/staff/scheduler-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_analytics", () => {
   cy.getCy("scheduleranalytics-title").should("be.visible");
   cy.getCy("scheduleranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerAnalyticsScreen successfully!\n");
 
   });
 });

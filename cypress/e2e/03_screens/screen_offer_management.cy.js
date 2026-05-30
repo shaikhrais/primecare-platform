@@ -7,8 +7,11 @@ describe("Screen - offer_management", () => {
   it("opens and verifies screen offer_management", () => {
     cy.loginAsRole("hr_hiring");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/offer-management (OfferManagementScreen)...");
   cy.visitWithSemantics("/staff/offer-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OfferManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - offer_management", () => {
   cy.getCy("offermanagement-title").should("be.visible");
   cy.getCy("offermanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OfferManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("offer_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OfferManagementScreen successfully!\n");
 
   });
 });

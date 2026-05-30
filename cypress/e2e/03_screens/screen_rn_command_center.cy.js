@@ -7,8 +7,11 @@ describe("Screen - rn_command_center", () => {
   it("opens and verifies screen rn_command_center", () => {
     cy.loginAsRole("rn");
 
-  cy.visitWithSemantics("/rn/rn-command-center");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rn/rn-command-center (RnCommandCenterScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rn/rn-command-center");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RnCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rn_command_center", () => {
   cy.getCy("rncommandcenter-title").should("be.visible");
   cy.getCy("rncommandcenter-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RnCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_command_center");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RnCommandCenterScreen successfully!\n");
 
   });
 });

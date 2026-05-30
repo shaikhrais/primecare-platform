@@ -7,8 +7,11 @@ describe("Screen - intake_coordinator_new_client_intake", () => {
   it("opens and verifies screen intake_coordinator_new_client_intake", () => {
     cy.loginAsRole("volunteer_coordinator");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/intake-coordinator-new-client-intake (IntakeCoordinatorNewClientIntakeScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-new-client-intake");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeCoordinatorNewClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_coordinator_new_client_intake", () => {
   cy.getCy("intakecoordinatornewclientintake-title").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorNewClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_client_intake");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeCoordinatorNewClientIntakeScreen successfully!\n");
 
   });
 });

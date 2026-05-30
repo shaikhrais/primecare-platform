@@ -7,8 +7,11 @@ describe("Screen - receptionist_analytics", () => {
   it("opens and verifies screen receptionist_analytics", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/receptionist-analytics (ReceptionistAnalyticsScreen)...");
   cy.visitWithSemantics("/staff/receptionist-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ReceptionistAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - receptionist_analytics", () => {
   cy.getCy("receptionistanalytics-title").should("be.visible");
   cy.getCy("receptionistanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ReceptionistAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("receptionist_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ReceptionistAnalyticsScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - appointment_overview", () => {
   it("opens and verifies screen appointment_overview", () => {
     cy.loginAsRole("owner");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/appointment-overview (AppointmentOverviewScreen)...");
   cy.visitWithSemantics("/executive/appointment-overview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for AppointmentOverviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - appointment_overview", () => {
   cy.getCy("appointmentoverview-title").should("be.visible");
   cy.getCy("appointmentoverview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for AppointmentOverviewScreen...");
   cy.waitAndSee();
   cy.screenshot("appointment_overview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified AppointmentOverviewScreen successfully!\n");
 
   });
 });

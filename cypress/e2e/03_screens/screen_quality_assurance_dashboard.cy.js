@@ -7,8 +7,11 @@ describe("Screen - quality_assurance_dashboard", () => {
   it("opens and verifies screen quality_assurance_dashboard", () => {
     cy.loginAsRole("system_verification");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/quality-assurance-dashboard (QualityAssuranceDashboardScreen)...");
   cy.visitWithSemantics("/staff/quality-assurance-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for QualityAssuranceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - quality_assurance_dashboard", () => {
   cy.getCy("qualityassurancedashboard-title").should("be.visible");
   cy.getCy("qualityassurancedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for QualityAssuranceDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified QualityAssuranceDashboardScreen successfully!\n");
 
   });
 });

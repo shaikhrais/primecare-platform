@@ -7,8 +7,11 @@ describe("Screen - territory_sales_manager_analytics", () => {
   it("opens and verifies screen territory_sales_manager_analytics", () => {
     cy.loginAsRole("territory_sales");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/territory-sales-manager-analytics (TerritorySalesManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/territory-sales-manager-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TerritorySalesManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - territory_sales_manager_analytics", () => {
   cy.getCy("territorysalesmanageranalytics-title").should("be.visible");
   cy.getCy("territorysalesmanageranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritorySalesManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TerritorySalesManagerAnalyticsScreen successfully!\n");
 
   });
 });

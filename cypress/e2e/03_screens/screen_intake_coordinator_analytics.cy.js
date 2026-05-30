@@ -7,8 +7,11 @@ describe("Screen - intake_coordinator_analytics", () => {
   it("opens and verifies screen intake_coordinator_analytics", () => {
     cy.loginAsRole("intake");
 
-  cy.visitWithSemantics("/staff/intake-coordinator-analytics");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-analytics (IntakeCoordinatorAnalyticsScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/coordinator-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeCoordinatorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_coordinator_analytics", () => {
   cy.getCy("intakecoordinatoranalytics-title").should("be.visible");
   cy.getCy("intakecoordinatoranalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeCoordinatorAnalyticsScreen successfully!\n");
 
   });
 });

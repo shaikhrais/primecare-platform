@@ -7,8 +7,11 @@ describe("Screen - credential_expiry", () => {
   it("opens and verifies screen credential_expiry", () => {
     cy.loginAsRole("hr_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/credential-expiry (CredentialExpiryScreen)...");
   cy.visitWithSemantics("/management/credential-expiry");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CredentialExpiryScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - credential_expiry", () => {
   cy.getCy("credentialexpiry-title").should("be.visible");
   cy.getCy("credentialexpiry-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CredentialExpiryScreen...");
   cy.waitAndSee();
   cy.screenshot("credential_expiry");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CredentialExpiryScreen successfully!\n");
 
   });
 });

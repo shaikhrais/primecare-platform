@@ -7,8 +7,11 @@ describe("Screen - cfo_compliance", () => {
   it("opens and verifies screen cfo_compliance", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-compliance (CfoComplianceScreen)...");
   cy.visitWithSemantics("/executive/cfo-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cfo_compliance", () => {
   cy.getCy("cfocompliance-title").should("be.visible");
   cy.getCy("cfocompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("cfo_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CfoComplianceScreen successfully!\n");
 
   });
 });

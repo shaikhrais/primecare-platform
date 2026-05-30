@@ -7,8 +7,11 @@ describe("Screen - nursing_task", () => {
   it("opens and verifies screen nursing_task", () => {
     cy.loginAsRole("rpn");
 
-  cy.visitWithSemantics("/clinical/nursing-task");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rpn/nursing-task (NursingTaskScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rpn/nursing-task");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for NursingTaskScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - nursing_task", () => {
   cy.getCy("nursingtask-title").should("be.visible");
   cy.getCy("nursingtask-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for NursingTaskScreen...");
   cy.waitAndSee();
   cy.screenshot("nursing_task");
+  
+  cy.task("log", "✅ PROGRESS: - Verified NursingTaskScreen successfully!\n");
 
   });
 });

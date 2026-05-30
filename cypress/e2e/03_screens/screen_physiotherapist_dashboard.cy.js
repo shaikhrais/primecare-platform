@@ -7,8 +7,11 @@ describe("Screen - physiotherapist_dashboard", () => {
   it("opens and verifies screen physiotherapist_dashboard", () => {
     cy.loginAsRole("physio");
 
-  cy.visitWithSemantics("/common/physiotherapist-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PhysiotherapistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - physiotherapist_dashboard", () => {
   cy.getCy("physiotherapistdashboard-title").should("be.visible");
   cy.getCy("physiotherapistdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PhysiotherapistDashboardScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - hr_director_training", () => {
   it("opens and verifies screen hr_director_training", () => {
     cy.loginAsRole("hr_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/hr-director-training (HrDirectorTrainingScreen)...");
   cy.visitWithSemantics("/executive/hr-director-training");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrDirectorTrainingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hr_director_training", () => {
   cy.getCy("hrdirectortraining-title").should("be.visible");
   cy.getCy("hrdirectortraining-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorTrainingScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_training");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HrDirectorTrainingScreen successfully!\n");
 
   });
 });

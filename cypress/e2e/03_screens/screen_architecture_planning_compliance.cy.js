@@ -7,8 +7,11 @@ describe("Screen - architecture_planning_compliance", () => {
   it("opens and verifies screen architecture_planning_compliance", () => {
     cy.loginAsRole("infrastructure");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/architecture-planning-compliance (ArchitecturePlanningComplianceScreen)...");
   cy.visitWithSemantics("/common/architecture-planning-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ArchitecturePlanningComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - architecture_planning_compliance", () => {
   cy.getCy("architectureplanningcompliance-title").should("be.visible");
   cy.getCy("architectureplanningcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ArchitecturePlanningComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("architecture_planning_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ArchitecturePlanningComplianceScreen successfully!\n");
 
   });
 });

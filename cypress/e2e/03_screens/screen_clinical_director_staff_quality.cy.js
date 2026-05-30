@@ -7,8 +7,11 @@ describe("Screen - clinical_director_staff_quality", () => {
   it("opens and verifies screen clinical_director_staff_quality", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.visitWithSemantics("/clinical/clinical-director-staff-quality");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-quality");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - clinical_director_staff_quality", () => {
   cy.getCy("clinicaldirectorstaffquality-title").should("be.visible");
   cy.getCy("clinicaldirectorstaffquality-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
 
   });
 });

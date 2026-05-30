@@ -1,6 +1,5 @@
 import os
 import sys
-import time
 import subprocess
 import sqlite3
 from datetime import datetime
@@ -8,7 +7,10 @@ from datetime import datetime
 DB_PATH = ".agents/governance/governance.db"
 
 def now():
-    return datetime.utcnow().isoformat()
+    try:
+        return datetime.now(datetime.UTC).isoformat()
+    except AttributeError:
+        return datetime.utcnow().isoformat()
 
 def save_result(name, status, output, error=None):
     try:
@@ -60,22 +62,8 @@ def create_failure_task(error_message):
 
 def main():
     print("==============================================================")
-    print("STARTING ENTERPRISE CYPRESS E2E & LOCAL AUTH PIPELINE")
+    print("STARTING ENTERPRISE CYPRESS E2E CLOUDFLARE PIPELINE")
     print("==============================================================")
-
-    # 1. Start Node.js Mock App Server in background
-    server_script = os.path.join("tools", "governance", "mock_app_server.js")
-    print(f"Launching Mock App Server at http://localhost:3099...")
-    
-    server_proc = None
-    try:
-      server_proc = subprocess.Popen(["node", server_script], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-      # Give server a moment to start
-      time.sleep(3)
-      print("Server process started. Running specs...")
-    except Exception as e:
-      print(f"[FATAL] Failed to start mock server: {e}")
-      sys.exit(1)
 
     # Define steps
     steps = [
@@ -85,7 +73,7 @@ def main():
         },
         {
             "name": "auth_login_spec",
-            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/01_auth/auth_{os.environ.get('ROLE_CODE', 'psw').lower()}.cy.js"]
+            "cmd": ["cypress", "run", "--spec", f"cypress/e2e/01_auth/*_auth_redirect_{os.environ.get('ROLE_CODE', 'psw').lower()}.cy.js"]
         },
         {
             "name": "language_governance_spec",
@@ -115,8 +103,6 @@ def main():
 
     failed_step = None
     
-    # Ensure CYPRESS_BASE_URL is bound to localhost server
-    os.environ["CYPRESS_BASE_URL"] = "http://localhost:3099"
     if "ROLE_CODE" not in os.environ:
         os.environ["ROLE_CODE"] = "psw"
 
@@ -148,16 +134,6 @@ def main():
         # Save success status
         save_result(name, "passed", result.stdout)
         print(f"[SUCCESS] Step '{name}' completed successfully.")
-
-    # Cleanup backend server process
-    if server_proc:
-        print("\nTerminating Mock App Server...")
-        server_proc.terminate()
-        try:
-            server_proc.wait(timeout=5)
-        except Exception:
-            server_proc.kill()
-        print("Mock App Server terminated.")
 
     if failed_step:
         print(f"\n==============================================================")

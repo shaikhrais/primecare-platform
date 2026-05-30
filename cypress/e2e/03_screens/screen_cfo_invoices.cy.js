@@ -7,8 +7,11 @@ describe("Screen - cfo_invoices", () => {
   it("opens and verifies screen cfo_invoices", () => {
     cy.loginAsRole("cfo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-invoices (CfoInvoicesScreen)...");
   cy.visitWithSemantics("/executive/cfo-invoices");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoInvoicesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - cfo_invoices", () => {
   cy.getCy("cfoinvoices-title").should("be.visible");
   cy.getCy("cfoinvoices-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoInvoicesScreen...");
   cy.waitAndSee();
   cy.screenshot("cfo_invoices");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CfoInvoicesScreen successfully!\n");
 
   });
 });

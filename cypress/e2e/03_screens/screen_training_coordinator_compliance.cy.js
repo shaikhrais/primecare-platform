@@ -7,8 +7,11 @@ describe("Screen - training_coordinator_compliance", () => {
   it("opens and verifies screen training_coordinator_compliance", () => {
     cy.loginAsRole("training");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/training-coordinator-compliance (TrainingCoordinatorComplianceScreen)...");
   cy.visitWithSemantics("/staff/training-coordinator-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingCoordinatorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - training_coordinator_compliance", () => {
   cy.getCy("trainingcoordinatorcompliance-title").should("be.visible");
   cy.getCy("trainingcoordinatorcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingCoordinatorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TrainingCoordinatorComplianceScreen successfully!\n");
 
   });
 });

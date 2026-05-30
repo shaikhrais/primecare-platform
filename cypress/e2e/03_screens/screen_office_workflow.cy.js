@@ -7,8 +7,11 @@ describe("Screen - office_workflow", () => {
   it("opens and verifies screen office_workflow", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/office-workflow (OfficeWorkflowScreen)...");
   cy.visitWithSemantics("/common/office-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for OfficeWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - office_workflow", () => {
   cy.getCy("officeworkflow-title").should("be.visible");
   cy.getCy("officeworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("office_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified OfficeWorkflowScreen successfully!\n");
 
   });
 });

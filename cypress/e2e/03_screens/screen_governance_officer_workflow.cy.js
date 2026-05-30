@@ -7,8 +7,11 @@ describe("Screen - governance_officer_workflow", () => {
   it("opens and verifies screen governance_officer_workflow", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/governance-officer-workflow (GovernanceOfficerWorkflowScreen)...");
   cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GovernanceOfficerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - governance_officer_workflow", () => {
   cy.getCy("governanceofficerworkflow-title").should("be.visible");
   cy.getCy("governanceofficerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for GovernanceOfficerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_officer_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified GovernanceOfficerWorkflowScreen successfully!\n");
 
   });
 });

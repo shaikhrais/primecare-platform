@@ -7,8 +7,11 @@ describe("Screen - drift_findings", () => {
   it("opens and verifies screen drift_findings", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/drift-findings (DriftFindingsScreen)...");
   cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for DriftFindingsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - drift_findings", () => {
   cy.getCy("driftfindings-title").should("be.visible");
   cy.getCy("driftfindings-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for DriftFindingsScreen...");
   cy.waitAndSee();
   cy.screenshot("drift_findings");
+  
+  cy.task("log", "✅ PROGRESS: - Verified DriftFindingsScreen successfully!\n");
 
   });
 });

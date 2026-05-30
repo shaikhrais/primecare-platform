@@ -7,8 +7,11 @@ describe("Screen - finance_director_workflow", () => {
   it("opens and verifies screen finance_director_workflow", () => {
     cy.loginAsRole("finance_director");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/finance-director-workflow (FinanceDirectorWorkflowScreen)...");
   cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FinanceDirectorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - finance_director_workflow", () => {
   cy.getCy("financedirectorworkflow-title").should("be.visible");
   cy.getCy("financedirectorworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FinanceDirectorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FinanceDirectorWorkflowScreen successfully!\n");
 
   });
 });

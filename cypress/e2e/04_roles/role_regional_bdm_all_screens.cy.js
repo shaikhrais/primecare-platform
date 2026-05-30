@@ -8,8 +8,11 @@ describe("Role All Screens - regional_bdm", () => {
     cy.loginAsRole("regional_bdm");
 
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/regional-bdm-dashboard (RegionalBdmDashboardScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for RegionalBdmDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17,11 +20,17 @@ describe("Role All Screens - regional_bdm", () => {
   cy.getCy("regionalbdmdashboard-title").should("be.visible");
   cy.getCy("regionalbdmdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for RegionalBdmDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Verified RegionalBdmDashboardScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Navigating to /management/regional-bdm-analytics (RegionalBdmAnalyticsScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Checking shell & content for RegionalBdmAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -29,11 +38,17 @@ describe("Role All Screens - regional_bdm", () => {
   cy.getCy("regionalbdmanalytics-title").should("be.visible");
   cy.getCy("regionalbdmanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for RegionalBdmAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_analytics");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Verified RegionalBdmAnalyticsScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Navigating to /management/regional-bdm-compliance (RegionalBdmComplianceScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Checking shell & content for RegionalBdmComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -41,11 +56,17 @@ describe("Role All Screens - regional_bdm", () => {
   cy.getCy("regionalbdmcompliance-title").should("be.visible");
   cy.getCy("regionalbdmcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for RegionalBdmComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_compliance");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Verified RegionalBdmComplianceScreen successfully!\n");
 
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Navigating to /management/regional-bdm-workflow (RegionalBdmWorkflowScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Checking shell & content for RegionalBdmWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -53,8 +74,11 @@ describe("Role All Screens - regional_bdm", () => {
   cy.getCy("regionalbdmworkflow-title").should("be.visible");
   cy.getCy("regionalbdmworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for RegionalBdmWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_workflow");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Verified RegionalBdmWorkflowScreen successfully!\n");
 
   });
 });

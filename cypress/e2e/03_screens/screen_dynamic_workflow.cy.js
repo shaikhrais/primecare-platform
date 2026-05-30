@@ -7,8 +7,11 @@ describe("Screen - dynamic_workflow", () => {
   it("opens and verifies screen dynamic_workflow", () => {
     cy.loginAsRole("dynamic");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/dynamic-workflow (DynamicScreenWorkflowScreen)...");
   cy.visitWithSemantics("/common/dynamic-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for DynamicScreenWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - dynamic_workflow", () => {
   cy.getCy("dynamicworkflow-title").should("be.visible");
   cy.getCy("dynamicworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for DynamicScreenWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("dynamic_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified DynamicScreenWorkflowScreen successfully!\n");
 
   });
 });

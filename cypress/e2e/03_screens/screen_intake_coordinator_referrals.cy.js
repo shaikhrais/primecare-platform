@@ -7,8 +7,11 @@ describe("Screen - intake_coordinator_referrals", () => {
   it("opens and verifies screen intake_coordinator_referrals", () => {
     cy.loginAsRole("volunteer_coordinator");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/intake-coordinator-referrals (IntakeCoordinatorReferralsScreen)...");
   cy.visitWithSemantics("/executive/intake-coordinator-referrals");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeCoordinatorReferralsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_coordinator_referrals", () => {
   cy.getCy("intakecoordinatorreferrals-title").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorReferralsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_referrals");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeCoordinatorReferralsScreen successfully!\n");
 
   });
 });

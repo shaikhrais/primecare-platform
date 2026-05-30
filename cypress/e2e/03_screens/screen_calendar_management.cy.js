@@ -7,8 +7,11 @@ describe("Screen - calendar_management", () => {
   it("opens and verifies screen calendar_management", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/calendar-management (CalendarManagementScreen)...");
   cy.visitWithSemantics("/staff/calendar-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CalendarManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - calendar_management", () => {
   cy.getCy("calendarmanagement-title").should("be.visible");
   cy.getCy("calendarmanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CalendarManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("calendar_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CalendarManagementScreen successfully!\n");
 
   });
 });

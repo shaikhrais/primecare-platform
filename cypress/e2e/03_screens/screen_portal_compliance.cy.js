@@ -7,8 +7,11 @@ describe("Screen - portal_compliance", () => {
   it("opens and verifies screen portal_compliance", () => {
     cy.loginAsRole("portal");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/portal-compliance (PortalComplianceScreen)...");
   cy.visitWithSemantics("/common/portal-compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PortalComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - portal_compliance", () => {
   cy.getCy("portalcompliance-title").should("be.visible");
   cy.getCy("portalcompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("portal_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PortalComplianceScreen successfully!\n");
 
   });
 });

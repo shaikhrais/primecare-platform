@@ -7,8 +7,11 @@ describe("Screen - np_dashboard", () => {
   it("opens and verifies screen np_dashboard", () => {
     cy.loginAsRole("np");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/np-dashboard (NpDashboardScreen)...");
   cy.visitWithSemantics("/clinical/np-dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for NpDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - np_dashboard", () => {
   cy.getCy("npdashboard-title").should("be.visible");
   cy.getCy("npdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for NpDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("np_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified NpDashboardScreen successfully!\n");
 
   });
 });

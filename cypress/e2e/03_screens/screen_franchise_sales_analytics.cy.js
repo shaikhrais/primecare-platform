@@ -7,8 +7,11 @@ describe("Screen - franchise_sales_analytics", () => {
   it("opens and verifies screen franchise_sales_analytics", () => {
     cy.loginAsRole("franchise_sales");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/franchise-sales-analytics (Franchise Sales Manager Analytics)...");
   cy.visitWithSemantics("/executive/franchise-sales-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Sales Manager Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - franchise_sales_analytics", () => {
   cy.getCy("franchise sales manager analytics-title").should("be.visible");
   cy.getCy("franchise sales manager analytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Analytics...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Franchise Sales Manager Analytics successfully!\n");
 
   });
 });

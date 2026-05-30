@@ -33,30 +33,30 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
   final Ref _ref;
 
   RpnWorkflowController(this._ref)
-      : super(
-          const RpnWorkflowState(
-            isSubmittingDressing: false,
-            isSubmittingVaccine: false,
-            immunizationLogs: [
-              {
-                'id': 'VAC-01',
-                'patient': 'Margaret Thompson',
-                'vaccine': 'Influenza Annual (Fluzone)',
-                'lot': 'LOT-998822',
-                'site': 'Left Deltoid',
-                'timestamp': 'May 16, 2026',
-              },
-              {
-                'id': 'VAC-02',
-                'patient': 'Arthur Pendelton',
-                'vaccine': 'COVID-19 Booster (Moderna)',
-                'lot': 'LOT-441199',
-                'site': 'Right Deltoid',
-                'timestamp': 'May 18, 2026',
-              },
-            ],
-          ),
-        );
+    : super(
+        const RpnWorkflowState(
+          isSubmittingDressing: false,
+          isSubmittingVaccine: false,
+          immunizationLogs: [
+            {
+              'id': 'VAC-01',
+              'patient': 'Margaret Thompson',
+              'vaccine': 'Influenza Annual (Fluzone)',
+              'lot': 'LOT-998822',
+              'site': 'Left Deltoid',
+              'timestamp': 'May 16, 2026',
+            },
+            {
+              'id': 'VAC-02',
+              'patient': 'Arthur Pendelton',
+              'vaccine': 'COVID-19 Booster (Moderna)',
+              'lot': 'LOT-441199',
+              'site': 'Right Deltoid',
+              'timestamp': 'May 18, 2026',
+            },
+          ],
+        ),
+      );
 
   Future<void> submitDressingLog({
     required String patient,
@@ -72,7 +72,9 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
 
     // Aura behavioral telemetry logging
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rpn/workflow',
             eventType: 'rpn_wound_dressing_logged',
             metadata: {
@@ -96,7 +98,8 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
     await Future<void>.delayed(const Duration(milliseconds: 750));
 
     final newLog = {
-      'id': 'VAC-${DateTime.now().millisecondsSinceEpoch.toString().substring(10)}',
+      'id':
+          'VAC-${DateTime.now().millisecondsSinceEpoch.toString().substring(10)}',
       'patient': patient,
       'vaccine': vaccine,
       'lot': lotNumber,
@@ -111,7 +114,9 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
 
     // Track telemetry
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rpn/workflow',
             eventType: 'rpn_vaccine_administered',
             metadata: {
@@ -125,15 +130,17 @@ class RpnWorkflowController extends StateNotifier<RpnWorkflowState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rpnWorkflowControllerProvider =
     StateNotifierProvider<RpnWorkflowController, RpnWorkflowState>((ref) {
-  return RpnWorkflowController(ref);
-});
+      return RpnWorkflowController(ref);
+    });
 
 // --- View ---
 class RpnWorkflowScreen extends GovernedConsumerWidget {
@@ -145,82 +152,99 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(rpnWorkflowControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('rpnworkflow-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rpnworkflow-title'),
-          'RPN Practical Workflows',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:rpnworkflow-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rpnworkflow-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rpnworkflow-title'),
+            'RPN Practical Workflows',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:rpnworkflow-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rpnworkflow-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rpnworkflow-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:rpnworkflow-title',
+                  child: GovDashboardHero(
+                    title: 'Wound Dressing & Vaccine Logs',
+                    roleName: 'Registered Practical Nurse (RPN)',
+                    description:
+                        'Dressing log entries, immunization checklist logs, and medication reminder verifications.',
+                    onRefresh: () => ref.refresh(rpnWorkflowControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Two Column Actions (Dressing Log Form & Immunization Form/History)
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 900) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: _buildDressingLogCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 6,
+                            child: _buildImmunizationWorkflowCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          _buildDressingLogCard(context, state, controller),
+                          const SizedBox(height: 24),
+                          _buildImmunizationWorkflowCard(
+                            context,
+                            state,
+                            controller,
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:rpnworkflow-screen',
-        child: SingleChildScrollView(
-        key: const Key('rpnworkflow-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rpnworkflow-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Wound Dressing & Vaccine Logs',
-              roleName: 'Registered Practical Nurse (RPN)',
-              description:
-                  'Dressing log entries, immunization checklist logs, and medication reminder verifications.',
-              onRefresh: () => ref.refresh(rpnWorkflowControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // Two Column Actions (Dressing Log Form & Immunization Form/History)
-            LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth > 900) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: _buildDressingLogCard(context, state, controller),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 6,
-                        child: _buildImmunizationWorkflowCard(
-                          context,
-                          state,
-                          controller,
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      _buildDressingLogCard(context, state, controller),
-                      const SizedBox(height: 24),
-                      _buildImmunizationWorkflowCard(context, state, controller),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -255,7 +279,8 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_1'), 
+            PrimeCareTextField(
+              key: const Key('rpn_workflow_screen_textfield_input_1'),
               label: 'Target Patient',
               controller: patientController,
               validator: (val) {
@@ -264,7 +289,8 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_2'), 
+            PrimeCareTextField(
+              key: const Key('rpn_workflow_screen_textfield_input_2'),
               label: 'Anatomical Injury Location',
               controller: locationController,
               hintText: 'e.g. Sacrum, Right heel, Left forearm...',
@@ -274,11 +300,13 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               },
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_3'), 
+            PrimeCareTextField(
+              key: const Key('rpn_workflow_screen_textfield_input_3'),
               label: 'Treatment & Care Notes',
               controller: notesController,
               maxLines: 3,
-              hintText: 'e.g. Cleansed with sterile saline, applied hydrocolloid dressing, no drainage...',
+              hintText:
+                  'e.g. Cleansed with sterile saline, applied hydrocolloid dressing, no drainage...',
               validator: (val) {
                 if (val == null || val.isEmpty) return 'Notes required';
                 return null;
@@ -286,7 +314,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-            key: const Key('rpnworkflow-btn-2'),
+              key: const Key('rpnworkflow-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -308,7 +336,9 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Wound dressing log entry recorded.'),
+                              content: Text(
+                                'Wound dressing log entry recorded.',
+                              ),
                               backgroundColor: Colors.green,
                             ),
                           );
@@ -321,7 +351,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-            key: const Key('rpnworkflow-loading'),
+                        key: const Key('rpnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),
@@ -366,7 +396,8 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_4'), 
+            PrimeCareTextField(
+              key: const Key('rpn_workflow_screen_textfield_input_4'),
               label: 'Target Patient',
               controller: patientController,
               validator: (val) {
@@ -445,7 +476,8 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('rpn_workflow_screen_textfield_input_5'), 
+            PrimeCareTextField(
+              key: const Key('rpn_workflow_screen_textfield_input_5'),
               label: 'Vaccine Lot Number',
               controller: lotController,
               hintText: 'e.g. LOT-558833',
@@ -456,7 +488,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-            key: const Key('rpnworkflow-btn-3'),
+              key: const Key('rpnworkflow-btn-3'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -479,7 +511,9 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Vaccine administration ledgered successfully.'),
+                              content: Text(
+                                'Vaccine administration ledgered successfully.',
+                              ),
                               backgroundColor: Colors.green,
                             ),
                           );
@@ -492,7 +526,7 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-            key: const Key('rpnworkflow-loading'),
+                        key: const Key('rpnworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),
@@ -502,7 +536,9 @@ class RpnWorkflowScreen extends GovernedConsumerWidget {
             const SizedBox(height: 24),
             Text(
               'Recent Vaccine Administrations',
-              style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface),
+              style: theme.typography.labelBold.copyWith(
+                color: theme.colors.onSurface,
+              ),
             ),
             const SizedBox(height: 12),
             ListView.separated(

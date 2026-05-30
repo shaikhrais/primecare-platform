@@ -4,8 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:web/web.dart' as web;
 class AuthState {
   final bool isAuthenticated;
+  final bool isInitialized;
   final String? token;
   final String? role;
   final String? tenantId;
@@ -16,6 +18,7 @@ class AuthState {
 
   AuthState({
     this.isAuthenticated = false,
+    this.isInitialized = false,
     this.token,
     this.role,
     this.tenantId,
@@ -26,6 +29,7 @@ class AuthState {
 
   AuthState copyWith({
     bool? isAuthenticated,
+    bool? isInitialized,
     String? token,
     String? role,
     String? tenantId,
@@ -35,6 +39,7 @@ class AuthState {
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
+      isInitialized: isInitialized ?? this.isInitialized,
       token: token ?? this.token,
       role: role ?? this.role,
       tenantId: tenantId ?? this.tenantId,
@@ -51,8 +56,39 @@ final authListenable = ValueNotifier<bool>(false);
 class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() {
+    AuthState initialState = AuthState(isInitialized: false);
+
+    if (kIsWeb) {
+      try {
+        // Read directly from browser local storage synchronously to prevent asynchronous GoRouter race conditions!
+        final storage = web.window.localStorage;
+        final token = storage.getItem('flutter.auth_token');
+        final role = storage.getItem('flutter.auth_role');
+        final tenantId = storage.getItem('flutter.auth_tenant_id');
+        final userName = storage.getItem('flutter.auth_username') ?? 'PrimeCare User';
+        final userId = storage.getItem('flutter.auth_user_id');
+        final preferredLanguage = storage.getItem('flutter.auth_preferred_language') ?? 'en';
+
+        if (token != null && token.isNotEmpty && role != null && role.isNotEmpty) {
+          initialState = AuthState(
+            isAuthenticated: true,
+            isInitialized: true, // We have successfully initialized synchronously!
+            token: token,
+            role: role,
+            tenantId: tenantId,
+            userName: userName,
+            userId: userId,
+            preferredLanguage: preferredLanguage,
+          );
+          authListenable.value = true;
+        }
+      } catch (e) {
+        debugPrint('Synchronous local storage read failed: $e');
+      }
+    }
+
     _loadStoredAuth();
-    return AuthState();
+    return initialState;
   }
 
   static String getDashboardRouteForRole(String role) {
@@ -170,7 +206,34 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r == 'psw') {
       return ClinicalRoutes.pswDashboard;
     }
-    if (r == 'rn' || r == 'rpn' || r == 'rmt' || r.contains('clinical')) {
+    if (r == 'chiropractor') {
+      return ClinicalRoutes.chiropractorDashboard;
+    }
+    if (r == 'physio' || r == 'physiotherapist') {
+      return ClinicalRoutes.physiotherapistDashboard;
+    }
+    if (r == 'rmt') {
+      return ClinicalRoutes.rmtDashboard;
+    }
+    if (r == 'social_worker') {
+      return ClinicalRoutes.socialWorkerDashboard;
+    }
+    if (r == 'therapist') {
+      return ClinicalRoutes.therapistDashboard;
+    }
+    if (r == 'intake') {
+      return ClinicalRoutes.intakeCoordinatorDashboard;
+    }
+    if (r == 'caregiver') {
+      return ClinicalRoutes.careGiverDashboard;
+    }
+    if (r == 'rn') {
+      return ClinicalRoutes.rnDashboard;
+    }
+    if (r == 'rpn') {
+      return ClinicalRoutes.rpnDashboard;
+    }
+    if (r.contains('clinical')) {
       return CommonRoutes.clinicalDashboard;
     }
 
@@ -191,6 +254,56 @@ class AuthNotifier extends Notifier<AuthState> {
 
         // 1. Try SSO Session Restoration
         try {
+          if (kIsWeb && Uri.base.path.contains('/auth/callback')) {
+            ref.read<ExecutionGateService>(executionGateProvider).passGate(
+              ExecutionGateCategory.auth,
+              'Skipping initial session restoration: actively in auth callback flow.',
+            );
+            
+            // Read stored session directly without hit to auth/me to avoid race conditions
+            final token = prefs.getString('auth_token');
+            final role = prefs.getString('auth_role');
+            final tenantId = prefs.getString('auth_tenant_id');
+            final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
+            final userId = prefs.getString('auth_user_id');
+            final preferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
+            
+            if (token != null && role != null) {
+              state = state.copyWith(
+                isAuthenticated: true,
+                token: token,
+                role: role,
+                userName: userName,
+                tenantId: tenantId,
+                userId: userId,
+                preferredLanguage: preferredLanguage,
+              );
+              authListenable.value = true;
+            }
+            return;
+          }
+
+          // Pre-load stored token/role into state so interceptors can use it for the /me call!
+          final preToken = prefs.getString('auth_token');
+          final preRole = prefs.getString('auth_role');
+          final preTenantId = prefs.getString('auth_tenant_id');
+          final preUserName = prefs.getString('auth_username') ?? 'PrimeCare User';
+          final preUserId = prefs.getString('auth_user_id');
+          final prePreferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
+
+          if (preToken != null && preToken.isNotEmpty && preRole != null && preRole.isNotEmpty) {
+            state = state.copyWith(
+              isAuthenticated: true,
+              token: preToken,
+              role: preRole,
+              userName: preUserName,
+              tenantId: preTenantId,
+              userId: preUserId,
+              preferredLanguage: prePreferredLanguage,
+            );
+            authListenable.value = true;
+          }
+
           final apiClient = ref.read(apiClientProvider);
           final response = await apiClient.get(ApiConfig.endpoints['me']!);
           if (response.isSuccess) {
@@ -210,6 +323,9 @@ class AuthNotifier extends Notifier<AuthState> {
              if (prefs.getString('auth_token') != 'demo-token') {
                await prefs.remove('auth_token');
                await prefs.remove('auth_role');
+               // Clear active state to force login on failure
+               state = AuthState();
+               authListenable.value = false;
              }
           }
         } catch (e) {
@@ -266,10 +382,11 @@ class AuthNotifier extends Notifier<AuthState> {
               stackTrace: st,
             );
         // Ensure we stay in a safe unauthenticated state
-        state = AuthState();
+        state = AuthState(isInitialized: true);
         authListenable.value = false;
       },
     );
+    state = state.copyWith(isInitialized: true);
   }
 
   Future<void> handleDeepLinkAuth({
@@ -287,6 +404,7 @@ class AuthNotifier extends Notifier<AuthState> {
     // Update State
     state = state.copyWith(
       isAuthenticated: true,
+      isInitialized: true,
       token: token,
       role: role,
       userId: userId,

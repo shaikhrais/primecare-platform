@@ -7,8 +7,11 @@ describe("Screen - partnership_manager_workflow", () => {
   it("opens and verifies screen partnership_manager_workflow", () => {
     cy.loginAsRole("partnership");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/partnership-manager-workflow (PartnershipManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/partnership-manager-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PartnershipManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - partnership_manager_workflow", () => {
   cy.getCy("partnershipmanagerworkflow-title").should("be.visible");
   cy.getCy("partnershipmanagerworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PartnershipManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PartnershipManagerWorkflowScreen successfully!\n");
 
   });
 });

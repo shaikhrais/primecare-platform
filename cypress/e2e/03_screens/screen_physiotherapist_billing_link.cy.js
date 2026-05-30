@@ -7,8 +7,11 @@ describe("Screen - physiotherapist_billing_link", () => {
   it("opens and verifies screen physiotherapist_billing_link", () => {
     cy.loginAsRole("physio");
 
-  cy.visitWithSemantics("/allied/physiotherapist-billing-link");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/physiotherapist/billing-link (PhysiotherapistBillingLinkScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/billing-link");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PhysiotherapistBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - physiotherapist_billing_link", () => {
   cy.getCy("physiotherapistbillinglink-title").should("be.visible");
   cy.getCy("physiotherapistbillinglink-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_billing_link");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PhysiotherapistBillingLinkScreen successfully!\n");
 
   });
 });

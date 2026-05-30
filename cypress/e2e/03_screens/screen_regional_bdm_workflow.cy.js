@@ -7,8 +7,11 @@ describe("Screen - regional_bdm_workflow", () => {
   it("opens and verifies screen regional_bdm_workflow", () => {
     cy.loginAsRole("regional_bdm");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/regional-bdm-workflow (RegionalBdmWorkflowScreen)...");
   cy.visitWithSemantics("/management/regional-bdm-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RegionalBdmWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - regional_bdm_workflow", () => {
   cy.getCy("regionalbdmworkflow-title").should("be.visible");
   cy.getCy("regionalbdmworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RegionalBdmWorkflowScreen successfully!\n");
 
   });
 });

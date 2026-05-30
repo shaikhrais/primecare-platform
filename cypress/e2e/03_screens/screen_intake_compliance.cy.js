@@ -7,8 +7,11 @@ describe("Screen - intake_compliance", () => {
   it("opens and verifies screen intake_compliance", () => {
     cy.loginAsRole("intake");
 
-  cy.visitWithSemantics("/common/intake-compliance");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/intake_coordinator/compliance (IntakeComplianceScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/compliance");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_compliance", () => {
   cy.getCy("intakecompliance-title").should("be.visible");
   cy.getCy("intakecompliance-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_compliance");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeComplianceScreen successfully!\n");
 
   });
 });

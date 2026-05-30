@@ -33,20 +33,22 @@ class FinanceDirectorWorkflowScreenState {
 }
 
 // --- Controller (Notifier) ---
-class FinanceDirectorWorkflowScreenController extends StateNotifier<FinanceDirectorWorkflowScreenState> {
+class FinanceDirectorWorkflowScreenController
+    extends StateNotifier<FinanceDirectorWorkflowScreenState> {
   final Ref ref;
 
   FinanceDirectorWorkflowScreenController(this.ref)
-      : super(
-          const FinanceDirectorWorkflowScreenState(
-            isLoading: false,
-            title: 'Finance Director Workflow Management Workspace', // LocaleKeys.mock.tr()
-            logs: [
-              'Finance Director Workflow operations active.',
-              'Security sync complete.',
-            ],
-          ),
-        );
+    : super(
+        const FinanceDirectorWorkflowScreenState(
+          isLoading: false,
+          title:
+              'Finance Director Workflow Management Workspace', // LocaleKeys.mock.tr()
+          logs: [
+            'Finance Director Workflow operations active.',
+            'Security sync complete.',
+          ],
+        ),
+      );
 
   Future<void> executeTaskScan() async {
     state = state.copyWith(isLoading: true);
@@ -71,19 +73,13 @@ class FinanceDirectorWorkflowScreenController extends StateNotifier<FinanceDirec
       } else {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error: ${response.error}',
-          ],
+          logs: [...state.logs, 'API Error: ${response.error}'],
         );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
+        logs: [...state.logs, 'Network Error: $e'],
       );
     }
   }
@@ -94,15 +90,20 @@ class FinanceDirectorWorkflowScreenController extends StateNotifier<FinanceDirec
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final financeDirectorWorkflowScreenProvider =
-    StateNotifierProvider<FinanceDirectorWorkflowScreenController, FinanceDirectorWorkflowScreenState>((ref) {
-  return FinanceDirectorWorkflowScreenController(ref);
-});
+    StateNotifierProvider<
+      FinanceDirectorWorkflowScreenController,
+      FinanceDirectorWorkflowScreenState
+    >((ref) {
+      return FinanceDirectorWorkflowScreenController(ref);
+    });
 
 // --- View ---
 class FinanceDirectorWorkflowScreen extends GovernedConsumerWidget {
@@ -114,153 +115,188 @@ class FinanceDirectorWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(financeDirectorWorkflowScreenProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('financedirectorworkflow-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('financedirectorworkflow-title'),
-          state.title,
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
-        actions: [
-          IconButton(
-            key: const Key('financedirectorworkflow-btn-1'),
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual sweep triggered.'),
+    return Semantics(
+      label: 'data-cy:financedirectorworkflow-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('financedirectorworkflow-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('financedirectorworkflow-title'),
+            state.title,
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
-        ],
-      ),
-      body: Semantics(
-        label: 'data-cy:financedirectorworkflow-screen',
-        child: SingleChildScrollView(
-        key: const Key('financedirectorworkflow-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('financedirectorworkflow-btn-2'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
+          actions: [
+            IconButton(
+              key: const Key('financedirectorworkflow-btn-1'),
+              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              onPressed: () => controller.addLog('Manual sweep triggered.'),
             ),
-
-            GovDashboardHero(
-              title: state.title,
-              roleName: 'Finance Director Workflow Module',
-              description: 'Centralized telemetry, metrics monitoring, and operational logs verification center for Finance Director Workflow.',
-              onRefresh: () => controller.addLog('Telemetry logs re-synchronized.'),
-            ),
-            const SizedBox(height: 24),
-            Row(
+          ],
+        ),
+        body: Semantics(
+          label: 'data-cy:financedirectorworkflow-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('financedirectorworkflow-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Streams', // LocaleKeys.mock.tr()
-                    value: 'Active',
-                    trendLabel: 'Optimal transaction levels',
-                    progress: 0.92,
-                    icon: LucideIcons.activity,
-                    brandColor: theme.colors.primary,
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('financedirectorworkflow-btn-2'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Clearance Status', // LocaleKeys.mock.tr()
-                    value: 'Clear',
-                    trendLabel: 'Zero exceptions flagged',
-                    progress: 1.0,
-                    icon: LucideIcons.shieldCheck,
-                    brandColor: Colors.green,
+
+                Semantics(
+                  label: 'data-cy:financedirectorworkflow-title',
+                  child: GovDashboardHero(
+                    title: state.title,
+                    roleName: 'Finance Director Workflow Module',
+                    description:
+                        'Centralized telemetry, metrics monitoring, and operational logs verification center for Finance Director Workflow.',
+                    onRefresh: () =>
+                        controller.addLog('Telemetry logs re-synchronized.'),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Active Streams', // LocaleKeys.mock.tr()
+                        value: 'Active',
+                        trendLabel: 'Optimal transaction levels',
+                        progress: 0.92,
+                        icon: LucideIcons.activity,
+                        brandColor: theme.colors.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Clearance Status', // LocaleKeys.mock.tr()
+                        value: 'Clear',
+                        trendLabel: 'Zero exceptions flagged',
+                        progress: 1.0,
+                        icon: LucideIcons.shieldCheck,
+                        brandColor: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                GovTelemetryChart(
+                  title: 'Hourly Telemetry Index', // LocaleKeys.mock.tr()
+                  dataPoints: const [75, 80, 85, 90, 88, 95],
+                  labels: const [
+                    '10:00',
+                    '11:00',
+                    '12:00',
+                    '13:00',
+                    '14:00',
+                    '15:00',
+                  ],
+                  accentColor: theme.colors.primary,
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Operational Telemetry Invariants Log',
+                        style: theme.typography.h4.copyWith(
+                          color: theme.colors.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ...state.logs.map(
+                        (log) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '• ',
+                                style: TextStyle(
+                                  color: theme.colors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  log,
+                                  style: theme.typography.bodySmall.copyWith(
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          key: const Key('financedirectorworkflow-btn-3'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: state.isLoading
+                              ? null
+                              : () => controller.executeTaskScan(),
+                          child: state.isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    key: const Key(
+                                      'financedirectorworkflow-loading',
+                                    ),
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  'Execute Quality Verification Sweep',
+                                  style: theme.typography.button.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            GovTelemetryChart(
-              title: 'Hourly Telemetry Index', // LocaleKeys.mock.tr()
-              dataPoints: const [75, 80, 85, 90, 88, 95],
-              labels: const ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'],
-              accentColor: theme.colors.primary,
-            ),
-            const SizedBox(height: 24),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Operational Telemetry Invariants Log',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                  ),
-                  const SizedBox(height: 12),
-                  ...state.logs.map((log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log,
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-            key: const Key('financedirectorworkflow-btn-3'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.executeTaskScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-            key: const Key('financedirectorworkflow-loading'),
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Text(
-                              'Execute Quality Verification Sweep',
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),),
-    ),
+          ),
+        ),
+      ),
     );
   }
 }

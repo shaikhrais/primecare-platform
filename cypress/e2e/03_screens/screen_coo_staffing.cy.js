@@ -7,8 +7,11 @@ describe("Screen - coo_staffing", () => {
   it("opens and verifies screen coo_staffing", () => {
     cy.loginAsRole("coo");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/coo-staffing (CooStaffingScreen)...");
   cy.visitWithSemantics("/executive/coo-staffing");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CooStaffingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - coo_staffing", () => {
   cy.getCy("coostaffing-title").should("be.visible");
   cy.getCy("coostaffing-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CooStaffingScreen...");
   cy.waitAndSee();
   cy.screenshot("coo_staffing");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CooStaffingScreen successfully!\n");
 
   });
 });

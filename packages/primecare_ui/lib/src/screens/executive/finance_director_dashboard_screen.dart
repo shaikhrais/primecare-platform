@@ -31,18 +31,16 @@ class FinanceDirectorDashboardState {
 }
 
 // --- Controller (Notifier) ---
-class FinanceDirectorDashboardController extends StateNotifier<FinanceDirectorDashboardState> {
+class FinanceDirectorDashboardController
+    extends StateNotifier<FinanceDirectorDashboardState> {
   FinanceDirectorDashboardController()
-      : super(
-          const FinanceDirectorDashboardState(
-            isLoading: false,
-            title: 'Finance Director Control Center',
-            logs: [
-              'System initialized.',
-              'Security sync complete.',
-            ],
-          ),
-        );
+    : super(
+        const FinanceDirectorDashboardState(
+          isLoading: false,
+          title: 'Finance Director Control Center',
+          logs: ['System initialized.', 'Security sync complete.'],
+        ),
+      );
 
   Future<void> runComplianceScan() async {
     state = state.copyWith(isLoading: true);
@@ -57,30 +55,21 @@ class FinanceDirectorDashboardController extends StateNotifier<FinanceDirectorDa
     );
   }
 
-    void syncPosture() {
+  void syncPosture() {
     state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Manual synchronization sweep completed.',
-      ],
+      logs: [...state.logs, 'Manual synchronization sweep completed.'],
     );
   }
 
   void updatePolicy() {
     state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Security posture updated and validated.',
-      ],
+      logs: [...state.logs, 'Security posture updated and validated.'],
     );
   }
 
   void exportLogs() {
     state = state.copyWith(
-      logs: [
-        ...state.logs,
-        'Audit logs successfully compiled and exported.',
-      ],
+      logs: [...state.logs, 'Audit logs successfully compiled and exported.'],
     );
   }
 
@@ -90,15 +79,20 @@ class FinanceDirectorDashboardController extends StateNotifier<FinanceDirectorDa
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final financeDirectorDashboardProvider =
-    StateNotifierProvider<FinanceDirectorDashboardController, FinanceDirectorDashboardState>((ref) {
-  return FinanceDirectorDashboardController();
-});
+    StateNotifierProvider<
+      FinanceDirectorDashboardController,
+      FinanceDirectorDashboardState
+    >((ref) {
+      return FinanceDirectorDashboardController();
+    });
 
 // --- View ---
 class FinanceDirectorDashboardScreen extends GovernedConsumerWidget {
@@ -109,173 +103,210 @@ class FinanceDirectorDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(financeDirectorDashboardProvider);
     final controller = ref.read(financeDirectorDashboardProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'FinanceDirectorDashboardScreen'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
+    final roleBase = 'FinanceDirectorDashboardScreen'
+        .replaceAll('DashboardScreen', '')
+        .replaceAll('Screen', '');
 
-    return Scaffold(
-      key: const Key('financedirectordashboard-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('financedirectordashboard-title'),
-          state.title,
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
-        actions: [
-          IconButton(
-            key: const Key('financedirectordashboard-btn-1'),
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual refresh triggered.'),
+    return Semantics(
+      label: 'data-cy:financedirectordashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('financedirectordashboard-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('financedirectordashboard-title'),
+            state.title,
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
-        ],
-      ),
-      body: Semantics(
-        label: 'data-cy:financedirectordashboard-screen',
-        child: SingleChildScrollView(
-        key: const Key('financedirectordashboard-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('financedirectordashboard-btn-2'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
+          actions: [
+            IconButton(
+              key: const Key('financedirectordashboard-btn-1'),
+              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              onPressed: () => controller.addLog('Manual refresh triggered.'),
             ),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('financedirectordashboard-btn-3'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 2'.tr()),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('financedirectordashboard-btn-4'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 3'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: state.title,
-              roleName: '$roleBase Dashboard',
-              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
-            ),
-            const SizedBox(height: 24),
-            Row(
+          ],
+        ),
+        body: Semantics(
+          label: 'data-cy:financedirectordashboard-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('financedirectordashboard-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Operations',
-                    value: 'Active',
-                    trendLabel: 'Optimal productivity',
-                    progress: 0.92,
-                    icon: LucideIcons.activity,
-                    brandColor: theme.colors.primary,
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('financedirectordashboard-btn-2'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Security Clearance',
-                    value: 'Level 4 Approved',
-                    trendLabel: 'Zero exceptions logged',
-                    progress: 1.0,
-                    icon: LucideIcons.shieldCheck,
-                    brandColor: Colors.green,
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('financedirectordashboard-btn-3'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 2'.tr()),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('financedirectordashboard-btn-4'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 3'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:financedirectordashboard-title',
+                  child: GovDashboardHero(
+                    title: state.title,
+                    roleName: '$roleBase Dashboard',
+                    description:
+                        'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+                    onRefresh: () =>
+                        controller.addLog('Dashboard telemetry synchronized.'),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Active Operations',
+                        value: 'Active',
+                        trendLabel: 'Optimal productivity',
+                        progress: 0.92,
+                        icon: LucideIcons.activity,
+                        brandColor: theme.colors.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Security Clearance',
+                        value: 'Level 4 Approved',
+                        trendLabel: 'Zero exceptions logged',
+                        progress: 1.0,
+                        icon: LucideIcons.shieldCheck,
+                        brandColor: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                GovTelemetryChart(
+                  title: 'Hourly Core Telemetry',
+                  dataPoints: const [75, 82, 80, 94, 91, 98],
+                  labels: const [
+                    '09:00',
+                    '10:00',
+                    '11:00',
+                    '12:00',
+                    '13:00',
+                    '14:00',
+                  ],
+                  accentColor: theme.colors.primary,
+                ),
+                const SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Operational Audit Logs',
+                        style: theme.typography.h4.copyWith(
+                          color: theme.colors.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ...state.logs.map(
+                        (log) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '• ',
+                                style: TextStyle(
+                                  color: theme.colors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  log,
+                                  style: theme.typography.bodySmall.copyWith(
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          key: const Key('financedirectordashboard-btn-5'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: state.isLoading
+                              ? null
+                              : () => controller.runComplianceScan(),
+                          child: state.isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    key: const Key(
+                                      'financedirectordashboard-loading',
+                                    ),
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  'Execute Operational Audit Scan',
+                                  style: theme.typography.button.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            GovTelemetryChart(
-              title: 'Hourly Core Telemetry',
-              dataPoints: const [75, 82, 80, 94, 91, 98],
-              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-              accentColor: theme.colors.primary,
-            ),
-            const SizedBox(height: 24),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Operational Audit Logs',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                  ),
-                  const SizedBox(height: 12),
-                  ...state.logs.map((log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log,
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-            key: const Key('financedirectordashboard-btn-5'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-            key: const Key('financedirectordashboard-loading'),
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Text(
-                              'Execute Operational Audit Scan',
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),),
-    ),
+          ),
+        ),
+      ),
     );
   }
 }

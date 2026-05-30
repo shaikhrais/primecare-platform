@@ -7,8 +7,11 @@ describe("Screen - training_hub_workflow", () => {
   it("opens and verifies screen training_hub_workflow", () => {
     cy.loginAsRole("training");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/training-hub-workflow (TrainingHubWorkflowScreen)...");
   cy.visitWithSemantics("/common/training-hub-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingHubWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - training_hub_workflow", () => {
   cy.getCy("traininghubworkflow-title").should("be.visible");
   cy.getCy("traininghubworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingHubWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("training_hub_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TrainingHubWorkflowScreen successfully!\n");
 
   });
 });

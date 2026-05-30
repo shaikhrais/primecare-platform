@@ -7,8 +7,11 @@ describe("Screen - staff_progress", () => {
   it("opens and verifies screen staff_progress", () => {
     cy.loginAsRole("training_coordinator");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/staff-progress (StaffProgressScreen)...");
   cy.visitWithSemantics("/staff/staff-progress");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for StaffProgressScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - staff_progress", () => {
   cy.getCy("staffprogress-title").should("be.visible");
   cy.getCy("staffprogress-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffProgressScreen...");
   cy.waitAndSee();
   cy.screenshot("staff_progress");
+  
+  cy.task("log", "✅ PROGRESS: - Verified StaffProgressScreen successfully!\n");
 
   });
 });

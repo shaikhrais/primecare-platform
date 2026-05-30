@@ -7,8 +7,11 @@ describe("Screen - incident_management", () => {
   it("opens and verifies screen incident_management", () => {
     cy.loginAsRole("compliance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/incident-management (IncidentManagementScreen)...");
   cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IncidentManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - incident_management", () => {
   cy.getCy("incidentmanagement-title").should("be.visible");
   cy.getCy("incidentmanagement-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IncidentManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_management");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IncidentManagementScreen successfully!\n");
 
   });
 });

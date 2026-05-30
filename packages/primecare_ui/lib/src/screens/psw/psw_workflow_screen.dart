@@ -41,21 +41,21 @@ class PswWorkflowController extends StateNotifier<PswWorkflowState> {
   final Ref _ref;
 
   PswWorkflowController(this._ref)
-      : super(
-          const PswWorkflowState(
-            isClockedIn: false,
-            activeClient: 'Margaret Thompson',
-            activeTravelMileage: 4.8,
-            isSubmittingVitals: false,
-            activeAdlChecklist: {
-              'bathing': false,
-              'meals': false,
-              'transfer': false,
-              'hygiene': false,
-              'medication': false,
-            },
-          ),
-        );
+    : super(
+        const PswWorkflowState(
+          isClockedIn: false,
+          activeClient: 'Margaret Thompson',
+          activeTravelMileage: 4.8,
+          isSubmittingVitals: false,
+          activeAdlChecklist: {
+            'bathing': false,
+            'meals': false,
+            'transfer': false,
+            'hygiene': false,
+            'medication': false,
+          },
+        ),
+      );
 
   void toggleClockIn() {
     final nextState = !state.isClockedIn;
@@ -63,7 +63,9 @@ class PswWorkflowController extends StateNotifier<PswWorkflowState> {
 
     // Aura behavioral telemetry logging
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/psw/workflow',
             eventType: nextState ? 'psw_clock_in' : 'psw_clock_out',
             metadata: {
@@ -75,12 +77,16 @@ class PswWorkflowController extends StateNotifier<PswWorkflowState> {
   }
 
   void toggleAdlItem(String itemKey) {
-    final updatedChecklist = Map<String, dynamic>.from(state.activeAdlChecklist);
+    final updatedChecklist = Map<String, dynamic>.from(
+      state.activeAdlChecklist,
+    );
     updatedChecklist[itemKey] = !(updatedChecklist[itemKey] as bool);
     state = state.copyWith(activeAdlChecklist: updatedChecklist);
 
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/psw/workflow',
             eventType: 'psw_adl_item_toggle',
             metadata: {'item': itemKey, 'value': updatedChecklist[itemKey]},
@@ -108,7 +114,9 @@ class PswWorkflowController extends StateNotifier<PswWorkflowState> {
 
     // Track telemetry
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/psw/workflow',
             eventType: 'psw_vitals_submitted',
             metadata: {
@@ -124,15 +132,17 @@ class PswWorkflowController extends StateNotifier<PswWorkflowState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final pswWorkflowControllerProvider =
     StateNotifierProvider<PswWorkflowController, PswWorkflowState>((ref) {
-  return PswWorkflowController(ref);
-});
+      return PswWorkflowController(ref);
+    });
 
 // --- View ---
 class PswWorkflowScreen extends GovernedConsumerWidget {
@@ -144,82 +154,99 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
     final controller = ref.read(pswWorkflowControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('pswworkflow-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('pswworkflow-title'),
-          'PSW Active Workflows',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:pswworkflow-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('pswworkflow-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('pswworkflow-title'),
+            'PSW Active Workflows',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:pswworkflow-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('pswworkflow-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('pswworkflow-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:pswworkflow-title',
+                  child: GovDashboardHero(
+                    title: 'Frontline ADL & Vitals Logging',
+                    roleName: 'Personal Support Worker (PSW)',
+                    description:
+                        'Geofenced patient shift trackers, vital indicators forms, and mileage sync systems.',
+                    onRefresh: () => ref.refresh(pswWorkflowControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Top Status Panel: Geofenced Clock-in control
+                _buildClockInCard(context, state, controller),
+                const SizedBox(height: 24),
+
+                // Main Actions Rows (Checklist vs. Vitals Intake Form)
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 900) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: _buildAdlChecklistCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 6,
+                            child: _buildVitalsFormCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          _buildAdlChecklistCard(context, state, controller),
+                          const SizedBox(height: 24),
+                          _buildVitalsFormCard(context, state, controller),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:pswworkflow-screen',
-        child: SingleChildScrollView(
-        key: const Key('pswworkflow-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('pswworkflow-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Frontline ADL & Vitals Logging',
-              roleName: 'Personal Support Worker (PSW)',
-              description:
-                  'Geofenced patient shift trackers, vital indicators forms, and mileage sync systems.',
-              onRefresh: () => ref.refresh(pswWorkflowControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // Top Status Panel: Geofenced Clock-in control
-            _buildClockInCard(context, state, controller),
-            const SizedBox(height: 24),
-
-            // Main Actions Rows (Checklist vs. Vitals Intake Form)
-            LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth > 900) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: _buildAdlChecklistCard(context, state, controller),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 6,
-                        child: _buildVitalsFormCard(context, state, controller),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      _buildAdlChecklistCard(context, state, controller),
-                      const SizedBox(height: 24),
-                      _buildVitalsFormCard(context, state, controller),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -277,8 +304,9 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
           ),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  state.isClockedIn ? theme.colors.error : theme.colors.primary,
+              backgroundColor: state.isClockedIn
+                  ? theme.colors.error
+                  : theme.colors.primary,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               shape: RoundedRectangleBorder(
@@ -443,7 +471,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_1'), 
+                  child: PrimeCareTextField(
+                    key: const Key('psw_workflow_screen_textfield_input_1'),
                     label: 'BP Systolic (mmHg)',
                     controller: sysController,
                     validator: (val) {
@@ -455,7 +484,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_2'), 
+                  child: PrimeCareTextField(
+                    key: const Key('psw_workflow_screen_textfield_input_2'),
                     label: 'BP Diastolic (mmHg)',
                     controller: diaController,
                     validator: (val) {
@@ -471,7 +501,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_3'), 
+                  child: PrimeCareTextField(
+                    key: const Key('psw_workflow_screen_textfield_input_3'),
                     label: 'Heart Rate (bpm)',
                     controller: heartController,
                     validator: (val) {
@@ -483,7 +514,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_4'), 
+                  child: PrimeCareTextField(
+                    key: const Key('psw_workflow_screen_textfield_input_4'),
                     label: 'Temperature (°C)',
                     controller: tempController,
                     validator: (val) {
@@ -496,7 +528,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            PrimeCareTextField(key: const Key('psw_workflow_screen_textfield_input_5'), 
+            PrimeCareTextField(
+              key: const Key('psw_workflow_screen_textfield_input_5'),
               label: 'Oxygen Saturation (%)',
               controller: oxygenController,
               validator: (val) {
@@ -506,7 +539,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-            key: const Key('pswworkflow-btn-2'),
+              key: const Key('pswworkflow-btn-2'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
                 foregroundColor: Colors.white,
@@ -531,7 +564,8 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: const Text(
-                                  'Vitals entry uploaded & recorded successfully.'),
+                                'Vitals entry uploaded & recorded successfully.',
+                              ),
                               backgroundColor: Colors.green,
                               behavior: SnackBarBehavior.floating,
                             ),
@@ -544,7 +578,7 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-            key: const Key('pswworkflow-loading'),
+                        key: const Key('pswworkflow-loading'),
                         strokeWidth: 2,
                         color: Colors.white,
                       ),

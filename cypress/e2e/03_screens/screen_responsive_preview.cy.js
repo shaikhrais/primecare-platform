@@ -7,8 +7,11 @@ describe("Screen - responsive_preview", () => {
   it("opens and verifies screen responsive_preview", () => {
     cy.loginAsRole("governance");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /common/responsive-preview (ResponsivePreviewScreen)...");
   cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ResponsivePreviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - responsive_preview", () => {
   cy.getCy("responsivepreview-title").should("be.visible");
   cy.getCy("responsivepreview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ResponsivePreviewScreen...");
   cy.waitAndSee();
   cy.screenshot("responsive_preview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ResponsivePreviewScreen successfully!\n");
 
   });
 });

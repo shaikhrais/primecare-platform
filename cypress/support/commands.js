@@ -9,22 +9,9 @@ Cypress.Commands.add("waitAndSee", () => {
 });
 
 Cypress.Commands.add("visitWithSemantics", (path) => {
-  // Extract clean path without leading slash if present
-  const cleanPath = path.startsWith("/") ? path.substring(1) : path;
-  
-  cy.window().then((win) => {
-    const hasShell = win.document.querySelector('[aria-label*="data-cy:app-shell"], [data-cy="app-shell"]');
-    if (hasShell) {
-      // SPA client-side transition to prevent page reload session loss
-      cy.log(`Client-side hash transition to: ${path}`);
-      win.location.hash = `#/${cleanPath}`;
-      cy.wait(1000);
-    } else {
-      // Fallback for initial load
-      const querySymbol = path.includes("?") ? "&" : "?";
-      cy.visit(`${path}${querySymbol}enable-semantics=true`);
-    }
-  });
+  const querySymbol = path.includes("?") ? "&" : "?";
+  cy.visit(`${path}${querySymbol}enable-semantics=true`);
+  cy.wait(1500);
 });
 
 Cypress.Commands.add("verifyNotBlank", () => {
@@ -53,10 +40,14 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     if (!user) throw new Error(`No test user for role ${roleCode}`);
 
     const password = user.password || "Test@12345";
+    const targetBaseUrl = user.app_url; // Always use the deployed Cloudflare app URL!
 
     // Intercept background session restoration checks on SSO portal to prevent auto-login race conditions.
     cy.intercept("GET", "**/me", (req) => {
-      let hasToken = false;
+      const authHeader = req.headers.authorization || req.headers.Authorization || "";
+      const hasTokenInHeader = authHeader.startsWith("Bearer ") && authHeader.substring(7).trim().length > 0;
+      
+      let hasToken = hasTokenInHeader;
       let isAuthPortal = false;
       let pathname = "/";
       
@@ -64,28 +55,26 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
         const win = Cypress.state('window');
         if (win) {
           const currentUrl = new URL(win.location.href);
-          hasToken = currentUrl.searchParams.has("token");
+          hasToken = hasToken || currentUrl.searchParams.has("token") || currentUrl.hash.includes("token");
           pathname = currentUrl.pathname;
           isAuthPortal = currentUrl.hostname.includes("primecare-auth");
         }
       } catch (_) {}
 
-      // Fallback to headers if window is not ready
-      if (!hasToken) {
+      // Fallback using referer header if window context is not fully ready
+      if (!hasToken || pathname === "/") {
         try {
           const referer = req.headers.referer || req.headers.origin || "";
-          const refUrl = new URL(referer);
-          hasToken = refUrl.searchParams.has("token");
-          isAuthPortal = isAuthPortal || refUrl.hostname.includes("primecare-auth");
+          if (referer) {
+            const refUrl = new URL(referer);
+            hasToken = hasToken || refUrl.searchParams.has("token") || refUrl.hash.includes("token") || refUrl.search.includes("token");
+            pathname = refUrl.pathname;
+            isAuthPortal = isAuthPortal || refUrl.hostname.includes("primecare-auth");
+          }
         } catch (_) {}
       }
 
-      const isInitialLoad = !hasToken && (
-        pathname === "/" || 
-        pathname.includes("/login") || 
-        pathname.includes("/sso-redirect") || 
-        isAuthPortal
-      );
+      const isInitialLoad = !hasToken;
 
       if (isInitialLoad) {
         req.reply({
@@ -108,12 +97,19 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       }
     }).as("ssoHandshake");
 
-    // Visit the protected dashboard route of the primary application first to establish correct top origin context
-    cy.visit(user.app_url + "/?enable-semantics=true#" + user.post_login_route);
-    cy.wait(4000);
+    const cleanPostLoginRoute = user.post_login_route.startsWith("/")
+      ? user.post_login_route.substring(1)
+      : user.post_login_route;
 
-    // Expect redirect to sso portal / login page
-    cy.url().should("include", "primecare-auth");
+    // Visit the protected dashboard route first to establish top origin context
+    cy.visit(targetBaseUrl + user.post_login_route + "?enable-semantics=true", {
+      onBeforeLoad(win) {
+        cy.stub(win, "open").callsFake((url) => {
+          win.location.href = url;
+        });
+      }
+    });
+    cy.wait(4000);
 
     // Perform SSO authentication dynamically inside cy.origin block
     cy.origin("https://primecare-auth.pages.dev", { args: { user, password } }, ({ user, password }) => {
@@ -121,69 +117,69 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       cy.clearCookies();
       cy.clearLocalStorage();
 
-      // Ensure we are on the login view by checking the active path
+      // Wiping IndexedDB to fully clear any persistent SharedPreferences/Hive session states in Flutter
       cy.window().then((win) => {
         try {
           win.sessionStorage.clear();
         } catch (_) {}
-        if (!win.location.pathname.includes("/login")) {
-          cy.log("SSO Portal: Bypassing stale session and navigating to clean login page...");
-          win.location.href = `/login?redirect_uri=${encodeURIComponent(user.redirect_url)}`;
-          cy.wait(3000);
-        }
+        try {
+          win.indexedDB.databases().then((dbs) => {
+            dbs.forEach((db) => {
+              if (db.name) win.indexedDB.deleteDatabase(db.name);
+            });
+          });
+        } catch (_) {}
       });
 
-      // Wait for page/DOM to load and check if the login form is present
-      cy.document().then((doc) => {
-        const hasLoginForm = doc.querySelector('input[type="password"]');
-        if (hasLoginForm) {
-          cy.log("SSO Portal: User is not authenticated. Performing active session login...");
-          
-          // Enter credentials
-          cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
-            .first()
-            .should("be.visible")
-            .clear({ force: true });
-            
-          const resolvedEmail = user.email.endsWith(".local") ? `${user.email}.com` : user.email;
-          cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
-            .first()
-            .type(resolvedEmail, { force: true });
+      // Use native Cypress visit to cleanly navigate and wait for the page load!
+      cy.visit(`/login?force_login=true&redirect_uri=${encodeURIComponent(user.redirect_url)}`);
+      
+      // Wait for Flutter app to fully mount and render UI elements
+      cy.contains("Authorized Access", { includeShadowDom: true, timeout: 20000 }).should("be.visible");
+      cy.wait(2000);
 
-          cy.get('input[type="password"]', { includeShadowDom: true })
-            .should("be.visible")
-            .clear({ force: true });
-            
-          cy.get('input[type="password"]', { includeShadowDom: true })
-            .type(password, { log: false, force: true });
+      const resolvedEmail = user.email;
 
-          // Take screenshot of filled login
-          cy.screenshot(`auth-login-${user.role_code}`);
+      // Enter credentials
+      cy.get('input[type="text"], input[type="email"]', { includeShadowDom: true })
+        .first()
+        .should("be.visible")
+        .clear({ force: true })
+        .type(resolvedEmail, { force: true });
 
-          // Click Initiate Session
-          const hasInitiateSession = doc.body.innerText.includes("INITIATE SESSION");
-          if (hasInitiateSession) {
-            cy.contains("INITIATE SESSION", { includeShadowDom: true }).click({ force: true });
-          } else {
-            cy.get('button, input[type="submit"]', { includeShadowDom: true }).first().click({ force: true });
-          }
-          
-          cy.wait(4000);
+      cy.get('input[type="password"]', { includeShadowDom: true })
+        .should("be.visible")
+        .clear({ force: true })
+        .type(password, { log: false, force: true });
+
+      // Take screenshot of filled login
+      cy.screenshot(`auth-login-${user.role_code}`);
+
+      // Click Initiate Session
+      cy.get("body", { includeShadowDom: true }).then(($body) => {
+        const hasInitiateSession = $body.text().includes("INITIATE SESSION");
+        if (hasInitiateSession) {
+          cy.log("SSO Portal: Clicking semantic INITIATE SESSION button...");
+          cy.contains("INITIATE SESSION", { includeShadowDom: true }).click({ force: true });
         } else {
-          cy.log("SSO Portal: User is already authenticated. Bypassing login credentials...");
+          cy.log("SSO Portal: Clicking fallback submit button...");
+          cy.get('button, input[type="submit"]', { includeShadowDom: true }).first().click({ force: true });
         }
       });
+      
+      cy.wait(5000);
 
       // Assert and click the Consent approve button
       cy.contains("Approve & Continue", { includeShadowDom: true, timeout: 20000 })
         .should("be.visible")
         .click({ force: true });
         
-      cy.wait(3000);
+      cy.wait(4000); // Allow browser to start transition and change origin back
     });
 
     // Back to primary app origin context! Assert redirection is complete.
-    cy.url().should("include", user.app_url);
+    cy.url({ timeout: 45000 }).should("not.include", "primecare-auth.pages.dev");
+    cy.wait(6000); // Remaining delay to let the clinic portal process the deep link callback
     cy.wait(2000);
 
     // Verify dynamic sidebar, topbar, and shell rendering

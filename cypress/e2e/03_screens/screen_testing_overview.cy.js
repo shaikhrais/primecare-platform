@@ -7,8 +7,11 @@ describe("Screen - testing_overview", () => {
   it("opens and verifies screen testing_overview", () => {
     cy.loginAsRole("qa_specialist");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/testing-overview (TestingOverviewScreen)...");
   cy.visitWithSemantics("/staff/testing-overview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for TestingOverviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - testing_overview", () => {
   cy.getCy("testingoverview-title").should("be.visible");
   cy.getCy("testingoverview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for TestingOverviewScreen...");
   cy.waitAndSee();
   cy.screenshot("testing_overview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified TestingOverviewScreen successfully!\n");
 
   });
 });

@@ -7,8 +7,11 @@ describe("Screen - scheduler_provider_availability", () => {
   it("opens and verifies screen scheduler_provider_availability", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-provider-availability (SchedulerProviderAvailabilityScreen)...");
   cy.visitWithSemantics("/staff/scheduler-provider-availability");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerProviderAvailabilityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_provider_availability", () => {
   cy.getCy("schedulerprovideravailability-title").should("be.visible");
   cy.getCy("schedulerprovideravailability-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerProviderAvailabilityScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_provider_availability");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerProviderAvailabilityScreen successfully!\n");
 
   });
 });

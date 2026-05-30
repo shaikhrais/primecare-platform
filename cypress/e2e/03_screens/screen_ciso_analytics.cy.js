@@ -7,8 +7,11 @@ describe("Screen - ciso_analytics", () => {
   it("opens and verifies screen ciso_analytics", () => {
     cy.loginAsRole("ciso");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/ciso-analytics (CisoAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/ciso-analytics");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CisoAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - ciso_analytics", () => {
   cy.getCy("cisoanalytics-title").should("be.visible");
   cy.getCy("cisoanalytics-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for CisoAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("ciso_analytics");
+  
+  cy.task("log", "✅ PROGRESS: - Verified CisoAnalyticsScreen successfully!\n");
 
   });
 });

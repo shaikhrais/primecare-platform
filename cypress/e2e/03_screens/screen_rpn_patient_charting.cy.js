@@ -7,8 +7,11 @@ describe("Screen - rpn_patient_charting", () => {
   it("opens and verifies screen rpn_patient_charting", () => {
     cy.loginAsRole("rpn");
 
-  cy.visitWithSemantics("/rpn/rpn-patient-charting");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rpn/patient-charting (RpnPatientChartingScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rpn/patient-charting");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for RpnPatientChartingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - rpn_patient_charting", () => {
   cy.getCy("rpnpatientcharting-title").should("be.visible");
   cy.getCy("rpnpatientcharting-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnPatientChartingScreen...");
   cy.waitAndSee();
   cy.screenshot("rpn_patient_charting");
+  
+  cy.task("log", "✅ PROGRESS: - Verified RpnPatientChartingScreen successfully!\n");
 
   });
 });

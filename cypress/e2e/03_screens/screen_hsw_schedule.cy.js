@@ -7,8 +7,11 @@ describe("Screen - hsw_schedule", () => {
   it("opens and verifies screen hsw_schedule", () => {
     cy.loginAsRole("hsw");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinical/hsw-schedule (HswScheduleScreen)...");
   cy.visitWithSemantics("/clinical/hsw-schedule");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HswScheduleScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - hsw_schedule", () => {
   cy.getCy("hswschedule-title").should("be.visible");
   cy.getCy("hswschedule-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HswScheduleScreen...");
   cy.waitAndSee();
   cy.screenshot("hsw_schedule");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HswScheduleScreen successfully!\n");
 
   });
 });

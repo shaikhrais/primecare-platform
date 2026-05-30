@@ -7,8 +7,11 @@ describe("Screen - franchise_owner_branch_overview", () => {
   it("opens and verifies screen franchise_owner_branch_overview", () => {
     cy.loginAsRole("owner");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/franchise-owner-branch-overview (FranchiseOwnerBranchOverviewScreen)...");
   cy.visitWithSemantics("/executive/franchise-owner-branch-overview");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for FranchiseOwnerBranchOverviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - franchise_owner_branch_overview", () => {
   cy.getCy("franchiseownerbranchoverview-title").should("be.visible");
   cy.getCy("franchiseownerbranchoverview-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseOwnerBranchOverviewScreen...");
   cy.waitAndSee();
   cy.screenshot("franchise_owner_branch_overview");
+  
+  cy.task("log", "✅ PROGRESS: - Verified FranchiseOwnerBranchOverviewScreen successfully!\n");
 
   });
 });

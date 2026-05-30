@@ -7,8 +7,11 @@ describe("Screen - claims_processing", () => {
   it("opens and verifies screen claims_processing", () => {
     cy.loginAsRole("admin");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/claims-processing (ClaimsProcessingScreen)...");
   cy.visitWithSemantics("/staff/claims-processing");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ClaimsProcessingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - claims_processing", () => {
   cy.getCy("claimsprocessing-title").should("be.visible");
   cy.getCy("claimsprocessing-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ClaimsProcessingScreen...");
   cy.waitAndSee();
   cy.screenshot("claims_processing");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ClaimsProcessingScreen successfully!\n");
 
   });
 });

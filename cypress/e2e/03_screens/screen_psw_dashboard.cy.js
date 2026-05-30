@@ -7,8 +7,11 @@ describe("Screen - psw_dashboard", () => {
   it("opens and verifies screen psw_dashboard", () => {
     cy.loginAsRole("psw");
 
-  cy.visitWithSemantics("/psw/psw-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - psw_dashboard", () => {
   cy.getCy("pswdashboard-title").should("be.visible");
   cy.getCy("pswdashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for PswDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified PswDashboardScreen successfully!\n");
 
   });
 });

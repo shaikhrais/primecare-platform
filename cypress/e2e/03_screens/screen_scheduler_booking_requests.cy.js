@@ -7,8 +7,11 @@ describe("Screen - scheduler_booking_requests", () => {
   it("opens and verifies screen scheduler_booking_requests", () => {
     cy.loginAsRole("scheduler");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/scheduler-booking-requests (SchedulerBookingRequestsScreen)...");
   cy.visitWithSemantics("/staff/scheduler-booking-requests");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for SchedulerBookingRequestsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - scheduler_booking_requests", () => {
   cy.getCy("schedulerbookingrequests-title").should("be.visible");
   cy.getCy("schedulerbookingrequests-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerBookingRequestsScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduler_booking_requests");
+  
+  cy.task("log", "✅ PROGRESS: - Verified SchedulerBookingRequestsScreen successfully!\n");
 
   });
 });

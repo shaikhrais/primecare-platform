@@ -7,8 +7,11 @@ describe("Screen - intake_dashboard", () => {
   it("opens and verifies screen intake_dashboard", () => {
     cy.loginAsRole("intake");
 
-  cy.visitWithSemantics("/common/intake-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/intake_coordinator/dashboard (IntakeDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/dashboard");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for IntakeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - intake_dashboard", () => {
   cy.getCy("intakedashboard-title").should("be.visible");
   cy.getCy("intakedashboard-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: - Verified IntakeDashboardScreen successfully!\n");
 
   });
 });

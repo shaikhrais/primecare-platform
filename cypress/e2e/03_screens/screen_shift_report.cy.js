@@ -7,8 +7,11 @@ describe("Screen - shift_report", () => {
   it("opens and verifies screen shift_report", () => {
     cy.loginAsRole("rn");
 
-  cy.visitWithSemantics("/rn/shift-report");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rn/shift-report (ShiftReportScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rn/shift-report");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for ShiftReportScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - shift_report", () => {
   cy.getCy("shiftreport-title").should("be.visible");
   cy.getCy("shiftreport-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for ShiftReportScreen...");
   cy.waitAndSee();
   cy.screenshot("shift_report");
+  
+  cy.task("log", "✅ PROGRESS: - Verified ShiftReportScreen successfully!\n");
 
   });
 });

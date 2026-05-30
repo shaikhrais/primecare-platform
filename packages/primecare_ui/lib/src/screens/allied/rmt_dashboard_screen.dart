@@ -58,20 +58,32 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
   final Ref ref;
 
   RmtDashboardController(this.ref)
-      : super(
-          RmtDashboardState(
-            isLoading: false,
-            title: 'RMT Therapy Dashboard'.tr(),
-            appointments: const [
-              RmtAppointment(id: 'apt-1', patientName: 'John Doe', treatmentType: 'Deep Tissue Massage', timeSlot: '09:00 AM - 10:00 AM', status: 'Scheduled'),
-              RmtAppointment(id: 'apt-2', patientName: 'Jane Smith', treatmentType: 'Myofascial Release', timeSlot: '11:30 AM - 12:30 PM', status: 'Active'),
-            ],
-            logs: const [
-              'Therapy workspace initialized.',
-              'Connected to Allied Health Schedule database.',
-            ],
-          ),
-        );
+    : super(
+        RmtDashboardState(
+          isLoading: false,
+          title: 'RMT Therapy Dashboard'.tr(),
+          appointments: const [
+            RmtAppointment(
+              id: 'apt-1',
+              patientName: 'John Doe',
+              treatmentType: 'Deep Tissue Massage',
+              timeSlot: '09:00 AM - 10:00 AM',
+              status: 'Scheduled',
+            ),
+            RmtAppointment(
+              id: 'apt-2',
+              patientName: 'Jane Smith',
+              treatmentType: 'Myofascial Release',
+              timeSlot: '11:30 AM - 12:30 PM',
+              status: 'Active',
+            ),
+          ],
+          logs: const [
+            'Therapy workspace initialized.',
+            'Connected to Allied Health Schedule database.',
+          ],
+        ),
+      );
 
   Future<void> fetchAppointments() async {
     state = state.copyWith(isLoading: true);
@@ -87,18 +99,12 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
       if (response.isSuccess) {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'Appointments successfully updated from API.',
-          ],
+          logs: [...state.logs, 'Appointments successfully updated from API.'],
         );
       } else {
         state = state.copyWith(
           isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error: ${response.error}',
-          ],
+          logs: [...state.logs, 'API Error: ${response.error}'],
         );
       }
     } catch (e) {
@@ -183,10 +189,7 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
       final apiClient = ref.read(apiClientProvider);
       final response = await apiClient.post(
         '/v1/rmt/treatment-plans/update',
-        body: {
-          'planId': planId,
-          'timestamp': DateTime.now().toIso8601String(),
-        },
+        body: {'planId': planId, 'timestamp': DateTime.now().toIso8601String()},
       );
       if (response.isSuccess) {
         state = state.copyWith(
@@ -212,15 +215,17 @@ class RmtDashboardController extends StateNotifier<RmtDashboardState> {
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rmtDashboardProvider =
     StateNotifierProvider<RmtDashboardController, RmtDashboardState>((ref) {
-  return RmtDashboardController(ref);
-});
+      return RmtDashboardController(ref);
+    });
 
 // --- View ---
 class RmtDashboardScreen extends GovernedConsumerWidget {
@@ -232,162 +237,205 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
     final controller = ref.read(rmtDashboardProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('rmtdashboard-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rmtdashboard-title'),
-          state.title,
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
-        actions: [
-          IconButton(
-            key: const Key('rmtdashboard-btn-1'),
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.fetchAppointments(),
+    return Semantics(
+      label: 'data-cy:rmtdashboard-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rmtdashboard-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rmtdashboard-title'),
+            state.title,
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
-        ],
-      ),
-      body: Semantics(
-        label: 'data-cy:rmtdashboard-screen',
-        child: SingleChildScrollView(
-        key: const Key('rmtdashboard-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rmtdashboard-btn-2'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
+          actions: [
+            IconButton(
+              key: const Key('rmtdashboard-btn-1'),
+              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              onPressed: () => controller.fetchAppointments(),
             ),
-
-            GovDashboardHero(
-              title: state.title,
-              roleName: 'Allied RMT Therapist',
-              description: 'Manage therapeutic SOAP charting notes, process Telus Health direct billing claims, and review scheduled massage sessions.',
-              onRefresh: () => controller.fetchAppointments(),
-            ),
-            const SizedBox(height: 24),
-
-            // Active Sessions List
-            PrimeCareCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Massage Appointments & SOAP Notes',
-                    style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold),
+          ],
+        ),
+        body: Semantics(
+          label: 'data-cy:rmtdashboard-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rmtdashboard-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rmtdashboard-btn-2'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
                   ),
-                  const SizedBox(height: 16),
-                  ...state.appointments.map((apt) => Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: theme.colors.background,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: theme.colors.border),
+                ),
+
+                Semantics(
+                  label: 'data-cy:rmtdashboard-title',
+                  child: GovDashboardHero(
+                    title: state.title,
+                    roleName: 'Allied RMT Therapist',
+                    description:
+                        'Manage therapeutic SOAP charting notes, process Telus Health direct billing claims, and review scheduled massage sessions.',
+                    onRefresh: () => controller.fetchAppointments(),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Active Sessions List
+                PrimeCareCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Massage Appointments & SOAP Notes',
+                        style: theme.typography.h3.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ...state.appointments.map(
+                        (apt) => Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: theme.colors.background,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: theme.colors.border),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      apt.patientName,
+                                      style: theme.typography.bodyLarge
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Text(
+                                      apt.status,
+                                      style: TextStyle(
+                                        color: apt.status == 'Active'
+                                            ? Colors.green
+                                            : theme.colors.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${apt.treatmentType} | ${apt.timeSlot}',
+                                  style: theme.typography.bodyMedium.copyWith(
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                Row(
+                                  children: [
+                                    ElevatedButton(
+                                      key: const Key('rmtdashboard-btn-3'),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.colors.primary,
+                                      ),
+                                      onPressed: () =>
+                                          controller.createSoapNote(
+                                            apt.id,
+                                            'Myofascial tightness resolved.',
+                                          ),
+                                      child: const Text(
+                                        'Save SOAP Chart note',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    TextButton(
+                                      key: const Key('rmtdashboard-btn-4'),
+                                      onPressed: () => controller
+                                          .submitInsuranceClaim(apt.id),
+                                      child: Text(
+                                        'Submit Direct Billing claim'.tr(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Column(
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Telemetry Logs Panel
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Operational Audit Logs',
+                        style: theme.typography.h4.copyWith(
+                          color: theme.colors.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ...state.logs.map(
+                        (log) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    apt.patientName,
-                                    style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    apt.status,
-                                    style: TextStyle(
-                                      color: apt.status == 'Active' ? Colors.green : theme.colors.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
                               Text(
-                                '${apt.treatmentType} | ${apt.timeSlot}',
-                                style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+                                '• ',
+                                style: TextStyle(
+                                  color: theme.colors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              const SizedBox(height: 12),
-                              Row(
-                                children: [
-                                  ElevatedButton(
-            key: const Key('rmtdashboard-btn-3'),
-                                    style: ElevatedButton.styleFrom(backgroundColor: theme.colors.primary),
-                                    onPressed: () => controller.createSoapNote(apt.id, 'Myofascial tightness resolved.'),
-                                    child: const Text('Save SOAP Chart note', style: TextStyle(color: Colors.white)),
+                              Expanded(
+                                child: Text(
+                                  log,
+                                  style: theme.typography.bodySmall.copyWith(
+                                    color: theme.colors.onSurfaceVariant,
                                   ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-            key: const Key('rmtdashboard-btn-4'),
-                                    onPressed: () => controller.submitInsuranceClaim(apt.id),
-                                    child: Text('Submit Direct Billing claim'.tr()),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      )),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Telemetry Logs Panel
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: theme.colors.surface,
-                borderRadius: BorderRadius.circular(theme.radiusMd),
-                border: Border.all(color: theme.colors.border),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Operational Audit Logs',
-                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 12),
-                  ...state.logs.map((log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log,
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),),
-    ),
+          ),
+        ),
+      ),
     );
   }
 }

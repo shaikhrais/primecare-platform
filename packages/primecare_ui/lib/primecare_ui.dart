@@ -575,3 +575,14 @@ export 'src/screens/common/governance_operations4_k_screen.dart';
 export 'src/screens/staff/scheduling_operations4_k_screen.dart';
 export 'src/screens/executive/financial_operations4_k_screen.dart';
 
+// Missing clinical analytics and workflow screen exports
+export 'src/screens/rpn/lpn_analytics_screen.dart';
+export 'src/screens/rpn/lpn_workflow_screen.dart';
+export 'src/screens/rn/np_analytics_screen.dart';
+export 'src/screens/rn/np_workflow_screen.dart';
+export 'src/screens/clinical/pediatric_analytics_screen.dart';
+export 'src/screens/clinical/pediatric_workflow_screen.dart';
+export 'src/screens/clinical/physician_analytics_screen.dart';
+export 'src/screens/clinical/physician_workflow_screen.dart';
+export 'src/screens/allied/therapist_analytics_screen.dart';
+export 'src/screens/allied/therapist_workflow_screen.dart';

@@ -41,48 +41,48 @@ class RpnAnalyticsController extends StateNotifier<RpnAnalyticsState> {
   final Ref _ref;
 
   RpnAnalyticsController(this._ref)
-      : super(
-          const RpnAnalyticsState(
-            woundCases: 8,
-            vitalsCompliance: 98.8,
-            totalImmunizations: 42,
-            immunizationStatus: {
-              'Influenza Annual': 0.92,
-              'COVID-19 Booster': 0.84,
-              'Pneumococcal Polyvalent': 0.68,
-              'Shingles Recombinant': 0.74,
+    : super(
+        const RpnAnalyticsState(
+          woundCases: 8,
+          vitalsCompliance: 98.8,
+          totalImmunizations: 42,
+          immunizationStatus: {
+            'Influenza Annual': 0.92,
+            'COVID-19 Booster': 0.84,
+            'Pneumococcal Polyvalent': 0.68,
+            'Shingles Recombinant': 0.74,
+          },
+          woundAssessments: [
+            {
+              'id': 'WND-001',
+              'patient': 'Margaret Thompson',
+              'location': 'Sacrum',
+              'stage': 'Stage 2 Pressure Injury',
+              'status': 'Healing',
+              'size': '3.2 x 2.1 cm',
+              'lastDressed': '4 hours ago',
             },
-            woundAssessments: [
-              {
-                'id': 'WND-001',
-                'patient': 'Margaret Thompson',
-                'location': 'Sacrum',
-                'stage': 'Stage 2 Pressure Injury',
-                'status': 'Healing',
-                'size': '3.2 x 2.1 cm',
-                'lastDressed': '4 hours ago',
-              },
-              {
-                'id': 'WND-002',
-                'patient': 'Arthur Pendelton',
-                'location': 'Left Heel',
-                'stage': 'Stage 1 Pressure Injury',
-                'status': 'Stable',
-                'size': '1.0 x 1.2 cm',
-                'lastDressed': '8 hours ago',
-              },
-              {
-                'id': 'WND-003',
-                'patient': 'Eleanor Vance',
-                'location': 'Abdominal Incision',
-                'stage': 'Post-Surgical Incision',
-                'status': 'Fully Healed',
-                'size': 'Closed',
-                'lastDressed': '2 days ago',
-              },
-            ],
-          ),
-        );
+            {
+              'id': 'WND-002',
+              'patient': 'Arthur Pendelton',
+              'location': 'Left Heel',
+              'stage': 'Stage 1 Pressure Injury',
+              'status': 'Stable',
+              'size': '1.0 x 1.2 cm',
+              'lastDressed': '8 hours ago',
+            },
+            {
+              'id': 'WND-003',
+              'patient': 'Eleanor Vance',
+              'location': 'Abdominal Incision',
+              'stage': 'Post-Surgical Incision',
+              'status': 'Fully Healed',
+              'size': 'Closed',
+              'lastDressed': '2 days ago',
+            },
+          ],
+        ),
+      );
 
   void updateWoundStatus(String woundId, String status, String size) {
     final updatedWounds = state.woundAssessments.map((w) {
@@ -101,29 +101,29 @@ class RpnAnalyticsController extends StateNotifier<RpnAnalyticsState> {
 
     // Aura behavioral telemetry logging
     try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+      _ref
+          .read(auraBehavioralTelemetryProvider)
+          .logStructuralEvent(
             route: '/rpn/analytics',
             eventType: 'rpn_wound_status_updated',
-            metadata: {
-              'woundId': woundId,
-              'status': status,
-              'size': size,
-            },
+            metadata: {'woundId': woundId, 'status': status, 'size': size},
           );
     } catch (_) {}
   }
 
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
-    print('Governance required action triggerStateAction executed successfully.');
+    print(
+      'Governance required action triggerStateAction executed successfully.',
+    );
   }
 }
 
 // --- Provider ---
 final rpnAnalyticsControllerProvider =
     StateNotifierProvider<RpnAnalyticsController, RpnAnalyticsState>((ref) {
-  return RpnAnalyticsController(ref);
-});
+      return RpnAnalyticsController(ref);
+    });
 
 // --- View ---
 class RpnAnalyticsScreen extends GovernedConsumerWidget {
@@ -135,122 +135,140 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
     final controller = ref.read(rpnAnalyticsControllerProvider.notifier);
     final theme = context.theme;
 
-    return Scaffold(
-      key: const Key('rpnanalytics-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Text(
-          key: const Key('rpnanalytics-title'),
-          'RPN Clinical Insights',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+    return Semantics(
+      label: 'data-cy:rpnanalytics-screen',
+      container: true,
+      child: Scaffold(
+        key: const Key('rpnanalytics-screen'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Text(
+            key: const Key('rpnanalytics-title'),
+            'RPN Clinical Insights',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:rpnanalytics-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('rpnanalytics-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === Governance Injected UI Components & Buttons ===
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('rpnanalytics-btn-1'),
+                    onPressed: () => controller.triggerStateAction(),
+                    child: Text('Execute: Button 1'.tr()),
+                  ),
+                ),
+
+                Semantics(
+                  label: 'data-cy:rpnanalytics-title',
+                  child: GovDashboardHero(
+                    title: 'Wound Assessments & Immunizations',
+                    roleName: 'Registered Practical Nurse (RPN)',
+                    description:
+                        'Practical clinical execution dashboards tracking localized wound status metrics and regional vaccination coverage.',
+                    onRefresh: () =>
+                        ref.refresh(rpnAnalyticsControllerProvider),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Metrics Grid
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final crossAxisCount = constraints.maxWidth > 900 ? 4 : 2;
+                    return GridView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        childAspectRatio: 1.4,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      children: [
+                        PrimeCareKpiCard(
+                          title: 'Active Wound Cases',
+                          value: state.woundCases.toString(),
+                          icon: LucideIcons.activity,
+                          color: Colors.red,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Vitals Logging Rate',
+                          value:
+                              '${state.vitalsCompliance.toStringAsFixed(1)}%',
+                          icon: LucideIcons.heartHandshake,
+                          color: Colors.green,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Immunizations Managed',
+                          value: state.totalImmunizations.toString(),
+                          icon: LucideIcons.shieldAlert,
+                          color: Colors.blue,
+                        ),
+                        PrimeCareKpiCard(
+                          title: 'Target Compliance',
+                          value: '100%',
+                          icon: LucideIcons.badgeCheck,
+                          color: theme.colors.primary,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // Responsive Two Columns (Wound assessments table vs Immunization coverage progress)
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 900) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: _buildWoundsLedgerCard(
+                              context,
+                              state,
+                              controller,
+                            ),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 4,
+                            child: _buildImmunizationProgressCard(
+                              context,
+                              state,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          _buildWoundsLedgerCard(context, state, controller),
+                          const SizedBox(height: 24),
+                          _buildImmunizationProgressCard(context, state),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Semantics(
-        label: 'data-cy:rpnanalytics-screen',
-        child: SingleChildScrollView(
-        key: const Key('rpnanalytics-content'),
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // === Governance Injected UI Components & Buttons ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-            key: const Key('rpnanalytics-btn-1'),
-                onPressed: () => controller.triggerStateAction(),
-                child: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-
-            GovDashboardHero(
-              title: 'Wound Assessments & Immunizations',
-              roleName: 'Registered Practical Nurse (RPN)',
-              description:
-                  'Practical clinical execution dashboards tracking localized wound status metrics and regional vaccination coverage.',
-              onRefresh: () => ref.refresh(rpnAnalyticsControllerProvider),
-            ),
-            const SizedBox(height: 24),
-
-            // Metrics Grid
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final crossAxisCount = constraints.maxWidth > 900 ? 4 : 2;
-                return GridView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    childAspectRatio: 1.4,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  children: [
-                    PrimeCareKpiCard(
-                      title: 'Active Wound Cases',
-                      value: state.woundCases.toString(),
-                      icon: LucideIcons.activity,
-                      color: Colors.red,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Vitals Logging Rate',
-                      value: '${state.vitalsCompliance.toStringAsFixed(1)}%',
-                      icon: LucideIcons.heartHandshake,
-                      color: Colors.green,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Immunizations Managed',
-                      value: state.totalImmunizations.toString(),
-                      icon: LucideIcons.shieldAlert,
-                      color: Colors.blue,
-                    ),
-                    PrimeCareKpiCard(
-                      title: 'Target Compliance',
-                      value: '100%',
-                      icon: LucideIcons.badgeCheck,
-                      color: theme.colors.primary,
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 24),
-
-            // Responsive Two Columns (Wound assessments table vs Immunization coverage progress)
-            LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth > 900) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 6,
-                        child: _buildWoundsLedgerCard(context, state, controller),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        flex: 4,
-                        child: _buildImmunizationProgressCard(context, state),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      _buildWoundsLedgerCard(context, state, controller),
-                      const SizedBox(height: 24),
-                      _buildImmunizationProgressCard(context, state),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),),
-    ),
     );
   }
 
@@ -283,13 +301,19 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
               columnSpacing: 24,
               columns: [
                 DataColumn(
-                  label: Text('Patient Name', style: theme.typography.labelBold),
+                  label: Text(
+                    'Patient Name',
+                    style: theme.typography.labelBold,
+                  ),
                 ),
                 DataColumn(
                   label: Text('Location', style: theme.typography.labelBold),
                 ),
                 DataColumn(
-                  label: Text('Stage/Category', style: theme.typography.labelBold),
+                  label: Text(
+                    'Stage/Category',
+                    style: theme.typography.labelBold,
+                  ),
                 ),
                 DataColumn(
                   label: Text('Status', style: theme.typography.labelBold),
@@ -298,7 +322,10 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                   label: Text('Dimensions', style: theme.typography.labelBold),
                 ),
                 DataColumn(
-                  label: Text('Dressing Age', style: theme.typography.labelBold),
+                  label: Text(
+                    'Dressing Age',
+                    style: theme.typography.labelBold,
+                  ),
                 ),
                 DataColumn(
                   label: Text('Update', style: theme.typography.labelBold),
@@ -326,7 +353,9 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                         ),
                       ),
                     ),
-                    DataCell(Text(location, style: theme.typography.bodyMedium)),
+                    DataCell(
+                      Text(location, style: theme.typography.bodyMedium),
+                    ),
                     DataCell(Text(stage, style: theme.typography.bodyMedium)),
                     DataCell(
                       Container(
@@ -338,8 +367,8 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                           color: isHealed
                               ? Colors.green.withValues(alpha: 0.1)
                               : isHealing
-                                  ? Colors.blue.withValues(alpha: 0.1)
-                                  : Colors.orange.withValues(alpha: 0.1),
+                              ? Colors.blue.withValues(alpha: 0.1)
+                              : Colors.orange.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -348,8 +377,8 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                             color: isHealed
                                 ? Colors.green
                                 : isHealing
-                                    ? Colors.blue
-                                    : Colors.orange,
+                                ? Colors.blue
+                                : Colors.orange,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -366,12 +395,21 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                     ),
                     DataCell(
                       IconButton(
-            key: const Key('rpnanalytics-btn-2'),
-                        icon: Icon(LucideIcons.edit2,
-                            color: theme.colors.primary, size: 16),
+                        key: const Key('rpnanalytics-btn-2'),
+                        icon: Icon(
+                          LucideIcons.edit2,
+                          color: theme.colors.primary,
+                          size: 16,
+                        ),
                         onPressed: () {
                           _showWoundEditDialog(
-                              context, id, status, size, patient, controller);
+                            context,
+                            id,
+                            status,
+                            size,
+                            patient,
+                            controller,
+                          );
                         },
                       ),
                     ),
@@ -441,7 +479,9 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                       value: value,
                       minHeight: 8,
                       backgroundColor: theme.colors.divider,
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.colors.primary),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colors.primary,
+                      ),
                     ),
                   ),
                 ],
@@ -475,7 +515,10 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              title: Text('Update Wound Assessment', style: theme.typography.h3),
+              title: Text(
+                'Update Wound Assessment',
+                style: theme.typography.h3,
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -489,11 +532,12 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                       labelText: 'Assessment Status',
                       labelStyle: theme.typography.labelMedium,
                     ),
-                    items: ['Healing', 'Stable', 'Deteriorating', 'Fully Healed']
-                        .map(
-                          (s) => DropdownMenuItem(value: s, child: Text(s)),
-                        )
-                        .toList(),
+                    items:
+                        ['Healing', 'Stable', 'Deteriorating', 'Fully Healed']
+                            .map(
+                              (s) => DropdownMenuItem(value: s, child: Text(s)),
+                            )
+                            .toList(),
                     onChanged: (val) {
                       if (val != null) {
                         setState(() {
@@ -503,7 +547,8 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                     },
                   ),
                   const SizedBox(height: 16),
-                  TextField(key: const Key('rpn_analytics_screen_textfield_input_1'), 
+                  TextField(
+                    key: const Key('rpn_analytics_screen_textfield_input_1'),
                     controller: sizeController,
                     style: theme.typography.bodyMedium,
                     decoration: InputDecoration(
@@ -516,7 +561,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
               ),
               actions: [
                 TextButton(
-            key: const Key('rpnanalytics-btn-3'),
+                  key: const Key('rpnanalytics-btn-3'),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     'Cancel',
@@ -524,7 +569,7 @@ class RpnAnalyticsScreen extends GovernedConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
-            key: const Key('rpnanalytics-btn-4'),
+                  key: const Key('rpnanalytics-btn-4'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
                     foregroundColor: theme.colors.onPrimary,

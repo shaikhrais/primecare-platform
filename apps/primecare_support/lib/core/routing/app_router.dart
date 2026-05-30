@@ -1,6 +1,11 @@
 // Governance - Category: middleware | Purpose: Provide a safe fallback role for public/unauthenticated access
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart' hide HelpDeskDashboardScreen, EscalationDashboardScreen, QualityAssuranceDashboardScreen, TrainingCoordinatorDashboardScreen;
+import 'package:primecare_ui/primecare_ui.dart'
+    hide
+        HelpDeskDashboardScreen,
+        EscalationDashboardScreen,
+        QualityAssuranceDashboardScreen,
+        TrainingCoordinatorDashboardScreen;
 import '../../features/support/screens/help_desk_dashboard_screen.dart';
 import '../../features/support/screens/escalation_dashboard_screen.dart';
 import '../../features/support/screens/it_administrator_dashboard_screen.dart';
@@ -15,20 +20,22 @@ final supportApplicationProvider = Provider<SupportApplication>((ref) {
   return SupportApplication();
 });
 
-final appRouterProvider = Provider<GoRouter>((ref) {
+final activeRoleProvider = Provider<PlatformRole>((ref) {
   final authState = ref.watch(authProvider);
-  final application = ref.watch(supportApplicationProvider);
+  if (!authState.isInitialized || !authState.isAuthenticated) {
+    return PlatformRole.guest;
+  }
+  return PlatformRole.fromName(authState.role);
+});
 
-  // Provide a safe fallback role for public/unauthenticated access
-  final activeRole = authState.isAuthenticated
-      ? (PlatformRole.values.cast<PlatformRole?>().firstWhere(
-              (r) => r?.name == authState.role,
-              orElse: () => PlatformRole.guest,
-            ) ??
-            PlatformRole.guest)
-      : PlatformRole.guest;
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final activeRole = ref.watch(activeRoleProvider);
+  final application = ref.read(supportApplicationProvider);
 
-  final dashboardRoute = activeRole == PlatformRole.guest ? CommonRoutes.login : application.getDefinition(activeRole)?.dashboardRoute ?? CommonRoutes.login;
+  final dashboardRoute = activeRole == PlatformRole.guest
+      ? CommonRoutes.login
+      : application.getDefinition(activeRole)?.dashboardRoute ??
+            CommonRoutes.login;
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
@@ -36,10 +43,30 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: dashboardRoute,
     refreshListenable: authListenable,
     redirect: (context, state) {
+      final authState = ref.read(authProvider);
+
+      // If the authentication system has not completed its initial session restoration check yet,
+      // DO NOT redirect the user! Prevent early redirects and let the startup check finalize.
+      if (!authState.isInitialized) {
+        return null;
+      }
+
       final requestedRoute = state.uri.path;
 
-      // Ensure SSO Portal URL is configured
-      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
+      // Ensure SSO Portal URL is configured (this normally goes in app initialization)
+      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
+        'SSO_PORTAL_URL',
+        defaultValue: 'https://primecare-auth.pages.dev',
+      );
+
+      // If trying to hit root/login/callback while authenticated, redirect to dashboard immediately
+      final isAtLanding =
+          requestedRoute == '/' ||
+          requestedRoute == CommonRoutes.login ||
+          requestedRoute == CommonRoutes.authCallback;
+      if (authState.isAuthenticated && isAtLanding) {
+        return dashboardRoute;
+      }
 
       final result = RouteGuard.verify(
         requestedRoute: requestedRoute,
@@ -54,22 +81,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return result.redirectRoute;
       }
 
-      // If allowed and trying to hit root/login while authenticated, go to dashboard
-      final isAtLanding = requestedRoute == '/' || requestedRoute == CommonRoutes.login;
-      if (authState.isAuthenticated && isAtLanding) {
-        return dashboardRoute;
-      }
-
       return null;
     },
     publicRoutes: [
-      GoRoute(path: '/support/it-admin/dashboard', builder: (context, state) => const ItAdministratorDashboardScreen()),
-      GoRoute(path: '/support/qa/dashboard', builder: (context, state) => const QualityAssuranceDashboardScreen()),
-      GoRoute(path: '/support/training/dashboard', builder: (context, state) => const TrainingCoordinatorDashboardScreen()),
+      GoRoute(
+        path: '/support/it-admin/dashboard',
+        builder: (context, state) => const ItAdministratorDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/support/qa/dashboard',
+        builder: (context, state) => const QualityAssuranceDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/support/training/dashboard',
+        builder: (context, state) => const TrainingCoordinatorDashboardScreen(),
+      ),
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
-          final url = state.uri.queryParameters['url'] ?? 'https://primecare-auth.pages.dev';
+          final url =
+              state.uri.queryParameters['url'] ??
+              'https://primecare-auth.pages.dev';
           return SsoRedirectView(redirectUrl: url);
         },
       ),
@@ -77,10 +109,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: CommonRoutes.login,
         redirect: (context, state) {
           // If a user hits /login directly, force them to the SSO redirect
-          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment('SSO_PORTAL_URL', defaultValue: 'https://primecare-auth.pages.dev');
-          final defaultRedirectUri = const String.fromEnvironment('APP_BASE_URL', defaultValue: 'https://primecare-support.pages.dev');
-          final redirectUri = kIsWeb ? defaultRedirectUri : 'primecare://auth/callback';
-          final target = '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
+          RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
+            'SSO_PORTAL_URL',
+            defaultValue: 'https://primecare-auth.pages.dev',
+          );
+          final defaultRedirectUri = const String.fromEnvironment(
+            'APP_BASE_URL',
+            defaultValue: 'https://primecare-support.pages.dev',
+          );
+          final redirectUri = kIsWeb
+              ? defaultRedirectUri
+              : 'primecare://auth/callback';
+          final target =
+              '${RouteGuard.ssoPortalUrl}/login?redirect_uri=${Uri.encodeComponent(redirectUri)}';
           return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(target)}';
         },
       ),

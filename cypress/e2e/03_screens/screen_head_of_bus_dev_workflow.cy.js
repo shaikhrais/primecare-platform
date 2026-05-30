@@ -7,8 +7,11 @@ describe("Screen - head_of_bus_dev_workflow", () => {
   it("opens and verifies screen head_of_bus_dev_workflow", () => {
     cy.loginAsRole("bus_dev");
 
+  cy.task("log", "⏳ PROGRESS: - Navigating to /management/head-of-bus-dev-workflow (HeadOfBusDevWorkflowScreen)...");
   cy.visitWithSemantics("/management/head-of-bus-dev-workflow");
   cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HeadOfBusDevWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -16,8 +19,11 @@ describe("Screen - head_of_bus_dev_workflow", () => {
   cy.getCy("headofbusdevworkflow-title").should("be.visible");
   cy.getCy("headofbusdevworkflow-content").should("be.visible");
 
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfBusDevWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("head_of_bus_dev_workflow");
+  
+  cy.task("log", "✅ PROGRESS: - Verified HeadOfBusDevWorkflowScreen successfully!\n");
 
   });
 });
