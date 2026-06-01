@@ -13,14 +13,14 @@ def run_command(cmd):
     return result
 
 def pull_from_d1():
-    print(f"📥 Pulling crowdsourced feedback from Cloudflare D1 ('{DATABASE_NAME}')...")
+    print(f"[PULL] Pulling crowdsourced feedback from Cloudflare D1 ('{DATABASE_NAME}')...")
     
     # Query screens feedback from Cloudflare D1 using Wrangler in JSON format
     cmd = f'npx wrangler d1 execute {DATABASE_NAME} --command="SELECT screen_code, user_remarks, user_remark_status, is_valid FROM screens WHERE user_remarks IS NOT NULL OR user_remark_status != \'none\' OR is_valid = 1" --json --remote'
     res = run_command(cmd)
     
     if res.returncode != 0:
-        print("❌ Failed to query D1 database!")
+        print("[ERROR] Failed to query D1 database!")
         print("STDOUT:", res.stdout)
         print("STDERR:", res.stderr)
         return
@@ -36,7 +36,7 @@ def pull_from_d1():
             rows = data.get("results", [])
 
         if not rows:
-            print("ℹ️ No active remote reviews or manual approvals found in Cloudflare D1.")
+            print("[INFO] No active remote reviews or manual approvals found in Cloudflare D1.")
             return
 
         print(f"  Found {len(rows)} remote records. Merging into local database '{DB_PATH}'...")
@@ -61,17 +61,17 @@ def pull_from_d1():
 
         conn.commit()
         conn.close()
-        print(f"🎉 Success! Merged remote reviews for {updated_count} screens into local database.")
+        print(f"[SUCCESS] Merged remote reviews for {updated_count} screens into local database.")
 
     except Exception as e:
-        print("❌ Error parsing or merging D1 results:", str(e))
+        print("[ERROR] Error parsing or merging D1 results:", str(e))
         print("Raw Output:", res.stdout[:500])
 
 def push_to_d1():
-    print(f"📤 Pushing local Cypress E2E metrics and test coverage to Cloudflare D1 ('{DATABASE_NAME}')...")
+    print(f"[PUSH] Pushing local Cypress E2E metrics and test coverage to Cloudflare D1 ('{DATABASE_NAME}')...")
     
     if not os.path.exists(DB_PATH):
-        print(f"❌ Local database not found at '{DB_PATH}'!")
+        print(f"[ERROR] Local database not found at '{DB_PATH}'!")
         return
 
     conn = sqlite3.connect(DB_PATH)
@@ -119,11 +119,11 @@ def push_to_d1():
         pass
 
     if res.returncode != 0:
-        print("❌ Failed to push metrics to Cloudflare D1!")
+        print("[ERROR] Failed to push metrics to Cloudflare D1!")
         print("STDOUT:", res.stdout)
         print("STDERR:", res.stderr)
     else:
-        print(f"🎉 Success! Uploaded all E2E metrics and local E2E test coverage to Cloudflare D1 database.")
+        print(f"[SUCCESS] Uploaded all E2E metrics and local E2E test coverage to Cloudflare D1 database.")
 
 def main():
     parser = argparse.ArgumentParser(description="Synchronize between Cloudflare D1 database and local SQLite database.")
