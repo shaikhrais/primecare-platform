@@ -1,0 +1,8 @@
+name = "primecare-governance-worker"
+main = "src/index.js"
+compatibility_date = "2024-05-20"
+
+[[d1_databases]]
+binding = "primecare_governance_db"
+database_name = "primecare-governance-db"
+database_id = "e829c9e4-65b6-4987-b810-20822c8e7dbb"
