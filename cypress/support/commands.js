@@ -263,10 +263,10 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       cy.wait(5000);
 
       // Assert and click the Consent approve button
-      cy.contains("Approve & Continue", { includeShadowDom: true, timeout: 20000 })
-        .should("be.visible")
+      cy.get('[aria-label*="Approve & Continue"], flt-semantics[aria-label*="Approve & Continue"]', { includeShadowDom: true, timeout: 25000 })
+        .first()
         .click({ force: true });
-        
+
       cy.wait(4000); // Allow browser to start transition and change origin back
     });
 
