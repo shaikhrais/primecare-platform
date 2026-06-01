@@ -1,0 +1,18 @@
+{
+  "pre_flight": {
+    "total_screens": 948,
+    "missing_files_count": 0,
+    "missing_routes_count": 412,
+    "health_score": 78.27004219409282,
+    "high_risk_count": 35
+  },
+  "e2e_readiness": {
+    "spec_coverage_pct": 100.0,
+    "ready_specs": 948,
+    "needs_spec": 0,
+    "not_ready": 0
+  },
+  "post_flight": {
+    "registry_found": false
+  }
+}

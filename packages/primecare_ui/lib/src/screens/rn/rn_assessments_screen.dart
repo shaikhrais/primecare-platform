@@ -137,7 +137,7 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Text(
-            key: const Key('rnassessments-title'),
+            key: const Key('rnassessments-title-appbar'),
             'Clinical Assessments',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
@@ -151,6 +151,17 @@ class RnAssessmentsScreen extends GovernedConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Semantics(
+                  label: 'data-cy:rnassessments-title',
+                  child: GovDashboardHero(
+                    title: 'Clinical Assessments',
+                    roleName: 'Registered Nurse (RN) Assessments',
+                    description:
+                        'Record new patient clinical assessments and track historical outcomes under zero-trust governance.',
+                    onRefresh: () => controller.submitAssessment('Margaret Thompson'),
+                  ),
+                ),
+                const SizedBox(height: 24),
                 // === Governance Injected UI Components & Buttons ===
                 SizedBox(
                   width: double.infinity,

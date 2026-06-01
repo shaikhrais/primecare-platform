@@ -20,11 +20,11 @@ class ChiropractorDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:chiropractordashboard-title', child: Text(
             key: const Key('chiropractordashboard-title'),
             'Chiropractor Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('chiropractordashboard-btn-1'),
@@ -54,12 +54,12 @@ class ChiropractorDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'chiropractordashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:chiropractordashboard-title', child: GovDashboardHero(
                       title: 'Chiropractor Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

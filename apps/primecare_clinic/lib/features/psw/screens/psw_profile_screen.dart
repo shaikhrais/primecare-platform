@@ -15,7 +15,7 @@ class PswProfileScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswprofile-screen'),
       appBar: AppBar(
-        title: const Text('PswProfile'),
+        title: Semantics(label: 'data-cy:pswprofile-title', container: true, child: Container(child:  const Text('PswProfile'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

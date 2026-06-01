@@ -10,97 +10,97 @@
         "label": "Chiropractor Dashboard",
         "icon": "dashboard",
         "screen_code": "chiropractor_dashboard",
-        "route": "/common/chiropractor-dashboard"
+        "route": "/offices/clinical/roles/chiropractor/dashboard"
       },
       {
         "label": "Chiropractor Analytics",
         "icon": "menu",
         "screen_code": "chiropractor_analytics",
-        "route": "/common/chiropractor-analytics"
+        "route": "/offices/clinical/roles/chiropractor/analytics"
       },
       {
         "label": "Chiropractor Compliance",
         "icon": "menu",
         "screen_code": "chiropractor_compliance",
-        "route": "/common/chiropractor-compliance"
+        "route": "/offices/clinical/roles/chiropractor/compliance"
       },
       {
         "label": "Chiropractor Workflow",
         "icon": "trending_up",
         "screen_code": "chiropractor_workflow",
-        "route": "/common/chiropractor-workflow"
+        "route": "/offices/clinical/roles/chiropractor/workflow"
       },
       {
         "label": "Chiropractor Command Center",
         "icon": "menu",
         "screen_code": "chiropractor_command_center",
-        "route": "/allied/chiropractor-command-center"
+        "route": "/offices/clinical/roles/chiropractor/command-center"
       },
       {
         "label": "Chiropractor Appointments",
         "icon": "menu",
         "screen_code": "chiropractor_appointments",
-        "route": "/allied/chiropractor-appointments"
+        "route": "/offices/clinical/roles/chiropractor/appointments"
       },
       {
         "label": "Chiropractor Client Intake",
         "icon": "person",
         "screen_code": "chiropractor_client_intake",
-        "route": "/allied/chiropractor-client-intake"
+        "route": "/offices/clinical/roles/chiropractor/client-intake"
       },
       {
         "label": "Chiropractor Assessment",
         "icon": "menu",
         "screen_code": "chiropractor_assessment",
-        "route": "/allied/chiropractor-assessment"
+        "route": "/offices/clinical/roles/chiropractor/assessment"
       },
       {
         "label": "Chiropractor Treatment Notes",
         "icon": "description",
         "screen_code": "chiropractor_treatment_notes",
-        "route": "/allied/chiropractor-treatment-notes"
+        "route": "/offices/clinical/roles/chiropractor/treatment-notes"
       },
       {
         "label": "Chiropractor Exercise Plan",
         "icon": "menu",
         "screen_code": "chiropractor_exercise_plan",
-        "route": "/allied/chiropractor-exercise-plan"
+        "route": "/offices/clinical/roles/chiropractor/exercise-plan"
       },
       {
         "label": "Chiropractor Billing Link",
         "icon": "menu",
         "screen_code": "chiropractor_billing_link",
-        "route": "/allied/chiropractor-billing-link"
+        "route": "/offices/clinical/roles/chiropractor/billing-link"
       },
       {
         "label": "Chiropractor Reports",
         "icon": "description",
         "screen_code": "chiropractor_reports",
-        "route": "/allied/chiropractor-reports"
+        "route": "/offices/clinical/roles/chiropractor/reports"
       },
       {
         "label": "Chiropractic Assessment",
         "icon": "menu",
         "screen_code": "chiropractic_assessment",
-        "route": "/allied/chiropractic-assessment"
+        "route": "/offices/clinical/roles/chiropractor/chiropractic-assessment"
       },
       {
         "label": "Adjustment Notes",
         "icon": "description",
         "screen_code": "adjustment_notes",
-        "route": "/allied/adjustment-notes"
+        "route": "/offices/clinical/roles/chiropractor/adjustment-notes"
       },
       {
         "label": "Xray Review",
         "icon": "menu",
         "screen_code": "xray_review",
-        "route": "/allied/xray-review"
+        "route": "/offices/clinical/roles/chiropractor/xray-review"
       },
       {
         "label": "Chiropractic Progress Tracking",
         "icon": "menu",
         "screen_code": "chiropractic_progress_tracking",
-        "route": "/allied/chiropractic-progress-tracking"
+        "route": "/offices/clinical/roles/chiropractor/chiropractic-progress-tracking"
       }
     ],
     "topbar_config": {
@@ -144,97 +144,91 @@
         "label": "Physiotherapist Dashboard",
         "icon": "dashboard",
         "screen_code": "physiotherapist_dashboard",
-        "route": "/common/physiotherapist-dashboard"
+        "route": "/offices/clinical/roles/physiotherapist/dashboard"
       },
       {
         "label": "Physiotherapist Analytics",
         "icon": "menu",
         "screen_code": "physiotherapist_analytics",
-        "route": "/common/physiotherapist-analytics"
+        "route": "/offices/clinical/roles/physiotherapist/analytics"
       },
       {
         "label": "Physiotherapist Compliance",
         "icon": "menu",
         "screen_code": "physiotherapist_compliance",
-        "route": "/common/physiotherapist-compliance"
+        "route": "/offices/clinical/roles/physiotherapist/compliance"
       },
       {
         "label": "Physiotherapist Workflow",
         "icon": "trending_up",
         "screen_code": "physiotherapist_workflow",
-        "route": "/common/physiotherapist-workflow"
+        "route": "/offices/clinical/roles/physiotherapist/workflow"
       },
       {
         "label": "Physiotherapist Command Center",
         "icon": "menu",
         "screen_code": "physiotherapist_command_center",
-        "route": "/allied/physiotherapist-command-center"
+        "route": "/offices/clinical/roles/physiotherapist/command-center"
       },
       {
         "label": "Physiotherapist Appointments",
         "icon": "menu",
         "screen_code": "physiotherapist_appointments",
-        "route": "/allied/physiotherapist-appointments"
+        "route": "/offices/clinical/roles/physiotherapist/appointments"
       },
       {
         "label": "Physiotherapist Client Intake",
         "icon": "person",
         "screen_code": "physiotherapist_client_intake",
-        "route": "/allied/physiotherapist-client-intake"
+        "route": "/offices/clinical/roles/physiotherapist/client-intake"
       },
       {
         "label": "Physiotherapist Assessment",
         "icon": "menu",
         "screen_code": "physiotherapist_assessment",
-        "route": "/allied/physiotherapist-assessment"
+        "route": "/offices/clinical/roles/physiotherapist/assessment"
       },
       {
         "label": "Physiotherapist Treatment Notes",
         "icon": "description",
         "screen_code": "physiotherapist_treatment_notes",
-        "route": "/allied/physiotherapist-treatment-notes"
+        "route": "/offices/clinical/roles/physiotherapist/treatment-notes"
       },
       {
         "label": "Physiotherapist Exercise Plan",
         "icon": "menu",
         "screen_code": "physiotherapist_exercise_plan",
-        "route": "/allied/physiotherapist-exercise-plan"
+        "route": "/offices/clinical/roles/physiotherapist/exercise-plan"
       },
       {
         "label": "Physiotherapist Billing Link",
         "icon": "menu",
         "screen_code": "physiotherapist_billing_link",
-        "route": "/allied/physiotherapist-billing-link"
+        "route": "/offices/clinical/roles/physiotherapist/billing-link"
       },
       {
         "label": "Physiotherapist Reports",
         "icon": "description",
         "screen_code": "physiotherapist_reports",
-        "route": "/allied/physiotherapist-reports"
-      },
-      {
-        "label": "Assessment",
-        "icon": "menu",
-        "screen_code": "assessment",
-        "route": "/clinical/assessment"
+        "route": "/offices/clinical/roles/physiotherapist/reports"
       },
       {
         "label": "Treatment Plan",
         "icon": "menu",
         "screen_code": "treatment_plan",
-        "route": "/clinical/treatment-plan"
+        "route": "/offices/clinical/roles/physiotherapist/treatment-plan"
       },
       {
         "label": "Exercise Prescription",
         "icon": "menu",
         "screen_code": "exercise_prescription",
-        "route": "/clinical/exercise-prescription"
+        "route": "/offices/clinical/roles/physiotherapist/exercise-prescription"
       },
       {
         "label": "Progress Tracking",
         "icon": "menu",
         "screen_code": "progress_tracking",
-        "route": "/clinical/progress-tracking"
+        "route": "/offices/clinical/roles/physiotherapist/progress-tracking"
       }
     ],
     "topbar_config": {
@@ -261,7 +255,6 @@
       "physiotherapist_exercise_plan",
       "physiotherapist_billing_link",
       "physiotherapist_reports",
-      "assessment",
       "treatment_plan",
       "exercise_prescription",
       "progress_tracking"
@@ -278,97 +271,91 @@
         "label": "Rmt Dashboard",
         "icon": "dashboard",
         "screen_code": "rmt_dashboard",
-        "route": "/allied/rmt-dashboard"
+        "route": "/offices/clinical/roles/rmt/dashboard"
       },
       {
         "label": "Rmt Analytics",
         "icon": "menu",
         "screen_code": "rmt_analytics",
-        "route": "/allied/rmt-analytics"
+        "route": "/offices/clinical/roles/rmt/analytics"
       },
       {
         "label": "Rmt Compliance",
         "icon": "menu",
         "screen_code": "rmt_compliance",
-        "route": "/allied/rmt-compliance"
+        "route": "/offices/clinical/roles/rmt/compliance"
       },
       {
         "label": "Rmt Workflow",
         "icon": "trending_up",
         "screen_code": "rmt_workflow",
-        "route": "/allied/rmt-workflow"
+        "route": "/offices/clinical/roles/rmt/workflow"
       },
       {
         "label": "Rmt Command Center",
         "icon": "menu",
         "screen_code": "rmt_command_center",
-        "route": "/allied/rmt-command-center"
+        "route": "/offices/clinical/roles/rmt/command-center"
       },
       {
         "label": "Rmt Appointments",
         "icon": "menu",
         "screen_code": "rmt_appointments",
-        "route": "/allied/rmt-appointments"
+        "route": "/offices/clinical/roles/rmt/appointments"
       },
       {
         "label": "Rmt Client Intake",
         "icon": "person",
         "screen_code": "rmt_client_intake",
-        "route": "/allied/rmt-client-intake"
+        "route": "/offices/clinical/roles/rmt/client-intake"
       },
       {
         "label": "Rmt Assessment",
         "icon": "menu",
         "screen_code": "rmt_assessment",
-        "route": "/allied/rmt-assessment"
+        "route": "/offices/clinical/roles/rmt/assessment"
       },
       {
         "label": "Rmt Treatment Notes",
         "icon": "description",
         "screen_code": "rmt_treatment_notes",
-        "route": "/allied/rmt-treatment-notes"
+        "route": "/offices/clinical/roles/rmt/treatment-notes"
       },
       {
         "label": "Rmt Exercise Plan",
         "icon": "menu",
         "screen_code": "rmt_exercise_plan",
-        "route": "/allied/rmt-exercise-plan"
+        "route": "/offices/clinical/roles/rmt/exercise-plan"
       },
       {
         "label": "Rmt Billing Link",
         "icon": "menu",
         "screen_code": "rmt_billing_link",
-        "route": "/allied/rmt-billing-link"
+        "route": "/offices/clinical/roles/rmt/billing-link"
       },
       {
         "label": "Rmt Reports",
         "icon": "description",
         "screen_code": "rmt_reports",
-        "route": "/allied/rmt-reports"
+        "route": "/offices/clinical/roles/rmt/reports"
       },
       {
         "label": "Massage Assessment",
         "icon": "menu",
         "screen_code": "massage_assessment",
-        "route": "/allied/massage-assessment"
-      },
-      {
-        "label": "Treatment Notes",
-        "icon": "description",
-        "screen_code": "treatment_notes",
-        "route": "/allied/treatment-notes"
+        "route": "/offices/clinical/roles/rmt/massage-assessment"
       },
       {
         "label": "Home Care Plan",
         "icon": "menu",
         "screen_code": "home_care_plan",
-        "route": "/allied/home-care-plan"
+        "route": "/offices/clinical/roles/rmt/home-care-plan"
       },
       {
         "label": "Client Progress",
         "icon": "person",
         "screen_code": "client_progress",
-        "route": "/allied/client-progress"
+        "route": "/offices/clinical/roles/rmt/client-progress"
       }
     ],
     "topbar_config": {
@@ -396,7 +383,6 @@
       "rmt_billing_link",
       "rmt_reports",
       "massage_assessment",
-      "treatment_notes",
       "home_care_plan",
       "client_progress"
     ]
@@ -412,25 +398,25 @@
         "label": "Social Worker Dashboard",
         "icon": "dashboard",
         "screen_code": "social_worker_dashboard",
-        "route": "/common/social-worker-dashboard"
+        "route": "/offices/clinical/roles/social_worker/dashboard"
       },
       {
         "label": "Social Worker Analytics",
         "icon": "menu",
         "screen_code": "social_worker_analytics",
-        "route": "/common/social-worker-analytics"
+        "route": "/offices/clinical/roles/social_worker/analytics"
       },
       {
         "label": "Social Worker Compliance",
         "icon": "menu",
         "screen_code": "social_worker_compliance",
-        "route": "/common/social-worker-compliance"
+        "route": "/offices/clinical/roles/social_worker/compliance"
       },
       {
         "label": "Social Worker Workflow",
         "icon": "trending_up",
         "screen_code": "social_worker_workflow",
-        "route": "/common/social-worker-workflow"
+        "route": "/offices/clinical/roles/social_worker/workflow"
       }
     ],
     "topbar_config": {
@@ -462,19 +448,19 @@
         "label": "Therapist Dashboard",
         "icon": "dashboard",
         "screen_code": "therapist_dashboard",
-        "route": "/allied/therapist-dashboard"
+        "route": "/offices/clinical/roles/therapist/dashboard"
       },
       {
         "label": "Therapist  Analytics",
         "icon": "menu",
         "screen_code": "therapist_analytics",
-        "route": "/allied/therapist-analytics"
+        "route": "/offices/clinical/roles/therapist/analytics"
       },
       {
         "label": "Therapist  Compliance  Workflow",
         "icon": "trending_up",
         "screen_code": "therapist_workflow",
-        "route": "/allied/therapist-workflow"
+        "route": "/offices/clinical/roles/therapist/workflow"
       }
     ],
     "topbar_config": {
@@ -505,115 +491,115 @@
         "label": "Clinical Dashboard",
         "icon": "dashboard",
         "screen_code": "clinical_dashboard",
-        "route": "/clinical/clinical-dashboard"
+        "route": "/offices/clinical/roles/clinical_director/dashboard"
       },
       {
         "label": "Clinic Dashboard",
         "icon": "dashboard",
         "screen_code": "clinic_dashboard",
-        "route": "/common/clinic-dashboard"
+        "route": "/offices/clinical/roles/clinical_director/clinic-dashboard"
       },
       {
         "label": "Clinical Analytics",
         "icon": "menu",
         "screen_code": "clinical_analytics",
-        "route": "/clinical/clinical-analytics"
+        "route": "/offices/clinical/roles/clinical_director/analytics"
       },
       {
         "label": "Clinical Compliance",
         "icon": "menu",
         "screen_code": "clinical_compliance",
-        "route": "/clinical/clinical-compliance"
+        "route": "/offices/clinical/roles/clinical_director/compliance"
       },
       {
         "label": "Clinical Workflow",
         "icon": "trending_up",
         "screen_code": "clinical_workflow",
-        "route": "/clinical/clinical-workflow"
+        "route": "/offices/clinical/roles/clinical_director/workflow"
       },
       {
         "label": "Clinic Analytics",
         "icon": "menu",
         "screen_code": "clinic_analytics",
-        "route": "/common/clinic-analytics"
+        "route": "/offices/clinical/roles/clinical_director/clinic-analytics"
       },
       {
         "label": "Clinic Compliance",
         "icon": "menu",
         "screen_code": "clinic_compliance",
-        "route": "/common/clinic-compliance"
+        "route": "/offices/clinical/roles/clinical_director/clinic-compliance"
       },
       {
         "label": "Clinic Workflow",
         "icon": "trending_up",
         "screen_code": "clinic_workflow",
-        "route": "/common/clinic-workflow"
+        "route": "/offices/clinical/roles/clinical_director/clinic-workflow"
       },
       {
         "label": "Clinical Director Staff Quality",
         "icon": "menu",
         "screen_code": "clinical_director_staff_quality",
-        "route": "/clinical/clinical-director-staff-quality"
+        "route": "/offices/clinical/roles/clinical_director/staff-quality"
       },
       {
         "label": "Clinical Director Incident Review",
         "icon": "menu",
         "screen_code": "clinical_director_incident_review",
-        "route": "/clinical/clinical-director-incident-review"
+        "route": "/offices/clinical/roles/clinical_director/incident-review"
       },
       {
         "label": "Clinical Director Compliance",
         "icon": "menu",
         "screen_code": "clinical_director_compliance",
-        "route": "/clinical/clinical-director-compliance"
+        "route": "/offices/clinical/roles/clinical_director/compliance-director"
       },
       {
         "label": "Clinical Director Reports",
         "icon": "description",
         "screen_code": "clinical_director_reports",
-        "route": "/clinical/clinical-director-reports"
+        "route": "/offices/clinical/roles/clinical_director/reports"
       },
       {
         "label": "Clinical Director Approvals",
         "icon": "menu",
         "screen_code": "clinical_director_approvals",
-        "route": "/clinical/clinical-director-approvals"
+        "route": "/offices/clinical/roles/clinical_director/approvals"
       },
       {
         "label": "Clinical Director Performance",
         "icon": "menu",
         "screen_code": "clinical_director_performance",
-        "route": "/clinical/clinical-director-performance"
+        "route": "/offices/clinical/roles/clinical_director/performance"
       },
       {
         "label": "Clinical Quality",
         "icon": "menu",
         "screen_code": "clinical_quality",
-        "route": "/clinical/clinical-quality"
+        "route": "/offices/clinical/roles/clinical_director/quality"
       },
       {
         "label": "Staff Performance",
         "icon": "menu",
         "screen_code": "staff_performance",
-        "route": "/clinical/staff-performance"
+        "route": "/offices/clinical/roles/clinical_director/staff-performance"
       },
       {
         "label": "Compliance Review",
         "icon": "menu",
         "screen_code": "compliance_review",
-        "route": "/clinical/compliance-review"
+        "route": "/offices/clinical/roles/clinical_director/compliance-review"
       },
       {
         "label": "Incident Oversight",
         "icon": "menu",
         "screen_code": "incident_oversight",
-        "route": "/clinical/incident-oversight"
+        "route": "/offices/clinical/roles/clinical_director/incident-oversight"
       },
       {
         "label": "Clinical Operations4 K",
         "icon": "menu",
         "screen_code": "clinical_operations4_k",
-        "route": "/clinical/clinical-operations4-k"
+        "route": "/offices/clinical/roles/clinical_director/operations4k"
       }
     ],
     "topbar_config": {
@@ -660,73 +646,73 @@
         "label": "Intake Dashboard",
         "icon": "dashboard",
         "screen_code": "intake_dashboard",
-        "route": "/common/intake-dashboard"
+        "route": "/offices/clinical/roles/intake_coordinator/dashboard"
       },
       {
         "label": "Intake Coordinator Dashboard",
         "icon": "dashboard",
         "screen_code": "intake_coordinator_dashboard",
-        "route": "/staff/intake-coordinator-dashboard"
+        "route": "/offices/clinical/roles/intake_coordinator/coordinator-dashboard"
       },
       {
         "label": "Intake Analytics",
         "icon": "menu",
         "screen_code": "intake_analytics",
-        "route": "/common/intake-analytics"
+        "route": "/offices/clinical/roles/intake_coordinator/analytics"
       },
       {
         "label": "Intake Compliance",
         "icon": "menu",
         "screen_code": "intake_compliance",
-        "route": "/common/intake-compliance"
+        "route": "/offices/clinical/roles/intake_coordinator/compliance"
       },
       {
         "label": "Intake Workflow",
         "icon": "trending_up",
         "screen_code": "intake_workflow",
-        "route": "/common/intake-workflow"
+        "route": "/offices/clinical/roles/intake_coordinator/workflow"
       },
       {
         "label": "Intake Coordinator Analytics",
         "icon": "menu",
         "screen_code": "intake_coordinator_analytics",
-        "route": "/staff/intake-coordinator-analytics"
+        "route": "/offices/clinical/roles/intake_coordinator/coordinator-analytics"
       },
       {
         "label": "Intake Coordinator Compliance",
         "icon": "menu",
         "screen_code": "intake_coordinator_compliance",
-        "route": "/staff/intake-coordinator-compliance"
+        "route": "/offices/clinical/roles/intake_coordinator/coordinator-compliance"
       },
       {
         "label": "Intake Coordinator Workflow",
         "icon": "trending_up",
         "screen_code": "intake_coordinator_workflow",
-        "route": "/staff/intake-coordinator-workflow"
+        "route": "/offices/clinical/roles/intake_coordinator/coordinator-workflow"
       },
       {
         "label": "Referral Management",
         "icon": "menu",
         "screen_code": "referral_management",
-        "route": "/executive/referral-management"
+        "route": "/offices/clinical/roles/intake_coordinator/referral-management"
       },
       {
         "label": "Client Intake",
         "icon": "person",
         "screen_code": "client_intake",
-        "route": "/executive/client-intake"
+        "route": "/offices/clinical/roles/intake_coordinator/client-intake"
       },
       {
         "label": "Booking",
         "icon": "menu",
         "screen_code": "booking",
-        "route": "/executive/booking"
+        "route": "/offices/clinical/roles/intake_coordinator/booking"
       },
       {
         "label": "Followup",
         "icon": "menu",
         "screen_code": "followup",
-        "route": "/executive/followup"
+        "route": "/offices/clinical/roles/intake_coordinator/followup"
       }
     ],
     "topbar_config": {
@@ -847,12 +833,6 @@
         "route": "/offices/clinical/roles/rn/rn-reports"
       },
       {
-        "label": "Patient Charting",
-        "icon": "person",
-        "screen_code": "patient_charting",
-        "route": "/offices/clinical/roles/rn/patient-charting"
-      },
-      {
         "label": "Medication Administration",
         "icon": "menu",
         "screen_code": "medication_administration",
@@ -903,7 +883,6 @@
       "rn_incident_review",
       "rn_tasks",
       "rn_reports",
-      "patient_charting",
       "medication_administration",
       "care_plan_review",
       "incident_review",
@@ -1050,49 +1029,49 @@
         "label": "Caregiver Dashboard",
         "icon": "dashboard",
         "screen_code": "caregiver_dashboard",
-        "route": "/common/caregiver-dashboard"
+        "route": "/offices/clinical/roles/caregiver/dashboard"
       },
       {
         "label": "Caregiver Tasks",
         "icon": "menu",
         "screen_code": "caregiver_tasks",
-        "route": "/psw/caregiver-tasks"
+        "route": "/offices/clinical/roles/caregiver/tasks"
       },
       {
         "label": "Caregiver Client Profile",
         "icon": "person",
         "screen_code": "caregiver_client_profile",
-        "route": "/psw/caregiver-client-profile"
+        "route": "/offices/clinical/roles/caregiver/client-profile"
       },
       {
         "label": "Caregiver Visit Notes",
         "icon": "description",
         "screen_code": "caregiver_visit_notes",
-        "route": "/psw/caregiver-visit-notes"
+        "route": "/offices/clinical/roles/caregiver/visit-notes"
       },
       {
         "label": "Caregiver Schedule",
         "icon": "menu",
         "screen_code": "caregiver_schedule",
-        "route": "/psw/caregiver-schedule"
+        "route": "/offices/clinical/roles/caregiver/schedule"
       },
       {
         "label": "Caregiver Incident Report",
         "icon": "description",
         "screen_code": "caregiver_incident_report",
-        "route": "/psw/caregiver-incident-report"
+        "route": "/offices/clinical/roles/caregiver/incident-report"
       },
       {
         "label": "Schedule",
         "icon": "menu",
         "screen_code": "schedule",
-        "route": "/psw/schedule"
+        "route": "/offices/clinical/roles/caregiver/psw-schedule"
       },
       {
         "label": "Messaging",
         "icon": "menu",
         "screen_code": "messaging",
-        "route": "/psw/messaging"
+        "route": "/offices/clinical/roles/caregiver/messaging"
       }
     ],
     "topbar_config": {
@@ -4133,22 +4112,10 @@
         "route": "/offices/clinical/roles/psw/shift-tasks"
       },
       {
-        "label": "Visit Notes",
-        "icon": "description",
-        "screen_code": "visit_notes",
-        "route": "/offices/clinical/roles/psw/visit-notes"
-      },
-      {
         "label": "Vitals Entry",
         "icon": "menu",
         "screen_code": "vitals_entry",
         "route": "/offices/clinical/roles/psw/vitals-entry"
-      },
-      {
-        "label": "Incident Report",
-        "icon": "description",
-        "screen_code": "incident_report",
-        "route": "/offices/clinical/roles/psw/incident-report"
       }
     ],
     "topbar_config": {
@@ -4182,9 +4149,7 @@
       "psw_messages",
       "psw_documents",
       "shift_tasks",
-      "visit_notes",
-      "vitals_entry",
-      "incident_report"
+      "vitals_entry"
     ]
   },
   {

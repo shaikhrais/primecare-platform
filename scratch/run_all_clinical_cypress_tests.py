@@ -48,11 +48,14 @@ def main():
         proc_env["CYPRESS_BASE_URL"] = os.environ.get("CYPRESS_BASE_URL", "https://primecare-clinic.pages.dev")
         
         # Stream the Cypress output directly
+        # Run Cypress spec using robust subprocess.run
         screenshots_folder = f"cypress/screenshots/{timestamp}/{role}"
-        proc = subprocess.Popen(
-            f"cypress run --spec {spec_path} --config screenshotsFolder={screenshots_folder}",
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+        print(f"   Running Cypress E2E sweep...")
+        sys.stdout.flush()
+        
+        res = subprocess.run(
+            f"cypress run --browser chrome --spec {spec_path} --config screenshotsFolder={screenshots_folder}",
+            capture_output=True,
             text=True,
             errors="ignore",
             shell=True,
@@ -60,24 +63,19 @@ def main():
             env=proc_env
         )
         
-        while True:
-            line = proc.stdout.readline()
-            if not line and proc.poll() is not None:
-                break
-            if line:
-                # Clean up lines and only print the E2E logs and assertions
-                clean_line = line.strip()
-                if not clean_line:
-                    continue
-                # Strip dynamic emojis from Cypress logs to prevent console encoding crashes on Windows
-                clean_line = clean_line.encode('ascii', 'ignore').decode('ascii')
-                if "PROGRESS:" in clean_line or "failing" in clean_line or "passing" in clean_line or "CypressError" in clean_line or "All specs passed" in clean_line:
-                    print(f"   {clean_line}")
-                    sys.stdout.flush()
-        
-        proc.wait()
+        # Parse and print key progress lines from captured output
+        for line in res.stdout.splitlines():
+            clean_line = line.strip()
+            if not clean_line:
+                continue
+            # Strip non-ascii chars to prevent encoding errors
+            clean_line = clean_line.encode('ascii', 'ignore').decode('ascii')
+            if "PROGRESS:" in clean_line or "failing" in clean_line or "passing" in clean_line or "CypressError" in clean_line or "All specs passed" in clean_line:
+                print(f"   {clean_line}")
+                sys.stdout.flush()
+                
         duration = int(time.time() - start_time)
-        status = "PASSED" if proc.returncode == 0 else "FAILED"
+        status = "PASSED" if res.returncode == 0 else "FAILED"
         
         results.append((role, status, duration))
         

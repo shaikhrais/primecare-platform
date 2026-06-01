@@ -15,7 +15,7 @@ class PswSystemLogsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswsystemlogs-screen'),
       appBar: AppBar(
-        title: const Text('PswSystemLogs'),
+        title: Semantics(label: 'data-cy:pswsystemlogs-title', container: true, child: Container(child:  const Text('PswSystemLogs'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

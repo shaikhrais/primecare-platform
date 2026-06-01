@@ -201,11 +201,11 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:rnanalytics-title', container: true, child: Container(child: Text(
             key: const Key('rnanalytics-title'),
             'RN Clinical Insights',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:rnanalytics-content',
@@ -517,7 +517,7 @@ class RnAnalyticsScreen extends GovernedConsumerWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              title: Text('Modify MMSE Score', style: theme.typography.h3),
+              title: Semantics(label: 'data-cy:rnanalytics-title', container: true, child: Container(child: Text('Modify MMSE Score', style: theme.typography.h3))),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,

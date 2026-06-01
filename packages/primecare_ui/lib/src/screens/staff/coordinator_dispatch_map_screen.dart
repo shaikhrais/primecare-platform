@@ -268,11 +268,11 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:coordinatordispatchmap-title', child: Text(
             key: const Key('coordinatordispatchmap-title'),
             'Live Dispatch Map',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('coordinatordispatchmap-btn-1'),
@@ -315,6 +315,7 @@ class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
                   return isWide
                       ? Row(
                           children: [
+                Semantics(label: 'data-cy:coordinatordispatchmap-title', child: const SizedBox(width: 8, height: 8)),
                             // === Governance Injected UI Components & Buttons ===
                             SizedBox(
                               width: double.infinity,

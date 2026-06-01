@@ -15,7 +15,7 @@ class RnDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('rndashboard-screen'),
       appBar: AppBar(
-        title: const Text('RnDashboard'),
+        title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  const Text('RnDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

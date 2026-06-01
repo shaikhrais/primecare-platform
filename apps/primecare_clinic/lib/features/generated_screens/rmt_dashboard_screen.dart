@@ -15,7 +15,7 @@ class RmtDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('rmtdashboard-screen'),
       appBar: AppBar(
-        title: const Text('RmtDashboard'),
+        title: Semantics(label: 'data-cy:rmtdashboard-title', container: true, child: Container(child:  const Text('RmtDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

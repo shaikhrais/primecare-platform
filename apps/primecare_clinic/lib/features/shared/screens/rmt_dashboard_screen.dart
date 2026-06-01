@@ -20,11 +20,11 @@ class RmtDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:rmtdashboard-title', child: Text(
             key: const Key('rmtdashboard-title'),
             'RMT Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('rmtdashboard-btn-1'),
@@ -54,12 +54,12 @@ class RmtDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'rmtdashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:rmtdashboard-title', child: GovDashboardHero(
                       title: 'RMT Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

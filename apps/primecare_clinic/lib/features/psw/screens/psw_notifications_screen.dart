@@ -15,7 +15,7 @@ class PswNotificationsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswnotifications-screen'),
       appBar: AppBar(
-        title: const Text('PswNotifications'),
+        title: Semantics(label: 'data-cy:pswnotifications-title', container: true, child: Container(child:  const Text('PswNotifications'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

@@ -138,7 +138,7 @@ class PhysicianAnalyticsScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:physician analytics-screen',
+        label: 'data-cy:physiciananalytics-content',
         child: SingleChildScrollView(
           key: const Key('physician analytics-content'),
           padding: const EdgeInsets.all(24.0),

@@ -15,7 +15,7 @@ class PswVisitNotesScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswvisitnotes-screen'),
       appBar: AppBar(
-        title: const Text('PswVisitNotes'),
+        title: Semantics(label: 'data-cy:pswvisitnotes-title', container: true, child: Container(child:  const Text('PswVisitNotes'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

@@ -15,7 +15,7 @@ class PswDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswdashboard-screen'),
       appBar: AppBar(
-        title: const Text('PswDashboard'),
+        title: Semantics(label: 'data-cy:pswdashboard-title', container: true, child: Container(child:  const Text('PswDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

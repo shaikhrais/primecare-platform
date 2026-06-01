@@ -204,11 +204,11 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:coordinatorhub-title', child: Text(
             key: const Key('coordinatorhub-title'),
             'Operational Coordinator Hub',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('coordinatorhub-btn-1'),
@@ -234,6 +234,7 @@ class CoordinatorHubScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                Semantics(label: 'data-cy:coordinatorhub-title', child: const SizedBox(width: 8, height: 8)),
                     // === Governance Injected UI Components & Buttons ===
                     SizedBox(
                       width: double.infinity,

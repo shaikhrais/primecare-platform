@@ -15,7 +15,7 @@ class ChiropractorDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('chiropractordashboard-screen'),
       appBar: AppBar(
-        title: const Text('ChiropractorDashboard'),
+        title: Semantics(label: 'data-cy:chiropractordashboard-title', container: true, child: Container(child:  const Text('ChiropractorDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

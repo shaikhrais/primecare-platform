@@ -1,0 +1,33 @@
+import sqlite3
+import os
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
+
+def main():
+    print(f"Connecting to database: {DB_PATH}")
+    if not os.path.exists(DB_PATH):
+        print("Database does not exist!")
+        return
+        
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # List tables
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+    print("Tables in database:")
+    for t in tables:
+        t_name = t[0]
+        cursor.execute(f"PRAGMA table_info({t_name})")
+        columns = cursor.fetchall()
+        cursor.execute(f"SELECT COUNT(*) FROM {t_name}")
+        count = cursor.fetchone()[0]
+        print(f"\n- Table: {t_name} (Row count: {count})")
+        for col in columns:
+            print(f"  - {col[1]} ({col[2]})")
+            
+    conn.close()
+
+if __name__ == '__main__':
+    main()

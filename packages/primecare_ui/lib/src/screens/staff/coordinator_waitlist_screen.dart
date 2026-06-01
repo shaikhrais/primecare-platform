@@ -275,11 +275,11 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:coordinatorwaitlist-title', child: Text(
             key: const Key('coordinatorwaitlist-title'),
             'Intake waitlist and matching panel',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('coordinatorwaitlist-btn-1'),
@@ -320,6 +320,7 @@ class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
                       ? Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                Semantics(label: 'data-cy:coordinatorwaitlist-title', child: const SizedBox(width: 8, height: 8)),
                             // === Governance Injected UI Components & Buttons ===
                             SizedBox(
                               width: double.infinity,

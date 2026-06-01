@@ -15,7 +15,7 @@ class PswObservationVitalsLogScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswobservationvitalslog-screen'),
       appBar: AppBar(
-        title: const Text('PswObservationVitalsLog'),
+        title: Semantics(label: 'data-cy:pswobservationvitalslog-title', container: true, child: Container(child:  const Text('PswObservationVitalsLog'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

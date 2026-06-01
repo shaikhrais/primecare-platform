@@ -15,7 +15,7 @@ class TherapistDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('therapistdashboard-screen'),
       appBar: AppBar(
-        title: const Text('TherapistDashboard'),
+        title: Semantics(label: 'data-cy:therapistdashboard-title', container: true, child: Container(child:  const Text('TherapistDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

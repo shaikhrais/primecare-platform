@@ -120,21 +120,13 @@ class RnPatientChartingScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(
-            container: true,
-            label: 'data-cy:rnpatientcharting-title',
-            child: Semantics(
-              container: true,
-              label: 'data-cy:patientcharting-title',
-              child: Text(
+          title: Semantics(label: 'data-cy:rnpatientcharting-title', container: true, child: Container(child:  Text(
                 key: const Key('rnpatientcharting-title'),
                 state.title,
                 style: theme.typography.h3.copyWith(
                   color: theme.colors.onSurface,
                 ),
-              ),
-            ),
-          ),
+              ))),
           actions: [
             IconButton(
               key: const Key('rnpatientcharting-btn-1'),

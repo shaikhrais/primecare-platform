@@ -20,11 +20,11 @@ class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:trainingcoordinatordashboard-title', child: Text(
             key: const Key('trainingcoordinatordashboard-title'),
             'Training Coordinator Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('trainingcoordinatordashboard-btn-1'),
@@ -54,12 +54,12 @@ class TrainingCoordinatorDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'trainingcoordinatordashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:trainingcoordinatordashboard-title', child: GovDashboardHero(
                       title: 'Training Coordinator Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

@@ -128,13 +128,13 @@ class RnFieldSupervisorWorkflowScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Semantics(label: 'data-cy:rnfieldsupervisorworkflow-title', child: Text(
+        title: Semantics(label: 'data-cy:rnfieldsupervisorworkflow-title', container: true, child: Container(child:  Text(
           key: const Key(
             'registered nurse (rn) field supervisor compliance workflow-title',
           ),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        )),
+        ))),
         actions: [
           IconButton(
             key: const Key(

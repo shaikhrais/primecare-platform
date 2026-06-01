@@ -15,7 +15,7 @@ class RnChartingScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('rncharting-screen'),
       appBar: AppBar(
-        title: const Text('RnCharting'),
+        title: Semantics(label: 'data-cy:rncharting-title', container: true, child: Container(child:  const Text('RnCharting'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

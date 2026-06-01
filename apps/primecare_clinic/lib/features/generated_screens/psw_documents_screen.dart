@@ -15,7 +15,7 @@ class PswDocumentsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswdocuments-screen'),
       appBar: AppBar(
-        title: const Text('PswDocuments'),
+        title: Semantics(label: 'data-cy:pswdocuments-title', container: true, child: Container(child:  const Text('PswDocuments'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

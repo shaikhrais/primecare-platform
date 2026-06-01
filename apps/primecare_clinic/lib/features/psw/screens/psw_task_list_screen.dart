@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'psw_task_list_screen_controller.dart';
 
 class PswTaskListScreen extends ConsumerWidget {
@@ -7,37 +8,68 @@ class PswTaskListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final title = 'PswTasksScreen';
     final state = ref.watch(pswTaskListScreenControllerProvider);
 
-    return Semantics(
-      label: 'data-cy:pswtasklist-screen',
-      container: true,
+    return Cy(
+      id: 'pswtasks-screen',
       child: Scaffold(
-        key: const Key('pswtasklist-screen'),
-      appBar: AppBar(
-        title: const Text('PswTaskList'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    )
-    );
-  }
-
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'PswTaskListScreen is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          title: Cy(
+            id: 'pswtasks-title',
+            child: const Text('PswTasks'),
           ),
-        ],
+        ),
+        body: Semantics(
+          label: 'data-cy:pswtasks-content',
+          container: true,
+          child: Cy(
+            id: 'pswtasks-content',
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: theme.colors.surface,
+                      borderRadius: BorderRadius.circular(theme.radiusMd),
+                      border: Border.all(color: theme.colors.border),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Cy(
+                          id: 'pswtasks-title',
+                          child: Semantics(
+                            label: 'data-cy:pswtasks-title',
+                            container: true,
+                            button: true,
+                            enabled: true,
+                            onTap: () {},
+                            child: Text(
+                              title,
+                              style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization.',
+                          style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

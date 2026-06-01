@@ -138,11 +138,11 @@ class PswTasksScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswtasks-title', container: true, child: Container(child:  Text(
             key: const Key('pswtasks-title'),
             'Daily Tasks',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:pswtasks-content',
@@ -153,6 +153,7 @@ class PswTasksScreen extends GovernedConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Semantics(label: 'data-cy:pswtasks-title', child: const SizedBox(width: 8, height: 8)),
                 // === Governance Injected UI Components & Buttons ===
                 SizedBox(
                   width: double.infinity,

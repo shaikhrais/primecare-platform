@@ -15,7 +15,7 @@ class ClinicalDirectorStaffingScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('clinicaldirectorstaffing-screen'),
       appBar: AppBar(
-        title: const Text('ClinicalDirectorStaffing'),
+        title: Semantics(label: 'data-cy:clinicaldirectorstaffing-title', container: true, child: Container(child:  const Text('ClinicalDirectorStaffing'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

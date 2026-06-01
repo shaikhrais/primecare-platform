@@ -1,43 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'rn_dashboard_screen_controller.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class RnDashboardScreen extends ConsumerWidget {
   const RnDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(rnDashboardScreenControllerProvider);
+    final theme = context.theme;
+    final roleBase = 'Rn';
 
-    return Semantics(
-      label: 'data-cy:rndashboard-screen',
-      container: true,
+    return Cy(
+      id: 'rndashboard-screen',
       child: Scaffold(
-        key: const Key('rndashboard-screen'),
-      appBar: AppBar(
-        title: const Text('RnDashboard'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    )
-    );
-  }
-
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'RnDashboardScreen is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  Text(
+            key: const Key('rndashboard-title'),
+            'Rn Dashboard',
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ))),
+        ),
+        body: Semantics(
+          label: 'data-cy:rndashboard-content',
+          container: true,
+          child: Cy(
+          id: 'rndashboard-content',
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Cy(
+                  id: 'rndashboard-title',
+                  child: Semantics(label: 'data-cy:rndashboard-title', child: GovDashboardHero(
+                    title: 'Rn Dashboard',
+                    roleName: '$roleBase Dashboard',
+                    description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+                    onRefresh: () {},
+                  )),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Active Operations',
+                        value: 'Active',
+                        trendLabel: 'Optimal productivity',
+                        progress: 0.92,
+                        icon: LucideIcons.activity,
+                        brandColor: theme.colors.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GovMetricCard(
+                        title: 'Security Clearance',
+                        value: 'Level 4 Approved',
+                        trendLabel: 'Zero exceptions logged',
+                        progress: 1.0,
+                        icon: LucideIcons.shieldCheck,
+                        brandColor: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                GovTelemetryChart(
+                  title: 'Hourly Core Telemetry',
+                  dataPoints: const [75, 82, 80, 94, 91, 98],
+                  labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+                  accentColor: theme.colors.primary,
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
+        ),
       ),
     );
   }

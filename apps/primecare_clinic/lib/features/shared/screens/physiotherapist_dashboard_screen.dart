@@ -20,11 +20,11 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:physiotherapistdashboard-title', child: Text(
             key: const Key('physiotherapistdashboard-title'),
             'Physiotherapist Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('physiotherapistdashboard-btn-1'),
@@ -54,12 +54,12 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'physiotherapistdashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:physiotherapistdashboard-title', child: GovDashboardHero(
                       title: 'Physiotherapist Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

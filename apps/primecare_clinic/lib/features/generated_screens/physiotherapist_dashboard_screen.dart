@@ -15,7 +15,7 @@ class PhysiotherapistDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('physiotherapistdashboard-screen'),
       appBar: AppBar(
-        title: const Text('PhysiotherapistDashboard'),
+        title: Semantics(label: 'data-cy:physiotherapistdashboard-title', container: true, child: Container(child:  const Text('PhysiotherapistDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

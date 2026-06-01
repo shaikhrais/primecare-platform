@@ -15,7 +15,7 @@ class ClinicalDirectorQualityMetricsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('clinicaldirectorqualitymetrics-screen'),
       appBar: AppBar(
-        title: const Text('ClinicalDirectorQualityMetrics'),
+        title: Semantics(label: 'data-cy:clinicaldirectorqualitymetrics-title', container: true, child: Container(child:  const Text('ClinicalDirectorQualityMetrics'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

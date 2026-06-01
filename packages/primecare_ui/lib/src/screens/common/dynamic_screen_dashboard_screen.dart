@@ -113,11 +113,11 @@ class DynamicScreenDashboardScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:dynamicdashboard-title', child: Text(
           key: const Key('dynamicdashboard-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('dynamicdashboard-btn-1'),
@@ -163,14 +163,14 @@ class DynamicScreenDashboardScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:dynamicdashboard-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: '$roleBase Dashboard',
                 description:
                     'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                 onRefresh: () =>
                     controller.addLog('Dashboard telemetry synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [

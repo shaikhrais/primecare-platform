@@ -1,0 +1,29 @@
+// AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
+// Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
+
+
+describe("Screen - surgical_video_archive", () => {
+  it("opens and verifies screen surgical_video_archive", () => {
+    cy.loginAsRole("chiropractor");
+
+  cy.task("log", "⏳ PROGRESS: - Navigating to None (Surgical Video Archive)...");
+  cy.visitWithSemantics("");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Surgical Video Archive...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // No screen_root data-cy found
+  // No page_title data-cy found
+  // No primary_content data-cy found
+
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Surgical Video Archive...");
+  cy.waitAndSee();
+  cy.screenshot("surgical_video_archive");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Surgical Video Archive successfully!\n");
+
+  });
+});

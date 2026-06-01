@@ -134,7 +134,7 @@ class LpnAnalyticsScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:licensed practical nurse (lpn) analytics-screen',
+        label: 'data-cy:lpnanalytics-content',
         child: SingleChildScrollView(
           key: const Key('licensed practical nurse (lpn) analytics-content'),
           padding: const EdgeInsets.all(24.0),

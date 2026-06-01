@@ -20,11 +20,11 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:socialworkerdashboard-title', child: Text(
             key: const Key('socialworkerdashboard-title'),
             'Social Worker Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('socialworkerdashboard-btn-1'),
@@ -54,12 +54,12 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'socialworkerdashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:socialworkerdashboard-title', child: GovDashboardHero(
                       title: 'Social Worker Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

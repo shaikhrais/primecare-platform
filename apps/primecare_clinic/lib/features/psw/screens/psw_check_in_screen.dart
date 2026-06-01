@@ -15,7 +15,7 @@ class PswCheckInScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswcheckin-screen'),
       appBar: AppBar(
-        title: const Text('PswCheckIn'),
+        title: Semantics(label: 'data-cy:pswcheckin-title', container: true, child: Container(child:  const Text('PswCheckIn'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

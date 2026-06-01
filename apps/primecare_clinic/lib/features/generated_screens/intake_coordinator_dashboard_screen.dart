@@ -15,7 +15,7 @@ class IntakeCoordinatorDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('intakecoordinatordashboard-screen'),
       appBar: AppBar(
-        title: const Text('IntakeCoordinatorDashboard'),
+        title: Semantics(label: 'data-cy:intakecoordinatordashboard-title', container: true, child: Container(child:  const Text('IntakeCoordinatorDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

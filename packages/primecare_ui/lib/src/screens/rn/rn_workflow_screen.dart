@@ -167,11 +167,11 @@ class RnWorkflowScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:rnworkflow-title', container: true, child: Container(child: Text(
             key: const Key('rnworkflow-title'),
             'RN Supervisor Workflows',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:rnworkflow-content',

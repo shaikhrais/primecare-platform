@@ -15,7 +15,7 @@ class PswHelpSupportScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswhelpsupport-screen'),
       appBar: AppBar(
-        title: const Text('PswHelpSupport'),
+        title: Semantics(label: 'data-cy:pswhelpsupport-title', container: true, child: Container(child:  const Text('PswHelpSupport'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

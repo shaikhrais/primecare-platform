@@ -188,11 +188,11 @@ class PswShiftTrackerScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswshifttracker-title', container: true, child: Container(child:  Text(
             key: const Key('pswshifttracker-title'),
             'Shift Tracker',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:pswshifttracker-content',
@@ -203,6 +203,7 @@ class PswShiftTrackerScreen extends GovernedConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Semantics(label: 'data-cy:pswshifttracker-title', child: const SizedBox(width: 8, height: 8)),
                 // === Governance Injected UI Components & Buttons ===
                 SizedBox(
                   width: double.infinity,

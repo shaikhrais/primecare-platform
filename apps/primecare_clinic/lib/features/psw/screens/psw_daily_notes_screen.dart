@@ -15,7 +15,7 @@ class PswDailyNotesScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswdailynotes-screen'),
       appBar: AppBar(
-        title: const Text('PswDailyNotes'),
+        title: Semantics(label: 'data-cy:pswdailynotes-title', container: true, child: Container(child:  const Text('PswDailyNotes'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

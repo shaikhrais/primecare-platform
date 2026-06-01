@@ -156,10 +156,16 @@ class PswClientsScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('pswclients-title'),
-            'My Clients',
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Semantics(
+            label: 'data-cy:pswclients-title',
+            container: true,
+            child: Container(
+              child: Text(
+                key: const Key('pswclients-title'),
+                'My Clients',
+                style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              ),
+            ),
           ),
         ),
         body: Semantics(
@@ -168,6 +174,23 @@ class PswClientsScreen extends GovernedConsumerWidget {
           child: Column(
             key: const Key('pswclients-content'),
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: Row(
+                  children: [
+                    Semantics(
+                      label: 'data-cy:pswclients-title',
+                      container: true,
+                      child: Container(
+                        child: Text(
+                          'Client Directory',
+                          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               // === Governance Injected UI Components & Buttons ===
               SizedBox(
                 width: double.infinity,

@@ -117,11 +117,11 @@ class PswMyShiftsScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswmyshifts-title', container: true, child: Container(child: Text(
             key: const Key('pswmyshifts-title'),
             state.title,
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
           actions: [
             IconButton(
               key: const Key('pswmyshifts-btn-1'),

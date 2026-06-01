@@ -94,11 +94,11 @@ class PswComplianceScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswcompliance-title', container: true, child: Container(child: Text(
             key: const Key('pswcompliance-title'),
             state.title,
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
           actions: [
             IconButton(
               key: const Key('pswcompliance-btn-1'),

@@ -15,7 +15,7 @@ class NurseDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('nursedashboard-screen'),
       appBar: AppBar(
-        title: const Text('NurseDashboard'),
+        title: Semantics(label: 'data-cy:nursedashboard-title', container: true, child: Container(child:  const Text('NurseDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

@@ -95,11 +95,11 @@ class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:dynamiccompliance-title', child: Text(
           key: const Key('dynamiccompliance-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('dynamiccompliance-btn-1'),
@@ -127,14 +127,14 @@ class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:dynamiccompliance-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: '$roleBase Invariants',
                 description:
                     'Operational compliance checks, dynamic security policies, and secure ingestion forms.',
                 onRefresh: () =>
                     controller.addLog('Compliance status scanned.'),
-              ),
+              )),
               const SizedBox(height: 24),
               GovSettingsPanel(
                 title: 'Governance Directives',

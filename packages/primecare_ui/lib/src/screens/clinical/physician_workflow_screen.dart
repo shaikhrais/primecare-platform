@@ -138,7 +138,7 @@ class PhysicianWorkflowScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:physician compliance workflow-screen',
+        label: 'data-cy:physicianworkflow-content',
         child: SingleChildScrollView(
           key: const Key('physician compliance workflow-content'),
           padding: const EdgeInsets.all(24.0),

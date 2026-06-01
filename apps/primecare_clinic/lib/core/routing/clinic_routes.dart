@@ -26,7 +26,7 @@ import '../../features/shared/screens/qa_dashboard_screen.dart';
 import '../../features/shared/screens/training_coordinator_dashboard_screen.dart';
 
 // PSW Screens
-import '../../features/psw/screens/psw_care_dashboard_screen.dart';
+import '../../features/psw/screens/psw_dashboard_screen.dart';
 import '../../features/psw/screens/psw_shift_tracker_screen.dart';
 import '../../features/psw/screens/psw_my_clients_screen.dart';
 import '../../features/psw/screens/psw_task_list_screen.dart';
@@ -83,6 +83,7 @@ class ClinicCareModule extends PlatformModule {
     PlatformRole.cns,
     PlatformRole.caregiver,
     PlatformRole.therapist,
+    PlatformRole.rnFieldSupervisor,
   ];
   @override
   List<PrimeCareScreen> get screens => [
@@ -1349,7 +1350,7 @@ class ClinicPswModule extends PlatformModule {
       title: 'Care Dashboard',
       route: ClinicalRoutes.pswDashboard,
       icon: LucideIcons.home,
-      builder: (context) => PswCareDashboardScreen(),
+      builder: (context) => const PswDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Shift Tracker',
@@ -1514,6 +1515,14 @@ class ClinicApplication extends PlatformApplication {
   PlatformTenant get tenant => ClinicTenant();
 
   @override
+  PlatformRoleDefinition? getDefinition(PlatformRole role) {
+    if (role == PlatformRole.intake) {
+      return super.getDefinition(PlatformRole.intakeCoordinator);
+    }
+    return super.getDefinition(role);
+  }
+
+  @override
   List<PlatformRoleDefinition> get roleDefinitions => [
     PlatformRoleDefinition(
       role: PlatformRole.clinic,
@@ -1526,7 +1535,7 @@ class ClinicApplication extends PlatformApplication {
     ),
     PlatformRoleDefinition(
       role: PlatformRole.rn,
-      dashboardRoute: CommonRoutes.clinicDashboard,
+      dashboardRoute: '/offices/clinical/roles/rn/dashboard',
       modules: [
         ClinicCareModule(),
         ClinicOperationsModule(),
@@ -1535,7 +1544,7 @@ class ClinicApplication extends PlatformApplication {
     ),
     PlatformRoleDefinition(
       role: PlatformRole.rpn,
-      dashboardRoute: CommonRoutes.clinicDashboard,
+      dashboardRoute: '/offices/clinical/roles/rpn/dashboard',
       modules: [
         ClinicCareModule(),
         ClinicOperationsModule(),
@@ -1639,6 +1648,15 @@ class ClinicApplication extends PlatformApplication {
       role: PlatformRole.therapist,
       dashboardRoute: '/offices/clinical/roles/therapist/dashboard',
       modules: [ClinicCareModule()],
+    ),
+    PlatformRoleDefinition(
+      role: PlatformRole.rnFieldSupervisor,
+      dashboardRoute: '/rn/rn-field-supervisor-dashboard',
+      modules: [
+        ClinicCareModule(),
+        ClinicOperationsModule(),
+        ClinicSafetyModule(),
+      ],
     ),
   ];
 }

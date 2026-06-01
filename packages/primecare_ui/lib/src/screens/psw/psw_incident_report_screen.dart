@@ -120,21 +120,13 @@ class PswIncidentReportScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(
-            container: true,
-            label: 'data-cy:pswincidentreport-title',
-            child: Semantics(
-              container: true,
-              label: 'data-cy:incidentreport-title',
-              child: Text(
+          title: Semantics(label: 'data-cy:pswincidentreport-title', container: true, child: Container(child:  Text(
                 key: const Key('pswincidentreport-title'),
                 state.title,
                 style: theme.typography.h3.copyWith(
                   color: theme.colors.onSurface,
                 ),
-              ),
-            ),
-          ),
+              ))),
           actions: [
             IconButton(
               key: const Key('pswincidentreport-btn-1'),

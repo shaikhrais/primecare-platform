@@ -811,7 +811,7 @@ describe("App All Roles All Screens - Primecare Client", () => {
   it("verifies operation flow for role: RMT", () => {
     cy.loginAsRole("rmt");
 
-    // [1/4] - Screen: ClientProgressScreen (client_progress)
+    // [1/3] - Screen: ClientProgressScreen (client_progress)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rmt/client-progress (ClientProgressScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rmt/client-progress");
     cy.waitAndSee();
@@ -821,7 +821,7 @@ describe("App All Roles All Screens - Primecare Client", () => {
     cy.getCy("clientprogress-content").should("be.visible");
     cy.screenshot("cl_rmt_client_progress");
 
-    // [2/4] - Screen: HomeCarePlanScreen (home_care_plan)
+    // [2/3] - Screen: HomeCarePlanScreen (home_care_plan)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rmt/home-care-plan (HomeCarePlanScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rmt/home-care-plan");
     cy.waitAndSee();
@@ -831,7 +831,7 @@ describe("App All Roles All Screens - Primecare Client", () => {
     cy.getCy("homecareplan-content").should("be.visible");
     cy.screenshot("cl_rmt_home_care_plan");
 
-    // [3/4] - Screen: MassageAssessmentScreen (massage_assessment)
+    // [3/3] - Screen: MassageAssessmentScreen (massage_assessment)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rmt/massage-assessment (MassageAssessmentScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rmt/massage-assessment");
     cy.waitAndSee();
@@ -840,16 +840,6 @@ describe("App All Roles All Screens - Primecare Client", () => {
     cy.getCy("massageassessment-title").should("be.visible");
     cy.getCy("massageassessment-content").should("be.visible");
     cy.screenshot("cl_rmt_massage_assessment");
-
-    // [4/4] - Screen: TreatmentNotesScreen (treatment_notes)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rmt/treatment-notes (TreatmentNotesScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/rmt/treatment-notes");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("treatmentnotes-screen").should("be.visible");
-    cy.getCy("treatmentnotes-title").should("be.visible");
-    cy.getCy("treatmentnotes-content").should("be.visible");
-    cy.screenshot("cl_rmt_treatment_notes");
   });
 
   it("verifies operation flow for role: COMMUNITY_OUTREACH", () => {

@@ -163,11 +163,11 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswworkflow-title', container: true, child: Container(child: Text(
             key: const Key('pswworkflow-title'),
             'PSW Active Workflows',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:pswworkflow-content',
@@ -338,19 +338,19 @@ class PswWorkflowScreen extends GovernedConsumerWidget {
     Widget buildTile(String title, String subtitle, String key) {
       final isDone = state.activeAdlChecklist[key] == true;
       return CheckboxListTile(
-        title: Text(
+        title: Semantics(label: 'data-cy:pswworkflow-title', container: true, child: Container(child: Text(
           title,
           style: theme.typography.bodyLarge.copyWith(
             decoration: isDone ? TextDecoration.lineThrough : null,
             fontWeight: isDone ? FontWeight.normal : FontWeight.bold,
           ),
-        ),
-        subtitle: Text(
+        ))),
+        subtitle: Semantics(label: 'data-cy:pswworkflow-title', container: true, child: Container(child: Text(
           subtitle,
           style: theme.typography.bodySmall.copyWith(
             color: theme.colors.onSurfaceVariant,
           ),
-        ),
+        ))),
         value: isDone,
         activeColor: theme.colors.primary,
         onChanged: state.isClockedIn

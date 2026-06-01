@@ -138,7 +138,7 @@ class PediatricAnalyticsScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:pediatric specialist analytics-screen',
+        label: 'data-cy:pediatricanalytics-content',
         child: SingleChildScrollView(
           key: const Key('pediatric specialist analytics-content'),
           padding: const EdgeInsets.all(24.0),

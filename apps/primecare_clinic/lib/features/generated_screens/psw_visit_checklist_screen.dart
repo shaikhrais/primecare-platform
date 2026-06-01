@@ -15,7 +15,7 @@ class PswVisitChecklistScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswvisitchecklist-screen'),
       appBar: AppBar(
-        title: const Text('PswVisitChecklist'),
+        title: Semantics(label: 'data-cy:pswvisitchecklist-title', container: true, child: Container(child:  const Text('PswVisitChecklist'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

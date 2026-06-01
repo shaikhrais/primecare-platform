@@ -117,10 +117,16 @@ class PswMessagesScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('pswmessages-title'),
-            state.title,
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Semantics(
+            label: 'data-cy:pswmessages-title',
+            container: true,
+            child: Container(
+              child: Text(
+                key: const Key('pswmessages-title'),
+                state.title,
+                style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              ),
+            ),
           ),
           actions: [
             IconButton(

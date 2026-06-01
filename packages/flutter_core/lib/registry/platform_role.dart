@@ -131,6 +131,7 @@ enum PlatformRole {
 
     if (normalized == 'superadmin') return PlatformRole.admin;
     if (normalized == 'physio') return PlatformRole.physiotherapist;
+    if (normalized == 'intake') return PlatformRole.intakeCoordinator;
     if (normalized == 'compliance') return PlatformRole.complianceManager;
     if (normalized == 'gm') return PlatformRole.generalManager;
     if (normalized == 'busdev') return PlatformRole.headOfBusDev;

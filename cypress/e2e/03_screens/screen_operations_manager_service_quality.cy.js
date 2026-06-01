@@ -1,0 +1,29 @@
+// AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
+// Generated from SQLite governance database.
+// Leverages custom reusable commands defined in cypress/support/commands.js.
+
+
+describe("Screen - operations_manager_service_quality", () => {
+  it("opens and verifies screen operations_manager_service_quality", () => {
+    cy.loginAsRole("chiropractor");
+
+  cy.task("log", "⏳ PROGRESS: - Navigating to None (Operations Manager Service Quality)...");
+  cy.visitWithSemantics("");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Operations Manager Service Quality...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // No screen_root data-cy found
+  // No page_title data-cy found
+  // No primary_content data-cy found
+
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Operations Manager Service Quality...");
+  cy.waitAndSee();
+  cy.screenshot("operations_manager_service_quality");
+  
+  cy.task("log", "✅ PROGRESS: - Verified Operations Manager Service Quality successfully!\n");
+
+  });
+});

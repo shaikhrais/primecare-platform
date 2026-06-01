@@ -1,43 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'psw_messages_screen_controller.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswMessagesScreen extends ConsumerWidget {
   const PswMessagesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(pswMessagesScreenControllerProvider);
+    final theme = context.theme;
+    final title = 'PswMessagesScreen';
 
-    return Semantics(
-      label: 'data-cy:pswmessages-screen',
-      container: true,
+    return Cy(
+      id: 'pswmessages-screen',
       child: Scaffold(
-        key: const Key('pswmessages-screen'),
-      appBar: AppBar(
-        title: const Text('PswMessages'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    )
-    );
-  }
-
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'PswMessagesScreen is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          title: Cy(
+            id: 'pswmessages-title',
+            child: const Text('PswMessages'),
           ),
-        ],
+        ),
+        body: Semantics(
+          label: 'data-cy:pswmessages-content',
+          container: true,
+          child: Cy(
+            id: 'pswmessages-content',
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: theme.colors.surface,
+                      borderRadius: BorderRadius.circular(theme.radiusMd),
+                      border: Border.all(color: theme.colors.border),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Cy(
+                          id: 'pswmessages-title',
+                          child: Semantics(
+                            label: 'data-cy:pswmessages-title',
+                            container: true,
+                            button: true,
+                            enabled: true,
+                            onTap: () {},
+                            child: Text(
+                              title,
+                              style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization.',
+                          style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -15,7 +15,7 @@ class UnknownDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('unknowndashboard-screen'),
       appBar: AppBar(
-        title: const Text('UnknownDashboard'),
+        title: Semantics(label: 'data-cy:unknowndashboard-title', container: true, child: Container(child:  const Text('UnknownDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

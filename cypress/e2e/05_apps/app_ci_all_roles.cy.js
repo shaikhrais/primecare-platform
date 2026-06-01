@@ -4,140 +4,6 @@
 
 describe("App All Roles All Screens - Primecare Clinic", () => {
 
-  it("verifies operation flow for role: PHYSIO", () => {
-    cy.loginAsRole("physio");
-
-    // [1/13] - Screen: AssessmentScreen (assessment)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/assessment (AssessmentScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/assessment");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("assessment-screen").should("be.visible");
-    cy.getCy("assessment-title").should("be.visible");
-    cy.getCy("assessment-content").should("be.visible");
-    cy.screenshot("ci_physio_assessment");
-
-    // [2/13] - Screen: ExercisePrescriptionScreen (exercise_prescription)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/exercise-prescription (ExercisePrescriptionScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-prescription");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("exerciseprescription-screen").should("be.visible");
-    cy.getCy("exerciseprescription-title").should("be.visible");
-    cy.getCy("exerciseprescription-content").should("be.visible");
-    cy.screenshot("ci_physio_exercise_prescription");
-
-    // [3/13] - Screen: PhysiotherapistAppointmentsScreen (physiotherapist_appointments)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/appointments (PhysiotherapistAppointmentsScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/appointments");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistappointments-screen").should("be.visible");
-    cy.getCy("physiotherapistappointments-title").should("be.visible");
-    cy.getCy("physiotherapistappointments-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_appointments");
-
-    // [4/13] - Screen: PhysiotherapistAssessmentScreen (physiotherapist_assessment)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/assessment (PhysiotherapistAssessmentScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/assessment");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistassessment-screen").should("be.visible");
-    cy.getCy("physiotherapistassessment-title").should("be.visible");
-    cy.getCy("physiotherapistassessment-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_assessment");
-
-    // [5/13] - Screen: PhysiotherapistBillingLinkScreen (physiotherapist_billing_link)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/billing-link (PhysiotherapistBillingLinkScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/billing-link");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistbillinglink-screen").should("be.visible");
-    cy.getCy("physiotherapistbillinglink-title").should("be.visible");
-    cy.getCy("physiotherapistbillinglink-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_billing_link");
-
-    // [6/13] - Screen: PhysiotherapistClientIntakeScreen (physiotherapist_client_intake)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/client-intake (PhysiotherapistClientIntakeScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/client-intake");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistclientintake-screen").should("be.visible");
-    cy.getCy("physiotherapistclientintake-title").should("be.visible");
-    cy.getCy("physiotherapistclientintake-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_client_intake");
-
-    // [7/13] - Screen: PhysiotherapistCommandCenterScreen (physiotherapist_command_center)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/command-center (PhysiotherapistCommandCenterScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/command-center");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistcommandcenter-screen").should("be.visible");
-    cy.getCy("physiotherapistcommandcenter-title").should("be.visible");
-    cy.getCy("physiotherapistcommandcenter-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_command_center");
-
-    // [8/13] - Screen: PhysiotherapistDashboardScreen (physiotherapist_dashboard)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/dashboard");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistdashboard-screen").should("be.visible");
-    cy.getCy("physiotherapistdashboard-title").should("be.visible");
-    cy.getCy("physiotherapistdashboard-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_dashboard");
-
-    // [9/13] - Screen: PhysiotherapistExercisePlanScreen (physiotherapist_exercise_plan)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/exercise-plan (PhysiotherapistExercisePlanScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-plan");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistexerciseplan-screen").should("be.visible");
-    cy.getCy("physiotherapistexerciseplan-title").should("be.visible");
-    cy.getCy("physiotherapistexerciseplan-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_exercise_plan");
-
-    // [10/13] - Screen: PhysiotherapistReportsScreen (physiotherapist_reports)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/reports (PhysiotherapistReportsScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/reports");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapistreports-screen").should("be.visible");
-    cy.getCy("physiotherapistreports-title").should("be.visible");
-    cy.getCy("physiotherapistreports-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_reports");
-
-    // [11/13] - Screen: PhysiotherapistTreatmentNotesScreen (physiotherapist_treatment_notes)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/treatment-notes (PhysiotherapistTreatmentNotesScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-notes");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("physiotherapisttreatmentnotes-screen").should("be.visible");
-    cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
-    cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
-    cy.screenshot("ci_physio_physiotherapist_treatment_notes");
-
-    // [12/13] - Screen: ProgressTrackingScreen (progress_tracking)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/progress-tracking (ProgressTrackingScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/progress-tracking");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("progresstracking-screen").should("be.visible");
-    cy.getCy("progresstracking-title").should("be.visible");
-    cy.getCy("progresstracking-content").should("be.visible");
-    cy.screenshot("ci_physio_progress_tracking");
-
-    // [13/13] - Screen: TreatmentPlanScreen (treatment_plan)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/treatment-plan (TreatmentPlanScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-plan");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("treatmentplan-screen").should("be.visible");
-    cy.getCy("treatmentplan-title").should("be.visible");
-    cy.getCy("treatmentplan-content").should("be.visible");
-    cy.screenshot("ci_physio_treatment_plan");
-  });
-
   it("verifies operation flow for role: INTAKE", () => {
     cy.loginAsRole("intake");
 
@@ -205,7 +71,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
   it("verifies operation flow for role: RN", () => {
     cy.loginAsRole("rn");
 
-    // [1/14] - Screen: CarePlanReviewScreen (care_plan_review)
+    // [1/13] - Screen: CarePlanReviewScreen (care_plan_review)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/care-plan-review (CarePlanReviewScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/care-plan-review");
     cy.waitAndSee();
@@ -215,7 +81,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("careplanreview-content").should("be.visible");
     cy.screenshot("ci_rn_care_plan_review");
 
-    // [2/14] - Screen: IncidentReviewScreen (incident_review)
+    // [2/13] - Screen: IncidentReviewScreen (incident_review)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/incident-review (IncidentReviewScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/incident-review");
     cy.waitAndSee();
@@ -225,7 +91,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("incidentreview-content").should("be.visible");
     cy.screenshot("ci_rn_incident_review");
 
-    // [3/14] - Screen: MedicationAdministrationScreen (medication_administration)
+    // [3/13] - Screen: MedicationAdministrationScreen (medication_administration)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/medication-administration (MedicationAdministrationScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/medication-administration");
     cy.waitAndSee();
@@ -235,17 +101,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("medicationadministration-content").should("be.visible");
     cy.screenshot("ci_rn_medication_administration");
 
-    // [4/14] - Screen: PatientChartingScreen (patient_charting)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/patient-charting (PatientChartingScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/rn/patient-charting");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("patientcharting-screen").should("be.visible");
-    cy.getCy("patientcharting-title").should("be.visible");
-    cy.getCy("patientcharting-content").should("be.visible");
-    cy.screenshot("ci_rn_patient_charting");
-
-    // [5/14] - Screen: RnCarePlanReviewScreen (rn_care_plan_review)
+    // [4/13] - Screen: RnCarePlanReviewScreen (rn_care_plan_review)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/rn-care-plan-review (RnCarePlanReviewScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/rn-care-plan-review");
     cy.waitAndSee();
@@ -255,7 +111,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rncareplanreview-content").should("be.visible");
     cy.screenshot("ci_rn_rn_care_plan_review");
 
-    // [6/14] - Screen: RnCommandCenterScreen (rn_command_center)
+    // [5/13] - Screen: RnCommandCenterScreen (rn_command_center)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/rn-command-center (RnCommandCenterScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/rn-command-center");
     cy.waitAndSee();
@@ -265,7 +121,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rncommandcenter-content").should("be.visible");
     cy.screenshot("ci_rn_rn_command_center");
 
-    // [7/14] - Screen: RnDashboardScreen (rn_dashboard)
+    // [6/13] - Screen: RnDashboardScreen (rn_dashboard)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/dashboard (RnDashboardScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/dashboard");
     cy.waitAndSee();
@@ -275,7 +131,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rndashboard-content").should("be.visible");
     cy.screenshot("ci_rn_rn_dashboard");
 
-    // [8/14] - Screen: RnIncidentReviewScreen (rn_incident_review)
+    // [7/13] - Screen: RnIncidentReviewScreen (rn_incident_review)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/rn-incident-review (RnIncidentReviewScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/rn-incident-review");
     cy.waitAndSee();
@@ -285,7 +141,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rnincidentreview-content").should("be.visible");
     cy.screenshot("ci_rn_rn_incident_review");
 
-    // [9/14] - Screen: RnMedicationsScreen (rn_medications)
+    // [8/13] - Screen: RnMedicationsScreen (rn_medications)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/medications (RnMedicationsScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/medications");
     cy.waitAndSee();
@@ -295,7 +151,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rnmedications-content").should("be.visible");
     cy.screenshot("ci_rn_rn_medications");
 
-    // [10/14] - Screen: RnPatientChartingScreen (rn_patient_charting)
+    // [9/13] - Screen: RnPatientChartingScreen (rn_patient_charting)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/patient-charting (RnPatientChartingScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/patient-charting");
     cy.waitAndSee();
@@ -305,7 +161,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rnpatientcharting-content").should("be.visible");
     cy.screenshot("ci_rn_rn_patient_charting");
 
-    // [11/14] - Screen: RnReportsScreen (rn_reports)
+    // [10/13] - Screen: RnReportsScreen (rn_reports)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/rn-reports (RnReportsScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/rn-reports");
     cy.waitAndSee();
@@ -315,7 +171,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rnreports-content").should("be.visible");
     cy.screenshot("ci_rn_rn_reports");
 
-    // [12/14] - Screen: RnTasksScreen (rn_tasks)
+    // [11/13] - Screen: RnTasksScreen (rn_tasks)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/rn-tasks (RnTasksScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/rn-tasks");
     cy.waitAndSee();
@@ -325,7 +181,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rntasks-content").should("be.visible");
     cy.screenshot("ci_rn_rn_tasks");
 
-    // [13/14] - Screen: RnVitalsScreen (rn_vitals)
+    // [12/13] - Screen: RnVitalsScreen (rn_vitals)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/vitals (RnVitalsScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/vitals");
     cy.waitAndSee();
@@ -335,7 +191,7 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("rnvitals-content").should("be.visible");
     cy.screenshot("ci_rn_rn_vitals");
 
-    // [14/14] - Screen: ShiftReportScreen (shift_report)
+    // [13/13] - Screen: ShiftReportScreen (shift_report)
     cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/rn/shift-report (ShiftReportScreen)...");
     cy.visitWithSemantics("/offices/clinical/roles/rn/shift-report");
     cy.waitAndSee();
@@ -588,6 +444,130 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.screenshot("ci_cns_cns_dashboard");
   });
 
+  it("verifies operation flow for role: PHYSIO", () => {
+    cy.loginAsRole("physio");
+
+    // [1/12] - Screen: ExercisePrescriptionScreen (exercise_prescription)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/exercise-prescription (ExercisePrescriptionScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-prescription");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("exerciseprescription-screen").should("be.visible");
+    cy.getCy("exerciseprescription-title").should("be.visible");
+    cy.getCy("exerciseprescription-content").should("be.visible");
+    cy.screenshot("ci_physio_exercise_prescription");
+
+    // [2/12] - Screen: PhysiotherapistAppointmentsScreen (physiotherapist_appointments)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/appointments (PhysiotherapistAppointmentsScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/appointments");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistappointments-screen").should("be.visible");
+    cy.getCy("physiotherapistappointments-title").should("be.visible");
+    cy.getCy("physiotherapistappointments-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_appointments");
+
+    // [3/12] - Screen: PhysiotherapistAssessmentScreen (physiotherapist_assessment)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/assessment (PhysiotherapistAssessmentScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/assessment");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistassessment-screen").should("be.visible");
+    cy.getCy("physiotherapistassessment-title").should("be.visible");
+    cy.getCy("physiotherapistassessment-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_assessment");
+
+    // [4/12] - Screen: PhysiotherapistBillingLinkScreen (physiotherapist_billing_link)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/billing-link (PhysiotherapistBillingLinkScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/billing-link");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistbillinglink-screen").should("be.visible");
+    cy.getCy("physiotherapistbillinglink-title").should("be.visible");
+    cy.getCy("physiotherapistbillinglink-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_billing_link");
+
+    // [5/12] - Screen: PhysiotherapistClientIntakeScreen (physiotherapist_client_intake)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/client-intake (PhysiotherapistClientIntakeScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/client-intake");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistclientintake-screen").should("be.visible");
+    cy.getCy("physiotherapistclientintake-title").should("be.visible");
+    cy.getCy("physiotherapistclientintake-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_client_intake");
+
+    // [6/12] - Screen: PhysiotherapistCommandCenterScreen (physiotherapist_command_center)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/command-center (PhysiotherapistCommandCenterScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/command-center");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistcommandcenter-screen").should("be.visible");
+    cy.getCy("physiotherapistcommandcenter-title").should("be.visible");
+    cy.getCy("physiotherapistcommandcenter-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_command_center");
+
+    // [7/12] - Screen: PhysiotherapistDashboardScreen (physiotherapist_dashboard)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/dashboard");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistdashboard-screen").should("be.visible");
+    cy.getCy("physiotherapistdashboard-title").should("be.visible");
+    cy.getCy("physiotherapistdashboard-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_dashboard");
+
+    // [8/12] - Screen: PhysiotherapistExercisePlanScreen (physiotherapist_exercise_plan)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/exercise-plan (PhysiotherapistExercisePlanScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-plan");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistexerciseplan-screen").should("be.visible");
+    cy.getCy("physiotherapistexerciseplan-title").should("be.visible");
+    cy.getCy("physiotherapistexerciseplan-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_exercise_plan");
+
+    // [9/12] - Screen: PhysiotherapistReportsScreen (physiotherapist_reports)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/reports (PhysiotherapistReportsScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/reports");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapistreports-screen").should("be.visible");
+    cy.getCy("physiotherapistreports-title").should("be.visible");
+    cy.getCy("physiotherapistreports-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_reports");
+
+    // [10/12] - Screen: PhysiotherapistTreatmentNotesScreen (physiotherapist_treatment_notes)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/treatment-notes (PhysiotherapistTreatmentNotesScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-notes");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("physiotherapisttreatmentnotes-screen").should("be.visible");
+    cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
+    cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
+    cy.screenshot("ci_physio_physiotherapist_treatment_notes");
+
+    // [11/12] - Screen: ProgressTrackingScreen (progress_tracking)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/progress-tracking (ProgressTrackingScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/progress-tracking");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("progresstracking-screen").should("be.visible");
+    cy.getCy("progresstracking-title").should("be.visible");
+    cy.getCy("progresstracking-content").should("be.visible");
+    cy.screenshot("ci_physio_progress_tracking");
+
+    // [12/12] - Screen: TreatmentPlanScreen (treatment_plan)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/physiotherapist/treatment-plan (TreatmentPlanScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-plan");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("treatmentplan-screen").should("be.visible");
+    cy.getCy("treatmentplan-title").should("be.visible");
+    cy.getCy("treatmentplan-content").should("be.visible");
+    cy.screenshot("ci_physio_treatment_plan");
+  });
+
   it("verifies operation flow for role: HSW", () => {
     cy.loginAsRole("hsw");
 
@@ -600,150 +580,6 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("hswdashboard-title").should("be.visible");
     cy.getCy("hswdashboard-content").should("be.visible");
     cy.screenshot("ci_hsw_hsw_dashboard");
-  });
-
-  it("verifies operation flow for role: PSW", () => {
-    cy.loginAsRole("psw");
-
-    // [1/14] - Screen: IncidentReportScreen (incident_report)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/incident-report (IncidentReportScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("incidentreport-screen").should("be.visible");
-    cy.getCy("incidentreport-title").should("be.visible");
-    cy.getCy("incidentreport-content").should("be.visible");
-    cy.screenshot("ci_psw_incident_report");
-
-    // [2/14] - Screen: PswCarePlanScreen (psw_care_plan)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/care-plan");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswcareplan-screen").should("be.visible");
-    cy.getCy("pswcareplan-title").should("be.visible");
-    cy.getCy("pswcareplan-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_care_plan");
-
-    // [3/14] - Screen: PswClientProfileScreen (psw_client_profile)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-client-profile (PswClientProfileScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-client-profile");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswclientprofile-screen").should("be.visible");
-    cy.getCy("pswclientprofile-title").should("be.visible");
-    cy.getCy("pswclientprofile-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_client_profile");
-
-    // [4/14] - Screen: PswCommandCenterScreen (psw_command_center)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-command-center (PswCommandCenterScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-command-center");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswcommandcenter-screen").should("be.visible");
-    cy.getCy("pswcommandcenter-title").should("be.visible");
-    cy.getCy("pswcommandcenter-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_command_center");
-
-    // [5/14] - Screen: PswDashboardScreen (psw_dashboard)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswdashboard-screen").should("be.visible");
-    cy.getCy("pswdashboard-title").should("be.visible");
-    cy.getCy("pswdashboard-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_dashboard");
-
-    // [6/14] - Screen: PswDocumentsScreen (psw_documents)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/documents");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswdocuments-screen").should("be.visible");
-    cy.getCy("pswdocuments-title").should("be.visible");
-    cy.getCy("pswdocuments-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_documents");
-
-    // [7/14] - Screen: PswIncidentReportScreen (psw_incident_report)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswincidentreport-screen").should("be.visible");
-    cy.getCy("pswincidentreport-title").should("be.visible");
-    cy.getCy("pswincidentreport-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_incident_report");
-
-    // [8/14] - Screen: PswMessagesScreen (psw_messages)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswmessages-screen").should("be.visible");
-    cy.getCy("pswmessages-title").should("be.visible");
-    cy.getCy("pswmessages-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_messages");
-
-    // [9/14] - Screen: PswMyShiftsScreen (psw_my_shifts)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-my-shifts");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswmyshifts-screen").should("be.visible");
-    cy.getCy("pswmyshifts-title").should("be.visible");
-    cy.getCy("pswmyshifts-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_my_shifts");
-
-    // [10/14] - Screen: PswVisitNotesScreen (psw_visit_notes)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswvisitnotes-screen").should("be.visible");
-    cy.getCy("pswvisitnotes-title").should("be.visible");
-    cy.getCy("pswvisitnotes-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_visit_notes");
-
-    // [11/14] - Screen: PswVitalsLogScreen (psw_vitals_log)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/observation-vitals-log");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("pswvitalslog-screen").should("be.visible");
-    cy.getCy("pswvitalslog-title").should("be.visible");
-    cy.getCy("pswvitalslog-content").should("be.visible");
-    cy.screenshot("ci_psw_psw_vitals_log");
-
-    // [12/14] - Screen: ShiftTasksScreen (shift_tasks)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/shift-tasks");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("shifttasks-screen").should("be.visible");
-    cy.getCy("shifttasks-title").should("be.visible");
-    cy.getCy("shifttasks-content").should("be.visible");
-    cy.screenshot("ci_psw_shift_tasks");
-
-    // [13/14] - Screen: VisitNotesScreen (visit_notes)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/visit-notes (VisitNotesScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("visitnotes-screen").should("be.visible");
-    cy.getCy("visitnotes-title").should("be.visible");
-    cy.getCy("visitnotes-content").should("be.visible");
-    cy.screenshot("ci_psw_visit_notes");
-
-    // [14/14] - Screen: VitalsEntryScreen (vitals_entry)
-    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
-    cy.visitWithSemantics("/offices/clinical/roles/psw/vitals-entry");
-    cy.waitAndSee();
-    cy.verifyNotBlank();
-    cy.getCy("vitalsentry-screen").should("be.visible");
-    cy.getCy("vitalsentry-title").should("be.visible");
-    cy.getCy("vitalsentry-content").should("be.visible");
-    cy.screenshot("ci_psw_vitals_entry");
   });
 
   it("verifies operation flow for role: LPN", () => {
@@ -934,6 +770,130 @@ describe("App All Roles All Screens - Primecare Clinic", () => {
     cy.getCy("physiciandashboard-title").should("be.visible");
     cy.getCy("physiciandashboard-content").should("be.visible");
     cy.screenshot("ci_physician_physician_dashboard");
+  });
+
+  it("verifies operation flow for role: PSW", () => {
+    cy.loginAsRole("psw");
+
+    // [1/12] - Screen: PswCarePlanScreen (psw_care_plan)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/care-plan");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswcareplan-screen").should("be.visible");
+    cy.getCy("pswcareplan-title").should("be.visible");
+    cy.getCy("pswcareplan-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_care_plan");
+
+    // [2/12] - Screen: PswClientProfileScreen (psw_client_profile)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-client-profile (PswClientProfileScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-client-profile");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswclientprofile-screen").should("be.visible");
+    cy.getCy("pswclientprofile-title").should("be.visible");
+    cy.getCy("pswclientprofile-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_client_profile");
+
+    // [3/12] - Screen: PswCommandCenterScreen (psw_command_center)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-command-center (PswCommandCenterScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-command-center");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswcommandcenter-screen").should("be.visible");
+    cy.getCy("pswcommandcenter-title").should("be.visible");
+    cy.getCy("pswcommandcenter-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_command_center");
+
+    // [4/12] - Screen: PswDashboardScreen (psw_dashboard)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswdashboard-screen").should("be.visible");
+    cy.getCy("pswdashboard-title").should("be.visible");
+    cy.getCy("pswdashboard-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_dashboard");
+
+    // [5/12] - Screen: PswDocumentsScreen (psw_documents)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/documents");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswdocuments-screen").should("be.visible");
+    cy.getCy("pswdocuments-title").should("be.visible");
+    cy.getCy("pswdocuments-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_documents");
+
+    // [6/12] - Screen: PswIncidentReportScreen (psw_incident_report)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswincidentreport-screen").should("be.visible");
+    cy.getCy("pswincidentreport-title").should("be.visible");
+    cy.getCy("pswincidentreport-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_incident_report");
+
+    // [7/12] - Screen: PswMessagesScreen (psw_messages)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswmessages-screen").should("be.visible");
+    cy.getCy("pswmessages-title").should("be.visible");
+    cy.getCy("pswmessages-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_messages");
+
+    // [8/12] - Screen: PswMyShiftsScreen (psw_my_shifts)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/psw-my-shifts");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswmyshifts-screen").should("be.visible");
+    cy.getCy("pswmyshifts-title").should("be.visible");
+    cy.getCy("pswmyshifts-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_my_shifts");
+
+    // [9/12] - Screen: PswVisitNotesScreen (psw_visit_notes)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswvisitnotes-screen").should("be.visible");
+    cy.getCy("pswvisitnotes-title").should("be.visible");
+    cy.getCy("pswvisitnotes-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_visit_notes");
+
+    // [10/12] - Screen: PswVitalsLogScreen (psw_vitals_log)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/observation-vitals-log");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("pswvitalslog-screen").should("be.visible");
+    cy.getCy("pswvitalslog-title").should("be.visible");
+    cy.getCy("pswvitalslog-content").should("be.visible");
+    cy.screenshot("ci_psw_psw_vitals_log");
+
+    // [11/12] - Screen: ShiftTasksScreen (shift_tasks)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/shift-tasks");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("shifttasks-screen").should("be.visible");
+    cy.getCy("shifttasks-title").should("be.visible");
+    cy.getCy("shifttasks-content").should("be.visible");
+    cy.screenshot("ci_psw_shift_tasks");
+
+    // [12/12] - Screen: VitalsEntryScreen (vitals_entry)
+    cy.task("log", "PROGRESS: Visiting /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
+    cy.visitWithSemantics("/offices/clinical/roles/psw/vitals-entry");
+    cy.waitAndSee();
+    cy.verifyNotBlank();
+    cy.getCy("vitalsentry-screen").should("be.visible");
+    cy.getCy("vitalsentry-title").should("be.visible");
+    cy.getCy("vitalsentry-content").should("be.visible");
+    cy.screenshot("ci_psw_vitals_entry");
   });
 
   it("verifies operation flow for role: RMT", () => {

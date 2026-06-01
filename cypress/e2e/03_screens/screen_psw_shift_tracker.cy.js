@@ -7,8 +7,8 @@ describe("Screen - psw_shift_tracker", () => {
   it("opens and verifies screen psw_shift_tracker", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/offices/clinical/roles/caregiver/psw-schedule (PswShiftTrackerScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/offices/clinical/roles/caregiver/psw-schedule");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/schedule (PswShiftTrackerScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/schedule");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswShiftTrackerScreen...");

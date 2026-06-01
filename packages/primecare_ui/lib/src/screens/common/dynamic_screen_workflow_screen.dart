@@ -23,11 +23,11 @@ class DynamicScreenWorkflowScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:dynamicworkflow-title', child: Text(
           key: const Key('dynamicworkflow-title'),
           'DynamicScreen Workflow',
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
       ),
       body: Semantics(
         label: 'data-cy:dynamicworkflow-screen',
@@ -48,13 +48,13 @@ class DynamicScreenWorkflowScreen extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:dynamicworkflow-title', child: GovDashboardHero(
                 title: 'DynamicScreen Workflow',
                 roleName: 'DynamicScreen Module',
                 description:
                     'Centralized Workflow operations for DynamicScreen.',
                 onRefresh: () {},
-              ),
+              )),
               const SizedBox(height: 24),
               Container(
                 padding: const EdgeInsets.all(24),

@@ -114,11 +114,11 @@ class SharedScreenStubs extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Text(
+        title: Semantics(label: 'data-cy:sharedstubs-title', child: Text(
           key: const Key('sharedstubs-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
+        )),
         actions: [
           IconButton(
             key: const Key('sharedstubs-btn-1'),
@@ -146,14 +146,14 @@ class SharedScreenStubs extends GovernedConsumerWidget {
                 ),
               ),
 
-              GovDashboardHero(
+              Semantics(label: 'data-cy:sharedstubs-title', child: GovDashboardHero(
                 title: state.title,
                 roleName: '$roleBase Dashboard',
                 description:
                     'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                 onRefresh: () =>
                     controller.addLog('Dashboard telemetry synchronized.'),
-              ),
+              )),
               const SizedBox(height: 24),
               Row(
                 children: [

@@ -138,7 +138,7 @@ class PediatricWorkflowScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:pediatric specialist compliance workflow-screen',
+        label: 'data-cy:pediatricworkflow-content',
         child: SingleChildScrollView(
           key: const Key('pediatric specialist compliance workflow-content'),
           padding: const EdgeInsets.all(24.0),

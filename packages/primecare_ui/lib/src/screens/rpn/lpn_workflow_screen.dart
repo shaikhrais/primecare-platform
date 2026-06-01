@@ -139,8 +139,7 @@ class LpnWorkflowScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label:
-            'data-cy:licensed practical nurse (lpn) compliance workflow-screen',
+        label: 'data-cy:lpnworkflow-content',
         child: SingleChildScrollView(
           key: const Key(
             'licensed practical nurse (lpn) compliance workflow-content',

@@ -300,11 +300,11 @@ describe("Org Full UI Test", () => {
   it("tests org role physio", () => {
     cy.loginAsRole("physio");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Navigating to /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Navigating to /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Checking shell & content for PhysiotherapistDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Checking shell & content for PhysiotherapistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -312,17 +312,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistdashboard-title").should("be.visible");
   cy.getCy("physiotherapistdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Saving screenshot for PhysiotherapistDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Saving screenshot for PhysiotherapistDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Verified PhysiotherapistDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Verified PhysiotherapistDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /offices/clinical/roles/physiotherapist/analytics (PhysiotherapistAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Navigating to /offices/clinical/roles/physiotherapist/analytics (PhysiotherapistAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Checking shell & content for PhysiotherapistAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Checking shell & content for PhysiotherapistAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -330,17 +330,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistanalytics-title").should("be.visible");
   cy.getCy("physiotherapistanalytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Saving screenshot for PhysiotherapistAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Saving screenshot for PhysiotherapistAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Verified PhysiotherapistAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Verified PhysiotherapistAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Navigating to /offices/clinical/roles/physiotherapist/compliance (PhysiotherapistComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Navigating to /offices/clinical/roles/physiotherapist/compliance (PhysiotherapistComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Checking shell & content for PhysiotherapistComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Checking shell & content for PhysiotherapistComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -348,17 +348,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistcompliance-title").should("be.visible");
   cy.getCy("physiotherapistcompliance-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Saving screenshot for PhysiotherapistComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Saving screenshot for PhysiotherapistComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Verified PhysiotherapistComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Verified PhysiotherapistComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Navigating to /offices/clinical/roles/physiotherapist/workflow (PhysiotherapistWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Navigating to /offices/clinical/roles/physiotherapist/workflow (PhysiotherapistWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Checking shell & content for PhysiotherapistWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Checking shell & content for PhysiotherapistWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -366,17 +366,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistworkflow-title").should("be.visible");
   cy.getCy("physiotherapistworkflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Saving screenshot for PhysiotherapistWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Saving screenshot for PhysiotherapistWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Verified PhysiotherapistWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Verified PhysiotherapistWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Navigating to /offices/clinical/roles/physiotherapist/command-center (PhysiotherapistCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Navigating to /offices/clinical/roles/physiotherapist/command-center (PhysiotherapistCommandCenterScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/command-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Checking shell & content for PhysiotherapistCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Checking shell & content for PhysiotherapistCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -384,17 +384,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistcommandcenter-title").should("be.visible");
   cy.getCy("physiotherapistcommandcenter-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Saving screenshot for PhysiotherapistCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Saving screenshot for PhysiotherapistCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Verified PhysiotherapistCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Verified PhysiotherapistCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Navigating to /offices/clinical/roles/physiotherapist/appointments (PhysiotherapistAppointmentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Navigating to /offices/clinical/roles/physiotherapist/appointments (PhysiotherapistAppointmentsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Checking shell & content for PhysiotherapistAppointmentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Checking shell & content for PhysiotherapistAppointmentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -402,17 +402,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistappointments-title").should("be.visible");
   cy.getCy("physiotherapistappointments-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Saving screenshot for PhysiotherapistAppointmentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Saving screenshot for PhysiotherapistAppointmentsScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Verified PhysiotherapistAppointmentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Verified PhysiotherapistAppointmentsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Navigating to /offices/clinical/roles/physiotherapist/client-intake (PhysiotherapistClientIntakeScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Navigating to /offices/clinical/roles/physiotherapist/client-intake (PhysiotherapistClientIntakeScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/client-intake");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Checking shell & content for PhysiotherapistClientIntakeScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Checking shell & content for PhysiotherapistClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -420,17 +420,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistclientintake-title").should("be.visible");
   cy.getCy("physiotherapistclientintake-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Saving screenshot for PhysiotherapistClientIntakeScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Saving screenshot for PhysiotherapistClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_client_intake");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Verified PhysiotherapistClientIntakeScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Verified PhysiotherapistClientIntakeScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Navigating to /offices/clinical/roles/physiotherapist/assessment (PhysiotherapistAssessmentScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Navigating to /offices/clinical/roles/physiotherapist/assessment (PhysiotherapistAssessmentScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Checking shell & content for PhysiotherapistAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Checking shell & content for PhysiotherapistAssessmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -438,17 +438,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistassessment-title").should("be.visible");
   cy.getCy("physiotherapistassessment-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Saving screenshot for PhysiotherapistAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Saving screenshot for PhysiotherapistAssessmentScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Verified PhysiotherapistAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Verified PhysiotherapistAssessmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Navigating to /offices/clinical/roles/physiotherapist/treatment-notes (PhysiotherapistTreatmentNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Navigating to /offices/clinical/roles/physiotherapist/treatment-notes (PhysiotherapistTreatmentNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Checking shell & content for PhysiotherapistTreatmentNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Checking shell & content for PhysiotherapistTreatmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -456,17 +456,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
   cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Saving screenshot for PhysiotherapistTreatmentNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Saving screenshot for PhysiotherapistTreatmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_treatment_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Verified PhysiotherapistTreatmentNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Verified PhysiotherapistTreatmentNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Navigating to /offices/clinical/roles/physiotherapist/exercise-plan (PhysiotherapistExercisePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Navigating to /offices/clinical/roles/physiotherapist/exercise-plan (PhysiotherapistExercisePlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Checking shell & content for PhysiotherapistExercisePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Checking shell & content for PhysiotherapistExercisePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -474,17 +474,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistexerciseplan-title").should("be.visible");
   cy.getCy("physiotherapistexerciseplan-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Saving screenshot for PhysiotherapistExercisePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Saving screenshot for PhysiotherapistExercisePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_exercise_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Verified PhysiotherapistExercisePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Verified PhysiotherapistExercisePlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Navigating to /offices/clinical/roles/physiotherapist/billing-link (PhysiotherapistBillingLinkScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Navigating to /offices/clinical/roles/physiotherapist/billing-link (PhysiotherapistBillingLinkScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/billing-link");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Checking shell & content for PhysiotherapistBillingLinkScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Checking shell & content for PhysiotherapistBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -492,17 +492,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistbillinglink-title").should("be.visible");
   cy.getCy("physiotherapistbillinglink-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Saving screenshot for PhysiotherapistBillingLinkScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Saving screenshot for PhysiotherapistBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_billing_link");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Verified PhysiotherapistBillingLinkScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Verified PhysiotherapistBillingLinkScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Navigating to /offices/clinical/roles/physiotherapist/reports (PhysiotherapistReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Navigating to /offices/clinical/roles/physiotherapist/reports (PhysiotherapistReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Checking shell & content for PhysiotherapistReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Checking shell & content for PhysiotherapistReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -510,35 +510,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("physiotherapistreports-title").should("be.visible");
   cy.getCy("physiotherapistreports-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Saving screenshot for PhysiotherapistReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Saving screenshot for PhysiotherapistReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("physiotherapist_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Verified PhysiotherapistReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Verified PhysiotherapistReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Navigating to /offices/clinical/roles/physiotherapist/assessment (AssessmentScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/assessment");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Checking shell & content for AssessmentScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("assessment-screen").should("be.visible");
-  cy.getCy("assessment-title").should("be.visible");
-  cy.getCy("assessment-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Saving screenshot for AssessmentScreen...");
-  cy.waitAndSee();
-  cy.screenshot("assessment");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Verified AssessmentScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Navigating to /offices/clinical/roles/physiotherapist/treatment-plan (TreatmentPlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Navigating to /offices/clinical/roles/physiotherapist/treatment-plan (TreatmentPlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/treatment-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Checking shell & content for TreatmentPlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Checking shell & content for TreatmentPlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -546,17 +528,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("treatmentplan-title").should("be.visible");
   cy.getCy("treatmentplan-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Saving screenshot for TreatmentPlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Saving screenshot for TreatmentPlanScreen...");
   cy.waitAndSee();
   cy.screenshot("treatment_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Verified TreatmentPlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Verified TreatmentPlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Navigating to /offices/clinical/roles/physiotherapist/exercise-prescription (ExercisePrescriptionScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Navigating to /offices/clinical/roles/physiotherapist/exercise-prescription (ExercisePrescriptionScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/exercise-prescription");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Checking shell & content for ExercisePrescriptionScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Checking shell & content for ExercisePrescriptionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -564,17 +546,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("exerciseprescription-title").should("be.visible");
   cy.getCy("exerciseprescription-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Saving screenshot for ExercisePrescriptionScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Saving screenshot for ExercisePrescriptionScreen...");
   cy.waitAndSee();
   cy.screenshot("exercise_prescription");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Verified ExercisePrescriptionScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Verified ExercisePrescriptionScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Navigating to /offices/clinical/roles/physiotherapist/progress-tracking (ProgressTrackingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Navigating to /offices/clinical/roles/physiotherapist/progress-tracking (ProgressTrackingScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/progress-tracking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Checking shell & content for ProgressTrackingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Checking shell & content for ProgressTrackingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -582,21 +564,21 @@ describe("Org Full UI Test", () => {
   cy.getCy("progresstracking-title").should("be.visible");
   cy.getCy("progresstracking-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Saving screenshot for ProgressTrackingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Saving screenshot for ProgressTrackingScreen...");
   cy.waitAndSee();
   cy.screenshot("progress_tracking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Verified ProgressTrackingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Verified ProgressTrackingScreen successfully!\n");
   });
 
   it("tests org role rmt", () => {
     cy.loginAsRole("rmt");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Navigating to /offices/clinical/roles/rmt/dashboard (RmtDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Navigating to /offices/clinical/roles/rmt/dashboard (RmtDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Checking shell & content for RmtDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Checking shell & content for RmtDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -604,17 +586,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtdashboard-title").should("be.visible");
   cy.getCy("rmtdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Saving screenshot for RmtDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Saving screenshot for RmtDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Verified RmtDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/15 | 6%] - Verified RmtDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /offices/clinical/roles/rmt/analytics (RmtAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Navigating to /offices/clinical/roles/rmt/analytics (RmtAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Checking shell & content for RmtAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Checking shell & content for RmtAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -622,17 +604,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtanalytics-title").should("be.visible");
   cy.getCy("rmtanalytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Saving screenshot for RmtAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Saving screenshot for RmtAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Verified RmtAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/15 | 13%] - Verified RmtAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Navigating to /offices/clinical/roles/rmt/compliance (RmtComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Navigating to /offices/clinical/roles/rmt/compliance (RmtComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Checking shell & content for RmtComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Checking shell & content for RmtComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -640,17 +622,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtcompliance-title").should("be.visible");
   cy.getCy("rmtcompliance-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Saving screenshot for RmtComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Saving screenshot for RmtComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Verified RmtComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/15 | 20%] - Verified RmtComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Navigating to /offices/clinical/roles/rmt/workflow (RmtWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Navigating to /offices/clinical/roles/rmt/workflow (RmtWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Checking shell & content for RmtWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Checking shell & content for RmtWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -658,17 +640,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtworkflow-title").should("be.visible");
   cy.getCy("rmtworkflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Saving screenshot for RmtWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Saving screenshot for RmtWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Verified RmtWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/15 | 26%] - Verified RmtWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Navigating to /offices/clinical/roles/rmt/command-center (RmtCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Navigating to /offices/clinical/roles/rmt/command-center (RmtCommandCenterScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/command-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Checking shell & content for RmtCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Checking shell & content for RmtCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -676,17 +658,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtcommandcenter-title").should("be.visible");
   cy.getCy("rmtcommandcenter-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Saving screenshot for RmtCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Saving screenshot for RmtCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Verified RmtCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/15 | 33%] - Verified RmtCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Navigating to /offices/clinical/roles/rmt/appointments (RmtAppointmentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Navigating to /offices/clinical/roles/rmt/appointments (RmtAppointmentsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Checking shell & content for RmtAppointmentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Checking shell & content for RmtAppointmentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -694,17 +676,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtappointments-title").should("be.visible");
   cy.getCy("rmtappointments-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Saving screenshot for RmtAppointmentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Saving screenshot for RmtAppointmentsScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Verified RmtAppointmentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/15 | 40%] - Verified RmtAppointmentsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Navigating to /offices/clinical/roles/rmt/client-intake (RmtClientIntakeScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Navigating to /offices/clinical/roles/rmt/client-intake (RmtClientIntakeScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/client-intake");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Checking shell & content for RmtClientIntakeScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Checking shell & content for RmtClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -712,17 +694,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtclientintake-title").should("be.visible");
   cy.getCy("rmtclientintake-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Saving screenshot for RmtClientIntakeScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Saving screenshot for RmtClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_client_intake");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Verified RmtClientIntakeScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/15 | 46%] - Verified RmtClientIntakeScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Navigating to /offices/clinical/roles/rmt/assessment (RmtAssessmentScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Navigating to /offices/clinical/roles/rmt/assessment (RmtAssessmentScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Checking shell & content for RmtAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Checking shell & content for RmtAssessmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -730,17 +712,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtassessment-title").should("be.visible");
   cy.getCy("rmtassessment-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Saving screenshot for RmtAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Saving screenshot for RmtAssessmentScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Verified RmtAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/15 | 53%] - Verified RmtAssessmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Navigating to /offices/clinical/roles/rmt/treatment-notes (RmtTreatmentNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Navigating to /offices/clinical/roles/rmt/treatment-notes (RmtTreatmentNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/treatment-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Checking shell & content for RmtTreatmentNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Checking shell & content for RmtTreatmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -748,17 +730,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmttreatmentnotes-title").should("be.visible");
   cy.getCy("rmttreatmentnotes-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Saving screenshot for RmtTreatmentNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Saving screenshot for RmtTreatmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_treatment_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Verified RmtTreatmentNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/15 | 60%] - Verified RmtTreatmentNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Navigating to /offices/clinical/roles/rmt/exercise-plan (RmtExercisePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Navigating to /offices/clinical/roles/rmt/exercise-plan (RmtExercisePlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/exercise-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Checking shell & content for RmtExercisePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Checking shell & content for RmtExercisePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -766,17 +748,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtexerciseplan-title").should("be.visible");
   cy.getCy("rmtexerciseplan-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Saving screenshot for RmtExercisePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Saving screenshot for RmtExercisePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_exercise_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Verified RmtExercisePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/15 | 66%] - Verified RmtExercisePlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Navigating to /offices/clinical/roles/rmt/billing-link (RmtBillingLinkScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Navigating to /offices/clinical/roles/rmt/billing-link (RmtBillingLinkScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/billing-link");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Checking shell & content for RmtBillingLinkScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Checking shell & content for RmtBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -784,17 +766,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtbillinglink-title").should("be.visible");
   cy.getCy("rmtbillinglink-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Saving screenshot for RmtBillingLinkScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Saving screenshot for RmtBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_billing_link");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Verified RmtBillingLinkScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/15 | 73%] - Verified RmtBillingLinkScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Navigating to /offices/clinical/roles/rmt/reports (RmtReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Navigating to /offices/clinical/roles/rmt/reports (RmtReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Checking shell & content for RmtReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Checking shell & content for RmtReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -802,17 +784,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rmtreports-title").should("be.visible");
   cy.getCy("rmtreports-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Saving screenshot for RmtReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Saving screenshot for RmtReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("rmt_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Verified RmtReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/15 | 80%] - Verified RmtReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Navigating to /offices/clinical/roles/rmt/massage-assessment (MassageAssessmentScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Navigating to /offices/clinical/roles/rmt/massage-assessment (MassageAssessmentScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/massage-assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Checking shell & content for MassageAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Checking shell & content for MassageAssessmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -820,35 +802,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("massageassessment-title").should("be.visible");
   cy.getCy("massageassessment-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Saving screenshot for MassageAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Saving screenshot for MassageAssessmentScreen...");
   cy.waitAndSee();
   cy.screenshot("massage_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Verified MassageAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/15 | 86%] - Verified MassageAssessmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Navigating to /offices/clinical/roles/rmt/treatment-notes (TreatmentNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/rmt/treatment-notes");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Checking shell & content for TreatmentNotesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("treatmentnotes-screen").should("be.visible");
-  cy.getCy("treatmentnotes-title").should("be.visible");
-  cy.getCy("treatmentnotes-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Saving screenshot for TreatmentNotesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("treatment_notes");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Verified TreatmentNotesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Navigating to /offices/clinical/roles/rmt/home-care-plan (HomeCarePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Navigating to /offices/clinical/roles/rmt/home-care-plan (HomeCarePlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/home-care-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Checking shell & content for HomeCarePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Checking shell & content for HomeCarePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -856,17 +820,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("homecareplan-title").should("be.visible");
   cy.getCy("homecareplan-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Saving screenshot for HomeCarePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Saving screenshot for HomeCarePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("home_care_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Verified HomeCarePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [14/15 | 93%] - Verified HomeCarePlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Navigating to /offices/clinical/roles/rmt/client-progress (ClientProgressScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Navigating to /offices/clinical/roles/rmt/client-progress (ClientProgressScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rmt/client-progress");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Checking shell & content for ClientProgressScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Checking shell & content for ClientProgressScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -874,11 +838,11 @@ describe("Org Full UI Test", () => {
   cy.getCy("clientprogress-title").should("be.visible");
   cy.getCy("clientprogress-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Saving screenshot for ClientProgressScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Saving screenshot for ClientProgressScreen...");
   cy.waitAndSee();
   cy.screenshot("client_progress");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Verified ClientProgressScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [15/15 | 100%] - Verified ClientProgressScreen successfully!\n");
   });
 
   it("tests org role social_worker", () => {
@@ -1584,11 +1548,11 @@ describe("Org Full UI Test", () => {
   it("tests org role rn", () => {
     cy.loginAsRole("rn");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/40 | 2%] - Navigating to /common/system-dashboard (SystemDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/39 | 2%] - Navigating to /common/system-dashboard (SystemDashboardScreen)...");
   cy.visitWithSemantics("/common/system-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/40 | 2%] - Checking shell & content for SystemDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/39 | 2%] - Checking shell & content for SystemDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1596,17 +1560,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("systemdashboard-title").should("be.visible");
   cy.getCy("systemdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/40 | 2%] - Saving screenshot for SystemDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/39 | 2%] - Saving screenshot for SystemDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("system_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/40 | 2%] - Verified SystemDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/39 | 2%] - Verified SystemDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/40 | 5%] - Navigating to /management/governance-officer-dashboard (GovernanceOfficerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/39 | 5%] - Navigating to /management/governance-officer-dashboard (GovernanceOfficerDashboardScreen)...");
   cy.visitWithSemantics("/management/governance-officer-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/40 | 5%] - Checking shell & content for GovernanceOfficerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/39 | 5%] - Checking shell & content for GovernanceOfficerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1614,17 +1578,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governanceofficerdashboard-title").should("be.visible");
   cy.getCy("governanceofficerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/40 | 5%] - Saving screenshot for GovernanceOfficerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/39 | 5%] - Saving screenshot for GovernanceOfficerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_officer_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/40 | 5%] - Verified GovernanceOfficerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/39 | 5%] - Verified GovernanceOfficerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/40 | 7%] - Navigating to /offices/clinical/roles/rn/dashboard (RnDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/39 | 7%] - Navigating to /offices/clinical/roles/rn/dashboard (RnDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/40 | 7%] - Checking shell & content for RnDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/39 | 7%] - Checking shell & content for RnDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1632,17 +1596,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rndashboard-title").should("be.visible");
   cy.getCy("rndashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/40 | 7%] - Saving screenshot for RnDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/39 | 7%] - Saving screenshot for RnDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/40 | 7%] - Verified RnDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/39 | 7%] - Verified RnDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/40 | 10%] - Navigating to /rn/rn-field-supervisor-dashboard (RnFieldSupervisorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/39 | 10%] - Navigating to /rn/rn-field-supervisor-dashboard (RnFieldSupervisorDashboardScreen)...");
   cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/40 | 10%] - Checking shell & content for RnFieldSupervisorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/39 | 10%] - Checking shell & content for RnFieldSupervisorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1650,17 +1614,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnfieldsupervisordashboard-title").should("be.visible");
   cy.getCy("rnfieldsupervisordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/40 | 10%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/39 | 10%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/40 | 10%] - Verified RnFieldSupervisorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/39 | 10%] - Verified RnFieldSupervisorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/40 | 12%] - Navigating to /management/governance-officer-analytics (GovernanceOfficerAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/39 | 12%] - Navigating to /management/governance-officer-analytics (GovernanceOfficerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/governance-officer-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/40 | 12%] - Checking shell & content for GovernanceOfficerAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/39 | 12%] - Checking shell & content for GovernanceOfficerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1668,17 +1632,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governanceofficeranalytics-title").should("be.visible");
   cy.getCy("governanceofficeranalytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/40 | 12%] - Saving screenshot for GovernanceOfficerAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/39 | 12%] - Saving screenshot for GovernanceOfficerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_officer_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/40 | 12%] - Verified GovernanceOfficerAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/39 | 12%] - Verified GovernanceOfficerAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/40 | 15%] - Navigating to /management/governance-officer-compliance (GovernanceOfficerComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/39 | 15%] - Navigating to /management/governance-officer-compliance (GovernanceOfficerComplianceScreen)...");
   cy.visitWithSemantics("/management/governance-officer-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/40 | 15%] - Checking shell & content for GovernanceOfficerComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/39 | 15%] - Checking shell & content for GovernanceOfficerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1686,17 +1650,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governanceofficercompliance-title").should("be.visible");
   cy.getCy("governanceofficercompliance-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/40 | 15%] - Saving screenshot for GovernanceOfficerComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/39 | 15%] - Saving screenshot for GovernanceOfficerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_officer_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/40 | 15%] - Verified GovernanceOfficerComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/39 | 15%] - Verified GovernanceOfficerComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/40 | 17%] - Navigating to /management/governance-officer-workflow (GovernanceOfficerWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/39 | 17%] - Navigating to /management/governance-officer-workflow (GovernanceOfficerWorkflowScreen)...");
   cy.visitWithSemantics("/management/governance-officer-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/40 | 17%] - Checking shell & content for GovernanceOfficerWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/39 | 17%] - Checking shell & content for GovernanceOfficerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1704,17 +1668,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governanceofficerworkflow-title").should("be.visible");
   cy.getCy("governanceofficerworkflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/40 | 17%] - Saving screenshot for GovernanceOfficerWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/39 | 17%] - Saving screenshot for GovernanceOfficerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_officer_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/40 | 17%] - Verified GovernanceOfficerWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/39 | 17%] - Verified GovernanceOfficerWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/40 | 20%] - Navigating to /offices/clinical/roles/rn/rn-analytics (RnAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/39 | 20%] - Navigating to /offices/clinical/roles/rn/rn-analytics (RnAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/40 | 20%] - Checking shell & content for RnAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/39 | 20%] - Checking shell & content for RnAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1722,17 +1686,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnanalytics-title").should("be.visible");
   cy.getCy("rnanalytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/40 | 20%] - Saving screenshot for RnAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/39 | 20%] - Saving screenshot for RnAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/40 | 20%] - Verified RnAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [8/39 | 20%] - Verified RnAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/40 | 22%] - Navigating to /offices/clinical/roles/rn/rn-assessments (RnAssessmentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/39 | 23%] - Navigating to /offices/clinical/roles/rn/rn-assessments (RnAssessmentsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-assessments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/40 | 22%] - Checking shell & content for RnAssessmentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/39 | 23%] - Checking shell & content for RnAssessmentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1740,17 +1704,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnassessments-title").should("be.visible");
   cy.getCy("rnassessments-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/40 | 22%] - Saving screenshot for RnAssessmentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/39 | 23%] - Saving screenshot for RnAssessmentsScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_assessments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/40 | 22%] - Verified RnAssessmentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [9/39 | 23%] - Verified RnAssessmentsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/40 | 25%] - Navigating to /offices/clinical/roles/rn/rn-care-plans (RnCarePlansScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/39 | 25%] - Navigating to /offices/clinical/roles/rn/rn-care-plans (RnCarePlansScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-care-plans");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/40 | 25%] - Checking shell & content for RnCarePlansScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/39 | 25%] - Checking shell & content for RnCarePlansScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1758,17 +1722,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rncareplans-title").should("be.visible");
   cy.getCy("rncareplans-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/40 | 25%] - Saving screenshot for RnCarePlansScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/39 | 25%] - Saving screenshot for RnCarePlansScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_care_plans");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/40 | 25%] - Verified RnCarePlansScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [10/39 | 25%] - Verified RnCarePlansScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/40 | 27%] - Navigating to /offices/clinical/roles/rn/rn-compliance (RnComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/39 | 28%] - Navigating to /offices/clinical/roles/rn/rn-compliance (RnComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/40 | 27%] - Checking shell & content for RnComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/39 | 28%] - Checking shell & content for RnComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1776,17 +1740,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rncompliance-title").should("be.visible");
   cy.getCy("rncompliance-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/40 | 27%] - Saving screenshot for RnComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/39 | 28%] - Saving screenshot for RnComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/40 | 27%] - Verified RnComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [11/39 | 28%] - Verified RnComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/40 | 30%] - Navigating to /offices/clinical/roles/rn/rn-workflow (RnWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/39 | 30%] - Navigating to /offices/clinical/roles/rn/rn-workflow (RnWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/40 | 30%] - Checking shell & content for RnWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/39 | 30%] - Checking shell & content for RnWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1794,17 +1758,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnworkflow-title").should("be.visible");
   cy.getCy("rnworkflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/40 | 30%] - Saving screenshot for RnWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/39 | 30%] - Saving screenshot for RnWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/40 | 30%] - Verified RnWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [12/39 | 30%] - Verified RnWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/40 | 32%] - Navigating to /offices/clinical/roles/rn/rn-command-center (RnCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/39 | 33%] - Navigating to /offices/clinical/roles/rn/rn-command-center (RnCommandCenterScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-command-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/40 | 32%] - Checking shell & content for RnCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/39 | 33%] - Checking shell & content for RnCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1812,17 +1776,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rncommandcenter-title").should("be.visible");
   cy.getCy("rncommandcenter-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/40 | 32%] - Saving screenshot for RnCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/39 | 33%] - Saving screenshot for RnCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/40 | 32%] - Verified RnCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [13/39 | 33%] - Verified RnCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/40 | 35%] - Navigating to /offices/clinical/roles/rn/patient-charting (RnPatientChartingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/39 | 35%] - Navigating to /offices/clinical/roles/rn/patient-charting (RnPatientChartingScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/patient-charting");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/40 | 35%] - Checking shell & content for RnPatientChartingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/39 | 35%] - Checking shell & content for RnPatientChartingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1830,17 +1794,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnpatientcharting-title").should("be.visible");
   cy.getCy("rnpatientcharting-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/40 | 35%] - Saving screenshot for RnPatientChartingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/39 | 35%] - Saving screenshot for RnPatientChartingScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_patient_charting");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/40 | 35%] - Verified RnPatientChartingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [14/39 | 35%] - Verified RnPatientChartingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/40 | 37%] - Navigating to /offices/clinical/roles/rn/medications (RnMedicationsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/39 | 38%] - Navigating to /offices/clinical/roles/rn/medications (RnMedicationsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/medications");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/40 | 37%] - Checking shell & content for RnMedicationsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/39 | 38%] - Checking shell & content for RnMedicationsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1848,17 +1812,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnmedications-title").should("be.visible");
   cy.getCy("rnmedications-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/40 | 37%] - Saving screenshot for RnMedicationsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/39 | 38%] - Saving screenshot for RnMedicationsScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_medications");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/40 | 37%] - Verified RnMedicationsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [15/39 | 38%] - Verified RnMedicationsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/40 | 40%] - Navigating to /offices/clinical/roles/rn/vitals (RnVitalsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/39 | 41%] - Navigating to /offices/clinical/roles/rn/vitals (RnVitalsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/vitals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/40 | 40%] - Checking shell & content for RnVitalsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/39 | 41%] - Checking shell & content for RnVitalsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1866,17 +1830,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnvitals-title").should("be.visible");
   cy.getCy("rnvitals-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/40 | 40%] - Saving screenshot for RnVitalsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/39 | 41%] - Saving screenshot for RnVitalsScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_vitals");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/40 | 40%] - Verified RnVitalsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [16/39 | 41%] - Verified RnVitalsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/40 | 42%] - Navigating to /offices/clinical/roles/rn/rn-care-plan-review (RnCarePlanReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/39 | 43%] - Navigating to /offices/clinical/roles/rn/rn-care-plan-review (RnCarePlanReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-care-plan-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/40 | 42%] - Checking shell & content for RnCarePlanReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/39 | 43%] - Checking shell & content for RnCarePlanReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1884,17 +1848,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rncareplanreview-title").should("be.visible");
   cy.getCy("rncareplanreview-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/40 | 42%] - Saving screenshot for RnCarePlanReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/39 | 43%] - Saving screenshot for RnCarePlanReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_care_plan_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/40 | 42%] - Verified RnCarePlanReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [17/39 | 43%] - Verified RnCarePlanReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/40 | 45%] - Navigating to /offices/clinical/roles/rn/rn-incident-review (RnIncidentReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/39 | 46%] - Navigating to /offices/clinical/roles/rn/rn-incident-review (RnIncidentReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-incident-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/40 | 45%] - Checking shell & content for RnIncidentReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/39 | 46%] - Checking shell & content for RnIncidentReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1902,17 +1866,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnincidentreview-title").should("be.visible");
   cy.getCy("rnincidentreview-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/40 | 45%] - Saving screenshot for RnIncidentReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/39 | 46%] - Saving screenshot for RnIncidentReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_incident_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/40 | 45%] - Verified RnIncidentReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [18/39 | 46%] - Verified RnIncidentReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/40 | 47%] - Navigating to /offices/clinical/roles/rn/rn-tasks (RnTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/39 | 48%] - Navigating to /offices/clinical/roles/rn/rn-tasks (RnTasksScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-tasks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/40 | 47%] - Checking shell & content for RnTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/39 | 48%] - Checking shell & content for RnTasksScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1920,17 +1884,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rntasks-title").should("be.visible");
   cy.getCy("rntasks-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/40 | 47%] - Saving screenshot for RnTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/39 | 48%] - Saving screenshot for RnTasksScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/40 | 47%] - Verified RnTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [19/39 | 48%] - Verified RnTasksScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/40 | 50%] - Navigating to /offices/clinical/roles/rn/rn-reports (RnReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/39 | 51%] - Navigating to /offices/clinical/roles/rn/rn-reports (RnReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/rn-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/40 | 50%] - Checking shell & content for RnReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/39 | 51%] - Checking shell & content for RnReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1938,35 +1902,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rnreports-title").should("be.visible");
   cy.getCy("rnreports-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/40 | 50%] - Saving screenshot for RnReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/39 | 51%] - Saving screenshot for RnReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/40 | 50%] - Verified RnReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [20/39 | 51%] - Verified RnReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/40 | 52%] - Navigating to /offices/clinical/roles/rn/patient-charting (PatientChartingScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/rn/patient-charting");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/40 | 52%] - Checking shell & content for PatientChartingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("patientcharting-screen").should("be.visible");
-  cy.getCy("patientcharting-title").should("be.visible");
-  cy.getCy("patientcharting-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/40 | 52%] - Saving screenshot for PatientChartingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("patient_charting");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/40 | 52%] - Verified PatientChartingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/40 | 55%] - Navigating to /offices/clinical/roles/rn/medication-administration (MedicationAdministrationScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/39 | 53%] - Navigating to /offices/clinical/roles/rn/medication-administration (MedicationAdministrationScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/medication-administration");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/40 | 55%] - Checking shell & content for MedicationAdministrationScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/39 | 53%] - Checking shell & content for MedicationAdministrationScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1974,17 +1920,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("medicationadministration-title").should("be.visible");
   cy.getCy("medicationadministration-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/40 | 55%] - Saving screenshot for MedicationAdministrationScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/39 | 53%] - Saving screenshot for MedicationAdministrationScreen...");
   cy.waitAndSee();
   cy.screenshot("medication_administration");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/40 | 55%] - Verified MedicationAdministrationScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [21/39 | 53%] - Verified MedicationAdministrationScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/40 | 57%] - Navigating to /offices/clinical/roles/rn/care-plan-review (CarePlanReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/39 | 56%] - Navigating to /offices/clinical/roles/rn/care-plan-review (CarePlanReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/care-plan-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/40 | 57%] - Checking shell & content for CarePlanReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/39 | 56%] - Checking shell & content for CarePlanReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1992,17 +1938,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("careplanreview-title").should("be.visible");
   cy.getCy("careplanreview-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/40 | 57%] - Saving screenshot for CarePlanReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/39 | 56%] - Saving screenshot for CarePlanReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("care_plan_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/40 | 57%] - Verified CarePlanReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [22/39 | 56%] - Verified CarePlanReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/40 | 60%] - Navigating to /offices/clinical/roles/rn/incident-review (IncidentReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/39 | 58%] - Navigating to /offices/clinical/roles/rn/incident-review (IncidentReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/incident-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/40 | 60%] - Checking shell & content for IncidentReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/39 | 58%] - Checking shell & content for IncidentReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2010,17 +1956,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("incidentreview-title").should("be.visible");
   cy.getCy("incidentreview-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/40 | 60%] - Saving screenshot for IncidentReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/39 | 58%] - Saving screenshot for IncidentReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/40 | 60%] - Verified IncidentReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [23/39 | 58%] - Verified IncidentReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/40 | 62%] - Navigating to /offices/clinical/roles/rn/shift-report (ShiftReportScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/39 | 61%] - Navigating to /offices/clinical/roles/rn/shift-report (ShiftReportScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/rn/shift-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/40 | 62%] - Checking shell & content for ShiftReportScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/39 | 61%] - Checking shell & content for ShiftReportScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2028,17 +1974,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("shiftreport-title").should("be.visible");
   cy.getCy("shiftreport-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/40 | 62%] - Saving screenshot for ShiftReportScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/39 | 61%] - Saving screenshot for ShiftReportScreen...");
   cy.waitAndSee();
   cy.screenshot("shift_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/40 | 62%] - Verified ShiftReportScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [24/39 | 61%] - Verified ShiftReportScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/40 | 65%] - Navigating to /common/governance-control-room (GovernanceControlRoomScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/39 | 64%] - Navigating to /common/governance-control-room (GovernanceControlRoomScreen)...");
   cy.visitWithSemantics("/common/governance-control-room");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/40 | 65%] - Checking shell & content for GovernanceControlRoomScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/39 | 64%] - Checking shell & content for GovernanceControlRoomScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2046,17 +1992,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governancecontrolroom-title").should("be.visible");
   cy.getCy("governancecontrolroom-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/40 | 65%] - Saving screenshot for GovernanceControlRoomScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/39 | 64%] - Saving screenshot for GovernanceControlRoomScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_control_room");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/40 | 65%] - Verified GovernanceControlRoomScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [25/39 | 64%] - Verified GovernanceControlRoomScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/40 | 67%] - Navigating to /common/runtime-verification (RuntimeVerificationScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/39 | 66%] - Navigating to /common/runtime-verification (RuntimeVerificationScreen)...");
   cy.visitWithSemantics("/common/runtime-verification");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/40 | 67%] - Checking shell & content for RuntimeVerificationScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/39 | 66%] - Checking shell & content for RuntimeVerificationScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2064,17 +2010,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("runtimeverification-title").should("be.visible");
   cy.getCy("runtimeverification-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/40 | 67%] - Saving screenshot for RuntimeVerificationScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/39 | 66%] - Saving screenshot for RuntimeVerificationScreen...");
   cy.waitAndSee();
   cy.screenshot("runtime_verification");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/40 | 67%] - Verified RuntimeVerificationScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [26/39 | 66%] - Verified RuntimeVerificationScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/40 | 70%] - Navigating to /common/drift-findings (DriftFindingsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/39 | 69%] - Navigating to /common/drift-findings (DriftFindingsScreen)...");
   cy.visitWithSemantics("/common/drift-findings");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/40 | 70%] - Checking shell & content for DriftFindingsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/39 | 69%] - Checking shell & content for DriftFindingsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2082,17 +2028,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("driftfindings-title").should("be.visible");
   cy.getCy("driftfindings-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/40 | 70%] - Saving screenshot for DriftFindingsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/39 | 69%] - Saving screenshot for DriftFindingsScreen...");
   cy.waitAndSee();
   cy.screenshot("drift_findings");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/40 | 70%] - Verified DriftFindingsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [27/39 | 69%] - Verified DriftFindingsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/40 | 72%] - Navigating to /common/pending-task-queue (PendingTaskQueueScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/39 | 71%] - Navigating to /common/pending-task-queue (PendingTaskQueueScreen)...");
   cy.visitWithSemantics("/common/pending-task-queue");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/40 | 72%] - Checking shell & content for PendingTaskQueueScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/39 | 71%] - Checking shell & content for PendingTaskQueueScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2100,17 +2046,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pendingtaskqueue-title").should("be.visible");
   cy.getCy("pendingtaskqueue-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/40 | 72%] - Saving screenshot for PendingTaskQueueScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/39 | 71%] - Saving screenshot for PendingTaskQueueScreen...");
   cy.waitAndSee();
   cy.screenshot("pending_task_queue");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/40 | 72%] - Verified PendingTaskQueueScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [28/39 | 71%] - Verified PendingTaskQueueScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/40 | 75%] - Navigating to /common/agent-dispatch (AgentDispatchScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/39 | 74%] - Navigating to /common/agent-dispatch (AgentDispatchScreen)...");
   cy.visitWithSemantics("/common/agent-dispatch");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/40 | 75%] - Checking shell & content for AgentDispatchScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/39 | 74%] - Checking shell & content for AgentDispatchScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2118,17 +2064,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("agentdispatch-title").should("be.visible");
   cy.getCy("agentdispatch-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/40 | 75%] - Saving screenshot for AgentDispatchScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/39 | 74%] - Saving screenshot for AgentDispatchScreen...");
   cy.waitAndSee();
   cy.screenshot("agent_dispatch");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/40 | 75%] - Verified AgentDispatchScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [29/39 | 74%] - Verified AgentDispatchScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/40 | 77%] - Navigating to /common/audit (ScreenAuditScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/39 | 76%] - Navigating to /common/audit (ScreenAuditScreen)...");
   cy.visitWithSemantics("/common/audit");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/40 | 77%] - Checking shell & content for ScreenAuditScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/39 | 76%] - Checking shell & content for ScreenAuditScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2136,17 +2082,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("audit-title").should("be.visible");
   cy.getCy("audit-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/40 | 77%] - Saving screenshot for ScreenAuditScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/39 | 76%] - Saving screenshot for ScreenAuditScreen...");
   cy.waitAndSee();
   cy.screenshot("audit");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/40 | 77%] - Verified ScreenAuditScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [30/39 | 76%] - Verified ScreenAuditScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/40 | 80%] - Navigating to /common/api-health-dashboard (ApiHealthDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/39 | 79%] - Navigating to /common/api-health-dashboard (ApiHealthDashboardScreen)...");
   cy.visitWithSemantics("/common/api-health-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/40 | 80%] - Checking shell & content for ApiHealthDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/39 | 79%] - Checking shell & content for ApiHealthDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2154,17 +2100,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("apihealthdashboard-title").should("be.visible");
   cy.getCy("apihealthdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/40 | 80%] - Saving screenshot for ApiHealthDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/39 | 79%] - Saving screenshot for ApiHealthDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("api_health_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/40 | 80%] - Verified ApiHealthDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [31/39 | 79%] - Verified ApiHealthDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/40 | 82%] - Navigating to /common/release-operations (ReleaseOperationsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/39 | 82%] - Navigating to /common/release-operations (ReleaseOperationsScreen)...");
   cy.visitWithSemantics("/common/release-operations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/40 | 82%] - Checking shell & content for ReleaseOperationsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/39 | 82%] - Checking shell & content for ReleaseOperationsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2172,17 +2118,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("releaseoperations-title").should("be.visible");
   cy.getCy("releaseoperations-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/40 | 82%] - Saving screenshot for ReleaseOperationsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/39 | 82%] - Saving screenshot for ReleaseOperationsScreen...");
   cy.waitAndSee();
   cy.screenshot("release_operations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/40 | 82%] - Verified ReleaseOperationsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [32/39 | 82%] - Verified ReleaseOperationsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/40 | 85%] - Navigating to /common/file-verification-dashboard (FileVerificationDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/39 | 84%] - Navigating to /common/file-verification-dashboard (FileVerificationDashboardScreen)...");
   cy.visitWithSemantics("/common/file-verification-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/40 | 85%] - Checking shell & content for FileVerificationDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/39 | 84%] - Checking shell & content for FileVerificationDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2190,17 +2136,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("fileverificationdashboard-title").should("be.visible");
   cy.getCy("fileverificationdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/40 | 85%] - Saving screenshot for FileVerificationDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/39 | 84%] - Saving screenshot for FileVerificationDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("file_verification_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/40 | 85%] - Verified FileVerificationDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [33/39 | 84%] - Verified FileVerificationDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/40 | 87%] - Navigating to /common/role-coverage-dashboard (RoleCoverageDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/39 | 87%] - Navigating to /common/role-coverage-dashboard (RoleCoverageDashboardScreen)...");
   cy.visitWithSemantics("/common/role-coverage-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/40 | 87%] - Checking shell & content for RoleCoverageDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/39 | 87%] - Checking shell & content for RoleCoverageDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2208,17 +2154,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("rolecoveragedashboard-title").should("be.visible");
   cy.getCy("rolecoveragedashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/40 | 87%] - Saving screenshot for RoleCoverageDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/39 | 87%] - Saving screenshot for RoleCoverageDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("role_coverage_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/40 | 87%] - Verified RoleCoverageDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [34/39 | 87%] - Verified RoleCoverageDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/40 | 90%] - Navigating to /common/responsive-preview (ResponsivePreviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/39 | 89%] - Navigating to /common/responsive-preview (ResponsivePreviewScreen)...");
   cy.visitWithSemantics("/common/responsive-preview");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/40 | 90%] - Checking shell & content for ResponsivePreviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/39 | 89%] - Checking shell & content for ResponsivePreviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2226,17 +2172,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("responsivepreview-title").should("be.visible");
   cy.getCy("responsivepreview-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/40 | 90%] - Saving screenshot for ResponsivePreviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/39 | 89%] - Saving screenshot for ResponsivePreviewScreen...");
   cy.waitAndSee();
   cy.screenshot("responsive_preview");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/40 | 90%] - Verified ResponsivePreviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [35/39 | 89%] - Verified ResponsivePreviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/40 | 92%] - Navigating to /common/workflow-execution (WorkflowExecutionScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/39 | 92%] - Navigating to /common/workflow-execution (WorkflowExecutionScreen)...");
   cy.visitWithSemantics("/common/workflow-execution");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/40 | 92%] - Checking shell & content for WorkflowExecutionScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/39 | 92%] - Checking shell & content for WorkflowExecutionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2244,17 +2190,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("workflowexecution-title").should("be.visible");
   cy.getCy("workflowexecution-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/40 | 92%] - Saving screenshot for WorkflowExecutionScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/39 | 92%] - Saving screenshot for WorkflowExecutionScreen...");
   cy.waitAndSee();
   cy.screenshot("workflow_execution");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/40 | 92%] - Verified WorkflowExecutionScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [36/39 | 92%] - Verified WorkflowExecutionScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/40 | 95%] - Navigating to /common/governance-operations4-k (GovernanceOperations4KScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/39 | 94%] - Navigating to /common/governance-operations4-k (GovernanceOperations4KScreen)...");
   cy.visitWithSemantics("/common/governance-operations4-k");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/40 | 95%] - Checking shell & content for GovernanceOperations4KScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/39 | 94%] - Checking shell & content for GovernanceOperations4KScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2262,17 +2208,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("governanceoperations4k-title").should("be.visible");
   cy.getCy("governanceoperations4k-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/40 | 95%] - Saving screenshot for GovernanceOperations4KScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/39 | 94%] - Saving screenshot for GovernanceOperations4KScreen...");
   cy.waitAndSee();
   cy.screenshot("governance_operations4_k");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/40 | 95%] - Verified GovernanceOperations4KScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [37/39 | 94%] - Verified GovernanceOperations4KScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [39/40 | 97%] - Navigating to /rn/rn-field-supervisor-analytics (Registered Nurse (RN) Field Supervisor Analytics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/39 | 97%] - Navigating to /rn/rn-field-supervisor-analytics (Registered Nurse (RN) Field Supervisor Analytics)...");
   cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [39/40 | 97%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Analytics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/39 | 97%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2280,17 +2226,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("registered nurse (rn) field supervisor analytics-title").should("be.visible");
   cy.getCy("registered nurse (rn) field supervisor analytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [39/40 | 97%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Analytics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/39 | 97%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Analytics...");
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [39/40 | 97%] - Verified Registered Nurse (RN) Field Supervisor Analytics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [38/39 | 97%] - Verified Registered Nurse (RN) Field Supervisor Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [40/40 | 100%] - Navigating to /rn/rn-field-supervisor-workflow (Registered Nurse (RN) Field Supervisor Compliance Workflow)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [39/39 | 100%] - Navigating to /rn/rn-field-supervisor-workflow (Registered Nurse (RN) Field Supervisor Compliance Workflow)...");
   cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [40/40 | 100%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [39/39 | 100%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2298,11 +2244,11 @@ describe("Org Full UI Test", () => {
   cy.getCy("registered nurse (rn) field supervisor compliance workflow-title").should("be.visible");
   cy.getCy("registered nurse (rn) field supervisor compliance workflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [40/40 | 100%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [39/39 | 100%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [40/40 | 100%] - Verified Registered Nurse (RN) Field Supervisor Compliance Workflow successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [39/39 | 100%] - Verified Registered Nurse (RN) Field Supervisor Compliance Workflow successfully!\n");
   });
 
   it("tests org role physician", () => {
@@ -9694,11 +9640,11 @@ describe("Org Full UI Test", () => {
   it("tests org role psw", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/22 | 4%] - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/22 | 4%] - Checking shell & content for PswDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Checking shell & content for PswDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9706,17 +9652,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswdashboard-title").should("be.visible");
   cy.getCy("pswdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/22 | 4%] - Saving screenshot for PswDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Saving screenshot for PswDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/22 | 4%] - Verified PswDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Verified PswDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/22 | 9%] - Navigating to /offices/clinical/roles/psw/psw-analytics (PswAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Navigating to /offices/clinical/roles/psw/psw-analytics (PswAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/22 | 9%] - Checking shell & content for PswAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Checking shell & content for PswAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9724,17 +9670,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswanalytics-title").should("be.visible");
   cy.getCy("pswanalytics-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/22 | 9%] - Saving screenshot for PswAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Saving screenshot for PswAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_analytics");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/22 | 9%] - Verified PswAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Verified PswAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/22 | 13%] - Navigating to /offices/clinical/roles/psw/patient-profile (PswClientsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Navigating to /offices/clinical/roles/psw/patient-profile (PswClientsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/patient-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/22 | 13%] - Checking shell & content for PswClientsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Checking shell & content for PswClientsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9742,17 +9688,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswclients-title").should("be.visible");
   cy.getCy("pswclients-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/22 | 13%] - Saving screenshot for PswClientsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Saving screenshot for PswClientsScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_clients");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/22 | 13%] - Verified PswClientsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Verified PswClientsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/22 | 18%] - Navigating to /offices/clinical/roles/psw/psw-compliance (PswComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Navigating to /offices/clinical/roles/psw/psw-compliance (PswComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/22 | 18%] - Checking shell & content for PswComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Checking shell & content for PswComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9760,17 +9706,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswcompliance-title").should("be.visible");
   cy.getCy("pswcompliance-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/22 | 18%] - Saving screenshot for PswComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Saving screenshot for PswComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/22 | 18%] - Verified PswComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Verified PswComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/22 | 22%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/22 | 22%] - Checking shell & content for PswMessagesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Checking shell & content for PswMessagesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9778,17 +9724,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswmessages-title").should("be.visible");
   cy.getCy("pswmessages-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/22 | 22%] - Saving screenshot for PswMessagesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Saving screenshot for PswMessagesScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_messages");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/22 | 22%] - Verified PswMessagesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Verified PswMessagesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/22 | 27%] - Navigating to /offices/clinical/roles/offices/clinical/roles/caregiver/psw-schedule (PswShiftTrackerScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Navigating to /offices/clinical/roles/offices/clinical/roles/caregiver/psw-schedule (PswShiftTrackerScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/offices/clinical/roles/caregiver/psw-schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/22 | 27%] - Checking shell & content for PswShiftTrackerScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Checking shell & content for PswShiftTrackerScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9796,17 +9742,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswshifttracker-title").should("be.visible");
   cy.getCy("pswshifttracker-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/22 | 27%] - Saving screenshot for PswShiftTrackerScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Saving screenshot for PswShiftTrackerScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_shift_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/22 | 27%] - Verified PswShiftTrackerScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Verified PswShiftTrackerScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/22 | 31%] - Navigating to /offices/clinical/roles/psw/visit-checklist (PswTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Navigating to /offices/clinical/roles/psw/visit-checklist (PswTasksScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-checklist");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/22 | 31%] - Checking shell & content for PswTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Checking shell & content for PswTasksScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9814,17 +9760,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswtasks-title").should("be.visible");
   cy.getCy("pswtasks-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/22 | 31%] - Saving screenshot for PswTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Saving screenshot for PswTasksScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/22 | 31%] - Verified PswTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Verified PswTasksScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/22 | 36%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/22 | 36%] - Checking shell & content for PswVisitNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Checking shell & content for PswVisitNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9832,17 +9778,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswvisitnotes-title").should("be.visible");
   cy.getCy("pswvisitnotes-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/22 | 36%] - Saving screenshot for PswVisitNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Saving screenshot for PswVisitNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/22 | 36%] - Verified PswVisitNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Verified PswVisitNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/22 | 40%] - Navigating to /offices/clinical/roles/psw/psw-workflow (PswWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Navigating to /offices/clinical/roles/psw/psw-workflow (PswWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/22 | 40%] - Checking shell & content for PswWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Checking shell & content for PswWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9850,17 +9796,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswworkflow-title").should("be.visible");
   cy.getCy("pswworkflow-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/22 | 40%] - Saving screenshot for PswWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Saving screenshot for PswWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/22 | 40%] - Verified PswWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Verified PswWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [10/22 | 45%] - Navigating to /offices/clinical/roles/psw/psw-command-center (PswCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Navigating to /offices/clinical/roles/psw/psw-command-center (PswCommandCenterScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-command-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [10/22 | 45%] - Checking shell & content for PswCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Checking shell & content for PswCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9868,17 +9814,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswcommandcenter-title").should("be.visible");
   cy.getCy("pswcommandcenter-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [10/22 | 45%] - Saving screenshot for PswCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Saving screenshot for PswCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [10/22 | 45%] - Verified PswCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Verified PswCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/22 | 50%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-my-shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/22 | 50%] - Checking shell & content for PswMyShiftsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Checking shell & content for PswMyShiftsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9886,17 +9832,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswmyshifts-title").should("be.visible");
   cy.getCy("pswmyshifts-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/22 | 50%] - Saving screenshot for PswMyShiftsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Saving screenshot for PswMyShiftsScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_my_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/22 | 50%] - Verified PswMyShiftsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Verified PswMyShiftsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [12/22 | 54%] - Navigating to /offices/clinical/roles/psw/psw-client-profile (PswClientProfileScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Navigating to /offices/clinical/roles/psw/psw-client-profile (PswClientProfileScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-client-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [12/22 | 54%] - Checking shell & content for PswClientProfileScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Checking shell & content for PswClientProfileScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9904,17 +9850,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswclientprofile-title").should("be.visible");
   cy.getCy("pswclientprofile-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [12/22 | 54%] - Saving screenshot for PswClientProfileScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Saving screenshot for PswClientProfileScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_client_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [12/22 | 54%] - Verified PswClientProfileScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Verified PswClientProfileScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/22 | 59%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/22 | 59%] - Checking shell & content for PswVisitNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Checking shell & content for PswVisitNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9922,17 +9868,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswvisitnotes-title").should("be.visible");
   cy.getCy("pswvisitnotes-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/22 | 59%] - Saving screenshot for PswVisitNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Saving screenshot for PswVisitNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/22 | 59%] - Verified PswVisitNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Verified PswVisitNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [14/22 | 63%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/observation-vitals-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [14/22 | 63%] - Checking shell & content for PswVitalsLogScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Checking shell & content for PswVitalsLogScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9940,17 +9886,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswvitalslog-title").should("be.visible");
   cy.getCy("pswvitalslog-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [14/22 | 63%] - Saving screenshot for PswVitalsLogScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Saving screenshot for PswVitalsLogScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_vitals_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [14/22 | 63%] - Verified PswVitalsLogScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Verified PswVitalsLogScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/22 | 68%] - Navigating to /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Navigating to /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/22 | 68%] - Checking shell & content for PswIncidentReportScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Checking shell & content for PswIncidentReportScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9958,17 +9904,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswincidentreport-title").should("be.visible");
   cy.getCy("pswincidentreport-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/22 | 68%] - Saving screenshot for PswIncidentReportScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Saving screenshot for PswIncidentReportScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_incident_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/22 | 68%] - Verified PswIncidentReportScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Verified PswIncidentReportScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [16/22 | 72%] - Navigating to /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Navigating to /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/care-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [16/22 | 72%] - Checking shell & content for PswCarePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Checking shell & content for PswCarePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9976,17 +9922,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswcareplan-title").should("be.visible");
   cy.getCy("pswcareplan-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [16/22 | 72%] - Saving screenshot for PswCarePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Saving screenshot for PswCarePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_care_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [16/22 | 72%] - Verified PswCarePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Verified PswCarePlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [17/22 | 77%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [17/22 | 77%] - Checking shell & content for PswMessagesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Checking shell & content for PswMessagesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9994,17 +9940,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswmessages-title").should("be.visible");
   cy.getCy("pswmessages-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [17/22 | 77%] - Saving screenshot for PswMessagesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Saving screenshot for PswMessagesScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_messages");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [17/22 | 77%] - Verified PswMessagesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Verified PswMessagesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [18/22 | 81%] - Navigating to /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Navigating to /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/documents");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [18/22 | 81%] - Checking shell & content for PswDocumentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Checking shell & content for PswDocumentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10012,17 +9958,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("pswdocuments-title").should("be.visible");
   cy.getCy("pswdocuments-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [18/22 | 81%] - Saving screenshot for PswDocumentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Saving screenshot for PswDocumentsScreen...");
   cy.waitAndSee();
   cy.screenshot("psw_documents");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [18/22 | 81%] - Verified PswDocumentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Verified PswDocumentsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [19/22 | 86%] - Navigating to /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Navigating to /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/shift-tasks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [19/22 | 86%] - Checking shell & content for ShiftTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Checking shell & content for ShiftTasksScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10030,35 +9976,17 @@ describe("Org Full UI Test", () => {
   cy.getCy("shifttasks-title").should("be.visible");
   cy.getCy("shifttasks-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [19/22 | 86%] - Saving screenshot for ShiftTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Saving screenshot for ShiftTasksScreen...");
   cy.waitAndSee();
   cy.screenshot("shift_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [19/22 | 86%] - Verified ShiftTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Verified ShiftTasksScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [20/22 | 90%] - Navigating to /offices/clinical/roles/psw/visit-notes (VisitNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [20/22 | 90%] - Checking shell & content for VisitNotesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("visitnotes-screen").should("be.visible");
-  cy.getCy("visitnotes-title").should("be.visible");
-  cy.getCy("visitnotes-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [20/22 | 90%] - Saving screenshot for VisitNotesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("visit_notes");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [20/22 | 90%] - Verified VisitNotesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [21/22 | 95%] - Navigating to /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Navigating to /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/vitals-entry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [21/22 | 95%] - Checking shell & content for VitalsEntryScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Checking shell & content for VitalsEntryScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10066,29 +9994,11 @@ describe("Org Full UI Test", () => {
   cy.getCy("vitalsentry-title").should("be.visible");
   cy.getCy("vitalsentry-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [21/22 | 95%] - Saving screenshot for VitalsEntryScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Saving screenshot for VitalsEntryScreen...");
   cy.waitAndSee();
   cy.screenshot("vitals_entry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [21/22 | 95%] - Verified VitalsEntryScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [22/22 | 100%] - Navigating to /offices/clinical/roles/psw/incident-report (IncidentReportScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [22/22 | 100%] - Checking shell & content for IncidentReportScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("incidentreport-screen").should("be.visible");
-  cy.getCy("incidentreport-title").should("be.visible");
-  cy.getCy("incidentreport-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [22/22 | 100%] - Saving screenshot for IncidentReportScreen...");
-  cy.waitAndSee();
-  cy.screenshot("incident_report");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [22/22 | 100%] - Verified IncidentReportScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Verified VitalsEntryScreen successfully!\n");
   });
 
   it("tests org role hsw", () => {

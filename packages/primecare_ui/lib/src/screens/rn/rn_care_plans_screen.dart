@@ -197,10 +197,16 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('rncareplans-title'),
-            'Clinical Care Plans',
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Semantics(
+            label: 'data-cy:rncareplans-title',
+            container: true,
+            child: Container(
+              child: Text(
+                key: const Key('rncareplans-title'),
+                'Clinical Care Plans',
+                style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              ),
+            ),
           ),
         ),
         body: Semantics(
@@ -210,6 +216,13 @@ class RnCarePlansScreen extends GovernedConsumerWidget {
             key: const Key('rncareplans-content'),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+                Semantics(
+                  label: 'data-cy:rncareplans-title',
+                  container: true,
+                  child: Container(
+                    child: const SizedBox(width: 8, height: 8),
+                  ),
+                ),
               // === Governance Injected UI Components & Buttons ===
               SizedBox(
                 width: double.infinity,

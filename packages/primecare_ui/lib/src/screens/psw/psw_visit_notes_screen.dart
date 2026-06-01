@@ -117,11 +117,11 @@ class PswVisitNotesScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswvisitnotes-title', container: true, child: Container(child: Text(
             key: const Key('pswvisitnotes-title'),
             state.title,
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
           actions: [
             IconButton(
               key: const Key('pswvisitnotes-btn-1'),

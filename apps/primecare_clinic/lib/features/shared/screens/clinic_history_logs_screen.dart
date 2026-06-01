@@ -15,7 +15,7 @@ class ClinicHistoryLogsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('clinichistorylogs-screen'),
       appBar: AppBar(
-        title: const Text('ClinicHistoryLogs'),
+        title: Semantics(label: 'data-cy:clinichistorylogs-title', child: const Text('ClinicHistoryLogs')),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

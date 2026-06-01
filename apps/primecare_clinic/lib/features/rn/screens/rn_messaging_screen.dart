@@ -1,43 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'rn_messaging_screen_controller.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class RnMessagingScreen extends ConsumerWidget {
   const RnMessagingScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(rnMessagingScreenControllerProvider);
+    final theme = context.theme;
+    final title = 'MessagingScreen';
 
-    return Semantics(
-      label: 'data-cy:rnmessaging-screen',
-      container: true,
+    return Cy(
+      id: 'messaging-screen',
       child: Scaffold(
-        key: const Key('rnmessaging-screen'),
-      appBar: AppBar(
-        title: const Text('RnMessaging'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    )
-    );
-  }
-
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'RnMessagingScreen is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Semantics(label: 'data-cy:rnmessaging-title', container: true, child: Container(child:  Text(
+            key: const Key('messaging-title'),
+            title,
+            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          ))),
+        ),
+        body: Semantics(
+          label: 'data-cy:rnmessaging-content',
+          container: true,
+          child: Cy(
+          id: 'messaging-content',
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: theme.colors.surface,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization.',
+                        style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
+        ),
       ),
     );
   }

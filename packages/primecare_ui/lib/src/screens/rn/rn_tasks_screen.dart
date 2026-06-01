@@ -118,11 +118,11 @@ class RnTasksScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:rntasks-title', container: true, child: Container(child: Text(
             key: const Key('rntasks-title'),
             state.title,
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
           actions: [
             IconButton(
               key: const Key('rntasks-btn-1'),

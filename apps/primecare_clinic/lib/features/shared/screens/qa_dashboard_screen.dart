@@ -20,11 +20,11 @@ class QaDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:qadashboard-title', child: Text(
             key: const Key('qadashboard-title'),
             'QA Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          )),
           actions: [
             IconButton(
               key: const Key('qadashboard-btn-1'),
@@ -54,12 +54,12 @@ class QaDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'qadashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:qadashboard-title', child: GovDashboardHero(
                       title: 'QA Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

@@ -118,11 +118,11 @@ class NpWorkflowScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Semantics(label: 'data-cy:npworkflow-title', child: Text(
+        title: Semantics(label: 'data-cy:npworkflow-title', container: true, child: Container(child:  Text(
           key: const Key('nurse practitioner (np) compliance workflow-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        )),
+        ))),
         actions: [
           IconButton(
             key: const Key('nurse practitioner (np) compliance workflow-btn-1'),
@@ -132,7 +132,7 @@ class NpWorkflowScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:nurse practitioner (np) compliance workflow-screen',
+        label: 'data-cy:npworkflow-content',
         child: SingleChildScrollView(
           key: const Key('nurse practitioner (np) compliance workflow-content'),
           padding: const EdgeInsets.all(24.0),

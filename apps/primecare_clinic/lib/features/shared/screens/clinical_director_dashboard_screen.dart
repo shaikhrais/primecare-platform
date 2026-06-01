@@ -14,16 +14,19 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
     final roleBase = 'ClinicalDirector';
 
     return Cy(
-      id: 'clinicaldirectordashboard-screen',
+      id: 'clinicaldirectordashboard-screen data-cy:clinicaldashboard-screen',
       child: Scaffold(
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('clinicaldirectordashboard-title'),
-            'Clinical Director Dashboard',
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Cy(
+            id: 'clinicaldirectordashboard-title data-cy:clinicaldashboard-title',
+            child: Text(
+              key: const Key('clinicaldirectordashboard-title'),
+              'Clinical Director Dashboard',
+              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+            ),
           ),
           actions: [
             IconButton(
@@ -35,7 +38,7 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
         ),
         body: state.when(
           data: (data) => Cy(
-            id: 'clinicaldirectordashboard-content',
+            id: 'clinicaldirectordashboard-content data-cy:clinicaldashboard-content',
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Column(
@@ -53,13 +56,13 @@ class ClinicalDirectorDashboardScreen extends ConsumerWidget {
                   ),
 
                   Cy(
-                    id: 'clinicaldirectordashboard-title',
-                    child: GovDashboardHero(
+                    id: 'clinicaldirectordashboard-title data-cy:clinicaldashboard-title',
+                    child: Semantics(label: 'data-cy:clinicaldirectordashboard-title', child: GovDashboardHero(
                       title: 'Clinical Director Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

@@ -20,11 +20,11 @@ class PhysicianDashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  Text(
             key: const Key('physiciandashboard-title'),
             'Physician Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
           actions: [
             IconButton(
               key: const Key('physiciandashboard-btn-1'),
@@ -54,12 +54,12 @@ class PhysicianDashboardScreen extends ConsumerWidget {
 
                   Cy(
                     id: 'physiciandashboard-title',
-                    child: GovDashboardHero(
+                    child: Semantics(label: 'data-cy:physiciandashboard-title', child: GovDashboardHero(
                       title: 'Physician Dashboard',
                       roleName: '$roleBase Dashboard',
                       description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                       onRefresh: () => controller.performAction(),
-                    ),
+                    )),
                   ),
                   const SizedBox(height: 24),
                   Row(

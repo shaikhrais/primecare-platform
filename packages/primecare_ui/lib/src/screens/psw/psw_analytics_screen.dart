@@ -208,11 +208,11 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
+          title: Semantics(label: 'data-cy:pswanalytics-title', container: true, child: Container(child: Text(
             key: const Key('pswanalytics-title'),
             'PSW Care Analytics',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-          ),
+          ))),
         ),
         body: Semantics(
           label: 'data-cy:pswanalytics-content',
@@ -573,7 +573,7 @@ class PswAnalyticsScreen extends GovernedConsumerWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              title: Text('Log Quick Mood Trend', style: theme.typography.h3),
+              title: Semantics(label: 'data-cy:pswanalytics-title', container: true, child: Container(child: Text('Log Quick Mood Trend', style: theme.typography.h3))),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

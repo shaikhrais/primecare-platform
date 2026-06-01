@@ -15,7 +15,7 @@ class SocialWorkerDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('socialworkerdashboard-screen'),
       appBar: AppBar(
-        title: const Text('SocialWorkerDashboard'),
+        title: Semantics(label: 'data-cy:socialworkerdashboard-title', container: true, child: Container(child:  const Text('SocialWorkerDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

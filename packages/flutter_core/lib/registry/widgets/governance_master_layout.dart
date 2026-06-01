@@ -17,6 +17,7 @@ import '../../config/adaptive_scaling_config.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'dart:ui';
 import '../role_registry.dart';
+import '../../src/localization/language_provider.dart';
 
 /// The central Governance Layout for all PrimeCare portals.
 /// It automatically pulls sidebar and top-bar data from the [PlatformApplication]
@@ -178,6 +179,80 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         ),
                       ),
                     ),
+                    Semantics(
+                      label: 'data-cy:topbar-language-switcher',
+                      container: true,
+                      child: KeyedSubtree(
+                        key: const Key('topbar-language-switcher'),
+                        child: PopupMenuButton<String>(
+                          offset: const Offset(0, 48),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: theme.dividerColor),
+                          ),
+                          tooltip: 'Change Language',
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(LucideIcons.languages, color: theme.primaryColor, size: 20),
+                                const SizedBox(width: 6),
+                                Text(
+                                  ref.watch(languageProvider).toUpperCase(),
+                                  style: theme.textTheme.labelMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onSelected: (lang) async {
+                            await ref.read(languageProvider.notifier).setLanguage(lang);
+                            if (context.mounted) {
+                              await context.setLocale(Locale(lang));
+                            }
+                          },
+                          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                            PopupMenuItem<String>(
+                              value: 'en',
+                              child: Semantics(
+                                label: 'data-cy:topbar-language-option-en',
+                                container: false,
+                                child: KeyedSubtree(
+                                  key: const Key('topbar-language-option-en'),
+                                  child: Text('English (EN)', style: theme.textTheme.bodyMedium),
+                                ),
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'fr',
+                              child: Semantics(
+                                label: 'data-cy:topbar-language-option-fr',
+                                container: false,
+                                child: KeyedSubtree(
+                                  key: const Key('topbar-language-option-fr'),
+                                  child: Text('Français (FR)', style: theme.textTheme.bodyMedium),
+                                ),
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'es',
+                              child: Semantics(
+                                label: 'data-cy:topbar-language-option-es',
+                                container: false,
+                                child: KeyedSubtree(
+                                  key: const Key('topbar-language-option-es'),
+                                  child: Text('Español (ES)', style: theme.textTheme.bodyMedium),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
                     IconButton(
                       icon: const Icon(LucideIcons.logOut),
                       onPressed: () {

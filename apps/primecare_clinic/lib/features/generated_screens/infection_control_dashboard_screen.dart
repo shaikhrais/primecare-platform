@@ -15,7 +15,7 @@ class InfectionControlDashboardScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('infectioncontroldashboard-screen'),
       appBar: AppBar(
-        title: const Text('InfectionControlDashboard'),
+        title: Semantics(label: 'data-cy:infectioncontroldashboard-title', container: true, child: Container(child:  const Text('InfectionControlDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),

@@ -204,6 +204,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Row(
             children: [
+                Semantics(label: 'data-cy:coordinatorsos-title', child: const SizedBox(width: 8, height: 8)),
               // === Governance Injected UI Components & Buttons ===
               SizedBox(
                 width: double.infinity,
@@ -576,7 +577,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
                       (alarm['id'] as String?) ?? '',
                       step,
                     ),
-                    title: Text(
+                    title: Semantics(label: 'data-cy:coordinatorsos-title', child: Text(
                       key: const Key('coordinatorsos-title'),
                       step,
                       style: theme.typography.bodySmall.copyWith(
@@ -585,7 +586,7 @@ class CoordinatorSosScreen extends GovernedConsumerWidget {
                             ? theme.colors.onSurfaceVariant
                             : theme.colors.onSurface,
                       ),
-                    ),
+                    )),
                     dense: true,
                     controlAffinity: ListTileControlAffinity.leading,
                     contentPadding: EdgeInsets.zero,

@@ -119,11 +119,11 @@ class NpAnalyticsScreen extends GovernedConsumerWidget {
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 0,
-        title: Semantics(label: 'data-cy:npanalytics-title', child: Text(
+        title: Semantics(label: 'data-cy:npanalytics-title', container: true, child: Container(child:  Text(
           key: const Key('nurse practitioner (np) analytics-title'),
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        )),
+        ))),
         actions: [
           IconButton(
             key: const Key('nurse practitioner (np) analytics-btn-1'),
@@ -133,7 +133,7 @@ class NpAnalyticsScreen extends GovernedConsumerWidget {
         ],
       ),
       body: Semantics(
-        label: 'data-cy:nurse practitioner (np) analytics-screen',
+        label: 'data-cy:npanalytics-content',
         child: SingleChildScrollView(
           key: const Key('nurse practitioner (np) analytics-content'),
           padding: const EdgeInsets.all(24.0),
