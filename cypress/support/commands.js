@@ -206,12 +206,27 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
           win.sessionStorage.clear();
         } catch (_) {}
         try {
+          win.localStorage.clear();
+        } catch (_) {}
+        try {
           win.indexedDB.databases().then((dbs) => {
             dbs.forEach((db) => {
               if (db.name) win.indexedDB.deleteDatabase(db.name);
             });
           });
         } catch (_) {}
+      });
+
+      // Check if an active session button exists and click "Sign Out" / "Cancel & Sign Out"
+      cy.get("body", { includeShadowDom: true, timeout: 5000 }).then(($body) => {
+        const hasSignOut = $body.find('[aria-label*="Sign Out"], [aria-label*="Cancel & Sign Out"], [aria-label*="Cancel"]').length > 0;
+        if (hasSignOut) {
+          cy.log("SSO Portal: Wiping active session by clicking Sign Out / Cancel...");
+          cy.get('[aria-label*="Sign Out"], [aria-label*="Cancel & Sign Out"], [aria-label*="Cancel"]', { includeShadowDom: true })
+            .first()
+            .click({ force: true });
+          cy.wait(3000);
+        }
       });
 
       // Use native Cypress visit to cleanly navigate and wait for the page load!
