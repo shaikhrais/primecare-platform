@@ -55,7 +55,7 @@ def main():
             "E2E Testing", 
             3, 
             "Execute Role-Based E2E Test Suite",
-            "$env:ROLE_CODE=\"<role>\"; npx cypress run --spec \"cypress/e2e/02_language/language_<role>.cy.js\"",
+            "$env:ROLE_CODE=\"<role>\"; cypress run --spec \"cypress/e2e/02_language/language_<role>.cy.js\"",
             "Runs cypress headless testing suite under a specific clinical user role (e.g. psw, rn, rpn, clinical_director) to verify visual layouts and switch languages.",
             "Cypress test spec summary with 100% clean passes, saved screenshots, and visual videos."
         ),
