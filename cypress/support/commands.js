@@ -260,14 +260,21 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
         }
       });
       
-      cy.wait(5000);
-
-      // Assert and click the Consent approve button
-      cy.get('[aria-label*="Approve & Continue"], flt-semantics[aria-label*="Approve & Continue"]', { includeShadowDom: true, timeout: 25000 })
-        .first()
-        .click({ force: true });
-
-      cy.wait(4000); // Allow browser to start transition and change origin back
+      // Assert and click the Consent approve button with robust retries to prevent the Flutter event listener race condition
+      const clickConsentWithRetry = (attempts = 3) => {
+        if (attempts <= 0) return;
+        cy.url().then((url) => {
+          if (url.includes("primecare-auth.pages.dev/consent")) {
+            cy.log(`SSO Consent: Clicking Approve & Continue button (Attempts remaining: ${attempts})...`);
+            cy.get('[aria-label*="Approve & Continue"], flt-semantics[aria-label*="Approve & Continue"]', { includeShadowDom: true, timeout: 15000 })
+              .first()
+              .click({ force: true });
+            cy.wait(3000);
+            clickConsentWithRetry(attempts - 1);
+          }
+        });
+      };
+      clickConsentWithRetry();
     });
 
     // Back to primary app origin context! Assert redirection is complete.
