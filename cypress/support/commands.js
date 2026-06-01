@@ -150,6 +150,22 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
 
     // Preliminary visit to target host root to get window and clear service workers + Cache Storage
     cy.visit(targetBaseUrl + "/?enable-semantics=true").then((win) => {
+      cy.clearCookies();
+      cy.clearLocalStorage();
+      try {
+        win.sessionStorage.clear();
+      } catch (_) {}
+      try {
+        win.localStorage.clear();
+      } catch (_) {}
+      try {
+        win.indexedDB.databases().then((dbs) => {
+          dbs.forEach((db) => {
+            if (db.name) win.indexedDB.deleteDatabase(db.name);
+          });
+        });
+      } catch (_) {}
+      
       if (win.caches) {
         win.caches.keys().then((keys) => {
           keys.forEach((key) => {
