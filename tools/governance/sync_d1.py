@@ -9,7 +9,7 @@ DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
 DATABASE_NAME = "primecare-governance-db"
 
 def run_command(cmd):
-    result = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="ignore", shell=True)
     return result
 
 def pull_from_d1():
@@ -77,9 +77,8 @@ def push_to_d1():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    # Select local metrics we want to upload (excluding remarks, to avoid overwriting production comments)
     cursor.execute("""
-        SELECT screen_code, cypress_ready, cypress_ready_status, expected_file_path, actual_file_path, 
+        SELECT screen_code, cypress_ready, cypress_ready_status, actual_file_path, 
                complexity_score, estimated_loc, maintainability_score, is_valid
         FROM screens
     """)
@@ -91,14 +90,13 @@ def push_to_d1():
     # Build SQL queries to batch execute remotely to minimize Wrangler CLI startup overhead
     sql_statements = []
     for r in rows:
-        code, ready, ready_status, expected_path, actual_path, complexity, loc, maint, is_valid = r
+        code, ready, ready_status, actual_path, complexity, loc, maint, is_valid = r
         
         # Escape strings
         escaped_ready_status = ready_status.replace("'", "''") if ready_status else "untested"
-        escaped_expected = expected_path.replace("'", "''") if expected_path else ""
         escaped_actual = actual_path.replace("'", "''") if actual_path else ""
         
-        sql = f"UPDATE screens SET cypress_ready = {ready or 0}, cypress_ready_status = '{escaped_ready_status}', expected_file_path = '{escaped_expected}', actual_file_path = '{escaped_actual}', complexity_score = {complexity or 0}, estimated_loc = {loc or 0}, maintainability_score = {maint or 0}, is_valid = MAX(is_valid, {is_valid or 0}) WHERE LOWER(REPLACE(screen_code, '_', '')) = LOWER(REPLACE('{code}', '_', ''));"
+        sql = f"UPDATE screens SET cypress_ready = {ready or 0}, cypress_ready_status = '{escaped_ready_status}', actual_file_path = '{escaped_actual}', complexity_score = {complexity or 0}, estimated_loc = {loc or 0}, maintainability_score = {maint or 0}, is_valid = MAX(is_valid, {is_valid or 0}) WHERE LOWER(REPLACE(screen_code, '_', '')) = LOWER(REPLACE('{code}', '_', ''));"
         sql_statements.append(sql)
 
     # To avoid huge command line arguments, we write sql statements to a temporary file and execute it in one shot!
