@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: An enterprise-grade, governed login screen. Follows 'No-Logic UI' policy by delegating all authentication logic to [L...
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 
 import 'dart:ui';
@@ -64,6 +65,11 @@ class LoginView extends GovernedScreen {
                       ),
                     ),
                   ),
+                ),
+                const Positioned(
+                  top: 16,
+                  right: 16,
+                  child: _LoginLanguageSwitcher(),
                 ),
               ],
             ),
@@ -207,13 +213,13 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Authorized Access',
+                  'login_authorized_access'.tr(),
                   style: theme.typography.h3,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Enter your secure credentials to continue',
+                  'login_enter_credentials'.tr(),
                   style: theme.typography.labelMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -221,7 +227,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                 Cy(
                   id: 'login-email',
                   child: _InputField(
-                    label: 'IDENTIFIER',
+                    label: 'login_identifier_label'.tr(),
                     placeholder: 'admin@primecare.com',
                     icon: Icons.person_outline_rounded,
                     initialValue: widget.state.email,
@@ -237,7 +243,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                 Cy(
                   id: 'login-password',
                   child: _InputField(
-                    label: 'SECURITY TOKEN',
+                    label: 'login_security_token_label'.tr(),
                     placeholder: '••••••••',
                     icon: Icons.key_outlined,
                     obscureText: true,
@@ -255,7 +261,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                   child: TextButton(key: const Key('login_view_textbutton_button_1'), 
                     onPressed: () => _showForgotPasswordDialog(context, controller),
                     child: Text(
-                      'Forgot Password?',
+                      'login_forgot_password'.tr(),
                       style: theme.typography.labelMedium.copyWith(
                         color: theme.colors.primary,
                         fontWeight: FontWeight.bold,
@@ -314,7 +320,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
             ),
             const SizedBox(height: 24),
             _InputField(
-              label: 'IDENTIFIER',
+              label: 'login_identifier_label'.tr(),
               placeholder: 'admin@primecare.com',
               icon: Icons.email_outlined,
               initialValue: email,
@@ -543,10 +549,10 @@ class _ActionButtons extends StatelessWidget {
                     Colors.white.withValues(alpha: 0.1),
                   ),
                 ),
-            child: const Center(
+            child: Center(
               child: Text(
-                'INITIATE SESSION',
-                style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
+                'login_button'.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
               ),
             ),
           ),
@@ -565,10 +571,10 @@ class _ActionButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                'ACCESS DEMO MODE',
-                style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
+                'login_access_demo'.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
               ),
             ),
           ),
@@ -939,7 +945,7 @@ class _RoleSimulationCenter extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'ROLE SIMULATION CENTER',
+                'login_role_simulation_center'.tr(),
                 style: theme.typography.labelSmall.copyWith(
                   fontWeight: FontWeight.w900,
                   letterSpacing: 2,
@@ -1037,6 +1043,89 @@ class _BlurredBlob extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: size / 4, sigmaY: size / 4),
         child: Container(color: Colors.transparent),
+      ),
+    );
+  }
+}
+
+class _LoginLanguageSwitcher extends ConsumerWidget {
+  const _LoginLanguageSwitcher();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final currentLanguage = ref.watch(languageProvider);
+
+    return Cy(
+      id: 'login-language-switcher',
+      child: PopupMenuButton<String>(
+        key: const Key('login-language-switcher'),
+        offset: const Offset(0, 40),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: theme.colors.border),
+        ),
+        tooltip: 'Change Language',
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: theme.colors.surface.withValues(alpha: 0.8),
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(
+              color: theme.colors.border.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.language_rounded,
+                color: theme.colors.primary,
+                size: 18,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                currentLanguage.toUpperCase(),
+                style: theme.typography.labelBold.copyWith(
+                  color: theme.colors.onSurface,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+        onSelected: (lang) async {
+          await ref.read(languageProvider.notifier).setLanguage(lang);
+          if (context.mounted) {
+            await context.setLocale(Locale(lang));
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'en',
+            child: Cy(
+              id: 'login-language-option-en',
+              container: false,
+              child: Text('English (EN)', style: theme.typography.bodyMedium),
+            ),
+          ),
+          PopupMenuItem<String>(
+            value: 'fr',
+            child: Cy(
+              id: 'login-language-option-fr',
+              container: false,
+              child: Text('Français (FR)', style: theme.typography.bodyMedium),
+            ),
+          ),
+          PopupMenuItem<String>(
+            value: 'es',
+            child: Cy(
+              id: 'login-language-option-es',
+              container: false,
+              child: Text('Español (ES)', style: theme.typography.bodyMedium),
+            ),
+          ),
+        ],
       ),
     );
   }

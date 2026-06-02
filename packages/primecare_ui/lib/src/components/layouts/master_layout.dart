@@ -64,7 +64,7 @@ class MasterLayout extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      _getDefaultTitle(shellType),
+                      _getDefaultTitle(shellType).tr(),
                       style: theme.typography.bodyMedium.copyWith(
                         color: theme.colors.onSurfaceVariant,
                         fontSize: 12,
@@ -124,7 +124,7 @@ class MasterLayout extends ConsumerWidget {
                       const Icon(LucideIcons.wifiOff, color: Colors.white, size: 16),
                       const SizedBox(width: 8),
                       Text(
-                        'Offline Mode - Viewing cached data. Changes will sync when reconnected.',
+                        'Offline Mode - Viewing cached data. Changes will sync when reconnected.'.tr(),
                         style: theme.typography.labelBold.copyWith(
                           color: Colors.white,
                         ),
@@ -174,7 +174,7 @@ class MasterLayout extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(key: const Key('master_layout_iconbutton_button_2'), 
-            tooltip: 'Zoom Out',
+            tooltip: 'Zoom Out'.tr(),
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomOut();
             },
@@ -185,7 +185,7 @@ class MasterLayout extends ConsumerWidget {
             ),
           ),
           Tooltip(
-            message: 'Reset Zoom (Double tap)',
+            message: 'Reset Zoom (Double tap)'.tr(),
             child: GestureDetector(
               onDoubleTap: () {
                 ref.read(contentZoomProvider.notifier).resetZoom();
@@ -211,7 +211,7 @@ class MasterLayout extends ConsumerWidget {
             ),
           ),
           IconButton(key: const Key('master_layout_iconbutton_button_3'), 
-            tooltip: 'Zoom In',
+            tooltip: 'Zoom In'.tr(),
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomIn();
             },
@@ -233,7 +233,7 @@ class MasterLayout extends ConsumerWidget {
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(color: theme.colors.border),
           ),
-          tooltip: 'Change Language',
+          tooltip: 'Change Language'.tr(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             child: Row(
@@ -338,7 +338,7 @@ class MasterLayout extends ConsumerWidget {
               children: [
                 Icon(LucideIcons.user, size: 18, color: theme.colors.onSurfaceVariant),
                 const SizedBox(width: 12),
-                Text('User Profile', style: theme.typography.bodyMedium),
+                Text('User Profile'.tr(), style: theme.typography.bodyMedium),
               ],
             ),
           ),
@@ -348,7 +348,7 @@ class MasterLayout extends ConsumerWidget {
               children: [
                 Icon(LucideIcons.settings, size: 18, color: theme.colors.onSurfaceVariant),
                 const SizedBox(width: 12),
-                Text('Account Settings', style: theme.typography.bodyMedium),
+                Text('Account Settings'.tr(), style: theme.typography.bodyMedium),
               ],
             ),
           ),
@@ -359,7 +359,7 @@ class MasterLayout extends ConsumerWidget {
               children: [
                 Icon(LucideIcons.logOut, size: 18, color: theme.colors.error),
                 const SizedBox(width: 12),
-                Text('Sign Out', style: theme.typography.bodyMedium.copyWith(color: theme.colors.error)),
+                Text('Sign Out'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.error)),
               ],
             ),
           ),

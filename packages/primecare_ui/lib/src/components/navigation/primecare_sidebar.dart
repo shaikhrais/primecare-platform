@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: Core implementation file for the Primecare Sidebar platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PrimeCareSidebar extends StatelessWidget {
   final String userName;
@@ -81,7 +82,7 @@ class PrimeCareSidebar extends StatelessWidget {
             color: theme.colors.primary,
           ),
           title: Text(
-            'Aura Nexus Center',
+            'Aura Nexus Center'.tr(),
             style: theme.typography.bodyMedium.copyWith(
               color: theme.colors.primary,
               fontSize: context.s(14),
@@ -89,7 +90,7 @@ class PrimeCareSidebar extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            'Global AI Chat & HUD Console',
+            'Global AI Chat & HUD Console'.tr(),
             style: theme.typography.bodySmall.copyWith(
               color: theme.colors.onSurfaceVariant.withValues(alpha: 0.7),
               fontSize: context.s(11),
@@ -126,7 +127,7 @@ class PrimeCareSidebar extends StatelessWidget {
             style: theme.typography.h3.copyWith(fontSize: context.s(18)),
           ),
           Text(
-            userRole,
+            userRole.tr(),
             style: theme.typography.bodySmall.copyWith(
               color: theme.colors.onSurfaceVariant,
               fontSize: context.s(12),
@@ -154,7 +155,7 @@ class PrimeCareSidebar extends StatelessWidget {
               : theme.colors.onSurfaceVariant,
         ),
         title: Text(
-          item.label,
+          item.label.tr(),
           style: theme.typography.bodyMedium.copyWith(
             color: isSelected
                 ? theme.colors.primary

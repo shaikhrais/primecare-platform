@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Chiropractor Dashboard Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // --- MVC State Model ---
 class ChiropractorDashboardState {
@@ -98,6 +99,14 @@ final chiropractorDashboardProvider =
 class ChiropractorDashboardScreen extends GovernedConsumerWidget {
   const ChiropractorDashboardScreen({super.key});
 
+  String _translateLog(String log) {
+    if (log.startsWith('Compliance audit executed at')) {
+      final timestamp = log.replaceFirst('Compliance audit executed at', '').trim();
+      return '${'Compliance audit executed at'.tr()} $timestamp';
+    }
+    return log.tr();
+  }
+
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(chiropractorDashboardProvider);
@@ -118,7 +127,7 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Text(
             key: const Key('chiropractordashboard-title'),
-            state.title,
+            state.title.tr(),
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
           actions: [
@@ -152,10 +161,10 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                 Semantics(
                   label: 'data-cy:chiropractordashboard-title',
                   child: GovDashboardHero(
-                    title: state.title,
-                    roleName: '$roleBase Dashboard',
+                    title: state.title.tr(),
+                    roleName: '$roleBase Dashboard'.tr(),
                     description:
-                        'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+                        'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.'.tr(),
                     onRefresh: () =>
                         controller.addLog('Dashboard telemetry synchronized.'),
                   ),
@@ -165,9 +174,9 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                   children: [
                     Expanded(
                       child: GovMetricCard(
-                        title: 'Active Operations',
-                        value: 'Active',
-                        trendLabel: 'Optimal productivity',
+                        title: 'Active Operations'.tr(),
+                        value: 'Active'.tr(),
+                        trendLabel: 'Optimal productivity'.tr(),
                         progress: 0.92,
                         icon: LucideIcons.activity,
                         brandColor: theme.colors.primary,
@@ -176,9 +185,9 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: GovMetricCard(
-                        title: 'Security Clearance',
-                        value: 'Level 4 Approved',
-                        trendLabel: 'Zero exceptions logged',
+                        title: 'Security Clearance'.tr(),
+                        value: 'Level 4 Approved'.tr(),
+                        trendLabel: 'Zero exceptions logged'.tr(),
                         progress: 1.0,
                         icon: LucideIcons.shieldCheck,
                         brandColor: Colors.green,
@@ -188,7 +197,7 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 GovTelemetryChart(
-                  title: 'Hourly Core Telemetry',
+                  title: 'Hourly Core Telemetry'.tr(),
                   dataPoints: const [75, 82, 80, 94, 91, 98],
                   labels: const [
                     '09:00',
@@ -213,7 +222,7 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Operational Audit Logs',
+                        'Operational Audit Logs'.tr(),
                         style: theme.typography.h4.copyWith(
                           color: theme.colors.onSurface,
                         ),
@@ -234,7 +243,7 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  log,
+                                  _translateLog(log),
                                   style: theme.typography.bodySmall.copyWith(
                                     color: theme.colors.onSurfaceVariant,
                                   ),
@@ -274,7 +283,7 @@ class ChiropractorDashboardScreen extends GovernedConsumerWidget {
                                   ),
                                 )
                               : Text(
-                                  'Execute Operational Audit Scan',
+                                  'Execute Operational Audit Scan'.tr(),
                                   style: theme.typography.button.copyWith(
                                     color: Colors.white,
                                   ),

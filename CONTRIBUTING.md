@@ -68,4 +68,20 @@ Our GitHub Actions pipeline protects the `main` branch. Before pushing code, ens
 2. **Backend Analysis:** Run `dart analyze services` from the root directory to ensure your Shelf routing logic compiles cleanly.
 3. **Database Integrity:** If you changed Prisma files, ensure `npm run generate` runs without throwing relational errors.
 
+---
+
+## 5. End-to-End & Visual Regression Testing (Playwright)
+
+**MANDATORY RULE: We do NOT test locally. First deploy, then test always.**
+
+Because the PrimeCare frontend and backend environments run in a specialized staging deployment on Cloudflare Pages (`https://primecare-clinic.pages.dev`), all E2E, visual, and regression tests must run against the deployed URL.
+
+### Recommended Workflow:
+1. **Commit and Push:** Commit all your local changes and push them to the remote GitHub repository.
+2. **Await Deployment:** Wait for the Cloudflare Pages CI/CD build pipeline to finish compiling and deploying your changes (takes roughly 3 minutes).
+3. **Execute E2E Tests:** Run the remote E2E tests against the deployed URL:
+   ```bash
+   npx playwright test -c cypress/playwright/playwright.config.ts --project=chromium
+   ```
+
 Happy Coding!
