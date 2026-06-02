@@ -13,7 +13,7 @@ try:
         print(f"Response status: {response.status}")
         print("First 300 characters of response:")
         print(content[:300])
-        if "Username" in content or "username" in content:
+        if "USERNAME" in content or "username" in content:
             print("\nDEPLOYMENT DETECTED: The latest version is LIVE!")
             sys.exit(0)
         else:

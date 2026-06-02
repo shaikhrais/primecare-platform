@@ -1,6 +1,7 @@
 // Governance - Category: controller | Purpose: Layer: 01_CORE Language Provider Manages the currently selected language for the application. Watch AuthProvider for ...
 // Layer: 01_CORE
 import 'package:flutter_core/flutter_core.dart';
+import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,10 @@ class LanguageNotifier extends Notifier<String> {
 
   @override
   String build() {
+    // Check if we have SharedPreferences to read guest persistence first!
+    final prefs = ref.watch(sharedPreferencesProvider);
+    final guestLanguage = prefs?.getString(_langKey);
+
     // Watch AuthProvider for source-of-truth language from the user profile
     final authLanguage = ref.watch(
       authProvider.select((s) => s.preferredLanguage),
@@ -21,10 +26,15 @@ class LanguageNotifier extends Notifier<String> {
       return authLanguage;
     }
 
-    // Default to 'en' or potentially a persisted guest preference
-    // Note: We don't await SharedPreferences here to keep it synchronous
-    // If needed, we can initialize it in a provider or just use a default
-    return 'en';
+    if (guestLanguage != null && guestLanguage.isNotEmpty) {
+      return guestLanguage;
+    }
+
+    // Read the browser's preferred language code dynamically
+    final browserLanguage = PlatformDispatcher.instance.locale.languageCode.toLowerCase();
+    final supportedLocales = ['en', 'fr', 'es'];
+
+    return supportedLocales.contains(browserLanguage) ? browserLanguage : 'en';
   }
 
   Future<void> setLanguage(String langCode) async {

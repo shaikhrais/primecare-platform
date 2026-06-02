@@ -26,14 +26,15 @@ Call log:
 ```
 
 ```yaml
+- button "Change Language data-cy:login-language-switcher EN"
 - text: "SOC2 COMPLIANT · ISO 27001 PRIMECARE PLATFORM STABILITY & TRUST GOVERNED & SECURE ALL SYSTEMS OPERATIONAL SECURE DEPLOYMENT NODE: NA-EAST-1 ZERO-TRUST SESSION MANAGEMENT"
 - group:
   - text: Authorized Access Enter your secure credentials to continue
-  - textbox "data-cy:login-email IDENTIFIER admin@primecare.com"
-  - textbox "data-cy:login-password SECURITY TOKEN ••••••••"
+  - textbox "data-cy:login-email USERNAME admin@primecare.com"
+  - textbox "data-cy:login-password PASSWORD ••••••••"
   - button "Forgot Password?"
   - group "data-cy:login-submit":
-    - button "INITIATE SESSION"
+    - button "LOGIN"
   - text: © 2026 PRIMECARE PLATFORM · SECURITY LAYER 4
 ```
 

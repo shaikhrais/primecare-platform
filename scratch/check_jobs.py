@@ -2,7 +2,7 @@ import urllib.request
 import json
 import sys
 
-run_id = "26794896418"
+run_id = "26795208902"
 url = f"https://api.github.com/repos/shaikhrais/primecare-platform/actions/runs/{run_id}/jobs"
 print(f"Fetching GitHub Actions jobs for Run ID {run_id}...")
 req = urllib.request.Request(
@@ -22,9 +22,6 @@ try:
                 print(f"Job ID: {job['id']}")
                 print(f"Status: {job['status']}")
                 print(f"Conclusion: {job['conclusion']}")
-                print("Steps:")
-                for step in job.get('steps', []):
-                    print(f"  - {step['name']}: {step['status']} ({step['conclusion']})")
                 print("-" * 50)
             sys.exit(0)
         else:
