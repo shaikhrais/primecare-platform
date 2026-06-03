@@ -4291,11 +4291,12 @@
     },
     "governance": {
         "unauthorized_route_message": "Vous n'avez pas les autorisations requises pour accÃ©der Ã  cette route.",
-        "access_denied": "AccÃ¨s refusÃ©"
+        "access_denied": "AccÃ¨s refusÃ©",
+        "screen_under_construction": "Écran en construction"
     },
-    "select_language_welcome": "BIENVENUE CHEZ PRIMECARE",
-    "select_language_title": "Sélectionnez Votre Langue Préférée",
-    "select_language_subtitle": "Choisissez la langue de votre interface pour personnaliser votre espace de travail institutionnel.",
+    "select_language_welcome": "BONJOUR & BIENVENUE",
+    "select_language_title": "Configurons votre espace de travail",
+    "select_language_subtitle": "Choisissez votre langue préférée pour commencer à personnaliser votre expérience.",
     "select_language_continue": "Continuer",
     "language_en_title": "English (EN)",
     "language_en_subtitle": "Secure portal default language",
@@ -4322,8 +4323,8 @@
     "auth_consent_approve": "Approuver et continuer",
     "auth_consent_cancel": "Annuler et se déconnecter",
     "auth_success_default_user": "Utilisateur PrimeCare",
-    "login_authorized_access": "Accès Autorisé",
-    "login_enter_credentials": "Entrez vos identifiants sécurisés pour continuer",
+    "login_authorized_access": "Bienvenue chez PrimeCare",
+    "login_enter_credentials": "Nous sommes ravis de vous revoir. Veuillez entrer vos identifiants pour accéder à votre espace sécurisé.",
     "login_identifier_label": "NOM D'UTILISATEUR",
     "login_security_token_label": "MOT DE PASSE",
     "login_forgot_password": "Mot de passe oublié ?",

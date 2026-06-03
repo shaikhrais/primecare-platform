@@ -4300,11 +4300,12 @@
     },
     "governance": {
         "unauthorized_route_message": "No tiene los permisos necesarios para acceder a esta ruta.",
-        "access_denied": "Acceso denegado"
+        "access_denied": "Acceso denegado",
+        "screen_under_construction": "Pantalla en construcción"
     },
-    "select_language_welcome": "BIENVENIDA A PRIMECARE",
-    "select_language_title": "Seleccione Su Idioma Preferido",
-    "select_language_subtitle": "Elija el idioma de su interfaz para personalizar su espacio de trabajo institucional.",
+    "select_language_welcome": "HOLA Y LE DAMOS LA BIENVENIDA",
+    "select_language_title": "Configuremos su espacio de trabajo",
+    "select_language_subtitle": "Elija su idioma preferido para comenzar a personalizar su experiencia.",
     "select_language_continue": "Continuar",
     "language_en_title": "English (EN)",
     "language_en_subtitle": "Idioma predeterminado del portal seguro",
@@ -4331,8 +4332,8 @@
     "auth_consent_approve": "Aprobar y continuar",
     "auth_consent_cancel": "Cancelar y cerrar sesión",
     "auth_success_default_user": "Usuario de PrimeCare",
-    "login_authorized_access": "ACCESO AUTORIZADO ÚNICAMENTE",
-    "login_enter_credentials": "Ingrese sus credenciales institucionales para autenticarse.",
+    "login_authorized_access": "Le damos la bienvenida a PrimeCare",
+    "login_enter_credentials": "Nos alegra tenerle aquí. Inicie sesión para acceder a su espacio de trabajo seguro.",
     "login_identifier_label": "NOMBRE DE USUARIO",
     "login_security_token_label": "CONTRASEÑA",
     "login_forgot_password": "Recuperar Token de Seguridad",

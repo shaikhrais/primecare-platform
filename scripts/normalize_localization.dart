@@ -34,7 +34,7 @@ void normalizeApp(Directory appDir, Directory sourceTranslations) {
   }
 
   final mainContent = mainFile.readAsStringSync();
-  if (!mainContent.contains('EasyLocalization')) return;
+  if (!mainContent.contains('EasyLocalization') && !mainContent.contains('PrimeCareAppRunner')) return;
 
   // 1. Create local assets/translations directory
   final targetTranslations = Directory('${appDir.path}/assets/translations');
