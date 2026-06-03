@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Dynamic helper to resolve user details from email or role token
 import { Hono } from 'hono'
+import { sendResetEmail } from '../utils/email'
 
 export const authRouter = new Hono()
 
@@ -90,7 +91,76 @@ authRouter.post('/login', async (c) => {
   const email = body.email || 'psw@demo.primecare.com'
   
   const userDetails = getUserDetails(email)
+
+  // Structured login telemetry logging
+  console.log(JSON.stringify({
+    timestamp: new Date().toISOString(),
+    event: 'auth.login',
+    email: email,
+    role: userDetails.role,
+    tenantId: userDetails.tenantId,
+    ip: c.req.header('CF-Connecting-IP') || '127.0.0.1',
+    userAgent: c.req.header('User-Agent') || 'unknown',
+    status: 'success',
+  }))
+
   return c.json(userDetails)
+})
+
+// POST /forgot-password: Request password recovery email
+authRouter.post('/forgot-password', async (c) => {
+  const body = await c.req.json()
+  const email = body.email
+
+  if (!email) {
+    console.warn(JSON.stringify({
+      timestamp: new Date().toISOString(),
+      event: 'auth.forgot_password',
+      error: 'Missing email address',
+      ip: c.req.header('CF-Connecting-IP') || '127.0.0.1',
+      userAgent: c.req.header('User-Agent') || 'unknown',
+      status: 'failed',
+    }))
+    return c.json({ error: 'Email address is required.' }, 400)
+  }
+
+  // Find user details to resolve their role for custom reset link mapping
+  const userDetails = getUserDetails(email)
+  const role = userDetails.role
+
+  // Resolve host origin from headers dynamically to support localhost, dev pages, and prod
+  const origin = c.req.header('Origin') || 'https://primecare-clinic.pages.dev'
+  const resetLink = `${origin}/reset-password?email=${encodeURIComponent(email)}&token=mock-reset-token-${role}`
+
+  // Structured logging before dispatch
+  console.log(JSON.stringify({
+    timestamp: new Date().toISOString(),
+    event: 'auth.forgot_password',
+    email: email,
+    role: role,
+    tenantId: userDetails.tenantId,
+    ip: c.req.header('CF-Connecting-IP') || '127.0.0.1',
+    userAgent: c.req.header('User-Agent') || 'unknown',
+    status: 'pending_dispatch',
+  }))
+
+  const sent = await sendResetEmail(email, resetLink, role)
+
+  console.log(JSON.stringify({
+    timestamp: new Date().toISOString(),
+    event: 'auth.forgot_password',
+    email: email,
+    role: role,
+    tenantId: userDetails.tenantId,
+    ip: c.req.header('CF-Connecting-IP') || '127.0.0.1',
+    userAgent: c.req.header('User-Agent') || 'unknown',
+    status: sent ? 'success' : 'failed',
+  }))
+
+  return c.json({
+    success: true,
+    message: 'Recovery instructions sent successfully.'
+  })
 })
 
 // GET /me: Silent session validation (Google-Style Seamless SSO Handshake)
@@ -122,3 +192,4 @@ authRouter.get('/me', async (c) => {
   const userDetails = getUserDetails(token)
   return c.json(userDetails)
 })
+

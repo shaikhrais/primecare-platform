@@ -120,7 +120,7 @@ def main():
     log("Compiling Web bundle in Release mode...")
     build_res = run_command([
         "flutter", "build", "web", "--release",
-        "--dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api"
+        "--dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api"
     ], cwd=auth_app_path)
     
     if build_res.returncode != 0:

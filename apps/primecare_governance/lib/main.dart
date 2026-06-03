@@ -39,14 +39,6 @@ class PrimeCareApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Sync languageProvider with EasyLocalization
-    final langCode = ref.watch(languageProvider);
-    if (context.locale.languageCode != langCode) {
-      Future.microtask(() {
-        if (!context.mounted) return;
-        context.setLocale(Locale(langCode));
-      });
-    }
 
     const primeTheme = PrimeThemeData();
 

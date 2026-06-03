@@ -20,95 +20,150 @@ class GovDashboardHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            theme.colors.primary.withValues(alpha: 0.16),
-            theme.colors.primary.withValues(alpha: 0.04),
+    final isTeal = theme.colors.primary.value == 0xFF0F766E;
+    
+    final gradientColors = [
+      theme.colors.primary,
+      isTeal ? const Color(0xFF115E59) : const Color(0xFF1E3A8A),
+      const Color(0xFF0F172A), // Slate 900
+    ];
+
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutCubic,
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      builder: (context, value, child) {
+        return Transform.translate(
+          offset: Offset(0, (1.0 - value) * -15),
+          child: Opacity(
+            opacity: value,
+            child: child,
+          ),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: gradientColors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(theme.radiusMd),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+          boxShadow: [
+            BoxShadow(
+              color: theme.colors.primary.withValues(alpha: 0.2),
+              blurRadius: 24,
+              offset: const Offset(0, 10),
+            ),
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.primary.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: theme.colors.primary.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.12),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+                      ),
+                      child: const Icon(
+                        LucideIcons.shieldCheck,
+                        size: 24,
+                        color: Color(0xFF22C55E), // Neon success green
+                      ),
                     ),
-                    child: Icon(
-                      LucideIcons.shieldCheck,
-                      size: 24,
-                      color: theme.colors.primary,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        roleName.toUpperCase(),
-                        style: theme.typography.labelBold.copyWith(
-                          color: theme.colors.primary,
-                          letterSpacing: 1.2,
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          roleName.toUpperCase(),
+                          style: theme.typography.labelBold.copyWith(
+                            color: Colors.white.withValues(alpha: 0.9),
+                            letterSpacing: 1.5,
+                            fontSize: 11,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Container(
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF22C55E),
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF22C55E),
+                                    blurRadius: 6,
+                                    spreadRadius: 2,
+                                  )
+                                ]
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'Active & Secure',
-                            style: theme.typography.bodySmall.copyWith(
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600,
+                            const SizedBox(width: 6),
+                            Text(
+                              'ACTIVE & SECURE',
+                              style: theme.typography.bodySmall.copyWith(
+                                color: const Color(0xFF22C55E),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10,
+                                letterSpacing: 0.5,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (onRefresh != null)
-                IconButton(key: const Key('governance_components_iconbutton_button_1'), 
-                  icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary, size: 20),
-                  onPressed: onRefresh,
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: theme.typography.h2.copyWith(color: theme.colors.onBackground),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            description,
-            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-          ),
-        ],
+                if (onRefresh != null)
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: onRefresh,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.08),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(LucideIcons.refreshCw, color: Colors.white, size: 18),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              title,
+              style: theme.typography.h1.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 28,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              description,
+              style: theme.typography.bodyMedium.copyWith(
+                color: Colors.white.withValues(alpha: 0.75),
+                height: 1.5,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -137,66 +192,157 @@ class GovMetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.divider),
-        boxShadow: theme.shadowsSurface1,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: brandColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(theme.radiusSm),
-                ),
-                child: Icon(icon, color: brandColor, size: 20),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  trendLabel,
-                  style: theme.typography.bodySmall.copyWith(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
+
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 800),
+      curve: Curves.easeOutCubic,
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      builder: (context, animValue, child) {
+        return Transform.translate(
+          offset: Offset(0, (1.0 - animValue) * 20),
+          child: Opacity(
+            opacity: animValue,
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
+                boxShadow: [
+                  BoxShadow(
+                    color: brandColor.withValues(alpha: 0.04),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
                   ),
-                ),
+                  const BoxShadow(
+                    color: Color(0x0A1E3A8A),
+                    blurRadius: 8,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: theme.typography.labelMedium.copyWith(color: theme.colors.onSurfaceVariant),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: theme.typography.h2.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: progress,
-              backgroundColor: theme.colors.divider,
-              valueColor: AlwaysStoppedAnimation<Color>(brandColor),
-              minHeight: 6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: brandColor.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(theme.radiusSm),
+                          border: Border.all(color: brandColor.withValues(alpha: 0.15)),
+                        ),
+                        child: Icon(icon, color: brandColor, size: 20),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFDCFCE7),
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: const Color(0xFFBBF7D0)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              LucideIcons.trendingUp,
+                              size: 12,
+                              color: Color(0xFF15803D),
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              trendLabel,
+                              style: theme.typography.bodySmall.copyWith(
+                                color: const Color(0xFF15803D),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    title,
+                    style: theme.typography.labelMedium.copyWith(
+                      color: theme.colors.onSurfaceVariant,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    value,
+                    style: theme.typography.h2.copyWith(
+                      fontWeight: FontWeight.w800,
+                      color: theme.colors.onSurface,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Utilization',
+                            style: theme.typography.bodySmall.copyWith(
+                              color: theme.colors.outline,
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            '${(progress * animValue * 100).toInt()}%',
+                            style: theme.typography.bodySmall.copyWith(
+                              color: brandColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: SizedBox(
+                          height: 8,
+                          child: Stack(
+                            children: [
+                              Container(
+                                color: theme.colors.divider.withValues(alpha: 0.3),
+                              ),
+                              FractionallySizedBox(
+                                widthFactor: progress * animValue,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        brandColor,
+                                        brandColor.withValues(alpha: 0.7),
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -260,7 +406,17 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
       }
       widget.onSubmit(values);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Operational Form Hydrated & Dispatched Successfully.')),
+        const SnackBar(
+          content: Row(
+            children: [
+              Icon(LucideIcons.checkCircle2, color: Colors.white),
+              SizedBox(width: 12),
+              Text('Operational Form Hydrated & Dispatched Successfully.'),
+            ],
+          ),
+          backgroundColor: Color(0xFF10B981),
+          behavior: SnackBarBehavior.floating,
+        ),
       );
     }
   }
@@ -269,23 +425,38 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.divider),
-        boxShadow: theme.shadowsSurface1,
+        border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x05004AC6),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+          const BoxShadow(
+            color: Color(0x0A1E3A8A),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title, style: theme.typography.h3),
-            const SizedBox(height: 16),
+            Text(
+              widget.title,
+              style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurface),
+            ),
+            const SizedBox(height: 20),
             ...widget.fields.map((field) => Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: PrimeCareTextField(key: const Key('governance_components_textfield_input_1'), 
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: PrimeCareTextField(
+                    key: const Key('governance_components_textfield_input_1'),
                     label: field,
                     hintText: 'Enter secure ${field.toLowerCase()}...',
                     controller: _controllers[field],
@@ -298,19 +469,21 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
                   ),
                 )),
             const SizedBox(height: 8),
-            // Upload mockup
-            Text('Audit Ingestion Attachment', style: theme.typography.labelMedium),
-            const SizedBox(height: 8),
+            Text(
+              'Audit Ingestion Attachment',
+              style: theme.typography.labelMedium.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurface),
+            ),
+            const SizedBox(height: 10),
             GestureDetector(
               onTap: _isUploading ? null : _simulateFileUpload,
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 decoration: BoxDecoration(
-                  color: theme.colors.background,
+                  color: theme.colors.background.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(theme.radiusDefault),
                   border: Border.all(
-                    color: theme.colors.outline,
+                    color: theme.colors.outline.withValues(alpha: 0.4),
                     style: BorderStyle.solid,
                   ),
                 ),
@@ -320,13 +493,23 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
                       const SizedBox(
                         height: 24,
                         width: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: CircularProgressIndicator(strokeWidth: 2.5),
                       ),
-                      const SizedBox(height: 8),
-                      Text('Uploading securely to ledger...', style: theme.typography.bodySmall),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Uploading securely to ledger...',
+                        style: theme.typography.bodySmall.copyWith(color: theme.colors.outline, fontWeight: FontWeight.bold),
+                      ),
                     ] else if (_uploadedFileName != null) ...[
-                      Icon(LucideIcons.fileCheck2, color: theme.colors.primary, size: 28),
-                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: theme.colors.primary.withValues(alpha: 0.08),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(LucideIcons.fileCheck2, color: theme.colors.primary, size: 28),
+                      ),
+                      const SizedBox(height: 12),
                       Text(
                         _uploadedFileName!,
                         style: theme.typography.bodyMedium.copyWith(
@@ -335,13 +518,23 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 4),
-                      Text('Tap to replace attachment', style: theme.typography.bodySmall),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Tap to replace attachment',
+                        style: theme.typography.bodySmall.copyWith(color: theme.colors.outline),
+                      ),
                     ] else ...[
-                      Icon(LucideIcons.uploadCloud, color: theme.colors.onSurfaceVariant, size: 28),
-                      const SizedBox(height: 8),
-                      Text('Tap to attach encrypted audit PDF', style: theme.typography.bodyMedium),
-                      Text('Maximum payload size: 25MB', style: theme.typography.bodySmall),
+                      Icon(LucideIcons.uploadCloud, color: theme.colors.outline, size: 32),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Tap to attach encrypted audit PDF',
+                        style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.w600, color: theme.colors.onSurface),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Maximum payload size: 25MB',
+                        style: theme.typography.bodySmall.copyWith(color: theme.colors.outline),
+                      ),
                     ],
                   ],
                 ),
@@ -394,51 +587,78 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.divider),
-        boxShadow: theme.shadowsSurface1,
+        border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x05004AC6),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+          const BoxShadow(
+            color: Color(0x0A1E3A8A),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(widget.title, style: theme.typography.h3),
+                    Text(
+                      widget.title,
+                      style: theme.typography.h3.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colors.onSurface,
+                      ),
+                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: theme.colors.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12),
+                        color: theme.colors.primary.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: theme.colors.primary.withValues(alpha: 0.15)),
                       ),
                       child: Text(
                         '${filteredData.length} records',
                         style: theme.typography.bodySmall.copyWith(
                           color: theme.colors.primary,
                           fontWeight: FontWeight.bold,
+                          fontSize: 10,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                // Search bar
-                TextField(key: const Key('governance_components_textfield_input_2'), 
+                const SizedBox(height: 20),
+                TextField(
+                  key: const Key('governance_components_textfield_input_2'),
                   onChanged: (val) => setState(() => _searchQuery = val),
                   style: theme.typography.bodyMedium,
                   decoration: InputDecoration(
                     hintText: 'Search audit records...',
-                    prefixIcon: const Icon(LucideIcons.search, size: 18),
+                    prefixIcon: Icon(LucideIcons.search, size: 18, color: theme.colors.outline),
                     filled: true,
-                    fillColor: theme.colors.background,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                    fillColor: theme.colors.background.withValues(alpha: 0.5),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(theme.radiusDefault),
-                      borderSide: BorderSide.none,
+                      borderSide: BorderSide(color: theme.colors.divider.withValues(alpha: 0.8)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(theme.radiusDefault),
+                      borderSide: BorderSide(color: theme.colors.divider.withValues(alpha: 0.8)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(theme.radiusDefault),
+                      borderSide: BorderSide(color: theme.colors.primary, width: 1.5),
                     ),
                   ),
                 ),
@@ -448,13 +668,28 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
           const Divider(height: 1),
           if (filteredData.isEmpty)
             Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(48.0),
               child: Center(
                 child: Column(
                   children: [
-                    Icon(LucideIcons.database, size: 36, color: theme.colors.onSurfaceVariant),
-                    const SizedBox(height: 12),
-                    Text('No matching records found', style: theme.typography.h4),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: theme.colors.background,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(LucideIcons.database, size: 40, color: theme.colors.outline),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No matching records found',
+                      style: theme.typography.h4.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Try refiltering your search query',
+                      style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                    ),
                   ],
                 ),
               ),
@@ -468,53 +703,87 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
               itemBuilder: (context, index) {
                 final row = filteredData[index];
                 final status = row['status'] ?? 'Secure';
-                Color statusColor = Colors.green;
+                Color statusColor = const Color(0xFF15803D);
+                Color statusBgColor = const Color(0xFFDCFCE7);
+                Color statusBorderColor = const Color(0xFFBBF7D0);
+
                 if (status == 'Warning' || status == 'Pending') {
-                  statusColor = theme.colors.warning;
+                  statusColor = const Color(0xFFB45309);
+                  statusBgColor = const Color(0xFFFEF3C7);
+                  statusBorderColor = const Color(0xFFFDE68A);
                 } else if (status == 'Alert' || status == 'Critical') {
-                  statusColor = theme.colors.error;
+                  statusColor = const Color(0xFFB91C1C);
+                  statusBgColor = const Color(0xFFFEE2E2);
+                  statusBorderColor = const Color(0xFFFECACA);
                 }
 
-                return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          row[widget.columns[0]] ?? '',
-                          style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: statusColor.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          status,
-                          style: theme.typography.bodySmall.copyWith(
-                            color: statusColor,
-                            fontWeight: FontWeight.bold,
+                return Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  row[widget.columns[0]] ?? '',
+                                  style: theme.typography.bodyLarge.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.colors.onSurface,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: statusBgColor,
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(color: statusBorderColor),
+                                ),
+                                child: Text(
+                                  status.toUpperCase(),
+                                  style: theme.typography.bodySmall.copyWith(
+                                    color: statusColor,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 9,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                row[widget.columns[1]] ?? '',
+                                style: theme.typography.bodySmall.copyWith(
+                                  color: theme.colors.onSurfaceVariant,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(LucideIcons.calendar, size: 12, color: theme.colors.outline),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    row['date'] ?? '',
+                                    style: theme.typography.bodySmall.copyWith(
+                                      color: theme.colors.outline,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          row[widget.columns[1]] ?? '',
-                          style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                        ),
-                        Text(
-                          row['date'] ?? '',
-                          style: theme.typography.bodySmall.copyWith(color: theme.colors.outline),
-                        ),
-                      ],
                     ),
                   ),
                 );
@@ -562,30 +831,47 @@ class _GovSettingsPanelState extends State<GovSettingsPanel> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.divider),
-        boxShadow: theme.shadowsSurface1,
+        border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x05004AC6),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+          const BoxShadow(
+            color: Color(0x0A1E3A8A),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(widget.title, style: theme.typography.h3),
+            padding: const EdgeInsets.all(24.0),
+            child: Text(
+              widget.title,
+              style: theme.typography.h3.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurface),
+            ),
           ),
           const Divider(height: 1),
           ...widget.items.map((item) {
             final isSelected = _states[item.id] ?? false;
             return SwitchListTile.adaptive(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              activeTrackColor: theme.colors.primary.withValues(alpha: 0.5),
-              activeThumbColor: theme.colors.primary,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              activeTrackColor: theme.colors.primary.withValues(alpha: 0.4),
+              activeColor: theme.colors.primary,
               title: Text(
                 item.name,
-                style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.w600),
+                style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.bold, color: theme.colors.onSurface),
               ),
-              subtitle: Text(
-                item.description,
-                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Text(
+                  item.description,
+                  style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                ),
               ),
               value: isSelected,
               onChanged: (val) {
@@ -637,44 +923,137 @@ class GovTelemetryChart extends StatelessWidget {
         ? dataPoints.reduce((a, b) => a > b ? a : b)
         : 1.0;
 
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.divider),
-        boxShadow: theme.shadowsSurface1,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: theme.typography.h3,
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeOutBack,
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      builder: (context, animValue, child) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(theme.radiusMd),
+            border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x05004AC6),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      LucideIcons.trendingUp,
-                      size: 14,
-                      color: accentColor,
+              const BoxShadow(
+                color: Color(0x0A1E3A8A),
+                blurRadius: 10,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: theme.typography.h3.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colors.onSurface,
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Live Telemetry',
-                      style: theme.typography.bodySmall.copyWith(
-                        color: accentColor,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: accentColor.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: accentColor.withValues(alpha: 0.15)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _PulseDot(color: accentColor),
+                        const SizedBox(width: 6),
+                        Text(
+                          'LIVE TELEMETRY',
+                          style: theme.typography.bodySmall.copyWith(
+                            color: accentColor,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 9,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 140,
+                child: Stack(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(4, (index) => Container(
+                        height: 1,
+                        color: theme.colors.divider.withValues(alpha: 0.25),
+                      )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: List.generate(dataPoints.length, (index) {
+                          final val = dataPoints[index];
+                          final normalizedHeight = maxVal > 0 ? (val / maxVal) : 0.0;
+                          return Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: FractionallySizedBox(
+                                      heightFactor: (normalizedHeight * animValue).clamp(0.06, 1.0),
+                                      widthFactor: 0.45,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              accentColor,
+                                              accentColor.withValues(alpha: 0.65),
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                          borderRadius: const BorderRadius.vertical(
+                                            top: Radius.circular(8),
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: accentColor.withValues(alpha: 0.25),
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 4),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  labels[index],
+                                  style: theme.typography.bodySmall.copyWith(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: theme.colors.onSurfaceVariant,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                       ),
                     ),
                   ],
@@ -682,60 +1061,65 @@ class GovTelemetryChart extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
-          // Chart Graphic
-          SizedBox(
-            height: 120,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: List.generate(dataPoints.length, (index) {
-                final val = dataPoints[index];
-                final normalizedHeight = maxVal > 0 ? (val / maxVal) : 0.0;
-                return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: FractionallySizedBox(
-                            heightFactor: normalizedHeight.clamp(0.05, 1.0),
-                            widthFactor: 0.6,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    accentColor,
-                                    accentColor.withValues(alpha: 0.5),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(6),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        labels[index],
-                        style: theme.typography.bodySmall.copyWith(
-                          fontSize: 10,
-                          color: theme.colors.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+        );
+      },
+    );
+  }
+}
+
+class _PulseDot extends StatefulWidget {
+  final Color color;
+  const _PulseDot({required this.color});
+
+  @override
+  State<_PulseDot> createState() => _PulseDotState();
+}
+
+class _PulseDotState extends State<_PulseDot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: 8 + (_controller.value * 8),
+              height: 8 + (_controller.value * 8),
+              decoration: BoxDecoration(
+                color: widget.color.withValues(alpha: 0.4 * (1.0 - _controller.value)),
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-        ],
-      ),
+            Container(
+              width: 7,
+              height: 7,
+              decoration: BoxDecoration(
+                color: widget.color,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

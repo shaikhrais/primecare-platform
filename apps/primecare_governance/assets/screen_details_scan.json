@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-05-27T03:53:53.905Z",
-  "overallI18nScore": "94.8%",
+  "timestamp": "2026-06-03T22:16:00.645Z",
+  "overallI18nScore": "94.9%",
   "deployments": [
     {
       "appName": "primecare_auth",
@@ -11,19 +11,31 @@
       "verificationLog": "Verification passed for primecare_auth",
       "i18n": {
         "appName": "primecare_auth",
-        "enKeys": 1973,
-        "esKeys": 1875,
-        "frKeys": 1866,
-        "parityScore": "94.8%",
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
+        "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
       "screens": [
         {
-          "screenName": "main",
+          "screenName": "SuccessProfileView",
           "language": "dart",
           "labels": [
             "PrimeCare Identity Portal",
-            "Authentication Successful.\\nYou may close this window or return to the application."
+            "auth_success_sign_out",
+            "auth_consent_cancel",
+            "auth_success_identity_portal",
+            "auth_success_session_verified",
+            "auth_success_active_session",
+            "auth_success_logged_in_as",
+            "auth_success_assigned_role",
+            "auth_success_session_token",
+            "auth_consent_authorize_title",
+            "auth_consent_security_required",
+            "auth_consent_permission_request",
+            "auth_consent_explanation",
+            "auth_consent_authorizing_account"
           ],
           "textElements": [
             "primecare_hq",
@@ -31,26 +43,73 @@
             "primecare_auth",
             "PrimeCare Identity Portal",
             "redirect_uri",
-            ";\r\n            final urlWithToken =",
+            "auth_language_selected",
+            ";\r\n      }\r\n\r\n      final forceLogin = state.uri.queryParameters[",
+            ";\r\n      if (forceLogin && !_hasForcedLogout) {\r\n        _hasForcedLogout = true;\r\n        if (authState.isAuthenticated) {\r\n          Future.microtask(() {\r\n            ref.read(authProvider.notifier).logout();\r\n          });\r\n        }\r\n        if (kIsWeb) {\r\n          try {\r\n            final uri = Uri.parse(web.window.location.href);\r\n            final params = Map<String, String>.from(uri.queryParameters)..remove(",
+            ");\r\n            final newUri = uri.replace(queryParameters: params.isEmpty ? null : params);\r\n            web.window.history.replaceState(null,",
+            ", newUri.toString());\r\n          } catch (_) {}\r\n        }\r\n        return",
+            "?redirect_uri=${Uri.encodeComponent(redirectUri)}",
+            ") {\r\n          return null;\r\n        }\r\n        return",
+            ";\r\n      }\r\n\r\n      if (!authState.isAuthenticated && !isAtLogin && !isAtLanguage) {\r\n        return",
+            ";\r\n      }\r\n\r\n      return null;\r\n    },\r\n    routes: [\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) => const LanguageSelectionView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) => const LoginViewWrapper(),\r\n      ),\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) => const SuccessProfileView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) {\r\n          final redirectUri = state.uri.queryParameters[",
+            ";\r\n          return ConsentView(redirectUri: redirectUri);\r\n        },\r\n      ),\r\n    ],\r\n  );\r\n});\r\n\r\nclass LoginViewWrapper extends ConsumerWidget {\r\n  const LoginViewWrapper({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context, WidgetRef ref) {\r\n    ref.listen<AuthState>(authProvider, (previous, next) {\r\n      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {\r\n        final state = GoRouterState.of(context);\r\n        final redirectUri = state.uri.queryParameters[",
+            "];\r\n        if (redirectUri != null && redirectUri.isNotEmpty) {\r\n          context.go(",
+            ");\r\n        } else {\r\n          context.go(",
+            ");\r\n        }\r\n      }\r\n    });\r\n\r\n    return const LoginView();\r\n  }\r\n}\r\n\r\nclass SuccessProfileView extends GovernedScreen {\r\n  const SuccessProfileView({super.key});\r\n\r\n  @override\r\n  String get featureId =>",
+            ";\r\n\r\n  @override\r\n  String get requiredRole =>",
+            ";\r\n\r\n  @override\r\n  List<String> get translationKeys => [",
+            ".tr(),\r\n                  style: theme.typography.h1.copyWith(\r\n                    fontWeight: FontWeight.bold,\r\n                    color: const Color(0xFF0F172A),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 8),\r\n                Text(",
+            ".tr(),\r\n                  style: theme.typography.bodyMedium.copyWith(\r\n                    color: const Color(0xFF64748B),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeCareCard(\r\n                  child: Column(\r\n                    crossAxisAlignment: CrossAxisAlignment.start,\r\n                    children: [\r\n                      Row(\r\n                        children: [\r\n                          Container(\r\n                            width: 12,\r\n                            height: 12,\r\n                            decoration: const BoxDecoration(\r\n                              color: Colors.green,\r\n                              shape: BoxShape.circle,\r\n                            ),\r\n                          ),\r\n                          const SizedBox(width: 8),\r\n                          Text(",
+            ".tr(),\r\n                            style: theme.typography.labelBold.copyWith(\r\n                              color: Colors.green,\r\n                            ),\r\n                          ),\r\n                        ],\r\n                      ),\r\n                      const SizedBox(height: 24),\r\n                      Text(",
+            ".tr(),\r\n                        style: theme.typography.labelMedium.copyWith(\r\n                          color: const Color(0xFF64748B),\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 4),\r\n                      Text(\r\n                        authState.userName ??",
+            ".tr(),\r\n                        style: theme.typography.h2.copyWith(\r\n                          fontWeight: FontWeight.bold,\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 16),\r\n                      Text(",
+            ".tr(),\r\n                        style: theme.typography.labelMedium.copyWith(\r\n                          color: const Color(0xFF64748B),\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 6),\r\n                      Container(\r\n                        padding: const EdgeInsets.symmetric(\r\n                          horizontal: 12,\r\n                          vertical: 6,\r\n                        ),\r\n                        decoration: BoxDecoration(\r\n                          color: const Color(0xFF0F172A),\r\n                          borderRadius: BorderRadius.circular(theme.radiusSm),\r\n                        ),\r\n                        child: Text(\r\n                          (authState.role ??",
+            ").toUpperCase(),\r\n                          style: theme.typography.bodySmall.copyWith(\r\n                            color: Colors.white,\r\n                            fontWeight: FontWeight.bold,\r\n                            letterSpacing: 0.5,\r\n                          ),\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 20),\r\n                      const Divider(),\r\n                      const SizedBox(height: 16),\r\n                      Row(\r\n                        mainAxisAlignment: MainAxisAlignment.spaceBetween,\r\n                        children: [\r\n                          Text(",
+            ".tr(),\r\n                            style: theme.typography.bodySmall.copyWith(\r\n                              color: const Color(0xFF64748B),\r\n                            ),\r\n                          ),\r\n                          Text(\r\n                            authState.token != null && authState.token!.length > 10\r\n                                ?",
+            ": (authState.token ??",
+            "),\r\n                            style: theme.typography.bodySmall.copyWith(\r\n                              fontFamily:",
+            ",\r\n                              fontWeight: FontWeight.bold,\r\n                            ),\r\n                          ),\r\n                        ],\r\n                      ),\r\n                    ],\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 24),\r\n\r\n                const SystemIntegrityManifest(),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeButton.secondary(\r\n                  label:",
+            ".tr(),\r\n                  isFullWidth: true,\r\n                  icon: LucideIcons.logOut,\r\n                  onPressed: () async {\r\n                    await ref.read(authProvider.notifier).logout();\r\n                  },\r\n                ),\r\n              ],\r\n            ),\r\n          ),\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}\r\n\r\nclass ConsentView extends GovernedScreen {\r\n  final String redirectUri;\r\n\r\n  const ConsentView({super.key, required this.redirectUri});\r\n\r\n  @override\r\n  String get featureId =>",
+            ".tr(),\r\n                  style: theme.typography.bodyMedium.copyWith(\r\n                    color: const Color(0xFF64748B),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeCareCard(\r\n                  child: Column(\r\n                    crossAxisAlignment: CrossAxisAlignment.start,\r\n                    children: [\r\n                      Text(",
+            ".tr(),\r\n                        style: theme.typography.labelBold.copyWith(\r\n                          color: theme.colors.primary,\r\n                          letterSpacing: 1.0,\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 16),\r\n                      Text(",
+            ",\r\n                            fontWeight: FontWeight.bold,\r\n                            color: const Color(0xFF0F172A),\r\n                          ),\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 24),\r\n                      const Divider(),\r\n                      const SizedBox(height: 16),\r\n                      Text(",
+            ".tr(),\r\n                        style: theme.typography.labelBold.copyWith(\r\n                          color: const Color(0xFF64748B),\r\n                          letterSpacing: 0.5,\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 8),\r\n                      Row(\r\n                        children: [\r\n                          CircleAvatar(\r\n                            backgroundColor: const Color(0xFF0F172A),\r\n                            radius: 20,\r\n                            child: Text(\r\n                              (authState.userName ??",
+            ")[0].toUpperCase(),\r\n                              style: const TextStyle(\r\n                                color: Colors.white,\r\n                                fontWeight: FontWeight.bold,\r\n                              ),\r\n                            ),\r\n                          ),\r\n                          const SizedBox(width: 12),\r\n                          Expanded(\r\n                            child: Column(\r\n                              crossAxisAlignment: CrossAxisAlignment.start,\r\n                              children: [\r\n                                Text(\r\n                                  authState.userName ??",
+            ".tr(),\r\n                                  style: theme.typography.bodyMedium.copyWith(\r\n                                    fontWeight: FontWeight.bold,\r\n                                  ),\r\n                                ),\r\n                                Text(\r\n                                  (authState.role ??",
+            ").toUpperCase(),\r\n                                  style: theme.typography.bodySmall.copyWith(\r\n                                    color: const Color(0xFF64748B),\r\n                                  ),\r\n                                ),\r\n                              ],\r\n                            ),\r\n                          ),\r\n                        ],\r\n                      ),\r\n                    ],\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeButton.primary(\r\n                  label: _isRedirecting\r\n                      ?",
+            ".tr()\r\n                      :",
+            ".tr(),\r\n                  isFullWidth: true,\r\n                  isLoading: _isRedirecting,\r\n                  icon: LucideIcons.checkCircle,\r\n                  onPressed: _isRedirecting\r\n                      ? null\r\n                      : () async {\r\n                          setState(() {\r\n                            _isRedirecting = true;\r\n                          });\r\n\r\n                          await Future<void>.delayed(\r\n                            const Duration(milliseconds: 600),\r\n                          );\r\n\r\n                          final redirectUri = widget.redirectUri;\r\n                          final delimiter = redirectUri.contains(",
+            ";\r\n                          final urlWithToken =",
             "}&role=${Uri.encodeComponent(authState.role ??",
             ")}&userId=${authState.userId ??",
-            ";\r\n      }\r\n\r\n      if (!authState.isAuthenticated && !isAtLogin) {\r\n        return",
-            "?redirect_uri=${Uri.encodeComponent(redirectUri)}",
-            ";\r\n      }\r\n\r\n      return null;\r\n    },\r\n    routes: [\r\n      GoRoute(\r\n        path:",
-            ",\r\n        builder: (context, state) => const LoginView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
-            ",\r\n        builder: (context, state) => const Scaffold(\r\n          body: Center(\r\n            child: Text("
+            ";\r\n                          web.window.location.href = urlWithToken;\r\n                        },\r\n                ),\r\n                const SizedBox(height: 12),\r\n                PrimeButton.ghost(\r\n                  label:"
           ],
           "components": [
+            "SingleChildScrollView",
+            "Column",
+            "LucideIcons.shieldCheck",
+            "Row",
+            "Divider",
+            "LucideIcons.logOut",
+            "LucideIcons.shieldAlert",
+            "LucideIcons.checkCircle",
+            "LucideIcons.xCircle",
             "Provider: authRouterProvider",
-            "Provider: authProvider"
+            "Provider: languageProvider",
+            "Provider: authProvider",
+            "Provider: sharedPreferencesProvider"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
             "riverpodWired": true,
-            "hasController": false,
+            "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 2,
-            "textElementsCount": 13
+            "labelsCount": 14,
+            "textElementsCount": 49
           }
         }
       ]
@@ -64,10 +123,10 @@
       "verificationLog": "Verification passed for primecare_governance",
       "i18n": {
         "appName": "primecare_governance",
-        "enKeys": 2027,
-        "esKeys": 1914,
-        "frKeys": 1914,
-        "parityScore": "94.4%",
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
+        "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
       "screens": [
@@ -514,7 +573,9 @@
           "screenName": "app_components",
           "language": "dart",
           "labels": [],
-          "textElements": [],
+          "textElements": [
+            "app_components_textfield_input_1"
+          ],
           "components": [
             "Column",
             "TextField",
@@ -528,7 +589,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 0,
-            "textElementsCount": 0
+            "textElementsCount": 1
           }
         },
         {
@@ -565,6 +626,7 @@
             "DEBUG_KITCHEN_SINK",
             "AUDIT MODE ACTIVE",
             "Impersonating: $role",
+            "app_drawer_iconbutton_button_1",
             "AURA VISION MODES",
             "LIVE",
             "HDL",
@@ -581,7 +643,8 @@
             ":\r\n        return Icons.local_shipping_outlined;\r\n      case",
             ":\r\n        return Icons.fact_check_outlined;\r\n      default:\r\n        return Icons.folder_open_outlined;\r\n    }\r\n  }\r\n\r\n  Widget _buildSectionHeader(BuildContext context, String title) {\r\n    final theme = context.theme;\r\n    return Padding(\r\n      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),\r\n      child: Text(\r\n        title,\r\n        style: TextStyle(\r\n          color: theme.colors.onSurfaceVariant,\r\n          fontSize: 9,\r\n          fontWeight: FontWeight.w900,\r\n          letterSpacing: 1.5,\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n\r\n  Widget _buildRegistryLink(BuildContext context, String screenId) {\r\n    final theme = context.theme;\r\n    final screen = ScreenRegistry.getById(screenId);\r\n\r\n    if (screen == null) return const SizedBox.shrink();\r\n\r\n    return ListTile(\r\n      dense: true,\r\n      visualDensity: VisualDensity.compact,\r\n      contentPadding: const EdgeInsets.symmetric(horizontal: 16),\r\n      leading: Icon(\r\n        screen.icon ?? Icons.circle_outlined,\r\n        color: theme.colors.primary,\r\n        size: 18,\r\n      ),\r\n      title: Text(\r\n        screen.title.tr(),\r\n        style: theme.typography.bodyMedium.copyWith(\r\n          fontWeight: FontWeight.w500,\r\n        ),\r\n      ),\r\n      onTap: () {\r\n        context.go(screen.routePath);\r\n        Navigator.pop(context);\r\n      },\r\n    );\r\n  }\r\n\r\n  Widget _buildFooter(BuildContext context, AuthState authState) {\r\n    final theme = context.theme;\r\n    return Container(\r\n      padding: const EdgeInsets.all(24),\r\n      child: Row(\r\n        children: [\r\n          CircleAvatar(\r\n            backgroundColor: theme.colors.surfaceContainer,\r\n            radius: 18,\r\n            child: Icon(\r\n              Icons.person_outline,\r\n              color: theme.colors.primary,\r\n              size: 20,\r\n            ),\r\n          ),\r\n          const SizedBox(width: 12),\r\n          Expanded(\r\n            child: Column(\r\n              crossAxisAlignment: CrossAxisAlignment.start,\r\n              mainAxisSize: MainAxisSize.min,\r\n              children: [\r\n                Text(\r\n                  authState.userName ??",
             ".tr(),\r\n                  style: theme.typography.bodyMedium.copyWith(\r\n                    fontWeight: FontWeight.w600,\r\n                  ),\r\n                ),\r\n                Text(\r\n                  authState.role ??",
-            ".tr(),\r\n                  style: theme.typography.bodySmall.copyWith(\r\n                    color: theme.colors.onSurfaceVariant,\r\n                  ),\r\n                ),\r\n              ],\r\n            ),\r\n          ),\r\n          IconButton(\r\n            icon: Icon(\r\n              Icons.logout_outlined,\r\n              color: theme.colors.error,\r\n              size: 20,\r\n            ),\r\n            onPressed: () {\r\n              context.go("
+            ".tr(),\r\n                  style: theme.typography.bodySmall.copyWith(\r\n                    color: theme.colors.onSurfaceVariant,\r\n                  ),\r\n                ),\r\n              ],\r\n            ),\r\n          ),\r\n          IconButton(key: const Key(",
+            "), \r\n            icon: Icon(\r\n              Icons.logout_outlined,\r\n              color: theme.colors.error,\r\n              size: 20,\r\n            ),\r\n            onPressed: () {\r\n              context.go("
           ],
           "components": [
             "Column",
@@ -614,7 +677,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 9,
-            "textElementsCount": 36
+            "textElementsCount": 38
           }
         },
         {
@@ -877,6 +940,7 @@
             "Click to upload security token payload",
             "Supported files: JSON, YAML (Max size: 10MB)",
             "${(uploadProgress * 100).toInt()}% uploaded...",
+            "dynamic_screen_view_textbutton_button_1",
             "Back",
             "Continue to Signature",
             "Signature Verification Complete",
@@ -885,6 +949,7 @@
             "$step",
             "Executive Hub: Platform Telemetry & Analytics",
             "Active Office: ${widget.metadata.office} | ID: ${widget.metadata.id}",
+            "dynamic_screen_view_iconbutton_button_1",
             "System Load Rate",
             "${currentLoad.toInt()}%",
             "PHI Integrity Pass",
@@ -907,7 +972,8 @@
             ",\r\n                        style: TextStyle(\r\n                          color: Colors.white.withValues(alpha: 0.5),\r\n                          fontFamily:",
             ",\r\n                  color: Colors.greenAccent,\r\n                ),\r\n                _buildOutlineBox(\r\n                  context,\r\n                  top: 24,\r\n                  right: 24,\r\n                  width: context.s(600),\r\n                  height: context.s(60),\r\n                  label:",
             ",\r\n                  color: Colors.purpleAccent,\r\n                ),\r\n                _buildOutlineBox(\r\n                  context,\r\n                  bottom: 24,\r\n                  left: 24,\r\n                  width: context.s(600),\r\n                  height: context.s(200),\r\n                  label:",
-            ",\r\n                        style: theme.typography.labelBold.copyWith(color: Colors.white, fontSize: context.s(14)),\r\n                      ),\r\n                    ],\r\n                  ),\r\n                  SizedBox(height: context.s(16)),\r\n                  TextField(\r\n                    style: const TextStyle(color: Colors.white, fontFamily:",
+            ",\r\n                        style: theme.typography.labelBold.copyWith(color: Colors.white, fontSize: context.s(14)),\r\n                      ),\r\n                    ],\r\n                  ),\r\n                  SizedBox(height: context.s(16)),\r\n                  TextField(key: const Key(",
+            "), \r\n                    style: const TextStyle(color: Colors.white, fontFamily:",
             "),\r\n                    decoration: InputDecoration(\r\n                      hintText:",
             ",\r\n                      hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3)),\r\n                      prefixIcon: const Icon(LucideIcons.search, color: Colors.white54),\r\n                      filled: true,\r\n                      fillColor: const Color(0xFF0D152D),\r\n                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(context.s(8)), borderSide: BorderSide.none),\r\n                    ),\r\n                    onChanged: (val) {\r\n                      setState(() {\r\n                        jsonSearchQuery = val;\r\n                      });\r\n                    },\r\n                  ),\r\n                  SizedBox(height: context.s(20)),\r\n                  Expanded(\r\n                    child: Container(\r\n                      width: double.infinity,\r\n                      padding: EdgeInsets.all(context.s(16)),\r\n                      decoration: BoxDecoration(\r\n                        color: const Color(0xFF02040A),\r\n                        borderRadius: BorderRadius.circular(context.s(12)),\r\n                        border: Border.all(color: const Color(0xFF1E293B)),\r\n                      ),\r\n                      child: SingleChildScrollView(\r\n                        child: Text(\r\n                          prettyJson,\r\n                          style: TextStyle(\r\n                            color: const Color(0xFF00FFCC),\r\n                            fontFamily:",
             ", style: TextStyle(color: color, fontSize: 14))),\r\n            Positioned(top: 2, right: 2, child: Text(",
@@ -991,7 +1057,7 @@
             "hasController": false,
             "issuesCount": 0,
             "labelsCount": 57,
-            "textElementsCount": 180
+            "textElementsCount": 183
           }
         },
         {
@@ -1037,6 +1103,7 @@
             "You do not have the required permissions to view this screen."
           ],
           "textElements": [
+            "state_widgets_elevatedbutton_button_1",
             "Retry",
             "Something went wrong",
             "Access Restricted",
@@ -1055,7 +1122,7 @@
             "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 5
+            "textElementsCount": 6
           }
         },
         {
@@ -1309,7 +1376,9 @@
             "AGENT TELEMETRY CONSOLE HUD",
             "data-cy-btn-dispatch",
             "DISPATCH AGENT",
+            "control_center_screen_iconbutton_button_1",
             "Trigger Retest",
+            "control_center_screen_iconbutton_button_2",
             "Verify Screen UI",
             "RELATIONAL COMPLIANCE PROOF",
             "No telemetry proof generated yet.",
@@ -1321,12 +1390,12 @@
             "AUDIT TELEMETRY LOG:",
             "audit_logs",
             "runtime_exception",
-            ",\n                              style: const TextStyle(fontFamily:",
-            ", fontSize: 9, color: Colors.white70),\n                            ),\n                          ),\n                          if (selectedTask.proof?[",
+            ",\r\n                              style: const TextStyle(fontFamily:",
+            ", fontSize: 9, color: Colors.white70),\r\n                            ),\r\n                          ),\r\n                          if (selectedTask.proof?[",
             "] != null || selectedTask.proof?[",
-            "] != null) ...[\n                            const SizedBox(height: 12),\n                            const Text(",
-            ",\n                              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.cyan, fontFamily:",
-            "),\n                            ),\n                            const SizedBox(height: 4),\n                            Text(\n                              selectedTask.proof?[",
+            "] != null) ...[\r\n                            const SizedBox(height: 12),\r\n                            const Text(",
+            ",\r\n                              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.cyan, fontFamily:",
+            "),\r\n                            ),\r\n                            const SizedBox(height: 4),\r\n                            Text(\r\n                              selectedTask.proof?[",
             "target_file"
           ],
           "components": [
@@ -1362,7 +1431,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 20,
-            "textElementsCount": 60
+            "textElementsCount": 62
           }
         },
         {
@@ -1770,13 +1839,13 @@
             "Deployment & Verification Center",
             "Monorepo compilation, live handshakes, role authentication checks and test logs",
             "data-cy-deploy-card-${d.appName}",
-            ").toUpperCase(),\n                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),\n                  ),\n                  const SizedBox(height: 2),\n                  Row(\n                    children: [\n                      Icon(\n                        d.platform ==",
-            "),\n                onPressed: () async {\n                  if (await canLaunchUrl(targetUrl)) {\n                    await launchUrl(targetUrl);\n                  }\n                },\n                icon: const Icon(LucideIcons.externalLink, size: 12),\n                label: const Text(",
-            "),\n              onPressed: () {\n                ref.read(activeLogViewProvider.notifier).state = d;\n              },\n              style: ElevatedButton.styleFrom(\n                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.08),\n                foregroundColor: Theme.of(context).colorScheme.primary,\n                elevation: 0,\n                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),\n                minimumSize: Size.zero,\n                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),\n              ),\n              child: const Row(\n                mainAxisSize: MainAxisSize.min,\n                children: [\n                  Icon(LucideIcons.terminal, size: 14),\n                  SizedBox(width: 4),\n                  Text(",
-            ", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),\n                ],\n              ),\n            ),\n          ],\n        ),\n      ),\n    );\n  }\n\n  Widget _buildLogViewerOverlay(BuildContext context, WidgetRef ref, PlatformDeployment d) {\n    return Container(\n      color: Colors.black.withOpacity(0.6),\n      alignment: Alignment.center,\n      child: Card(\n        key: const ValueKey(",
-            ",\n                        style: const TextStyle(\n                          color: Colors.white,\n                          fontWeight: FontWeight.bold,\n                          fontSize: 16,\n                        ),\n                      ),\n                    ],\n                  ),\n                  IconButton(\n                    key: const ValueKey(",
-            ",\n                      style: const TextStyle(\n                        color: Colors.greenAccent,\n                        fontFamily:",
-            "),\n                  onPressed: () => ref.read(activeLogViewProvider.notifier).state = null,\n                  child: const Text("
+            ").toUpperCase(),\r\n                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),\r\n                  ),\r\n                  const SizedBox(height: 2),\r\n                  Row(\r\n                    children: [\r\n                      Icon(\r\n                        d.platform ==",
+            "),\r\n                onPressed: () async {\r\n                  if (await canLaunchUrl(targetUrl)) {\r\n                    await launchUrl(targetUrl);\r\n                  }\r\n                },\r\n                icon: const Icon(LucideIcons.externalLink, size: 12),\r\n                label: const Text(",
+            "),\r\n              onPressed: () {\r\n                ref.read(activeLogViewProvider.notifier).state = d;\r\n              },\r\n              style: ElevatedButton.styleFrom(\r\n                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.08),\r\n                foregroundColor: Theme.of(context).colorScheme.primary,\r\n                elevation: 0,\r\n                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),\r\n                minimumSize: Size.zero,\r\n                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),\r\n              ),\r\n              child: const Row(\r\n                mainAxisSize: MainAxisSize.min,\r\n                children: [\r\n                  Icon(LucideIcons.terminal, size: 14),\r\n                  SizedBox(width: 4),\r\n                  Text(",
+            ", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),\r\n                ],\r\n              ),\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n\r\n  Widget _buildLogViewerOverlay(BuildContext context, WidgetRef ref, PlatformDeployment d) {\r\n    return Container(\r\n      color: Colors.black.withOpacity(0.6),\r\n      alignment: Alignment.center,\r\n      child: Card(\r\n        key: const ValueKey(",
+            ",\r\n                        style: const TextStyle(\r\n                          color: Colors.white,\r\n                          fontWeight: FontWeight.bold,\r\n                          fontSize: 16,\r\n                        ),\r\n                      ),\r\n                    ],\r\n                  ),\r\n                  IconButton(\r\n                    key: const ValueKey(",
+            ",\r\n                      style: const TextStyle(\r\n                        color: Colors.greenAccent,\r\n                        fontFamily:",
+            "),\r\n                  onPressed: () => ref.read(activeLogViewProvider.notifier).state = null,\r\n                  child: const Text("
           ],
           "components": [
             "SafeArea",
@@ -1837,6 +1906,7 @@
             "Web App (PWA)",
             "Windows (MSIX)",
             "Linux (AppStream)",
+            "app_entry_form_elevatedbutton_button_1",
             "Application ${_nameController.text} registered successfully under ${_status}!",
             "Register Application"
           ],
@@ -1857,7 +1927,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 7,
-            "textElementsCount": 15
+            "textElementsCount": 16
           }
         },
         {
@@ -2163,6 +2233,7 @@
             "governance.dashboard.export_csv",
             "Export",
             "governance.dashboard.rescan",
+            "governance_dashboard_textfield_input_1",
             "Search screens...",
             "Detected Architectural Issues",
             "Showing ${filteredIssues.length} of ${report.totalIssues} issues",
@@ -2193,7 +2264,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 16,
-            "textElementsCount": 30
+            "textElementsCount": 31
           }
         },
         {
@@ -2313,12 +2384,15 @@
             "owner",
             "Unassigned",
             "sourcePath",
+            "governance_issue_table_iconbutton_button_1",
             "Open in VS Code",
             "fixProperty",
+            "governance_issue_table_iconbutton_button_2",
             "Auto-Fix Registry",
             "fixValue",
             "governance.issueTable.fixSuccess",
             "governance.issueTable.fixFailed",
+            "governance_issue_table_iconbutton_button_3",
             "Manual Remediate",
             "governance.issueTable.remediationInitiated"
           ],
@@ -2339,7 +2413,7 @@
             "hasController": false,
             "issuesCount": 0,
             "labelsCount": 8,
-            "textElementsCount": 18
+            "textElementsCount": 21
           }
         },
         {
@@ -2533,7 +2607,8 @@
             "endpoint",
             "id",
             "drift",
-            ").toUpperCase(),\r\n                        style: TextStyle(\r\n                          color: color,\r\n                          fontSize: 10,\r\n                          fontWeight: FontWeight.bold,\r\n                        ),\r\n                      ),\r\n                    ),\r\n                  ),\r\n                  DataCell(\r\n                    Text(\r\n                      identity,\r\n                      style: const TextStyle(\r\n                        fontWeight: FontWeight.bold,\r\n                        fontFamily:"
+            ").toUpperCase(),\r\n                        style: TextStyle(\r\n                          color: color,\r\n                          fontSize: 10,\r\n                          fontWeight: FontWeight.bold,\r\n                        ),\r\n                      ),\r\n                    ),\r\n                  ),\r\n                  DataCell(\r\n                    Text(\r\n                      identity,\r\n                      style: const TextStyle(\r\n                        fontWeight: FontWeight.bold,\r\n                        fontFamily:",
+            ",\r\n                        fontSize: 11,\r\n                      ),\r\n                    ),\r\n                  ),\r\n                  DataCell(\r\n                    SizedBox(\r\n                      width: 200,\r\n                      child: Text(\r\n                        issue.issue,\r\n                        style: const TextStyle(fontSize: 12),\r\n                      ),\r\n                    ),\r\n                  ),\r\n                  DataCell(\r\n                    SizedBox(\r\n                      width: 250,\r\n                      child: Text(\r\n                        issue.suggestion,\r\n                        style: const TextStyle(\r\n                          fontSize: 12,\r\n                          color: Colors.blue,\r\n                          fontStyle: FontStyle.italic,\r\n                        ),\r\n                      ),\r\n                    ),\r\n                  ),\r\n                  DataCell(\r\n                    IconButton(key: const Key("
           ],
           "components": [
             "Column",
@@ -2551,7 +2626,7 @@
             "hasController": true,
             "issuesCount": 0,
             "labelsCount": 8,
-            "textElementsCount": 15
+            "textElementsCount": 16
           }
         },
         {
@@ -2623,7 +2698,6 @@
             "PrimeCare Enterprise"
           ],
           "components": [
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -2646,10 +2720,10 @@
       "verificationLog": "Verification passed for primecare_corporate",
       "i18n": {
         "appName": "primecare_corporate",
-        "enKeys": 1968,
-        "esKeys": 1864,
-        "frKeys": 1864,
-        "parityScore": "94.7%",
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
+        "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
       "screens": [
@@ -10422,7 +10496,6 @@
           ],
           "components": [
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -10445,9 +10518,9 @@
       "verificationLog": "Verification passed for primecare_franchise",
       "i18n": {
         "appName": "primecare_franchise",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -15219,7 +15292,6 @@
           "components": [
             "Provider: executionGateProvider",
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -15242,9 +15314,9 @@
       "verificationLog": "Verification passed for primecare_clinic",
       "i18n": {
         "appName": "primecare_clinic",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -15256,11 +15328,175 @@
             "Care Plan",
             "Daily Notes",
             "Client Profile",
+            "Chiropractor Dashboard",
+            "Chiropractor Analytics",
+            "Chiropractor Compliance",
+            "Chiropractor Workflow",
+            "Chiropractor Command Center",
+            "Chiropractor Appointments",
+            "Chiropractor Client Intake",
+            "Chiropractor Assessment",
+            "Chiropractor Treatment Notes",
+            "Chiropractor Exercise Plan",
+            "Chiropractor Billing Link",
+            "Chiropractor Reports",
+            "Chiropractic Assessment",
+            "Adjustment Notes",
+            "Xray Review",
+            "Chiropractic Progress Tracking",
+            "Physiotherapist Dashboard",
+            "Social Worker Dashboard",
+            "RMT Dashboard",
+            "Clinical Director Dashboard",
+            "LPN Dashboard",
+            "LPN Analytics",
+            "LPN Compliance Workflow",
+            "NP Dashboard",
+            "NP Analytics",
+            "NP Compliance Workflow",
+            "HSW Dashboard",
+            "HSW ADL Logger",
+            "HSW Care Plans",
+            "HSW Incident Reports",
+            "HSW Schedule",
+            "Pediatric Dashboard",
+            "Pediatric Analytics",
+            "Pediatric Workflow",
+            "Physician Dashboard",
+            "Physician Analytics",
+            "Physician Workflow",
+            "CNS Dashboard",
+            "Caregiver Dashboard",
+            "Caregiver Tasks",
+            "Caregiver Client Profile",
+            "Caregiver Visit Notes",
+            "Caregiver Schedule",
+            "Caregiver Incident Report",
+            "Therapist Dashboard",
+            "Therapist Analytics",
+            "Therapist Workflow",
+            "Physiotherapist Analytics",
+            "Physiotherapist Appointments",
+            "Physiotherapist Assessment",
+            "Physiotherapist Billing Link",
+            "Physiotherapist Client Intake",
+            "Physiotherapist Command Center",
+            "Physiotherapist Compliance",
+            "Physiotherapist Exercise Plan",
+            "Exercise Prescription",
+            "Progress Tracking",
+            "Physiotherapist Reports",
+            "Physiotherapist Treatment Notes",
+            "Treatment Plan",
+            "Physiotherapist Workflow",
+            "Rmt Analytics",
+            "Rmt Appointments",
+            "Rmt Assessment",
+            "Rmt Billing Link",
+            "Rmt Client Intake",
+            "Client Progress",
+            "Rmt Command Center",
+            "Rmt Compliance",
+            "Rmt Exercise Plan",
+            "Home Care Plan",
+            "Massage Assessment",
+            "Rmt Reports",
+            "Rmt Treatment Notes",
+            "Rmt Workflow",
+            "Social Worker Analytics",
+            "Social Worker Compliance",
+            "Social Worker Workflow",
+            "Clinical Analytics",
+            "Clinical Director Approvals",
+            "Clinic Analytics",
+            "Clinic Compliance",
+            "Clinic Dashboard",
+            "Clinic Workflow",
+            "Clinical Compliance",
+            "Clinical Director Compliance",
+            "Compliance Review",
+            "Clinical Dashboard",
+            "Incident Oversight",
+            "Clinical Director Incident Review",
+            "Clinical Operations4 K",
+            "Clinical Director Performance",
+            "Clinical Quality",
+            "Clinical Director Reports",
+            "Staff Performance",
+            "Clinical Director Staff Quality",
+            "Clinical Workflow",
+            "Care Plan Review",
+            "Rn Dashboard",
+            "Incident Review",
+            "Medication Administration",
+            "Rn Medications",
+            "Rn Patient Charting",
+            "Rn Analytics",
+            "Rn Assessments",
+            "Rn Care Plan Review",
+            "Rn Care Plans",
+            "Rn Command Center",
+            "Rn Compliance",
+            "Rn Incident Review",
+            "Rn Reports",
+            "Rn Tasks",
+            "Rn Workflow",
+            "Shift Report",
+            "Rn Vitals",
+            "Rpn Dashboard",
+            "Medication",
+            "Rpn Medications",
+            "Nursing Task",
+            "Rpn Patient Charting",
+            "Patient Observation",
+            "Rpn Analytics",
+            "Rpn Care Plan Review",
+            "Rpn Command Center",
+            "Rpn Compliance",
+            "Rpn Incident Review",
+            "Rpn Reports",
+            "Rpn Tasks",
+            "Rpn Workflow",
+            "Rpn Vitals",
+            "Vitals Tracking",
+            "Agent Dispatch",
+            "Api Health Dashboard",
+            "Audit",
+            "Drift Findings",
+            "File Verification Dashboard",
+            "Governance Control Room",
+            "Governance Operations4 K",
+            "Pending Task Queue",
+            "Release Operations",
+            "Responsive Preview",
+            "Role Coverage Dashboard",
+            "Runtime Verification",
+            "System Dashboard",
+            "Workflow Execution",
+            "Governance Officer Analytics",
+            "Governance Officer Compliance",
+            "Governance Officer Dashboard",
+            "Governance Officer Workflow",
+            "Rn Field Supervisor Dashboard",
             "Clinical Intelligence",
             "My Shifts",
             "Messaging",
+            "Intake Coordinator Dashboard",
+            "Training Coordinator Dashboard",
+            "Intake Analytics",
+            "Booking",
+            "Client Intake",
+            "Intake Compliance",
+            "Intake Coordinator Analytics",
+            "Intake Coordinator Compliance",
+            "Intake Coordinator Workflow",
+            "Intake Dashboard",
+            "Followup",
+            "Referral Management",
+            "Intake Workflow",
             "Incident Report",
             "History Logs",
+            "QA Dashboard",
             "Care Dashboard",
             "Shift Tracker",
             "My Clients",
@@ -15273,7 +15509,18 @@
             "Check-In",
             "System Logs",
             "Notifications",
-            "Help & Support"
+            "Help & Support",
+            "Psw Care Plan",
+            "Psw Analytics",
+            "Psw Client Profile",
+            "Psw Command Center",
+            "Psw Compliance",
+            "Psw My Shifts",
+            "Psw Workflow",
+            "Shift Tasks",
+            "Vitals Entry",
+            "Psw Vitals Log",
+            "Psw Incident Report"
           ],
           "textElements": [
             "primecare_clinic",
@@ -15283,15 +15530,179 @@
             "Care Plan",
             "Daily Notes",
             "Client Profile",
+            "Chiropractor Dashboard",
+            "Chiropractor Analytics",
+            "Chiropractor Compliance",
+            "Chiropractor Workflow",
+            "Chiropractor Command Center",
+            "Chiropractor Appointments",
+            "Chiropractor Client Intake",
+            "Chiropractor Assessment",
+            "Chiropractor Treatment Notes",
+            "Chiropractor Exercise Plan",
+            "Chiropractor Billing Link",
+            "Chiropractor Reports",
+            "Chiropractic Assessment",
+            "Adjustment Notes",
+            "Xray Review",
+            "Chiropractic Progress Tracking",
+            "Physiotherapist Dashboard",
+            "Social Worker Dashboard",
+            "RMT Dashboard",
+            "Clinical Director Dashboard",
+            "LPN Dashboard",
+            "LPN Analytics",
+            "LPN Compliance Workflow",
+            "NP Dashboard",
+            "NP Analytics",
+            "NP Compliance Workflow",
+            "HSW Dashboard",
+            "HSW ADL Logger",
+            "HSW Care Plans",
+            "HSW Incident Reports",
+            "HSW Schedule",
+            "Pediatric Dashboard",
+            "Pediatric Analytics",
+            "Pediatric Workflow",
+            "Physician Dashboard",
+            "Physician Analytics",
+            "Physician Workflow",
+            "CNS Dashboard",
+            "Caregiver Dashboard",
+            "Caregiver Tasks",
+            "Caregiver Client Profile",
+            "Caregiver Visit Notes",
+            "Caregiver Schedule",
+            "Caregiver Incident Report",
+            "Therapist Dashboard",
+            "Therapist Analytics",
+            "Therapist Workflow",
+            "Physiotherapist Analytics",
+            "Physiotherapist Appointments",
+            "Physiotherapist Assessment",
+            "Physiotherapist Billing Link",
+            "Physiotherapist Client Intake",
+            "Physiotherapist Command Center",
+            "Physiotherapist Compliance",
+            "Physiotherapist Exercise Plan",
+            "Exercise Prescription",
+            "Progress Tracking",
+            "Physiotherapist Reports",
+            "Physiotherapist Treatment Notes",
+            "Treatment Plan",
+            "Physiotherapist Workflow",
+            "Rmt Analytics",
+            "Rmt Appointments",
+            "Rmt Assessment",
+            "Rmt Billing Link",
+            "Rmt Client Intake",
+            "Client Progress",
+            "Rmt Command Center",
+            "Rmt Compliance",
+            "Rmt Exercise Plan",
+            "Home Care Plan",
+            "Massage Assessment",
+            "Rmt Reports",
+            "Rmt Treatment Notes",
+            "Rmt Workflow",
+            "Social Worker Analytics",
+            "Social Worker Compliance",
+            "Social Worker Workflow",
+            "Clinical Analytics",
+            "Clinical Director Approvals",
+            "Clinic Analytics",
+            "Clinic Compliance",
+            "Clinic Dashboard",
+            "Clinic Workflow",
+            "Clinical Compliance",
+            "Clinical Director Compliance",
+            "Compliance Review",
+            "Clinical Dashboard",
+            "Incident Oversight",
+            "Clinical Director Incident Review",
+            "Clinical Operations4 K",
+            "Clinical Director Performance",
+            "Clinical Quality",
+            "Clinical Director Reports",
+            "Staff Performance",
+            "Clinical Director Staff Quality",
+            "Clinical Workflow",
+            "Care Plan Review",
+            "Rn Dashboard",
+            "Incident Review",
+            "Medication Administration",
+            "Rn Medications",
+            "Rn Patient Charting",
+            "Rn Analytics",
+            "Rn Assessments",
+            "Rn Care Plan Review",
+            "Rn Care Plans",
+            "Rn Command Center",
+            "Rn Compliance",
+            "Rn Incident Review",
+            "Rn Reports",
+            "Rn Tasks",
+            "Rn Workflow",
+            "Shift Report",
+            "Rn Vitals",
+            "Rpn Dashboard",
+            "Medication",
+            "Rpn Medications",
+            "Nursing Task",
+            "Rpn Patient Charting",
+            "Patient Observation",
+            "Rpn Analytics",
+            "Rpn Care Plan Review",
+            "Rpn Command Center",
+            "Rpn Compliance",
+            "Rpn Incident Review",
+            "Rpn Reports",
+            "Rpn Tasks",
+            "Rpn Workflow",
+            "Rpn Vitals",
+            "Vitals Tracking",
+            "Agent Dispatch",
+            "Api Health Dashboard",
+            "Audit",
+            "Drift Findings",
+            "File Verification Dashboard",
+            "Governance Control Room",
+            "Governance Operations4 K",
+            "Pending Task Queue",
+            "Release Operations",
+            "Responsive Preview",
+            "Role Coverage Dashboard",
+            "Runtime Verification",
+            "System Dashboard",
+            "Workflow Execution",
+            "Governance Officer Analytics",
+            "Governance Officer Compliance",
+            "Governance Officer Dashboard",
+            "Governance Officer Workflow",
+            "Rn Field Supervisor Dashboard",
             "clinic_ops",
             "Operations",
             "Clinical Intelligence",
             "My Shifts",
             "Messaging",
+            "Intake Coordinator Dashboard",
+            "Training Coordinator Dashboard",
+            "Intake Analytics",
+            "Booking",
+            "Client Intake",
+            "Intake Compliance",
+            "Intake Coordinator Analytics",
+            "Intake Coordinator Compliance",
+            "Intake Coordinator Workflow",
+            "Intake Dashboard",
+            "Followup",
+            "Referral Management",
+            "Intake Workflow",
             "clinic_safety",
             "Safety & Quality",
             "Incident Report",
             "History Logs",
+            "QA Dashboard",
             "clinic_psw",
             "PSW Care",
             "Care Dashboard",
@@ -15307,6 +15718,17 @@
             "System Logs",
             "Notifications",
             "Help & Support",
+            "Psw Care Plan",
+            "Psw Analytics",
+            "Psw Client Profile",
+            "Psw Command Center",
+            "Psw Compliance",
+            "Psw My Shifts",
+            "Psw Workflow",
+            "Shift Tasks",
+            "Vitals Entry",
+            "Psw Vitals Log",
+            "Psw Incident Report",
             "PrimeCare Clinic Portal"
           ],
           "components": [
@@ -15314,22 +15736,26 @@
             "LucideIcons.clipboardList",
             "LucideIcons.pencil",
             "LucideIcons.userCircle",
-            "LucideIcons.calendarDays",
-            "LucideIcons.messageSquare",
-            "LucideIcons.shieldAlert",
-            "LucideIcons.alertTriangle",
-            "LucideIcons.history",
-            "LucideIcons.userPlus",
             "LucideIcons.home",
+            "LucideIcons.shieldAlert",
+            "LucideIcons.activity",
+            "LucideIcons.terminal",
+            "LucideIcons.calendar",
+            "LucideIcons.userPlus",
+            "LucideIcons.clipboard",
+            "LucideIcons.fileText",
+            "LucideIcons.fileBarChart",
+            "LucideIcons.alertTriangle",
+            "LucideIcons.calendarDays",
+            "LucideIcons.checkSquare",
+            "LucideIcons.circleDot",
+            "LucideIcons.messageSquare",
+            "LucideIcons.history",
             "LucideIcons.clock",
             "LucideIcons.users",
-            "LucideIcons.checkSquare",
-            "LucideIcons.fileText",
             "LucideIcons.user",
-            "LucideIcons.fileBarChart",
             "LucideIcons.folder",
             "LucideIcons.mapPin",
-            "LucideIcons.terminal",
             "LucideIcons.bell",
             "LucideIcons.helpCircle"
           ],
@@ -15338,48 +15764,70 @@
             "riverpodWired": false,
             "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 21,
-            "textElementsCount": 32
+            "labelsCount": 196,
+            "textElementsCount": 207
           }
         },
         {
           "screenName": "CaregiverDashboardScreen",
           "language": "dart",
           "labels": [
-            "CaregiverDashboard",
-            "Error loading features: $error",
-            "CaregiverDashboardScreen is now fully implemented."
+            "data-cy:caregiverdashboard-title",
+            "data-cy:caregiverdashboard-content",
+            "Caregiver Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "Hourly Core Telemetry"
           ],
           "textElements": [
-            "CaregiverDashboard",
-            "Error loading features: $error",
-            "CaregiverDashboardScreen is now fully implemented."
+            "Caregiver",
+            "caregiverdashboard-screen",
+            "data-cy:caregiverdashboard-title",
+            "caregiverdashboard-title",
+            "Caregiver Dashboard",
+            "data-cy:caregiverdashboard-content",
+            "caregiverdashboard-content",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal productivity",
+            "Security Clearance",
+            "Level 4 Approved",
+            "Zero exceptions logged",
+            "Hourly Core Telemetry"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
-            "Provider: caregiverDashboardScreenControllerProvider"
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 6,
+            "textElementsCount": 16
           }
         },
         {
           "screenName": "ChiropractorDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:chiropractordashboard-screen",
+            "data-cy:chiropractordashboard-title",
             "ChiropractorDashboard",
             "Error loading features: $error",
             "ChiropractorDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:chiropractordashboard-screen",
+            "chiropractordashboard-screen",
+            "data-cy:chiropractordashboard-title",
             "ChiropractorDashboard",
             "Error loading features: $error",
             "ChiropractorDashboardScreen is now fully implemented."
@@ -15396,19 +15844,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "ClinicalDirectorDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:clinicaldirectordashboard-screen",
+            "data-cy:clinicaldirectordashboard-title",
             "ClinicalDirectorDashboard",
             "Error loading features: $error",
             "ClinicalDirectorDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:clinicaldirectordashboard-screen",
+            "clinicaldirectordashboard-screen",
+            "data-cy:clinicaldirectordashboard-title",
             "ClinicalDirectorDashboard",
             "Error loading features: $error",
             "ClinicalDirectorDashboardScreen is now fully implemented."
@@ -15425,19 +15878,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "ClinicalDirectorQualityMetricsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:clinicaldirectorqualitymetrics-screen",
+            "data-cy:clinicaldirectorqualitymetrics-title",
             "ClinicalDirectorQualityMetrics",
             "Error loading features: $error",
             "ClinicalDirectorQualityMetricsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:clinicaldirectorqualitymetrics-screen",
+            "clinicaldirectorqualitymetrics-screen",
+            "data-cy:clinicaldirectorqualitymetrics-title",
             "ClinicalDirectorQualityMetrics",
             "Error loading features: $error",
             "ClinicalDirectorQualityMetricsScreen is now fully implemented."
@@ -15454,19 +15912,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "ClinicalDirectorStaffingScreen",
           "language": "dart",
           "labels": [
+            "data-cy:clinicaldirectorstaffing-screen",
+            "data-cy:clinicaldirectorstaffing-title",
             "ClinicalDirectorStaffing",
             "Error loading features: $error",
             "ClinicalDirectorStaffingScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:clinicaldirectorstaffing-screen",
+            "clinicaldirectorstaffing-screen",
+            "data-cy:clinicaldirectorstaffing-title",
             "ClinicalDirectorStaffing",
             "Error loading features: $error",
             "ClinicalDirectorStaffingScreen is now fully implemented."
@@ -15483,19 +15946,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "InfectionControlDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:infectioncontroldashboard-screen",
+            "data-cy:infectioncontroldashboard-title",
             "InfectionControlDashboard",
             "Error loading features: $error",
             "InfectionControlDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:infectioncontroldashboard-screen",
+            "infectioncontroldashboard-screen",
+            "data-cy:infectioncontroldashboard-title",
             "InfectionControlDashboard",
             "Error loading features: $error",
             "InfectionControlDashboardScreen is now fully implemented."
@@ -15512,19 +15980,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "IntakeCoordinatorAssessmentsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:intakecoordinatorassessments-screen",
+            "data-cy:intakecoordinatorassessments-title",
             "IntakeCoordinatorAssessments",
             "Error loading features: $error",
             "IntakeCoordinatorAssessmentsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:intakecoordinatorassessments-screen",
+            "intakecoordinatorassessments-screen",
+            "data-cy:intakecoordinatorassessments-title",
             "IntakeCoordinatorAssessments",
             "Error loading features: $error",
             "IntakeCoordinatorAssessmentsScreen is now fully implemented."
@@ -15541,19 +16014,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "IntakeCoordinatorDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:intakecoordinatordashboard-screen",
+            "data-cy:intakecoordinatordashboard-title",
             "IntakeCoordinatorDashboard",
             "Error loading features: $error",
             "IntakeCoordinatorDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:intakecoordinatordashboard-screen",
+            "intakecoordinatordashboard-screen",
+            "data-cy:intakecoordinatordashboard-title",
             "IntakeCoordinatorDashboard",
             "Error loading features: $error",
             "IntakeCoordinatorDashboardScreen is now fully implemented."
@@ -15570,48 +16048,55 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "IntakeCoordinatorReferralsScreen",
           "language": "dart",
           "labels": [
-            "IntakeCoordinatorReferrals",
-            "Error loading features: $error",
-            "IntakeCoordinatorReferralsScreen is now fully implemented."
+            "data-cy:intakecoordinatorreferrals-title",
+            "data-cy:intakecoordinatorreferrals-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "IntakeCoordinatorReferrals",
-            "Error loading features: $error",
-            "IntakeCoordinatorReferralsScreen is now fully implemented."
+            "IntakeCoordinatorReferralsScreen",
+            "intakecoordinatorreferrals-screen",
+            "data-cy:intakecoordinatorreferrals-title",
+            "intakecoordinatorreferrals-title",
+            "data-cy:intakecoordinatorreferrals-content",
+            "intakecoordinatorreferrals-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: intakeCoordinatorReferralsScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "NurseDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:nursedashboard-screen",
+            "data-cy:nursedashboard-title",
             "NurseDashboard",
             "Error loading features: $error",
             "NurseDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:nursedashboard-screen",
+            "nursedashboard-screen",
+            "data-cy:nursedashboard-title",
             "NurseDashboard",
             "Error loading features: $error",
             "NurseDashboardScreen is now fully implemented."
@@ -15628,19 +16113,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PhysicianDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:physiciandashboard-screen",
+            "data-cy:physiciandashboard-title",
             "PhysicianDashboard",
             "Error loading features: $error",
             "PhysicianDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:physiciandashboard-screen",
+            "physiciandashboard-screen",
+            "data-cy:physiciandashboard-title",
             "PhysicianDashboard",
             "Error loading features: $error",
             "PhysicianDashboardScreen is now fully implemented."
@@ -15657,19 +16147,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PhysiotherapistDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:physiotherapistdashboard-screen",
+            "data-cy:physiotherapistdashboard-title",
             "PhysiotherapistDashboard",
             "Error loading features: $error",
             "PhysiotherapistDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:physiotherapistdashboard-screen",
+            "physiotherapistdashboard-screen",
+            "data-cy:physiotherapistdashboard-title",
             "PhysiotherapistDashboard",
             "Error loading features: $error",
             "PhysiotherapistDashboardScreen is now fully implemented."
@@ -15686,19 +16181,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswCheckInScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswcheckin-screen",
+            "data-cy:pswcheckin-title",
             "PswCheckIn",
             "Error loading features: $error",
             "PswCheckInScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswcheckin-screen",
+            "pswcheckin-screen",
+            "data-cy:pswcheckin-title",
             "PswCheckIn",
             "Error loading features: $error",
             "PswCheckInScreen is now fully implemented."
@@ -15715,19 +16215,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswdashboard-screen",
+            "data-cy:pswdashboard-title",
             "PswDashboard",
             "Error loading features: $error",
             "PswDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswdashboard-screen",
+            "pswdashboard-screen",
+            "data-cy:pswdashboard-title",
             "PswDashboard",
             "Error loading features: $error",
             "PswDashboardScreen is now fully implemented."
@@ -15744,19 +16249,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswDocumentsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswdocuments-screen",
+            "data-cy:pswdocuments-title",
             "PswDocuments",
             "Error loading features: $error",
             "PswDocumentsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswdocuments-screen",
+            "pswdocuments-screen",
+            "data-cy:pswdocuments-title",
             "PswDocuments",
             "Error loading features: $error",
             "PswDocumentsScreen is now fully implemented."
@@ -15773,19 +16283,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswHelpSupportScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswhelpsupport-screen",
+            "data-cy:pswhelpsupport-title",
             "PswHelpSupport",
             "Error loading features: $error",
             "PswHelpSupportScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswhelpsupport-screen",
+            "pswhelpsupport-screen",
+            "data-cy:pswhelpsupport-title",
             "PswHelpSupport",
             "Error loading features: $error",
             "PswHelpSupportScreen is now fully implemented."
@@ -15802,48 +16317,55 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswIncidentReportScreen",
           "language": "dart",
           "labels": [
-            "PswIncidentReport",
-            "Error loading features: $error",
-            "PswIncidentReportScreen is now fully implemented."
+            "data-cy:pswincidentreport-title",
+            "data-cy:pswincidentreport-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "PswIncidentReport",
-            "Error loading features: $error",
-            "PswIncidentReportScreen is now fully implemented."
+            "PswIncidentReportScreen",
+            "pswincidentreport-screen",
+            "data-cy:pswincidentreport-title",
+            "pswincidentreport-title",
+            "data-cy:pswincidentreport-content",
+            "pswincidentreport-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswIncidentReportScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "PswMessagesScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswmessages-screen",
+            "data-cy:pswmessages-title",
             "PswMessages",
             "Error loading features: $error",
             "PswMessagesScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswmessages-screen",
+            "pswmessages-screen",
+            "data-cy:pswmessages-title",
             "PswMessages",
             "Error loading features: $error",
             "PswMessagesScreen is now fully implemented."
@@ -15860,19 +16382,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswNotificationsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswnotifications-screen",
+            "data-cy:pswnotifications-title",
             "PswNotifications",
             "Error loading features: $error",
             "PswNotificationsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswnotifications-screen",
+            "pswnotifications-screen",
+            "data-cy:pswnotifications-title",
             "PswNotifications",
             "Error loading features: $error",
             "PswNotificationsScreen is now fully implemented."
@@ -15889,19 +16416,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswObservationVitalsLogScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswobservationvitalslog-screen",
+            "data-cy:pswobservationvitalslog-title",
             "PswObservationVitalsLog",
             "Error loading features: $error",
             "PswObservationVitalsLogScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswobservationvitalslog-screen",
+            "pswobservationvitalslog-screen",
+            "data-cy:pswobservationvitalslog-title",
             "PswObservationVitalsLog",
             "Error loading features: $error",
             "PswObservationVitalsLogScreen is now fully implemented."
@@ -15918,48 +16450,55 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswPatientProfileScreen",
           "language": "dart",
           "labels": [
-            "PswPatientProfile",
-            "Error loading features: $error",
-            "PswPatientProfileScreen is now fully implemented."
+            "data-cy:pswpatientprofile-title",
+            "data-cy:pswpatientprofile-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "PswPatientProfile",
-            "Error loading features: $error",
-            "PswPatientProfileScreen is now fully implemented."
+            "PatientProfileScreen",
+            "patientprofile-screen",
+            "data-cy:pswpatientprofile-title",
+            "patientprofile-title",
+            "data-cy:pswpatientprofile-content",
+            "patientprofile-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswPatientProfileScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "PswProfileScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswprofile-screen",
+            "data-cy:pswprofile-title",
             "PswProfile",
             "Error loading features: $error",
             "PswProfileScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswprofile-screen",
+            "pswprofile-screen",
+            "data-cy:pswprofile-title",
             "PswProfile",
             "Error loading features: $error",
             "PswProfileScreen is now fully implemented."
@@ -15976,19 +16515,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswReportsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswreports-screen",
+            "data-cy:pswreports-title",
             "PswReports",
             "Error loading features: $error",
             "PswReportsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswreports-screen",
+            "pswreports-screen",
+            "data-cy:pswreports-title",
             "PswReports",
             "Error loading features: $error",
             "PswReportsScreen is now fully implemented."
@@ -16005,48 +16549,55 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswScheduleScreen",
           "language": "dart",
           "labels": [
-            "PswSchedule",
-            "Error loading features: $error",
-            "PswScheduleScreen is now fully implemented."
+            "data-cy:pswschedule-title",
+            "data-cy:pswschedule-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "PswSchedule",
-            "Error loading features: $error",
-            "PswScheduleScreen is now fully implemented."
+            "ScheduleScreen",
+            "schedule-screen",
+            "data-cy:pswschedule-title",
+            "schedule-title",
+            "data-cy:pswschedule-content",
+            "schedule-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswScheduleScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "PswSystemLogsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswsystemlogs-screen",
+            "data-cy:pswsystemlogs-title",
             "PswSystemLogs",
             "Error loading features: $error",
             "PswSystemLogsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswsystemlogs-screen",
+            "pswsystemlogs-screen",
+            "data-cy:pswsystemlogs-title",
             "PswSystemLogs",
             "Error loading features: $error",
             "PswSystemLogsScreen is now fully implemented."
@@ -16063,19 +16614,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswVisitChecklistScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswvisitchecklist-screen",
+            "data-cy:pswvisitchecklist-title",
             "PswVisitChecklist",
             "Error loading features: $error",
             "PswVisitChecklistScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswvisitchecklist-screen",
+            "pswvisitchecklist-screen",
+            "data-cy:pswvisitchecklist-title",
             "PswVisitChecklist",
             "Error loading features: $error",
             "PswVisitChecklistScreen is now fully implemented."
@@ -16092,19 +16648,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswVisitNotesScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswvisitnotes-screen",
+            "data-cy:pswvisitnotes-title",
             "PswVisitNotes",
             "Error loading features: $error",
             "PswVisitNotesScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswvisitnotes-screen",
+            "pswvisitnotes-screen",
+            "data-cy:pswvisitnotes-title",
             "PswVisitNotes",
             "Error loading features: $error",
             "PswVisitNotesScreen is now fully implemented."
@@ -16121,19 +16682,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "RmtDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:rmtdashboard-screen",
+            "data-cy:rmtdashboard-title",
             "RmtDashboard",
             "Error loading features: $error",
             "RmtDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:rmtdashboard-screen",
+            "rmtdashboard-screen",
+            "data-cy:rmtdashboard-title",
             "RmtDashboard",
             "Error loading features: $error",
             "RmtDashboardScreen is now fully implemented."
@@ -16150,19 +16716,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "RnDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:rndashboard-screen",
+            "data-cy:rndashboard-title",
             "RnDashboard",
             "Error loading features: $error",
             "RnDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:rndashboard-screen",
+            "rndashboard-screen",
+            "data-cy:rndashboard-title",
             "RnDashboard",
             "Error loading features: $error",
             "RnDashboardScreen is now fully implemented."
@@ -16179,48 +16750,70 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "RpnDashboardScreen",
           "language": "dart",
           "labels": [
-            "RpnDashboard",
-            "Error loading features: $error",
-            "RpnDashboardScreen is now fully implemented."
+            "data-cy:rpndashboard-title",
+            "data-cy:rpndashboard-content",
+            "Rpn Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "Hourly Core Telemetry"
           ],
           "textElements": [
-            "RpnDashboard",
-            "Error loading features: $error",
-            "RpnDashboardScreen is now fully implemented."
+            "Rpn",
+            "rpndashboard-screen",
+            "data-cy:rpndashboard-title",
+            "rpndashboard-title",
+            "Rpn Dashboard",
+            "data-cy:rpndashboard-content",
+            "rpndashboard-content",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal productivity",
+            "Security Clearance",
+            "Level 4 Approved",
+            "Zero exceptions logged",
+            "Hourly Core Telemetry"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
-            "Provider: rpnDashboardScreenControllerProvider"
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 6,
+            "textElementsCount": 16
           }
         },
         {
           "screenName": "SocialWorkerDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:socialworkerdashboard-screen",
+            "data-cy:socialworkerdashboard-title",
             "SocialWorkerDashboard",
             "Error loading features: $error",
             "SocialWorkerDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:socialworkerdashboard-screen",
+            "socialworkerdashboard-screen",
+            "data-cy:socialworkerdashboard-title",
             "SocialWorkerDashboard",
             "Error loading features: $error",
             "SocialWorkerDashboardScreen is now fully implemented."
@@ -16237,19 +16830,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "TherapistDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:therapistdashboard-screen",
+            "data-cy:therapistdashboard-title",
             "TherapistDashboard",
             "Error loading features: $error",
             "TherapistDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:therapistdashboard-screen",
+            "therapistdashboard-screen",
+            "data-cy:therapistdashboard-title",
             "TherapistDashboard",
             "Error loading features: $error",
             "TherapistDashboardScreen is now fully implemented."
@@ -16266,19 +16864,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "UnknownDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:unknowndashboard-screen",
+            "data-cy:unknowndashboard-title",
             "UnknownDashboard",
             "Error loading features: $error",
             "UnknownDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:unknowndashboard-screen",
+            "unknowndashboard-screen",
+            "data-cy:unknowndashboard-title",
             "UnknownDashboard",
             "Error loading features: $error",
             "UnknownDashboardScreen is now fully implemented."
@@ -16295,48 +16898,95 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PhysicianDashboardScreen",
           "language": "dart",
           "labels": [
-            "PhysicianDashboard",
-            "Error loading features: $error",
-            "PhysicianDashboardScreen is now fully implemented."
+            "data-cy:physiciandashboard-title",
+            "Execute: Button 1",
+            "Physician Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "PhysicianDashboard",
-            "Error loading features: $error",
-            "PhysicianDashboardScreen is now fully implemented."
+            "Physician",
+            "physiciandashboard-screen",
+            "data-cy:physiciandashboard-title",
+            "physiciandashboard-title",
+            "Physician Dashboard",
+            "physiciandashboard-btn-1",
+            "physiciandashboard-content",
+            "physiciandashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "physiciandashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: physicianDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
           "screenName": "PswCareDashboardScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswcaredashboard-screen",
+            "data-cy:pswcaredashboard-title",
             "PswCareDashboard",
             "Error loading features: $error",
             "PswCareDashboardScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswcaredashboard-screen",
+            "pswcaredashboard-screen",
+            "data-cy:pswcaredashboard-title",
             "PswCareDashboard",
             "Error loading features: $error",
             "PswCareDashboardScreen is now fully implemented."
@@ -16353,48 +17003,57 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswCarePlanScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswcareplan-content",
+            "data-cy:pswcareplan-title",
             "PswCarePlan",
-            "Error loading features: $error",
-            "PswCarePlanScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswCarePlanScreen",
+            "pswcareplan-screen",
+            "pswcareplan-title",
             "PswCarePlan",
-            "Error loading features: $error",
-            "PswCarePlanScreen is now fully implemented."
+            "data-cy:pswcareplan-content",
+            "pswcareplan-content",
+            "data-cy:pswcareplan-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswCarePlanScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswCheckInScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswcheckin-screen",
+            "data-cy:pswcheckin-title",
             "PswCheckIn",
             "Error loading features: $error",
             "PswCheckInScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswcheckin-screen",
+            "pswcheckin-screen",
+            "data-cy:pswcheckin-title",
             "PswCheckIn",
             "Error loading features: $error",
             "PswCheckInScreen is now fully implemented."
@@ -16411,48 +17070,57 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswClientProfileScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswclientprofile-content",
+            "data-cy:pswclientprofile-title",
             "PswClientProfile",
-            "Error loading features: $error",
-            "PswClientProfileScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswClientProfileScreen",
+            "pswclientprofile-screen",
+            "pswclientprofile-title",
             "PswClientProfile",
-            "Error loading features: $error",
-            "PswClientProfileScreen is now fully implemented."
+            "data-cy:pswclientprofile-content",
+            "pswclientprofile-content",
+            "data-cy:pswclientprofile-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswClientProfileScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswDailyNotesScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswdailynotes-screen",
+            "data-cy:pswdailynotes-title",
             "PswDailyNotes",
             "Error loading features: $error",
             "PswDailyNotesScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswdailynotes-screen",
+            "pswdailynotes-screen",
+            "data-cy:pswdailynotes-title",
             "PswDailyNotes",
             "Error loading features: $error",
             "PswDailyNotesScreen is now fully implemented."
@@ -16469,77 +17137,111 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswDashboardScreen",
           "language": "dart",
           "labels": [
-            "PswDashboard",
-            "Error loading features: $error",
-            "PswDashboardScreen is now fully implemented."
+            "data-cy:pswdashboard-content",
+            "data-cy:pswdashboard-title",
+            "Psw Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry"
           ],
           "textElements": [
-            "PswDashboard",
-            "Error loading features: $error",
-            "PswDashboardScreen is now fully implemented."
+            "Psw",
+            "pswdashboard-screen",
+            "pswdashboard-title",
+            "Psw Dashboard",
+            "data-cy:pswdashboard-content",
+            "pswdashboard-content",
+            "data-cy:pswdashboard-title",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswDashboardScreenControllerProvider"
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 8,
+            "textElementsCount": 20
           }
         },
         {
           "screenName": "PswDocumentsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswdocuments-content",
+            "data-cy:pswdocuments-title",
             "PswDocuments",
-            "Error loading features: $error",
-            "PswDocumentsScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswDocumentsScreen",
+            "pswdocuments-screen",
+            "pswdocuments-title",
             "PswDocuments",
-            "Error loading features: $error",
-            "PswDocumentsScreen is now fully implemented."
+            "data-cy:pswdocuments-content",
+            "pswdocuments-content",
+            "data-cy:pswdocuments-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswDocumentsScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswHelpSupportScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswhelpsupport-screen",
+            "data-cy:pswhelpsupport-title",
             "PswHelpSupport",
             "Error loading features: $error",
             "PswHelpSupportScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswhelpsupport-screen",
+            "pswhelpsupport-screen",
+            "data-cy:pswhelpsupport-title",
             "PswHelpSupport",
             "Error loading features: $error",
             "PswHelpSupportScreen is now fully implemented."
@@ -16556,48 +17258,57 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswMessagesScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswmessages-content",
+            "data-cy:pswmessages-title",
             "PswMessages",
-            "Error loading features: $error",
-            "PswMessagesScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswMessagesScreen",
+            "pswmessages-screen",
+            "pswmessages-title",
             "PswMessages",
-            "Error loading features: $error",
-            "PswMessagesScreen is now fully implemented."
+            "data-cy:pswmessages-content",
+            "pswmessages-content",
+            "data-cy:pswmessages-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswMessagesScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswMessagingScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswmessaging-screen",
+            "data-cy:pswmessaging-title",
             "PswMessaging",
             "Error loading features: $error",
             "PswMessagingScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswmessaging-screen",
+            "pswmessaging-screen",
+            "data-cy:pswmessaging-title",
             "PswMessaging",
             "Error loading features: $error",
             "PswMessagingScreen is now fully implemented."
@@ -16614,21 +17325,34 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswMyClientsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswclients-screen",
+            "data-cy:pswmyclients-screen",
+            "data-cy:pswmyclients-title",
+            "data-cy:pswclients-content",
+            "data-cy:pswmyclients-content",
+            "data-cy:pswclients-title",
             "PswMyClients",
             "Error loading features: $error",
             "PswMyClientsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswclients-screen",
+            "data-cy:pswmyclients-screen",
+            "pswmyclients-screen",
+            "data-cy:pswmyclients-title",
             "PswMyClients",
+            "data-cy:pswclients-content",
+            "data-cy:pswmyclients-content",
             "Error loading features: $error",
+            "data-cy:pswclients-title",
             "PswMyClientsScreen is now fully implemented."
           ],
           "components": [
@@ -16643,48 +17367,57 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 9,
+            "textElementsCount": 10
           }
         },
         {
           "screenName": "PswMyShiftsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswmyshifts-content",
+            "data-cy:pswmyshifts-title",
             "PswMyShifts",
-            "Error loading features: $error",
-            "PswMyShiftsScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswMyShiftsScreen",
+            "pswmyshifts-screen",
+            "pswmyshifts-title",
             "PswMyShifts",
-            "Error loading features: $error",
-            "PswMyShiftsScreen is now fully implemented."
+            "data-cy:pswmyshifts-content",
+            "pswmyshifts-content",
+            "data-cy:pswmyshifts-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswMyShiftsScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswNotificationsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswnotifications-screen",
+            "data-cy:pswnotifications-title",
             "PswNotifications",
             "Error loading features: $error",
             "PswNotificationsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswnotifications-screen",
+            "pswnotifications-screen",
+            "data-cy:pswnotifications-title",
             "PswNotifications",
             "Error loading features: $error",
             "PswNotificationsScreen is now fully implemented."
@@ -16701,19 +17434,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswProfileScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswprofile-screen",
+            "data-cy:pswprofile-title",
             "PswProfile",
             "Error loading features: $error",
             "PswProfileScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswprofile-screen",
+            "pswprofile-screen",
+            "data-cy:pswprofile-title",
             "PswProfile",
             "Error loading features: $error",
             "PswProfileScreen is now fully implemented."
@@ -16730,19 +17468,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswReportsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswreports-screen",
+            "data-cy:pswreports-title",
             "PswReports",
             "Error loading features: $error",
             "PswReportsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswreports-screen",
+            "pswreports-screen",
+            "data-cy:pswreports-title",
             "PswReports",
             "Error loading features: $error",
             "PswReportsScreen is now fully implemented."
@@ -16759,48 +17502,57 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswShiftTrackerScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswshifttracker-content",
+            "data-cy:pswshifttracker-title",
             "PswShiftTracker",
-            "Error loading features: $error",
-            "PswShiftTrackerScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswShiftTrackerScreen",
+            "pswshifttracker-screen",
+            "pswshifttracker-title",
             "PswShiftTracker",
-            "Error loading features: $error",
-            "PswShiftTrackerScreen is now fully implemented."
+            "data-cy:pswshifttracker-content",
+            "pswshifttracker-content",
+            "data-cy:pswshifttracker-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswShiftTrackerScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswSystemLogsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswsystemlogs-screen",
+            "data-cy:pswsystemlogs-title",
             "PswSystemLogs",
             "Error loading features: $error",
             "PswSystemLogsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:pswsystemlogs-screen",
+            "pswsystemlogs-screen",
+            "data-cy:pswsystemlogs-title",
             "PswSystemLogs",
             "Error loading features: $error",
             "PswSystemLogsScreen is now fully implemented."
@@ -16817,77 +17569,91 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "PswTaskListScreen",
           "language": "dart",
           "labels": [
-            "PswTaskList",
-            "Error loading features: $error",
-            "PswTaskListScreen is now fully implemented."
+            "data-cy:pswtasks-content",
+            "data-cy:pswtasks-title",
+            "PswTasks",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "PswTaskList",
-            "Error loading features: $error",
-            "PswTaskListScreen is now fully implemented."
+            "PswTasksScreen",
+            "pswtasks-screen",
+            "pswtasks-title",
+            "PswTasks",
+            "data-cy:pswtasks-content",
+            "pswtasks-content",
+            "data-cy:pswtasks-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
             "Provider: pswTaskListScreenControllerProvider"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
             "riverpodWired": true,
             "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "PswVisitNotesScreen",
           "language": "dart",
           "labels": [
+            "data-cy:pswvisitnotes-content",
+            "data-cy:pswvisitnotes-title",
             "PswVisitNotes",
-            "Error loading features: $error",
-            "PswVisitNotesScreen is now fully implemented."
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
+            "PswVisitNotesScreen",
+            "pswvisitnotes-screen",
+            "pswvisitnotes-title",
             "PswVisitNotes",
-            "Error loading features: $error",
-            "PswVisitNotesScreen is now fully implemented."
+            "data-cy:pswvisitnotes-content",
+            "pswvisitnotes-content",
+            "data-cy:pswvisitnotes-title",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: pswVisitNotesScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
-            "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 1,
+            "labelsCount": 4,
+            "textElementsCount": 8
           }
         },
         {
           "screenName": "RnChartingScreen",
           "language": "dart",
           "labels": [
+            "data-cy:rncharting-screen",
+            "data-cy:rncharting-title",
             "RnCharting",
             "Error loading features: $error",
             "RnChartingScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:rncharting-screen",
+            "rncharting-screen",
+            "data-cy:rncharting-title",
             "RnCharting",
             "Error loading features: $error",
             "RnChartingScreen is now fully implemented."
@@ -16904,193 +17670,317 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "RnDashboardScreen",
           "language": "dart",
           "labels": [
-            "RnDashboard",
-            "Error loading features: $error",
-            "RnDashboardScreen is now fully implemented."
+            "data-cy:rndashboard-title",
+            "data-cy:rndashboard-content",
+            "Rn Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry"
           ],
           "textElements": [
-            "RnDashboard",
-            "Error loading features: $error",
-            "RnDashboardScreen is now fully implemented."
+            "Rn",
+            "rndashboard-screen",
+            "data-cy:rndashboard-title",
+            "rndashboard-title",
+            "Rn Dashboard",
+            "data-cy:rndashboard-content",
+            "rndashboard-content",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
-            "Provider: rnDashboardScreenControllerProvider"
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 8,
+            "textElementsCount": 20
           }
         },
         {
           "screenName": "RnMedicationsScreen",
           "language": "dart",
           "labels": [
-            "RnMedications",
-            "Error loading features: $error",
-            "RnMedicationsScreen is now fully implemented."
+            "data-cy:rnmedications-title",
+            "data-cy:rnmedications-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "RnMedications",
-            "Error loading features: $error",
-            "RnMedicationsScreen is now fully implemented."
+            "MedicationScreen",
+            "rnmedications-screen medication-screen",
+            "data-cy:rnmedications-title",
+            "rnmedications-title medication-title",
+            "data-cy:rnmedications-content",
+            "rnmedications-content medication-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: rnMedicationsScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "RnMessagingScreen",
           "language": "dart",
           "labels": [
-            "RnMessaging",
-            "Error loading features: $error",
-            "RnMessagingScreen is now fully implemented."
+            "data-cy:rnmessaging-title",
+            "data-cy:rnmessaging-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "RnMessaging",
-            "Error loading features: $error",
-            "RnMessagingScreen is now fully implemented."
+            "MessagingScreen",
+            "messaging-screen",
+            "data-cy:rnmessaging-title",
+            "messaging-title",
+            "data-cy:rnmessaging-content",
+            "messaging-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: rnMessagingScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "RnVitalsScreen",
           "language": "dart",
           "labels": [
-            "RnVitals",
-            "Error loading features: $error",
-            "RnVitalsScreen is now fully implemented."
+            "data-cy:rnvitals-title",
+            "data-cy:rnvitals-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "textElements": [
-            "RnVitals",
-            "Error loading features: $error",
-            "RnVitalsScreen is now fully implemented."
+            "RnVitalsScreen",
+            "rnvitals-screen",
+            "data-cy:rnvitals-title",
+            "rnvitals-title",
+            "data-cy:rnvitals-content",
+            "rnvitals-content",
+            "Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization."
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
-            "Column",
-            "Icons.check_circle_outline",
-            "Provider: rnVitalsScreenControllerProvider"
+            "SingleChildScrollView",
+            "Column"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
             "labelsCount": 3,
-            "textElementsCount": 3
+            "textElementsCount": 7
           }
         },
         {
           "screenName": "ChiropractorDashboardScreen",
           "language": "dart",
           "labels": [
-            "ChiropractorDashboard",
-            "Error loading features: $error",
-            "ChiropractorDashboardScreen is now fully implemented."
+            "data-cy:chiropractordashboard-title",
+            "Execute: Button 1",
+            "Chiropractor Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized.",
+            "Security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error loading features: $error"
           ],
           "textElements": [
-            "ChiropractorDashboard",
-            "Error loading features: $error",
-            "ChiropractorDashboardScreen is now fully implemented."
+            "Chiropractor",
+            "chiropractordashboard-screen",
+            "data-cy:chiropractordashboard-title",
+            "chiropractordashboard-title",
+            "Chiropractor Dashboard",
+            "chiropractordashboard-btn-1",
+            "chiropractordashboard-content",
+            "chiropractordashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized.",
+            "Security sync complete.",
+            "chiropractordashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "chiropractordashboard-loading",
+            "Error loading features: $error"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: chiropractorDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 13,
+            "textElementsCount": 29
           }
         },
         {
           "screenName": "ClinicalDirectorDashboardScreen",
           "language": "dart",
           "labels": [
-            "ClinicalDirectorDashboard",
-            "Error loading features: $error",
-            "ClinicalDirectorDashboardScreen is now fully implemented."
+            "Execute: Button 1",
+            "data-cy:clinicaldirectordashboard-title",
+            "Clinical Director Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "ClinicalDirectorDashboard",
-            "Error loading features: $error",
-            "ClinicalDirectorDashboardScreen is now fully implemented."
+            "ClinicalDirector",
+            "clinicaldirectordashboard-screen data-cy:clinicaldashboard-screen",
+            "clinicaldirectordashboard-title data-cy:clinicaldashboard-title",
+            "clinicaldirectordashboard-title",
+            "Clinical Director Dashboard",
+            "clinicaldirectordashboard-btn-1",
+            "clinicaldirectordashboard-content data-cy:clinicaldashboard-content",
+            "clinicaldirectordashboard-btn-2",
+            "Execute: Button 1",
+            "data-cy:clinicaldirectordashboard-title",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "clinicaldirectordashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: clinicalDirectorDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 28
           }
         },
         {
           "screenName": "ClinicHistoryLogsScreen",
           "language": "dart",
           "labels": [
+            "data-cy:clinichistorylogs-screen",
+            "data-cy:clinichistorylogs-title",
             "ClinicHistoryLogs",
             "Error loading features: $error",
             "ClinicHistoryLogsScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:clinichistorylogs-screen",
+            "clinichistorylogs-screen",
+            "data-cy:clinichistorylogs-title",
             "ClinicHistoryLogs",
             "Error loading features: $error",
             "ClinicHistoryLogsScreen is now fully implemented."
@@ -17107,19 +17997,24 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "ClinicIncidentReportScreen",
           "language": "dart",
           "labels": [
+            "data-cy:clinicincidentreport-screen",
+            "data-cy:clinicincidentreport-title",
             "ClinicIncidentReport",
             "Error loading features: $error",
             "ClinicIncidentReportScreen is now fully implemented."
           ],
           "textElements": [
+            "data-cy:clinicincidentreport-screen",
+            "clinicincidentreport-screen",
+            "data-cy:clinicincidentreport-title",
             "ClinicIncidentReport",
             "Error loading features: $error",
             "ClinicIncidentReportScreen is now fully implemented."
@@ -17136,211 +18031,485 @@
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 5,
+            "textElementsCount": 6
           }
         },
         {
           "screenName": "IntakeCoordinatorDashboardScreen",
           "language": "dart",
           "labels": [
-            "IntakeCoordinatorDashboard",
-            "Error loading features: $error",
-            "IntakeCoordinatorDashboardScreen is now fully implemented."
+            "data-cy:intakedashboard-title",
+            "data-cy:intakecoordinatordashboard-title",
+            "Execute: Button 1",
+            "Intake Coordinator Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "IntakeCoordinatorDashboard",
-            "Error loading features: $error",
-            "IntakeCoordinatorDashboardScreen is now fully implemented."
+            "IntakeCoordinator",
+            "intakedashboard-screen",
+            "intakecoordinatordashboard-screen",
+            "data-cy:intakedashboard-title",
+            "data-cy:intakecoordinatordashboard-title",
+            "intakecoordinatordashboard-title",
+            "Intake Coordinator Dashboard",
+            "intakecoordinatordashboard-btn-1",
+            "intakedashboard-content",
+            "intakecoordinatordashboard-content",
+            "intakecoordinatordashboard-btn-2",
+            "Execute: Button 1",
+            "intakedashboard-title",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "intakecoordinatordashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: intakeCoordinatorDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 13,
+            "textElementsCount": 31
           }
         },
         {
           "screenName": "PhysiotherapistDashboardScreen",
           "language": "dart",
           "labels": [
-            "PhysiotherapistDashboard",
-            "Error loading features: $error",
-            "PhysiotherapistDashboardScreen is now fully implemented."
+            "data-cy:physiotherapistdashboard-title",
+            "Execute: Button 1",
+            "Physiotherapist Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "PhysiotherapistDashboard",
-            "Error loading features: $error",
-            "PhysiotherapistDashboardScreen is now fully implemented."
+            "Physiotherapist",
+            "physiotherapistdashboard-screen",
+            "data-cy:physiotherapistdashboard-title",
+            "physiotherapistdashboard-title",
+            "Physiotherapist Dashboard",
+            "physiotherapistdashboard-btn-1",
+            "physiotherapistdashboard-content",
+            "physiotherapistdashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "physiotherapistdashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: physiotherapistDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
           "screenName": "QaDashboardScreen",
           "language": "dart",
           "labels": [
-            "QaDashboard",
-            "Error loading features: $error",
-            "QaDashboardScreen is now fully implemented."
+            "data-cy:qadashboard-title",
+            "Execute: Button 1",
+            "QA Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "QaDashboard",
-            "Error loading features: $error",
-            "QaDashboardScreen is now fully implemented."
+            "Qa",
+            "qadashboard-screen",
+            "data-cy:qadashboard-title",
+            "qadashboard-title",
+            "QA Dashboard",
+            "qadashboard-btn-1",
+            "qadashboard-content",
+            "qadashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "qadashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: qaDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
           "screenName": "ReceptionistDashboardScreen",
           "language": "dart",
           "labels": [
-            "ReceptionistDashboard",
-            "Error loading features: $error",
-            "ReceptionistDashboardScreen is now fully implemented."
+            "data-cy:receptionistdashboard-title",
+            "data-cy:receptionistdashboard-content",
+            "Admin Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "Hourly Core Telemetry"
           ],
           "textElements": [
-            "ReceptionistDashboard",
-            "Error loading features: $error",
-            "ReceptionistDashboardScreen is now fully implemented."
+            "Admin",
+            "receptionistdashboard-screen",
+            "data-cy:receptionistdashboard-title",
+            "receptionistdashboard-title",
+            "Admin Dashboard",
+            "data-cy:receptionistdashboard-content",
+            "receptionistdashboard-content",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal productivity",
+            "Security Clearance",
+            "Level 4 Approved",
+            "Zero exceptions logged",
+            "Hourly Core Telemetry"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
-            "Provider: receptionistDashboardScreenControllerProvider"
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
-            "riverpodWired": true,
-            "hasController": true,
+            "riverpodWired": false,
+            "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 6,
+            "textElementsCount": 16
           }
         },
         {
           "screenName": "RmtDashboardScreen",
           "language": "dart",
           "labels": [
-            "RmtDashboard",
-            "Error loading features: $error",
-            "RmtDashboardScreen is now fully implemented."
+            "data-cy:rmtdashboard-title",
+            "Execute: Button 1",
+            "RMT Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "RmtDashboard",
-            "Error loading features: $error",
-            "RmtDashboardScreen is now fully implemented."
+            "Rmt",
+            "rmtdashboard-screen",
+            "data-cy:rmtdashboard-title",
+            "rmtdashboard-title",
+            "RMT Dashboard",
+            "rmtdashboard-btn-1",
+            "rmtdashboard-content",
+            "rmtdashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "rmtdashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: rmtDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
           "screenName": "SocialWorkerDashboardScreen",
           "language": "dart",
           "labels": [
-            "SocialWorkerDashboard",
-            "Error loading features: $error",
-            "SocialWorkerDashboardScreen is now fully implemented."
+            "data-cy:socialworkerdashboard-title",
+            "Execute: Button 1",
+            "Social Worker Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "SocialWorkerDashboard",
-            "Error loading features: $error",
-            "SocialWorkerDashboardScreen is now fully implemented."
+            "SocialWorker",
+            "socialworkerdashboard-screen",
+            "data-cy:socialworkerdashboard-title",
+            "socialworkerdashboard-title",
+            "Social Worker Dashboard",
+            "socialworkerdashboard-btn-1",
+            "socialworkerdashboard-content",
+            "socialworkerdashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "socialworkerdashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: socialWorkerDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
           "screenName": "TrainingCoordinatorDashboardScreen",
           "language": "dart",
           "labels": [
-            "TrainingCoordinatorDashboard",
-            "Error loading features: $error",
-            "TrainingCoordinatorDashboardScreen is now fully implemented."
+            "data-cy:trainingcoordinatordashboard-title",
+            "Execute: Button 1",
+            "Training Coordinator Dashboard",
+            "Active Operations",
+            "Security Clearance",
+            "System Latency",
+            "Data Integrity",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "textElements": [
-            "TrainingCoordinatorDashboard",
-            "Error loading features: $error",
-            "TrainingCoordinatorDashboardScreen is now fully implemented."
+            "TrainingCoordinator",
+            "trainingcoordinatordashboard-screen",
+            "data-cy:trainingcoordinatordashboard-title",
+            "trainingcoordinatordashboard-title",
+            "Training Coordinator Dashboard",
+            "trainingcoordinatordashboard-btn-1",
+            "trainingcoordinatordashboard-content",
+            "trainingcoordinatordashboard-btn-2",
+            "Execute: Button 1",
+            "$roleBase Dashboard",
+            "Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.",
+            "Active Operations",
+            "Active",
+            "Optimal",
+            "Security Clearance",
+            "Level 4",
+            "Approved",
+            "System Latency",
+            "18ms",
+            "Data Integrity",
+            "Secure",
+            "Hourly Core Telemetry",
+            "Operational Audit Logs",
+            "System initialized & security sync complete.",
+            "trainingcoordinatordashboard-btn-3",
+            "Execute Operational Audit Scan",
+            "Error: $err"
           ],
           "components": [
             "AppBar",
-            "CircularProgressIndicator",
+            "IconButton",
+            "LucideIcons.refreshCw",
+            "SingleChildScrollView",
             "Column",
-            "Icons.check_circle_outline",
+            "ElevatedButton",
+            "LucideIcons.playCircle",
+            "Row",
+            "LucideIcons.activity",
+            "LucideIcons.shieldCheck",
+            "LucideIcons.zap",
+            "LucideIcons.database",
+            "CircularProgressIndicator",
             "Provider: trainingCoordinatorDashboardScreenControllerProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 0,
+            "buttonsCount": 5,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 3,
-            "textElementsCount": 3
+            "labelsCount": 12,
+            "textElementsCount": 27
           }
         },
         {
@@ -17354,7 +18523,6 @@
           ],
           "components": [
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -17377,9 +18545,9 @@
       "verificationLog": "Verification passed for primecare_client",
       "i18n": {
         "appName": "primecare_client",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -18272,7 +19440,6 @@
           "components": [
             "Provider: executionGateProvider",
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -18295,9 +19462,9 @@
       "verificationLog": "Verification passed for primecare_business_development",
       "i18n": {
         "appName": "primecare_business_development",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -20620,7 +21787,6 @@
           "components": [
             "Provider: executionGateProvider",
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -20643,9 +21809,9 @@
       "verificationLog": "Verification passed for primecare_marketing",
       "i18n": {
         "appName": "primecare_marketing",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -21680,7 +22846,6 @@
           "components": [
             "Provider: executionGateProvider",
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -21703,9 +22868,9 @@
       "verificationLog": "Verification passed for primecare_support",
       "i18n": {
         "appName": "primecare_support",
-        "enKeys": 1964,
-        "esKeys": 1864,
-        "frKeys": 1864,
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
         "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
@@ -22825,7 +23990,6 @@
           "components": [
             "Provider: executionGateProvider",
             "Provider: deepLinkServiceProvider",
-            "Provider: languageProvider",
             "Provider: appRouterProvider"
           ],
           "rawMetrics": {
@@ -22848,10 +24012,10 @@
       "verificationLog": "Verification passed for primecare_enterprise_blueprint",
       "i18n": {
         "appName": "primecare_enterprise_blueprint",
-        "enKeys": 1973,
-        "esKeys": 1875,
-        "frKeys": 1866,
-        "parityScore": "94.8%",
+        "enKeys": 2010,
+        "esKeys": 1912,
+        "frKeys": 1903,
+        "parityScore": "94.9%",
         "status": "⚠️ Gaps Present"
       },
       "screens": [

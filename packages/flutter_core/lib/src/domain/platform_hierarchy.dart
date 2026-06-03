@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../aura_behavioral_telemetry.dart';
+import '../localization/localization_scaffold.dart';
 
 /// Represents a global business policy enforced at the Organization level.
 abstract class Policy {
@@ -143,7 +144,10 @@ abstract class GovernedScreen extends ConsumerWidget {
           );
     });
 
-    return buildGovernedView(context, ref);
+    return LocalizationScaffold(
+      translationKeys: translationKeys,
+      child: buildGovernedView(context, ref),
+    );
   }
 
   /// Concrete screens implement this to provide their "Dumb" UI.

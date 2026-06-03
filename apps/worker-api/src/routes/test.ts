@@ -7,7 +7,9 @@ export const testRouter = new Hono()
 testRouter.post('/seed-role-user', async (c) => {
   // 1. Security Rule: only works when TEST_MODE=true
   // Hono binds env variables either via c.env or process.env depending on adapter
-  const testMode = (c.env && c.env.TEST_MODE === 'true') || (typeof process !== 'undefined' && process.env && process.env.TEST_MODE === 'true')
+  const env = c.env as any
+  const proc = (globalThis as any).process
+  const testMode = (env && env.TEST_MODE === 'true') || (typeof proc !== 'undefined' && proc && proc.env && proc.env.TEST_MODE === 'true')
   if (!testMode) {
     return c.json({ error: 'Forbidden: TEST_MODE is not enabled.' }, 403)
   }
@@ -17,7 +19,7 @@ testRouter.post('/seed-role-user', async (c) => {
   const seedSecret = c.req.header('X-Seed-Secret')
   const hasAdminToken = authHeader && (authHeader.includes('mock-jwt-token-admin') || authHeader.includes('admin'))
   
-  const envPassword = c.env?.TEST_DEFAULT_PASSWORD || 'Test@12345'
+  const envPassword = env?.TEST_DEFAULT_PASSWORD || 'Test@12345'
   const hasSecret = seedSecret === envPassword || 
                     (authHeader && authHeader.includes(envPassword)) || 
                     seedSecret === 'TEST_DEFAULT_PASSWORD' || 

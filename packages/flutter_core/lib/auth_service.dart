@@ -302,36 +302,37 @@ class AuthNotifier extends Notifier<AuthState> {
               preferredLanguage: prePreferredLanguage,
             );
             authListenable.value = true;
-          }
 
-          final apiClient = ref.read(apiClientProvider);
-          final response = await apiClient.get(ApiConfig.endpoints['me']!);
-          if (response.isSuccess) {
-            final data = response.data as Map<String, dynamic>;
-            await prefs.setString('auth_token', 'sso-token');
-            final rawRoles = data['roles'];
-            String roleStr = 'psw';
-            if (rawRoles is List && rawRoles.isNotEmpty) {
-              roleStr = rawRoles.first.toString();
-            } else if (rawRoles != null) {
-              roleStr = rawRoles.toString();
+            try {
+              final apiClient = ref.read(apiClientProvider);
+              final response = await apiClient.get(ApiConfig.endpoints['me']!);
+              if (response.isSuccess) {
+                final data = response.data as Map<String, dynamic>;
+                await prefs.setString('auth_token', 'sso-token');
+                final rawRoles = data['roles'];
+                String roleStr = 'psw';
+                if (rawRoles is List && rawRoles.isNotEmpty) {
+                  roleStr = rawRoles.first.toString();
+                } else if (rawRoles != null) {
+                  roleStr = rawRoles.toString();
+                }
+                await prefs.setString('auth_role', roleStr);
+                await prefs.setString('auth_user_id', data['userId']?.toString() ?? '');
+                // keep existing username if any
+              } else {
+                 if (prefs.getString('auth_token') != 'demo-token') {
+                   await prefs.remove('auth_token');
+                   await prefs.remove('auth_role');
+                   // Clear active state to force login on failure
+                   state = AuthState();
+                   authListenable.value = false;
+                 }
+              }
+            } catch (e) {
+              // In case of network error, we might still want to clear or keep? 
+              // For true SSO, no cookie = no auth. But we'll leave it for now.
             }
-            await prefs.setString('auth_role', roleStr);
-            await prefs.setString('auth_user_id', data['userId']?.toString() ?? '');
-            // keep existing username if any
-          } else {
-             if (prefs.getString('auth_token') != 'demo-token') {
-               await prefs.remove('auth_token');
-               await prefs.remove('auth_role');
-               // Clear active state to force login on failure
-               state = AuthState();
-               authListenable.value = false;
-             }
           }
-        } catch (e) {
-          // In case of network error, we might still want to clear or keep? 
-          // For true SSO, no cookie = no auth. But we'll leave it for now.
-        }
 
         final token = prefs.getString('auth_token');
         final role = prefs.getString('auth_role');
@@ -363,13 +364,9 @@ class AuthNotifier extends Notifier<AuthState> {
                   'userName': userName,
                 },
               );
-        } else {
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .passGate(
-                ExecutionGateCategory.auth,
-                'Initial build: No stored session found',
-              );
+        }
+        } catch (e) {
+          debugPrint('SSO Restoration error: $e');
         }
       },
       onError: (e, st) {

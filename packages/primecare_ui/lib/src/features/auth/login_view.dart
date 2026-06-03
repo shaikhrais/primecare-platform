@@ -17,113 +17,65 @@ class LoginView extends GovernedScreen {
   String get requiredRole => 'Public';
 
   @override
+  List<String> get translationKeys => [
+        'login_authorized_access',
+        'login_enter_credentials',
+        'login_identifier_label',
+        'login_security_token_label',
+        'login_forgot_password',
+        'login_button',
+        'login_access_demo',
+        'login_role_simulation_center',
+      ];
+
+  @override
   Widget buildGovernedView(BuildContext context, WidgetRef ref) {
-    final theme = context.theme;
+    // Watch languageProvider to trigger immediate UI repaint and translations update on switcher selection
+    ref.watch(languageProvider);
+
     final state = ref.watch(loginControllerProvider);
     final isDesktop = MediaQuery.of(context).size.width > 900;
 
-    return Scaffold(
-      backgroundColor: theme.colors.background,
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // 1. Half Billboard (Left Side)
-          if (isDesktop)
-            const Expanded(flex: 1, child: _LoginBillboard()),
+    Widget formContent = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (!isDesktop) const _LoginBranding(),
+        if (!isDesktop) const SizedBox(height: 48),
+        _LoginCard(state: state),
+        const SizedBox(height: 48),
+        const _LoginFooter(),
+        const SizedBox(height: 24),
+        const _RoleSimulationCenter(),
+      ],
+    );
 
-          // 2. Login Form (Right Side)
-          Expanded(
-            flex: 1,
-            child: Stack(
+    return AuthParentLayout(
+      child: isDesktop
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const _BackgroundVisuals(),
-                SafeArea(
-                  child: Center(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: theme.spacing.xl,
-                          vertical: theme.spacing.xl,
-                        ),
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 440,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (!isDesktop) const _LoginBranding(),
-                              if (!isDesktop) const SizedBox(height: 48),
-                              _LoginCard(state: state),
-                              const SizedBox(height: 48),
-                              const _LoginFooter(),
-                              const SizedBox(height: 24),
-                              const _RoleSimulationCenter(),
-                            ],
-                          ),
-                        ),
-                      ),
+                const Expanded(
+                  flex: 5,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    child: SizedBox(
+                      height: 600,
+                      child: _LoginBillboard(),
                     ),
                   ),
                 ),
-                const Positioned(
-                  top: 16,
-                  right: 16,
-                  child: _LoginLanguageSwitcher(),
+                const SizedBox(width: 48),
+                Expanded(
+                  flex: 4,
+                  child: formContent,
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
+            )
+          : formContent,
     );
   }
 }
 
-class _BackgroundVisuals extends StatelessWidget {
-  const _BackgroundVisuals();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: const [0.0, 0.4, 1.0],
-                colors: [
-                  theme.colors.primary.withValues(alpha: 0.08),
-                  theme.colors.background,
-                  theme.colors.secondary.withValues(alpha: 0.05),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: -150,
-          right: -100,
-          child: _BlurredBlob(
-            color: theme.colors.primary.withValues(alpha: 0.12),
-            size: 500,
-          ),
-        ),
-        Positioned(
-          bottom: -100,
-          left: -50,
-          child: _BlurredBlob(
-            color: theme.colors.secondary.withValues(alpha: 0.08),
-            size: 400,
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class _LoginBranding extends StatelessWidget {
   const _LoginBranding();
@@ -183,6 +135,9 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
 
   @override
   Widget build(BuildContext context) {
+    // Watch languageProvider to trigger instant form translations update
+    ref.watch(languageProvider);
+
     final theme = context.theme;
     final controller = ref.read(loginControllerProvider.notifier);
 
@@ -234,7 +189,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                     onChanged: controller.onEmailChanged,
                     validator: (value) {
                       if (value == null || value.isEmpty) return 'Identifier is required';
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) return 'Invalid email format';
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$').hasMatch(value)) return 'Invalid email format';
                       return null;
                     },
                   ),
@@ -579,7 +534,89 @@ class _ActionButtons extends StatelessWidget {
             ),
           ),
         ],
+        const SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Don't have an account? ",
+              style: theme.typography.labelMedium.copyWith(
+                color: theme.colors.onSurfaceVariant.withValues(alpha: 0.8),
+              ),
+            ),
+            TextButton(
+              key: const Key('login_view_textbutton_signup'),
+              onPressed: () => _showSignUpDialog(context),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Text(
+                'Sign Up',
+                style: theme.typography.labelMedium.copyWith(
+                  color: theme.colors.primary,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
+    );
+  }
+
+  void _showSignUpDialog(BuildContext context) {
+    final theme = context.theme;
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.colors.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Row(
+          children: [
+            Icon(Icons.admin_panel_settings_rounded, color: theme.colors.primary, size: 28),
+            const SizedBox(width: 12),
+            Text(
+              'Access Request',
+              style: theme.typography.h3,
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'PrimeCare is a regulated, secure healthcare platform enforcing Zero-Trust access controls.',
+              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Public registration is restricted. To provision a new workspace or register as a provider, coordinator, or client, please contact your regional administrator or care team coordinator.',
+              style: theme.typography.bodyMedium.copyWith(
+                color: theme.colors.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        actions: [
+          ElevatedButton(
+            key: const Key('login_view_elevatedbutton_signup_ok'), 
+            onPressed: () => Navigator.of(context).pop(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              elevation: 0,
+            ),
+            child: const Text('UNDERSTOOD', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -1048,85 +1085,3 @@ class _BlurredBlob extends StatelessWidget {
   }
 }
 
-class _LoginLanguageSwitcher extends ConsumerWidget {
-  const _LoginLanguageSwitcher();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = context.theme;
-    final currentLanguage = ref.watch(languageProvider);
-
-    return Cy(
-      id: 'login-language-switcher',
-      child: PopupMenuButton<String>(
-        key: const Key('login-language-switcher'),
-        offset: const Offset(0, 40),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: theme.colors.border),
-        ),
-        tooltip: 'Change Language',
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: theme.colors.surface.withValues(alpha: 0.8),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: theme.colors.border.withValues(alpha: 0.3),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.language_rounded,
-                color: theme.colors.primary,
-                size: 18,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                currentLanguage.toUpperCase(),
-                style: theme.typography.labelBold.copyWith(
-                  color: theme.colors.onSurface,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ),
-        onSelected: (lang) async {
-          await ref.read(languageProvider.notifier).setLanguage(lang);
-          if (context.mounted) {
-            await context.setLocale(Locale(lang));
-          }
-        },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          PopupMenuItem<String>(
-            value: 'en',
-            child: Cy(
-              id: 'login-language-option-en',
-              container: false,
-              child: Text('English (EN)', style: theme.typography.bodyMedium),
-            ),
-          ),
-          PopupMenuItem<String>(
-            value: 'fr',
-            child: Cy(
-              id: 'login-language-option-fr',
-              container: false,
-              child: Text('Français (FR)', style: theme.typography.bodyMedium),
-            ),
-          ),
-          PopupMenuItem<String>(
-            value: 'es',
-            child: Cy(
-              id: 'login-language-option-es',
-              container: false,
-              child: Text('Español (ES)', style: theme.typography.bodyMedium),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

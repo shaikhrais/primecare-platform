@@ -31,12 +31,6 @@ class PrimeCareSupportApp extends ConsumerWidget {
     // Initialize Deep Link listener for Native SSO
     ref.read(deepLinkServiceProvider);
 
-    // Sync languageProvider with EasyLocalization
-    final langCode = ref.watch(languageProvider);
-    if (context.locale.languageCode != langCode) {
-      Future.microtask(() => context.setLocale(Locale(langCode)));
-    }
-
     final router = ref.watch(appRouterProvider);
     const primeTheme = PrimeThemeData();
 

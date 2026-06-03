@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'psw_task_list_screen_controller.dart';
 
@@ -10,6 +8,7 @@ class PswTaskListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'PswTasksScreen';
+    // ignore: unused_local_variable
     final state = ref.watch(pswTaskListScreenControllerProvider);
 
     return Cy(

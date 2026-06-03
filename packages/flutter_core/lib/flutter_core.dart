@@ -36,6 +36,7 @@ export 'registry/widgets/governance_skeleton.dart';
 export 'registry/widgets/governance_master_layout.dart';
 
 export 'src/localization/language_provider.dart';
+export 'src/localization/localization_scaffold.dart';
 export 'src/registry/dynamic_adapter_resolver.dart';
 export 'src/resilience/app_error_boundary.dart';
 export 'src/resilience/system_recovery_mode.dart';

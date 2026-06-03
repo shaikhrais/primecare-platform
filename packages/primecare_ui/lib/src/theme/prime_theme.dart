@@ -27,6 +27,7 @@ class PrimeCareColors {
   static const Color onSurface = Color(0xFF191C1E);
   static const Color surfaceVariant = Color(0xFFE0E3E5);
   static const Color onSurfaceVariant = Color(0xFF434655);
+  static const Color dashboardBackground = Color(0xFFF1F5F9);
 
   // Extended Surfaces
   static const Color surfaceDim = Color(0xFFD8DADC);
@@ -85,6 +86,7 @@ class PrimeColors {
   final Color tertiary;
   final Color tertiaryContainer;
   final Color background;
+  final Color dashboardBackground;
   final Color surface;
   final Color onSurface;
   final Color onSurfaceVariant;
@@ -132,6 +134,7 @@ class PrimeColors {
     this.tertiary = PrimeCareColors.tertiary,
     this.tertiaryContainer = PrimeCareColors.tertiaryContainer,
     this.background = PrimeCareColors.background,
+    this.dashboardBackground = PrimeCareColors.dashboardBackground,
     this.surface = PrimeCareColors.surface,
     this.onSurface = PrimeCareColors.onSurface,
     this.onSurfaceVariant = PrimeCareColors.onSurfaceVariant,
@@ -182,6 +185,7 @@ class PrimeColors {
     Color? secondary,
     Color? tertiary,
     Color? background,
+    Color? dashboardBackground,
     Color? surface,
     Color? onSurface,
     Color? onSurfaceVariant,
@@ -210,6 +214,7 @@ class PrimeColors {
       secondary: secondary ?? this.secondary,
       tertiary: tertiary ?? this.tertiary,
       background: background ?? this.background,
+      dashboardBackground: dashboardBackground ?? this.dashboardBackground,
       surface: surface ?? this.surface,
       onSurface: onSurface ?? this.onSurface,
       onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,

@@ -1,20 +1,15 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart'
     hide
         PhysicianDashboardScreen,
         RnDashboardScreen,
         RnMedicationsScreen,
         RnVitalsScreen,
-        RnChartingScreen,
-        RnMessagingScreen,
         PswDashboardScreen,
         PswCarePlanScreen,
-        PswDailyNotesScreen,
         PswClientProfileScreen,
         PswMyShiftsScreen,
-        PswMessagingScreen,
         IntakeCoordinatorDashboardScreen,
         QualityAssuranceDashboardScreen,
         TrainingCoordinatorDashboardScreen,
@@ -23,7 +18,6 @@ import 'package:primecare_ui/primecare_ui.dart'
         ChiropractorDashboardScreen,
         PhysiotherapistDashboardScreen,
         SocialWorkerDashboardScreen,
-        ClinicalDirectorDashboardScreen,
         PswMessagesScreen,
         PswVisitNotesScreen,
         QaDashboardScreen,

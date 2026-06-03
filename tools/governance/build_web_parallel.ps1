@@ -16,7 +16,7 @@ foreach ($app in $apps) {
     $job = Start-Job -ScriptBlock {
         param($appName, $root)
         Set-Location -Path "$root\apps\$appName"
-        & flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api
+        & flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api
         if ($LASTEXITCODE -ne 0) {
             Write-Error "Failed building $appName"
             exit 1

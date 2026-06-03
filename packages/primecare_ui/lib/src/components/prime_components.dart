@@ -305,13 +305,13 @@ class SystemIntegrityManifest extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Architectural Parity: 100%',
+                    'auth_success_parity_title'.tr(),
                     style: theme.typography.h3.copyWith(
                       color: theme.colors.primary,
                     ),
                   ),
                   Text(
-                    'All platform registries synchronized and verified.',
+                    'auth_success_parity_subtitle'.tr(),
                     style: theme.typography.bodySmall.copyWith(
                       color: theme.colors.onSurfaceVariant,
                     ),

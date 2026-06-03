@@ -10,7 +10,6 @@ import 'package:primecare_ui/primecare_ui.dart'
         PhysiotherapistDashboardScreen,
         SocialWorkerDashboardScreen,
         RmtDashboardScreen,
-        ClinicalDirectorDashboardScreen,
         IntakeCoordinatorDashboardScreen,
         TrainingCoordinatorDashboardScreen,
         QaDashboardScreen,

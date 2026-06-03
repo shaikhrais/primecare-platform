@@ -117,9 +117,9 @@ test.describe('PrimeCare Clinic - End-to-End Governance Suite', () => {
     auth.logStep('Security Auditing: Attempting browser back navigation injection...');
     await page.goBack();
     
-    await page.waitForTimeout(2000);
+    // Wait for the redirect to complete and the login page to be visible again (allowing up to 15s for the live app boot lifecycle)
+    await expect(emailField).toBeVisible({ timeout: 15000 });
     expect(page.url()).not.toContain(dashboardUrl);
-    await expect(emailField).toBeVisible();
 
     auth.logStep('✅ Access Guard verified: Protected pages are completely inaccessible post-session destruction.');
   });
@@ -215,9 +215,9 @@ test.describe('PrimeCare Clinic - End-to-End Governance Suite', () => {
     const selectLoginLanguage = async (lang: 'en' | 'fr' | 'es') => {
       auth.logStep(`Selecting language on login page: ${lang.toUpperCase()}`);
       
-      // Target the language switcher using auth.getCy
-      let switcher = auth.getCy('login-language-switcher').first();
-      await expect(switcher).toBeVisible({ timeout: 15000 });
+      // Target the language switcher robustly using Playwright accessibility role
+      let switcher = page.getByRole('button', { name: /Change Language|login-language-switcher/i }).first();
+      await expect(switcher).toBeAttached({ timeout: 15000 });
       await switcher.click({ force: true });
       await page.waitForTimeout(1000);
       

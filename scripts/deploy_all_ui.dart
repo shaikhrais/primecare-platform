@@ -122,7 +122,7 @@ void main() async {
         'build',
         'web',
         '--release',
-        '--dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api',
+        '--dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api',
         '--dart-define=SSO_PORTAL_URL=$ssoUrl',
         '--dart-define=APP_BASE_URL=$appUrl',
       ],

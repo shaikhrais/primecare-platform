@@ -31,12 +31,6 @@ class PrimeCareClinicApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Initialize Deep Link listener for Native SSO
     ref.read(deepLinkServiceProvider);
-    
-    // Sync languageProvider with EasyLocalization
-    final langCode = ref.watch(languageProvider);
-    if (context.locale.languageCode != langCode) {
-      Future.microtask(() => context.setLocale(Locale(langCode)));
-    }
 
     final tenant = ClinicTenant();
 

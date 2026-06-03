@@ -23,6 +23,13 @@ class LanguageNotifier extends Notifier<String> {
     );
 
     if (authLanguage != null && authLanguage.isNotEmpty) {
+      if (guestLanguage != authLanguage) {
+        Future.microtask(() async {
+          final p = await SharedPreferences.getInstance();
+          await p.setString(_langKey, authLanguage);
+          await p.setBool('auth_language_selected', true);
+        });
+      }
       return authLanguage;
     }
 
@@ -49,6 +56,7 @@ class LanguageNotifier extends Notifier<String> {
     // Also save to SharedPreferences for guest/persistent use
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_langKey, langCode);
+    await prefs.setBool('auth_language_selected', true);
   }
 }
 

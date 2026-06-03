@@ -1,7 +1,6 @@
 // Governance - Category: service | Purpose: Core implementation file for the Main platform logic.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
 import 'package:web/web.dart' as web;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -37,17 +36,17 @@ class AuthApplication extends PlatformApplication {
 void main() {
   configureUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    ProviderScope(
-      overrides: [
-        platformApplicationProvider.overrideWithValue(AuthApplication()),
-      ],
-      child: const PrimeCareAuthApp(),
-    ),
-  );
+
   if (kIsWeb) {
     SemanticsBinding.instance.ensureSemantics();
   }
+
+  PrimeCareAppRunner.run(
+    appWidget: const PrimeCareAuthApp(),
+    overrides: [
+      platformApplicationProvider.overrideWithValue(AuthApplication()),
+    ],
+  );
 }
 
 class PrimeCareAuthApp extends ConsumerWidget {
@@ -55,12 +54,16 @@ class PrimeCareAuthApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final router = ref.watch(authRouterProvider);
     return MaterialApp.router(
       title: 'PrimeCare Identity Portal',
       theme: ThemeData.light(),
       routerConfig: router,
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }
@@ -69,6 +72,9 @@ class PrimeCareAuthApp extends ConsumerWidget {
 bool _hasForcedLogout = false;
 
 final authRouterProvider = Provider<GoRouter>((ref) {
+  // Clean Rebuild: Recreates GoRouter delegate to force refreshing current active route with new locale context
+  ref.watch(languageProvider);
+
   return GoRouter(
     initialLocation: '/login',
     refreshListenable: authListenable,
@@ -78,7 +84,16 @@ final authRouterProvider = Provider<GoRouter>((ref) {
         return null;
       }
       final isAtLogin = state.uri.path == '/login';
+      final isAtLanguage = state.uri.path == '/language';
       final redirectUri = state.uri.queryParameters['redirect_uri'];
+
+      // Redirection: Check if a language has ever been persistently selected
+      final prefs = ref.read(sharedPreferencesProvider);
+      final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
+
+      if (!hasSelectedLanguage && !isAtLanguage) {
+        return '/language${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+      }
 
       final forceLogin = state.uri.queryParameters['force_login'] == 'true';
       if (forceLogin && !_hasForcedLogout) {
@@ -121,13 +136,17 @@ final authRouterProvider = Provider<GoRouter>((ref) {
         return '/success';
       }
 
-      if (!authState.isAuthenticated && !isAtLogin) {
+      if (!authState.isAuthenticated && !isAtLogin && !isAtLanguage) {
         return '/login${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
       }
 
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/language',
+        builder: (context, state) => const LanguageSelectionView(),
+      ),
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginViewWrapper(),
@@ -168,11 +187,31 @@ class LoginViewWrapper extends ConsumerWidget {
   }
 }
 
-class SuccessProfileView extends ConsumerWidget {
+class SuccessProfileView extends GovernedScreen {
   const SuccessProfileView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  String get featureId => 'auth.success';
+
+  @override
+  String get requiredRole => 'Public';
+
+  @override
+  List<String> get translationKeys => [
+        'auth_success_identity_portal',
+        'auth_success_session_verified',
+        'auth_success_active_session',
+        'auth_success_logged_in_as',
+        'auth_success_assigned_role',
+        'auth_success_session_token',
+        'auth_success_sign_out',
+        'auth_success_parity_title',
+        'auth_success_parity_subtitle',
+        'auth_success_default_user',
+      ];
+
+  @override
+  Widget buildGovernedView(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
     final theme = context.theme;
 
@@ -193,7 +232,7 @@ class SuccessProfileView extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Identity Portal',
+                  'auth_success_identity_portal'.tr(),
                   style: theme.typography.h1.copyWith(
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF0F172A),
@@ -201,7 +240,7 @@ class SuccessProfileView extends ConsumerWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your session is securely verified',
+                  'auth_success_session_verified'.tr(),
                   style: theme.typography.bodyMedium.copyWith(
                     color: const Color(0xFF64748B),
                   ),
@@ -224,7 +263,7 @@ class SuccessProfileView extends ConsumerWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Active Session',
+                            'auth_success_active_session'.tr(),
                             style: theme.typography.labelBold.copyWith(
                               color: Colors.green,
                             ),
@@ -233,21 +272,21 @@ class SuccessProfileView extends ConsumerWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Logged In As',
+                        'auth_success_logged_in_as'.tr(),
                         style: theme.typography.labelMedium.copyWith(
                           color: const Color(0xFF64748B),
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        authState.userName ?? 'PrimeCare User',
+                        authState.userName ?? 'auth_success_default_user'.tr(),
                         style: theme.typography.h2.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Assigned Platform Role',
+                        'auth_success_assigned_role'.tr(),
                         style: theme.typography.labelMedium.copyWith(
                           color: const Color(0xFF64748B),
                         ),
@@ -278,7 +317,7 @@ class SuccessProfileView extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Session Token:',
+                            'auth_success_session_token'.tr(),
                             style: theme.typography.bodySmall.copyWith(
                               color: const Color(0xFF64748B),
                             ),
@@ -303,7 +342,7 @@ class SuccessProfileView extends ConsumerWidget {
                 const SizedBox(height: 32),
 
                 PrimeButton.secondary(
-                  label: 'Sign Out Account',
+                  label: 'auth_success_sign_out'.tr(),
                   isFullWidth: true,
                   icon: LucideIcons.logOut,
                   onPressed: () async {
@@ -319,16 +358,46 @@ class SuccessProfileView extends ConsumerWidget {
   }
 }
 
-class ConsentView extends ConsumerStatefulWidget {
+class ConsentView extends GovernedScreen {
   final String redirectUri;
 
   const ConsentView({super.key, required this.redirectUri});
 
   @override
-  ConsumerState<ConsentView> createState() => _ConsentViewState();
+  String get featureId => 'auth.consent';
+
+  @override
+  String get requiredRole => 'Public';
+
+  @override
+  List<String> get translationKeys => [
+        'auth_consent_authorize_title',
+        'auth_consent_security_required',
+        'auth_consent_permission_request',
+        'auth_consent_explanation',
+        'auth_consent_authorizing_account',
+        'auth_success_default_user',
+        'auth_consent_redirecting',
+        'auth_consent_approve',
+        'auth_consent_cancel',
+      ];
+
+  @override
+  Widget buildGovernedView(BuildContext context, WidgetRef ref) {
+    return _ConsentViewBody(redirectUri: redirectUri);
+  }
 }
 
-class _ConsentViewState extends ConsumerState<ConsentView> {
+class _ConsentViewBody extends ConsumerStatefulWidget {
+  final String redirectUri;
+
+  const _ConsentViewBody({required this.redirectUri});
+
+  @override
+  ConsumerState<_ConsentViewBody> createState() => _ConsentViewBodyState();
+}
+
+class _ConsentViewBodyState extends ConsumerState<_ConsentViewBody> {
   bool _isRedirecting = false;
 
   @override
@@ -359,7 +428,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Authorize Application',
+                  'auth_consent_authorize_title'.tr(),
                   style: theme.typography.h1.copyWith(
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF0F172A),
@@ -367,7 +436,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Security Consent Required',
+                  'auth_consent_security_required'.tr(),
                   style: theme.typography.bodyMedium.copyWith(
                     color: const Color(0xFF64748B),
                   ),
@@ -379,7 +448,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'PERMISSION REQUEST',
+                        'auth_consent_permission_request'.tr(),
                         style: theme.typography.labelBold.copyWith(
                           color: theme.colors.primary,
                           letterSpacing: 1.0,
@@ -387,7 +456,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'The application at the following address wants to sign in using your PrimeCare Identity:',
+                        'auth_consent_explanation'.tr(),
                         style: theme.typography.bodyMedium,
                       ),
                       const SizedBox(height: 12),
@@ -412,7 +481,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                       const Divider(),
                       const SizedBox(height: 16),
                       Text(
-                        'AUTHORIZING ACCOUNT',
+                        'auth_consent_authorizing_account'.tr(),
                         style: theme.typography.labelBold.copyWith(
                           color: const Color(0xFF64748B),
                           letterSpacing: 0.5,
@@ -438,7 +507,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  authState.userName ?? 'PrimeCare User',
+                                  authState.userName ?? 'auth_success_default_user'.tr(),
                                   style: theme.typography.bodyMedium.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -460,7 +529,9 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                 const SizedBox(height: 32),
 
                 PrimeButton.primary(
-                  label: _isRedirecting ? 'Redirecting...' : 'Approve & Continue',
+                  label: _isRedirecting
+                      ? 'auth_consent_redirecting'.tr()
+                      : 'auth_consent_approve'.tr(),
                   isFullWidth: true,
                   isLoading: _isRedirecting,
                   icon: LucideIcons.checkCircle,
@@ -483,7 +554,7 @@ class _ConsentViewState extends ConsumerState<ConsentView> {
                 ),
                 const SizedBox(height: 12),
                 PrimeButton.ghost(
-                  label: 'Cancel & Sign Out',
+                  label: 'auth_consent_cancel'.tr(),
                   isFullWidth: true,
                   icon: LucideIcons.xCircle,
                   onPressed: () async {

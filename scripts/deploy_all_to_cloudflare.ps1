@@ -1,17 +1,71 @@
+param(
+    [Parameter(Position=0)]
+    [string]$Target = "all"
+)
+
 $ErrorActionPreference = "Continue"
 
-$apps = @(
-    "primecare_auth",
-    "primecare_governance",
-    "primecare_corporate",
-    "primecare_franchise",
-    "primecare_clinic",
-    "primecare_client",
-    "primecare_business_development",
-    "primecare_marketing",
-    "primecare_support",
-    "primecare_enterprise_blueprint"
+$allApps = @(
+    "primecare_auth",                # 1
+    "primecare_governance",          # 2
+    "primecare_corporate",           # 3
+    "primecare_franchise",           # 4
+    "primecare_clinic",              # 5
+    "primecare_client",              # 6
+    "primecare_business_development",# 7
+    "primecare_marketing",           # 8
+    "primecare_support",             # 9
+    "primecare_enterprise_blueprint" # 10
 )
+
+$apps = @()
+
+if ($Target -eq "all" -or $Target -eq "*") {
+    $apps = $allApps
+} elseif ($Target -match "^\d+-\d+$") {
+    # It's a range like "1-5"
+    $parts = $Target -split "-"
+    $start = [int]$parts[0]
+    $end = [int]$parts[1]
+    
+    # Bound checks
+    if ($start -lt 1) { $start = 1 }
+    if ($end -gt $allApps.Count) { $end = $allApps.Count }
+    
+    for ($i = $start - 1; $i -le $end - 1; $i++) {
+        $apps += $allApps[$i]
+    }
+} elseif ($Target -match "^[\d,]+$") {
+    # Comma-separated list like "1,5" or single number "5"
+    $parts = $Target -split ","
+    foreach ($part in $parts) {
+        $idx = [int]$part
+        if ($idx -ge 1 -and $idx -le $allApps.Count) {
+            $apps += $allApps[$idx - 1]
+        }
+    }
+} else {
+    # Name wildcard matching (e.g. "auth" or "*clinic*")
+    $pattern = $Target
+    if (-not $pattern.Contains("*")) {
+        $pattern = "*" + $pattern + "*"
+    }
+    
+    foreach ($app in $allApps) {
+        if ($app -like $pattern) {
+            $apps += $app
+        }
+    }
+}
+
+if ($apps.Count -eq 0) {
+    Write-Host "⚠️ No matching applications found for target '$Target'!" -ForegroundColor Yellow
+    Write-Host "Available applications and their 1-based indices:" -ForegroundColor Yellow
+    for ($i = 0; $i -lt $allApps.Count; $i++) {
+        Write-Host ("  " + ($i + 1) + ". " + $allApps[$i]) -ForegroundColor Yellow
+    }
+    exit 1
+}
 
 $rootDir = Get-Location
 $results = @()
@@ -82,7 +136,7 @@ foreach ($app in $apps) {
     $appUrl = $appUrls[$app]
 
     Write-Host '⚡ Step 2: Compiling to Web (Release)...' -ForegroundColor Yellow
-    flutter build web --release --dart-define=API_BASE_URL=https://primecare-api.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=$ssoUrl --dart-define=APP_BASE_URL=$appUrl
+    flutter build web --release --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=$ssoUrl --dart-define=APP_BASE_URL=$appUrl
     if ($LASTEXITCODE -ne 0) {
         Write-Host '❌ Compilation failed!' -ForegroundColor Red
         $results += [PSCustomObject]@{
@@ -135,7 +189,7 @@ foreach ($app in $apps) {
 
 Write-Host ''
 Write-Host '🤖 Triggering Automated Post-Deployment Verification & Screen Details Audit Scan...' -ForegroundColor Cyan
-tsx scripts/post_deploy_tester.ts
+npx tsx scripts/post_deploy_tester.ts
 
 Write-Host ''
 Write-Host '=========================================================' -ForegroundColor Green

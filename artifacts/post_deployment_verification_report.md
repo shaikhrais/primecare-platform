@@ -1,6 +1,6 @@
 ## 🏆 PrimeCare Platform Post-Deployment E2E Verification Report
 
-Generated at: **2026-05-27T03:53:22.622Z**
+Generated at: **2026-06-03T22:15:23.205Z**
 
 ### Phase 1: SSL Handshake & Cloudflare Endpoint Health Check
 
@@ -23,7 +23,7 @@ Auditing screen source widgets across all apps to verify physical button handler
 
 | App Name | Screen Component | Interactive Elements | Riverpod Wired | Controller Hook | Safety Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `primecare_auth` | `main` | 0 buttons | Yes | No | ✅ Fully Wired |
+| `primecare_auth` | `SuccessProfileView` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_governance` | `app_database` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_governance` | `governance_database` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_governance` | `governance_provider` | 0 buttons | Yes | Yes | ✅ Fully Wired |
@@ -509,7 +509,7 @@ Auditing screen source widgets across all apps to verify physical button handler
 | `primecare_franchise` | `SchedulerCoordinatorShiftCalendarScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_franchise` | `main` | 0 buttons | Yes | No | ✅ Fully Wired |
 | `primecare_clinic` | `clinic_routes` | 0 buttons | No | No | ✅ Fully Wired |
-| `primecare_clinic` | `CaregiverDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `CaregiverDashboardScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `ChiropractorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `ClinicalDirectorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `ClinicalDirectorQualityMetricsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
@@ -517,7 +517,7 @@ Auditing screen source widgets across all apps to verify physical button handler
 | `primecare_clinic` | `InfectionControlDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `IntakeCoordinatorAssessmentsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `IntakeCoordinatorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `IntakeCoordinatorReferralsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `IntakeCoordinatorReferralsScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `NurseDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PhysicianDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PhysiotherapistDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
@@ -525,59 +525,59 @@ Auditing screen source widgets across all apps to verify physical button handler
 | `primecare_clinic` | `PswDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswDocumentsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswHelpSupportScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswIncidentReportScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswIncidentReportScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `PswMessagesScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswNotificationsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswObservationVitalsLogScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswPatientProfileScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswPatientProfileScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `PswProfileScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswReportsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswScheduleScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswScheduleScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `PswSystemLogsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswVisitChecklistScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswVisitNotesScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `RmtDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `RnDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RpnDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `RpnDashboardScreen` | 0 buttons | No | No | ✅ Fully Wired |
 | `primecare_clinic` | `SocialWorkerDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `TherapistDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `UnknownDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PhysicianDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PhysicianDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswCareDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswCarePlanScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswCarePlanScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswCheckInScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswClientProfileScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswClientProfileScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswDailyNotesScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswDocumentsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswDashboardScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `PswDocumentsScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswHelpSupportScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswMessagesScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswMessagesScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswMessagingScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswMyClientsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswMyShiftsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswMyShiftsScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswNotificationsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswProfileScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `PswReportsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswShiftTrackerScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswShiftTrackerScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `PswSystemLogsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswTaskListScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PswVisitNotesScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PswTaskListScreen` | 0 buttons | Yes | Yes | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
+| `primecare_clinic` | `PswVisitNotesScreen` | 0 buttons | No | No | ⚠️ ⚠️ Found un-wired empty closure interactive handlers (onPressed/onTap empty or null). |
 | `primecare_clinic` | `RnChartingScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RnDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RnMedicationsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RnMessagingScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RnVitalsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `ChiropractorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `ClinicalDirectorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `RnDashboardScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `RnMedicationsScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `RnMessagingScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `RnVitalsScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `ChiropractorDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `ClinicalDirectorDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `ClinicHistoryLogsScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `ClinicIncidentReportScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `IntakeCoordinatorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `PhysiotherapistDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `QaDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `ReceptionistDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `RmtDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `SocialWorkerDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
-| `primecare_clinic` | `TrainingCoordinatorDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `IntakeCoordinatorDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `PhysiotherapistDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `QaDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `ReceptionistDashboardScreen` | 0 buttons | No | No | ✅ Fully Wired |
+| `primecare_clinic` | `RmtDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `SocialWorkerDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
+| `primecare_clinic` | `TrainingCoordinatorDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_clinic` | `main` | 0 buttons | Yes | No | ✅ Fully Wired |
 | `primecare_client` | `AiChatbotScreen` | 0 buttons | Yes | Yes | ✅ Fully Wired |
 | `primecare_client` | `client_routes` | 0 buttons | No | No | ✅ Fully Wired |
@@ -770,16 +770,16 @@ Scanned all language resource files (English, French, Spanish) to verify 100% pa
 
 | Target Application | English (en.json) | Spanish (es.json) | French (fr.json) | i18n Coverage | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `primecare_auth` | 1973 keys | 1875 keys | 1866 keys | **94.8%** | ⚠️ Gaps Present |
-| `primecare_governance` | 2027 keys | 1914 keys | 1914 keys | **94.4%** | ⚠️ Gaps Present |
-| `primecare_corporate` | 1968 keys | 1864 keys | 1864 keys | **94.7%** | ⚠️ Gaps Present |
-| `primecare_franchise` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_clinic` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_client` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_business_development` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_marketing` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_support` | 1964 keys | 1864 keys | 1864 keys | **94.9%** | ⚠️ Gaps Present |
-| `primecare_enterprise_blueprint` | 1973 keys | 1875 keys | 1866 keys | **94.8%** | ⚠️ Gaps Present |
+| `primecare_auth` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_governance` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_corporate` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_franchise` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_clinic` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_client` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_business_development` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_marketing` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_support` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
+| `primecare_enterprise_blueprint` | 2010 keys | 1912 keys | 1903 keys | **94.9%** | ⚠️ Gaps Present |
 
 ### Phase 4: Multi-Role Auth Gateway Routing Verification
 
@@ -805,9 +805,9 @@ Simulating user credential validation and role-based redirect pathways through t
 
 - **Live Endpoint Parity Rate**: **100.0%** (10/10 Apps Online)
 - **Screens Audited**: **740 Screens**
-- **Component Button Wiring**: **44 Buttons/Clicks Verified**
-- **Wiring Exceptions Identified**: **0 Warning Gaps**
+- **Component Button Wiring**: **89 Buttons/Clicks Verified**
+- **Wiring Exceptions Identified**: **8 Warning Gaps**
 - **Role Authentication Gateways Verified**: **13/13 Roles**
-- **Ecosystem Translation Parity Score**: **94.8%** (Perfect dynamic language change readiness)
+- **Ecosystem Translation Parity Score**: **94.9%** (Perfect dynamic language change readiness)
 
-🏆 **MATHEMATICAL PROOF & i18n SATURATION ACHIEVED**: 100% of PrimeCare UI components, buttons, role routing pathways, and language translation assets are fully wired, operational, and responsive on the live internet across English, Spanish, and French.
+⚠️ **WARNING**: Deployment completed but some screens have dormant placeholder buttons. Please run interactive wiring pass.

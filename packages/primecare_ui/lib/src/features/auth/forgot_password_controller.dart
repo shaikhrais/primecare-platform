@@ -47,10 +47,28 @@ class ForgotPasswordController extends Notifier<ForgotPasswordState> {
     }
     state = state.copyWith(isLoading: true, clearError: true);
 
-    // Simulate API call
-    await Future<void>.delayed(const Duration(seconds: 1));
+    try {
+      final success = await ref
+          .read(authProvider.notifier)
+          .forgotPassword(state.email.trim());
 
-    state = state.copyWith(isLoading: false, isSuccess: true);
+      if (!success) {
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: 'Failed to send recovery instructions. Please check your email.',
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'A connection error occurred. Please try again.',
+      );
+    }
   }
 }
 
@@ -58,3 +76,4 @@ final forgotPasswordControllerProvider =
     NotifierProvider<ForgotPasswordController, ForgotPasswordState>(
       () => ForgotPasswordController(),
     );
+

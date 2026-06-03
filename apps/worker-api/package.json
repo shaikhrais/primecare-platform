@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --name primecare-worker-api-gateway --compatibility-date 2026-05-20 --minify src/index.ts"
   },
   "dependencies": {
     "hono": "^4.0.0"

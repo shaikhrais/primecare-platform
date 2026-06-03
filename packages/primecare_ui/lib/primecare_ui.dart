@@ -48,6 +48,8 @@ export 'src/features/auth/mfa_view.dart';
 export 'src/features/auth/mfa_controller.dart';
 export 'src/features/auth/reset_password_view.dart';
 export 'src/features/auth/reset_password_controller.dart';
+export 'src/features/auth/language_selection_view.dart';
+export 'src/components/layouts/auth_parent_layout.dart';
 
 // --- Automatically Generated Screen Exports ---
 export 'src/screens/executive/coo_dashboard_screen.dart';

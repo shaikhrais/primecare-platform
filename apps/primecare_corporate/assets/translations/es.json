@@ -472,7 +472,16 @@
                     "subtitle": "Psw Panel"
                 },
                 "description": "View top-level system dashboard.",
-                "subtitle": "Visión general en tiempo real obtenida nativamente vía API."
+                "subtitle": "Visión general en tiempo real obtenida nativamente vía API.",
+                "welcome_greeting": "Buenos Días, {name}",
+                "care_plan_subtitle": "Aquí está su plan de cuidado para {date}.",
+                "log_care_note": "Registrar Nota de Cuidado",
+                "shift_progress": "Progreso del Turno",
+                "shift_time": "{start} - {end}",
+                "next_review": "Próxima Revisión",
+                "clients_title": "Clientes Actuales",
+                "tasks_title": "Tareas Asignadas",
+                "view_all": "Ver Todo"
             },
             "psw_dashboard": {
                 "title": {
@@ -4289,12 +4298,45 @@
             "language": "Idioma"
         }
     },
-    "login_authorized_access": "Acceso Autorizado",
-    "login_enter_credentials": "Ingrese sus credenciales seguras para continuar",
+    "governance": {
+        "unauthorized_route_message": "No tiene los permisos necesarios para acceder a esta ruta.",
+        "access_denied": "Acceso denegado"
+    },
+    "select_language_welcome": "BIENVENIDA A PRIMECARE",
+    "select_language_title": "Seleccione Su Idioma Preferido",
+    "select_language_subtitle": "Elija el idioma de su interfaz para personalizar su espacio de trabajo institucional.",
+    "select_language_continue": "Continuar",
+    "language_en_title": "English (EN)",
+    "language_en_subtitle": "Idioma predeterminado del portal seguro",
+    "language_fr_title": "Français (FR)",
+    "language_fr_subtitle": "Ajustement de la session en français",
+    "language_es_title": "Español (ES)",
+    "language_es_subtitle": "Alineación de sesión en español",
+    "system_language_detected": "Idioma del sistema detectado: {}",
+    "auth_success_identity_portal": "Portal de identidad",
+    "auth_success_session_verified": "Su sesión está verificada de forma segura",
+    "auth_success_active_session": "Sesión activa",
+    "auth_success_logged_in_as": "Conectado como",
+    "auth_success_assigned_role": "Rol de plataforma asignado",
+    "auth_success_session_token": "Token de sesión:",
+    "auth_success_sign_out": "Cerrar sesión de la cuenta",
+    "auth_success_parity_title": "Paridad arquitectónica: 100%",
+    "auth_success_parity_subtitle": "Todos los registros de plataforma sincronizados y verificados.",
+    "auth_consent_authorize_title": "Autorizar aplicación",
+    "auth_consent_security_required": "Consentimiento de seguridad requerido",
+    "auth_consent_permission_request": "SOLICITUD DE PERMISO",
+    "auth_consent_explanation": "La aplicación en la siguiente dirección desea iniciar sesión usando su identidad PrimeCare:",
+    "auth_consent_authorizing_account": "CUENTA DE AUTORIZACIÓN",
+    "auth_consent_redirecting": "Redirigiendo...",
+    "auth_consent_approve": "Aprobar y continuar",
+    "auth_consent_cancel": "Cancelar y cerrar sesión",
+    "auth_success_default_user": "Usuario de PrimeCare",
+    "login_authorized_access": "ACCESO AUTORIZADO ÚNICAMENTE",
+    "login_enter_credentials": "Ingrese sus credenciales institucionales para autenticarse.",
     "login_identifier_label": "NOMBRE DE USUARIO",
     "login_security_token_label": "CONTRASEÑA",
-    "login_forgot_password": "¿Olvidó su contraseña?",
-    "login_button": "INICIAR SESIÓN",
-    "login_access_demo": "ACCEDER AL MODO DEMO",
+    "login_forgot_password": "Recuperar Token de Seguridad",
+    "login_button": "LOGIN",
+    "login_access_demo": "Simular Sesión (Modo Demostración)",
     "login_role_simulation_center": "CENTRO DE SIMULACIÓN DE ROLES"
 }
