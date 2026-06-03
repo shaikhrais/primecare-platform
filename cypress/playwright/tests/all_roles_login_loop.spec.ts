@@ -126,10 +126,17 @@ test.describe('PrimeCare Clinic Portal - Clinic Roles E2E Login & Routing Verifi
       await expect(sidebar).toBeVisible();
 
       logStep(`[${name}] Successfully logged in and verified dashboard. Landing Route: ${page.url()}`);
+      
+      // Temporarily expand viewport to render all scrollable Flutter content down the page
+      await page.setViewportSize({ width: 1600, height: 2400 });
+      await page.waitForTimeout(1500); // Allow Flutter engine to redraw at the new resolution
+      
       await page.screenshot({
-        path: `cypress/screenshots/clinic-role-dashboard-loaded-${name.replace(/\s+/g, '-')}.png`,
-        fullPage: true
+        path: `cypress/screenshots/clinic-role-dashboard-loaded-${name.replace(/\s+/g, '-')}.png`
       });
+      
+      // Restore standard viewport size for regular navigation
+      await page.setViewportSize({ width: 1280, height: 720 });
 
       // 5. Logout
       logStep(`[${name}] Locating profile/user functions menu...`);
