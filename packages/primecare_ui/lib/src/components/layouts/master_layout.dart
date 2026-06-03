@@ -46,9 +46,9 @@ class MasterLayout extends ConsumerWidget {
             id: 'app-topbar',
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   LucideIcons.shieldCheck,
-                  color: tenant.branding.primaryColor,
+                  color: Colors.white,
                   size: 28,
                 ),
                 const SizedBox(width: 12),
@@ -59,14 +59,14 @@ class MasterLayout extends ConsumerWidget {
                     Text(
                       tenant.name,
                       style: theme.typography.h3.copyWith(
-                        color: tenant.branding.primaryColor,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       _getDefaultTitle(shellType).tr(),
                       style: theme.typography.bodyMedium.copyWith(
-                        color: theme.colors.onSurfaceVariant,
+                        color: Colors.white70,
                         fontSize: 12,
                       ),
                     ),
@@ -76,16 +76,16 @@ class MasterLayout extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: theme.colors.primary.withValues(alpha: 0.1),
+                    color: Colors.white.withValues(alpha: 0.15),
                     border: Border.all(
-                      color: theme.colors.primary.withValues(alpha: 0.3),
+                      color: Colors.white.withValues(alpha: 0.3),
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Text(
                     app.name.toUpperCase(),
                     style: theme.typography.labelBold.copyWith(
-                      color: theme.colors.primary,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.1,
                     ),
@@ -94,19 +94,19 @@ class MasterLayout extends ConsumerWidget {
               ],
             ),
           ),
-          backgroundColor: theme.colors.surface,
+          backgroundColor: theme.colors.topbarBackground,
           elevation: 0,
           scrolledUnderElevation: 0,
           actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
           leading: Builder(
             builder: (context) => IconButton(key: const Key('master_layout_iconbutton_button_1'), 
-              icon: Icon(LucideIcons.menu, color: theme.colors.primary),
+              icon: const Icon(LucideIcons.menu, color: Colors.white),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Divider(color: theme.colors.divider, height: 1),
+          bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(1),
+            child: Divider(color: Colors.white12, height: 1),
           ),
         ),
         floatingActionButton: floatingActionButton,
@@ -178,9 +178,9 @@ class MasterLayout extends ConsumerWidget {
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomOut();
             },
-            icon: Icon(
+            icon: const Icon(
               LucideIcons.zoomOut,
-              color: theme.colors.onSurfaceVariant,
+              color: Colors.white70,
               size: 20,
             ),
           ),
@@ -194,16 +194,16 @@ class MasterLayout extends ConsumerWidget {
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: theme.colors.primary.withValues(alpha: 0.08),
+                  color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: theme.colors.primary.withValues(alpha: 0.15),
+                    color: Colors.white.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Text(
                   '${(zoomFactor * 100).toInt()}%',
                   style: theme.typography.labelBold.copyWith(
-                    color: theme.colors.primary,
+                    color: Colors.white,
                     fontSize: 11,
                   ),
                 ),
@@ -215,9 +215,9 @@ class MasterLayout extends ConsumerWidget {
             onPressed: () {
               ref.read(contentZoomProvider.notifier).zoomIn();
             },
-            icon: Icon(
+            icon: const Icon(
               LucideIcons.zoomIn,
-              color: theme.colors.onSurfaceVariant,
+              color: Colors.white70,
               size: 20,
             ),
           ),
@@ -231,20 +231,21 @@ class MasterLayout extends ConsumerWidget {
           offset: const Offset(0, 48),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: theme.colors.border),
+            side: const BorderSide(color: Colors.white24),
           ),
+          color: theme.colors.topbarBackground,
           tooltip: 'Change Language'.tr(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(LucideIcons.languages, color: theme.colors.onSurfaceVariant, size: 20),
+                const Icon(LucideIcons.languages, color: Colors.white70, size: 20),
                 const SizedBox(width: 6),
                 Text(
                   ref.watch(languageProvider).toUpperCase(),
                   style: theme.typography.labelBold.copyWith(
-                    color: theme.colors.onSurface,
+                    color: Colors.white,
                     fontSize: 13,
                   ),
                 ),
@@ -263,7 +264,7 @@ class MasterLayout extends ConsumerWidget {
               child: Cy(
                 id: 'topbar-language-option-en',
                 container: false,
-                child: Text('English (EN)', style: theme.typography.bodyMedium),
+                child: Text('English (EN)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
               ),
             ),
             PopupMenuItem<String>(
@@ -271,7 +272,7 @@ class MasterLayout extends ConsumerWidget {
               child: Cy(
                 id: 'topbar-language-option-fr',
                 container: false,
-                child: Text('Français (FR)', style: theme.typography.bodyMedium),
+                child: Text('Français (FR)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
               ),
             ),
             PopupMenuItem<String>(
@@ -279,7 +280,7 @@ class MasterLayout extends ConsumerWidget {
               child: Cy(
                 id: 'topbar-language-option-es',
                 container: false,
-                child: Text('Español (ES)', style: theme.typography.bodyMedium),
+                child: Text('Español (ES)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
               ),
             ),
           ],
@@ -288,20 +289,21 @@ class MasterLayout extends ConsumerWidget {
       const SizedBox(width: 8),
       IconButton(key: const Key('master_layout_iconbutton_button_4'), 
         onPressed: () {},
-        icon: Icon(LucideIcons.search, color: theme.colors.onSurfaceVariant),
+        icon: const Icon(LucideIcons.search, color: Colors.white70),
       ),
       PopupMenuButton<String>(
         offset: const Offset(0, 48),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: theme.colors.border),
+          side: const BorderSide(color: Colors.white24),
         ),
+        color: theme.colors.topbarBackground,
         tooltip: 'User Functions',
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: CircleAvatar(
             radius: 16,
-            backgroundColor: theme.colors.primary.withValues(alpha: 0.1),
+            backgroundColor: Colors.white.withValues(alpha: 0.1),
             backgroundImage: NetworkImage(
               'https://api.dicebear.com/7.x/avataaars/png?seed=${auth.userName ?? 'User'}',
             ),
@@ -322,23 +324,23 @@ class MasterLayout extends ConsumerWidget {
               children: [
                 Text(
                   auth.userName ?? 'System User',
-                  style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 Text(
                   auth.role ?? 'Guest',
-                  style: theme.typography.labelSmall.copyWith(color: theme.colors.onSurfaceVariant),
+                  style: theme.typography.labelSmall.copyWith(color: Colors.white70),
                 ),
               ],
             ),
           ),
-          const PopupMenuDivider(),
+          const PopupMenuDivider(color: Colors.white24),
           PopupMenuItem<String>(
             value: 'profile',
             child: Row(
               children: [
-                Icon(LucideIcons.user, size: 18, color: theme.colors.onSurfaceVariant),
+                const Icon(LucideIcons.user, size: 18, color: Colors.white70),
                 const SizedBox(width: 12),
-                Text('User Profile'.tr(), style: theme.typography.bodyMedium),
+                Text('User Profile'.tr(), style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
               ],
             ),
           ),
@@ -346,13 +348,13 @@ class MasterLayout extends ConsumerWidget {
             value: 'settings',
             child: Row(
               children: [
-                Icon(LucideIcons.settings, size: 18, color: theme.colors.onSurfaceVariant),
+                const Icon(LucideIcons.settings, size: 18, color: Colors.white70),
                 const SizedBox(width: 12),
-                Text('Account Settings'.tr(), style: theme.typography.bodyMedium),
+                Text('Account Settings'.tr(), style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
               ],
             ),
           ),
-          const PopupMenuDivider(),
+          const PopupMenuDivider(color: Colors.white24),
           PopupMenuItem<String>(
             value: 'logout',
             child: Row(

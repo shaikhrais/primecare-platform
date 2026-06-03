@@ -72,6 +72,9 @@ class PrimeCareColors {
   static const Color onTertiaryFixed = Color(0xFF360F00);
   static const Color onTertiaryFixedVariant = Color(0xFF7D2D00);
 
+  static const Color sidebarBackground = Color(0xFF0F172A);
+  static const Color topbarBackground = Color(0xFF0F172A);
+
   const PrimeCareColors._();
 }
 
@@ -109,6 +112,8 @@ class PrimeColors {
   final Color success;
   final Color divider;
   final Color border;
+  final Color sidebarBackground;
+  final Color topbarBackground;
 
   // Fixed Variants
   final Color primaryFixed;
@@ -157,6 +162,8 @@ class PrimeColors {
     this.success = PrimeCareColors.success,
     this.divider = PrimeCareColors.outlineVariant,
     this.border = PrimeCareColors.outlineVariant,
+    this.sidebarBackground = PrimeCareColors.sidebarBackground,
+    this.topbarBackground = PrimeCareColors.topbarBackground,
     this.primaryFixed = PrimeCareColors.primaryFixed,
     this.primaryFixedDim = PrimeCareColors.primaryFixedDim,
     this.onPrimaryFixed = PrimeCareColors.onPrimaryFixed,
@@ -205,6 +212,8 @@ class PrimeColors {
     Color? success,
     Color? divider,
     Color? border,
+    Color? sidebarBackground,
+    Color? topbarBackground,
     Color? onErrorContainer,
   }) {
     return PrimeColors(
@@ -234,6 +243,8 @@ class PrimeColors {
       success: success ?? this.success,
       divider: divider ?? this.divider,
       border: border ?? this.border,
+      sidebarBackground: sidebarBackground ?? this.sidebarBackground,
+      topbarBackground: topbarBackground ?? this.topbarBackground,
       onErrorContainer: onErrorContainer ?? this.onErrorContainer,
     );
   }

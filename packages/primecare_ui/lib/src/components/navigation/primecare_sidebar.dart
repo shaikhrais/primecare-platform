@@ -1,9 +1,8 @@
 // Governance - Category: view | Purpose: Core implementation file for the Primecare Sidebar platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-class PrimeCareSidebar extends StatelessWidget {
+class PrimeCareSidebar extends ConsumerWidget {
   final String userName;
   final String userRole;
   final String? userAvatarUrl;
@@ -26,17 +25,17 @@ class PrimeCareSidebar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     return Drawer(
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.sidebarBackground,
       width: context.s(320), // Responsive sidebar width
       child: Column(
         children: [
           _buildTenantHeader(context, theme),
           SizedBox(height: context.s(24)),
           _buildProfileSection(context, theme),
-          Divider(color: theme.colors.divider),
+          Divider(color: Colors.white12),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: context.s(12)),
@@ -50,8 +49,77 @@ class PrimeCareSidebar extends StatelessWidget {
               },
             ),
           ),
+          _buildLanguageSwitcher(context, ref),
           if (footer != null) footer!,
           SizedBox(height: context.s(24)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageSwitcher(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final currentLang = ref.watch(languageProvider);
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.s(12), vertical: context.s(8)),
+      child: PopupMenuButton<String>(
+        offset: const Offset(0, -140), // Pop up upwards since it's at the bottom
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: const BorderSide(color: Colors.white24),
+        ),
+        color: theme.colors.sidebarBackground,
+        tooltip: 'Change Language'.tr(),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: context.s(16), vertical: context.s(12)),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(context.s(8)),
+          ),
+          child: Row(
+            children: [
+              Icon(LucideIcons.languages, color: Colors.white70, size: context.s(20)),
+              SizedBox(width: context.s(12)),
+              Expanded(
+                child: Text(
+                  'Language'.tr(),
+                  style: theme.typography.bodyMedium.copyWith(
+                    color: Colors.white70,
+                    fontSize: context.s(14),
+                  ),
+                ),
+              ),
+              Text(
+                currentLang.toUpperCase(),
+                style: theme.typography.labelBold.copyWith(
+                  color: Colors.white,
+                  fontSize: context.s(12),
+                ),
+              ),
+              SizedBox(width: context.s(4)),
+              Icon(LucideIcons.chevronUp, color: Colors.white30, size: context.s(16)),
+            ],
+          ),
+        ),
+        onSelected: (lang) async {
+          await ref.read(languageProvider.notifier).setLanguage(lang);
+          if (context.mounted) {
+            await context.setLocale(Locale(lang));
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'en',
+            child: Text('English (EN)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+          ),
+          PopupMenuItem<String>(
+            value: 'fr',
+            child: Text('Français (FR)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+          ),
+          PopupMenuItem<String>(
+            value: 'es',
+            child: Text('Español (ES)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+          ),
         ],
       ),
     );
@@ -66,12 +134,12 @@ class PrimeCareSidebar extends StatelessWidget {
           borderRadius: BorderRadius.circular(context.s(12)),
           gradient: LinearGradient(
             colors: [
-              theme.colors.primary.withValues(alpha: 0.15),
-              theme.colors.primary.withValues(alpha: 0.03),
+              Colors.white.withValues(alpha: 0.1),
+              Colors.white.withValues(alpha: 0.02),
             ],
           ),
           border: Border.all(
-            color: theme.colors.primary.withValues(alpha: 0.3),
+            color: Colors.white.withValues(alpha: 0.15),
             width: context.s(1),
           ),
         ),
@@ -79,12 +147,12 @@ class PrimeCareSidebar extends StatelessWidget {
           leading: Icon(
             LucideIcons.pocket,
             size: context.s(20),
-            color: theme.colors.primary,
+            color: Colors.white,
           ),
           title: Text(
             'Aura Nexus Center'.tr(),
             style: theme.typography.bodyMedium.copyWith(
-              color: theme.colors.primary,
+              color: Colors.white,
               fontSize: context.s(14),
               fontWeight: FontWeight.bold,
             ),
@@ -92,7 +160,7 @@ class PrimeCareSidebar extends StatelessWidget {
           subtitle: Text(
             'Global AI Chat & HUD Console'.tr(),
             style: theme.typography.bodySmall.copyWith(
-              color: theme.colors.onSurfaceVariant.withValues(alpha: 0.7),
+              color: Colors.white.withValues(alpha: 0.6),
               fontSize: context.s(11),
             ),
           ),
@@ -115,7 +183,7 @@ class PrimeCareSidebar extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: context.s(40),
-            backgroundColor: theme.colors.primary.withValues(alpha: 0.1),
+            backgroundColor: Colors.white.withValues(alpha: 0.1),
             backgroundImage: NetworkImage(
               userAvatarUrl ??
                   'https://api.dicebear.com/7.x/avataaars/png?seed=$userName',
@@ -124,12 +192,15 @@ class PrimeCareSidebar extends StatelessWidget {
           SizedBox(height: context.s(16)),
           Text(
             userName,
-            style: theme.typography.h3.copyWith(fontSize: context.s(18)),
+            style: theme.typography.h3.copyWith(
+              fontSize: context.s(18),
+              color: Colors.white,
+            ),
           ),
           Text(
             userRole.tr(),
             style: theme.typography.bodySmall.copyWith(
-              color: theme.colors.onSurfaceVariant,
+              color: Colors.white70,
               fontSize: context.s(12),
             ),
           ),
@@ -151,15 +222,15 @@ class PrimeCareSidebar extends StatelessWidget {
           item.icon,
           size: context.s(20),
           color: isSelected
-              ? theme.colors.primary
-              : theme.colors.onSurfaceVariant,
+              ? Colors.white
+              : Colors.white70,
         ),
         title: Text(
           item.label.tr(),
           style: theme.typography.bodyMedium.copyWith(
             color: isSelected
-                ? theme.colors.primary
-                : theme.colors.onSurfaceVariant,
+                ? Colors.white
+                : Colors.white70,
             fontSize: context.s(14),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
@@ -168,7 +239,7 @@ class PrimeCareSidebar extends StatelessWidget {
           borderRadius: BorderRadius.circular(context.s(8)),
         ),
         selected: isSelected,
-        selectedTileColor: theme.colors.primary.withValues(alpha: 0.05),
+        selectedTileColor: Colors.white.withValues(alpha: 0.15),
         onTap: () {
           context.go(item.route);
         },
@@ -178,6 +249,7 @@ class PrimeCareSidebar extends StatelessWidget {
 
   Widget _buildTenantHeader(BuildContext context, PrimeThemeData theme) {
     if (tenantName == null) return SizedBox(height: context.s(60));
+    final headerColor = Colors.white;
     return Container(
       padding: EdgeInsets.fromLTRB(
         context.s(24),
@@ -185,12 +257,12 @@ class PrimeCareSidebar extends StatelessWidget {
         context.s(24),
         context.s(16),
       ),
-      color: (tenantColor ?? theme.colors.primary).withValues(alpha: 0.1),
+      color: Colors.white.withValues(alpha: 0.05),
       child: Row(
         children: [
           Icon(
             LucideIcons.shieldCheck,
-            color: tenantColor ?? theme.colors.primary,
+            color: tenantColor ?? headerColor,
             size: context.s(28),
           ),
           SizedBox(width: context.s(12)),
@@ -198,7 +270,7 @@ class PrimeCareSidebar extends StatelessWidget {
             child: Text(
               tenantName!,
               style: theme.typography.h3.copyWith(
-                color: tenantColor ?? theme.colors.primary,
+                color: headerColor,
                 fontSize: context.s(18),
                 fontWeight: FontWeight.bold,
               ),
