@@ -37,11 +37,23 @@ class LanguageNotifier extends Notifier<String> {
       return guestLanguage;
     }
 
+    // Try to resolve dynamic language configs from the active app tenant
+    String defaultLang = 'en';
+    List<String> supportedLocales = const ['en', 'fr', 'es'];
+    try {
+      final app = ref.watch(platformApplicationProvider);
+      final themeKey = app.appId.replaceAll('primecare_', '');
+      final palette = ThemeConfig.getAppPalette(themeKey);
+      defaultLang = palette.defaultLanguage;
+      supportedLocales = palette.supportedLanguages;
+    } catch (_) {
+      // Fallback if platformApplicationProvider is not registered
+    }
+
     // Read the browser's preferred language code dynamically
     final browserLanguage = PlatformDispatcher.instance.locale.languageCode.toLowerCase();
-    final supportedLocales = ['en', 'fr', 'es'];
 
-    return supportedLocales.contains(browserLanguage) ? browserLanguage : 'en';
+    return supportedLocales.contains(browserLanguage) ? browserLanguage : defaultLang;
   }
 
   Future<void> setLanguage(String langCode) async {

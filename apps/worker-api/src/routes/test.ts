@@ -36,11 +36,40 @@ testRouter.post('/seed-role-user', async (c) => {
     return c.json({ error: 'Bad Request: email and roleCode are required.' }, 400)
   }
 
+  const db = (c.env as any)?.DB
+  const userId = `test-user-id-${roleCode}`
+  if (db) {
+    try {
+      const now = new Date().toISOString()
+      // 1. Update roles table
+      await db.prepare(`
+        UPDATE roles
+        SET test_email = ?, test_password = ?, test_user_id = ?, test_user_seed_status = 'created', test_login_last_status = 'passed', test_login_last_run_at = ?
+        WHERE LOWER(role_code) = LOWER(?);
+      `).bind(email, password || 'Test@12345', userId, now, roleCode).run()
+
+      // 2. Update/Insert role_test_user_seeds table
+      const roleRow = await db.prepare("SELECT id FROM roles WHERE LOWER(role_code) = LOWER(?)").bind(roleCode).first()
+      if (roleRow) {
+        const roleId = roleRow.id
+        await db.prepare(`
+          INSERT OR REPLACE INTO role_test_user_seeds
+          (role_id, app_id, role_code, test_email, test_password, seed_status, login_verified, login_status, updated_at)
+          VALUES (?, NULL, ?, ?, ?, 'created', 1, 'passed', ?);
+        `).bind(roleId, roleCode, email, password || 'Test@12345', now).run()
+      }
+    } catch (dbErr) {
+      console.error('Failed to write seeded user to D1 Database:', dbErr)
+    }
+  }
+
   // Successful seed mock response
   return c.json({
     status: 'created',
-    userId: `test-user-id-${roleCode}`,
+    userId: userId,
     email: email,
     roleCode: roleCode
   })
 })
+
+

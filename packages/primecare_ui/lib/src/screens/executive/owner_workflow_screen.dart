@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class OwnerWorkflowScreen extends GovernedConsumerWidget {
   const OwnerWorkflowScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

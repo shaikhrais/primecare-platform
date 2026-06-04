@@ -63,6 +63,8 @@ class AppThemePalette {
   final Color divider;
   final Color sidebarBackground;
   final Color topbarBackground;
+  final String defaultLanguage;
+  final List<String> supportedLanguages;
 
   const AppThemePalette({
     required this.brightness,
@@ -82,6 +84,8 @@ class AppThemePalette {
     required this.divider,
     required this.sidebarBackground,
     required this.topbarBackground,
+    required this.defaultLanguage,
+    required this.supportedLanguages,
   });
 }
 
@@ -124,6 +128,10 @@ class ThemeConfig {
 
     const brightness = palette.mode === 'dark' ? 'Brightness.dark' : 'Brightness.light';
 
+    const defaultLanguage = config.defaultLanguage || 'en';
+    const supportedLanguages = config.supportedLanguages || ['en', 'fr', 'es'];
+    const formattedSupportedLanguages = `const ${JSON.stringify(supportedLanguages).replace(/"/g, "'")}`;
+
     dartContent += `    '${app}': AppThemePalette(
       brightness: ${brightness},
       primary: ${toDartColor(palette.primary.main)},
@@ -142,6 +150,39 @@ class ThemeConfig {
       divider: ${toDartColor(palette.divider)},
       sidebarBackground: ${toDartColor(palette.sidebarBackground)},
       topbarBackground: ${toDartColor(palette.topbarBackground)},
+      defaultLanguage: '${defaultLanguage}',
+      supportedLanguages: ${formattedSupportedLanguages},
+    ),
+`;
+  }
+
+  // Generate entries for raw presets directly so they can be referenced by name
+  for (const [presetName, preset] of Object.entries(presets)) {
+    const brightness = preset.mode === 'dark' ? 'Brightness.dark' : 'Brightness.light';
+    const defaultLanguage = 'en';
+    const supportedLanguages = ['en', 'fr', 'es'];
+    const formattedSupportedLanguages = `const ${JSON.stringify(supportedLanguages).replace(/"/g, "'")}`;
+
+    dartContent += `    '${presetName}': AppThemePalette(
+      brightness: ${brightness},
+      primary: ${toDartColor(preset.primary.main)},
+      primaryContainer: ${toDartColor(preset.primary.light)},
+      primaryDark: ${toDartColor(preset.primary.dark)},
+      onPrimary: ${toDartColor(preset.primary.contrastText)},
+      secondary: ${toDartColor(preset.secondary.main)},
+      secondaryContainer: ${toDartColor(preset.secondary.light)},
+      secondaryDark: ${toDartColor(preset.secondary.dark)},
+      onSecondary: ${toDartColor(preset.secondary.contrastText)},
+      background: ${toDartColor(preset.background.default)},
+      surface: ${toDartColor(preset.background.paper)},
+      textPrimary: ${toDartColor(preset.text.primary)},
+      textSecondary: ${toDartColor(preset.text.secondary)},
+      textDisabled: ${toDartColor(preset.text.disabled)},
+      divider: ${toDartColor(preset.divider)},
+      sidebarBackground: ${toDartColor(preset.sidebarBackground)},
+      topbarBackground: ${toDartColor(preset.topbarBackground)},
+      defaultLanguage: '${defaultLanguage}',
+      supportedLanguages: ${formattedSupportedLanguages},
     ),
 `;
   }
@@ -167,6 +208,8 @@ class ThemeConfig {
       divider: Color(0xFFE5E7EB),
       sidebarBackground: Color(0xFF0F766E),
       topbarBackground: Color(0xFF0F766E),
+      defaultLanguage: 'en',
+      supportedLanguages: ['en', 'fr', 'es'],
     );
   }
 

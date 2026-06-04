@@ -54,6 +54,7 @@ export class AuthHelper {
         !url.includes('telemetry') &&
         !url.includes('sentry') &&
         !url.includes('fonts.gstatic.com') &&
+        !url.includes('FontManifest.json') &&
         !url.endsWith('.woff2')
       ) {
         this.failedRequests.push(`[Network Fail] URL: ${url} | Error: ${errorText}`);
@@ -95,7 +96,7 @@ export class AuthHelper {
           const style = document.createElement("style");
           style.id = "playwright-semantics-override";
           style.innerHTML = `
-            flt-semantics[aria-label*="data-cy:"], [aria-label*="data-cy:"] {
+            flt-semantics, [aria-label] {
               min-width: 1px !important;
               min-height: 1px !important;
               visibility: visible !important;
@@ -222,7 +223,7 @@ export class AuthHelper {
     await expect(emailField).toBeVisible({ timeout: 15000 });
   }
 
-  async login(email?: string, password?: string) {
+  async login(email?: string, password?: string, navigateToUrl?: string) {
     const targetEmail = email || process.env.TEST_EMAIL || 'qa.chiropractor@test.primecare.local';
     const targetPassword = password || process.env.TEST_PASSWORD || 'Test@12345';
 
@@ -232,8 +233,7 @@ export class AuthHelper {
     else if (targetEmail.includes('physio')) role = 'physio';
     else if (targetEmail.includes('rmt')) role = 'rmt';
 
-    let postLoginRoute = '/offices/clinical/roles/chiropractor/dashboard';
-    if (role === 'admin') postLoginRoute = '/common/office-dashboard';
+    let postLoginRoute = navigateToUrl || (role === 'admin' ? '/common/office-dashboard' : '/offices/clinical/roles/chiropractor/dashboard');
 
     this.logStep(`Directly seeding authenticated session for role: ${role}`);
     
@@ -258,7 +258,7 @@ export class AuthHelper {
     this.isLoggedIn = true;
 
     // Navigate straight to protected route
-    const targetUrl = `${postLoginRoute}?enable-semantics=true`;
+    const targetUrl = postLoginRoute.includes('?') ? postLoginRoute : `${postLoginRoute}?enable-semantics=true`;
     this.logStep(`Navigating to landing dashboard: ${targetUrl}`);
     await this.page.goto(targetUrl);
     

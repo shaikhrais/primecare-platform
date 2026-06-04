@@ -5,9 +5,60 @@ import { sendResetEmail } from '../utils/email'
 export const authRouter = new Hono()
 
 // Dynamic helper to resolve user details from email or role token
-function getUserDetails(emailOrToken: string) {
+async function getUserDetails(emailOrToken: string, db?: any, password?: string) {
   const identifier = emailOrToken.toLowerCase().trim()
-  
+
+  if (db) {
+    try {
+      let userRole: any = null
+      if (identifier.startsWith('mock-jwt-token-')) {
+        const extractedRole = identifier.substring('mock-jwt-token-'.length)
+        userRole = await db.prepare(
+          "SELECT * FROM roles WHERE LOWER(role_code) = ?"
+        ).bind(extractedRole).first()
+      } else {
+        if (password) {
+          userRole = await db.prepare(
+            "SELECT * FROM roles WHERE LOWER(test_email) = ? AND test_password = ?"
+          ).bind(identifier, password).first()
+        } else {
+          userRole = await db.prepare(
+            "SELECT * FROM roles WHERE LOWER(test_email) = ?"
+          ).bind(identifier).first()
+        }
+      }
+
+      if (userRole) {
+        const role = userRole.role_code
+        const preferredLanguage = userRole.preferred_locale || 'en'
+        const email = userRole.test_email || `${role}@demo.primecare.com`
+        const userName = userRole.role_name || 'QA User'
+        const tenantId = 'primecare_hq'
+        
+        return {
+          token: `mock-jwt-token-${role}`,
+          role: role,
+          roles: role,
+          userId: userRole.test_user_id || `mock-user-id-${role}`,
+          tenantId: tenantId,
+          activeRole: role,
+          user: {
+            id: userRole.test_user_id || `mock-user-id-${role}`,
+            firstName: 'QA',
+            lastName: userName,
+            roles: [role],
+            tenantId: tenantId,
+            preferredLanguage: preferredLanguage,
+            email: email,
+          }
+        }
+      }
+    } catch (e) {
+      console.error('SQLite DB query failed, using static fallback:', e)
+    }
+  }
+
+  // Static fallback logic
   let role = 'psw'
   let firstName = 'Jane'
   let lastName = 'Doe'
@@ -89,8 +140,10 @@ function getUserDetails(emailOrToken: string) {
 authRouter.post('/login', async (c) => {
   const body = await c.req.json()
   const email = body.email || 'psw@demo.primecare.com'
+  const password = body.password || ''
   
-  const userDetails = getUserDetails(email)
+  const db = (c.env as any)?.DB
+  const userDetails = await getUserDetails(email, db, password)
 
   // Structured login telemetry logging
   console.log(JSON.stringify({
@@ -125,7 +178,8 @@ authRouter.post('/forgot-password', async (c) => {
   }
 
   // Find user details to resolve their role for custom reset link mapping
-  const userDetails = getUserDetails(email)
+  const db = (c.env as any)?.DB
+  const userDetails = await getUserDetails(email, db)
   const role = userDetails.role
 
   // Resolve host origin from headers dynamically to support localhost, dev pages, and prod
@@ -189,7 +243,8 @@ authRouter.get('/me', async (c) => {
   }
 
   // Extract the role from the token
-  const userDetails = getUserDetails(token)
+  const db = (c.env as any)?.DB
+  const userDetails = await getUserDetails(token, db)
   return c.json(userDetails)
 })
 

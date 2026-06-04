@@ -103,7 +103,6 @@ final cooDashboardProvider =
 class CooDashboardScreen extends GovernedConsumerWidget {
   const CooDashboardScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

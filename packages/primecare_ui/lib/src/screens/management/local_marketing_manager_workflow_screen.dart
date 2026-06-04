@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class LocalMarketingManagerWorkflowScreen extends GovernedConsumerWidget {
   const LocalMarketingManagerWorkflowScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

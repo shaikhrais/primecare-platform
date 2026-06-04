@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class TrainingDirectorAnalyticsScreen extends GovernedConsumerWidget {
   const TrainingDirectorAnalyticsScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class CisoWorkflowScreen extends GovernedConsumerWidget {
   const CisoWorkflowScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

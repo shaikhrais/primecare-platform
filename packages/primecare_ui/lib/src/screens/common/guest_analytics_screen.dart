@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class GuestAnalyticsScreen extends GovernedConsumerWidget {
   const GuestAnalyticsScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

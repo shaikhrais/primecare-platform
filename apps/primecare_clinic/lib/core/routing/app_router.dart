@@ -145,8 +145,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: CommonRoutes.globalSettings,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Settings / Safe Landing Area')),
+        builder: (context, state) => const AppShellBoundary(
+          child: GlobalSettingsScreen(),
         ),
       ),
     ],

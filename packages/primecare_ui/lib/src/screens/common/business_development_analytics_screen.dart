@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class BusinessDevelopmentAnalyticsScreen extends GovernedConsumerWidget {
   const BusinessDevelopmentAnalyticsScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

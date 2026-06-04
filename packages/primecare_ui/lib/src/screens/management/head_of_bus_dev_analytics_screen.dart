@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class HeadOfBusDevAnalyticsScreen extends GovernedConsumerWidget {
   const HeadOfBusDevAnalyticsScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

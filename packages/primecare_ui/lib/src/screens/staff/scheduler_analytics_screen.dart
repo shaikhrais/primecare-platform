@@ -6,7 +6,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 class SchedulerAnalyticsScreen extends GovernedConsumerWidget {
   const SchedulerAnalyticsScreen({super.key});
 
-  @override
   // === Governance Injected Action Methods ===
   void triggerStateAction() {
     print(

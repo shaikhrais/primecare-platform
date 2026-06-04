@@ -88,15 +88,20 @@ void main() async {
   print('Prepared $count new entries.');
 
   if (count > 0) {
-    final insertionPoint = registryContent.lastIndexOf('};');
-    if (insertionPoint != -1) {
-      final updatedContent = registryContent.substring(0, insertionPoint) + 
-          '\n    // --- AUTO-HYDRATED ENTRIES ---\n' +
-          newEntries.join('\n') + 
-          '\n  ' + registryContent.substring(insertionPoint);
-      
-      File(registryPath).writeAsStringSync(updatedContent);
-      print('Successfully hydrated registry with $count new screens.');
+    final platformRegistryPath = p.join(projectRoot, 'packages', 'flutter_core', 'lib', 'registry', 'platform_screen_registry.dart');
+    for (final path in [registryPath, platformRegistryPath]) {
+      if (!File(path).existsSync()) continue;
+      final fileContent = File(path).readAsStringSync();
+      final insertionPoint = fileContent.lastIndexOf('};');
+      if (insertionPoint != -1) {
+        final updatedContent = fileContent.substring(0, insertionPoint) + 
+            '\n    // --- AUTO-HYDRATED ENTRIES ---\n' +
+            newEntries.join('\n') + 
+            '\n  ' + fileContent.substring(insertionPoint);
+        
+        File(path).writeAsStringSync(updatedContent);
+        print('Successfully hydrated registry at $path with $count new screens.');
+      }
     }
   }
 
