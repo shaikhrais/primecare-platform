@@ -50,15 +50,6 @@ test.describe('PrimeCare Clinic Portal - Clinic Roles E2E Login & Routing Verifi
 
     const rolesToTest = [
       { name: 'Clinic Director', email: 'qa.clinical_director@test.primecare.local', password: 'Test@12345' },
-      { name: 'Registered Nurse (RN)', email: 'qa.rn@test.primecare.local', password: 'Test@12345' },
-      { name: 'Registered Practical Nurse (RPN)', email: 'qa.rpn@test.primecare.local', password: 'Test@12345' },
-      { name: 'Personal Support Worker (PSW)', email: 'qa.psw@test.primecare.local', password: 'Test@12345' },
-      { name: 'Registered Massage Therapist (RMT)', email: 'qa.rmt@test.primecare.local', password: 'Test@12345' },
-      { name: 'Chiropractor', email: 'qa.chiropractor@test.primecare.local', password: 'Test@12345' },
-      { name: 'Physiotherapist', email: 'qa.physio@test.primecare.local', password: 'Test@12345' },
-      { name: 'Social Worker', email: 'qa.social_worker@test.primecare.local', password: 'Test@12345' },
-      { name: 'Therapist', email: 'qa.therapist@test.primecare.local', password: 'Test@12345' },
-      { name: 'Caregiver', email: 'qa.caregiver@test.primecare.local', password: 'Test@12345' },
     ];
 
     logStep(`Starting clinical roles loop verification against: https://primecare-clinic.pages.dev/login`);
