@@ -106,6 +106,7 @@ export 'routes/groups/office_routes.dart';
 export 'routes/groups/common_routes.dart';
 export 'routes/groups/regional_finance_routes.dart';
 export 'theme/app_theme.dart';
+export 'theme/theme_config_generated.dart';
 
 // Dashboards and ViewModels are now consolidated in primecare_adapters
 // Direct exports from local features have been removed to maintain decoupling.

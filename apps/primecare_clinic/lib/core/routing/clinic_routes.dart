@@ -11,11 +11,11 @@ class ClinicTenant extends PlatformTenant {
 
   PrimeThemeData get primeThemeData => PrimeThemeData(
         colors: const PrimeColors().copyWith(
-          primary: const Color(0xFF0F766E), // Medical Teal
+          primary: ThemeConfig.getColor('clinic', 'primary', const Color(0xFF0F766E)),
           onPrimary: Colors.white,
-          primaryContainer: const Color(0xFFCCFBF1),
-          sidebarBackground: const Color(0xFF0F766E),
-          topbarBackground: const Color(0xFF0F766E),
+          primaryContainer: ThemeConfig.getColor('clinic', 'primaryContainer', const Color(0xFFCCFBF1)),
+          sidebarBackground: ThemeConfig.getColor('clinic', 'sidebarBackground', const Color(0xFF0F766E)),
+          topbarBackground: ThemeConfig.getColor('clinic', 'topbarBackground', const Color(0xFF0F766E)),
         ),
       );
 
