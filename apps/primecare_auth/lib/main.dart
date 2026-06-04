@@ -13,10 +13,18 @@ class AuthTenant extends PlatformTenant {
   @override
   String get name => 'PrimeCare';
 
-  @override
-  ThemeData get branding => ThemeData.light().copyWith(
-        primaryColor: const Color(0xFF0F172A), // Slate 900
+  PrimeThemeData get primeThemeData => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF0F172A), // Slate 900
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFF1E293B),
+          sidebarBackground: const Color(0xFF0F172A),
+          topbarBackground: const Color(0xFF0F172A),
+        ),
       );
+
+  @override
+  ThemeData get branding => primeThemeData.toThemeData();
 }
 
 class AuthApplication extends PlatformApplication {
@@ -54,16 +62,21 @@ class PrimeCareAuthApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final router = ref.watch(authRouterProvider);
-    return MaterialApp.router(
-      title: 'PrimeCare Identity Portal',
-      theme: ThemeData.light(),
-      routerConfig: router,
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+    final tenant = AuthTenant();
+    final primeTheme = tenant.primeThemeData;
+
+    return PrimeTheme(
+      data: primeTheme,
+      child: MaterialApp.router(
+        title: 'PrimeCare Identity Portal',
+        theme: primeTheme.toThemeData(),
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+      ),
     );
   }
 }

@@ -1,46 +1,11 @@
-// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart'
-    hide
-        PhysicianDashboardScreen,
-        RnDashboardScreen,
-        RnMedicationsScreen,
-        RnVitalsScreen,
-        PswDashboardScreen,
-        PswCarePlanScreen,
-        PswClientProfileScreen,
-        PswMyShiftsScreen,
-        IntakeCoordinatorDashboardScreen,
-        QualityAssuranceDashboardScreen,
-        TrainingCoordinatorDashboardScreen,
-        ReceptionistDashboardScreen,
-        RmtDashboardScreen,
-        ChiropractorDashboardScreen,
-        PhysiotherapistDashboardScreen,
-        SocialWorkerDashboardScreen,
-        PswMessagesScreen,
-        PswVisitNotesScreen,
-        QaDashboardScreen,
-        PswShiftTrackerScreen,
-        PswDocumentsScreen;
+import 'package:primecare_ui/primecare_ui.dart';
 
 import 'clinic_routes.dart';
 
-import '../../features/psw/screens/psw_dashboard_screen.dart';
-import '../../features/psw/screens/psw_care_plan_screen.dart';
-import '../../features/psw/screens/psw_daily_notes_screen.dart';
-import '../../features/psw/screens/psw_client_profile_screen.dart';
-import '../../features/psw/screens/psw_my_shifts_screen.dart';
-import '../../features/psw/screens/psw_messaging_screen.dart';
-
-import '../../features/rn/screens/rn_dashboard_screen.dart';
-import '../../features/rn/screens/rn_medications_screen.dart';
-import '../../features/rn/screens/rn_vitals_screen.dart';
-import '../../features/rn/screens/rn_charting_screen.dart';
-import '../../features/rn/screens/rn_messaging_screen.dart';
-
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
+import '../../features/rn/screens/rn_messaging_screen.dart';
 
 final clinicApplicationProvider = Provider<ClinicApplication>((ref) {
   return ClinicApplication();
@@ -120,7 +85,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/clinic/daily-notes',
-        builder: (context, state) => const PswDailyNotesScreen(),
+        builder: (context, state) => const PswVisitNotesScreen(),
       ),
       GoRoute(
         path: '/clinic/client-profile',
@@ -132,7 +97,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/clinic/messaging',
-        builder: (context, state) => const PswMessagingScreen(),
+        builder: (context, state) => const PswMessagesScreen(),
       ),
 
       GoRoute(
@@ -149,7 +114,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/clinic/rn-charting',
-        builder: (context, state) => const RnChartingScreen(),
+        builder: (context, state) => const RnPatientChartingScreen(),
       ),
       GoRoute(
         path: '/clinic/rn-messaging',

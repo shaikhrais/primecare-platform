@@ -1,43 +1,6 @@
-// Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
-import 'package:primecare_ui/primecare_ui.dart'
-    hide
-        PswDashboardScreen,
-        PswMessagesScreen,
-        PswVisitNotesScreen,
-        PswShiftTrackerScreen,
-        PswDocumentsScreen,
-        ChiropractorDashboardScreen,
-        PhysiotherapistDashboardScreen,
-        SocialWorkerDashboardScreen,
-        RmtDashboardScreen,
-        IntakeCoordinatorDashboardScreen,
-        TrainingCoordinatorDashboardScreen,
-        QaDashboardScreen,
-        PhysicianDashboardScreen;
-import '../../features/shared/screens/clinical_director_dashboard_screen.dart';
-import '../../features/physician/screens/physician_dashboard_screen.dart';
-import '../../features/shared/screens/rmt_dashboard_screen.dart';
-import '../../features/shared/screens/chiropractor_dashboard_screen.dart';
-import '../../features/shared/screens/physiotherapist_dashboard_screen.dart';
-import '../../features/shared/screens/social_worker_dashboard_screen.dart';
-import '../../features/shared/screens/intake_coordinator_dashboard_screen.dart';
-import '../../features/shared/screens/qa_dashboard_screen.dart';
-import '../../features/shared/screens/training_coordinator_dashboard_screen.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
-// PSW Screens
-import '../../features/psw/screens/psw_dashboard_screen.dart';
-import '../../features/psw/screens/psw_shift_tracker_screen.dart';
-import '../../features/psw/screens/psw_my_clients_screen.dart';
-import '../../features/psw/screens/psw_task_list_screen.dart';
-import '../../features/psw/screens/psw_messages_screen.dart';
-import '../../features/psw/screens/psw_visit_notes_screen.dart';
-import '../../features/psw/screens/psw_profile_screen.dart';
-import '../../features/psw/screens/psw_reports_screen.dart';
-import '../../features/psw/screens/psw_documents_screen.dart';
-import '../../features/psw/screens/psw_check_in_screen.dart';
-import '../../features/psw/screens/psw_system_logs_screen.dart';
-import '../../features/psw/screens/psw_notifications_screen.dart';
-import '../../features/psw/screens/psw_help_support_screen.dart';
+
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -46,14 +9,18 @@ class ClinicTenant extends PlatformTenant {
   @override
   String get name => 'PrimeCare Clinic';
 
+  PrimeThemeData get primeThemeData => PrimeThemeData(
+        colors: const PrimeColors().copyWith(
+          primary: const Color(0xFF0F766E), // Medical Teal
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFCCFBF1),
+          sidebarBackground: const Color(0xFF0F766E),
+          topbarBackground: const Color(0xFF0F766E),
+        ),
+      );
+
   @override
-  ThemeData get branding => PrimeThemeData(
-    colors: const PrimeColors().copyWith(
-      primary: const Color(0xFF0F766E), // Medical Teal
-      onPrimary: Colors.white,
-      primaryContainer: const Color(0xFFCCFBF1),
-    ),
-  ).toThemeData();
+  ThemeData get branding => primeThemeData.toThemeData();
 }
 
 class ClinicCareModule extends PlatformModule {
@@ -1361,37 +1328,37 @@ class ClinicPswModule extends PlatformModule {
       title: 'My Clients',
       route: ClinicalRoutes.pswPatientProfile,
       icon: LucideIcons.users,
-      builder: (context) => PswMyClientsScreen(),
+      builder: (context) => const PswClientsScreen(),
     ),
     PrimeCareScreen(
       title: 'Task List',
       route: ClinicalRoutes.pswVisitChecklist,
       icon: LucideIcons.checkSquare,
-      builder: (context) => PswTaskListScreen(),
+      builder: (context) => const PswTasksScreen(),
     ),
     PrimeCareScreen(
       title: 'Messages',
       route: ClinicalRoutes.pswMessages,
       icon: LucideIcons.messageSquare,
-      builder: (context) => PswMessagesScreen(),
+      builder: (context) => const PswMessagesScreen(),
     ),
     PrimeCareScreen(
       title: 'Visit Notes',
       route: ClinicalRoutes.pswVisitNotes,
       icon: LucideIcons.fileText,
-      builder: (context) => PswVisitNotesScreen(),
+      builder: (context) => const PswVisitNotesScreen(),
     ),
     PrimeCareScreen(
       title: 'Profile',
       route: ClinicalRoutes.pswProfile,
       icon: LucideIcons.user,
-      builder: (context) => PswProfileScreen(),
+      builder: (context) => const PswClientProfileScreen(),
     ),
     PrimeCareScreen(
       title: 'Reports',
       route: ClinicalRoutes.pswReports,
       icon: LucideIcons.fileBarChart,
-      builder: (context) => PswReportsScreen(),
+      builder: (context) => const PswAnalyticsScreen(),
     ),
     PrimeCareScreen(
       title: 'Documents',
@@ -1403,25 +1370,25 @@ class ClinicPswModule extends PlatformModule {
       title: 'Check-In',
       route: ClinicalRoutes.pswCheckIn,
       icon: LucideIcons.mapPin,
-      builder: (context) => PswCheckInScreen(),
+      builder: (context) => const PswShiftTrackerScreen(),
     ),
     PrimeCareScreen(
       title: 'System Logs',
       route: ClinicalRoutes.pswSystemLogs,
       icon: LucideIcons.terminal,
-      builder: (context) => PswSystemLogsScreen(),
+      builder: (context) => const PswCommandCenterScreen(),
     ),
     PrimeCareScreen(
       title: 'Notifications',
       route: ClinicalRoutes.pswNotifications,
       icon: LucideIcons.bell,
-      builder: (context) => PswNotificationsScreen(),
+      builder: (context) => const PswMessagesScreen(),
     ),
     PrimeCareScreen(
       title: 'Help & Support',
       route: ClinicalRoutes.pswHelpSupport,
       icon: LucideIcons.helpCircle,
-      builder: (context) => PswHelpSupportScreen(),
+      builder: (context) => const PswComplianceScreen(),
     ),
     PrimeCareScreen(
       title: 'Psw Care Plan',

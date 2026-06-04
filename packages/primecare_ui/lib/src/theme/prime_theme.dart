@@ -114,6 +114,17 @@ class PrimeColors {
   final Color border;
   final Color sidebarBackground;
   final Color topbarBackground;
+  final Color sidebarTextColor;
+  final Color sidebarSelectedTextColor;
+  final Color sidebarIconColor;
+  final Color sidebarSelectedIconColor;
+  final Color sidebarSelectedTileColor;
+  final Color sidebarDividerColor;
+  final Color topbarTextColor;
+  final Color topbarSelectedTextColor;
+  final Color topbarIconColor;
+  final Color topbarSelectedIconColor;
+  final Color topbarDividerColor;
 
   // Fixed Variants
   final Color primaryFixed;
@@ -164,6 +175,17 @@ class PrimeColors {
     this.border = PrimeCareColors.outlineVariant,
     this.sidebarBackground = PrimeCareColors.sidebarBackground,
     this.topbarBackground = PrimeCareColors.topbarBackground,
+    this.sidebarTextColor = const Color(0xB3FFFFFF),
+    this.sidebarSelectedTextColor = const Color(0xFFFFFFFF),
+    this.sidebarIconColor = const Color(0xB3FFFFFF),
+    this.sidebarSelectedIconColor = const Color(0xFFFFFFFF),
+    this.sidebarSelectedTileColor = const Color(0x26FFFFFF),
+    this.sidebarDividerColor = const Color(0x1FFFFFFF),
+    this.topbarTextColor = const Color(0xB3FFFFFF),
+    this.topbarSelectedTextColor = const Color(0xFFFFFFFF),
+    this.topbarIconColor = const Color(0xB3FFFFFF),
+    this.topbarSelectedIconColor = const Color(0xFFFFFFFF),
+    this.topbarDividerColor = const Color(0x1FFFFFFF),
     this.primaryFixed = PrimeCareColors.primaryFixed,
     this.primaryFixedDim = PrimeCareColors.primaryFixedDim,
     this.onPrimaryFixed = PrimeCareColors.onPrimaryFixed,
@@ -214,6 +236,17 @@ class PrimeColors {
     Color? border,
     Color? sidebarBackground,
     Color? topbarBackground,
+    Color? sidebarTextColor,
+    Color? sidebarSelectedTextColor,
+    Color? sidebarIconColor,
+    Color? sidebarSelectedIconColor,
+    Color? sidebarSelectedTileColor,
+    Color? sidebarDividerColor,
+    Color? topbarTextColor,
+    Color? topbarSelectedTextColor,
+    Color? topbarIconColor,
+    Color? topbarSelectedIconColor,
+    Color? topbarDividerColor,
     Color? onErrorContainer,
   }) {
     return PrimeColors(
@@ -245,6 +278,17 @@ class PrimeColors {
       border: border ?? this.border,
       sidebarBackground: sidebarBackground ?? this.sidebarBackground,
       topbarBackground: topbarBackground ?? this.topbarBackground,
+      sidebarTextColor: sidebarTextColor ?? this.sidebarTextColor,
+      sidebarSelectedTextColor: sidebarSelectedTextColor ?? this.sidebarSelectedTextColor,
+      sidebarIconColor: sidebarIconColor ?? this.sidebarIconColor,
+      sidebarSelectedIconColor: sidebarSelectedIconColor ?? this.sidebarSelectedIconColor,
+      sidebarSelectedTileColor: sidebarSelectedTileColor ?? this.sidebarSelectedTileColor,
+      sidebarDividerColor: sidebarDividerColor ?? this.sidebarDividerColor,
+      topbarTextColor: topbarTextColor ?? this.topbarTextColor,
+      topbarSelectedTextColor: topbarSelectedTextColor ?? this.topbarSelectedTextColor,
+      topbarIconColor: topbarIconColor ?? this.topbarIconColor,
+      topbarSelectedIconColor: topbarSelectedIconColor ?? this.topbarSelectedIconColor,
+      topbarDividerColor: topbarDividerColor ?? this.topbarDividerColor,
       onErrorContainer: onErrorContainer ?? this.onErrorContainer,
     );
   }

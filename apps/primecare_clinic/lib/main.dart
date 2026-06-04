@@ -1,6 +1,5 @@
 // Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/flutter_core.dart';
 import 'core/routing/clinic_routes.dart';
 import 'core/routing/app_router.dart';
 
@@ -33,15 +32,19 @@ class PrimeCareClinicApp extends ConsumerWidget {
     ref.read(deepLinkServiceProvider);
 
     final tenant = ClinicTenant();
+    final primeTheme = tenant.primeThemeData;
 
-    return MaterialApp.router(
-      title: 'PrimeCare Clinic Portal',
-      theme: tenant.branding,
-      routerConfig: ref.watch(appRouterProvider),
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+    return PrimeTheme(
+      data: primeTheme,
+      child: MaterialApp.router(
+        title: 'PrimeCare Clinic Portal',
+        theme: primeTheme.toThemeData(),
+        routerConfig: ref.watch(appRouterProvider),
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+      ),
     );
   }
 }

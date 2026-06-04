@@ -169,6 +169,7 @@ export 'src/screens/common/franchise_compliance_screen.dart';
 export 'src/screens/common/office_dashboard_screen.dart';
 export 'src/screens/common/office_compliance_screen.dart';
 export 'src/screens/clinical/clinical_dashboard_screen.dart';
+export 'src/screens/clinical/clinical_director_dashboard_screen.dart';
 export 'src/screens/clinical/clinical_compliance_screen.dart';
 export 'src/screens/common/portal_dashboard_screen.dart';
 export 'src/screens/common/portal_compliance_screen.dart';

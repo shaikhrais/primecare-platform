@@ -1,27 +1,27 @@
-// Governance - Category: view | Purpose: UI Screen component rendering the Quality Assurance Dashboard Screen workspace interface.
+// Governance - Category: view | Purpose: UI Screen component rendering the Clinical Director Dashboard Screen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class QualityAssuranceDashboardState {
+class ClinicalDirectorDashboardState {
   final bool isLoading;
   final String? error;
   final String title;
   final List<String> logs;
 
-  const QualityAssuranceDashboardState({
+  const ClinicalDirectorDashboardState({
     required this.isLoading,
     this.error,
     required this.title,
     required this.logs,
   });
 
-  QualityAssuranceDashboardState copyWith({
+  ClinicalDirectorDashboardState copyWith({
     bool? isLoading,
     String? error,
     String? title,
     List<String>? logs,
   }) {
-    return QualityAssuranceDashboardState(
+    return ClinicalDirectorDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       title: title ?? this.title,
@@ -31,13 +31,13 @@ class QualityAssuranceDashboardState {
 }
 
 // --- Controller (Notifier) ---
-class QualityAssuranceDashboardController
-    extends StateNotifier<QualityAssuranceDashboardState> {
-  QualityAssuranceDashboardController()
+class ClinicalDirectorDashboardController
+    extends StateNotifier<ClinicalDirectorDashboardState> {
+  ClinicalDirectorDashboardController()
     : super(
-        const QualityAssuranceDashboardState(
+        const ClinicalDirectorDashboardState(
           isLoading: false,
-          title: 'Quality Assurance Control Center',
+          title: 'Clinical Director Dashboard',
           logs: ['System initialized.', 'Security sync complete.'],
         ),
       );
@@ -86,41 +86,41 @@ class QualityAssuranceDashboardController
 }
 
 // --- Provider ---
-final qualityAssuranceDashboardProvider =
+final clinicalDirectorDashboardProvider =
     StateNotifierProvider<
-      QualityAssuranceDashboardController,
-      QualityAssuranceDashboardState
+      ClinicalDirectorDashboardController,
+      ClinicalDirectorDashboardState
     >((ref) {
-      return QualityAssuranceDashboardController();
+      return ClinicalDirectorDashboardController();
     });
 
 // --- View ---
-class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
-  const QualityAssuranceDashboardScreen({super.key});
+class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
+  const ClinicalDirectorDashboardScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(qualityAssuranceDashboardProvider);
-    final controller = ref.read(qualityAssuranceDashboardProvider.notifier);
+    final state = ref.watch(clinicalDirectorDashboardProvider);
+    final controller = ref.read(clinicalDirectorDashboardProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'QualityAssurance';
+    final roleBase = 'ClinicalDirector';
 
     return Cy(
-      id: 'qualityassurancedashboard-screen data-cy:qualityassurancedashboard-screen',
+      id: 'clinicaldirectordashboard-screen data-cy:clinicaldashboard-screen',
       child: Scaffold(
-        key: const Key('qualityassurancedashboard-screen'),
+        key: const Key('clinicaldirectordashboard-screen'),
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Text(
-            key: const Key('qualityassurancedashboard-title'),
+            key: const Key('clinicaldirectordashboard-title'),
             state.title.tr(),
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ),
           actions: [
             IconButton(
-              key: const Key('qualityassurancedashboard-btn-1'),
+              key: const Key('clinicaldirectordashboard-btn-1'),
               icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.addLog('Manual refresh triggered.'),
             ),
@@ -165,9 +165,9 @@ class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Semantics(
-                label: 'data-cy:qualityassurancedashboard-title',
+                label: 'data-cy:clinicaldirectordashboard-title',
                 child: GovDashboardHero(
-                  title: 'Quality Assurance Dashboard',
+                  title: 'Clinical Director Dashboard',
                   roleName: '$roleBase Dashboard',
                   description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
                   onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
@@ -188,7 +188,7 @@ class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton.icon(
-                key: const Key('qualityassurancedashboard-btn-2'),
+                key: const Key('clinicaldirectordashboard-btn-2'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primaryContainer,
                   foregroundColor: Colors.white,
@@ -251,7 +251,7 @@ class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      key: const Key('qualityassurancedashboard-btn-3'),
+                      key: const Key('clinicaldirectordashboard-btn-3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -264,7 +264,7 @@ class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
-                                key: Key('qualityassurancedashboard-loading'),
+                                key: Key('clinicaldirectordashboard-loading'),
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation(Colors.white),
                               ),

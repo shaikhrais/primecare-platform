@@ -35,7 +35,7 @@ class PrimeCareSidebar extends ConsumerWidget {
           _buildTenantHeader(context, theme),
           SizedBox(height: context.s(24)),
           _buildProfileSection(context, theme),
-          Divider(color: Colors.white12),
+          Divider(color: theme.colors.sidebarDividerColor),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: context.s(12)),
@@ -66,25 +66,25 @@ class PrimeCareSidebar extends ConsumerWidget {
         offset: const Offset(0, -140), // Pop up upwards since it's at the bottom
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Colors.white24),
+          side: BorderSide(color: theme.colors.sidebarDividerColor),
         ),
         color: theme.colors.sidebarBackground,
         tooltip: 'Change Language'.tr(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: context.s(16), vertical: context.s(12)),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: theme.colors.sidebarSelectedTileColor.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(context.s(8)),
           ),
           child: Row(
             children: [
-              Icon(LucideIcons.languages, color: Colors.white70, size: context.s(20)),
+              Icon(LucideIcons.languages, color: theme.colors.sidebarTextColor, size: context.s(20)),
               SizedBox(width: context.s(12)),
               Expanded(
                 child: Text(
                   'Language'.tr(),
                   style: theme.typography.bodyMedium.copyWith(
-                    color: Colors.white70,
+                    color: theme.colors.sidebarTextColor,
                     fontSize: context.s(14),
                   ),
                 ),
@@ -92,12 +92,12 @@ class PrimeCareSidebar extends ConsumerWidget {
               Text(
                 currentLang.toUpperCase(),
                 style: theme.typography.labelBold.copyWith(
-                  color: Colors.white,
+                  color: theme.colors.sidebarSelectedTextColor,
                   fontSize: context.s(12),
                 ),
               ),
               SizedBox(width: context.s(4)),
-              Icon(LucideIcons.chevronUp, color: Colors.white30, size: context.s(16)),
+              Icon(LucideIcons.chevronUp, color: theme.colors.sidebarTextColor.withValues(alpha: 0.3), size: context.s(16)),
             ],
           ),
         ),
@@ -110,15 +110,15 @@ class PrimeCareSidebar extends ConsumerWidget {
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
             value: 'en',
-            child: Text('English (EN)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+            child: Text('English (EN)', style: theme.typography.bodyMedium.copyWith(color: theme.colors.sidebarTextColor)),
           ),
           PopupMenuItem<String>(
             value: 'fr',
-            child: Text('Français (FR)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+            child: Text('Français (FR)', style: theme.typography.bodyMedium.copyWith(color: theme.colors.sidebarTextColor)),
           ),
           PopupMenuItem<String>(
             value: 'es',
-            child: Text('Español (ES)', style: theme.typography.bodyMedium.copyWith(color: Colors.white)),
+            child: Text('Español (ES)', style: theme.typography.bodyMedium.copyWith(color: theme.colors.sidebarTextColor)),
           ),
         ],
       ),
@@ -134,12 +134,12 @@ class PrimeCareSidebar extends ConsumerWidget {
           borderRadius: BorderRadius.circular(context.s(12)),
           gradient: LinearGradient(
             colors: [
-              Colors.white.withValues(alpha: 0.1),
-              Colors.white.withValues(alpha: 0.02),
+              theme.colors.sidebarSelectedTileColor.withValues(alpha: 0.5),
+              theme.colors.sidebarSelectedTileColor.withValues(alpha: 0.1),
             ],
           ),
           border: Border.all(
-            color: Colors.white.withValues(alpha: 0.15),
+            color: theme.colors.sidebarDividerColor,
             width: context.s(1),
           ),
         ),
@@ -147,12 +147,12 @@ class PrimeCareSidebar extends ConsumerWidget {
           leading: Icon(
             LucideIcons.pocket,
             size: context.s(20),
-            color: Colors.white,
+            color: theme.colors.sidebarSelectedTextColor,
           ),
           title: Text(
             'Aura Nexus Center'.tr(),
             style: theme.typography.bodyMedium.copyWith(
-              color: Colors.white,
+              color: theme.colors.sidebarSelectedTextColor,
               fontSize: context.s(14),
               fontWeight: FontWeight.bold,
             ),
@@ -160,7 +160,7 @@ class PrimeCareSidebar extends ConsumerWidget {
           subtitle: Text(
             'Global AI Chat & HUD Console'.tr(),
             style: theme.typography.bodySmall.copyWith(
-              color: Colors.white.withValues(alpha: 0.6),
+              color: theme.colors.sidebarTextColor.withValues(alpha: 0.6),
               fontSize: context.s(11),
             ),
           ),
@@ -183,7 +183,7 @@ class PrimeCareSidebar extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: context.s(40),
-            backgroundColor: Colors.white.withValues(alpha: 0.1),
+            backgroundColor: theme.colors.sidebarSelectedTileColor,
             backgroundImage: NetworkImage(
               userAvatarUrl ??
                   'https://api.dicebear.com/7.x/avataaars/png?seed=$userName',
@@ -194,13 +194,13 @@ class PrimeCareSidebar extends ConsumerWidget {
             userName,
             style: theme.typography.h3.copyWith(
               fontSize: context.s(18),
-              color: Colors.white,
+              color: theme.colors.sidebarSelectedTextColor,
             ),
           ),
           Text(
             userRole.tr(),
             style: theme.typography.bodySmall.copyWith(
-              color: Colors.white70,
+              color: theme.colors.sidebarTextColor,
               fontSize: context.s(12),
             ),
           ),
@@ -222,15 +222,15 @@ class PrimeCareSidebar extends ConsumerWidget {
           item.icon,
           size: context.s(20),
           color: isSelected
-              ? Colors.white
-              : Colors.white70,
+              ? theme.colors.sidebarSelectedIconColor
+              : theme.colors.sidebarIconColor,
         ),
         title: Text(
           item.label.tr(),
           style: theme.typography.bodyMedium.copyWith(
             color: isSelected
-                ? Colors.white
-                : Colors.white70,
+                ? theme.colors.sidebarSelectedTextColor
+                : theme.colors.sidebarTextColor,
             fontSize: context.s(14),
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
@@ -239,7 +239,7 @@ class PrimeCareSidebar extends ConsumerWidget {
           borderRadius: BorderRadius.circular(context.s(8)),
         ),
         selected: isSelected,
-        selectedTileColor: Colors.white.withValues(alpha: 0.15),
+        selectedTileColor: theme.colors.sidebarSelectedTileColor,
         onTap: () {
           context.go(item.route);
         },
@@ -249,7 +249,7 @@ class PrimeCareSidebar extends ConsumerWidget {
 
   Widget _buildTenantHeader(BuildContext context, PrimeThemeData theme) {
     if (tenantName == null) return SizedBox(height: context.s(60));
-    final headerColor = Colors.white;
+    final headerColor = theme.colors.sidebarSelectedTextColor;
     return Container(
       padding: EdgeInsets.fromLTRB(
         context.s(24),
@@ -257,7 +257,7 @@ class PrimeCareSidebar extends ConsumerWidget {
         context.s(24),
         context.s(16),
       ),
-      color: Colors.white.withValues(alpha: 0.05),
+      color: theme.colors.sidebarSelectedTileColor.withValues(alpha: 0.1),
       child: Row(
         children: [
           Icon(
