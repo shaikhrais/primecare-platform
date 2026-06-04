@@ -6,6 +6,6 @@ This report summarizes the automated deployment cycle of the PrimeCare Flutter W
 
 | Application Name | Cloudflare Project | Status | Details | Live URL |
 |---|---|---|---|---|
-| **primecare_clinic** | `primecare-clinic` | **Deployed** | Success | [https://primecare-clinic.pages.dev](https://primecare-clinic.pages.dev) |
+| **primecare_enterprise_blueprint** | `primecare-enterprise-blueprint` | **Deployed** | Success | [https://primecare-enterprise-blueprint.pages.dev](https://primecare-enterprise-blueprint.pages.dev) |
 
-*Report generated on 2026-06-03 18:16:00*
+*Report generated on 2026-06-03 20:55:05*
