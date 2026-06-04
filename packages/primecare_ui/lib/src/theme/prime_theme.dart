@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/app_theme.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 
 /// Static utility class for PrimeCare colors used across the platform.
 class PrimeCareColors {
@@ -201,6 +202,36 @@ class PrimeColors {
     this.onTertiaryFixedVariant = PrimeCareColors.onTertiaryFixedVariant,
     this.onErrorContainer = PrimeCareColors.onErrorContainer,
   });
+
+  factory PrimeColors.fromPalette(AppThemePalette palette) {
+    // Estimate text/icon brightness based on background luminance
+    final isDarkSidebar = palette.sidebarBackground.computeLuminance() < 0.5;
+    final isDarkTopbar = palette.topbarBackground.computeLuminance() < 0.5;
+
+    return PrimeColors(
+      primary: palette.primary,
+      primaryContainer: palette.primaryContainer,
+      onPrimary: palette.onPrimary,
+      secondary: palette.secondary,
+      secondaryContainer: palette.secondaryContainer,
+      background: palette.background,
+      surface: palette.surface,
+      divider: palette.divider,
+      sidebarBackground: palette.sidebarBackground,
+      topbarBackground: palette.topbarBackground,
+      sidebarTextColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
+      sidebarSelectedTextColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      sidebarIconColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
+      sidebarSelectedIconColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      sidebarSelectedTileColor: isDarkSidebar ? const Color(0x26FFFFFF) : const Color(0x0D000000),
+      sidebarDividerColor: isDarkSidebar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
+      topbarTextColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
+      topbarSelectedTextColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      topbarIconColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
+      topbarSelectedIconColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+      topbarDividerColor: isDarkTopbar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
+    );
+  }
 
   final Color onErrorContainer;
 

@@ -1,6 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
-
-
+import 'package:flutter_core/theme/theme_config_generated.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -10,13 +9,7 @@ class ClinicTenant extends PlatformTenant {
   String get name => 'PrimeCare Clinic';
 
   PrimeThemeData get primeThemeData => PrimeThemeData(
-        colors: const PrimeColors().copyWith(
-          primary: ThemeConfig.getColor('clinic', 'primary', const Color(0xFF0F766E)),
-          onPrimary: Colors.white,
-          primaryContainer: ThemeConfig.getColor('clinic', 'primaryContainer', const Color(0xFFCCFBF1)),
-          sidebarBackground: ThemeConfig.getColor('clinic', 'sidebarBackground', const Color(0xFF0F766E)),
-          topbarBackground: ThemeConfig.getColor('clinic', 'topbarBackground', const Color(0xFF0F766E)),
-        ),
+        colors: PrimeColors.fromPalette(ThemeConfig.getAppPalette('clinic')),
       );
 
   @override

@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart' hide ShareholderDashboardScreen, FinanceDirectorDashboardScreen, VolunteerCoordinatorDashboardScreen, HrManagerDashboardScreen, HrHiringDashboardScreen, HrDirectorDashboardScreen, CxDirectorDashboardScreen, LegalDashboardScreen, CisoDashboardScreen, OwnerDashboardScreen, CooDashboardScreen, CfoDashboardScreen, CtoDashboardScreen, ComplianceManagerDashboardScreen, HeadOfBusDevDashboardScreen, HeadOfMarketingDashboardScreen, TrainingDirectorDashboardScreen, CooOperationsOverviewScreen, CooSchedulingHealthScreen, CooBranchComparisonScreen, CfoRevenueScreen, CfoExpensesScreen, CfoPayrollScreen, CfoInvoicesScreen, CfoProfitabilityScreen, TrainingDirectorAnalyticsScreen;
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/corporate/presentation/widgets/widgets.dart';
 
 class PrimeCareTenant extends PlatformTenant {
@@ -11,11 +12,7 @@ class PrimeCareTenant extends PlatformTenant {
 
   @override
   ThemeData get branding => PrimeThemeData(
-        colors: const PrimeColors().copyWith(
-          primary: const Color(0xFF1E3A8A), // Corporate Navy
-          onPrimary: Colors.white,
-          primaryContainer: const Color(0xFFDBEAFE),
-        ),
+        colors: PrimeColors.fromPalette(ThemeConfig.getAppPalette('corporate')),
       ).toThemeData();
 }
 

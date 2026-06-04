@@ -55,7 +55,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     // Dynamic top bar colors
     final topbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;
     final isTopbarDark = ThemeData.estimateBrightnessForColor(topbarBg) == Brightness.dark;
-    final defaultTopbarTextColor = isTopbarDark ? Colors.white : theme.textTheme.titleMedium?.color;
+    final defaultTopbarTextColor = isTopbarDark ? Colors.white : (theme.textTheme.titleMedium?.color ?? Colors.black87);
     final defaultTopbarIconColor = isTopbarDark ? Colors.white : theme.primaryColor;
     
     final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
@@ -312,8 +312,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
     final isSidebarDark = ThemeData.estimateBrightnessForColor(sidebarBg) == Brightness.dark;
     
-    final defaultSidebarTextColor = isSidebarDark ? Colors.white : theme.textTheme.bodyMedium?.color;
-    final defaultSidebarIconColor = isSidebarDark ? Colors.white70 : theme.iconTheme.color?.withValues(alpha: 0.6);
+    final defaultSidebarTextColor = isSidebarDark ? Colors.white : (theme.textTheme.bodyMedium?.color ?? Colors.black87);
+    final defaultSidebarIconColor = isSidebarDark ? Colors.white70 : (theme.iconTheme.color ?? theme.primaryColor).withValues(alpha: 0.6);
     
     final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
     final sidebarSelectedTextColor = themeColors?.sidebarSelectedTextColor ?? theme.primaryColor;
@@ -359,7 +359,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           Icon(
                             module.icon,
                             size: 18,
-                            color: sidebarIconColor?.withValues(alpha: 0.8) ?? theme.primaryColor.withValues(alpha: 0.7),
+                            color: sidebarIconColor.withValues(alpha: 0.8),
                           ),
                           const SizedBox(width: 12),
                           Text(
@@ -367,7 +367,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             style: theme.textTheme.labelSmall?.copyWith(
                               letterSpacing: 1.2,
                               fontWeight: FontWeight.bold,
-                              color: sidebarTextColor?.withValues(alpha: 0.6) ?? theme.hintColor,
+                              color: sidebarTextColor.withValues(alpha: 0.6),
                             ),
                           ),
                         ],

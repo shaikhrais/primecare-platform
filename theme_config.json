@@ -1,51 +1,65 @@
 {
   "clinic": {
+    "preset": "navyTealPalette",
     "primary": "#0F766E",
     "primaryContainer": "#CCFBF1",
     "sidebarBackground": "#0F766E",
     "topbarBackground": "#0F766E"
   },
   "corporate": {
-    "primary": "#0D1B2A",
-    "sidebarBackground": "#0D1B2A",
-    "topbarBackground": "#0D1B2A"
+    "preset": "navyTealPalette",
+    "primary": "#1E3A8A",
+    "primaryContainer": "#DBEAFE",
+    "sidebarBackground": "#1E3A8A",
+    "topbarBackground": "#1E3A8A"
   },
   "auth": {
-    "primary": "#004AC6",
+    "preset": "default",
+    "primary": "#0F172A",
+    "primaryContainer": "#1E293B",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "governance": {
+    "preset": "default",
     "primary": "#004AC6",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "franchise": {
+    "preset": "default",
     "primary": "#0D1B2A",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "client": {
-    "primary": "#2563EB",
+    "preset": "default",
+    "primary": "#0EA5E9",
+    "primaryContainer": "#E0F2FE",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "business_development": {
+    "preset": "default",
     "primary": "#2563EB",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "marketing": {
+    "preset": "default",
     "primary": "#2563EB",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "support": {
-    "primary": "#2563EB",
+    "preset": "default",
+    "primary": "#EA580C",
+    "primaryContainer": "#FFFFEDD5",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"
   },
   "enterprise_blueprint": {
+    "preset": "default",
     "primary": "#2563EB",
     "sidebarBackground": "#0F172A",
     "topbarBackground": "#0F172A"

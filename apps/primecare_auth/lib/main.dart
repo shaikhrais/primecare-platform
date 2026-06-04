@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Core implementation file for the Main platform logic.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:web/web.dart' as web;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -14,13 +15,7 @@ class AuthTenant extends PlatformTenant {
   String get name => 'PrimeCare';
 
   PrimeThemeData get primeThemeData => PrimeThemeData(
-        colors: const PrimeColors().copyWith(
-          primary: const Color(0xFF0F172A), // Slate 900
-          onPrimary: Colors.white,
-          primaryContainer: const Color(0xFF1E293B),
-          sidebarBackground: const Color(0xFF0F172A),
-          topbarBackground: const Color(0xFF0F172A),
-        ),
+        colors: PrimeColors.fromPalette(ThemeConfig.getAppPalette('auth')),
       );
 
   @override

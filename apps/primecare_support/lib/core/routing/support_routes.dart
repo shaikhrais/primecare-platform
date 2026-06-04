@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart' hide HelpDeskDashboardScreen, EscalationDashboardScreen;
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/support/screens/help_desk_dashboard_screen.dart';
 import '../../features/support/screens/escalation_dashboard_screen.dart';
 
@@ -17,11 +18,7 @@ class SupportTenant extends PlatformTenant {
 
   @override
   ThemeData get branding => PrimeThemeData(
-        colors: const PrimeColors().copyWith(
-          primary: const Color(0xFFEA580C), // Deep Orange
-          onPrimary: Colors.white,
-          primaryContainer: const Color(0xFFFFEDD5),
-        ),
+        colors: PrimeColors.fromPalette(ThemeConfig.getAppPalette('support')),
       ).toThemeData();
 }
 

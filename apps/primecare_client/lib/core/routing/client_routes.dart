@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 
 class ClientTenant extends PlatformTenant {
   @override
@@ -8,11 +9,7 @@ class ClientTenant extends PlatformTenant {
   String get name => 'PrimeCare Client Portal';
   @override
   ThemeData get branding => PrimeThemeData(
-        colors: const PrimeColors().copyWith(
-          primary: const Color(0xFF0EA5E9),
-          onPrimary: Colors.white,
-          primaryContainer: const Color(0xFFE0F2FE),
-        ),
+        colors: PrimeColors.fromPalette(ThemeConfig.getAppPalette('client')),
       ).toThemeData();
 }
 
