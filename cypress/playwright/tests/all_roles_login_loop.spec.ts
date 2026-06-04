@@ -4,8 +4,8 @@ test.use({ video: 'on' });
 
 test.describe('PrimeCare Clinic Portal - Clinic Roles E2E Login & Routing Verification', () => {
   test('Execute E2E Login & Logout Loop for all 10 clinical roles on Live Site', async ({ page }) => {
-    // Extend test timeout to 8 minutes to allow all 10 roles to run sequentially
-    test.setTimeout(480000);
+    // Extend test timeout to 10 minutes to allow all 10 roles to run sequentially with redraw delays
+    test.setTimeout(600000);
 
     const logStep = (step: string) => {
       const timestamp = new Date().toISOString().split('T')[1].slice(0, -1);
