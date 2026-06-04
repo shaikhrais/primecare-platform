@@ -7,12 +7,22 @@ class PswDashboardState {
   final String? error;
   final String title;
   final List<String> logs;
+  final bool isCheckedIn;
+  final int completedTasksCount;
+  final int totalTasksCount;
+  final String activeWing;
+  final int activeAlertsCount;
 
   const PswDashboardState({
     required this.isLoading,
     this.error,
     required this.title,
     required this.logs,
+    required this.isCheckedIn,
+    required this.completedTasksCount,
+    required this.totalTasksCount,
+    required this.activeWing,
+    required this.activeAlertsCount,
   });
 
   PswDashboardState copyWith({
@@ -20,12 +30,22 @@ class PswDashboardState {
     String? error,
     String? title,
     List<String>? logs,
+    bool? isCheckedIn,
+    int? completedTasksCount,
+    int? totalTasksCount,
+    String? activeWing,
+    int? activeAlertsCount,
   }) {
     return PswDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       title: title ?? this.title,
       logs: logs ?? this.logs,
+      isCheckedIn: isCheckedIn ?? this.isCheckedIn,
+      completedTasksCount: completedTasksCount ?? this.completedTasksCount,
+      totalTasksCount: totalTasksCount ?? this.totalTasksCount,
+      activeWing: activeWing ?? this.activeWing,
+      activeAlertsCount: activeAlertsCount ?? this.activeAlertsCount,
     );
   }
 }
@@ -36,10 +56,38 @@ class PswDashboardController extends StateNotifier<PswDashboardState> {
     : super(
         const PswDashboardState(
           isLoading: false,
-          title: 'Psw Control Center',
-          logs: ['System initialized.', 'Security sync complete.'],
+          title: 'PSW Care Control Center',
+          logs: ['Shift assigned: East Wing.', 'Security sync complete.'],
+          isCheckedIn: false,
+          completedTasksCount: 5,
+          totalTasksCount: 8,
+          activeWing: 'East Wing - Memory Care',
+          activeAlertsCount: 1,
         ),
       );
+
+  void toggleCheckIn() {
+    final nextState = !state.isCheckedIn;
+    state = state.copyWith(
+      isCheckedIn: nextState,
+      logs: [
+        ...state.logs,
+        nextState 
+          ? 'Checked into shift at ${DateTime.now().toLocal().toString().substring(11, 19)}' 
+          : 'Checked out of shift at ${DateTime.now().toLocal().toString().substring(11, 19)}',
+      ],
+    );
+  }
+
+  void triggerEmergencyAlert() {
+    state = state.copyWith(
+      activeAlertsCount: state.activeAlertsCount + 1,
+      logs: [
+        ...state.logs,
+        'CRITICAL: Emergency alert triggered for Memory Care unit! Supervisor notified.',
+      ],
+    );
+  }
 
   Future<void> runComplianceScan() async {
     state = state.copyWith(isLoading: true);
@@ -48,27 +96,8 @@ class PswDashboardController extends StateNotifier<PswDashboardState> {
       isLoading: false,
       logs: [
         ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-        'All governance invariants validated.',
+        'Compliance audit executed: all 5 completed ADL logs validated against Ministry standards.',
       ],
-    );
-  }
-
-  void syncPosture() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Manual synchronization sweep completed.'],
-    );
-  }
-
-  void updatePolicy() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Security posture updated and validated.'],
-    );
-  }
-
-  void exportLogs() {
-    state = state.copyWith(
-      logs: [...state.logs, 'Audit logs successfully compiled and exported.'],
     );
   }
 
@@ -99,7 +128,7 @@ class PswDashboardScreen extends GovernedConsumerWidget {
     final state = ref.watch(pswDashboardControllerProvider);
     final controller = ref.read(pswDashboardControllerProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'Psw';
+    final roleBase = 'PSW';
 
     return Cy(
       id: 'pswdashboard-screen data-cy:pswdashboard-screen',
@@ -123,38 +152,38 @@ class PswDashboardScreen extends GovernedConsumerWidget {
           ],
         ),
         body: ResponsiveSplitDashboard(
-          metrics: const [
+          metrics: [
             GovMetricCard(
-              title: 'Active Operations',
-              value: 'Active',
-              trendLabel: 'Optimal',
-              progress: 0.92,
-              icon: LucideIcons.activity,
-              brandColor: Color(0xFF0D9488),
+              title: 'Shift Status'.tr(),
+              value: state.isCheckedIn ? 'Active'.tr() : 'Off-Duty'.tr(),
+              trendLabel: state.isCheckedIn ? 'Checked In'.tr() : 'Checked Out'.tr(),
+              progress: state.isCheckedIn ? 1.0 : 0.0,
+              icon: LucideIcons.calendarCheck,
+              brandColor: state.isCheckedIn ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
             ),
             GovMetricCard(
-              title: 'Security Clearance',
-              value: 'Level 4',
-              trendLabel: 'Approved',
+              title: 'ADL Care Progress'.tr(),
+              value: '${state.completedTasksCount}/${state.totalTasksCount}',
+              trendLabel: 'Required tasks'.tr(),
+              progress: state.totalTasksCount > 0 ? state.completedTasksCount / state.totalTasksCount : 0.0,
+              icon: LucideIcons.checkSquare,
+              brandColor: const Color(0xFF0D9488),
+            ),
+            GovMetricCard(
+              title: 'Assigned Wing'.tr(),
+              value: 'Memory Care'.tr(),
+              trendLabel: state.activeWing.tr(),
               progress: 1.0,
-              icon: LucideIcons.shieldCheck,
-              brandColor: Color(0xFF16A34A),
+              icon: LucideIcons.mapPin,
+              brandColor: const Color(0xFF2563EB),
             ),
             GovMetricCard(
-              title: 'System Latency',
-              value: '18ms',
-              trendLabel: 'Optimal',
-              progress: 0.98,
-              icon: LucideIcons.zap,
-              brandColor: Color(0xFFEAB308),
-            ),
-            GovMetricCard(
-              title: 'Data Integrity',
-              value: '99.9%',
-              trendLabel: 'Secure',
-              progress: 0.99,
-              icon: LucideIcons.database,
-              brandColor: Color(0xFF2563EB),
+              title: 'Safety Alerts'.tr(),
+              value: '${state.activeAlertsCount}',
+              trendLabel: state.activeAlertsCount > 0 ? 'Urgent attention'.tr() : 'Wing is clear'.tr(),
+              progress: state.activeAlertsCount > 0 ? 0.3 : 1.0,
+              icon: LucideIcons.alertTriangle,
+              brandColor: state.activeAlertsCount > 0 ? const Color(0xFFEAB308) : const Color(0xFF16A34A),
             ),
           ],
           mainContent: Column(
@@ -163,42 +192,23 @@ class PswDashboardScreen extends GovernedConsumerWidget {
               Semantics(
                 label: 'data-cy:pswdashboard-title',
                 child: GovDashboardHero(
-                  title: 'Psw Control Center',
+                  title: 'PSW Care Control Center'.tr(),
                   roleName: '$roleBase Dashboard',
-                  description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
+                  description: 'Manage resident ADLs, check-in to shifts, log incidents, and trigger emergency support from your clinical station.'.tr(),
                   onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
                 ),
               ),
               const SizedBox(height: 24),
               GovTelemetryChart(
-                title: 'Hourly Core Telemetry',
-                dataPoints: const [75, 82, 80, 94, 91, 98],
+                title: 'Hourly Care Activities Logs'.tr(),
+                dataPoints: const [4, 6, 5, 8, 7, 9],
                 labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
                 accentColor: theme.colors.primary,
               ),
             ],
           ),
           defaultSidebarWidgets: [
-            // === Executive Pill Action Button ===
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton.icon(
-                key: const Key('pswdashboard-btn-2'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colors.primaryContainer,
-                  foregroundColor: Colors.white,
-                  elevation: 4,
-                  shadowColor: theme.colors.primary.withValues(alpha: 0.3),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-                ),
-                icon: const Icon(LucideIcons.playCircle, size: 18),
-                onPressed: () => controller.triggerStateAction(),
-                label: Text('Execute: Button 1'.tr()),
-              ),
-            ),
-            const SizedBox(height: 24),
-            // === Audit Logs Panel ===
+            // === Shift Check-In / Out Card ===
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -218,7 +228,111 @@ class PswDashboardScreen extends GovernedConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Operational Audit Logs',
+                    'Duty Registration'.tr(),
+                    style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    state.isCheckedIn 
+                      ? 'You are active on duty. Keep this terminal open to log care tasks.'.tr() 
+                      : 'You are currently off-duty. Please check in to record resident details.'.tr(),
+                    style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      key: const Key('pswdashboard-btn-checkin'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: state.isCheckedIn ? const Color(0xFFDC2626) : const Color(0xFF16A34A),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      icon: Icon(state.isCheckedIn ? LucideIcons.logOut : LucideIcons.checkCircle),
+                      onPressed: () => controller.toggleCheckIn(),
+                      label: Text(state.isCheckedIn ? 'Check-Out Shift'.tr() : 'Check-In Shift'.tr()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            // === Emergency Station Card ===
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFEE2E2),
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: const Color(0xFFFCA5A5), width: 1.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(LucideIcons.alertOctagon, color: Color(0xFFB91C1C), size: 22),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Emergency Station'.tr(),
+                        style: theme.typography.h4.copyWith(color: const Color(0xFF991B1B), fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Trigger an immediate distress warning to the Clinical Director and RNs for active code/falls.'.tr(),
+                    style: theme.typography.bodySmall.copyWith(color: const Color(0xFF7F1D1D)),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      key: const Key('pswdashboard-btn-emergency'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFB91C1C),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      icon: const Icon(LucideIcons.phoneCall),
+                      onPressed: () => controller.triggerEmergencyAlert(),
+                      label: Text('Trigger Emergency Alert'.tr()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            // === Shift Activity Logs Panel ===
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: theme.colors.surface,
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                border: Border.all(color: theme.colors.border),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Shift Activity Logs'.tr(),
                     style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                   ),
                   const SizedBox(height: 12),
@@ -266,7 +380,7 @@ class PswDashboardScreen extends GovernedConsumerWidget {
                               ),
                             )
                           : Text(
-                              'Execute Operational Audit Scan'.tr(),
+                              'Run Shift Compliance Audit'.tr(),
                               style: theme.typography.button.copyWith(color: Colors.white),
                             ),
                     ),
