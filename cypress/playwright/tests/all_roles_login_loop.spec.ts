@@ -137,6 +137,7 @@ test.describe('PrimeCare Clinic Portal - Clinic Roles E2E Login & Routing Verifi
       
       // Restore standard viewport size for regular navigation
       await page.setViewportSize({ width: 1280, height: 720 });
+      await page.waitForTimeout(1500); // Allow Flutter layout to settle at restored resolution
 
       // 5. Logout
       logStep(`[${name}] Locating profile/user functions menu...`);
