@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE The central Governance Layout for all PrimeCare portals. It automatically pulls sidebar and ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:flutter/material.dart';
+import '../../theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,7 +49,18 @@ class GovernanceMasterLayout extends ConsumerWidget {
           .updateGovernanceContext(tenant: tenant, role: activeRole);
     });
 
-    final theme = Theme.of(context);
+    final theme = tenant.branding;
+    final themeColors = theme.extension<GovernanceThemeColors>();
+    
+    // Dynamic top bar colors
+    final topbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;
+    final isTopbarDark = ThemeData.estimateBrightnessForColor(topbarBg) == Brightness.dark;
+    final defaultTopbarTextColor = isTopbarDark ? Colors.white : theme.textTheme.titleMedium?.color;
+    final defaultTopbarIconColor = isTopbarDark ? Colors.white : theme.primaryColor;
+    
+    final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
+    final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;
+    final topbarSecondaryTextColor = (themeColors?.topbarTextColor ?? (isTopbarDark ? Colors.white70 : theme.hintColor)).withValues(alpha: 0.7);
 
     return Theme(
       data: tenant.branding,
@@ -71,17 +83,18 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 key: const Key('app-topbar'),
                 child: AppBar(
                   elevation: 0,
-                  backgroundColor: theme.scaffoldBackgroundColor,
+                  backgroundColor: topbarBg,
                   surfaceTintColor: Colors.transparent,
+                  iconTheme: IconThemeData(color: topbarIconColor),
                   title: Row(
                     children: [
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: theme.primaryColor.withValues(alpha: 0.1),
+                          color: topbarIconColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(LucideIcons.shieldCheck, color: theme.primaryColor),
+                        child: Icon(LucideIcons.shieldCheck, color: topbarIconColor),
                       ),
                       const SizedBox(width: 12),
                       Column(
@@ -91,12 +104,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             tenant.name,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
+                              color: topbarTextColor,
                             ),
                           ),
                           Text(
                             application.name,
                             style: theme.textTheme.labelSmall?.copyWith(
-                              color: theme.hintColor,
+                              color: topbarSecondaryTextColor,
                             ),
                           ),
                         ],
@@ -122,30 +136,30 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           margin: const EdgeInsets.only(right: 16),
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: theme.primaryColor.withValues(alpha: 0.05),
+                            color: topbarIconColor.withValues(alpha: 0.05),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: theme.primaryColor.withValues(alpha: 0.1),
+                              color: topbarIconColor.withValues(alpha: 0.15),
                             ),
                           ),
                           child: Row(
                             children: [
-                              Icon(LucideIcons.user, size: 14, color: theme.primaryColor),
+                              Icon(LucideIcons.user, size: 14, color: topbarTextColor),
                               const SizedBox(width: 8),
                               Text(
                                 activeRole.displayName,
                                 style: theme.textTheme.labelMedium?.copyWith(
-                                  color: theme.primaryColor,
+                                  color: topbarTextColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(width: 4),
-                              Icon(LucideIcons.chevronDown, size: 12, color: theme.primaryColor),
+                              Icon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),
                               const SizedBox(width: 12),
                               Container(
                                 width: 1,
                                 height: 14,
-                                color: theme.primaryColor.withValues(alpha: 0.2),
+                                color: topbarTextColor.withValues(alpha: 0.2),
                               ),
                               const SizedBox(width: 12),
                               Builder(
@@ -153,21 +167,21 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   final govRole = GovernanceRole(activeRole);
                                   return Row(
                                     children: [
-                                      Icon(LucideIcons.layers, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                                      Icon(LucideIcons.layers, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
                                       const SizedBox(width: 4),
                                       Text(
                                         'Role Items: ${govRole.totalSidebarItems}',
                                         style: theme.textTheme.labelSmall?.copyWith(
-                                          color: theme.primaryColor.withValues(alpha: 0.8),
+                                          color: topbarTextColor.withValues(alpha: 0.8),
                                         ),
                                       ),
                                       const SizedBox(width: 12),
-                                      Icon(LucideIcons.appWindow, size: 14, color: theme.primaryColor.withValues(alpha: 0.7)),
+                                      Icon(LucideIcons.appWindow, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
                                       const SizedBox(width: 4),
                                       Text(
                                         'App Total: ${govRole.totalAppSidebarItems}',
                                         style: theme.textTheme.labelSmall?.copyWith(
-                                          color: theme.primaryColor.withValues(alpha: 0.8),
+                                          color: topbarTextColor.withValues(alpha: 0.8),
                                         ),
                                       ),
                                     ],
@@ -196,13 +210,13 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(LucideIcons.languages, color: theme.primaryColor, size: 20),
+                                Icon(LucideIcons.languages, color: topbarIconColor, size: 20),
                                 const SizedBox(width: 6),
                                 Text(
                                   ref.watch(languageProvider).toUpperCase(),
                                   style: theme.textTheme.labelMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: theme.primaryColor,
+                                    color: topbarTextColor,
                                   ),
                                 ),
                               ],
@@ -254,7 +268,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     ),
                     const SizedBox(width: 8),
                     IconButton(
-                      icon: const Icon(LucideIcons.logOut),
+                      icon: Icon(LucideIcons.logOut, color: topbarIconColor),
                       onPressed: () {
                         ref.read(authProvider.notifier).logout();
                       },
@@ -294,8 +308,22 @@ class GovernanceMasterLayout extends ConsumerWidget {
   }
 
   Widget _buildSidebar(BuildContext context, WidgetRef ref, ThemeData theme, List<PlatformModule> modules, PlatformTenant tenant, ResolutionTier tier) {
+    final themeColors = theme.extension<GovernanceThemeColors>();
+    final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
+    final isSidebarDark = ThemeData.estimateBrightnessForColor(sidebarBg) == Brightness.dark;
+    
+    final defaultSidebarTextColor = isSidebarDark ? Colors.white : theme.textTheme.bodyMedium?.color;
+    final defaultSidebarIconColor = isSidebarDark ? Colors.white70 : theme.iconTheme.color?.withValues(alpha: 0.6);
+    
+    final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
+    final sidebarSelectedTextColor = themeColors?.sidebarSelectedTextColor ?? theme.primaryColor;
+    final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
+    final sidebarSelectedIconColor = themeColors?.sidebarSelectedIconColor ?? sidebarSelectedTextColor;
+    final sidebarSelectedTileColor = themeColors?.sidebarSelectedTileColor ?? theme.primaryColor.withValues(alpha: 0.05);
+    final sidebarDividerColor = themeColors?.sidebarDividerColor ?? theme.dividerColor.withValues(alpha: 0.05);
+
     return Drawer(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: sidebarBg,
       surfaceTintColor: Colors.transparent,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Semantics(
@@ -305,81 +333,81 @@ class GovernanceMasterLayout extends ConsumerWidget {
           key: const Key('app-sidebar'),
           child: Container(
             width: AdaptiveScalingConfig.getSidebarWidth(tier),
-        decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          border: Border(
-            right: BorderSide(
-              color: theme.dividerColor.withValues(alpha: 0.05),
-            ),
-          ),
-        ),
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: modules.length,
-          itemBuilder: (context, index) {
-            final module = modules[index];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        module.icon,
-                        size: 18,
-                        color: theme.primaryColor.withValues(alpha: 0.7),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        module.name.toUpperCase(),
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.bold,
-                          color: theme.hintColor,
-                        ),
-                      ),
-                    ],
-                  ),
+            decoration: BoxDecoration(
+              color: sidebarBg,
+              border: Border(
+                right: BorderSide(
+                  color: sidebarDividerColor,
                 ),
-                ...module.screens
-                    .where((screen) =>
-                        screen.requiredRole == null ||
-                        screen.requiredRole == activeRole)
-                    .map((screen) {
-                  
-                  String currentRoute = '';
-                  try {
-                    currentRoute = GoRouterState.of(context).uri.toString();
-                  } catch (_) {
-                    currentRoute = '';
-                  }
-                  
-                  final isSelected = currentRoute == screen.route;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                    child: ListTile(
-                      dense: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemCount: modules.length,
+              itemBuilder: (context, index) {
+                final module = modules[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
                       ),
-                      selected: isSelected,
-                      selectedTileColor: theme.primaryColor.withValues(alpha: 0.05),
-                      leading: Icon(
-                        screen.icon ?? LucideIcons.circle,
-                        size: 18,
-                        color: isSelected ? theme.primaryColor : theme.iconTheme.color?.withValues(alpha: 0.6),
+                      child: Row(
+                        children: [
+                          Icon(
+                            module.icon,
+                            size: 18,
+                            color: sidebarIconColor?.withValues(alpha: 0.8) ?? theme.primaryColor.withValues(alpha: 0.7),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            module.name.toUpperCase(),
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              letterSpacing: 1.2,
+                              fontWeight: FontWeight.bold,
+                              color: sidebarTextColor?.withValues(alpha: 0.6) ?? theme.hintColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      title: Text(
-                        screen.title,
-                        style: TextStyle(
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                          color: isSelected ? theme.primaryColor : theme.textTheme.bodyMedium?.color,
-                        ),
-                      ),
+                    ),
+                    ...module.screens
+                        .where((screen) =>
+                            screen.requiredRole == null ||
+                            screen.requiredRole == activeRole)
+                        .map((screen) {
+                      
+                      String currentRoute = '';
+                      try {
+                        currentRoute = GoRouterState.of(context).uri.toString();
+                      } catch (_) {
+                        currentRoute = '';
+                      }
+                      
+                      final isSelected = currentRoute == screen.route;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        child: ListTile(
+                          dense: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          selected: isSelected,
+                          selectedTileColor: sidebarSelectedTileColor,
+                          leading: Icon(
+                            screen.icon ?? LucideIcons.circle,
+                            size: 18,
+                            color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,
+                          ),
+                          title: Text(
+                            screen.title,
+                            style: TextStyle(
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                              color: isSelected ? sidebarSelectedTextColor : sidebarTextColor,
+                            ),
+                          ),
                       onTap: () {
                         ref
                             .read(auraBehavioralTelemetryProvider)

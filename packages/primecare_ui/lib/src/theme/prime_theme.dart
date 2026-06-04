@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
+import 'package:flutter_core/theme/app_theme.dart';
 
 /// Static utility class for PrimeCare colors used across the platform.
 class PrimeCareColors {
@@ -492,6 +493,23 @@ class PrimeThemeData {
       primaryColor: colors.primary,
       scaffoldBackgroundColor: colors.background,
       dividerColor: colors.divider,
+      extensions: [
+        GovernanceThemeColors(
+          sidebarBackground: colors.sidebarBackground,
+          topbarBackground: colors.topbarBackground,
+          sidebarTextColor: colors.sidebarTextColor,
+          sidebarSelectedTextColor: colors.sidebarSelectedTextColor,
+          sidebarIconColor: colors.sidebarIconColor,
+          sidebarSelectedIconColor: colors.sidebarSelectedIconColor,
+          sidebarSelectedTileColor: colors.sidebarSelectedTileColor,
+          sidebarDividerColor: colors.sidebarDividerColor,
+          topbarTextColor: colors.topbarTextColor,
+          topbarSelectedTextColor: colors.topbarSelectedTextColor,
+          topbarIconColor: colors.topbarIconColor,
+          topbarSelectedIconColor: colors.topbarSelectedIconColor,
+          topbarDividerColor: colors.topbarDividerColor,
+        ),
+      ],
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: colors.primary,
