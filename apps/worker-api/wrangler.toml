@@ -1,0 +1,12 @@
+name = "primecare-worker-api-gateway"
+main = "src/index.ts"
+compatibility_date = "2026-05-20"
+
+[vars]
+TEST_MODE = "true"
+TEST_DEFAULT_PASSWORD = "Test@12345"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "primecare-governance-db"
+database_id = "e829c9e4-65b6-4987-b810-20822c8e7dbb"
