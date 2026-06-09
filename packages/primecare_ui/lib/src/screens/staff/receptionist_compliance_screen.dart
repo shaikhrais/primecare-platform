@@ -78,6 +78,38 @@ final receptionistComplianceProvider =
 
 // --- View ---
 class ReceptionistComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing tasks, communication, documents, performance metrics, inventory, customer feedback, team collaboration, compliance tracking, training resources, and deadline alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskCalendar',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'PerformanceMetricsCard',
+        'InventoryManagement',
+        'CustomerFeedbackMetrics',
+        'TeamCollaborationTool',
+        'ComplianceTracker',
+        'TrainingResources',
+        'DeadlineAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addAppointment',
+        'sendEmail',
+        'uploadDocument',
+        'generateReport',
+        'manageInventory',
+        'submitFeedback',
+        'collaborate',
+        'trackCompliance',
+        'accessTraining',
+        'setAlert',
+      ];
+
   const ReceptionistComplianceScreen({super.key});
 
   @override

@@ -78,6 +78,29 @@ final territoryExpansionManagerComplianceProvider =
 
 // --- View ---
 class TerritoryExpansionManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking KPIs, market analysis, compliance status, stakeholder feedback, resource allocation, and progress, along with buttons for reporting and strategy updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'MarketAnalysisChart',
+        'ComplianceStatusCard',
+        'StakeholderFeedbackWidget',
+        'ResourceAllocationTracker',
+        'ProgressTimeline',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'updateStrategy',
+        'requestResources',
+        'viewComplianceLogs',
+      ];
+
   const TerritoryExpansionManagerComplianceScreen({super.key});
 
   @override

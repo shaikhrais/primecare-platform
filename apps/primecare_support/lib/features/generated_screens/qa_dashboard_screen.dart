@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'qa_dashboard_screen_controller.dart';
 
-class QaDashboardScreen extends ConsumerWidget {
+class QaDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The qa_dashboard screen requires components for monitoring compliance, operational metrics, alerts, and user actions, along with API integrations for executing tasks and reporting issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatus',
+        'OperationalMetricsCard',
+        'AlertsNotification',
+        'AuditLogHistory',
+        'TelemetryDataChart',
+        'QuickActionButtons',
+        'RecentLogsSummary',
+        'PolicyUpdateNotification',
+        'UserNavigationMenu',
+        'SystemIntegrationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'syncSecurityPosture',
+        'exportAuditLogs',
+        'viewTelemetryData',
+        'updateSecurityPolicies',
+        'reportDiscrepancies',
+        'collaborateWithTeams',
+        'provideTraining',
+      ];
+
   const QaDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qaDashboardScreenControllerProvider);
 
     return Scaffold(

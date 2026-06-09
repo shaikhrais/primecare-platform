@@ -78,6 +78,34 @@ final hrDirectorComplianceProvider =
 
 // --- View ---
 class HrDirectorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director compliance screen requires various metrics and task management components to oversee HR operations, along with buttons for generating reports and initiating processes.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceMetricsCard',
+        'EmployeeEngagementChart',
+        'RecruitmentMetricsWidget',
+        'TrainingParticipationChart',
+        'PerformanceManagementStats',
+        'DiversityInclusionMetrics',
+        'GrievanceStatisticsCard',
+        'HealthSafetyComplianceCard',
+        'OperationalEfficiencyMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewAuditResults',
+        'initiateRecruitment',
+        'startTrainingProgram',
+        'reviewPerformanceEvaluations',
+        'monitorCompliance',
+      ];
+
   const HrDirectorComplianceScreen({super.key});
 
   @override

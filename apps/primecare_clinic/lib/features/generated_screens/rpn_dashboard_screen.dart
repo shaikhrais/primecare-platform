@@ -1,10 +1,42 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class RpnDashboardScreen extends ConsumerWidget {
+class RpnDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN dashboard requires real-time monitoring of patient vital signs, alert systems for abnormalities, compliance tracking, and tools for documentation and team communication.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsMonitor',
+        'AlertNotification',
+        'ComplianceTracker',
+        'DocumentationStatusIndicator',
+        'PatientSatisfactionMetric',
+        'IncidentReportingSystem',
+        'StaffingLevelIndicator',
+        'EducationalResourceAccess',
+        'AuditLogViewer',
+        'TeamCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorVitalSigns',
+        'triggerAlert',
+        'trackCompliance',
+        'updateDocumentationStatus',
+        'collectPatientFeedback',
+        'reportIncident',
+        'checkStaffingLevels',
+        'accessEducationalResources',
+        'viewAuditLogs',
+        'sendTeamMessage',
+      ];
+
   const RpnDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final roleBase = 'Rpn';
 

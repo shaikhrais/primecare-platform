@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ChiropractorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractor workflow screen requires components for patient management, treatment planning, progress tracking, and collaboration, along with necessary buttons, functions, and API integrations to support these activities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'ProgressTrackingChart',
+        'PatientRecordTable',
+        'CollaborationTool',
+        'RedFlagAlert',
+        'AnalyticsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'modifyTreatmentPlan',
+        'recordPatientProgress',
+        'educatePatient',
+        'collaborateWithProviders',
+        'checkRedFlags',
+        'generateAnalytics',
+      ];
+
   const ChiropractorWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

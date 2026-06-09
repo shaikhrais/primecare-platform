@@ -99,6 +99,33 @@ final offerManagementProvider =
 
 // --- View ---
 class OfferManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The offer management screen requires various components to display recruitment metrics, candidate status, and compliance information, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RecruitmentMetricsCard',
+        'CandidatePipelineChart',
+        'DiversityMetricsWidget',
+        'OfferAcceptanceRateCard',
+        'CandidateExperienceFeedbackCard',
+        'JobPostingsStatusList',
+        'ComplianceStatusWidget',
+        'RecruitmentBudgetTracker',
+        'TeamPerformanceMetricsCard',
+        'UpcomingEventsCalendar',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRecruitmentMetrics',
+        'updateCandidateStatus',
+        'exportMetricsData',
+        'scheduleRecruitmentEvent',
+        'sendCandidateCommunication',
+      ];
+
   const OfferManagementScreen({super.key});
 
   @override

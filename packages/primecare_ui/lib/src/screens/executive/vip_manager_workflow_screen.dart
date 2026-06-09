@@ -107,6 +107,30 @@ final vipManagerWorkflowScreenProvider =
 
 // --- View ---
 class VipManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance status, operational metrics, and user activity, along with buttons for executing tasks and resolving issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'OperationalTelemetryMetrics',
+        'ComplianceActivityLogs',
+        'ComplianceAlerts',
+        'HistoricalDataTrends',
+        'ActionButtonPanel',
+        'DataVisualizationCharts',
+        'UserActivityLogs',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'resolveComplianceIssue',
+        'updateDashboardMetrics',
+        'fetchHistoricalTrends',
+      ];
+
   const VipManagerWorkflowScreen({super.key});
 
   @override

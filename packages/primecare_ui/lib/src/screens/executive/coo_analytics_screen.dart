@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CooAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The COO analytics screen requires various performance and financial metrics, employee engagement data, and operational indicators, along with alert functionalities for monitoring red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'FinancialDashboard',
+        'EmployeeEngagementChart',
+        'OperationalEfficiencyIndicator',
+        'CustomerFeedbackWidget',
+        'ComplianceReport',
+        'ProjectStatusTracker',
+        'ResourceUtilizationChart',
+        'StrategicGoalTracker',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchFinancialData',
+        'fetchEmployeeEngagementScores',
+        'fetchOperationalIndicators',
+        'fetchCustomerFeedback',
+        'fetchComplianceReports',
+        'fetchProjectStatus',
+        'fetchResourceUtilization',
+        'fetchStrategicGoals',
+        'triggerAlert',
+      ];
+
   const CooAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

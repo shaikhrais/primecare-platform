@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class LocalMarketingManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing and analyzing local marketing campaigns, collaboration tools, and budget tracking, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'PerformanceMetricsChart',
+        'BudgetTracker',
+        'MarketResearchInsights',
+        'SocialMediaMetrics',
+        'EventCalendar',
+        'CollaborationTool',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'updatePerformanceMetrics',
+        'trackBudget',
+        'analyzeMarketResearch',
+        'getSocialMediaStats',
+        'fetchEventCalendar',
+        'sendCollaborationMessage',
+        'setAlerts',
+      ];
+
   const LocalMarketingManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'infection_control_dashboard_screen_controller.dart';
 
-class InfectionControlDashboardScreen extends ConsumerWidget {
+class InfectionControlDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The infection control dashboard requires real-time metrics, trend visualizations, alerts for critical issues, and user-friendly navigation for effective infection control management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InfectionRateCard',
+        'TrendVisualizationChart',
+        'AlertNotificationBanner',
+        'HistoricalDataTable',
+        'NavigationMenu',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchInfectionMetrics',
+        'generateTrendVisualizations',
+        'sendAlertNotifications',
+        'retrieveHistoricalData',
+        'navigateToReports',
+      ];
+
   const InfectionControlDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(infectionControlDashboardScreenControllerProvider);
 
     return Semantics(

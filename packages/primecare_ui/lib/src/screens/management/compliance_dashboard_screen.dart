@@ -101,6 +101,38 @@ final complianceDashboardProvider =
 
 // --- View ---
 class ComplianceDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The compliance dashboard requires components for monitoring compliance status, auditing, training metrics, and incident reporting, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'RecentAuditsList',
+        'ComplianceActivityLog',
+        'TrainingMetricsChart',
+        'RegulatoryDeadlinesAlert',
+        'ComplianceTrendsChart',
+        'ViolationsSummary',
+        'DocumentationAccess',
+        'IncidentReportingIntegration',
+        'UserFriendlyNavigation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchRecentAudits',
+        'logComplianceActivity',
+        'fetchTrainingMetrics',
+        'setRegulatoryDeadlineAlert',
+        'fetchComplianceTrends',
+        'fetchViolationsSummary',
+        'accessDocumentation',
+        'integrateIncidentReporting',
+        'navigateDashboard',
+      ];
+
   const ComplianceDashboardScreen({super.key});
 
   @override

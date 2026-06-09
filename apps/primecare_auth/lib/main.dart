@@ -196,6 +196,29 @@ class LoginViewWrapper extends ConsumerWidget {
 }
 
 class SuccessProfileView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The screen requires components for user authentication status, session verification, user details, session token display, and a sign-out option, along with appropriate API integrations and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'UserAuthStatusIndicator',
+        'SessionVerificationStatus',
+        'UserDetailsDisplay',
+        'SessionTokenDisplay',
+        'SignOutButton',
+        'Notifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'verifySessionStatus',
+        'fetchUserDetails',
+        'fetchSessionToken',
+        'signOutUser',
+        'handleForcedLogout',
+      ];
+
   const SuccessProfileView({super.key});
 
   @override
@@ -367,6 +390,27 @@ class SuccessProfileView extends GovernedScreen {
 }
 
 class ConsentView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The consent screen requires user authentication, language selection, consent review, and session management functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LanguageSelector',
+        'ConsentInformationDisplay',
+        'SessionTokenDisplay',
+        'NotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'handleLogin',
+        'selectLanguage',
+        'reviewConsent',
+        'navigateToSuccess',
+        'handleSignOut',
+      ];
+
   final String redirectUri;
 
   const ConsentView({super.key, required this.redirectUri});

@@ -4,6 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TerritoryExpansionManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying KPIs, market research, budget tracking, and project timelines, along with buttons for generating reports and updating strategies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'MarketResearchChart',
+        'BudgetTracker',
+        'ProjectTimeline',
+        'StakeholderEngagementWidget',
+        'TeamPerformanceChart',
+        'ComplianceStatusWidget',
+        'MarketPotentialVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'updateStrategy',
+        'monitorPerformance',
+        'reviewBudget',
+        'trainLocalTeams',
+      ];
+
   const TerritoryExpansionManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -100,6 +100,37 @@ final schedulerCalendarProvider =
 
 // --- View ---
 class SchedulerCalendarScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The scheduler_calendar screen requires components for monitoring attendance, performance metrics, safety incidents, and compliance audits, along with buttons and functions for reporting and feedback management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AttendanceOverviewWidget',
+        'PerformanceMetricsCard',
+        'SafetyIncidentTracker',
+        'ComplianceAuditResults',
+        'EmployeeFeedbackWidget',
+        'OperationalLogsViewer',
+        'AlertsDashboard',
+        'TrainingProgressTracker',
+        'CustomerSatisfactionMetrics',
+        'DataTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAttendanceData',
+        'generatePerformanceReport',
+        'trackSafetyIncidents',
+        'fetchAuditResults',
+        'submitEmployeeFeedback',
+        'viewOperationalLogs',
+        'triggerAlert',
+        'updateTrainingProgress',
+        'fetchCustomerSatisfaction',
+      ];
+
   const SchedulerCalendarScreen({super.key});
 
   @override

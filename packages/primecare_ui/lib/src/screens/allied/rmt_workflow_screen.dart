@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RmtWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive client management and appointment scheduling system, along with tools for tracking treatment plans, performance metrics, compliance, and financials, all accessible across multiple devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientManagementSystem',
+        'AppointmentScheduler',
+        'TreatmentPlanTemplate',
+        'PerformanceMetricsChart',
+        'ComplianceChecklist',
+        'EducationTracking',
+        'FinancialOverview',
+        'CommunicationTool',
+        'FeedbackCollectionSystem',
+        'IntegrationModule',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageClientRecords',
+        'scheduleAppointment',
+        'saveTreatmentPlan',
+        'trackPerformanceMetrics',
+        'checkCompliance',
+        'trackContinuingEducation',
+        'manageFinancials',
+        'sendClientReminder',
+        'collectFeedback',
+        'integrateWithHealthcareSystems',
+      ];
+
   const RmtWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

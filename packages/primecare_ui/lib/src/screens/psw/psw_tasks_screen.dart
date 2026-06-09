@@ -114,6 +114,28 @@ final pswTasksControllerProvider =
 
 // --- View ---
 class PswTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, progress tracking, alerts, client notes, communication logs, and performance metrics, along with associated buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ProgressTracker',
+        'AlertNotification',
+        'ClientNotes',
+        'CommunicationLog',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'markTaskComplete',
+        'reportHighPriorityTask',
+        'addClientNote',
+        'logCommunication',
+      ];
+
   const PswTasksScreen({super.key});
 
   @override

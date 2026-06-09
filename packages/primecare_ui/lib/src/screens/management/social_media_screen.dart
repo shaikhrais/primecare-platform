@@ -97,6 +97,38 @@ final socialMediaProvider =
 
 // --- View ---
 class SocialMediaScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking marketing campaigns, KPIs, budget, social media metrics, and team performance, along with buttons for report generation and analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignStatusCard',
+        'KPIChart',
+        'BudgetTracker',
+        'SocialMediaMetrics',
+        'MarketResearchInsights',
+        'CustomerFeedbackAnalysis',
+        'TeamPerformanceMetrics',
+        'CampaignTimeline',
+        'ComplianceStatus',
+        'RealTimeAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignStatus',
+        'calculateKPIs',
+        'trackBudget',
+        'retrieveSocialMediaMetrics',
+        'analyzeMarketResearch',
+        'gatherCustomerFeedback',
+        'evaluateTeamPerformance',
+        'updateCampaignTimeline',
+        'checkComplianceStatus',
+        'generateRealTimeReports',
+      ];
+
   const SocialMediaScreen({super.key});
 
   @override

@@ -78,6 +78,32 @@ final courseArchitectComplianceProvider =
 
 // --- View ---
 class CourseArchitectComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing training programs, tracking feedback, ensuring compliance, and monitoring budget utilization, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingProgramCard',
+        'FeedbackChart',
+        'ComplianceStatusWidget',
+        'BudgetUtilizationChart',
+        'SessionScheduleList',
+        'TrainerEvaluationCard',
+        'ResourceAllocationWidget',
+        'OutcomeLogTable',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTrainingProgram',
+        'viewFeedback',
+        'generateReport',
+        'updateCompliance',
+        'manageBudget',
+        'scheduleTraining',
+      ];
+
   const CourseArchitectComplianceScreen({super.key});
 
   @override

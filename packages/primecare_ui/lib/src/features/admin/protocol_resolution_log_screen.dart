@@ -8,6 +8,28 @@ final protocolLogsProvider = FutureProvider.autoDispose<List<Map<String, dynamic
 });
 
 class ProtocolResolutionLogScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and managing protocol resolution logs, including functionalities for refreshing data, downloading reports, and handling errors.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProtocolLogTable',
+        'LogDetailView',
+        'LoadingIndicator',
+        'NotificationBanner',
+        'SearchFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchProtocolLogs',
+        'expandLogDetails',
+        'downloadReport',
+        'handleLoadingError',
+        'filterLogs',
+      ];
+
   const ProtocolResolutionLogScreen({super.key});
 
   @override

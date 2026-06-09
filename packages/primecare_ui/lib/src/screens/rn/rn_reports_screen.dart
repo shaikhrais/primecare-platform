@@ -97,6 +97,33 @@ final rnReportsProvider =
 
 // --- View ---
 class RnReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN Reports screen requires components for monitoring patient metrics, compliance audits, and staff performance, along with buttons for submitting medications and reporting incidents, all accessible across mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientMonitoringWidget',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'CriticalAlertsWidget',
+        'StaffPerformanceDashboard',
+        'MedicationRecordsTable',
+        'PatientSatisfactionGauge',
+        'IncidentReportList',
+        'TrainingStatusCard',
+        'ClinicalGuidelinesAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitMedication',
+        'reportIncident',
+        'fetchAuditLogs',
+        'accessGuidelines',
+        'refreshMetrics',
+      ];
+
   const RnReportsScreen({super.key});
 
   @override

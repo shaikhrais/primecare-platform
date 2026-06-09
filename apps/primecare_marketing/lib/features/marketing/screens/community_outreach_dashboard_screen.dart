@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'community_outreach_dashboard_screen_controller.dart';
 
-class CommunityOutreachDashboardScreen extends ConsumerWidget {
+class CommunityOutreachDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The community outreach dashboard requires components for tracking KPIs, community engagement, budget management, and compliance, along with various buttons and functions for event management and feedback collection.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'EngagementMetricChart',
+        'BudgetTracker',
+        'ActivityLog',
+        'ComplianceStatusCard',
+        'DemographicsVisualization',
+        'RealTimeUpdatesPanel',
+        'FeedbackCollectionTool',
+        'CollaborationTool',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addEvent',
+        'collectFeedback',
+        'viewReports',
+        'manageBudget',
+        'trainStaff',
+      ];
+
   const CommunityOutreachDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(communityOutreachDashboardScreenControllerProvider);
 
     return Scaffold(

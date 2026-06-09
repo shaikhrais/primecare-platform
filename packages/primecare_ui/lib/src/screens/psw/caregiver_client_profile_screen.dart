@@ -101,6 +101,29 @@ final caregiverClientProfileProvider =
 
 // --- View ---
 class CaregiverClientProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, health monitoring, medication alerts, communication tools, and performance metrics, along with buttons for logging care and reporting incidents.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'HealthStatusCard',
+        'MedicationAlert',
+        'CommunicationTool',
+        'PerformanceMetrics',
+        'ComplianceAuditResults',
+        'TrainingResources',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logCareProvided',
+        'reportIncident',
+        'requestAssistance',
+        'viewComplianceAudit',
+      ];
+
   const CaregiverClientProfileScreen({super.key});
 
   @override

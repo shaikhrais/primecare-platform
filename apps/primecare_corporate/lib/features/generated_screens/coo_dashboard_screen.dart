@@ -1,12 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_dashboard_screen_controller.dart';
 
-class CooDashboardScreen extends ConsumerWidget {
+class CooDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The COO dashboard requires components to display operational metrics, security statuses, and audit logs, along with buttons for compliance actions and data synchronization.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveOperationsCount',
+        'OperationalProductivityMetric',
+        'SecurityClearanceStatus',
+        'ClearanceExceptionsHighlight',
+        'TelemetryDataDisplay',
+        'AuditLogs',
+        'PerformanceTrendsChart',
+        'QuickActionsPanel',
+        'InsightsRecommendations',
+        'ErrorHandlingDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveOperations',
+        'fetchProductivityMetrics',
+        'fetchSecurityClearanceStatus',
+        'fetchClearanceExceptions',
+        'fetchTelemetryData',
+        'fetchAuditLogs',
+        'fetchPerformanceTrends',
+        'runComplianceScan',
+        'syncData',
+      ];
+
   const CooDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooDashboardScreenControllerProvider);
 
     return Scaffold(

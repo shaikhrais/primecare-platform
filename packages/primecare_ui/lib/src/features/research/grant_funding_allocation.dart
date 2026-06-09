@@ -2,6 +2,28 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GrantFundingAllocationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for reviewing and allocating funding, monitoring status, generating reports, and communicating with stakeholders, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FundingOverviewCard',
+        'FundingAllocationChart',
+        'FundingStatusTable',
+        'ReportingTool',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewFundingOptions',
+        'allocateFunding',
+        'monitorFundingStatus',
+        'generateReports',
+        'communicateWithStakeholders',
+      ];
+
   const GrantFundingAllocationScreen({super.key});
 
   @override

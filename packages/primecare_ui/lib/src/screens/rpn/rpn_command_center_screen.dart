@@ -99,6 +99,38 @@ final rpnCommandCenterProvider =
 
 // --- View ---
 class RpnCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN command center screen requires components for patient status, compliance audits, interaction logs, and various metrics, along with buttons and functions for managing patient care and staff performance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusOverview',
+        'ComplianceAuditResults',
+        'PatientInteractionLogs',
+        'MedicationMetrics',
+        'PatientSatisfactionScores',
+        'StaffPerformanceIndicators',
+        'IncidentReports',
+        'CarePlansAccess',
+        'RealTimeNotifications',
+        'TaskManagementTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientStatus',
+        'fetchComplianceResults',
+        'logPatientInteraction',
+        'trackMedicationAdministration',
+        'fetchSatisfactionScores',
+        'evaluateStaffPerformance',
+        'submitIncidentReport',
+        'retrieveCarePlans',
+        'sendRealTimeNotification',
+        'scheduleTasks',
+      ];
+
   const RpnCommandCenterScreen({super.key});
 
   @override

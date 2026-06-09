@@ -78,6 +78,38 @@ final billingAdminComplianceProvider =
 
 // --- View ---
 class BillingAdminComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The billing_admin_compliance screen requires components for task management, scheduling, communication tracking, document management, performance metrics, compliance checks, inventory tracking, customer feedback, meeting coordination, and reporting tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'PerformanceMetrics',
+        'ComplianceChecklist',
+        'InventoryTracker',
+        'CustomerFeedbackTracker',
+        'MeetingCoordinationTools',
+        'ReportingTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleAppointment',
+        'logCommunication',
+        'uploadDocument',
+        'viewPerformanceMetrics',
+        'checkCompliance',
+        'trackInventory',
+        'submitFeedback',
+        'coordinateMeeting',
+        'generateReport',
+      ];
+
   const BillingAdminComplianceScreen({super.key});
 
   @override

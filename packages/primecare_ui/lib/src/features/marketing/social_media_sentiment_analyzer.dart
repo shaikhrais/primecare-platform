@@ -8,6 +8,25 @@ final socialSentimentProvider = FutureProvider.autoDispose<List<Map<String, dyna
 });
 
 class SocialMediaSentimentAnalyzerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time sentiment data display, analysis of brand sentiment, and trend identification with a user-friendly interface.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SentimentDisplay',
+        'SentimentTrendChart',
+        'SentimentAlert',
+        'SentimentOverview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSentimentData',
+        'analyzeBrandSentiment',
+        'identifySentimentTrends',
+      ];
+
   const SocialMediaSentimentAnalyzerScreen({super.key});
 
   @override

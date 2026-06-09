@@ -199,6 +199,38 @@ final clinicalDashboardProvider =
 
 // --- View ---
 class ClinicalDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The clinical dashboard requires components for monitoring compliance, performance metrics, and communication tools, along with buttons for policy updates and alerts, all accessible across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusWidget',
+        'PerformanceMetricsChart',
+        'ActivityLogList',
+        'AlertNotificationPanel',
+        'PatientSafetyMetricsCard',
+        'StaffPerformanceIndicator',
+        'PolicyUpdateOverview',
+        'CommunicationTool',
+        'TrainingResourceAccess',
+        'HistoricalDataTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'getPerformanceMetrics',
+        'logRecentActivity',
+        'triggerAlert',
+        'fetchPatientSafetyMetrics',
+        'getStaffPerformance',
+        'updatePolicyStatus',
+        'coordinateCommunication',
+        'accessTrainingResources',
+        'analyzeHistoricalData',
+      ];
+
   const ClinicalDashboardScreen({super.key});
 
   @override

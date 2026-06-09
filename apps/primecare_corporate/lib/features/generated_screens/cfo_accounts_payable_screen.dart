@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_accounts_payable_screen_controller.dart';
 
-class CfoAccountsPayableScreen extends ConsumerWidget {
+class CfoAccountsPayableScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for invoice management, payment tracking, compliance metrics, and vendor communication, along with necessary buttons and functions to facilitate user tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InvoiceOverviewWidget',
+        'PaymentStatusTracker',
+        'CashFlowChart',
+        'ComplianceMetricsCard',
+        'VendorCommunicationLog',
+        'PaymentDisputeReport',
+        'PerformanceMetricsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveInvoice',
+        'manageVendorPayments',
+        'trackPaymentStatus',
+        'generateFinancialReport',
+        'ensureCompliance',
+        'communicateWithVendor',
+        'monitorCashFlow',
+      ];
+
   const CfoAccountsPayableScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoAccountsPayableScreenControllerProvider);
 
     return Scaffold(

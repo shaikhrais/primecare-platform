@@ -101,6 +101,32 @@ final operationsCommandCenterProvider =
 
 // --- View ---
 class OperationsCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The operations command center screen requires a comprehensive dashboard displaying KPIs, operational metrics, compliance status, and alerts, along with interactive buttons for refreshing data and exporting reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'OperationalMetricsChart',
+        'ComplianceStatusCard',
+        'FinancialPerformanceCard',
+        'EmployeeEngagementWidget',
+        'CustomerSatisfactionWidget',
+        'RiskManagementDashboard',
+        'OperationalLogsTable',
+        'ResourceAllocationChart',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshMetrics',
+        'viewDetailedReports',
+        'exportData',
+        'setAlerts',
+      ];
+
   const OperationsCommandCenterScreen({super.key});
 
   @override

@@ -46,6 +46,28 @@ final pswCareDashboardControllerProvider = StateNotifierProvider<PswCareDashboar
 
 // --- View ---
 class PswCareDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient care metrics, displaying satisfaction scores, and facilitating collaboration among healthcare team members, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientCareMetricsDisplay',
+        'PatientSatisfactionChart',
+        'MedicationAdherenceAlert',
+        'OperationalEfficiencyIndicator',
+        'PatientRecordsAccess',
+        'TeamCollaborationTool',
+        'ReportingFeature',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientRecord',
+        'generateReport',
+        'collaborateWithTeam',
+      ];
+
   const PswCareDashboardScreen({super.key});
 
   @override

@@ -107,6 +107,33 @@ final employeeAnalyticsScreenProvider =
 
 // --- View ---
 class EmployeeAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Employee Analytics screen requires components for monitoring analytics, executing compliance scans, logging telemetry, and displaying real-time metrics, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeAnalyticsMonitor',
+        'ComplianceScanExecutor',
+        'TelemetryLogger',
+        'TelemetryRefresher',
+        'GovernanceActionTrigger',
+        'RealTimeMetricsDisplay',
+        'ErrorHandler',
+        'ResponsiveUI',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorEmployeeAnalytics',
+        'executeComplianceScan',
+        'logTelemetry',
+        'refreshTelemetryLogs',
+        'triggerGovernanceAction',
+        'handleApiResponse',
+        'ensureResponsiveUI',
+      ];
+
   const EmployeeAnalyticsScreen({super.key});
 
   @override

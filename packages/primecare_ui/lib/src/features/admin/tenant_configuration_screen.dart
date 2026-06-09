@@ -10,6 +10,27 @@ final tenantConfigurationProvider = FutureProvider.autoDispose<Map<String, dynam
 });
 
 class TenantConfigurationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The tenant configuration screen requires components to display tenant information, add new tenants, and monitor billing status, with a focus on user-friendly and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TenantList',
+        'AddTenantForm',
+        'BillingStatusIndicator',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTenantData',
+        'addNewTenant',
+        'monitorBillingStatus',
+        'accessFinancialHub',
+      ];
+
   const TenantConfigurationScreen({super.key});
 
   @override

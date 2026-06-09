@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'security_hub_screen_controller.dart';
 
-class SecurityHubScreen extends ConsumerWidget {
+class SecurityHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The security hub screen requires components for monitoring alerts, reviewing logs, managing access, and configuring settings, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SecurityAlertOverview',
+        'RecentIncidentsList',
+        'UserAccessSummary',
+        'ActionNotificationPanel',
+        'SecurityTrendsChart',
+        'PolicyLinksSection',
+        'SecuritySettingsManager',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorAlerts',
+        'reviewLogs',
+        'manageUserAccess',
+        'configureSecuritySettings',
+        'respondToIncident',
+        'conductSecurityAudit',
+        'updateSecuritySoftware',
+      ];
+
   const SecurityHubScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(securityHubScreenControllerProvider);
 
     return Scaffold(

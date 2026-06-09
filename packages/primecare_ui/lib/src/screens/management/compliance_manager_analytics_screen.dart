@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ComplianceManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Compliance Manager Analytics screen requires components for tracking compliance violations, auditing, training metrics, risk assessment, and regulatory updates, along with necessary buttons and functions for effective compliance management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceViolationTracker',
+        'AuditResultsOverview',
+        'TrainingParticipationMetrics',
+        'RiskAssessmentTool',
+        'RegulatoryUpdatesAlert',
+        'DocumentManagementSystem',
+        'CommunicationLogs',
+        'PerformanceMetricsDashboard',
+        'UserFriendlyInterface',
+        'IntegrationModule',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'trackComplianceViolations',
+        'overviewAuditResults',
+        'updateTrainingParticipation',
+        'assessRisk',
+        'getRegulatoryUpdates',
+        'manageDocuments',
+        'logCommunication',
+        'evaluatePerformance',
+        'accessKeyInformation',
+        'integrateWithManagementSystems',
+      ];
+
   const ComplianceManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

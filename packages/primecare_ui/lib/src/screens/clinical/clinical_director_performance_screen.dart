@@ -101,6 +101,34 @@ final clinicalDirectorPerformanceProvider =
 
 // --- View ---
 class ClinicalDirectorPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for clinical performance metrics, compliance monitoring, and staff management, along with necessary buttons and APIs for operational oversight.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'TelemetryLog',
+        'AuditLog',
+        'PatientSafetyMetrics',
+        'StaffPerformanceChart',
+        'AlertsPanel',
+        'PerformanceTrendVisualization',
+        'HistoricalDataAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchTelemetryLogs',
+        'fetchAuditLogs',
+        'fetchPatientSafetyMetrics',
+        'fetchStaffPerformance',
+        'triggerAlert',
+        'generateReport',
+        'accessHistoricalData',
+      ];
+
   const ClinicalDirectorPerformanceScreen({super.key});
 
   @override

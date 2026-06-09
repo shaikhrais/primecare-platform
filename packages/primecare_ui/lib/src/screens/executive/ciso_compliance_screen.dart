@@ -74,6 +74,34 @@ final cisoComplianceProvider =
 
 // --- View ---
 class CisoComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CISO compliance screen requires various widgets to display security metrics, buttons for initiating actions, and APIs for data retrieval, all while being responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentOverviewWidget',
+        'ComplianceStatusWidget',
+        'RiskAssessmentWidget',
+        'TrainingCompletionWidget',
+        'AuditLogsWidget',
+        'KPIsWidget',
+        'ThreatIntelligenceWidget',
+        'ResourceAllocationWidget',
+        'IncidentResponseMetricsWidget',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'initiateRiskAssessment',
+        'startTraining',
+        'viewAuditLogs',
+        'updateComplianceStatus',
+        'allocateResources',
+      ];
+
   const CisoComplianceScreen({super.key});
 
   @override

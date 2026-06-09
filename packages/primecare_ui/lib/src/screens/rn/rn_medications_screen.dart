@@ -97,6 +97,37 @@ final rnMedicationsProvider =
 
 // --- View ---
 class RnMedicationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components for monitoring patient status, tracking medication compliance, and facilitating communication among healthcare team members, along with necessary buttons and functions to support RN responsibilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'MedicationComplianceTracker',
+        'AssessmentLog',
+        'KPIChart',
+        'ComplianceAuditList',
+        'CommunicationTool',
+        'EducationalResourceAccess',
+        'IncidentReportSystem',
+        'PatientSatisfactionMetrics',
+        'WorkloadVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'administerMedication',
+        'documentAssessment',
+        'collaborateWithTeam',
+        'educatePatient',
+        'logPatientRecord',
+        'initiateQualityImprovement',
+        'respondToEmergency',
+        'manageCarePlan',
+        'updateMedicalPractices',
+      ];
+
   const RnMedicationsScreen({super.key});
 
   @override

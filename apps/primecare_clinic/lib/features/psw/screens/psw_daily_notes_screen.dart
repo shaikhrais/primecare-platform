@@ -69,6 +69,28 @@ final pswDailyNotesControllerProvider = StateNotifierProvider<PswDailyNotesContr
 
 // --- View ---
 class PswDailyNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Psw Daily Notes screen requires components for displaying and editing notes, functionality for saving and updating notes, and APIs for data retrieval and manipulation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'NoteList',
+        'NoteEditor',
+        'NotificationBanner',
+        'SearchBar',
+        'SummaryCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadNotes',
+        'saveNote',
+        'updateNote',
+        'deleteNote',
+        'searchNotes',
+      ];
+
   const PswDailyNotesScreen({super.key});
 
   @override

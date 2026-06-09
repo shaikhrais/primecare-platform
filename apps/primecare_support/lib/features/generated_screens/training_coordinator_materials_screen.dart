@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_coordinator_materials_screen_controller.dart';
 
-class TrainingCoordinatorMaterialsScreen extends ConsumerWidget {
+class TrainingCoordinatorMaterialsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for loading indicators, error messages, and a summary of training materials, along with functions for loading data and handling feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessage',
+        'TrainingMaterialsSummary',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadTrainingMaterials',
+        'handleLoadingError',
+        'submitFeedback',
+      ];
+
   const TrainingCoordinatorMaterialsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingCoordinatorMaterialsScreenControllerProvider);
 
     return Scaffold(

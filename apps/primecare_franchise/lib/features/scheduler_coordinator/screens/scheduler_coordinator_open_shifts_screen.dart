@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_open_shifts_screen_controller.dart';
 
-class SchedulerCoordinatorOpenShiftsScreen extends ConsumerWidget {
+class SchedulerCoordinatorOpenShiftsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing shifts, buttons for assigning shifts and reviewing requests, functions for handling shift operations, APIs for data retrieval and communication, and must be responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftStatusOverview',
+        'ShiftAssignmentPanel',
+        'ShiftRequestManagement',
+        'TeamCommunicationTool',
+        'ShiftCoverageAnalysisChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorOpenShifts',
+        'assignShift',
+        'manageShiftRequests',
+        'communicateShiftChanges',
+        'analyzeShiftCoverage',
+      ];
+
   const SchedulerCoordinatorOpenShiftsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorOpenShiftsScreenControllerProvider);
 
     return Scaffold(

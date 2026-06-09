@@ -43,11 +43,35 @@ final localizationBundleProvider = FutureProvider<Map<String, Set<String>>>((ref
   return bundles;
 });
 
-class ScreenStatusScreen extends ConsumerWidget {
+class ScreenStatusScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for selecting deployments, searching screens, viewing details, and monitoring statuses, along with appropriate error handling and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DeploymentSelector',
+        'ScreenSearchField',
+        'ScreenList',
+        'ScreenDetails',
+        'StatusMonitor',
+        'ErrorMessageDisplay',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'selectDeployment',
+        'searchScreens',
+        'viewScreenDetails',
+        'monitorStatus',
+        'handleError',
+      ];
+
   const ScreenStatusScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final deploymentsState = ref.watch(localDeploymentsProvider);
     final search = ref.watch(screenSearchQueryProvider);
 

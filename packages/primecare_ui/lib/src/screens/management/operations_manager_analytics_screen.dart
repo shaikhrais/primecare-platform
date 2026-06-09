@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class OperationsManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The operations manager analytics screen requires various performance metrics, team engagement statistics, budget tracking, and compliance indicators, along with interactive components for data management and alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'TeamEngagementChart',
+        'BudgetTracker',
+        'CustomerFeedbackWidget',
+        'ProjectTimelineTracker',
+        'ComplianceStatusIndicator',
+        'ResourceUtilizationReport',
+        'OperationalAlerts',
+        'HistoricalDataTrendChart',
+        'DepartmentIntegrationView',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchTeamEngagementStats',
+        'fetchBudgetData',
+        'fetchCustomerFeedback',
+        'fetchProjectStatus',
+        'fetchComplianceStatus',
+        'fetchResourceUtilization',
+        'checkForOperationalAlerts',
+        'fetchHistoricalData',
+        'integrateDepartmentDashboards',
+      ];
+
   const OperationsManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_director_trainer_assignments_screen_controller.dart';
 
-class TrainingDirectorTrainerAssignmentsScreen extends ConsumerWidget {
+class TrainingDirectorTrainerAssignmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and managing trainer assignments, buttons for assigning and updating trainers, and APIs for fetching and updating data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainerAssignmentList',
+        'TrainerAssignmentStatus',
+        'TrainerDetailForm',
+        'FeedbackSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewTrainerAssignments',
+        'assignTrainer',
+        'monitorAssignmentStatus',
+        'updateTrainerDetails',
+        'reviewFeedback',
+      ];
+
   const TrainingDirectorTrainerAssignmentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingDirectorTrainerAssignmentsScreenControllerProvider);
 
     return Scaffold(

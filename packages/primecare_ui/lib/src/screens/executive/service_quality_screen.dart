@@ -97,6 +97,32 @@ final serviceQualityProvider =
 
 // --- View ---
 class ServiceQualityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various performance and operational metrics visualized through multiple components, along with buttons for data refresh and report export, and APIs for real-time data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'FinancialDashboard',
+        'ComplianceStatusWidget',
+        'EmployeeEngagementChart',
+        'CustomerSatisfactionGauge',
+        'ProjectTimelineTracker',
+        'OperationalEfficiencyIndicator',
+        'ResourceUtilizationChart',
+        'RiskManagementReport',
+        'MarketTrendsAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'exportDashboardReport',
+        'viewDetails',
+        'setAlerts',
+      ];
+
   const ServiceQualityScreen({super.key});
 
   @override

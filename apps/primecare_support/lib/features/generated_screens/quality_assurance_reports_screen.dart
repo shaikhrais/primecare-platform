@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quality_assurance_reports_screen_controller.dart';
 
-class QualityAssuranceReportsScreen extends ConsumerWidget {
+class QualityAssuranceReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying quality metrics, analyzing trends, and documenting findings, along with buttons for submitting reports and collaborating with team members.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'QualityMetricsCard',
+        'QualityTrendsChart',
+        'QualityIssuesList',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewReports',
+        'analyzeTrends',
+        'documentFindings',
+        'monitorImprovements',
+      ];
+
   const QualityAssuranceReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qualityAssuranceReportsScreenControllerProvider);
 
     return Scaffold(

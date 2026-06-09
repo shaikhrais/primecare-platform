@@ -101,6 +101,38 @@ final clinicalOperations4KProvider =
 
 // --- View ---
 class ClinicalOperations4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires a comprehensive dashboard for the Clinical Director to monitor compliance, performance metrics, staff engagement, and patient satisfaction, along with functionalities for incident reporting and resource allocation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'PerformanceMetricsChart',
+        'StaffEngagementWidget',
+        'PatientSatisfactionGauge',
+        'OperationalEfficiencyDashboard',
+        'BudgetTrackingPanel',
+        'IncidentReportTracker',
+        'TrainingProgressTracker',
+        'AlertsNotificationPanel',
+        'HistoricalDataTrendGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchPerformanceMetrics',
+        'fetchStaffEngagement',
+        'fetchPatientSatisfaction',
+        'fetchOperationalMetrics',
+        'trackBudget',
+        'reportIncident',
+        'trackTrainingProgress',
+        'triggerAlert',
+        'fetchHistoricalData',
+      ];
+
   const ClinicalOperations4KScreen({super.key});
 
   @override

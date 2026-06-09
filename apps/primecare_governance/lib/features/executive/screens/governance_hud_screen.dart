@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'governance_hud_screen_controller.dart';
 
-class GovernanceHudScreen extends ConsumerWidget {
+class GovernanceHudScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The governance_hud screen requires components for monitoring metrics, compliance updates, risk management, action tracking, and stakeholder feedback, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'ComplianceUpdateList',
+        'RiskManagementReport',
+        'ActionItemTracker',
+        'GovernanceMeetingCalendar',
+        'StakeholderFeedbackSection',
+        'HistoricalDataTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitFeedback',
+        'markActionItemComplete',
+        'fetchGovernanceMetrics',
+        'fetchComplianceUpdates',
+        'fetchRiskReports',
+        'fetchActionItems',
+        'fetchHistoricalData',
+      ];
+
   const GovernanceHudScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(governanceHudScreenControllerProvider);
 
     return Scaffold(

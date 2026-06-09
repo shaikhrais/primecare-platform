@@ -8,6 +8,21 @@ import 'dart:ui';
 /// Shown on fresh startup to configure the preferred default language,
 /// then transitions the user smoothly to the login view.
 class LanguageSelectionView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The language selection screen requires a dropdown for language options, a continue button, and functionality to confirm the user\'s selection while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LanguageSelectionDropdown',
+        'ContinueButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'confirmLanguageSelection',
+      ];
+
   const LanguageSelectionView({super.key});
 
   @override

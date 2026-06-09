@@ -78,6 +78,33 @@ final intakeCoordinatorComplianceProvider =
 
 // --- View ---
 class IntakeCoordinatorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, managing audits, and reporting security incidents, along with necessary buttons and functions to facilitate user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'OperationalLogWidget',
+        'ComplianceViolationAlert',
+        'PolicyChangeSummary',
+        'TrainingAttendanceChart',
+        'SecureEventReportingForm',
+        'HistoricalAuditResultsTable',
+        'UserFeedbackWidget',
+        'SecurityIncidentReport',
+        'ActionItemsList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventReport',
+        'updatePolicy',
+        'conductAudit',
+        'viewTrainingMetrics',
+        'respondToInquiry',
+      ];
+
   const IntakeCoordinatorComplianceScreen({super.key});
 
   @override

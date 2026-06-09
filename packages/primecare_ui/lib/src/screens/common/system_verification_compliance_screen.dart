@@ -78,6 +78,29 @@ final systemVerificationComplianceProvider =
 
 // --- View ---
 class SystemVerificationComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance audits, security incidents, and governance updates, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'SecurityIncidentSummary',
+        'GovernanceDirectiveLog',
+        'SystemPerformanceMetrics',
+        'AnomalyAlert',
+        'ComplianceAuditTrendChart',
+        'QuickAccessButton',
+        'AuditLogReviewSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshData',
+        'documentAuditFindings',
+      ];
+
   const SystemVerificationComplianceScreen({super.key});
 
   @override

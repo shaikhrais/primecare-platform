@@ -106,6 +106,26 @@ final guestWorkflowScreenProvider =
 
 // --- View ---
 class GuestWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying operational status, telemetry metrics, and logs, along with buttons for triggering sweeps and refreshing logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusDisplay',
+        'TelemetryChart',
+        'TelemetryInvariantsLog',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeTaskScan',
+        'monitorTelemetry',
+        'triggerSweep',
+        'refreshTelemetryLogs',
+      ];
+
   const GuestWorkflowScreen({super.key});
 
   @override

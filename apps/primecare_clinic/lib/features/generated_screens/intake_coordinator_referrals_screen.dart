@@ -1,10 +1,38 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class IntakeCoordinatorReferralsScreen extends ConsumerWidget {
+class IntakeCoordinatorReferralsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking and managing volunteer activities, metrics for recruitment and engagement, and functionalities for communication and recognition of volunteers.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerMetricsCard',
+        'VolunteerEngagementChart',
+        'VolunteerHoursTracker',
+        'UpcomingEventsList',
+        'PerformanceEvaluationSummary',
+        'CommunicationLog',
+        'RecognitionInitiatives',
+        'ComplianceStatusIndicator',
+        'TurnoverTrendsChart',
+        'TrainingResourceAllocation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addVolunteer',
+        'scheduleEvent',
+        'trackVolunteerHours',
+        'evaluatePerformance',
+        'sendCommunication',
+        'recognizeVolunteer',
+      ];
+
   const IntakeCoordinatorReferralsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'IntakeCoordinatorReferralsScreen';
 

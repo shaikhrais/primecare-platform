@@ -101,6 +101,31 @@ final conflictResolutionProvider =
 
 // --- View ---
 class ConflictResolutionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance, scheduling, incident reporting, and safety compliance, along with buttons for managing conflicts and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'EmployeeScheduleWidget',
+        'IncidentReportLog',
+        'CustomerFeedbackChart',
+        'SafetyComplianceTracker',
+        'TrainingProgressTracker',
+        'AlertNotificationPanel',
+        'HistoricalDataAnalysisChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addIncidentReport',
+        'resolveConflict',
+        'scheduleMeeting',
+        'viewTrainingProgress',
+        'generateReport',
+      ];
+
   const ConflictResolutionScreen({super.key});
 
   @override

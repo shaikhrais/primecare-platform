@@ -8,6 +8,28 @@ final faqManagerProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class FAQManagerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing FAQs, analytics, and user feedback, along with buttons for CRUD operations and necessary API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FAQList',
+        'FAQCategoryFilter',
+        'FAQAnalyticsChart',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadFAQs',
+        'addFAQ',
+        'editFAQ',
+        'deleteFAQ',
+        'fetchAnalytics',
+        'submitFeedback',
+      ];
+
   const FAQManagerScreen({super.key});
 
   @override

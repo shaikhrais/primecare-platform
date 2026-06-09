@@ -8,6 +8,29 @@ final caseStudyProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>
 });
 
 class PatientCaseStudyRepositoryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying case studies, a loading indicator, error handling, search functionality, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CaseStudyList',
+        'LoadingIndicator',
+        'ErrorMessage',
+        'SearchBar',
+        'RefreshButton',
+        'ViewCaseButton',
+        'SpecialtyIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCaseStudies',
+        'refreshCaseStudies',
+        'searchCaseStudies',
+        'viewCaseDetails',
+      ];
+
   const PatientCaseStudyRepositoryScreen({super.key});
 
   @override

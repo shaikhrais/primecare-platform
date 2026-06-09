@@ -78,6 +78,33 @@ final businessDevelopmentComplianceProvider =
 
 // --- View ---
 class BusinessDevelopmentComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display business development metrics, performance indicators, and market analysis, along with buttons for actions related to proposals and contracts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CustomerMetricsChart',
+        'BusinessInitiativesStatus',
+        'MarketAnalysisOverview',
+        'TeamPerformanceMetrics',
+        'ClientFeedbackScores',
+        'FinancialForecasts',
+        'PartnershipProgress',
+        'ComplianceStatus',
+        'MarketTrendsUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewProposal',
+        'negotiateContract',
+        'trackMetrics',
+        'submitFeedback',
+        'generateReport',
+      ];
+
   const BusinessDevelopmentComplianceScreen({super.key});
 
   @override

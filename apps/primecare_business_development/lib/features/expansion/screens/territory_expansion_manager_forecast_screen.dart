@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_forecast_screen_controller.dart';
 
-class TerritoryExpansionManagerForecastScreen extends ConsumerWidget {
+class TerritoryExpansionManagerForecastScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time data updates, visualizations for analysis, collaboration tools, and reporting functionalities to monitor and manage territory expansion forecasts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ForecastChart',
+        'DataTrendAnalyzer',
+        'ExpansionAreaIdentifier',
+        'CollaborationPanel',
+        'ReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateForecasts',
+        'analyzeDataTrends',
+        'identifyExpansionAreas',
+        'collaborateWithTeams',
+        'generateReport',
+      ];
+
   const TerritoryExpansionManagerForecastScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerForecastScreenControllerProvider);
 
     return Scaffold(

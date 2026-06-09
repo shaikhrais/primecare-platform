@@ -101,6 +101,32 @@ final patientCommandCenterProvider =
 
 // --- View ---
 class PatientCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The patient command center screen requires components for monitoring KPIs, telemetry logs, compliance standings, and operational audits, along with buttons to trigger actions and refresh data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIIndicator',
+        'TelemetryLogMonitor',
+        'ComplianceStatusChecker',
+        'OperationalAuditTrigger',
+        'DashboardTelemetryRefresher',
+        'ComplianceScanExecutor',
+        'LoadingIndicator',
+        'AuditLogViewer',
+        'ActiveOperationsStatus',
+        'SecurityClearanceDisplay',
+        'TelemetryChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerOperationalAudit',
+        'refreshDashboardTelemetry',
+        'executeComplianceScan',
+      ];
+
   const PatientCommandCenterScreen({super.key});
 
   @override

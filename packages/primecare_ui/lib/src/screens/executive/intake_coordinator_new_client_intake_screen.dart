@@ -101,6 +101,31 @@ final intakeCoordinatorNewClientIntakeProvider =
 
 // --- View ---
 class IntakeCoordinatorNewClientIntakeScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking volunteer metrics, scheduling, engagement, and feedback, along with buttons and functions for managing volunteer activities and records.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerMetricsCard',
+        'VolunteerShiftScheduler',
+        'VolunteerEngagementChart',
+        'VolunteerTrainingTracker',
+        'VolunteerFeedbackForm',
+        'UpcomingEventsList',
+        'RecognitionHighlights',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'recruitVolunteer',
+        'scheduleShift',
+        'logVolunteerHours',
+        'collectFeedback',
+        'viewVolunteerRecords',
+        'organizeEvent',
+      ];
+
   const IntakeCoordinatorNewClientIntakeScreen({super.key});
 
   @override

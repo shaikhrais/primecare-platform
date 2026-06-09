@@ -9,11 +9,30 @@ import '../../../../core/database/governance_database.dart';
 // State provider for displaying detailed crawler logs in an overlay modal
 final activeLogViewProvider = StateProvider<PlatformDeployment?>((ref) => null);
 
-class VerificationCenterScreen extends ConsumerWidget {
+class VerificationCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display deployment statuses, buttons for accessing logs and live links, functions for data retrieval and interaction, and APIs for fetching deployment information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SummaryCard',
+        'DeploymentList',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchDeploymentData',
+        'viewDeploymentLogs',
+        'launchLiveLink',
+      ];
+
   const VerificationCenterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final deploymentsState = ref.watch(localDeploymentsProvider);
     final activeLogDep = ref.watch(activeLogViewProvider);
 

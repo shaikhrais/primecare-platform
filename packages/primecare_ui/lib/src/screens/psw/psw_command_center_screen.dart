@@ -99,6 +99,34 @@ final pswCommandCenterProvider =
 
 // --- View ---
 class PswCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for PSWs to manage client care, monitor compliance, and access resources effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewWidget',
+        'ComplianceStatusCard',
+        'CareLogTable',
+        'PerformanceMetricsChart',
+        'NotificationPanel',
+        'HealthRecordsAccess',
+        'CommunicationTool',
+        'WorkloadVisualization',
+        'EmergencyContactWidget',
+        'MentalHealthResources',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewClientDetails',
+        'logCareProvided',
+        'reportIncident',
+        'accessTraining',
+        'sendMessage',
+        'scheduleAppointment',
+      ];
+
   const PswCommandCenterScreen({super.key});
 
   @override

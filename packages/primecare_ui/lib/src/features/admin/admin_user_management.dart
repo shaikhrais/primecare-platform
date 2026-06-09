@@ -8,6 +8,30 @@ final adminUsersProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class AdminUserManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The admin user management screen requires components for user management tasks, buttons for common actions, and APIs for user data operations, along with responsive design for desktop and tablet.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'UserList',
+        'UserProvisioningForm',
+        'UserPermissionsEditor',
+        'AuditLogViewer',
+        'NotificationBanner',
+        'StatusIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchUserList',
+        'refreshUserList',
+        'provisionNewUser',
+        'editUserPermissions',
+        'revokeUserAccess',
+        'fetchAuditLogs',
+      ];
+
   const AdminUserManagementScreen({super.key});
 
   @override

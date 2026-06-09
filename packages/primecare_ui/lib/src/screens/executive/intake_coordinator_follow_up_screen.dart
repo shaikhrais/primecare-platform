@@ -101,6 +101,32 @@ final intakeCoordinatorFollowUpProvider =
 
 // --- View ---
 class IntakeCoordinatorFollowUpScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking volunteer metrics, scheduling shifts, and managing feedback, along with buttons for adding volunteers and organizing events.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerMetricsCard',
+        'VolunteerEngagementChart',
+        'ShiftSchedulingOverview',
+        'FeedbackRatingWidget',
+        'RecognitionLog',
+        'TrainingCompletionTracker',
+        'OperationalMetricsDashboard',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addVolunteer',
+        'scheduleShift',
+        'sendUpdateToVolunteers',
+        'recognizeVolunteer',
+        'viewFeedback',
+        'organizeEvent',
+      ];
+
   const IntakeCoordinatorFollowUpScreen({super.key});
 
   @override

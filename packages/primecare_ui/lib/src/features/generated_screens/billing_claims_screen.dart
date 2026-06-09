@@ -182,6 +182,26 @@ final billingClaimsControllerProvider =
 
 // --- View ---
 class BillingClaimsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The billing claims screen requires components for displaying claims status, submitting claims, and monitoring rejection rates, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClaimsStatusCard',
+        'ClaimsReimbursementChart',
+        'ClaimsRejectionRateIndicator',
+        'ClaimsSelectionTable',
+        'ProgressIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitClaimsBatch',
+        'clearClaimsSelection',
+        'reconcileClaim',
+      ];
+
   const BillingClaimsScreen({super.key});
 
   @override

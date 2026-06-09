@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_bus_dev_dashboard_screen_controller.dart';
 
-class HeadOfBusDevDashboardScreen extends ConsumerWidget {
+class HeadOfBusDevDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Head of Business Development dashboard requires various widgets to display KPIs, client metrics, market trends, and team performance, along with buttons for proposal management and contract negotiation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'ClientMetricsWidget',
+        'MarketTrendsChart',
+        'OpportunitiesPipelineWidget',
+        'TeamPerformanceWidget',
+        'ClientFeedbackWidget',
+        'ComplianceLogWidget',
+        'NotificationWidget',
+        'SalesTrendsChart',
+        'MarketResearchDataWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewProposalDetails',
+        'initiateContractNegotiation',
+        'generateBusinessReport',
+        'updatePerformanceMetrics',
+        'submitClientFeedback',
+      ];
+
   const HeadOfBusDevDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfBusDevDashboardScreenControllerProvider);
 
     return Scaffold(

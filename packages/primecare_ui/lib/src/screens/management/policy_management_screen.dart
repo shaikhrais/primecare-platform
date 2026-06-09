@@ -99,6 +99,32 @@ final policyManagementProvider =
 
 // --- View ---
 class PolicyManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The policy management screen requires components for compliance audits, regulatory changes, training, documentation, KPIs, alerts, investigations, feedback, and resource allocation, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditCard',
+        'RegulatoryChangeOverview',
+        'TrainingCompletionChart',
+        'ComplianceDocumentationStatus',
+        'KPIOverview',
+        'ComplianceAlerts',
+        'InvestigationSummary',
+        'AuditFeedbackCard',
+        'ResourceAllocationCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePolicies',
+        'conductAudit',
+        'initiateTraining',
+        'viewDocumentation',
+        'generateReport',
+      ];
+
   const PolicyManagementScreen({super.key});
 
   @override

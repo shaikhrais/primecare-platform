@@ -98,6 +98,28 @@ final gamificationProfileProvider = FutureProvider.autoDispose<List<ClinicianPro
 });
 
 class GamificationProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying clinician profiles, a leaderboard, and engagement metrics, along with functionality for awarding points and updating profiles.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClinicianProfileCard',
+        'LeaderboardChart',
+        'EngagementMetricsChart',
+        'CMECompletionRateChart',
+        'AwardPointsForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadClinicianProfiles',
+        'awardPointsToClinician',
+        'fetchLeaderboardData',
+        'analyzeCMECompletionRates',
+        'updateClinicianProfile',
+      ];
+
   const GamificationProfileScreen({super.key});
 
   @override

@@ -107,6 +107,33 @@ final franchiseSalesAnalyticsScreenProvider =
 
 // --- View ---
 class FranchiseSalesAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring franchise sales performance, compliance, and franchisee satisfaction, along with buttons for generating reports and sending training invites.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ComplianceStatusIndicator',
+        'SatisfactionRatingWidget',
+        'MarketAnalysisReportChart',
+        'TrainingEngagementMetric',
+        'PerformanceAlert',
+        'HistoricalSalesComparisonChart',
+        'MarketingEffectivenessTracker',
+        'CommunicationLog',
+        'OperationalActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'sendTrainingInvite',
+        'resolveFranchiseeIssue',
+        'viewMarketAnalysis',
+        'trackMarketingCampaign',
+      ];
+
   const FranchiseSalesAnalyticsScreen({super.key});
 
   @override

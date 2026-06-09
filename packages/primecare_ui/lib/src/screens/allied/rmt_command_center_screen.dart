@@ -99,6 +99,36 @@ final rmtCommandCenterProvider =
 
 // --- View ---
 class RmtCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing client appointments, compliance tracking, performance metrics, and communication tools for Registered Massage Therapists.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAppointmentOverview',
+        'ComplianceStatusCard',
+        'KPIChart',
+        'ClientFeedbackWidget',
+        'OperationalMetricsDashboard',
+        'AlertsNotification',
+        'ContinuingEducationResources',
+        'TreatmentPlanSummary',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientAppointments',
+        'checkComplianceStatus',
+        'calculateKPIs',
+        'retrieveClientFeedback',
+        'logOperationalMetrics',
+        'triggerAlert',
+        'accessEducationResources',
+        'summarizeTreatmentPlans',
+        'sendClientCommunication',
+      ];
+
   const RmtCommandCenterScreen({super.key});
 
   @override

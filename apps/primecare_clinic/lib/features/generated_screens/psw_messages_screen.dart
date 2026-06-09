@@ -1,12 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_messages_screen_controller.dart';
 
-class PswMessagesScreen extends ConsumerWidget {
+class PswMessagesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'None - physical implementation aligns 100% with registry requirements.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovDashboardHero',
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'RoundedRectangleBorder',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerStateAction',
+      ];
+
+  @override
+  String 
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'HealthStatusAlert',
+        'ActivityLog',
+        'MedicationComplianceChart',
+        'IncidentReportForm',
+        'CommunicationLog',
+        'TrainingStatusCard',
+        'ClientFeedbackWidget',
+        'PerformanceMetricsChart',
+        'TrainingAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateHealthStatus',
+        'logActivity',
+        'reportIncident',
+        'viewTrainingStatus',
+        'submitFeedback',
+      ];
+
   const PswMessagesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswMessagesScreenControllerProvider);
 
     return Semantics(

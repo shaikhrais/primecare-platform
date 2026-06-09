@@ -101,6 +101,36 @@ final complianceOverviewProvider =
 
 // --- View ---
 class ComplianceOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The compliance overview screen requires various metrics and dashboards for franchise performance, compliance, and operational efficiency, along with buttons for actions and API integrations for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesRevenueMetric',
+        'CustomerSatisfactionChart',
+        'InventoryStatusWidget',
+        'EmployeePerformanceDashboard',
+        'ComplianceAuditLog',
+        'MarketingPerformanceCard',
+        'FinancialHealthIndicator',
+        'OperationalEfficiencyChart',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'fetchCustomerFeedback',
+        'fetchInventoryStatus',
+        'fetchEmployeeMetrics',
+        'fetchComplianceResults',
+        'fetchMarketingMetrics',
+        'fetchFinancialIndicators',
+        'fetchOperationalMetrics',
+        'triggerAlerts',
+      ];
+
   const ComplianceOverviewScreen({super.key});
 
   @override

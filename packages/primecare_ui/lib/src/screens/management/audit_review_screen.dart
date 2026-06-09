@@ -97,6 +97,33 @@ final auditReviewProvider =
 
 // --- View ---
 class AuditReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The audit review screen requires components to display compliance status, audits, alerts, training, documentation, and reports, along with buttons for generating reports and updating policies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'RecentAuditsList',
+        'ComplianceAlerts',
+        'EmployeeTrainingStatus',
+        'ComplianceTimeline',
+        'DocumentationRepository',
+        'RegulatoryChangesReport',
+        'CompliancePerformanceIndicators',
+        'ComplianceTrendsChart',
+        'UserFriendlyInterface',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateComplianceReport',
+        'updateCompliancePolicies',
+        'trainEmployees',
+        'investigateBreach',
+        'viewDocumentation',
+      ];
+
   const AuditReviewScreen({super.key});
 
   @override

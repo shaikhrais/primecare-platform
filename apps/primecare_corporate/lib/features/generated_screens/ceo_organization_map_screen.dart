@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_organization_map_screen_controller.dart';
 
-class CeoOrganizationMapScreen extends ConsumerWidget {
+class CeoOrganizationMapScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for visualizing the organizational structure, performance metrics, and user feedback, along with functions for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OrgStructureChart',
+        'PerformanceMetricsCard',
+        'AlertsNotification',
+        'UserFeedbackSection',
+        'RealTimeUpdatesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchOrgStructure',
+        'updatePerformanceMetrics',
+        'checkDataIntegrity',
+        'submitUserFeedback',
+      ];
+
   const CeoOrganizationMapScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoOrganizationMapScreenControllerProvider);
 
     return Scaffold(

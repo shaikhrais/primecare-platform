@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'nurse_dashboard_screen_controller.dart';
 
-class NurseDashboardScreen extends ConsumerWidget {
+class NurseDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The nurse dashboard requires components for monitoring patient status, accessing records, managing medications, and facilitating communication, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusOverview',
+        'PatientRecordsAccess',
+        'MedicationManagement',
+        'CommunicationTools',
+        'VitalSignsTracker',
+        'AlertsNotifications',
+        'CareDocumentation',
+        'TaskReminders',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadPatientData',
+        'updatePatientRecords',
+        'manageMedicationSchedule',
+        'sendCommunication',
+        'trackVitalSigns',
+        'respondToAlerts',
+        'documentCareProvided',
+      ];
+
   const NurseDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(nurseDashboardScreenControllerProvider);
 
     return Semantics(

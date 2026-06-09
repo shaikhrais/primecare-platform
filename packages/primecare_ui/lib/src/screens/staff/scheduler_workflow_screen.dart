@@ -4,6 +4,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SchedulerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring employee attendance, performance metrics, incident reporting, and communication tools, along with buttons for scheduling and training actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeAttendanceWidget',
+        'PerformanceMetricsChart',
+        'IncidentReportCard',
+        'CustomerFeedbackTracker',
+        'InventoryStatusWidget',
+        'TeamCommunicationPanel',
+        'TrainingProgressTracker',
+        'OperationalAlertsWidget',
+        'HistoricalPerformanceGraph',
+        'WorkloadVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateSchedule',
+        'submitIncidentReport',
+        'viewFeedback',
+        'orderSupplies',
+        'conductMeeting',
+        'trainEmployee',
+        'implementImprovement',
+      ];
+
   const SchedulerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

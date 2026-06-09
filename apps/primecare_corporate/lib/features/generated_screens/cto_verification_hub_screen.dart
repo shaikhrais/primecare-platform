@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_verification_hub_screen_controller.dart';
 
-class CtoVerificationHubScreen extends ConsumerWidget {
+class CtoVerificationHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time monitoring of the Cto Verification Hub, error handling, performance tracking, and user feedback capabilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'StatusIndicator',
+        'DataVerificationPanel',
+        'ErrorLog',
+        'PerformanceMetrics',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorStatus',
+        'verifyData',
+        'handleErrors',
+        'trackPerformance',
+        'submitFeedback',
+      ];
+
   const CtoVerificationHubScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoVerificationHubScreenControllerProvider);
 
     return Scaffold(

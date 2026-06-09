@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'rmt_dashboard_screen_controller.dart';
 
-class RmtDashboardScreen extends ConsumerWidget {
+class RmtDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RMT dashboard requires components for managing appointments, documenting treatments, and tracking compliance, along with necessary buttons and API integrations for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentOverview',
+        'ActivityLog',
+        'PatientSatisfactionMetrics',
+        'AppointmentAlerts',
+        'SOAPNotesSummary',
+        'InsuranceClaimStatus',
+        'PerformanceMetrics',
+        'ComplianceAuditResults',
+        'PatientHistoryAccess',
+        'TrainingNotifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'submitSOAPNotes',
+        'viewPatientHistory',
+        'submitInsuranceClaim',
+        'logActivity',
+        'checkCompliance',
+      ];
+
   const RmtDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(rmtDashboardScreenControllerProvider);
 
     return Semantics(

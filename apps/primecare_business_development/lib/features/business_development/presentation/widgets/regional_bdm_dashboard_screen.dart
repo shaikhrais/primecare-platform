@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_dashboard_screen_controller.dart';
 
-class RegionalBdmDashboardScreen extends ConsumerWidget {
+class RegionalBdmDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Regional BDM dashboard requires components to monitor operations, security, and compliance, along with functionalities for data refresh and log export.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveOperationsMetric',
+        'ProductivityMetric',
+        'SecurityClearanceStatus',
+        'TelemetryDataChart',
+        'ComplianceAuditLogs',
+        'GovernanceActionsHighlight',
+        'ExportAuditLogsButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'exportAuditLogs',
+      ];
+
   const RegionalBdmDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmDashboardScreenControllerProvider);
 
     return Scaffold(

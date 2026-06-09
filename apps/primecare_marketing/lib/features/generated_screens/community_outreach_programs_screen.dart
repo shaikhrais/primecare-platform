@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'community_outreach_programs_screen_controller.dart';
 
-class CommunityOutreachProgramsScreen extends ConsumerWidget {
+class CommunityOutreachProgramsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring loading states, displaying error messages, summarizing program data, and engaging user feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorLog',
+        'SummaryStatistics',
+        'UserFeedbackSection',
+        'ProgramStatusIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'reviewErrorMessages',
+        'accessData',
+        'engageContent',
+      ];
+
   const CommunityOutreachProgramsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(communityOutreachProgramsScreenControllerProvider);
 
     return Scaffold(

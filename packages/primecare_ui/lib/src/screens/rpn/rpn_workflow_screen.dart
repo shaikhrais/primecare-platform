@@ -144,6 +144,37 @@ final rpnWorkflowControllerProvider =
 
 // --- View ---
 class RpnWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN workflow screen requires components for logging patient care activities, tracking immunizations, monitoring patient conditions, and ensuring compliance, along with necessary buttons, functions, and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DressingLogOverview',
+        'ImmunizationLogSummary',
+        'AlertsNotification',
+        'PatientFeedbackMetrics',
+        'ComplianceTracker',
+        'PerformanceMetrics',
+        'TrainingOpportunitiesNotification',
+        'PatientEducationResources',
+        'PatientConditionUpdates',
+        'EHRIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logDressingChange',
+        'administerVaccine',
+        'reportConditionChange',
+        'providePatientEducation',
+        'collaborateWithTeam',
+        'maintainPatientRecords',
+        'checkCompliance',
+        'manageMedicationReminders',
+        'participateInQualityInitiative',
+      ];
+
   const RpnWorkflowScreen({super.key});
 
   @override

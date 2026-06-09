@@ -107,6 +107,28 @@ final premiumConciergeWorkflowScreenProvider =
 
 // --- View ---
 class PremiumConciergeWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance workflows, logging telemetry, and facilitating quality verification, along with necessary API integrations and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'TelemetryLog',
+        'QualityVerificationButton',
+        'LoadingIndicator',
+        'LogHistory',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeQualityVerificationSweep',
+        'logOperationalTelemetry',
+        'monitorApiErrors',
+        'triggerGovernanceActions',
+      ];
+
   const PremiumConciergeWorkflowScreen({super.key});
 
   @override

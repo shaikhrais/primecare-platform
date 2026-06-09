@@ -101,6 +101,36 @@ final fileVerificationDashboardProvider =
 
 // --- View ---
 class FileVerificationDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The file verification dashboard requires components for compliance monitoring, audit tracking, and stakeholder communication, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogHistory',
+        'GovernanceKPI',
+        'TelemetryDataChart',
+        'ComplianceAlert',
+        'GovernanceActivitySummary',
+        'UserFriendlyNavigation',
+        'TrainingResourcesAccess',
+        'ComplianceTrendsVisualization',
+        'StakeholderFeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditLogs',
+        'fetchKPIs',
+        'fetchTelemetryData',
+        'triggerComplianceAlert',
+        'fetchGovernanceActivities',
+        'navigateToTrainingResources',
+        'submitStakeholderFeedback',
+      ];
+
   const FileVerificationDashboardScreen({super.key});
 
   @override

@@ -107,6 +107,31 @@ final physicianAnalyticsScreenProvider =
 
 // --- View ---
 class PhysicianAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The physician analytics screen requires components for monitoring health metrics, compliance, operational logs, and patient records, along with buttons for executing tasks and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'HealthMetricsDisplay',
+        'ComplianceStatusIndicator',
+        'OperationalLogsAlert',
+        'TelemetryTrendChart',
+        'PatientRecordsAccess',
+        'TaskExecutionButton',
+        'LogHistoryViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientRecords',
+        'executeQualitySweep',
+        'sendCommunication',
+        'reviewCompliance',
+        'analyzeOperationalLogs',
+        'participateInTraining',
+      ];
+
   const PhysicianAnalyticsScreen({super.key});
 
   @override

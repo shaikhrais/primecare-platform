@@ -78,6 +78,29 @@ final trainingCoordinatorComplianceProvider =
 
 // --- View ---
 class TrainingCoordinatorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components to display training completion status, schedules, audit results, notifications, governance directives, event reporting, and historical logs, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingCompletionOverview',
+        'TrainingSessionSchedule',
+        'ComplianceAuditResults',
+        'RealTimeNotifications',
+        'GovernanceDirectivesSummary',
+        'SecureEventReporting',
+        'TrainingActivityLogs',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitSecureEventReport',
+        'updateGovernanceDirectives',
+        'fetchAuditResults',
+        'registerForTrainingSession',
+      ];
+
   const TrainingCoordinatorComplianceScreen({super.key});
 
   @override

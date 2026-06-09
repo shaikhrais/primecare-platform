@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_issues_screen_controller.dart';
 
-class OperationsManagerIssuesScreen extends ConsumerWidget {
+class OperationsManagerIssuesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor and analyze operational issues, track resolutions, and generate performance reports, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalIssuesList',
+        'IssueResolutionMetrics',
+        'PriorityAlerts',
+        'CommunicationLogSummary',
+        'PerformanceCharts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchOperationalIssues',
+        'analyzeTrends',
+        'sendCommunication',
+        'updateIssueStatus',
+        'generatePerformanceReport',
+      ];
+
   const OperationsManagerIssuesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerIssuesScreenControllerProvider);
 
     return Scaffold(

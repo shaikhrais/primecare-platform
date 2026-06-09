@@ -99,6 +99,38 @@ final claimsProcessingProvider =
 
 // --- View ---
 class ClaimsProcessingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The claims processing screen requires components for task management, scheduling, communication tracking, document management, performance metrics, budget tracking, meeting organization, compliance checking, inventory management, and feedback mechanisms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'PerformanceMetrics',
+        'BudgetTracking',
+        'MeetingSchedule',
+        'ComplianceChecklist',
+        'InventoryManagement',
+        'FeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleAppointment',
+        'logCommunication',
+        'uploadDocument',
+        'generateReport',
+        'trackBudget',
+        'scheduleMeeting',
+        'checkCompliance',
+        'manageInventory',
+        'submitFeedback',
+      ];
+
   const ClaimsProcessingScreen({super.key});
 
   @override

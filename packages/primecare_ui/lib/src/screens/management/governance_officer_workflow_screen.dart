@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GovernanceOfficerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The governance officer workflow screen requires various components to monitor compliance, assess risks, and facilitate communication, along with buttons and functions for reporting and managing governance activities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ComplianceStatusIndicator',
+        'RiskAssessmentMetric',
+        'StakeholderCommunicationLog',
+        'AuditFindingsTracker',
+        'TrainingCompletionChart',
+        'IncidentReportingTimeline',
+        'GovernanceStrategyProgress',
+        'FeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'submitIncident',
+        'updateTrainingStatus',
+        'viewAuditFindings',
+        'communicateWithStakeholders',
+      ];
+
   const GovernanceOfficerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

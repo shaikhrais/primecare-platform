@@ -101,6 +101,28 @@ final patientAppointmentsProvider =
 
 // --- View ---
 class PatientAppointmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing patient appointments, compliance scans, and operational metrics, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentList',
+        'ComplianceScanStatus',
+        'OperationalLogs',
+        'AttendanceMetrics',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewAppointmentSchedules',
+        'attendScheduledAppointments',
+        'submitMedicalHistory',
+        'followUpInstructions',
+        'engageComplianceScan',
+      ];
+
   const PatientAppointmentsScreen({super.key});
 
   @override

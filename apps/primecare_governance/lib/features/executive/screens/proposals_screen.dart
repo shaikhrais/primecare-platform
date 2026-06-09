@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'proposals_screen_controller.dart';
 
-class ProposalsScreen extends ConsumerWidget {
+class ProposalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The proposals screen requires components for managing proposal submissions, tracking their statuses, and facilitating collaboration among team members.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProposalList',
+        'ProposalForm',
+        'ProposalStatusIndicator',
+        'NotificationPanel',
+        'MetricsDashboard',
+        'CollaborationTool',
+        'HistoricalDataViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadProposals',
+        'createProposal',
+        'editProposal',
+        'submitProposal',
+        'trackProposalStatus',
+        'provideFeedback',
+        'collaborateOnProposal',
+      ];
+
   const ProposalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(proposalsScreenControllerProvider);
 
     return Scaffold(

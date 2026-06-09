@@ -70,6 +70,28 @@ final pswSystemLogsControllerProvider = StateNotifierProvider<PswSystemLogsContr
 
 // --- View ---
 class PswSystemLogsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Psw System Logs screen requires components for viewing, filtering, and exporting logs, along with functionality for reporting issues and visual indicators for anomalies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LogList',
+        'LogFilter',
+        'LogExport',
+        'LogSummary',
+        'LogSearch',
+        'RedFlagIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'filterLogs',
+        'exportLogs',
+        'searchLogs',
+        'reportCriticalIssue',
+      ];
+
   const PswSystemLogsScreen({super.key});
 
   @override

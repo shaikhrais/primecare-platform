@@ -107,6 +107,30 @@ final pediatricWorkflowScreenProvider =
 
 // --- View ---
 class PediatricWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The pediatric workflow screen requires components for tracking patient appointments, immunizations, growth metrics, and feedback, along with buttons for scheduling and reporting, and APIs for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAppointmentStatusWidget',
+        'ImmunizationTrackingWidget',
+        'GrowthDevelopmentMetricsWidget',
+        'PatientFeedbackWidget',
+        'AlertsWidget',
+        'ActivityLogsWidget',
+        'PerformanceMetricsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateAppointmentStatus',
+        'trackImmunization',
+        'logPatientFeedback',
+        'checkAlerts',
+        'generatePerformanceReport',
+      ];
+
   const PediatricWorkflowScreen({super.key});
 
   @override

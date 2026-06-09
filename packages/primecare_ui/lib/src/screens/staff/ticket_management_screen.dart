@@ -99,6 +99,33 @@ final ticketManagementProvider =
 
 // --- View ---
 class TicketManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The ticket management screen requires components for tracking ticket status, response times, customer satisfaction, and staff performance, along with buttons for responding to and escalating tickets, and APIs for managing support interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketStatusOverview',
+        'ResponseTimeChart',
+        'CustomerSatisfactionMetrics',
+        'TicketVolumeChart',
+        'EscalationReasonsChart',
+        'ComplianceAuditLog',
+        'StaffPerformanceMetrics',
+        'CustomerFeedbackAnalysis',
+        'OperationalAuditLog',
+        'PerformanceAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'respondToTicket',
+        'escalateTicket',
+        'logInteraction',
+        'conductAudit',
+        'trainStaff',
+      ];
+
   const TicketManagementScreen({super.key});
 
   @override

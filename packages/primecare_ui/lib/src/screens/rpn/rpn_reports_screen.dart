@@ -97,6 +97,38 @@ final rpnReportsProvider =
 
 // --- View ---
 class RpnReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN Reports screen requires various widgets to display real-time patient data, medication records, and compliance metrics, along with buttons for reporting and accessing resources, supported by multiple APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsWidget',
+        'MedicationRecordsWidget',
+        'DocumentationStatusWidget',
+        'IncidentReportsWidget',
+        'StaffPerformanceWidget',
+        'PatientSatisfactionWidget',
+        'ComplianceAuditWidget',
+        'OperationalMetricsWidget',
+        'ResourceAvailabilityWidget',
+        'EducationalResourcesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchVitalSigns',
+        'trackMedicationCompliance',
+        'updateDocumentationStatus',
+        'submitIncidentReport',
+        'retrieveStaffPerformance',
+        'getPatientSatisfactionScores',
+        'fetchComplianceAuditResults',
+        'calculateOperationalMetrics',
+        'checkResourceAvailability',
+        'accessEducationalResources',
+      ];
+
   const RpnReportsScreen({super.key});
 
   @override

@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_tax_and_remittance_screen_controller.dart';
 
-class CfoTaxAndRemittanceScreen extends ConsumerWidget {
+class CfoTaxAndRemittanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for reviewing tax data, ensuring compliance, generating reports, processing payments, monitoring deadlines, and communicating with authorities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaxDataReviewWidget',
+        'ComplianceStatusIndicator',
+        'TaxReportGenerator',
+        'RemittancePaymentProcessor',
+        'DeadlineMonitor',
+        'CommunicationPanel',
+        'FinancialRecordsUpdater',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewTaxData',
+        'ensureCompliance',
+        'generateTaxReports',
+        'submitRemittance',
+        'monitorDeadlines',
+        'communicateWithAuthorities',
+        'updateFinancialRecords',
+      ];
+
   const CfoTaxAndRemittanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoTaxAndRemittanceScreenControllerProvider);
 
     return Scaffold(

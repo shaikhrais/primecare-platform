@@ -101,6 +101,36 @@ final patientObservationProvider =
 
 // --- View ---
 class PatientObservationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring vital signs, tracking medication, documenting care, and facilitating communication, along with necessary buttons and API integrations for effective patient observation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsMonitor',
+        'MedicationTracker',
+        'DailyLivingActivitiesStatus',
+        'DocumentationComplianceIndicator',
+        'CommunicationLog',
+        'SafetyIncidentReport',
+        'PatientEducationResources',
+        'ComplianceAuditAlert',
+        'PerformanceMetrics',
+        'PatientCarePlanUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorVitalSigns',
+        'administerMedication',
+        'documentPatientCare',
+        'logCommunication',
+        'reportIncident',
+        'trackEducationResources',
+        'auditCompliance',
+        'updateCarePlan',
+      ];
+
   const PatientObservationScreen({super.key});
 
   @override

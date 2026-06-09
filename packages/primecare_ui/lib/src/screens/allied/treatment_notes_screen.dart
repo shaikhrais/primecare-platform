@@ -97,6 +97,28 @@ final treatmentNotesProvider =
 
 // --- View ---
 class TreatmentNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The treatment_notes screen requires components for monitoring treatment notes, triggering compliance scans, refreshing telemetry data, and reviewing audit logs, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TreatmentNotesMonitor',
+        'ComplianceScanTrigger',
+        'TelemetryDataRefresh',
+        'AuditLogViewer',
+        'AuditScanExecutor',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorTreatmentNotes',
+        'triggerComplianceScan',
+        'refreshTelemetryData',
+        'reviewAuditLogs',
+        'executeAuditScan',
+      ];
+
   const TreatmentNotesScreen({super.key});
 
   @override

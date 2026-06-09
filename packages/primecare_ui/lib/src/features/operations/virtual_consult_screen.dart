@@ -82,6 +82,27 @@ final virtualConsultProvider = FutureProvider.autoDispose<List<TelehealthConsult
 });
 
 class VirtualConsultScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing telehealth consultations, including metrics display and rescheduling functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TelehealthMetricsCard',
+        'ConsultationStatusIndicator',
+        'RescheduleForm',
+        'LoadingIndicator',
+        'TelehealthMetricsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLiveConsultations',
+        'rescheduleConsultation',
+        'updateConsultationStatus',
+        'fetchTelehealthMetrics',
+      ];
+
   const VirtualConsultScreen({super.key});
 
   @override

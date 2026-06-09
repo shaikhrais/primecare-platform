@@ -146,6 +146,36 @@ final lpnDashboardControllerProvider =
 
 // --- View ---
 class LpnDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The LPN dashboard requires real-time monitoring of patient vital signs, medication administration logs, compliance audit results, and tools for team communication and incident reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsMonitor',
+        'MedicationLog',
+        'ComplianceAuditResults',
+        'DocumentationStatus',
+        'TeamCommunicationTool',
+        'IncidentReportingSystem',
+        'PerformanceMetricsChart',
+        'EducationalResources',
+        'AlertsDashboard',
+        'PatientFeedbackSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logMedication',
+        'reportIncident',
+        'fetchComplianceResults',
+        'updateDocumentation',
+        'sendMessage',
+        'accessResources',
+        'fetchPerformanceMetrics',
+        'acknowledgeAlert',
+      ];
+
   const LpnDashboardScreen({super.key});
 
   @override

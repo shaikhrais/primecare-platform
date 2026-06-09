@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'admin_reconciliation_screen_controller.dart';
 
-class AdminReconciliationScreen extends ConsumerWidget {
+class AdminReconciliationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The admin reconciliation screen requires components for monitoring, reviewing, and managing reconciliation processes, along with functionality for communication and reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReconciliationMonitor',
+        'ReconciliationReportViewer',
+        'DiscrepancyIdentifier',
+        'ApprovalRejectButton',
+        'CommunicationLog',
+        'ReconciliationRecordUpdater',
+        'SummaryReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorReconciliationProcesses',
+        'reviewReconciliationReports',
+        'identifyDiscrepancies',
+        'approveReconciliationEntry',
+        'rejectReconciliationEntry',
+        'communicateWithDepartments',
+        'updateReconciliationRecords',
+        'generateSummaryReports',
+      ];
+
   const AdminReconciliationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(adminReconciliationScreenControllerProvider);
 
     return Scaffold(

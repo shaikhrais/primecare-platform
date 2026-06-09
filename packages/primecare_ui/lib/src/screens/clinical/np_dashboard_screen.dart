@@ -146,6 +146,38 @@ final npDashboardControllerProvider =
 
 // --- View ---
 class NpDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The NP dashboard requires components for patient metrics, compliance alerts, activity logs, and tools for medication management and collaboration, all accessible across mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientMetricsCard',
+        'ComplianceAuditAlert',
+        'ActivityLog',
+        'PerformanceIndicator',
+        'PatientRecordsAccess',
+        'FollowUpNotification',
+        'MedicationManagementTool',
+        'CollaborationCommunicationTool',
+        'EducationalResources',
+        'OperationalMetricsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientMetrics',
+        'triggerComplianceAlert',
+        'logRecentActivity',
+        'getPerformanceIndicators',
+        'retrievePatientRecords',
+        'sendFollowUpNotification',
+        'manageMedications',
+        'collaborateWithProviders',
+        'updateEducationalResources',
+        'visualizeOperationalMetrics',
+      ];
+
   const NpDashboardScreen({super.key});
 
   @override

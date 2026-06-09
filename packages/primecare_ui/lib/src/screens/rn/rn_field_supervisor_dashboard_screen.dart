@@ -150,6 +150,33 @@ final rnFieldSupervisorDashboardControllerProvider =
 
 // --- View ---
 class RnFieldSupervisorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN Field Supervisor Dashboard requires components for monitoring compliance, operational activities, and staff performance, along with functionalities for submitting audits and updating policies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'OperationalLogsTable',
+        'StaffPerformanceMetricsChart',
+        'AlertsNotificationPanel',
+        'AuditLogsViewer',
+        'FieldAuditSubmissionForm',
+        'PolicyUpdateForm',
+        'KPIVisualRepresentation',
+        'TeamCommunicationTool',
+        'ReportExportButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitFieldAudit',
+        'updatePolicy',
+        'exportLogs',
+        'viewAlerts',
+        'refreshData',
+      ];
+
   const RnFieldSupervisorDashboardScreen({super.key});
 
   @override

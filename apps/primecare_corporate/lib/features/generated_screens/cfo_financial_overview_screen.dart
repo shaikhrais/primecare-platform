@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_financial_overview_screen_controller.dart';
 
-class CfoFinancialOverviewScreen extends ConsumerWidget {
+class CfoFinancialOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO Financial Overview screen requires components for displaying financial metrics, handling loading states and errors, and allowing user customization for a user-friendly experience.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FinancialMetricsDisplay',
+        'KPIDashboard',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'CustomizableMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchFinancialData',
+        'handleLoadingState',
+        'handleError',
+        'updateMetricsDisplay',
+        'setUserPreferences',
+      ];
+
   const CfoFinancialOverviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoFinancialOverviewScreenControllerProvider);
 
     return Scaffold(

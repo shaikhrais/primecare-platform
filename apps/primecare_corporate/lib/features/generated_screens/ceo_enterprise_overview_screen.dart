@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_enterprise_overview_screen_controller.dart';
 
-class CeoEnterpriseOverviewScreen extends ConsumerWidget {
+class CeoEnterpriseOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, analyzing financial data, and facilitating stakeholder communication, along with necessary buttons and functions for interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'OperationalEfficiencyIndicator',
+        'FinancialTrendChart',
+        'TeamPerformanceStats',
+        'OperationalIssuesSummary',
+        'StrategicRecommendations',
+        'StakeholderCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchOperationalIndicators',
+        'analyzeFinancialReports',
+        'evaluateTeamPerformance',
+        'identifyImprovementAreas',
+        'makeStrategicDecisions',
+        'communicateWithStakeholders',
+      ];
+
   const CeoEnterpriseOverviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoEnterpriseOverviewScreenControllerProvider);
 
     return Scaffold(

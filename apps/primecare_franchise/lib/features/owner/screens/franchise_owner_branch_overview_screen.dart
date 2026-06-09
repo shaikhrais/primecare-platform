@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_owner_branch_overview_screen_controller.dart';
 
-class FranchiseOwnerBranchOverviewScreen extends ConsumerWidget {
+class FranchiseOwnerBranchOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring operations, security status, telemetry data, audit logs, compliance results, and notifications, along with buttons for triggering scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveOperationsOverview',
+        'SecurityClearanceStatus',
+        'TelemetryDataChart',
+        'OperationalAuditLog',
+        'ComplianceScanResults',
+        'AlertsNotificationPanel',
+        'LogEntryFeature',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshTelemetryData',
+        'logSignificantEvent',
+      ];
+
   const FranchiseOwnerBranchOverviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseOwnerBranchOverviewScreenControllerProvider);
 
     return Scaffold(

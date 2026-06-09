@@ -103,6 +103,33 @@ final cnsAnalyticsScreenProvider =
 
 // --- View ---
 class CnsAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient monitoring, compliance metrics, and staff performance tracking, along with buttons for updating care plans and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientDemographicsCard',
+        'ComplianceMetricsChart',
+        'RealTimeMonitoringWidget',
+        'PatientInteractionLog',
+        'CriticalAlertsNotification',
+        'QualityImprovementMetrics',
+        'StaffPerformanceTracker',
+        'ResourceAllocationWidget',
+        'PatientSatisfactionFeedback',
+        'OutcomeTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateCarePlan',
+        'submitFeedback',
+        'generateReport',
+        'alertTeam',
+        'requestResources',
+      ];
+
   const CnsAnalyticsScreen({super.key});
 
   @override

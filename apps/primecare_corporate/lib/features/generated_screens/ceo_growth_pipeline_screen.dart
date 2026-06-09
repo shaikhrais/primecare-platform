@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_growth_pipeline_screen_controller.dart';
 
-class CeoGrowthPipelineScreen extends ConsumerWidget {
+class CeoGrowthPipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring growth metrics, analyzing data trends, and facilitating team collaboration, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GrowthMetricCard',
+        'DataTrendChart',
+        'AlertNotification',
+        'TaskManagementWidget',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorGrowthMetrics',
+        'analyzeDataTrends',
+        'identifyImprovementAreas',
+        'collaborateWithTeam',
+        'reviewAdjustGoals',
+      ];
+
   const CeoGrowthPipelineScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoGrowthPipelineScreenControllerProvider);
 
     return Scaffold(

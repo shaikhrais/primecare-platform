@@ -8,6 +8,28 @@ import 'dart:ui';
 /// An enterprise-grade, governed login screen.
 /// Follows 'No-Logic UI' policy by delegating all authentication logic to [LoginController].
 class LoginView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The login screen requires input fields for email and password, a login button, and functionality for password recovery, along with appropriate feedback mechanisms for users.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmailInputField',
+        'PasswordInputField',
+        'LoginButton',
+        'ForgotPasswordLink',
+        'LoadingIndicator',
+        'ErrorMessageDisplay',
+        'SuccessMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'attemptLogin',
+        'initiatePasswordRecovery',
+        'validateInput',
+      ];
+
   const LoginView({super.key});
 
   @override

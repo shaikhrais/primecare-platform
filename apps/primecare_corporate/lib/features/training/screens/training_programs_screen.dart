@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_programs_screen_controller.dart';
 
-class TrainingProgramsScreen extends ConsumerWidget {
+class TrainingProgramsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for loading states, error handling, and user feedback, along with APIs for fetching training programs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorAlert',
+        'TrainingProgramList',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingPrograms',
+        'handleError',
+        'submitFeedback',
+      ];
+
   const TrainingProgramsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingProgramsScreenControllerProvider);
 
     return Scaffold(

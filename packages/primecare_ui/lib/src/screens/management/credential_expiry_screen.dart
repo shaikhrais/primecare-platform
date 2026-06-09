@@ -99,6 +99,38 @@ final credentialExpiryProvider =
 
 // --- View ---
 class CredentialExpiryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various HR metrics visualizations, buttons for data refresh and report generation, and functions to fetch and analyze HR data from multiple APIs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeTurnoverCard',
+        'EngagementSurveyChart',
+        'RecruitmentMetricsTable',
+        'ComplianceStatusIndicator',
+        'TrainingParticipationChart',
+        'PerformanceManagementTrends',
+        'DiversityStatisticsCard',
+        'EmployeeFeedbackWidget',
+        'CompensationAnalysisChart',
+        'KeyHRMetricsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEmployeeTurnoverData',
+        'fetchEngagementSurveyResults',
+        'fetchRecruitmentMetrics',
+        'checkComplianceStatus',
+        'fetchTrainingParticipationData',
+        'analyzePerformanceManagement',
+        'fetchDiversityStatistics',
+        'getEmployeeFeedback',
+        'analyzeCompensationData',
+        'visualizeKeyHRMetrics',
+      ];
+
   const CredentialExpiryScreen({super.key});
 
   @override

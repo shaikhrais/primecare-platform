@@ -2,6 +2,27 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CrisisProtocolTriggerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Crisis Protocol Trigger Screen requires components for activating protocols, monitoring staff check-ins, and providing feedback on protocol effectiveness, along with necessary buttons, functions, and APIs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CrisisProtocolCard',
+        'StaffCheckInList',
+        'ProtocolOutcomeMetrics',
+        'AlertNotification',
+        'CrisisStatusIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'activateCrisisProtocol',
+        'checkInStaff',
+        'sendAlert',
+        'submitFeedback',
+      ];
+
   const CrisisProtocolTriggerScreen({super.key});
 
   @override

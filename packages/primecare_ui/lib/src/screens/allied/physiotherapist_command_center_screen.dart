@@ -101,6 +101,32 @@ final physiotherapistCommandCenterProvider =
 
 // --- View ---
 class PhysiotherapistCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient assessments, treatment plans, progress tracking, and communication tools, along with buttons for saving and updating information, and APIs for patient data management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'ProgressTrackingChart',
+        'ComplianceAuditLog',
+        'KPIWidget',
+        'TelemetryDataDisplay',
+        'AlertNotification',
+        'PatientHistoryViewer',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'updatePatientProgress',
+        'sendMessageToProvider',
+        'generateReport',
+        'checkForRedFlags',
+      ];
+
   const PhysiotherapistCommandCenterScreen({super.key});
 
   @override

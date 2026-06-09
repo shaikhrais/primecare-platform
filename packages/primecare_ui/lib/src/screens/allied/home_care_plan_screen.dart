@@ -97,6 +97,38 @@ final homeCarePlanProvider =
 
 // --- View ---
 class HomeCarePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The home care plan screen requires components for client management, compliance tracking, performance metrics, and communication tools, along with necessary buttons and API integrations for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'ComplianceStatusWidget',
+        'FeedbackMetricsChart',
+        'PerformanceMetricsDashboard',
+        'AlertsNotification',
+        'TreatmentPlansAccess',
+        'SafetyComplianceTracker',
+        'EducationalResourcesSection',
+        'CommunicationTools',
+        'WorkloadProductivityChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientData',
+        'updateComplianceStatus',
+        'logClientFeedback',
+        'calculatePerformanceMetrics',
+        'sendAlerts',
+        'accessTreatmentPlans',
+        'checkSafetyCompliance',
+        'fetchEducationalResources',
+        'sendCommunication',
+        'visualizeWorkloadTrends',
+      ];
+
   const HomeCarePlanScreen({super.key});
 
   @override

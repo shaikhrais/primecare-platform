@@ -101,6 +101,34 @@ final chiropractorAppointmentsProvider =
 
 // --- View ---
 class ChiropractorAppointmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for appointment management, compliance tracking, performance metrics, and alert notifications, along with corresponding buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentOverview',
+        'ComplianceAuditLog',
+        'KPIWidget',
+        'OperationalAuditLog',
+        'TelemetryChart',
+        'AlertNotification',
+        'TreatmentMetrics',
+        'AppointmentScheduler',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveAppointments',
+        'fetchComplianceAuditResults',
+        'fetchKPIs',
+        'fetchOperationalLogs',
+        'fetchTelemetryData',
+        'triggerAlert',
+        'fetchTreatmentMetrics',
+        'scheduleAppointment',
+      ];
+
   const ChiropractorAppointmentsScreen({super.key});
 
   @override

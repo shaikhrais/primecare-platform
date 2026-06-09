@@ -1,10 +1,42 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PswIncidentReportScreen extends ConsumerWidget {
+class PswIncidentReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring client health, reporting incidents, and facilitating communication among PSWs, along with necessary buttons and functions for managing care and compliance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientHealthStatusCard',
+        'IncidentReportForm',
+        'ComplianceAuditAlert',
+        'ActivityMetricsChart',
+        'TeamCommunicationTool',
+        'TrainingResourceSection',
+        'ClientFeedbackSurvey',
+        'MedicationAlert',
+        'PerformanceMetricsTable',
+        'StaffingResourceAllocation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reportIncident',
+        'updateHealthStatus',
+        'viewComplianceAudit',
+        'logActivity',
+        'sendMessage',
+        'accessTrainingResources',
+        'submitFeedback',
+        'scheduleMedication',
+        'viewPerformanceMetrics',
+        'allocateResources',
+      ];
+
   const PswIncidentReportScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'PswIncidentReportScreen';
 

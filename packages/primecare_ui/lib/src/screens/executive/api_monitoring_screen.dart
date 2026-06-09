@@ -97,6 +97,31 @@ final apiMonitoringProvider =
 
 // --- View ---
 class ApiMonitoringScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the CTO to monitor technology performance, budget, compliance, and team metrics, along with necessary components, buttons, functions, and APIs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'SystemUptimeChart',
+        'SecurityComplianceCard',
+        'BudgetUtilizationChart',
+        'TeamPerformanceMetrics',
+        'UserSatisfactionCard',
+        'TechnologyTrendsWidget',
+        'ProjectTimelineChart',
+        'VendorPerformanceCard',
+        'RiskAssessmentWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'exportReport',
+        'viewDetails',
+      ];
+
   const ApiMonitoringScreen({super.key});
 
   @override

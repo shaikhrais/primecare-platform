@@ -78,6 +78,38 @@ final dynamicScreenComplianceProvider =
 
 // --- View ---
 class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Dynamic Compliance Screen requires components for displaying compliance status, managing loading states, executing scans, and handling governance actions, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DynamicScreenComplianceInterface',
+        'LoadingStateIndicator',
+        'ErrorHandlingComponent',
+        'ComplianceScanLogger',
+        'GovernanceActionTrigger',
+        'OperationalAuditLogDisplay',
+        'EventReportingForm',
+        'ComplianceVerificationAuditDisplay',
+        'GovernanceDirectiveToggle',
+        'LogRefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'renderDynamicScreen',
+        'manageLoadingState',
+        'executeComplianceScan',
+        'logScanResults',
+        'triggerGovernanceAction',
+        'updateAuditLogs',
+        'submitEventReport',
+        'displayRecentAudits',
+        'toggleGovernanceDirectives',
+        'refreshComplianceStatus',
+      ];
+
   const DynamicScreenComplianceScreen({super.key});
 
   @override

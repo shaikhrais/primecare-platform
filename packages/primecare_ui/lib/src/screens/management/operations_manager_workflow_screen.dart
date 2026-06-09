@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class OperationsManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the Operations Manager to monitor KPIs, team performance, budget, compliance, and red flags in operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'OperationalMetricsChart',
+        'TeamPerformanceReport',
+        'BudgetOverviewCard',
+        'ComplianceStatusAlert',
+        'ProjectTimelineTracker',
+        'EmployeeSatisfactionWidget',
+        'IncidentReportTracker',
+        'ResourceAllocationChart',
+        'RedFlagAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchOperationalMetrics',
+        'generatePerformanceReport',
+        'fetchBudgetData',
+        'checkComplianceStatus',
+        'updateProjectTimeline',
+        'collectEmployeeFeedback',
+        'trackIncidents',
+        'analyzeResourceUtilization',
+        'triggerRedFlagAlert',
+      ];
+
   const OperationsManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

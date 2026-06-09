@@ -97,6 +97,34 @@ final shiftTasksProvider =
 
 // --- View ---
 class ShiftTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The shift_tasks screen requires components for client overview, health status updates, activity logging, medication alerts, performance metrics, training status, communication tools, and resource access.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'HealthStatusChart',
+        'ActivityLogTable',
+        'MedicationAlertWidget',
+        'PerformanceMetricsCard',
+        'TrainingStatusCard',
+        'CommunicationTool',
+        'ResourceAccessPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientOverview',
+        'updateHealthStatus',
+        'logDailyActivity',
+        'setMedicationAlert',
+        'getPerformanceMetrics',
+        'checkTrainingStatus',
+        'openCommunicationTool',
+        'accessResources',
+      ];
+
   const ShiftTasksScreen({super.key});
 
   @override

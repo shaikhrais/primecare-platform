@@ -4,6 +4,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HswAdlLoggerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for logging ADLs, managing drafts, tracking meals, and completing hygiene checklists, along with necessary buttons, functions, and APIs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ADLLogForm',
+        'DraftsList',
+        'SubmissionStatus',
+        'MealsTracker',
+        'HygieneChecklist',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveDraft',
+        'submitLog',
+        'fetchDrafts',
+        'trackMeals',
+        'completeChecklist',
+      ];
+
   const HswAdlLoggerScreen({super.key});
 
   // === Governance Injected Action Methods ===

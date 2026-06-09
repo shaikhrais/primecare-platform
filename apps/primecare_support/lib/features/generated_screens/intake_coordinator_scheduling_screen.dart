@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'intake_coordinator_scheduling_screen_controller.dart';
 
-class IntakeCoordinatorSchedulingScreen extends ConsumerWidget {
+class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for scheduling, managing requests, and client communication, along with reporting and dashboard functionalities to monitor performance and client satisfaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentScheduler',
+        'RequestManager',
+        'ClientCommunication',
+        'ClientInfoUpdater',
+        'SchedulingReportGenerator',
+        'DashboardOverview',
+        'AlertsWidget',
+        'FeedbackMetrics',
+        'PerformanceMetrics',
+        'SchedulingTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'manageRequests',
+        'communicateWithClient',
+        'updateClientInfo',
+        'generateSchedulingReport',
+      ];
+
   const IntakeCoordinatorSchedulingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(intakeCoordinatorSchedulingScreenControllerProvider);
 
     return Scaffold(

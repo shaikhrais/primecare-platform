@@ -78,6 +78,38 @@ final franchiseSalesManagerComplianceProvider =
 
 // --- View ---
 class FranchiseSalesManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, auditing, performance metrics, and communication tools, along with necessary buttons and functions to facilitate franchise management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogViewer',
+        'PerformanceMetricsChart',
+        'ComplianceAlerts',
+        'SecurityPolicyStatus',
+        'AuditSummaryCard',
+        'CommunicationTool',
+        'TrainingResources',
+        'PerformanceReportingTool',
+        'GovernanceUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'retrieveAuditLogs',
+        'calculatePerformanceMetrics',
+        'triggerComplianceAlert',
+        'checkSecurityPolicyCompliance',
+        'summarizeAudits',
+        'engageFranchisees',
+        'accessTrainingResources',
+        'reportOperationalPerformance',
+        'getGovernanceUpdates',
+      ];
+
   const FranchiseSalesManagerComplianceScreen({super.key});
 
   @override

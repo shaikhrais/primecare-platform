@@ -103,6 +103,33 @@ final lpnAnalyticsScreenProvider =
 
 // --- View ---
 class LpnAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets for monitoring, compliance tracking, and communication, along with buttons for reporting incidents and viewing care plans, supported by specific API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientMonitoringWidget',
+        'ComplianceTrackingWidget',
+        'PatientSatisfactionWidget',
+        'IncidentReportingWidget',
+        'StaffingLevelWidget',
+        'TrainingStatusWidget',
+        'AlertsWidget',
+        'PerformanceMetricsWidget',
+        'PatientCarePlanWidget',
+        'CommunicationToolWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reportIncident',
+        'viewPatientCarePlan',
+        'trackCompliance',
+        'viewTrainingStatus',
+        'sendMessage',
+      ];
+
   const LpnAnalyticsScreen({super.key});
 
   @override

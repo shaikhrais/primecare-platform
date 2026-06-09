@@ -8,6 +8,26 @@ final providerPerformanceProvider = FutureProvider.autoDispose<List<Map<String, 
 });
 
 class ProviderPerformanceDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display provider performance metrics, a refresh button, and functionality to analyze trends and identify underperformers.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIIndicator',
+        'PerformanceTrendChart',
+        'ErrorMessageDisplay',
+        'SummarySection',
+        'ProviderFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshMetrics',
+        'identifyUnderperformingProviders',
+        'analyzePerformanceTrends',
+      ];
+
   const ProviderPerformanceDashboardScreen({super.key});
 
   @override

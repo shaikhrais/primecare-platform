@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HeadOfBusDevAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various performance metrics, client data, and integration with CRM tools to support the Head of Business Development in strategic decision-making.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ClientAcquisitionRetentionChart',
+        'MarketAnalysisOverview',
+        'KPITrackingWidget',
+        'PipelineStatusChart',
+        'TeamPerformanceMetricCard',
+        'ClientFeedbackScoreCard',
+        'BudgetUtilizationChart',
+        'OpportunitiesRisksOverview',
+        'CRMIntegrationWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewProposal',
+        'negotiateContract',
+        'trackPerformanceMetrics',
+        'conductMarketResearch',
+      ];
+
   const HeadOfBusDevAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

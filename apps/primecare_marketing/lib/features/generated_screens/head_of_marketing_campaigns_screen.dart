@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_campaigns_screen_controller.dart';
 
-class HeadOfMarketingCampaignsScreen extends ConsumerWidget {
+class HeadOfMarketingCampaignsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for real-time metrics, campaign progress visualization, alerts for anomalies, budget tracking, collaboration tools, and access to historical data, along with specific buttons and functions to manage campaigns effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RealTimeMetricsCard',
+        'CampaignProgressChart',
+        'AlertsNotification',
+        'BudgetTrackingTool',
+        'CollaborationTool',
+        'HistoricalDataAccess',
+        'InsightsSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'generateCampaignReport',
+        'sendAlerts',
+        'trackBudget',
+        'collaborateWithTeam',
+        'accessHistoricalData',
+      ];
+
   const HeadOfMarketingCampaignsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingCampaignsScreenControllerProvider);
 
     return Scaffold(

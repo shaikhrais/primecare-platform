@@ -97,6 +97,38 @@ final cooStaffingProvider =
 
 // --- View ---
 class CooStaffingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The COO dashboard requires various performance, compliance, financial, and operational metrics displayed through multiple components, with functionalities for data fetching and user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'FinancialOverviewChart',
+        'EmployeeEngagementGauge',
+        'RiskAssessmentPanel',
+        'ProjectTimelineTracker',
+        'CustomerFeedbackWidget',
+        'ResourceUtilizationChart',
+        'ProcessImprovementTracker',
+        'OperationalLogsViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'fetchFinancialOverview',
+        'fetchEmployeeEngagementScores',
+        'fetchRiskAssessment',
+        'fetchProjectStatus',
+        'fetchCustomerFeedback',
+        'fetchResourceUtilization',
+        'fetchProcessImprovementData',
+        'fetchOperationalLogs',
+      ];
+
   const CooStaffingScreen({super.key});
 
   @override

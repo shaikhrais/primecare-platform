@@ -101,6 +101,33 @@ final governanceControlRoomProvider =
 
 // --- View ---
 class GovernanceControlRoomScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The governance control room screen requires various components to monitor compliance, audits, performance metrics, and communication, along with buttons and functions for reporting and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovComplianceStatusCard',
+        'GovAuditLogTable',
+        'GovPerformanceKPIChart',
+        'GovRiskAssessmentIndicator',
+        'GovCommunicationLog',
+        'GovTrainingCompletionChart',
+        'GovRegulatoryUpdates',
+        'GovActionItemsList',
+        'GovRealTimeAlerts',
+        'GovTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateAuditReport',
+        'updateComplianceStatus',
+        'notifyStakeholders',
+        'viewTrainingResources',
+        'refreshData',
+      ];
+
   const GovernanceControlRoomScreen({super.key});
 
   @override

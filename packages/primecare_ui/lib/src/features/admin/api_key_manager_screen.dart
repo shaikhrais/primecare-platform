@@ -10,6 +10,28 @@ final apiKeysProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((
 });
 
 class ApiKeyManagerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing API keys, buttons for key operations, functions for handling API interactions, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ApiKeyList',
+        'ApiKeyDetails',
+        'ApiKeyUsageChart',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateApiKey',
+        'rotateApiKey',
+        'revokeApiKey',
+        'loadApiKeys',
+        'monitorApiUsage',
+      ];
+
   const ApiKeyManagerScreen({super.key});
 
   @override

@@ -99,6 +99,32 @@ final revenueAnalyticsProvider =
 
 // --- View ---
 class RevenueAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The revenue analytics screen requires various metrics and indicators for financial, operational, employee, compliance, customer feedback, risk, and strategic goals, along with interactive buttons for report viewing and data export.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FinancialMetricsCard',
+        'OperationalKPIsChart',
+        'EmployeeMetricsWidget',
+        'ComplianceStatusPanel',
+        'CustomerFeedbackChart',
+        'RiskIndicatorsAlert',
+        'StrategicGoalsProgressTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchFinancialMetrics',
+        'fetchOperationalKPIs',
+        'fetchEmployeeMetrics',
+        'fetchComplianceStatus',
+        'fetchCustomerFeedback',
+        'fetchRiskIndicators',
+        'fetchStrategicGoalsProgress',
+      ];
+
   const RevenueAnalyticsScreen({super.key});
 
   @override

@@ -101,6 +101,38 @@ final financialDashboardProvider =
 
 // --- View ---
 class FinancialDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The financial dashboard for the CFO requires various widgets for KPIs, trends, analysis, and compliance, along with functions to fetch and update financial data in real-time.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'RevenueExpenseTrendChart',
+        'CashFlowAnalysisWidget',
+        'BudgetVsActualsWidget',
+        'ComplianceStatusIndicator',
+        'RiskAssessmentMetricWidget',
+        'AuditLogSummaryWidget',
+        'FinancialRatiosWidget',
+        'ForecastingModelWidget',
+        'RealTimeDataAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateKPIData',
+        'fetchRevenueExpenseTrends',
+        'analyzeCashFlow',
+        'compareBudgetVsActuals',
+        'checkComplianceStatus',
+        'assessRiskMetrics',
+        'summarizeAuditLog',
+        'calculateFinancialRatios',
+        'generateForecastingModels',
+        'sendRealTimeAlerts',
+      ];
+
   const FinancialDashboardScreen({super.key});
 
   @override

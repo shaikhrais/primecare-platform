@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_manager_dashboard_screen_controller.dart';
 
-class RegionalManagerDashboardScreen extends ConsumerWidget {
+class RegionalManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The regional manager dashboard requires components for monitoring performance metrics, analyzing data, and facilitating communication, along with alerts for operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetric',
+        'SalesTrendVisualization',
+        'TeamPerformanceIndicator',
+        'RedFlagAlert',
+        'CustomerFeedbackSection',
+        'GoalTrackingIndicator',
+        'ReportsAccess',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPerformanceMetrics',
+        'analyzeSalesData',
+        'reviewTeamPerformance',
+        'identifyImprovementAreas',
+        'communicateWithTeam',
+        'setRegionalGoals',
+        'prepareManagementReports',
+        'implementStrategies',
+      ];
+
   const RegionalManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalManagerDashboardScreenControllerProvider);
 
     return Scaffold(

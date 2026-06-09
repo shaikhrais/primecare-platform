@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_pipeline_screen_controller.dart';
 
-class TerritorySalesManagerPipelineScreen extends ConsumerWidget {
+class TerritorySalesManagerPipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring sales progress, analyzing performance, and facilitating collaboration, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPipelineOverview',
+        'PerformanceMetricsChart',
+        'LeadOpportunitiesList',
+        'TeamCollaborationTool',
+        'CustomerInformationCard',
+        'SalesReportGenerator',
+        'TrainingSessionScheduler',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorSalesPipeline',
+        'analyzeTerritoryPerformance',
+        'identifyLeads',
+        'collaborateOnStrategies',
+        'updateCustomerInfo',
+        'generateSalesReport',
+        'attendTrainingSession',
+      ];
+
   const TerritorySalesManagerPipelineScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerPipelineScreenControllerProvider);
 
     return Scaffold(

@@ -8,6 +8,26 @@ final regulatoryChangesProvider = FutureProvider.autoDispose<List<Map<String, dy
 });
 
 class RegulatoryChangeRadarScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display regulatory changes, handle data loading and errors, and allow user interaction for data refresh and detail viewing.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessage',
+        'RegulatoryChangeList',
+        'InteractiveTimeline',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRegulatoryData',
+        'handleError',
+        'refreshData',
+        'viewRegulatoryChangeDetails',
+      ];
+
   const RegulatoryChangeRadarScreen({super.key});
 
   @override

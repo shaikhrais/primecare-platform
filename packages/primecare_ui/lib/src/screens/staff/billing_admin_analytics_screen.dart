@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BillingAdminAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The billing_admin_analytics screen requires components for task management, scheduling, communication tracking, billing updates, file management, performance metrics, inventory tracking, event coordination, compliance checks, and feedback submission.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'BillingStatus',
+        'FileManagementSystem',
+        'PerformanceMetrics',
+        'InventoryTracking',
+        'EventCoordinationTools',
+        'ComplianceChecklist',
+        'FeedbackSupportSystem',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageTask',
+        'scheduleAppointment',
+        'logCommunication',
+        'updateBillingStatus',
+        'manageFiles',
+        'trackPerformance',
+        'trackInventory',
+        'coordinateEvent',
+        'checkCompliance',
+        'submitFeedback',
+      ];
+
   const BillingAdminAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

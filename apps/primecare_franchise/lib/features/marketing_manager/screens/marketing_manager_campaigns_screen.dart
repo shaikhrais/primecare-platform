@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'marketing_manager_campaigns_screen_controller.dart';
 
-class MarketingManagerCampaignsScreen extends ConsumerWidget {
+class MarketingManagerCampaignsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time performance metrics, collaboration tools, and the ability to adjust strategies based on data insights.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignPerformanceChart',
+        'EngagementRateGraph',
+        'CollaborationTool',
+        'AlertNotification',
+        'HistoricalDataComparison',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCampaigns',
+        'analyzePerformanceMetrics',
+        'adjustCampaignStrategies',
+        'collaborateWithTeam',
+        'reportOutcomes',
+      ];
+
   const MarketingManagerCampaignsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(marketingManagerCampaignsScreenControllerProvider);
 
     return Scaffold(

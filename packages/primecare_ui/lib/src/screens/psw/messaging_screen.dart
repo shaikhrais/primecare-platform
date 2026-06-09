@@ -97,6 +97,35 @@ final messagingProvider =
 
 // --- View ---
 class MessagingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The messaging screen requires components for task management, client profiles, communication logs, alerts, performance metrics, training resources, incident reporting, compliance tracking, scheduling tools, and self-care resources.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskOverviewWidget',
+        'ClientProfileCard',
+        'CommunicationLogWidget',
+        'MedicationAlertWidget',
+        'PerformanceMetricsChart',
+        'TrainingResourcesWidget',
+        'IncidentReportWidget',
+        'ComplianceStatusCard',
+        'SchedulingTool',
+        'SelfCareResourcesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewClientProfile',
+        'logCommunication',
+        'reportIncident',
+        'accessTrainingResources',
+        'checkMedicationSchedule',
+        'viewPerformanceFeedback',
+        'manageSchedule',
+      ];
+
   const MessagingScreen({super.key});
 
   @override

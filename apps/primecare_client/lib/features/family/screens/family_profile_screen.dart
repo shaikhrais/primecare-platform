@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_profile_screen_controller.dart';
 
-class FamilyProfileScreen extends ConsumerWidget {
+class FamilyProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Family Profile screen requires components for displaying family data, handling loading states, and managing errors, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FamilyProfileSummary',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchFamilyProfileData',
+        'handleLoadingError',
+        'displayFamilyProfileContent',
+      ];
+
   const FamilyProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyProfileScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_book_appointment_screen_controller.dart';
 
-class ClientBookAppointmentScreen extends ConsumerWidget {
+class ClientBookAppointmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Client Book Appointment screen requires components for loading indicators, error messages, and appointment confirmations, along with necessary functions and APIs to ensure proper functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessageDisplay',
+        'AppointmentBookingConfirmation',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAppointmentData',
+        'handleError',
+        'confirmBooking',
+        'submitFeedback',
+      ];
+
   const ClientBookAppointmentScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientBookAppointmentScreenControllerProvider);
 
     return Scaffold(

@@ -94,6 +94,38 @@ final officeDashboardProvider =
 
 // --- View ---
 class OfficeDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The office_dashboard screen requires components for task management, scheduling, communication tracking, inventory management, and performance metrics, along with various buttons and functions to facilitate administrative tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementSection',
+        'CalendarView',
+        'CommunicationLog',
+        'InventoryTracker',
+        'PerformanceMetrics',
+        'DocumentManagementSystem',
+        'ComplianceChecklist',
+        'FeedbackSection',
+        'AuditLog',
+        'AlertsAndReminders',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleAppointment',
+        'logCommunication',
+        'updateInventory',
+        'viewPerformanceMetrics',
+        'accessDocuments',
+        'checkCompliance',
+        'submitFeedback',
+        'viewAuditLog',
+        'setReminder',
+      ];
+
   const OfficeDashboardScreen({super.key});
 
   @override

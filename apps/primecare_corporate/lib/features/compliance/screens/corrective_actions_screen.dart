@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'corrective_actions_screen_controller.dart';
 
-class CorrectiveActionsScreen extends ConsumerWidget {
+class CorrectiveActionsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring, analyzing, and documenting corrective actions, along with visual trends and team collaboration features.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CorrectiveActionsOverview',
+        'TrendAnalysisChart',
+        'NotificationsList',
+        'TeamContributionsSummary',
+        'HistoricalDataAccess',
+        'FeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCorrectiveActions',
+        'analyzeCorrectiveActionData',
+        'identifyTrends',
+        'collaborateOnActions',
+        'documentOutcomes',
+        'provideFeedback',
+      ];
+
   const CorrectiveActionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(correctiveActionsScreenControllerProvider);
 
     return Scaffold(

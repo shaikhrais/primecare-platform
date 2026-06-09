@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'shareholder_dashboard_screen_controller.dart';
 
-class ShareholderDashboardScreen extends ConsumerWidget {
+class ShareholderDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The shareholder dashboard requires components for monitoring compliance, synchronizing security, exporting logs, and reviewing KPIs, along with necessary buttons and API integrations for real-time operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditMonitor',
+        'SecurityPostureSync',
+        'AuditLogExporter',
+        'StateActionTrigger',
+        'KPIDashboard',
+        'OperationalAuditScanner',
+        'TelemetryChart',
+        'NotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceAudits',
+        'synchronizeSecurityPosture',
+        'exportAuditLogs',
+        'triggerStateAction',
+        'reviewKPIs',
+        'executeOperationalAudit',
+      ];
+
   const ShareholderDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(shareholderDashboardScreenControllerProvider);
 
     return Scaffold(

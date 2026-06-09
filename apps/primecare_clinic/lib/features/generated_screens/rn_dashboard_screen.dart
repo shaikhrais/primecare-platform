@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'rn_dashboard_screen_controller.dart';
 
-class RnDashboardScreen extends ConsumerWidget {
+class RnDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN dashboard requires components for real-time patient updates, compliance alerts, and performance metrics, along with various buttons and functions for logging interactions and reporting incidents.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'ComplianceAuditAlert',
+        'PatientInteractionLog',
+        'PerformanceMetricChart',
+        'CriticalConditionAlert',
+        'EducationalResourceAccess',
+        'TeamCommunicationTool',
+        'TrendAnalysisChart',
+        'PatientOutcomeVisualization',
+        'IncidentReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientStatus',
+        'triggerComplianceAlert',
+        'logPatientInteraction',
+        'calculatePerformanceMetrics',
+        'sendCriticalConditionAlert',
+        'accessEducationalResources',
+        'initiateTeamCommunication',
+        'fetchHistoricalData',
+        'visualizePatientOutcomes',
+        'reportIncident',
+      ];
+
   const RnDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(rnDashboardScreenControllerProvider);
 
     return Semantics(

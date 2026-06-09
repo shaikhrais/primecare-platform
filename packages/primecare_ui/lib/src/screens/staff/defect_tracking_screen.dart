@@ -97,6 +97,33 @@ final defectTrackingProvider =
 
 // --- View ---
 class DefectTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The defect tracking screen requires components for monitoring testing status, defect metrics, and user feedback, along with buttons for executing tests and documenting defects.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TestStatusOverview',
+        'DefectMetricsChart',
+        'DefectTrendsGraph',
+        'TestCoverageReport',
+        'AutomatedTestResults',
+        'ComplianceScanResults',
+        'PerformanceMetrics',
+        'UserFeedbackScores',
+        'AlertsDashboard',
+        'ProjectManagementIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeTestPlan',
+        'documentDefect',
+        'resolveIssue',
+        'conductRegressionTesting',
+        'viewReports',
+      ];
+
   const DefectTrackingScreen({super.key});
 
   @override

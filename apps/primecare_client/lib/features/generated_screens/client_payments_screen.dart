@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_payments_screen_controller.dart';
 
-class ClientPaymentsScreen extends ConsumerWidget {
+class ClientPaymentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing client payments, handling errors, and providing user feedback, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PaymentStatusOverview',
+        'PaymentAlerts',
+        'ProcessingTimeSummary',
+        'ErrorLogAccess',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPaymentStatuses',
+        'managePaymentTransactions',
+        'handlePaymentErrors',
+        'ensureDataIntegrity',
+        'provideUserFeedback',
+      ];
+
   const ClientPaymentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientPaymentsScreenControllerProvider);
 
     return Scaffold(

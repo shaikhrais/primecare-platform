@@ -119,6 +119,36 @@ final pswClientsControllerProvider =
 
 // --- View ---
 class PswClientsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, documentation, alerts, and communication tools, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientList',
+        'SearchBar',
+        'FilterOptions',
+        'NotificationPanel',
+        'VitalSignsSummary',
+        'DocumentationSection',
+        'AlertsPanel',
+        'CommunicationTools',
+        'TrainingResources',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'searchClients',
+        'filterClients',
+        'notifyUpcomingVisits',
+        'recordVitalSigns',
+        'sendAlert',
+        'contactHealthcareProfessional',
+        'accessTrainingResources',
+        'trackPerformanceMetrics',
+      ];
+
   const PswClientsScreen({super.key});
 
   @override

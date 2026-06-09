@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_reports_screen_controller.dart';
 
-class ComplianceReportsScreen extends ConsumerWidget {
+class ComplianceReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance status, notifications, recent reports, trends, and resources, along with buttons for reviewing reports and documenting findings.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusSummary',
+        'ComplianceNotifications',
+        'RecentReportsList',
+        'ComplianceTrendsChart',
+        'ResourcesLinks',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadComplianceReports',
+        'analyzeData',
+        'documentFindings',
+        'notifyStakeholders',
+      ];
+
   const ComplianceReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceReportsScreenControllerProvider);
 
     return Scaffold(

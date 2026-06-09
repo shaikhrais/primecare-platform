@@ -99,6 +99,34 @@ final rmtExercisePlanProvider =
 
 // --- View ---
 class RmtExercisePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, compliance tracking, feedback analysis, treatment progress, financial performance, staff metrics, alerts, educational resources, and communication tools, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'ComplianceStatusWidget',
+        'FeedbackMetricsChart',
+        'TreatmentProgressTracker',
+        'FinancialPerformanceCard',
+        'StaffPerformanceDashboard',
+        'AlertsNotificationPanel',
+        'EducationalResourcesSection',
+        'ClientCommunicationTool',
+        'KPIVisualizations',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'viewClientRecords',
+        'generateReport',
+        'sendFeedbackRequest',
+        'updateTreatmentPlan',
+        'logout',
+      ];
+
   const RmtExercisePlanScreen({super.key});
 
   @override

@@ -174,6 +174,30 @@ final hrOnboardingControllerProvider =
 
 // --- View ---
 class HrOnboardingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Onboarding screen requires components for viewing and managing applicant details, filtering applicants by stage, and toggling checklist items, along with APIs for data retrieval and actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ApplicantList',
+        'ApplicantDetailView',
+        'ChecklistToggle',
+        'ComplianceScoreChart',
+        'StageDistributionOverview',
+        'AlertsNotification',
+        'QuickAccessButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewApplicantDetails',
+        'filterApplicants',
+        'toggleChecklistItem',
+        'promoteApplicant',
+        'generateComplianceReport',
+      ];
+
   const HrOnboardingScreen({super.key});
 
   @override

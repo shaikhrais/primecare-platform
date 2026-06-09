@@ -101,6 +101,38 @@ final partnershipManagementProvider =
 
 // --- View ---
 class PartnershipManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display KPIs, partner metrics, market analysis, compliance status, and team performance, along with buttons for managing partnerships and functions for data retrieval and analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'PartnerSatisfactionMetric',
+        'MarketTrendAnalysis',
+        'ComplianceStatusCard',
+        'StrategicInitiativesProgress',
+        'TeamPerformanceChart',
+        'SalesPipelineVisualization',
+        'ActivityLog',
+        'ComplianceAlert',
+        'BudgetTracking',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'getPartnerFeedback',
+        'analyzeMarketTrends',
+        'checkComplianceStatus',
+        'updateStrategicGoals',
+        'trackTeamPerformance',
+        'visualizeSalesPipeline',
+        'logActivity',
+        'sendComplianceAlert',
+        'manageBudget',
+      ];
+
   const PartnershipManagementScreen({super.key});
 
   @override

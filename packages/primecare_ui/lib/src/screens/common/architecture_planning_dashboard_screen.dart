@@ -96,6 +96,33 @@ final architecturePlanningDashboardProvider =
 
 // --- View ---
 class ArchitecturePlanningDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The architecture planning dashboard for the CTO requires various performance metrics, security data, budget tracking, and team insights, along with interactive components for data management and visualization.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'SecurityMetricsChart',
+        'BudgetTracker',
+        'TeamPerformanceDashboard',
+        'ComplianceStatusCard',
+        'InnovationMetricsWidget',
+        'StakeholderFeedbackWidget',
+        'InfrastructureMonitoringPanel',
+        'RiskAssessmentWidget',
+        'TechnologyTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewDetailedReport',
+        'exportMetrics',
+        'setBudgetAlerts',
+        'addNewTechnology',
+      ];
+
   const ArchitecturePlanningDashboardScreen({super.key});
 
   @override

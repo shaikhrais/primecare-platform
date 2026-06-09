@@ -150,6 +150,34 @@ final pediatricDashboardControllerProvider =
 
 // --- View ---
 class PediatricDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The pediatric dashboard requires components for health assessments, vaccination tracking, growth metrics analysis, and educational resources, along with buttons for recording and scheduling tasks, and APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'HealthAssessmentCard',
+        'VaccinationScheduleWidget',
+        'GrowthMetricsChart',
+        'DevelopmentalScreeningTool',
+        'NutritionGuidancePanel',
+        'ChronicConditionManager',
+        'CollaborationLog',
+        'ParentalEducationResource',
+        'AlertsNotification',
+        'PerformanceIndicatorDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'recordGrowthMetrics',
+        'administerVaccination',
+        'scheduleAppointment',
+        'sendReminder',
+        'fetchPatientHistory',
+        'updateVaccinationStatus',
+      ];
+
   const PediatricDashboardScreen({super.key});
 
   @override

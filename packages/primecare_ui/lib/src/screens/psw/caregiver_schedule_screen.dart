@@ -100,6 +100,30 @@ final caregiverScheduleProvider =
 
 // --- View ---
 class CaregiverScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The caregiver schedule screen requires components for managing patient assignments, medication alerts, health updates, compliance scans, performance metrics, training resources, and communication tools, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssignmentList',
+        'MedicationAlert',
+        'HealthUpdateLog',
+        'ComplianceScanResults',
+        'PerformanceMetrics',
+        'TrainingResources',
+        'CommunicationTools',
+        'WorkloadVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logHealthUpdate',
+        'reportIssue',
+        'accessTrainingResources',
+        'viewSchedule',
+      ];
+
   const CaregiverScheduleScreen({super.key});
 
   @override

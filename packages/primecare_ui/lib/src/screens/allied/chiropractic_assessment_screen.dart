@@ -101,6 +101,34 @@ final chiropracticAssessmentProvider =
 
 // --- View ---
 class ChiropracticAssessmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractic assessment screen requires components for patient assessments, treatment plans, progress monitoring, and compliance tracking, along with necessary buttons and functions for managing patient care.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'ProgressMonitoringChart',
+        'PatientEducationModule',
+        'ComplianceStatusWidget',
+        'KPIOverviewCard',
+        'PatientFeedbackForm',
+        'AppointmentScheduler',
+        'TelemetryDataDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveAssessment',
+        'updateTreatmentPlan',
+        'recordAdjustment',
+        'monitorProgress',
+        'educatePatient',
+        'viewComplianceLogs',
+        'scheduleAppointment',
+      ];
+
   const ChiropracticAssessmentScreen({super.key});
 
   @override

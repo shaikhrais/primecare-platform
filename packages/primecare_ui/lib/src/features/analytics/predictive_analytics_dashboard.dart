@@ -8,6 +8,24 @@ final predictiveAnalyticsProvider = FutureProvider.autoDispose<Map<String, dynam
 });
 
 class PredictiveAnalyticsDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display predictive analytics data, buttons for refreshing data and running models, and functions to handle these actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientVolumeChart',
+        'RiskForecastChart',
+        'ModelAccuracyDisplay',
+        'RiskFactorsList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshAnalyticsData',
+        'runNewPredictiveModel',
+      ];
+
   const PredictiveAnalyticsDashboardScreen({super.key});
 
   @override

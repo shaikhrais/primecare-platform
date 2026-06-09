@@ -101,6 +101,30 @@ final physiotherapistReportsProvider =
 
 // --- View ---
 class PhysiotherapistReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient status overview, compliance auditing, KPI tracking, telemetry data display, red flag alerts, and patient records access, along with various buttons and functions for managing treatment and monitoring progress.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusOverview',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'TelemetryDataDisplay',
+        'RedFlagAlert',
+        'PatientRecordsAccess',
+        'ProgressTrackingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateTreatmentPlan',
+        'logPatientProgress',
+        'viewPatientRecords',
+        'generateComplianceReport',
+        'alertRedFlag',
+      ];
+
   const PhysiotherapistReportsScreen({super.key});
 
   @override

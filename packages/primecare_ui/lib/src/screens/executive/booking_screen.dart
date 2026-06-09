@@ -98,6 +98,37 @@ final bookingProvider = StateNotifierProvider<BookingController, BookingState>((
 
 // --- View ---
 class BookingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The booking screen requires components for managing patient intake, scheduling appointments, and monitoring operational metrics, along with necessary buttons and functions for efficient workflow.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentScheduler',
+        'PatientInfoForm',
+        'ComplianceAlert',
+        'OperationalMetricsLog',
+        'PatientFeedbackChart',
+        'CancellationAlert',
+        'StaffPerformanceIndicator',
+        'SystemHealthMonitor',
+        'CommunicationLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'managePatientIntake',
+        'scheduleAppointment',
+        'verifyPatientInfo',
+        'coordinateWithClinicalStaff',
+        'ensureCompliance',
+        'maintainRecords',
+        'communicateWithPatients',
+        'handleInquiries',
+        'monitorOperationalMetrics',
+        'updateBookingSystem',
+      ];
+
   const BookingScreen({super.key});
 
   @override

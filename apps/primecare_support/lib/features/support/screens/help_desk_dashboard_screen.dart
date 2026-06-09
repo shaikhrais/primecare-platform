@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'help_desk_dashboard_screen_controller.dart';
 
-class HelpDeskDashboardScreen extends ConsumerWidget {
+class HelpDeskDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The help desk dashboard requires components for monitoring ticket statuses, tracking resolution times, analyzing user feedback, and facilitating team communication.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketStatusOverview',
+        'ResolutionTimeMetrics',
+        'UserSatisfactionSummary',
+        'AlertsWidget',
+        'RecurringIssuesChart',
+        'WorkloadDistribution',
+        'CommunicationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateTicketStatus',
+        'generateReport',
+        'sendTeamMessage',
+      ];
+
   const HelpDeskDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(helpDeskDashboardScreenControllerProvider);
 
     return Scaffold(

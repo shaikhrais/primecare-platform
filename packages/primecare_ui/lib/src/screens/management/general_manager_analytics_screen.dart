@@ -4,6 +4,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GeneralManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display key performance indicators, employee metrics, customer feedback, and compliance status, along with buttons for data refresh and report generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'EmployeePerformanceChart',
+        'CustomerFeedbackWidget',
+        'BudgetPerformanceCard',
+        'OperationalEfficiencyChart',
+        'MarketTrendsAnalysis',
+        'ComplianceStatusWidget',
+        'ProjectTimelineTracker',
+        'AlertsDashboard',
+        'BusinessHealthVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchEmployeeMetrics',
+        'fetchCustomerFeedback',
+        'fetchBudgetData',
+        'fetchOperationalMetrics',
+        'fetchMarketTrends',
+        'fetchComplianceStatus',
+        'fetchProjectUpdates',
+        'checkAlerts',
+      ];
+
   const GeneralManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

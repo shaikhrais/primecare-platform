@@ -4,6 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PartnershipManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring partnership performance, managing relationships, and addressing issues, along with necessary buttons and functions for reporting and negotiation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PartnershipPerformanceMetrics',
+        'ActivePartnershipsOverview',
+        'PartnershipKPIs',
+        'RedFlagAlerts',
+        'HistoricalDataTrends',
+        'CommunicationTrackingTool',
+        'PartnershipGrowthVisualization',
+        'DataIntegrationModule',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPartnershipMetrics',
+        'updatePartnershipStatus',
+        'alertRedFlags',
+        'trackCommunication',
+        'generatePartnershipReport',
+      ];
+
   const PartnershipManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -4,6 +4,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PatientWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for task management, notifications, health tracking, educational resources, and communication, along with associated buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'NotificationBanner',
+        'HealthStatusTracker',
+        'EducationalResources',
+        'CommunicationChannel',
+        'TaskSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'completeAssessment',
+        'signConsent',
+        'scheduleAppointment',
+        'reportHealthChanges',
+        'accessResources',
+      ];
+
   const PatientWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

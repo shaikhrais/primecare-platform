@@ -99,6 +99,38 @@ final brandManagementProvider =
 
 // --- View ---
 class BrandManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The brand management screen requires various widgets for campaign performance, KPIs, analytics, and team metrics, along with buttons for report export and initiative management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'KPIChart',
+        'RealTimeAnalyticsWidget',
+        'SocialMediaMetricsWidget',
+        'BudgetTrackingWidget',
+        'CustomerFeedbackWidget',
+        'CompetitiveAnalysisWidget',
+        'TeamPerformanceWidget',
+        'ComplianceUpdatesWidget',
+        'UpcomingInitiativesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'fetchKPIData',
+        'fetchRealTimeAnalytics',
+        'fetchSocialMediaMetrics',
+        'fetchBudgetData',
+        'fetchCustomerFeedback',
+        'fetchCompetitiveAnalysis',
+        'fetchTeamPerformance',
+        'fetchComplianceUpdates',
+        'fetchUpcomingInitiatives',
+      ];
+
   const BrandManagementScreen({super.key});
 
   @override

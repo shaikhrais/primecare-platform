@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_feature_adoption_screen_controller.dart';
 
-class CtoFeatureAdoptionScreen extends ConsumerWidget {
+class CtoFeatureAdoptionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor feature adoption, analyze user engagement, and report performance, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FeatureAdoptionChart',
+        'UserEngagementMetrics',
+        'ErrorTrackingWidget',
+        'UserFeedbackWidget',
+        'BenchmarkComparisonChart',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorFeatureAdoption',
+        'analyzeUserEngagement',
+        'identifyImprovementAreas',
+        'collaborateWithDev',
+        'gatherUserFeedback',
+        'reportFeaturePerformance',
+      ];
+
   const CtoFeatureAdoptionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoFeatureAdoptionScreenControllerProvider);
 
     return Scaffold(

@@ -74,6 +74,31 @@ final cfoComplianceProvider =
 
 // --- View ---
 class CfoComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO compliance screen requires various financial metrics and dashboards to monitor performance, compliance, and risk management, along with necessary buttons and APIs for data interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'FinancialHealthMetricsWidget',
+        'BudgetVsActualWidget',
+        'CashFlowProjectionsWidget',
+        'ComplianceStatusIndicatorWidget',
+        'RiskManagementDashboardWidget',
+        'AuditTrailWidget',
+        'InvestmentPerformanceMetricsWidget',
+        'RevenueExpenseTrendsWidget',
+        'StakeholderEngagementMetricsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'exportReport',
+        'viewAuditTrail',
+      ];
+
   const CfoComplianceScreen({super.key});
 
   @override

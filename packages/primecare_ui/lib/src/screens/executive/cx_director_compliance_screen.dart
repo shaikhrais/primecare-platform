@@ -78,6 +78,33 @@ final cxDirectorComplianceProvider =
 
 // --- View ---
 class CxDirectorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying customer experience metrics, buttons for generating reports and initiating audits, functions for handling actions, and APIs for data retrieval, all optimized for mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerSatisfactionCard',
+        'FeedbackTrendChart',
+        'KPIOverviewWidget',
+        'ComplianceStatusCard',
+        'ComplaintResolutionMetrics',
+        'EmployeeEngagementChart',
+        'RealTimePerformanceDashboard',
+        'CustomerJourneyMapInsights',
+        'RetentionLoyaltyTrends',
+        'ActionItemsList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'initiateAudit',
+        'sendFeedbackRequest',
+        'trainStaff',
+        'viewDetailedMetrics',
+      ];
+
   const CxDirectorComplianceScreen({super.key});
 
   @override

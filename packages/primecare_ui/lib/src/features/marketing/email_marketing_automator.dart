@@ -8,6 +8,28 @@ final emailJourneysProvider = FutureProvider.autoDispose<List<Map<String, dynami
 });
 
 class EmailMarketingAutomatorScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display and manage email journeys, including metrics monitoring and error notifications, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmailJourneyList',
+        'EmailJourneyMetrics',
+        'ErrorNotification',
+        'PerformanceTrendChart',
+        'JourneyFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewActiveJourneys',
+        'refreshEmailJourneys',
+        'createEmailJourney',
+        'toggleActiveStatus',
+        'monitorKeyMetrics',
+      ];
+
   const EmailMarketingAutomatorScreen({super.key});
 
   @override

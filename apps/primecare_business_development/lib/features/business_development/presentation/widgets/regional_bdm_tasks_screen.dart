@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_tasks_screen_controller.dart';
 
-class RegionalBdmTasksScreen extends ConsumerWidget {
+class RegionalBdmTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring sales performance, managing tasks, and analyzing reports, along with buttons for task assignment and feedback submission.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetric',
+        'TaskManagementWidget',
+        'SalesTrendChart',
+        'ClientFeedbackWidget',
+        'TeamPerformanceAnalytics',
+        'TaskAlertNotification',
+        'CommunicationSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorSalesPerformance',
+        'manageTasks',
+        'reviewSalesReports',
+        'communicateWithClients',
+        'setTrackSalesTargets',
+        'attendMeetings',
+        'provideFeedback',
+      ];
+
   const RegionalBdmTasksScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmTasksScreenControllerProvider);
 
     return Scaffold(

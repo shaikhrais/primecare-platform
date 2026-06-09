@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_leads_screen_controller.dart';
 
-class FranchiseSalesManagerLeadsScreen extends ConsumerWidget {
+class FranchiseSalesManagerLeadsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring lead status, analyzing conversion rates, and facilitating communication with potential franchisees.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadStatusOverview',
+        'ConversionRateChart',
+        'FollowUpReminders',
+        'PerformanceComparison',
+        'LeadSourceEffectiveness',
+        'ErrorLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateLeadStatus',
+        'generateLeadReport',
+        'sendCommunication',
+      ];
+
   const FranchiseSalesManagerLeadsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerLeadsScreenControllerProvider);
 
     return Scaffold(

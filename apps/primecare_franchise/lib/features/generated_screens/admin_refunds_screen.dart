@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'admin_refunds_screen_controller.dart';
 
-class AdminRefundsScreen extends ConsumerWidget {
+class AdminRefundsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The admin_refunds screen requires components for managing refund requests, communication tools, and trend analysis, along with buttons and APIs for processing requests.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RefundRequestList',
+        'RefundTrendChart',
+        'UrgentRequestNotification',
+        'UserCommunicationTool',
+        'RefundPolicyDocumentation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveRefundRequest',
+        'rejectRefundRequest',
+        'sendUserCommunication',
+        'fetchRefundTrends',
+      ];
+
   const AdminRefundsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(adminRefundsScreenControllerProvider);
 
     return Scaffold(

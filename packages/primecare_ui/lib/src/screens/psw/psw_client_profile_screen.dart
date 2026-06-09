@@ -369,6 +369,35 @@ final pswClientProfileProvider =
 
 // --- View ---
 class PswClientProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring PSW responsibilities, tracking attendance and certifications, and managing communication and training, along with associated actions and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'StatusOverviewCard',
+        'AttendanceChart',
+        'CertificationList',
+        'ShiftSchedule',
+        'RiskAlertBanner',
+        'ComplaintsSummary',
+        'CommunicationLog',
+        'TrainingSchedule',
+        'PerformanceNotes',
+        'ActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateStatus',
+        'completeCharting',
+        'addCertification',
+        'viewShiftSchedule',
+        'reportConcern',
+        'logCommunication',
+        'enrollInTraining',
+      ];
+
   const PswClientProfileScreen({super.key});
 
   @override

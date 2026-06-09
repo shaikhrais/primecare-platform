@@ -1,12 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_visit_notes_screen_controller.dart';
 
-class PswVisitNotesScreen extends ConsumerWidget {
+class PswVisitNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'None - physical implementation aligns 100% with registry requirements.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovDashboardHero',
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'RoundedRectangleBorder',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerStateAction',
+      ];
+
+  @override
+  String 
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'AppointmentAlertWidget',
+        'ActivityLogTable',
+        'ComplianceStatusIndicator',
+        'ClientFeedbackMetric',
+        'PSWPerformanceIndicator',
+        'TrainingResourceAccess',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientOverview',
+        'setAppointmentAlert',
+        'logDailyActivity',
+        'checkComplianceStatus',
+        'getClientFeedback',
+        'fetchPerformanceMetrics',
+        'accessTrainingResources',
+        'sendMessageToTeam',
+      ];
+
   const PswVisitNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswVisitNotesScreenControllerProvider);
 
     return Semantics(

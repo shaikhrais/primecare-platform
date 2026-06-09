@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_leadership_reports_screen_controller.dart';
 
-class CeoLeadershipReportsScreen extends ConsumerWidget {
+class CeoLeadershipReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying leadership reports, KPIs, data trends, and user feedback, along with necessary functions and APIs for data retrieval and analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadershipReportList',
+        'KPIOverviewCard',
+        'DataTrendChart',
+        'FeedbackSection',
+        'HistoricalDataAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadLeadershipReports',
+        'analyzeData',
+        'identifyKPIs',
+        'monitorTrends',
+        'submitFeedback',
+      ];
+
   const CeoLeadershipReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoLeadershipReportsScreenControllerProvider);
 
     return Scaffold(

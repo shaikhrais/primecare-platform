@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_profitability_screen_controller.dart';
 
-class CfoProfitabilityScreen extends ConsumerWidget {
+class CfoProfitabilityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO profitability screen requires a comprehensive dashboard displaying key financial metrics, trends, and alerts for effective financial management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'RevenueExpenseTrendChart',
+        'CashFlowAnalysisWidget',
+        'BudgetVsActualWidget',
+        'ComplianceStatusIndicator',
+        'RiskAssessmentMetricWidget',
+        'AuditLogWidget',
+        'InvestmentPerformanceWidget',
+        'FinancialRatiosWidget',
+        'RealTimeAlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const CfoProfitabilityScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoProfitabilityScreenControllerProvider);
 
     return Scaffold(

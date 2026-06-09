@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ticket_center_screen_controller.dart';
 
-class TicketCenterScreen extends ConsumerWidget {
+class TicketCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The ticket center screen requires components for monitoring, creating, and managing tickets, along with functions to analyze trends and respond to inquiries.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketStatusMonitor',
+        'TicketCreationForm',
+        'UserInquiryResponse',
+        'TicketManagementPanel',
+        'TicketTrendAnalysisChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorTicketStatus',
+        'createNewTicket',
+        'respondToInquiry',
+        'manageExistingTickets',
+        'analyzeTicketTrends',
+      ];
+
   const TicketCenterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ticketCenterScreenControllerProvider);
 
     return Scaffold(

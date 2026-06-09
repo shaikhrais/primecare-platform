@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegionalBdmAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to analyze sales data, monitor performance, and facilitate communication between teams, along with necessary buttons, functions, and APIs for effective regional sales management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'SalesTrendChart',
+        'ClientEngagementStats',
+        'CompetitorAnalysisWidget',
+        'TeamPerformanceDashboard',
+        'AlertsNotification',
+        'MarketingIntegrationPanel',
+        'CustomerComplaintsTracker',
+        'SalesForecastingTool',
+        'TrainingNeedsAssessment',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'sendClientFeedback',
+        'updateSalesStrategy',
+        'trainSalesTeam',
+        'viewCompetitorData',
+      ];
+
   const RegionalBdmAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

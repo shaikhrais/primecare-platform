@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_owner_staff_screen_controller.dart';
 
-class FranchiseOwnerStaffScreen extends ConsumerWidget {
+class FranchiseOwnerStaffScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance, compliance, and operational metrics, along with buttons for managing staff and addressing issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'TelemetryLogViewer',
+        'KPIVisualizationChart',
+        'AlertNotificationPanel',
+        'StaffTrainingStatusWidget',
+        'FinancialSummaryCard',
+        'CustomerSatisfactionWidget',
+        'MarketingCampaignPerformanceChart',
+        'HistoricalDataTrendGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'fetchTelemetryLogs',
+        'fetchKPIData',
+        'triggerAlertNotification',
+        'fetchStaffTrainingStatus',
+        'fetchFinancialPerformance',
+        'fetchCustomerSatisfaction',
+        'fetchMarketingPerformance',
+        'fetchHistoricalDataTrends',
+      ];
+
   const FranchiseOwnerStaffScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseOwnerStaffScreenControllerProvider);
 
     return Scaffold(

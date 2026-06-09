@@ -8,6 +8,24 @@ final hipaaAuditProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class HipaaAuditDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display PHI access logs, buttons for refreshing and exporting logs, and functions to handle these actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PHIAccessLogList',
+        'ViolationHighlight',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshAuditLogs',
+        'exportAuditReport',
+      ];
+
   const HipaaAuditDashboardScreen({super.key});
 
   @override

@@ -4,6 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CfoWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO workflow screen requires various financial analysis components, buttons for data interaction, specific API endpoints for data retrieval, and must be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'BudgetAnalysisChart',
+        'CashFlowProjectionWidget',
+        'ProfitLossStatementWidget',
+        'BalanceSheetWidget',
+        'RiskAssessmentWidget',
+        'ComplianceStatusIndicator',
+        'InvestmentPerformanceTracker',
+        'TeamPerformanceMetricsWidget',
+        'StakeholderFeedbackWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'downloadFinancialReport',
+        'viewDetails',
+      ];
+
   const CfoWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'customer_support_escalations_screen_controller.dart';
 
-class CustomerSupportEscalationsScreen extends ConsumerWidget {
+class CustomerSupportEscalationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and responding to customer support escalations, along with metrics and trend analysis features.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EscalationOverview',
+        'ResponseMetricsChart',
+        'TrendAnalysisGraph',
+        'AlertsNotification',
+        'FeedbackLoop',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorEscalations',
+        'respondToIssue',
+        'analyzeTrends',
+        'collaborateDepartments',
+        'documentResolution',
+      ];
+
   const CustomerSupportEscalationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(customerSupportEscalationsScreenControllerProvider);
 
     return Scaffold(

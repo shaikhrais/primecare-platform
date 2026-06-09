@@ -98,6 +98,38 @@ final payrollProvider = StateNotifierProvider<PayrollController, PayrollState>((
 
 // --- View ---
 class PayrollScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The payroll screen requires various financial metrics and reporting components to support the CFO\'s responsibilities, including real-time data access and alerts for financial anomalies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'FinancialStatementCard',
+        'BudgetVsActualChart',
+        'CashFlowProjectionChart',
+        'ComplianceStatusIndicator',
+        'RiskAssessmentOverview',
+        'OperationalMetricsCard',
+        'InvestmentPerformanceTracker',
+        'AuditLogViewer',
+        'AlertsNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchFinancialStatements',
+        'compareBudgetVsActual',
+        'generateCashFlowProjections',
+        'checkComplianceStatus',
+        'assessRisk',
+        'trackOperationalMetrics',
+        'evaluateInvestmentPerformance',
+        'viewAuditLogs',
+        'sendAlerts',
+      ];
+
   const PayrollScreen({super.key});
 
   @override

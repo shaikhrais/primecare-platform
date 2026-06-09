@@ -78,6 +78,28 @@ final volunteerCoordinatorComplianceProvider =
 
 // --- View ---
 class VolunteerCoordinatorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance status, audit logs, training notifications, incident reporting, and feedback, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'AuditLogViewer',
+        'TrainingNotificationBanner',
+        'GovernancePolicySummary',
+        'IncidentReportForm',
+        'FeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitIncidentReport',
+        'submitFeedback',
+        'fetchAuditLogs',
+        'fetchTrainingSessions',
+      ];
+
   const VolunteerCoordinatorComplianceScreen({super.key});
 
   @override

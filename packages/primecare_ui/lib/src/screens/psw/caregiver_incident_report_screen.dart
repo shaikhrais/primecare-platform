@@ -101,6 +101,28 @@ final caregiverIncidentReportProvider =
 
 // --- View ---
 class CaregiverIncidentReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The caregiver incident report screen requires components for monitoring patient status, logging telemetry, alerting red flags, and reporting incidents, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusOverview',
+        'TelemetryLog',
+        'RedFlagAlert',
+        'AuditLogAccess',
+        'PerformanceMetrics',
+        'IncidentReportButton',
+        'NavigationMenu',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reportIncident',
+        'performComplianceScan',
+        'fetchAuditLogs',
+      ];
+
   const CaregiverIncidentReportScreen({super.key});
 
   @override

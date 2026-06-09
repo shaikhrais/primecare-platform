@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class OwnerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The owner analytics screen requires components for monitoring franchise performance, compliance, financials, and marketing effectiveness, along with buttons for various management actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceChecklist',
+        'FinancialOverviewChart',
+        'CustomerSatisfactionGauge',
+        'EmployeePerformanceTable',
+        'MarketingEffectivenessGraph',
+        'InventoryManagementWidget',
+        'OperationalEfficiencyDashboard',
+        'CommunicationLogViewer',
+        'MarketTrendAnalyzer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'checkCompliance',
+        'updateFinancialRecords',
+        'trackMarketingCampaigns',
+        'trainStaff',
+        'resolveCustomerComplaints',
+        'conductAudit',
+        'implementOperationalImprovements',
+        'logCommunication',
+        'analyzeMarketTrends',
+      ];
+
   const OwnerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -101,6 +101,33 @@ final incidentManagementProvider =
 
 // --- View ---
 class IncidentManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The incident management screen requires components for compliance audits, activity logs, KPIs, alerts, training summaries, documentation, trends, and regulatory updates, along with corresponding buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'ComplianceActivityLog',
+        'ComplianceKPIChart',
+        'ComplianceAlertsWidget',
+        'TrainingSessionSummary',
+        'DocumentationRepository',
+        'ComplianceTrendsChart',
+        'IncidentManagementIntegration',
+        'ComplianceMetricsVisualization',
+        'RegulatoryUpdatesFeed',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateComplianceReport',
+        'conductAudit',
+        'viewTrainingRecords',
+        'updateCompliancePolicy',
+        'respondToInquiry',
+      ];
+
   const IncidentManagementScreen({super.key});
 
   @override

@@ -102,6 +102,33 @@ final scrumMasterWorkflowScreenProvider =
 
 // --- View ---
 class ScrumMasterWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking sprint progress, impediments, team capacity, and performance metrics, along with buttons for managing impediments and engaging stakeholders.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SprintProgressChart',
+        'ImpedimentTracker',
+        'TeamCapacityWidget',
+        'KPIIndicator',
+        'RetrospectiveFeedbackWidget',
+        'StakeholderEngagementMetric',
+        'BacklogHealthIndicator',
+        'TeamMoraleSurvey',
+        'HistoricalPerformanceChart',
+        'CeremonyParticipationChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addImpediment',
+        'resolveImpediment',
+        'startRetrospective',
+        'viewBacklog',
+        'engageStakeholders',
+      ];
+
   const ScrumMasterWorkflowScreen({super.key});
 
   @override

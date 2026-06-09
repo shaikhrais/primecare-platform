@@ -8,6 +8,25 @@ final peerReviewProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class PeerReviewConferenceRoomScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying active cases, submitting new cases, and joining discussions, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveCasesList',
+        'CaseStatusIndicator',
+        'NotificationsPanel',
+        'CaseStatusChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshCaseList',
+        'submitNewCase',
+        'joinDiscussion',
+      ];
+
   const PeerReviewConferenceRoomScreen({super.key});
 
   @override

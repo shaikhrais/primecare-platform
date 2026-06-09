@@ -74,6 +74,38 @@ final pswComplianceProvider =
 
 // --- View ---
 class PswComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing client assignments, compliance indicators, activity logs, alerts, performance metrics, training resources, communication tools, incident reporting, and tracking compliance audits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAssignmentOverview',
+        'ComplianceStatusIndicator',
+        'ActivityLog',
+        'MedicationAlert',
+        'PerformanceMetrics',
+        'TrainingResources',
+        'CommunicationTool',
+        'IncidentReportingSystem',
+        'ComplianceAuditSummary',
+        'TrainingProgressTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientAssignments',
+        'updateComplianceStatus',
+        'logRecentActivity',
+        'triggerMedicationAlert',
+        'retrievePerformanceMetrics',
+        'accessTrainingResources',
+        'sendCommunication',
+        'reportIncident',
+        'fetchComplianceAudit',
+        'trackTrainingProgress',
+      ];
+
   const PswComplianceScreen({super.key});
 
   @override

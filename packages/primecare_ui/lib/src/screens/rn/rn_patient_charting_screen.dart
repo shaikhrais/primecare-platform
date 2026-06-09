@@ -100,6 +100,34 @@ final rnPatientChartingProvider =
 
 // --- View ---
 class RnPatientChartingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The rn_patient_charting screen requires components for patient health monitoring, compliance auditing, and team communication, along with buttons for submitting care plans and logging medications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientHealthStatusOverview',
+        'ComplianceAuditLog',
+        'OperationsMetricsCard',
+        'CriticalAlertsNotification',
+        'MedicationAdministrationRecord',
+        'PatientEducationResources',
+        'TeamCommunicationTool',
+        'PerformanceIndicatorsCard',
+        'TrainingResourcesAccess',
+        'PolicyUpdateNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitCarePlan',
+        'logMedication',
+        'viewPatientHistory',
+        'sendEducationMaterial',
+        'reportIssue',
+        'auditCompliance',
+      ];
+
   const RnPatientChartingScreen({super.key});
 
   @override

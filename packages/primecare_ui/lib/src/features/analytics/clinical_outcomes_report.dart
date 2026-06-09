@@ -8,6 +8,24 @@ final clinicalOutcomesProvider = FutureProvider.autoDispose<List<Map<String, dyn
 });
 
 class ClinicalOutcomesReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display clinical outcomes data, buttons for refreshing and exporting the report, and functions to handle data loading and exporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClinicalOutcomesTable',
+        'SuccessRateIndicator',
+        'ErrorMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadClinicalOutcomes',
+        'refreshData',
+        'exportReport',
+      ];
+
   const ClinicalOutcomesReportScreen({super.key});
 
   @override

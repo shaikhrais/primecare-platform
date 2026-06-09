@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_care_updates_screen_controller.dart';
 
-class FamilyCareUpdatesScreen extends ConsumerWidget {
+class FamilyCareUpdatesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying updates, reporting issues, and providing feedback, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'NotificationWidget',
+        'UpdateSummaryWidget',
+        'FeedbackFormWidget',
+        'PerformanceMetricsWidget',
+        'HelpSupportWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchUpdates',
+        'reportDiscrepancy',
+        'submitFeedback',
+        'checkApplicationStatus',
+      ];
+
   const FamilyCareUpdatesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyCareUpdatesScreenControllerProvider);
 
     return Scaffold(

@@ -78,6 +78,33 @@ final governanceOfficerComplianceProvider =
 
 // --- View ---
 class GovernanceOfficerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance audit status, telemetry data, operational logs, policy metrics, incident reports, training metrics, and compliance trends, along with buttons for initiating audits and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovAuditStatusWidget',
+        'GovTelemetryChart',
+        'GovAuditLogViewer',
+        'GovPolicyMetricsCard',
+        'GovIncidentReportWidget',
+        'GovTrainingMetricsCard',
+        'GovComplianceTrendsChart',
+        'GovActionsSummaryWidget',
+        'GovNotificationsPanel',
+        'GovComplianceMetricsGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'startComplianceAudit',
+        'viewIncidentReports',
+        'generateTrainingReport',
+        'notifyStakeholders',
+        'scheduleNextAudit',
+      ];
+
   const GovernanceOfficerComplianceScreen({super.key});
 
   @override

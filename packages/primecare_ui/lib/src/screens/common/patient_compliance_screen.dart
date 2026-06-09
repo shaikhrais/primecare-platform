@@ -77,6 +77,27 @@ final patientComplianceProvider =
 
 // --- View ---
 class PatientComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance status, audit results, and governance directives, along with buttons for submitting reports and checking logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'AuditResultsChart',
+        'GovernanceDirectivesLog',
+        'SecureEventReportSummary',
+        'TelemetryDataDisplay',
+        'ComplianceAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventReport',
+        'checkAuditLogs',
+        'reviewGovernanceDirectives',
+      ];
+
   const PatientComplianceScreen({super.key});
 
   @override

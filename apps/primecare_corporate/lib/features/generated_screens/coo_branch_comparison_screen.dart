@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_branch_comparison_screen_controller.dart';
 
-class CooBranchComparisonScreen extends ConsumerWidget {
+class CooBranchComparisonScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display operational metrics, buttons for data interaction, functions for data fetching, and APIs for backend communication, all while being responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'FinancialMetricsCard',
+        'ComplianceStatusWidget',
+        'EmployeeEngagementChart',
+        'CustomerSatisfactionWidget',
+        'RiskAssessmentPanel',
+        'ProjectTimelineTracker',
+        'OperationalLogsViewer',
+        'PerformanceTrendsGraph',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchFinancialMetrics',
+        'fetchComplianceStatus',
+        'fetchEmployeeEngagement',
+        'fetchCustomerSatisfaction',
+        'fetchRiskAssessments',
+        'fetchProjectTimelines',
+        'fetchOperationalLogs',
+        'fetchPerformanceTrends',
+        'triggerAlert',
+      ];
+
   const CooBranchComparisonScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooBranchComparisonScreenControllerProvider);
 
     return Scaffold(

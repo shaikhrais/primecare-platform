@@ -8,6 +8,26 @@ final acquisitionCostProvider = FutureProvider.autoDispose<Map<String, dynamic>>
 });
 
 class PatientAcquisitionCostTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display Patient Acquisition Cost metrics, a refresh button for real-time updates, and error handling for data loading issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CACOverviewCard',
+        'TotalSpendCard',
+        'NewPatientsCard',
+        'CACByChannelChart',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCACData',
+        'refreshData',
+      ];
+
   const PatientAcquisitionCostTrackerScreen({super.key});
 
   @override

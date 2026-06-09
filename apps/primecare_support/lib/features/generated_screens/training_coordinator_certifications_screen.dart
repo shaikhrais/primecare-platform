@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_coordinator_certifications_screen_controller.dart';
 
-class TrainingCoordinatorCertificationsScreen extends ConsumerWidget {
+class TrainingCoordinatorCertificationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and updating certification statuses, generating reports, and communicating with trainees, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CertificationStatusOverview',
+        'CertificationDeadlineNotification',
+        'TraineeEngagementMetrics',
+        'CertificationUpdateForm',
+        'CertificationProgressChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewCertifications',
+        'updateCertificationDetails',
+        'generateCertificationReport',
+        'sendCommunicationToTrainees',
+      ];
+
   const TrainingCoordinatorCertificationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingCoordinatorCertificationsScreenControllerProvider);
 
     return Scaffold(

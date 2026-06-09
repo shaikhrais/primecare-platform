@@ -8,6 +8,27 @@ final certAlertsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class CertificationRenewalAlertsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor and manage certification renewal alerts, including functionalities for sending reminders and refreshing the alert list.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CertificationAlertList',
+        'CertificationOverviewCard',
+        'CertificationStatusBreakdown',
+        'ReminderButton',
+        'NotificationSystem',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadAlerts',
+        'sendCriticalReminders',
+        'refreshAlertList',
+      ];
+
   const CertificationRenewalAlertsScreen({super.key});
 
   @override

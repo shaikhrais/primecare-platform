@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'document_expiry_screen_controller.dart';
 
-class DocumentExpiryScreen extends ConsumerWidget {
+class DocumentExpiryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring document expiry, reviewing notifications, and updating documents, along with necessary APIs and responsive design for user engagement.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DocumentOverview',
+        'NotificationSection',
+        'QuickAccessButtons',
+        'StatusIndicators',
+        'UserEngagementAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorDocumentExpiry',
+        'reviewNotifications',
+        'updateOrRenewDocuments',
+        'viewDocumentStatus',
+        'reportDiscrepancies',
+      ];
+
   const DocumentExpiryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(documentExpiryScreenControllerProvider);
 
     return Scaffold(

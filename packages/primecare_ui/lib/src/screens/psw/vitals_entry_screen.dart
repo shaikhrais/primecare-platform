@@ -97,6 +97,34 @@ final vitalsEntryProvider =
 
 // --- View ---
 class VitalsEntryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, medication alerts, vital signs tracking, communication, and incident reporting, along with corresponding buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskOverviewWidget',
+        'MedicationAlertWidget',
+        'VitalSignsChart',
+        'CareLogAccessWidget',
+        'CommunicationTool',
+        'TrainingTracker',
+        'IncidentReportWidget',
+        'PerformanceMetricsWidget',
+        'ResourceAccessWidget',
+        'EmergencyContactWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logVitalSigns',
+        'addCareNote',
+        'sendMessage',
+        'reportIncident',
+        'viewTrainingMaterials',
+        'triggerEmergencyContact',
+      ];
+
   const VitalsEntryScreen({super.key});
 
   @override

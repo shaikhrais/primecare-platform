@@ -101,6 +101,32 @@ final trainingManagementProvider =
 
 // --- View ---
 class TrainingManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The training management screen requires various HR metrics and statistics visualizations, buttons for report generation and data export, and APIs for fetching HR-related data, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'HRMetricsCard',
+        'RecruitmentStatisticsChart',
+        'ComplianceAuditResultsTable',
+        'TrainingParticipationChart',
+        'PerformanceManagementOutcomesCard',
+        'EmployeeSatisfactionSurveyChart',
+        'DiversityInclusionMetricsCard',
+        'CompensationBenefitsAnalysisCard',
+        'HROperationalLogsTable',
+        'KPIOverviewCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateHRReport',
+        'viewDetails',
+        'exportData',
+        'refreshMetrics',
+      ];
+
   const TrainingManagementScreen({super.key});
 
   @override

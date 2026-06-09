@@ -97,6 +97,38 @@ final franchiseLeadProvider =
 
 // --- View ---
 class FranchiseLeadScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display business development metrics, opportunities, client management data, and alerts, along with buttons for data refresh and report export.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'OpportunityList',
+        'ClientManagementWidget',
+        'MarketResearchInsights',
+        'TeamPerformanceDashboard',
+        'StrategicGoalsTracker',
+        'ClientFeedbackWidget',
+        'IndustryTrendsVisualization',
+        'AlertsDashboard',
+        'NegotiationStatusSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchOpportunities',
+        'fetchClientData',
+        'fetchMarketResearch',
+        'fetchTeamPerformance',
+        'trackStrategicGoals',
+        'fetchClientFeedback',
+        'fetchIndustryTrends',
+        'checkAlerts',
+        'fetchNegotiationStatus',
+      ];
+
   const FranchiseLeadScreen({super.key});
 
   @override

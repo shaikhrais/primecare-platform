@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class IntakeAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The intake analytics screen requires components for managing patient referrals, scheduling, and tracking metrics, along with buttons for various actions and APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientReferralCard',
+        'AppointmentScheduler',
+        'PatientInfoForm',
+        'IntakeRecordTracker',
+        'CommunicationPanel',
+        'PerformanceMetricsDashboard',
+        'ComplianceTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageReferrals',
+        'scheduleAppointment',
+        'verifyPatientInfo',
+        'trackPatientInteractions',
+        'communicateWithPatients',
+        'reportIntakeMetrics',
+        'resolvePatientIssues',
+      ];
+
   const IntakeAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

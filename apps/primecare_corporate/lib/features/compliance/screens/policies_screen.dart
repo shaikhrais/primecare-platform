@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'policies_screen_controller.dart';
 
-class PoliciesScreen extends ConsumerWidget {
+class PoliciesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Policies screen requires components for loading indicators, error handling, and policy management, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessage',
+        'PolicyList',
+        'PolicyActionButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPolicies',
+        'handleError',
+        'viewPolicyDetails',
+        'editPolicy',
+        'deletePolicy',
+      ];
+
   const PoliciesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(policiesScreenControllerProvider);
 
     return Scaffold(

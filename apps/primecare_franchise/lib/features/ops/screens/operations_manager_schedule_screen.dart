@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_schedule_screen_controller.dart';
 
-class OperationsManagerScheduleScreen extends ConsumerWidget {
+class OperationsManagerScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring the operations schedule, managing approvals, and providing performance analytics, along with necessary buttons and APIs for user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationsScheduleOverview',
+        'PendingApprovalsNotification',
+        'PerformanceMetricsChart',
+        'TeamCommunicationPanel',
+        'ReportGenerationButton',
+        'RedFlagIndicators',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveSchedule',
+        'rejectSchedule',
+        'generateReport',
+        'notifyTeam',
+        'checkForConflicts',
+      ];
+
   const OperationsManagerScheduleScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerScheduleScreenControllerProvider);
 
     return Scaffold(

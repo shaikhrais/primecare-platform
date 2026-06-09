@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'local_marketing_manager_budget_screen_controller.dart';
 
-class LocalMarketingManagerBudgetScreen extends ConsumerWidget {
+class LocalMarketingManagerBudgetScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for budget monitoring, campaign analysis, collaboration, and alerts, along with necessary buttons and API integrations to facilitate effective local marketing management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BudgetOverviewCard',
+        'CampaignPerformanceChart',
+        'AlertsNotification',
+        'CollaborationTool',
+        'HistoricalDataAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorBudget',
+        'analyzeCampaignPerformance',
+        'adjustBudgetAllocations',
+        'collaborateWithTeam',
+        'approveExpenditures',
+      ];
+
   const LocalMarketingManagerBudgetScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localMarketingManagerBudgetScreenControllerProvider);
 
     return Scaffold(

@@ -97,6 +97,38 @@ final rpnVitalsProvider =
 
 // --- View ---
 class RpnVitalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN Vitals screen requires components for monitoring vital signs, tracking medication, and managing care plans, along with functionalities for alerts, compliance, and team collaboration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignMonitor',
+        'MedicationTracker',
+        'CarePlanStatus',
+        'ComplianceAuditLog',
+        'CriticalAlerts',
+        'PerformanceMetrics',
+        'StaffingIndicators',
+        'EducationalResources',
+        'TeamCommunicationTools',
+        'TrendAnalysisChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorVitalSigns',
+        'trackMedicationAdministration',
+        'updateCarePlan',
+        'logComplianceAudit',
+        'triggerCriticalAlert',
+        'calculatePerformanceMetrics',
+        'checkStaffingLevels',
+        'accessEducationalResources',
+        'collaborateWithTeam',
+        'analyzeTrends',
+      ];
+
   const RpnVitalsScreen({super.key});
 
   @override

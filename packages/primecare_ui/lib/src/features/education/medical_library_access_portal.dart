@@ -8,6 +8,28 @@ final libraryDatabasesProvider = FutureProvider.autoDispose<List<Map<String, dyn
 });
 
 class MedicalLibraryAccessPortalScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Medical Library Access Portal requires components for displaying databases, handling loading and error states, and functionalities for refreshing and searching databases.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DatabaseList',
+        'LoadingIndicator',
+        'ErrorMessage',
+        'DatabaseCard',
+        'FavoritesList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchDatabases',
+        'refreshDatabaseList',
+        'performFederatedSearch',
+        'trackUserActivity',
+        'saveFavoriteDatabase',
+      ];
+
   const MedicalLibraryAccessPortalScreen({super.key});
 
   @override

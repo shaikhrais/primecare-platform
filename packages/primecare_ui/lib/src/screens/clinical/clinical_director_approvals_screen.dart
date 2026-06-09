@@ -101,6 +101,30 @@ final clinicalDirectorApprovalsProvider =
 
 // --- View ---
 class ClinicalDirectorApprovalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, KPIs, operational logs, and communication tools, along with buttons for approving protocols and conducting audits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusWidget',
+        'KPIChart',
+        'OperationalLogsTable',
+        'StaffPerformanceMetrics',
+        'AlertsDashboard',
+        'PatientCareTrendsChart',
+        'HistoricalDataViewer',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveClinicalProtocols',
+        'conductComplianceAudit',
+        'generateReports',
+        'sendComplianceAlert',
+      ];
+
   const ClinicalDirectorApprovalsScreen({super.key});
 
   @override

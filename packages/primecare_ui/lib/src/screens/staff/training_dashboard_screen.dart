@@ -100,6 +100,38 @@ final trainingDashboardProvider =
 
 // --- View ---
 class TrainingDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The training dashboard requires components for managing training sessions, tracking engagement and compliance, and facilitating collaboration, along with various buttons and functions to enhance user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingSessionOverview',
+        'TraineeEngagementMetrics',
+        'ComplianceStatusCard',
+        'FeedbackSummaryChart',
+        'TrainingLogsTable',
+        'TrainingEffectivenessChart',
+        'ComplianceDeadlineAlert',
+        'ResourceAllocationWidget',
+        'CollaborationTool',
+        'HistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingSessions',
+        'updateEngagementMetrics',
+        'checkComplianceStatus',
+        'collectFeedback',
+        'logTrainingSession',
+        'visualizeEffectivenessMetrics',
+        'setComplianceAlerts',
+        'allocateResources',
+        'collaborateWithExperts',
+        'analyzeHistoricalData',
+      ];
+
   const TrainingDashboardScreen({super.key});
 
   @override

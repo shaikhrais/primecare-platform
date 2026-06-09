@@ -101,6 +101,38 @@ final franchiseCommandCenter4KProvider =
 
 // --- View ---
 class FranchiseCommandCenter4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, compliance, employee training, financials, customer feedback, inventory management, marketing performance, operational logs, and communication tools, along with various buttons and functions to facilitate these tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'EmployeePerformanceChart',
+        'FinancialOverviewPanel',
+        'CustomerFeedbackTracker',
+        'InventoryManagementAlert',
+        'MarketingCampaignMetrics',
+        'OperationalLogsViewer',
+        'RedFlagAlertSystem',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'getComplianceStatus',
+        'updateEmployeeTraining',
+        'retrieveFinancialOverview',
+        'trackCustomerFeedback',
+        'alertInventoryIssues',
+        'evaluateMarketingCampaigns',
+        'logOperationalIncidents',
+        'checkRedFlags',
+        'sendCommunication',
+      ];
+
   const FranchiseCommandCenter4KScreen({super.key});
 
   @override

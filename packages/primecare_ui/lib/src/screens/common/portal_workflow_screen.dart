@@ -99,6 +99,36 @@ final portalWorkflowProvider =
 
 // --- View ---
 class PortalWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The portal workflow screen requires components for monitoring, syncing, and analyzing workflow tasks, along with action buttons for user interactions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SessionActivityMonitor',
+        'WorkflowSyncIndicator',
+        'ManualRefreshButton',
+        'GovernanceActionTrigger',
+        'ComplianceScanRunner',
+        'AuditLogViewer',
+        'TelemetryStatisticsAnalyzer',
+        'RealTimeLogs',
+        'ActiveStreamsMetrics',
+        'TelemetryChart',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorSessionActivity',
+        'syncWorkflowEngine',
+        'executeManualRefresh',
+        'triggerGovernanceAction',
+        'runWorkflowScan',
+        'reviewAuditLogs',
+        'analyzeTelemetryStatistics',
+      ];
+
   const PortalWorkflowScreen({super.key});
 
   @override

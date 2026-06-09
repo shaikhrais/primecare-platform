@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_issue_escalations_screen_controller.dart';
 
-class CooIssueEscalationsScreen extends ConsumerWidget {
+class CooIssueEscalationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring escalated issues, metrics visualization, communication logs, and feedback submission, along with appropriate buttons and APIs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EscalationOverview',
+        'ResolutionMetricsChart',
+        'CommunicationLog',
+        'FeedbackForm',
+        'PriorityAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorEscalations',
+        'reviewStatus',
+        'communicateStakeholders',
+        'analyzeTrends',
+        'submitFeedback',
+      ];
+
   const CooIssueEscalationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooIssueEscalationsScreenControllerProvider);
 
     return Scaffold(

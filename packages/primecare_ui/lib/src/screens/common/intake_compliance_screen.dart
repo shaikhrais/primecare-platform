@@ -76,6 +76,31 @@ final intakeComplianceProvider =
 
 // --- View ---
 class IntakeComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The intake_compliance screen requires components for monitoring compliance status, logging activities, and generating reports, along with necessary buttons and APIs for operational functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogTable',
+        'ComplianceAlertBanner',
+        'SecureEventReportSummary',
+        'SecurityMetricsChart',
+        'ComplianceTrendsGraph',
+        'GovernanceDirectivesPanel',
+        'OperationalActivityLogger',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventReport',
+        'updateGovernancePolicy',
+        'conductAudit',
+        'generateComplianceReport',
+        'logActivity',
+      ];
+
   const IntakeComplianceScreen({super.key});
 
   @override

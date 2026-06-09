@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_issue_tracking_screen_controller.dart';
 
-class CtoIssueTrackingScreen extends ConsumerWidget {
+class CtoIssueTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and updating issue statuses, analytics, team communication, and quick access buttons for user actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IssueStatusOverview',
+        'IssueNotificationWidget',
+        'IssueAnalyticsChart',
+        'TeamCommunicationSection',
+        'QuickAccessButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorIssues',
+        'updateIssueStatus',
+        'analyzeIssueReports',
+        'communicateWithTeam',
+        'provideFeedback',
+      ];
+
   const CtoIssueTrackingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoIssueTrackingScreenControllerProvider);
 
     return Scaffold(

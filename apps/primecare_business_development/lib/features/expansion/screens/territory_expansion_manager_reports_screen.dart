@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_reports_screen_controller.dart';
 
-class TerritoryExpansionManagerReportsScreen extends ConsumerWidget {
+class TerritoryExpansionManagerReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying KPIs, data trends, alerts, recent reports, and collaboration tools, along with functions for reviewing and analyzing reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'DataTrendChart',
+        'AlertNotification',
+        'RecentReportsList',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewReports',
+        'analyzeDataTrends',
+        'identifyExpansionAreas',
+        'collaborateWithTeams',
+        'monitorPerformance',
+      ];
+
   const TerritoryExpansionManagerReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerReportsScreenControllerProvider);
 
     return Scaffold(

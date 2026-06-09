@@ -102,6 +102,33 @@ final infrastructureWorkflowScreenProvider =
 
 // --- View ---
 class InfrastructureWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, risk assessment, compliance monitoring, and incident reporting, along with buttons for generating reports and updating statuses.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'RiskAssessmentChart',
+        'PerformanceMetricsCard',
+        'ComplianceStatusWidget',
+        'IncidentAlertBanner',
+        'AuditFindingsSummary',
+        'ChangeManagementLog',
+        'AccessControlReport',
+        'HistoricalDataChart',
+        'TrendVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateAuditReport',
+        'updateComplianceStatus',
+        'viewDetailedFindings',
+        'triggerIncidentResponse',
+        'requestChangeApproval',
+      ];
+
   const InfrastructureWorkflowScreen({super.key});
 
   @override

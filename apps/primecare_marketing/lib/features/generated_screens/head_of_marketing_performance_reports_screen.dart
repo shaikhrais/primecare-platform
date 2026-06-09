@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_performance_reports_screen_controller.dart';
 
-class HeadOfMarketingPerformanceReportsScreen extends ConsumerWidget {
+class HeadOfMarketingPerformanceReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying KPIs, data trends, alerts, and filters, along with buttons for report generation and collaboration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverview',
+        'DataTrendChart',
+        'PerformanceAlert',
+        'HistoricalComparison',
+        'DataFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'collaborateWithTeam',
+        'monitorCampaigns',
+      ];
+
   const HeadOfMarketingPerformanceReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingPerformanceReportsScreenControllerProvider);
 
     return Scaffold(

@@ -100,6 +100,36 @@ final responsivePreviewProvider =
 
 // --- View ---
 class ResponsivePreviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring governance activities, compliance status, and risk assessment, along with buttons and functions for user interactions and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ComplianceStatusIndicator',
+        'AuditLogViewer',
+        'RiskAssessmentChart',
+        'StakeholderCommunicationLog',
+        'PerformanceMetricDashboard',
+        'ComplianceAlerts',
+        'AuditResultsVisualization',
+        'TrainingResourceAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'exportAuditLogs',
+        'assessRiskMetrics',
+        'logStakeholderCommunication',
+        'generatePerformanceReport',
+        'setComplianceAlert',
+        'viewAuditResults',
+        'accessTrainingResources',
+      ];
+
   const ResponsivePreviewScreen({super.key});
 
   @override

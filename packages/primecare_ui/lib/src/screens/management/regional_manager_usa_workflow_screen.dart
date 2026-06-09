@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegionalManagerUsaWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for performance metrics, employee satisfaction, customer feedback, budget tracking, project status, and collaboration tools, along with buttons for generating reports and scheduling meetings.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'EmployeeSatisfactionChart',
+        'CustomerFeedbackTracker',
+        'BudgetPerformanceIndicator',
+        'ProjectStatusTimeline',
+        'CollaborationTool',
+        'TrainingProgressTracker',
+        'ComplianceReport',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'scheduleMeeting',
+        'allocateResources',
+        'provideTraining',
+        'addressFeedback',
+      ];
+
   const RegionalManagerUsaWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

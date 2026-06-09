@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_strategic_kpis_screen_controller.dart';
 
-class CeoStrategicKpisScreen extends ConsumerWidget {
+class CeoStrategicKpisScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time KPI monitoring, trend analysis visualizations, alert mechanisms for deviations, and collaboration tools for team alignment.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDisplay',
+        'TrendAnalysisChart',
+        'AlertNotification',
+        'SummaryReport',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'analyzeTrends',
+        'generateReport',
+        'sendAlert',
+        'collaborate',
+      ];
+
   const CeoStrategicKpisScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoStrategicKpisScreenControllerProvider);
 
     return Scaffold(

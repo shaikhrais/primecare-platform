@@ -169,6 +169,33 @@ final rnCarePlansControllerProvider =
 
 // --- View ---
 class RnCarePlansScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing care plans, patient information, alerts, and communication, along with buttons for key nursing actions and APIs for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CarePlanOverview',
+        'PatientDemographics',
+        'AlertsNotification',
+        'MedicationComplianceMetrics',
+        'CommunicationLog',
+        'PatientSatisfactionScore',
+        'NursingTaskTracker',
+        'EducationalResources',
+        'PerformanceMetrics',
+        'IncidentReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateCarePlan',
+        'administerMedication',
+        'documentPatientProgress',
+        'educatePatient',
+        'reportIncident',
+      ];
+
   const RnCarePlansScreen({super.key});
 
   @override

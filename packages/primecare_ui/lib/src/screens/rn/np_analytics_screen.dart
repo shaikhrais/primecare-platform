@@ -102,6 +102,35 @@ final npAnalyticsScreenProvider =
 
 // --- View ---
 class NpAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The np_analytics screen requires components for displaying patient demographics, compliance metrics, quality indicators, and operational logs, along with buttons for accessing records and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientDemographicsWidget',
+        'ComplianceMetricsCard',
+        'QualityOfCareIndicatorChart',
+        'PatientSatisfactionScoreCard',
+        'OperationalLogsTable',
+        'PerformanceMetricsDashboard',
+        'PatientRecordsAccessPanel',
+        'AlertsNotificationWidget',
+        'ResourceAllocationChart',
+        'EHRIntegrationComponent',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientDemographics',
+        'updateComplianceMetrics',
+        'generateQualityReport',
+        'logOperationalIncident',
+        'sendAlerts',
+        'accessPatientRecords',
+        'allocateResources',
+      ];
+
   const NpAnalyticsScreen({super.key});
 
   @override

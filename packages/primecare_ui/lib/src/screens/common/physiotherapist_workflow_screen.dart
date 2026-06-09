@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PhysiotherapistWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient management, red flag notifications, progress tracking, and integration with educational resources, along with necessary buttons and functions for efficient physiotherapy workflow.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientList',
+        'PatientRecordAccess',
+        'RedFlagNotification',
+        'ProgressTracker',
+        'HealthcareIntegration',
+        'EducationalResources',
+        'AppointmentScheduler',
+        'TreatmentAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientList',
+        'viewPatientRecord',
+        'triggerRedFlagAlert',
+        'updateProgress',
+        'scheduleAppointment',
+        'fetchEducationalResources',
+        'analyzeTreatmentOutcomes',
+      ];
+
   const PhysiotherapistWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

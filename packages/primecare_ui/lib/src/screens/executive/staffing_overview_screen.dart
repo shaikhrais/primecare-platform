@@ -99,6 +99,38 @@ final staffingOverviewProvider =
 
 // --- View ---
 class StaffingOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The staffing_overview screen requires a comprehensive dashboard for the COO, displaying key performance indicators, operational metrics, and compliance status, along with necessary buttons and functions for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'OperationalEfficiencyChart',
+        'FinancialPerformanceCard',
+        'ComplianceStatusWidget',
+        'EmployeeEngagementStats',
+        'CustomerSatisfactionWidget',
+        'RiskManagementDashboard',
+        'OperationalLogsWidget',
+        'ResourceAllocationChart',
+        'ProjectStatusTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchOperationalMetrics',
+        'fetchFinancialData',
+        'fetchComplianceData',
+        'fetchEmployeeStats',
+        'fetchCustomerFeedback',
+        'fetchRiskData',
+        'fetchOperationalLogs',
+        'fetchResourceData',
+        'fetchProjectUpdates',
+      ];
+
   const StaffingOverviewScreen({super.key});
 
   @override

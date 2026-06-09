@@ -76,6 +76,33 @@ final legalComplianceProvider =
 
 // --- View ---
 class LegalComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance tracking, legal audits, KPIs, and litigation management, along with buttons for updating programs and training staff.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'LegalAuditResults',
+        'KPIChart',
+        'LegalInquiryLog',
+        'DeadlineAlerts',
+        'LitigationSummary',
+        'TrainingCompletionChart',
+        'LegislationChangeTracker',
+        'ContractReviewMetrics',
+        'StakeholderFeedback',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateComplianceProgram',
+        'trainStaffOnCompliance',
+        'reviewContracts',
+        'manageLitigation',
+        'liaiseWithExternalCounsel',
+      ];
+
   const LegalComplianceScreen({super.key});
 
   @override

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'admin_claims_screen_controller.dart';
 
-class AdminClaimsScreen extends ConsumerWidget {
+class AdminClaimsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring claims, processing metrics, user feedback, and visualizations, along with buttons and functions for claim management and communication.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClaimsStatusOverview',
+        'ProcessingTimeMetrics',
+        'ClaimsDeadlineAlerts',
+        'UserFeedbackSection',
+        'ClaimsTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveClaim',
+        'rejectClaim',
+        'generateReport',
+        'sendUserCommunication',
+      ];
+
   const AdminClaimsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(adminClaimsScreenControllerProvider);
 
     return Scaffold(

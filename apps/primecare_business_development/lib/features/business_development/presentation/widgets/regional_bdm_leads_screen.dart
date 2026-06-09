@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_leads_screen_controller.dart';
 
-class RegionalBdmLeadsScreen extends ConsumerWidget {
+class RegionalBdmLeadsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing regional business development leads, along with functionalities for updating statuses and reporting metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadOverviewCard',
+        'PerformanceMetricsChart',
+        'LeadTrendsVisualization',
+        'NotificationPanel',
+        'CollaborationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateLeadStatus',
+        'followUpAction',
+        'generateReport',
+        'analyzeTrends',
+      ];
+
   const RegionalBdmLeadsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmLeadsScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SystemVerificationAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring system performance, managing verification processes, and ensuring compliance, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'VerificationStatusWidget',
+        'AlertsNotification',
+        'HistoricalDataChart',
+        'ComplianceStatusIndicator',
+        'TaskManagementPanel',
+        'IntegrationDashboard',
+        'UserInterfaceNavigation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'getVerificationStatus',
+        'triggerAlerts',
+        'retrieveHistoricalData',
+        'checkComplianceStatus',
+        'manageTasks',
+        'updateIntegration',
+        'navigateInterface',
+      ];
+
   const SystemVerificationAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

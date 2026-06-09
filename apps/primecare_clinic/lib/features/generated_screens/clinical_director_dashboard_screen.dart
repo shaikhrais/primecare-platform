@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'clinical_director_dashboard_screen_controller.dart';
 
-class ClinicalDirectorDashboardScreen extends ConsumerWidget {
+class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The clinical director dashboard requires real-time metrics, alerts for red flags, visualizations of trends, and comprehensive reports on staff and resident care.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'GovAlertBox',
+        'GovTrendVisualization',
+        'GovSummaryCard',
+        'GovReportCard',
+        'GovNotificationPanel',
+        'GovInventoryStatus',
+        'GovFeedbackForm',
+        'GovHistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRealTimeMetrics',
+        'triggerAlert',
+        'generateTrendReport',
+        'summarizeHighRiskResidents',
+        'fetchStaffAttendance',
+        'notifyExpiringCertifications',
+        'fetchFinancialMetrics',
+        'checkInventoryStatus',
+        'submitResidentFeedback',
+        'fetchHistoricalData',
+      ];
+
   const ClinicalDirectorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicalDirectorDashboardScreenControllerProvider);
 
     return Semantics(

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'clinical_director_staffing_screen_controller.dart';
 
-class ClinicalDirectorStaffingScreen extends ConsumerWidget {
+class ClinicalDirectorStaffingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring staffing levels, approving requests, and generating reports, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'StaffingLevelCard',
+        'StaffingTrendChart',
+        'StaffingRequestApprovalButton',
+        'CommunicationTool',
+        'StaffingEfficiencyReport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveStaffingRequest',
+        'rejectStaffingRequest',
+        'generateStaffingReport',
+        'sendTeamUpdate',
+      ];
+
   const ClinicalDirectorStaffingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicalDirectorStaffingScreenControllerProvider);
 
     return Semantics(

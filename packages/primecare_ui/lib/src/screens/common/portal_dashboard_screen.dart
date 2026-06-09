@@ -94,6 +94,30 @@ final portalDashboardProvider =
 
 // --- View ---
 class PortalDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The portal dashboard requires a set of task buttons for compliance and security operations, along with components for displaying real-time metrics and logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceStatusIndicator',
+        'SecurityClearanceLevel',
+        'ActivityLog',
+        'AuditScanResults',
+        'TelemetryChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updateSecurityPolicy',
+        'exportAuditLogs',
+        'triggerStateActions',
+        'refreshDashboardTelemetry',
+      ];
+
   const PortalDashboardScreen({super.key});
 
   @override

@@ -127,6 +127,34 @@ final rpnAnalyticsControllerProvider =
 
 // --- View ---
 class RpnAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing wound assessments, vital signs logging, immunization tracking, and patient communication, along with necessary buttons, functions, APIs, and responsive design for RPN tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'WoundAssessmentCard',
+        'VitalSignsLog',
+        'ImmunizationTracker',
+        'WoundCarePlanUpdater',
+        'PatientCommunicationTool',
+        'HealthcareTeamCollaboration',
+        'PatientEducationResource',
+        'PatientRecordsViewer',
+        'QualityImprovementMetrics',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logVitalSigns',
+        'administerImmunization',
+        'updateWoundCarePlan',
+        'communicateWithPatient',
+        'collaborateWithTeam',
+        'accessPatientRecords',
+      ];
+
   const RpnAnalyticsScreen({super.key});
 
   @override

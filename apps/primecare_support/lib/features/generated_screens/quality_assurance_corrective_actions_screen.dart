@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quality_assurance_corrective_actions_screen_controller.dart';
 
-class QualityAssuranceCorrectiveActionsScreen extends ConsumerWidget {
+class QualityAssuranceCorrectiveActionsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying corrective actions, effectiveness metrics, alerts, user engagement statistics, and trends in quality issues, along with buttons for documenting findings and reporting issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CorrectiveActionsOverview',
+        'EffectivenessMetricsChart',
+        'AlertsList',
+        'UserEngagementStats',
+        'QualityTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'documentFindings',
+        'collaborateWithTeam',
+        'monitorEffectiveness',
+        'reportIssues',
+      ];
+
   const QualityAssuranceCorrectiveActionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qualityAssuranceCorrectiveActionsScreenControllerProvider);
 
     return Scaffold(

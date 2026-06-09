@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quality_assurance_dashboard_screen_controller.dart';
 
-class QualityAssuranceDashboardScreen extends ConsumerWidget {
+class QualityAssuranceDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The quality assurance dashboard requires real-time metrics, compliance audit functionalities, and visual representations of system performance and security data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RealTimeMetricsPanel',
+        'SecurityClearanceTrendChart',
+        'DataIntegrityStatsCard',
+        'SystemLatencyMeasurement',
+        'LogPanel',
+        'ComplianceScanButton',
+        'RefreshButton',
+        'TelemetryDataChart',
+        'AlertsNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshTelemetryData',
+      ];
+
   const QualityAssuranceDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qualityAssuranceDashboardScreenControllerProvider);
 
     return Scaffold(

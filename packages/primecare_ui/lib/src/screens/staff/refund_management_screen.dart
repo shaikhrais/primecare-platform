@@ -99,6 +99,37 @@ final refundManagementProvider =
 
 // --- View ---
 class RefundManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The refund management screen requires components for task management, scheduling, performance metrics, and communication logs, along with various buttons and functions to facilitate administrative tasks and ensure efficient operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'PerformanceMetricsCard',
+        'CommunicationLog',
+        'DocumentManagementStatus',
+        'BudgetTrackingReport',
+        'InventoryLevelsCard',
+        'ClientFeedbackScore',
+        'ComplianceAuditLog',
+        'DeadlineAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleMeeting',
+        'generateReport',
+        'sendCommunication',
+        'updateInventory',
+        'trackBudget',
+        'viewFeedback',
+        'logCompliance',
+        'setAlert',
+      ];
+
   const RefundManagementScreen({super.key});
 
   @override

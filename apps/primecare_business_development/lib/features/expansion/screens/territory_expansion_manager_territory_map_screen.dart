@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_territory_map_screen_controller.dart';
 
-class TerritoryExpansionManagerTerritoryMapScreen extends ConsumerWidget {
+class TerritoryExpansionManagerTerritoryMapScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing territory performance, collaboration tools, and functionalities for updating maps and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TerritoryPerformanceChart',
+        'TerritoryMap',
+        'ReportsSummaryCard',
+        'AlertsNotification',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorTerritoryExpansion',
+        'analyzeTerritoryData',
+        'identifyExpansionAreas',
+        'collaborateWithTeams',
+        'updateTerritoryMap',
+        'generateReports',
+      ];
+
   const TerritoryExpansionManagerTerritoryMapScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerTerritoryMapScreenControllerProvider);
 
     return Scaffold(

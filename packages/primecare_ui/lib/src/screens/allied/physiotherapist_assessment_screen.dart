@@ -101,6 +101,33 @@ final physiotherapistAssessmentProvider =
 
 // --- View ---
 class PhysiotherapistAssessmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient assessment, treatment planning, progress monitoring, and collaboration tools, along with necessary buttons and APIs to manage patient data effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentForm',
+        'TreatmentPlanCard',
+        'ProgressMonitorChart',
+        'RedFlagAlert',
+        'KPIDashboard',
+        'TelemetryDataDisplay',
+        'AppointmentScheduler',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveAssessment',
+        'updateTreatmentPlan',
+        'monitorProgress',
+        'reportRedFlag',
+        'accessResources',
+        'scheduleAppointment',
+        'collaborateWithProviders',
+      ];
+
   const PhysiotherapistAssessmentScreen({super.key});
 
   @override

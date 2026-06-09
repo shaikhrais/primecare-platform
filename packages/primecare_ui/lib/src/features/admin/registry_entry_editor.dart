@@ -2,6 +2,26 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RegistryEntryEditorScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for JSON input, validation feedback, and registry updates, along with necessary buttons and functions to handle user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'JsonInputField',
+        'ValidationConsole',
+        'RegistryUpdateButton',
+        'ChangeSummary',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'validateJsonInput',
+        'updateRegistry',
+        'monitorValidationConsole',
+      ];
+
   const RegistryEntryEditorScreen({super.key});
 
   @override

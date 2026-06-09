@@ -97,6 +97,38 @@ final hiringPipelineProvider =
 
 // --- View ---
 class HiringPipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The hiring_pipeline screen requires various metrics and statistics related to HR operations, along with buttons for reporting and managing HR functions, all while being responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RecruitmentMetricsCard',
+        'EmployeeEngagementChart',
+        'ComplianceAuditResults',
+        'TurnoverRatesWidget',
+        'TrainingParticipationChart',
+        'PerformanceManagementStats',
+        'DiversityInclusionMetrics',
+        'CompensationBenefitsAnalysis',
+        'GrievancesTracking',
+        'OperationalEfficiencyIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRecruitmentMetrics',
+        'fetchEmployeeEngagementScores',
+        'fetchComplianceAuditResults',
+        'fetchTurnoverRates',
+        'fetchTrainingParticipation',
+        'fetchPerformanceStats',
+        'fetchDiversityMetrics',
+        'fetchCompensationAnalysis',
+        'trackGrievances',
+        'calculateOperationalEfficiency',
+      ];
+
   const HiringPipelineScreen({super.key});
 
   @override

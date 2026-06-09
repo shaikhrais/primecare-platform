@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'risk_register_screen_controller.dart';
 
-class RiskRegisterScreen extends ConsumerWidget {
+class RiskRegisterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The risk register screen requires components for listing, adding, updating, and removing risks, along with monitoring and reporting functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RiskList',
+        'RiskForm',
+        'RiskStatusIndicator',
+        'ActivityLog',
+        'SearchBar',
+        'ReportExport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadRisks',
+        'addRisk',
+        'updateRisk',
+        'removeRisk',
+        'monitorRiskStatus',
+        'generateReport',
+      ];
+
   const RiskRegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(riskRegisterScreenControllerProvider);
 
     return Scaffold(

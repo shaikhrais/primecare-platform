@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_service_delivery_screen_controller.dart';
 
-class CooServiceDeliveryScreen extends ConsumerWidget {
+class CooServiceDeliveryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring service delivery metrics, tracking user feedback, managing incidents, and facilitating team collaboration, along with appropriate buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ServiceDeliveryMetricsCard',
+        'UserFeedbackChart',
+        'IncidentTracker',
+        'TeamCollaborationTool',
+        'AlertsDashboard',
+        'HistoricalDataAnalyzer',
+        'DocumentationManager',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateDocumentation',
+        'trackIncident',
+        'analyzeMetrics',
+        'collaborateWithTeam',
+        'attendMeeting',
+      ];
+
   const CooServiceDeliveryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooServiceDeliveryScreenControllerProvider);
 
     return Scaffold(

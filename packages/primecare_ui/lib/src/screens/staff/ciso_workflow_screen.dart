@@ -102,6 +102,38 @@ final cisoWorkflowScreenProvider =
 
 // --- View ---
 class CisoWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CISO workflow screen requires components for monitoring security incidents, compliance, risk assessments, and training metrics, along with buttons for refreshing data and viewing reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentOverviewCard',
+        'ComplianceStatusWidget',
+        'RiskAssessmentChart',
+        'TrainingMetricsCard',
+        'BudgetUtilizationChart',
+        'IncidentResponseMetricsCard',
+        'SecurityTrendsGraph',
+        'PolicyEnforcementStatusWidget',
+        'DepartmentIntegrationStatusWidget',
+        'CriticalAlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchIncidentOverview',
+        'fetchComplianceStatus',
+        'fetchRiskAssessment',
+        'fetchTrainingMetrics',
+        'fetchBudgetUtilization',
+        'fetchIncidentResponseMetrics',
+        'fetchSecurityTrends',
+        'fetchPolicyEnforcementStatus',
+        'fetchDepartmentIntegrationStatus',
+        'fetchCriticalAlerts',
+      ];
+
   const CisoWorkflowScreen({super.key});
 
   @override

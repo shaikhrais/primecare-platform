@@ -97,6 +97,34 @@ final nursingTaskProvider =
 
 // --- View ---
 class NursingTaskScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The nursing_task screen requires components for monitoring vital signs, administering medications, documenting care, and facilitating communication among healthcare team members.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsMonitor',
+        'MedicationAdministrationRecord',
+        'TaskList',
+        'ComplianceTracker',
+        'IncidentReportingSystem',
+        'TeamCommunicationTool',
+        'PatientEducationResource',
+        'PerformanceMetricsDashboard',
+        'PatientHistoryAccess',
+        'TaskLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'administerMedication',
+        'documentPatientCare',
+        'reportIncident',
+        'viewPatientHistory',
+        'trackCompliance',
+        'sendMessage',
+      ];
+
   const NursingTaskScreen({super.key});
 
   @override

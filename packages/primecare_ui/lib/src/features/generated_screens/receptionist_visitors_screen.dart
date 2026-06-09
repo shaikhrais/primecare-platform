@@ -2,6 +2,29 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ReceptionistVisitorsScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to manage settings, track workflows, verify compliance, and log events, along with real-time operational status updates and alerts for any detected issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusCard',
+        'ComplianceStatusCard',
+        'TransactionFlowChart',
+        'EventLogWidget',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageInstitutionalSettings',
+        'trackClinicalWorkflows',
+        'verifyCompliance',
+        'monitorOperationalStatus',
+        'conductVerificationAudit',
+        'logOperationalEvent',
+      ];
+
   const ReceptionistVisitorsScreen({super.key});
 
   @override

@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'customer_support_tickets_screen_controller.dart';
 
-class CustomerSupportTicketsScreen extends ConsumerWidget {
+class CustomerSupportTicketsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing customer support tickets, including metrics for response times and customer satisfaction, along with collaboration tools and APIs for ticket management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketOverviewCard',
+        'ResponseTimeMetric',
+        'AlertNotification',
+        'CustomerSatisfactionSummary',
+        'KnowledgeBaseAccess',
+        'TicketTrendChart',
+        'CollaborationTool',
+        'AgentPerformanceMetric',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorTickets',
+        'respondToInquiry',
+        'trackTicketStatus',
+        'escalateTicket',
+        'analyzeTrends',
+        'updateTicketStatus',
+        'collaborateWithDepartments',
+        'provideFeedback',
+      ];
+
   const CustomerSupportTicketsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(customerSupportTicketsScreenControllerProvider);
 
     return Scaffold(

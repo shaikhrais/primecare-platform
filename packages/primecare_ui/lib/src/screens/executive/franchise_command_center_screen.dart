@@ -101,6 +101,38 @@ final franchiseCommandCenterProvider =
 
 // --- View ---
 class FranchiseCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance, compliance, and telemetry data, along with functionalities for communication and training resources, accessible across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusCard',
+        'TelemetryDataChart',
+        'OperationalLog',
+        'SecurityClearanceOverview',
+        'ComplianceNotification',
+        'TrainingResources',
+        'CommunicationTool',
+        'HistoricalDataChart',
+        'InsightsRecommendations',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'fetchTelemetryData',
+        'logOperationalActivity',
+        'checkSecurityClearance',
+        'sendComplianceNotification',
+        'accessTrainingResources',
+        'communicateWithSupport',
+        'fetchHistoricalData',
+        'generateInsights',
+      ];
+
   const FranchiseCommandCenterScreen({super.key});
 
   @override

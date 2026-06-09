@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HeadOfMarketingAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display marketing KPIs, analytics, and performance metrics, along with buttons for data refresh and report export.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'RealTimeAnalyticsChart',
+        'SocialMediaMetricsCard',
+        'BudgetTrackingWidget',
+        'CustomerFeedbackWidget',
+        'MarketResearchInsightsCard',
+        'CampaignComparisonChart',
+        'TeamPerformanceMetricsCard',
+        'CompetitorAnalysisWidget',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchRealTimeAnalytics',
+        'fetchSocialMediaMetrics',
+        'fetchBudgetTracking',
+        'fetchCustomerFeedback',
+        'fetchMarketResearchInsights',
+        'fetchCampaignComparisons',
+        'fetchTeamPerformanceMetrics',
+        'fetchCompetitorAnalysis',
+        'checkForAlerts',
+      ];
+
   const HeadOfMarketingAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

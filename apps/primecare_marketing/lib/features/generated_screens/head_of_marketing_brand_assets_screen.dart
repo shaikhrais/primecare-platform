@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_brand_assets_screen_controller.dart';
 
-class HeadOfMarketingBrandAssetsScreen extends ConsumerWidget {
+class HeadOfMarketingBrandAssetsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring brand assets, performance metrics, collaboration tools, and access to guidelines, along with buttons for asset updates and feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BrandAssetOverview',
+        'PerformanceMetricsChart',
+        'ApprovalNotifications',
+        'CollaborationTool',
+        'BrandGuidelinesAccess',
+        'QuickLinks',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateAssetStatus',
+        'requestApproval',
+        'submitFeedback',
+        'fetchBrandGuidelines',
+        'navigateToTemplate',
+      ];
+
   const HeadOfMarketingBrandAssetsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingBrandAssetsScreenControllerProvider);
 
     return Scaffold(

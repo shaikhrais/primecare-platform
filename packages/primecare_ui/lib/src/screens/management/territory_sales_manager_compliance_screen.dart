@@ -78,6 +78,37 @@ final territorySalesManagerComplianceProvider =
 
 // --- View ---
 class TerritorySalesManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components for managing sales performance, client relationships, lead tracking, market analysis, compliance, team performance, customer feedback, and alerts for operational issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceChart',
+        'ClientManagementTool',
+        'LeadTrackingWidget',
+        'MarketAnalysisDashboard',
+        'ComplianceStatusPanel',
+        'TeamPerformanceTracker',
+        'CustomerFeedbackWidget',
+        'SalesStrategyIndicator',
+        'MarketTrendsFeed',
+        'AlertsNotificationSystem',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'addClient',
+        'trackLead',
+        'conductMarketResearch',
+        'updateComplianceStatus',
+        'viewTrainingProgress',
+        'submitFeedback',
+        'adjustSalesStrategy',
+        'viewAlerts',
+      ];
+
   const TerritorySalesManagerComplianceScreen({super.key});
 
   @override

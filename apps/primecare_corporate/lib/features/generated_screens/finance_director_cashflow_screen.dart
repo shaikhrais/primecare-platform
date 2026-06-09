@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'finance_director_cashflow_screen_controller.dart';
 
-class FinanceDirectorCashflowScreen extends ConsumerWidget {
+class FinanceDirectorCashflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing cash flow, including metrics, alerts, visualizations, and tools for compliance and communication.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CashFlowMetricsWidget',
+        'CashFlowAlertsWidget',
+        'CashFlowTrendsChart',
+        'BudgetVsActualReport',
+        'ComplianceStatusIndicator',
+        'CommunicationTool',
+        'HistoricalDataAccess',
+        'ForecastingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const FinanceDirectorCashflowScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(financeDirectorCashflowScreenControllerProvider);
 
     return Scaffold(

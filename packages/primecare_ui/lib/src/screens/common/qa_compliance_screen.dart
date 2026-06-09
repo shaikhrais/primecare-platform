@@ -74,6 +74,33 @@ final qaComplianceProvider =
 
 // --- View ---
 class QaComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance status, logging audits, tracking user feedback, and accessing training resources, along with necessary buttons and APIs for reporting and alerting on compliance matters.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogTable',
+        'ComplianceMetricsChart',
+        'AlertNotification',
+        'GovernancePolicySummary',
+        'UserFeedbackTracker',
+        'HistoricalPerformanceGraph',
+        'TrainingResourcesAccess',
+        'IncidentReportingIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'logAuditFindings',
+        'generateComplianceReport',
+        'alertOnComplianceFailure',
+        'trackUserFeedback',
+        'accessTrainingResources',
+      ];
+
   const QaComplianceScreen({super.key});
 
   @override

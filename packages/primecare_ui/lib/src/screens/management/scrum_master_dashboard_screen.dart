@@ -96,6 +96,32 @@ final scrumMasterDashboardProvider =
 
 // --- View ---
 class ScrumMasterDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Scrum Master dashboard requires components to monitor team progress, manage impediments, and facilitate Scrum ceremonies, along with necessary buttons, functions, APIs, and responsive design for effective usage.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BurndownChart',
+        'TeamVelocityMetric',
+        'ImpedimentList',
+        'ScrumCeremonySchedule',
+        'TeamWorkloadOverview',
+        'QualityMetricsCard',
+        'RetrospectiveFeedbackWidget',
+        'ComplianceAuditLog',
+        'HistoricalPerformanceTrend',
+        'NotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addImpediment',
+        'scheduleCeremony',
+        'conductTrainingSession',
+        'viewBacklog',
+      ];
+
   const ScrumMasterDashboardScreen({super.key});
 
   @override

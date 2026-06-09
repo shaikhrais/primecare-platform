@@ -101,6 +101,29 @@ final physiotherapistExercisePlanProvider =
 
 // --- View ---
 class PhysiotherapistExercisePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient management, compliance tracking, and educational resources, along with buttons for adding plans and monitoring progress.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientOverviewCard',
+        'ComplianceMetricsChart',
+        'ProgressTrackingTable',
+        'AlertsNotification',
+        'EducationalResourcesPanel',
+        'ActivityLog',
+        'DepartmentPerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addExercisePlan',
+        'monitorPatientProgress',
+        'updatePatientRecord',
+        'generateReport',
+      ];
+
   const PhysiotherapistExercisePlanScreen({super.key});
 
   @override

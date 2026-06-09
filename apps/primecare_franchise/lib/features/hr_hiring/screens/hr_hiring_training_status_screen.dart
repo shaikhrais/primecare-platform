@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'hr_hiring_training_status_screen_controller.dart';
 
-class HrHiringTrainingStatusScreen extends ConsumerWidget {
+class HrHiringTrainingStatusScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components to monitor and report on HR training status, including visual progress indicators and user feedback mechanisms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingCompletionChart',
+        'TrainingProgressGraph',
+        'UserFeedbackSection',
+        'TrainingResourcesAccess',
+        'EngagementMetricsSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingCompletionStats',
+        'generateTrainingProgressReport',
+        'alertOverdueTraining',
+        'submitUserFeedback',
+      ];
+
   const HrHiringTrainingStatusScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(hrHiringTrainingStatusScreenControllerProvider);
 
     return Scaffold(

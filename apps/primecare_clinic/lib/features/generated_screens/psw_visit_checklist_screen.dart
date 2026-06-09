@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_visit_checklist_screen_controller.dart';
 
-class PswVisitChecklistScreen extends ConsumerWidget {
+class PswVisitChecklistScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for checklist review, issue reporting, and user feedback, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ChecklistReview',
+        'ChecklistItem',
+        'ErrorReport',
+        'FeedbackForm',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'completeChecklistItem',
+        'reportIssue',
+        'submitFeedback',
+        'fetchChecklistData',
+      ];
+
   const PswVisitChecklistScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswVisitChecklistScreenControllerProvider);
 
     return Semantics(

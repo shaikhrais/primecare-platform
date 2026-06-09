@@ -100,6 +100,38 @@ final branchPerformanceProvider =
 
 // --- View ---
 class BranchPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the COO to monitor operational performance, financial metrics, compliance status, and employee satisfaction, along with alerts for any operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'OperationalMetricsChart',
+        'FinancialPerformanceCard',
+        'ComplianceStatusWidget',
+        'EmployeeSatisfactionGauge',
+        'ProjectTimelineTracker',
+        'CustomerFeedbackPanel',
+        'ResourceUtilizationReport',
+        'RiskManagementAlert',
+        'RedFlagNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'updateOperationalMetrics',
+        'retrieveFinancialData',
+        'checkComplianceStatus',
+        'analyzeEmployeeSatisfaction',
+        'trackProjectStatus',
+        'collectCustomerFeedback',
+        'evaluateResourceUtilization',
+        'manageRiskAlerts',
+        'notifyRedFlags',
+      ];
+
   const BranchPerformanceScreen({super.key});
 
   @override

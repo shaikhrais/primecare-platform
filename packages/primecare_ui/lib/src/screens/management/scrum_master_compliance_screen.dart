@@ -78,6 +78,33 @@ final scrumMasterComplianceProvider =
 
 // --- View ---
 class ScrumMasterComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking sprint progress, impediments, team engagement, quality metrics, and backlog health, along with buttons for managing tasks and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SprintProgressChart',
+        'ImpedimentTracker',
+        'TeamEngagementMeter',
+        'QualityMetricsCard',
+        'BacklogHealthIndicator',
+        'CeremonyAttendanceTracker',
+        'RetrospectiveFeedbackPanel',
+        'TeamPerformanceTrendGraph',
+        'AgileComplianceChecker',
+        'TeamDynamicsVisualizer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addImpediment',
+        'resolveImpediment',
+        'recordRetrospectiveFeedback',
+        'updateBacklog',
+        'fetchTeamMetrics',
+      ];
+
   const ScrumMasterComplianceScreen({super.key});
 
   @override

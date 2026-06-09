@@ -99,6 +99,27 @@ final patientMessagesProvider =
 
 // --- View ---
 class PatientMessagesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The patient messages screen requires components for KPI review, telemetry monitoring, compliance status, and operational audit logs, along with buttons for triggering scans and refreshing logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIReviewCard',
+        'TelemetryLogMonitor',
+        'ComplianceStatusCard',
+        'OperationalAuditLog',
+        'SecurityClearanceIndicator',
+        'TelemetryChart',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerAuditScan',
+        'refreshLogs',
+      ];
+
   const PatientMessagesScreen({super.key});
 
   @override

@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_reports_screen_controller.dart';
 
-class OperationsManagerReportsScreen extends ConsumerWidget {
+class OperationsManagerReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, generating reports, and facilitating collaboration, along with necessary buttons and APIs for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ProductivityReportChart',
+        'TrendAnalysisGraph',
+        'CollaborationTool',
+        'ComplianceChecklist',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'generateProductivityReport',
+        'analyzeDataTrends',
+        'sendCollaborationInvite',
+        'checkCompliance',
+      ];
+
   const OperationsManagerReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerReportsScreenControllerProvider);
 
     return Scaffold(

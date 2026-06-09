@@ -2,6 +2,32 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class DeviceIntegrationHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The device integration hub screen requires components for monitoring device status, managing configurations, and troubleshooting issues, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DeviceStatusOverview',
+        'AlertsNotification',
+        'UserActivityLog',
+        'PerformanceMetricsChart',
+        'TroubleshootingResources',
+        'ConfigurationChangeSummary',
+        'ConnectivityPerformanceTrend',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorDeviceStatus',
+        'configureDeviceSettings',
+        'manageUserPermissions',
+        'troubleshootConnectivityIssues',
+        'reviewIntegrationLogs',
+        'updateFirmwareSoftware',
+        'setupAlerts',
+      ];
+
   const DeviceIntegrationHubScreen({super.key});
 
   @override

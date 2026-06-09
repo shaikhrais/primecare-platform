@@ -97,6 +97,29 @@ final treatmentPlanProvider =
 
 // --- View ---
 class TreatmentPlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The treatment plan screen requires components for patient overview, compliance logs, KPIs, telemetry data, alerts, educational resources, and patient interaction documentation, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientOverviewCard',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'TelemetryDataChart',
+        'AlertNotification',
+        'EducationalResourceList',
+        'PatientInteractionForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'adjustTreatment',
+        'logPatientInteraction',
+        'fetchEducationalResources',
+      ];
+
   const TreatmentPlanScreen({super.key});
 
   @override

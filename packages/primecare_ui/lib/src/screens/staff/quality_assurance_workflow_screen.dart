@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class QualityAssuranceWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, defect tracking, and performance metrics, along with buttons for executing tests and collaborating with development teams.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'DefectMetricsCard',
+        'TestCoverageChart',
+        'RegressionResultsTable',
+        'PerformanceMetricsCard',
+        'TeamWorkloadChart',
+        'HistoricalDefectTrends',
+        'ComplianceMetricsCard',
+        'StakeholderFeedbackWidget',
+        'ProjectManagementIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeTestPlan',
+        'trackDefects',
+        'generateReports',
+        'collaborateWithDev',
+        'conductRegressionTesting',
+      ];
+
   const QualityAssuranceWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

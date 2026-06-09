@@ -138,6 +138,27 @@ final pswCheckInScreenControllerProvider = StateNotifierProvider<PswCheckInScree
 
 // --- View ---
 class PswCheckInScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for user check-in, status display, notifications, and help resources, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CheckInForm',
+        'UserStatusCard',
+        'NotificationBanner',
+        'HelpSupportLink',
+        'ActivitySummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'handleCheckIn',
+        'fetchUserStatus',
+        'displayNotifications',
+        'accessHelpResources',
+      ];
+
   const PswCheckInScreen({super.key});
 
   @override

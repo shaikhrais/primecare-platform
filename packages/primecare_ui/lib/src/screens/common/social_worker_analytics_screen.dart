@@ -4,6 +4,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SocialWorkerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking client assessments, managing tasks, and accessing resources, along with buttons for various actions and APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAssessmentTracker',
+        'TaskManagementWidget',
+        'ResourceDirectory',
+        'CommunicationLog',
+        'PerformanceMetrics',
+        'AlertsDashboard',
+        'TrainingResources',
+        'FeedbackSurvey',
+        'CaseLoadManager',
+        'DataIntegrationModule',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addAssessment',
+        'scheduleAppointment',
+        'logCommunication',
+        'viewResources',
+        'submitFeedback',
+        'manageCaseload',
+        'requestTraining',
+      ];
+
   const SocialWorkerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

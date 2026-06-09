@@ -97,6 +97,37 @@ final shiftReportProvider =
 
 // --- View ---
 class ShiftReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The shift report screen requires components for patient health monitoring, compliance metrics, and communication tools, along with buttons for accessing care plans and submitting reports, all optimized for mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientHealthStatusOverview',
+        'ComplianceMetricsCard',
+        'PatientSatisfactionScore',
+        'StaffingLevelsChart',
+        'IncidentReportsList',
+        'PerformanceIndicatorsDashboard',
+        'CarePlansAccess',
+        'CommunicationTools',
+        'TrainingResources',
+        'PatientAssignmentsUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientHealthStatus',
+        'fetchComplianceMetrics',
+        'fetchPatientSatisfactionScores',
+        'fetchStaffingLevels',
+        'fetchIncidentReports',
+        'fetchPerformanceIndicators',
+        'fetchCarePlans',
+        'sendMessageToTeam',
+        'updatePatientStatus',
+      ];
+
   const ShiftReportScreen({super.key});
 
   @override

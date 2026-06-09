@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_follow_ups_screen_controller.dart';
 
-class FranchiseSalesManagerFollowUpsScreen extends ConsumerWidget {
+class FranchiseSalesManagerFollowUpsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing franchise lead follow-ups, along with functionalities for updating statuses and communicating with team members.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FranchiseLeadList',
+        'FollowUpMetricsCard',
+        'AlertNotification',
+        'HistoricalDataChart',
+        'TeamPerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorFollowUps',
+        'trackLeadStatus',
+        'updateFollowUpStatus',
+        'analyzeFollowUpEffectiveness',
+        'communicateWithTeam',
+      ];
+
   const FranchiseSalesManagerFollowUpsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerFollowUpsScreenControllerProvider);
 
     return Scaffold(

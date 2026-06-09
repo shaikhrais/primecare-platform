@@ -2,6 +2,31 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RoleScreenAccessScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing roles, searching screens, assigning access, and reviewing routing, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RoleList',
+        'ScreenSearch',
+        'AccessAssignment',
+        'RoutingMatrix',
+        'AccessOverview',
+        'AlertsNotifications',
+        'AccessAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewRoles',
+        'searchScreens',
+        'assignAccess',
+        'reviewRoutingMatrix',
+        'checkAccessConflicts',
+        'fetchAccessAnalytics',
+      ];
+
   const RoleScreenAccessScreen({super.key});
 
   @override

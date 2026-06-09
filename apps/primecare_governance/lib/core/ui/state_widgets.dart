@@ -112,11 +112,29 @@ class AppErrorState extends StatelessWidget {
   }
 }
 
-class NoAccessScreen extends StatelessWidget {
+class NoAccessScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The No Access screen requires components for displaying permissions, notifications, and access history, along with buttons for navigation and permission requests.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PermissionOverview',
+        'NotificationAlert',
+        'PermissionRequestLink',
+        'AccessHistory',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'navigateBack',
+        'requestPermissions',
+      ];
+
   const NoAccessScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(

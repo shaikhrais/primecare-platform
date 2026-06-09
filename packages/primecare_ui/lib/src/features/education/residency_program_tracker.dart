@@ -8,6 +8,30 @@ final residencyProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>
 });
 
 class ResidencyProgramTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display and manage resident data, including a list view, detailed milestone tracking, and alerts for residents falling behind.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ResidentList',
+        'ResidentCard',
+        'CompletionPercentageIndicator',
+        'MilestoneTracker',
+        'AlertsDashboard',
+        'SearchFilter',
+        'ProgressTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchResidentData',
+        'expandResidentCard',
+        'monitorCompletionPercentage',
+        'filterResidents',
+        'viewProgressHistory',
+      ];
+
   const ResidencyProgramTrackerScreen({super.key});
 
   @override

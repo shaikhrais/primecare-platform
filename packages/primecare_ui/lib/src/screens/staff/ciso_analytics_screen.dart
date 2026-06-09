@@ -102,6 +102,32 @@ final cisoAnalyticsScreenProvider =
 
 // --- View ---
 class CisoAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CISO analytics screen requires various components to display security metrics, compliance status, and risk assessments, along with buttons for data refresh and report generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentOverviewCard',
+        'ComplianceStatusWidget',
+        'RiskAssessmentChart',
+        'IncidentResponseMetricsPanel',
+        'TrainingCompletionChart',
+        'VulnerabilityManagementWidget',
+        'BudgetAllocationChart',
+        'ThreatIntelligenceFeed',
+        'PolicyAdherenceMetrics',
+        'KPIOverviewPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'generateSecurityReport',
+        'viewTrainingDetails',
+        'manageBudget',
+      ];
+
   const CisoAnalyticsScreen({super.key});
 
   @override

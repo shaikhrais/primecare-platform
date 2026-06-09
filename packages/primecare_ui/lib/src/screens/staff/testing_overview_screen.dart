@@ -99,6 +99,33 @@ final testingOverviewProvider =
 
 // --- View ---
 class TestingOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for testing status, defect tracking, metrics, and compliance, along with buttons for refreshing data and accessing documentation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TestingStatusOverview',
+        'DefectTrackingWidget',
+        'TestCoverageMetrics',
+        'DefectTrendsChart',
+        'ComplianceAuditLog',
+        'TestingEfficiencyIndicators',
+        'CriticalIssuesAlerts',
+        'CICDIntegration',
+        'UserFeedbackWidget',
+        'DocumentationAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshTestingStatus',
+        'viewDefects',
+        'generateReport',
+        'startRegressionTesting',
+        'accessDocumentation',
+      ];
+
   const TestingOverviewScreen({super.key});
 
   @override

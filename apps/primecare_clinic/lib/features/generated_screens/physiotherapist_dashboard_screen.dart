@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'physiotherapist_dashboard_screen_controller.dart';
 
-class PhysiotherapistDashboardScreen extends ConsumerWidget {
+class PhysiotherapistDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The physiotherapist dashboard requires components for tracking patient outcomes, operational metrics, and educational resources, along with buttons for data synchronization and report exporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'PatientInteractionLog',
+        'ComplianceAuditAlert',
+        'OperationalEfficiencyMetrics',
+        'AppointmentNotification',
+        'EducationalResources',
+        'DataSyncTool',
+        'ExportReportButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'syncPatientData',
+        'exportAuditLogs',
+        'fetchEducationalResources',
+      ];
+
   const PhysiotherapistDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(physiotherapistDashboardScreenControllerProvider);
 
     return Semantics(

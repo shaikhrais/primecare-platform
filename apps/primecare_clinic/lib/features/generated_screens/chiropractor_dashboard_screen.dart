@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'chiropractor_dashboard_screen_controller.dart';
 
-class ChiropractorDashboardScreen extends ConsumerWidget {
+class ChiropractorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractor dashboard requires components for patient assessments, treatment plans, and progress monitoring, along with buttons for conducting assessments and syncing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'ProgressMonitorChart',
+        'ComplianceStatusWidget',
+        'PatientRecordTable',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductAssessment',
+        'implementTreatmentPlan',
+        'adjustTreatment',
+        'syncData',
+        'performComplianceScan',
+      ];
+
   const ChiropractorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(chiropractorDashboardScreenControllerProvider);
 
     return Semantics(

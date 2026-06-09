@@ -101,6 +101,33 @@ final schedulerOpenShiftsProvider =
 
 // --- View ---
 class SchedulerOpenShiftsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for performance metrics, compliance audits, scheduling, incident reporting, communication, operational trends, training resources, and alert notifications, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceAuditLog',
+        'StaffScheduleOverview',
+        'IncidentReportList',
+        'CommunicationTool',
+        'OperationalTrendChart',
+        'TrainingResourceAccess',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'conductComplianceAudit',
+        'updateStaffSchedule',
+        'resolveIncident',
+        'sendTeamUpdate',
+        'accessTrainingResources',
+        'acknowledgeAlert',
+      ];
+
   const SchedulerOpenShiftsScreen({super.key});
 
   @override

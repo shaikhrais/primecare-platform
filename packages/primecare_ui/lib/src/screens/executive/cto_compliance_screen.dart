@@ -74,6 +74,34 @@ final ctoComplianceProvider =
 
 // --- View ---
 class CtoComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the CTO, including performance metrics, compliance status, and operational insights, along with necessary buttons and API integrations for effective management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'ComplianceStatusCard',
+        'SecurityIncidentReport',
+        'ProjectTimelineTracker',
+        'TeamPerformanceMetrics',
+        'TechnologyAdoptionChart',
+        'InnovationMetrics',
+        'VendorPerformanceCard',
+        'SystemUptimeAnalytics',
+        'RiskAssessmentWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewAuditLogs',
+        'generateReport',
+        'addNewTechnology',
+        'updateBudget',
+        'sendUserFeedback',
+      ];
+
   const CtoComplianceScreen({super.key});
 
   @override

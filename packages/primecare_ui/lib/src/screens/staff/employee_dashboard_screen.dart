@@ -149,6 +149,28 @@ final employeeDashboardControllerProvider =
 
 // --- View ---
 class EmployeeDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The employee dashboard requires components for displaying metrics, telemetry, and audit logs, along with buttons for various operational tasks and APIs for backend interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'GovAuditLog',
+        'GovActionButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportAuditLogs',
+        'requestPTO',
+        'downloadTaxDocuments',
+      ];
+
   const EmployeeDashboardScreen({super.key});
 
   @override

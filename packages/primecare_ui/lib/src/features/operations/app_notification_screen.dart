@@ -82,6 +82,32 @@ final appNotificationProvider = FutureProvider.autoDispose<List<IotEventRecord>>
 });
 
 class AppNotificationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring IoT events, dispatching alerts, resolving events, and reviewing system logs and metrics, with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IoTEventNotificationList',
+        'AlertDispatcher',
+        'EventResolver',
+        'ConsoleLogViewer',
+        'SeverityLevelManager',
+        'NodeSelector',
+        'MetricsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorIoTEvents',
+        'dispatchAlert',
+        'resolveEvent',
+        'loadConsoleLogs',
+        'manageSeverityLevels',
+        'selectNode',
+        'reviewMetrics',
+      ];
+
   const AppNotificationScreen({super.key});
 
   @override

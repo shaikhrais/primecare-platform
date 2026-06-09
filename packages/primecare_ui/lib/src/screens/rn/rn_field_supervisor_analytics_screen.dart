@@ -107,6 +107,30 @@ final rnFieldSupervisorAnalyticsScreenProvider =
 
 // --- View ---
 class RnFieldSupervisorAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN Field Supervisor Analytics screen requires components for monitoring patient care metrics, incident reporting, training progress, and quality improvement tracking, along with associated buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'IncidentReportWidget',
+        'TrainingProgressWidget',
+        'PatientOutcomeStatsWidget',
+        'CommunicationLogWidget',
+        'QualityImprovementTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientMetrics',
+        'reportIncident',
+        'logFieldVisit',
+        'fetchTrainingProgress',
+        'trackQualityInitiatives',
+      ];
+
   const RnFieldSupervisorAnalyticsScreen({super.key});
 
   @override

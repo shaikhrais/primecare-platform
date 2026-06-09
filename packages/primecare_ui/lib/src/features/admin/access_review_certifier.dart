@@ -8,6 +8,26 @@ final accessReviewsProvider = FutureProvider.autoDispose<List<Map<String, dynami
 });
 
 class AccessReviewCertifierScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying certifications, action buttons for certifying and revoking access, and APIs for fetching and managing access reviews.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CertificationOverview',
+        'AccessReviewList',
+        'ErrorNotification',
+        'ActionButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAccessReviews',
+        'certifyAccess',
+        'revokeAccess',
+        'refreshAccessReviews',
+      ];
+
   const AccessReviewCertifierScreen({super.key});
 
   @override

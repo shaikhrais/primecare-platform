@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'local_marketing_manager_events_screen_controller.dart';
 
-class LocalMarketingManagerEventsScreen extends ConsumerWidget {
+class LocalMarketingManagerEventsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for event management, performance analysis, and communication tools, along with necessary buttons and APIs for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EventOverview',
+        'PerformanceMetricsChart',
+        'AlertsNotification',
+        'CommunicationTool',
+        'EventUpdateForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEventData',
+        'updateEventStatus',
+        'sendCommunication',
+        'analyzePerformanceMetrics',
+      ];
+
   const LocalMarketingManagerEventsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localMarketingManagerEventsScreenControllerProvider);
 
     return Scaffold(

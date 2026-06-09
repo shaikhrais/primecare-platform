@@ -78,6 +78,27 @@ final architecturePlanningComplianceProvider =
 
 // --- View ---
 class ArchitecturePlanningComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance status, audit logs, alerts, trends, and governance policies, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogsTable',
+        'AlertsNotification',
+        'ComplianceTrendsChart',
+        'GovernancePoliciesSummary',
+        'OperationalLogsFilter',
+        'ComplianceScanButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshData',
+      ];
+
   const ArchitecturePlanningComplianceScreen({super.key});
 
   @override

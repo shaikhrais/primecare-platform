@@ -176,6 +176,38 @@ final rnAnalyticsControllerProvider =
 
 // --- View ---
 class RnAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN analytics screen requires various components to display patient metrics, alerts, and communication tools, along with specific buttons and functions to facilitate user interaction and data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AverageMMSEScoreCard',
+        'CompletedIntakesCounter',
+        'ActiveCarePlansCounter',
+        'HighRiskEscalationsCounter',
+        'EvaluationLogsTable',
+        'CategoryFilterDropdown',
+        'AlertsNotification',
+        'PerformanceMetricsDashboard',
+        'EducationalResourcesAccess',
+        'TeamCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchMMSEScore',
+        'countCompletedIntakes',
+        'countActiveCarePlans',
+        'countHighRiskEscalations',
+        'fetchEvaluationLogs',
+        'applyCategoryFilter',
+        'checkAlerts',
+        'fetchPerformanceMetrics',
+        'accessEducationalResources',
+        'sendTeamMessage',
+      ];
+
   const RnAnalyticsScreen({super.key});
 
   @override

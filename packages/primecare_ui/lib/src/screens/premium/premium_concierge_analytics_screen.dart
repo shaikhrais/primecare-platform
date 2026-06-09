@@ -109,6 +109,25 @@ final premiumConciergeAnalyticsProvider =
 
 // --- View ---
 class PremiumConciergeAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, operational logs, and alerts, along with buttons for refreshing data and running analytics scans.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'TelemetryChart',
+        'OperationalLog',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshMetrics',
+        'runAnalyticsScan',
+        'handleErrors',
+      ];
+
   const PremiumConciergeAnalyticsScreen({super.key});
 
   @override

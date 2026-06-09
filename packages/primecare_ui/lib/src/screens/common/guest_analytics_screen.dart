@@ -4,6 +4,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GuestAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time analytics display, clear action buttons with feedback, refresh functionality, a user-friendly layout, and alerts for operational issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RealTimeAnalyticsDisplay',
+        'ActionButtonFeedback',
+        'RefreshButton',
+        'UserFriendlyLayout',
+        'AlertsNotifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'executeAction',
+      ];
+
   const GuestAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

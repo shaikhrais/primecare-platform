@@ -78,6 +78,34 @@ final socialWorkerComplianceProvider =
 
 // --- View ---
 class SocialWorkerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance auditing, activity logging, governance policy access, incident reporting, and collaboration tools, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditList',
+        'ActivityLog',
+        'GovernancePolicyAccess',
+        'IncidentReportForm',
+        'SecurityMeasureMonitor',
+        'TrainingDevelopmentTracker',
+        'DepartmentCollaborationTool',
+        'ComplianceStatusOverview',
+        'ComplianceAlerts',
+        'ComplianceMetricsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductComplianceAudit',
+        'maintainActivityLog',
+        'reportIncident',
+        'monitorSecurityMeasures',
+        'participateInTraining',
+        'collaborateWithDepartments',
+      ];
+
   const SocialWorkerComplianceScreen({super.key});
 
   @override

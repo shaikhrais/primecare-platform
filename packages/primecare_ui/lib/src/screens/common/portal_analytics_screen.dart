@@ -107,6 +107,32 @@ final portalAnalyticsScreenProvider =
 
 // --- View ---
 class PortalAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring streams, checking clearance status, executing quality sweeps, and viewing telemetry logs, along with buttons for executing tasks and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveStreamsMonitor',
+        'ClearanceStatusChecker',
+        'QualityVerificationSweeper',
+        'TelemetryLogViewer',
+        'ManualSweepTrigger',
+        'TelemetryLogRefresher',
+        'TelemetryMetricsChart',
+        'ErrorNotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorActiveStreams',
+        'checkClearanceStatus',
+        'executeQualityVerification',
+        'reviewTelemetryLogs',
+        'triggerManualSweep',
+        'refreshTelemetryLogs',
+      ];
+
   const PortalAnalyticsScreen({super.key});
 
   @override

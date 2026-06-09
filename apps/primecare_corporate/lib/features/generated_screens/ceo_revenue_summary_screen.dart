@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_revenue_summary_screen_controller.dart';
 
-class CeoRevenueSummaryScreen extends ConsumerWidget {
+class CeoRevenueSummaryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time revenue data display, trend analysis, KPI identification, and report generation functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RevenueSummaryCard',
+        'RevenueTrendChart',
+        'KPIIndicator',
+        'ReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRevenueData',
+        'analyzeTrends',
+        'generateReport',
+        'setAlerts',
+      ];
+
   const CeoRevenueSummaryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoRevenueSummaryScreenControllerProvider);
 
     return Scaffold(

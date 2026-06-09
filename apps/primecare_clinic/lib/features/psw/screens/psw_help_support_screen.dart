@@ -88,6 +88,27 @@ final pswHelpSupportControllerProvider = StateNotifierProvider<PswHelpSupportCon
 
 // --- View ---
 class PswHelpSupportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Psw Help Support screen requires components for information display, feedback submission, FAQs access, and support status updates, ensuring usability across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InfoCard',
+        'FAQSection',
+        'FeedbackForm',
+        'StatusUpdatePanel',
+        'ContactInfoCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitFeedback',
+        'fetchFAQs',
+        'getSupportStatus',
+        'contactSupport',
+      ];
+
   const PswHelpSupportScreen({super.key});
 
   @override

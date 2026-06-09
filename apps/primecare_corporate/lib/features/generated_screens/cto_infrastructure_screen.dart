@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_infrastructure_screen_controller.dart';
 
-class CtoInfrastructureScreen extends ConsumerWidget {
+class CtoInfrastructureScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring CtoInfrastructure status, displaying error logs, and collecting user feedback, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CtoInfrastructureStatusIndicator',
+        'ErrorLogAlert',
+        'PerformanceMetricsCard',
+        'UserFeedbackSection',
+        'DataVisualizationChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCtoInfrastructure',
+        'fetchErrorLogs',
+        'fetchPerformanceMetrics',
+        'submitUserFeedback',
+      ];
+
   const CtoInfrastructureScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoInfrastructureScreenControllerProvider);
 
     return Scaffold(

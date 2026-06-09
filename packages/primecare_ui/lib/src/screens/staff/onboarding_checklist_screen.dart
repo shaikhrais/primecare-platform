@@ -101,6 +101,34 @@ final onboardingChecklistProvider =
 
 // --- View ---
 class OnboardingChecklistScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The onboarding checklist screen requires components for visualizing recruitment metrics, tracking candidate progress, and facilitating feedback, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'CandidatePipelineChart',
+        'DiversityMetricsCard',
+        'SourceOfHireAnalysis',
+        'PositionStatusTracker',
+        'RecruitmentActivityLog',
+        'AlertNotification',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'updateCandidatePipeline',
+        'analyzeDiversityMetrics',
+        'getSourceOfHireData',
+        'fetchPositionStatus',
+        'logRecruitmentActivity',
+        'triggerAlert',
+        'submitFeedback',
+      ];
+
   const OnboardingChecklistScreen({super.key});
 
   @override

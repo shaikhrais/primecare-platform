@@ -99,6 +99,24 @@ final billingOverviewProvider =
 
 // --- View ---
 class BillingOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The billing overview screen requires components for monitoring billing operations, displaying telemetry data, and managing audit logs, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'AuditLogSection',
+        'ComplianceNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerComplianceScan',
+        'refreshTelemetryData',
+      ];
+
   const BillingOverviewScreen({super.key});
 
   @override

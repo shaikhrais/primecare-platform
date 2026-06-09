@@ -97,6 +97,37 @@ final pswMyShiftsProvider =
 
 // --- View ---
 class PswMyShiftsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing shifts, compliance, health updates, performance metrics, and communication tools for PSWs, along with necessary buttons, functions, and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftOverviewWidget',
+        'ComplianceAuditWidget',
+        'HealthStatusUpdateWidget',
+        'PerformanceMetricsWidget',
+        'OperationalAuditLogWidget',
+        'TrainingNotificationWidget',
+        'RealTimeCommunicationTool',
+        'ResourceAccessWidget',
+        'WorkloadMetricsWidget',
+        'HealthTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveShifts',
+        'performComplianceAudit',
+        'updateClientHealthStatus',
+        'retrievePerformanceMetrics',
+        'logOperationalIssue',
+        'notifyUpcomingTraining',
+        'sendTeamMessage',
+        'fetchWorkloadMetrics',
+        'visualizeHealthTrends',
+      ];
+
   const PswMyShiftsScreen({super.key});
 
   @override

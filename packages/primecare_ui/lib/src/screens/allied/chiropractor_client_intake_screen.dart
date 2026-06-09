@@ -101,6 +101,38 @@ final chiropractorClientIntakeProvider =
 
 // --- View ---
 class ChiropractorClientIntakeScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient intake, assessment, treatment planning, and compliance monitoring, along with buttons and functions for managing patient interactions and collaboration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientIntakeForm',
+        'PatientHistoryReview',
+        'PhysicalExaminationModule',
+        'TreatmentPlanBuilder',
+        'PatientEducationPanel',
+        'ProgressMonitoringDashboard',
+        'DocumentationLogger',
+        'ComplianceChecker',
+        'CollaborationTool',
+        'SafetyEnvironmentMonitor',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitAssessment',
+        'reviewPatientHistory',
+        'performExamination',
+        'saveTreatmentPlan',
+        'educatePatient',
+        'monitorProgress',
+        'logInteraction',
+        'checkCompliance',
+        'collaborateWithProviders',
+        'maintainEnvironment',
+      ];
+
   const ChiropractorClientIntakeScreen({super.key});
 
   @override

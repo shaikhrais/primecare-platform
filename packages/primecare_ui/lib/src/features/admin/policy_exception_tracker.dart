@@ -8,6 +8,28 @@ final policyExceptionsProvider = FutureProvider.autoDispose<List<Map<String, dyn
 });
 
 class PolicyExceptionTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display and manage policy exemptions, including functionality for refreshing, revoking, and extending exemptions, along with necessary API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PolicyExemptionList',
+        'PolicyExemptionDetails',
+        'NotificationBanner',
+        'SearchFilter',
+        'ActionButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveExemptions',
+        'refreshExemptions',
+        'revokeException',
+        'extendExpiration',
+        'viewExceptionDetails',
+      ];
+
   const PolicyExceptionTrackerScreen({super.key});
 
   @override

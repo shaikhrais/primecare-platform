@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_dashboard_screen_controller.dart';
 
-class ClientDashboardScreen extends ConsumerWidget {
+class ClientDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The client dashboard requires real-time data monitoring, report generation, issue identification, and team communication features with a user-friendly interface.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientDataMonitor',
+        'PerformanceMetricsChart',
+        'ReportAnalyzer',
+        'IssueIdentifier',
+        'TeamCommunicationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadClientData',
+        'generateReports',
+        'identifyIssues',
+        'sendTeamUpdate',
+      ];
+
   const ClientDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientDashboardScreenControllerProvider);
 
     return Scaffold(

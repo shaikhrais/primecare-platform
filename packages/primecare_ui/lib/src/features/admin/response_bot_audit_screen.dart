@@ -8,6 +8,25 @@ final botAuditProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>(
 });
 
 class ResponseBotAuditScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for reviewing and managing flagged conversations, along with functionalities for searching transcripts and approving actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ConversationList',
+        'TranscriptViewer',
+        'SafetyScoreChart',
+        'FlaggedConversationsOverview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveConversation',
+        'flagConversation',
+        'searchTranscripts',
+      ];
+
   const ResponseBotAuditScreen({super.key});
 
   @override

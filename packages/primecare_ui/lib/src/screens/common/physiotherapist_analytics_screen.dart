@@ -4,6 +4,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PhysiotherapistAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient assessments, treatment plans, alerts for red flags, and integration with EHR, along with buttons for saving and updating information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentSummary',
+        'TreatmentPlanOverview',
+        'RedFlagAlerts',
+        'PatientFeedbackMetrics',
+        'EHRIntegration',
+        'PerformanceMetrics',
+        'EducationalResources',
+        'CommunicationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'updatePatientProgress',
+        'sendAlert',
+        'fetchEducationalResources',
+      ];
+
   const PhysiotherapistAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

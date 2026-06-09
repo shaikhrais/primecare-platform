@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quality_metrics_screen_controller.dart';
 
-class QualityMetricsScreen extends ConsumerWidget {
+class QualityMetricsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying quality metrics, alerts for deviations, historical data analysis, collaboration tools, and reporting features.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'QualityMetricsDisplay',
+        'QualityAlerts',
+        'HistoricalDataChart',
+        'CollaborationTool',
+        'ReportingFeature',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorQualityMetrics',
+        'analyzeDataTrends',
+        'identifyAreasNeedingAttention',
+        'collaborateWithTeam',
+        'reportFindings',
+      ];
+
   const QualityMetricsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qualityMetricsScreenControllerProvider);
 
     return Scaffold(

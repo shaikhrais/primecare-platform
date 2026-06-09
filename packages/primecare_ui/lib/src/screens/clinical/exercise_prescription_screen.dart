@@ -101,6 +101,34 @@ final exercisePrescriptionProvider =
 
 // --- View ---
 class ExercisePrescriptionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The exercise prescription screen requires components for patient management, compliance tracking, performance metrics, and communication tools, along with corresponding buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientOverviewCard',
+        'ComplianceScanLog',
+        'KPIChart',
+        'TelemetryDataDisplay',
+        'AlertNotification',
+        'PatientHistorySection',
+        'ExerciseMetricsChart',
+        'CommunicationTool',
+        'EducationalResources',
+        'NotesLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientStatus',
+        'logComplianceScan',
+        'fetchKPIs',
+        'sendMessage',
+        'accessResources',
+        'addNote',
+      ];
+
   const ExercisePrescriptionScreen({super.key});
 
   @override

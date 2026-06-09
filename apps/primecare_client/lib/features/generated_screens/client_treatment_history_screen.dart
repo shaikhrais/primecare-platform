@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_treatment_history_screen_controller.dart';
 
-class ClientTreatmentHistoryScreen extends ConsumerWidget {
+class ClientTreatmentHistoryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying client treatment history, handling loading states and errors, and providing filtering and searching options.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientTreatmentHistorySummary',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'FilterOptions',
+        'NavigationMenu',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadTreatmentHistory',
+        'handleLoadingError',
+        'filterTreatmentHistory',
+        'searchTreatmentHistory',
+      ];
+
   const ClientTreatmentHistoryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientTreatmentHistoryScreenControllerProvider);
 
     return Scaffold(

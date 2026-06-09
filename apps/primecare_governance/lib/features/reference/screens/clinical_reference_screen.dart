@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'clinical_reference_screen_controller.dart';
 
-class ClinicalReferenceScreen extends ConsumerWidget {
+class ClinicalReferenceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Clinical Reference screen requires components for loading states, error handling, content display, user feedback, and navigation, ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessage',
+        'ContentDisplay',
+        'UserFeedbackForm',
+        'NavigationMenu',
+        'ActivitySummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'handleError',
+        'reviewContent',
+        'provideUserFeedback',
+        'navigateToFeatures',
+      ];
+
   const ClinicalReferenceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicalReferenceScreenControllerProvider);
 
     return Scaffold(

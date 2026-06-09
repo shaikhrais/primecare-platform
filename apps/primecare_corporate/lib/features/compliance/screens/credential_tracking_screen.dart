@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'credential_tracking_screen_controller.dart';
 
-class CredentialTrackingScreen extends ConsumerWidget {
+class CredentialTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The credential tracking screen requires components for monitoring and updating credential statuses, reviewing alerts, generating reports, and accessing historical data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CredentialStatusOverview',
+        'ExpirationNotification',
+        'CredentialEditForm',
+        'ComplianceMetricsChart',
+        'HistoricalDataView',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCredentialStatuses',
+        'updateCredentialInfo',
+        'reviewAlerts',
+        'generateComplianceReport',
+        'accessHistoricalData',
+      ];
+
   const CredentialTrackingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(credentialTrackingScreenControllerProvider);
 
     return Scaffold(

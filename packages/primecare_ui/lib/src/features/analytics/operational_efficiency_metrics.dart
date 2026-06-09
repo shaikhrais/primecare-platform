@@ -8,6 +8,23 @@ final operationalEfficiencyProvider = FutureProvider.autoDispose<List<Map<String
 });
 
 class OperationalEfficiencyMetricsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display KPIs and trends, buttons for refreshing and comparing metrics, and functions to handle data retrieval and comparison.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIList',
+        'TrendChart',
+        'ErrorMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshMetrics',
+        'compareMetrics',
+      ];
+
   const OperationalEfficiencyMetricsScreen({super.key});
 
   @override

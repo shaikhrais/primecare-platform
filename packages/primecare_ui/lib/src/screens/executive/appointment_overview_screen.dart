@@ -101,6 +101,38 @@ final appointmentOverviewProvider =
 
 // --- View ---
 class AppointmentOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The appointment_overview screen requires various components to display franchise performance metrics, operational issues, and compliance status, along with buttons for managing reports and strategies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesRevenueMetric',
+        'EmployeePerformanceChart',
+        'CustomerSatisfactionWidget',
+        'ComplianceStatusCard',
+        'InventoryManagementAlert',
+        'MarketingCampaignAnalytics',
+        'OperationalIssueTracker',
+        'FinancialPerformanceOverview',
+        'KPIsDashboard',
+        'OperationalLogs',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesRevenueData',
+        'fetchEmployeePerformanceData',
+        'fetchCustomerFeedback',
+        'fetchComplianceStatus',
+        'fetchInventoryData',
+        'fetchMarketingAnalytics',
+        'trackOperationalIssues',
+        'fetchFinancialOverview',
+        'trackKPIs',
+        'logOperationalActivity',
+      ];
+
   const AppointmentOverviewScreen({super.key});
 
   @override

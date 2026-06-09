@@ -96,6 +96,29 @@ final governanceOfficerDashboardProvider =
 
 // --- View ---
 class GovernanceOfficerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The governance officer dashboard requires components for displaying metrics, logs, and telemetry data, along with buttons for executing compliance scans and exporting logs, all while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovDashboardTitle',
+        'LoadingIndicator',
+        'RecentActivityLog',
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ComplianceScanButton',
+        'ExportAuditLogButton',
+        'RefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'exportAuditLogs',
+        'refreshData',
+      ];
+
   const GovernanceOfficerDashboardScreen({super.key});
 
   @override

@@ -97,6 +97,33 @@ final pswVitalsLogProvider =
 
 // --- View ---
 class PswVitalsLogScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, vital signs monitoring, medication alerts, documentation, compliance tracking, performance metrics, training resources, communication tools, and incident reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'VitalSignsChart',
+        'MedicationAlert',
+        'DocumentationLog',
+        'ComplianceStatusIndicator',
+        'PerformanceMetricsDashboard',
+        'TrainingResourcesSection',
+        'CommunicationTool',
+        'IncidentReportingSystem',
+        'EmergencyProtocolsAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateVitalSigns',
+        'logCareProvided',
+        'reportIncident',
+        'accessTrainingResources',
+        'sendAlertToHealthcareTeam',
+      ];
+
   const PswVitalsLogScreen({super.key});
 
   @override

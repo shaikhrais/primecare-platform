@@ -4,6 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class DynamicScreenAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Dynamic Screen Analytics interface requires real-time data visualization, user interaction capabilities, and a responsive design to enhance user experience.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DynamicAnalyticsChart',
+        'DynamicAnalyticsTable',
+        'UserActivityLog',
+        'CustomizableWidget',
+        'NotificationAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'customizeWidgets',
+        'searchData',
+        'filterData',
+      ];
+
   const DynamicScreenAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

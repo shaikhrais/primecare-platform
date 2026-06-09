@@ -10,6 +10,22 @@ final ecosystemProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref)
 });
 
 class EcosystemStateBoardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Ecosystem State Board requires components to display key metrics, a refresh button for real-time updates, and visualizations for data analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EcosystemMetricCard',
+        'RevenueTrajectoryChart',
+        'RegionalHeatmap',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+      ];
+
   const EcosystemStateBoardScreen({super.key});
 
   @override

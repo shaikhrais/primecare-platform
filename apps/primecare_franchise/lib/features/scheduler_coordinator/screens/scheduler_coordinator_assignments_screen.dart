@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_assignments_screen_controller.dart';
 
-class SchedulerCoordinatorAssignmentsScreen extends ConsumerWidget {
+class SchedulerCoordinatorAssignmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing assignments, performance metrics, and communication tools, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AssignmentList',
+        'AssignmentStatusOverview',
+        'ErrorNotification',
+        'PerformanceMetricsChart',
+        'CommunicationTool',
+        'AssignmentModificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadAssignments',
+        'updateAssignment',
+        'sendNotification',
+        'fetchPerformanceMetrics',
+      ];
+
   const SchedulerCoordinatorAssignmentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorAssignmentsScreenControllerProvider);
 
     return Scaffold(

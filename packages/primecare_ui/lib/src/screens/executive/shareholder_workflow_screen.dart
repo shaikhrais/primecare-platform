@@ -107,6 +107,28 @@ final shareholderWorkflowScreenProvider =
 
 // --- View ---
 class ShareholderWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The shareholder workflow screen requires components for monitoring compliance metrics, reviewing logs, and displaying workflow status, along with buttons for triggering governance actions and refreshing logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceMetricCard',
+        'OperationalLogViewer',
+        'WorkflowStatusIndicator',
+        'TelemetryChart',
+        'AnomalyAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceMetrics',
+        'reviewLogs',
+        'executeWorkflowScan',
+        'triggerGovernanceAction',
+        'communicateWithStakeholders',
+      ];
+
   const ShareholderWorkflowScreen({super.key});
 
   @override

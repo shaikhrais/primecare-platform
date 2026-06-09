@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'intake_coordinator_new_intakes_screen_controller.dart';
 
-class IntakeCoordinatorNewIntakesScreen extends ConsumerWidget {
+class IntakeCoordinatorNewIntakesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing new intakes, including validation, communication, and reporting functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IntakeList',
+        'IntakeStatusOverview',
+        'IntakeMetricsChart',
+        'AlertsPanel',
+        'CommunicationTool',
+        'ReportingFeature',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorNewIntakes',
+        'validateIntakeData',
+        'communicateWithStakeholders',
+        'addressIntakeIssues',
+        'updateIntakeInformation',
+        'generateIntakeReports',
+      ];
+
   const IntakeCoordinatorNewIntakesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(intakeCoordinatorNewIntakesScreenControllerProvider);
 
     return Scaffold(

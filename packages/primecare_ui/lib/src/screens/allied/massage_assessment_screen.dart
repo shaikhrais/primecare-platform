@@ -100,6 +100,37 @@ final massageAssessmentProvider =
 
 // --- View ---
 class MassageAssessmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client assessments, treatment plans, and performance metrics, along with buttons for saving data and accessing resources, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAssessmentForm',
+        'TreatmentPlanCard',
+        'MassageTechniqueSelector',
+        'ClientRecordsTable',
+        'SafetyComplianceIndicator',
+        'IndustryTrendsFeed',
+        'ClientCommunicationPanel',
+        'RedFlagsAlert',
+        'ClientFeedbackChart',
+        'PerformanceMetricsDashboard',
+        'AppointmentScheduler',
+        'TreatmentOutcomeVisualizer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveClientAssessment',
+        'generateTreatmentPlan',
+        'recordMassageSession',
+        'fetchClientFeedback',
+        'updateComplianceStatus',
+        'accessTrainingResources',
+        'refreshAppointments',
+      ];
+
   const MassageAssessmentScreen({super.key});
 
   @override

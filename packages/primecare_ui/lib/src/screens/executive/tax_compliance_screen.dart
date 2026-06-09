@@ -97,6 +97,27 @@ final taxComplianceProvider =
 
 // --- View ---
 class TaxComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The tax compliance screen requires various financial overview widgets for the CFO to monitor key metrics and performance indicators.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'CashFlowStatusWidget',
+        'BudgetVsActualWidget',
+        'ProfitLossStatementWidget',
+        'ComplianceStatusWidget',
+        'RiskAssessmentMetricsWidget',
+        'FinancialForecastsWidget',
+        'OperationalAuditLogsWidget',
+        'InvestmentPerformanceWidget',
+        'StakeholderEngagementMetricsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const TaxComplianceScreen({super.key});
 
   @override

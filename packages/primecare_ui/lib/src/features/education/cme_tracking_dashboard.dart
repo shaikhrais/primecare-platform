@@ -8,6 +8,25 @@ final cmeTrackingProvider = FutureProvider.autoDispose<Map<String, dynamic>>((re
 });
 
 class CMETrackingDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display CME credits, a renewal deadline, and recent activities, along with buttons for refreshing data and logging new credits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CmeCreditsDisplay',
+        'CmeRenewalDeadline',
+        'CmeCreditsLog',
+        'CmeActivitiesList',
+        'ProgressIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'logCmeCredits',
+      ];
+
   const CMETrackingDashboardScreen({super.key});
 
   @override

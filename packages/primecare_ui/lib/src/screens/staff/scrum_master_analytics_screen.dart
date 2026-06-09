@@ -102,6 +102,33 @@ final scrumMasterAnalyticsScreenProvider =
 
 // --- View ---
 class ScrumMasterAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to visualize sprint progress, team performance, impediments, and stakeholder feedback, along with buttons for managing impediments and conducting Scrum ceremonies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SprintProgressChart',
+        'TeamPerformanceIndicator',
+        'ImpedimentTracker',
+        'TeamEngagementMeter',
+        'RetrospectiveFeedbackPanel',
+        'BacklogHealthWidget',
+        'StakeholderFeedbackScore',
+        'TeamCapacityChart',
+        'HistoricalPerformanceTrend',
+        'TeamDynamicsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addImpediment',
+        'resolveImpediment',
+        'startSprintPlanning',
+        'conductRetrospective',
+        'viewMetrics',
+      ];
+
   const ScrumMasterAnalyticsScreen({super.key});
 
   @override

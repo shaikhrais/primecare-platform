@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'hr_hiring_dashboard_screen_controller.dart';
 
-class HrHiringDashboardScreen extends ConsumerWidget {
+class HrHiringDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The hr_hiring_dashboard requires various widgets to display recruitment metrics, candidate status, and compliance updates, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CandidatePipelineChart',
+        'SourceOfHireAnalysis',
+        'DiversityMetricsWidget',
+        'CandidateFeedbackScores',
+        'ComplianceStatusWidget',
+        'OpenPositionsUpdates',
+        'HistoricalDataTrends',
+        'AlertsWidget',
+        'ATSIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'updateCandidatePipeline',
+        'analyzeSourceOfHire',
+        'trackDiversityMetrics',
+        'collectCandidateFeedback',
+        'checkComplianceStatus',
+        'refreshOpenPositions',
+        'retrieveHistoricalData',
+        'triggerAlerts',
+        'integrateATS',
+      ];
+
   const HrHiringDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(hrHiringDashboardScreenControllerProvider);
 
     return Scaffold(

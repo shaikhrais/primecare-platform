@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_dashboard_screen_controller.dart';
 
-class PartnershipManagerDashboardScreen extends ConsumerWidget {
+class PartnershipManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Partnership Manager Dashboard requires components for monitoring partnerships, compliance, and performance metrics, along with functionalities for exporting data and resolving issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PartnershipOverviewCard',
+        'ComplianceAuditHistory',
+        'SecurityClearanceLevels',
+        'KPIChart',
+        'TelemetryLogViewer',
+        'OperationalAuditLog',
+        'ComplianceAlerts',
+        'EngagementMetrics',
+        'LogExportTool',
+        'PerformanceTrendVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'exportLogs',
+        'refreshPartnershipData',
+        'viewAuditDetails',
+        'sendCommunication',
+        'resolvePartnershipIssue',
+      ];
+
   const PartnershipManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(partnershipManagerDashboardScreenControllerProvider);
 
     return Scaffold(

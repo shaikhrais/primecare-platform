@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TerritorySalesManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for sales performance metrics, client management, market analysis, and team tracking, along with buttons for setting targets and conducting training, supported by various APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ClientRelationshipManagementTool',
+        'MarketAnalysisChart',
+        'SalesPipelineVisualization',
+        'TeamPerformanceTracker',
+        'BudgetTrackingWidget',
+        'CustomerFeedbackScoreCard',
+        'TrainingProgressIndicator',
+        'RedFlagAlertSystem',
+        'CRMIntegrationComponent',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'setSalesTargets',
+        'conductTrainingSessions',
+        'generateSalesReport',
+        'allocateResources',
+        'monitorMarketTrends',
+        'provideProductFeedback',
+      ];
+
   const TerritorySalesManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

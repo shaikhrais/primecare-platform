@@ -107,6 +107,38 @@ final cxDirectorAnalyticsScreenProvider =
 
 // --- View ---
 class CxDirectorAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CX Director analytics screen requires various components to visualize customer experience metrics, operational data, and employee engagement, along with buttons for data refresh and report export.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerSatisfactionCard',
+        'FeedbackTrendsChart',
+        'KPIOverviewWidget',
+        'OperationalMetricsPanel',
+        'EmployeeEngagementCard',
+        'CustomerJourneyMap',
+        'InteractionLogsTable',
+        'SurveyInsightsWidget',
+        'AlertsNotification',
+        'ImprovementVisualizationsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCustomerSatisfactionData',
+        'analyzeFeedbackTrends',
+        'retrieveKPIs',
+        'getOperationalMetrics',
+        'fetchEmployeeEngagementScores',
+        'mapCustomerJourney',
+        'logCustomerInteractions',
+        'gatherSurveyInsights',
+        'checkAlerts',
+        'visualizeImprovements',
+      ];
+
   const CxDirectorAnalyticsScreen({super.key});
 
   @override

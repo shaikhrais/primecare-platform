@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'social_worker_dashboard_screen_controller.dart';
 
-class SocialWorkerDashboardScreen extends ConsumerWidget {
+class SocialWorkerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Social Worker dashboard requires components for task management, metrics display, compliance tracking, and resource allocation, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'MetricsCard',
+        'ComplianceIndicator',
+        'ProgressTracker',
+        'ResourceAllocationIndicator',
+        'NotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'updateProgress',
+        'viewResources',
+        'generateReport',
+      ];
+
   const SocialWorkerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(socialWorkerDashboardScreenControllerProvider);
 
     return Semantics(

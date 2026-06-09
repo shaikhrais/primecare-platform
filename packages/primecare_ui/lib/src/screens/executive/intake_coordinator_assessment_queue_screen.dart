@@ -101,6 +101,33 @@ final intakeCoordinatorAssessmentQueueProvider =
 
 // --- View ---
 class IntakeCoordinatorAssessmentQueueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking volunteer metrics, scheduling, communication, and feedback, along with buttons for managing volunteers and events.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerMetricsCard',
+        'VolunteerEngagementChart',
+        'ShiftSchedulingOverview',
+        'VolunteerHoursTracker',
+        'CommunicationLog',
+        'RecognitionTracker',
+        'FeedbackTracker',
+        'ProgramEvaluationMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addVolunteer',
+        'scheduleShift',
+        'sendCommunication',
+        'logVolunteerHours',
+        'trackFeedback',
+        'organizeEvent',
+        'evaluateProgram',
+      ];
+
   const IntakeCoordinatorAssessmentQueueScreen({super.key});
 
   @override

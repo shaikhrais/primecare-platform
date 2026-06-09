@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'hr_hiring_offers_screen_controller.dart';
 
-class HrHiringOffersScreen extends ConsumerWidget {
+class HrHiringOffersScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking recruitment metrics, visualizing candidate pipelines, and managing recruitment processes, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'CandidatePipelineChart',
+        'DiversityMetricsWidget',
+        'SourceOfHireAnalysis',
+        'CandidateFeedbackWidget',
+        'ComplianceTracker',
+        'OpenPositionsTracker',
+        'AuditLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addCandidate',
+        'viewReports',
+        'exportData',
+        'manageRecruitmentChannels',
+      ];
+
   const HrHiringOffersScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(hrHiringOffersScreenControllerProvider);
 
     return Scaffold(

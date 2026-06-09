@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'clinic_history_logs_screen_controller.dart';
 
-class ClinicHistoryLogsScreen extends ConsumerWidget {
+class ClinicHistoryLogsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display clinic history logs, monitor loading states, report errors, and gather user feedback, ensuring a user-friendly interface.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClinicHistoryLogList',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'PerformanceMetricsCard',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadClinicHistoryLogs',
+        'monitorLoadingState',
+        'reportError',
+        'submitFeedback',
+      ];
+
   const ClinicHistoryLogsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clinicHistoryLogsScreenControllerProvider);
 
     return Semantics(

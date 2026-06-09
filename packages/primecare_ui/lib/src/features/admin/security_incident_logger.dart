@@ -8,6 +8,26 @@ final securityIncidentsProvider = FutureProvider.autoDispose<List<Map<String, dy
 });
 
 class SecurityIncidentLoggerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display and manage security incidents, including functionality for logging and updating incidents, with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentList',
+        'IncidentSummary',
+        'IncidentSeverityChart',
+        'LoadingSpinner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadIncidents',
+        'refreshIncidents',
+        'logIncident',
+        'updateIncidentStatus',
+      ];
+
   const SecurityIncidentLoggerScreen({super.key});
 
   @override

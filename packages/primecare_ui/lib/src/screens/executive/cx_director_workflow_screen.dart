@@ -107,6 +107,32 @@ final cxDirectorWorkflowScreenProvider =
 
 // --- View ---
 class CxDirectorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various metrics and insights related to customer experience, along with interactive components for reporting and alert management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerSatisfactionCard',
+        'NetPromoterScoreChart',
+        'RetentionRateGraph',
+        'FeedbackTrendsWidget',
+        'ResponseTimeTracker',
+        'EmployeeSatisfactionCard',
+        'EngagementMetricsChart',
+        'ComplianceScoreCard',
+        'OperationalLogsViewer',
+        'RealTimeAlertsPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCustomerMetrics',
+        'generateReport',
+        'setAlert',
+        'exportData',
+      ];
+
   const CxDirectorWorkflowScreen({super.key});
 
   @override

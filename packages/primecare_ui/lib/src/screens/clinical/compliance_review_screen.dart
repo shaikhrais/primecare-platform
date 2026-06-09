@@ -99,6 +99,32 @@ final complianceReviewProvider =
 
 // --- View ---
 class ComplianceReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The compliance review screen requires various components to display compliance status, audit results, KPIs, and patient feedback, along with buttons for generating reports and addressing complaints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'AuditResultsChart',
+        'KPIWidget',
+        'PatientSatisfactionChart',
+        'IncidentReportTable',
+        'OperationalEfficiencyMetrics',
+        'FinancialPerformanceCard',
+        'AlertsNotification',
+        'TrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditResults',
+        'generateReport',
+        'addressPatientComplaint',
+        'updateTrainingStatus',
+      ];
+
   const ComplianceReviewScreen({super.key});
 
   @override

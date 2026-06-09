@@ -97,6 +97,32 @@ final cfoCashflowProvider =
 
 // --- View ---
 class CfoCashflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO cash flow screen requires various financial analysis components, buttons for data management, functions for report generation, and APIs for real-time data retrieval, all while being responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CashFlowChart',
+        'BudgetComparisonWidget',
+        'RevenueTrendChart',
+        'ComplianceStatusWidget',
+        'RiskAssessmentWidget',
+        'InvestmentOverviewWidget',
+        'TeamPerformanceWidget',
+        'StakeholderFeedbackWidget',
+        'AlertNotificationWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'generateReport',
+        'viewAuditLogs',
+        'setAlerts',
+      ];
+
   const CfoCashflowScreen({super.key});
 
   @override

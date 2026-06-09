@@ -97,6 +97,25 @@ final incidentReportProvider =
 
 // --- View ---
 class IncidentReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The incident report screen requires components for displaying KPIs, telemetry data, and audit logs, along with buttons for triggering compliance scans and refreshing the dashboard.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingStatusIndicator',
+        'ErrorMessageDisplay',
+        'KPIDashboard',
+        'TelemetryChart',
+        'AuditLogSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerComplianceScan',
+        'refreshDashboard',
+      ];
+
   const IncidentReportScreen({super.key});
 
   @override

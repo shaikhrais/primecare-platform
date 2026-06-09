@@ -8,6 +8,25 @@ final competitorAnalysisProvider = FutureProvider.autoDispose<List<Map<String, d
 });
 
 class CompetitorAnalysisBoardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display competitor analysis data, buttons for refreshing data and adding competitors, and APIs for data retrieval and competitor addition.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CompetitorDataCard',
+        'MarketShareChart',
+        'PatientSatisfactionChart',
+        'PricingIndexChart',
+        'TrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'addCompetitor',
+      ];
+
   const CompetitorAnalysisBoardScreen({super.key});
 
   @override

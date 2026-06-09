@@ -97,6 +97,28 @@ final documentsProvider =
 
 // --- View ---
 class DocumentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for document management, compliance monitoring, audit participation, health record tracking, and performance dashboard engagement.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DocumentManager',
+        'ComplianceMonitor',
+        'AuditParticipation',
+        'HealthRecordTracker',
+        'PerformanceDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageDocuments',
+        'monitorCompliance',
+        'participateInAudit',
+        'trackHealthRecords',
+        'engageDashboard',
+      ];
+
   const DocumentsScreen({super.key});
 
   @override

@@ -97,6 +97,35 @@ final attendanceProvider =
 
 // --- View ---
 class AttendanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The attendance screen requires a comprehensive dashboard for the Operations Manager to monitor performance metrics, compliance, employee engagement, financials, and operational issues in real-time.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'EmployeeEngagementChart',
+        'FinancialOverviewCard',
+        'OperationalIssuesLog',
+        'ProjectTimelineTracker',
+        'ResourceUtilizationChart',
+        'CustomerFeedbackWidget',
+        'SafetyIncidentReport',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'logOperationalIssue',
+        'updateBudget',
+        'trackProjectMilestone',
+        'generateComplianceReport',
+        'notifyStakeholders',
+      ];
+
   const AttendanceScreen({super.key});
 
   @override

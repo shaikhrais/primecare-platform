@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_staff_coordination_screen_controller.dart';
 
-class OperationsManagerStaffCoordinationScreen extends ConsumerWidget {
+class OperationsManagerStaffCoordinationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring staff performance, scheduling, compliance, and communication, along with buttons and functions for interaction and data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'StaffPerformanceMetricCard',
+        'StaffScheduleChart',
+        'OperationalIssueAlert',
+        'ComplianceSummaryCard',
+        'StaffFeedbackSurvey',
+        'DataAnalyticsTool',
+        'TeamCommunicationWidget',
+        'PerformanceReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchStaffPerformanceMetrics',
+        'fetchStaffSchedules',
+        'triggerOperationalAlert',
+        'fetchComplianceData',
+        'submitFeedback',
+        'analyzeDataTrends',
+        'sendMessageToTeam',
+        'generatePerformanceReport',
+      ];
+
   const OperationsManagerStaffCoordinationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerStaffCoordinationScreenControllerProvider);
 
     return Scaffold(

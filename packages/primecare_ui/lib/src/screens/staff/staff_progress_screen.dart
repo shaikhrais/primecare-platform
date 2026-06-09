@@ -97,6 +97,38 @@ final staffProgressProvider =
 
 // --- View ---
 class StaffProgressScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The staff_progress screen requires components for monitoring training programs, participant engagement, and compliance, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingProgramOverview',
+        'ParticipantEngagementMetrics',
+        'FeedbackEvaluationResults',
+        'ComplianceTrackingIndicators',
+        'TrainingCompletionRates',
+        'ResourceAllocation',
+        'UpcomingTrainingSchedules',
+        'HistoricalTrainingData',
+        'OperationalRedFlagsAlerts',
+        'TrainingEffectivenessVisualizations',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingOverview',
+        'fetchEngagementMetrics',
+        'fetchFeedbackResults',
+        'fetchComplianceIndicators',
+        'fetchCompletionRates',
+        'fetchResourceAllocation',
+        'fetchUpcomingSchedules',
+        'fetchHistoricalData',
+        'checkOperationalRedFlags',
+        'visualizeTrainingEffectiveness',
+      ];
+
   const StaffProgressScreen({super.key});
 
   @override

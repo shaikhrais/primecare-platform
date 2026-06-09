@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_care_team_screen_controller.dart';
 
-class ClientCareTeamScreen extends ConsumerWidget {
+class ClientCareTeamScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring client inquiries, responding to communications, tracking interactions, and analyzing feedback, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientInquiryMonitor',
+        'ResponseTimeMetrics',
+        'ClientIssueOverview',
+        'ClientFeedbackScores',
+        'PriorityAlerts',
+        'TeamCollaborationTools',
+        'PerformanceTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorClientInquiries',
+        'respondToClient',
+        'trackClientInteractions',
+        'collaborateWithTeams',
+        'analyzeClientFeedback',
+        'updateKnowledgeBase',
+      ];
+
   const ClientCareTeamScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientCareTeamScreenControllerProvider);
 
     return Scaffold(

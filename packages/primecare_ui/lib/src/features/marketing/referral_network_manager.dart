@@ -8,6 +8,27 @@ final referralNetworkProvider = FutureProvider.autoDispose<List<Map<String, dyna
 });
 
 class ReferralNetworkManagerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying providers, monitoring statistics, and managing data refresh and addition of new providers.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProviderList',
+        'ReferralStatistics',
+        'DataLoadingIndicator',
+        'AlertsDashboard',
+        'FiltersComponent',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadProviders',
+        'refreshReferralNetwork',
+        'addProvider',
+        'monitorReferralStatistics',
+      ];
+
   const ReferralNetworkManagerScreen({super.key});
 
   @override

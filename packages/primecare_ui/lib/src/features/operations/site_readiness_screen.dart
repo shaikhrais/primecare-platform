@@ -102,6 +102,28 @@ final siteReadinessProvider = FutureProvider.autoDispose<List<ClinicReadiness>>(
 });
 
 class SiteReadinessScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for reviewing compliance checklists, scheduling audits, and monitoring readiness, along with buttons for scheduling and updating statuses.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceChecklistViewer',
+        'AuditScheduler',
+        'ReadinessPercentageIndicator',
+        'CriticalViolationsHighlight',
+        'AuditListDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewChecklists',
+        'scheduleAudit',
+        'updateComplianceStatus',
+        'monitorReadiness',
+        'addressViolations',
+      ];
+
   const SiteReadinessScreen({super.key});
 
   @override

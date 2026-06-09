@@ -101,6 +101,29 @@ final physiotherapistClientIntakeProvider =
 
 // --- View ---
 class PhysiotherapistClientIntakeScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient overview, KPIs, compliance logs, telemetry data, alerts, educational resources, and collaboration tools, along with buttons for saving plans and updating progress.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientOverviewCard',
+        'KPIChart',
+        'ComplianceAuditLog',
+        'TelemetryDataChart',
+        'AlertNotification',
+        'EducationalResourceLink',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'updatePatientProgress',
+        'triggerEmergencyAlert',
+        'fetchEducationalResources',
+      ];
+
   const PhysiotherapistClientIntakeScreen({super.key});
 
   @override

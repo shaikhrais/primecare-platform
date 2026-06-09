@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cx_director_dashboard_screen_controller.dart';
 
-class CxDirectorDashboardScreen extends ConsumerWidget {
+class CxDirectorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CX Director dashboard requires various widgets to display customer satisfaction scores, feedback trends, KPIs, compliance results, operational metrics, and more, along with necessary APIs to fetch this data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerSatisfactionScoreWidget',
+        'CustomerFeedbackTrendChart',
+        'KPIChart',
+        'ComplianceAuditResultsWidget',
+        'OperationalPerformanceMetricsWidget',
+        'CustomerInteractionLog',
+        'PerformanceAlertsWidget',
+        'CustomerJourneyMapVisualization',
+        'EmployeePerformanceMetricsWidget',
+        'InitiativesImpactWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const CxDirectorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cxDirectorDashboardScreenControllerProvider);
 
     return Scaffold(

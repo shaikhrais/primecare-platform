@@ -101,6 +101,33 @@ final governanceOperations4KProvider =
 
 // --- View ---
 class GovernanceOperations4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for monitoring governance metrics, buttons for initiating actions, functions for handling events, and APIs for data retrieval related to governance operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'AuditLogSummary',
+        'RiskAssessmentChart',
+        'TrainingParticipationChart',
+        'ComplianceStatusIndicator',
+        'PerformanceMetricsCard',
+        'DocumentationStatusCard',
+        'StakeholderFeedbackCard',
+        'ResourceAllocationTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateGovernanceReport',
+        'conductAudit',
+        'updateDocumentation',
+        'sendGovernanceAlert',
+        'requestTraining',
+      ];
+
   const GovernanceOperations4KScreen({super.key});
 
   @override

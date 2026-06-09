@@ -99,6 +99,37 @@ final revenueSnapshotProvider =
 
 // --- View ---
 class RevenueSnapshotScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The revenue_snapshot screen requires components for monitoring revenue, compliance, operational logs, and KPIs, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RevenueMetricCard',
+        'ComplianceStatusWidget',
+        'OperationalLogTable',
+        'SecurityClearanceIndicator',
+        'KPIVisualizationChart',
+        'AlertNotificationPanel',
+        'HistoricalDataGraph',
+        'NavigationMenu',
+        'TrainingResourceLink',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRevenueMetrics',
+        'fetchComplianceStatus',
+        'fetchOperationalLogs',
+        'fetchSecurityClearance',
+        'fetchKPIs',
+        'triggerAlert',
+        'fetchHistoricalData',
+        'navigateToTraining',
+        'sendCommunication',
+      ];
+
   const RevenueSnapshotScreen({super.key});
 
   @override

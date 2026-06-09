@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HeadOfMarketingWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for campaign performance, KPIs, budget tracking, customer engagement, market trends, team performance, feedback analysis, project timelines, sales data integration, and alerts for red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'KPIChart',
+        'BudgetUtilizationWidget',
+        'CustomerEngagementMetricsWidget',
+        'MarketTrendsWidget',
+        'TeamPerformanceWidget',
+        'FeedbackAnalysisWidget',
+        'ProjectTimelineWidget',
+        'SalesDataIntegrationWidget',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'trackKPIs',
+        'analyzeBudget',
+        'fetchEngagementMetrics',
+        'getMarketTrends',
+        'evaluateTeamPerformance',
+        'analyzeCustomerFeedback',
+        'checkProjectTimelines',
+        'integrateSalesData',
+        'triggerAlerts',
+      ];
+
   const HeadOfMarketingWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

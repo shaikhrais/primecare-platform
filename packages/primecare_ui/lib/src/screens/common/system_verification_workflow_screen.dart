@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SystemVerificationWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, compliance tracking, audit summaries, and collaboration tools, along with buttons and functions for various verification tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceMetrics',
+        'AuditSummary',
+        'IncidentReport',
+        'PerformanceMetrics',
+        'UserFeedback',
+        'Alerts',
+        'TrainingResources',
+        'CollaborationTools',
+        'RegulatoryUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewRequests',
+        'validateCompliance',
+        'conductAudit',
+        'documentFindings',
+        'collaborateWithTeams',
+        'monitorPerformance',
+        'provideTraining',
+        'prepareReports',
+        'resolveIssues',
+        'updateKnowledge',
+      ];
+
   const SystemVerificationWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

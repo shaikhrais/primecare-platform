@@ -2,6 +2,28 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SchedulerAvailabilityScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display operational status, compliance, and transaction flow, along with functionality for submitting event logs and monitoring red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusCard',
+        'SLACard',
+        'ComplianceStatusCard',
+        'TransactionFlowChart',
+        'EventLogForm',
+        'RedFlagAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventLog',
+        'refreshStatus',
+        'checkCompliance',
+        'monitorTransactionFlow',
+      ];
+
   const SchedulerAvailabilityScreen({super.key});
 
   @override

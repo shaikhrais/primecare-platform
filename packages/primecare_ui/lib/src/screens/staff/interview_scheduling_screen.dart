@@ -101,6 +101,38 @@ final interviewSchedulingProvider =
 
 // --- View ---
 class InterviewSchedulingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display recruitment metrics, buttons for generating reports, and functions to fetch and update various recruitment data, ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'CandidatePipelineWidget',
+        'SourceOfHireAnalysis',
+        'DiversityMetricsWidget',
+        'CandidateExperienceRating',
+        'HiringManagerSatisfaction',
+        'ComplianceAuditLog',
+        'OpenPositionsUpdate',
+        'RecruitmentBudgetTracker',
+        'HistoricalDataTrends',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'updateCandidatePipeline',
+        'analyzeSourceOfHire',
+        'trackDiversityMetrics',
+        'getCandidateExperienceRatings',
+        'evaluateHiringManagerSatisfaction',
+        'logComplianceData',
+        'refreshOpenPositions',
+        'trackRecruitmentBudget',
+        'retrieveHistoricalData',
+      ];
+
   const InterviewSchedulingScreen({super.key});
 
   @override

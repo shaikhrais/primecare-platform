@@ -98,6 +98,28 @@ final billingProvider = StateNotifierProvider<BillingController, BillingState>((
 
 // --- View ---
 class BillingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The billing screen requires components for displaying billing information, payment options, and communication tools, along with necessary APIs for data retrieval and interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BillingOverviewCard',
+        'BillingDetailTable',
+        'PaymentAlertBanner',
+        'InsuranceClaimStatusWidget',
+        'CommunicationOptionsPanel',
+        'EducationalResourcesSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitDocumentation',
+        'contactBillingDepartment',
+        'makePayment',
+        'scheduleAppointment',
+      ];
+
   const BillingScreen({super.key});
 
   @override

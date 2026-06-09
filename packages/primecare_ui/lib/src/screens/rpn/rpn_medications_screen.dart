@@ -97,6 +97,33 @@ final rpnMedicationsProvider =
 
 // --- View ---
 class RpnMedicationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for medication logging, vital signs monitoring, compliance auditing, and team communication, along with corresponding buttons and API integrations to support RPN responsibilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MedicationLogWidget',
+        'VitalSignsMonitor',
+        'ComplianceAuditAlert',
+        'PatientSatisfactionMetric',
+        'IncidentReportingSystem',
+        'StaffingLevelIndicator',
+        'TrainingStatusWidget',
+        'ClinicalGuidelinesAccess',
+        'TeamCommunicationTool',
+        'QualityImprovementMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logMedicationAdministration',
+        'reportIncident',
+        'monitorVitalSigns',
+        'accessTrainingResources',
+        'sendTeamCommunication',
+      ];
+
   const RpnMedicationsScreen({super.key});
 
   @override

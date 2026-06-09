@@ -99,6 +99,34 @@ final courseAssignmentProvider =
 
 // --- View ---
 class CourseAssignmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display training metrics, feedback, compliance status, and schedules, along with buttons for interaction and functions to manage training data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingMetricsCard',
+        'FeedbackChart',
+        'ComplianceStatusWidget',
+        'TrainingScheduleList',
+        'ResourceAllocationChart',
+        'TrainerPerformanceMetrics',
+        'HistoricalEffectivenessChart',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingMetrics',
+        'submitFeedback',
+        'checkComplianceStatus',
+        'getUpcomingSchedules',
+        'allocateResources',
+        'evaluateTrainerPerformance',
+        'fetchHistoricalData',
+        'triggerAlerts',
+      ];
+
   const CourseAssignmentScreen({super.key});
 
   @override

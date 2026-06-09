@@ -8,6 +8,24 @@ final complianceTrainingProvider = FutureProvider.autoDispose<List<Map<String, d
 });
 
 class ComplianceTrainingTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance training status, buttons for refreshing data and sending reminders, and functions to handle these actions, along with necessary API endpoints and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceTrainingStatusCard',
+        'TrainingOverviewChart',
+        'TrainingDetailView',
+        'ErrorAlertComponent',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshTrainingData',
+        'sendTrainingReminders',
+      ];
+
   const ComplianceTrainingTrackerScreen({super.key});
 
   @override

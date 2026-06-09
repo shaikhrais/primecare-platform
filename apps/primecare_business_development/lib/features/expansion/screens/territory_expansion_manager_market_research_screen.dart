@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_market_research_screen_controller.dart';
 
-class TerritoryExpansionManagerMarketResearchScreen extends ConsumerWidget {
+class TerritoryExpansionManagerMarketResearchScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for market research management, collaboration tools, and visualizations of data, along with functionalities for analysis and reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MarketResearchOverview',
+        'KPIWidget',
+        'DemographicDataVisualization',
+        'RedFlagAlert',
+        'CollaborationTool',
+        'HistoricalDataAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductMarketResearch',
+        'analyzeDemographics',
+        'evaluateCompetition',
+        'prepareReports',
+        'collaborateWithTeams',
+        'monitorTrends',
+      ];
+
   const TerritoryExpansionManagerMarketResearchScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerMarketResearchScreenControllerProvider);
 
     return Scaffold(

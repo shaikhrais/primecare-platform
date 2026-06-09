@@ -101,6 +101,25 @@ final executiveCommandCenterProvider =
 
 // --- View ---
 class ExecutiveCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various metrics and cards to provide a comprehensive overview of the CEO\'s responsibilities and operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FinancialMetricsCard',
+        'OperationalKPICard',
+        'ComplianceStatusCard',
+        'EmployeeEngagementCard',
+        'CustomerFeedbackCard',
+        'RiskAssessmentCard',
+        'StrategicInitiativesCard',
+        'MarketAnalysisCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const ExecutiveCommandCenterScreen({super.key});
 
   @override

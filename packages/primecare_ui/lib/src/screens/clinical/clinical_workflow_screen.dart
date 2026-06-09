@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ClinicalWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the Clinical Director to monitor KPIs, staff performance, patient feedback, compliance, and financial metrics, along with necessary buttons and functions for managing clinical operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'StaffPerformanceCard',
+        'PatientFeedbackTracker',
+        'ComplianceStatusWidget',
+        'FinancialMetricsCard',
+        'WorkflowEfficiencyChart',
+        'TrainingProgressTracker',
+        'DataAnalyticsIntegration',
+        'CommunicationLog',
+        'RedFlagAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'updatePolicy',
+        'manageBudget',
+        'trackComplaints',
+        'initiateTraining',
+      ];
+
   const ClinicalWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

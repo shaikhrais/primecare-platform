@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_coordinator_attendance_screen_controller.dart';
 
-class TrainingCoordinatorAttendanceScreen extends ConsumerWidget {
+class TrainingCoordinatorAttendanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and reporting attendance, functionality for updating records and handling discrepancies, and must be responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AttendanceMonitor',
+        'AttendanceReportChart',
+        'DiscrepancyAlert',
+        'UserFeedbackSection',
+        'AttendanceTrendGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadAttendanceData',
+        'updateAttendanceRecord',
+        'handleDiscrepancy',
+        'sendCommunication',
+      ];
+
   const TrainingCoordinatorAttendanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingCoordinatorAttendanceScreenControllerProvider);
 
     return Scaffold(

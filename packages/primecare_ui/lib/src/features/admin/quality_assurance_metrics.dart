@@ -8,6 +8,25 @@ final qaMetricsProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref)
 });
 
 class QualityAssuranceMetricsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display key quality assurance metrics, a refresh button, and functionality to fetch and handle errors related to data loading.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ErrorRateMetric',
+        'TestCoverageMetric',
+        'MTTRMetric',
+        'UptimeMetric',
+        'AuditLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchMetrics',
+        'handleError',
+      ];
+
   const QualityAssuranceMetricsScreen({super.key});
 
   @override

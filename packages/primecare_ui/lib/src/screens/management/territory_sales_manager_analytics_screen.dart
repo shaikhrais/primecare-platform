@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TerritorySalesManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for sales performance metrics, customer analysis, and alerts for operational issues, along with buttons for report generation and strategy updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'CustomerAcquisitionRetentionChart',
+        'TerritoryCoverageMap',
+        'SalesPipelineChart',
+        'CompetitorAnalysisWidget',
+        'CustomerFeedbackScoreCard',
+        'SalesRepresentativeActivityLog',
+        'KPITracker',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'viewCustomerSegmentation',
+        'updateSalesStrategy',
+        'sendTrainingMaterial',
+        'logSalesActivity',
+      ];
+
   const TerritorySalesManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -8,6 +8,25 @@ final patientRetentionProvider = FutureProvider.autoDispose<Map<String, dynamic>
 });
 
 class PatientRetentionAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display patient retention metrics, lifetime value, cohort analysis, and error notifications, along with a refresh button for real-time data updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RetentionRateIndicator',
+        'LifetimeValueDisplay',
+        'CohortAnalysisChart',
+        'ErrorNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRetentionData',
+        'fetchLifetimeValue',
+        'fetchCohortAnalysis',
+      ];
+
   const PatientRetentionAnalyticsScreen({super.key});
 
   @override

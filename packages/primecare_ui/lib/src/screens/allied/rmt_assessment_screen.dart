@@ -97,6 +97,38 @@ final rmtAssessmentProvider =
 
 // --- View ---
 class RmtAssessmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, compliance tracking, performance metrics, and operational updates, along with various buttons and functions to facilitate RMT tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'ComplianceStatusWidget',
+        'PerformanceMetricsChart',
+        'CertificationAlert',
+        'ClientFeedbackSection',
+        'FinancialOverviewCard',
+        'EducationalResourcesLink',
+        'QuickLinksMenu',
+        'TreatmentEffectivenessGraph',
+        'OperationalUpdatesNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientOverview',
+        'checkComplianceStatus',
+        'calculatePerformanceMetrics',
+        'sendCertificationAlerts',
+        'retrieveClientFeedback',
+        'generateFinancialOverview',
+        'accessEducationalResources',
+        'navigateQuickLinks',
+        'displayTreatmentEffectiveness',
+        'notifyOperationalUpdates',
+      ];
+
   const RmtAssessmentScreen({super.key});
 
   @override

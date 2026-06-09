@@ -107,6 +107,30 @@ final vipManagerAnalyticsScreenProvider =
 
 // --- View ---
 class VipManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring VIP client satisfaction, compliance status, operational logs, and red flag alerts, along with buttons for feedback and reporting functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VIPClientSatisfactionMetric',
+        'ComplianceScanStatusWidget',
+        'OperationalLogsViewer',
+        'RedFlagAlertSystem',
+        'ClientInteractionTrendChart',
+        'SLAComplianceMetric',
+        'CommunicationToolAccess',
+        'HistoricalDataAnalyzer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'sendClientFeedback',
+        'generateVIPReport',
+        'executeComplianceScan',
+        'viewOperationalLogs',
+      ];
+
   const VipManagerAnalyticsScreen({super.key});
 
   @override

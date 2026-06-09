@@ -10,6 +10,28 @@ final touchpointProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref
 });
 
 class TouchpointAnalyzerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring touchpoint data, analyzing campaigns, and visualizing conversion funnels, along with a refresh functionality and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TouchpointDataMonitor',
+        'ConversionRateChart',
+        'CampaignAnalysisWidget',
+        'ConversionFunnelVisualization',
+        'ABTestingDetails',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTouchpointData',
+        'analyzeCampaigns',
+        'refreshData',
+        'displayConversionFunnel',
+        'accessABTestingDetails',
+      ];
+
   const TouchpointAnalyzerScreen({super.key});
 
   @override

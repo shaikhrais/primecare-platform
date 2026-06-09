@@ -101,6 +101,38 @@ final schedulerConflictsProvider =
 
 // --- View ---
 class SchedulerConflictsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for scheduling, performance tracking, and communication tools, along with buttons and functions to manage conflicts and monitor metrics effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeScheduleOverview',
+        'PerformanceMetricsChart',
+        'CustomerFeedbackTracker',
+        'SafetyIncidentReport',
+        'TeamCommunicationTool',
+        'TrainingProgressTracker',
+        'OperationalEfficiencyMetrics',
+        'ConflictAlertSystem',
+        'EmployeeEngagementIndicator',
+        'HistoricalDataAnalyzer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'resolveSchedulingConflict',
+        'viewPerformanceMetrics',
+        'submitCustomerFeedback',
+        'reportSafetyIncident',
+        'sendTeamAnnouncement',
+        'trackTrainingProgress',
+        'viewOperationalEfficiency',
+        'alertStaffingShortage',
+        'viewEmployeeEngagement',
+        'analyzeHistoricalData',
+      ];
+
   const SchedulerConflictsScreen({super.key});
 
   @override

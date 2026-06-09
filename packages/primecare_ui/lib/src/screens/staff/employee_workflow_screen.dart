@@ -107,6 +107,25 @@ final employeeWorkflowScreenProvider =
 
 // --- View ---
 class EmployeeWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Employee Workflow screen requires components for compliance scans, operational logs, and telemetry monitoring, along with buttons for executing actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanWidget',
+        'OperationalLogMonitor',
+        'StateActionTrigger',
+        'TelemetryLogRefresher',
+        'ClearanceStatusReview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'triggerStateAction',
+      ];
+
   const EmployeeWorkflowScreen({super.key});
 
   @override

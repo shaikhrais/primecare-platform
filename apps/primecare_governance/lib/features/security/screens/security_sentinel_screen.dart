@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'security_sentinel_screen_controller.dart';
 
-class SecuritySentinelScreen extends ConsumerWidget {
+class SecuritySentinelScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring security alerts, reviewing logs, and responding to incidents, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SecurityAlertWidget',
+        'IncidentSummaryWidget',
+        'SecurityStatusChart',
+        'LogReportViewer',
+        'SettingsQuickLink',
+        'UserEngagementMetrics',
+        'SecurityRecommendations',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSecurityAlerts',
+        'fetchIncidentSummary',
+        'fetchSecurityLogs',
+        'updateSecuritySettings',
+        'conductSecurityAssessment',
+      ];
+
   const SecuritySentinelScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(securitySentinelScreenControllerProvider);
 
     return Scaffold(

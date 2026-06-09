@@ -101,6 +101,38 @@ final enterpriseCommandCenter4KProvider =
 
 // --- View ---
 class EnterpriseCommandCenter4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display KPIs, employee and customer metrics, compliance status, and alerts, along with buttons for data refresh and reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'EmployeeSatisfactionChart',
+        'CustomerFeedbackWidget',
+        'ComplianceStatusCard',
+        'OperationalEfficiencyChart',
+        'SalesPerformanceGraph',
+        'InnovationMetricsWidget',
+        'IndustryTrendsDashboard',
+        'FinancialForecastChart',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchEmployeeData',
+        'fetchCustomerFeedback',
+        'fetchComplianceData',
+        'fetchOperationalMetrics',
+        'fetchSalesData',
+        'fetchInnovationMetrics',
+        'fetchIndustryTrends',
+        'generateFinancialForecast',
+        'checkAlerts',
+      ];
+
   const EnterpriseCommandCenter4KScreen({super.key});
 
   @override

@@ -101,6 +101,36 @@ final clinicalDirectorStaffQualityProvider =
 
 // --- View ---
 class ClinicalDirectorStaffQualityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, performance metrics, and staff training, along with buttons for reporting and collaboration, supported by various APIs for data retrieval and actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'PerformanceMetricsChart',
+        'StaffTrainingProgressBar',
+        'PatientSafetyIncidentLog',
+        'OperationalActivityLog',
+        'TelemetryPerformanceChart',
+        'AlertsNotificationPanel',
+        'PatientOutcomesTrendGraph',
+        'HistoricalDataAccessPanel',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'generateAuditReport',
+        'sendTrainingReminder',
+        'reportIncident',
+        'fetchPerformanceMetrics',
+        'accessHistoricalData',
+        'sendFeedback',
+        'initiateCollaboration',
+      ];
+
   const ClinicalDirectorStaffQualityScreen({super.key});
 
   @override

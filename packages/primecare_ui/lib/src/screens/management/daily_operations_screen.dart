@@ -99,6 +99,34 @@ final dailyOperationsProvider =
 
 // --- View ---
 class DailyOperationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for the Operations Manager to monitor KPIs, compliance, team performance, and operational metrics, along with functionalities for reporting and issue tracking.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'ComplianceStatusCard',
+        'OperationalMetricsChart',
+        'TeamPerformanceStats',
+        'IncidentTrackingLog',
+        'FinancialOverviewCard',
+        'CustomerFeedbackWidget',
+        'ResourceUtilizationChart',
+        'AlertsDashboard',
+        'HistoricalDataAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'auditCompliance',
+        'analyzeOperationalData',
+        'implementProcessImprovement',
+        'coordinateDepartments',
+        'troubleshootOperationalIssues',
+      ];
+
   const DailyOperationsScreen({super.key});
 
   @override

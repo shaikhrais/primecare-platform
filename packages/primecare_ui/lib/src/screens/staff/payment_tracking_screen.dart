@@ -99,6 +99,35 @@ final paymentTrackingProvider =
 
 // --- View ---
 class PaymentTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The payment tracking screen requires components for task management, scheduling, communication tracking, document management, budget tracking, and performance metrics, along with various buttons and functions to facilitate administrative tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'BudgetTracking',
+        'MeetingPlanningTool',
+        'PerformanceMetrics',
+        'ComplianceTracking',
+        'InventoryManagement',
+        'FeedbackSurveyTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleMeeting',
+        'sendCommunication',
+        'generateReport',
+        'trackBudget',
+        'manageInventory',
+        'submitFeedback',
+      ];
+
   const PaymentTrackingScreen({super.key});
 
   @override

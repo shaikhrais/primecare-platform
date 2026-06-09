@@ -97,6 +97,28 @@ final careUpdatesProvider =
 
 // --- View ---
 class CareUpdatesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The care_updates screen requires components for monitoring compliance, performance indicators, and operational logs, along with functionality for refreshing data and responding to alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanResults',
+        'PerformanceIndicatorChart',
+        'OperationalAuditLog',
+        'AlertNotification',
+        'DataRefreshButton',
+        'SystemLoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerComplianceScan',
+        'refreshDashboardData',
+        'viewOperationalLogs',
+        'respondToAlerts',
+      ];
+
   const CareUpdatesScreen({super.key});
 
   @override

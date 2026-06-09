@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_approvals_screen_controller.dart';
 
-class CeoApprovalsScreen extends ConsumerWidget {
+class CeoApprovalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing approvals, statistics, notifications, historical data access, and user feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PendingApprovalsList',
+        'ApprovalStatisticsCard',
+        'OverdueNotifications',
+        'HistoricalDataAccess',
+        'FeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewPendingApprovals',
+        'approveRequest',
+        'rejectRequest',
+        'monitorApprovalStatus',
+        'accessHistoricalData',
+        'submitFeedback',
+      ];
+
   const CeoApprovalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoApprovalsScreenControllerProvider);
 
     return Scaffold(

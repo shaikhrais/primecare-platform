@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_dashboard_screen_controller.dart';
 
-class FranchiseSalesManagerDashboardScreen extends ConsumerWidget {
+class FranchiseSalesManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for franchise sales management, displaying key performance indicators, compliance status, and market analysis, along with functionalities for reporting and alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'SalesTrendChart',
+        'ComplianceStatusCard',
+        'FranchiseeSatisfactionGauge',
+        'MarketAnalysisWidget',
+        'OperationalLogsTable',
+        'AlertsNotification',
+        'TrainingSupportTracker',
+        'SalesForecastVisualization',
+        'HistoricalPerformanceChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'sendAlertNotification',
+        'updateTrainingRecords',
+        'viewMarketAnalysis',
+        'exportDashboardData',
+      ];
+
   const FranchiseSalesManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerDashboardScreenControllerProvider);
 
     return Scaffold(

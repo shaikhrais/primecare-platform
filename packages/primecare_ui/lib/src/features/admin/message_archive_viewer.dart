@@ -8,6 +8,30 @@ final archiveProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((
 });
 
 class MessageArchiveViewerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and searching archived messages, along with functionality for filtering, exporting data, and handling loading and error states.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MessageList',
+        'SearchBar',
+        'FilterPanel',
+        'ExportButton',
+        'LoadingIndicator',
+        'ErrorMessage',
+        'StatisticsSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchArchivedMessages',
+        'searchMessages',
+        'applyFilters',
+        'exportData',
+        'refreshData',
+      ];
+
   const MessageArchiveViewerScreen({super.key});
 
   @override

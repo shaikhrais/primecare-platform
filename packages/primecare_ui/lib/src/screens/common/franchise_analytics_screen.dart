@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class FranchiseAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The franchise analytics screen requires various widgets to display performance metrics, compliance status, and financial summaries, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'SalesTrendChart',
+        'FranchiseeSatisfactionWidget',
+        'ComplianceChecklist',
+        'MarketingPerformanceWidget',
+        'TrainingParticipationWidget',
+        'FinancialSummaryWidget',
+        'CustomerFeedbackWidget',
+        'InventoryManagementWidget',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchSalesTrends',
+        'fetchFranchiseeFeedback',
+        'checkComplianceStatus',
+        'fetchMarketingMetrics',
+        'fetchTrainingData',
+        'fetchFinancialSummary',
+        'fetchCustomerFeedback',
+        'fetchInventoryInsights',
+        'checkOperationalAlerts',
+      ];
+
   const FranchiseAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

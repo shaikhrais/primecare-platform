@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_performance_screen_controller.dart';
 
-class RegionalPerformanceScreen extends ConsumerWidget {
+class RegionalPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time performance metrics visualization, user feedback capabilities, and historical data comparison to enhance regional operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'TrendAnalysisChart',
+        'FeedbackForm',
+        'AlertNotification',
+        'HistoricalDataGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRegionalMetrics',
+        'analyzeDataTrends',
+        'submitFeedback',
+        'generateReport',
+      ];
+
   const RegionalPerformanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalPerformanceScreenControllerProvider);
 
     return Scaffold(

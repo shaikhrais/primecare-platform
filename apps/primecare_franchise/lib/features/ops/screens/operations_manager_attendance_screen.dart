@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_attendance_screen_controller.dart';
 
-class OperationsManagerAttendanceScreen extends ConsumerWidget {
+class OperationsManagerAttendanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing attendance, alerting on anomalies, and facilitating communication regarding attendance issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AttendanceOverviewWidget',
+        'AttendanceAlertsWidget',
+        'AttendanceTrendsChart',
+        'AttendanceReportsAccess',
+        'CommunicationToolsWidget',
+        'ComplianceTrackingWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRealTimeAttendanceData',
+        'checkAttendanceAnomalies',
+        'generateAttendanceReport',
+        'sendCommunicationRegardingIssue',
+        'trackCompliance',
+      ];
+
   const OperationsManagerAttendanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerAttendanceScreenControllerProvider);
 
     return Scaffold(

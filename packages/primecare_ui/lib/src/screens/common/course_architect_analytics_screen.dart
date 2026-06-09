@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CourseArchitectAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various metrics and reports related to training programs, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingParticipationMetric',
+        'FeedbackScoreCard',
+        'EffectivenessMetricChart',
+        'BudgetTracker',
+        'CompletionRateCard',
+        'PerformanceTrendChart',
+        'TrainingScheduleList',
+        'ResourceUtilizationChart',
+        'EngagementLevelCard',
+        'AlignmentReport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingMetrics',
+        'submitFeedback',
+        'trackBudget',
+        'generateReport',
+        'scheduleTraining',
+      ];
+
   const CourseArchitectAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -97,6 +97,29 @@ final pswCarePlanProvider =
 
 // --- View ---
 class PswCarePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, health monitoring, performance metrics, and communication tools, along with buttons for documenting care and reporting incidents.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'HealthStatusMonitor',
+        'PerformanceMetrics',
+        'CommunicationTool',
+        'IncidentReport',
+        'ClientCarePlanViewer',
+        'AppointmentAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateHealthStatus',
+        'documentCareProvided',
+        'reportIncident',
+        'fetchTrainingResources',
+      ];
+
   const PswCarePlanScreen({super.key});
 
   @override

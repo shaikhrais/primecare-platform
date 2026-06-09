@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'admin_reports_screen_controller.dart';
 
-class AdminReportsScreen extends ConsumerWidget {
+class AdminReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The admin_reports screen requires components for monitoring metrics, visualizing data trends, generating and exporting reports, and collecting user feedback, all while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KeyMetricsOverview',
+        'DataTrendChart',
+        'AnomalyAlert',
+        'FrequentlyUsedReports',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorReports',
+        'identifyTrends',
+        'generateReport',
+        'exportReport',
+        'collaborateOnIssues',
+        'provideFeedback',
+      ];
+
   const AdminReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(adminReportsScreenControllerProvider);
 
     return Scaffold(

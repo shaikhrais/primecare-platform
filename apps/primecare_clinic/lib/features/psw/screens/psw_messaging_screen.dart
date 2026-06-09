@@ -67,6 +67,26 @@ final pswMessagingControllerProvider = StateNotifierProvider<PswMessagingControl
 
 // --- View ---
 class PswMessagingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Psw Messaging screen requires components for messaging interaction, user activity tracking, and error handling, along with necessary APIs for data operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MessagingWorkspace',
+        'NotificationPanel',
+        'UserActivityTracker',
+        'ErrorLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'sendMessage',
+        'fetchMessages',
+        'trackUserActivity',
+        'logError',
+      ];
+
   const PswMessagingScreen({super.key});
 
   @override

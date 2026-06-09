@@ -10,6 +10,30 @@ final roleAccessProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref
 });
 
 class RoleAccessMatrixScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying and configuring role access permissions, handling loading and error states, and providing user feedback on actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RoleAccessMatrix',
+        'PermissionConfigurator',
+        'LoadingIndicator',
+        'ErrorMessageDisplay',
+        'PermissionSummary',
+        'NotificationBanner',
+        'AccessLevelChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRoleAccessMatrix',
+        'configurePermissions',
+        'savePermissions',
+        'handleLoadingState',
+        'handleErrorState',
+      ];
+
   const RoleAccessMatrixScreen({super.key});
 
   @override

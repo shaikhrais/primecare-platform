@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_site_selection_screen_controller.dart';
 
-class TerritoryExpansionManagerSiteSelectionScreen extends ConsumerWidget {
+class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for analyzing site performance, collaboration tools, and real-time data updates to support decision-making for territory expansion.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SitePerformanceChart',
+        'DemographicsTable',
+        'CollaborationTool',
+        'AlertsNotification',
+        'HistoricalDataComparison',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'retrieveSiteData',
+        'evaluateSiteOptions',
+        'sendCollaborationInvite',
+        'updateMetrics',
+        'monitorSitePerformance',
+      ];
+
   const TerritoryExpansionManagerSiteSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerSiteSelectionScreenControllerProvider);
 
     return Scaffold(

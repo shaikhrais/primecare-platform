@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_scheduling_health_screen_controller.dart';
 
-class CooSchedulingHealthScreen extends ConsumerWidget {
+class CooSchedulingHealthScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The COO scheduling health screen requires various performance and operational metrics visualized through multiple components, along with buttons for data refresh and reporting, supported by specific API endpoints for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'FinancialOverviewChart',
+        'EmployeeEngagementStats',
+        'OperationalEfficiencyGauge',
+        'RiskManagementDashboard',
+        'ProjectStatusTracker',
+        'CustomerSatisfactionMeter',
+        'ResourceUtilizationChart',
+        'AlertsNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewDetailedReport',
+        'exportDashboardData',
+        'setAlerts',
+      ];
+
   const CooSchedulingHealthScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooSchedulingHealthScreenControllerProvider);
 
     return Scaffold(

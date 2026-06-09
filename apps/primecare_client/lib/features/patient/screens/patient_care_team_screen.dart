@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_care_team_screen_controller.dart';
 
-class PatientCareTeamScreen extends ConsumerWidget {
+class PatientCareTeamScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for accessing patient records, notifications, team communication, tracking progress, and alerting for issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientRecordAccess',
+        'NotificationPanel',
+        'TeamCommunicationTool',
+        'PatientProgressChart',
+        'AlertSystem',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientRecords',
+        'sendNotification',
+        'coordinateWithTeam',
+        'trackPatientProgress',
+        'reportPatientIssue',
+      ];
+
   const PatientCareTeamScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(patientCareTeamScreenControllerProvider);
 
     return Scaffold(

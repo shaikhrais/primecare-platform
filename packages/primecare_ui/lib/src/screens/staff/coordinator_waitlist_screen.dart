@@ -236,6 +236,34 @@ final coordinatorWaitlistControllerProvider =
 
 // --- View ---
 class CoordinatorWaitlistScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for performance metrics, staff scheduling, incident reporting, inventory management, and customer feedback tracking, along with various buttons and functions for operational management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'StaffScheduleWidget',
+        'IncidentReportForm',
+        'InventoryManagementPanel',
+        'CustomerFeedbackTracker',
+        'TaskAssignmentList',
+        'TrainingProgressTracker',
+        'CommunicationTool',
+        'HistoricalDataChart',
+        'OperationalAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateStaffSchedule',
+        'reportIncident',
+        'orderSupplies',
+        'resolveCustomerComplaint',
+        'viewTrainingProgress',
+        'sendTeamUpdate',
+      ];
+
   const CoordinatorWaitlistScreen({super.key});
 
   @override

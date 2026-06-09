@@ -101,6 +101,32 @@ final resolutionTrackingProvider =
 
 // --- View ---
 class ResolutionTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking customer inquiries, support metrics, and feedback, along with buttons for responding and logging interactions, and APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerInquiryCard',
+        'TechnicalSupportWidget',
+        'CustomerInteractionLog',
+        'CustomerFeedbackChart',
+        'SatisfactionMetricsDashboard',
+        'TicketStatusTracker',
+        'PerformanceMetricsPanel',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'respondToInquiry',
+        'followUpCustomer',
+        'escalateIssue',
+        'logCustomerInteraction',
+        'gatherCustomerFeedback',
+        'trainCustomer',
+      ];
+
   const ResolutionTrackingScreen({super.key});
 
   @override

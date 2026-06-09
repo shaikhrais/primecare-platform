@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quality_assurance_compliance_checks_screen_controller.dart';
 
-class QualityAssuranceComplianceChecksScreen extends ConsumerWidget {
+class QualityAssuranceComplianceChecksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and reviewing compliance checks, along with functionalities for taking actions and documenting findings.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceCheckSummary',
+        'ComplianceStatusIndicator',
+        'ComplianceReportAccess',
+        'UrgentIssueNotification',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceChecks',
+        'reviewComplianceResults',
+        'identifyComplianceIssues',
+        'takeCorrectiveActions',
+        'documentFindings',
+      ];
+
   const QualityAssuranceComplianceChecksScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(qualityAssuranceComplianceChecksScreenControllerProvider);
 
     return Scaffold(

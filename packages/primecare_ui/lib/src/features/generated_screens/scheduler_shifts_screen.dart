@@ -2,6 +2,35 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SchedulerShiftsScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing settings, tracking workflows, verifying compliance, monitoring status, conducting audits, and submitting logs, along with necessary buttons, functions, APIs, and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InstitutionalSettingsManager',
+        'ClinicalWorkflowTracker',
+        'ComplianceVerifier',
+        'OperationalStatusMonitor',
+        'VerificationAuditTool',
+        'EventLogSubmitter',
+        'OperationalStatusDisplay',
+        'TransactionFlowMetrics',
+        'ComplianceAlerts',
+        'EventLogAccess',
+        'HistoricalDataViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageInstitutionalSettings',
+        'trackClinicalWorkflows',
+        'verifyCompliance',
+        'monitorOperationalStatus',
+        'conductVerificationAudit',
+        'submitEventLog',
+      ];
+
   const SchedulerShiftsScreen({super.key});
 
   @override

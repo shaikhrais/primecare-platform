@@ -2,6 +2,26 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrApplicantsScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display operational status, SLA uptime, compliance alerts, transaction metrics, and a form for submitting event logs, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusCard',
+        'SLAUptimeChart',
+        'ComplianceAlertWidget',
+        'TransactionFlowMetric',
+        'EventLogSubmissionForm',
+        'HistoricalDataTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventLog',
+        'refreshMetrics',
+      ];
+
   const HrApplicantsScreen({super.key});
 
   @override

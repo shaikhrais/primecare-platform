@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'audit_log_screen_controller.dart';
 
-class AuditLogScreen extends ConsumerWidget {
+class AuditLogScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The audit log screen requires components for displaying, filtering, and reporting on audit logs, along with functionality to alert on suspicious activities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AuditLogTable',
+        'AuditLogSummary',
+        'AuditLogAlerts',
+        'AuditLogFilters',
+        'AuditLogCharts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAuditLogs',
+        'filterAuditLogs',
+        'generateReport',
+        'alertSuspiciousActivity',
+      ];
+
   const AuditLogScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(auditLogScreenControllerProvider);
 
     return Scaffold(

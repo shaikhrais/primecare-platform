@@ -8,6 +8,27 @@ final topologyProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) 
 });
 
 class ServiceMeshTopologyScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display active nodes and routes, a refresh button for real-time updates, and an interactive graph for service routing insights.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveNodesCount',
+        'RoutesCount',
+        'LoadingStatus',
+        'ErrorMessages',
+        'RefreshButton',
+        'PerformanceMetrics',
+        'InteractiveNetworkGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshTopologyData',
+        'handleLoadingErrors',
+      ];
+
   const ServiceMeshTopologyScreen({super.key});
 
   @override

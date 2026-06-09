@@ -119,6 +119,31 @@ final rnAssessmentsControllerProvider =
 
 // --- View ---
 class RnAssessmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking and submitting patient assessments, communication tools for collaboration, and visualizations for monitoring patient scores and trends.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'AssessmentScoreTracker',
+        'SubmissionStatusIndicator',
+        'HealthStatusMonitor',
+        'CommunicationTool',
+        'AssessmentHistoryViewer',
+        'TrendVisualizationChart',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitAssessment',
+        'fetchAssessmentHistory',
+        'sendMessageToTeam',
+        'getPatientTrends',
+        'alertCriticalScores',
+      ];
+
   const RnAssessmentsScreen({super.key});
 
   @override

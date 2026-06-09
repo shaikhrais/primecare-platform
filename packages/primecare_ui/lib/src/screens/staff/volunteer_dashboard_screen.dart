@@ -150,6 +150,32 @@ final volunteerDashboardControllerProvider =
 
 // --- View ---
 class VolunteerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The volunteer dashboard requires components for managing volunteer tasks, buttons for quick actions, and APIs for backend interactions, all while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerShiftCheckIn',
+        'SocialVisitRecorder',
+        'ComplianceScanRunner',
+        'SecurityPostureSync',
+        'PolicyUpdater',
+        'AuditLogExporter',
+        'ManualActionLogger',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'handleCheckIn',
+        'recordVisit',
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportAuditLogs',
+        'addManualLog',
+      ];
+
   const VolunteerDashboardScreen({super.key});
 
   @override

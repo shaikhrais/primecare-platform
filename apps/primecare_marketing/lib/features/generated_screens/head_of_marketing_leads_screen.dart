@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_leads_screen_controller.dart';
 
-class HeadOfMarketingLeadsScreen extends ConsumerWidget {
+class HeadOfMarketingLeadsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring leads, analyzing conversion rates, and reviewing campaign performance, along with buttons for updating lead information and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadStatusOverview',
+        'ConversionRateMetric',
+        'CampaignPerformanceAnalytics',
+        'LeadFollowUpNotification',
+        'LeadTrendsChart',
+        'DetailedReportsAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLeads',
+        'analyzeConversionRates',
+        'reviewCampaignPerformance',
+        'updateLeadInformation',
+        'generateLeadReports',
+      ];
+
   const HeadOfMarketingLeadsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingLeadsScreenControllerProvider);
 
     return Scaffold(

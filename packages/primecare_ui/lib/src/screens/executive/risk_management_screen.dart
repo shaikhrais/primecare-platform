@@ -97,6 +97,38 @@ final riskManagementProvider =
 
 // --- View ---
 class RiskManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the CEO to monitor key performance indicators, employee engagement, customer feedback, operational efficiency, compliance, market trends, and risk management insights.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'EmployeeEngagementWidget',
+        'CustomerFeedbackChart',
+        'OperationalEfficiencyGraph',
+        'ComplianceStatusCard',
+        'MarketTrendsAnalysis',
+        'RealTimeDataVisualization',
+        'AlertsNotification',
+        'StrategicInitiativesTracker',
+        'RiskManagementInsights',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchEmployeeMetrics',
+        'fetchCustomerFeedback',
+        'fetchOperationalMetrics',
+        'fetchComplianceData',
+        'fetchMarketTrends',
+        'refreshDashboard',
+        'setAlerts',
+        'updateStrategicInitiatives',
+        'fetchRiskManagementData',
+      ];
+
   const RiskManagementScreen({super.key});
 
   @override

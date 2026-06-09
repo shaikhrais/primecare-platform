@@ -99,6 +99,34 @@ final adjustmentNotesProvider =
 
 // --- View ---
 class AdjustmentNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The adjustment_notes screen requires components for patient metrics, treatment outcomes, compliance, satisfaction, operational efficiency, financial performance, alerts, and educational resources, along with various buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientMetricsCard',
+        'TreatmentOutcomeChart',
+        'ComplianceAuditLog',
+        'PatientSatisfactionGauge',
+        'OperationalEfficiencyPanel',
+        'FinancialPerformanceDashboard',
+        'AlertsNotification',
+        'EducationalResourcesSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientMetrics',
+        'fetchTreatmentOutcomes',
+        'fetchComplianceAuditResults',
+        'fetchPatientSatisfactionScores',
+        'fetchOperationalMetrics',
+        'fetchFinancialIndicators',
+        'checkForAlerts',
+        'accessEducationalResources',
+      ];
+
   const AdjustmentNotesScreen({super.key});
 
   @override

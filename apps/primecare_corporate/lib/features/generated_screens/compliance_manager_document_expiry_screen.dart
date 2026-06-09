@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_document_expiry_screen_controller.dart';
 
-class ComplianceManagerDocumentExpiryScreen extends ConsumerWidget {
+class ComplianceManagerDocumentExpiryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing compliance document expirations, including alerts, updates, and reporting functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DocumentExpiryOverview',
+        'DocumentStatusAlerts',
+        'ComplianceDocumentAccess',
+        'ComplianceStatisticsSummary',
+        'UserActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorDocumentExpiry',
+        'updateComplianceDocument',
+        'generateDocumentReport',
+        'setExpiryReminder',
+        'fetchUserActivityLogs',
+      ];
+
   const ComplianceManagerDocumentExpiryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerDocumentExpiryScreenControllerProvider);
 
     return Scaffold(

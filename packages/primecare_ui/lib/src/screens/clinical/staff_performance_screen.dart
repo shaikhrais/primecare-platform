@@ -99,6 +99,38 @@ final staffPerformanceProvider =
 
 // --- View ---
 class StaffPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The staff performance screen requires various widgets to display key metrics, buttons for actions, functions to fetch data, and APIs for backend integration, ensuring responsive design across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'ComplianceStatusCard',
+        'PatientSatisfactionChart',
+        'OperationalEfficiencyChart',
+        'TrainingProgressTracker',
+        'IncidentReportLog',
+        'TelemetryDataDisplay',
+        'AuditLogViewer',
+        'AlertNotificationSystem',
+        'PatientOutcomeTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchComplianceData',
+        'fetchPatientSatisfaction',
+        'fetchOperationalMetrics',
+        'fetchTrainingProgress',
+        'fetchIncidentReports',
+        'fetchTelemetryData',
+        'fetchAuditLogs',
+        'checkAlerts',
+        'fetchOutcomeTrends',
+      ];
+
   const StaffPerformanceScreen({super.key});
 
   @override

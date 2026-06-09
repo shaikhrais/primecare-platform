@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'course_library_screen_controller.dart';
 
-class CourseLibraryScreen extends ConsumerWidget {
+class CourseLibraryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Course Library screen requires components for loading indicators, error handling, and displaying course content, along with APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorAlert',
+        'CourseList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadCourseData',
+        'handleLoadingError',
+        'displayCourseContent',
+      ];
+
   const CourseLibraryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(courseLibraryScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'audits_screen_controller.dart';
 
-class AuditsScreen extends ConsumerWidget {
+class AuditsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor and review audit processes, display KPIs, and provide user feedback, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AuditStatusOverview',
+        'AuditKPIChart',
+        'RedFlagAlert',
+        'AuditReportViewer',
+        'UserFeedbackSection',
+        'HistoricalDataTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorAuditProcesses',
+        'generateAuditReport',
+        'reviewAuditFindings',
+        'ensureCompliance',
+        'collaborateOnIssues',
+        'updateDocumentation',
+      ];
+
   const AuditsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(auditsScreenControllerProvider);
 
     return Scaffold(

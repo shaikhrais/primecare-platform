@@ -3,6 +3,26 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 
 class ResetPasswordView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The screen requires input fields for new and confirmed passwords, a button to submit the update, and mechanisms to display status and error messages.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PasswordInputField',
+        'ConfirmPasswordInputField',
+        'UpdatePasswordButton',
+        'StatusMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'validatePasswordMatch',
+        'submitPasswordUpdate',
+        'displaySuccessMessage',
+        'displayErrorMessage',
+      ];
+
   const ResetPasswordView({super.key});
 
   @override

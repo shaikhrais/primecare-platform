@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'control_center_screen_controller.dart';
 
-class ControlCenterScreen extends ConsumerWidget {
+class ControlCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The control center screen requires components to monitor governance scores, task queues, health metrics, and compliance documentation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'TaskQueueOverview',
+        'HealthScoreDisplay',
+        'ComplianceDriftMetrics',
+        'LifecycleProgressVisualization',
+        'AgentPerformanceMetrics',
+        'EvidencePanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const ControlCenterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final stateAsync = ref.watch(controlCenterScreenControllerProvider);
 
     return Scaffold(

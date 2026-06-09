@@ -97,6 +97,26 @@ final carePlanProvider =
 
 // --- View ---
 class CarePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The care plan screen requires components for reviewing KPIs, monitoring telemetry logs, validating compliance, and executing audits, along with buttons for refreshing and executing scans.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIReviewWidget',
+        'TelemetryLogWidget',
+        'ComplianceValidationWidget',
+        'DashboardRefreshButton',
+        'OperationalAuditScanWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerDashboardRefresh',
+        'executeComplianceScan',
+        'executeOperationalAudit',
+      ];
+
   const CarePlanScreen({super.key});
 
   @override

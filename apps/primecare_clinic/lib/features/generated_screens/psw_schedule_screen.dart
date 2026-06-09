@@ -1,10 +1,32 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PswScheduleScreen extends ConsumerWidget {
+class PswScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient parameters, compliance status, and dashboard insights, along with buttons for refreshing data and navigating the schedule.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientParameterMonitor',
+        'ComplianceStatusIndicator',
+        'ZeroTrustSyncStatus',
+        'ScheduleInterface',
+        'DashboardInsights',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPatientParameters',
+        'checkCompliancePosture',
+        'syncZeroTrust',
+        'navigateSchedule',
+        'interactWithDashboard',
+      ];
+
   const PswScheduleScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'ScheduleScreen';
 

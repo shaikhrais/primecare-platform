@@ -78,6 +78,29 @@ final shareholderComplianceProvider =
 
 // --- View ---
 class ShareholderComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance audit information, governance status, and operational logs, along with buttons for executing actions and submitting reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditCard',
+        'GovernanceInvariantStatus',
+        'AuditLogViewer',
+        'RealTimeTelemetry',
+        'EventReportingStatus',
+        'ComplianceHealthMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceAudit',
+        'updateGovernanceDirectives',
+        'refreshComplianceStatus',
+        'submitEventLog',
+        'triggerStateAction',
+      ];
+
   const ShareholderComplianceScreen({super.key});
 
   @override

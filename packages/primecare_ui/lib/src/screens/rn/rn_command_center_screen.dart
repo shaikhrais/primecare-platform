@@ -99,6 +99,38 @@ final rnCommandCenterProvider =
 
 // --- View ---
 class RnCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN Command Center screen requires components for patient monitoring, compliance auditing, and communication tools, along with buttons and functions to manage patient care effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'ComplianceAuditAlert',
+        'KPIChart',
+        'OperationalLogsTable',
+        'PatientEducationResource',
+        'MedicationAccuracyMetric',
+        'CriticalConditionAlert',
+        'StaffWorkloadOverview',
+        'TeamCommunicationTool',
+        'ProfessionalDevelopmentResource',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientStatus',
+        'triggerComplianceAudit',
+        'fetchKPIs',
+        'logOperationalActivity',
+        'accessEducationMaterials',
+        'checkMedicationAccuracy',
+        'alertCriticalCondition',
+        'fetchStaffWorkload',
+        'sendTeamMessage',
+        'fetchDevelopmentResources',
+      ];
+
   const RnCommandCenterScreen({super.key});
 
   @override

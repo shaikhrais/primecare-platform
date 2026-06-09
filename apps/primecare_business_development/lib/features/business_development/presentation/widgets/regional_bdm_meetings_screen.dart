@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_meetings_screen_controller.dart';
 
-class RegionalBdmMeetingsScreen extends ConsumerWidget {
+class RegionalBdmMeetingsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for meeting schedules, attendance tracking, action items, and decision summaries, along with buttons for feedback and follow-ups.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MeetingScheduleWidget',
+        'AgendaViewer',
+        'AttendanceTracker',
+        'ActionItemsList',
+        'DecisionsSummary',
+        'NotificationsPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchMeetingSchedule',
+        'trackAttendance',
+        'updateActionItem',
+        'getMeetingSummary',
+        'sendNotifications',
+      ];
+
   const RegionalBdmMeetingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmMeetingsScreenControllerProvider);
 
     return Scaffold(

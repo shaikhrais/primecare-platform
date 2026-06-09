@@ -101,6 +101,31 @@ final physiotherapistBillingLinkProvider =
 
 // --- View ---
 class PhysiotherapistBillingLinkScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking patient progress, compliance audits, and treatment plans, along with buttons for updating and logging information, and APIs for data retrieval and integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientProgressTracker',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'RedFlagAlert',
+        'PatientFeedbackWidget',
+        'TreatmentPlanSummary',
+        'SchedulingIntegration',
+        'OperationalAuditUpdates',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateTreatmentPlan',
+        'logPatientProgress',
+        'viewComplianceAudit',
+        'sendAlert',
+        'accessPatientFeedback',
+      ];
+
   const PhysiotherapistBillingLinkScreen({super.key});
 
   @override

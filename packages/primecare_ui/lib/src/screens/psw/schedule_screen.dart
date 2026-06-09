@@ -97,6 +97,36 @@ final scheduleProvider =
 
 // --- View ---
 class ScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, patient monitoring, communication, and compliance auditing, along with necessary buttons and functions to facilitate caregiver operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'PatientVisitScheduler',
+        'HealthMonitor',
+        'MedicationAdmin',
+        'PatientRecords',
+        'CommunicationTool',
+        'SafetyChecklist',
+        'AuditLog',
+        'PerformanceMetrics',
+        'TrainingResources',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'schedulePatientVisit',
+        'reportHealthChange',
+        'administerMedication',
+        'updatePatientRecords',
+        'communicateWithHealthcareTeam',
+        'conductComplianceAudit',
+        'accessTrainingResources',
+        'logDailyActivity',
+      ];
+
   const ScheduleScreen({super.key});
 
   @override

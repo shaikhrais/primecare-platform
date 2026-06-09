@@ -4,6 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class VolunteerCoordinatorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, real-time updates, collaboration tools, and performance metrics, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'Dashboard',
+        'NotificationPanel',
+        'CollaborationTool',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeTask',
+        'refreshDashboard',
+        'joinSandbox',
+        'sendNotification',
+      ];
+
   const VolunteerCoordinatorWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

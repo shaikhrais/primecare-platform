@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_reports_screen_controller.dart';
 
-class CfoReportsScreen extends ConsumerWidget {
+class CfoReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO Reports screen requires components for KPI overview, data trends, error notifications, and user feedback, along with functionalities for loading and interpreting reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverview',
+        'DataTrendChart',
+        'ErrorNotification',
+        'DetailedReportAccess',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadReports',
+        'handleLoadingErrors',
+        'interpretReportResults',
+        'monitorLoadingStatus',
+      ];
+
   const CfoReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoReportsScreenControllerProvider);
 
     return Scaffold(

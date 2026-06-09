@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Base class for governed consumer widgets. Enforces layout invariants by making it impossible...
 // Layer: 01_INFRASTRUCTURE
 import '../registry/platform_role.dart';
+import 'package:flutter_core/flutter_core.dart';
 import '../registry/intents/app_screen_intent.dart';
 import 'platform_types.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,31 @@ import 'package:go_router/go_router.dart';
 
 import '../registry/widgets/responsive_screen_wrapper.dart';
 
+/// Interface for declaring screen governance requirements.
+abstract class ScreenGovernance {
+  /// A functional description of the screen's core purpose and workflows.
+  String get screenDescription;
+
+  /// The list of UI components required to build this screen.
+  List<String> get requiredComponents;
+
+  /// The list of core functions or operations handled by this screen.
+  List<String> get requiredFunctions;
+}
+
 /// Base class for governed consumer widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
-abstract class GovernedConsumerWidget extends ConsumerWidget {
+abstract class GovernedConsumerWidget extends ConsumerWidget implements ScreenGovernance {
   const GovernedConsumerWidget({super.key});
+
+  @override
+  String get screenDescription => '';
+
+  @override
+  List<String> get requiredComponents => const [];
+
+  @override
+  List<String> get requiredFunctions => const [];
 
   @override
   @nonVirtual
@@ -40,8 +62,17 @@ abstract class GovernedConsumerWidget extends ConsumerWidget {
 
 /// Base class for governed stateless widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
-abstract class GovernedStatelessWidget extends StatelessWidget {
+abstract class GovernedStatelessWidget extends StatelessWidget implements ScreenGovernance {
   const GovernedStatelessWidget({super.key});
+
+  @override
+  String get screenDescription => '';
+
+  @override
+  List<String> get requiredComponents => const [];
+
+  @override
+  List<String> get requiredFunctions => const [];
 
   @override
   @nonVirtual
@@ -71,7 +102,16 @@ abstract class GovernedConsumerStatefulWidget extends ConsumerStatefulWidget {
 /// Base State class for governed consumer stateful widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
 abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
-    extends ConsumerState<T> {
+    extends ConsumerState<T> implements ScreenGovernance {
+  @override
+  String get screenDescription => '';
+
+  @override
+  List<String> get requiredComponents => const [];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   @override
   @nonVirtual
   Widget build(BuildContext context) {
@@ -109,6 +149,26 @@ class AppShellBoundary extends InheritedWidget {
 /// This object is the single source of truth for routing, hydration, and rendering.
 /// It merges the concepts of Intent, Config, and Definition.
 class PrimeCareScreen extends AppScreenIntent {
+  @override
+  String get screenDescription =>
+      'The screen requires proper layout management within the MasterLayout, user role handling, error monitoring, and responsive design for various devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MasterLayout',
+        'PrimeCareScreen',
+        'ResponsiveScreenWrapper',
+        'ErrorLog',
+        'TaskSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'buildScreen',
+        'manageUserRoles',
+        'handleError',
+      ];
+
   @override
   final String name;
 
@@ -170,7 +230,30 @@ class PrimeCareScreen extends AppScreenIntent {
   }
 }
 
-class DefaultNotImplementedView extends StatelessWidget {
+class DefaultNotImplementedView extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires a structured layout with proper error handling, localization, and responsive design principles, while utilizing specific widget classes for implementation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MasterLayout',
+        'GovernedConsumerWidget',
+        'GovernedStatelessWidget',
+        'GovernedConsumerState',
+        'PrimeCareScreen',
+        'DefaultNotImplementedView',
+        'ResponsiveScreenWrapper',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'buildScreen',
+        'checkAppShellBoundary',
+        'handleLayoutViolations',
+        'localizeText',
+      ];
+
   final String title;
   final String route;
   final PlatformRole? requiredRole;
@@ -183,7 +266,7 @@ class DefaultNotImplementedView extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     final theme = Theme.of(context);
     final primaryColor = theme.primaryColor;
 

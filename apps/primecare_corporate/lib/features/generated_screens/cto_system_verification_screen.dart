@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_system_verification_screen_controller.dart';
 
-class CtoSystemVerificationScreen extends ConsumerWidget {
+class CtoSystemVerificationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Cto System Verification screen requires components for loading status, error logging, performance metrics, user feedback, and verification results.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorLog',
+        'PerformanceMetrics',
+        'UserFeedbackSection',
+        'VerificationSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'checkLoadingState',
+        'handleDataErrors',
+        'submitUserFeedback',
+        'fetchPerformanceMetrics',
+      ];
+
   const CtoSystemVerificationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoSystemVerificationScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_director_training_programs_screen_controller.dart';
 
-class TrainingDirectorTrainingProgramsScreen extends ConsumerWidget {
+class TrainingDirectorTrainingProgramsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring loading states, displaying errors, and collecting user feedback, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorLog',
+        'TrainingProgramDisplay',
+        'UserFeedbackSection',
+        'QuickAccessMenu',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'reviewErrorMessages',
+        'verifyContentDisplay',
+        'checkTrainingProgramFunctionality',
+        'submitUserFeedback',
+      ];
+
   const TrainingDirectorTrainingProgramsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingDirectorTrainingProgramsScreenControllerProvider);
 
     return Scaffold(

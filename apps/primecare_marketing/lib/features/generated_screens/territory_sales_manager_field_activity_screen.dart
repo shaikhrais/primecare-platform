@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_field_activity_screen_controller.dart';
 
-class TerritorySalesManagerFieldActivityScreen extends ConsumerWidget {
+class TerritorySalesManagerFieldActivityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring sales performance, managing tasks, analyzing customer feedback, and providing alerts, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceOverview',
+        'TaskManagementSection',
+        'CustomerFeedbackWidget',
+        'AlertsWidget',
+        'SalesTrendsVisualization',
+        'TeamCommunicationTools',
+        'ReportsAndAnalyticsAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorFieldActivities',
+        'trackPerformanceMetrics',
+        'manageTasks',
+        'analyzeCustomerFeedback',
+        'reportSalesTrends',
+        'coordinateWithTeams',
+      ];
+
   const TerritorySalesManagerFieldActivityScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerFieldActivityScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_coordinator_training_schedule_screen_controller.dart';
 
-class TrainingCoordinatorTrainingScheduleScreen extends ConsumerWidget {
+class TrainingCoordinatorTrainingScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing training schedules, tracking attendance, collecting feedback, and notifying users of updates, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingScheduleOverview',
+        'AttendanceTracker',
+        'FeedbackCollectionTool',
+        'NotificationBanner',
+        'PerformanceMetricsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageTrainingSchedule',
+        'monitorAttendance',
+        'updateTrainingMaterials',
+        'communicateScheduleChanges',
+        'analyzeTrainingEffectiveness',
+      ];
+
   const TrainingCoordinatorTrainingScheduleScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingCoordinatorTrainingScheduleScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SchedulerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to monitor and manage shift operations, including attendance, performance metrics, incident reporting, and team communication tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AttendanceWidget',
+        'PerformanceMetricChart',
+        'IncidentReportTable',
+        'CustomerFeedbackCard',
+        'InventoryStatusWidget',
+        'TeamCommunicationPanel',
+        'TrainingProgressTracker',
+        'ShiftPerformanceSummary',
+        'AlertsDashboard',
+        'KPIVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateSchedule',
+        'submitIncidentReport',
+        'viewCustomerFeedback',
+        'orderSupplies',
+        'conductTeamMeeting',
+        'trainEmployee',
+      ];
+
   const SchedulerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

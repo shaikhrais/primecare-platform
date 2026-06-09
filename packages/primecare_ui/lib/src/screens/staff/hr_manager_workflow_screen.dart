@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display HR metrics, buttons for managing tasks, functions to fetch data from APIs, and must be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'MetricCard',
+        'EngagementChart',
+        'ComplianceStatus',
+        'PerformanceStats',
+        'TrainingParticipation',
+        'SatisfactionSurvey',
+        'DiversityMetrics',
+        'CompensationAnalysis',
+        'BudgetOverview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRecruitmentMetrics',
+        'fetchEngagementScores',
+        'fetchTurnoverRates',
+        'checkComplianceStatus',
+        'fetchPerformanceStats',
+        'fetchTrainingParticipation',
+        'fetchSatisfactionResults',
+        'fetchDiversityMetrics',
+        'fetchCompensationAnalysis',
+        'fetchBudgetOverview',
+      ];
+
   const HrManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

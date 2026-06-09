@@ -99,6 +99,38 @@ final deploymentCenterProvider =
 
 // --- View ---
 class DeploymentCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The deployment center screen requires various components to display KPIs, performance metrics, compliance status, and project updates, along with buttons for data refresh and report viewing, supported by specific APIs and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'PerformanceMetricChart',
+        'ComplianceStatusCard',
+        'ProjectStatusTimeline',
+        'BudgetTracker',
+        'TeamPerformanceDashboard',
+        'UserFeedbackWidget',
+        'TechnologyTrendsAnalysis',
+        'IncidentReportCard',
+        'InnovationPipelineList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'fetchProjectUpdates',
+        'fetchBudgetReports',
+        'fetchTeamMetrics',
+        'fetchUserFeedback',
+        'fetchTechnologyTrends',
+        'fetchIncidentReports',
+        'fetchInnovationPipeline',
+      ];
+
   const DeploymentCenterScreen({super.key});
 
   @override

@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_owner_dashboard_screen_controller.dart';
 
-class FranchiseOwnerDashboardScreen extends ConsumerWidget {
+class FranchiseOwnerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The franchise owner dashboard requires components for monitoring performance metrics, managing communications, and accessing resources, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceGraph',
+        'CustomerSatisfactionMetric',
+        'InventoryStatusIndicator',
+        'PerformanceAlert',
+        'CommunicationLog',
+        'TrainingResourceAccess',
+        'MarketingCampaignAnalytics',
+        'GoalTrackingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesData',
+        'fetchCustomerFeedback',
+        'fetchInventoryStatus',
+        'checkPerformanceAlerts',
+        'logCommunication',
+        'accessTrainingMaterials',
+        'analyzeMarketingPerformance',
+        'trackGoals',
+      ];
+
   const FranchiseOwnerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseOwnerDashboardScreenControllerProvider);
 
     return Scaffold(

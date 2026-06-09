@@ -97,6 +97,30 @@ final rnVitalsProvider =
 
 // --- View ---
 class RnVitalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring vital signs, administering medications, and tracking patient satisfaction, along with necessary buttons and functions for documentation and incident reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsMonitor',
+        'MedicationAdminRecord',
+        'PatientSatisfactionChart',
+        'StaffingLevelIndicator',
+        'IncidentReportTracker',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorVitalSigns',
+        'administerMedication',
+        'documentPatientCare',
+        'reportIncident',
+        'fetchPatientSatisfaction',
+        'updateStaffingLevels',
+      ];
+
   const RnVitalsScreen({super.key});
 
   @override

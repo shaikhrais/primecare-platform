@@ -99,6 +99,38 @@ final employeeRecordsProvider =
 
 // --- View ---
 class EmployeeRecordsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The employee_records screen requires various components to display HR metrics, buttons for report generation, functions to fetch data from APIs, and must be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeTurnoverCard',
+        'EmployeeEngagementChart',
+        'ComplianceStatusWidget',
+        'RecruitmentMetricsTable',
+        'PerformanceManagementCard',
+        'TrainingParticipationChart',
+        'DiversityMetricsWidget',
+        'EmployeeSatisfactionCard',
+        'CompensationAnalysisTable',
+        'HRActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEmployeeTurnoverData',
+        'fetchEngagementSurveyResults',
+        'checkComplianceStatus',
+        'getRecruitmentMetrics',
+        'evaluatePerformanceManagement',
+        'getTrainingParticipationRates',
+        'fetchDiversityMetrics',
+        'getEmployeeSatisfactionScores',
+        'analyzeCompensationBenefits',
+        'logHRActivity',
+      ];
+
   const EmployeeRecordsScreen({super.key});
 
   @override

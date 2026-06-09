@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_competitor_notes_screen_controller.dart';
 
-class RegionalBdmCompetitorNotesScreen extends ConsumerWidget {
+class RegionalBdmCompetitorNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying and managing competitor notes, handling loading states and errors, and providing real-time updates for strategic decision-making.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CompetitorNotesList',
+        'LoadingIndicator',
+        'ErrorAlert',
+        'StatisticsSummary',
+        'RealTimeUpdateIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadCompetitorNotes',
+        'addCompetitorNote',
+        'updateCompetitorNote',
+        'handleLoadingState',
+        'handleError',
+      ];
+
   const RegionalBdmCompetitorNotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmCompetitorNotesScreenControllerProvider);
 
     return Scaffold(

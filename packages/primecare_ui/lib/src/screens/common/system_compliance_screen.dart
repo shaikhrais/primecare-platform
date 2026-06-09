@@ -76,6 +76,33 @@ final systemComplianceProvider =
 
 // --- View ---
 class SystemComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for real-time compliance monitoring, audit logging, and governance management, along with buttons for executing compliance actions and accessing reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'AuditLogList',
+        'ComplianceAlerts',
+        'GovernanceDirectivesSummary',
+        'AuditLogVisualization',
+        'ComplianceScanButton',
+        'PolicyUpdateNotification',
+        'ComplianceTrendsChart',
+        'SecurityMetricsCard',
+        'UserNavigationMenu',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'triggerGovernanceAction',
+        'viewAuditReport',
+        'updatePolicy',
+        'fetchHistoricalData',
+      ];
+
   const SystemComplianceScreen({super.key});
 
   @override

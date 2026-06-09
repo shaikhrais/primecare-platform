@@ -1,12 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'psw_dashboard_screen_controller.dart';
 
-class PswDashboardScreen extends ConsumerWidget {
+class PswDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking shifts, ADL tasks, safety alerts, and compliance, along with buttons for check-in, check-out, and emergency actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftStatusIndicator',
+        'ADLProgressTracker',
+        'ActiveWingInfo',
+        'SafetyAlertsCount',
+        'RecentActivityLogs',
+        'EmergencyAlertButton',
+        'ComplianceAuditResults',
+        'RefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'toggleCheckIn',
+        'toggleCheckOut',
+        'logIncident',
+        'triggerEmergencyAlert',
+        'refreshDashboard',
+      ];
+
   const PswDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  String 
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftStatusIndicator',
+        'ADLProgressTracker',
+        'ActiveWingInfo',
+        'SafetyAlertsCount',
+        'RecentActivityLogs',
+        'EmergencyAlertButton',
+        'ComplianceAuditResults',
+        'RefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'toggleCheckIn',
+        'toggleCheckOut',
+        'logIncident',
+        'triggerEmergencyAlert',
+        'refreshDashboard',
+      ];
+
+  @override
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswDashboardScreenControllerProvider);
 
     return Semantics(

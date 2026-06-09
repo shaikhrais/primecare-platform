@@ -78,6 +78,27 @@ final complianceManagerComplianceProvider =
 
 // --- View ---
 class ComplianceManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Compliance Manager screen requires components for monitoring compliance status, logging activities, and managing alerts, along with buttons for executing scans and updating policies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'ComplianceActivityLog',
+        'ComplianceAlertsWidget',
+        'GovernancePolicySummary',
+        'ComplianceMetricsChart',
+        'ComplianceTrendsGraph',
+        'SecureEventReportingForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'updateSecurityPolicies',
+      ];
+
   const ComplianceManagerComplianceScreen({super.key});
 
   @override

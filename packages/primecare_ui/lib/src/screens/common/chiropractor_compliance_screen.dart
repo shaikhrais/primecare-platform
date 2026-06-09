@@ -78,6 +78,34 @@ final chiropractorComplianceProvider =
 
 // --- View ---
 class ChiropractorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive patient management system, compliance tracking, real-time updates, and integration with billing systems to support chiropractor responsibilities and monitor operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientManagementSystem',
+        'ComplianceAuditLog',
+        'TreatmentPlanUpdate',
+        'AlertsDashboard',
+        'EducationalResources',
+        'PerformanceMetrics',
+        'IncidentManagementTool',
+        'BillingIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'generateComplianceReport',
+        'updateTreatmentPlan',
+        'checkAlerts',
+        'accessResources',
+        'viewPerformanceMetrics',
+        'reportIncident',
+        'processBilling',
+      ];
+
   const ChiropractorComplianceScreen({super.key});
 
   @override

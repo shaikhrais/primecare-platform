@@ -101,6 +101,28 @@ final franchiseOwnerFinanceSnapshotProvider =
 
 // --- View ---
 class FranchiseOwnerFinanceSnapshotScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor financial performance, compliance status, operational logs, and KPIs, along with buttons for executing compliance scans and responding to alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FinancialPerformanceMetricCard',
+        'ComplianceStatusCard',
+        'OperationalLogTable',
+        'KPIChart',
+        'AlertNotification',
+        'SecurityClearanceStatus',
+        'TelemetryDataDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'fetchOperationalLogs',
+        'respondToAlert',
+      ];
+
   const FranchiseOwnerFinanceSnapshotScreen({super.key});
 
   @override

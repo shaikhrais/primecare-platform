@@ -8,6 +8,27 @@ final activeIncidentsProvider = FutureProvider.autoDispose<List<Map<String, dyna
 });
 
 class IncidentResponseHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The incident response hub screen requires components for monitoring and managing incidents, including real-time data display, action buttons for refreshing and declaring incidents, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentList',
+        'IncidentDetailView',
+        'IncidentStatistics',
+        'NotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveIncidents',
+        'refreshIncidentData',
+        'declareNewIncident',
+        'joinWarRoom',
+        'getIncidentDetails',
+      ];
+
   const IncidentResponseHubScreen({super.key});
 
   @override

@@ -96,6 +96,29 @@ final trainingHubDashboardProvider =
 
 // --- View ---
 class TrainingHubDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The training hub dashboard requires components for compliance scanning, security posture synchronization, policy updates, and log management, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanWidget',
+        'SecurityPostureWidget',
+        'PolicyUpdateWidget',
+        'AuditLogExportWidget',
+        'ActionLogWidget',
+        'PerformanceMetricsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportLogs',
+        'addLog',
+      ];
+
   const TrainingHubDashboardScreen({super.key});
 
   @override

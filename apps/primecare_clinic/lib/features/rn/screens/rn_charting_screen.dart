@@ -57,6 +57,27 @@ final rnChartingControllerProvider = StateNotifierProvider<RnChartingController,
 
 // --- View ---
 class RnChartingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN Charting screen requires components for displaying chart data, user feedback, alerts, and recent activities, along with appropriate buttons and API integrations for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RNChartDisplay',
+        'DataTrendGraph',
+        'UserFeedbackSection',
+        'AlertsNotification',
+        'RecentActivitiesSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadChartData',
+        'submitFeedback',
+        'refreshData',
+        'getAlerts',
+      ];
+
   const RnChartingScreen({super.key});
 
   @override

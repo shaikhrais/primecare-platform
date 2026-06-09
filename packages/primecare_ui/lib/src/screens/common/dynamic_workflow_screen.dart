@@ -102,6 +102,28 @@ final dynamicWorkflowScreenProvider =
 
 // --- View ---
 class DynamicWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Dynamic Screen Viewer requires a responsive interface with user interaction handling, a dashboard for workflow status, and integration capabilities with other modules.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DynamicScreenWorkflowInterface',
+        'Dashboard',
+        'NotificationPanel',
+        'UserRoleDisplay',
+        'IntegrationMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'renderWorkflowInterface',
+        'handleButtonClick',
+        'updateDashboard',
+        'triggerStateAction',
+        'fetchIntegrationMetrics',
+      ];
+
   const DynamicWorkflowScreen({super.key});
 
   @override

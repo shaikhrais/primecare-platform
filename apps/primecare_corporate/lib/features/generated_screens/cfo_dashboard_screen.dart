@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_dashboard_screen_controller.dart';
 
-class CfoDashboardScreen extends ConsumerWidget {
+class CfoDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO dashboard requires various widgets to display financial metrics, compliance results, and alerts for operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CashBalanceWidget',
+        'GrowthRateWidget',
+        'ExpenseBufferWidget',
+        'TaxLiabilityWidget',
+        'LedgerSummaryWidget',
+        'ComplianceScanWidget',
+        'FinancialMetricsWidget',
+        'KPIsWidget',
+        'ActivityLogsWidget',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const CfoDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoDashboardScreenControllerProvider);
 
     return Scaffold(

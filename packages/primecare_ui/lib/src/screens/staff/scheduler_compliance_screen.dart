@@ -78,6 +78,31 @@ final schedulerComplianceProvider =
 
 // --- View ---
 class SchedulerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for performance metrics, staff scheduling, incident reporting, and customer feedback, along with buttons for managing schedules and resolving complaints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'StaffScheduleOverview',
+        'IncidentReportWidget',
+        'AttendanceTracker',
+        'CustomerFeedbackTracker',
+        'TaskProgressIndicator',
+        'OperationalAlerts',
+        'HistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateSchedule',
+        'generateReport',
+        'resolveCustomerComplaint',
+        'scheduleTeamMeeting',
+        'initiateTraining',
+      ];
+
   const SchedulerComplianceScreen({super.key});
 
   @override

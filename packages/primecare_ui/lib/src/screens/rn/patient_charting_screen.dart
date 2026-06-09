@@ -99,6 +99,28 @@ final patientChartingProvider =
 
 // --- View ---
 class PatientChartingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Patient Charting screen requires components for monitoring loading states, displaying audit logs, and executing compliance scans, along with necessary buttons and APIs for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingStateIndicator',
+        'AuditLogList',
+        'ComplianceScanButton',
+        'TelemetryChart',
+        'OperationalMetricsCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'reviewAuditLogs',
+        'triggerComplianceScan',
+        'refreshDashboard',
+        'executeGovernanceActions',
+      ];
+
   const PatientChartingScreen({super.key});
 
   @override

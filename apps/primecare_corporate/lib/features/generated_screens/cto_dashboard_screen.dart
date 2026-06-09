@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_dashboard_screen_controller.dart';
 
-class CtoDashboardScreen extends ConsumerWidget {
+class CtoDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CTO dashboard requires various components to display key performance indicators, security status, compliance results, and project timelines, along with buttons for refreshing metrics and managing vendors.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'PerformanceMetricChart',
+        'SecurityStatusCard',
+        'ComplianceAuditReport',
+        'ProjectTimelineChart',
+        'BudgetTracker',
+        'UserFeedbackWidget',
+        'TechnologyTrendsAnalysis',
+        'TeamPerformanceMetric',
+        'OperationalLogsViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchPerformanceMetrics',
+        'fetchSecurityReports',
+        'fetchComplianceStatus',
+        'fetchProjectTimelines',
+        'fetchBudgetData',
+        'fetchUserFeedback',
+        'fetchTechnologyTrends',
+        'fetchTeamPerformance',
+        'fetchOperationalLogs',
+      ];
+
   const CtoDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoDashboardScreenControllerProvider);
 
     return Scaffold(

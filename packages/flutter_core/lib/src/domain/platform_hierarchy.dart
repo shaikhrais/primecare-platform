@@ -1,8 +1,10 @@
 // Governance - Category: service | Purpose: Represents a global business policy enforced at the Organization level. Validates if a specific component or action c...
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../aura_behavioral_telemetry.dart';
 import '../localization/localization_scaffold.dart';
+import '../../models/screen.dart';
 
 /// Represents a global business policy enforced at the Organization level.
 abstract class Policy {
@@ -89,8 +91,43 @@ abstract class FeatureModule {
 /// The presentation and governance layer interface for individual screens.
 /// All screens rendered by the platform must conform to this blueprint to guarantee layout
 /// invariants and telemetry consistency.
-abstract class GovernedScreen extends ConsumerWidget {
+abstract class GovernedScreen extends GovernedConsumerWidget implements ScreenGovernance {
+  @override
+  String get screenDescription =>
+      'The screen requires components for policy review, compliance monitoring, access control metrics, translation verification, security audits, responsive layout checks, and telemetry log viewing.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PolicyReviewCard',
+        'ComplianceStatusWidget',
+        'AccessControlMetrics',
+        'TranslationVerificationCard',
+        'SecurityAuditResults',
+        'ResponsiveLayoutChecker',
+        'TelemetryLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'validatePolicies',
+        'enforceGlobalPolicies',
+        'monitorAccessPermissions',
+        'verifyTranslations',
+        'conductSecurityAudit',
+        'validateResponsiveLayouts',
+        'logTelemetryEvents',
+      ];
+
   const GovernedScreen({super.key});
+
+  @override
+  String 
+
+  @override
+  List<String> 
+
+  @override
+  List<String> 
 
   /// The unique feature identifier for this screen in the registry.
   String get featureId;
@@ -121,7 +158,7 @@ abstract class GovernedScreen extends ConsumerWidget {
   bool get hasEmptyState => false;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     // Standardized layout wrapper for all governed screens
     // Automatically log structural telemetry for governance auditing
     WidgetsBinding.instance.addPostFrameCallback((_) {

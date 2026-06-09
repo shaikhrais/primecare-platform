@@ -101,6 +101,33 @@ final chiropractorBillingLinkProvider =
 
 // --- View ---
 class ChiropractorBillingLinkScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient overview, compliance auditing, KPI tracking, and operational monitoring, along with buttons for compliance actions and notifications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientOverviewCard',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'OperationalAuditLog',
+        'TelemetryDataDisplay',
+        'SecurityStatusCard',
+        'QuickAccessButton',
+        'NotificationAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientOverview',
+        'performComplianceScan',
+        'logOperationalAction',
+        'fetchKPIData',
+        'fetchTelemetryData',
+        'checkSecurityStatus',
+        'triggerNotification',
+      ];
+
   const ChiropractorBillingLinkScreen({super.key});
 
   @override

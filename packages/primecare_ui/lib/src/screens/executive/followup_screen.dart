@@ -97,6 +97,34 @@ final followupProvider =
 
 // --- View ---
 class FollowupScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing patient referrals, scheduling, compliance tracking, and performance metrics, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentScheduler',
+        'PatientInfoForm',
+        'FollowUpTracker',
+        'ComplianceIndicator',
+        'PatientFeedbackWidget',
+        'ReferralSourceReport',
+        'StaffPerformanceMetrics',
+        'PatientFlowVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'managePatientReferrals',
+        'scheduleAppointment',
+        'verifyPatientInfo',
+        'coordinatePatientCare',
+        'logPatientInteraction',
+        'monitorCompliance',
+        'addressPatientConcerns',
+        'generatePerformanceReport',
+      ];
+
   const FollowupScreen({super.key});
 
   @override

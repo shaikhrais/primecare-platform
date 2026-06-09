@@ -78,6 +78,33 @@ final infrastructureComplianceProvider =
 
 // --- View ---
 class InfrastructureComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for real-time compliance monitoring, audit logging, alert notifications, and governance management, along with necessary buttons and API integrations for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'AuditLogsTable',
+        'AlertsNotification',
+        'AuditMetricsChart',
+        'ComplianceTrendsGraph',
+        'GovernanceDirectivesPanel',
+        'EventReportingForm',
+        'ActionNotifications',
+        'OperationalAuditSummary',
+        'UserInterfaceNavigation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshAuditData',
+        'submitEventReport',
+        'updateGovernanceDirectives',
+        'viewDetailedLogs',
+        'triggerComplianceCheck',
+      ];
+
   const InfrastructureComplianceScreen({super.key});
 
   @override

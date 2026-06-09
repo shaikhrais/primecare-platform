@@ -77,6 +77,35 @@ final supportComplianceProvider =
 
 // --- View ---
 class SupportComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring support metrics, managing customer interactions, and facilitating team training, along with necessary buttons and APIs for operational tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SupportTicketVolumeChart',
+        'CustomerSatisfactionScoreCard',
+        'ComplianceAuditStatusWidget',
+        'InteractionLogTable',
+        'EscalationRateChart',
+        'KnowledgeBaseUsageStats',
+        'TeamPerformanceDashboard',
+        'HighPriorityAlerts',
+        'InquiryTrendAnalysis',
+        'TrainingNeedsAssessment',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logCustomerInteraction',
+        'conductComplianceAudit',
+        'provideProductFeedback',
+        'escalateTicket',
+        'followUpWithCustomer',
+        'updateKnowledgeBase',
+        'trainSupportTeam',
+      ];
+
   const SupportComplianceScreen({super.key});
 
   @override

@@ -99,6 +99,25 @@ final patientDocumentsProvider =
 
 // --- View ---
 class PatientDocumentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing patient documents, running compliance scans, and displaying operational audit logs, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DocumentList',
+        'ComplianceScanButton',
+        'AuditLogViewer',
+        'TelemetryChart',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'refreshDashboard',
+      ];
+
   const PatientDocumentsScreen({super.key});
 
   @override

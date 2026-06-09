@@ -107,6 +107,32 @@ final therapistAnalyticsScreenProvider =
 
 // --- View ---
 class TherapistAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The therapist analytics screen requires components for patient management, compliance tracking, and communication tools, along with buttons for updating treatment plans and documenting interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientCaseloadOverview',
+        'PatientProgressChart',
+        'ComplianceTrackingWidget',
+        'PatientInteractionLog',
+        'PerformanceMetricsCard',
+        'EducationalResourcesList',
+        'CommunicationTool',
+        'AppointmentAlerts',
+        'PatientProgressVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateTreatmentPlan',
+        'documentInteraction',
+        'sendFeedback',
+        'scheduleAppointment',
+        'accessTrainingResources',
+      ];
+
   const TherapistAnalyticsScreen({super.key});
 
   @override

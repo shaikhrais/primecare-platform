@@ -101,6 +101,34 @@ final referralManagementProvider =
 
 // --- View ---
 class ReferralManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing referrals, tracking KPIs, and monitoring compliance, along with necessary buttons and API integrations for effective referral management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReferralOverviewCard',
+        'KPIChart',
+        'ReferralActivityLog',
+        'ComplianceAuditAlert',
+        'AppointmentMetricsChart',
+        'ReferralAlerts',
+        'ReferralTrendVisualization',
+        'PatientFeedbackWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveReferrals',
+        'calculateKPIs',
+        'logReferralActivity',
+        'checkComplianceIssues',
+        'trackAppointmentMetrics',
+        'alertOverdueReferrals',
+        'visualizeReferralTrends',
+        'retrievePatientFeedback',
+      ];
+
   const ReferralManagementScreen({super.key});
 
   @override

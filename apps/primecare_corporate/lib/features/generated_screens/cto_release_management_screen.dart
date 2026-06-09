@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_release_management_screen_controller.dart';
 
-class CtoReleaseManagementScreen extends ConsumerWidget {
+class CtoReleaseManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring release status, metrics, timelines, and communication tools, along with necessary functions and APIs to manage release approvals and documentation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReleaseStatusOverview',
+        'ReleaseMetricsChart',
+        'ReleaseTimeline',
+        'ApprovalNotification',
+        'TeamCommunicationTool',
+        'ReleaseDocumentationAccess',
+        'RiskAssessmentIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveReleasePlan',
+        'rejectReleasePlan',
+        'sendCommunication',
+        'fetchReleaseDocumentation',
+      ];
+
   const CtoReleaseManagementScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoReleaseManagementScreenControllerProvider);
 
     return Scaffold(

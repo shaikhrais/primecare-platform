@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_director_dashboard_screen_controller.dart';
 
-class TrainingDirectorDashboardScreen extends ConsumerWidget {
+class TrainingDirectorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The training director dashboard requires various components to monitor training programs, compliance, participation, budget, and feedback, along with necessary buttons and functions to manage and report on training activities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingProgramOverview',
+        'ComplianceMetricsCard',
+        'ParticipationRateChart',
+        'BudgetUtilizationChart',
+        'FeedbackScoreWidget',
+        'TrainingSessionLog',
+        'AlertsNotification',
+        'KPIMetrics',
+        'TrainingOutcomesVisualization',
+        'HistoricalDataTrendAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTrainingPrograms',
+        'fetchComplianceMetrics',
+        'fetchParticipationRates',
+        'fetchBudgetMetrics',
+        'fetchFeedbackScores',
+        'fetchTrainingLogs',
+        'checkAlerts',
+        'fetchKPIs',
+        'fetchTrainingOutcomes',
+        'fetchHistoricalData',
+      ];
+
   const TrainingDirectorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingDirectorDashboardScreenControllerProvider);
 
     return Scaffold(

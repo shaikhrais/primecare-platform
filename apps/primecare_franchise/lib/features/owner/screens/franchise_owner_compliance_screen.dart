@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_owner_compliance_screen_controller.dart';
 
-class FranchiseOwnerComplianceScreen extends ConsumerWidget {
+class FranchiseOwnerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance status, operational metrics, and security clearance, along with buttons to execute scans and refresh data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'OperationsMetricCard',
+        'SecurityClearanceStatusCard',
+        'TelemetryChart',
+        'AuditLogsTable',
+        'LoadingIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshDashboardData',
+      ];
+
   const FranchiseOwnerComplianceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseOwnerComplianceScreenControllerProvider);
 
     return Scaffold(

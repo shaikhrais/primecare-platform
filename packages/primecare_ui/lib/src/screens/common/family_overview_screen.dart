@@ -97,6 +97,30 @@ final familyOverviewProvider =
 
 // --- View ---
 class FamilyOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The family_overview screen requires components for monitoring compliance, reviewing audit logs, and tracking operations, along with buttons for triggering actions and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusWidget',
+        'AuditLogViewer',
+        'PerformanceIndicatorCard',
+        'TelemetryChart',
+        'ActionButtonPanel',
+        'NotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceStatus',
+        'reviewAuditLogs',
+        'triggerStateAction',
+        'refreshTelemetry',
+        'maintainSecurityClearance',
+        'trackOperations',
+      ];
+
   const FamilyOverviewScreen({super.key});
 
   @override

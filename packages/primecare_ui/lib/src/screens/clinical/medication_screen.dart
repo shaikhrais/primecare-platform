@@ -97,6 +97,34 @@ final medicationProvider =
 
 // --- View ---
 class MedicationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The medication screen requires components for medication administration, vital sign monitoring, compliance auditing, and team communication, along with necessary buttons and APIs for effective nursing responsibilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MedicationLog',
+        'VitalSignTrendChart',
+        'AlertNotification',
+        'ComplianceAuditCard',
+        'MedicationErrorMetrics',
+        'TeamCommunicationTool',
+        'PatientEducationResource',
+        'InventoryManagement',
+        'PerformanceMetrics',
+        'PatientOutcomeVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'administerMedication',
+        'reportVitalSigns',
+        'documentCare',
+        'viewEducationResources',
+        'auditCompliance',
+        'manageInventory',
+      ];
+
   const MedicationScreen({super.key});
 
   @override

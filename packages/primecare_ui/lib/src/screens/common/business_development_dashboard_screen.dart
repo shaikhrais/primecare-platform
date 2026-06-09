@@ -96,6 +96,33 @@ final businessDevelopmentDashboardProvider =
 
 // --- View ---
 class BusinessDevelopmentDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The business development dashboard requires various components to display strategies, KPIs, opportunities, market analysis, team performance, client feedback, compliance status, industry trends, sales forecasts, and alerts for operational issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BusinessStrategyOverview',
+        'KPIChart',
+        'BusinessOpportunitiesList',
+        'MarketAnalysisWidget',
+        'TeamPerformanceDashboard',
+        'ClientFeedbackWidget',
+        'ComplianceStatusPanel',
+        'IndustryTrendsFeed',
+        'SalesForecastChart',
+        'OperationalAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewBusinessProposal',
+        'exportReport',
+        'addBusinessOpportunity',
+        'setPerformanceKPI',
+      ];
+
   const BusinessDevelopmentDashboardScreen({super.key});
 
   @override

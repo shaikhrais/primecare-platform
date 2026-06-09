@@ -107,6 +107,28 @@ final trainingDirectorWorkflowScreenProvider =
 
 // --- View ---
 class TrainingDirectorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor and manage training operations, including compliance scans, operational logs, and telemetry data, along with functionalities to trigger actions and communicate statuses.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatus',
+        'OperationalLogViewer',
+        'TelemetryDataValidator',
+        'ManualSweepTrigger',
+        'CommunicationStatus',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'monitorOperationalLogs',
+        'validateTelemetryData',
+        'triggerManualSweep',
+        'updateCommunicationStatus',
+      ];
+
   const TrainingDirectorWorkflowScreen({super.key});
 
   @override

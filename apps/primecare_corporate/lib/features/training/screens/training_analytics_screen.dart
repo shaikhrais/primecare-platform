@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_analytics_screen_controller.dart';
 
-class TrainingAnalyticsScreen extends ConsumerWidget {
+class TrainingAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The training analytics screen requires components for data visualization, engagement analysis, reporting, and feedback collection, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingAnalyticsChart',
+        'EngagementMetricsCard',
+        'TrendAnalysisWidget',
+        'ReportGenerator',
+        'FeedbackCollectionForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadTrainingData',
+        'analyzeEngagementMetrics',
+        'identifyTrends',
+        'generateReports',
+        'collectFeedback',
+      ];
+
   const TrainingAnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingAnalyticsScreenControllerProvider);
 
     return Scaffold(

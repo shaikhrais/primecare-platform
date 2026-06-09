@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_reports_screen_controller.dart';
 
-class RegionalBdmReportsScreen extends ConsumerWidget {
+class RegionalBdmReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Regional BDM Reports screen requires components for displaying reports, handling loading states and errors, and options for exporting data, all while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessage',
+        'ReportTable',
+        'KPIDashboard',
+        'ExportButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRegionalReports',
+        'handleLoadingError',
+        'exportReport',
+        'refreshData',
+      ];
+
   const RegionalBdmReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmReportsScreenControllerProvider);
 
     return Scaffold(

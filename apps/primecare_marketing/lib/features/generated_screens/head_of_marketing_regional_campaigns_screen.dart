@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_regional_campaigns_screen_controller.dart';
 
-class HeadOfMarketingRegionalCampaignsScreen extends ConsumerWidget {
+class HeadOfMarketingRegionalCampaignsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing regional marketing campaigns, collaboration tools, and reporting functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignPerformanceMetric',
+        'EngagementTrendChart',
+        'KPIAlertWidget',
+        'CollaborationTool',
+        'CampaignOutcomeReport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCampaigns',
+        'analyzeMetrics',
+        'adjustCampaigns',
+        'reportOutcomes',
+        'collaborateWithTeams',
+      ];
+
   const HeadOfMarketingRegionalCampaignsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingRegionalCampaignsScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'monitoring_screen_controller.dart';
 
-class MonitoringScreen extends ConsumerWidget {
+class MonitoringScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The monitoring screen requires real-time performance metrics, alerts, data trends visualization, incident summaries, and access to logs for troubleshooting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricsWidget',
+        'AlertsNotificationWidget',
+        'DataTrendsChart',
+        'OperationalIncidentsSummary',
+        'LogsAccessWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchAlerts',
+        'fetchDataTrends',
+        'fetchOperationalIncidents',
+        'fetchLogs',
+      ];
+
   const MonitoringScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(monitoringScreenControllerProvider);
 
     return Scaffold(

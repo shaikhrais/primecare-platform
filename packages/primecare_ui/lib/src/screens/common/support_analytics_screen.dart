@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SupportAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The support analytics screen requires components for tracking ticket status, response times, customer satisfaction, and agent performance, along with buttons for follow-up and feedback gathering.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketStatusOverview',
+        'ResponseTimeChart',
+        'CustomerSatisfactionWidget',
+        'TicketVolumeChart',
+        'AgentPerformanceMetrics',
+        'EscalationRatesChart',
+        'HighPriorityAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTicketStatus',
+        'calculateAverageResponseTime',
+        'fetchCustomerSatisfaction',
+        'trackIncomingTickets',
+        'fetchAgentPerformance',
+        'monitorEscalationRates',
+        'sendHighPriorityAlert',
+      ];
+
   const SupportAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

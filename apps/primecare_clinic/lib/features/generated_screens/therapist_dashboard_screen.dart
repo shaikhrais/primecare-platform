@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'therapist_dashboard_screen_controller.dart';
 
-class TherapistDashboardScreen extends ConsumerWidget {
+class TherapistDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The therapist dashboard requires various components for task management, including buttons for starting sessions and finalizing notes, along with APIs for operational tasks and error handling.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TitleDisplay',
+        'LoadingIndicator',
+        'OperationalLogsSection',
+        'TelemetryChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'startTherapySession',
+        'finalizeClinicalNotes',
+        'runComplianceScan',
+        'syncPosture',
+        'updatePolicy',
+        'exportLogs',
+        'addLogEntries',
+        'triggerStateActions',
+        'refreshDashboard',
+      ];
+
   const TherapistDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(therapistDashboardScreenControllerProvider);
 
     return Semantics(

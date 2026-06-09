@@ -101,6 +101,27 @@ final chiropractorReportsProvider =
 
 // --- View ---
 class ChiropractorReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display active operations, compliance status, patient progress, and audit logs, along with buttons for compliance checks and data refresh.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveOperationsMetric',
+        'SecurityClearanceStatus',
+        'TelemetryChart',
+        'OperationalAuditLogs',
+        'ComplianceScanButton',
+        'RefreshButton',
+        'Notifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'checkCompliance',
+        'refreshDashboard',
+      ];
+
   const ChiropractorReportsScreen({super.key});
 
   @override

@@ -97,6 +97,32 @@ final serviceIssueProvider =
 
 // --- View ---
 class ServiceIssueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for the Operations Manager to monitor KPIs, performance metrics, compliance, budget, and customer feedback, along with actionable insights and alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'PerformanceMetricChart',
+        'ComplianceStatusCard',
+        'BudgetTracker',
+        'EmployeeStatsWidget',
+        'CustomerFeedbackPanel',
+        'AlertsNotification',
+        'HistoricalDataGraph',
+        'InsightsRecommendationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewComplianceLogs',
+        'trackBudget',
+        'analyzePerformance',
+        'addressComplaints',
+      ];
+
   const ServiceIssueScreen({super.key});
 
   @override

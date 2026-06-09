@@ -2,6 +2,25 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ReceptionistCallsScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring operational status, compliance, and transaction flow, along with a form for submitting secure events.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusIndicator',
+        'VerificationAuditStatus',
+        'TelemetryChart',
+        'SecureEventLoggingForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'checkCompliance',
+        'logOperationalEvent',
+        'trackTransactionFlow',
+      ];
+
   const ReceptionistCallsScreen({super.key});
 
   @override

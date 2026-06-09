@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'customer_support_templates_screen_controller.dart';
 
-class CustomerSupportTemplatesScreen extends ConsumerWidget {
+class CustomerSupportTemplatesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying templates, performance metrics, and feedback options, along with necessary APIs for data retrieval and submission.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TemplateList',
+        'TemplatePerformanceMetrics',
+        'NotificationBanner',
+        'FeedbackForm',
+        'VisualIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadTemplates',
+        'submitFeedback',
+        'reportIssue',
+      ];
+
   const CustomerSupportTemplatesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(customerSupportTemplatesScreenControllerProvider);
 
     return Scaffold(

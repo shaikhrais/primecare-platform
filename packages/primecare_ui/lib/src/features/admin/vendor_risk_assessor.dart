@@ -8,6 +8,27 @@ final vendorRiskProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>
 });
 
 class VendorRiskAssessorScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Vendor Risk Assessor screen requires components to display vendor compliance data, risk levels, and alerts, along with functionality to refresh and analyze vendor information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VendorComplianceTable',
+        'RiskLevelIndicator',
+        'VendorSummaryStats',
+        'VendorAlertNotification',
+        'VendorFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadVendorRiskData',
+        'refreshVendorData',
+        'analyzeVendorDetails',
+        'identifyCriticalVendors',
+      ];
+
   const VendorRiskAssessorScreen({super.key});
 
   @override

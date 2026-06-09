@@ -97,6 +97,38 @@ final rpnTasksProvider =
 
 // --- View ---
 class RpnTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RPN Tasks screen requires components for patient assessments, medication administration, vital signs monitoring, and team collaboration, along with buttons for various actions and APIs for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'MedicationAdministrationWidget',
+        'VitalSignsMonitor',
+        'DailyLivingActivitiesTracker',
+        'HealthcareTeamCollaborationTool',
+        'PatientEducationModule',
+        'PatientRecordsViewer',
+        'ComplianceStatusIndicator',
+        'CarePlanningDashboard',
+        'EmergencyResponseAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductPatientAssessment',
+        'administerMedication',
+        'documentVitalSigns',
+        'assistDailyLiving',
+        'collaborateWithTeam',
+        'providePatientEducation',
+        'maintainPatientRecords',
+        'checkCompliance',
+        'participateInCarePlanning',
+        'respondToEmergency',
+      ];
+
   const RpnTasksScreen({super.key});
 
   @override

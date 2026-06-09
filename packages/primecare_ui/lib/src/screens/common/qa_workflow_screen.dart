@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class QaWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display task lists, defect tracking, test coverage, and testing status, along with buttons for testing actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'DefectTracker',
+        'TestCoverageChart',
+        'TestExecutionSummary',
+        'TestingStatusOverview',
+        'DefectTrendGraph',
+        'FeedbackWidget',
+        'PerformanceMetricsCard',
+        'TimelineVisualizer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'startTesting',
+        'submitDefect',
+        'viewTestResults',
+        'generateReport',
+        'requestFeedback',
+      ];
+
   const QaWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

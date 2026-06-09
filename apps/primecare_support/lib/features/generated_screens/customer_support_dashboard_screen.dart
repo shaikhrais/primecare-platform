@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'customer_support_dashboard_screen_controller.dart';
 
-class CustomerSupportDashboardScreen extends ConsumerWidget {
+class CustomerSupportDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Customer Support Dashboard requires components for displaying logs, metrics, and actions, along with responsive design and API integrations for compliance and security operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CustomerSupportDashboard',
+        'LogDisplay',
+        'ActionButton',
+        'OperationalMetrics',
+        'TelemetryChart',
+        'ExportLogs',
+        'ErrorIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'manualSync',
+        'exportLogs',
+        'updateSecurityPolicies',
+      ];
+
   const CustomerSupportDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(customerSupportDashboardScreenControllerProvider);
 
     return Scaffold(

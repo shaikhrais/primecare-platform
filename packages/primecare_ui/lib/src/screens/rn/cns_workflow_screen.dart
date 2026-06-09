@@ -102,6 +102,30 @@ final cnsWorkflowScreenProvider =
 
 // --- View ---
 class CnsWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for patient assessments, quality assurance, care plan updates, and collaboration tools, along with buttons for updating plans and reporting issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentMetrics',
+        'QualityAssuranceLog',
+        'CarePlanUpdates',
+        'RedFlagAlerts',
+        'NursingPerformanceIndicators',
+        'TrainingResources',
+        'PatientSatisfactionFeedback',
+        'TeamCollaborationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateCarePlan',
+        'reportRedFlag',
+        'fetchTrainingResources',
+        'getPatientFeedback',
+      ];
+
   const CnsWorkflowScreen({super.key});
 
   @override

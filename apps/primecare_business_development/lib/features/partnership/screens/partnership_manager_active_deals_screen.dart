@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_active_deals_screen_controller.dart';
 
-class PartnershipManagerActiveDealsScreen extends ConsumerWidget {
+class PartnershipManagerActiveDealsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor active deals, analyze performance metrics, and facilitate communication with partners while alerting users to any red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveDealsOverview',
+        'PartnershipPerformanceMetrics',
+        'RedFlagAlerts',
+        'CommunicationLogs',
+        'HistoricalTrendAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveDeals',
+        'updateDealStatus',
+        'sendMessageToPartner',
+        'analyzePerformanceMetrics',
+        'checkForRedFlags',
+      ];
+
   const PartnershipManagerActiveDealsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(partnershipManagerActiveDealsScreenControllerProvider);
 
     return Scaffold(

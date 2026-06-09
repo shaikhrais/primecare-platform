@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'local_marketing_manager_reports_screen_controller.dart';
 
-class LocalMarketingManagerReportsScreen extends ConsumerWidget {
+class LocalMarketingManagerReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring marketing performance, analyzing reports, and collaborating with teams, along with necessary buttons, functions, and APIs for effective operation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'CampaignEffectivenessChart',
+        'FeedbackSentimentAnalysis',
+        'TrendComparisonTool',
+        'HistoricalDataViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPerformanceMetrics',
+        'analyzeCampaignReports',
+        'identifyTrends',
+        'collaborateWithTeams',
+        'reviewCustomerFeedback',
+        'prepareStakeholderPresentation',
+      ];
+
   const LocalMarketingManagerReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localMarketingManagerReportsScreenControllerProvider);
 
     return Scaffold(

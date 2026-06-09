@@ -4,6 +4,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class TrainingCoordinatorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking training progress, scheduling, notifications, feedback, performance metrics, resources, and communication tools for candidates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProgressTracker',
+        'TrainingSessionCalendar',
+        'NotificationPanel',
+        'FeedbackSection',
+        'PerformanceMetrics',
+        'ResourceLibrary',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitAssessment',
+        'provideFeedback',
+        'trackProgress',
+        'joinDiscussion',
+      ];
+
   const TrainingCoordinatorWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

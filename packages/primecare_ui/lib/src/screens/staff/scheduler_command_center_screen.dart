@@ -101,6 +101,35 @@ final schedulerCommandCenterProvider =
 
 // --- View ---
 class SchedulerCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, compliance, staff scheduling, customer feedback, incident reporting, and communication tools, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'StaffScheduleViewer',
+        'CustomerFeedbackChart',
+        'IncidentReportTable',
+        'OperationalLogViewer',
+        'AlertNotificationBanner',
+        'CommunicationTool',
+        'TrainingResourceLink',
+        'KPIVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'updateStaffSchedule',
+        'submitCustomerFeedback',
+        'logIncidentReport',
+        'sendTeamUpdate',
+        'accessTrainingResources',
+      ];
+
   const SchedulerCommandCenterScreen({super.key});
 
   @override

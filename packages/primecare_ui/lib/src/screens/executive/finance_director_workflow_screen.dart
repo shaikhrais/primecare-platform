@@ -107,6 +107,33 @@ final financeDirectorWorkflowScreenProvider =
 
 // --- View ---
 class FinanceDirectorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various financial monitoring and reporting components, buttons for generating reports and submitting compliance, functions for handling financial data, and APIs for accessing financial information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CashFlowMonitor',
+        'BudgetPerformanceTracker',
+        'ComplianceAlert',
+        'ForecastingChart',
+        'AuditTrailViewer',
+        'RiskAssessmentWidget',
+        'OperationalLogViewer',
+        'FinancialDataVisualizer',
+        'AnomalyAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateFinancialReport',
+        'submitComplianceData',
+        'forecastFinancialTrends',
+        'viewAuditTrail',
+        'assessFinancialRisk',
+      ];
+
   const FinanceDirectorWorkflowScreen({super.key});
 
   @override

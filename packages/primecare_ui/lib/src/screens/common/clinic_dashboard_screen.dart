@@ -94,6 +94,38 @@ final clinicDashboardProvider =
 
 // --- View ---
 class ClinicDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The clinic dashboard requires components to monitor KPIs, compliance, patient satisfaction, and staff performance, along with functionalities for alerts and communication tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'TelemetryLog',
+        'ComplianceAuditResults',
+        'PatientSatisfactionScores',
+        'StaffPerformanceMetrics',
+        'OperationalAuditLog',
+        'AlertsDashboard',
+        'PatientCareOutcomesVisualization',
+        'ResourceUtilizationMetrics',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchTelemetryLogs',
+        'fetchAuditResults',
+        'fetchPatientSatisfaction',
+        'fetchStaffMetrics',
+        'fetchOperationalLogs',
+        'triggerAlert',
+        'visualizeOutcomes',
+        'fetchResourceMetrics',
+        'engageCommunication',
+      ];
+
   const ClinicDashboardScreen({super.key});
 
   @override

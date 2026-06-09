@@ -171,6 +171,33 @@ final pswShiftTrackerControllerProvider =
 
 // --- View ---
 class PswShiftTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for clocking in/out, task management, communication, incident reporting, and training resources, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClockInOutWidget',
+        'TaskListWidget',
+        'ShiftStatusWidget',
+        'CommunicationWidget',
+        'IncidentReportWidget',
+        'TrainingResourceWidget',
+        'HealthSafetyChecklistWidget',
+        'RedFlagAlertWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'toggleClockInOut',
+        'completeTask',
+        'updateShiftStatus',
+        'reportIncident',
+        'fetchClientInfo',
+        'fetchTrainingResources',
+        'checkHealthSafetyCompliance',
+      ];
+
   const PswShiftTrackerScreen({super.key});
 
   @override

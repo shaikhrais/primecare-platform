@@ -4,6 +4,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SocialWorkerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, client overview, alerts, and performance metrics, along with buttons for task actions and API integrations for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ClientOverview',
+        'AlertsPanel',
+        'DocumentAccess',
+        'MetricsDashboard',
+        'CommunicationTools',
+        'ResourceDirectory',
+        'TrainingOpportunities',
+        'FeedbackTools',
+        'PerformanceReport',
+        'WorkloadVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'viewClientRecord',
+        'sendAlert',
+        'generateReport',
+        'requestResources',
+        'scheduleAppointment',
+      ];
+
   const SocialWorkerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

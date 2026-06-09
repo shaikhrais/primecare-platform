@@ -99,6 +99,38 @@ final outreachCampaignProvider =
 
 // --- View ---
 class OutreachCampaignScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The outreach_campaign screen requires various widgets for displaying KPIs, client metrics, market analysis, and compliance status, along with buttons for managing opportunities and reports, supported by necessary API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'ClientMetricsChart',
+        'MarketAnalysisPanel',
+        'ProgressTracker',
+        'ComplianceStatusCard',
+        'TeamPerformanceDashboard',
+        'FinancialForecastWidget',
+        'NegotiationStatusPanel',
+        'ClientFeedbackWidget',
+        'MarketTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchClientMetrics',
+        'fetchMarketAnalysis',
+        'trackProgress',
+        'fetchComplianceData',
+        'fetchTeamPerformance',
+        'fetchFinancialForecast',
+        'fetchNegotiationStatus',
+        'fetchClientFeedback',
+        'fetchMarketTrends',
+      ];
+
   const OutreachCampaignScreen({super.key});
 
   @override

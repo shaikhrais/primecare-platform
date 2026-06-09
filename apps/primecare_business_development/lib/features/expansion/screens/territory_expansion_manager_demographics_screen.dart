@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_demographics_screen_controller.dart';
 
-class TerritoryExpansionManagerDemographicsScreen extends ConsumerWidget {
+class TerritoryExpansionManagerDemographicsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time demographic data visualization, collaboration tools, and a user-friendly interface to support territory expansion analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DemographicDataChart',
+        'KPIWidget',
+        'AlertsNotification',
+        'CollaborationTool',
+        'UserInterface',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchDemographicData',
+        'updateDashboard',
+        'generateReport',
+        'sendCollaborationInvite',
+      ];
+
   const TerritoryExpansionManagerDemographicsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerDemographicsScreenControllerProvider);
 
     return Scaffold(

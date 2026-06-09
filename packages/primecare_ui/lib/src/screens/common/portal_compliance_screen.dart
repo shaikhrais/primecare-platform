@@ -76,6 +76,38 @@ final portalComplianceProvider =
 
 // --- View ---
 class PortalComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The portal compliance screen requires components for managing compliance tasks, monitoring logs, and displaying real-time status, along with necessary buttons, functions, and APIs for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditList',
+        'GovernanceActionTrigger',
+        'GovernanceDirectiveManager',
+        'SecureEventReportSubmission',
+        'ComplianceVerificationReview',
+        'OperationalAuditLogMonitor',
+        'ComplianceStatusRefresher',
+        'ComplianceAuditStatusCard',
+        'GovernanceFailureAlert',
+        'ComplianceVerificationSummary',
+        'GovernanceDirectiveSettingsAccess',
+        'OperationalLogVisualization',
+        'ActionNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceAudit',
+        'triggerGovernanceAction',
+        'manageGovernanceDirectives',
+        'submitSecureEventReport',
+        'reviewComplianceVerification',
+        'monitorOperationalLogs',
+        'refreshComplianceStatus',
+      ];
+
   const PortalComplianceScreen({super.key});
 
   @override

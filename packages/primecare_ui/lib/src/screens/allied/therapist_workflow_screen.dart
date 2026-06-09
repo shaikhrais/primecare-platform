@@ -107,6 +107,32 @@ final therapistWorkflowScreenProvider =
 
 // --- View ---
 class TherapistWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The therapist workflow screen requires components for task management, compliance monitoring, and collaboration, along with buttons for executing quality sweeps and responding to alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceStatusCard',
+        'OperationalLogs',
+        'PatientProgressMetrics',
+        'TelemetryChart',
+        'QualityVerificationButton',
+        'AlertsNotificationPanel',
+        'CollaborationSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'logOperationalData',
+        'updatePatientProgress',
+        'triggerQualitySweep',
+        'fetchTelemetryData',
+        'notifyAlerts',
+      ];
+
   const TherapistWorkflowScreen({super.key});
 
   @override

@@ -97,6 +97,31 @@ final xrayReviewProvider =
 
 // --- View ---
 class XrayReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The xray_review screen requires components for patient management, X-ray review, compliance tracking, performance metrics, and communication tools, along with various buttons and API integrations to support chiropractor responsibilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientRecordCard',
+        'XRayImageViewer',
+        'ComplianceAuditLog',
+        'PerformanceMetricsChart',
+        'TelemetryDataDisplay',
+        'RedFlagAlert',
+        'EducationalResourcePanel',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'reviewXRay',
+        'logPatientProgress',
+        'generateComplianceReport',
+        'sendMessageToProvider',
+      ];
+
   const XrayReviewScreen({super.key});
 
   @override

@@ -8,6 +8,25 @@ final consentsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>(
 });
 
 class ConsentManagementConsoleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display consent records, summary statistics, and trends, along with buttons for refreshing data and viewing details.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ConsentRecordList',
+        'ConsentSummaryCard',
+        'ConsentTrendChart',
+        'ErrorAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadConsentRecords',
+        'refreshConsentRecords',
+        'viewConsentDetails',
+      ];
+
   const ConsentManagementConsoleScreen({super.key});
 
   @override

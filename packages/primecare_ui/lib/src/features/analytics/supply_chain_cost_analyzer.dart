@@ -8,6 +8,24 @@ final supplyChainCostProvider = FutureProvider.autoDispose<List<Map<String, dyna
 });
 
 class SupplyChainCostAnalyzerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to analyze procurement spending, manage vendors, and refresh data, along with appropriate buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProcurementSpendingChart',
+        'BudgetVarianceIndicator',
+        'VendorManagementPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'analyzeSpendingByCategory',
+        'refreshData',
+        'manageVendors',
+      ];
+
   const SupplyChainCostAnalyzerScreen({super.key});
 
   @override

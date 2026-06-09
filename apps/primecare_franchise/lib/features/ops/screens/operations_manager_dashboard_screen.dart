@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_dashboard_screen_controller.dart';
 
-class OperationsManagerDashboardScreen extends ConsumerWidget {
+class OperationsManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The operations manager dashboard requires real-time monitoring of KPIs, compliance status, and operational metrics, along with tools for communication and insights generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'ComplianceAuditStatus',
+        'OperationalLogs',
+        'AlertsWidget',
+        'ResourceAllocationTracker',
+        'EmployeePerformanceMetrics',
+        'CustomerFeedbackTracker',
+        'OperationalTrendsChart',
+        'InsightsWidget',
+        'CommunicationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchComplianceStatus',
+        'fetchOperationalLogs',
+        'checkAlerts',
+        'trackResourceAllocation',
+        'fetchEmployeeMetrics',
+        'trackCustomerFeedback',
+        'generateTrends',
+        'provideInsights',
+        'openCommunicationTools',
+      ];
+
   const OperationsManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerDashboardScreenControllerProvider);
 
     return Scaffold(

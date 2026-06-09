@@ -4,6 +4,42 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ChiropractorAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractor analytics screen requires components for patient management, treatment tracking, and collaboration, along with functionalities for scheduling, feedback, and alerts for red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'SpinalManipulationCard',
+        'PatientEducationCard',
+        'ProgressMonitoringCard',
+        'PatientRecordsCard',
+        'CollaborationCard',
+        'ResearchUpdatesCard',
+        'RedFlagsAlertCard',
+        'DemographicsDashboard',
+        'EffectivenessMetricsChart',
+        'AppointmentScheduler',
+        'FeedbackScoreCard',
+        'EHRIntegrationCard',
+        'PerformanceTrackingCard',
+        'FollowUpAlertsCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addPatient',
+        'updateTreatmentPlan',
+        'recordProgress',
+        'scheduleAppointment',
+        'sendReminder',
+        'viewFeedback',
+        'accessResources',
+        'checkRedFlags',
+      ];
+
   const ChiropractorAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

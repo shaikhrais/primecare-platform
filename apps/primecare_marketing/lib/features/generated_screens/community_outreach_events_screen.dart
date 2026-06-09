@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'community_outreach_events_screen_controller.dart';
 
-class CommunityOutreachEventsScreen extends ConsumerWidget {
+class CommunityOutreachEventsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing community outreach events, including metrics and communication logs, along with buttons for updating and scheduling events.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EventOverviewCard',
+        'EngagementMetricsChart',
+        'EventStatusWidget',
+        'CommunicationLogPanel',
+        'SuccessMetricsDashboard',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateEventDetails',
+        'scheduleEvent',
+        'trackEngagement',
+        'analyzeMetrics',
+        'logCommunication',
+        'sendAlerts',
+      ];
+
   const CommunityOutreachEventsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(communityOutreachEventsScreenControllerProvider);
 
     return Scaffold(

@@ -102,6 +102,33 @@ final legalAnalyticsScreenProvider =
 
 // --- View ---
 class LegalAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The legal analytics screen requires components for tracking KPIs, litigation status, compliance, contract management, risk assessment, and training, along with various buttons for legal actions and API integrations for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'LitigationStatusWidget',
+        'ComplianceTracker',
+        'ContractManagementOverview',
+        'RiskAssessmentDashboard',
+        'TrainingCompletionRates',
+        'LegalAdviceSummary',
+        'ExternalCounselCostTracker',
+        'DocumentManagementWidget',
+        'DeadlineAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveContract',
+        'requestLegalAdvice',
+        'initiateLitigation',
+        'generateComplianceReport',
+        'trainStaff',
+      ];
+
   const LegalAnalyticsScreen({super.key});
 
   @override

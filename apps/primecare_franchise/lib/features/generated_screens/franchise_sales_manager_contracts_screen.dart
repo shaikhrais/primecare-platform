@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_contracts_screen_controller.dart';
 
-class FranchiseSalesManagerContractsScreen extends ConsumerWidget {
+class FranchiseSalesManagerContractsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing franchise contracts, monitoring statuses, and facilitating communication, along with necessary buttons and API integrations for effective contract management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ContractList',
+        'ContractStatusOverview',
+        'AlertsWidget',
+        'PerformanceMetricsChart',
+        'CommunicationLog',
+        'TemplateAccess',
+        'DisputeSummary',
+        'TimelineVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewContract',
+        'updateTemplate',
+        'sendCommunication',
+        'analyzePerformance',
+        'resolveDispute',
+      ];
+
   const FranchiseSalesManagerContractsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerContractsScreenControllerProvider);
 
     return Scaffold(

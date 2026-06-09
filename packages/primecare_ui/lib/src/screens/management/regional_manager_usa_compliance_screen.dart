@@ -78,6 +78,34 @@ final regionalManagerUsaComplianceProvider =
 
 // --- View ---
 class RegionalManagerUsaComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance audit statuses, telemetry logs, security policy enforcement, and governance directives, along with buttons for refreshing data and viewing issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'TelemetryLogWidget',
+        'SecurityPolicyStatusCard',
+        'OperationalAuditLogTable',
+        'RecentComplianceAuditsList',
+        'ComplianceNotificationsWidget',
+        'GovernanceDirectivesSummary',
+        'ActionLogTable',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceAuditStatus',
+        'fetchTelemetryLogs',
+        'checkSecurityPolicyEnforcement',
+        'fetchOperationalLogs',
+        'fetchRecentComplianceAudits',
+        'sendComplianceIssueNotification',
+        'fetchGovernanceDirectives',
+        'logAction',
+      ];
+
   const RegionalManagerUsaComplianceScreen({super.key});
 
   @override

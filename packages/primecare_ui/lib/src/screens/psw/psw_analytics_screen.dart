@@ -191,6 +191,28 @@ final pswAnalyticsControllerProvider =
 
 // --- View ---
 class PswAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying metrics, logging observations, and alerting healthcare professionals, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'GovDataTable',
+        'GovAlert',
+        'GovFilter',
+        'GovQuickLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logMoodObservation',
+        'fetchVisitMetrics',
+        'filterDataByTimeFrame',
+        'triggerAlert',
+      ];
+
   const PswAnalyticsScreen({super.key});
 
   @override

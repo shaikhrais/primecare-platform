@@ -76,6 +76,30 @@ final guestComplianceProvider =
 
 // --- View ---
 class GuestComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance audits, audit log monitoring, governance updates, event reporting, and compliance reviews, along with necessary buttons, functions, APIs, and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditWidget',
+        'AuditLogMonitor',
+        'GovernanceDirectivesUpdater',
+        'SecureEventReportForm',
+        'ComplianceVerificationReview',
+        'StateActionTrigger',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'monitorAuditLogs',
+        'updateGovernanceDirectives',
+        'submitEventReport',
+        'reviewComplianceAudits',
+        'triggerStateActions',
+      ];
+
   const GuestComplianceScreen({super.key});
 
   @override

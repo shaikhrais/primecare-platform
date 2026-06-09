@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'certifications_screen_controller.dart';
 
-class CertificationsScreen extends ConsumerWidget {
+class CertificationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Certifications screen requires components for loading states, error handling, data display, performance metrics, and user feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessageDisplay',
+        'CertificationsSummary',
+        'PerformanceMetrics',
+        'UserFeedback',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCertificationsData',
+        'handleErrorMessages',
+        'displayLoadingState',
+        'submitFeedback',
+      ];
+
   const CertificationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(certificationsScreenControllerProvider);
 
     return Scaffold(

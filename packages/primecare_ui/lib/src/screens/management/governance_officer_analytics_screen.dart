@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GovernanceOfficerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The governance officer analytics screen requires various components to display compliance metrics, risk assessments, stakeholder engagement, and audit findings, along with buttons for generating reports and engaging stakeholders.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceMetricCard',
+        'RiskAssessmentChart',
+        'StakeholderEngagementStats',
+        'AuditFindingsList',
+        'TrainingCompletionTracker',
+        'GovernanceStrategyProgress',
+        'DocumentManagementSystem',
+        'RealTimeAlerts',
+        'PerformanceIndicatorDashboard',
+        'GovernanceSummaryReport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'sendAlert',
+        'updateTrainingStatus',
+        'viewAuditDetails',
+        'engageStakeholders',
+      ];
+
   const GovernanceOfficerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

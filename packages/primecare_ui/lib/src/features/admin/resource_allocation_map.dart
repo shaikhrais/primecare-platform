@@ -8,6 +8,24 @@ final resourceAllocationProvider = FutureProvider.autoDispose<Map<String, dynami
 });
 
 class ResourceAllocationMapScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring resource allocation, a refresh button, and functions for analyzing and categorizing resource utilization.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ResourceAllocationMap',
+        'GeospatialMappingComponent',
+        'UtilizationIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshResourceAllocation',
+        'analyzeUtilizationLevels',
+        'identifyUtilizationCategories',
+      ];
+
   const ResourceAllocationMapScreen({super.key});
 
   @override

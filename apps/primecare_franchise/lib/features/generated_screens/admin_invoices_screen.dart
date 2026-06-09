@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'admin_invoices_screen_controller.dart';
 
-class AdminInvoicesScreen extends ConsumerWidget {
+class AdminInvoicesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing invoices, quick action buttons, and APIs for invoice and user management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InvoiceStatusOverview',
+        'QuickActionButtons',
+        'ErrorNotification',
+        'StatusIndicator',
+        'InvoiceSearchFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorInvoiceStatus',
+        'reviewInvoice',
+        'generateInvoiceReport',
+        'manageUserPermissions',
+        'addressInvoiceErrors',
+      ];
+
   const AdminInvoicesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(adminInvoicesScreenControllerProvider);
 
     return Scaffold(

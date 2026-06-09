@@ -96,6 +96,27 @@ final systemVerificationDashboardProvider =
 
 // --- View ---
 class SystemVerificationDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display operational statuses, security metrics, telemetry data, compliance logs, alerts, and KPIs, along with a refresh functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationStatusSummary',
+        'SecurityClearanceCard',
+        'TelemetryChart',
+        'ComplianceScanLog',
+        'AlertsPanel',
+        'AuditLogSection',
+        'KPIWidget',
+        'RefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+      ];
+
   const SystemVerificationDashboardScreen({super.key});
 
   @override

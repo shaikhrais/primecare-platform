@@ -100,6 +100,33 @@ final rpnIncidentReviewProvider =
 
 // --- View ---
 class RpnIncidentReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient health, medication administration, incident reporting, and team communication, along with necessary buttons and API integrations to support RPN responsibilities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientHealthStatusOverview',
+        'MedicationAdministrationRecord',
+        'IncidentReportingLog',
+        'PatientSatisfactionMetric',
+        'StaffingLevelIndicator',
+        'TrainingCertificationStatus',
+        'RealTimeAlerts',
+        'ComplianceStatus',
+        'HistoricalDataChart',
+        'TeamCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitIncidentReport',
+        'viewPatientDetails',
+        'logMedicationAdministered',
+        'requestAssistance',
+        'generateComplianceReport',
+      ];
+
   const RpnIncidentReviewScreen({super.key});
 
   @override

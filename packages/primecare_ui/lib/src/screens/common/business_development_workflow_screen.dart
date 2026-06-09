@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BusinessDevelopmentWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking business development metrics, visualizing opportunities, and integrating with CRM, along with buttons for managing proposals and performance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'OpportunityPipelineChart',
+        'TeamPerformanceMetrics',
+        'MarketAnalysisWidget',
+        'ClientFeedbackWidget',
+        'ProgressTracker',
+        'AlertsDashboard',
+        'HistoricalDataTrends',
+        'CRMIntegration',
+        'CustomizableView',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'updateOpportunityPipeline',
+        'getTeamPerformance',
+        'conductMarketAnalysis',
+        'collectClientFeedback',
+        'trackProgress',
+        'checkAlerts',
+        'fetchHistoricalData',
+        'integrateCRM',
+        'customizeView',
+      ];
+
   const BusinessDevelopmentWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

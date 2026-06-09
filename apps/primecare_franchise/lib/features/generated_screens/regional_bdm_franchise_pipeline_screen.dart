@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_franchise_pipeline_screen_controller.dart';
 
-class RegionalBdmFranchisePipelineScreen extends ConsumerWidget {
+class RegionalBdmFranchisePipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time data visualization, KPIs, alerts for operational issues, task summaries, and collaboration tools for regional business development managers.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FranchisePipelineChart',
+        'KPIWidget',
+        'AlertNotification',
+        'TaskSummary',
+        'CollaborationLinks',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPipelineData',
+        'generateKPIReport',
+        'sendAlert',
+        'updateTaskList',
+        'initiateCollaboration',
+      ];
+
   const RegionalBdmFranchisePipelineScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmFranchisePipelineScreenControllerProvider);
 
     return Scaffold(

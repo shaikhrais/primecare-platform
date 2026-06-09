@@ -100,6 +100,38 @@ final cooWorkflowIssuesProvider =
 
 // --- View ---
 class CooWorkflowIssuesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the COO to monitor operational performance, compliance, and key metrics, along with alert mechanisms for red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'OperationalMetricsChart',
+        'ComplianceStatusWidget',
+        'FinancialPerformanceCard',
+        'EmployeeEngagementWidget',
+        'ProjectTimelineTracker',
+        'RiskManagementReport',
+        'ResourceUtilizationChart',
+        'CustomerFeedbackWidget',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchOperationalMetrics',
+        'fetchComplianceStatus',
+        'fetchFinancialPerformance',
+        'fetchEmployeeStatistics',
+        'fetchProjectUpdates',
+        'fetchRiskReports',
+        'fetchResourceMetrics',
+        'fetchCustomerFeedback',
+        'checkForRedFlags',
+      ];
+
   const CooWorkflowIssuesScreen({super.key});
 
   @override

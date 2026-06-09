@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'it_administrator_dashboard_screen_controller.dart';
 
-class ItAdministratorDashboardScreen extends ConsumerWidget {
+class ItAdministratorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The IT Administrator Dashboard requires various widgets for monitoring system performance, managing user accounts, and overseeing software updates, along with buttons and functions for real-time interaction and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SystemPerformanceMetricWidget',
+        'UserAccountStatusWidget',
+        'IncidentAlertWidget',
+        'SupportRequestSummaryWidget',
+        'SoftwareUpdateStatusWidget',
+        'BackupStatusWidget',
+        'DocumentationAccessWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshMetrics',
+        'viewUserAccounts',
+        'checkAlerts',
+        'viewSupportRequests',
+        'manageSoftwareUpdates',
+        'checkBackupStatus',
+        'accessDocumentation',
+      ];
+
   const ItAdministratorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(itAdministratorDashboardScreenControllerProvider);
 
     return Scaffold(

@@ -77,6 +77,33 @@ final auditScreenControllerProvider = StateNotifierProvider<AuditScreenControlle
 
 // --- View ---
 class ScreenAuditScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, operational logs, KPIs, alerts, risk assessments, and access to documentation, along with buttons for data refresh and report generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'OperationalLogs',
+        'GovernanceKPIChart',
+        'ComplianceAlertWidget',
+        'RiskAssessmentVisualization',
+        'StakeholderEngagementMetrics',
+        'GovernancePerformanceTrends',
+        'ActionItemsList',
+        'GovernanceMeetingSummary',
+        'DocumentationAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'generateAuditReport',
+        'sendComplianceAlert',
+        'viewTrainingResources',
+        'updateGovernanceDocument',
+      ];
+
   const ScreenAuditScreen({super.key});
 
   @override
@@ -602,11 +629,33 @@ class ScreenAuditScreen extends GovernedConsumerWidget {
   }
 }
 
-class ScreenAuditView extends ConsumerWidget {
+class ScreenAuditView extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor compliance scans, review audit logs, and display KPIs, along with buttons for refreshing data and executing scans.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatus',
+        'AuditLogSummary',
+        'KPIWidget',
+        'TelemetryChart',
+        'ActionButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceScan',
+        'reviewAuditLogs',
+        'triggerManualRefresh',
+        'executeAuditScan',
+        'assessKPIs',
+      ];
+
   const ScreenAuditView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     return const SizedBox();
   }
 }

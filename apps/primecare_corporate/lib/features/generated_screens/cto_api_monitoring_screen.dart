@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_api_monitoring_screen_controller.dart';
 
-class CtoApiMonitoringScreen extends ConsumerWidget {
+class CtoApiMonitoringScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring API performance, tracking errors, and generating reports, along with buttons for setting alerts and collaborating with teams.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ApiPerformanceMetrics',
+        'ApiResponseTimeAnalyzer',
+        'ErrorRateTracker',
+        'ApiUsageStatistics',
+        'AlertsSetup',
+        'PerformanceReportsGenerator',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorApiPerformance',
+        'analyzeResponseTimes',
+        'trackErrorRates',
+        'reviewUsageStatistics',
+        'setupAlerts',
+        'generateReports',
+        'collaborateWithTeams',
+      ];
+
   const CtoApiMonitoringScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoApiMonitoringScreenControllerProvider);
 
     return Scaffold(

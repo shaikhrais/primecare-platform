@@ -102,6 +102,38 @@ final infrastructureAnalyticsScreenProvider =
 
 // --- View ---
 class InfrastructureAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor infrastructure health, compliance, performance, and audit findings, along with necessary buttons and functions to generate reports and visualize data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'HealthMetricCard',
+        'ComplianceStatusWidget',
+        'PerformanceMetricsChart',
+        'AuditTrailList',
+        'AlertNotificationPanel',
+        'AuditFindingsSummary',
+        'InfrastructureVisualization',
+        'HistoricalDataTrendChart',
+        'LoggingIntegrationPanel',
+        'UserActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSystemHealth',
+        'checkComplianceStatus',
+        'retrievePerformanceMetrics',
+        'getAuditTrail',
+        'triggerAlerts',
+        'summarizeAuditFindings',
+        'visualizeInfrastructure',
+        'fetchHistoricalData',
+        'integrateLoggingTools',
+        'logUserActivity',
+      ];
+
   const InfrastructureAnalyticsScreen({super.key});
 
   @override

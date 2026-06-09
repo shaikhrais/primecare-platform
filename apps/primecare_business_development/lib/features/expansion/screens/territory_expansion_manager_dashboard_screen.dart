@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_dashboard_screen_controller.dart';
 
-class TerritoryExpansionManagerDashboardScreen extends ConsumerWidget {
+class TerritoryExpansionManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Territory Expansion Manager Dashboard requires various widgets to display KPIs, telemetry logs, compliance status, market analysis, financial metrics, alerts, and action logs, along with buttons for refreshing data and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'TelemetryLogWidget',
+        'ComplianceStatusWidget',
+        'MarketAnalysisWidget',
+        'FinancialMetricsWidget',
+        'ProgressChart',
+        'AlertsWidget',
+        'ActionLogWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchTelemetryLogs',
+        'fetchComplianceStatus',
+        'fetchMarketAnalysis',
+        'fetchFinancialMetrics',
+        'updateAlerts',
+        'logAction',
+      ];
+
   const TerritoryExpansionManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerDashboardScreenControllerProvider);
 
     return Scaffold(

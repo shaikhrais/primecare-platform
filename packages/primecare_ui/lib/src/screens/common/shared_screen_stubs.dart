@@ -88,6 +88,27 @@ final sharedStubsScreenControllerProvider = StateNotifierProvider<SharedStubsScr
 
 // --- View ---
 class SharedStubsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires rendering of the SharedScreenStubs component, managing state, handling compliance scans, and displaying logs and metrics with responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SharedScreenStubs',
+        'TelemetryChart',
+        'AuditLogList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'renderSharedScreenStubs',
+        'manageSharedStubsState',
+        'handleComplianceScan',
+        'logResults',
+        'updateDashboard',
+        'refreshTelemetry',
+      ];
+
   const SharedStubsScreen({super.key});
 
   @override
@@ -290,12 +311,34 @@ class SharedStubsScreen extends GovernedConsumerWidget {
   }
 }
 
-class ScreenNotImplementedView extends ConsumerWidget {
+class ScreenNotImplementedView extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor compliance scans, display operational logs, and show performance metrics, along with a refresh button for telemetry synchronization.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatusWidget',
+        'OperationalLogsWidget',
+        'PerformanceMetricsWidget',
+        'SecurityClearanceStatusWidget',
+        'TelemetryRefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceScanResults',
+        'triggerStateActions',
+        'reviewOperationalAuditLogs',
+        'refreshDashboardTelemetry',
+        'executeOperationalAuditScans',
+      ];
+
   final String? screenName;
   const ScreenNotImplementedView({super.key, this.screenName});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     return Cy(
       id: 'screennotimplemented-screen',

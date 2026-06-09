@@ -100,6 +100,38 @@ final invoiceManagementProvider =
 
 // --- View ---
 class InvoiceManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The invoice management screen requires components for task management, scheduling, document handling, and communication, along with various buttons and functions to support administrative tasks and ensure compliance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'DocumentManagementSystem',
+        'CommunicationLogs',
+        'PerformanceMetrics',
+        'ComplianceTracking',
+        'InventoryManagement',
+        'CustomerFeedback',
+        'TeamCollaborationTools',
+        'Alerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleAppointment',
+        'uploadDocument',
+        'sendMessage',
+        'viewMetrics',
+        'checkCompliance',
+        'manageInventory',
+        'submitFeedback',
+        'collaborate',
+        'setAlert',
+      ];
+
   const InvoiceManagementScreen({super.key});
 
   @override

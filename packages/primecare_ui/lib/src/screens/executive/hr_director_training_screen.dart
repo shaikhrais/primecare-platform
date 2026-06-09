@@ -101,6 +101,33 @@ final hrDirectorTrainingProvider =
 
 // --- View ---
 class HrDirectorTrainingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display HR tasks, KPIs, and metrics, along with buttons for report generation and data export, supported by various APIs for HR data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'KPIChart',
+        'EngagementMetric',
+        'ComplianceStatus',
+        'TrainingParticipationChart',
+        'DiversityStatistics',
+        'PerformanceOverview',
+        'CompensationAnalysis',
+        'AuditLogViewer',
+        'AlertsDashboard',
+        'TrendVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchHRMetrics',
+        'generateReport',
+        'exportData',
+        'refreshMetrics',
+      ];
+
   const HrDirectorTrainingScreen({super.key});
 
   @override

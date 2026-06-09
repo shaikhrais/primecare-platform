@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ReceptionistAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The receptionist analytics screen requires components for task management, scheduling, communication tracking, and performance metrics, along with various buttons and functions to facilitate administrative tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'FileManagementSystem',
+        'PerformanceMetrics',
+        'BudgetTracking',
+        'InventoryManagement',
+        'CustomerFeedbackMetrics',
+        'AlertsSystem',
+        'TeamCollaborationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'scheduleAppointment',
+        'sendMessage',
+        'uploadDocument',
+        'generateReport',
+        'trackBudget',
+        'manageInventory',
+        'submitFeedback',
+        'setAlert',
+        'collaborate',
+      ];
+
   const ReceptionistAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

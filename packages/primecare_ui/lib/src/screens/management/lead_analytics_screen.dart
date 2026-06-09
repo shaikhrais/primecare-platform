@@ -97,6 +97,38 @@ final leadAnalyticsProvider =
 
 // --- View ---
 class LeadAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The lead analytics screen requires various widgets for campaign performance, analytics, budget tracking, and customer insights, along with buttons for data refresh and report export, and functions to handle data fetching and alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'RealTimeAnalyticsChart',
+        'BudgetTrackingCard',
+        'CustomerFeedbackWidget',
+        'KPIOverviewCard',
+        'MarketTrendsChart',
+        'TeamPerformanceWidget',
+        'ComplianceReportCard',
+        'CustomerDemographicsChart',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'fetchAnalyticsData',
+        'trackBudget',
+        'analyzeCustomerFeedback',
+        'fetchKPIData',
+        'fetchMarketTrends',
+        'fetchTeamPerformance',
+        'checkCompliance',
+        'fetchCustomerDemographics',
+        'triggerAlerts',
+      ];
+
   const LeadAnalyticsScreen({super.key});
 
   @override

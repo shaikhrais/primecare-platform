@@ -8,6 +8,23 @@ final capacityProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) 
 });
 
 class SystemCapacityPlannerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time monitoring of system capacity metrics, a refresh functionality, and a resource projection analysis feature.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CapacityMetricCard',
+        'ResourceProjectionChart',
+        'ErrorMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshCapacityData',
+        'analyzeResourceProjection',
+      ];
+
   const SystemCapacityPlannerScreen({super.key});
 
   @override

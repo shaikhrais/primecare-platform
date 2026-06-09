@@ -100,6 +100,38 @@ final rpnCarePlanReviewProvider =
 
 // --- View ---
 class RpnCarePlanReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient health, compliance auditing, and team communication, along with various buttons and functions to facilitate nursing responsibilities and incident reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientHealthMetrics',
+        'ComplianceAuditLog',
+        'KPIDashboard',
+        'PatientSatisfactionScore',
+        'MedicationAdminRecord',
+        'StaffingLevelIndicator',
+        'PatientCarePlanAccess',
+        'TeamCommunicationTool',
+        'TrainingResource',
+        'IncidentReportTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientMetrics',
+        'fetchComplianceAudit',
+        'fetchKPIs',
+        'submitFeedback',
+        'recordMedication',
+        'checkStaffingLevels',
+        'accessCarePlans',
+        'sendMessage',
+        'accessTrainingResources',
+        'reportIncident',
+      ];
+
   const RpnCarePlanReviewScreen({super.key});
 
   @override

@@ -97,6 +97,38 @@ final vitalsTrackingProvider =
 
 // --- View ---
 class VitalsTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The vitals tracking screen requires components for monitoring vital signs, tracking medication, documenting care, and facilitating communication among healthcare team members, along with compliance and reporting tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignMonitor',
+        'MedicationTracker',
+        'PatientCareLog',
+        'AlertSystem',
+        'CommunicationTool',
+        'ComplianceTracker',
+        'PatientSatisfactionMetric',
+        'TrainingResource',
+        'PatientCarePlanAccess',
+        'ReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'recordVitalSigns',
+        'administerMedication',
+        'documentPatientCare',
+        'sendAlert',
+        'collaborateWithTeam',
+        'trackCompliance',
+        'viewPatientSatisfaction',
+        'accessTrainingResources',
+        'viewCarePlans',
+        'generateReport',
+      ];
+
   const VitalsTrackingScreen({super.key});
 
   @override

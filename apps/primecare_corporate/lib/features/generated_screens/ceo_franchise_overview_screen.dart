@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_franchise_overview_screen_controller.dart';
 
-class CeoFranchiseOverviewScreen extends ConsumerWidget {
+class CeoFranchiseOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring franchise performance, compliance, and customer feedback, along with buttons for report access and trend analysis, supported by various APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ComplianceIndicator',
+        'CustomerFeedbackChart',
+        'FranchiseeEngagementStats',
+        'GrowthTrendVisualization',
+        'OperationalRedFlagAlert',
+        'DetailedReportsAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'trackCompliance',
+        'getCustomerFeedback',
+        'calculateEngagementStats',
+        'visualizeGrowthTrends',
+        'triggerAlerts',
+        'accessDetailedReports',
+      ];
+
   const CeoFranchiseOverviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoFranchiseOverviewScreenControllerProvider);
 
     return Scaffold(

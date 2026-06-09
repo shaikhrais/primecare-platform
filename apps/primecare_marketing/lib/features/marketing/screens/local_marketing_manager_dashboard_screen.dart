@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'local_marketing_manager_dashboard_screen_controller.dart';
 
-class LocalMarketingManagerDashboardScreen extends ConsumerWidget {
+class LocalMarketingManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Local Marketing Manager Dashboard requires components for campaign performance, social media analytics, customer feedback, budget tracking, compliance status, market trends, event management, activity logs, alerts, and collaboration tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'SocialMediaAnalyticsChart',
+        'CustomerFeedbackReport',
+        'BudgetTrackingWidget',
+        'ComplianceStatusIndicator',
+        'MarketTrendAnalysisChart',
+        'EventCalendarWidget',
+        'ActivityLogWidget',
+        'AlertsNotificationWidget',
+        'CollaborationToolsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'fetchSocialMediaAnalytics',
+        'fetchCustomerFeedback',
+        'trackBudget',
+        'checkCompliance',
+        'analyzeMarketTrends',
+        'addEvent',
+        'logActivity',
+        'triggerAlert',
+        'collaborateWithSales',
+      ];
+
   const LocalMarketingManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localMarketingManagerDashboardScreenControllerProvider);
 
     return Scaffold(

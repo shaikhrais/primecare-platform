@@ -1,12 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'hr_director_dashboard_screen_controller.dart';
 
-class HrDirectorDashboardScreen extends ConsumerWidget {
+class HrDirectorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director dashboard requires various components to display key metrics, compliance status, and performance summaries, along with buttons for generating reports and viewing feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'EngagementMetricChart',
+        'ComplianceStatusCard',
+        'PerformanceSummaryTable',
+        'TrainingParticipationChart',
+        'DiversityStatisticsCard',
+        'AuditLogViewer',
+        'AlertsNotification',
+        'HRMetricsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchEngagementMetrics',
+        'checkComplianceStatus',
+        'getPerformanceSummaries',
+        'getTrainingParticipationRates',
+        'getDiversityStatistics',
+        'fetchAuditLogs',
+        'setAlerts',
+      ];
+
   const HrDirectorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(hrDirectorDashboardScreenControllerProvider);
 
     return Scaffold(

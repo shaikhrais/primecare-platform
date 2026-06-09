@@ -1,10 +1,30 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class RnMessagingScreen extends ConsumerWidget {
+class RnMessagingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient parameters, compliance status, and security alerts, along with corresponding buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientParameterMetrics',
+        'ComplianceStatusOverview',
+        'SecurityAlerts',
+        'UserActivityTracker',
+        'MessagingQuickAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientMetrics',
+        'generateComplianceReport',
+        'checkSecurityAlerts',
+      ];
+
   const RnMessagingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'MessagingScreen';
 

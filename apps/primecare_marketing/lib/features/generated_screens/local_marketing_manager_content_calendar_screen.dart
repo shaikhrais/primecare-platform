@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'local_marketing_manager_content_calendar_screen_controller.dart';
 
-class LocalMarketingManagerContentCalendarScreen extends ConsumerWidget {
+class LocalMarketingManagerContentCalendarScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing content calendars, performance metrics, collaboration, and alerts for issues, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ContentCalendar',
+        'PerformanceMetricsChart',
+        'NotificationPanel',
+        'CollaborationTool',
+        'CalendarView',
+        'AlertSystem',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'schedulePost',
+        'approveContent',
+        'fetchPerformanceMetrics',
+        'initiateCollaboration',
+        'viewCalendar',
+        'checkAlerts',
+      ];
+
   const LocalMarketingManagerContentCalendarScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localMarketingManagerContentCalendarScreenControllerProvider);
 
     return Scaffold(

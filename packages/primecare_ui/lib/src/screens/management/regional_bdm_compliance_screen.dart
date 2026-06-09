@@ -78,6 +78,35 @@ final regionalBdmComplianceProvider =
 
 // --- View ---
 class RegionalBdmComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance audit status, telemetry data, governance actions, and alerts for non-compliance, along with functions to manage audits and enforce security policies.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusOverview',
+        'TelemetryDataDisplay',
+        'GovernanceActionsLog',
+        'OperationalComplianceSummary',
+        'NonComplianceAlerts',
+        'AuditResultsVisualization',
+        'SecureEventReportingAccess',
+        'ComplianceTrendsHistory',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductComplianceAudit',
+        'monitorOperationalChecks',
+        'enforceMFA',
+        'streamAuditTelemetry',
+        'manageEventReporting',
+        'updateGovernanceDirectives',
+        'maintainAuditLogs',
+        'triggerGovernanceActions',
+        'refreshComplianceStatus',
+      ];
+
   const RegionalBdmComplianceScreen({super.key});
 
   @override

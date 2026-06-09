@@ -107,6 +107,32 @@ final shareholderAnalyticsScreenProvider =
 
 // --- View ---
 class ShareholderAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The shareholder analytics screen requires components for compliance monitoring, performance analysis, and risk assessment, along with buttons for data interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusWidget',
+        'PerformanceMetricsChart',
+        'OperationalLogsTable',
+        'KPIVisualization',
+        'RecentActivitiesSummary',
+        'RiskAssessmentPanel',
+        'ScenarioAnalysisTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'analyzePerformanceMetrics',
+        'retrieveOperationalLogs',
+        'generateKPIReport',
+        'logRecentActivity',
+        'assessRisk',
+        'runScenarioAnalysis',
+      ];
+
   const ShareholderAnalyticsScreen({super.key});
 
   @override

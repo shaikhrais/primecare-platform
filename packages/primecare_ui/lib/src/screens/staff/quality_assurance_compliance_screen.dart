@@ -78,6 +78,37 @@ final qualityAssuranceComplianceProvider =
 
 // --- View ---
 class QualityAssuranceComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance audit statuses, system performance metrics, and operational logs, along with buttons for conducting audits and logging findings.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'PerformanceMetricsChart',
+        'AuditLogTable',
+        'GovernanceDirectivesStatusCard',
+        'OperationalAuditLogTable',
+        'ComplianceAlertsWidget',
+        'TrainingEngagementMetrics',
+        'ComplianceTrendsChart',
+        'AuditToolsAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductComplianceAudit',
+        'logSystemPerformance',
+        'reviewAuditLogs',
+        'collaborateWithDevelopment',
+        'maintainDocumentation',
+        'implementGovernancePolicies',
+        'provideTrainingSupport',
+        'facilitateEventReporting',
+        'updateDashboard',
+        'communicateFindings',
+      ];
+
   const QualityAssuranceComplianceScreen({super.key});
 
   @override

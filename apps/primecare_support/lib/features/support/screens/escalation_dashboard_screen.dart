@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'escalation_dashboard_screen_controller.dart';
 
-class EscalationDashboardScreen extends ConsumerWidget {
+class EscalationDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The escalation dashboard requires components for monitoring, metrics, trends, notifications, collaboration, and feedback to effectively manage escalation cases.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EscalationStatusOverview',
+        'ResponseTimeMetrics',
+        'EscalationTrendsChart',
+        'NotificationsPanel',
+        'TeamCollaborationSection',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEscalationData',
+        'updateEscalationStatus',
+        'submitFeedback',
+        'notifyTeam',
+      ];
+
   const EscalationDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(escalationDashboardScreenControllerProvider);
 
     return Scaffold(

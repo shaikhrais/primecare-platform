@@ -96,6 +96,38 @@ final receptionistDashboardProvider =
 
 // --- View ---
 class ReceptionistDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The receptionist dashboard requires components for task management, communication, document handling, performance tracking, and inventory management, along with various buttons and functions to facilitate administrative tasks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskCalendar',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'PerformanceMetrics',
+        'InventoryTracker',
+        'CustomerServiceFeedback',
+        'ComplianceChecklist',
+        'QuickAccessButtons',
+        'Notifications',
+        'TeamSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addAppointment',
+        'sendMessage',
+        'uploadDocument',
+        'generateReport',
+        'trackInventory',
+        'submitFeedback',
+        'checkCompliance',
+        'accessTools',
+        'setReminder',
+        'viewTeamTasks',
+      ];
+
   const ReceptionistDashboardScreen({super.key});
 
   @override

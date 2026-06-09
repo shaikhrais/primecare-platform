@@ -78,6 +78,38 @@ final clinicalComplianceProvider =
 
 // --- View ---
 class ClinicalComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display compliance metrics, alerts, and training statuses, along with buttons for reporting and tracking compliance activities across multiple devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditChart',
+        'ComplianceAlertWidget',
+        'TrainingCompletionTracker',
+        'PatientSafetyMetrics',
+        'OperationalLogsOverview',
+        'ComplianceInitiativesStatus',
+        'FeedbackSummaryWidget',
+        'RegulatoryUpdatesFeed',
+        'ResourceAllocationTracker',
+        'ComplianceTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAuditResults',
+        'triggerComplianceAlert',
+        'updateTrainingStatus',
+        'fetchPatientSafetyMetrics',
+        'getOperationalLogs',
+        'updateComplianceInitiatives',
+        'submitFeedback',
+        'fetchRegulatoryUpdates',
+        'trackResourceAllocation',
+        'visualizeComplianceTrends',
+      ];
+
   const ClinicalComplianceScreen({super.key});
 
   @override

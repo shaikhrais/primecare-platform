@@ -187,6 +187,32 @@ final coordinatorHubControllerProvider =
 
 // --- View ---
 class CoordinatorHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The coordinator_hub screen requires components for managing caregivers, shifts, alerts, and performance metrics, along with buttons and functions for assigning shifts and resolving issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveCaregiversList',
+        'OpenShiftsList',
+        'AlertsSummary',
+        'PerformanceMetricsChart',
+        'NotificationsPanel',
+        'CaregiverAssignmentsMap',
+        'HistoricalDataGraph',
+        'QuickAccessButtons',
+        'MessagingTool',
+        'ReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'assignShift',
+        'resolveAlert',
+        'generatePerformanceReport',
+        'sendMessage',
+      ];
+
   const CoordinatorHubScreen({super.key});
 
   @override

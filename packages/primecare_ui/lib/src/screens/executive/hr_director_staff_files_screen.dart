@@ -101,6 +101,39 @@ final hrDirectorStaffFilesProvider =
 
 // --- View ---
 class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director screen requires components for task management, KPIs, compliance, engagement metrics, training overview, budget details, diversity metrics, audit logs, alerts, trend visualizations, and initiative status summaries.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'KPIChart',
+        'ComplianceStatusCard',
+        'EngagementMetricsWidget',
+        'TrainingOverview',
+        'BudgetOverview',
+        'DiversityMetrics',
+        'AuditLogViewer',
+        'AlertNotification',
+        'TrendVisualization',
+        'InitiativeStatusSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchHRMetrics',
+        'updateComplianceStatus',
+        'getEmployeeFeedback',
+        'overviewTrainingPrograms',
+        'fetchBudgetDetails',
+        'trackDiversityInitiatives',
+        'logHRActivity',
+        'triggerAlert',
+        'visualizeTrends',
+        'updateInitiativeStatus',
+      ];
+
   const HrDirectorStaffFilesScreen({super.key});
 
   @override

@@ -8,6 +8,26 @@ final financialForecastProvider = FutureProvider.autoDispose<Map<String, dynamic
 });
 
 class FinancialForecastingModelScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying revenue projections, loading indicators, error messages, and key drivers summary, along with buttons for refreshing data and adjusting parameters.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RevenueProjectionChart',
+        'LoadingIndicator',
+        'ErrorMessage',
+        'KeyDriversSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchForecastData',
+        'refreshForecast',
+        'adjustForecastParameters',
+        'analyzeKeyDrivers',
+      ];
+
   const FinancialForecastingModelScreen({super.key});
 
   @override

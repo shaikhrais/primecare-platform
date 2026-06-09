@@ -4,6 +4,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ReceptionistWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for call logging, scheduling, email metrics, filing system status, report generation, onboarding tracking, inventory alerts, task management, communication logs, and compliance checks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CallLogWidget',
+        'CalendarView',
+        'EmailMetricsWidget',
+        'FilingSystemStatusWidget',
+        'ReportGenerationWidget',
+        'OnboardingTracker',
+        'InventoryAlertWidget',
+        'TaskManagementTool',
+        'CommunicationLogWidget',
+        'ComplianceChecklistWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logCall',
+        'scheduleAppointment',
+        'sendEmail',
+        'generateReport',
+        'trackOnboarding',
+        'orderSupplies',
+        'manageTasks',
+        'checkCompliance',
+      ];
+
   const ReceptionistWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

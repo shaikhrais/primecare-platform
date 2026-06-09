@@ -8,6 +8,25 @@ final featureFlagsProvider = FutureProvider.autoDispose<List<Map<String, dynamic
 });
 
 class FeatureFlagControllerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display and manage feature flags, including a refresh button and error notifications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FeatureFlagList',
+        'FeatureFlagToggle',
+        'ErrorNotification',
+        'FeatureFlagDescription',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadFeatureFlags',
+        'toggleFeatureFlag',
+        'refreshFeatureFlags',
+      ];
+
   const FeatureFlagControllerScreen({super.key});
 
   @override

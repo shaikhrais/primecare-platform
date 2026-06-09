@@ -101,6 +101,33 @@ final calendarManagementProvider =
 
 // --- View ---
 class CalendarManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The calendar management screen requires components for performance metrics, staff scheduling, customer feedback, and incident logging, along with buttons for updating schedules and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'StaffScheduleOverview',
+        'CustomerFeedbackWidget',
+        'IncidentLog',
+        'EquipmentStatusAlert',
+        'TeamEngagementIndicator',
+        'TrainingProgressTracker',
+        'CommunicationTool',
+        'RedFlagAlert',
+        'HistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateStaffSchedule',
+        'logIncident',
+        'viewCustomerFeedback',
+        'sendTeamUpdate',
+        'generatePerformanceReport',
+      ];
+
   const CalendarManagementScreen({super.key});
 
   @override

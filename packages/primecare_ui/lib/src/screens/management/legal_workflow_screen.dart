@@ -102,6 +102,38 @@ final legalWorkflowScreenProvider =
 
 // --- View ---
 class LegalWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The legal workflow screen requires components for task management, compliance tracking, and document management, along with buttons for various legal functions and APIs for data integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceMetrics',
+        'KPIChart',
+        'DocumentManagementSystem',
+        'DeadlineAlerts',
+        'ExpenseReportingTool',
+        'DepartmentIntegration',
+        'TrainingResources',
+        'RiskAnalytics',
+        'FeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'reviewDocument',
+        'provideLegalAdvice',
+        'manageLegalRisks',
+        'conductLegalResearch',
+        'liaiseWithCounsel',
+        'monitorLegislation',
+        'developPolicies',
+        'trainStaff',
+        'maintainRecords',
+      ];
+
   const LegalWorkflowScreen({super.key});
 
   @override

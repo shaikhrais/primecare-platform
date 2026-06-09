@@ -99,6 +99,37 @@ final clinicalQualityProvider =
 
 // --- View ---
 class ClinicalQualityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The clinical quality screen requires components for monitoring performance metrics, audit logs, staff performance, and patient satisfaction, along with buttons for generating reports and sending alerts, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'AuditLogTable',
+        'StaffPerformanceChart',
+        'PatientSatisfactionGauge',
+        'OperationalEfficiencyDashboard',
+        'AlertsNotification',
+        'HistoricalDataTrendGraph',
+        'ResourceUtilizationChart',
+        'CommunicationTool',
+        'KPIDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchAuditLogs',
+        'fetchStaffPerformance',
+        'fetchPatientSatisfaction',
+        'fetchOperationalEfficiency',
+        'triggerAlert',
+        'fetchHistoricalData',
+        'fetchResourceUtilization',
+        'sendCommunication',
+      ];
+
   const ClinicalQualityScreen({super.key});
 
   @override

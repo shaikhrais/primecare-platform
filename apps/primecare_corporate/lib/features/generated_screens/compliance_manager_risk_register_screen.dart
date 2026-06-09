@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_risk_register_screen_controller.dart';
 
-class ComplianceManagerRiskRegisterScreen extends ConsumerWidget {
+class ComplianceManagerRiskRegisterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing compliance risks, including visualizations, notifications, and collaboration tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceRiskOverview',
+        'RiskTrendChart',
+        'NotificationPanel',
+        'HistoricalDataAccess',
+        'UserActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceRisks',
+        'updateRiskEntry',
+        'generateComplianceReport',
+        'collaborateOnIssues',
+        'notifyStakeholders',
+      ];
+
   const ComplianceManagerRiskRegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerRiskRegisterScreenControllerProvider);
 
     return Scaffold(

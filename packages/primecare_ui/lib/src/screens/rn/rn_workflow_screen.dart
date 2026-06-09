@@ -150,6 +150,33 @@ final rnWorkflowControllerProvider =
 
 // --- View ---
 class RnWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN workflow screen requires components for task management, patient monitoring, and communication, along with buttons for updating care plans and administering medications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientList',
+        'MedicationRecords',
+        'CarePlanEditor',
+        'GoalTrackingTool',
+        'CommunicationLog',
+        'PerformanceMetrics',
+        'EducationResources',
+        'ClinicalGuidelines',
+        'IncidentReporting',
+        'AppointmentScheduler',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateCarePlan',
+        'administerMedication',
+        'logCommunication',
+        'reportIncident',
+        'scheduleAppointment',
+      ];
+
   const RnWorkflowScreen({super.key});
 
   @override

@@ -76,6 +76,38 @@ final ownerComplianceProvider =
 
 // --- View ---
 class OwnerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display compliance status, audit logs, performance metrics, and alerts, along with buttons for interaction and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'AuditLogTable',
+        'PerformanceMetricsChart',
+        'SecurityStatusIndicator',
+        'AlertsNotificationPanel',
+        'EmployeeTrainingTracker',
+        'FinancialPerformanceDashboard',
+        'CustomerFeedbackWidget',
+        'ActionItemsList',
+        'HistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditLogs',
+        'fetchPerformanceMetrics',
+        'fetchSecurityStatus',
+        'fetchAlerts',
+        'fetchEmployeeTrainingProgress',
+        'fetchFinancialIndicators',
+        'fetchCustomerFeedback',
+        'fetchActionItems',
+        'fetchHistoricalData',
+      ];
+
   const OwnerComplianceScreen({super.key});
 
   @override

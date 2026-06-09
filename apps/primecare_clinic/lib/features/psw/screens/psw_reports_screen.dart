@@ -67,6 +67,26 @@ final pswReportsControllerProvider = StateNotifierProvider<PswReportsController,
 
 // --- View ---
 class PswReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Psw Reports screen requires components for displaying reports, analyzing data trends, and user feedback, along with responsive design across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReportList',
+        'DataTrendChart',
+        'FeedbackSection',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadReports',
+        'analyzeData',
+        'generateNewReport',
+        'submitFeedback',
+      ];
+
   const PswReportsScreen({super.key});
 
   @override

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'staff_training_matrix_screen_controller.dart';
 
-class StaffTrainingMatrixScreen extends ConsumerWidget {
+class StaffTrainingMatrixScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display training progress, update records, and provide feedback, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingMatrixOverview',
+        'TrainingCompletionChart',
+        'FeedbackSection',
+        'AlertsPanel',
+        'TrainingRecordsLink',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewTrainingMatrix',
+        'identifyMissingModules',
+        'monitorProgress',
+        'updateTrainingRecords',
+        'provideFeedback',
+      ];
+
   const StaffTrainingMatrixScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(staffTrainingMatrixScreenControllerProvider);
 
     return Scaffold(

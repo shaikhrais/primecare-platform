@@ -101,6 +101,33 @@ final certificationTrackingProvider =
 
 // --- View ---
 class CertificationTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The certification tracking screen requires components for monitoring training sessions, participation metrics, compliance status, and budget tracking, along with necessary buttons and functions for managing training activities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingSessionOverview',
+        'ParticipationMetricsChart',
+        'FeedbackEvaluationCard',
+        'ComplianceStatusIndicator',
+        'BudgetTrackingWidget',
+        'AttendanceLogTable',
+        'CertificationExpirationAlert',
+        'ResourceAllocationPanel',
+        'EffectivenessPerformanceIndicator',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTrainingSession',
+        'viewFeedback',
+        'trackBudget',
+        'sendAnnouncement',
+        'generateReport',
+      ];
+
   const CertificationTrackingScreen({super.key});
 
   @override

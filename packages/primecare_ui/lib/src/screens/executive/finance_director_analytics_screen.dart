@@ -107,6 +107,33 @@ final financeDirectorAnalyticsScreenProvider =
 
 // --- View ---
 class FinanceDirectorAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The finance director analytics screen requires various financial monitoring and reporting components, along with buttons and functions for generating reports and managing budgets, all while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CashFlowMonitor',
+        'BudgetPerformanceChart',
+        'ComplianceStatusIndicator',
+        'TrendAnalysisChart',
+        'AuditTrackingWidget',
+        'ExpenseBreakdownChart',
+        'RevenueForecastWidget',
+        'AnomalyAlertSystem',
+        'FinancialSummaryReport',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateFinancialReport',
+        'viewAuditFindings',
+        'updateBudget',
+        'notifyStakeholders',
+        'refreshData',
+      ];
+
   const FinanceDirectorAnalyticsScreen({super.key});
 
   @override

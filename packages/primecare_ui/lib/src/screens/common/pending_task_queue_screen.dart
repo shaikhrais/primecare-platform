@@ -99,6 +99,32 @@ final pendingTaskQueueProvider =
 
 // --- View ---
 class PendingTaskQueueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The pending_task_queue screen requires components for monitoring compliance, auditing, risk assessment, and stakeholder communication, along with buttons for data refresh and incident reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'AuditLogViewer',
+        'RiskAssessmentWidget',
+        'ComplianceAlertBanner',
+        'TrainingCompletionChart',
+        'StakeholderFeedbackSummary',
+        'IncidentTracker',
+        'RegulatoryUpdateFeed',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'viewAuditLogs',
+        'downloadReport',
+        'requestTraining',
+        'reportIncident',
+      ];
+
   const PendingTaskQueueScreen({super.key});
 
   @override

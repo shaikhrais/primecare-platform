@@ -101,6 +101,34 @@ final roleCoverageDashboardProvider =
 
 // --- View ---
 class RoleCoverageDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The role coverage dashboard requires various components to monitor governance compliance, audit findings, and risk assessments, along with buttons and functions for reporting and incident management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditTrendsChart',
+        'GovernanceActivityLog',
+        'RiskAssessmentMetrics',
+        'TrainingCompletionRate',
+        'IncidentReportViewer',
+        'GovernanceKPIWidget',
+        'ComplianceScanResults',
+        'StakeholderFeedbackWidget',
+        'OperationalMetricsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'updateDocumentation',
+        'conductAudit',
+        'initiateTraining',
+        'logIncident',
+        'viewComplianceScan',
+      ];
+
   const RoleCoverageDashboardScreen({super.key});
 
   @override

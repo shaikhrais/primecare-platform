@@ -102,6 +102,33 @@ final lpnWorkflowScreenProvider =
 
 // --- View ---
 class LpnWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking patient status, medication administration, compliance, and communication, along with buttons for logging actions and accessing resources.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'MedicationAdministrationLog',
+        'PatientInteractionLog',
+        'ComplianceTracker',
+        'PerformanceIndicatorChart',
+        'TeamCommunicationTool',
+        'TrainingResourceAccess',
+        'PatientCareTrendVisualization',
+        'IncidentReportTracker',
+        'FeedbackMechanism',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientStatus',
+        'logMedicationAdministration',
+        'reportIncident',
+        'accessTrainingResources',
+        'submitFeedback',
+      ];
+
   const LpnWorkflowScreen({super.key});
 
   @override

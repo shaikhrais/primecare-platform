@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_leads_screen_controller.dart';
 
-class TerritorySalesManagerLeadsScreen extends ConsumerWidget {
+class TerritorySalesManagerLeadsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and updating leads, performance metrics, communication tools, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadOverviewCard',
+        'PerformanceMetricsChart',
+        'AlertsNotification',
+        'TeamCommunicationTool',
+        'LeadProgressTimeline',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateLeadInfo',
+        'sendCommunication',
+        'fetchPerformanceMetrics',
+      ];
+
   const TerritorySalesManagerLeadsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerLeadsScreenControllerProvider);
 
     return Scaffold(

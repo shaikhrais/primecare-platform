@@ -100,6 +100,34 @@ final rmtTreatmentNotesProvider =
 
 // --- View ---
 class RmtTreatmentNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, compliance tracking, performance metrics, and scheduling, along with buttons for client interactions and API integrations for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewWidget',
+        'ComplianceStatusWidget',
+        'KPIChart',
+        'FeedbackMetricsWidget',
+        'AuditLogWidget',
+        'AlertNotificationWidget',
+        'TreatmentPlanTemplateWidget',
+        'RetentionMetricsWidget',
+        'ProfessionalDevelopmentSummaryWidget',
+        'SchedulingUpdatesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addClient',
+        'scheduleAppointment',
+        'viewTreatmentNotes',
+        'generateReport',
+        'sendFeedback',
+        'updateComplianceStatus',
+      ];
+
   const RmtTreatmentNotesScreen({super.key});
 
   @override

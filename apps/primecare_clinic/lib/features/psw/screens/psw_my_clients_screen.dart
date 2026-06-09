@@ -59,6 +59,30 @@ final pswMyClientsControllerProvider = StateNotifierProvider<PswMyClientsControl
 
 // --- View ---
 class PswMyClientsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, adding, editing, and removing clients, along with search functionality and access to client-related documents.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientListView',
+        'ClientForm',
+        'ClientSearchBar',
+        'ClientActivityLog',
+        'ClientStatisticsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewClientList',
+        'addClient',
+        'editClient',
+        'removeClient',
+        'searchClient',
+        'accessClientDocuments',
+        'monitorClientInteractions',
+      ];
+
   const PswMyClientsScreen({super.key});
 
   @override

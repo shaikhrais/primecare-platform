@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CustomerSupportAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking customer support metrics, buttons for responding to inquiries and managing escalations, functions for handling support actions, and APIs for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketVolumeStatusOverview',
+        'ResponseTimeChart',
+        'CustomerSatisfactionScore',
+        'EscalationRateChart',
+        'AgentPerformanceMetrics',
+        'KnowledgeBaseUsageStats',
+        'CommonIssuesReport',
+        'SLAComplianceRate',
+        'TrainingResourceAvailability',
+        'IntegrationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'respondToInquiry',
+        'escalateIssue',
+        'updateKnowledgeBase',
+        'conductFollowUp',
+        'analyzeFeedback',
+        'trainStaff',
+      ];
+
   const CustomerSupportAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

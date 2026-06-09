@@ -97,6 +97,38 @@ final systemHealthScreenProvider =
 
 // --- View ---
 class SystemHealthScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display technology performance metrics, compliance status, budget overview, and user feedback, along with buttons for data refresh and report viewing.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'SystemUptimeChart',
+        'ComplianceStatusCard',
+        'BudgetOverviewChart',
+        'ProjectTimelineList',
+        'TeamPerformanceMetrics',
+        'SecurityIncidentReport',
+        'TechnologyTrendsChart',
+        'UserFeedbackWidget',
+        'VendorPerformanceCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchUptimeMetrics',
+        'fetchComplianceData',
+        'fetchBudgetData',
+        'fetchProjectStatus',
+        'fetchTeamMetrics',
+        'fetchSecurityReports',
+        'fetchTechnologyTrends',
+        'fetchUserFeedback',
+        'fetchVendorMetrics',
+      ];
+
   const SystemHealthScreen({super.key});
 
   @override

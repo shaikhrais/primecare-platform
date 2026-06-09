@@ -78,6 +78,34 @@ final operationsManagerComplianceProvider =
 
 // --- View ---
 class OperationsManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance status, audit logs, performance metrics, and incident reporting, along with buttons for generating reports and resolving issues, supported by various APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'AuditLogTable',
+        'PerformanceMetricsChart',
+        'IncidentReportList',
+        'EmployeeEngagementGauge',
+        'ResourceAllocationChart',
+        'RiskAssessmentWidget',
+        'RealTimeAlertBanner',
+        'HistoricalDataTrendGraph',
+        'ActionItemsList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'conductAudit',
+        'resolveOperationalIssue',
+        'allocateResources',
+        'viewTrainingPrograms',
+        'sendStakeholderUpdate',
+      ];
+
   const OperationsManagerComplianceScreen({super.key});
 
   @override

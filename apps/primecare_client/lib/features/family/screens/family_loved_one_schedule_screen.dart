@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_loved_one_schedule_screen_controller.dart';
 
-class FamilyLovedOneScheduleScreen extends ConsumerWidget {
+class FamilyLovedOneScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display the family loved one schedule, handle loading states and errors, and provide user feedback options.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ScheduleView',
+        'LoadingIndicator',
+        'ErrorMessage',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadSchedule',
+        'handleLoadingState',
+        'handleError',
+        'submitFeedback',
+      ];
+
   const FamilyLovedOneScheduleScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyLovedOneScheduleScreenControllerProvider);
 
     return Scaffold(

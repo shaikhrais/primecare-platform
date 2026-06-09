@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SupportWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The support workflow screen requires components for ticket management, performance metrics, and customer feedback, along with functionalities for responding to inquiries and escalating issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketOverviewWidget',
+        'ResponseTimeChart',
+        'CustomerSatisfactionGauge',
+        'EscalationRateChart',
+        'KnowledgeBaseStatsWidget',
+        'StaffPerformanceDashboard',
+        'CommonIssuesList',
+        'RealTimeAlertsWidget',
+        'HistoricalDataTrendsChart',
+        'IntegrationStatusWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'respondToInquiry',
+        'escalateIssue',
+        'updateTicket',
+        'gatherFeedback',
+        'trainStaff',
+        'generateReport',
+      ];
+
   const SupportWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

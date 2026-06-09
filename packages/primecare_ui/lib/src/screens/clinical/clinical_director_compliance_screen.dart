@@ -101,6 +101,38 @@ final clinicalDirectorComplianceProvider =
 
 // --- View ---
 class ClinicalDirectorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, performance metrics, and patient safety, along with functionalities for logging activities and generating reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'PerformanceMetricsChart',
+        'AuditLogTable',
+        'PatientSafetyMetrics',
+        'StaffTrainingStatus',
+        'ComplianceAlerts',
+        'DataTrendsVisualization',
+        'PatientFeedbackSummary',
+        'ResourceUtilizationChart',
+        'HistoricalAuditDataViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchPerformanceMetrics',
+        'logOperationalActivity',
+        'fetchPatientSafetyMetrics',
+        'fetchStaffTrainingStatus',
+        'triggerComplianceAlert',
+        'fetchClinicalDataTrends',
+        'fetchPatientFeedback',
+        'fetchResourceUtilization',
+        'fetchHistoricalAuditData',
+      ];
+
   const ClinicalDirectorComplianceScreen({super.key});
 
   @override

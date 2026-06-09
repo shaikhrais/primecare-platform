@@ -1,11 +1,35 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'physician_dashboard_screen_controller.dart';
 
-class PhysicianDashboardScreen extends ConsumerWidget {
+class PhysicianDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The physician dashboard requires components for displaying metrics, action buttons for key functions, and APIs for managing prescriptions and lab orders.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'LoadingIndicator',
+        'ActionButton',
+        'AuditLogsSection',
+        'RecentActionsLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEPrescription',
+        'authorizeLabOrder',
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportAuditLogs',
+      ];
+
   const PhysicianDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(physicianDashboardScreenControllerProvider);
     final controller = ref.read(physicianDashboardScreenControllerProvider.notifier);
     final theme = context.theme;

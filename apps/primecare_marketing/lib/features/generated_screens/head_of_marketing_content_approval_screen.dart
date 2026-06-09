@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'head_of_marketing_content_approval_screen_controller.dart';
 
-class HeadOfMarketingContentApprovalScreen extends ConsumerWidget {
+class HeadOfMarketingContentApprovalScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for content approval management, metrics tracking, feedback provision, and collaboration tools, ensuring timely and effective content review and strategy alignment.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ContentApprovalList',
+        'ApprovalMetricsCard',
+        'FeedbackSection',
+        'CollaborationTool',
+        'PerformanceAnalyticsChart',
+        'DeadlineNotification',
+        'ApprovalTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveContent',
+        'rejectContent',
+        'provideFeedback',
+        'fetchPendingApprovals',
+        'fetchApprovalMetrics',
+        'sendNotification',
+        'analyzePerformance',
+      ];
+
   const HeadOfMarketingContentApprovalScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(headOfMarketingContentApprovalScreenControllerProvider);
 
     return Scaffold(

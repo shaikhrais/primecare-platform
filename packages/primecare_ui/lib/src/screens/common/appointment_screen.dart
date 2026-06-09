@@ -97,6 +97,27 @@ final appointmentProvider =
 
 // --- View ---
 class AppointmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Appointment screen requires components for scheduling, confirming, and managing pre-appointment tasks, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentList',
+        'AppointmentDetails',
+        'PreAppointmentPaperwork',
+        'AppointmentInstructions',
+        'AppointmentReminders',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'confirmAppointmentDetails',
+        'completePaperwork',
+        'sendAppointmentReminders',
+      ];
+
   const AppointmentScreen({super.key});
 
   @override

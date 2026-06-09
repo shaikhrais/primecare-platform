@@ -1,10 +1,35 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PswPatientProfileScreen extends ConsumerWidget {
+class PswPatientProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring patient parameters and compliance, buttons for data refresh and profile access, functions for handling user actions, and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientParameterMonitor',
+        'CompliancePostureReview',
+        'ZeroTrustSync',
+        'PatientProfileAccess',
+        'PatientProfileNavigator',
+        'ComplianceStatusIndicator',
+        'AlertsDashboard',
+        'UserEngagementMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPatientParameters',
+        'reviewCompliancePosture',
+        'syncZeroTrust',
+        'accessPatientProfile',
+        'navigatePatientProfile',
+      ];
+
   const PswPatientProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final title = 'PatientProfileScreen';
 

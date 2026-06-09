@@ -94,6 +94,35 @@ final supportDashboardProvider =
 
 // --- View ---
 class SupportDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Support Dashboard requires components for displaying loading states, error messages, logs, and key metrics, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorMessageDisplay',
+        'LogSummary',
+        'ComplianceScanButton',
+        'RefreshButton',
+        'KPIChart',
+        'TelemetryChart',
+        'AuditLogDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'renderSupportDashboard',
+        'displayLoadingState',
+        'displayErrorMessage',
+        'executeComplianceScan',
+        'syncSecurityPosture',
+        'updateSecurityPolicies',
+        'exportLogs',
+        'triggerGovernanceActions',
+        'manualRefresh',
+      ];
+
   const SupportDashboardScreen({super.key});
 
   @override

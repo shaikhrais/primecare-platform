@@ -101,6 +101,30 @@ final caregiverVisitNotesProvider =
 
 // --- View ---
 class CaregiverVisitNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The caregiver visit notes screen requires components for documenting visits, monitoring compliance, and facilitating communication, along with necessary buttons and API integrations for operational efficiency.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusCard',
+        'ActivityLogTable',
+        'ProductivityMetricsChart',
+        'AlertsNotification',
+        'SecurityClearanceSummary',
+        'VisitNotesInput',
+        'FeedbackCommunicationSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitVisitNotes',
+        'conductComplianceScan',
+        'fetchActivityLogs',
+        'reportIssue',
+        'requestTraining',
+      ];
+
   const CaregiverVisitNotesScreen({super.key});
 
   @override

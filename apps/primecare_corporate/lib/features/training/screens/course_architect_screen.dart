@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'course_architect_screen_controller.dart';
 
-class CourseArchitectScreen extends ConsumerWidget {
+class CourseArchitectScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Course Architect screen requires components for monitoring loading states, handling errors, verifying features, and displaying user engagement metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'ErrorNotification',
+        'FeatureStatusSummary',
+        'UserEngagementMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'handleDataError',
+        'verifyFeaturesImplementation',
+        'interactWithDashboard',
+      ];
+
   const CourseArchitectScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(courseArchitectScreenControllerProvider);
 
     return Scaffold(

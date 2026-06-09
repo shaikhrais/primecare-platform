@@ -99,6 +99,38 @@ final correctiveActionProvider =
 
 // --- View ---
 class CorrectiveActionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance metrics, tracking corrective actions, and facilitating staff training, along with necessary buttons and API integrations for compliance management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditResultsChart',
+        'CorrectiveActionTimeline',
+        'TrainingCompletionRateWidget',
+        'ComplianceViolationsMetrics',
+        'RegulatoryUpdatesFeed',
+        'DocumentationStatusPanel',
+        'DepartmentCommunicationLog',
+        'ResourceAllocationChart',
+        'EmployeeFeedbackWidget',
+        'ComplianceMetricsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAuditResults',
+        'updateCorrectiveActions',
+        'trackTrainingCompletion',
+        'logComplianceIncident',
+        'fetchRegulatoryUpdates',
+        'accessDocumentation',
+        'logDepartmentCommunication',
+        'allocateResources',
+        'collectEmployeeFeedback',
+        'visualizeComplianceMetrics',
+      ];
+
   const CorrectiveActionScreen({super.key});
 
   @override

@@ -78,6 +78,38 @@ final hrManagerComplianceProvider =
 
 // --- View ---
 class HrManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Manager Compliance screen requires various metrics and indicators related to HR performance, compliance, and employee engagement, along with interactive components for data visualization and reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeTurnoverChart',
+        'RecruitmentMetricsCard',
+        'EmployeeEngagementWidget',
+        'ComplianceStatusIndicator',
+        'TrainingParticipationChart',
+        'PerformanceManagementTrends',
+        'DiversityInclusionMetrics',
+        'EmployeeSatisfactionSurvey',
+        'GrievanceStatisticsCard',
+        'CompensationBenefitsAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEmployeeTurnoverData',
+        'fetchRecruitmentMetrics',
+        'fetchEngagementScores',
+        'checkComplianceStatus',
+        'fetchTrainingParticipation',
+        'fetchPerformanceOutcomes',
+        'fetchDiversityMetrics',
+        'fetchSatisfactionResults',
+        'fetchGrievanceStatistics',
+        'fetchCompensationAnalysis',
+      ];
+
   const HrManagerComplianceScreen({super.key});
 
   @override

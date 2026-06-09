@@ -99,6 +99,38 @@ final enterpriseHealthProvider =
 
 // --- View ---
 class EnterpriseHealthScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display KPIs, operational metrics, and compliance status, along with buttons for interaction and functions to fetch data from APIs, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'OperationalMetricsChart',
+        'EmployeeEngagementGauge',
+        'ComplianceStatusCard',
+        'CustomerFeedbackWidget',
+        'IndustryTrendsChart',
+        'RiskManagementDashboard',
+        'ResourceAllocationChart',
+        'StrategicInitiativeTracker',
+        'StakeholderCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchFinancialKPIs',
+        'fetchOperationalMetrics',
+        'fetchEmployeeEngagementScores',
+        'fetchComplianceResults',
+        'fetchCustomerFeedback',
+        'fetchIndustryTrends',
+        'fetchRiskIndicators',
+        'fetchResourceUtilization',
+        'fetchStrategicProgress',
+        'sendStakeholderCommunication',
+      ];
+
   const EnterpriseHealthScreen({super.key});
 
   @override

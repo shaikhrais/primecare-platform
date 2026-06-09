@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CtoWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CTO workflow screen requires various components to display technology metrics, buttons for actions, functions for data handling, APIs for data retrieval, and must be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProjectStatusCard',
+        'BudgetUtilizationChart',
+        'TeamPerformanceMetrics',
+        'SystemUptimeChart',
+        'SecurityIncidentReport',
+        'TechnologyAdoptionRate',
+        'InnovationPipeline',
+        'VendorPerformanceCard',
+        'AlignmentMetrics',
+        'KPIOverview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewDetailedReports',
+        'addNewTechnology',
+        'manageBudget',
+        'evaluateVendor',
+      ];
+
   const CtoWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

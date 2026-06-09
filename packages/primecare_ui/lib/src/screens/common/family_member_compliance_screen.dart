@@ -78,6 +78,28 @@ final familyMemberComplianceProvider =
 
 // --- View ---
 class FamilyMemberComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance scans, logging actions, alerting on issues, managing governance directives, and accessing audit information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatus',
+        'LogSummary',
+        'AlertNotification',
+        'GovernanceDirectiveToggle',
+        'ComplianceAuditAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'maintainLogs',
+        'updateGovernanceDirectives',
+        'submitEventReport',
+        'monitorComplianceAudits',
+      ];
+
   const FamilyMemberComplianceScreen({super.key});
 
   @override

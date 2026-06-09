@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PartnershipManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing partnerships, tracking performance metrics, and addressing issues, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PartnershipOverviewCard',
+        'PerformanceMetricsChart',
+        'AlertsNotification',
+        'KPIsTrackingTable',
+        'CommunicationLog',
+        'ContractRenewalList',
+        'PartnershipGoalsProgress',
+        'FeedbackIntegrationWidget',
+        'IndustryTrendsAnalysis',
+        'PerformanceTimelineChart',
+        'MeetingScheduler',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addPartner',
+        'negotiateContract',
+        'reviewPartnership',
+        'sendCommunication',
+        'generateReport',
+      ];
+
   const PartnershipManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

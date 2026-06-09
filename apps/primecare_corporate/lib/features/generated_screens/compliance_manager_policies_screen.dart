@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_policies_screen_controller.dart';
 
-class ComplianceManagerPoliciesScreen extends ConsumerWidget {
+class ComplianceManagerPoliciesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing compliance policies, including alerts, metrics, and access to documents, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'PolicyReviewAlerts',
+        'ComplianceMetricsChart',
+        'PolicyDocumentAccess',
+        'TrainingSessionNotifications',
+        'StakeholderFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorCompliancePolicies',
+        'reviewUpdatePolicies',
+        'communicatePolicies',
+        'trackCompliance',
+        'generateComplianceReports',
+        'identifyImprovementAreas',
+      ];
+
   const ComplianceManagerPoliciesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerPoliciesScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrHiringWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking recruitment metrics, visualizing candidate data, and managing hiring processes, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PositionStatusCard',
+        'TimeToFillMetric',
+        'CandidatePipelineChart',
+        'SourceOfHireAnalytics',
+        'DiversityMetricsCard',
+        'CandidateFeedbackChart',
+        'BudgetTrackingCard',
+        'EngagementMetricsCard',
+        'TurnoverRateHistoryChart',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchOpenPositions',
+        'calculateTimeToFill',
+        'visualizeCandidatePipeline',
+        'analyzeSourceOfHire',
+        'trackDiversityMetrics',
+        'collectCandidateFeedback',
+        'trackBudget',
+        'measureEngagement',
+        'retrieveTurnoverData',
+        'sendAlerts',
+      ];
+
   const HrHiringWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class FranchiseSalesManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display sales, customer, employee, financial, inventory, marketing, compliance, and operational data, along with buttons for managing these aspects and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'CustomerSatisfactionChart',
+        'EmployeePerformanceTable',
+        'FinancialOverviewCard',
+        'InventoryStatusWidget',
+        'MarketingCampaignROIChart',
+        'ComplianceChecklist',
+        'OperationalKPIsDashboard',
+        'RedFlagsAlert',
+        'CommunicationLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'fetchCustomerFeedback',
+        'fetchEmployeeData',
+        'fetchFinancialOverview',
+        'fetchInventoryStatus',
+        'fetchMarketingPerformance',
+        'fetchComplianceData',
+        'fetchOperationalKPIs',
+        'checkRedFlags',
+        'logCommunication',
+      ];
+
   const FranchiseSalesManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

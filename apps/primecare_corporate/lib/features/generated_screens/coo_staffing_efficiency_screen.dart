@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_staffing_efficiency_screen_controller.dart';
 
-class CooStaffingEfficiencyScreen extends ConsumerWidget {
+class CooStaffingEfficiencyScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time staffing metrics, trend analysis, alerts for staffing issues, and access to reports, all while being responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RealTimeMetricsCard',
+        'TrendVisualizationChart',
+        'AlertsNotificationPanel',
+        'EmployeeSatisfactionWidget',
+        'ReportsAccessButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorStaffingMetrics',
+        'analyzeStaffingData',
+        'identifyImprovementAreas',
+        'generateReports',
+        'collaborateOnIssues',
+      ];
+
   const CooStaffingEfficiencyScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooStaffingEfficiencyScreenControllerProvider);
 
     return Scaffold(

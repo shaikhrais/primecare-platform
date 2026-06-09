@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_director_hub_screen_controller.dart';
 
-class TrainingDirectorHubScreen extends ConsumerWidget {
+class TrainingDirectorHubScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor and analyze training programs, manage schedules, and provide feedback summaries, along with necessary buttons and API endpoints for functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TrainingProgramOverview',
+        'KPIChart',
+        'FeedbackSummaryWidget',
+        'CompletionRateTrendChart',
+        'UpcomingSessionsList',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorTrainingPrograms',
+        'reviewFeedback',
+        'analyzeCompletionRates',
+        'scheduleTrainingSession',
+        'collaborateWithParticipants',
+        'accessReports',
+      ];
+
   const TrainingDirectorHubScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingDirectorHubScreenControllerProvider);
 
     return Scaffold(

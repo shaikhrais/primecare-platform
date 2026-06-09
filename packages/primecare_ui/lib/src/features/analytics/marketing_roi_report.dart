@@ -8,6 +8,24 @@ final marketingRoiProvider = FutureProvider.autoDispose<List<Map<String, dynamic
 });
 
 class MarketingROIReportScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying marketing ROI data, buttons for refreshing and exporting data, and APIs for fetching campaign information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MarketingROIChart',
+        'CampaignPerformanceTable',
+        'SummaryStatisticsCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'exportCampaignData',
+        'analyzePerformance',
+      ];
+
   const MarketingROIReportScreen({super.key});
 
   @override

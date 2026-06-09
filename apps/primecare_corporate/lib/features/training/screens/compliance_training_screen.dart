@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_training_screen_controller.dart';
 
-class ComplianceTrainingScreen extends ConsumerWidget {
+class ComplianceTrainingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking progress, notifications, resource access, and user feedback, along with necessary buttons and API integrations to facilitate compliance training.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProgressTracker',
+        'NotificationPanel',
+        'ResourceAccess',
+        'FeedbackSection',
+        'ModuleSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitAssessment',
+        'reviewDocumentation',
+        'trackProgress',
+        'provideFeedback',
+      ];
+
   const ComplianceTrainingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceTrainingScreenControllerProvider);
 
     return Scaffold(

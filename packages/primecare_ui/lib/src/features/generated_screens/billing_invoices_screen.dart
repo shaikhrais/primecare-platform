@@ -2,6 +2,26 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BillingInvoicesScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The billing invoices screen requires components for displaying operational status, compliance audits, transaction flow, and a form for submitting event logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusCard',
+        'VerificationAuditAlert',
+        'TransactionFlowChart',
+        'SecureEventLogForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateOperationalStatus',
+        'fetchVerificationAudit',
+        'trackTransactionFlow',
+        'submitSecureEventLog',
+      ];
+
   const BillingInvoicesScreen({super.key});
 
   @override

@@ -150,6 +150,36 @@ final premiumConciergeDashboardControllerProvider =
 
 // --- View ---
 class PremiumConciergeDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The premium concierge dashboard requires various widgets for operational metrics, compliance status, and alerts, along with buttons for task execution and APIs for backend interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanStatusWidget',
+        'SecurityClearanceWidget',
+        'OperationalMetricsWidget',
+        'RecentLogsWidget',
+        'PerformanceTrendsWidget',
+        'TelemetryDataChart',
+        'NotificationsWidget',
+        'UserActivityTrackingWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportAuditLogs',
+        'dispatchSpecialtyProviders',
+        'escalateVIPRequests',
+        'monitorOperationalLogs',
+        'manageDashboardUpdates',
+        'triggerStateActions',
+        'respondToSystemAlerts',
+      ];
+
   const PremiumConciergeDashboardScreen({super.key});
 
   @override

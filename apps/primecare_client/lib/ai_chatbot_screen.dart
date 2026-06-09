@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ai_chatbot_screen_controller.dart';
 
-class AiChatbotScreen extends ConsumerWidget {
+class AiChatbotScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring chatbot performance, user engagement, error reporting, feedback submission, and analytics display.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricsWidget',
+        'UserEngagementStatsWidget',
+        'ErrorLogsWidget',
+        'FeedbackFormWidget',
+        'AnalyticsTrendsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchUserEngagementStats',
+        'fetchErrorLogs',
+        'submitFeedback',
+        'fetchAnalyticsTrends',
+      ];
+
   const AiChatbotScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(aiChatbotScreenControllerProvider);
 
     return Scaffold(

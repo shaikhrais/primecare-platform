@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_prospects_screen_controller.dart';
 
-class FranchiseSalesManagerProspectsScreen extends ConsumerWidget {
+class FranchiseSalesManagerProspectsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing franchise sales prospects, along with functionalities for communication and reporting.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProspectOverview',
+        'StatusIndicator',
+        'PerformanceMetrics',
+        'Alerts',
+        'SalesTrendVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorProspects',
+        'analyzeData',
+        'updateProspectStatus',
+        'generateReports',
+      ];
+
   const FranchiseSalesManagerProspectsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerProspectsScreenControllerProvider);
 
     return Scaffold(

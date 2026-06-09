@@ -97,6 +97,38 @@ final workflowIssueProvider =
 
 // --- View ---
 class WorkflowIssueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various widgets to display operational metrics, buttons for data refresh and report export, functions to fetch data from APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'FinancialMetricsChart',
+        'ComplianceStatusCard',
+        'EmployeeEngagementWidget',
+        'CustomerSatisfactionGauge',
+        'RiskAssessmentPanel',
+        'ProjectTimelineTracker',
+        'ResourceUtilizationChart',
+        'RealTimeDataDisplay',
+        'OperationalIssuesLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchFinancialMetrics',
+        'fetchComplianceStatus',
+        'fetchEmployeeMetrics',
+        'fetchCustomerFeedback',
+        'fetchRiskAssessments',
+        'fetchProjectTimelines',
+        'fetchResourceAllocation',
+        'fetchRealTimeData',
+        'logOperationalIssue',
+      ];
+
   const WorkflowIssueScreen({super.key});
 
   @override

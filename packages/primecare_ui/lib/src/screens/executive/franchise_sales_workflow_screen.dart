@@ -107,6 +107,34 @@ final franchiseSalesWorkflowScreenProvider =
 
 // --- View ---
 class FranchiseSalesWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display sales performance, compliance status, franchisee engagement, market analysis, and operational logs, along with buttons for generating reports and conducting audits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ComplianceStatusIndicator',
+        'FranchiseeEngagementMetricChart',
+        'MarketAnalysisDataWidget',
+        'OperationalLogsTable',
+        'TrainingSupportRequestsList',
+        'RecruitmentStatusCard',
+        'AlertsNotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'fetchComplianceStatus',
+        'fetchEngagementMetrics',
+        'fetchMarketAnalysis',
+        'fetchOperationalLogs',
+        'fetchTrainingRequests',
+        'fetchRecruitmentStatus',
+        'checkForRedFlags',
+      ];
+
   const FranchiseSalesWorkflowScreen({super.key});
 
   @override

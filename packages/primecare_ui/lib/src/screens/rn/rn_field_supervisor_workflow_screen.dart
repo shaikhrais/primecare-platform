@@ -107,6 +107,33 @@ final rnFieldSupervisorWorkflowScreenProvider =
 
 // --- View ---
 class RnFieldSupervisorWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, logging field visits, and providing training resources, along with buttons for reporting and generating compliance metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceMetricCard',
+        'FieldVisitLog',
+        'PatientCareQualityIndicator',
+        'TrainingResourceList',
+        'ComplianceAlert',
+        'StaffPerformanceSummary',
+        'RegulatoryUpdateFeed',
+        'PatientCareOutcomeChart',
+        'TrendAnalysisGraph',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitComplianceReport',
+        'requestTraining',
+        'logFieldVisit',
+        'viewPatientComplaints',
+        'generateComplianceReport',
+      ];
+
   const RnFieldSupervisorWorkflowScreen({super.key});
 
   @override

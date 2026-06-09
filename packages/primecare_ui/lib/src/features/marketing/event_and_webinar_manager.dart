@@ -8,6 +8,26 @@ final eventsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>((r
 });
 
 class EventAndWebinarManagerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display event details, buttons for refreshing and scheduling events, and functions to handle data fetching and user actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EventList',
+        'EventDetailCard',
+        'NotificationBanner',
+        'EventStatusIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchEventData',
+        'refreshEventList',
+        'scheduleNewEvent',
+        'monitorEventDetails',
+      ];
+
   const EventAndWebinarManagerScreen({super.key});
 
   @override

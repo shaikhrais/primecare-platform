@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_shifts_screen_controller.dart';
 
-class OperationsManagerShiftsScreen extends ConsumerWidget {
+class OperationsManagerShiftsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring shift schedules, staffing levels, performance metrics, and communication tools, along with functionalities for generating reports and addressing staffing issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftScheduleOverview',
+        'StaffingLevelIndicator',
+        'StaffingAlerts',
+        'PerformanceMetricsDashboard',
+        'CommunicationTools',
+        'HistoricalDataTrends',
+        'ReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'updateShift',
+        'addressStaffingIssue',
+        'fetchPerformanceMetrics',
+        'sendTeamUpdate',
+      ];
+
   const OperationsManagerShiftsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerShiftsScreenControllerProvider);
 
     return Scaffold(

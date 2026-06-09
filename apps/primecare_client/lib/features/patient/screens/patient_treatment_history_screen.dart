@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_treatment_history_screen_controller.dart';
 
-class PatientTreatmentHistoryScreen extends ConsumerWidget {
+class PatientTreatmentHistoryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing patient treatment history, loading indicators, error notifications, and metrics for user engagement and performance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientHistoryView',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'EngagementMetrics',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadPatientHistory',
+        'handleLoadingState',
+        'handleErrorState',
+        'navigateToDetails',
+      ];
+
   const PatientTreatmentHistoryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(patientTreatmentHistoryScreenControllerProvider);
 
     return Scaffold(

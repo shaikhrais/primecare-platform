@@ -107,6 +107,38 @@ final physicianWorkflowScreenProvider =
 
 // --- View ---
 class PhysicianWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The physician workflow screen requires components for patient status updates, compliance metrics, operational logs, and task management, along with various buttons and functions to facilitate patient care and collaboration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'ComplianceMetricAlert',
+        'OperationalLog',
+        'PerformanceIndicator',
+        'TaskManagementTool',
+        'ClinicalGuidelinesAccess',
+        'CommunicationTool',
+        'TelemetryDataChart',
+        'RedFlagAlert',
+        'TaskSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updatePatientStatus',
+        'viewComplianceMetrics',
+        'logOperationalActivity',
+        'viewPerformanceIndicators',
+        'manageTasks',
+        'accessClinicalGuidelines',
+        'collaborateWithProviders',
+        'monitorPatientTrends',
+        'reportRedFlags',
+        'viewTaskSummary',
+      ];
+
   const PhysicianWorkflowScreen({super.key});
 
   @override

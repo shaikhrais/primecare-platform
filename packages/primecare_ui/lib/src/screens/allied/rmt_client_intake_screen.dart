@@ -99,6 +99,38 @@ final rmtClientIntakeProvider =
 
 // --- View ---
 class RmtClientIntakeScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client intake, treatment planning, appointment scheduling, compliance tracking, client feedback, financial overview, operational logging, training tracking, performance metrics, and alerts management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientIntakeForm',
+        'TreatmentPlanCard',
+        'AppointmentScheduler',
+        'ComplianceStatusWidget',
+        'ClientFeedbackChart',
+        'FinancialOverviewCard',
+        'OperationalLogsTable',
+        'TrainingTrackingWidget',
+        'PerformanceMetricsDashboard',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitIntakeForm',
+        'saveTreatmentPlan',
+        'scheduleAppointment',
+        'markCompliance',
+        'submitClientFeedback',
+        'viewFinancials',
+        'logClientSession',
+        'trackTraining',
+        'viewPerformanceMetrics',
+        'resolveAlerts',
+      ];
+
   const RmtClientIntakeScreen({super.key});
 
   @override

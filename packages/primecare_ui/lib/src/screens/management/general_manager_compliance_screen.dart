@@ -78,6 +78,38 @@ final generalManagerComplianceProvider =
 
 // --- View ---
 class GeneralManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display performance metrics, compliance status, employee satisfaction, and operational issues, along with buttons for generating reports and conducting audits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceAuditStatus',
+        'EmployeeSatisfactionChart',
+        'OperationalIssueTracker',
+        'FinancialPerformanceIndicator',
+        'CustomerFeedbackTrends',
+        'ProjectTimelineChart',
+        'RiskAssessmentDashboard',
+        'TeamPerformanceMetric',
+        'StrategicPlanProgress',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceAuditResults',
+        'fetchEmployeeSatisfaction',
+        'trackOperationalIssues',
+        'fetchFinancialIndicators',
+        'fetchCustomerFeedback',
+        'fetchProjectTimelines',
+        'fetchRiskAssessment',
+        'fetchTeamPerformance',
+        'fetchStrategicPlanUpdates',
+      ];
+
   const GeneralManagerComplianceScreen({super.key});
 
   @override

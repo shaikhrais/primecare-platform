@@ -185,6 +185,35 @@ final coordinatorSosControllerProvider =
 
 // --- View ---
 class CoordinatorSosScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring alarms, performance metrics, incident tracking, and communication, along with buttons for reporting incidents and managing schedules, supported by various APIs for operational data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AlarmOverviewWidget',
+        'PerformanceMetricsCard',
+        'IncidentReportTracker',
+        'CommunicationLogWidget',
+        'ShiftScheduleViewer',
+        'AlertsNotificationPanel',
+        'TrainingStatusTracker',
+        'ClientFeedbackWidget',
+        'HistoricalDataChart',
+        'EmergencyCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reportIncident',
+        'viewPerformanceMetrics',
+        'updateShiftSchedule',
+        'sendAlert',
+        'logCommunication',
+        'requestTraining',
+        'viewClientFeedback',
+      ];
+
   const CoordinatorSosScreen({super.key});
 
   @override

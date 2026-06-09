@@ -102,6 +102,33 @@ final communityOutreachAnalyticsScreenProvider =
 
 // --- View ---
 class CommunityOutreachAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking KPIs, community engagement, budget management, and data visualization, along with buttons for generating reports and scheduling events.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'EngagementMetricsCard',
+        'BudgetTracker',
+        'DataVisualizationChart',
+        'CommunityNeedsReport',
+        'FeedbackRatingWidget',
+        'CollaborationMetricsCard',
+        'AlertsDashboard',
+        'HistoricalDataChart',
+        'EventPlanningTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'scheduleEvent',
+        'viewFeedback',
+        'trackBudget',
+        'analyzeData',
+      ];
+
   const CommunityOutreachAnalyticsScreen({super.key});
 
   @override

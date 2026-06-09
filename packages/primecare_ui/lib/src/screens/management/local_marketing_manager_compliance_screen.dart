@@ -78,6 +78,35 @@ final localMarketingManagerComplianceProvider =
 
 // --- View ---
 class LocalMarketingManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for managing and analyzing local marketing campaigns, tracking performance metrics, ensuring compliance, and facilitating collaboration with local partners.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'PerformanceMetricsChart',
+        'ComplianceStatusCard',
+        'SocialMediaMetricsWidget',
+        'BudgetTrackingWidget',
+        'EventParticipationWidget',
+        'CollaborationToolsWidget',
+        'AlertsWidget',
+        'HistoricalDataChart',
+        'RealTimeUpdatesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewCampaignDetails',
+        'trackBudget',
+        'analyzePerformance',
+        'manageEvents',
+        'collaborateWithPartners',
+        'addressComplianceIssues',
+      ];
+
   const LocalMarketingManagerComplianceScreen({super.key});
 
   @override

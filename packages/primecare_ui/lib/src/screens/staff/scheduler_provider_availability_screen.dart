@@ -101,6 +101,34 @@ final schedulerProviderAvailabilityProvider =
 
 // --- View ---
 class SchedulerProviderAvailabilityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, managing staff schedules, tracking incidents and customer feedback, and providing alerts for operational issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'StaffScheduleWidget',
+        'IncidentReportCard',
+        'CustomerFeedbackTracker',
+        'OperationalEfficiencyChart',
+        'TeamPerformanceEvaluator',
+        'AlertNotificationSystem',
+        'HistoricalDataAnalyzer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'updateStaffSchedule',
+        'logIncidentReport',
+        'trackCustomerFeedback',
+        'calculateOperationalEfficiency',
+        'evaluateTeamPerformance',
+        'sendAlertNotification',
+        'analyzeHistoricalData',
+      ];
+
   const SchedulerProviderAvailabilityScreen({super.key});
 
   @override

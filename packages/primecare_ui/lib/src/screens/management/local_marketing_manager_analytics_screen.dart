@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class LocalMarketingManagerAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying KPIs, analytics, budget tracking, and performance metrics, along with buttons for refreshing data and exporting reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewCard',
+        'RealTimeAnalyticsChart',
+        'BudgetTrackingWidget',
+        'SocialMediaMetricsCard',
+        'LocalSEORankingChart',
+        'CommunityEngagementStats',
+        'CompetitorAnalysisWidget',
+        'CustomerFeedbackCard',
+        'CampaignPerformanceComparisonChart',
+        'PerformanceAlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewDetailedReport',
+        'exportMetrics',
+        'setBudgetAlerts',
+      ];
+
   const LocalMarketingManagerAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

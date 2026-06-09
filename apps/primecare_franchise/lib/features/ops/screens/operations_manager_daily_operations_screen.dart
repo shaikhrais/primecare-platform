@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'operations_manager_daily_operations_screen_controller.dart';
 
-class OperationsManagerDailyOperationsScreen extends ConsumerWidget {
+class OperationsManagerDailyOperationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, addressing operational issues, summarizing team performance, visualizing data trends, and facilitating communication, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'OperationalIssuesAlert',
+        'TeamPerformanceSummary',
+        'DataTrendVisualization',
+        'ReportsAccess',
+        'CollaborationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPerformance',
+        'addressOperationalIssues',
+        'checkTeamTargets',
+        'alignGoalsWithDepartments',
+        'analyzeDataTrends',
+        'prepareManagementReports',
+      ];
+
   const OperationsManagerDailyOperationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(operationsManagerDailyOperationsScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class FamilyMemberWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for action indicators, workflow status, metrics, and user feedback, along with specific buttons and functions to execute actions and refresh the dashboard.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActionIndicator',
+        'WorkflowStatus',
+        'MetricsCard',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerStateAction',
+        'performActionSweep',
+        'refreshDashboard',
+      ];
+
   const FamilyMemberWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

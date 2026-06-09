@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ceo_region_performance_screen_controller.dart';
 
-class CeoRegionPerformanceScreen extends ConsumerWidget {
+class CeoRegionPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing regional performance, alert notifications, report generation, and collaboration tools, all presented in a user-friendly interface.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'DataTrendChart',
+        'AlertNotificationPanel',
+        'ReportGenerator',
+        'CollaborationTool',
+        'UserInterface',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPerformanceMetrics',
+        'analyzeDataTrends',
+        'identifyImprovementAreas',
+        'reviewAlerts',
+        'generateReports',
+        'collaborateWithManagers',
+      ];
+
   const CeoRegionPerformanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ceoRegionPerformanceScreenControllerProvider);
 
     return Scaffold(

@@ -146,6 +146,32 @@ final pswWorkflowControllerProvider =
 
 // --- View ---
 class PswWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, logging vital signs, tracking mileage, and communication, along with buttons for various actions and API integrations for data handling.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClockInOutWidget',
+        'ADLChecklistWidget',
+        'VitalSignsLogger',
+        'MileageTracker',
+        'CommunicationLog',
+        'IncidentReportForm',
+        'AlertsDashboard',
+        'ClientInformationCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'toggleClockInOut',
+        'submitADLs',
+        'logVitalSigns',
+        'trackMileage',
+        'reportIncident',
+        'sendMessage',
+      ];
+
   const PswWorkflowScreen({super.key});
 
   @override

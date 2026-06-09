@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_bdm_deal_tracker_screen_controller.dart';
 
-class RegionalBdmDealTrackerScreen extends ConsumerWidget {
+class RegionalBdmDealTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking deals, updating statuses, performance metrics, alerts, collaboration tools, and visualizations, along with necessary buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DealList',
+        'DealStatusIndicator',
+        'PerformanceMetrics',
+        'Alerts',
+        'CollaborationTools',
+        'DealTrendVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateDealStatus',
+        'addNewDeal',
+        'generateDealReport',
+        'sendCollaborationMessage',
+      ];
+
   const RegionalBdmDealTrackerScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalBdmDealTrackerScreenControllerProvider);
 
     return Scaffold(

@@ -230,6 +230,33 @@ final coordinatorDispatchMapControllerProvider =
 
 // --- View ---
 class CoordinatorDispatchMapScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring caregiver status, managing shifts, and ensuring compliance, along with buttons for actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CaregiverStatusOverview',
+        'UnassignedShiftsList',
+        'CaregiverMapView',
+        'PriorityAlerts',
+        'PerformanceMetricsChart',
+        'CommunicationTools',
+        'ShiftScheduleOverview',
+        'HistoricalDataChart',
+        'ComplianceChecklist',
+        'IncidentReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'assignShift',
+        'sendAlert',
+        'viewPerformanceMetrics',
+        'contactCaregiver',
+        'documentIncident',
+      ];
+
   const CoordinatorDispatchMapScreen({super.key});
 
   @override

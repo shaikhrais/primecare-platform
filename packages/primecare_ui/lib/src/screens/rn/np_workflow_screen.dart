@@ -101,6 +101,39 @@ final npWorkflowScreenProvider =
 
 // --- View ---
 class NpWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient assessment, care planning, medication management, and collaboration tools, along with buttons and functions for various NP responsibilities and compliance tracking.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentWidget',
+        'CarePlanWidget',
+        'MedicationPrescriptionWidget',
+        'DiagnosticTestWidget',
+        'PatientEducationWidget',
+        'CollaborationToolWidget',
+        'ProgressMonitoringWidget',
+        'DocumentationWidget',
+        'ComplianceTrackerWidget',
+        'RedFlagAlertWidget',
+        'DashboardMetricsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitAssessment',
+        'updateCarePlan',
+        'prescribeMedication',
+        'performDiagnosticTest',
+        'educatePatient',
+        'collaborateWithTeam',
+        'monitorProgress',
+        'documentInteraction',
+        'checkCompliance',
+        'viewRedFlags',
+      ];
+
   const NpWorkflowScreen({super.key});
 
   @override

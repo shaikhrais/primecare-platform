@@ -100,6 +100,38 @@ final workflowExecutionProvider =
 
 // --- View ---
 class WorkflowExecutionScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance, auditing, risk assessment, and stakeholder communication, along with buttons and functions to manage governance tasks effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovComplianceStatusIndicator',
+        'GovAuditLogChart',
+        'GovKPIWidget',
+        'GovRiskAssessmentChart',
+        'GovAlertNotification',
+        'GovAuditSummaryCard',
+        'GovStakeholderFeedbackWidget',
+        'GovTrainingResourceStats',
+        'GovRegulatoryUpdateFeed',
+        'GovActionItemsTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditLogs',
+        'fetchKPIs',
+        'fetchRiskMetrics',
+        'triggerAlert',
+        'fetchAuditSummary',
+        'fetchStakeholderFeedback',
+        'fetchTrainingStats',
+        'fetchRegulatoryUpdates',
+        'trackActionItems',
+      ];
+
   const WorkflowExecutionScreen({super.key});
 
   @override

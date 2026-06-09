@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_reports_screen_controller.dart';
 
-class CooReportsScreen extends ConsumerWidget {
+class CooReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring report status, analyzing data, identifying trends, reviewing errors, and providing user feedback.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReportStatusCard',
+        'DataAnalysisChart',
+        'TrendPatternGraph',
+        'ErrorReviewList',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'getReportStatus',
+        'analyzeReportData',
+        'identifyTrends',
+        'reviewErrors',
+        'submitFeedback',
+      ];
+
   const CooReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooReportsScreenControllerProvider);
 
     return Scaffold(

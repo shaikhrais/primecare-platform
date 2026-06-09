@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'coo_branch_operations_screen_controller.dart';
 
-class CooBranchOperationsScreen extends ConsumerWidget {
+class CooBranchOperationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring branch operations, reviewing metrics, addressing issues, and collaborating with team members, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalMetricsCard',
+        'PerformanceTrendChart',
+        'CustomerFeedbackWidget',
+        'EmployeeEngagementWidget',
+        'AlertsNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorBranchOperations',
+        'reviewOperationalMetrics',
+        'identifyOperationalIssues',
+        'collaborateWithTeam',
+        'accessBranchData',
+      ];
+
   const CooBranchOperationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cooBranchOperationsScreenControllerProvider);
 
     return Scaffold(

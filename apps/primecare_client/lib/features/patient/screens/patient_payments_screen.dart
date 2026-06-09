@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_payments_screen_controller.dart';
 
-class PatientPaymentsScreen extends ConsumerWidget {
+class PatientPaymentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The patient payments screen requires components for monitoring payment statuses, processing payments, reviewing history, handling inquiries, and generating reports, along with necessary buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PaymentStatusOverview',
+        'PaymentErrorAlerts',
+        'PaymentTrendsChart',
+        'PaymentHistoryAccess',
+        'PaymentInquiryNotifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPaymentStatuses',
+        'processIncomingPayments',
+        'reviewPaymentHistory',
+        'handlePaymentInquiries',
+        'generatePaymentReports',
+      ];
+
   const PatientPaymentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(patientPaymentsScreenControllerProvider);
 
     return Scaffold(

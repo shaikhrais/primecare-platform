@@ -99,6 +99,36 @@ final rmtAppointmentsProvider =
 
 // --- View ---
 class RmtAppointmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing appointments, client assessments, treatment plans, compliance tracking, and performance metrics, along with various buttons and functions for user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentList',
+        'ClientAssessmentForm',
+        'TreatmentPlanEditor',
+        'ClientRecordsManager',
+        'FeedbackTracker',
+        'ComplianceLog',
+        'PerformanceMetricsDashboard',
+        'CommunicationTool',
+        'FinancialMetricsCard',
+        'TrainingResourcesAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'submitAssessment',
+        'saveTreatmentPlan',
+        'updateClientRecords',
+        'sendFeedback',
+        'viewComplianceLogs',
+        'accessTrainingResources',
+        'generateReport',
+      ];
+
   const RmtAppointmentsScreen({super.key});
 
   @override

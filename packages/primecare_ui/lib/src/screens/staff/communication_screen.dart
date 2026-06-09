@@ -97,6 +97,38 @@ final communicationProvider =
 
 // --- View ---
 class CommunicationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The communication screen requires various components to monitor customer support metrics, buttons for ticket management, functions for data retrieval and analysis, and APIs for backend integration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketStatusOverview',
+        'ResponseTimeChart',
+        'CustomerSatisfactionWidget',
+        'CommunicationVolumeChart',
+        'EscalatedTicketsList',
+        'AgentPerformanceMetrics',
+        'HistoricalResolutionRatesChart',
+        'OverdueTicketsAlert',
+        'CommonIssuesInsights',
+        'WorkloadDistributionChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTicketStatus',
+        'calculateResponseTimes',
+        'retrieveCustomerFeedback',
+        'trackCommunicationVolume',
+        'getEscalatedTickets',
+        'evaluateAgentPerformance',
+        'analyzeHistoricalData',
+        'sendOverdueAlert',
+        'identifyCommonIssues',
+        'distributeWorkload',
+      ];
+
   const CommunicationScreen({super.key});
 
   @override

@@ -97,6 +97,33 @@ final rmtBillingLinkProvider =
 
 // --- View ---
 class RmtBillingLinkScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, treatment tracking, billing, compliance monitoring, and integration with healthcare systems, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'ClientFeedbackMetric',
+        'ComplianceStatusWidget',
+        'BillingRevenueTracker',
+        'AppointmentScheduler',
+        'TreatmentLogs',
+        'LicenseRenewalAlert',
+        'EducationalResources',
+        'TherapistPerformanceMetric',
+        'HealthcareIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addClient',
+        'updateTreatmentPlan',
+        'submitBilling',
+        'scheduleAppointment',
+        'viewReports',
+      ];
+
   const RmtBillingLinkScreen({super.key});
 
   @override

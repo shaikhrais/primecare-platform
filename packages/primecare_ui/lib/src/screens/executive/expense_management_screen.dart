@@ -100,6 +100,28 @@ final expenseManagementProvider =
 
 // --- View ---
 class ExpenseManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The expense management screen requires various financial analysis and reporting widgets to support the CFO\'s responsibilities and monitor operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'BudgetComparisonWidget',
+        'CashFlowAnalysisWidget',
+        'ComplianceStatusWidget',
+        'RiskAssessmentWidget',
+        'FinancialForecastWidget',
+        'AuditLogWidget',
+        'RevenueTrendWidget',
+        'ExpenseTrendWidget',
+        'InvestmentPerformanceWidget',
+        'StakeholderFeedbackWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const ExpenseManagementScreen({super.key});
 
   @override

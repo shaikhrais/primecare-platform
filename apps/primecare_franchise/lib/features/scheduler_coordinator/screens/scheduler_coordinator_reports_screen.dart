@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_reports_screen_controller.dart';
 
-class SchedulerCoordinatorReportsScreen extends ConsumerWidget {
+class SchedulerCoordinatorReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring report status, error notifications, historical data analysis, team communication, and data insights, along with necessary buttons and functions for effective report management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReportStatusIndicator',
+        'ErrorNotificationWidget',
+        'HistoricalDataChart',
+        'TeamCommunicationTool',
+        'DataInsightsAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorReportScheduling',
+        'reviewScheduledReports',
+        'identifyDiscrepancies',
+        'ensureTimelyDelivery',
+        'communicateSchedulingChanges',
+        'analyzeReportData',
+      ];
+
   const SchedulerCoordinatorReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorReportsScreenControllerProvider);
 
     return Scaffold(

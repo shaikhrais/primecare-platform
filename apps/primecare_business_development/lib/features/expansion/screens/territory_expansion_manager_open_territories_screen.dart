@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_expansion_manager_open_territories_screen_controller.dart';
 
-class TerritoryExpansionManagerOpenTerritoriesScreen extends ConsumerWidget {
+class TerritoryExpansionManagerOpenTerritoriesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time data visualization, performance analysis tools, and collaboration features for managing open territories.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TerritoryList',
+        'PerformanceChart',
+        'KPIWidget',
+        'AlertNotification',
+        'UserFeedbackSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadTerritoryData',
+        'analyzePerformanceMetrics',
+        'prioritizeTerritories',
+        'submitFeedback',
+      ];
+
   const TerritoryExpansionManagerOpenTerritoriesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territoryExpansionManagerOpenTerritoriesScreenControllerProvider);
 
     return Scaffold(

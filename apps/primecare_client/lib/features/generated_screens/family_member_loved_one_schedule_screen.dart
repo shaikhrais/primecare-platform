@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_member_loved_one_schedule_screen_controller.dart';
 
-class FamilyMemberLovedOneScheduleScreen extends ConsumerWidget {
+class FamilyMemberLovedOneScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and managing family schedules, including appointment management and feedback mechanisms, while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ScheduleView',
+        'AppointmentEditor',
+        'NotificationPanel',
+        'FamilyMemberDetails',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewSchedule',
+        'addAppointment',
+        'editAppointment',
+        'removeAppointment',
+        'monitorNotifications',
+        'accessFamilyDetails',
+        'provideFeedback',
+      ];
+
   const FamilyMemberLovedOneScheduleScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyMemberLovedOneScheduleScreenControllerProvider);
 
     return Scaffold(

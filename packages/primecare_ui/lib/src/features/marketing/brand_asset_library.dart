@@ -8,6 +8,28 @@ final brandAssetsProvider = FutureProvider.autoDispose<List<Map<String, dynamic>
 });
 
 class BrandAssetLibraryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, uploading, and downloading assets, along with status indicators and user engagement metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AssetList',
+        'UploadButton',
+        'DownloadButton',
+        'LoadingStatus',
+        'NotificationPanel',
+        'EngagementMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAssets',
+        'refreshAssetList',
+        'uploadAsset',
+        'downloadAsset',
+      ];
+
   const BrandAssetLibraryScreen({super.key});
 
   @override

@@ -100,6 +100,38 @@ final franchiseOverviewProvider =
 
 // --- View ---
 class FranchiseOverviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The franchise overview screen requires various performance metrics and visualizations for the CEO to monitor business health and operational efficiency.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'EmployeeEngagementChart',
+        'CustomerSatisfactionGauge',
+        'OperationalEfficiencyDashboard',
+        'ComplianceStatusCard',
+        'MarketTrendsGraph',
+        'SalesPerformanceChart',
+        'RiskManagementIndicator',
+        'StrategicInitiativesProgress',
+        'DataVisualizationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchEmployeeMetrics',
+        'fetchCustomerFeedback',
+        'fetchOperationalMetrics',
+        'fetchComplianceData',
+        'fetchMarketTrends',
+        'fetchSalesData',
+        'fetchRiskIndicators',
+        'fetchStrategicUpdates',
+        'updateVisualizations',
+      ];
+
   const FranchiseOverviewScreen({super.key});
 
   @override

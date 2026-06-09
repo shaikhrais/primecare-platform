@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_proposals_screen_controller.dart';
 
-class PartnershipManagerProposalsScreen extends ConsumerWidget {
+class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing partnership proposals, including review, feedback, and collaboration tools, along with necessary APIs for data handling.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProposalList',
+        'ProposalStatusTracker',
+        'FeedbackCommunicator',
+        'CollaborationTool',
+        'MetricsOverview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewProposal',
+        'evaluateProposal',
+        'sendFeedback',
+        'trackProposalStatus',
+        'collaborateWithTeam',
+      ];
+
   const PartnershipManagerProposalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(partnershipManagerProposalsScreenControllerProvider);
 
     return Scaffold(

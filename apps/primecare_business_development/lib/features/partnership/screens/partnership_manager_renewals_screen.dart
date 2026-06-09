@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_renewals_screen_controller.dart';
 
-class PartnershipManagerRenewalsScreen extends ConsumerWidget {
+class PartnershipManagerRenewalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing partnership renewals, including alerts for overdue renewals and performance metrics, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RenewalOverviewWidget',
+        'OverdueAlertsWidget',
+        'PerformanceMetricsChart',
+        'CommunicationLogsWidget',
+        'PartnershipDetailsEditor',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRenewalData',
+        'sendReminderToPartner',
+        'updatePartnershipDetails',
+        'analyzeRenewalTrends',
+      ];
+
   const PartnershipManagerRenewalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(partnershipManagerRenewalsScreenControllerProvider);
 
     return Scaffold(

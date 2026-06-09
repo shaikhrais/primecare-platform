@@ -101,6 +101,33 @@ final physiotherapistAppointmentsProvider =
 
 // --- View ---
 class PhysiotherapistAppointmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying appointment details, compliance audits, KPIs, telemetry data, alerts, patient history, and collaboration tools, along with associated buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentOverview',
+        'ComplianceAuditLog',
+        'KPIChart',
+        'TelemetryDataDisplay',
+        'AlertNotification',
+        'PatientHistoryViewer',
+        'CollaborationTool',
+        'PatientFeedbackMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchAppointmentData',
+        'auditCompliance',
+        'calculateKPIs',
+        'refreshTelemetryData',
+        'triggerAlert',
+        'retrievePatientHistory',
+        'sendMessageToProvider',
+      ];
+
   const PhysiotherapistAppointmentsScreen({super.key});
 
   @override

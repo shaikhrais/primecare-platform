@@ -2,6 +2,34 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class VulnerablePopulationRegistryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing a registry of vulnerable populations, including functionalities for adding, editing, deleting, and searching entries, as well as generating reports and monitoring updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VulnerablePopulationList',
+        'EntryForm',
+        'SearchBar',
+        'ActivityLog',
+        'ErrorAlert',
+        'DataVisualization',
+        'QuickAccessButtons',
+        'Notifications',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'accessRegistry',
+        'viewPopulations',
+        'addEntry',
+        'editEntry',
+        'deleteEntry',
+        'searchPopulation',
+        'generateReport',
+        'monitorUpdates',
+      ];
+
   const VulnerablePopulationRegistryScreen({super.key});
 
   @override

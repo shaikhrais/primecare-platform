@@ -4,6 +4,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HswScheduleScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing shifts, tracking client visits, logging mileage, and generating reports, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftManager',
+        'ClientTracker',
+        'MileageLogger',
+        'ScheduleSwapRequest',
+        'ClientMapLocator',
+        'MileageReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageShifts',
+        'trackClientVisits',
+        'logTravelMileage',
+        'requestScheduleSwap',
+        'optimizeRoute',
+        'generateMileageReport',
+      ];
+
   const HswScheduleScreen({super.key});
 
   // === Governance Injected Action Methods ===

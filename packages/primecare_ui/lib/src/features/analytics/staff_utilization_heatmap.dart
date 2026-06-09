@@ -8,6 +8,22 @@ final staffUtilizationProvider = FutureProvider.autoDispose<Map<String, dynamic>
 });
 
 class StaffUtilizationHeatmapScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a heatmap for staff utilization, buttons for refreshing data and adjusting shifts, and clear error handling for data loading issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'StaffUtilizationHeatmap',
+        'HighRiskDepartmentList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshUtilizationData',
+        'adjustShifts',
+      ];
+
   const StaffUtilizationHeatmapScreen({super.key});
 
   @override

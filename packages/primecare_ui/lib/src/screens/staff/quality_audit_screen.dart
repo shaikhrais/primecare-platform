@@ -97,6 +97,28 @@ final qualityAuditProvider =
 
 // --- View ---
 class QualityAuditScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance scanning, audit log visualization, KPI tracking, and alerts, along with buttons for initiating actions and a responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanWidget',
+        'AuditLogChart',
+        'KPITracker',
+        'AlertNotification',
+        'HistoricalDataTrend',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'initiateComplianceScan',
+        'fetchAuditLogs',
+        'trackKPIs',
+        'sendAlert',
+        'retrieveHistoricalData',
+      ];
+
   const QualityAuditScreen({super.key});
 
   @override

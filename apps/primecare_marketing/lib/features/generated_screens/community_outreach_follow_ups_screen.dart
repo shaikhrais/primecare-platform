@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'community_outreach_follow_ups_screen_controller.dart';
 
-class CommunityOutreachFollowUpsScreen extends ConsumerWidget {
+class CommunityOutreachFollowUpsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for monitoring and managing community outreach follow-ups, including status indicators, engagement metrics, and team collaboration tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OutreachInitiativeOverview',
+        'FollowUpStatusIndicator',
+        'EngagementMetricsChart',
+        'OverdueFollowUpNotification',
+        'TeamCollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorOutreachFollowUps',
+        'reviewOutreachStatus',
+        'analyzeFeedback',
+        'updateFollowUpRecords',
+        'coordinateWithTeam',
+      ];
+
   const CommunityOutreachFollowUpsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(communityOutreachFollowUpsScreenControllerProvider);
 
     return Scaffold(

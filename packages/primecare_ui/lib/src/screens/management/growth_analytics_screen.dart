@@ -99,6 +99,32 @@ final growthAnalyticsProvider =
 
 // --- View ---
 class GrowthAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The growth analytics screen requires various components to display KPIs, metrics, and insights for business development, along with buttons for report generation and metric updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'CustomerMetricsCard',
+        'MarketAnalysisWidget',
+        'ProgressTracker',
+        'SalesPipelineChart',
+        'ClientFeedbackWidget',
+        'TeamPerformanceDashboard',
+        'BudgetUtilizationChart',
+        'AlertsWidget',
+        'ActivitySummaryCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewDetails',
+        'updateMetrics',
+        'setAlerts',
+      ];
+
   const GrowthAnalyticsScreen({super.key});
 
   @override

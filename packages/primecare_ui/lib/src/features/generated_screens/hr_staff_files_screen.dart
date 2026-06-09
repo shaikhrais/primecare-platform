@@ -2,6 +2,25 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrStaffFilesScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring operational status, displaying audit results, and logging events, along with necessary buttons and functions for user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'GovEventLogger',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventLog',
+        'refreshOperationalStatus',
+        'fetchAuditResults',
+        'fetchTransactionFlow',
+      ];
+
   const HrStaffFilesScreen({super.key});
 
   @override

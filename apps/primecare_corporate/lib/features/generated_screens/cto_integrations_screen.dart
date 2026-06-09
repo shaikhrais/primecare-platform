@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_integrations_screen_controller.dart';
 
-class CtoIntegrationsScreen extends ConsumerWidget {
+class CtoIntegrationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor integration status, review errors, and access settings, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IntegrationStatusIndicator',
+        'ErrorLogSummary',
+        'DataSyncPerformanceMetric',
+        'IntegrationSettingsAccess',
+        'HistoricalDataTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorIntegrationStatus',
+        'reviewErrorLogs',
+        'ensureDataConsistency',
+        'updateIntegrationSettings',
+        'collaborateWithTeams',
+      ];
+
   const CtoIntegrationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoIntegrationsScreenControllerProvider);
 
     return Scaffold(

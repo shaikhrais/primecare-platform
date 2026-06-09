@@ -101,6 +101,42 @@ final chiropractorExercisePlanProvider =
 
 // --- View ---
 class ChiropractorExercisePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractor exercise plan screen requires components for patient assessments, treatment plans, and collaboration, along with buttons for various actions and APIs for data management, all while being responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'AdjustmentLog',
+        'PatientEducationModule',
+        'ProgressMonitoringChart',
+        'PatientRecordsTable',
+        'CollaborationPanel',
+        'ResearchUpdatesFeed',
+        'RedFlagsAlert',
+        'OperationsMetricsDashboard',
+        'ComplianceStatusIndicator',
+        'PerformanceTrendsGraph',
+        'TelemetryLogViewer',
+        'NotificationsPanel',
+        'PatientFeedbackWidget',
+        'TreatmentOutcomesVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addPatientAssessment',
+        'updateTreatmentPlan',
+        'recordAdjustment',
+        'sendEducationMaterial',
+        'monitorProgress',
+        'viewPatientRecords',
+        'collaborateWithProvider',
+        'refreshResearchUpdates',
+      ];
+
   const ChiropractorExercisePlanScreen({super.key});
 
   @override

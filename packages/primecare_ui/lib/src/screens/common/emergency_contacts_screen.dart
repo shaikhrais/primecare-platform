@@ -100,6 +100,31 @@ final emergencyContactsProvider =
 
 // --- View ---
 class EmergencyContactsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing emergency contacts, displaying compliance scan results, and reviewing audit logs, along with buttons for triggering actions and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmergencyContactList',
+        'ComplianceScanResults',
+        'AuditLogViewer',
+        'KPIWidget',
+        'SecurityStatusIndicator',
+        'TelemetryChart',
+        'ManualRefreshButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorEmergencyContacts',
+        'runComplianceScan',
+        'reviewAuditLogs',
+        'triggerStateAction',
+        'synchronizeTelemetry',
+        'respondToErrors',
+      ];
+
   const EmergencyContactsScreen({super.key});
 
   @override

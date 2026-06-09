@@ -97,6 +97,31 @@ final clientIntakeProvider =
 
 // --- View ---
 class ClientIntakeScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The client intake screen requires components for monitoring intake processes, compliance, and communication, along with buttons and functions for managing operations and addressing client needs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientIntakeStatusCard',
+        'ComplianceScanResultsTable',
+        'OperationalMetricsChart',
+        'SecurityClearanceStatusWidget',
+        'ActivityLogList',
+        'AlertsNotificationPanel',
+        'ClientFeedbackSurvey',
+        'CommunicationToolPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateIntakeStatus',
+        'generateComplianceReport',
+        'addressClientInquiry',
+        'logOperationalActivity',
+        'requestComplianceAudit',
+      ];
+
   const ClientIntakeScreen({super.key});
 
   @override

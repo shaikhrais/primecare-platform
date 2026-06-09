@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_billing_screen_controller.dart';
 
-class FamilyBillingScreen extends ConsumerWidget {
+class FamilyBillingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying billing information, notifications, history, trends, and error messages, along with buttons for updating details and resolving disputes.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BillingSummaryCard',
+        'BillingNotificationPanel',
+        'BillingHistoryList',
+        'BillingTrendChart',
+        'ErrorMessageDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorBillingInfo',
+        'reviewBillingHistory',
+        'updateBillingDetails',
+        'handleBillingDisputes',
+        'accessBillingReports',
+      ];
+
   const FamilyBillingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyBillingScreenControllerProvider);
 
     return Scaffold(

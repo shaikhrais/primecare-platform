@@ -8,6 +8,27 @@ final clinicalGuidelinesProvider = FutureProvider.autoDispose<List<Map<String, d
 });
 
 class ClinicalGuidelineLibraryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying and managing clinical guidelines, including search and refresh functionalities, along with performance and error reporting features.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GuidelineList',
+        'GuidelineDetail',
+        'SearchBar',
+        'ErrorReportSection',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchGuidelines',
+        'refreshGuidelines',
+        'searchGuidelines',
+        'viewGuidelineDetails',
+      ];
+
   const ClinicalGuidelineLibraryScreen({super.key});
 
   @override

@@ -96,6 +96,33 @@ final franchiseDashboardProvider =
 
 // --- View ---
 class FranchiseDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The franchise dashboard requires components to monitor performance, compliance, security, and financial metrics, along with buttons for exporting logs and conducting audits.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceAuditStatus',
+        'SecurityPostureOverview',
+        'OperationalActivityLog',
+        'RedFlagAlert',
+        'FinancialPerformanceIndicator',
+        'CustomerFeedbackWidget',
+        'TrainingPerformanceMetric',
+        'MarketingCampaignEffectiveness',
+        'ExportLogsButton',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'exportLogs',
+        'reviewAudit',
+        'updatePolicies',
+        'conductAudit',
+        'addressIssues',
+      ];
+
   const FranchiseDashboardScreen({super.key});
 
   @override

@@ -3,6 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GlobalSettingsScreen extends GovernedConsumerStatefulWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for color customization, theme selection, and notifications, along with functions for validation and API interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ColorPicker',
+        'ThemeSelector',
+        'NotificationBanner',
+        'LoadingIndicator',
+        'ThemePreview',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'validateForm',
+        'saveSettings',
+        'showSuccessMessage',
+        'showErrorMessage',
+        'previewTheme',
+      ];
+
   const GlobalSettingsScreen({super.key});
 
   @override

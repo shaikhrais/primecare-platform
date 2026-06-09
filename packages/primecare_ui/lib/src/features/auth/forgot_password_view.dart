@@ -3,6 +3,25 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 
 class ForgotPasswordView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The screen requires an email input field, a button to send recovery instructions, and mechanisms to handle validation and display status messages.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmailInputField',
+        'RecoveryLinkButton',
+        'StatusMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitRecoveryRequest',
+        'validateEmail',
+        'displayErrorMessage',
+        'displaySuccessMessage',
+      ];
+
   const ForgotPasswordView({super.key});
 
   @override

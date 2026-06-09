@@ -98,6 +98,38 @@ final rnTasksProvider = StateNotifierProvider<RnTasksController, RnTasksState>((
 
 // --- View ---
 class RnTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The RN tasks screen requires components for real-time patient updates, compliance alerts, and performance metrics, along with buttons for refreshing data and accessing reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusCard',
+        'ComplianceAuditAlert',
+        'KPIChart',
+        'ActivityLog',
+        'CriticalConditionAlert',
+        'StaffingLevelIndicator',
+        'MedicationRecordTable',
+        'PatientSatisfactionGauge',
+        'IncidentReportList',
+        'EducationalResourceLink',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientStatus',
+        'checkComplianceAudit',
+        'updateKPI',
+        'logActivity',
+        'triggerCriticalAlert',
+        'fetchStaffingLevels',
+        'retrieveMedicationRecords',
+        'getPatientFeedback',
+        'viewIncidentReports',
+        'accessEducationalResources',
+      ];
+
   const RnTasksScreen({super.key});
 
   @override

@@ -99,6 +99,36 @@ final staffManagementProvider =
 
 // --- View ---
 class StaffManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying key performance indicators, staff metrics, customer feedback, compliance status, inventory management, and alerts, along with buttons for managing reports and operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'StaffPerformanceCard',
+        'CustomerFeedbackChart',
+        'ComplianceStatusWidget',
+        'InventoryManagementPanel',
+        'OperationalLogsTable',
+        'MarketingPerformanceCard',
+        'FinancialHealthIndicator',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'updateStaffPerformance',
+        'getCustomerFeedback',
+        'checkComplianceStatus',
+        'manageInventory',
+        'logOperationalIncident',
+        'evaluateMarketingCampaign',
+        'assessFinancialHealth',
+        'triggerAlerts',
+      ];
+
   const StaffManagementScreen({super.key});
 
   @override

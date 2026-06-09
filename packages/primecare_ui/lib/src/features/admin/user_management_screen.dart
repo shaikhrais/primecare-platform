@@ -10,6 +10,28 @@ final userManagementProvider = FutureProvider.autoDispose<List<Map<String, dynam
 });
 
 class UserManagementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The user management screen requires components for listing, adding, and editing users, along with role management and error notifications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'UserList',
+        'UserForm',
+        'RoleManagement',
+        'RoleDistributionChart',
+        'ErrorNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadUserData',
+        'addUser',
+        'editUser',
+        'manageUserRoles',
+        'monitorRoleDistribution',
+      ];
+
   const UserManagementScreen({super.key});
 
   @override

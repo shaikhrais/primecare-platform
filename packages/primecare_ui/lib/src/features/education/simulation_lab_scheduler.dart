@@ -8,6 +8,27 @@ final simLabScheduleProvider = FutureProvider.autoDispose<List<Map<String, dynam
 });
 
 class SimulationLabSchedulerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display today\'s simulation lab schedule, buttons for refreshing and booking sessions, and functions to handle data fetching and user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ScheduleList',
+        'SessionDetails',
+        'NotificationBanner',
+        'SessionAvailabilityChart',
+        'PerformanceMetricsCard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSchedule',
+        'bookSession',
+        'viewSessionDetails',
+        'refreshSchedule',
+      ];
+
   const SimulationLabSchedulerScreen({super.key});
 
   @override

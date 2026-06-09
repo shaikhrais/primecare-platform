@@ -8,6 +8,27 @@ final journalClubProvider = FutureProvider.autoDispose<List<Map<String, dynamic>
 });
 
 class JournalClubDiscussionBoardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying topics, activity, and engagement metrics, along with buttons for refreshing and creating topics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TopicList',
+        'ActivityFeed',
+        'EngagementMetrics',
+        'NotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTopics',
+        'refreshTopicList',
+        'createDiscussionTopic',
+        'fetchActivityFeed',
+        'fetchEngagementMetrics',
+      ];
+
   const JournalClubDiscussionBoardScreen({super.key});
 
   @override

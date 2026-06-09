@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class OfficeAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The office analytics screen requires components for task management, scheduling, communication tracking, file management, performance metrics, inventory management, project updates, feedback collection, compliance checks, and alert systems, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CalendarIntegration',
+        'CommunicationLog',
+        'FileManagementSystem',
+        'PerformanceMetrics',
+        'InventoryLevels',
+        'ProjectStatusUpdates',
+        'FeedbackRatings',
+        'ComplianceChecklist',
+        'Alerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'manageTasks',
+        'integrateCalendar',
+        'trackCommunication',
+        'manageFiles',
+        'generatePerformanceMetrics',
+        'checkInventoryLevels',
+        'updateProjectStatus',
+        'collectFeedback',
+        'verifyCompliance',
+        'setAlerts',
+      ];
+
   const OfficeAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

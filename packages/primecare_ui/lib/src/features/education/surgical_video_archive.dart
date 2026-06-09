@@ -8,6 +8,26 @@ final surgicalVideosProvider = FutureProvider.autoDispose<List<Map<String, dynam
 });
 
 class SurgicalVideoArchiveScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, uploading, and managing surgical videos, along with functionality to handle video data and user interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VideoList',
+        'VideoPlayer',
+        'UploadForm',
+        'ErrorLog',
+        'UserActivityMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchVideoData',
+        'refreshVideoList',
+        'uploadVideo',
+      ];
+
   const SurgicalVideoArchiveScreen({super.key});
 
   @override

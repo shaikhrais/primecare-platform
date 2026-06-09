@@ -74,6 +74,36 @@ final rnComplianceProvider =
 
 // --- View ---
 class RnComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient status, medication records, compliance audits, incident reporting, staffing levels, education resources, communication tools, and performance metrics, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientStatusOverview',
+        'MedicationAdministrationRecord',
+        'ComplianceAuditLog',
+        'IncidentReport',
+        'StaffingLevelChart',
+        'EducationResourceList',
+        'CommunicationTool',
+        'PatientCarePlanAccess',
+        'CriticalAlertNotification',
+        'PerformanceMetricsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'administerMedication',
+        'documentPatientCare',
+        'viewComplianceAudit',
+        'reportIncident',
+        'accessEducationResources',
+        'collaborateWithTeam',
+        'viewPatientCarePlan',
+        'acknowledgeAlert',
+      ];
+
   const RnComplianceScreen({super.key});
 
   @override

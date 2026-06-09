@@ -101,6 +101,31 @@ final hrDirectorOnboardingProvider =
 
 // --- View ---
 class HrDirectorOnboardingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director onboarding screen requires components for task management, performance metrics, and compliance tracking, along with buttons for task addition and report generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'KPIChart',
+        'EngagementMetric',
+        'ComplianceStatus',
+        'TrainingParticipationChart',
+        'PerformanceMetric',
+        'DiversityStatistics',
+        'HRActivityLog',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'generateReport',
+        'viewDetails',
+        'sendAlert',
+      ];
+
   const HrDirectorOnboardingScreen({super.key});
 
   @override

@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'hr_hiring_staff_documents_screen_controller.dart';
 
-class HrHiringStaffDocumentsScreen extends ConsumerWidget {
+class HrHiringStaffDocumentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring document submissions, buttons for document management, functions for handling document actions, and APIs for data retrieval and compliance checks.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DocumentSubmissionStatusOverview',
+        'PendingApprovalNotification',
+        'OverdueAlert',
+        'ComplianceChecklist',
+        'DocumentSubmissionAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'approveDocument',
+        'uploadDocument',
+        'sendReminder',
+        'fetchDocumentStatus',
+        'getComplianceChecklist',
+        'analyzeSubmissionTrends',
+      ];
+
   const HrHiringStaffDocumentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(hrHiringStaffDocumentsScreenControllerProvider);
 
     return Scaffold(

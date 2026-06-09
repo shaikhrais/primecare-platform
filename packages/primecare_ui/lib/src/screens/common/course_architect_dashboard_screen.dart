@@ -96,6 +96,38 @@ final courseArchitectDashboardProvider =
 
 // --- View ---
 class CourseArchitectDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The course architect dashboard requires various metrics and data visualizations to assess training effectiveness, employee engagement, and compliance, along with functionalities for scheduling and managing training programs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ParticipationMetricCard',
+        'FeedbackScoreChart',
+        'EffectivenessDataTable',
+        'BudgetUtilizationChart',
+        'ComplianceTracker',
+        'UpcomingSessionsList',
+        'SkillAssessmentDashboard',
+        'IndustryTrendsWidget',
+        'CompletionRatesChart',
+        'AttendanceLogTable',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchParticipationMetrics',
+        'fetchFeedbackScores',
+        'fetchEffectivenessData',
+        'fetchBudgetUtilization',
+        'fetchComplianceData',
+        'fetchUpcomingSessions',
+        'fetchSkillAssessments',
+        'fetchIndustryTrends',
+        'fetchCompletionRates',
+        'fetchAttendanceLogs',
+      ];
+
   const CourseArchitectDashboardScreen({super.key});
 
   @override

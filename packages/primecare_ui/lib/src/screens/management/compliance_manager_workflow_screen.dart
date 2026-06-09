@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ComplianceManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Compliance Manager Workflow screen requires components for monitoring compliance status, reporting breaches, conducting audits, and providing training, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'ComplianceBreachCounter',
+        'AuditResultsChart',
+        'TrainingCompletionChart',
+        'OpenComplianceIssuesList',
+        'ComplianceDeadlinesCalendar',
+        'HistoricalComplianceTrendsGraph',
+        'ComplianceKPIsDashboard',
+        'ComplianceAlertsNotification',
+        'RealTimeDataIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateComplianceReport',
+        'conductAudit',
+        'updateCompliancePolicy',
+        'provideTraining',
+        'reportComplianceIssue',
+      ];
+
   const ComplianceManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -98,6 +98,27 @@ final revenueProvider = StateNotifierProvider<RevenueController, RevenueState>((
 
 // --- View ---
 class RevenueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various financial performance visualizations and metrics to support the CFO\'s responsibilities and monitor operational red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'RevenueExpenseTracker',
+        'CashFlowAnalysis',
+        'BudgetPerformanceMetric',
+        'ComplianceStatusCard',
+        'RiskAssessmentIndicator',
+        'InvestmentPerformanceOverview',
+        'EmployeeProductivityMetric',
+        'StakeholderEngagementMetric',
+        'TrendForecastVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [];
+
   const RevenueScreen({super.key});
 
   @override

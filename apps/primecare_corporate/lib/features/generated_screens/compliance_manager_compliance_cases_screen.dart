@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_compliance_cases_screen_controller.dart';
 
-class ComplianceManagerComplianceCasesScreen extends ConsumerWidget {
+class ComplianceManagerComplianceCasesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and managing compliance cases, including status indicators, notifications, and communication tools for stakeholder engagement.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceCaseOverview',
+        'ComplianceStatusIndicator',
+        'ComplianceTaskNotification',
+        'ComplianceReportSummary',
+        'StakeholderCommunicationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceCases',
+        'reviewComplianceReports',
+        'updateComplianceStatus',
+        'notifyOverdueTasks',
+        'engageStakeholders',
+      ];
+
   const ComplianceManagerComplianceCasesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerComplianceCasesScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BusinessDevelopmentAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the Head of Business Development, including various performance metrics, operational alerts, and interactive components for strategy management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'ClientAcquisitionRetentionChart',
+        'PipelineStatusWidget',
+        'MarketTrendsAnalysis',
+        'TeamPerformanceDashboard',
+        'RevenueForecastChart',
+        'ClientFeedbackWidget',
+        'BusinessInitiativesStatusCard',
+        'BudgetOverviewWidget',
+        'OperationalRedFlagsAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'fetchClientData',
+        'updatePipelineStatus',
+        'analyzeMarketTrends',
+        'fetchTeamPerformance',
+        'generateRevenueForecast',
+        'collectClientFeedback',
+        'trackBusinessInitiatives',
+        'overviewBudgetAllocation',
+        'checkOperationalRedFlags',
+      ];
+
   const BusinessDevelopmentAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

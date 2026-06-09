@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_franchise_financials_screen_controller.dart';
 
-class CfoFranchiseFinancialsScreen extends ConsumerWidget {
+class CfoFranchiseFinancialsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for financial metrics, performance trends, alerts, reports, collaboration, and compliance, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FinancialMetricsOverview',
+        'PerformanceTrendsChart',
+        'BudgetVarianceAlert',
+        'RecentReportsAccess',
+        'CollaborationTool',
+        'ComplianceChecklist',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateFinancialReport',
+        'sendMessageToFranchiseOwner',
+        'checkCompliance',
+        'monitorBudgetAdherence',
+      ];
+
   const CfoFranchiseFinancialsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoFranchiseFinancialsScreenControllerProvider);
 
     return Scaffold(

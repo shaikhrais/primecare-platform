@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_reports_screen_controller.dart';
 
-class TerritorySalesManagerReportsScreen extends ConsumerWidget {
+class TerritorySalesManagerReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Territory Sales Manager Reports screen requires components for displaying sales data, handling loading states, and providing user interaction features, along with APIs for data retrieval and user activity logging.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesReportTable',
+        'LoadingIndicator',
+        'ErrorNotification',
+        'PerformanceGraph',
+        'UserActivityLog',
+        'CustomViewSelector',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadSalesReports',
+        'handleLoadingError',
+        'updatePerformanceMetrics',
+        'logUserActivity',
+        'customizeView',
+      ];
+
   const TerritorySalesManagerReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerReportsScreenControllerProvider);
 
     return Scaffold(

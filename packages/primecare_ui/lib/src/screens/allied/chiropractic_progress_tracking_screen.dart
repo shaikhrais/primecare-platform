@@ -101,6 +101,32 @@ final chiropracticProgressTrackingProvider =
 
 // --- View ---
 class ChiropracticProgressTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractic progress tracking screen requires components for patient assessments, treatment plans, and progress tracking, along with buttons for saving and submitting data, and APIs for managing patient information and compliance.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'ProgressTrackingChart',
+        'PatientFeedbackWidget',
+        'ComplianceAuditLog',
+        'OperationalMetricsDashboard',
+        'SecurityStatusIndicator',
+        'NotificationAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'savePatientAssessment',
+        'updateTreatmentPlan',
+        'recordPatientProgress',
+        'submitPatientFeedback',
+        'viewAuditLogs',
+        'checkCompliance',
+      ];
+
   const ChiropracticProgressTrackingScreen({super.key});
 
   @override

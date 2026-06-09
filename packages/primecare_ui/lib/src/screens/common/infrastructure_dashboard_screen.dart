@@ -96,6 +96,27 @@ final infrastructureDashboardProvider =
 
 // --- View ---
 class InfrastructureDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The infrastructure dashboard requires components for compliance scanning, security posture overview, operational metrics, telemetry data visualization, and audit log management, along with buttons for executing actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanResultWidget',
+        'SecurityPostureOverviewWidget',
+        'OperationalMetricsWidget',
+        'TelemetryChartWidget',
+        'AuditLogWidget',
+        'NotificationWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'syncSecurityPosture',
+        'updateSecurityPolicies',
+      ];
+
   const InfrastructureDashboardScreen({super.key});
 
   @override

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_profile_screen_controller.dart';
 
-class PatientProfileScreen extends ConsumerWidget {
+class PatientProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The patient profile screen requires components for monitoring performance, compliance, and audit logs, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ComplianceStatusIndicator',
+        'OperationalAuditLog',
+        'ErrorLogDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'triggerManualRefresh',
+        'monitorTelemetryLogs',
+        'reviewAuditLogs',
+      ];
+
   const PatientProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(patientProfileScreenControllerProvider);
 
     return Scaffold(

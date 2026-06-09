@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_member_dashboard_screen_controller.dart';
 
-class FamilyMemberDashboardScreen extends ConsumerWidget {
+class FamilyMemberDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The family member dashboard requires components for monitoring performance indicators, telemetry logs, and compliance audits, along with buttons for executing audits and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KeyPerformanceIndicatorCard',
+        'TelemetryLogViewer',
+        'ComplianceAuditPanel',
+        'SecurityPostureSynchronizer',
+        'SecurityPolicyUpdater',
+        'AuditLogExporter',
+        'GovernanceActionTrigger',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'triggerAudit',
+        'refreshTelemetryData',
+      ];
+
   const FamilyMemberDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyMemberDashboardScreenControllerProvider);
 
     return Scaffold(

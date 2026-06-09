@@ -1,12 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_dashboard_screen_controller.dart';
 
-class SchedulerDashboardScreen extends ConsumerWidget {
+class SchedulerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The scheduler dashboard requires components for monitoring shift schedules, resolving conflicts, tracking performance metrics, and facilitating communication among staff, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftScheduleOverview',
+        'ConflictAlert',
+        'PerformanceMetricsChart',
+        'OperationalLogs',
+        'CapacityBufferIndicator',
+        'StaffContactList',
+        'ConflictResolutionTool',
+        'HistoricalDataChart',
+        'StaffPerformanceIndicator',
+        'FeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorShiftSchedules',
+        'resolveSchedulingConflicts',
+        'trackPerformanceMetrics',
+        'logOperationalActivities',
+        'checkCapacityBuffer',
+        'accessStaffContacts',
+        'optimizeStaffAllocation',
+        'analyzeHistoricalData',
+        'provideFeedback',
+      ];
+
   const SchedulerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerDashboardScreenControllerProvider);
 
     return Scaffold(

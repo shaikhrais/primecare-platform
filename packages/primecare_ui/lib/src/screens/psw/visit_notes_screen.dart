@@ -97,6 +97,30 @@ final visitNotesProvider =
 
 // --- View ---
 class VisitNotesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Visit Notes screen requires components for monitoring loading states, displaying logs and titles, action buttons for compliance scans and refreshes, and visual representations of KPIs and telemetry data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LoadingIndicator',
+        'TitleDisplay',
+        'OperationalLogs',
+        'ComplianceScanButton',
+        'ManualRefreshButton',
+        'KPIChart',
+        'TelemetryChart',
+        'AuditLogSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorLoadingState',
+        'triggerComplianceScan',
+        'refreshLogs',
+        'analyzeKPIs',
+      ];
+
   const VisitNotesScreen({super.key});
 
   @override

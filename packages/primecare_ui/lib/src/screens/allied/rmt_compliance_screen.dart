@@ -74,6 +74,37 @@ final rmtComplianceProvider =
 
 // --- View ---
 class RmtComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing client appointments, compliance audits, feedback, performance metrics, and financial overviews, along with necessary buttons and functions for interaction and data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAppointmentOverview',
+        'ComplianceAuditLog',
+        'ClientFeedbackWidget',
+        'PerformanceMetricsChart',
+        'TrainingAlertNotification',
+        'OperationalComplianceSummary',
+        'ClientRecordsAccess',
+        'PolicyUpdateNotification',
+        'FinancialOverview',
+        'ClientCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientAppointments',
+        'logComplianceAudit',
+        'submitFeedback',
+        'generatePerformanceMetrics',
+        'checkTrainingRenewal',
+        'accessClientRecords',
+        'notifyPolicyUpdate',
+        'calculateFinancialOverview',
+        'engageClientCommunication',
+      ];
+
   const RmtComplianceScreen({super.key});
 
   @override

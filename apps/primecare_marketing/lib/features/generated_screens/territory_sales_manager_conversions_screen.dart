@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_conversions_screen_controller.dart';
 
-class TerritorySalesManagerConversionsScreen extends ConsumerWidget {
+class TerritorySalesManagerConversionsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring sales conversions, analyzing trends, and facilitating team collaboration, along with necessary buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesConversionMetric',
+        'SalesTrendChart',
+        'PerformanceAlert',
+        'CustomerFeedbackWidget',
+        'CollaborationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorSalesConversions',
+        'analyzeDataTrends',
+        'identifyImprovementAreas',
+        'collaborateWithTeam',
+        'generateSalesReport',
+      ];
+
   const TerritorySalesManagerConversionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerConversionsScreenControllerProvider);
 
     return Scaffold(

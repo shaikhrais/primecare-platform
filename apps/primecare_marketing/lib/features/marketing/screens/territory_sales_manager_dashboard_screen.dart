@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_dashboard_screen_controller.dart';
 
-class TerritorySalesManagerDashboardScreen extends ConsumerWidget {
+class TerritorySalesManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Territory Sales Manager Dashboard requires various performance metrics, compliance status, and team indicators, along with functionalities for reporting and budget management across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'CustomerSatisfactionChart',
+        'ComplianceStatusWidget',
+        'TerritoryCoverageMap',
+        'TeamPerformanceIndicator',
+        'MarketTrendsAnalysis',
+        'TrainingProgressTracker',
+        'BudgetTrackingWidget',
+        'RealTimeAlerts',
+        'HistoricalDataChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateSalesReport',
+        'viewTrainingProgress',
+        'allocateBudget',
+        'setSalesStrategy',
+        'notifyTeam',
+      ];
+
   const TerritorySalesManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerDashboardScreenControllerProvider);
 
     return Scaffold(

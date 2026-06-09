@@ -99,6 +99,32 @@ final progressTrackingProvider =
 
 // --- View ---
 class ProgressTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The progress tracking screen requires components for task management, red flag alerts, patient progress metrics, and collaboration tools, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'RedFlagAlert',
+        'ProgressMetrics',
+        'ComplianceAuditLog',
+        'PerformanceIndicator',
+        'PatientHistoryAccess',
+        'CommunicationTool',
+        'EducationalResource',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'updateTreatmentPlan',
+        'monitorProgress',
+        'educatePatient',
+        'collaborateWithTeam',
+        'viewPatientRecords',
+      ];
+
   const ProgressTrackingScreen({super.key});
 
   @override

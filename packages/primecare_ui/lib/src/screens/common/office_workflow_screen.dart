@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class OfficeWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing schedules, tasks, communications, documents, performance metrics, inventory, budgeting, feedback, alerts, and integration with other tools.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CalendarView',
+        'TaskList',
+        'CommunicationLog',
+        'DocumentManagementSystem',
+        'PerformanceMetrics',
+        'InventoryTracker',
+        'BudgetOverview',
+        'FeedbackSurvey',
+        'Alerts',
+        'IntegrationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addAppointment',
+        'completeTask',
+        'logCommunication',
+        'uploadDocument',
+        'viewMetrics',
+        'trackInventory',
+        'updateBudget',
+        'sendFeedback',
+        'setAlert',
+        'integrateTools',
+      ];
+
   const OfficeWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

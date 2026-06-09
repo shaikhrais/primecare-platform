@@ -3,6 +3,28 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:ui';
 
 class MfaView extends GovernedScreen {
+  @override
+  String get screenDescription =>
+      'The screen requires a code input field for a 6-digit code, a submit button, and components to display verification status, error messages, and loading indicators.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CodeInputField',
+        'VerificationStatusDisplay',
+        'ErrorMessageDisplay',
+        'LoadingIndicator',
+        'VerificationHistory',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'validateCode',
+        'submitCodeForVerification',
+        'displayVerificationResult',
+        'showErrorMessage',
+        'indicateLoadingStatus',
+      ];
+
   const MfaView({super.key});
 
   @override

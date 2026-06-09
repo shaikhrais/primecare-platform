@@ -97,6 +97,35 @@ final agentDispatchProvider =
 
 // --- View ---
 class AgentDispatchScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The agent_dispatch screen requires components for monitoring compliance, auditing, risk assessment, and stakeholder communication, along with necessary buttons, functions, and APIs for effective governance management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusIndicator',
+        'AuditLogSummary',
+        'RiskAssessmentMetrics',
+        'GovernancePerformanceMetrics',
+        'OperationalDataVisualization',
+        'HistoricalComplianceResults',
+        'AuditNotification',
+        'StakeholderFeedbackSummary',
+        'TrainingParticipationMetrics',
+        'IntegratedDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditLogs',
+        'fetchRiskMetrics',
+        'generateGovernanceReport',
+        'notifyStakeholders',
+        'startComplianceScan',
+        'trackTrainingParticipation',
+      ];
+
   const AgentDispatchScreen({super.key});
 
   @override

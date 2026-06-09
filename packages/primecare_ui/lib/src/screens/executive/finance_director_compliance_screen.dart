@@ -78,6 +78,33 @@ final financeDirectorComplianceProvider =
 
 // --- View ---
 class FinanceDirectorComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various financial performance tracking components, buttons for report generation and budget management, and APIs for real-time financial data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CashFlowChart',
+        'BudgetPerformanceTracker',
+        'ComplianceStatusCard',
+        'ForecastTrendChart',
+        'RiskAssessmentWidget',
+        'VarianceAnalysisReport',
+        'TransactionSummaryWidget',
+        'ComplianceAlerts',
+        'FinancialDataVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'viewAudits',
+        'refreshData',
+        'setFinancialTargets',
+        'manageBudget',
+      ];
+
   const FinanceDirectorComplianceScreen({super.key});
 
   @override

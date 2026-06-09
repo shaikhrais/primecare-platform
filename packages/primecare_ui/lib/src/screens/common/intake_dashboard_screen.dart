@@ -94,6 +94,38 @@ final intakeDashboardProvider =
 
 // --- View ---
 class IntakeDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The intake dashboard requires components for managing requests, tracking metrics, ensuring compliance, and facilitating communication, along with necessary buttons and functions for efficient operation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveRequestsOverview',
+        'AppointmentMetricsChart',
+        'ComplianceStatusIndicator',
+        'ClientSatisfactionRating',
+        'ActivityLogs',
+        'FollowUpAlerts',
+        'PerformanceKPIChart',
+        'WorkloadDistributionChart',
+        'HistoricalDataTrendAnalysis',
+        'QuickActionButtons',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchActiveRequests',
+        'updateAppointmentMetrics',
+        'checkComplianceStatus',
+        'retrieveClientSatisfaction',
+        'logRecentActivity',
+        'setFollowUpAlert',
+        'calculatePerformanceMetrics',
+        'visualizeWorkloadDistribution',
+        'accessHistoricalData',
+        'performQuickAction',
+      ];
+
   const IntakeDashboardScreen({super.key});
 
   @override

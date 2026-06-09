@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ClinicalAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The clinical analytics screen requires various components to display KPIs, staff performance, compliance, financial metrics, and patient feedback, along with buttons for interaction and functions for data retrieval and analysis.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'StaffPerformanceCard',
+        'ComplianceTracker',
+        'FinancialMetricsCard',
+        'PatientFeedbackTrends',
+        'ResourceUtilizationChart',
+        'TrainingProgressTracker',
+        'PatientOutcomesVisualization',
+        'OperationalAlerts',
+        'DataIntegrationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'fetchStaffPerformance',
+        'trackCompliance',
+        'fetchFinancialMetrics',
+        'analyzePatientFeedback',
+        'calculateResourceUtilization',
+        'updateTrainingProgress',
+        'visualizePatientOutcomes',
+        'triggerOperationalAlert',
+        'integrateClinicalData',
+      ];
+
   const ClinicalAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

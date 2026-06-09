@@ -101,6 +101,38 @@ final hrDirectorHiringPipelineProvider =
 
 // --- View ---
 class HrDirectorHiringPipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director\'s hiring pipeline screen requires various components to display key metrics, compliance status, and employee data, along with buttons for actions and functions to manage HR processes effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'ComplianceStatusCard',
+        'EmployeePerformanceChart',
+        'DiversityStatisticsWidget',
+        'EngagementSurveyResults',
+        'TurnoverRetentionChart',
+        'TrainingParticipationWidget',
+        'AuditLogViewer',
+        'HiringPipelineStatus',
+        'AlertsNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'checkComplianceStatus',
+        'getEmployeePerformanceData',
+        'fetchDiversityStats',
+        'retrieveEngagementResults',
+        'calculateTurnoverRates',
+        'trackTrainingParticipation',
+        'viewAuditLogs',
+        'updateHiringPipeline',
+        'triggerAlerts',
+      ];
+
   const HrDirectorHiringPipelineScreen({super.key});
 
   @override

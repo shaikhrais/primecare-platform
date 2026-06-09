@@ -97,6 +97,38 @@ final openShiftProvider =
 
 // --- View ---
 class OpenShiftScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance, safety, and staff management, along with buttons and functions for reporting and communication, accessible across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'SafetyIncidentTracker',
+        'StaffAttendanceOverview',
+        'ComplianceStatusWidget',
+        'OperationalLogViewer',
+        'CommunicationTool',
+        'ResourceAllocationManager',
+        'StaffFeedbackMetric',
+        'CriticalIssueAlert',
+        'TrendAnalysisChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'trackSafetyIncident',
+        'manageStaffAttendance',
+        'checkComplianceStatus',
+        'logOperationalIncident',
+        'sendTeamUpdate',
+        'allocateResources',
+        'collectStaffFeedback',
+        'alertCriticalIssues',
+        'analyzeTrends',
+      ];
+
   const OpenShiftScreen({super.key});
 
   @override

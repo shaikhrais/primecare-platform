@@ -2,6 +2,25 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ReceptionistAppointmentsScreen extends GovernedStatelessWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display operational status, audit verification, SLA metrics, and transaction trends, along with functionality for submitting event logs and refreshing audit statuses.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalStatusCard',
+        'VerificationAuditStatus',
+        'SLAMetricsChart',
+        'TransactionFlowTrendChart',
+        'SecureEventLogForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitEventLog',
+        'refreshAuditStatus',
+      ];
+
   const ReceptionistAppointmentsScreen({super.key});
 
   @override

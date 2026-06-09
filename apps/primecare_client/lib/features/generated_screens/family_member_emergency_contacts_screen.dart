@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_member_emergency_contacts_screen_controller.dart';
 
-class FamilyMemberEmergencyContactsScreen extends ConsumerWidget {
+class FamilyMemberEmergencyContactsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for managing emergency contacts, buttons for adding, editing, and deleting contacts, and APIs for data operations, ensuring quick access and accurate information.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmergencyContactList',
+        'ContactForm',
+        'NotificationBanner',
+        'ActionSummary',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addEmergencyContact',
+        'editEmergencyContact',
+        'deleteEmergencyContact',
+        'validateContactInfo',
+        'fetchEmergencyContacts',
+      ];
+
   const FamilyMemberEmergencyContactsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyMemberEmergencyContactsScreenControllerProvider);
 
     return Scaffold(

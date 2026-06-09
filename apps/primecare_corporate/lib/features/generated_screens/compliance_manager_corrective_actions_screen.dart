@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_corrective_actions_screen_controller.dart';
 
-class ComplianceManagerCorrectiveActionsScreen extends ConsumerWidget {
+class ComplianceManagerCorrectiveActionsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring compliance metrics, analyzing data, and documenting actions, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceMetricsCard',
+        'ComplianceDataChart',
+        'NotificationList',
+        'HistoricalDataAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorComplianceActions',
+        'analyzeDashboardData',
+        'identifyImprovementAreas',
+        'documentCorrectiveActions',
+      ];
+
   const ComplianceManagerCorrectiveActionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerCorrectiveActionsScreenControllerProvider);
 
     return Scaffold(

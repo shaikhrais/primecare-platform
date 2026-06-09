@@ -107,6 +107,32 @@ final pediatricAnalyticsScreenProvider =
 
 // --- View ---
 class PediatricAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The pediatric analytics screen requires components for patient metrics, quality assurance, operational alerts, and educational resources, along with buttons for scheduling and managing appointments, and must be responsive across mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientMetricsCard',
+        'QualityAssuranceIndicator',
+        'OperationalAlertsLog',
+        'PatientOutcomeTelemetryChart',
+        'GrowthTrendVisualization',
+        'EducationalResourcesAccess',
+        'EHRIntegrationComponent',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientMetrics',
+        'checkComplianceIndicators',
+        'logOperationalAlerts',
+        'analyzePatientOutcomes',
+        'visualizeGrowthTrends',
+        'accessEducationalResources',
+        'integrateEHRData',
+      ];
+
   const PediatricAnalyticsScreen({super.key});
 
   @override

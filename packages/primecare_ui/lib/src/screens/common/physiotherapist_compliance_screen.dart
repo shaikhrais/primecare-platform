@@ -78,6 +78,30 @@ final physiotherapistComplianceProvider =
 
 // --- View ---
 class PhysiotherapistComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for patient management, compliance tracking, and collaboration tools, along with buttons for saving plans and monitoring progress.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientRecordCard',
+        'ComplianceAuditLog',
+        'ProgressNotification',
+        'TreatmentOutcomeTracker',
+        'EducationalResourceAccess',
+        'CollaborationTool',
+        'ComplianceReportingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'saveTreatmentPlan',
+        'monitorPatientProgress',
+        'educatePatient',
+        'collaborateWithProviders',
+        'generateComplianceReport',
+      ];
+
   const PhysiotherapistComplianceScreen({super.key});
 
   @override

@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_manager_ontario_dashboard_screen_controller.dart';
 
-class RegionalManagerOntarioDashboardScreen extends ConsumerWidget {
+class RegionalManagerOntarioDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time KPI monitoring, trend analysis, alert notifications for red flags, team performance summaries, and communication tools for collaboration.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'OperationalReportChart',
+        'TrendAnalysisGraph',
+        'AlertNotification',
+        'TeamPerformanceSummary',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'generateReports',
+        'analyzeTrends',
+        'sendCommunication',
+        'resolveIssue',
+      ];
+
   const RegionalManagerOntarioDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalManagerOntarioDashboardScreenControllerProvider);
 
     return Scaffold(

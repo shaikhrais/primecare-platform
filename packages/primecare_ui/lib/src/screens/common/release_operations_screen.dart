@@ -100,6 +100,35 @@ final releaseOperationsProvider =
 
 // --- View ---
 class ReleaseOperationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for governance officers to monitor compliance, audit findings, operational logs, and key performance indicators, along with tools for communication and training resources.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'AuditSummaryWidget',
+        'OperationalLogViewer',
+        'KPIIndicator',
+        'ComplianceAlert',
+        'TrendVisualization',
+        'TrainingResourceAccess',
+        'StakeholderCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceMetrics',
+        'fetchAuditSummary',
+        'filterOperationalLogs',
+        'getKPIData',
+        'triggerComplianceAlert',
+        'generateTrendVisualization',
+        'accessTrainingResources',
+        'engageStakeholders',
+      ];
+
   const ReleaseOperationsScreen({super.key});
 
   @override

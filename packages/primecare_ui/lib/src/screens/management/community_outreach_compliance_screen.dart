@@ -78,6 +78,33 @@ final communityOutreachComplianceProvider =
 
 // --- View ---
 class CommunityOutreachComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking outreach activities, community engagement metrics, compliance status, and budget management, along with buttons for event management and feedback submission.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OutreachActivityOverview',
+        'CommunityEngagementMetrics',
+        'FeedbackSatisfactionScores',
+        'ComplianceStatusCard',
+        'BudgetTrackingWidget',
+        'OutreachCommunicationsLog',
+        'PerformanceIndicators',
+        'CommunityTrendsVisualization',
+        'ComplianceAlerts',
+        'CollaborationTools',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addEvent',
+        'submitFeedback',
+        'generateReport',
+        'viewBudget',
+        'sendCommunication',
+      ];
+
   const CommunityOutreachComplianceScreen({super.key});
 
   @override

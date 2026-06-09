@@ -100,6 +100,36 @@ final applicantTrackingProvider =
 
 // --- View ---
 class ApplicantTrackingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking recruitment metrics, visualizing candidate pipelines, and managing compliance, along with buttons for refreshing data and exporting metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OpenPositionsOverview',
+        'TimeToFillMetrics',
+        'CandidatePipelineVisualization',
+        'SourceOfHireAnalysis',
+        'DiversityMetrics',
+        'CandidateExperienceFeedback',
+        'RecruitmentKPIs',
+        'ComplianceStatus',
+        'RecruitmentAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchOpenPositions',
+        'calculateTimeToFill',
+        'visualizeCandidatePipeline',
+        'analyzeSourceOfHire',
+        'trackDiversityMetrics',
+        'collectCandidateFeedback',
+        'reportRecruitmentKPIs',
+        'checkComplianceStatus',
+        'sendRecruitmentAlerts',
+      ];
+
   const ApplicantTrackingScreen({super.key});
 
   @override

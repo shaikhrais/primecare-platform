@@ -76,6 +76,38 @@ final officeComplianceProvider =
 
 // --- View ---
 class OfficeComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, communication tracking, scheduling, document management, compliance checks, performance metrics, inventory tracking, feedback submission, training resources, and audit trails.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskManagementOverview',
+        'CommunicationLog',
+        'CalendarView',
+        'DocumentManagementSystem',
+        'ComplianceChecklist',
+        'PerformanceMetrics',
+        'InventoryTracker',
+        'FeedbackMechanism',
+        'TrainingResources',
+        'AuditTrail',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addTask',
+        'logCommunication',
+        'scheduleMeeting',
+        'uploadDocument',
+        'checkCompliance',
+        'viewMetrics',
+        'manageInventory',
+        'submitFeedback',
+        'accessTraining',
+        'viewAuditTrail',
+      ];
+
   const OfficeComplianceScreen({super.key});
 
   @override

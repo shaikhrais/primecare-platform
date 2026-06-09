@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_documents_screen_controller.dart';
 
-class PswDocumentsScreen extends ConsumerWidget {
+class PswDocumentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client overview, health status updates, activity logging, performance metrics, compliance tracking, training resources, communication tools, incident reporting, workload visualization, and client feedback, along with corresponding buttons, functions, APIs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientOverviewCard',
+        'HealthStatusAlert',
+        'ActivityLogTable',
+        'PerformanceMetricsChart',
+        'ComplianceStatusCard',
+        'TrainingResourcesList',
+        'CommunicationTool',
+        'IncidentReportForm',
+        'WorkloadVisualization',
+        'ClientFeedbackWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchClientOverview',
+        'updateHealthStatus',
+        'logDailyActivity',
+        'getPerformanceMetrics',
+        'checkComplianceStatus',
+        'accessTrainingResources',
+        'sendMessageToTeam',
+        'submitIncidentReport',
+        'visualizeWorkload',
+        'retrieveClientFeedback',
+      ];
+
   const PswDocumentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswDocumentsScreenControllerProvider);
 
     return Semantics(

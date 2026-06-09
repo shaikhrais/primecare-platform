@@ -97,6 +97,23 @@ final caregiverTasksProvider =
 
 // --- View ---
 class CaregiverTasksScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The caregiver tasks screen requires components for displaying metrics, telemetry, and audit logs, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'OperationalAuditLogDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductComplianceScan',
+        'refreshDashboardTelemetry',
+      ];
+
   const CaregiverTasksScreen({super.key});
 
   @override

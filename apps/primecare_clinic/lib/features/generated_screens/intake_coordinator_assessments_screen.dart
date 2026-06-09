@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'intake_coordinator_assessments_screen_controller.dart';
 
-class IntakeCoordinatorAssessmentsScreen extends ConsumerWidget {
+class IntakeCoordinatorAssessmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for reviewing assessments, monitoring status, team communication, documentation, and performance metrics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AssessmentList',
+        'StatusMonitor',
+        'CommunicationTool',
+        'DocumentationPanel',
+        'PerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewAssessment',
+        'completeAssessment',
+        'notifyTeam',
+        'documentFindings',
+      ];
+
   const IntakeCoordinatorAssessmentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(intakeCoordinatorAssessmentsScreenControllerProvider);
 
     return Semantics(

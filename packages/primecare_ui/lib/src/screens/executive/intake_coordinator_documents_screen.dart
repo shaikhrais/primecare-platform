@@ -101,6 +101,38 @@ final intakeCoordinatorDocumentsProvider =
 
 // --- View ---
 class IntakeCoordinatorDocumentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking and managing volunteer activities, metrics, and communication, along with buttons for various actions and API integrations for data handling.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerMetricsCard',
+        'VolunteerActivityScheduler',
+        'TrainingCompletionChart',
+        'CommunicationLog',
+        'VolunteerHoursTracker',
+        'FeedbackSatisfactionChart',
+        'RecognitionEventParticipation',
+        'ComplianceStatusIndicator',
+        'PerformanceEvaluationDashboard',
+        'CollaborationRequestsPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'recruitVolunteer',
+        'scheduleActivity',
+        'provideTraining',
+        'logCommunication',
+        'trackVolunteerHours',
+        'submitFeedback',
+        'organizeEvent',
+        'evaluatePerformance',
+        'checkCompliance',
+        'requestCollaboration',
+      ];
+
   const IntakeCoordinatorDocumentsScreen({super.key});
 
   @override

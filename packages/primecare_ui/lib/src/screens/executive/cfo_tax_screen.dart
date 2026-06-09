@@ -98,6 +98,31 @@ final cfoTaxProvider = StateNotifierProvider<CfoTaxController, CfoTaxState>((
 
 // --- View ---
 class CfoTaxScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO dashboard requires various financial performance widgets, buttons for data refresh and report export, functions for handling data actions, and APIs for fetching financial data, all optimized for mobile, tablet, and desktop platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverviewWidget',
+        'RevenueExpenseTrendChart',
+        'CashFlowProjectionWidget',
+        'BudgetVsActualAnalysisWidget',
+        'ComplianceStatusIndicator',
+        'RiskManagementMetricsWidget',
+        'AuditLogSummaryWidget',
+        'InvestmentPerformanceOverviewWidget',
+        'TeamPerformanceMetricsWidget',
+        'RealTimeFinancialAlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'exportReport',
+        'viewDetailedAnalysis',
+      ];
+
   const CfoTaxScreen({super.key});
 
   @override

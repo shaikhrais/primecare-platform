@@ -8,6 +8,23 @@ final integrationHealthProvider = FutureProvider.autoDispose<List<Map<String, dy
 });
 
 class IntegrationHealthMonitorScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display integration health status, latency metrics, and sync times, along with buttons for refreshing data and viewing logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IntegrationHealthCard',
+        'IntegrationLatencyMetric',
+        'IntegrationSyncTime',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshIntegrationHealth',
+        'viewIntegrationLogs',
+      ];
+
   const IntegrationHealthMonitorScreen({super.key});
 
   @override

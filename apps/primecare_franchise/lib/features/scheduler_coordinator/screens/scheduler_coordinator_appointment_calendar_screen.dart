@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_appointment_calendar_screen_controller.dart';
 
-class SchedulerCoordinatorAppointmentCalendarScreen extends ConsumerWidget {
+class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, adding, editing, and deleting appointments, along with navigation and filtering functionalities, ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentCalendar',
+        'AppointmentList',
+        'AppointmentDetails',
+        'FilterPanel',
+        'NotificationBanner',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewAppointments',
+        'addAppointment',
+        'editAppointment',
+        'deleteAppointment',
+        'navigateDates',
+        'filterAppointments',
+        'getAppointmentDetails',
+      ];
+
   const SchedulerCoordinatorAppointmentCalendarScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorAppointmentCalendarScreenControllerProvider);
 
     return Scaffold(

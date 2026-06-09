@@ -150,6 +150,27 @@ final vipManagerDashboardControllerProvider =
 
 // --- View ---
 class VipManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The VIP Manager Dashboard requires components for monitoring client interactions, conducting audits, and displaying operational metrics, along with buttons for key actions and APIs for data interactions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TitleStatusIndicator',
+        'RealTimeLog',
+        'MetricsDisplay',
+        'TelemetryChart',
+        'OperationalAuditLog',
+        'AlertsDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'conductComplianceScan',
+        'logTouchpoint',
+        'exportAuditLogs',
+      ];
+
   const VipManagerDashboardScreen({super.key});
 
   @override

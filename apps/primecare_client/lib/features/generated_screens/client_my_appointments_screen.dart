@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'client_my_appointments_screen_controller.dart';
 
-class ClientMyAppointmentsScreen extends ConsumerWidget {
+class ClientMyAppointmentsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, managing, and providing feedback on appointments, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AppointmentList',
+        'AppointmentDetails',
+        'NotificationSection',
+        'FeedbackSection',
+        'AppointmentStatusIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchUpcomingAppointments',
+        'cancelAppointment',
+        'rescheduleAppointment',
+        'getAppointmentDetails',
+        'sendNotification',
+        'submitFeedback',
+      ];
+
   const ClientMyAppointmentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(clientMyAppointmentsScreenControllerProvider);
 
     return Scaffold(

@@ -78,6 +78,34 @@ final partnershipManagerComplianceProvider =
 
 // --- View ---
 class PartnershipManagerComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying compliance audit status, operational logs, alerts, and governance directives, along with buttons for executing scans and triggering actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceAuditStatusCard',
+        'RecentAuditSummaryCard',
+        'OperationalLogsTable',
+        'ComplianceAlertsWidget',
+        'GovernanceDirectivesStatusCard',
+        'SecureEventReportsMetric',
+        'ComplianceTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceAuditStatus',
+        'fetchRecentAudits',
+        'fetchOperationalLogs',
+        'fetchComplianceAlerts',
+        'fetchGovernanceDirectivesStatus',
+        'fetchSecureEventReports',
+        'fetchComplianceTrends',
+        'executeComplianceScan',
+        'triggerGovernanceAction',
+      ];
+
   const PartnershipManagerComplianceScreen({super.key});
 
   @override

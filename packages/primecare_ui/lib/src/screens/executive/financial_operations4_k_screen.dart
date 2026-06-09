@@ -101,6 +101,33 @@ final financialOperations4KProvider =
 
 // --- View ---
 class FinancialOperations4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the CFO, featuring financial metrics, reports, and tools for risk management and compliance, along with interactive components for data analysis and communication.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'FinancialStatementsWidget',
+        'BudgetComparisonChart',
+        'CashFlowForecastWidget',
+        'ComplianceStatusIndicator',
+        'RiskAssessmentPanel',
+        'OperationalMetricsCard',
+        'AuditLogsViewer',
+        'InvestmentPerformanceOverview',
+        'TeamPerformanceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'exportFinancialReport',
+        'viewAuditDetails',
+        'manageInvestmentStrategies',
+        'communicateStakeholderUpdates',
+      ];
+
   const FinancialOperations4KScreen({super.key});
 
   @override

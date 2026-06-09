@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'general_manager_dashboard_screen_controller.dart';
 
-class GeneralManagerDashboardScreen extends ConsumerWidget {
+class GeneralManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The General Manager Dashboard requires components for KPI overview, operational metrics, compliance status, employee engagement, financial performance, alerts, and tools for audits, with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIDashboard',
+        'OperationalMetricsChart',
+        'ComplianceStatusCard',
+        'EmployeeEngagementWidget',
+        'FinancialPerformanceCard',
+        'OperationalLogsTable',
+        'AlertsNotification',
+        'ComplianceScanTool',
+        'ManualSyncButton',
+        'TrendsForecastChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'syncData',
+        'viewAuditResults',
+        'generateComplianceReport',
+        'addressOperationalIssues',
+      ];
+
   const GeneralManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(generalManagerDashboardScreenControllerProvider);
 
     return Scaffold(

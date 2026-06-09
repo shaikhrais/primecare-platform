@@ -8,6 +8,24 @@ final leadPipelineProvider = FutureProvider.autoDispose<List<Map<String, dynamic
 });
 
 class LeadPipelineScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display lead stages, buttons for adding and refreshing leads, functions for handling these actions, and APIs for data retrieval and lead addition.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LeadPipelineStage',
+        'LeadSummaryCard',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addNewLead',
+        'refreshPipeline',
+      ];
+
   const LeadPipelineScreen({super.key});
 
   @override

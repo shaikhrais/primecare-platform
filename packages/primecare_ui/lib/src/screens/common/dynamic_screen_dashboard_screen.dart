@@ -88,6 +88,35 @@ final dynamicDashboardScreenControllerProvider = StateNotifierProvider<DynamicDa
 
 // --- View ---
 class DynamicScreenDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The dynamic_dashboard screen requires various action buttons for compliance and operational tasks, visual components for metrics and logs, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanButton',
+        'SyncPostureButton',
+        'UpdatePolicyButton',
+        'ExportLogsButton',
+        'TriggerStateActionButton',
+        'AddLogEntryButton',
+        'ManualRefreshButton',
+        'LoadingIndicator',
+        'TelemetryChart',
+        'AuditLogSection',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncPosture',
+        'updatePolicy',
+        'exportLogs',
+        'triggerStateAction',
+        'addLogEntry',
+        'manualRefresh',
+      ];
+
   const DynamicScreenDashboardScreen({super.key});
 
   @override
@@ -442,11 +471,34 @@ class DynamicScreenDashboardScreen extends GovernedConsumerWidget {
   }
 }
 
-class DynamicScreenDashboardView extends ConsumerWidget {
+class DynamicScreenDashboardView extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance scanning, security posture management, audit logging, and telemetry visualization, along with buttons for executing key actions.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanWidget',
+        'SecurityPostureWidget',
+        'AuditLogWidget',
+        'TelemetryChart',
+        'ActionButtonPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updateSecurityPolicies',
+        'exportAuditLogs',
+        'triggerStateActions',
+        'refreshTelemetry',
+      ];
+
   const DynamicScreenDashboardView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     return const SizedBox();
   }
 }

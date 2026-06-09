@@ -101,6 +101,43 @@ final chiropractorCommandCenterProvider =
 
 // --- View ---
 class ChiropractorCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The chiropractor command center screen requires components for patient assessments, treatment plans, and operational metrics, along with buttons for various actions and APIs for data management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientAssessmentCard',
+        'TreatmentPlanCard',
+        'AdjustmentLog',
+        'PatientProgressChart',
+        'PatientEducationCard',
+        'RecordKeepingWidget',
+        'CollaborationPanel',
+        'KPIDashboard',
+        'TelemetryLog',
+        'ComplianceStatusCard',
+        'OperationalMetricsCard',
+        'SecurityClearanceLog',
+        'AuditLog',
+        'PatientFeedbackWidget',
+        'AlertsPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addPatientAssessment',
+        'updateTreatmentPlan',
+        'recordAdjustment',
+        'monitorProgress',
+        'educatePatient',
+        'saveRecords',
+        'collaborateWithHealthcare',
+        'refreshMetrics',
+        'viewCompliance',
+        'logPatientFeedback',
+      ];
+
   const ChiropractorCommandCenterScreen({super.key});
 
   @override

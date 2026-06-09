@@ -97,6 +97,31 @@ final failedWorkflowProvider =
 
 // --- View ---
 class FailedWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, defect tracking, test coverage visualization, and performance monitoring, along with buttons for initiating tests and logging defects.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'DefectMetricsCard',
+        'TestCoverageChart',
+        'PerformanceMonitor',
+        'TestDocumentationViewer',
+        'FeedbackForm',
+        'AlertsDashboard',
+        'ResourceAllocationChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'startTesting',
+        'logDefect',
+        'viewTestResults',
+        'generateReport',
+        'requestFeedback',
+      ];
+
   const FailedWorkflowScreen({super.key});
 
   @override

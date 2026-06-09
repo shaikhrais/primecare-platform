@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'regional_manager_usa_dashboard_screen_controller.dart';
 
-class RegionalManagerUsaDashboardScreen extends ConsumerWidget {
+class RegionalManagerUsaDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring operations, compliance audits, security clearance, and telemetry data, along with buttons for running scans and exporting logs.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ActiveOperationsOverview',
+        'ComplianceAuditStatus',
+        'SecurityClearanceLevels',
+        'TelemetryDataChart',
+        'AuditLogsTable',
+        'RedFlagsNotification',
+        'ComplianceScanButton',
+        'ExportLogsButton',
+        'HistoricalDataChart',
+        'UserFriendlyNavigation',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'exportAuditLogs',
+      ];
+
   const RegionalManagerUsaDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(regionalManagerUsaDashboardScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ArchitecturePlanningAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring infrastructure health, security alerts, and audit reporting, along with necessary buttons and functions for data management and user interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'HealthPerformanceOverview',
+        'SecurityIncidentAlerts',
+        'UptimeDowntimeVisualization',
+        'InfrastructureAssetInventory',
+        'AuditFindingsReport',
+        'HistoricalDataTrends',
+        'MonitoringToolIntegration',
+        'DocumentationAccess',
+        'UserActivityLogs',
+        'AuditActivitySummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchInfrastructureHealth',
+        'triggerSecurityAlert',
+        'updateAssetStatus',
+        'generateAuditReport',
+        'fetchHistoricalData',
+        'integrateMonitoringTools',
+        'accessDocumentation',
+        'logUserActivity',
+      ];
+
   const ArchitecturePlanningAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

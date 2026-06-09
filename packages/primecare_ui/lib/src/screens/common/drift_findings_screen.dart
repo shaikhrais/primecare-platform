@@ -97,6 +97,33 @@ final driftFindingsProvider =
 
 // --- View ---
 class DriftFindingsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for compliance monitoring, audit tracking, and performance metrics, along with buttons for data refresh and report generation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceStatusOverview',
+        'AuditLogsSummary',
+        'KPIWidget',
+        'RealTimeAlerts',
+        'HistoricalDataTrends',
+        'StakeholderFeedbackMetrics',
+        'RiskAssessmentReport',
+        'TrainingProgressTracker',
+        'OperationalPerformanceMetrics',
+        'ActionItemsTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'generateReport',
+        'viewAuditDetails',
+        'sendFeedback',
+        'requestTraining',
+      ];
+
   const DriftFindingsScreen({super.key});
 
   @override

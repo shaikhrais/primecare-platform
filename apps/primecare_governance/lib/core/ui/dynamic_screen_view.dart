@@ -8,6 +8,28 @@ import 'dart:convert';
 /// DynamicScreenView - Fully governed visual sandbox branching responsive layouts
 /// across LIVE, HDL, GRID, and AUDIT modes.
 class DynamicScreenView extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'This screen requires components for monitoring project lifecycles, updating metadata, and tracking completion percentages, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProjectLifecycleChart',
+        'ProjectStatusAlert',
+        'MetadataEditor',
+        'CompletionSummary',
+        'TechnicalManifestViewer',
+        'HistoricalDataTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateProjectMetadata',
+        'checkProjectStatus',
+        'viewTechnicalManifest',
+        'trackHistoricalData',
+      ];
+
   final ScreenMetadata metadata;
 
   const DynamicScreenView({required this.metadata, super.key});
@@ -1854,7 +1876,7 @@ class TelemetryChartPainter extends CustomPainter {
 // ==========================================
 // GRID View: Blueprint Sandbox Drawer Widget
 // ==========================================
-class BlueprintSandboxView extends StatefulWidget {
+class BlueprintSandboxView extends GovernedConsumerStatefulWidget {
   final ScreenMetadata metadata;
   const BlueprintSandboxView({required this.metadata, super.key});
 
@@ -1862,11 +1884,35 @@ class BlueprintSandboxView extends StatefulWidget {
   State<BlueprintSandboxView> createState() => _BlueprintSandboxViewState();
 }
 
-class _BlueprintSandboxViewState extends State<BlueprintSandboxView> {
+class _BlueprintSandboxViewState extends GovernedConsumerState<BlueprintSandboxView> {
+  @override
+  String get screenDescription =>
+      'The screen requires components to monitor lifecycle status, completion percentage, and governance actions, along with buttons for accessing technical details and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LifecycleStatusIndicator',
+        'CompletionPercentageIndicator',
+        'TechnicalManifestViewer',
+        'DevelopmentPipelineViewer',
+        'GovernanceAlerts',
+        'RecentActivitiesSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchLifecycleStatus',
+        'fetchCompletionPercentage',
+        'fetchTechnicalManifest',
+        'fetchDevelopmentPipeline',
+        'checkGovernanceActions',
+        'fetchRecentActivities',
+      ];
+
   String jsonSearchQuery = '';
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     final theme = context.theme;
 
     // Filter metadata fields for JSON Inspector
@@ -2125,7 +2171,7 @@ class BlueprintGridPainter extends CustomPainter {
 // ==========================================
 // AUDIT View: Scorecard & Drift Patcher Widget
 // ==========================================
-class AuditSandboxView extends StatefulWidget {
+class AuditSandboxView extends GovernedConsumerStatefulWidget {
   final ScreenMetadata metadata;
   const AuditSandboxView({required this.metadata, super.key});
 
@@ -2133,7 +2179,31 @@ class AuditSandboxView extends StatefulWidget {
   State<AuditSandboxView> createState() => _AuditSandboxViewState();
 }
 
-class _AuditSandboxViewState extends State<AuditSandboxView> {
+class _AuditSandboxViewState extends GovernedConsumerState<AuditSandboxView> {
+  @override
+  String get screenDescription =>
+      'The audit sandbox screen requires components to display project lifecycle status, completion percentage, technical manifest, development pipeline, governance metrics, and alerts for red flags.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'LifecycleStatusDisplay',
+        'CompletionPercentageIndicator',
+        'TechnicalManifestOverview',
+        'DevelopmentPipelineStatus',
+        'GovernanceActionsMetrics',
+        'RedFlagsAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchLifecycleStatus',
+        'fetchCompletionPercentage',
+        'fetchTechnicalManifest',
+        'fetchDevelopmentPipeline',
+        'fetchGovernanceMetrics',
+        'checkForRedFlags',
+      ];
+
   bool isRemediating = false;
   double remediationProgress = 0.0;
   bool isFullyRemediated = false;
@@ -2158,7 +2228,7 @@ class _AuditSandboxViewState extends State<AuditSandboxView> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     final theme = context.theme;
     final double baseScore = widget.metadata.isAuditCompliant ? 1.0 : 0.78;
     final double finalScore = isFullyRemediated ? 1.0 : baseScore;

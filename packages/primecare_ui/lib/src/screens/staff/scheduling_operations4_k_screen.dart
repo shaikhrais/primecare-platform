@@ -101,6 +101,34 @@ final schedulingOperations4KProvider =
 
 // --- View ---
 class SchedulingOperations4KScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, managing staff schedules, logging incidents, and facilitating communication, along with necessary buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'StaffScheduleOverview',
+        'IncidentLog',
+        'CustomerFeedbackChart',
+        'SafetyAlertNotification',
+        'TrainingProgressTracker',
+        'AuditResultsDisplay',
+        'KPIOverview',
+        'CommunicationTool',
+        'OperationalTrendsVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'updateStaffSchedule',
+        'logIncident',
+        'fetchCustomerFeedback',
+        'sendSafetyAlert',
+        'conductTeamMeeting',
+        'generateOperationalReport',
+      ];
+
   const SchedulingOperations4KScreen({super.key});
 
   @override

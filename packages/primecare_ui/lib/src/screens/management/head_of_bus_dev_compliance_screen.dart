@@ -78,6 +78,33 @@ final headOfBusDevComplianceProvider =
 
 // --- View ---
 class HeadOfBusDevComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various performance metrics, client feedback, and business development tracking components, along with buttons for proposal management and contract negotiation.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'CustomerAcquisitionRetentionChart',
+        'PipelineForecastWidget',
+        'MarketAnalysisOverview',
+        'KPIDashboard',
+        'ClientFeedbackScoreCard',
+        'TeamPerformanceMetricCard',
+        'FinancialProjectionTracker',
+        'BusinessDevelopmentInitiativesTimeline',
+        'OperationalRedFlagsAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewProposalDetails',
+        'negotiateContract',
+        'trackBusinessMetrics',
+        'generateBusinessReport',
+        'submitClientFeedback',
+      ];
+
   const HeadOfBusDevComplianceScreen({super.key});
 
   @override

@@ -100,6 +100,34 @@ final campaignDashboardProvider =
 
 // --- View ---
 class CampaignDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The campaign dashboard requires various components to display marketing performance metrics, budget tracking, and team analytics, along with functionalities for data fetching and alert management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewCard',
+        'EngagementAnalyticsChart',
+        'BudgetTrackingWidget',
+        'MarketResearchInsightsPanel',
+        'TeamPerformanceMetricsChart',
+        'CustomerFeedbackAnalysisWidget',
+        'KPIOverviewCard',
+        'AlertsNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'fetchEngagementAnalytics',
+        'trackBudget',
+        'fetchMarketResearch',
+        'fetchTeamPerformance',
+        'analyzeCustomerFeedback',
+        'fetchKPIs',
+        'checkForAlerts',
+      ];
+
   const CampaignDashboardScreen({super.key});
 
   @override

@@ -146,6 +146,32 @@ final cnsDashboardControllerProvider =
 
 // --- View ---
 class CnsDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The cns_dashboard requires components for patient data management, care plan updates, alerts, team collaboration, and education resources, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PatientDataCard',
+        'CarePlanViewer',
+        'KPIChart',
+        'AlertNotification',
+        'CommunicationTool',
+        'EducationResource',
+        'ReportingTool',
+        'EHRIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPatientData',
+        'updateCarePlan',
+        'sendAlert',
+        'generateReport',
+        'accessEducationResources',
+        'collaborateWithTeam',
+      ];
+
   const CnsDashboardScreen({super.key});
 
   @override

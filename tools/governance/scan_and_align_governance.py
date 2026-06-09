@@ -135,7 +135,7 @@ def main():
                     expected_file_path = ?,
                     problem_summary = NULL
                 WHERE screen_code = ?;
-            """, (info["file_path"], info["file_path"], screen_code))
+            """, (found_screens[screen_code]["file_path"], found_screens[screen_code]["file_path"], screen_code))
 
 
     conn.commit()

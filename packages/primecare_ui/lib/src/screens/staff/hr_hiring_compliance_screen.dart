@@ -78,6 +78,38 @@ final hrHiringComplianceProvider =
 
 // --- View ---
 class HrHiringComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display recruitment metrics, candidate status, and compliance information, along with buttons for data refresh and export functionality.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PositionOverviewCard',
+        'TimeToFillMetric',
+        'CandidatePipelineChart',
+        'DiversityMetricsCard',
+        'SourceOfHireAnalysis',
+        'CandidateExperienceFeedback',
+        'OfferAcceptanceRateCard',
+        'ComplianceChecklist',
+        'RecruitmentBudgetTracker',
+        'HistoricalHiringTrendsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchOpenPositions',
+        'calculateTimeToFill',
+        'updateCandidatePipeline',
+        'analyzeDiversityMetrics',
+        'evaluateSourceOfHire',
+        'collectCandidateFeedback',
+        'trackOfferAcceptance',
+        'checkComplianceStatus',
+        'monitorBudget',
+        'retrieveHistoricalData',
+      ];
+
   const HrHiringComplianceScreen({super.key});
 
   @override

@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_observation_vitals_log_screen_controller.dart';
 
-class PswObservationVitalsLogScreen extends ConsumerWidget {
+class PswObservationVitalsLogScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for logging and reviewing vital signs, reporting discrepancies, and displaying performance metrics, with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VitalSignsLogTable',
+        'AlertNotification',
+        'RecentEntriesList',
+        'PerformanceMetricsCard',
+        'UserFeedbackForm',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'logVitalSigns',
+        'reportDiscrepancy',
+        'refreshData',
+        'fetchVitalSigns',
+      ];
+
   const PswObservationVitalsLogScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswObservationVitalsLogScreenControllerProvider);
 
     return Semantics(

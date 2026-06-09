@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'territory_sales_manager_area_performance_screen_controller.dart';
 
-class TerritorySalesManagerAreaPerformanceScreen extends ConsumerWidget {
+class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and analyzing sales performance, collaboration tools, and real-time alerts for discrepancies in sales data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SalesPerformanceMetricCard',
+        'SalesTrendChart',
+        'AnomalyAlertWidget',
+        'TerritoryComparisonTool',
+        'TeamCollaborationPanel',
+        'HistoricalDataViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchSalesMetrics',
+        'analyzeSalesData',
+        'reportDiscrepancy',
+        'collaborateWithTeam',
+        'adjustSalesTargets',
+        'provideFeedback',
+      ];
+
   const TerritorySalesManagerAreaPerformanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(territorySalesManagerAreaPerformanceScreenControllerProvider);
 
     return Scaffold(

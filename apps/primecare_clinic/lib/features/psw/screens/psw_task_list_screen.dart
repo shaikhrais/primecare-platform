@@ -51,6 +51,29 @@ final pswTaskListControllerProvider = StateNotifierProvider<PswTaskListControlle
 
 // --- View ---
 class PswTaskListScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for task management, buttons for task actions, functions for handling task operations, and APIs for data retrieval and updates.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'TaskDetailView',
+        'TaskFilter',
+        'TaskNotification',
+        'TaskPerformanceSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewTaskList',
+        'updateTaskStatus',
+        'addNewTask',
+        'removeTask',
+        'filterTasks',
+        'getTaskDetails',
+      ];
+
   const PswTaskListScreen({super.key});
 
   @override

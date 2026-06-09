@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ciso_dashboard_screen_controller.dart';
 
-class CisoDashboardScreen extends ConsumerWidget {
+class CisoDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CISO dashboard requires components to display security metrics, alerts, compliance status, and budget utilization, along with buttons for data refresh and report viewing.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SecurityPostureCard',
+        'ActiveAlertsList',
+        'KPIMetricsWidget',
+        'IncidentResponseMetricsChart',
+        'ComplianceStatusIndicator',
+        'TrainingCompletionChart',
+        'AuditLogsTable',
+        'TelemetryDataStream',
+        'BudgetUtilizationChart',
+        'HistoricalTrendsGraph',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'viewDetailedReport',
+        'exportDashboardData',
+      ];
+
   const CisoDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cisoDashboardScreenControllerProvider);
 
     return Scaffold(

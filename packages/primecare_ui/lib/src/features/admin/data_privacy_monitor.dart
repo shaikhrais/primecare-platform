@@ -8,6 +8,26 @@ final dataPrivacyProvider = FutureProvider.autoDispose<Map<String, dynamic>>((re
 });
 
 class DataPrivacyMonitorScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time monitoring of data privacy metrics, anomaly investigation capabilities, and a responsive dashboard for various devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'DataPrivacyMetricsCard',
+        'AnomalyAlertsSection',
+        'RiskCards',
+        'RefreshButton',
+        'ErrorHandling',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboard',
+        'handleDataAccessRequest',
+        'investigateAnomaly',
+      ];
+
   const DataPrivacyMonitorScreen({super.key});
 
   @override

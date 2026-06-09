@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'volunteer_coordinator_dashboard_screen_controller.dart';
 
-class VolunteerCoordinatorDashboardScreen extends ConsumerWidget {
+class VolunteerCoordinatorDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The volunteer coordinator dashboard requires components for managing volunteers, tracking metrics, ensuring compliance, and facilitating communication, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'VolunteerOverviewWidget',
+        'VolunteerMetricsCard',
+        'ComplianceStatusCard',
+        'CommunicationLogWidget',
+        'UpcomingEventsList',
+        'FeedbackRatingWidget',
+        'AlertsWidget',
+        'EngagementHistoryChart',
+        'ShiftManagementTool',
+        'TrainingResourcesWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addVolunteer',
+        'scheduleShift',
+        'sendCommunication',
+        'logVolunteerHours',
+        'generateReport',
+        'organizeEvent',
+      ];
+
   const VolunteerCoordinatorDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(volunteerCoordinatorDashboardScreenControllerProvider);
 
     return Scaffold(

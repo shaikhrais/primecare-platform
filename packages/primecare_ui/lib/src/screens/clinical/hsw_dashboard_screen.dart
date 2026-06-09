@@ -179,6 +179,27 @@ final hswDashboardControllerProvider =
 
 // --- View ---
 class HswDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring operations, buttons for key actions, functions for handling user interactions, APIs for data retrieval and updates, and must be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ActivityLogList',
+        'AlertNotificationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'toggleCheckIn',
+        'toggleCheckOut',
+        'triggerEmergencyAlert',
+        'exportLogs',
+        'updatePolicies',
+      ];
+
   const HswDashboardScreen({super.key});
 
   @override

@@ -8,6 +8,23 @@ final executiveSummaryProvider = FutureProvider.autoDispose<Map<String, dynamic>
 });
 
 class BoardOfDirectorsSummaryScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display KPIs, refresh data, and generate a PDF report, along with necessary APIs and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIOverview',
+        'ExecutiveSummary',
+        'BoardDeckGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshExecutiveSummary',
+        'generateBoardDeck',
+      ];
+
   const BoardOfDirectorsSummaryScreen({super.key});
 
   @override

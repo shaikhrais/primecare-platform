@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'marketing_manager_dashboard_screen_controller.dart';
 
-class MarketingManagerDashboardScreen extends ConsumerWidget {
+class MarketingManagerDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The marketing manager dashboard requires components for monitoring campaign performance, analyzing engagement, tracking budgets, and facilitating collaboration, along with real-time data and customizable reporting features.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignPerformanceMetricCard',
+        'EngagementTrendChart',
+        'BudgetTracker',
+        'SocialMediaAnalytics',
+        'EmailPerformanceSummary',
+        'CollaborationTool',
+        'CustomReportGenerator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignMetrics',
+        'analyzeEngagementData',
+        'trackBudget',
+        'getSocialMediaStats',
+        'evaluateEmailCampaigns',
+        'generateReports',
+        'collaborateOnStrategies',
+      ];
+
   const MarketingManagerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(marketingManagerDashboardScreenControllerProvider);
 
     return Scaffold(

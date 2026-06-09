@@ -78,6 +78,38 @@ final headOfMarketingComplianceProvider =
 
 // --- View ---
 class HeadOfMarketingComplianceScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a comprehensive dashboard for the Head of Marketing to monitor campaigns, KPIs, and performance metrics while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignOverviewWidget',
+        'KPIChart',
+        'RealTimeAnalyticsWidget',
+        'SocialMediaMetricsWidget',
+        'BudgetTrackingWidget',
+        'MarketResearchInsightsWidget',
+        'CustomerFeedbackWidget',
+        'TeamPerformanceWidget',
+        'CompetitorAnalysisWidget',
+        'AlertsWidget',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'fetchKPIData',
+        'fetchAnalyticsData',
+        'fetchSocialMediaMetrics',
+        'fetchBudgetData',
+        'fetchMarketResearchData',
+        'fetchCustomerFeedback',
+        'fetchTeamPerformanceData',
+        'fetchCompetitorData',
+        'setAlerts',
+      ];
+
   const HeadOfMarketingComplianceScreen({super.key});
 
   @override

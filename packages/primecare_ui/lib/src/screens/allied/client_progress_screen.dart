@@ -97,6 +97,34 @@ final clientProgressProvider =
 
 // --- View ---
 class ClientProgressScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The client_progress screen requires components for scheduling, tracking assessments, performance metrics, compliance, feedback, and education, along with necessary buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAppointmentScheduler',
+        'ClientAssessmentTracker',
+        'PerformanceMetricsCard',
+        'ComplianceAuditLog',
+        'ClientFeedbackForm',
+        'ContinuingEducationTracker',
+        'OperationalMetricsDashboard',
+        'CertificationAlert',
+        'CommunicationTool',
+        'ResourceLibrary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'saveTreatmentPlan',
+        'submitFeedback',
+        'fetchPerformanceMetrics',
+        'accessResourceLibrary',
+        'sendReminder',
+      ];
+
   const ClientProgressScreen({super.key});
 
   @override

@@ -94,6 +94,33 @@ final systemDashboardProvider =
 
 // --- View ---
 class SystemDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The system dashboard for the Governance Officer requires various components to display compliance metrics, audit logs, risk assessments, and performance indicators, along with buttons for data refresh and report downloads, supported by specific APIs and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceMetricCard',
+        'AuditLogTable',
+        'RiskAssessmentReport',
+        'KPIChart',
+        'RealTimeUpdateFeed',
+        'ComplianceAlertBanner',
+        'TrendAnalysisGraph',
+        'StakeholderEngagementWidget',
+        'PolicyUpdateNotification',
+        'GovernancePerformanceVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'viewAuditDetails',
+        'downloadReport',
+        'notifyStakeholders',
+        'updatePolicy',
+      ];
+
   const SystemDashboardScreen({super.key});
 
   @override

@@ -97,6 +97,38 @@ final onboardingProvider =
 
 // --- View ---
 class OnboardingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The onboarding screen requires various metrics and analysis components for HR operations, alongside buttons for reporting and policy updates, with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RecruitmentMetricsCard',
+        'EmployeeTurnoverChart',
+        'ComplianceStatusWidget',
+        'PerformanceMetricsDashboard',
+        'TrainingParticipationChart',
+        'EmployeeEngagementSurvey',
+        'CompensationBenefitsAnalysis',
+        'IncidentReportTracker',
+        'DiversityInclusionStats',
+        'OperationalEfficiencyMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchRecruitmentMetrics',
+        'fetchTurnoverRates',
+        'checkComplianceStatus',
+        'evaluateEmployeePerformance',
+        'trackTrainingParticipation',
+        'gatherEngagementFeedback',
+        'analyzeCompensationBenefits',
+        'logIncidentReport',
+        'calculateDiversityStats',
+        'assessOperationalEfficiency',
+      ];
+
   const OnboardingScreen({super.key});
 
   @override

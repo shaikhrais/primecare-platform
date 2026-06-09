@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_provider_availability_screen_controller.dart';
 
-class SchedulerCoordinatorProviderAvailabilityScreen extends ConsumerWidget {
+class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring and updating provider availability, resolving conflicts, and generating reports, along with responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProviderAvailabilityList',
+        'ConflictNotificationWidget',
+        'ScheduleSummaryCard',
+        'PerformanceMetricsChart',
+        'CommunicationToolAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorProviderAvailability',
+        'updateProviderAvailability',
+        'resolveSchedulingConflicts',
+        'communicateWithProviders',
+        'generateAvailabilityReport',
+      ];
+
   const SchedulerCoordinatorProviderAvailabilityScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorProviderAvailabilityScreenControllerProvider);
 
     return Scaffold(

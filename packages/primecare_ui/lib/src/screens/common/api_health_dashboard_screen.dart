@@ -101,6 +101,40 @@ final apiHealthDashboardProvider =
 
 // --- View ---
 class ApiHealthDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components and functionalities to monitor governance compliance, assess risks, and provide training resources, all while ensuring responsive design across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'ComplianceStatusIndicator',
+        'AuditLogViewer',
+        'KPIWidget',
+        'RiskAssessmentAlert',
+        'PerformanceTrendChart',
+        'NotificationPanel',
+        'TrainingResourceAccess',
+        'StakeholderFeedbackWidget',
+        'IncidentSummaryCard',
+        'OperationalDashboardIntegration',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'retrieveAuditLogs',
+        'calculateKPIs',
+        'assessRiskMetrics',
+        'fetchPerformanceTrends',
+        'sendNotifications',
+        'accessTrainingResources',
+        'collectStakeholderFeedback',
+        'summarizeIncidents',
+        'integrateOperationalDashboards',
+      ];
+
   const ApiHealthDashboardScreen({super.key});
 
   @override

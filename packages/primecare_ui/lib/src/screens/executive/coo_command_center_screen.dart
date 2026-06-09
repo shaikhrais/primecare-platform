@@ -99,6 +99,38 @@ final cooCommandCenterProvider =
 
 // --- View ---
 class CooCommandCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The COO command center screen requires a comprehensive dashboard displaying real-time metrics, compliance status, financial summaries, and operational insights, along with interactive buttons for refreshing data and notifying stakeholders.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusWidget',
+        'BudgetTrackingChart',
+        'EmployeeEngagementGauge',
+        'OperationalEfficiencyIndicator',
+        'CustomerSatisfactionWidget',
+        'ProjectTimelineTracker',
+        'ResourceUtilizationReport',
+        'RiskManagementDashboard',
+        'OperationalActivityLog',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'fetchComplianceStatus',
+        'trackBudget',
+        'getEmployeeStatistics',
+        'calculateOperationalEfficiency',
+        'retrieveCustomerFeedback',
+        'updateProjectStatus',
+        'analyzeResourceUtilization',
+        'manageRiskReports',
+        'logOperationalActivities',
+      ];
+
   const CooCommandCenterScreen({super.key});
 
   @override

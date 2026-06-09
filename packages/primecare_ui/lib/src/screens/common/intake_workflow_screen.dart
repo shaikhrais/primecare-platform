@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class IntakeWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The intake workflow screen requires components for managing referrals, scheduling, patient information, compliance, and data analysis, along with corresponding buttons, functions, APIs, and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ReferralStatusOverview',
+        'AppointmentSchedulingCalendar',
+        'PatientInformationSummary',
+        'NoShowMetricsChart',
+        'FollowUpReminders',
+        'CommunicationLogs',
+        'ComplianceChecklist',
+        'PerformanceMetrics',
+        'EHRIntegration',
+        'DataVisualization',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'sendReminder',
+        'logCommunication',
+        'checkCompliance',
+        'analyzeData',
+      ];
+
   const IntakeWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

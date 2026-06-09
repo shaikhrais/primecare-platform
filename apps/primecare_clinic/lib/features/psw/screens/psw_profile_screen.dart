@@ -64,6 +64,28 @@ final pswProfileControllerProvider = StateNotifierProvider<PswProfileController,
 
 // --- View ---
 class PswProfileScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and editing user profile information, updating passwords, managing account settings, and accessing help resources, along with necessary buttons, functions, APIs, and responsive design.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProfileInfoCard',
+        'ProfileEditForm',
+        'PasswordUpdateForm',
+        'AccountSettingsPanel',
+        'HelpSupportLink',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'viewProfile',
+        'editProfile',
+        'updatePassword',
+        'manageSettings',
+        'accessHelp',
+      ];
+
   const PswProfileScreen({super.key});
 
   @override

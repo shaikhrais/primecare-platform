@@ -69,6 +69,27 @@ final pswNotificationsControllerProvider = StateNotifierProvider<PswNotification
 
 // --- View ---
 class PswNotificationsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for displaying and interacting with password notifications, along with performance monitoring and user engagement statistics.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'NotificationList',
+        'NotificationDetail',
+        'AlertBanner',
+        'PerformanceMetrics',
+        'UserEngagementStats',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchNotifications',
+        'dismissNotification',
+        'updateNotificationSettings',
+        'monitorPerformance',
+      ];
+
   const PswNotificationsScreen({super.key});
 
   @override

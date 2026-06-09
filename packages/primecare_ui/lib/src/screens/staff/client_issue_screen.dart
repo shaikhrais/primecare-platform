@@ -97,6 +97,31 @@ final clientIssueProvider =
 
 // --- View ---
 class ClientIssueScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display real-time metrics, manage customer interactions, and facilitate team performance tracking.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TicketVolumeChart',
+        'ResponseTimeMetric',
+        'CustomerSatisfactionCard',
+        'OpenClosedTicketsStatus',
+        'EscalationRateChart',
+        'TeamPerformanceMetrics',
+        'CommonIssuesList',
+        'TrainingResources',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'respondToInquiry',
+        'escalateTicket',
+        'documentInteraction',
+        'conductFollowUp',
+        'fetchTrainingResources',
+      ];
+
   const ClientIssueScreen({super.key});
 
   @override

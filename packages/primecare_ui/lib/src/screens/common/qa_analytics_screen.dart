@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class QaAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The QA Analytics screen requires components for tracking test case execution, defect metrics, test coverage, and performance metrics, along with buttons for refreshing data and exporting reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TestCaseExecutionStatus',
+        'DefectTrackingMetrics',
+        'TestCoverageReport',
+        'RegressionTestResults',
+        'PerformanceTestingMetrics',
+        'HistoricalDefectTrends',
+        'TeamWorkloadDistribution',
+        'AutomatedTestResults',
+        'FeedbackLoop',
+        'ComplianceMetrics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchTestCaseStatus',
+        'fetchDefectMetrics',
+        'fetchTestCoverage',
+        'fetchRegressionResults',
+        'fetchPerformanceMetrics',
+        'fetchHistoricalTrends',
+        'fetchWorkloadDistribution',
+        'fetchAutomatedResults',
+        'fetchFeedback',
+        'fetchComplianceMetrics',
+      ];
+
   const QaAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

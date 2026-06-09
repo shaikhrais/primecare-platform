@@ -101,6 +101,38 @@ final clinicalDirectorIncidentReviewProvider =
 
 // --- View ---
 class ClinicalDirectorIncidentReviewScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring incidents, compliance, KPIs, and staff performance, along with buttons for various actions and APIs for data retrieval.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentReportCard',
+        'ComplianceStatusWidget',
+        'KPIChart',
+        'StaffPerformanceDashboard',
+        'PatientSatisfactionGauge',
+        'OperationalEfficiencyChart',
+        'AuditLogViewer',
+        'AlertNotificationSystem',
+        'TrendVisualization',
+        'TrainingResourceAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchIncidentReports',
+        'fetchComplianceStatus',
+        'fetchKPIs',
+        'fetchStaffMetrics',
+        'fetchPatientFeedback',
+        'fetchOperationalMetrics',
+        'fetchAuditLogs',
+        'setAlerts',
+        'visualizeTrends',
+        'accessTrainingResources',
+      ];
+
   const ClinicalDirectorIncidentReviewScreen({super.key});
 
   @override

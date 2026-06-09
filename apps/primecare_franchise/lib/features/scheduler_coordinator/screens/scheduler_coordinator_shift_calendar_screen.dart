@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_shift_calendar_screen_controller.dart';
 
-class SchedulerCoordinatorShiftCalendarScreen extends ConsumerWidget {
+class SchedulerCoordinatorShiftCalendarScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and managing shifts, along with communication tools and APIs for data handling and notifications.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ShiftCalendar',
+        'ShiftManagementPanel',
+        'ShiftMonitoringDashboard',
+        'NotificationAlert',
+        'CommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadShiftCalendar',
+        'manageShifts',
+        'monitorAssignments',
+        'updateShift',
+        'communicateWithStaff',
+      ];
+
   const SchedulerCoordinatorShiftCalendarScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(schedulerCoordinatorShiftCalendarScreenControllerProvider);
 
     return Scaffold(

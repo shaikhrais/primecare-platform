@@ -8,6 +8,25 @@ final leadConversionProvider = FutureProvider.autoDispose<Map<String, dynamic>>(
 });
 
 class LeadConversionFunnelScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires real-time metrics monitoring, visual data representation, and alerts for significant changes in the lead conversion funnel.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ImpressionMetricCard',
+        'WebsiteVisitChart',
+        'LeadAnalysisCard',
+        'AppointmentReviewCard',
+        'ConversionRateChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'alertSignificantChange',
+      ];
+
   const LeadConversionFunnelScreen({super.key});
 
   @override

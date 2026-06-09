@@ -99,6 +99,33 @@ final schedulingHealthProvider =
 
 // --- View ---
 class SchedulingHealthScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The scheduling_health screen requires components for monitoring performance metrics, compliance, resource allocation, and employee engagement, along with buttons for generating reports and addressing operational issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'ComplianceStatusIndicator',
+        'ResourceAllocationChart',
+        'EmployeeEngagementMetric',
+        'OperationalCostAnalysis',
+        'CustomerSatisfactionGauge',
+        'AuditLogViewer',
+        'AlertNotificationSystem',
+        'HistoricalDataTrendChart',
+        'DataVisualizationPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'conductAudit',
+        'trainStaff',
+        'addressOperationalIssue',
+        'viewComplianceStatus',
+      ];
+
   const SchedulingHealthScreen({super.key});
 
   @override

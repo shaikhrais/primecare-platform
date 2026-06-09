@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class SystemAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring system performance, managing issues, and providing user training, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'GovAlertWidget',
+        'GovAuditTrail',
+        'GovIssueSummary',
+        'GovComplianceStatus',
+        'GovUptimeReport',
+        'GovUserFeedback',
+        'GovPerformanceTrendChart',
+        'GovDocumentationAccess',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'applyUpdates',
+        'provideTraining',
+        'accessDocumentation',
+        'resolveIssue',
+      ];
+
   const SystemAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

@@ -101,6 +101,37 @@ final schedulerBookingRequestsProvider =
 
 // --- View ---
 class SchedulerBookingRequestsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring performance metrics, managing schedules, handling customer feedback, and ensuring compliance, along with necessary buttons and APIs for operational efficiency.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PerformanceMetricCard',
+        'EmployeeScheduleWidget',
+        'CustomerFeedbackChart',
+        'IncidentReportTable',
+        'AuditLogViewer',
+        'AlertNotificationBanner',
+        'HistoricalDataTrendGraph',
+        'CommunicationTool',
+        'TrainingResourceLink',
+        'ProjectStatusSummary',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchPerformanceMetrics',
+        'updateEmployeeSchedule',
+        'submitCustomerFeedback',
+        'logIncidentReport',
+        'triggerAlert',
+        'fetchHistoricalData',
+        'sendTeamCommunication',
+        'accessTrainingResources',
+        'getProjectStatus',
+      ];
+
   const SchedulerBookingRequestsScreen({super.key});
 
   @override

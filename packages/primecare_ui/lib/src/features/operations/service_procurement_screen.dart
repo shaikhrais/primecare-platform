@@ -82,6 +82,30 @@ final serviceProcurementProvider = FutureProvider.autoDispose<List<ProcurementOr
 });
 
 class ServiceProcurementScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for submitting and managing procurement requests, monitoring spend, and analyzing procurement data with appropriate buttons and API integrations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProcurementRequestForm',
+        'PendingOrdersList',
+        'SpendMonitor',
+        'OrderStatusUpdater',
+        'ProcurementDataAnalyzer',
+        'TrendVisualization',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitProcurementRequest',
+        'approvePendingOrder',
+        'updateOrderStatus',
+        'monitorSpend',
+        'analyzeProcurementData',
+      ];
+
   const ServiceProcurementScreen({super.key});
 
   @override

@@ -97,6 +97,27 @@ final assessmentProvider =
 
 // --- View ---
 class AssessmentScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The assessment screen requires components for compliance scanning, state actions, log refreshing, audit log viewing, and KPI monitoring, along with corresponding buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ComplianceScanWidget',
+        'StateActionWidget',
+        'LogRefreshWidget',
+        'AuditLogViewer',
+        'KPIDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'runComplianceScan',
+        'triggerStateAction',
+        'refreshLogs',
+        'viewAuditLogs',
+      ];
+
   const AssessmentScreen({super.key});
 
   @override

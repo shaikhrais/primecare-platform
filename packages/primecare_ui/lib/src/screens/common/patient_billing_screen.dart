@@ -97,6 +97,27 @@ final patientBillingProvider =
 
 // --- View ---
 class PatientBillingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The patient billing screen requires components for displaying billing information, logging inquiries, and providing notifications, along with corresponding buttons and API endpoints for interaction.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BillingOverviewCard',
+        'BillingStatementList',
+        'NotificationBanner',
+        'InquiryLogSection',
+        'MetricsChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'submitInquiry',
+        'viewStatement',
+        'requestClarification',
+        'scheduleAppointment',
+      ];
+
   const PatientBillingScreen({super.key});
 
   @override

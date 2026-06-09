@@ -8,6 +8,34 @@ final messagesProvider = FutureProvider.autoDispose<List<Map<String, dynamic>>>(
 });
 
 class SecureMessageCenterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing, composing, and managing messages, along with APIs for message operations and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'MessageList',
+        'SearchBar',
+        'RefreshButton',
+        'ComposeMessageButton',
+        'MessageDetailView',
+        'ReplyButton',
+        'ArchiveButton',
+        'FileAttachment',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchMessages',
+        'searchMessages',
+        'refreshInbox',
+        'composeMessage',
+        'viewMessageDetails',
+        'replyToMessage',
+        'archiveMessage',
+        'attachFile',
+      ];
+
   const SecureMessageCenterScreen({super.key});
 
   @override

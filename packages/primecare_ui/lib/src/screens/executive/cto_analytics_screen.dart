@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CtoAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CTO analytics screen requires various components to display technology project statuses, budget utilization, team performance, and other key metrics, along with buttons for refreshing data and viewing detailed reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProjectStatusCard',
+        'BudgetUtilizationChart',
+        'TeamPerformanceMetrics',
+        'SystemUptimeChart',
+        'SecurityIncidentReport',
+        'CustomerSatisfactionScore',
+        'InnovationMetricsCard',
+        'VendorPerformanceCard',
+        'ComplianceMetricsCard',
+        'IndustryTrendAnalysis',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchProjectStatus',
+        'fetchBudgetUtilization',
+        'fetchTeamPerformance',
+        'fetchSystemUptime',
+        'fetchSecurityIncidents',
+        'fetchCustomerSatisfaction',
+        'fetchInnovationMetrics',
+        'fetchVendorPerformance',
+        'fetchComplianceMetrics',
+        'fetchIndustryTrends',
+      ];
+
   const CtoAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

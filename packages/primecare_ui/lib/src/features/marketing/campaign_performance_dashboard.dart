@@ -8,6 +8,26 @@ final campaignPerformanceProvider = FutureProvider.autoDispose<List<Map<String, 
 });
 
 class CampaignPerformanceDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display active marketing campaigns and their performance metrics, along with buttons for refreshing data and creating new campaigns.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'CampaignList',
+        'PerformanceMetrics',
+        'LoadingIndicator',
+        'ErrorMessage',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchCampaignData',
+        'createCampaign',
+        'handleLoadingState',
+        'handleError',
+      ];
+
   const CampaignPerformanceDashboardScreen({super.key});
 
   @override

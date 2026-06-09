@@ -99,6 +99,25 @@ final patientCarePlanProvider =
 
 // --- View ---
 class PatientCarePlanScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components to display patient tasks, compliance scan status, security clearance levels, telemetry data, and audit logs, along with buttons for executing scans and refreshing data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TaskList',
+        'ComplianceScanIndicator',
+        'SecurityClearanceIndicator',
+        'TelemetryChart',
+        'AuditLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'executeComplianceScan',
+        'refreshData',
+      ];
+
   const PatientCarePlanScreen({super.key});
 
   @override

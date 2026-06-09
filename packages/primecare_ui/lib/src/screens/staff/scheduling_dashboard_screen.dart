@@ -101,6 +101,34 @@ final schedulingDashboardProvider =
 
 // --- View ---
 class SchedulingDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The scheduling dashboard requires components for monitoring operations, staff performance, compliance, and inventory, along with buttons for reporting and communication, and must be responsive across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'OperationalMetricsCard',
+        'StaffPerformanceTracker',
+        'ComplianceStatusIndicator',
+        'IncidentReportLog',
+        'InventoryAlert',
+        'CommunicationTool',
+        'AuditLogViewer',
+        'CustomerFeedbackTracker',
+        'TrainingProgressTracker',
+        'RedFlagAlert',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateReport',
+        'sendTeamUpdate',
+        'logIncident',
+        'requestInventory',
+        'conductAudit',
+        'trainStaff',
+      ];
+
   const SchedulingDashboardScreen({super.key});
 
   @override

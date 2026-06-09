@@ -101,6 +101,37 @@ final runtimeVerificationProvider =
 
 // --- View ---
 class RuntimeVerificationScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring governance compliance, audit logs, risk metrics, and performance indicators, along with buttons for reporting and training access.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovComplianceStatusIndicator',
+        'GovAuditLogSummary',
+        'GovRiskAssessmentMetric',
+        'GovPerformanceKPI',
+        'GovDataVisualizationChart',
+        'GovNotificationAlert',
+        'GovTrainingResourceAccess',
+        'GovStakeholderEngagementMetric',
+        'GovHistoricalPerformanceData',
+        'GovIntegrationDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchComplianceStatus',
+        'fetchAuditLogs',
+        'fetchRiskMetrics',
+        'fetchPerformanceKPIs',
+        'sendNotification',
+        'accessTrainingResources',
+        'fetchStakeholderMetrics',
+        'fetchHistoricalData',
+        'integrateWithOperationalDashboards',
+      ];
+
   const RuntimeVerificationScreen({super.key});
 
   @override

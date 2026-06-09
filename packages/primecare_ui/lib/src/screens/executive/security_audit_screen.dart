@@ -97,6 +97,38 @@ final securityAuditProvider =
 
 // --- View ---
 class SecurityAuditScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires various components to display KPIs, performance metrics, security status, project updates, and team performance, along with buttons for data refresh and report viewing.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'PerformanceMetricChart',
+        'SecurityStatusIndicator',
+        'ProjectStatusCard',
+        'TeamPerformanceDashboard',
+        'BudgetTracker',
+        'UserFeedbackWidget',
+        'TechnologyTrendsPanel',
+        'ComplianceLogViewer',
+        'InnovationPipelineList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'updatePerformanceMetrics',
+        'getSecurityStatus',
+        'fetchProjectUpdates',
+        'retrieveTeamMetrics',
+        'trackBudget',
+        'collectUserFeedback',
+        'analyzeTechnologyTrends',
+        'viewComplianceLogs',
+        'manageInnovationPipeline',
+      ];
+
   const SecurityAuditScreen({super.key});
 
   @override

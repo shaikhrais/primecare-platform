@@ -2,6 +2,30 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
 class BiospecimenInventoryTrackerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The biospecimen inventory tracker screen requires components for tracking, updating, and reporting on biospecimens, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'BiospecimenInventoryCard',
+        'BiospecimenSearchFilter',
+        'BiospecimenReportGenerator',
+        'BiospecimenExpirationAlert',
+        'BiospecimenCollaborationPanel',
+        'InventoryTrendChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'trackInventoryLevels',
+        'updateBiospecimenInfo',
+        'searchBiospecimens',
+        'generateReports',
+        'monitorExpirationDates',
+        'collaborateOnManagement',
+      ];
+
   const BiospecimenInventoryTrackerScreen({super.key});
 
   @override

@@ -1,8 +1,9 @@
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class SsoRedirectView extends StatefulWidget {
+class SsoRedirectView extends GovernedConsumerStatefulWidget {
   final String redirectUrl;
 
   const SsoRedirectView({super.key, required this.redirectUrl});
@@ -11,7 +12,28 @@ class SsoRedirectView extends StatefulWidget {
   State<SsoRedirectView> createState() => _SsoRedirectViewState();
 }
 
-class _SsoRedirectViewState extends State<SsoRedirectView> {
+class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring the SSO redirect process, collecting user feedback, and displaying performance metrics, along with necessary buttons and API endpoints.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'SSORedirectMonitor',
+        'ErrorLogViewer',
+        'UserFeedbackCollector',
+        'PerformanceMetricsDisplay',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorSSORedirect',
+        'validateRedirectURL',
+        'checkForErrors',
+        'collectUserFeedback',
+        'trackRedirectPerformance',
+      ];
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +55,7 @@ class _SsoRedirectViewState extends State<SsoRedirectView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildScreen(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Column(

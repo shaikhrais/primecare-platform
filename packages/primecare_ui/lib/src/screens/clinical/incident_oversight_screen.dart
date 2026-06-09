@@ -100,6 +100,33 @@ final incidentOversightProvider =
 
 // --- View ---
 class IncidentOversightScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The incident oversight screen requires various widgets for incident reporting, compliance tracking, KPI metrics, and communication logs, along with buttons for generating reports and sending alerts.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentReportWidget',
+        'ComplianceScanResultsWidget',
+        'KPIMetricsChart',
+        'AuditLogViewer',
+        'AlertNotificationPanel',
+        'TrendVisualizationChart',
+        'TrainingStatusWidget',
+        'ResourceUtilizationChart',
+        'PatientFeedbackSummaryWidget',
+        'CommunicationLogViewer',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateIncidentReport',
+        'viewAuditLogs',
+        'sendAlertNotification',
+        'updateTrainingStatus',
+        'requestAdditionalResources',
+      ];
+
   const IncidentOversightScreen({super.key});
 
   @override

@@ -8,6 +8,27 @@ final oshaIncidentsProvider = FutureProvider.autoDispose<List<Map<String, dynami
 });
 
 class OshaIncidentReporterScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing and filing OSHA incident reports, along with functionality for refreshing data and viewing details, while ensuring responsive design across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentList',
+        'IncidentDetailView',
+        'IncidentForm',
+        'NotificationBanner',
+        'IncidentFilter',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchIncidents',
+        'refreshIncidentList',
+        'fileIncidentReport',
+        'viewIncidentDetails',
+      ];
+
   const OshaIncidentReporterScreen({super.key});
 
   @override

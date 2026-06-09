@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RmtAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for client management, performance tracking, financial overview, compliance checks, and communication tools for Registered Massage Therapists.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ClientAppointmentScheduler',
+        'ClientProgressTracker',
+        'PerformanceMetricsCard',
+        'FinancialOverviewCard',
+        'ComplianceTracker',
+        'ClientFeedbackWidget',
+        'EHRIntegrationModule',
+        'ContinuingEducationResourceAccess',
+        'LicenseRenewalAlert',
+        'ClientCommunicationTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'scheduleAppointment',
+        'trackClientProgress',
+        'fetchPerformanceMetrics',
+        'getFinancialOverview',
+        'checkCompliance',
+        'submitClientFeedback',
+        'integrateEHR',
+        'accessEducationResources',
+        'setLicenseAlerts',
+        'sendMessageToClient',
+      ];
+
   const RmtAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

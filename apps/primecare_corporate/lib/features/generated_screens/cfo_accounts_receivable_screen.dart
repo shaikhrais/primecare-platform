@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_accounts_receivable_screen_controller.dart';
 
-class CfoAccountsReceivableScreen extends ConsumerWidget {
+class CfoAccountsReceivableScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring accounts receivable, generating reports, and tracking overdue payments, along with responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'AccountsReceivableOverview',
+        'AgingReportWidget',
+        'OverdueInvoicesAlert',
+        'PaymentTrendsChart',
+        'ReportGenerationButton',
+        'ClientCommunicationHistory',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'generateAccountsReceivableReport',
+        'followUpOnOverduePayments',
+        'viewAgingReport',
+        'sendPaymentReminder',
+      ];
+
   const CfoAccountsReceivableScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoAccountsReceivableScreenControllerProvider);
 
     return Scaffold(

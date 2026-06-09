@@ -1,10 +1,35 @@
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CaregiverDashboardScreen extends ConsumerWidget {
+class CaregiverDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The caregiver dashboard requires components for displaying tasks, metrics, and logs, along with buttons for executing key actions and APIs for task management.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'TitleDisplay',
+        'LoadingIndicator',
+        'ActivityLog',
+        'MetricsDisplay',
+        'TelemetryChart',
+        'HealthIndicator',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'recordDailyCareActivities',
+        'acknowledgeMedicationReminders',
+        'runComplianceScan',
+        'syncSecurityPosture',
+        'updatePolicies',
+        'exportAuditLogs',
+        'logOperationalActivities',
+      ];
+
   const CaregiverDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final roleBase = 'Caregiver';
 

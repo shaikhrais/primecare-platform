@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cfo_invoices_screen_controller.dart';
 
-class CfoInvoicesScreen extends ConsumerWidget {
+class CfoInvoicesScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The CFO invoices screen requires various financial performance widgets, buttons for data interaction, functions for data handling, and APIs for fetching financial data, all designed to be responsive across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'CashFlowChart',
+        'BudgetPerformanceTracker',
+        'ComplianceIndicator',
+        'AuditLogViewer',
+        'RiskAssessmentDashboard',
+        'InvestmentMetricsWidget',
+        'RevenueTrendChart',
+        'EmployeePerformanceWidget',
+        'AnomalyAlertSystem',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIData',
+        'analyzeCashFlow',
+        'trackBudgetPerformance',
+        'checkComplianceStatus',
+        'viewAuditLogs',
+        'assessRisk',
+        'evaluateInvestmentPerformance',
+        'analyzeRevenueTrends',
+        'trackEmployeePerformance',
+        'triggerAnomalyAlert',
+      ];
+
   const CfoInvoicesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(cfoInvoicesScreenControllerProvider);
 
     return Scaffold(

@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'partnership_manager_partners_screen_controller.dart';
 
-class PartnershipManagerPartnersScreen extends ConsumerWidget {
+class PartnershipManagerPartnersScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for monitoring partnership performance, managing relationships, and tracking goals, along with necessary APIs and responsive design for various platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIWidget',
+        'AlertNotification',
+        'CommunicationSummary',
+        'PerformanceVisualization',
+        'ComplianceStatusCard',
+        'GoalTrackingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorPerformanceMetrics',
+        'managePartnerRelationships',
+        'analyzePartnershipData',
+        'communicateWithPartners',
+        'ensureCompliance',
+        'trackPartnershipGoals',
+      ];
+
   const PartnershipManagerPartnersScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(partnershipManagerPartnersScreenControllerProvider);
 
     return Scaffold(

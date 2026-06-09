@@ -4,6 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GeneralManagerWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for the General Manager to monitor KPIs, financial performance, employee engagement, customer satisfaction, and compliance, along with alert mechanisms for critical issues.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'KPIChart',
+        'FinancialPerformanceCard',
+        'EmployeeEngagementWidget',
+        'CustomerSatisfactionWidget',
+        'ProjectTimelineChart',
+        'ComplianceStatusCard',
+        'OperationalEfficiencyChart',
+        'RiskManagementIndicator',
+        'BudgetReportCard',
+        'AlertNotification',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchKPIs',
+        'fetchFinancialMetrics',
+        'fetchEmployeeStats',
+        'fetchCustomerFeedback',
+        'fetchProjectTimelines',
+        'fetchComplianceUpdates',
+        'fetchOperationalMetrics',
+        'fetchRiskIndicators',
+        'fetchBudgetReports',
+        'triggerAlert',
+      ];
+
   const GeneralManagerWorkflowScreen({super.key});
 
   // === Governance Injected Action Methods ===

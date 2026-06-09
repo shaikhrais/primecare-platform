@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_proposals_screen_controller.dart';
 
-class FranchiseSalesManagerProposalsScreen extends ConsumerWidget {
+class FranchiseSalesManagerProposalsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for proposal management, buttons for approval and communication, functions for handling proposals, APIs for data retrieval, and responsive design for multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'ProposalList',
+        'ProposalStatusIndicator',
+        'ReviewTimeMetric',
+        'CommunicationLog',
+        'FinancialAnalysisSummary',
+        'ApprovalTrendsReport',
+        'OverdueAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reviewProposal',
+        'approveProposal',
+        'rejectProposal',
+        'logCommunication',
+        'generateReport',
+        'trackProposalStatus',
+      ];
+
   const FranchiseSalesManagerProposalsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(franchiseSalesManagerProposalsScreenControllerProvider);
 
     return Scaffold(

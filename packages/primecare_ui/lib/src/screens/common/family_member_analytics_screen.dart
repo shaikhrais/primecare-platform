@@ -4,6 +4,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class FamilyMemberAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The Family Member Analytics screen requires real-time data visualization, action execution capabilities, and integration sandbox access while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'RealTimeAnalyticsChart',
+        'ActionExecutionLog',
+        'RefreshButton',
+        'IntegrationSandboxAccess',
+        'OperationalAlerts',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'monitorAnalyticsData',
+        'executeAction',
+        'refreshData',
+        'engageSandbox',
+        'displayAlerts',
+      ];
+
   const FamilyMemberAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

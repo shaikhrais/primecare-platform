@@ -4,6 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrHiringAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires a dashboard for the Talent Acquisition Manager to visualize recruitment metrics, manage open positions, and track candidate engagement effectively.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PositionStatusCard',
+        'TimeToFillChart',
+        'SourceOfHireStatistics',
+        'CandidatePipelineVisualization',
+        'DiversityMetricsChart',
+        'CandidateFeedbackScores',
+        'RecruitmentBudgetTracker',
+        'RecruitmentTeamPerformanceMetrics',
+        'MarketSalaryBenchmarkChart',
+        'UpcomingEventsList',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshDashboardData',
+        'exportRecruitmentReport',
+        'addNewPosition',
+        'viewCandidateFeedback',
+      ];
+
   const HrHiringAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===

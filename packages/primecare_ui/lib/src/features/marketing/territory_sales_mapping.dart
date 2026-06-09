@@ -8,6 +8,24 @@ final territorySalesProvider = FutureProvider.autoDispose<Map<String, dynamic>>(
 });
 
 class TerritorySalesMappingScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires an interactive map for territory visualization, performance metrics, and functionality for refreshing data and accessing reports.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'InteractiveMap',
+        'PerformanceHeatmap',
+        'RegionDetailsPanel',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshTerritoryData',
+        'fetchPerformanceMetrics',
+        'getRegionManagers',
+      ];
+
   const TerritorySalesMappingScreen({super.key});
 
   @override

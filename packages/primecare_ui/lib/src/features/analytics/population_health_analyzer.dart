@@ -8,6 +8,24 @@ final populationHealthProvider = FutureProvider.autoDispose<Map<String, dynamic>
 });
 
 class PopulationHealthAnalyzerScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for viewing population health data, cohort details, and a geospatial heatmap, along with buttons for refreshing and exporting data.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'PopulationHealthDataView',
+        'CohortDetailsView',
+        'GeospatialHeatmap',
+        'DemographicsRiskStratificationChart',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'refreshData',
+        'exportCohortData',
+      ];
+
   const PopulationHealthAnalyzerScreen({super.key});
 
   @override

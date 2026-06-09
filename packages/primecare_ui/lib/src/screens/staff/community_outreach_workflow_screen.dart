@@ -102,6 +102,34 @@ final communityOutreachWorkflowScreenProvider =
 
 // --- View ---
 class CommunityOutreachWorkflowScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for tracking outreach metrics, managing events, and collecting feedback, along with necessary buttons and APIs for functionality across multiple platforms.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'GovMetricCard',
+        'GovTelemetryChart',
+        'FeedbackCollectionTool',
+        'BudgetTrackingWidget',
+        'KPIOverview',
+        'CommunityEngagementMetrics',
+        'ProgressTrackingChart',
+        'VolunteerManagementDashboard',
+        'CommunicationLog',
+        'AlertsDashboard',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'addEvent',
+        'submitFeedback',
+        'generateReport',
+        'trackBudget',
+        'viewKPIs',
+        'manageVolunteers',
+      ];
+
   const CommunityOutreachWorkflowScreen({super.key});
 
   @override

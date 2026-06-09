@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'family_dashboard_screen_controller.dart';
 
-class FamilyDashboardScreen extends ConsumerWidget {
+class FamilyDashboardScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The family dashboard requires components for monitoring activities, reviewing contributions, accessing resources, and facilitating communication among family members, while ensuring responsiveness across devices.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'FamilyActivityList',
+        'TaskReviewPanel',
+        'ResourceAccessWidget',
+        'CommunicationTool',
+        'EventTracker',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'loadFamilyActivities',
+        'reviewContributions',
+        'accessResources',
+        'sendMessage',
+        'trackEvents',
+      ];
+
   const FamilyDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(familyDashboardScreenControllerProvider);
 
     return Scaffold(

@@ -4,6 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HswIncidentReportsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The screen requires components for incident reporting, health status updates, care plan access, communication tools, training resources, performance metrics, client feedback, and scheduling functionalities.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'IncidentReportCard',
+        'HealthStatusAlert',
+        'CarePlanTracker',
+        'CommunicationTool',
+        'TrainingResourceAccess',
+        'PerformanceMetrics',
+        'ClientFeedbackSystem',
+        'SchedulingTool',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'reportIncident',
+        'updateHealthStatus',
+        'accessCarePlan',
+        'sendMessage',
+        'accessTrainingResources',
+        'viewPerformanceMetrics',
+        'submitFeedback',
+        'scheduleShift',
+      ];
+
   const HswIncidentReportsScreen({super.key});
 
   // === Governance Injected Action Methods ===

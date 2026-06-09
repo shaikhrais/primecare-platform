@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class HrDirectorAnalyticsScreen extends GovernedConsumerWidget {
+  @override
+  String get screenDescription =>
+      'The HR Director Analytics screen requires various widgets to display HR metrics, buttons for report generation, and functions to fetch and analyze data related to HR operations.';
+
+  @override
+  List<String> get requiredComponents => const [
+        'EmployeeTurnoverChart',
+        'EmployeeEngagementGauge',
+        'RecruitmentPipelineWidget',
+        'PerformanceManagementStats',
+        'ComplianceStatusIndicator',
+        'TrainingParticipationChart',
+        'DiversityInclusionMetrics',
+        'EmployeeSatisfactionSurvey',
+        'HRBudgetOverview',
+        'HRMetricsAnalytics',
+      ];
+
+  @override
+  List<String> get requiredFunctions => const [
+        'fetchHRMetrics',
+        'updateRecruitmentStatus',
+        'analyzeEmployeeEngagement',
+        'monitorCompliance',
+        'trackTrainingParticipation',
+      ];
+
   const HrDirectorAnalyticsScreen({super.key});
 
   // === Governance Injected Action Methods ===
